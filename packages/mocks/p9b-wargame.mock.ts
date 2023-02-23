@@ -63649,7 +63649,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "f-blue--Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -63702,10 +63702,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -63722,10 +63720,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -63998,10 +63994,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-blue--Land--MissileStrike",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "f-blue--Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64054,10 +64050,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64074,10 +64068,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64350,10 +64342,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-blue--Maritime--MissileStrike",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "f-red--Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64406,10 +64398,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64426,10 +64416,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64702,10 +64690,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-red--Land--MissileStrike",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "f-red--Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64758,10 +64746,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64778,10 +64764,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65054,10 +65038,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-red--Maritime--MissileStrike",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "f-green--Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -65110,10 +65094,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65130,10 +65112,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65406,10 +65386,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-green--Land--MissileStrike",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "f-green--Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -65462,10 +65442,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65482,10 +65460,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65758,10 +65734,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-green--Maritime--MissileStrike",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -65816,10 +65792,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65836,10 +65810,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66082,10 +66054,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66140,10 +66112,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66160,10 +66130,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66406,10 +66374,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66465,10 +66433,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66485,10 +66451,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66740,10 +66704,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -66798,10 +66762,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66818,10 +66780,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67073,10 +67033,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67131,10 +67091,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67151,10 +67109,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67406,10 +67362,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.154Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67465,10 +67421,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67485,10 +67439,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67749,10 +67701,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.154Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -67806,10 +67758,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67826,10 +67776,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68032,10 +67980,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -68089,10 +68037,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68109,10 +68055,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68315,10 +68259,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Air--AirToAir",
                     "details": {
                         "format": "grid",
@@ -68373,10 +68317,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68393,10 +68335,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68608,10 +68548,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--AirToAir",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Land--Resupply",
                     "details": {
                         "format": "grid",
@@ -68665,10 +68605,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68685,10 +68623,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68891,10 +68827,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Resupply",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Maritime--Resupply",
                     "details": {
                         "format": "grid",
@@ -68948,10 +68884,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68968,10 +68902,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69174,10 +69106,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Resupply",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Air--Resupply",
                     "details": {
                         "format": "grid",
@@ -69232,10 +69164,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69252,10 +69182,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69467,10 +69395,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Resupply",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -69524,10 +69452,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69544,10 +69470,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69750,10 +69674,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -69807,10 +69731,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69827,10 +69749,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -70033,10 +69953,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -70091,10 +70011,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -70111,10 +70029,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -70326,10 +70242,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Maritime--Activity",
                     "details": {
                         "format": "grid",
@@ -70383,10 +70299,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -70403,10 +70317,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -70641,10 +70553,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Activity",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Air--Activity",
                     "details": {
                         "format": "grid",
@@ -70699,10 +70611,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -70719,10 +70629,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -70966,10 +70874,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Activity",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "f-blue--Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -71024,10 +70932,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71044,10 +70950,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71340,10 +71244,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-blue--Air--MissileStrike",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "f-red--Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -71398,10 +71302,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71418,10 +71320,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71714,10 +71614,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-red--Air--MissileStrike",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -71773,10 +71673,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71793,10 +71691,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72049,10 +71945,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Cyber--Effects",
                     "details": {
                         "format": "grid",
@@ -72108,10 +72004,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72128,10 +72022,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72373,10 +72265,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--Effects",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Space--Effects",
                     "details": {
                         "format": "grid",
@@ -72432,10 +72324,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72452,10 +72342,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72697,10 +72585,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--Effects",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Info Ops--Effects",
                     "details": {
                         "format": "grid",
@@ -72756,10 +72644,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72776,10 +72662,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73021,10 +72905,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--Effects",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Cyber--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73081,10 +72965,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73101,10 +72983,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73357,10 +73237,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--AreaEffects",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Space--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73417,10 +73297,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73437,10 +73315,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73693,10 +73569,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--AreaEffects",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.345Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Info Ops--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73753,10 +73629,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73773,10 +73647,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -74029,10 +73901,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--AreaEffects",
-                    "_rev": "2023-02-20T15:19:12.345Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.346Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "SOF--SOFActivity",
                     "details": {
                         "format": "grid",
@@ -74085,10 +73957,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -74105,10 +73975,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -74329,10 +74197,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "SOF--SOFActivity",
-                    "_rev": "2023-02-20T15:19:12.346Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T15:19:12.346Z",
+                    "lastUpdated": "2023-02-23T19:30:22.155Z",
                     "title": "Land--Activity",
                     "details": {
                         "format": "grid",
@@ -74386,10 +74254,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -74406,10 +74272,8 @@ const game: Wargame = {
                                     "flatpickr": {
                                         "time_24hr": true,
                                         "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "allowInput": false,
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -74644,7 +74508,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Activity",
-                    "_rev": "2023-02-20T15:19:12.346Z"
+                    "_rev": "2023-02-23T19:30:22.155Z"
                 }
             ]
         },
