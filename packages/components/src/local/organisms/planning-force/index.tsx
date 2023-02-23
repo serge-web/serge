@@ -45,7 +45,6 @@ const PlanningForces: React.FC<PropTypes> = ({
   const [lastShowMez, setLastShowMez] = useState<boolean>(showMezRings)
   const [lastHideName, setLastHideName] = useState<boolean>(!!hideName)
 
-
   const map = useMap()
 
   const createClusterIcon = (): MarkerClusterGroupOptions => {

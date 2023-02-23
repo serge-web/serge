@@ -555,7 +555,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     //   console.log('updating own selection')
     //   setAllOwnAssets(updateOwnAssets)
     // }
-    // const updateOtherAssets = updateList(allOppAssets, selectedAssets)    
+    // const updateOtherAssets = updateList(allOppAssets, selectedAssets)
     // if (updateOtherAssets !== undefined) {
     //   console.log('updating opp selection')
     //   setAllOppAssets(updateOtherAssets)
