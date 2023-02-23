@@ -220,6 +220,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           }
         }
 
+        const onCancelEdit = () => {
+          setMessageBeingEdited(false)
+        }
+
         const localEditLocation = (): void => {
           if (message.message.location) {
             const localCallback = (newValue: PlannedActivityGeometry[]): void => {
@@ -254,6 +258,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             messageContent={editorRightValue}
             viewSaveButton={true}
             saveMessage={saveMessage}
+            onCancelEdit={onCancelEdit}
             customiseTemplate={customiseTemplate}
             storeNewValue={editorValue}
             messageId={rowData.id}

@@ -24,6 +24,9 @@ export default interface Props {
    */
   title?: string
   saveMessage?: () => void
+  
+  // Called when user cancels document edit
+  onCancelEdit?: () => void
   confirmCancel?: boolean
   /**
    * whether the form is editable (disable for read-only view)
