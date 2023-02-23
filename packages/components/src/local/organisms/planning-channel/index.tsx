@@ -512,8 +512,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
-    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
-    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
+    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
+    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
     // no - do not clear the filtered assets arrays.  They get assigned
     // in a round-trip from the `visibleRows` handler from the assets table
     // ownAssetsFiltered.current = []
@@ -522,6 +522,45 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setAllOppAssets(opp)
     setForceColors(forceCols)
   }, [allForces, currentForce])
+
+  useEffect(() => {
+    // comment out - incomplete
+    // const updateList = (assets: AssetRow[], selectedAssets: string[]): AssetRow[] | undefined => {
+    //   let ownChanged = false
+    //   const res = assets.map((asset): AssetRow => {
+    //     const toBeSelected = selectedAssets.includes(asset.id)
+    //     const isSelected = asset.tableData && asset.tableData.checked
+    //     if (toBeSelected === isSelected) {
+    //       return asset
+    //     } else {
+    //       ownChanged = true
+    //       if (toBeSelected) {
+    //         if (!asset.tableData) {
+    //           asset.tableData = {checked: true}
+    //         } else {
+    //           asset.tableData.checked = true
+    //         }
+    //       } else {
+    //         if (asset.tableData) {
+    //           asset.tableData.checked = false
+    //         }
+    //       }
+    //       return asset
+    //     }
+    //   })
+    //   return ownChanged ? res : undefined
+    // }
+    // const updateOwnAssets = updateList(allOwnAssets, selectedAssets)
+    // if (updateOwnAssets !== undefined) {
+    //   console.log('updating own selection')
+    //   setAllOwnAssets(updateOwnAssets)
+    // }
+    // const updateOtherAssets = updateList(allOppAssets, selectedAssets)    
+    // if (updateOtherAssets !== undefined) {
+    //   console.log('updating opp selection')
+    //   setAllOppAssets(updateOtherAssets)
+    // }
+  }, [selectedAssets])
 
   useEffect(() => {
     if (selectedAssets.length) {
