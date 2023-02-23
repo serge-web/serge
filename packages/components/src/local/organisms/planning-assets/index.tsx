@@ -1,6 +1,6 @@
 import { faSearchMinus, faSearchPlus, faSkull, faBan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MaterialTable, { Column, EditCellColumnDef, MTableBody, MTableBodyRow, MTableToolbar } from '@material-table/core'
+import MaterialTable, { Action, Column, EditCellColumnDef, MTableBody, MTableBodyRow } from '@material-table/core'
 import cx from 'classnames'
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
@@ -31,6 +31,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const [visibleRowsCache, setVisibleRowsCache] = useState<string[]>([])
 
   const [selectedAssetsInThisTable, setSelectedAssetsInThisTable] = useState<boolean>(false)
+  const [toolbarActions, setToolbarActions] = useState<Action<AssetRow>[]>([])
 
   // reference to table, we use it to clear the selection
   const tableRef = useRef<typeof MaterialTable | undefined>(null)
@@ -44,6 +45,48 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       })
     }
   }, [])
+
+  useEffect(() => {
+    const res: Action<AssetRow>[] =
+      [
+        {
+          icon: () => <FontAwesomeIcon title='Clear selection' icon={faBan} />,
+          iconProps: { color: 'action' },
+          tooltip: 'Clear seleced assets',
+          isFreeAction: false,
+          disabled: !selectedAssetsInThisTable,
+          onClick: (): void => clearSelectedAssets()
+        },
+        {
+          icon: () => <FontAwesomeIcon title='Show dead asset' icon={faSkull} className={cx({ [styles.selected]: showDead })} />,
+          iconProps: showDead ? { color: 'action' } : { color: 'disabled' },
+          tooltip: !showDead ? 'Show dead assets' : 'Hide dead assets',
+          isFreeAction: true,
+          onClick: (): void => setShowDead(!showDead)
+        },
+        {
+          icon: () => <FontAwesomeIcon title='Show filter controls' icon={showColumnFilters ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: showColumnFilters })} />,
+          iconProps: showColumnFilters ? { color: 'action' } : { color: 'disabled' },
+          tooltip: !showColumnFilters ? 'Show filter controls' : 'Hide filter controls',
+          isFreeAction: true,
+          onClick: (): void => {
+            setFilter(!showColumnFilters)
+            const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE
+            const isFilterState = getIsFilterState()
+            isFilterState[key] = !showColumnFilters
+            onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
+            // reset filters applied when toggle off filter state
+            if (showColumnFilters) {
+              const filtersApplied = getFilterApplied()
+              delete filtersApplied[key]
+              onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filtersApplied))
+            }
+          }
+        }
+      ]
+
+    setToolbarActions(res)
+  }, [showColumnFilters, showDead, selectedAssetsInThisTable, opFor])
 
   useEffect(() => {
     // we're getting too many visibleRows updates, plus
@@ -170,6 +213,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   }, [assets, showColumnFilters, showDead, initialised])
 
   useEffect(() => {
+    console.log('selected assets', selectedAssets)
     if (selectedAssets.length) {
       // if it's not all assets, scroll to the last one
       if (selectedAssets.length !== visibleRows.length) {
@@ -183,6 +227,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       const assetsInSelection = assets.some((row) => selectedAssets.includes(row.id))
       // see if any of the selected assets in in this table
       setSelectedAssetsInThisTable(assetsInSelection)
+      console.log('update selected assets', opFor, assetsInSelection, selectedAssets.length, assets.length)
     } else {
       setSelectedAssetsInThisTable(false)
     }
@@ -209,34 +254,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       tableRef={tableRef}
       columns={columns}
       data={rows}
-      actions={[
-        {
-          icon: () => <FontAwesomeIcon title='Show dead asset' icon={faSkull} className={cx({ [styles.selected]: showDead })} />,
-          iconProps: showDead ? { color: 'action' } : { color: 'disabled' },
-          tooltip: !showDead ? 'Show dead assets' : 'Hide dead assets',
-          isFreeAction: true,
-          onClick: (): void => setShowDead(!showDead)
-        },
-        {
-          icon: () => <FontAwesomeIcon title='Show filter controls' icon={showColumnFilters ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: showColumnFilters })} />,
-          iconProps: showColumnFilters ? { color: 'action' } : { color: 'disabled' },
-          tooltip: !showColumnFilters ? 'Show filter controls' : 'Hide filter controls',
-          isFreeAction: true,
-          onClick: (): void => {
-            setFilter(!showColumnFilters)
-            const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE
-            const isFilterState = getIsFilterState()
-            isFilterState[key] = !showColumnFilters
-            onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
-            // reset filters applied when toggle off filter state
-            if (showColumnFilters) {
-              const filtersApplied = getFilterApplied()
-              delete filtersApplied[key]
-              onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filtersApplied))
-            }
-          }
-        }
-      ]}
+      actions={toolbarActions}
       icons={materialIcons as any}
       options={{
         paging: true,
@@ -261,20 +279,12 @@ export const PlanningAssets: React.FC<PropTypes> = ({
             {...props}
           />)
         },
-        Toolbar: props => (
-          <div>
-            {selectedAssetsInThisTable &&
-              <FontAwesomeIcon size='2x' title='Clear selection' onClick={clearSelectedAssets} icon={faBan} border />
-            }
-            <MTableToolbar {...props} />
-          </div>
-        ),
         Row: props => <MTableBodyRow id={props.data.id} {...props} />,
         FilterRow: props => <CustomFilterRow {...props} forces={forces} cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE} onSupportPanelLayoutChange={onSupportPanelLayoutChange} />
         //        FilterRow: props =>  <MTableFilterRow {...props} onFilterChanged={onSupportPanelLayoutChange}/>
       }}
     />
-  }, [rows, showColumnFilters, columns, selectedAssetsInThisTable])
+  }, [rows, showColumnFilters, columns, toolbarActions])
 
   return TableData
 }
