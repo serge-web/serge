@@ -15,6 +15,8 @@ export type AssetRow = {
   force?: string
   owner?: string
   position?: LatLng
+  /* note - the tableData object is
+  injected by material-table */
   tableData?: { checked: boolean }
   health?: number
   c4: string
