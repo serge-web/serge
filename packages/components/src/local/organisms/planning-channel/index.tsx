@@ -546,7 +546,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           } else {
             // zoom to
             setPosition(undefined)
-            setBounds(mapBounds)
+            setBounds(mapBounds.pad(0.2))
           }
         }
       }
