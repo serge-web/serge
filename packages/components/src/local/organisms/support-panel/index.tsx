@@ -134,7 +134,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
       const endDate = incrementGameTime(gameDate, gameTurnTime)
       setGameTurnEndDate(endDate)
     }
-    setLocalDraftMessage(draftMessage)
   }, [gameDate, gameTurnTime])
 
   useEffect(() => {
@@ -236,6 +235,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const postBack = (details: MessageDetails, message: any): void => {
+    console.log('SupportPanel - save message postack', message.Reference)
     // do we have any pending geometry
     if (pendingLocationData.length > 0) {
       const plan = message as MessagePlanning
@@ -278,7 +278,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         const endD = moment(endDate)
         return startD.isBefore(turnEnd) && endD.isAfter(turnStart)
       } else {
-        console.log('Support panel. Orders start/end missing, so cannot offer for live orders', plan.message.Reference, plan)
+        // console.log('Support panel. Orders start/end missing, so cannot offer for live orders', plan.message.Reference, plan)
         return true
       }
     })
