@@ -1,5 +1,5 @@
 import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
-import { deepCopy, usePrevious } from '@serge/helpers'
+import { configDateTimeLocal, deepCopy, usePrevious } from '@serge/helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { isEqual } from 'lodash'
 import moment from 'moment'
@@ -55,8 +55,6 @@ export const JsonEditor: React.FC<Props> = ({
   const destroyEditor = (editorObject: Editor | null): void => {
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
-
-  console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
 
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {
@@ -132,7 +130,8 @@ export const JsonEditor: React.FC<Props> = ({
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
 
     // initialise date editors
-    const modSchema = template.details // configDateTimeLocal(template.details, gameDate)
+    gameDate && console.warn('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
+    const modSchema = gameDate ? configDateTimeLocal(template.details, gameDate) : template.details
 
     // apply any other template modifications
     const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
