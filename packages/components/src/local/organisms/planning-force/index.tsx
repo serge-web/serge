@@ -116,13 +116,12 @@ const PlanningForces: React.FC<PropTypes> = ({
         setLastShowMez(mezChanged)
       }
       if (mezChanged || clustereredMarkers.length !== clustered.length && !isEqual(clustereredMarkers, clustered)) {
-        console.log('> update clustered', label)
+        // console.log('> update clustered', label, clustered.length)
         setClusteredMarkers(clustered)
-        // show rings for all current assets
         setClusteredRangeRings(showMezRings ? getRingsFor(clustered) : [])
-      } 
+      }
       if (mezChanged || raw.length !== rawMarkers.length && !isEqual(rawMarkers, raw)) {
-        console.log('> update raw', label)
+        // console.log('> update raw', label, raw.length)
         setRawMarkers(raw)
         setRawRangeRings(showMezRings ? getRingsFor(raw) : [])
       }
@@ -284,25 +283,25 @@ const PlanningForces: React.FC<PropTypes> = ({
 
   const iconLayer = useMemo(() => {
     return (
-<>
-    {
-      <LayerGroup key={'force-' + label}>
-        {rawRangeRings}
-        {clusteredRangeRings}
-        <MarkerCluster markers={clustereredMarkers} />
-        {rawMarkers && rawMarkers.map((asset: AssetRow) => {
-          const markerOption = getRawMarkerOption(asset)
-          return <Marker
-            pmIgnore
-            interactive={interactive}
-            {...markerOption}
-          >
-            <Tooltip>{labelFor(asset)}</Tooltip>
-          </Marker>
-        })}
-      </LayerGroup >
-    }
-  </>
+      <>
+        {
+          <LayerGroup key={'force-' + label}>
+            {rawRangeRings}
+            {clusteredRangeRings}
+            <MarkerCluster markers={clustereredMarkers} />
+            {rawMarkers && rawMarkers.map((asset: AssetRow) => {
+              const markerOption = getRawMarkerOption(asset)
+              return <Marker
+                pmIgnore
+                interactive={interactive}
+                {...markerOption}
+              >
+                <Tooltip>{labelFor(asset)}</Tooltip>
+              </Marker>
+            })}
+          </LayerGroup >
+        }
+      </>
     )
   }, [clustereredMarkers, rawMarkers, rawRangeRings, clusteredRangeRings])
 
