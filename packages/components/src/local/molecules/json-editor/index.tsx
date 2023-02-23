@@ -1,6 +1,7 @@
 import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
 import { deepCopy, usePrevious } from '@serge/helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { isEqual } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
@@ -38,6 +39,7 @@ export const JsonEditor: React.FC<Props> = ({
   const [editor, setEditor] = useState<Editor | null>(null)
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
+  const [originalMessage] = useState<string>(JSON.stringify(messageContent))
 
   const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
@@ -83,7 +85,9 @@ export const JsonEditor: React.FC<Props> = ({
      */
     const fixedDate = fixDate(value)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
-    storeNewValue && storeNewValue(newDoc)
+    if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
+      storeNewValue && storeNewValue(newDoc)
+    }
   }
 
   const OnSave = () => {
