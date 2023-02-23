@@ -47,7 +47,7 @@ export default interface Props {
   /** current game time, used for initialising date-time controls */
   // NOTE: provide game date using `customiseTemplate` helper. This allows
   // you to specify the default value in the schema, rather than the document itself
-  // in that way - validation can be applied to the field - forcing the user 
+  // in that way - validation can be applied to the field - forcing the user
   // to enter dates
   gameDate?: string
   /** disable/enable Array tools with form */
