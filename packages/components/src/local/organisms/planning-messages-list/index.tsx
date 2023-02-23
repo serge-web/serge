@@ -1,9 +1,10 @@
 import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MaterialTable, { Action, Column } from '@material-table/core'
+import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
+import { isEqual } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
@@ -18,7 +19,7 @@ import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
-  messages, allTemplates, isUmpire, gameDate, customiseTemplate,
+  messages, allTemplates, isUmpire, customiseTemplate,
   playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
@@ -33,8 +34,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const messageValue = useRef<any>(null)
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
   const [toolbarActions, setToolbarActions] = useState<Action<OrderRow>[]>([])
+  const [visibleRows, setVisibleRows] = useState<OrderRow[]>([])
 
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
+
+  const [pendingMessages, setPendingMessages] = useState<MessagePlanning[]>([])
+  const [messageBeingEdited, setMessageBeingEdited] = useState<boolean>(false)
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
@@ -49,32 +54,37 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }, [])
 
   useEffect(() => {
+    if (pendingMessages.length) {
+      // check there are no rows open
+      if (!messageBeingEdited) {
+        console.log('PlanningMessageList = update pending', pendingMessages.length)
+        setMyMessages(pendingMessages)
+        setPendingMessages([])
+      } else {
+        console.log('PlanningMessageList - not doing edit, message being edited')
+      }
+    }
+  }, [pendingMessages, visibleRows, messageBeingEdited])
+
+  useEffect(() => {
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
     if (myMessages.length === 0) {
+      console.log('PlanningMessageList = update 1. Initialise list')
       // initial load, just load them
       setMyMessages(myRoleMessages)
     } else if (myRoleMessages.length === 0) {
+      console.log('PlanningMessageList = update 2. Clear list')
       // no messages, clear list
       setMyMessages([])
     } else {
-      // Note: we have an issue here.  If the player filters their orders, then we'll have a reduced set of orders
-      // Note: but, the processing below will just inject the newest message.
-      // Note: I "think" we only do this following processing if the new messages is one longer than the previous list, and that
-      // Note: the first message has the reference of an existing message
-      const newMessage = myRoleMessages[0]
-      // see if this is a new version of an existing message
-      const rowAlreadyPresent = rows.find((row) => row.reference === newMessage.message.Reference)
-      if (rowAlreadyPresent && rowAlreadyPresent.id !== newMessage._id) {
-        // ok, it's an update
-        // remove the previous instance of the updated message
-        const otherMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
-        const row = toRow(newMessage)
-        // push a new row
-        setRows([...otherMessage, row])
+      // cache changes if a message is currently being edited
+      if (messageBeingEdited) {
+        console.log('PlanningMessageList = update 3 - store pending messages', myRoleMessages.length)
+        setPendingMessages(myRoleMessages)
       } else {
-        // first row isn't an existing one
+        console.log('PlanningMessageList = update 4. Update list')
         setMyMessages(myRoleMessages)
       }
     }
@@ -117,6 +127,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
+    console.log('PlanningMessageList update messages:', myMessages.length, myMessages.length && myMessages[0].message.title)
     const dataTable: OrderRow[] = myMessages.map((message) => {
       return toRow(message)
     })
@@ -130,12 +141,17 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }, [turnFilter, filter, myMessages])
 
   const editorValue = (val: { [property: string]: any }): void => {
+    if (!isEqual(val, messageValue.current)) {
+      // new value is different from stored one. Record message as being edited.
+      setMessageBeingEdited(true)
+    }
     messageValue.current = val
   }
 
-  // const editDocument = (docId: string): void => {
-  //   editThisMessage && editThisMessage(docId)
-  // }
+  const onLocalDetailPanelClose = (rowData: OrderRow) => {
+    setMessageBeingEdited(false)
+    onDetailPanelClose && onDetailPanelClose(rowData)
+  }
 
   const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template
@@ -193,9 +209,19 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
               // clear the array
               while (pendingLocationData.length) { pendingLocationData.pop() }
             }
+
             postBack && postBack(details, messageValue.current)
-            messageValue.current = ''
+            // messageValue.current = ''
+
+            // this document is being saved. Cause page update without checking for open rows,
+            // so that we display updated document
+            console.log('PlanningMessageList = about to clear only update flag')
+            setMessageBeingEdited(false)
           }
+        }
+
+        const onCancelEdit = () => {
+          setMessageBeingEdited(false)
         }
 
         const localEditLocation = (): void => {
@@ -214,7 +240,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           useEffect(() => {
             onDetailPanelOpen && onDetailPanelOpen(rowData)
             return () => {
-              onDetailPanelClose && onDetailPanelClose(rowData)
+              onLocalDetailPanelClose(rowData)
             }
           }, [])
           return <></>
@@ -232,13 +258,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             messageContent={editorRightValue}
             viewSaveButton={true}
             saveMessage={saveMessage}
+            onCancelEdit={onCancelEdit}
             customiseTemplate={customiseTemplate}
             storeNewValue={editorValue}
             messageId={rowData.id}
             confirmCancel={confirmCancel}
             template={template}
             disabled={!canEdit}
-            gameDate={gameDate}
             modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
             modifyForSave={modifyForSave}
             editCallback={localEditLocation}
@@ -252,7 +278,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   /*eslint-disable */
   const archiveConfirmed = (): void => {
-    console.log('confirmed. Pending:', pendingArchive)
     if (pendingArchive) {
       const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => messages.find((msg) => msg.message.Reference === row.rawRef))
       if (actualMessages.length !== pendingArchive.length) {
@@ -270,7 +295,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         return archivedMessage
       })
-      console.log('Archiving:', markArchived)
       postBackArchive && postBackArchive(markArchived)
       setPendingArchive([])
     }
@@ -281,7 +305,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
-    console.log('Request to archive', rows)
     setPendingArchive(rows)
   }
 
@@ -309,6 +332,16 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       onSelectionChange={onSelectionChange}
       detailPanel={detailPanel}
       components={{
+        Body: (props): React.ReactElement => {
+          if (props.columns.length) {
+            setTimeout(() => {
+              setVisibleRows(props.data)
+            })
+          }
+          return (<MTableBody
+            {...props}
+          />)
+        },
         FilterRow: props => <CustomFilterRow {...props} forces={[]} onSupportPanelLayoutChange={onSupportPanelLayoutChange} cacheKey={TAB_MY_ORDERS} />
       }}
     />

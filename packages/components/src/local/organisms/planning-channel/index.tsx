@@ -270,7 +270,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // collate data
-    console.log('timeline interaction')
+    // console.log('timeline interaction')
     // update state
   }, [timelineInteractions])
 
