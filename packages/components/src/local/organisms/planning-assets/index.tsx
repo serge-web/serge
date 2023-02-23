@@ -167,7 +167,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       setInitialised(false)
       setRows(assetsOfInterest)
     }
-  }, [assets, showColumnFilters, showDead, selectedAssets, initialised])
+  }, [assets, showColumnFilters, showDead, initialised])
 
   useEffect(() => {
     if (selectedAssets.length) {
@@ -183,7 +183,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       const assetsInSelection = assets.some((row) => selectedAssets.includes(row.id))
       // see if any of the selected assets in in this table
       setSelectedAssetsInThisTable(assetsInSelection)
-      console.log('set selected assets', opFor, assetsInSelection)
     } else {
       setSelectedAssetsInThisTable(false)
     }
@@ -241,7 +240,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       icons={materialIcons as any}
       options={{
         paging: true,
-        pageSize: 50,
+        pageSize: 100,
         pageSizeOptions: [50, 100, 200, 500, 1000, 2000],
         filtering: showColumnFilters,
         selection: true,
