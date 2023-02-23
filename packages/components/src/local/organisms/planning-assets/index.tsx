@@ -59,9 +59,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       // BIG PICTURE: for columns that have a filter, we will ensure it contains the full set of possible values for
       // that column, so the user can expand the selection.  But, if the column does not have a filter applied,
       // then restrict it to current values in the dataset.
-      console.time('get columns')
+      // console.time('get columns')
       const allColumns = getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache)
-      console.timeEnd('get columns')
+      // console.timeEnd('get columns')
       // const cached = cachedColumns
       // // see if any filters have been relaxed. If they have, we need to relax the filters in other columns
       // const relaxedColumns = columns.filter((column) => {
