@@ -30,6 +30,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const [visibleRows, setVisibleRows] = useState<AssetRow[]>([])
   const [visibleRowsCache, setVisibleRowsCache] = useState<string[]>([])
 
+  const [selectedAssetsInThisTable, setSelectedAssetsInThisTable] = useState<boolean>(false)
+
   // reference to table, we use it to clear the selection
   const tableRef = useRef<typeof MaterialTable | undefined>(null)
 
@@ -165,19 +167,27 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       setInitialised(false)
       setRows(assetsOfInterest)
     }
-  }, [assets, showColumnFilters, showDead, selectedAssets, initialised])
+  }, [assets, showColumnFilters, showDead, initialised])
 
   useEffect(() => {
     if (selectedAssets.length) {
-      const lastSelectedAssetId = selectedAssets[selectedAssets.length - 1]
-      const elmRow = document.getElementById(lastSelectedAssetId)
-      if (elmRow && !preventScroll.current) {
-        const smoothScroll: ScrollIntoViewOptions = { behavior: 'smooth' }
-        elmRow.scrollIntoView(smoothScroll)
+      // if it's not all assets, scroll to the last one
+      if (selectedAssets.length !== visibleRows.length) {
+        const lastSelectedAssetId = selectedAssets[selectedAssets.length - 1]
+        const elmRow = document.getElementById(lastSelectedAssetId)
+        if (elmRow && !preventScroll.current) {
+          const smoothScroll: ScrollIntoViewOptions = { block: 'start', behavior: 'smooth' }
+          elmRow.scrollIntoView(smoothScroll)
+        }
       }
+      const assetsInSelection = assets.some((row) => selectedAssets.includes(row.id))
+      // see if any of the selected assets in in this table
+      setSelectedAssetsInThisTable(assetsInSelection)
+    } else {
+      setSelectedAssetsInThisTable(false)
     }
     preventScroll.current = false
-  }, [selectedAssets])
+  }, [selectedAssets, assets])
 
   const onSelectionChangeLocal = (rows: AssetRow[]) => {
     preventScroll.current = !!rows.length
@@ -230,7 +240,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       icons={materialIcons as any}
       options={{
         paging: true,
-        pageSize: 50,
+        pageSize: 100,
         pageSizeOptions: [50, 100, 200, 500, 1000, 2000],
         filtering: showColumnFilters,
         selection: true,
@@ -253,7 +263,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         },
         Toolbar: props => (
           <div>
-            {selectedAssets.length > 0 &&
+            {selectedAssetsInThisTable &&
               <FontAwesomeIcon size='2x' title='Clear selection' onClick={clearSelectedAssets} icon={faBan} border />
             }
             <MTableToolbar {...props} />
@@ -264,7 +274,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         //        FilterRow: props =>  <MTableFilterRow {...props} onFilterChanged={onSupportPanelLayoutChange}/>
       }}
     />
-  }, [rows, showColumnFilters, columns])
+  }, [rows, showColumnFilters, columns, selectedAssetsInThisTable])
 
   return TableData
 }
