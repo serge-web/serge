@@ -15,7 +15,7 @@ const updateLeg = (leg: PlannedActivityGeometry, startT: number, endT: number, s
 
     // mangle the millis, to make things work, if necessary
     if (millis < millisRemaining) {
-      console.warn('Will have to trim millis to fit in time period')
+      console.warn('Will have to trim millis to fit in time period', leg.uniqid)
     }
     const safeMillis = millis < millisRemaining ? millis : millisRemaining / 2
 

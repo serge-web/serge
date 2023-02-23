@@ -27,10 +27,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   messages: Array<MessagePlanning>
   /**
-   *  current game-date (may be used in JSON Editor for date-picker)
-   */
-  gameDate: string
-  /**
    *  current date for turn-end (may be used for finding other orders to sync iwth)
    */
   gameTurnEndDate: string

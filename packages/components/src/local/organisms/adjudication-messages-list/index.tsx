@@ -711,7 +711,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               messageId={rowData.id}
               disabled={isComplete}
               template={template}
-              gameDate={gameDate}
               saveMessage={localSubmitAdjudication}
               storeNewValue={localStoreNewValue}
               onLocationEditorLoaded={onLocationEditorLoaded}
