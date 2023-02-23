@@ -16,6 +16,9 @@ export type OrderRow = {
   activity: string
   startDate: string
   endDate: string
+  /* note - the tableData object is
+  injected by material-table */
+  tableData?: { checked: boolean }
 }
 
 export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void }
