@@ -4,15 +4,17 @@ import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster, MarkerClusterGroup
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-import React, { useContext, useEffect, useState } from 'react'
+import moment from 'moment'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { Circle, LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import SymbolAssetIcon from '../../symbol-asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
-import { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+import { SupportPanelContext } from '../support-panel'
+import { isEqual } from 'lodash'
 
 /**
  * organise assets into buckets, by location
@@ -30,14 +32,17 @@ interface LocationBucket {
 
 const PlanningForces: React.FC<PropTypes> = ({
   label, assets, currentAssets, forceColor, setSelectedAssets,
-  interactive, clusterIcons, hideName, showMezRings, showData
+  interactive, clusterIcons, hideName, showMezRings, showData, selectedAssets
 }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
-  const { assetsCache, selectedAssets } = useContext(SupportPanelContext)
+  const { assetsCache } = useContext(SupportPanelContext)
   const [rawRangeRings, setRawRangeRings] = useState<React.ReactElement[]>([])
   const [clusteredRangeRings, setClusteredRangeRings] = useState<React.ReactElement[]>([])
+
+  // we need to track change in state of show mez rings - since we force an update on new value
+  const [lastShowMez, setLastShowMez] = useState<boolean>(showMezRings)
 
   const map = useMap()
 
@@ -105,13 +110,27 @@ const PlanningForces: React.FC<PropTypes> = ({
         // and add them to the clustered list
         clustered.push(...cluster2)
       }
-      setClusteredMarkers(clustered)
-      setRawMarkers(raw)
+      // determine if show mez has changed - since we force an update
+      const mezChanged = lastShowMez !== showMezRings
+      if (mezChanged) {
+        setLastShowMez(mezChanged)
+      }
+      if (mezChanged || clustereredMarkers.length !== clustered.length && !isEqual(clustereredMarkers, clustered)) {
+        console.log('> update clustered', label)
+        setClusteredMarkers(clustered)
+        // show rings for all current assets
+        setClusteredRangeRings(showMezRings ? getRingsFor(clustered) : [])
+      } 
+      if (mezChanged || raw.length !== rawMarkers.length && !isEqual(rawMarkers, raw)) {
+        console.log('> update raw', label)
+        setRawMarkers(raw)
+        setRawRangeRings(showMezRings ? getRingsFor(raw) : [])
+      }
     } else {
       setClusteredMarkers([])
       setRawMarkers([])
     }
-  }, [assets, selectedAssets, currentAssets, clusterIcons, showData])
+  }, [assets, selectedAssets, currentAssets, clusterIcons, showData, showMezRings])
 
   /** utility method to find assets at the same location, and cluster them */
   const clusterRawIcons = (assets: AssetRow[]): AssetRow[] => {
@@ -154,15 +173,6 @@ const PlanningForces: React.FC<PropTypes> = ({
     })
     return rings
   }
-
-  useEffect(() => {
-    // show rings for all current assets
-    setClusteredRangeRings(showMezRings ? getRingsFor(clustereredMarkers) : [])
-  }, [clustereredMarkers, showMezRings])
-
-  useEffect(() => {
-    setRawRangeRings(showMezRings ? getRingsFor(rawMarkers) : [])
-  }, [rawMarkers, showMezRings])
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean, hideNameVal: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
@@ -240,7 +250,7 @@ const PlanningForces: React.FC<PropTypes> = ({
       }
     }
 
-    // asset.id === 'Blue.6.94' && console.log('Debug. Rendering clustered marker id', asset.id, moment().toISOString())
+    asset.id === 'Blue.6.94' && console.log('Debug. Rendering clustered marker id', label, asset.id, moment().toISOString())
 
     return (
       L.marker(new L.LatLng(loc.lat, loc.lng),
@@ -272,7 +282,9 @@ const PlanningForces: React.FC<PropTypes> = ({
     return asset.name + ', ' + asset.id + elapsed(asset.lastUpdated)
   }
 
-  return <>
+  const iconLayer = useMemo(() => {
+    return (
+<>
     {
       <LayerGroup key={'force-' + label}>
         {rawRangeRings}
@@ -291,6 +303,10 @@ const PlanningForces: React.FC<PropTypes> = ({
       </LayerGroup >
     }
   </>
+    )
+  }, [clustereredMarkers, rawMarkers, rawRangeRings, clusteredRangeRings])
+
+  return iconLayer
 }
 
 export default PlanningForces
