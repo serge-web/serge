@@ -323,6 +323,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setLocalDraftMessage(order)
   }
 
+
+  const copyMessage = (docId: string): void => {
+    const order = planningMessages.find((doc) => doc._id === docId)
+    // make duplicate
+    console.log('copying order', docId)
+
+    // clear out some bits
+    setLocalDraftMessage(order)
+  }
+
   const assetsForOrders = (id?: string): string[] => {
     let res: string[] = []
     const plan = planningMessages.find((msg) => msg._id === id)
@@ -516,6 +526,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   channel={channel}
                   allTemplates={allTemplates}
                   confirmCancel={true}
+                  copyMessage={copyMessage}
                   customiseTemplate={localCustomiseTemplate}
                   selectedOrders={selectedOrders}
                   setSelectedOrders={setSelectedOrders}
