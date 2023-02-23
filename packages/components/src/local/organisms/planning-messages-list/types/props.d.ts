@@ -62,6 +62,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
 
+  copyMessage?: { (id: MessagePlanning['_id']): void }
+
   selectedForce: ForceData
   selectedRoleName: string
   currentTurn: number
