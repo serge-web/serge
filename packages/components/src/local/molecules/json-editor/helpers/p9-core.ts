@@ -6,8 +6,7 @@ export const rulesOfEngagement = dropDownObject('Rules of Engagement', ['Weapons
 const flatpickrOptions = {
   time_24hr: true,
   enableTime: true,
-  altInput: true,
-  altFormat: 'M dHi\\Z',
+  allowInput: false,
   dateFormat: 'Z'
 }
 
