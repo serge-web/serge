@@ -43,6 +43,8 @@ const PlanningForces: React.FC<PropTypes> = ({
 
   // we need to track change in state of show mez rings - since we force an update on new value
   const [lastShowMez, setLastShowMez] = useState<boolean>(showMezRings)
+  const [lastHideName, setLastHideName] = useState<boolean>(!!hideName)
+
 
   const map = useMap()
 
@@ -115,12 +117,16 @@ const PlanningForces: React.FC<PropTypes> = ({
       if (mezChanged) {
         setLastShowMez(mezChanged)
       }
-      if (mezChanged || !isEqual(clustereredMarkers, clustered)) {
+      const nameChanged = lastHideName !== !!hideName
+      if (nameChanged) {
+        setLastHideName(!!hideName)
+      }
+      if (nameChanged || mezChanged || !isEqual(clustereredMarkers, clustered)) {
         // console.log('> update clustered', label, clustered.length)
         setClusteredMarkers(clustered)
         setClusteredRangeRings(showMezRings ? getRingsFor(clustered) : [])
       }
-      if (mezChanged || !isEqual(rawMarkers, raw)) {
+      if (nameChanged || mezChanged || !isEqual(rawMarkers, raw)) {
         // console.log('> update raw', label, raw.length)
         setRawMarkers(raw)
         setRawRangeRings(showMezRings ? getRingsFor(raw) : [])
@@ -129,7 +135,7 @@ const PlanningForces: React.FC<PropTypes> = ({
       setClusteredMarkers([])
       setRawMarkers([])
     }
-  }, [assets, selectedAssets, currentAssets, clusterIcons, showData, showMezRings])
+  }, [assets, selectedAssets, currentAssets, clusterIcons, showData, showMezRings, hideName])
 
   /** utility method to find assets at the same location, and cluster them */
   const clusterRawIcons = (assets: AssetRow[]): AssetRow[] => {
