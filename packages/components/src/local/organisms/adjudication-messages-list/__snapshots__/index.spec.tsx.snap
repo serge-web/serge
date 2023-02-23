@@ -461,7 +461,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                   role={null}
                   style={
                     Object {
-                      "height": 980,
+                      "height": 49,
                     }
                   }
                 >

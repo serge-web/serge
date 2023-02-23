@@ -324,6 +324,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         search: true,
         paging: true,
         pageSize: 20,
+        emptyRowsWhenPaging: false,
         pageSizeOptions: [20, 50, 100],
         filtering: filter,
         selection: true,
