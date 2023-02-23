@@ -24,6 +24,8 @@ export default interface Props {
    */
   title?: string
   saveMessage?: () => void
+  
+  // Called when user cancels document edit
   onCancelEdit?: () => void
   confirmCancel?: boolean
   /**
