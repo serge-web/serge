@@ -77,7 +77,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   } else {
     // put data generation into this `if` side to only generate it if necessary
     const bulkData = generateTestData2(2000, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
-    assetsToUse = getOwnAssets(bulkData, forceCols, platIcons, bulkData[1], platformTypes, attributeTypes, gameTime)
+    assetsToUse = getOwnAssets(bulkData, forceCols, platIcons, bulkData[1], platformTypes, attributeTypes, gameTime, [])
     forcesToUse = bulkData
   }
 
@@ -98,7 +98,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
 export const Default = Template.bind({})
 Default.args = {
   forces: forces,
-  assets: getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime),
+  assets: getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime, []),
   playerForce: forces[0],
   render: noop,
   opFor: false
@@ -106,7 +106,7 @@ Default.args = {
 export const OpFor = Template.bind({})
 OpFor.args = {
   forces: forces,
-  assets: getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime),
+  assets: getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime, []),
   playerForce: forces[0],
   render: noop,
   opFor: true

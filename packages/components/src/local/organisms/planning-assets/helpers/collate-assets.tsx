@@ -39,11 +39,11 @@ const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: Pl
 }
 
 export const getOwnAssets = (forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData, platformTypes: PlatformTypeData[],
-  attributeTypes: AttributeTypes, gameTime: number): AssetRow[] => {
+  attributeTypes: AttributeTypes, gameTime: number, selectedAssets: string[]): AssetRow[] => {
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     force.assets && force.assets.forEach((asset: Asset) => {
-      const assets = collateItem(false, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, gameTime, undefined)
+      const assets = collateItem(false, asset, playerForce, force, forceColors, platformIcons, selectedAssets, platformTypes, attributeTypes, gameTime, undefined)
       rows.push(...assets)
     }
     )
@@ -52,13 +52,13 @@ export const getOwnAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
 }
 
 export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData, platformTypes: PlatformTypeData[],
-  attributeTypes: AttributeTypes, gameTime: number): AssetRow[] => {
+  attributeTypes: AttributeTypes, gameTime: number, selectedAssets: string[]): AssetRow[] => {
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     // don't generate op-for for umpire
     if (!force.umpire) {
       force.assets && force.assets.forEach((asset: Asset) => {
-        const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, gameTime, undefined)
+        const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, selectedAssets, platformTypes, attributeTypes, gameTime, undefined)
         rows.push(...assets)
       })
     }

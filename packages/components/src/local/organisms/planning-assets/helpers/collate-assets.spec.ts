@@ -79,11 +79,11 @@ describe('check collating assets', () => {
     expect(pTypeCol.lookup).toBeTruthy()
     expect(pTypeCol.lookup && Object.keys(pTypeCol.lookup).length).toEqual(10)
 
-    const umpireRows = getOwnAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes, tNow)
+    const umpireRows = getOwnAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes, tNow, [])
     expect(umpireRows).toBeTruthy()
     expect(umpireRows.length).toEqual(39)
 
-    const blueRows = getOwnAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow)
+    const blueRows = getOwnAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow, [])
     expect(blueRows).toBeTruthy()
     expect(blueRows.length).toEqual(17)
 
@@ -95,21 +95,21 @@ describe('check collating assets', () => {
   })
 
   it('handles NEW ownFor', () => {
-    const umpireOwnForces = getOwnAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes, tNow)
+    const umpireOwnForces = getOwnAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes, tNow, [])
     expect(umpireOwnForces).toBeTruthy()
     expect(umpireOwnForces.length).toEqual(39)
 
-    const blueOwnForces = getOwnAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow)
+    const blueOwnForces = getOwnAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow, [])
     expect(blueOwnForces).toBeTruthy()
     expect(blueOwnForces.length).toEqual(17)
   })
 
   it('handles NEW oppFor', () => {
-    const umpireOppForces = getOppAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes, tNow)
+    const umpireOppForces = getOppAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes, tNow, [])
     expect(umpireOppForces).toBeTruthy()
     expect(umpireOppForces.length).toEqual(0)
 
-    const blueOppForces = getOppAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow)
+    const blueOppForces = getOppAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow, [])
     expect(blueOppForces).toBeTruthy()
     expect(blueOppForces.length).toEqual(13)
   })
@@ -123,11 +123,11 @@ describe('check collating assets', () => {
     expect(blueColumns).toBeTruthy()
     expect(blueColumns.length).toEqual(8)
 
-    const umpireRows = getOppAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes, tNow)
+    const umpireRows = getOppAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes, tNow, [])
     expect(umpireRows).toBeTruthy()
     expect(umpireRows.length).toEqual(0)
 
-    const blueRows = getOppAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow)
+    const blueRows = getOppAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow, [])
     expect(blueRows).toBeTruthy()
     expect(blueRows.length).toEqual(13)
   })

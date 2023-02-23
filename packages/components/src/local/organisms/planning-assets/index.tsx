@@ -162,8 +162,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   }, [playerForce, forces, showColumnFilters])
 
   useEffect(() => {
-    const assetsOfInterest = showDead ? assets : assets.filter((asset) => asset.health && asset.health > 0)
     if (!showColumnFilters || !initialised) {
+      const assetsOfInterest = showDead ? assets : assets.filter((asset) => asset.health && asset.health > 0)
       setInitialised(false)
       setRows(assetsOfInterest)
     }
