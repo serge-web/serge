@@ -123,7 +123,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       {
         icon: () => <FontAwesomeIcon title='Copy Message' icon={faCopy} className={cx({ [styles.selected]: filter })} />,
         iconProps: { color: 'action' },
-        tooltip: countOfSelectedPlans === 1 ? 'Copy Message' : 'Only a single set of orders can be copied', 
+        tooltip: countOfSelectedPlans === 1 ? 'Copy Message' : 'Only a single set of orders can be copied',
         disabled: countOfSelectedPlans !== 1,
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => localCopyMessage(data)
@@ -324,7 +324,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
     setPendingArchive(rows)
   }
-
 
   const localCopyMessage = (data: OrderRow | OrderRow[]): void => {
     if (Array.isArray(data)) {

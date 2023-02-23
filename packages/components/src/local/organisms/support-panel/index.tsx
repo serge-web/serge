@@ -323,7 +323,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setLocalDraftMessage(order)
   }
 
-
   const copyMessage = (docId: string): void => {
     const order = planningMessages.find((doc) => doc._id === docId)
 
