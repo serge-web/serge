@@ -144,11 +144,19 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
     }
   })
 
-  // sort sub-types
-  const sortedSubTypes = subTypes.length ? subTypes.slice().sort() : []
-  const sortedTaskGroups = taskGroups.length ? taskGroups.slice().sort() : []
-
-  const sortedPlatforms = sortDictionaryByValue(platformTypesDict)
+  // NOTE: we're getting a localCompare exception thrown.  See if it's in this sort block
+  let sortedSubTypes: string[] = []
+  let sortedTaskGroups: string[] = []
+  let sortedPlatforms = {}
+  try {
+    // sort sub-types
+    sortedSubTypes = subTypes.length ? subTypes.slice().sort() : []
+    sortedTaskGroups = taskGroups.length ? taskGroups.slice().sort() : []
+    sortedPlatforms = sortDictionaryByValue(platformTypesDict)  
+  } catch(err) {
+    console.log('Exception caught, data:', subTypes, taskGroups, platformTypesDict)
+    console.error(err)
+  }
 
   const res: SummaryData = {
     roles: roleDict,
