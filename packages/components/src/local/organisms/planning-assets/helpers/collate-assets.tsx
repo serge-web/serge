@@ -152,9 +152,9 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
     // sort sub-types
     sortedSubTypes = subTypes.length ? subTypes.slice().sort() : []
     sortedTaskGroups = taskGroups.length ? taskGroups.slice().sort() : []
-    sortedPlatforms = sortDictionaryByValue(platformTypesDict)  
-  } catch(err) {
-    console.log('Exception caught, data:', subTypes, taskGroups, platformTypesDict)
+    sortedPlatforms = sortDictionaryByValue(platformTypesDict)
+  } catch (err) {
+    console.log('Exception caught, data:', subTypes, taskGroups, platformTypesDict, sortedSubTypes, sortedTaskGroups, sortedPlatforms)
     console.error(err)
   }
 
