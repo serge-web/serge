@@ -485,7 +485,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <TurnFilter label='Show orders for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
-                  gameDate={gameDate}
                   phase={phase}
                   gameTurnEndDate={gameTurnEndDate}
                   playerRoleId={selectedRoleId}
