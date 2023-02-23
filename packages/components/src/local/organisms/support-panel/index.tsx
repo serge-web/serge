@@ -6,7 +6,7 @@ import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyl
 import { updateLocationNames } from '@serge/helpers/build/geometry-helpers'
 import cx from 'classnames'
 import { Column } from '@material-table/core'
-import { noop } from 'lodash'
+import { cloneDeep, noop } from 'lodash'
 import LRU from 'lru-cache'
 import moment from 'moment'
 import React, { createContext, useContext, useEffect, useState, useRef } from 'react'
@@ -326,11 +326,24 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const copyMessage = (docId: string): void => {
     const order = planningMessages.find((doc) => doc._id === docId)
-    // make duplicate
-    console.log('copying order', docId)
 
-    // clear out some bits
-    setLocalDraftMessage(order)
+    if (order) {
+      // make duplicate
+      const dupe = cloneDeep(order)
+
+      // strip out some bits
+      const dupeAny = dupe as any
+      console.log('Making duplicate of', dupe._id, dupe._rev, dupe.message.Reference, dupe.message.title)
+      dupeAny._id = ''
+      delete dupeAny._rev
+      delete dupeAny.message.Reference
+      dupe.message.title = dupe.message.title + ' Copy'
+      dupe.details.timestamp = moment.utc().toISOString()
+      console.log('copying order', docId, order, dupe)
+
+      // clear out some bits
+      setLocalDraftMessage(dupe)
+    }
   }
 
   const assetsForOrders = (id?: string): string[] => {
