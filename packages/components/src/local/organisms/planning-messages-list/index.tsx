@@ -53,6 +53,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }, [])
 
   useEffect(() => {
+    console.log('PlanningMessageList - update messages', updateMessages)
     if (updateMessages && pendingMessages.length) {
       // check there are no rows open
       const inEdit = visibleRows.find((row) => {
@@ -63,13 +64,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         return false
       })
       if (!inEdit) {
-        setUpdateMessages(false)
-        const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
-        const showOrdersForAllRoles = !onlyShowMyOrders
-        const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
-        setMyMessages(myRoleMessages)
+        console.log('PlanningMessageList = update pending', pendingMessages.length)
+        setMyMessages(pendingMessages)
         setPendingMessages([])
+      } else {
+        console.log('PlanningMessageList - not doing edit, row open')
       }
+      // clear the flag, else we won't get triggered on the next row collapse
+      setUpdateMessages(false)
     }
   }, [pendingMessages, updateMessages, visibleRows])
 
@@ -145,7 +147,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
-    console.log('PlanningMessageList update:', myMessages.length, myMessages.length && myMessages[0].message.title)
+    console.log('PlanningMessageList update messages:', myMessages.length, myMessages.length && myMessages[0].message.title)
     const dataTable: OrderRow[] = myMessages.map((message) => {
       return toRow(message)
     })
