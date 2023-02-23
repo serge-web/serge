@@ -234,6 +234,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         pageSizeOptions: [50, 100, 200, 500, 1000, 2000],
         filtering: showColumnFilters,
         selection: true,
+        emptyRowsWhenPaging: false,
         rowStyle: { fontSize: '80%' },
         columnsButton: true
       }}
