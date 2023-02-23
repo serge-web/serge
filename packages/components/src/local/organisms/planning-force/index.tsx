@@ -115,12 +115,12 @@ const PlanningForces: React.FC<PropTypes> = ({
       if (mezChanged) {
         setLastShowMez(mezChanged)
       }
-      if (mezChanged || clustereredMarkers.length !== clustered.length && !isEqual(clustereredMarkers, clustered)) {
+      if (mezChanged || !isEqual(clustereredMarkers, clustered)) {
         // console.log('> update clustered', label, clustered.length)
         setClusteredMarkers(clustered)
         setClusteredRangeRings(showMezRings ? getRingsFor(clustered) : [])
       }
-      if (mezChanged || raw.length !== rawMarkers.length && !isEqual(rawMarkers, raw)) {
+      if (mezChanged || !isEqual(rawMarkers, raw)) {
         // console.log('> update raw', label, raw.length)
         setRawMarkers(raw)
         setRawRangeRings(showMezRings ? getRingsFor(raw) : [])
