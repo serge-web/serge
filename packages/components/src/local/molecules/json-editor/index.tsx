@@ -29,6 +29,7 @@ export const JsonEditor: React.FC<Props> = ({
   disableArrayToolsWithEditor = true,
   clearForm,
   saveMessage,
+  onCancelEdit,
   modifyForSave,
   confirmCancel = false,
   viewSaveButton = false,
@@ -102,6 +103,7 @@ export const JsonEditor: React.FC<Props> = ({
     if (!viewSaveButton) {
       initEditor()
     }
+    onCancelEdit && onCancelEdit()
     setConfirmIsOpen(false)
     setBeingEdited(false)
   }

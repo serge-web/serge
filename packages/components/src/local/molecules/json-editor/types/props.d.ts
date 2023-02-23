@@ -24,6 +24,7 @@ export default interface Props {
    */
   title?: string
   saveMessage?: () => void
+  onCancelEdit?: () => void
   confirmCancel?: boolean
   /**
    * whether the form is editable (disable for read-only view)
