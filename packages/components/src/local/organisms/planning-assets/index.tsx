@@ -213,7 +213,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   }, [assets, showColumnFilters, showDead, initialised])
 
   useEffect(() => {
-    console.log('selected assets', selectedAssets)
     if (selectedAssets.length) {
       // if it's not all assets, scroll to the last one
       if (selectedAssets.length !== visibleRows.length) {
@@ -227,7 +226,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       const assetsInSelection = assets.some((row) => selectedAssets.includes(row.id))
       // see if any of the selected assets in in this table
       setSelectedAssetsInThisTable(assetsInSelection)
-      console.log('update selected assets', opFor, assetsInSelection, selectedAssets.length, assets.length)
     } else {
       setSelectedAssetsInThisTable(false)
     }
