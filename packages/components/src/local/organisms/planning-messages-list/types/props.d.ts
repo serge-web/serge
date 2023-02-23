@@ -16,6 +16,9 @@ export type OrderRow = {
   activity: string
   startDate: string
   endDate: string
+  /* note - the tableData object is
+  injected by material-table */
+  tableData?: { checked: boolean }
 }
 
 export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void }
@@ -58,6 +61,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   postBackArchive?: { (archiveMark: MessagePlanning[]): void }
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
+
+  copyMessage?: { (id: MessagePlanning['_id']): void }
 
   selectedForce: ForceData
   selectedRoleName: string

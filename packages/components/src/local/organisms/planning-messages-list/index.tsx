@@ -1,4 +1,4 @@
-import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
@@ -23,11 +23,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  modifyForSave, phase, onSupportPanelLayoutChange
+  modifyForSave, phase, onSupportPanelLayoutChange, copyMessage
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column<OrderRow>[]>([])
-  const [filter, setFilter] = useState<boolean>(true)
+  const [filter, setFilter] = useState<boolean>(false)
   const [initialised, setInitialised] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
@@ -41,6 +41,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [pendingMessages, setPendingMessages] = useState<MessagePlanning[]>([])
   const [messageBeingEdited, setMessageBeingEdited] = useState<boolean>(false)
 
+  const [countOfSelectedPlans, setCountOfSelectedPlans] = useState<number>(0)
+
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
@@ -52,6 +54,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       })
     }
   }, [])
+
+  useEffect(() => {
+    const selectedCount = visibleRows.filter((item) => {
+      return item.tableData && item.tableData.checked
+    }).length
+    setCountOfSelectedPlans(selectedCount)
+  }, [visibleRows])
 
   useEffect(() => {
     if (pendingMessages.length) {
@@ -110,6 +119,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           isFilterState[TAB_MY_ORDERS] = !filter
           onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
         }
+      },
+      {
+        icon: () => <FontAwesomeIcon title='Copy Message' icon={faCopy} className={cx({ [styles.selected]: filter })} />,
+        iconProps: { color: 'action' },
+        tooltip: countOfSelectedPlans === 1 ? 'Copy Message' : 'Only a single set of orders can be copied',
+        disabled: countOfSelectedPlans !== 1,
+        isFreeAction: false,
+        onClick: (_event: any, data: OrderRow | OrderRow[]): void => localCopyMessage(data)
       }
     ]
     if (isUmpire) {
@@ -123,7 +140,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       })
     }
     setToolbarActions(res)
-  }, [isUmpire, filter, onlyShowMyOrders])
+  }, [isUmpire, filter, onlyShowMyOrders, countOfSelectedPlans])
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
@@ -306,6 +323,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
     setPendingArchive(rows)
+  }
+
+  const localCopyMessage = (data: OrderRow | OrderRow[]): void => {
+    if (Array.isArray(data)) {
+      const item = data as OrderRow[]
+      copyMessage && copyMessage(item[0].id)
+    }
   }
 
   const onSelectionChange = (rows: OrderRow[]): void => {
