@@ -155,7 +155,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
     messages={newestMessages}
     channel={planningChannel}
     customiseTemplate={localCustomiseTemplate}
-    gameDate={P9BMock.data.overview.gameDate}
     gameTurnEndDate={turnEndDate}
     allTemplates={templates}
     playerRoleId={role.roleId}
