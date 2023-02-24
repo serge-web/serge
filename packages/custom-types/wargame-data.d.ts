@@ -17,6 +17,6 @@ export default interface WargameData {
   annotationIcons?: AnnotationMarkerData
   attributeTypes?: AttributeTypeData
   activities?: ActivityTypeData
-  templates?: TemplateData
+  templates: TemplateData
   areas?: AreaData
 }

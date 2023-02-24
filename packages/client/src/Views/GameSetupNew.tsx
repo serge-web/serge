@@ -49,7 +49,7 @@ import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootS
 
 const AdminGameSetup = () => {
   const dispatch = useDispatch()
-  const { wargame, messageTypes }: { wargame: Wargame, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
+  const { wargame }: { wargame: Wargame } = useSelector(({ wargame }: RootState) => ({ wargame }))
 
   const {
     data,
@@ -68,7 +68,7 @@ const AdminGameSetup = () => {
     annotationIcons
   } = data
   const tabs = Object.keys(data)
-
+  
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }
@@ -386,7 +386,7 @@ const AdminGameSetup = () => {
       onDuplicateChannel={onDuplicateChannel}
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
-      messageTemplates={messageTypes.messages}
+      messageTemplates={data.templates.templates}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}

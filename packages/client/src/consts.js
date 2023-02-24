@@ -182,6 +182,9 @@ export const dbDefaultSettings = {
       channels: [],
       selectedChannel: '',
       dirty: false
+    },
+    templates: {
+      templates: []
     }
   },
   wargameInitiated: false,

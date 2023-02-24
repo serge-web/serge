@@ -1255,6 +1255,9 @@ const wargame: Wargame = {
             { "uniqid": "wak", "name": "Wake", "icon": "marker_wake.svg" },
             { "uniqid": "vis", "name": "Visual", "icon": "marker_visual.svg" }
             ]
+        },
+        "templates": {
+            "templates": []
         }
     },
     "gameTurn": 3,

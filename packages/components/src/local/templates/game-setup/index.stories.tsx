@@ -96,7 +96,7 @@ export const Default: React.FC = () => {
   const onAnnotationChange = (nextPlatformType: AnnotationMarkerData): void => {
     console.log('new platform type', nextPlatformType)
   }
-
+  
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}

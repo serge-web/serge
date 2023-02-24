@@ -1710,6 +1710,9 @@ const game: Wargame = {
         }
       ],
       "selectedType": ""
+    },
+    "templates": {
+      "templates": []
     }
   },
   "gameTurn": 6,

@@ -2636,7 +2636,10 @@ const wargame: Wargame = {
                     "location": "89195012b43ffff"
                 }
             ]
-        }
+        },
+        "templates": {
+            "templates": []
+          }
     },
     "gameTurn": 6,
     "name": "wargame-l28tfdz0",

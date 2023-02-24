@@ -2589,6 +2589,9 @@ const wargame: Wargame = {
             ],
             "selectedType": ""
         },
+        "templates": {
+            "templates": []
+          },
         "annotations": {
             "annotations": [
                 {

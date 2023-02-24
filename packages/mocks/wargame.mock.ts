@@ -85,6 +85,9 @@ const wargame: Wargame = {
       channels: [],
       selectedChannel: "", 
       dirty: false
+    },
+    templates: {
+      templates: []
     }
   },
   currentTab: "overview",

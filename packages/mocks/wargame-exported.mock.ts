@@ -1437,6 +1437,9 @@ const game: Wargame = {
       timeWarning: 60000,
       logPlayerActivity: true
     },
+    templates: {
+      templates: []
+    },
     platformTypes: {
       dirty: false,
       name: 'Platform Types',

@@ -1587,6 +1587,9 @@ const game: Wargame = {
             "turnPresentation": "Natural",
             "logPlayerActivity": true
         },
+        "templates": {
+            "templates": []
+          },
         "platformTypes": {
             "dirty": false,
             "name": "Platform Types",
