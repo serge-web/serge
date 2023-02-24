@@ -269,6 +269,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     if (selectedPolygonLayer.current) {
       map.removeLayer(selectedPolygonLayer.current)
     }
+
     const coords = area.polygon.coordinates
     // processing is expecting Leaflet lat-longs not number coords.
     const lCoords: LatLng[][] = coords.map((item: Position[]) => {
@@ -276,19 +277,21 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         return L.latLng(pos[1], pos[0])
       })
     })
+    
     // draw polygon on map
     selectedPolygonLayer.current = L.polygon(lCoords).addTo(map)
+
     // cancel drawing
     if (workingLayer) {
       workingLayer.remove()
       map.pm.disableDraw()
     }
 
-    // const res: any = {
-    //   _latlngs: lCoords
-    // }
+    const res: any = {
+      _latlngs: lCoords
+    }
     // simulate playe completing shape
-    // onCreate({ shape: 'Polygon', layer: res as Layer })
+    onCreate({ shape: 'Polygon', layer: res as Layer })
   }
 
   const onDrawStart = (e: { shape: string, workingLayer: Layer }) => {
