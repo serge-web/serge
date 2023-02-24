@@ -28,7 +28,7 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
-import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from '@serge/custom-types'
+import { Asset, ChannelTypes, ForceData, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from '@serge/custom-types'
 
 /**
  * TODOS:
