@@ -305,7 +305,8 @@ WithAreas.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
   phase: Phase.Planning,
-  areas: areas
+  areas: areas,
+  forcePlanningActivities: activities
 }
 
 const liveData = generateAllTemplates()
@@ -328,7 +329,8 @@ export const IstarEvent = Template.bind({})
 IstarEvent.args = {
   messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference)),
   selectedRoleId: allRoles[1],
-  phase: Phase.Adjudication
+  phase: Phase.Adjudication,
+  forcePlanningActivities: activities
 }
 
 const otherForceEvent = planningMessages.find((msg) => {
@@ -353,7 +355,8 @@ export const IstarInteraction = Template.bind({})
 IstarInteraction.args = {
   messages: istarInterMessages,
   selectedRoleId: allRoles[1],
-  phase: Phase.Adjudication
+  phase: Phase.Adjudication,
+  forcePlanningActivities: activities
 }
 
 export const BulkForces = Template.bind({})
@@ -361,7 +364,8 @@ BulkForces.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[1],
   allForces: [],
-  phase: Phase.Planning
+  phase: Phase.Planning,
+  forcePlanningActivities: activities
 }
 
 export const StartOfAdjudication = Template.bind({})
@@ -369,7 +373,8 @@ StartOfAdjudication.args = {
   messages: channelMessages.filter((msg) => msg.details.interaction === undefined),
   selectedRoleId: allRoles[1],
   allForces: forces,
-  phase: Phase.Adjudication
+  phase: Phase.Adjudication,
+  forcePlanningActivities: activities
 }
 
 // open an interaction, and make this role the owner - so we have an adjudication open
@@ -404,7 +409,8 @@ export const AdjudicationFormOpen = Template.bind({})
 AdjudicationFormOpen.args = {
   messages: tmpPlans,
   selectedRoleId: allRoles[1],
-  phase: Phase.Adjudication
+  phase: Phase.Adjudication,
+  forcePlanningActivities: activities
 }
 
 // mangle some dates
@@ -429,5 +435,6 @@ AdjudicateAcrossTurns.args = {
   messages: newPlans,
   selectedRoleId: allRoles[1],
   allForces: forces,
-  phase: Phase.Adjudication
+  phase: Phase.Adjudication,
+  forcePlanningActivities: activities
 }
