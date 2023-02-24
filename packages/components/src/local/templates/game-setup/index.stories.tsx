@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
   WargameExportedMock,
-  MessageTemplatesMock,
   adminTabs,
   platformType as platformTypeMock
 } from '@serge/mocks'
@@ -11,7 +10,8 @@ import {
   PlatformType,
   Wargame,
   WargameOverview,
-  AnnotationMarkerData
+  AnnotationMarkerData,
+  TemplateBody
 } from '@serge/custom-types'
 
 // Import component files
@@ -46,6 +46,7 @@ export const Default: React.FC = () => {
   const [changedPlatformType, setChangedPlatformType] = useState<PlatformType | undefined>(wargame.data.platformTypes)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
+  const [changedTemplates, setChangedTemplates] = useState<Array<TemplateBody>>(wargame.data.templates.templates)
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e: any): void => {
@@ -53,6 +54,7 @@ export const Default: React.FC = () => {
     setChangedPlatformType(wargame.data.platformTypes)
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
+    setChangedTemplates(wargame.data.templates.templates)
     setChangedChannels(wargame.data.channels.channels || [])
     setWargameChanged(false)
     setWargame({
@@ -96,7 +98,7 @@ export const Default: React.FC = () => {
   const onAnnotationChange = (nextPlatformType: AnnotationMarkerData): void => {
     console.log('new platform type', nextPlatformType)
   }
-  
+
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}
@@ -113,7 +115,7 @@ export const Default: React.FC = () => {
       onForcesChange={onForcesChange}
       onChannelsChange={onChannelsChange}
       onSave={onSave}
-      messageTemplates={MessageTemplatesMock}
+      messageTemplates={changedTemplates}
       onSaveGameTitle={onSaveGameTitle}
       onWargameInitiate={onWargameInitiated}
       availablePlatformTypes={platformTypeMock.platformTypes}
