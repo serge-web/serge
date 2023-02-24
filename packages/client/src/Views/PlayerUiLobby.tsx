@@ -17,6 +17,10 @@ interface Props {
 interface Option { label: string, value: string }
 
 const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword }) => {
+  const [selectedWargame, setSelectedWargame] = useState<Option | undefined>()
+  const [rolePassword, setRolePassword] = useState<string>('')
+  const state = usePlayerUiState()
+  const dispatch = usePlayerUiDispatch()
   if (!wargameList) {
     return (
       <div className='flex-content-wrapper flex-content-wrapper--welcome'>
@@ -33,11 +37,6 @@ const PlayerUiLobby: React.FC<Props> = ({ wargameList, allForces, checkPassword 
       </div>
     )
   }
-
-  const [selectedWargame, setSelectedWargame] = useState<Option | undefined>()
-  const [rolePassword, setRolePassword] = useState<string>('')
-  const state = usePlayerUiState()
-  const dispatch = usePlayerUiDispatch()
 
   const updateSelectedWargame = (selectedWargame?: Option | null): void => {
     if (selectedWargame) {
