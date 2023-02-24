@@ -52,7 +52,7 @@ const PlanningForces: React.FC<PropTypes> = ({
     return {
       iconCreateFunction: function (cluster: MarkerCluster): L.DivIcon {
         const markers = cluster.getAllChildMarkers()
-        const size = markers.length / 5 + 40
+        const size = markers.length / 5 + 60
         const color = styles.circle
         const rgb = hexToRGBA(forceColor, 0.6)
         const html = ReactDOMServer.renderToString(<div style={{ backgroundColor: rgb }} className={cx({ [color]: true })} >{markers.length}</div>)
