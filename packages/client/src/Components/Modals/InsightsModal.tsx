@@ -11,9 +11,9 @@ import '@serge/themes/App.scss'
 
 const InsightsModal: React.FC = () => {
   const state = usePlayerUiState()
+  const dispatch = usePlayerUiDispatch()
   const { selectedForce, currentTurn } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-  const dispatch = usePlayerUiDispatch()
   if (!state.modalOpened) return <></>
 
   // TODO: Non defined types in @serge/components/InsightForm
