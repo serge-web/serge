@@ -75,7 +75,9 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
           onSelect: (item: any) => {
             handleClick(item)
           },
-          additionalClass
+          additionalClass,
+          preventClickThrough: true,
+          showSelectedIcon: true
         })
         setControlButton(selectControl)
       }
