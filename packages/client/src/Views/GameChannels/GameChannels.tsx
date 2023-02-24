@@ -66,7 +66,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   }
   const dispatch = useDispatch()
   const PlayerUiDispatch = usePlayerUiDispatch()
-
+  
   const handleChangeTab = (node: TabNode): void => {
     setSelectedNode(node.getComponent() || '')
     onTabChange(node)
