@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 // Import component files
 import { ChannelPlanning } from '@serge/custom-types'
-import { MessageTemplatesMock, watuWargame } from '@serge/mocks'
+import { watuWargame } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import SettingChannels from './index'
@@ -13,6 +13,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 
 const wChannels = watuWargame.data.channels.channels
 const wForces = watuWargame.data.forces.forces
+const template = watuWargame.data.templates.templates
 
 const planningChannel: ChannelPlanning = {
   name: 'Blue Planning',
@@ -126,7 +127,7 @@ const Template: Story = (args) => {
     onSidebarClick={onSidebarClick}
     channels={localChannels}
     forces={wForces}
-    messageTemplates={MessageTemplatesMock}
+    messageTemplates={template}
     selectedChannel={selectedChannel}
   />
 }
