@@ -4,7 +4,6 @@ import renderer from 'react-test-renderer'
 import GameSetup from './index'
 import {
   WargameExportedMock,
-  MessageTemplatesMock,
   adminTabs,
   platformType as platformTypeMock
 } from '@serge/mocks'
@@ -14,7 +13,8 @@ import {
   PlatformType,
   Wargame,
   WargameOverview,
-  AnnotationMarkerData
+  AnnotationMarkerData,
+  TemplateBody
 } from '@serge/custom-types'
 
 const Component = (): React.ReactElement => {
@@ -33,6 +33,8 @@ const Component = (): React.ReactElement => {
   const [changedAnnotationType, setChangedAnnotationType] = useState<AnnotationMarkerData | undefined>(wargame.data.annotationIcons)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
+  const [changedTemplates, setChangedTemplates] = useState<Array<TemplateBody>>(wargame.data.templates.templates)
+
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e: any): void => {
@@ -42,6 +44,7 @@ const Component = (): React.ReactElement => {
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
     setChangedChannels(wargame.data.channels.channels || [])
+    setChangedTemplates(wargame.data.templates.templates)
     setWargameChanged(false)
     setWargame({
       ...wargame,
@@ -102,7 +105,7 @@ const Component = (): React.ReactElement => {
       onForcesChange={onForcesChange}
       onChannelsChange={onChannelsChange}
       onSave={onSave}
-      messageTemplates={MessageTemplatesMock}
+      messageTemplates={changedTemplates}
       onWargameInitiate={onWargameInitiated}
       onAnnotationChange={onAnnotationChange}
       annotation={changedAnnotationType}
