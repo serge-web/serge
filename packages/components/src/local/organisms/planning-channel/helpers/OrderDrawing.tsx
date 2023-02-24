@@ -277,7 +277,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         return L.latLng(pos[1], pos[0])
       })
     })
-    
+
     // draw polygon on map
     selectedPolygonLayer.current = L.polygon(lCoords).addTo(map)
 
