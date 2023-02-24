@@ -44,6 +44,7 @@ const PlanningForces: React.FC<PropTypes> = ({
   // we need to track change in state of show mez rings - since we force an update on new value
   const [lastShowMez, setLastShowMez] = useState<boolean>(showMezRings)
   const [lastHideName, setLastHideName] = useState<boolean>(!!hideName)
+  const [lastInteractive, setLastInteractive] = useState<boolean>(!!interactive)
 
   const map = useMap()
 
@@ -111,21 +112,26 @@ const PlanningForces: React.FC<PropTypes> = ({
         // and add them to the clustered list
         clustered.push(...cluster2)
       }
-      // determine if show mez has changed - since we force an update
+      // if any of the toggles have changed, we need to force an update
       const mezChanged = lastShowMez !== showMezRings
       if (mezChanged) {
         setLastShowMez(mezChanged)
       }
-      const nameChanged = lastHideName !== !!hideName
-      if (nameChanged) {
+      const hideNameChanged = lastHideName !== !!hideName
+      if (hideNameChanged) {
         setLastHideName(!!hideName)
       }
-      if (nameChanged || mezChanged || !isEqual(clustereredMarkers, clustered)) {
+      const interactiveChanged = lastInteractive !== !!interactive
+      if (interactiveChanged) {
+        setLastInteractive(!!interactive)
+      }
+      // ok, now decide if we are going to update the markers
+      if (interactiveChanged || hideNameChanged || mezChanged || !isEqual(clustereredMarkers, clustered)) {
         // console.log('> update clustered', label, clustered.length)
         setClusteredMarkers(clustered)
         setClusteredRangeRings(showMezRings ? getRingsFor(clustered) : [])
       }
-      if (nameChanged || mezChanged || !isEqual(rawMarkers, raw)) {
+      if (interactiveChanged || mezChanged || !isEqual(rawMarkers, raw)) {
         // console.log('> update raw', label, raw.length)
         setRawMarkers(raw)
         setRawRangeRings(showMezRings ? getRingsFor(raw) : [])
@@ -134,7 +140,7 @@ const PlanningForces: React.FC<PropTypes> = ({
       setClusteredMarkers([])
       setRawMarkers([])
     }
-  }, [assets, selectedAssets, currentAssets, clusterIcons, showData, showMezRings, hideName])
+  }, [assets, selectedAssets, currentAssets, clusterIcons, showData, showMezRings, hideName, interactive])
 
   /** utility method to find assets at the same location, and cluster them */
   const clusterRawIcons = (assets: AssetRow[]): AssetRow[] => {
