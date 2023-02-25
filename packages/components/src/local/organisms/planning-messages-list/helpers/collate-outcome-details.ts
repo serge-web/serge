@@ -39,7 +39,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
   const planId = plan._id
   const msgInters = inters.filter((msg) => {
     const inter = msg.details.interaction
-    return inter && (inter.orders1 === planId || inter.orders2 == planId)
+    return inter && (inter.orders1 === planId || inter.orders2 === planId)
   })
   if (msgInters) {
     const res: OutcomeDetails = {
