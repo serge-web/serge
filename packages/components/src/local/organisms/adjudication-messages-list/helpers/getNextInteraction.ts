@@ -507,7 +507,7 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
           return !outcomes.find((outcome) => outcome.asset === asset)
         }
         if (assets.length) {
-          assets.forEach((asset, index) => {
+          assets.forEach((asset) => {
             const uniqid = asset.asset.uniqid
             if (activity.spatialHealth) {
               if (notPresent(uniqid, outcomes.healthOutcomes)) {
