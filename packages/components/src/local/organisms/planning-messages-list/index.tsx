@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Box } from '@material-ui/core'
 import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
-import { ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
+import { CoreOutcome, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import { isEqual } from 'lodash'
 import moment from 'moment'
@@ -211,6 +211,24 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       return undefined
     }
   }
+
+  const filterList = (outcomes: CoreOutcome[]) => {
+    return outcomes.length > 0
+  }
+
+  console.table(myPlanningMessages.map((plan) => {
+    const inters = myInteractionMessages.filter((inter) => {
+      const details = inter.details.interaction
+      return details && (details.orders1 === plan._id || details.orders2 === plan._id )
+    })
+    return {
+      plan: plan.message.Reference,
+      narratives: inters.filter((inter) => inter.message.perForceNarratives && inter.message.perForceNarratives.length > 0).map((aa) => aa.message.Reference).join(', '),
+      health: inters.filter((inter) => filterList(inter.message.healthOutcomes)).map((aa) => aa.message.Reference).join(', '),
+      perception: inters.filter((inter) => filterList(inter.message.perceptionOutcomes)).map((aa) => aa.message.Reference).join(', '),
+      movement: inters.filter((inter) => filterList(inter.message.locationOutcomes)).map((aa) => aa.message.Reference).join(', '),
+    }
+  }))
 
   const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template

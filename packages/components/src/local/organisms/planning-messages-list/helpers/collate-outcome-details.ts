@@ -4,6 +4,7 @@ import { uniq } from 'lodash'
 
 export interface AssetChange {
   name: string
+  nature: 'Health' | 'Movement' | 'Perception' 
   force?: string
   health?: number
   c4Status?: string
@@ -24,7 +25,7 @@ export interface OutcomeDetails {
   interactions: InteractionSummary[]
 }
 
-const forceFor = (forceId: ForceData['uniqid'], forceColors: ForceStyle[]): ForceStyle => {
+export const forceFor = (forceId: ForceData['uniqid'], forceColors: ForceStyle[]): ForceStyle => {
   const match = forceColors.find((force) => force.forceId === forceId)
   if (!match) {
     throw Error('Force not found' + forceId)
@@ -87,6 +88,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
             const canSee = isUmpire || asset.force.uniqid === playerForce
             if (canSee) {
               const newA: AssetChange = {
+                nature: 'Health',
                 force: asset.force.name,
                 name: asset.asset.name,
                 health: health.health,
@@ -108,6 +110,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
             const canSee = isUmpire || asset.force.uniqid === playerForce
             if (canSee) {
               const newA: AssetChange = {
+                nature: 'Movement',
                 force: asset.force.name,
                 name: asset.asset.name,
                 location: location.location
@@ -123,11 +126,12 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
         // now perceptions
         const percO = inter.message.perceptionOutcomes
         percO.forEach((perception) => {
-          const asset = assets && assets.find((asset) => asset.asset.uniqid === perception.asset)
-          if (asset) {
-            const canSee = isUmpire || asset.force.uniqid === playerForce
-            if (canSee) {
+          const canSee = isUmpire || perception.force === playerForce
+          if (canSee) {
+            const asset = assets && assets.find((asset) => asset.asset.uniqid === perception.asset)
+            if (asset) {
               const newA: AssetChange = {
+                nature: 'Perception',
                 force: asset.force.name,
                 name: perception.perceivedName || asset.asset.uniqid
               }
@@ -138,9 +142,13 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
                 newA.health = perception.perceivedHealth
               }
               if (perception.perceivedLocation) {
-                const parsedStr = JSON.parse(perception.perceivedLocation)
-                if (Array.isArray(parsedStr)) {
-                  newA.location = parsedStr as [number, number]
+                try {
+                  const parsedStr = JSON.parse(perception.perceivedLocation)
+                  if (Array.isArray(parsedStr)) {
+                    newA.location = parsedStr as [number, number]
+                  }  
+                } catch(err) {
+                  console.log('json parse failed', err)
                 }
               }
               if (perception.perceivedType) {
@@ -151,12 +159,10 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
             }
           }
         })
-        console.log('COLLATED', inter.message, summary)
         // done, store it
         res.interactions.push(summary)
       }
     })
-    console.log('outcomes done', res)
     return res
   }
   return undefined
