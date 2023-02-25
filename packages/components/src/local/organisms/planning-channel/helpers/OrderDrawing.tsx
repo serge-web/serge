@@ -216,6 +216,11 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // now delete the GeoMan layer
       geoLayers.forEach((layer: Layer) => layer.remove && layer.remove())
       setGeoLayers([])
+
+      // remove standard area when finished
+      if (selectedPolygonLayer.current) {
+        map.removeLayer(selectedPolygonLayer.current)
+      }
     } else if (plannedGeometries.length > 0) {
       // move forward one
       setCurrentGeometry(currentGeometry + 1)
