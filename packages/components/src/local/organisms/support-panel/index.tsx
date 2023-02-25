@@ -523,7 +523,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
                 <TurnFilter label='Show orders for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
-                  messages={filteredPlanningMessages}
+                  planningMessages={filteredPlanningMessages}
+                  interactionMessages={filteredInteractionMessages}
                   phase={phase}
                   gameTurnEndDate={gameTurnEndDate}
                   playerRoleId={selectedRoleId}

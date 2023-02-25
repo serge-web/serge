@@ -1,6 +1,6 @@
 import { Phase } from '@serge/config'
 import {
-  ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, Role, TemplateBody
+  ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, Role, TemplateBody
 } from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
@@ -28,7 +28,11 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * The list of channel messages properties required
    * for ChannelMessage components
    */
-  messages: Array<MessagePlanning>
+  planningMessages: Array<MessagePlanning>
+  /** list of interaction messages, we insert summaries above orders, when
+   * they have outcomes that relate to them
+   */
+  interactionMessages: Array<MessageInteraction>
   /**
    *  current date for turn-end (may be used for finding other orders to sync iwth)
    */
