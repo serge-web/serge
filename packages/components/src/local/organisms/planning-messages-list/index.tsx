@@ -22,8 +22,8 @@ import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   planningMessages, interactionMessages, allTemplates, isUmpire, customiseTemplate,
-  playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders, allForces,
-  confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
+  playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders, allForces, forceColors,
+  confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter, platformTypes,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
   modifyForSave, phase, onSupportPanelLayoutChange, copyMessage
 }: PropTypes) => {
@@ -185,10 +185,27 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   const outcomesForPlan = (plan: MessagePlanning, forceId: ForceData['uniqid'], isUmpire: boolean, forces: ForceData[]): React.ReactElement | undefined => {
-    const details = collateOutcomeDetails(plan, myInteractionMessages, isUmpire, forceId, forces)
+    const details = collateOutcomeDetails(plan, myInteractionMessages, isUmpire, forceId, forces, forceColors, platformTypes)
+    const specialFields = ['name', 'location']
     if (details) {
+      console.log('details', details.interactions.length)
       return <Box>
-        {forceId + ' ' + isUmpire}       
+        {details.interactions.map((summ) => 
+          <>
+          <ul>
+            <li><span>time:</span>{summ.time}</li>
+            <li><span>reference:</span>{summ.reference}</li>
+          </ul>
+          {summ.changes && 
+          <ul> {summ.changes.map((change) => 
+            <li><b>{change.name} </b>
+              {Object.keys(change).filter((key) => !specialFields.includes(key)).map((key) => <><span>{key}:</span> {change[key]}, </>)}
+              {Object.keys(change).filter((key) => key === 'location').map((key) => <><span>{key}:</span> {'updated'}, </>)}
+            </li>
+          )}
+          </ul>}
+          </>
+        )}     
       </Box>
     } else {
       return undefined
