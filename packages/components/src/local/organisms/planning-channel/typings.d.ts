@@ -25,6 +25,7 @@ type SelectOption = {
   additionalClass?: string
   id?: string
   preventClickThrough?: boolean
+  showSelectedIcon?: boolean
 }
 
 type RulerOption = {

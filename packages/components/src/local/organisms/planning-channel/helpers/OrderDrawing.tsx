@@ -44,6 +44,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [standardPolygons, setStandardPolygons] = useState<AreaCategory[] | undefined>(undefined)
 
   const [workingLayer, setWorkingLayer] = useState<L.Layer>()
+  const selectedPolygonLayer = useRef<L.Polygon>()
 
   // this next state is a workaround, to prevent GeoMan calling
   // onCreate multiple times
@@ -215,6 +216,16 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // now delete the GeoMan layer
       geoLayers.forEach((layer: Layer) => layer.remove && layer.remove())
       setGeoLayers([])
+
+      // remove standard area when finished
+      if (selectedPolygonLayer.current) {
+        map.removeLayer(selectedPolygonLayer.current)
+      }
+
+      // remove standard area button
+      if (standardAreaBtn.current) {
+        standardAreaBtn.current.remove()
+      }
     } else if (plannedGeometries.length > 0) {
       // move forward one
       setCurrentGeometry(currentGeometry + 1)
@@ -264,6 +275,11 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
 
   /** handler for player selecting a standard area */
   const useStandardArea = (area: Area) => {
+    // remove selected standard area polygon
+    if (selectedPolygonLayer.current) {
+      map.removeLayer(selectedPolygonLayer.current)
+    }
+
     const coords = area.polygon.coordinates
     // processing is expecting Leaflet lat-longs not number coords.
     const lCoords: LatLng[][] = coords.map((item: Position[]) => {
@@ -271,13 +287,18 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         return L.latLng(pos[1], pos[0])
       })
     })
-    const res: any = {
-      _latlngs: lCoords
-    }
+
+    // draw polygon on map
+    selectedPolygonLayer.current = L.polygon(lCoords).addTo(map)
+
     // cancel drawing
     if (workingLayer) {
       workingLayer.remove()
       map.pm.disableDraw()
+    }
+
+    const res: any = {
+      _latlngs: lCoords
     }
 
     // simulate playe completing shape
