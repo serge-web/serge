@@ -328,6 +328,9 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           uniqid: [force, domain, act.title].join('-'),
           template: templateName
         }
+        if (act.title.includes('-')) {
+          console.error('Warning - later logic relies on there not being hyphen in activity title')
+        }
         if (act.events) {
           activity.events = act.events
         }
