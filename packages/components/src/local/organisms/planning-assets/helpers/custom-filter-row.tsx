@@ -11,6 +11,7 @@ type CustomFilterRowProps = {
   forces: ForceData[]
   cacheKey: string
   onSupportPanelLayoutChange?: (key: string, value: string) => void
+  allColumns: Column<any>[]
 }
 
 const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElement => {
@@ -32,7 +33,9 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
   }, [])
 
   const onFilterChanged = (columnId: number, filter: string[]) => {
-    props.onFilterChanged(columnId, filter)
+    setTimeout(() => {
+      props.onFilterChanged(columnId, filter)
+    }, 500)
 
     const filterApplied = localProps.columns.map(col => ({ id: (col as any).tableData.id, filterValue: (col as any).tableData.filterValue || [] }))
     const filters: FilterObject = getFilterApplied()
@@ -41,7 +44,7 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
       props.onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filters))
     }
 
-    const platformTypeColIdx = props.columns.findIndex(col => col.field === 'platformType')
+    const platformTypeColIdx = props.allColumns.findIndex(col => col.field === 'platformType')
     if (platformTypeColIdx === -1 || columnId !== platformTypeColIdx) {
       return
     }
@@ -67,7 +70,7 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
     })
   }
 
-  return <MTableFilterRow {...localProps} onFilterChanged={onFilterChanged}></MTableFilterRow>
+  return <MTableFilterRow {...localProps} onFilterChanged={onFilterChanged} />
 }
 
 export default CustomFilterRow
