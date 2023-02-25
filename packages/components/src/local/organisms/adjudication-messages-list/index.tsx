@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { ADJUDICATION_OUTCOMES } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
@@ -608,11 +608,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const translateEvent = (event: INTERACTION_SHORT_CIRCUIT): string => {
     switch (event) {
-      case 'i-end':
+      case INTER_AT_END:
         return 'End of activity'
-      case 'i-start':
+      case INTER_AT_START:
         return 'Start of activity'
-      case 'i-random':
+      case INTER_AT_RANDOM:
         return 'Random point in period'
     }
   }
