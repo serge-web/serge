@@ -4,6 +4,20 @@ export interface OutcomeDetails {
 
 }
 
+export interface AssetChange {
+  name: string
+  health: string
+  c4Status: string
+  repairIn: string
+  location: string
+}
+
+export interface InteractionSummary {
+  time: string
+  perForceNarratives: Array<{force: string, summary: string}>
+  changes: AssetChange[]
+}
+
 export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInteraction[]): OutcomeDetails | undefined => {
   const planId = plan._id
   const msgInters = inters.filter((msg) => {
@@ -12,8 +26,11 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
   })
   if (msgInters) {
     const res: OutcomeDetails = {}
-    const interactions = msgInters.map
-    console.log('inters', interactions)
+    msgInters.forEach((inter) => {
+      // start with narrative
+      const narrs = inter.message.Reference
+    })
+    console.log('inters', msgInters)
     return res
   }
   return undefined
