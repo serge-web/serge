@@ -22,7 +22,7 @@ import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   planningMessages, interactionMessages, allTemplates, isUmpire, customiseTemplate,
-  playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders,
+  playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders, allForces,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
   modifyForSave, phase, onSupportPanelLayoutChange, copyMessage
@@ -184,8 +184,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     onDetailPanelClose && onDetailPanelClose(rowData)
   }
 
-  const outcomesForPlan = (plan: MessagePlanning, forceId: ForceData['uniqid'], isUmpire: boolean): React.ReactElement | undefined => {
-    const details = collateOutcomeDetails(plan, myInteractionMessages)
+  const outcomesForPlan = (plan: MessagePlanning, forceId: ForceData['uniqid'], isUmpire: boolean, forces: ForceData[]): React.ReactElement | undefined => {
+    const details = collateOutcomeDetails(plan, myInteractionMessages, isUmpire, forceId, forces)
     if (details) {
       return <Box>
         {forceId + ' ' + isUmpire}       
@@ -289,7 +289,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         }
         const editorRightValue = message.message ? message.message : undefined
 
-        const outcomesFor = outcomesForPlan(message, selectedForce.uniqid, isUmpire)
+        const outcomesFor = outcomesForPlan(message, selectedForce.uniqid, isUmpire, allForces)
 
         return <>
           { outcomesFor }

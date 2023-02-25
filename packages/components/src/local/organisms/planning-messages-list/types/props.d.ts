@@ -37,6 +37,14 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    *  current date for turn-end (may be used for finding other orders to sync iwth)
    */
   gameTurnEndDate: string
+  /** the force data
+   * 
+   */
+  allForces: ForceData[]
+  /** 
+   * force names and colors 
+   */
+  forceColors: Array<ForceStyle>
   /**
    *  definition of planning channel
    */

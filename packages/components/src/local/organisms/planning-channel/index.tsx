@@ -1013,6 +1013,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             gameTurnLength={gameTurnLength}
             currentTurn={currentTurn}
             phase={phase}
+            forceColors={forceColors}
             setSelectedAssets={onSetSelectedAssets}
             selectedOrders={selectedOrders}
             saveCachedNewMessageValue={cacheMessage}

@@ -3,6 +3,7 @@ import {
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
+import { ForceStyle } from '@serge/helpers'
 import LRUCache from 'lru-cache'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
@@ -39,6 +40,7 @@ export default interface PropTypes {
   selectedRoleId: Role['roleId']
   selectedForce: ForceData
   allForces: ForceData[]
+  forceColors: ForceStyle[]
   allPeriods: TurnPeriods
   gameDate: string
   phase: Phase
