@@ -4,7 +4,7 @@ import { uniq } from 'lodash'
 
 export interface AssetChange {
   name: string
-  nature: 'Health' | 'Movement' | 'Perception' 
+  nature: 'Health' | 'Movement' | 'Perception'
   force?: string
   health?: number
   c4Status?: string
@@ -146,8 +146,8 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
                   const parsedStr = JSON.parse(perception.perceivedLocation)
                   if (Array.isArray(parsedStr)) {
                     newA.location = parsedStr as [number, number]
-                  }  
-                } catch(err) {
+                  }
+                } catch (err) {
                   console.log('json parse failed', err)
                 }
               }

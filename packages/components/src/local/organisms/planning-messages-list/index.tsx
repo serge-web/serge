@@ -220,7 +220,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
                 </>
               }
               {summ.changes &&
-                <Typography key={summ.reference + '-changes'}  component={'span'} >
+                <Typography key={summ.reference + '-changes'} component={'span'} >
                   <TableContainer>
                     <Table size="small" >
                       <TableHead>
@@ -244,20 +244,19 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
                   </TableContainer>
                 </Typography>
               }
-              </Fragment>)}
-            </CardContent>
+            </Fragment>)}
+        </CardContent>
       </Card>
     } else {
       return undefined
     }
   }
 
-
   // console.table(myPlanningMessages.map((plan) => {
-    // const filterList = (outcomes: CoreOutcome[]) => {
-    //   return outcomes.length > 0
-    // }
-    //   const inters = myInteractionMessages.filter((inter) => {
+  // const filterList = (outcomes: CoreOutcome[]) => {
+  //   return outcomes.length > 0
+  // }
+  //   const inters = myInteractionMessages.filter((inter) => {
   //     const details = inter.details.interaction
   //     return details && (details.orders1 === plan._id || details.orders2 === plan._id)
   //   })

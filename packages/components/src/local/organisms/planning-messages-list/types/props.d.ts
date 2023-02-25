@@ -38,15 +38,15 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   gameTurnEndDate: string
   /** the platform types data
-   * 
+   *
    */
   platformTypes: PlatformTypeData[]
   /** the force data
-   * 
+   *
    */
   allForces: ForceData[]
-  /** 
-   * force names and colors 
+  /**
+   * force names and colors
    */
   forceColors: Array<ForceStyle>
   /**

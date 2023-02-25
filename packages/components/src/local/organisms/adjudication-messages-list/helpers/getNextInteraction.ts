@@ -1047,68 +1047,68 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       return [allRemainingEvents, contacts]
     } else {
     // do we have any contacts?
-    if (contacts.length !== 0) {
+      if (contacts.length !== 0) {
       // sort ascending
-      const sortedContacts = _.sortBy(contacts, function (contact) { return moment.utc(contact.timeStart).valueOf() })
-      const firstContact = sortedContacts[0]
+        const sortedContacts = _.sortBy(contacts, function (contact) { return moment.utc(contact.timeStart).valueOf() })
+        const firstContact = sortedContacts[0]
 
-      console.log('contact', firstContact)
+        console.log('contact', firstContact)
 
-      // just check there isn't a short-circuit before this
-      if (eventInWindow !== undefined) {
-        const eventTime = eventInWindow.timeStart
-        const contactTime = firstContact.timeStart
-        if (eventTime < contactTime) {
-          console.log('Gen 3 - Have contacts and event, but Event occurs first', eventInWindow.id)
-          // ok, return it
-          // return the short-circuit interaction
-          const details: InteractionDetails = {
-            id: eventInWindow.id,
-            event: eventInWindow.event,
-            orders1: eventInWindow.message._id,
-            orders1Geometry: eventInWindow.geomId,
-            startTime: moment.utc(eventInWindow.timeStart).toISOString(),
-            endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
-            complete: false
+        // just check there isn't a short-circuit before this
+        if (eventInWindow !== undefined) {
+          const eventTime = eventInWindow.timeStart
+          const contactTime = firstContact.timeStart
+          if (eventTime < contactTime) {
+            console.log('Gen 3 - Have contacts and event, but Event occurs first', eventInWindow.id)
+            // ok, return it
+            // return the short-circuit interaction
+            const details: InteractionDetails = {
+              id: eventInWindow.id,
+              event: eventInWindow.event,
+              orders1: eventInWindow.message._id,
+              orders1Geometry: eventInWindow.geomId,
+              startTime: moment.utc(eventInWindow.timeStart).toISOString(),
+              endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
+              complete: false
+            }
+            const outcomes = eventOutcomesFor(eventInWindow.message, emptyOutcomes(), eventInWindow.activity, forces, eventInWindow.event)
+            if (outcomes.otherAssets) {
+              details.otherAssets = outcomes.otherAssets
+              delete outcomes.otherAssets
+            }
+            return { details: details, outcomes: outcomes }
+          } else {
+            console.log('Gen 3 - Have contacts and event, but Contact occurs first', firstContact.id, moment(firstContact.timeStart).toISOString(), moment(firstContact.timeEnd).toISOString())
+            const details = contactDetails(firstContact)
+            const outcomes = contactOutcomes(details, firstContact, activities, forces)
+            return { details: details, outcomes: outcomes }
           }
-          const outcomes = eventOutcomesFor(eventInWindow.message, emptyOutcomes(), eventInWindow.activity, forces, eventInWindow.event)
-          if (outcomes.otherAssets) {
-            details.otherAssets = outcomes.otherAssets
-            delete outcomes.otherAssets
-          }
-          return { details: details, outcomes: outcomes }
         } else {
-          console.log('Gen 3 - Have contacts and event, but Contact occurs first', firstContact.id, moment(firstContact.timeStart).toISOString(), moment(firstContact.timeEnd).toISOString())
+          console.log('Gen 3 - Have contacts, but no event found', firstContact.id)
           const details = contactDetails(firstContact)
           const outcomes = contactOutcomes(details, firstContact, activities, forces)
           return { details: details, outcomes: outcomes }
         }
-      } else {
-        console.log('Gen 3 - Have contacts, but no event found', firstContact.id)
-        const details = contactDetails(firstContact)
-        const outcomes = contactOutcomes(details, firstContact, activities, forces)
+      } else if (eventInWindow) {
+        console.log('Gen 3 - Have event, but no contacts', eventInWindow.id)
+        const details: InteractionDetails = {
+          id: eventInWindow.id,
+          event: eventInWindow.event,
+          orders1: eventInWindow.message._id,
+          startTime: moment.utc(eventInWindow.timeStart).toISOString(),
+          endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
+          otherAssets: [],
+          complete: false
+        }
+        const outcomes = eventOutcomesFor(eventInWindow.message, emptyOutcomes(), eventInWindow.activity, forces, eventInWindow.event)
+        if (outcomes.otherAssets) {
+          details.otherAssets = outcomes.otherAssets
+          delete outcomes.otherAssets
+        }
         return { details: details, outcomes: outcomes }
+      } else {
+        return undefined
       }
-    } else if (eventInWindow) {
-      console.log('Gen 3 - Have event, but no contacts', eventInWindow.id)
-      const details: InteractionDetails = {
-        id: eventInWindow.id,
-        event: eventInWindow.event,
-        orders1: eventInWindow.message._id,
-        startTime: moment.utc(eventInWindow.timeStart).toISOString(),
-        endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
-        otherAssets: [],
-        complete: false
-      }
-      const outcomes = eventOutcomesFor(eventInWindow.message, emptyOutcomes(), eventInWindow.activity, forces, eventInWindow.event)
-      if (outcomes.otherAssets) {
-        details.otherAssets = outcomes.otherAssets
-        delete outcomes.otherAssets
-      }
-      return { details: details, outcomes: outcomes }
-    } else {
-      return undefined
-    }
     }
   }
 }
