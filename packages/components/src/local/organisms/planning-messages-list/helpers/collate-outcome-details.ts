@@ -41,7 +41,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
     const inter = msg.details.interaction
     return inter && (inter.orders1 === planId || inter.orders2 === planId)
   })
-  if (msgInters) {
+  if (msgInters.length) {
     const res: OutcomeDetails = {
       interactions: []
     }
@@ -83,7 +83,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
         // now health
         const healthO = inter.message.healthOutcomes
         healthO.forEach((health) => {
-          const asset = assets && assets.find((asset) => asset.asset.uniqid === health.asset)
+          const asset = assets.find((asset) => asset.asset.uniqid === health.asset)
           if (asset) {
             const canSee = isUmpire || asset.force.uniqid === playerForce
             if (canSee) {
@@ -105,7 +105,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
         // now location
         const locationO = inter.message.locationOutcomes
         locationO.forEach((location) => {
-          const asset = assets && assets.find((asset) => asset.asset.uniqid === location.asset)
+          const asset = assets.find((asset) => asset.asset.uniqid === location.asset)
           if (asset) {
             const canSee = isUmpire || asset.force.uniqid === playerForce
             if (canSee) {
@@ -128,7 +128,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
         percO.forEach((perception) => {
           const canSee = isUmpire || perception.force === playerForce
           if (canSee) {
-            const asset = assets && assets.find((asset) => asset.asset.uniqid === perception.asset)
+            const asset = assets.find((asset) => asset.asset.uniqid === perception.asset)
             if (asset) {
               const newA: AssetChange = {
                 nature: 'Perception',

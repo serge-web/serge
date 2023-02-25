@@ -196,10 +196,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const outcomesForPlan = (plan: MessagePlanning, forceId: ForceData['uniqid'], isUmpire: boolean, forces: ForceData[]): React.ReactElement | undefined => {
     const details = collateOutcomeDetails(plan, myInteractionMessages, isUmpire, forceId, forces, forceColors, platformTypes)
     const specialFields = ['name', 'location', 'nature']
-    if (details) {
+    if (details !== undefined) {
       const usefulDetails = details.interactions.filter((detail) => {
         const narr = detail.perForceNarratives && detail.perForceNarratives.length > 0
-        const assets = detail.changes && detail.changes?.length > 0
+        const assets = detail.changes && detail.changes.length > 0
         return narr || assets
       })
       return <Card key={plan._id}>
