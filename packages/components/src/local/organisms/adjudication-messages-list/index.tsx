@@ -534,6 +534,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setDialogMessage(<>No interactions found</>)
       // fine, ignore it
     } else if (!Array.isArray(results) && results !== undefined) {
+      setInteractionIsOpen(true)
       const outcomes = results as { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
       handleAdjudication && handleAdjudication(outcomes.details, outcomes.outcomes)
     } else {
