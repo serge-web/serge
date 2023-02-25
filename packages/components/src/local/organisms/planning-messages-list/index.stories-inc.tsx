@@ -3,10 +3,10 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useState } from 'react'
 
 // Import component files
-import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ChannelPlanning, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, Role, TemplateBody } from '@serge/custom-types'
-import { incrementGameTime, mostRecentPlanningOnly } from '@serge/helpers'
-import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
+import { forceColors, incrementGameTime, mostRecentPlanningOnly } from '@serge/helpers'
+import { P9BMock, P9Mock, planningMessages as planningChannelMessages, smallForces } from '@serge/mocks'
 import { noop } from 'lodash'
 import { AssetRow } from '../planning-assets/types/props'
 import { customiseAssets } from '../support-panel/helpers/customise-assets'
@@ -68,6 +68,7 @@ const filledInPerForcePlanningActivities = P9BMock.data.activities ? P9BMock.dat
 
 const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = nonInfoMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
+const interactionMessages = nonInfoMessages.filter((msg) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
 const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
 const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void => {
@@ -79,7 +80,7 @@ const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { phase, messages, currentTurn, hideForcesInChannel, turnFilter, selectedRoleName } = args
+  const { phase, planningMessages, currentTurn, hideForcesInChannel, turnFilter, selectedRoleName } = args
   const [isRead, setIsRead] = useState([true, false])
 
   const selectedRoleStr: string = selectedRoleName
@@ -91,9 +92,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
   const isUmpire = force && force.umpire
 
-  let localMessages
-  if (messages.length) {
-    localMessages = messages
+  let localMessages: MessagePlanning[] = []
+  if (planningMessages && planningMessages.length) {
+    localMessages = planningMessages
   } else {
     // put data generation into this `if` side to only generate it if necessary
     const docs: Array<MessagePlanning | MessageInteraction> = randomOrdersDocs(planningChannel.uniqid, 200, forces, [forces[1].uniqid, forces[2].uniqid],
@@ -106,7 +107,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   }
   const onRead = (detail: MessagePlanning): void => {
     const newState = isRead.map((state, id) => {
-      if (id === messages.findIndex((item: any) => item._id === detail._id)) {
+      if (id === planningMessages.findIndex((item: any) => item._id === detail._id)) {
         state = true
       }
       return state
@@ -152,7 +153,11 @@ const Template: Story<MessageListPropTypes> = (args) => {
     selectedRoleName={selectedRoleName}
     selectedForce={force}
     currentTurn={currentTurn}
-    messages={newestMessages}
+    planningMessages={newestMessages}
+    interactionMessages={interactionMessages}
+    allForces={smallForces}
+    forceColors={forceColors(smallForces)}
+    platformTypes={P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []}
     channel={planningChannel}
     customiseTemplate={localCustomiseTemplate}
     gameTurnEndDate={turnEndDate}
