@@ -379,18 +379,29 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     if (!showTimeControl) {
       // find bounds of assets & orders
       let workingBounds: L.LatLngBounds | undefined
+
+      const extendBounds = (assetId: string, assetList: AssetRow[], bounds: LatLngBounds | undefined): LatLngBounds | undefined => {
+        const asset = assetList.find((row) => row.id === assetId)
+        if (asset && asset.position) {
+          const pos = asset.position
+          return bounds ? bounds.extend(pos) : L.latLngBounds(pos, pos)
+        }
+        return bounds
+      }
+
+      // also see if there are asset locations we should include in viewport
       currentAssetIds && currentAssetIds.forEach((id) => {
-        const asset = findAsset(allForces, id)
-        if (asset) {
-          const loc = asset.location
-          if (loc) {
-            const coords = L.latLng(loc[0], loc[1])
-            if (!workingBounds) {
-              workingBounds = L.latLngBounds(coords, coords)
-            } else {
-              workingBounds = workingBounds.extend(coords)
-            }
-          }
+        let assetRow = allOwnAssets.find((row) => row.id === id)
+        if (!assetRow) {
+          assetRow = allOppAssets.find((row) => row.id === id)
+        }
+        if (!assetRow) {
+          console.log('PlanningChannel calc bounds on current data. Failed to find asset with id', id)
+        } else {
+          if (assetRow && assetRow.position) {
+            const pos = assetRow.position
+            workingBounds =  workingBounds ? workingBounds.extend(pos) : L.latLngBounds(pos, pos)
+          }  
         }
       })
       currentOrders.forEach((id) => {
@@ -402,20 +413,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
             })
           }
-          // also see if there are asset locations we should include in viewport
-          const own = plan.message.ownAssets || []
-          const other = plan.message.otherAssets || []
-          const allAssets = own.map((item) => item.asset).concat(other.map((item) => item.asset))
-          if (allAssets) {
-            allAssets.forEach((uniqid) => {
-              const asset = findAsset(allForces, uniqid)
-              const loc = asset.location
-              if (loc) {
-                const coords = L.latLng(loc[0], loc[1])
-                workingBounds = workingBounds ? workingBounds.extend(coords) : L.latLngBounds(coords, coords)
-              }
-            })
-          }
+          plan.message.ownAssets && plan.message.ownAssets.forEach(({asset}) => {
+            workingBounds = extendBounds(asset, allOwnAssets, workingBounds)
+          })
+          plan.message.otherAssets && plan.message.otherAssets.forEach(({asset}) => {
+            workingBounds = extendBounds(asset, allOppAssets, workingBounds)
+          })
         }
       })
       // create a bit of a buffer around the bounds
