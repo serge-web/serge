@@ -221,6 +221,11 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       if (selectedPolygonLayer.current) {
         map.removeLayer(selectedPolygonLayer.current)
       }
+
+      // remove standard area button
+      if (standardAreaBtn.current) {
+        standardAreaBtn.current.remove()
+      }
     } else if (plannedGeometries.length > 0) {
       // move forward one
       setCurrentGeometry(currentGeometry + 1)
@@ -295,6 +300,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     const res: any = {
       _latlngs: lCoords
     }
+
     // simulate playe completing shape
     onCreate({ shape: 'Polygon', layer: res as Layer })
   }
