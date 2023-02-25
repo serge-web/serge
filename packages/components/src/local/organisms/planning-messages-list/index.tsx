@@ -174,7 +174,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value.message.Reference === rowData.rawRef)
     if (!message) {
-      console.error('planning message not found, id:', rowData.reference, 'messages:', messages)
+      console.error('planning message not found, id:', rowData.rawRef, 'messages:', messages)
     } else {
       // sort out if editable
       const myMessageInPlanning = message.details.from.roleId === playerRoleId && phase === Phase.Planning
