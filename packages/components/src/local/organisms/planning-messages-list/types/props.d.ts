@@ -1,6 +1,6 @@
 import { Phase } from '@serge/config'
 import {
-  ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, Role, TemplateBody
+  ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlatformTypeData, Role, TemplateBody
 } from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
@@ -37,6 +37,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    *  current date for turn-end (may be used for finding other orders to sync iwth)
    */
   gameTurnEndDate: string
+  /** the platform types data
+   * 
+   */
+  platformTypes: PlatformTypeData[]
   /** the force data
    * 
    */

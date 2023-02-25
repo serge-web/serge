@@ -525,6 +525,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <PlanningMessagesList
                   planningMessages={filteredPlanningMessages}
                   interactionMessages={filteredInteractionMessages}
+                  platformTypes={platformTypes}
                   phase={phase}
                   gameTurnEndDate={gameTurnEndDate}
                   playerRoleId={selectedRoleId}
