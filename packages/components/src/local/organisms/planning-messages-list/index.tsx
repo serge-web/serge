@@ -1,13 +1,13 @@
-import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faMedkit, faEye, faGlobe, faSearchPlus, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
-import { Box } from '@material-ui/core'
+import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { CoreOutcome, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import { isEqual } from 'lodash'
 import moment from 'moment'
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import CustomFilterRow from '../planning-assets/helpers/custom-filter-row'
@@ -70,7 +70,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const planIds = myPlanningMessages.map((plan) => plan._id)
     const myInteractions = interactionMessages.filter((msg) => {
       const inter = msg.details.interaction
-        return inter && (planIds.includes(inter.orders1) || (inter.orders2 &&planIds.includes(inter.orders2)))
+      return inter && (planIds.includes(inter.orders1) || (inter.orders2 && planIds.includes(inter.orders2)))
     })
     console.log('Planning Message List of interactions', interactionMessages.length, myInteractions.length)
     setMyInteractionMessages(myInteractions)
@@ -184,51 +184,91 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     onDetailPanelClose && onDetailPanelClose(rowData)
   }
 
+  const iconFor = (nature: string): any => {
+    switch (nature) {
+      case 'Health': return faMedkit
+      case 'Movement': return faGlobe
+      case 'Perceptiohn':
+      default: return faEye
+    }
+  }
+
   const outcomesForPlan = (plan: MessagePlanning, forceId: ForceData['uniqid'], isUmpire: boolean, forces: ForceData[]): React.ReactElement | undefined => {
     const details = collateOutcomeDetails(plan, myInteractionMessages, isUmpire, forceId, forces, forceColors, platformTypes)
-    const specialFields = ['name', 'location']
+    const specialFields = ['name', 'location', 'nature']
     if (details) {
-      console.log('details', details.interactions.length)
-      return <Box>
-        {details.interactions.map((summ) => 
-          <>
-          <ul>
-            <li><span>time:</span>{summ.time}</li>
-            <li><span>reference:</span>{summ.reference}</li>
-          </ul>
-          {summ.changes && 
-          <ul> {summ.changes.map((change) => 
-            <li><b>{change.name} </b>
-              {Object.keys(change).filter((key) => !specialFields.includes(key)).map((key) => <><span>{key}:</span> {change[key]}, </>)}
-              {Object.keys(change).filter((key) => key === 'location').map((key) => <><span>{key}:</span> {'updated'}, </>)}
-            </li>
-          )}
-          </ul>}
-          </>
-        )}     
-      </Box>
+      const usefulDetails = details.interactions.filter((detail) => {
+        const narr = detail.perForceNarratives && detail.perForceNarratives.length > 0
+        const assets = detail.changes && detail.changes?.length > 0
+        return narr || assets
+      })
+      return <Card key={plan._id}>
+        <CardContent key={plan._id + 'content'}>
+          {usefulDetails.map((summ) =>
+            <Fragment key={summ.reference}>
+              <Typography key={summ.reference} variant="h6">Adjudication:<b>{summ.reference}</b> Time: <b>{summ.time}</b></Typography>
+              {summ.perForceNarratives && summ.perForceNarratives.length > 0 &&
+                <>
+                  <Typography key={'heading'} variant="h6">Narratives</Typography>
+                  <Typography key={'content'}>
+                    <ul>
+                      {summ.perForceNarratives.map((narr, index) =>
+                        <li key={index}><b>{narr.force}</b> {narr.summary}</li>
+                      )}
+                    </ul>
+                  </Typography>
+                </>
+              }
+              {summ.changes &&
+                <Typography key={summ.reference + '-changes'}  component={'span'} >
+                  <TableContainer>
+                    <Table size="small" >
+                      <TableHead>
+                        <TableRow key='header'>
+                          <TableCell key={1}>Type</TableCell>
+                          <TableCell key={2}>Asset</TableCell>
+                          <TableCell key={3}>Details</TableCell>
+                          <TableCell key={4}>Location</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>{summ.changes.map((change, index) =>
+                        <TableRow key={index}>
+                          <TableCell key={1}> <FontAwesomeIcon size='lg' title='Copy Message' icon={iconFor(change.nature)} className={cx({ [styles.selected]: filter })} /></TableCell>
+                          <TableCell key={2}>{change.name}</TableCell>
+                          <TableCell key={3}>{Object.keys(change).filter((key) => !specialFields.includes(key)).map((key, index) => <Fragment key={index}><span>{key}:</span> <b>{change[key]}</b>, </Fragment>)}</TableCell>
+                          <TableCell key={4}>{change.location && 'Updated'}</TableCell>
+                        </TableRow>
+                      )}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Typography>
+              }
+              </Fragment>)}
+            </CardContent>
+      </Card>
     } else {
       return undefined
     }
   }
 
-  const filterList = (outcomes: CoreOutcome[]) => {
-    return outcomes.length > 0
-  }
 
-  console.table(myPlanningMessages.map((plan) => {
-    const inters = myInteractionMessages.filter((inter) => {
-      const details = inter.details.interaction
-      return details && (details.orders1 === plan._id || details.orders2 === plan._id )
-    })
-    return {
-      plan: plan.message.Reference,
-      narratives: inters.filter((inter) => inter.message.perForceNarratives && inter.message.perForceNarratives.length > 0).map((aa) => aa.message.Reference).join(', '),
-      health: inters.filter((inter) => filterList(inter.message.healthOutcomes)).map((aa) => aa.message.Reference).join(', '),
-      perception: inters.filter((inter) => filterList(inter.message.perceptionOutcomes)).map((aa) => aa.message.Reference).join(', '),
-      movement: inters.filter((inter) => filterList(inter.message.locationOutcomes)).map((aa) => aa.message.Reference).join(', '),
-    }
-  }))
+  // console.table(myPlanningMessages.map((plan) => {
+    // const filterList = (outcomes: CoreOutcome[]) => {
+    //   return outcomes.length > 0
+    // }
+    //   const inters = myInteractionMessages.filter((inter) => {
+  //     const details = inter.details.interaction
+  //     return details && (details.orders1 === plan._id || details.orders2 === plan._id)
+  //   })
+  //   return {
+  //     plan: plan.message.Reference,
+  //     narratives: inters.filter((inter) => inter.message.perForceNarratives && inter.message.perForceNarratives.length > 0).map((aa) => aa.message.Reference).join(', '),
+  //     health: inters.filter((inter) => filterList(inter.message.healthOutcomes)).map((aa) => aa.message.Reference).join(', '),
+  //     perception: inters.filter((inter) => filterList(inter.message.perceptionOutcomes)).map((aa) => aa.message.Reference).join(', '),
+  //     movement: inters.filter((inter) => filterList(inter.message.locationOutcomes)).map((aa) => aa.message.Reference).join(', '),
+  //   }
+  // }))
 
   const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template
@@ -327,7 +367,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         const outcomesFor = outcomesForPlan(message, selectedForce.uniqid, isUmpire, allForces)
 
         return <>
-          { outcomesFor }
+          {outcomesFor}
 
           <DetailPanelStateListener />
           {/* { canEdit &&
@@ -447,7 +487,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
           onClose={archiveCancelled}
           onSave={archiveConfirmed}
-          /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
+        /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
         >
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
         </CustomDialog>
