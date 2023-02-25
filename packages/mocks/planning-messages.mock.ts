@@ -3939,7 +3939,13 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "locationOutcomes": [],
             "perceptionOutcomes": [],
             "narrative": "",
-            "messageType": "AdjudicationOutcomes"
+            "messageType": "AdjudicationOutcomes",
+            "perForceNarratives" : [
+                {
+                    "force": "f-blue",
+                    "feedback": "here is the feedback for umpire-6"
+                }
+            ]
         },
         "_id": "2023-02-20T15:43:22.773Z//5"
     }
