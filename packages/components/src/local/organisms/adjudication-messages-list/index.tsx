@@ -478,11 +478,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const interactions = contacts[1]
       // put contents of results into console
       const sortedEvents = _.sortBy(events, o => o.time)
-      const eventMap: Record<string, string>[] = sortedEvents.map((event): Record<string, string> => {
+      const eventMap: Record<string, string>[] = sortedEvents.map((event, ctr): Record<string, string> => {
         const message = event.message.message
         const own = message.ownAssets ? message.ownAssets.map((item) => item.asset).join(', ') : ''
         const other = message.otherAssets ? message.otherAssets.map((item) => item.asset).join(', ') : ''
         return {
+          id: '' + (ctr + 1),
           ref: message.Reference,
           title: message.title,
           time: formatMilitaryDate(moment.utc(event.time).toISOString()),
@@ -494,10 +495,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       })
       console.table(eventMap)
       const sortedInteractions = _.sortBy(interactions, o => o.timeStart)
-      const interactionMap = sortedInteractions.map((interv) => {
+      const interactionMap = sortedInteractions.map((interv, ctr) => {
         const m1 = interv.first.plan.message
         const m2 = interv.second.plan.message
         return {
+          id: '' + (ctr + 1),
           time: formatMilitaryDate(moment.utc(interv.timeStart).toISOString()),
           firstRef: m1.Reference,
           firstTitle: m1.title,
