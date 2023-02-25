@@ -400,8 +400,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         } else {
           if (assetRow && assetRow.position) {
             const pos = assetRow.position
-            workingBounds =  workingBounds ? workingBounds.extend(pos) : L.latLngBounds(pos, pos)
-          }  
+            workingBounds = workingBounds ? workingBounds.extend(pos) : L.latLngBounds(pos, pos)
+          }
         }
       })
       currentOrders.forEach((id) => {
@@ -413,10 +413,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
             })
           }
-          plan.message.ownAssets && plan.message.ownAssets.forEach(({asset}) => {
+          plan.message.ownAssets && plan.message.ownAssets.forEach(({ asset }) => {
             workingBounds = extendBounds(asset, allOwnAssets, workingBounds)
           })
-          plan.message.otherAssets && plan.message.otherAssets.forEach(({asset}) => {
+          plan.message.otherAssets && plan.message.otherAssets.forEach(({ asset }) => {
             workingBounds = extendBounds(asset, allOppAssets, workingBounds)
           })
         }
