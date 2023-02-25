@@ -22,7 +22,7 @@ import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
-import { collateInteraction, InteractionData, updateForces, updatePlatformTypes, updateWithAllAssets } from './helpers/collate-interaction'
+import { collateInteraction, InteractionData, updateForcesDropdown, updatePlatformTypes, updateWithAllAssets } from './helpers/collate-interaction'
 import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
@@ -345,8 +345,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       updateWithAllAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction, forces)
 
       // now the perceived forces
-      updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
-      updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles, includeUnknown)
+      updateForcesDropdown(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
+      updateForcesDropdown(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles, includeUnknown)
+
+      // now the per-force narrative forces
+      updateForcesDropdown(firstUpdate.properties.perForceNarratives.items.properties.force, forceStyles)
 
       // now the platform types
       updatePlatformTypes(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedType, platformTypes, includeUnknown)
