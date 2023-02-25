@@ -404,32 +404,46 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           }  
         }
       })
-      currentOrders.forEach((id) => {
+      const boundsForOrders = (id: string, bounds: LatLngBounds | undefined): LatLngBounds | undefined => {
         const plan = planningMessages.find((msg) => id === msg._id)
         if (plan) {
           const activities = plan.message.location
           if (activities) {
             activities.forEach((act) => {
-              workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
+              bounds = boundsForGeometry(act.geometry.geometry, bounds)
             })
           }
           plan.message.ownAssets && plan.message.ownAssets.forEach(({asset}) => {
-            workingBounds = extendBounds(asset, allOwnAssets, workingBounds)
+            bounds = extendBounds(asset, allOwnAssets, bounds)
           })
           plan.message.otherAssets && plan.message.otherAssets.forEach(({asset}) => {
-            workingBounds = extendBounds(asset, allOppAssets, workingBounds)
+            bounds = extendBounds(asset, allOppAssets, bounds)
           })
         }
+        return bounds
+      }
+      currentOrders.forEach((id) => {
+        workingBounds = boundsForOrders(id, workingBounds)
       })
+      if (currentInteraction) {
+        const inter = interactionMessages.find((msg) => msg.message.Reference === currentInteraction)
+        if (inter && inter.details.interaction) {
+          workingBounds = boundsForOrders(inter.details.interaction.orders1, workingBounds)
+          if (inter.details.interaction.orders2) {
+            workingBounds = boundsForOrders(inter.details.interaction.orders2, workingBounds)
+          }
+        }
+      }
       // create a bit of a buffer around the bounds
       if (workingBounds) {
+        // console.log('bounds 2', workingBounds)
         setBounds(workingBounds.pad(0.2))
       } else {
         setBounds(workingBounds)
       }
     }
     // update map bounds
-  }, [currentAssetIds, currentOrders])
+  }, [currentAssetIds, currentOrders, currentInteraction])
 
   useEffect(() => {
     if (showTimeControl) {
