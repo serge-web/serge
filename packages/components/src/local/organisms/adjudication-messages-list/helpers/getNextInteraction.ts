@@ -40,26 +40,26 @@ export const createSpecialOrders = (gameTime: number, orders: MessagePlanning[],
 }
 
 export const findActivity = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity | undefined => {
-  let res: PlanningActivity | undefined
-  activities.groupedActivities.find((group: GroupedActivitySet) => {
-    group.activities.find((plan: PlanningActivity) => {
-      if (name.endsWith(plan.name)) {
-        res = plan
-      }
-      return res
-    })
-    return res
-  })
-  if (!res) {
-    console.warn('Failed to find group activities for this activity:', name)
-    return undefined
+  const separator = '-'
+  const last = name.lastIndexOf(separator)
+  const actName = name.slice(last + 1)
+  const forceGroup = name.slice(0, last)
+  const first = forceGroup.lastIndexOf(separator)
+  const groupName = forceGroup.slice(first + 1)
+  const forceName = forceGroup.slice(0, first)
+  if (forceName !== activities.force) {
+    console.warn('Warning: findActivitiy received activities for wrong force')
   }
-  return res
-}
-
-export const timeForActivity = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): number => {
-  console.log('time for', plan, activity, iType)
-  return 1
+  const groupActivities = activities.groupedActivities.find((group) => group.category === groupName)
+  if (groupActivities) {
+    const activity = groupActivities.activities.find((act) => act.name === actName)
+    if (activity) {
+      return activity
+    }
+  }
+  console.warn('Failed to find group activities for this activity:', name)
+  console.warn('find act', name, last, actName, forceGroup, first, groupName, forceName, activities)
+  return undefined
 }
 
 const roundedRandomTime = (start: number, end: number): number => {
@@ -118,7 +118,7 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
         }
       }
     } else {
-      console.warn('Cannot breakdown activity, locations missing')
+      console.warn('Cannot breakdown activity, locations missing', plan.message.Reference, plan.message.activity, plan._id, activity, plan.message.location)
     }
   }
   // just use overall message timing
@@ -243,7 +243,7 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: As
 }
 
 const transitEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
-  if (event === 'i-end' && plan.message.ownAssets && plan.message.location && plan.message.location.length === 1) {
+  if (event === INTER_AT_END && plan.message.ownAssets && plan.message.location && plan.message.location.length === 1) {
     // ok, put the asset(s) at the destination
     const destGeom = plan.message.location[0].geometry.geometry as LineString
     const coords = destGeom.coordinates[destGeom.coordinates.length - 1]
@@ -422,7 +422,6 @@ const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: 
             assets.push({ force, asset })
             special && asset.name === special && console.log(asset.name, asset.location, !!special)
             if (asset.comprising && asset.comprising.length) {
-              console.log('@@ check comprising')
               asset.comprising.forEach((item) => {
                 const fAsset: AssetWithForce = { force: force, asset: item }
                 assets.push(fAsset)
@@ -521,7 +520,6 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
                   c4: newC4,
                   narrative: 'Asset in area for ' + activity.uniqid
                 })
-                asset.asset.name === 'Green:4' && console.log('health', asset.asset, index)
                 if (!outcomes.otherAssets) {
                   outcomes.otherAssets = []
                 }
@@ -603,7 +601,6 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
     case 'STRIKE': {
       const targetAssets = plan.message.otherAssets ? plan.message.otherAssets.map((item) => findForceAndAsset(forces, item.asset)) : []
       const squadronsAtAirfields = squadronsAtTheseAirfields(targetAssets, forces)
-      console.log('airfields', targetAssets, squadronsAtAirfields)
       // TODO: create scenario to test this
       const allTargets = targetAssets.concat(...squadronsAtAirfields)
       kineticEventOutcomesFor(allTargets, squadronsAtAirfields, outcomes, activity)
@@ -698,7 +695,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
               } else {
                 // check the time of this event has passed
                 if (thisTime.time < cutoffTime) {
-                  if (event === 'i-end') {
+                  if (event === INTER_AT_END) {
                     endActivityGenerated = true
                   }
                   eventList.push({
@@ -721,17 +718,20 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
           if (locData && locData.length > 0 && endsWithMovement(locData)) {
             const interactionId = generateEventId(plan._id, INTER_AT_END, turnNumber)
             // check it hasn't already been processed
-            if (!interactionIDs.includes(interactionId)) {
+            if (interactionIDs.includes(interactionId)) {
+              console.log('Skipping this event 2, already processed', interactionId)
+            } else {
               const planned = locData[locData.length - 1]
               if (planned) {
                 // note: since it's the end of the last leg, it's actually the end of the orders, too
                 const endDate = plan.message.endDate
                 const endTime = moment(endDate).valueOf()
-                if (endTime) {
+                // check it's not outside our window
+                if (endTime < cutoffTime) {
                   // ok - generate a movement outcome
                   eventList.push({
                     id: interactionId,
-                    event: 'i-end',
+                    event: INTER_AT_END,
                     message: plan,
                     time: endTime,
                     timeStr: endDate,
@@ -766,7 +766,14 @@ export const checkForEvent = (cutoffTime: number, orders: MessagePlanning[], int
   console.log('look for event before', moment.utc(cutoffTime).toISOString())
 
   const eventList = getEventList(cutoffTime, orders, interactionIDs, activities, turn, turnNumber)
-
+  // console.table(eventList.map((event) => {
+  //   return {
+  //     id: event.message.message.Reference,
+  //     time: event.timeStr,
+  //     ref: event.message.message.Reference,
+  //     type: event.message.details.interaction && event.message.details.interaction.event
+  //   }
+  // }))
   if (eventList.length) {
     // sort in ascending
     const sorted = _.sortBy(eventList, function (inter) { return inter.time })
@@ -974,6 +981,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 
       // if we're doing get-all, don't bother with shortcircuits
       if (getAll) {
+        console.log('doing get all to finish before', moment.utc(windowEnd).toISOString())
         allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities, turnPeriod, turnNumber)
       } else {
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
@@ -1033,6 +1041,11 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       currentWindowMillis *= 2
     }
 
+    // special handling for get-all
+    if (getAll) {
+      // collate the data
+      return [allRemainingEvents, contacts]
+    } else {
     // do we have any contacts?
     if (contacts.length !== 0) {
       // sort ascending
@@ -1072,13 +1085,9 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         }
       } else {
         console.log('Gen 3 - Have contacts, but no event found', firstContact.id)
-        if (getAll) {
-          return [allRemainingEvents, contacts]
-        } else {
-          const details = contactDetails(firstContact)
-          const outcomes = contactOutcomes(details, firstContact, activities, forces)
-          return { details: details, outcomes: outcomes }
-        }
+        const details = contactDetails(firstContact)
+        const outcomes = contactOutcomes(details, firstContact, activities, forces)
+        return { details: details, outcomes: outcomes }
       }
     } else if (eventInWindow) {
       console.log('Gen 3 - Have event, but no contacts', eventInWindow.id)
@@ -1099,6 +1108,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       return { details: details, outcomes: outcomes }
     } else {
       return undefined
+    }
     }
   }
 }
