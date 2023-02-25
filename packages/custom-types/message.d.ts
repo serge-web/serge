@@ -251,6 +251,13 @@ export interface MessageFeedback extends CoreMessage {
   message: MessageStructure
 }
 
+/** an instance of feedback to a particular force
+ */  
+export interface PerForceNarrative {
+  force: ForceData['uniqid']
+  feedback: string
+}
+
 /** the outcome-related content of an adjudication */
 export interface MessageAdjudicationOutcomes {
   readonly messageType: typeof ADJUDICATION_OUTCOMES,
@@ -267,6 +274,7 @@ export interface MessageAdjudicationOutcomes {
    */
   otherAssets?: Array<Asset['uniqid']>
   narrative?: string
+  perForceNarratives?: PerForceNarrative[]
 }
 
 /** message containing updated game status, could be one of:
