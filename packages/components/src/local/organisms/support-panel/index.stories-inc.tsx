@@ -113,6 +113,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     handleAdjudication={handler}
     setSelectedOrders={noop} onUnread={noop}
     onRead={noop}
+    forceColors={forceColors(forces)}
     phase={Phase.Planning}
     channel={planningChannel}
     allTemplates={templates}
