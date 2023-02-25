@@ -15,6 +15,9 @@ import addUnreadMsgCount from './helpers/renameTab'
 const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const state = usePlayerUiState()
   const [byPassUrl] = useState<URL>(getByPassUrl(state))
+  const playerUiDispatch = usePlayerUiDispatch()
+  const dispatch = useDispatch()
+
   const adminInsightsModel = FLEX_LAYOUT_MODEL_DEFAULT
   adminInsightsModel.global['tabSetEnableMaximize'] = false
   adminInsightsModel.global['tabSetTabStripHeight'] = 35
@@ -24,8 +27,6 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const gameAdminTab = 'Game Admin'
   const insightsTabId = 'Insights'
   const insightsTab = 'Insights'
-  const playerUiDispatch = usePlayerUiDispatch()
-  const dispatch = useDispatch()
   const { selectedForce, selectedRoleName } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
