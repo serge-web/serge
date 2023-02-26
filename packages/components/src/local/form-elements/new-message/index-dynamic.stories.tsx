@@ -108,16 +108,16 @@ P9Dynamic.args = {
 }
 
 const cyberTemplate = templates.filter((template) => template._id === 'Cyber--Effects')
-export const cyberOpen = Template.bind({})
-cyberOpen.args = {
+export const CyberOpen = Template.bind({})
+CyberOpen.args = {
   templates: cyberTemplate || [],
   draftMessage: { messageType: CUSTOM_MESSAGE, details: { messageType: 'Cyber--Effects' } } as MessageCustom
 }
 
 const strikeTemplate = 'f-blue--Maritime--MissileStrike'
 const strikeTemplates = templates.filter((template) => template._id === strikeTemplate)
-export const strikeOpen = Template.bind({})
-strikeOpen.args = {
+export const StrikeOpen = Template.bind({})
+StrikeOpen.args = {
   templates: strikeTemplates || [],
   draftMessage: { messageType: CUSTOM_MESSAGE, details: { messageType: strikeTemplate } } as MessageCustom
 }
