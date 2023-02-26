@@ -119,7 +119,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   // propagate changes to selected assets
   const localSelectedAssets = useRef<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
-  const [timelineInteractions, setTimelineInteractions] = useState<string[]>([])
 
   // we need to break down assets by force, so they can be plotted (clustered) by color
   // will show current assets (if present), then filtered or all, according to show all filter
@@ -162,10 +161,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   // TIMELINE related
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
+  const [timelineLiveEntities, setTimelineLiveEntities] = useState<string[]>([])
+
   const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
   const [showTimeOutcomes, setShowTimeOutcomes] = useState<boolean>(false)
   const [showTimeOrders, setShowTimeOrders] = useState<boolean>(false)
   const [showTimeInteractions, setShowTimeInteractions] = useState<boolean>(false)
+  const [timelineOrders, setTimelineOrders] = useState<string[]>([])
+  const [timelineInteractions, setTimelineInteractions] = useState<MessageInteraction[]>([])
 
   /** note we store the interaction reference here, not the id, to allow for the
    * document being updated
@@ -284,9 +287,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // collate data
-    console.log('timeline interactions', timelineInteractions)
+    console.log('timeline interactions', timelineLiveEntities)
+    const plans = planningMessages.filter((msg) => timelineLiveEntities.includes(msg._id))
+    const inters = interactionMessages.filter((msg) => timelineLiveEntities.includes(msg._id))
+    setTimelineInteractions(inters)
+    setTimelineOrders(plans.map((pln) => pln._id))
+    console.log('inters found', inters)
     // update state
-  }, [timelineInteractions])
+  }, [timelineLiveEntities])
 
   useEffect(() => {
     if (areas) {
@@ -976,12 +984,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return (
       <>
         <Ruler showControl={true} />
-        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineInteractions}
+        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} />
         <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showStandardAreas && <AreaPlotter areas={myAreas} />}
         {showTimeControl ? <Fragment>
-          <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+          <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={timelineOrders} activities={flattenedPlanningActivities} interactions={timelineInteractions} setSelectedOrders={noop} />
         </Fragment>
           : <Fragment>
             <Fragment key='selectedObjects'>
@@ -1004,7 +1012,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       </>
     )
   }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings, showTimeControl])
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings, showTimeControl,
+  timelineInteractions])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -1102,11 +1111,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                                 onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
                             </div>
                           }
-                          {showTimeControl ?
-                            <>
+                          {showTimeControl
+                            ? <>
                               <div className={cx('leaflet-control')}>
                                 <Item title={showTimeOutcomes ? 'Hide outcomes' : 'Show outcomes'} contentTheme={showTimeOutcomes ? 'light' : 'dark'}
-                                  onClick={() => setShowMezRings(!showTimeOutcomes)}>A</Item>
+                                  onClick={() => setShowTimeOutcomes(!showTimeOutcomes)}>A</Item>
                               </div>
                               <div className={cx('leaflet-control')}>
                                 <Item title={showTimeOrders ? 'Hide orders' : 'Show Orders'} contentTheme={showTimeOrders ? 'light' : 'dark'}
