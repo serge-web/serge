@@ -1,3 +1,4 @@
+import { Phase } from '@serge/config'
 import {
   ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
   PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody, TurnPeriods
@@ -120,4 +121,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /** the current turn for the game */
   currentTurn: number
 
+  /** current phase of game */
+  phase: Phase
 }

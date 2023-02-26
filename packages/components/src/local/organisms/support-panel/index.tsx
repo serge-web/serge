@@ -611,6 +611,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   periods={allPeriods}
                   gameDate={gameDate}
                   gameTurnLength={gameTurnTime}
+                  phase={phase}
                   playerRoleId={selectedRoleId}
                   forceColors={forceColors}
                   onRead={onRead}
