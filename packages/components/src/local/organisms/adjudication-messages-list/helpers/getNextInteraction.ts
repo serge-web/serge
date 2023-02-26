@@ -64,8 +64,8 @@ export const findActivity = (name: string, activities: PerForcePlanningActivityS
 
 const roundedRandomTime = (start: number, end: number): number => {
   // TODO: switch back to randomly generated time
-  // const delta = Math.random() * (end - start)
-  const delta = 0.5 * (end - start)
+  const delta = Math.random() * (end - start)
+  // const delta = 0.5 * (end - start)
   const mins5 = 5 * 60 * 1000
   const rounded = Math.floor(delta / mins5) * mins5
   return start + rounded
