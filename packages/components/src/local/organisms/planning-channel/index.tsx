@@ -5,7 +5,7 @@ import {
 } from '@serge/custom-types'
 import { clearUnsentMessage, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { circleMarker, LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
+import L, { circleMarker, LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions, timeline } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
@@ -195,6 +195,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const isUmpire = selectedForce.umpire
       const features: Feature[] = []
       interactionMessages.forEach((iMessage) => {
+        // find interactions that either relate to my assets, or where my perception of op-for asset changes
+        iMessage.message.locationOutcomes.forEach((location) => {
+          const id = location.asset
+          const asset = allOwnAssets.find((row) => row.id === id)
+          if (asset) {
+            // see if it is from my force, or I am umpire
+          }
+        })
+
         // sort out the orders to show
         const interaction = iMessage.details.interaction
         if (interaction) {
@@ -257,6 +266,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         type: 'FeatureCollection',
         features: features
       }
+      // console.log('my events', collection)
       setTimeControlEvents(collection)
     } else {
       setTimeControlEvents(undefined)
@@ -270,7 +280,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // collate data
-    // console.log('timeline interaction')
+    console.log('timeline interactions', timelineInteractions)
     // update state
   }, [timelineInteractions])
 
