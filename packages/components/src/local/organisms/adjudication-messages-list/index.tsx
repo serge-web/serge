@@ -457,7 +457,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             }
           } else if (Array.isArray(loc)) {
             // value is valid, leave
-            res = loc
           } else {
             console.error('Unexpected location outcome format:', res)
           }
