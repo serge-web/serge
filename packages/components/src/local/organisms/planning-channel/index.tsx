@@ -3,9 +3,9 @@ import {
   AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet,
   PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry
 } from '@serge/custom-types'
-import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
+import { clearUnsentMessage, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
+import L, { circleMarker, LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
@@ -119,7 +119,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   // propagate changes to selected assets
   const localSelectedAssets = useRef<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
-  const [timelineInteractions, setTimelineInteractions] = useState<string[]>([])
 
   // we need to break down assets by force, so they can be plotted (clustered) by color
   // will show current assets (if present), then filtered or all, according to show all filter
@@ -160,8 +159,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [isUmpire, setIsUmpire] = useState<boolean>(false)
   const [playerInPlanning, setPlayerInPlanning] = useState<boolean>(false)
 
+  // TIMELINE related
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
+  const [timelineLiveEntities, setTimelineLiveEntities] = useState<string[]>([])
+
   const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
+  const [showTimeOutcomes, setShowTimeOutcomes] = useState<boolean>(false)
+  const [showTimeOrders, setShowTimeOrders] = useState<boolean>(false)
+  const [showTimeInteractions, setShowTimeInteractions] = useState<boolean>(false)
+  const [timelineOrders, setTimelineOrders] = useState<string[]>([])
+  const [timelineInteractions, setTimelineInteractions] = useState<MessageInteraction[]>([])
 
   /** note we store the interaction reference here, not the id, to allow for the
    * document being updated
@@ -195,6 +202,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const isUmpire = selectedForce.umpire
       const features: Feature[] = []
       interactionMessages.forEach((iMessage) => {
+        // find interactions that either relate to my assets, or where my perception of op-for asset changes
+        iMessage.message.locationOutcomes.forEach((location) => {
+          const id = location.asset
+          const asset = allOwnAssets.find((row) => row.id === id)
+          if (asset) {
+            // see if it is from my force, or I am umpire
+          }
+        })
+
         // sort out the orders to show
         const interaction = iMessage.details.interaction
         if (interaction) {
@@ -257,6 +273,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         type: 'FeatureCollection',
         features: features
       }
+      // console.log('my events', collection)
       setTimeControlEvents(collection)
     } else {
       setTimeControlEvents(undefined)
@@ -270,9 +287,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // collate data
-    // console.log('timeline interaction')
+    console.log('timeline interactions', timelineLiveEntities)
+    const plans = planningMessages.filter((msg) => timelineLiveEntities.includes(msg._id))
+    const inters = interactionMessages.filter((msg) => timelineLiveEntities.includes(msg._id))
+    setTimelineInteractions(inters)
+    setTimelineOrders(plans.map((pln) => pln._id))
+    console.log('inters found', inters)
     // update state
-  }, [timelineInteractions])
+  }, [timelineLiveEntities])
 
   useEffect(() => {
     if (areas) {
@@ -329,6 +351,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         res.push(item)
       }
     })
+    res.push({
+      force: UNKNOWN_TYPE,
+      rows: [],
+      color: '#ccc'
+    })
     const doRows = (rows: AssetRow[]) => {
       rows.forEach((row) => {
         const force = row.force
@@ -340,7 +367,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const forceToUse = force || UNKNOWN_TYPE
         const thisA = res.find((force) => force.force === forceToUse)
         if (thisA === undefined) {
-          console.warn('Failed to find existing entry for', force)
+          console.warn('Failed to find existing entry for', force, row)
         } else {
           thisA.rows.push(row)
         }
@@ -404,15 +431,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           }
         }
       })
-      currentOrders.forEach((id) => {
+      const boundsForOrders = (id: string, bounds: LatLngBounds | undefined): LatLngBounds | undefined => {
         const plan = planningMessages.find((msg) => id === msg._id)
         if (plan) {
           const activities = plan.message.location
           if (activities) {
             activities.forEach((act) => {
-              workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
+              bounds = boundsForGeometry(act.geometry.geometry, bounds)
             })
           }
+
           plan.message.ownAssets && plan.message.ownAssets.forEach(({ asset }) => {
             workingBounds = extendBounds(asset, allOwnAssets, workingBounds)
           })
@@ -420,16 +448,30 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             workingBounds = extendBounds(asset, allOppAssets, workingBounds)
           })
         }
+        return bounds
+      }
+      currentOrders.forEach((id) => {
+        workingBounds = boundsForOrders(id, workingBounds)
       })
+      if (currentInteraction) {
+        const inter = interactionMessages.find((msg) => msg.message.Reference === currentInteraction)
+        if (inter && inter.details.interaction) {
+          workingBounds = boundsForOrders(inter.details.interaction.orders1, workingBounds)
+          if (inter.details.interaction.orders2) {
+            workingBounds = boundsForOrders(inter.details.interaction.orders2, workingBounds)
+          }
+        }
+      }
       // create a bit of a buffer around the bounds
       if (workingBounds) {
+        // console.log('bounds 2', workingBounds)
         setBounds(workingBounds.pad(0.2))
       } else {
         setBounds(workingBounds)
       }
     }
     // update map bounds
-  }, [currentAssetIds, currentOrders])
+  }, [currentAssetIds, currentOrders, currentInteraction])
 
   useEffect(() => {
     if (showTimeControl) {
@@ -517,10 +559,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
+
     // no - do not clear the filtered assets arrays.  They get assigned
     // in a round-trip from the `visibleRows` handler from the assets table
+    // update the own filtered arrays with the new values
+    const ownIds = ownAssetsFiltered.current.map((row) => row.id)
+    const filteredOwn = own.filter((row) => ownIds.includes(row.id))
+    ownAssetsFiltered.current = filteredOwn
+    const opIds = opAssetsFiltered.current.map((row) => row.id)
+    const filteredOp = opp.filter((row) => opIds.includes(row.id))
+    opAssetsFiltered.current = filteredOp
     // ownAssetsFiltered.current = []
     // opAssetsFiltered.current = []
+
     setAllOwnAssets(own)
     setAllOppAssets(opp)
     setForceColors(forceCols)
@@ -567,12 +618,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (selectedAssets.length) {
-      const assets = selectedAssets.map((id: string): Asset => findAsset(allForces, id))
-      const assetsWithLocation = assets.filter((asset: Asset) => asset.location !== undefined)
-      const locations: any = assetsWithLocation.map((asset: Asset) => asset.location)
+      const relevantRows = selectedAssets.map((id): AssetRow | undefined => {
+        let assetRow = allOwnAssets.find((row) => row.id === id)
+        if (!assetRow) {
+          assetRow = allOppAssets.find((row) => row.id === id)
+        }
+        return assetRow
+      })
+      const assets = relevantRows.filter((row) => row) as AssetRow[]
+      const assetsWithLocation = assets.filter((asset: AssetRow) => asset.position !== undefined)
+      const locations: any = assetsWithLocation.map((asset: AssetRow) => asset.position)
       if (locations.length > 0) {
         let mapBounds: LatLngBounds | undefined
-        locations.forEach((loc: [number, number]) => {
+        locations.forEach((loc: LatLng) => {
           if (!mapBounds) {
             mapBounds = latLngBounds(loc, loc)
           } else {
@@ -926,30 +984,36 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return (
       <>
         <Ruler showControl={true} />
-        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineInteractions}
+        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} />
         <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showStandardAreas && <AreaPlotter areas={myAreas} />}
-        <Fragment>
-          <Fragment key='selectedObjects'>
-            <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} interactions={interactionMessages} selectedInteraction={currentInteraction} />
-            <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
-            <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-              {perForceAssets.map((force) => {
-                return <PlanningForces showData={!showTimeControl} showMezRings={showMezRings} clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
-                  assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={!showIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
-              })
-              }
-              {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
-            </LayerGroup>
-          </Fragment>
-          {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
-          {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} areas={myAreas} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
+        {showTimeControl ? <Fragment>
+          <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={timelineOrders} activities={flattenedPlanningActivities} interactions={timelineInteractions} setSelectedOrders={noop} />
         </Fragment>
+          : <Fragment>
+            <Fragment key='selectedObjects'>
+              <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} interactions={interactionMessages} selectedInteraction={currentInteraction} />
+              <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+              <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
+                {perForceAssets.map((force) => {
+                  return <PlanningForces showData={!showTimeControl} showMezRings={showMezRings} clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
+                    assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={!showIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                })
+                }
+                {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
+              </LayerGroup>
+            </Fragment>
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
+            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} areas={myAreas} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
+          </Fragment>
+
+        }
       </>
     )
   }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings, showTimeControl])
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings, showTimeControl,
+    timelineInteractions])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -998,6 +1062,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             gameTurnLength={gameTurnLength}
             currentTurn={currentTurn}
             phase={phase}
+            forceColors={forceColors}
             setSelectedAssets={onSetSelectedAssets}
             selectedOrders={selectedOrders}
             saveCachedNewMessageValue={cacheMessage}
@@ -1046,27 +1111,44 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                                 onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
                             </div>
                           }
-                          <div className={cx('leaflet-control')}>
-                            <Item title={showMezRings ? 'Hide MEZ rings' : 'Show MEZ Rings'} contentTheme={showMezRings ? 'light' : 'dark'}
-                              onClick={() => setShowMezRings(!showMezRings)}><FontAwesomeIcon size={'lg'} icon={faCircle} /></Item>
-                          </div>
+                          {showTimeControl
+                            ? <>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showTimeOutcomes ? 'Hide outcomes' : 'Show outcomes'} contentTheme={showTimeOutcomes ? 'light' : 'dark'}
+                                  onClick={() => setShowTimeOutcomes(!showTimeOutcomes)}>A</Item>
+                              </div>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showTimeOrders ? 'Hide orders' : 'Show Orders'} contentTheme={showTimeOrders ? 'light' : 'dark'}
+                                  onClick={() => setShowTimeOrders(!showTimeOrders)}>O</Item>
+                              </div>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showTimeInteractions ? 'Hide interactions' : 'Show Interactions'} contentTheme={showTimeInteractions ? 'light' : 'dark'}
+                                  onClick={() => setShowTimeInteractions(!showTimeInteractions)}>I</Item>
+                              </div>
+                            </>
+                            : <>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showMezRings ? 'Hide MEZ rings' : 'Show MEZ Rings'} contentTheme={showMezRings ? 'light' : 'dark'}
+                                  onClick={() => setShowMezRings(!showMezRings)}><FontAwesomeIcon size={'lg'} icon={faCircle} /></Item>
+                              </div>
 
-                          <div className={cx('leaflet-control')}>
-                            <Item title={showIconName ? 'Hide asset names' : 'Show asset names'} contentTheme={showIconName ? 'light' : 'dark'}
-                              onClick={() => setShowIconName(!showIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
-                          </div>
-                          {
-                            <div className={cx('leaflet-control')}>
-                              <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}
-                                onClick={() => setClusterIcons(!clusterIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
-                            </div>
-                          }
-                          <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                          <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {isUmpire && // don't bother with this, but keep it in case we want to gen more data
-                            <div className={cx('leaflet-control')}>
-                              <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
-                            </div>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showIconName ? 'Hide asset names' : 'Show asset names'} contentTheme={showIconName ? 'light' : 'dark'}
+                                  onClick={() => setShowIconName(!showIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
+                              </div>
+                              {
+                                <div className={cx('leaflet-control')}>
+                                  <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}
+                                    onClick={() => setClusterIcons(!clusterIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
+                                </div>
+                              }
+                              <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                              <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                              {isUmpire && // don't bother with this, but keep it in case we want to gen more data
+                                <div className={cx('leaflet-control')}>
+                                  <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
+                                </div>
+                              }</>
                           }
                           <div className={cx('leaflet-control')}>
                             <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}

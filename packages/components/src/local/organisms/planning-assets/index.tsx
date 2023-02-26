@@ -58,6 +58,14 @@ export const PlanningAssets: React.FC<PropTypes> = ({
           onClick: (): void => clearSelectedAssets()
         },
         {
+          icon: () => <FontAwesomeIcon title='Clear selection' icon={faBan} />,
+          iconProps: { color: 'action' },
+          tooltip: 'Clear seleced assets',
+          isFreeAction: true,
+          disabled: false,
+          onClick: (): void => clearSelectedAssets()
+        },
+        {
           icon: () => <FontAwesomeIcon title='Show dead asset' icon={faSkull} className={cx({ [styles.selected]: showDead })} />,
           iconProps: showDead ? { color: 'action' } : { color: 'disabled' },
           tooltip: !showDead ? 'Show dead assets' : 'Hide dead assets',
@@ -206,7 +214,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (!showColumnFilters || !initialised) {
-      const assetsOfInterest = showDead ? assets : assets.filter((asset) => asset.health && asset.health > 0)
+      const assetsOfInterest = showDead ? assets : assets.filter((asset) => (asset.health && asset.health > 0) || (asset.health === undefined))
       setInitialised(false)
       setRows(assetsOfInterest)
     }

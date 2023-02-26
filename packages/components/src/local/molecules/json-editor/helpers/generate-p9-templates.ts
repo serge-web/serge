@@ -234,7 +234,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'EW', title: 'EW Attack', events: both, forces: redBlue, domains: seaAirLand, acts: thereBack, actDesc: ['EW Area of Effect'], specific: 'EWAttack', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'ISTAR', title: 'ISTAR', events: rndEnd, forces: redBlue, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR', spatialP: true })
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: landMar, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
-  acts.push({ uniqid: 'AAR', title: 'Air-Air Refuel', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['AAR at this location'], specific: 'AirToAir' })
+  acts.push({ uniqid: 'AAR', title: 'Air to Air Refuel', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['AAR at this location'], specific: 'AirToAir' })
   acts.push({ uniqid: 'RESUPP', title: 'Resupply', forces: redBlue, domains: seaAirLand, acts: thereBack, actDesc: ['Resupply at this location'], specific: 'Resupply' })
   acts.push({ uniqid: 'TRANSIT', title: 'Transit', events: end, forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
   acts.push({ uniqid: 'ASW-B', title: 'ASW Barrier', forces: redBlue, domains: [mar], acts: thereBack, actDesc: ['ASW Area'] })
@@ -327,6 +327,9 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           interactsWith: act.intWith,
           uniqid: [force, domain, act.title].join('-'),
           template: templateName
+        }
+        if (act.title.includes('-')) {
+          console.error('Warning - later logic relies on there not being hyphen in activity title', act.title)
         }
         if (act.events) {
           activity.events = act.events

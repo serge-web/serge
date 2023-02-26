@@ -1,6 +1,8 @@
 import { Asset, ForceData, HealthOutcome, HealthOutcomes, InteractionDetails, MessageAdjudicationOutcomes } from '@serge/custom-types'
 import moment from 'moment'
 import findAsset from './find-asset'
+import { cloneDeep } from 'lodash'
+import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
 
 export const injectRepairs = (interaction: InteractionDetails, payload: MessageAdjudicationOutcomes, allForces: ForceData[]): MessageAdjudicationOutcomes => {
   // collate list of assets that have new health outcomes
@@ -58,12 +60,22 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
   withRepairs.healthOutcomes.forEach((health) => {
     const asset = assetCache[health.asset] || findAsset(allForces, health.asset)
     assetCache[health.asset] = asset
-    // note: next line converts possible string to number
-    asset.health = +health.health
+    if (typeof health.health === 'string') {
+      const str = health.health as string
+      if (str.length > 0) {
+        console.log('Asset HEALTH updated', +str)
+        // next line converts string to number
+        asset.health = +str
+      }
+    } else {
+      asset.health = health.health
+    }
     if (health.c4 && health.c4 !== 'Unchanged') {
       const attrs = asset.attributes
       if (attrs) {
         attrs.a_C4_Status = health.c4
+      } else {
+        asset.attributes = { a_C4_Status: health.c4 }
       }
     }
     if (health.repairComplete) {
@@ -88,7 +100,6 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
   withRepairs.locationOutcomes.forEach((movement) => {
     const asset = assetCache[movement.asset] || findAsset(allForces, movement.asset)
     assetCache[movement.asset] = asset
-
     // double-check we're not using a dummy value
     if (Array.isArray(movement.location)) {
       asset.location = movement.location
@@ -109,45 +120,77 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
       res = { by: by }
       asset.perceptions.push(res)
     }
+    const resBefore = cloneDeep(res)
     // store the last observed time
     if (interaction.endTime && interaction.endTime.length > 0) {
       res.lastUpdate = moment.utc(interaction.endTime).valueOf()
     }
-
     if (perception.perceivedForce) {
-      res.force = perception.perceivedForce
-    }
-    if (perception.perceivedHealth) {
-      res.health = perception.perceivedHealth
+      if (perception.perceivedForce === UNCHANGED) {
+        // leave unchanged
+      } else if (perception.perceivedForce === UNKNOWN_TYPE) {
+        delete res.force
+      } else {
+        res.force = perception.perceivedForce
+      }
+    } else {
+      delete res.force
     }
     if (perception.perceivedType) {
-      res.typeId = perception.perceivedType
+      if (perception.perceivedType === UNCHANGED) {
+        // leave unchanged
+      } else if (perception.perceivedType === UNKNOWN_TYPE) {
+        delete res.typeId
+      } else {
+        res.typeId = perception.perceivedType
+      }
     } else {
       delete res.typeId
+    }
+    if (perception.perceivedHealth !== undefined) {
+      if (typeof perception.perceivedHealth === 'string') {
+        // leave unchanged, it's an empty field
+      } else {
+        res.health = perception.perceivedHealth
+      }
     }
     if (perception.perceivedName) {
       res.name = perception.perceivedName
     }
     if (perception.perceivedLocation) {
-      if (perception.perceivedLocation.toLowerCase() === 't') {
-        if (asset.location) {
+      if (typeof perception.perceivedLocation === 'string') {
+        if (perception.perceivedLocation.toLowerCase() === 't') {
           res.position = asset.location
-        }
-      } else if (perception.perceivedLocation.toLowerCase() === 'x') {
-        delete res.position
-      } else {
-        try {
-          const parsedStr = JSON.parse(perception.perceivedLocation)
-          if (Array.isArray(parsedStr)) {
-            res.position = parsedStr as [number, number]
-          }
-        } catch (err) {
-          console.warn('Failed to parse location for', asset.uniqid, perception.perceivedLocation)
-          // clear location
+        } else if (perception.perceivedLocation.toLowerCase() === 'x') {
           delete res.position
+        } else if (perception.perceivedLocation.toLowerCase() === '"x"') {
+          delete res.position
+        } else {
+          try {
+            const parsedStr = JSON.parse(perception.perceivedLocation)
+            if (Array.isArray(parsedStr)) {
+              const numArr = parsedStr as number[]
+              if (numArr.length === 2) {
+                if (numArr[0] !== null && numArr[1] !== null) {
+                  res.position = parsedStr as [number, number]
+                } else {
+                  console.warn('Location array had one or more null entries', parsedStr)
+                }
+              } else {
+                console.warn('Location array of wrong length', numArr.length)
+              }
+            } else {
+              console.warn('Parsed location not an array', parsedStr)
+            }
+          } catch (err) {
+            console.warn('Failed to parse location for', err, asset.uniqid, perception.perceivedLocation)
+            // clear location
+            delete res.position
+          }
         }
       }
     }
+    console.log('HANDLE OUTCOMES - perception updated', resBefore, res)
   })
   return allForces
 }

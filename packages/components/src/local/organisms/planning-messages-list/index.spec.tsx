@@ -1,13 +1,13 @@
 /* global it expect */
-import { Phase, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import PlanningMessagesList from './index'
 
-import { incrementGameTime } from '@serge/helpers'
-import { P9Mock } from '@serge/mocks'
+import { forceColors, incrementGameTime } from '@serge/helpers'
+import { P9Mock, planningMessages as planningChannelMessages, smallForces } from '@serge/mocks'
 import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
@@ -17,6 +17,10 @@ const blueRole = blueForce.roles[0]
 const overview = P9Mock.data.overview
 
 const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
+
+const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
+const planningMessages = nonInfoMessages.filter((msg) => !msg.details.interaction) as Array<MessagePlanning>
+const interactionMessages = nonInfoMessages.filter((msg) => msg.details.interaction) as Array<MessageInteraction>
 
 describe('ChannelMessagesList component: ', () => {
   it('renders component correctly', () => {
@@ -54,6 +58,9 @@ describe('ChannelMessagesList component: ', () => {
 
     const tree = renderer
       .create(<PlanningMessagesList selectedForce={blueForce} selectedRoleName={blueRole.name}
+        planningMessages={planningMessages} interactionMessages={interactionMessages} allForces={smallForces}
+        platformTypes={P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []}
+        forceColors={forceColors(smallForces)}
         currentTurn={P9Mock.gameTurn} gameTurnEndDate={turnEndDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}

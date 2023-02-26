@@ -239,7 +239,7 @@ const p9StockTemplates: TemplateBody[] = [
                 }
               },
               health: {
-                title: 'Health',
+                title: 'Health (empty for unchanged)',
                 propertyOrder: 20,
                 type: 'number',
                 options: {

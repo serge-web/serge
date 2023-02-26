@@ -1,12 +1,13 @@
-import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faMedkit, faEye, faGlobe, faSearchPlus, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
+import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
-import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
+import { ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import { isEqual } from 'lodash'
 import moment from 'moment'
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import CustomFilterRow from '../planning-assets/helpers/custom-filter-row'
@@ -14,14 +15,15 @@ import { TAB_MY_ORDERS } from '../support-panel/constants'
 import { getIsFilterState } from '../support-panel/helpers/caching-utils'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
+import { collateOutcomeDetails } from './helpers/collate-outcome-details'
 import { toColumn, toRow } from './helpers/genData'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
-  messages, allTemplates, isUmpire, customiseTemplate,
-  playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders,
-  confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
+  planningMessages, interactionMessages, allTemplates, isUmpire, customiseTemplate,
+  playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders, allForces, forceColors,
+  confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter, platformTypes,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
   modifyForSave, phase, onSupportPanelLayoutChange, copyMessage
 }: PropTypes) => {
@@ -30,7 +32,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [filter, setFilter] = useState<boolean>(false)
   const [initialised, setInitialised] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
-  const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
+  const [myPlanningMessages, setMyPlanningMessages] = useState<MessagePlanning[]>([])
+  const [myInteractionMessages, setMyInteractionMessages] = useState<MessageInteraction[]>([])
   const messageValue = useRef<any>(null)
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
   const [toolbarActions, setToolbarActions] = useState<Action<OrderRow>[]>([])
@@ -44,7 +47,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [countOfSelectedPlans, setCountOfSelectedPlans] = useState<number>(0)
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
-  !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
+  !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, planningMessages.length)
 
   useEffect(() => {
     const isFilterState = getIsFilterState()
@@ -63,11 +66,22 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }, [visibleRows])
 
   useEffect(() => {
+    // find interactions that relate to these messages
+    const planIds = myPlanningMessages.map((plan) => plan._id)
+    const myInteractions = interactionMessages.filter((msg) => {
+      const inter = msg.details.interaction
+      return inter && (planIds.includes(inter.orders1) || (inter.orders2 && planIds.includes(inter.orders2)))
+    })
+    console.log('Planning Message List of interactions', interactionMessages.length, myInteractions.length)
+    setMyInteractionMessages(myInteractions)
+  }, [myPlanningMessages])
+
+  useEffect(() => {
     if (pendingMessages.length) {
       // check there are no rows open
       if (!messageBeingEdited) {
         console.log('PlanningMessageList = update pending', pendingMessages.length)
-        setMyMessages(pendingMessages)
+        setMyPlanningMessages(pendingMessages)
         setPendingMessages([])
       } else {
         console.log('PlanningMessageList - not doing edit, message being edited')
@@ -76,17 +90,17 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }, [pendingMessages, visibleRows, messageBeingEdited])
 
   useEffect(() => {
-    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
+    const myForceMessages = planningMessages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
-    if (myMessages.length === 0) {
+    if (myPlanningMessages.length === 0) {
       console.log('PlanningMessageList = update 1. Initialise list')
       // initial load, just load them
-      setMyMessages(myRoleMessages)
+      setMyPlanningMessages(myRoleMessages)
     } else if (myRoleMessages.length === 0) {
       console.log('PlanningMessageList = update 2. Clear list')
       // no messages, clear list
-      setMyMessages([])
+      setMyPlanningMessages([])
     } else {
       // cache changes if a message is currently being edited
       if (messageBeingEdited) {
@@ -94,10 +108,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         setPendingMessages(myRoleMessages)
       } else {
         console.log('PlanningMessageList = update 4. Update list')
-        setMyMessages(myRoleMessages)
+        setMyPlanningMessages(myRoleMessages)
       }
     }
-  }, [messages, selectedForce.uniqid, playerRoleId, onlyShowMyOrders])
+  }, [planningMessages, selectedForce.uniqid, playerRoleId, onlyShowMyOrders])
 
   useEffect(() => {
     const res: Action<OrderRow>[] = [
@@ -144,18 +158,18 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
-    console.log('PlanningMessageList update messages:', myMessages.length, myMessages.length && myMessages[0].message.title)
-    const dataTable: OrderRow[] = myMessages.map((message) => {
+    console.log('PlanningMessageList update messages:', myPlanningMessages.length, myPlanningMessages.length && myPlanningMessages[0].message.title)
+    const dataTable: OrderRow[] = myPlanningMessages.map((message) => {
       return toRow(message)
     })
     setRows(dataTable)
 
     if (!columns.length || !filter || !initialised) {
       setInitialised(true)
-      const columnData = toColumn(myMessages)
+      const columnData = toColumn(myPlanningMessages)
       setColumns(columnData)
     }
-  }, [turnFilter, filter, myMessages])
+  }, [turnFilter, filter, myPlanningMessages])
 
   const editorValue = (val: { [property: string]: any }): void => {
     if (!isEqual(val, messageValue.current)) {
@@ -170,11 +184,96 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     onDetailPanelClose && onDetailPanelClose(rowData)
   }
 
+  const iconFor = (nature: string): any => {
+    switch (nature) {
+      case 'Health': return faMedkit
+      case 'Movement': return faGlobe
+      case 'Perceptiohn':
+      default: return faEye
+    }
+  }
+
+  const outcomesForPlan = (plan: MessagePlanning, forceId: ForceData['uniqid'], isUmpire: boolean, forces: ForceData[]): React.ReactElement | undefined => {
+    const details = collateOutcomeDetails(plan, myInteractionMessages, isUmpire, forceId, forces, forceColors, platformTypes)
+    const specialFields = ['name', 'location', 'nature']
+    if (details !== undefined) {
+      const usefulDetails = details.interactions.filter((detail) => {
+        const narr = detail.perForceNarratives && detail.perForceNarratives.length > 0
+        const assets = detail.changes && detail.changes.length > 0
+        return narr || assets
+      })
+      return <Card key={plan._id}>
+        <CardContent key={plan._id + 'content'}>
+          {usefulDetails.map((summ) =>
+            <Fragment key={summ.reference}>
+              <Typography key={summ.reference} variant="h6">Adjudication:<b>{summ.reference}</b> Time: <b>{summ.time}</b></Typography>
+              {summ.perForceNarratives && summ.perForceNarratives.length > 0 &&
+                <>
+                  <Typography key={'heading'} variant="h6">Narratives</Typography>
+                  <Typography key={'content'}>
+                    <ul>
+                      {summ.perForceNarratives.map((narr, index) =>
+                        <li key={index}><b>{narr.force}</b> {narr.summary}</li>
+                      )}
+                    </ul>
+                  </Typography>
+                </>
+              }
+              {summ.changes &&
+                <Typography key={summ.reference + '-changes'} component={'span'} >
+                  <TableContainer>
+                    <Table size="small" >
+                      <TableHead>
+                        <TableRow key='header'>
+                          <TableCell key={1}>Type</TableCell>
+                          <TableCell key={2}>Asset</TableCell>
+                          <TableCell key={3}>Details</TableCell>
+                          <TableCell key={4}>Location</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>{summ.changes.map((change, index) =>
+                        <TableRow key={index}>
+                          <TableCell key={1}> <FontAwesomeIcon size='lg' title='Copy Message' icon={iconFor(change.nature)} className={cx({ [styles.selected]: filter })} /></TableCell>
+                          <TableCell key={2}>{change.name}</TableCell>
+                          <TableCell key={3}>{Object.keys(change).filter((key) => !specialFields.includes(key)).map((key, index) => <Fragment key={index}><span>{key}:</span> <b>{change[key]}</b>, </Fragment>)}</TableCell>
+                          <TableCell key={4}>{change.location && 'Updated'}</TableCell>
+                        </TableRow>
+                      )}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                </Typography>
+              }
+            </Fragment>)}
+        </CardContent>
+      </Card>
+    } else {
+      return undefined
+    }
+  }
+
+  // console.table(myPlanningMessages.map((plan) => {
+  // const filterList = (outcomes: CoreOutcome[]) => {
+  //   return outcomes.length > 0
+  // }
+  //   const inters = myInteractionMessages.filter((inter) => {
+  //     const details = inter.details.interaction
+  //     return details && (details.orders1 === plan._id || details.orders2 === plan._id)
+  //   })
+  //   return {
+  //     plan: plan.message.Reference,
+  //     narratives: inters.filter((inter) => inter.message.perForceNarratives && inter.message.perForceNarratives.length > 0).map((aa) => aa.message.Reference).join(', '),
+  //     health: inters.filter((inter) => filterList(inter.message.healthOutcomes)).map((aa) => aa.message.Reference).join(', '),
+  //     perception: inters.filter((inter) => filterList(inter.message.perceptionOutcomes)).map((aa) => aa.message.Reference).join(', '),
+  //     movement: inters.filter((inter) => filterList(inter.message.locationOutcomes)).map((aa) => aa.message.Reference).join(', '),
+  //   }
+  // }))
+
   const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template
-    const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value.message.Reference === rowData.rawRef)
+    const message: MessagePlanning | undefined = myPlanningMessages.find((value: MessagePlanning) => value.message.Reference === rowData.rawRef)
     if (!message) {
-      console.error('planning message not found, id:', rowData.rawRef, 'messages:', messages)
+      console.error('planning message not found, id:', rowData.rawRef, 'planningMessages:', planningMessages)
     } else {
       // sort out if editable
       const myMessageInPlanning = message.details.from.roleId === playerRoleId && phase === Phase.Planning
@@ -263,7 +362,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           return <></>
         }
         const editorRightValue = message.message ? message.message : undefined
+
+        const outcomesFor = outcomesForPlan(message, selectedForce.uniqid, isUmpire, allForces)
+
         return <>
+          {outcomesFor}
 
           <DetailPanelStateListener />
           {/* { canEdit &&
@@ -296,7 +399,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   /*eslint-disable */
   const archiveConfirmed = (): void => {
     if (pendingArchive) {
-      const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => messages.find((msg) => msg.message.Reference === row.rawRef))
+      const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => planningMessages.find((msg) => msg.message.Reference === row.rawRef))
       if (actualMessages.length !== pendingArchive.length) {
         console.warn('failed to find actual version of some messages', rows, actualMessages)
       }
