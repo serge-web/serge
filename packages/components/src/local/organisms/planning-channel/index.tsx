@@ -329,6 +329,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         res.push(item)
       }
     })
+    res.push({
+      force: UNKNOWN_TYPE,
+      rows: [],
+      color: '#ccc'
+    })
     const doRows = (rows: AssetRow[]) => {
       rows.forEach((row) => {
         const force = row.force
@@ -340,7 +345,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const forceToUse = force || UNKNOWN_TYPE
         const thisA = res.find((force) => force.force === forceToUse)
         if (thisA === undefined) {
-          console.warn('Failed to find existing entry for', force)
+          console.warn('Failed to find existing entry for', force, row)
         } else {
           thisA.rows.push(row)
         }
