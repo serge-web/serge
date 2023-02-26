@@ -80,7 +80,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const [interactionIsOpen, setInteractionIsOpen] = useState<boolean>(false)
 
-  const [inPlanning] = useState<boolean>(phase === Phase.Planning)
+  const [inPlanning, setInPlanning] = useState<boolean>(true)
 
   const msgSeparator = ' - '
 
@@ -137,6 +137,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
     setInteractionIsOpen(!!ownOpenMessages.length)
   }, [interactionMessages, onlyShowOpen])
+
+
+  useEffect(() => {
+    setInPlanning(phase === Phase.Planning)
+  }, [phase])
+
 
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>
