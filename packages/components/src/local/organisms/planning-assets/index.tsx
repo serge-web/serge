@@ -206,7 +206,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (!showColumnFilters || !initialised) {
-      const assetsOfInterest = showDead ? assets : assets.filter((asset) => asset.health && asset.health > 0)
+      const assetsOfInterest = showDead ? assets : assets.filter((asset) => (asset.health && asset.health > 0) || (asset.health === undefined))
       setInitialised(false)
       setRows(assetsOfInterest)
     }
