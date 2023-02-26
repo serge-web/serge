@@ -596,7 +596,7 @@ export const squadronsAtTheseAirfields = (targetAssets: Array<AssetWithForce>, f
 
 export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
-  console.log('handle outcomes', activity.actId)
+  console.log('handle outcomes', activity.actId, event, plan)
   switch (activity.actId) {
     case 'STRIKE': {
       const targetAssets = plan.message.otherAssets ? plan.message.otherAssets.map((item) => findForceAndAsset(forces, item.asset)) : []

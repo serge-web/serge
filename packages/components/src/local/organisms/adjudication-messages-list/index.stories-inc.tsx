@@ -261,7 +261,6 @@ TestIstar.args = {
 //   messages: planningMessages.filter((msg: MessagePlanning) => cyberEvent.includes(msg.message.Reference)) as CoreMessage[]
 // }
 
-
 // const idsOfInterest = ['Green-5']
 // const greenMission = planningMessages.find((msg) => idsOfInterest.includes(msg.message.Reference))
 // if (greenMission) {
