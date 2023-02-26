@@ -160,8 +160,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [isUmpire, setIsUmpire] = useState<boolean>(false)
   const [playerInPlanning, setPlayerInPlanning] = useState<boolean>(false)
 
+  // TIMELINE related
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
   const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
+  const [showTimeOutcomes, setShowTimeOutcomes] = useState<boolean>(false)
+  const [showTimeOrders, setShowTimeOrders] = useState<boolean>(false)
+  const [showTimeInteractions, setShowTimeInteractions] = useState<boolean>(false)
 
   /** note we store the interaction reference here, not the id, to allow for the
    * document being updated
@@ -976,22 +980,27 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           showControl={showTimeControl} data={timeControlEvents} />
         <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showStandardAreas && <AreaPlotter areas={myAreas} />}
-        <Fragment>
-          <Fragment key='selectedObjects'>
-            <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} interactions={interactionMessages} selectedInteraction={currentInteraction} />
-            <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
-            <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-              {perForceAssets.map((force) => {
-                return <PlanningForces showData={!showTimeControl} showMezRings={showMezRings} clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
-                  assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={!showIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
-              })
-              }
-              {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
-            </LayerGroup>
-          </Fragment>
-          {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
-          {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} areas={myAreas} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
+        {showTimeControl ? <Fragment>
+          <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
         </Fragment>
+          : <Fragment>
+            <Fragment key='selectedObjects'>
+              <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} interactions={interactionMessages} selectedInteraction={currentInteraction} />
+              <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+              <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
+                {perForceAssets.map((force) => {
+                  return <PlanningForces showData={!showTimeControl} showMezRings={showMezRings} clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
+                    assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={!showIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                })
+                }
+                {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
+              </LayerGroup>
+            </Fragment>
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
+            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} areas={myAreas} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
+          </Fragment>
+
+        }
       </>
     )
   }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
@@ -1093,27 +1102,44 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                                 onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
                             </div>
                           }
-                          <div className={cx('leaflet-control')}>
-                            <Item title={showMezRings ? 'Hide MEZ rings' : 'Show MEZ Rings'} contentTheme={showMezRings ? 'light' : 'dark'}
-                              onClick={() => setShowMezRings(!showMezRings)}><FontAwesomeIcon size={'lg'} icon={faCircle} /></Item>
-                          </div>
+                          {showTimeControl ?
+                            <>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showTimeOutcomes ? 'Hide outcomes' : 'Show outcomes'} contentTheme={showTimeOutcomes ? 'light' : 'dark'}
+                                  onClick={() => setShowMezRings(!showTimeOutcomes)}>A</Item>
+                              </div>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showTimeOrders ? 'Hide orders' : 'Show Orders'} contentTheme={showTimeOrders ? 'light' : 'dark'}
+                                  onClick={() => setShowTimeOrders(!showTimeOrders)}>O</Item>
+                              </div>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showTimeInteractions ? 'Hide interactions' : 'Show Interactions'} contentTheme={showTimeInteractions ? 'light' : 'dark'}
+                                  onClick={() => setShowTimeInteractions(!showTimeInteractions)}>I</Item>
+                              </div>
+                            </>
+                            : <>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showMezRings ? 'Hide MEZ rings' : 'Show MEZ Rings'} contentTheme={showMezRings ? 'light' : 'dark'}
+                                  onClick={() => setShowMezRings(!showMezRings)}><FontAwesomeIcon size={'lg'} icon={faCircle} /></Item>
+                              </div>
 
-                          <div className={cx('leaflet-control')}>
-                            <Item title={showIconName ? 'Hide asset names' : 'Show asset names'} contentTheme={showIconName ? 'light' : 'dark'}
-                              onClick={() => setShowIconName(!showIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
-                          </div>
-                          {
-                            <div className={cx('leaflet-control')}>
-                              <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}
-                                onClick={() => setClusterIcons(!clusterIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
-                            </div>
-                          }
-                          <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                          <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {isUmpire && // don't bother with this, but keep it in case we want to gen more data
-                            <div className={cx('leaflet-control')}>
-                              <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
-                            </div>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showIconName ? 'Hide asset names' : 'Show asset names'} contentTheme={showIconName ? 'light' : 'dark'}
+                                  onClick={() => setShowIconName(!showIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
+                              </div>
+                              {
+                                <div className={cx('leaflet-control')}>
+                                  <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}
+                                    onClick={() => setClusterIcons(!clusterIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
+                                </div>
+                              }
+                              <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                              <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                              {isUmpire && // don't bother with this, but keep it in case we want to gen more data
+                                <div className={cx('leaflet-control')}>
+                                  <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
+                                </div>
+                              }</>
                           }
                           <div className={cx('leaflet-control')}>
                             <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
