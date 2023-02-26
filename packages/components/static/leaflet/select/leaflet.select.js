@@ -225,10 +225,10 @@ L.Control.Select = L.Control.extend({
   },
 
   _iconClicked() {
-    const openingMenus = document.getElementsByClassName('leaflet-control-select-menu');
+    const openingMenus = document.getElementsByClassName('leaflet-control-select-menu')
     Array.from(openingMenus).forEach(menu => {
-      menu.parentElement.removeChild(menu);
-    });
+      menu.parentElement.removeChild(menu)
+    })
     this._emit('MENU_OPEN', {})
   },
 
@@ -279,17 +279,16 @@ L.Control.Select = L.Control.extend({
       this._isOpen(item) && L.DomUtil.addClass(p, 'group-opened')
 
       this._isOpen(item) && this._renderMenu(p, item.items)
+    } else if (this.options.showSelectedIcon) {
+      this._renderRadioIcon(selected, pContent)
     }
-    // else {
-    //   this._renderRadioIcon(selected, pContent)
-    // }
 
     L.DomEvent.addListener(pContent, 'click', (e) => {
       if (this._isGroup(item) || this.options.preventClickThrough) {
         e.stopPropagation()
       }
       this._itemClicked(item)
-      if (this.options.preventClickThrough) {
+      if (!this._isGroup(item) && this.options.preventClickThrough) {
         this._hideMenu()
       }
     })
