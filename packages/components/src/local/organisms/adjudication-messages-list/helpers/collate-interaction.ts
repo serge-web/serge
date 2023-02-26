@@ -1,4 +1,5 @@
 
+import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
 import { findAsset, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
@@ -78,16 +79,15 @@ export const updateWithAllAssets = (asset: Record<string, any>, interaction: Int
   return asset
 }
 
-const unknownId = 'unknown'
-const unknownLabel = 'Unk'
-
 export const updateForcesDropdown = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
   if (force !== undefined) {
     force.enum = forces.map((force) => force.forceId)
     force.options.enum_titles = forces.map((force) => force.force)
     if (includeUnknown) {
-      force.enum.unshift(unknownId)
-      force.options.enum_titles.unshift(unknownLabel)
+      force.enum.unshift(UNKNOWN_TYPE)
+      force.options.enum_titles.unshift(UNKNOWN_TYPE)
+      force.enum.unshift(UNCHANGED)
+      force.options.enum_titles.unshift(UNCHANGED)
     }
   }
   return force
@@ -100,8 +100,10 @@ export const updatePlatformTypes = (platformType: Record<string, any>, pTypes: P
     platformType.enum = sorted.map((pType) => pType.uniqid)
     platformType.options.enum_titles = sorted.map((pType) => pType.name)
     if (includeUnknown) {
-      platformType.enum.unshift(unknownId)
-      platformType.options.enum_titles.unshift(unknownLabel)
+      platformType.enum.unshift(UNKNOWN_TYPE)
+      platformType.options.enum_titles.unshift(UNKNOWN_TYPE)
+      platformType.enum.unshift(UNCHANGED)
+      platformType.options.enum_titles.unshift(UNCHANGED)
     }
   }
   return platformType
