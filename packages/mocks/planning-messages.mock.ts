@@ -1018,6 +1018,228 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
         "details": {
             "channel": "channel-planning",
             "from": {
+                "force": "Red",
+                "forceColor": "#ff3d43",
+                "roleName": "MAR",
+                "roleId": "red-mar",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "f-red"
+            },
+            "messageType": "Air--ISTAR",
+            "timestamp": "2022-09-27T17:17:49.622Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "Reference": "Red-203",
+            "title": "Order item 207",
+            "startDate": "2022-05-01T06:15:00.000Z",
+            "endDate": "2022-05-01T09:25:00.000Z",
+            "activity": "f-red-Air-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "Red.7.339",
+                    "number": 1
+                },
+                {
+                    "asset": "Red.4.297",
+                    "number": 1
+                },
+                {
+                    "asset": "Red.3.367",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "Blue.11.78"
+                },
+                {
+                    "asset": "Green.4.351"
+                },
+                {
+                    "asset": "Blue.4.50"
+                }
+            ],
+            "location": [
+                {
+                    "uniqid": "ISTAR-0",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "ISTAR//Route out",
+                            "startDate": "2022-05-01T06:15:00.000Z",
+                            "endDate": "2022-05-01T07:05:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651385700000,
+                            "endTime": 1651388700000,
+                            "geomId": "ISTAR-0",
+                            "name": "f-red//3.8222781061194837//Route out"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    63.0615,
+                                    35.1056
+                                ],
+                                [
+                                    55.05,
+                                    28.88
+                                ],
+                                [
+                                    46.08,
+                                    21.7
+                                ],
+                                [
+                                    38.39,
+                                    14.8
+                                ],
+                                [
+                                    38.0701,
+                                    15.0902
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "ISTAR-1",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "ISTAR//Patrol Area",
+                            "startDate": "2022-05-01T07:05:00.000Z",
+                            "endDate": "2022-05-01T07:45:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651388700000,
+                            "endTime": 1651391100000,
+                            "geomId": "ISTAR-1",
+                            "name": "f-red//7.644556212238967//Patrol Area"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        36.787923193640985,
+                                        16.317139101367708
+                                    ],
+                                    [
+                                        36.787923193640985,
+                                        13.85613184036086
+                                    ],
+                                    [
+                                        39.33751154553239,
+                                        13.85613184036086
+                                    ],
+                                    [
+                                        39.33751154553239,
+                                        16.317139101367708
+                                    ],
+                                    [
+                                        36.787923193640985,
+                                        16.317139101367708
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "ISTAR-2",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "ISTAR//Observation Area",
+                            "startDate": "2022-05-01T07:05:00.000Z",
+                            "endDate": "2022-05-01T07:45:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651388700000,
+                            "endTime": 1651391100000,
+                            "geomId": "ISTAR-2",
+                            "name": "f-red//11.466834318358451//Observation Area"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        34.20273425077257,
+                                        18.720444030394482
+                                    ],
+                                    [
+                                        34.20273425077257,
+                                        11.39657866232614
+                                    ],
+                                    [
+                                        41.806348179941,
+                                        11.39657866232614
+                                    ],
+                                    [
+                                        41.806348179941,
+                                        18.720444030394482
+                                    ],
+                                    [
+                                        34.20273425077257,
+                                        18.720444030394482
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "ISTAR-3",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "ISTAR//Route back",
+                            "startDate": "2022-05-01T07:45:00.000Z",
+                            "endDate": "2022-05-01T09:25:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651391100000,
+                            "endTime": 1651397100000,
+                            "geomId": "ISTAR-3",
+                            "name": "f-red//15.289112424477935//Route back"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    38.0701,
+                                    15.0902
+                                ],
+                                [
+                                    46.25,
+                                    21.55
+                                ],
+                                [
+                                    54.53,
+                                    28.12
+                                ],
+                                [
+                                    63.1,
+                                    34.97
+                                ],
+                                [
+                                    63.0615,
+                                    35.1056
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_f-red_203",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-planning",
+            "from": {
                 "force": "Green",
                 "forceColor": "#7ed321",
                 "roleName": "CO",
