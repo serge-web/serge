@@ -58,7 +58,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-  const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(false)
+  const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(true)
   const [dialogMessage, setDialogMessage] = useState<React.ReactElement | undefined>()
   // note: we don't work directly with the list of interactions, since we need some special processing to prevent
   // note: interactions being edited from being wiped.  So we maintain an independent list
@@ -122,7 +122,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       //      const existingMessages: AdjudicationRow[] = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
       //        setRows([...existingMessages, row])
       setCachedInteractions(ownMessages)
-    //  } else {
+      //  } else {
       //  setRows([...rows, row])
       // }
     }
@@ -428,13 +428,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const cleanLocation = (uniqid: Asset['uniqid'], loc: any): [number, number] | undefined => {
           let res = loc
           if (typeof loc === 'string' && (loc as string).length > 0) {
-            const locStr = loc
+            const locStr = loc as string
             if (locStr === 't') {
               // replace with actual location of this asset
               const asset = findAsset(forces, uniqid)
               if (asset.location) {
                 res = [asset.location[0], asset.location[1]]
+              } else {
+                res = undefined
               }
+            } else if (locStr === 'x') {
+              // special case - we wish to drop contact
+              res = loc
             } else {
               try {
                 // ok, convert string to JSON array
