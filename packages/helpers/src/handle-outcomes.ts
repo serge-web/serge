@@ -130,6 +130,7 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
     }
     if (perception.perceivedLocation) {
       if (perception.perceivedLocation.toLowerCase() === 't') {
+        console.warn('Special location value got to handler (t), should have been replaced')
         if (asset.location) {
           res.position = asset.location
         }
