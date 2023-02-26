@@ -439,7 +439,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                 res = latLng
               } catch (err) {
                 console.warn('Failed to parse JSON. No location stored')
-              }  
+              }
             }
           } else if (Array.isArray(loc)) {
             // value is valid, leave
@@ -467,7 +467,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           if (value.perceivedLocation) {
             const cleaned = cleanLocation(value.asset, value.perceivedLocation)
             if (cleaned) {
-              value.perceivedLocation = JSON.stringify(cleaned) 
+              value.perceivedLocation = JSON.stringify(cleaned)
             }
           }
         })
