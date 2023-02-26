@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START, Phase } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { findAsset, findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
@@ -52,7 +52,7 @@ export const DEFAULT_SEARCH_RATE = 2000
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate, turnFilter,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
-  platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
+  platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack, phase,
   gameTurnLength, onLocationEditorLoaded, currentTurn
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
@@ -79,6 +79,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const manuallyData = useRef<ManualInteractionResults>({ orders: [], endDate: gameDate, otherAssets: [], startDate: gameDate })
 
   const [interactionIsOpen, setInteractionIsOpen] = useState<boolean>(false)
+
+  const [inPlanning] = useState<boolean>(phase === Phase.Planning)
 
   const msgSeparator = ' - '
 
@@ -951,9 +953,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         </CustomDialog>
       }
       <div className='button-wrap' >
-        <Button color='secondary' disabled={interactionIsOpen} onClick={getInteraction} icon='save'>Get next</Button>
+        <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
-        <Button color='secondary' disabled={interactionIsOpen} onClick={createManualInteraction} icon='add'>Create manual</Button>
+        <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={createManualInteraction} icon='add'>Create manual</Button>
         &nbsp;
         <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
         <Chip label={currentTime} />
