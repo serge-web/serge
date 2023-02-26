@@ -265,7 +265,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
   const ownAssets = !!(playerForce && !opFor)
 
-  let columns: Column<any>[] = [
+  const columns: Column<any>[] = [
     { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: nameWidth, minWidth: nameWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },

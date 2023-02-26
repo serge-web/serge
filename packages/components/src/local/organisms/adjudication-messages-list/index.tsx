@@ -138,11 +138,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     setInteractionIsOpen(!!ownOpenMessages.length)
   }, [interactionMessages, onlyShowOpen])
 
-
   useEffect(() => {
     setInPlanning(phase === Phase.Planning)
   }, [phase])
-
 
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>

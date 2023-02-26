@@ -5,7 +5,7 @@ import {
 } from '@serge/custom-types'
 import { clearUnsentMessage, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { circleMarker, LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions, timeline } from 'leaflet'
+import L, { circleMarker, LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
@@ -547,7 +547,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
-    
+
     // no - do not clear the filtered assets arrays.  They get assigned
     // in a round-trip from the `visibleRows` handler from the assets table
     // update the own filtered arrays with the new values
@@ -606,7 +606,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (selectedAssets.length) {
-
       const relevantRows = selectedAssets.map((id): AssetRow | undefined => {
         let assetRow = allOwnAssets.find((row) => row.id === id)
         if (!assetRow) {
