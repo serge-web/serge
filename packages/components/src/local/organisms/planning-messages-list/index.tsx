@@ -367,7 +367,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             {...props}
           />)
         },
-        FilterRow: props => <CustomFilterRow {...props} forces={[]} onSupportPanelLayoutChange={onSupportPanelLayoutChange} cacheKey={TAB_MY_ORDERS} allColumns={columns} />
+        FilterRow: props => <CustomFilterRow {...props} onSupportPanelLayoutChange={onSupportPanelLayoutChange} cacheKey={TAB_MY_ORDERS} />
       }}
     />
   }, [rows, filter, toolbarActions, onlyShowMyOrders])

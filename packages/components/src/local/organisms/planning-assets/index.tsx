@@ -280,10 +280,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         Row: props => <MTableBodyRow id={props.data.id} {...props} />,
         FilterRow: props => <CustomFilterRow
           {...props}
-          forces={forces}
           cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE}
           onSupportPanelLayoutChange={onSupportPanelLayoutChange}
-          allColumns={columns}
         />
       }}
     />
