@@ -1018,46 +1018,39 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
         "details": {
             "channel": "channel-planning",
             "from": {
-                "force": "Red",
-                "forceColor": "#ff3d43",
-                "roleName": "MAR",
-                "roleId": "red-mar",
+                "force": "Blue",
+                "forceColor": "#3dd0ff",
+                "roleName": "MTG 1",
+                "roleId": "blue-mtg-1",
                 "iconURL": "default_img/umpireDefault.png",
-                "forceId": "f-red"
+                "forceId": "f-blue"
             },
-            "messageType": "Air--ISTAR",
-            "timestamp": "2022-09-27T17:17:49.622Z",
+            "messageType": "Land--ISTAR",
+            "timestamp": "2022-09-24T07:38:31.139Z",
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-203",
-            "title": "Order item 207",
-            "startDate": "2022-05-01T06:15:00.000Z",
-            "endDate": "2022-05-01T09:25:00.000Z",
-            "activity": "f-red-Air-ISTAR",
+            "Reference": "Blue-455",
+            "title": "Order item 459",
+            "startDate": "2022-05-01T11:25:00.000Z",
+            "endDate": "2022-05-01T13:05:00.000Z",
+            "activity": "f-blue-Land-ISTAR",
             "ownAssets": [
                 {
-                    "asset": "Red.7.339",
-                    "number": 1
+                    "asset": "Blue.6.31",
+                    "number": 2
                 },
                 {
-                    "asset": "Red.4.297",
-                    "number": 1
-                },
-                {
-                    "asset": "Red.3.367",
-                    "number": 1
+                    "asset": "Blue.1.133",
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "Blue.11.78"
+                    "asset": "Red.3.78"
                 },
                 {
                     "asset": "Green.4.351"
-                },
-                {
-                    "asset": "Blue.4.50"
                 }
             ],
             "location": [
@@ -1067,36 +1060,36 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         "type": "Feature",
                         "properties": {
                             "id": "ISTAR//Route out",
-                            "startDate": "2022-05-01T06:15:00.000Z",
-                            "endDate": "2022-05-01T07:05:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651385700000,
-                            "endTime": 1651388700000,
+                            "startDate": "2022-05-01T11:25:00.000Z",
+                            "endDate": "2022-05-01T12:15:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651404300000,
+                            "endTime": 1651407300000,
                             "geomId": "ISTAR-0",
-                            "name": "f-red//3.8222781061194837//Route out"
+                            "name": "f-blue//2.8431052323430777//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    63.0615,
-                                    35.1056
+                                    51.0099,
+                                    37.1086
                                 ],
                                 [
-                                    55.05,
-                                    28.88
+                                    54.58,
+                                    38.6
                                 ],
                                 [
-                                    46.08,
-                                    21.7
+                                    57.37,
+                                    40.33
                                 ],
                                 [
-                                    38.39,
-                                    14.8
+                                    60.45,
+                                    41.34
                                 ],
                                 [
-                                    38.0701,
-                                    15.0902
+                                    60.6803,
+                                    41.4528
                                 ]
                             ]
                         }
@@ -1108,37 +1101,37 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         "type": "Feature",
                         "properties": {
                             "id": "ISTAR//Patrol Area",
-                            "startDate": "2022-05-01T07:05:00.000Z",
-                            "endDate": "2022-05-01T07:45:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651388700000,
-                            "endTime": 1651391100000,
+                            "startDate": "2022-05-01T12:15:00.000Z",
+                            "endDate": "2022-05-01T12:35:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651407300000,
+                            "endTime": 1651408500000,
                             "geomId": "ISTAR-1",
-                            "name": "f-red//7.644556212238967//Patrol Area"
+                            "name": "f-blue//5.686210464686155//Patrol Area"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        36.787923193640985,
-                                        16.317139101367708
+                                        57.388033767865394,
+                                        43.783811039655916
                                     ],
                                     [
-                                        36.787923193640985,
-                                        13.85613184036086
+                                        57.388033767865394,
+                                        39.034518264178516
                                     ],
                                     [
-                                        39.33751154553239,
-                                        13.85613184036086
+                                        63.7400248385692,
+                                        39.034518264178516
                                     ],
                                     [
-                                        39.33751154553239,
-                                        16.317139101367708
+                                        63.7400248385692,
+                                        43.783811039655916
                                     ],
                                     [
-                                        36.787923193640985,
-                                        16.317139101367708
+                                        57.388033767865394,
+                                        43.783811039655916
                                     ]
                                 ]
                             ]
@@ -1151,37 +1144,37 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         "type": "Feature",
                         "properties": {
                             "id": "ISTAR//Observation Area",
-                            "startDate": "2022-05-01T07:05:00.000Z",
-                            "endDate": "2022-05-01T07:45:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651388700000,
-                            "endTime": 1651391100000,
+                            "startDate": "2022-05-01T12:15:00.000Z",
+                            "endDate": "2022-05-01T12:35:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651407300000,
+                            "endTime": 1651408500000,
                             "geomId": "ISTAR-2",
-                            "name": "f-red//11.466834318358451//Observation Area"
+                            "name": "f-blue//8.529315697029233//Observation Area"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        34.20273425077257,
-                                        18.720444030394482
+                                        60.307914052952185,
+                                        41.73010861823491
                                     ],
                                     [
-                                        34.20273425077257,
-                                        11.39657866232614
+                                        60.307914052952185,
+                                        41.17430074986095
                                     ],
                                     [
-                                        41.806348179941,
-                                        11.39657866232614
+                                        61.049508878606346,
+                                        41.17430074986095
                                     ],
                                     [
-                                        41.806348179941,
-                                        18.720444030394482
+                                        61.049508878606346,
+                                        41.73010861823491
                                     ],
                                     [
-                                        34.20273425077257,
-                                        18.720444030394482
+                                        60.307914052952185,
+                                        41.73010861823491
                                     ]
                                 ]
                             ]
@@ -1194,36 +1187,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         "type": "Feature",
                         "properties": {
                             "id": "ISTAR//Route back",
-                            "startDate": "2022-05-01T07:45:00.000Z",
-                            "endDate": "2022-05-01T09:25:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651391100000,
-                            "endTime": 1651397100000,
+                            "startDate": "2022-05-01T12:35:00.000Z",
+                            "endDate": "2022-05-01T13:05:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651408500000,
+                            "endTime": 1651410300000,
                             "geomId": "ISTAR-3",
-                            "name": "f-red//15.289112424477935//Route back"
+                            "name": "f-blue//11.37242092937231//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    38.0701,
-                                    15.0902
+                                    60.6803,
+                                    41.4528
                                 ],
                                 [
-                                    46.25,
-                                    21.55
+                                    51.43,
+                                    37.19
                                 ],
                                 [
-                                    54.53,
-                                    28.12
-                                ],
-                                [
-                                    63.1,
-                                    34.97
-                                ],
-                                [
-                                    63.0615,
-                                    35.1056
+                                    51.0099,
+                                    37.1086
                                 ]
                             ]
                         }
@@ -1232,7 +1217,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_203",
+        "_id": "m_f-blue_455",
         "_rev": "2"
     },
     {
