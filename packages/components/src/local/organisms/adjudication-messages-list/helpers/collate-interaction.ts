@@ -81,7 +81,7 @@ export const updateWithAllAssets = (asset: Record<string, any>, interaction: Int
 const unknownId = 'unknown'
 const unknownLabel = 'Unk'
 
-export const updateForces = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
+export const updateForcesDropdown = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
   if (force !== undefined) {
     force.enum = forces.map((force) => force.forceId)
     force.options.enum_titles = forces.map((force) => force.force)

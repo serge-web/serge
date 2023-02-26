@@ -279,17 +279,16 @@ L.Control.Select = L.Control.extend({
       this._isOpen(item) && L.DomUtil.addClass(p, 'group-opened')
 
       this._isOpen(item) && this._renderMenu(p, item.items)
+    } else if (this.options.showSelectedIcon) {
+      this._renderRadioIcon(selected, pContent)
     }
-    // else {
-    //   this._renderRadioIcon(selected, pContent)
-    // }
 
     L.DomEvent.addListener(pContent, 'click', (e) => {
       if (this._isGroup(item) || this.options.preventClickThrough) {
         e.stopPropagation()
       }
       this._itemClicked(item)
-      if (this.options.preventClickThrough) {
+      if (!this._isGroup(item) && this.options.preventClickThrough) {
         this._hideMenu()
       }
     })
