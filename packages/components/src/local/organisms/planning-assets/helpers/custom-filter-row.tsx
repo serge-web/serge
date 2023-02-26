@@ -1,6 +1,7 @@
 import { Column, MTableFilterRow } from '@material-table/core'
 import { SUPPORT_PANEL_LAYOUT } from '@serge/config'
-import React, { useEffect } from 'react'
+import { cloneDeep } from 'lodash'
+import React, { useEffect, useState } from 'react'
 import { FilterObject, getFilterApplied } from '../../support-panel/helpers/caching-utils'
 
 type CustomFilterRowProps = {
@@ -11,6 +12,8 @@ type CustomFilterRowProps = {
 }
 
 const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElement => {
+  const [localProps, setLocalProps] = useState(props)
+
   useEffect(() => {
     const filters: FilterObject = getFilterApplied()
     if (filters[props.cacheKey]) {
@@ -34,9 +37,12 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
       props.onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filters))
     }
     props.onFilterChanged(columnId, filter)
+    setTimeout(() => {
+      setLocalProps(cloneDeep(props))
+    }, 500)
   }
 
-  return <MTableFilterRow {...props} onFilterChanged={onFilterChanged} />
+  return <MTableFilterRow {...localProps} onFilterChanged={onFilterChanged} />
 }
 
 export default CustomFilterRow
