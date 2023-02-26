@@ -1013,7 +1013,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     )
   }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
     currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings, showTimeControl,
-  timelineInteractions])
+    timelineInteractions])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
