@@ -127,6 +127,7 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
     }
     if (perception.perceivedForce) {
       if (perception.perceivedForce === UNCHANGED) {
+        // leave unchanged
       } else if (perception.perceivedForce === UNKNOWN_TYPE) {
         delete res.force
       } else {
@@ -137,6 +138,7 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
     }
     if (perception.perceivedType) {
       if (perception.perceivedType === UNCHANGED) {
+        // leave unchanged
       } else if (perception.perceivedType === UNKNOWN_TYPE) {
         delete res.typeId
       } else {
@@ -147,6 +149,7 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
     }
     if (perception.perceivedHealth !== undefined) {
       if (typeof perception.perceivedHealth === 'string') {
+        // leave unchanged, it's an empty field
       } else {
         res.health = perception.perceivedHealth
       }

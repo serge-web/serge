@@ -438,8 +438,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                 res = undefined
               }
             } else if (locStr === 'x') {
-              // special case - we wish to drop contact
-              res = loc
+              // special case - we wish to drop contact, leave it as-is
             } else {
               try {
                 // ok, convert string to JSON array
