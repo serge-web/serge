@@ -5,7 +5,7 @@ import {
 } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
+import L, { circleMarker, LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
@@ -582,12 +582,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (selectedAssets.length) {
-      const assets = selectedAssets.map((id: string): Asset => findAsset(allForces, id))
-      const assetsWithLocation = assets.filter((asset: Asset) => asset.location !== undefined)
-      const locations: any = assetsWithLocation.map((asset: Asset) => asset.location)
+
+      const relevantRows = selectedAssets.map((id): AssetRow | undefined => {
+        let assetRow = allOwnAssets.find((row) => row.id === id)
+        if (!assetRow) {
+          assetRow = allOppAssets.find((row) => row.id === id)
+        }
+        return assetRow
+      })
+      const assets = relevantRows.filter((row) => row) as AssetRow[]
+      const assetsWithLocation = assets.filter((asset: AssetRow) => asset.position !== undefined)
+      const locations: any = assetsWithLocation.map((asset: AssetRow) => asset.position)
       if (locations.length > 0) {
         let mapBounds: LatLngBounds | undefined
-        locations.forEach((loc: [number, number]) => {
+        locations.forEach((loc: LatLng) => {
           if (!mapBounds) {
             mapBounds = latLngBounds(loc, loc)
           } else {
