@@ -3,7 +3,7 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useEffect, useState } from 'react'
 
 // Import component files
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
 import { forceColors } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
@@ -148,6 +148,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     periods={turnPeriod}
     platformTypes={platformTypes}
     currentTurn={1}
+    phase={Phase.Adjudication}
     interactionMessages={interactionMessages}
     planningMessages={planningMessages}
     forceColors={forceColors(forces)}
