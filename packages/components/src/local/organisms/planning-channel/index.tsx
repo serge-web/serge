@@ -532,10 +532,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
+    
     // no - do not clear the filtered assets arrays.  They get assigned
     // in a round-trip from the `visibleRows` handler from the assets table
+    // update the own filtered arrays with the new values
+    const ownIds = ownAssetsFiltered.current.map((row) => row.id)
+    const filteredOwn = own.filter((row) => ownIds.includes(row.id))
+    ownAssetsFiltered.current = filteredOwn
+    const opIds = opAssetsFiltered.current.map((row) => row.id)
+    const filteredOp = opp.filter((row) => opIds.includes(row.id))
+    opAssetsFiltered.current = filteredOp
     // ownAssetsFiltered.current = []
     // opAssetsFiltered.current = []
+
     setAllOwnAssets(own)
     setAllOppAssets(opp)
     setForceColors(forceCols)
