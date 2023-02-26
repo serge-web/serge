@@ -40,6 +40,7 @@ import { boundsForGeometry } from './helpers/spatial-helpers'
 import Timeline from './helpers/Timeline'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+import { ReplayFeature } from '../map-planning-orders/types/props'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
 
@@ -169,6 +170,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [showTimeInteractions, setShowTimeInteractions] = useState<boolean>(false)
   const [timelineOrders, setTimelineOrders] = useState<string[]>([])
   const [timelineInteractions, setTimelineInteractions] = useState<MessageInteraction[]>([])
+  const [timelineFeatures, setTimelineFeatures] = useState<ReplayFeature[]>([])
+  const [timelineFeatureCache, setTimelineFeatureCache] = useState<Record<string, ReplayFeature>>({})
 
   /** note we store the interaction reference here, not the id, to allow for the
    * document being updated
@@ -204,7 +207,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       planningMessages.forEach((plan) => {
         if (plan.message.location) {
           plan.message.location.forEach((planned) => {
-            console.log('planned', planned.geometry.properties)
             // check we have start/end date, otherwise use it for whole plan
             const props = planned.geometry.properties as PlannedProps
             let startTime: number
@@ -253,7 +255,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const interaction = iMessage.details.interaction
         if (interaction) {
           const propsReplay: ReplayAnnotations = {
-            id: 'aaaa' + iMessage._id,
+            id: iMessage._id,
             start: moment.utc(interaction.startTime).valueOf(),
             end: moment.utc(interaction.endTime).valueOf(),
             force: 'ignored',
@@ -261,7 +263,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           }
 
           const point: Feature<Point> = {
-            id: 'aaaa' + iMessage._id,
+            id: iMessage._id,
             type: 'Feature',
             properties: propsReplay,
             geometry: {
@@ -290,6 +292,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       // console.log('my events', collection)
       setTimeControlEvents(collection)
     } else {
+      // flush the cache
+      setTimelineFeatureCache({})
       setTimeControlEvents(undefined)
     }
   }, [showTimeControl, planningMessages, selectedForce])
@@ -301,12 +305,33 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // collate data
-    console.log('timeline interactions', timelineLiveEntities)
-    const plans = planningMessages.filter((msg) => timelineLiveEntities.includes(msg._id))
-    const inters = interactionMessages.filter((msg) => timelineLiveEntities.includes(msg._id))
+    const features = timelineLiveEntities.filter((item) => item.includes('//'))
+    const nonFeatures = timelineLiveEntities.filter((item) => !item.includes('//'))
+    const plans = planningMessages.filter((msg) => nonFeatures.includes(msg._id))
+    const inters = interactionMessages.filter((msg) => nonFeatures.includes(msg._id))
+    const replayFeatures = features.map((item): ReplayFeature => {
+      const match = timelineFeatureCache[item]
+      if (match) {
+        return match
+      } else {
+        const separ = item.split('//')
+        const orderId = separ[0]
+        const activityId = separ[1]
+        const order = planningMessages.find((msg) => msg._id === orderId)
+        const activity = order && order.message.location && order.message.location.find((plan) => plan.uniqid === activityId)
+        const res = {
+          color: order ? order?.details.from.forceColor : '#ccd',
+          feature: activity,
+          name: activity? activity.uniqid : 'unknown'
+        }  
+        timelineFeatureCache[item] = res
+        return res
+      }
+    })
+
     setTimelineInteractions(inters)
     setTimelineOrders(plans.map((pln) => pln._id))
-    console.log('inters found', inters)
+    setTimelineFeatures(replayFeatures)
     // update state
   }, [timelineLiveEntities])
 
@@ -1003,7 +1028,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showStandardAreas && <AreaPlotter areas={myAreas} />}
         {showTimeControl ? <Fragment>
-          <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={timelineOrders} activities={flattenedPlanningActivities} interactions={timelineInteractions} setSelectedOrders={noop} />
+          <MapPlanningOrders forceColors={forceColors} features={timelineFeatures} orders={planningMessages} selectedOrders={timelineOrders} activities={flattenedPlanningActivities} interactions={timelineInteractions} setSelectedOrders={noop} />
         </Fragment>
           : <Fragment>
             <Fragment key='selectedObjects'>
@@ -1027,7 +1052,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     )
   }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
     currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings, showTimeControl,
-    timelineInteractions])
+    timelineInteractions, timelineFeatures])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
