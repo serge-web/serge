@@ -779,7 +779,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         data-indeterminate={false}
                         onChange={[Function]}
                         type="checkbox"
-                        value="2020-03-25T15:08:47.520Z"
+                        value="m_f-blue_2"
                       />
                       <svg
                         aria-hidden={true}
@@ -813,9 +813,241 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "150px",
                       }
                     }
-                    value="Message-1 (Turn 1)"
+                    value="Blue-2 (Turn 3)"
                   >
-                    Message-1 (Turn 1)
+                    Blue-2 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="MTG 3"
+                  >
+                    MTG 3
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 6"
+                  >
+                    Order item 6
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Air-Defensive Counter Air"
+                  >
+                    Air-Defensive Counter Air
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010005Z"
+                  >
+                    MAY 010005Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010435Z"
+                  >
+                    MAY 010435Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={1}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-green_5"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Green-5 (Turn 3)"
+                  >
+                    Green-5 (Turn 3)
                   </td>
                   <td
                     aria-sort={null}
@@ -853,9 +1085,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
-                    value="Message Title"
+                    value="Order item 9"
                   >
-                    Message Title
+                    Order item 9
                   </td>
                   <td
                     aria-sort={null}
@@ -873,9 +1105,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
-                    value="rike"
+                    value="Land-Land Close Combat"
                   >
-                    rike
+                    Land-Land Close Combat
                   </td>
                   <td
                     aria-sort={null}
@@ -893,9 +1125,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "140px",
                       }
                     }
-                    value="OCT 130852Z"
+                    value="MAY 010005Z"
                   >
-                    OCT 130852Z
+                    MAY 010005Z
                   </td>
                   <td
                     aria-sort={null}
@@ -913,9 +1145,4185 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "140px",
                       }
                     }
-                    value="OCT 150852Z"
+                    value="MAY 010455Z"
                   >
-                    OCT 150852Z
+                    MAY 010455Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={2}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-blue_8"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Blue-8 (Turn 3)"
+                  >
+                    Blue-8 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="AEW 2"
+                  >
+                    AEW 2
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 12"
+                  >
+                    Order item 12
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Land-Raid"
+                  >
+                    Land-Raid
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010005Z"
+                  >
+                    MAY 010005Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010315Z"
+                  >
+                    MAY 010315Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={3}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-red_11"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Red-11 (Turn 3)"
+                  >
+                    Red-11 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Threat Network"
+                  >
+                    Threat Network
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 15"
+                  >
+                    Order item 15
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Air-Time Sensitive Targeting (TST)"
+                  >
+                    Air-Time Sensitive Targeting (TST)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010005Z"
+                  >
+                    MAY 010005Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010535Z"
+                  >
+                    MAY 010535Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={4}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-blue_14"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Blue-14 (Turn 3)"
+                  >
+                    Blue-14 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="MTG 3"
+                  >
+                    MTG 3
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 18"
+                  >
+                    Order item 18
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Info Ops-Area Activity"
+                  >
+                    Info Ops-Area Activity
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010005Z"
+                  >
+                    MAY 010005Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010055Z"
+                  >
+                    MAY 010055Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={5}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-blue_17"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Blue-17 (Turn 3)"
+                  >
+                    Blue-17 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Sub-Surface"
+                  >
+                    Sub-Surface
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 21"
+                  >
+                    Order item 21
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Air-Offensive Counter Air"
+                  >
+                    Air-Offensive Counter Air
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010005Z"
+                  >
+                    MAY 010005Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010655Z"
+                  >
+                    MAY 010655Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={6}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-red_20"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Red-20 (Turn 3)"
+                  >
+                    Red-20 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="MAR"
+                  >
+                    MAR
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 24"
+                  >
+                    Order item 24
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Space-Targeted Activity"
+                  >
+                    Space-Targeted Activity
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010005Z"
+                  >
+                    MAY 010005Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010055Z"
+                  >
+                    MAY 010055Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={7}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-red_203"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Red-203 (Turn 3)"
+                  >
+                    Red-203 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="MAR"
+                  >
+                    MAR
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 207"
+                  >
+                    Order item 207
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Air-ISTAR"
+                  >
+                    Air-ISTAR
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010615Z"
+                  >
+                    MAY 010615Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010925Z"
+                  >
+                    MAY 010925Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={8}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-green_23"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Green-23 (Turn 3)"
+                  >
+                    Green-23 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="CO"
+                  >
+                    CO
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 32"
+                  >
+                    Order item 32
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Maritime-Strike"
+                  >
+                    Maritime-Strike
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010005Z"
+                  >
+                    MAY 010005Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010205Z"
+                  >
+                    MAY 010205Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={9}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-green_26"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Green-26 (Turn 3)"
+                  >
+                    Green-26 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="CO"
+                  >
+                    CO
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 30"
+                  >
+                    Order item 30
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Land-Land Close Combat"
+                  >
+                    Land-Land Close Combat
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010010Z"
+                  >
+                    MAY 010010Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010400Z"
+                  >
+                    MAY 010400Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={10}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-green_29"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Green-29 (Turn 3)"
+                  >
+                    Green-29 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="CO"
+                  >
+                    CO
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 33"
+                  >
+                    Order item 33
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Air-Transit"
+                  >
+                    Air-Transit
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010030Z"
+                  >
+                    MAY 010030Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010120Z"
+                  >
+                    MAY 010120Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={11}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-blue_32"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Blue-32 (Turn 3)"
+                  >
+                    Blue-32 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="MTG 3"
+                  >
+                    MTG 3
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 40"
+                  >
+                    Order item 40
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Maritime-Strike"
+                  >
+                    Maritime-Strike
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010045Z"
+                  >
+                    MAY 010045Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010205Z"
+                  >
+                    MAY 010205Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={12}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-green_35"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Green-35 (Turn 3)"
+                  >
+                    Green-35 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="CO"
+                  >
+                    CO
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 39"
+                  >
+                    Order item 39
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Land-Transit"
+                  >
+                    Land-Transit
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010045Z"
+                  >
+                    MAY 010045Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010135Z"
+                  >
+                    MAY 010135Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={13}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-green_38"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Green-38 (Turn 3)"
+                  >
+                    Green-38 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="CO"
+                  >
+                    CO
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 42"
+                  >
+                    Order item 42
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Land-Land Close Combat"
+                  >
+                    Land-Land Close Combat
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010050Z"
+                  >
+                    MAY 010050Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010430Z"
+                  >
+                    MAY 010430Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={14}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-blue_41"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Blue-41 (Turn 3)"
+                  >
+                    Blue-41 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="MTG 2"
+                  >
+                    MTG 2
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 45"
+                  >
+                    Order item 45
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Land-Raid"
+                  >
+                    Land-Raid
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010110Z"
+                  >
+                    MAY 010110Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010400Z"
+                  >
+                    MAY 010400Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={15}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-red_44"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Red-44 (Turn 3)"
+                  >
+                    Red-44 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="MAR"
+                  >
+                    MAR
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 48"
+                  >
+                    Order item 48
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Air-Transit"
+                  >
+                    Air-Transit
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010110Z"
+                  >
+                    MAY 010110Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010200Z"
+                  >
+                    MAY 010200Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={16}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-red_47"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Red-47 (Turn 3)"
+                  >
+                    Red-47 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Threat Network"
+                  >
+                    Threat Network
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 51"
+                  >
+                    Order item 51
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="SOF-Activity"
+                  >
+                    SOF-Activity
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010110Z"
+                  >
+                    MAY 010110Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010510Z"
+                  >
+                    MAY 010510Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={17}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-red_50"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Red-50 (Turn 3)"
+                  >
+                    Red-50 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="CO"
+                  >
+                    CO
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 54"
+                  >
+                    Order item 54
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Air-Suppression of Air Defences (SEAD)"
+                  >
+                    Air-Suppression of Air Defences (SEAD)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010110Z"
+                  >
+                    MAY 010110Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010440Z"
+                  >
+                    MAY 010440Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={18}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-green_53"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Green-53 (Turn 3)"
+                  >
+                    Green-53 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="CO"
+                  >
+                    CO
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 57"
+                  >
+                    Order item 57
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Land-Land Close Combat"
+                  >
+                    Land-Land Close Combat
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010120Z"
+                  >
+                    MAY 010120Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010500Z"
+                  >
+                    MAY 010500Z
+                  </td>
+                </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={19}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-red_56"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Red-56 (Turn 3)"
+                  >
+                    Red-56 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Threat Network"
+                  >
+                    Threat Network
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 60"
+                  >
+                    Order item 60
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Space-Area Activity"
+                  >
+                    Space-Area Activity
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010130Z"
+                  >
+                    MAY 010130Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010220Z"
+                  >
+                    MAY 010220Z
                   </td>
                 </tr>
               </tbody>
@@ -1009,7 +5417,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
               <p
                 className="MuiTablePagination-displayedRows css-levciy-MuiTablePagination-displayedRows"
               >
-                1–1 of 1
+                1–20 of 31
               </p>
               <div
                 className="MuiBox-root css-lm78jv"
@@ -1115,7 +5523,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     }
                   }
                 >
-                  1-1 of 1
+                  1-20 of 31
                 </span>
                 <span
                   aria-label="Next Page"
@@ -1131,8 +5539,8 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 >
                   <button
                     aria-label="Next Page"
-                    className="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
-                    disabled={true}
+                    className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                    disabled={false}
                     onBlur={[Function]}
                     onClick={[Function]}
                     onContextMenu={[Function]}
@@ -1146,7 +5554,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     onTouchEnd={[Function]}
                     onTouchMove={[Function]}
                     onTouchStart={[Function]}
-                    tabIndex={-1}
+                    tabIndex={0}
                     type="button"
                   >
                     <svg
@@ -1160,6 +5568,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
                       />
                     </svg>
+                    <span
+                      className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                    />
                   </button>
                 </span>
                 <span
@@ -1176,8 +5587,8 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 >
                   <button
                     aria-label="Last Page"
-                    className="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
-                    disabled={true}
+                    className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+                    disabled={false}
                     onBlur={[Function]}
                     onClick={[Function]}
                     onContextMenu={[Function]}
@@ -1191,7 +5602,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     onTouchEnd={[Function]}
                     onTouchMove={[Function]}
                     onTouchStart={[Function]}
-                    tabIndex={-1}
+                    tabIndex={0}
                     type="button"
                   >
                     <svg
@@ -1205,6 +5616,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         d="M5.59 7.41 10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"
                       />
                     </svg>
+                    <span
+                      className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                    />
                   </button>
                 </span>
               </div>

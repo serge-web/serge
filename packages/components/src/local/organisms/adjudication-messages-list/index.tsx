@@ -7,9 +7,9 @@ import TextField from '@mui/material/TextField'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
-import { findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
+import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START, Phase } from '@serge/config'
+import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { findAsset, findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
 import dayjs, { Dayjs } from 'dayjs'
 import { Geometry } from 'geojson'
@@ -52,13 +52,13 @@ export const DEFAULT_SEARCH_RATE = 2000
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate, turnFilter,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
-  platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
+  platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack, phase,
   gameTurnLength, onLocationEditorLoaded, currentTurn
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-  const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(false)
+  const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(true)
   const [dialogMessage, setDialogMessage] = useState<React.ReactElement | undefined>()
   // note: we don't work directly with the list of interactions, since we need some special processing to prevent
   // note: interactions being edited from being wiped.  So we maintain an independent list
@@ -79,6 +79,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const manuallyData = useRef<ManualInteractionResults>({ orders: [], endDate: gameDate, otherAssets: [], startDate: gameDate })
 
   const [interactionIsOpen, setInteractionIsOpen] = useState<boolean>(false)
+
+  const [inPlanning, setInPlanning] = useState<boolean>(true)
 
   const msgSeparator = ' - '
 
@@ -113,15 +115,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setCachedInteractions([])
     } else {
       // check the first message - it may be an update
-      const newMessage = ownMessages[0]
-      const row = toRow(newMessage)
-      const existingRow = rows.some(row => row.reference === newMessage.message.Reference)
-      if (existingRow) {
-        const existingMessages: AdjudicationRow[] = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
-        setRows([...existingMessages, row])
-      } else {
-        setRows([...rows, row])
-      }
+      //     const newMessage = ownMessages[0]
+      //   const row = toRow(newMessage)
+      //   const existingRow = rows.some(row => row.reference === newMessage.message.Reference)
+      //      if (existingRow) {
+      //      const existingMessages: AdjudicationRow[] = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
+      //        setRows([...existingMessages, row])
+      setCachedInteractions(ownMessages)
+      //  } else {
+      //  setRows([...rows, row])
+      // }
     }
     // when determining the time of next adjudication, consider the full list
     if (interactionMessages.length > 0) {
@@ -134,6 +137,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
     setInteractionIsOpen(!!ownOpenMessages.length)
   }, [interactionMessages, onlyShowOpen])
+
+  useEffect(() => {
+    setInPlanning(phase === Phase.Planning)
+  }, [phase])
 
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>
@@ -416,30 +423,62 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const outAsAny = outcomes as any
         outAsAny.messageType = ADJUDICATION_OUTCOMES
 
+        const cleanLocation = (uniqid: Asset['uniqid'], loc: any): [number, number] | undefined => {
+          let res = loc
+          if (typeof loc === 'string' && (loc as string).length > 0) {
+            const locStr = loc as string
+            if (locStr === 't') {
+              // replace with actual location of this asset
+              const asset = findAsset(forces, uniqid)
+              if (asset.location) {
+                res = [asset.location[0], asset.location[1]]
+              } else {
+                res = undefined
+              }
+            } else if (locStr === 'x') {
+              // special case - we wish to drop contact, leave it as-is
+            } else {
+              try {
+                // ok, convert string to JSON array
+                const json = JSON.parse(loc)
+                // extract the coords
+                const lat = parseFloat(json[0])
+                const lng = parseFloat(json[1])
+                // create new location array
+                const latLng: [number, number] = [lat, lng]
+                // store the value
+                res = latLng
+              } catch (err) {
+                console.warn('Failed to parse JSON. No location stored')
+              }
+            }
+          } else if (Array.isArray(loc)) {
+            // value is valid, leave
+          } else {
+            console.error('Unexpected location outcome format:', res)
+          }
+          return res
+        }
+
         // (temporarily) fix the locations. While we're waiting for the outcomes table
         // to support the location editor, we're allowing locations to be entered as
         // lat-long pairs
         outcomes.locationOutcomes.forEach((value: LocationOutcome) => {
-          const loc = value.location
-          if (typeof loc === 'string' && (loc as string).length > 0) {
-            try {
-              // ok, convert string to JSON array
-              const json = JSON.parse(loc)
-              // extract the coords
-              const lat = parseFloat(json[0])
-              const lng = parseFloat(json[1])
-              // create new location array
-              const latLng: [number, number] = [lat, lng]
-              // store the value
-              value.location = latLng
-            } catch (err) {
-              console.warn('Failed to parse JSON. No location stored')
+          const cleaned = cleanLocation(value.asset, value.location)
+          if (cleaned) {
+            value.location = cleaned
+          }
+        })
+
+        // (temporarily) fix the locations. While we're waiting for the outcomes table
+        // to support the location editor, we're allowing locations to be entered as
+        // lat-long pairs
+        outcomes.perceptionOutcomes.forEach((value: PerceptionOutcome) => {
+          if (value.perceivedLocation) {
+            const cleaned = cleanLocation(value.asset, value.perceivedLocation)
+            if (cleaned) {
+              value.perceivedLocation = JSON.stringify(cleaned)
             }
-          } else if (Array.isArray(loc)) {
-            // value is valid, leave
-            value.location = loc
-          } else {
-            console.error('Unexpected location outcome format:', value.location)
           }
         })
 
@@ -481,11 +520,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const interactions = contacts[1]
       // put contents of results into console
       const sortedEvents = _.sortBy(events, o => o.time)
-      const eventMap: Record<string, string>[] = sortedEvents.map((event): Record<string, string> => {
+      const eventMap: Record<string, string>[] = sortedEvents.map((event, ctr): Record<string, string> => {
         const message = event.message.message
         const own = message.ownAssets ? message.ownAssets.map((item) => item.asset).join(', ') : ''
         const other = message.otherAssets ? message.otherAssets.map((item) => item.asset).join(', ') : ''
         return {
+          id: '' + (ctr + 1),
           ref: message.Reference,
           title: message.title,
           time: formatMilitaryDate(moment.utc(event.time).toISOString()),
@@ -497,10 +537,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       })
       console.table(eventMap)
       const sortedInteractions = _.sortBy(interactions, o => o.timeStart)
-      const interactionMap = sortedInteractions.map((interv) => {
+      const interactionMap = sortedInteractions.map((interv, ctr) => {
         const m1 = interv.first.plan.message
         const m2 = interv.second.plan.message
         return {
+          id: '' + (ctr + 1),
           time: formatMilitaryDate(moment.utc(interv.timeStart).toISOString()),
           firstRef: m1.Reference,
           firstTitle: m1.title,
@@ -535,6 +576,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setDialogMessage(<>No interactions found</>)
       // fine, ignore it
     } else if (!Array.isArray(results) && results !== undefined) {
+      setInteractionIsOpen(true)
       const outcomes = results as { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
       handleAdjudication && handleAdjudication(outcomes.details, outcomes.outcomes)
     } else {
@@ -608,11 +650,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const translateEvent = (event: INTERACTION_SHORT_CIRCUIT): string => {
     switch (event) {
-      case 'i-end':
+      case INTER_AT_END:
         return 'End of activity'
-      case 'i-start':
+      case INTER_AT_START:
         return 'Start of activity'
-      case 'i-random':
+      case INTER_AT_RANDOM:
         return 'Random point in period'
     }
   }
@@ -792,7 +834,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         emptyRowsWhenPaging: false,
         pageSizeOptions: [5, 10, 15, 20],
         filtering: filter,
-        selection: true,
+        selection: false,
         rowStyle: { fontSize: '80%' },
         columnsButton: true
       }}
@@ -918,9 +960,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         </CustomDialog>
       }
       <div className='button-wrap' >
-        <Button color='secondary' disabled={interactionIsOpen} onClick={getInteraction} icon='save'>Get next</Button>
+        <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
-        <Button color='secondary' disabled={interactionIsOpen} onClick={createManualInteraction} icon='add'>Create manual</Button>
+        <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={createManualInteraction} icon='add'>Create manual</Button>
         &nbsp;
         <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
         <Chip label={currentTime} />

@@ -2,7 +2,7 @@ import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { ADJUDICATION_PHASE, expiredStorage, MESSAGE_SENT_INTERACTION, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
-import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
+import { incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import { updateLocationNames } from '@serge/helpers/build/geometry-helpers'
 import cx from 'classnames'
 import { Column } from '@material-table/core'
@@ -52,6 +52,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleId,
   selectedRoleName,
   allForces,
+  forceColors,
   allPeriods,
   gameDate,
   gameTurnLength: gameTurnTime,
@@ -77,7 +78,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
   const [activeTab, setActiveTab] = useState<string>(initialTab || (umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE))
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
-  const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
   const [gameTurnEndDate, setGameTurnEndDate] = useState<string>('')
@@ -503,7 +503,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <div className={styles.content}>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_FORCE })}>
                 <PlanningAssets
-                  forceColors={forceCols}
+                  forceColors={forceColors}
                   assets={allOwnAssets}
                   attributeTypes={attributeTypes}
                   platformStyles={platIcons}
@@ -523,7 +523,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
                 <TurnFilter label='Show orders for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
-                  messages={filteredPlanningMessages}
+                  planningMessages={filteredPlanningMessages}
+                  interactionMessages={filteredInteractionMessages}
+                  platformTypes={platformTypes}
                   phase={phase}
                   gameTurnEndDate={gameTurnEndDate}
                   playerRoleId={selectedRoleId}
@@ -532,6 +534,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   selectedRoleName={selectedRoleName}
                   currentTurn={currentTurn}
                   hideForcesInChannel={false}
+                  allForces={allForces}
+                  forceColors={forceColors}
                   onRead={onRead}
                   onUnread={onUnread}
                   onMarkAllAsRead={onReadAll}
@@ -580,7 +584,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_OPP_FOR })}>
                 <PlanningAssets
-                  forceColors={forceCols}
+                  forceColors={forceColors}
                   platformStyles={platIcons}
                   attributeTypes={attributeTypes}
                   assets={allOppAssets}
@@ -607,8 +611,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   periods={allPeriods}
                   gameDate={gameDate}
                   gameTurnLength={gameTurnTime}
+                  phase={phase}
                   playerRoleId={selectedRoleId}
-                  forceColors={forceCols}
+                  forceColors={forceColors}
                   onRead={onRead}
                   onUnread={onUnread}
                   onMarkAllAsRead={onReadAll}
