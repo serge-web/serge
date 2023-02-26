@@ -367,7 +367,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             {...props}
           />)
         },
-        FilterRow: props => <CustomFilterRow {...props} forces={[]} onSupportPanelLayoutChange={onSupportPanelLayoutChange} cacheKey={TAB_MY_ORDERS} />
+        FilterRow: props => <CustomFilterRow {...props} onSupportPanelLayoutChange={onSupportPanelLayoutChange} cacheKey={TAB_MY_ORDERS} />
       }}
     />
   }, [rows, filter, toolbarActions, onlyShowMyOrders])
@@ -383,7 +383,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
           onClose={archiveCancelled}
           onSave={archiveConfirmed}
-          /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
+        /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
         >
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
         </CustomDialog>
