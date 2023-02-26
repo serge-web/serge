@@ -8,8 +8,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
-import { findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
+import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { findAsset, findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
 import dayjs, { Dayjs } from 'dayjs'
 import { Geometry } from 'geojson'
@@ -416,30 +416,59 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const outAsAny = outcomes as any
         outAsAny.messageType = ADJUDICATION_OUTCOMES
 
+        const cleanLocation = (uniqid: Asset['uniqid'], loc: any): [number, number] | undefined => {
+          let res = loc
+          if (typeof loc === 'string' && (loc as string).length > 0) {
+            const locStr = loc
+            if (locStr === 't') {
+              // replace with actual location of this asset
+              const asset = findAsset(forces, uniqid)
+              if (asset.location) {
+                res = [asset.location[0], asset.location[1]]
+              }
+            } else {
+              try {
+                // ok, convert string to JSON array
+                const json = JSON.parse(loc)
+                // extract the coords
+                const lat = parseFloat(json[0])
+                const lng = parseFloat(json[1])
+                // create new location array
+                const latLng: [number, number] = [lat, lng]
+                // store the value
+                res = latLng
+              } catch (err) {
+                console.warn('Failed to parse JSON. No location stored')
+              }  
+            }
+          } else if (Array.isArray(loc)) {
+            // value is valid, leave
+            res = loc
+          } else {
+            console.error('Unexpected location outcome format:', res)
+          }
+          return res
+        }
+
         // (temporarily) fix the locations. While we're waiting for the outcomes table
         // to support the location editor, we're allowing locations to be entered as
         // lat-long pairs
         outcomes.locationOutcomes.forEach((value: LocationOutcome) => {
-          const loc = value.location
-          if (typeof loc === 'string' && (loc as string).length > 0) {
-            try {
-              // ok, convert string to JSON array
-              const json = JSON.parse(loc)
-              // extract the coords
-              const lat = parseFloat(json[0])
-              const lng = parseFloat(json[1])
-              // create new location array
-              const latLng: [number, number] = [lat, lng]
-              // store the value
-              value.location = latLng
-            } catch (err) {
-              console.warn('Failed to parse JSON. No location stored')
+          const cleaned = cleanLocation(value.asset, value.location)
+          if (cleaned) {
+            value.location = cleaned
+          }
+        })
+
+        // (temporarily) fix the locations. While we're waiting for the outcomes table
+        // to support the location editor, we're allowing locations to be entered as
+        // lat-long pairs
+        outcomes.perceptionOutcomes.forEach((value: PerceptionOutcome) => {
+          if (value.perceivedLocation) {
+            const cleaned = cleanLocation(value.asset, value.perceivedLocation)
+            if (cleaned) {
+              value.perceivedLocation = JSON.stringify(cleaned) 
             }
-          } else if (Array.isArray(loc)) {
-            // value is valid, leave
-            value.location = loc
-          } else {
-            console.error('Unexpected location outcome format:', value.location)
           }
         })
 
