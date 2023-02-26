@@ -65,6 +65,13 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }, [activity])
 
   useEffect(() => {
+    if (!standardPolygons && standardAreaBtn.current) {
+      // remove standard area button
+      standardAreaBtn.current.remove()
+    }
+  }, [standardPolygons])
+
+  useEffect(() => {
     if (pendingGeometry) {
       const layerAsAny = pendingGeometry.layer as any
       let res: Geometry | undefined
@@ -220,11 +227,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // remove standard area when finished
       if (selectedPolygonLayer.current) {
         map.removeLayer(selectedPolygonLayer.current)
-      }
-
-      // remove standard area button
-      if (standardAreaBtn.current) {
-        standardAreaBtn.current.remove()
       }
     } else if (plannedGeometries.length > 0) {
       // move forward one
