@@ -836,7 +836,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         emptyRowsWhenPaging: false,
         pageSizeOptions: [5, 10, 15, 20],
         filtering: filter,
-        selection: true,
+        selection: false,
         rowStyle: { fontSize: '80%' },
         columnsButton: true
       }}
