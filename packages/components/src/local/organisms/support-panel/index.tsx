@@ -293,6 +293,18 @@ export const SupportPanel: React.FC<PropTypes> = ({
       return element
     }
 
+    const toLocale = (date:string): string => {
+      return moment.utc(date).toLocaleString()
+    }
+
+    const toUTC = (date: string): string => {
+      return moment(date).toISOString()
+    }
+
+    console.log('test date', gameDate, toLocale(gameDate), toUTC(gameDate))
+
+
+
     // check this isn't an adjudication message, since we only
     // set the default dates, if this is a planning message
     const schemaTitle: string = schema.title || 'unknown'
