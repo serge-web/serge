@@ -1,7 +1,7 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { ADJUDICATION_PHASE, expiredStorage, MESSAGE_SENT_INTERACTION, SUPPORT_PANEL_LAYOUT } from '@serge/config'
-import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
+import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructure, PlanningMessageStructureCore } from '@serge/custom-types'
 import { incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import { updateLocationNames } from '@serge/helpers/build/geometry-helpers'
 import cx from 'classnames'
@@ -239,6 +239,15 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const postBack = (details: MessageDetails, message: any): void => {
     console.log('SupportPanel - save message postack', message.Reference)
+
+    // We removed an hour from dates - due to flatPickr bug.  Replace that hour
+    if (message.startDate) {
+      message.startDate = moment(message.startDate).add(1, 'hour').toISOString()
+    }
+    if (message.endDate) {
+      message.endDate = moment(message.endDate).add(1, 'hour').toISOString()
+    }
+
     // do we have any pending geometry
     if (pendingLocationData.length > 0) {
       const plan = message as MessagePlanning
@@ -286,12 +295,29 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
     })
 
+    // specify the date formats, and default date for any flatPickr controls
     const fixDate = (element: any, gameDate: string): any => {
       if (element && element.options && element.options.flatpickr) {
-        element.options.flatpickr.defaultDate = gameDate
+        element.options.flatpickr.dateFormat = 'Z'
+        element.options.flatpickr.altInput = true
+        element.options.flatpickr.altFormat = 'M dHi\\Z'
+        if (gameDate) {
+          const localDate = moment.utc(gameDate).subtract(1, 'hour').toISOString()
+          element.options.flatpickr.defaultDate = localDate
+        }
       }
       return element
     }
+
+    const toLocale = (date:string): string => {
+      return moment.utc(date).toLocaleString()
+    }
+
+    const toUTC = (date: string): string => {
+      return moment(date).toISOString()
+    }
+
+    console.log('test date', gameDate, toLocale(gameDate), toUTC(gameDate))
 
     // check this isn't an adjudication message, since we only
     // set the default dates, if this is a planning message
@@ -302,6 +328,20 @@ export const SupportPanel: React.FC<PropTypes> = ({
         fixDate(schema.properties.endDate, gameDate)
       }
     }
+
+    // we have an issue where flatPickr is showing dates on hour out - it is adding an hour.
+    // There isn't a fix for it, so manually subtract an hour - so the Z date-time is displayed
+    if (document) {
+      const plan = document as PlanningMessageStructure
+      if (plan.startDate && plan.startDate.length > 0) {
+        plan.startDate = moment.utc(plan.startDate).subtract(1, 'hour').toISOString()
+      }
+      if (plan.endDate && plan.endDate.length > 0) {
+        plan.endDate = moment.utc(plan.endDate).subtract(1, 'hour').toISOString()
+      }
+    }
+
+    console.log('modified template', schema.properties)
 
     // now modify the template
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
@@ -316,6 +356,24 @@ export const SupportPanel: React.FC<PropTypes> = ({
       current = fn(document, current)
     })
     return current
+  }
+
+  const localModifyForSave = (document: Record<string, any>): Record<string, any> => {
+    const fixedLocation = expandLocation(document)
+    const planDoc = fixedLocation as PlanningMessageStructureCore
+    if (planDoc.location && planDoc.ownAssets) {
+      const ownAssets = planDoc.ownAssets.map((item: { asset: string }) => item.asset)
+      // update the start/end time in the props
+      const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
+      !7 && summariseLocations('before', planDoc.location)
+      !7 && summariseLocations('after', updatedLocations)
+      planDoc.location = updatedLocations
+    }
+
+    // also try to fix the names
+    planDoc.location = planDoc.location ? updateLocationNames(planDoc.location, activitiesForThisForce) : undefined
+
+    return planDoc
   }
 
   const editThisMessage = (docId: string): void => {
@@ -449,22 +507,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
         end: props.endDate
       }
     }))
-  }
-
-  const localModifyForSave = (document: Record<string, any>): Record<string, any> => {
-    const fixedLocation = expandLocation(document)
-    const planDoc = fixedLocation as PlanningMessageStructureCore
-    if (planDoc.location && planDoc.ownAssets) {
-      const ownAssets = planDoc.ownAssets.map((item: { asset: string }) => item.asset)
-      // update the start/end time in the props
-      const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
-      !7 && summariseLocations('before', planDoc.location)
-      !7 && summariseLocations('after', updatedLocations)
-      planDoc.location = updatedLocations
-    }
-    // also try to fix the names
-    planDoc.location = planDoc.location ? updateLocationNames(planDoc.location, activitiesForThisForce) : undefined
-    return planDoc
   }
 
   const mapColumnState = (activeTab: string, columns: Column<any>[]): string => {

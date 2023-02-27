@@ -1,7 +1,8 @@
 import { CUSTOM_MESSAGE } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageCustom, MessageDetails, MessageStructure, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageCustom, MessageDetails, MessageStructure, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import { } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
+import moment from 'moment'
 import React from 'react'
 import { generateAllTemplates } from '../../molecules/json-editor/helpers/generate-p9-templates'
 import NewMessage from './index'
@@ -57,29 +58,43 @@ interface StoryPropTypes {
 const fixDate = (element: any, gameDate: string): any => {
   if (element && element.options && element.options.flatpickr) {
     element.options.flatpickr.defaultDate = gameDate
+    element.options.flatpickr.dateFormat = 'M dHi\\Z'
   }
   return element
 }
 
-const localCustomiseTemplate = (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
+const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
   // sort out which orders are currently "live"
   const gameDate = '2024-05-01T00:00:00Z'
+
+  // convert to local
+  const localDate = moment.utc(gameDate).toLocaleString()
   // check this isn't an adjudication message, since we only
   // set the default dates, if this is a planning message
   const schemaTitle: string = schema.title || 'unknown'
   if (!schemaTitle.startsWith('Adjudicat')) {
-    if (gameDate) {
-      fixDate(schema.properties.startDate, gameDate)
-      fixDate(schema.properties.endDate, gameDate)
-    }
+    fixDate(schema.properties.startDate, localDate)
+    fixDate(schema.properties.endDate, localDate)
   }
+
+  // game dates
+  if (document) {
+    const plan = document as PlanningMessageStructure
+    const startVal = plan.startDate && plan.startDate.length > 0 ? plan.startDate : gameDate
+    const endVal = plan.endDate && plan.endDate.length > 0 ? plan.endDate : gameDate
+    plan.startDate = moment.utc(startVal).toLocaleString()
+    plan.endDate = moment.utc(endVal).toLocaleString()
+  }
+
   return schema
 }
+
 const Template: Story<StoryPropTypes> = (args) => {
   const { privateMessage, orderableChannel, confirmCancel, ...props } = args
 
   const postBack = (details: MessageDetails, message: any): void => {
     console.log('send message', details, message)
+    // fix message
   }
 
   return (<NewMessage
