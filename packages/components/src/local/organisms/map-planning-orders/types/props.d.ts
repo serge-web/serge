@@ -1,4 +1,4 @@
-import { ForceData, ForceStyle, MessageInteraction, MessagePlanning, PlanningActivity } from '@serge/custom-types'
+import { ForceData, ForceStyle, MessageInteraction, MessagePlanning, PlanningActivity, PlannedActivityGeometry } from '@serge/custom-types'
 import React from 'react'
 
 /** helper object, to allow clustering of assets by force */

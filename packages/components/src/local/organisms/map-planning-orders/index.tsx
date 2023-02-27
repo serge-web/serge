@@ -25,7 +25,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
   const [orderGeometries, setOrderGeometries] = useState<React.ReactElement[]>([])
   const [orderLayersToDelete] = useState<Layer[]>([])
   const [featureGeometries, setFeatureGeometries] = useState<React.ReactElement[]>([])
-  const [featureLayersToDelete, setFeatureLayersToDelete] = useState<Layer[]>([])
+  const [featureLayersToDelete] = useState<Layer[]>([])
 
   /** produce a list of features for the geometries in this message */
   const featuresForPlanningMessage = (msg: MessagePlanning): Feature[] => {
