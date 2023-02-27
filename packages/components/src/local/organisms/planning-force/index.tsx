@@ -195,7 +195,7 @@ const PlanningForces: React.FC<PropTypes> = ({
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
         {!asset.sidc && <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />}
-        {asset.sidc && <SymbolAssetIcon force={asset.force} sidc={asset.sidc} iconName={asset.name} health={asset.health} isSelected={isSelected} hideName={hideNameVal} assetsCache={assetsCache} />}
+        {asset.sidc && <SymbolAssetIcon force={asset.force} sidc={asset.sidc} iconName={asset.name} health={asset.health} isSelected={!7 && isSelected} hideName={hideNameVal} assetsCache={assetsCache} />}
       </div>)
     )
   }
@@ -230,6 +230,7 @@ const PlanningForces: React.FC<PropTypes> = ({
     const isSelected = selectedAssets.includes(asset.id)
     const isCurrent = currentAssets && currentAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
+    console.log('interactive', interactive)
     return {
       eventHandlers: {
         click: (): void => {
@@ -303,8 +304,11 @@ const PlanningForces: React.FC<PropTypes> = ({
             {rawMarkers && rawMarkers.map((asset: AssetRow) => {
               const markerOption = getRawMarkerOption(asset)
               return <Marker
-                pmIgnore
-                interactive={interactive}
+                pmIgnore={true}
+                snapIgnore={false}
+                // NOTE: next line is a workaround.  It should use value of `interactive`, but
+                // that won't let us start/end a route on a flashing icon
+                interactive={false}
                 {...markerOption}
               >
                 <Tooltip>{labelFor(asset)}</Tooltip>
@@ -314,7 +318,7 @@ const PlanningForces: React.FC<PropTypes> = ({
         }
       </>
     )
-  }, [clustereredMarkers, rawMarkers, rawRangeRings, clusteredRangeRings])
+  }, [clustereredMarkers, rawMarkers, rawRangeRings, clusteredRangeRings, interactive])
 
   return iconLayer
 }
