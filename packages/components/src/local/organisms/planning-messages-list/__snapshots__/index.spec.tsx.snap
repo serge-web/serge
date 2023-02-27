@@ -2403,238 +2403,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         data-indeterminate={false}
                         onChange={[Function]}
                         type="checkbox"
-                        value="m_f-red_203"
-                      />
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-                        data-testid="CheckBoxOutlineBlankIcon"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                        />
-                      </svg>
-                      <span
-                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                      />
-                    </span>
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": 150,
-                        "width": "150px",
-                      }
-                    }
-                    value="Red-203 (Turn 3)"
-                  >
-                    Red-203 (Turn 3)
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": undefined,
-                        "width": "auto",
-                      }
-                    }
-                    value="MAR"
-                  >
-                    MAR
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": undefined,
-                        "width": "auto",
-                      }
-                    }
-                    value="Order item 207"
-                  >
-                    Order item 207
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": undefined,
-                        "width": "auto",
-                      }
-                    }
-                    value="Air-ISTAR"
-                  >
-                    Air-ISTAR
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": 140,
-                        "width": "140px",
-                      }
-                    }
-                    value="MAY 010615Z"
-                  >
-                    MAY 010615Z
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": 140,
-                        "width": "140px",
-                      }
-                    }
-                    value="MAY 010925Z"
-                  >
-                    MAY 010925Z
-                  </td>
-                </tr>
-                <tr
-                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={8}
-                  level={0}
-                  onClick={[Function]}
-                  role={null}
-                  style={
-                    Object {
-                      "fontSize": "80%",
-                    }
-                  }
-                >
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
-                    style={
-                      Object {
-                        "textAlign": "center",
-                        "width": 42,
-                      }
-                    }
-                  >
-                    <button
-                      aria-label="Detail panel visibility toggle"
-                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
-                      disabled={false}
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onContextMenu={[Function]}
-                      onDragLeave={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                      onMouseDown={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      onTouchEnd={[Function]}
-                      onTouchMove={[Function]}
-                      onTouchStart={[Function]}
-                      style={
-                        Object {
-                          "transform": "none",
-                          "transition": "all ease 200ms",
-                        }
-                      }
-                      tabIndex={0}
-                      type="button"
-                    >
-                      <svg
-                        className="svg-inline--fa fa-chevron-right"
-                      />
-                      <span
-                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                      />
-                    </button>
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
-                    style={
-                      Object {
-                        "width": 48,
-                      }
-                    }
-                  >
-                    <span
-                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onContextMenu={[Function]}
-                      onDragLeave={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                      onMouseDown={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      onTouchEnd={[Function]}
-                      onTouchMove={[Function]}
-                      onTouchStart={[Function]}
-                      style={
-                        Object {
-                          "marginLeft": 0,
-                        }
-                      }
-                      tabIndex={null}
-                    >
-                      <input
-                        checked={false}
-                        className="PrivateSwitchBase-input css-1m9pwf3"
-                        data-indeterminate={false}
-                        onChange={[Function]}
-                        type="checkbox"
                         value="m_f-green_23"
                       />
                       <svg
@@ -2776,7 +2544,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={9}
+                  index={8}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -3008,7 +2776,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={10}
+                  index={9}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -3240,7 +3008,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={11}
+                  index={10}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -3472,7 +3240,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={12}
+                  index={11}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -3704,7 +3472,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={13}
+                  index={12}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -3936,7 +3704,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={14}
+                  index={13}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -4168,7 +3936,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={15}
+                  index={14}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -4400,7 +4168,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={16}
+                  index={15}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -4632,7 +4400,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={17}
+                  index={16}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -4864,7 +4632,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={18}
+                  index={17}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -5096,7 +4864,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={19}
+                  index={18}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -5326,6 +5094,238 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     MAY 010220Z
                   </td>
                 </tr>
+                <tr
+                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
+                  index={19}
+                  level={0}
+                  onClick={[Function]}
+                  role={null}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
+                >
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "textAlign": "center",
+                        "width": 42,
+                      }
+                    }
+                  >
+                    <button
+                      aria-label="Detail panel visibility toggle"
+                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                      disabled={false}
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "transform": "none",
+                          "transition": "all ease 200ms",
+                        }
+                      }
+                      tabIndex={0}
+                      type="button"
+                    >
+                      <svg
+                        className="svg-inline--fa fa-chevron-right"
+                      />
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </button>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    style={
+                      Object {
+                        "width": 48,
+                      }
+                    }
+                  >
+                    <span
+                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onContextMenu={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      style={
+                        Object {
+                          "marginLeft": 0,
+                        }
+                      }
+                      tabIndex={null}
+                    >
+                      <input
+                        checked={false}
+                        className="PrivateSwitchBase-input css-1m9pwf3"
+                        data-indeterminate={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                        value="m_f-red_59"
+                      />
+                      <svg
+                        aria-hidden={true}
+                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                        data-testid="CheckBoxOutlineBlankIcon"
+                        focusable="false"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+                        />
+                      </svg>
+                      <span
+                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                      />
+                    </span>
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 150,
+                        "width": "150px",
+                      }
+                    }
+                    value="Red-59 (Turn 3)"
+                  >
+                    Red-59 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Direct Action"
+                  >
+                    Direct Action
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Order item 63"
+                  >
+                    Order item 63
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Maritime-EW Attack"
+                  >
+                    Maritime-EW Attack
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010150Z"
+                  >
+                    MAY 010150Z
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": 140,
+                        "width": "140px",
+                      }
+                    }
+                    value="MAY 010450Z"
+                  >
+                    MAY 010450Z
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -5417,7 +5417,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
               <p
                 className="MuiTablePagination-displayedRows css-levciy-MuiTablePagination-displayedRows"
               >
-                1–20 of 31
+                1–20 of 200
               </p>
               <div
                 className="MuiBox-root css-lm78jv"
@@ -5523,7 +5523,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     }
                   }
                 >
-                  1-20 of 31
+                  1-20 of 200
                 </span>
                 <span
                   aria-label="Next Page"
