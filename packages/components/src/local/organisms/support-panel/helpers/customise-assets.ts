@@ -6,7 +6,7 @@ export const customiseAssets = (_document: MessageStructure | undefined, schema:
   const res = { ...schema }
   if (schema) {
     const oldOwnAssets = res.properties?.ownAssets?.items?.properties?.asset
-    const isAlive = (asset: AssetRow) => { return (asset.health == undefined) || asset.health > 0}
+    const isAlive = (asset: AssetRow) => { return (asset.health == undefined) || asset.health > 0 }
     const liveOwnAssets = ownAssets.filter(isAlive)
     if (oldOwnAssets) {
       oldOwnAssets.enum = liveOwnAssets.map((asset: AssetRow) => asset.id)
