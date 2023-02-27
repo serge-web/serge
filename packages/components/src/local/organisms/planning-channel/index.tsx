@@ -290,10 +290,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('timeline interactions', timelineLiveEntities)
     const plans = planningMessages.filter((msg) => timelineLiveEntities.includes(msg._id))
     const inters = interactionMessages.filter((msg) => timelineLiveEntities.includes(msg._id))
+    // update state
     setTimelineInteractions(inters)
     setTimelineOrders(plans.map((pln) => pln._id))
-    console.log('inters found', inters)
-    // update state
   }, [timelineLiveEntities])
 
   useEffect(() => {
