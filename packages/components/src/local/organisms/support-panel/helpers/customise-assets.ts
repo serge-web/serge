@@ -7,6 +7,8 @@ export const customiseAssets = (_document: MessageStructure | undefined, schema:
   if (schema) {
     const oldOwnAssets = res.properties?.ownAssets?.items?.properties?.asset
     if (oldOwnAssets) {
+      const liveAsset = ownAssets.filter((row) => row.health && row.health > 0)
+      console.log('live assets', ownAssets.length, liveAsset.length)
       oldOwnAssets.enum = ownAssets.map((asset: AssetRow) => asset.id)
       oldOwnAssets.options.enum_titles = ownAssets.map((asset: AssetRow) => asset.name)
     }
