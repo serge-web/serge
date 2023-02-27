@@ -9,15 +9,18 @@ const configCommonProps = (propIn: Record<string, unknown>, gameDate: string): R
   console.log('config common props')
   switch (prop.format) {
     case 'datetime-local':
-      prop.default = moment(gameDate).toISOString()
-      if (!prop.options.flatpickr) {
-        prop.options = {
-          flatpickr: {
-            time_24hr: true,
-            dateFormat: 'Z'
-          }
-        }
-      }
+      // no, don't overwride flatpick
+      // do it in templates, instead
+      //
+      // prop.default = moment(gameDate).toISOString()
+      // if (!prop.options.flatpickr) {
+      //   prop.options = {
+      //     flatpickr: {
+      //       time_24hr: true,
+      //       dateFormat: 'Z'
+      //     }
+      //   }
+      // }
       return prop
     case 'date':
       prop.default = moment(gameDate).format('DD/MM/YYYY')
