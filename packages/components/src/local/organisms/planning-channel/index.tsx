@@ -328,11 +328,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         return res
       }
     })
-
+    // update state
     setTimelineInteractions(inters)
     setTimelineOrders(plans.map((pln) => pln._id))
     setTimelineFeatures(replayFeatures)
-    // update state
   }, [timelineLiveEntities])
 
   useEffect(() => {
