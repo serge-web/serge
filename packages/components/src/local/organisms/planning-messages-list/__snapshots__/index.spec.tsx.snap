@@ -5417,7 +5417,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
               <p
                 className="MuiTablePagination-displayedRows css-levciy-MuiTablePagination-displayedRows"
               >
-                1–20 of 200
+                1–20 of 30
               </p>
               <div
                 className="MuiBox-root css-lm78jv"
@@ -5523,7 +5523,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     }
                   }
                 >
-                  1-20 of 200
+                  1-20 of 30
                 </span>
                 <span
                   aria-label="Next Page"
