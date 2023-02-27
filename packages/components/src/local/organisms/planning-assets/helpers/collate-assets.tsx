@@ -426,6 +426,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         const perceivedPlatformType = perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
         if (perceivedPlatformType && perceivedPlatformType.sidc) {
           res.sidc = perceivedPlatformType.sidc
+        } else {
+          // TODO: use `special` lookup to get sidc
         }
 
         itemRows.push(res)
@@ -458,8 +460,13 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         lastUpdated: ''
       }
 
-      if (platformType && platformType.sidc) {
-        res.sidc = platformType.sidc
+      // check if we have an SIDC for this asset
+      if (asset.attributes && asset.attributes.a_SIDC) {
+        res.sidc = asset.attributes.a_SIDC as string
+      } else {
+        if (platformType && platformType.sidc) {
+          res.sidc = platformType.sidc
+        }  
       }
 
       // if we're handling the child of an asset, we need to specify the parent
