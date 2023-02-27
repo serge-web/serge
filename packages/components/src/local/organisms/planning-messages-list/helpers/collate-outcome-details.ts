@@ -143,8 +143,8 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
                     newA.force = UNKNOWN_TYPE
                   } else {
                     newA.force = forceFor(perception.perceivedForce, forceColors).force
-                  }  
-                }    
+                  }
+                }
               }
               if (perception.perceivedHealth) {
                 newA.health = perception.perceivedHealth
