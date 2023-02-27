@@ -725,7 +725,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
     // count of new messages
     !7 && console.log('Page loaded', messages, planningMessages, myPlanningMessages, myInteractionMessages.length)
-    
+
     setPlanningMessages(myPlanningMessages)
     setInteractionMessages(myInteractionMessages)
   }, [messages])
