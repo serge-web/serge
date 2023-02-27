@@ -321,7 +321,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const activity = order && order.message.location && order.message.location.find((plan) => plan.uniqid === activityId)
         const res = {
           color: order ? order?.details.from.forceColor : '#ccd',
-          feature: activity  as PlannedActivityGeometry,
+          feature: activity as PlannedActivityGeometry,
           name: activity ? activity.uniqid : 'unknown'
         }
         timelineFeatureCache[item] = res
