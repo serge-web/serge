@@ -7,7 +7,7 @@ import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup } from 'react-leaflet-v4'
 import { shapeFor } from '../planning-channel/helpers/SharedOrderRenderer'
-import PropTypes from './types/props'
+import PropTypes, { ReplayFeature } from './types/props'
 
 const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActivityGeometry['uniqid']): PlanningActivity | undefined => {
   const activity = activities.find((value: PlanningActivity) => {
@@ -19,11 +19,13 @@ const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActiv
   return activity
 }
 
-export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, selectedOrders, forceColors, interactions, selectedInteraction }) => {
+export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, selectedOrders, forceColors, interactions, selectedInteraction, features }) => {
   const [interactionGeometries, setInteractionGeometries] = useState<React.ReactElement[]>([])
+  const [interactionLayersToDelete] = useState<Layer[]>([])
   const [orderGeometries, setOrderGeometries] = useState<React.ReactElement[]>([])
   const [orderLayersToDelete] = useState<Layer[]>([])
-  const [interactionLayersToDelete] = useState<Layer[]>([])
+  const [featureGeometries, setFeatureGeometries] = useState<React.ReactElement[]>([])
+  const [featureLayersToDelete] = useState<Layer[]>([])
 
   /** produce a list of features for the geometries in this message */
   const featuresForPlanningMessage = (msg: MessagePlanning): Feature[] => {
@@ -153,6 +155,35 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
   }, [orders, selectedOrders])
 
   useEffect(() => {
+    if (features) {
+      // clear existing data
+      while (featureLayersToDelete.length > 0) {
+        const layer = featureLayersToDelete.shift()
+        layer && layer.remove()
+      }
+
+      // // sort out what to render
+      // // note: we were failing on the next line because incomplete messages had an empty string in for location
+      // const withLocation = orders.filter((msg: MessagePlanning) => msg.message && (msg.message.location !== undefined) && Array.isArray(msg.message.location))
+      // const isSelected = withLocation.filter((msg: MessagePlanning) => selectedOrders && selectedOrders.includes(msg._id))
+      // const geometries = isSelected.map((msg: MessagePlanning): Feature[] => {
+      //   return featuresForPlanningMessage(msg)
+      // })
+      // const flatGeom = _.flatten(geometries)
+
+      // handler to store layer references
+      const storeRef = (polyline: Layer): void => {
+        featureLayersToDelete.push(polyline)
+      }
+
+      const elements = features.map((feature: ReplayFeature, index: number) => {
+        return shapeFor(feature.feature.geometry, feature.color, feature.name || 'unknown', storeRef, index)
+      })
+      setFeatureGeometries(elements)
+    }
+  }, [features])
+
+  useEffect(() => {
     const outputOrderTimings = false
     if (orders && outputOrderTimings) {
       const timings = orders.map((msg: MessagePlanning) => {
@@ -166,6 +197,10 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
     {orderGeometries && orderGeometries.length > 0 &&
       <LayerGroup key={'orders'}>
         {orderGeometries}
+      </LayerGroup>}
+    {featureGeometries && featureGeometries.length > 0 &&
+      <LayerGroup key={'features'}>
+        {featureGeometries}
       </LayerGroup>}
     {interactionGeometries && interactionGeometries.length > 0 &&
       <LayerGroup key={'interactions'}>
