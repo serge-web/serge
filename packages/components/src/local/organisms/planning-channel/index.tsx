@@ -262,19 +262,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             activity: 'ignored'
           }
 
-                    const point: Feature<Point> = {
+          const point: Feature<Point> = {
             id: iMessage._id,
-                      type: 'Feature',
+            type: 'Feature',
             properties: propsReplay,
-                      geometry: {
-                        type: 'Point',
-                        coordinates: [60, 36]
-                      }
-                    }
+            geometry: {
+              type: 'Point',
+              coordinates: [60, 36]
+            }
+          }
           // push this interaction to the stack
           features.push(point)
-                      }
-                  })
+        }
+      })
 
       console.table(features.map((feature) => {
         const props = feature.properties as ReplayAnnotations
@@ -282,7 +282,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           id: feature.id,
           start: moment.utc(props.start).toISOString(),
           end: moment.utc(props.end).toISOString()
-                }
+        }
       }))
 
       const collection: FeatureCollection = {
@@ -711,7 +711,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     // drop the turn markers
     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
-    const nonTurnMessagesRemoveDublicate =  _.uniqBy(nonTurnMessages,  (e) => {
+    const nonTurnMessagesRemoveDublicate = _.uniqBy(nonTurnMessages, (e) => {
       return e.message.Reference
     })
     const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessagesRemoveDublicate.filter((message) => !message.details.archived)
