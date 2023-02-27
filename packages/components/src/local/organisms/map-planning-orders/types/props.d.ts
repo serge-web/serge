@@ -3,8 +3,8 @@ import React from 'react'
 
 /** helper object, to allow clustering of assets by force */
 export type ReplayFeature = {
-  feature: PlannedActivityGeometry,
-  color: string,
+  feature: PlannedActivityGeometry
+  color: string
   name: string
 }
 

@@ -225,7 +225,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               force: 'ignored',
               activity: 'ignored'
             }
-  
+
             const point: Feature<Point> = {
               id: plan._id + '//' + planned.uniqid,
               type: 'Feature',
@@ -236,7 +236,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               }
             }
             // push this interaction to the stack
-            features.push(point)  
+            features.push(point)
           })
         }
       })
@@ -322,8 +322,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const res = {
           color: order ? order?.details.from.forceColor : '#ccd',
           feature: activity,
-          name: activity? activity.uniqid : 'unknown'
-        }  
+          name: activity ? activity.uniqid : 'unknown'
+        }
         timelineFeatureCache[item] = res
         return res
       }
