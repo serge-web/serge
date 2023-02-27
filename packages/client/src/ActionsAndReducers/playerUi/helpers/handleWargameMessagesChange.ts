@@ -18,6 +18,7 @@ import {
 import {
   INFO_MESSAGE_CLIPPED
 } from '@serge/config'
+import deepCopy from '../../../Helpers/copyStateHelper'
 
 /** a new document has been received, either add it to the correct channel,
  * or update the channels to reflect the new channel definitions
@@ -177,14 +178,14 @@ export const markAllMessageState = (channel: string, newState: PlayerUi, msgStat
 
 export const HandleUpdateBulksData = (newState: PlayerUi, anyPayload: MessagePlanning[]): PlayerUiChannels => {
   const channelMessageTypes: string = anyPayload[0].details.channel
-  const copyChanels = newState.channels
+  const copyChanels: PlayerUiChannels = deepCopy(newState.channels)
   const currentChannel = newState.channels[channelMessageTypes]
   const channelMessage = currentChannel.messages 
   if (channelMessage) {
     anyPayload.forEach((data:any) => {
       const findIndexs = channelMessage.findIndex(number => number._id !== data._id)
       if (currentChannel && findIndexs !== -1) {
-        channelMessage.push(data) 
+        channelMessage.unshift(data) 
       }
     })
 
