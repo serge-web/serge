@@ -443,7 +443,7 @@ export const generateTestData2 = (count: number, constraints: MappingConstraints
   swapType(newForces[2].assets, 'Ship_2', 'SFSPCLCV----', 'Carrier')
   swapType(newForces[3].assets, 'Ship_1', 'S*SPCLFF----', 'Frigate')
   swapType(newForces[3].assets, 'Ship_2', 'SFSPCLCV----', 'Carrier')
-    
+
   return newForces
 }
 

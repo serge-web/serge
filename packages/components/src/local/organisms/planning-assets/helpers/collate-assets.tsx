@@ -466,7 +466,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       } else {
         if (platformType && platformType.sidc) {
           res.sidc = platformType.sidc
-        }  
+        }
       }
 
       // if we're handling the child of an asset, we need to specify the parent
