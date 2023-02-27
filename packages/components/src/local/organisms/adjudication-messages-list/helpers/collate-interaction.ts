@@ -62,15 +62,17 @@ export const updateAssets = (asset: Record<string, any>, interaction: Interactio
 
 export const updateWithAllAssets = (asset: Record<string, any>, interaction: InteractionData, forces: ForceData[]): Record<string, any> => {
   if (asset !== undefined) {
-    // start off with the assets in this interaction
-    asset.enum = interaction.allAssets.map((asset) => asset.uniqid)
-    asset.options.enum_titles = interaction.allAssets.map((asset) => asset.name)
+    const isAlive = (asset: Asset) => { return (asset.health === undefined) || asset.health > 0 }
+    // start off with the live assets in this interaction
+    asset.enum = interaction.allAssets.filter(isAlive).map((asset) => asset.uniqid)
+    asset.options.enum_titles = interaction.allAssets.filter(isAlive).map((asset) => asset.name)
 
     // now the remaining assets
     const assets: Asset[] = []
     forces.forEach((force) => {
       if (force.assets) {
-        assets.push(...force.assets)
+        const liveAssets = assets.filter(isAlive)
+        assets.push(...liveAssets)
       }
     })
     asset.enum.push(...assets.map((asset) => asset.uniqid))
