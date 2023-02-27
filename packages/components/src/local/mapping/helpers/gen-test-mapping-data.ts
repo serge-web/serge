@@ -125,6 +125,8 @@ const createModernAttributesFor = (platformType: PlatformTypeData, attributeType
         const multiplier = Math.floor(Math.random() * 6) + 1
         attributes[id] = platformType.name + '_' + multiplier
       }
+    } else if (id === 'a_SIDC') {
+      // skip
     } else {
       switch (attr.attrType) {
         case ATTRIBUTE_TYPE_NUMBER: {
@@ -423,6 +425,25 @@ export const generateTestData2 = (count: number, constraints: MappingConstraints
   newForces[1].assets = createInBounds(newForces[1], bluePoly, count, undefined, bluePlatforms, forces, attributeTypes, true)
   newForces[2].assets = createInBounds(newForces[2], redPoly, count, undefined, redPlatforms, forces, attributeTypes, true)
   newForces[3].assets = createInBounds(newForces[3], greenPoly, count, undefined, greenPlatforms, forces, attributeTypes, true)
+
+  // inject a couple of asset-specific SIDC codes
+  const swapType = (assets: Asset[] | undefined, platType: string, sidc: string, newType: string): void => {
+    if (assets) {
+      assets.forEach((asset) => {
+        if (asset.attributes && asset.attributes.a_Type === platType) {
+          asset.attributes.a_SIDC = sidc
+          asset.attributes.a_Type = newType
+        }
+      })
+    }
+  }
+  swapType(newForces[1].assets, 'Ship_1', 'S*SPCLFF----', 'Frigate')
+  swapType(newForces[1].assets, 'Ship_2', 'SFSPCLCV----', 'Carrier')
+  swapType(newForces[2].assets, 'Ship_1', 'S*SPCLFF----', 'Frigate')
+  swapType(newForces[2].assets, 'Ship_2', 'SFSPCLCV----', 'Carrier')
+  swapType(newForces[3].assets, 'Ship_1', 'S*SPCLFF----', 'Frigate')
+  swapType(newForces[3].assets, 'Ship_2', 'SFSPCLCV----', 'Carrier')
+    
   return newForces
 }
 
