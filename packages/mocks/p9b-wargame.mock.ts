@@ -60437,22 +60437,6 @@ const game: Wargame = {
                     "states": [],
                     "uniqid": "_maritime_fiac",
                     "travelMode": "sea"
-                },
-                {
-                    "name": "Maritime Minefield",
-                    "icon": "n_",
-                    "sidc": "S*U*WM----",
-                    "attributeTypeIds": [
-                        "a_Density",
-                        "a_Type",
-                        "a_C4_Status",
-                        "a_Minefield_Passable",
-                        "a_SIDC"
-                    ],
-                    "conditions": [],
-                    "states": [],
-                    "uniqid": "_maritime_mine",
-                    "travelMode": "sea"
                 }
             ],
             "selectedType": ""
@@ -60517,15 +60501,7 @@ const game: Wargame = {
                     "values": ["None", "Degraded", "Operational"],
                     "editableByPlayer": false,
                     "name": "C4 Status"
-                }, {
-                    "attrId": "a_Minefield_Passable",
-                    "attrType": "AttributeTypeEnum",
-                    "defaultValue": "Operational",
-                    "description": "If minefield is passable",
-                    "values": ["No", "Limited", "Yes"],
-                    "editableByPlayer": false,
-                    "name": "Minefield Status"
-                },
+                }, 
                 {
                     "attrId": "a_Building_Type",
                     "attrType": "AttributeTypeEnum",
@@ -60550,15 +60526,6 @@ const game: Wargame = {
                     "description": "C2 Connections for asset",
                     "editableByPlayer": false,
                     "name": "Connections"
-                },
-                {
-                    "attrId": "a_Density",
-                    "attrType": "AttributeTypeNumber",
-                    "defaultValue": 100,
-                    "description": "Density of minefield",
-                    "editableByPlayer": false,
-                    "name": "Density",
-                    "units": "per km2"
                 },
                 {
                     "attrId": "a_Equipment",
