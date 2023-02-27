@@ -502,7 +502,11 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
   if (!group) {
     console.log('Failed to find group in force 2', forceId, 'id:', id)
     force.groupedActivities.forEach((group) => {
-      console.table(group.activities)
+      console.table(group.activities.map((act) => { return {
+        id: act.actId,
+        name: act.name,
+        uniqid: act.uniqid
+      }}))
     })
     throw Error('Failed to find group activities for this activity:' + id)
   }
