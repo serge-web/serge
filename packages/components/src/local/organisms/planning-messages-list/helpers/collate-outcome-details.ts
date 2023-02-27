@@ -1,4 +1,4 @@
-import { UNKNOWN_TYPE } from '@serge/config'
+import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
 import { CoreOutcome, ForceData, MessageInteraction, MessagePlanning, PlatformTypeData } from '@serge/custom-types'
 import { findForceAndAsset, ForceStyle, formatLongMilitaryDate } from '@serge/helpers'
 import { uniq } from 'lodash'
@@ -137,11 +137,14 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
                 name: perception.perceivedName || asset.asset.uniqid
               }
               if (perception.perceivedForce) {
-                if (perception.perceivedForce.toLowerCase() === UNKNOWN_TYPE.toLowerCase()) {
-                  newA.force = UNKNOWN_TYPE
-                } else {
-                  newA.force = forceFor(perception.perceivedForce, forceColors).force
-                }
+                // ignore unchanged perceptiosn
+                if (perception.perceivedForce !== UNCHANGED) {
+                  if (perception.perceivedForce.toLowerCase() === UNKNOWN_TYPE.toLowerCase()) {
+                    newA.force = UNKNOWN_TYPE
+                  } else {
+                    newA.force = forceFor(perception.perceivedForce, forceColors).force
+                  }  
+                }    
               }
               if (perception.perceivedHealth) {
                 newA.health = perception.perceivedHealth
