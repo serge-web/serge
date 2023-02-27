@@ -230,6 +230,7 @@ const PlanningForces: React.FC<PropTypes> = ({
     const isSelected = selectedAssets.includes(asset.id)
     const isCurrent = currentAssets && currentAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
+    console.log('interactive', interactive)
     return {
       eventHandlers: {
         click: (): void => {
@@ -238,7 +239,7 @@ const PlanningForces: React.FC<PropTypes> = ({
           }
         }
       },
-      key: `asset-icon-${asset.id}`,
+      key: `asset-icon-${asset.id}` + Date.now(),
       position: loc,
       icon: L.divIcon({
         iconSize: [30, 30],
@@ -303,7 +304,10 @@ const PlanningForces: React.FC<PropTypes> = ({
             {rawMarkers && rawMarkers.map((asset: AssetRow) => {
               const markerOption = getRawMarkerOption(asset)
               return <Marker
-                pmIgnore
+                pmIgnore={interactive}
+                snapIgnore={false}
+                // NOTE: next line is a workaround.  It should use value of `interactive`, but
+                // that won't let us start/end a route on a flashing icon
                 interactive={interactive}
                 {...markerOption}
               >
@@ -314,7 +318,7 @@ const PlanningForces: React.FC<PropTypes> = ({
         }
       </>
     )
-  }, [clustereredMarkers, rawMarkers, rawRangeRings, clusteredRangeRings])
+  }, [clustereredMarkers, rawMarkers, rawRangeRings, clusteredRangeRings, interactive])
 
   return iconLayer
 }
