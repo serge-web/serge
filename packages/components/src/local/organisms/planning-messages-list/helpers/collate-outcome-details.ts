@@ -1,3 +1,4 @@
+import { UNKNOWN_TYPE } from '@serge/config'
 import { CoreOutcome, ForceData, MessageInteraction, MessagePlanning, PlatformTypeData } from '@serge/custom-types'
 import { findForceAndAsset, ForceStyle, formatLongMilitaryDate } from '@serge/helpers'
 import { uniq } from 'lodash'
@@ -59,7 +60,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
           const forMe = perForce.filter((perF) => isUmpire || (perF.force === playerForce))
           summary.perForceNarratives = forMe.map((perF) => {
             return {
-              force: forceFor(perF.force, forceColors).force,
+              force: perF.force !== UNKNOWN_TYPE ? forceFor(perF.force, forceColors).force : UNKNOWN_TYPE,
               summary: perF.feedback
             }
           })
@@ -136,7 +137,11 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
                 name: perception.perceivedName || asset.asset.uniqid
               }
               if (perception.perceivedForce) {
-                newA.force = forceFor(perception.perceivedForce, forceColors).force
+                if (perception.perceivedForce === UNKNOWN_TYPE) {
+                  newA.force = UNKNOWN_TYPE
+                } else {
+                  newA.force = forceFor(perception.perceivedForce, forceColors).force
+                }
               }
               if (perception.perceivedHealth) {
                 newA.health = perception.perceivedHealth
