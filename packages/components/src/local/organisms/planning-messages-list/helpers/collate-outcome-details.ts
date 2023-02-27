@@ -60,7 +60,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
           const forMe = perForce.filter((perF) => isUmpire || (perF.force === playerForce))
           summary.perForceNarratives = forMe.map((perF) => {
             return {
-              force: perF.force !== UNKNOWN_TYPE ? forceFor(perF.force, forceColors).force : UNKNOWN_TYPE,
+              force: perF.force.toLowerCase() !== UNKNOWN_TYPE.toLowerCase() ? forceFor(perF.force, forceColors).force : UNKNOWN_TYPE,
               summary: perF.feedback
             }
           })
@@ -137,7 +137,7 @@ export const collateOutcomeDetails = (plan: MessagePlanning, inters: MessageInte
                 name: perception.perceivedName || asset.asset.uniqid
               }
               if (perception.perceivedForce) {
-                if (perception.perceivedForce === UNKNOWN_TYPE) {
+                if (perception.perceivedForce.toLowerCase() === UNKNOWN_TYPE.toLowerCase()) {
                   newA.force = UNKNOWN_TYPE
                 } else {
                   newA.force = forceFor(perception.perceivedForce, forceColors).force
