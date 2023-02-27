@@ -711,9 +711,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     // drop the turn markers
     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
-
-    const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessages.filter((message) => !message.details.archived)
-
+    const nonTurnMessagesRemoveDublicate = _.uniqBy(nonTurnMessages, (e) => {
+      return e.message && e.message.Reference
+    })
+    const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessagesRemoveDublicate.filter((message) => !message.details.archived)
     // TODO: these filters should just use `messageType` to get the correct data, but currently
     // all messages have "CUSTOM_MESSAGE". So the filters fall back on other `tell-tales`.
     const myPlanningMessages = unArchivedMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction)) as MessagePlanning[]
