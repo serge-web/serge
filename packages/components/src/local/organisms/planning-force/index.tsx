@@ -5,7 +5,7 @@ import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import moment from 'moment'
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useMemo, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { Circle, LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
@@ -239,7 +239,7 @@ const PlanningForces: React.FC<PropTypes> = ({
           }
         }
       },
-      key: `asset-icon-${asset.id}`,
+      key: `asset-icon-${asset.id}` + Date.now(),
       position: loc,
       icon: L.divIcon({
         iconSize: [30, 30],
@@ -304,11 +304,11 @@ const PlanningForces: React.FC<PropTypes> = ({
             {rawMarkers && rawMarkers.map((asset: AssetRow) => {
               const markerOption = getRawMarkerOption(asset)
               return <Marker
-                pmIgnore={true}
+                pmIgnore={interactive}
                 snapIgnore={false}
                 // NOTE: next line is a workaround.  It should use value of `interactive`, but
                 // that won't let us start/end a route on a flashing icon
-                interactive={false}
+                interactive={interactive}
                 {...markerOption}
               >
                 <Tooltip>{labelFor(asset)}</Tooltip>
