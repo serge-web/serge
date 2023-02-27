@@ -1,5 +1,5 @@
 import { CUSTOM_MESSAGE } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageCustom, MessageDetails, MessagePlanning, MessageStructure, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageCustom, MessageDetails, MessageStructure, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import { } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import moment from 'moment'
@@ -73,8 +73,8 @@ const localCustomiseTemplate = (document: MessageStructure | undefined, schema: 
   // set the default dates, if this is a planning message
   const schemaTitle: string = schema.title || 'unknown'
   if (!schemaTitle.startsWith('Adjudicat')) {
-      fixDate(schema.properties.startDate, localDate)
-      fixDate(schema.properties.endDate, localDate)
+    fixDate(schema.properties.startDate, localDate)
+    fixDate(schema.properties.endDate, localDate)
   }
 
   // game dates
@@ -82,8 +82,8 @@ const localCustomiseTemplate = (document: MessageStructure | undefined, schema: 
     const plan = document as PlanningMessageStructure
     const startVal = plan.startDate && plan.startDate.length > 0 ? plan.startDate : gameDate
     const endVal = plan.endDate && plan.endDate.length > 0 ? plan.endDate : gameDate
-    plan.startDate =moment.utc(startVal).toLocaleString()
-    plan.endDate =moment.utc(endVal).toLocaleString()
+    plan.startDate = moment.utc(startVal).toLocaleString()
+    plan.endDate = moment.utc(endVal).toLocaleString()
   }
 
   return schema

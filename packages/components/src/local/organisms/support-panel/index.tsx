@@ -319,8 +319,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
     console.log('test date', gameDate, toLocale(gameDate), toUTC(gameDate))
 
-
-
     // check this isn't an adjudication message, since we only
     // set the default dates, if this is a planning message
     const schemaTitle: string = schema.title || 'unknown'
@@ -331,7 +329,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
     }
 
-    // we have an issue where flatPickr is showing dates on hour out - it is adding an hour. 
+    // we have an issue where flatPickr is showing dates on hour out - it is adding an hour.
     // There isn't a fix for it, so manually subtract an hour - so the Z date-time is displayed
     if (document) {
       const plan = document as PlanningMessageStructure
