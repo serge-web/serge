@@ -81,6 +81,8 @@ const Template: Story<SupportPanelProps> = (args) => {
   const planningMessages = args.planningMessages
   const interactionMessages = args.interactionMessages
 
+  console.log('planning messages', planningMessages)
+
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const forceStr = roleStr.substring(0, ind)
