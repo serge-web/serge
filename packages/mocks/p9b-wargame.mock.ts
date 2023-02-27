@@ -60242,7 +60242,8 @@ const game: Wargame = {
                         "a_C4_Status",
                         "a_Airfield",
                         "a_Equipment",
-                        "a_TaskGroup"
+                        "a_TaskGroup",
+                        "a_SIDC"
                     ],
                     "travelMode": "air"
                 },
@@ -60256,7 +60257,8 @@ const game: Wargame = {
                         "a_C4_Status",
                         "a_Airfield",
                         "a_Number_Aircraft",
-                        "a_Equipment"
+                        "a_Equipment",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60273,7 +60275,8 @@ const game: Wargame = {
                         "a_C4_Status",
                         "a_Equipment",
                         "a_MEZ_range",
-                        "a_C4_Status"
+                        "a_C4_Status",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60290,7 +60293,8 @@ const game: Wargame = {
                         "a_C4_Status",
                         "a_MEZ_range",
                         "a_Equipment",
-                        "a_TaskGroup"
+                        "a_TaskGroup",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60306,7 +60310,8 @@ const game: Wargame = {
                         "a_Type",
                         "a_C4_Status",
                         "a_Equipment",
-                        "a_TaskGroup"
+                        "a_TaskGroup",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60322,7 +60327,8 @@ const game: Wargame = {
                         "a_Type",
                         "a_C4_Status",
                         "a_Size",
-                        "a_Equipment"
+                        "a_Equipment",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60335,7 +60341,8 @@ const game: Wargame = {
                     "sidc": "G*M*SF----",
                     "attributeTypeIds": [
                         "a_C4_Status",
-                        "a_Type"
+                        "a_Type",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60352,7 +60359,8 @@ const game: Wargame = {
                         "a_C4_Status",
                         "a_Type",
                         "a_Equipment",
-                        "a_C4_Status"
+                        "a_C4_Status",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60371,7 +60379,8 @@ const game: Wargame = {
                         "a_Airfield",
                         "a_Equipment",
                         "a_Search_Rate",
-                        "a_TaskGroup"
+                        "a_TaskGroup",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60389,7 +60398,8 @@ const game: Wargame = {
                         "a_Airfield",
                         "a_Number_Aircraft",
                         "a_Equipment",
-                        "a_TaskGroup"
+                        "a_TaskGroup",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60404,7 +60414,8 @@ const game: Wargame = {
                         "a_Type",
                         "a_C4_Status",
                         "a_Connections",
-                        "a_C4_Status"
+                        "a_C4_Status",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60419,7 +60430,8 @@ const game: Wargame = {
                         "a_Type",
                         "a_Speed",
                         "a_C4_Status",
-                        "a_Number_FIACs"
+                        "a_Number_FIACs",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60434,7 +60446,8 @@ const game: Wargame = {
                         "a_Density",
                         "a_Type",
                         "a_C4_Status",
-                        "a_Minefield_Passable"
+                        "a_Minefield_Passable",
+                        "a_SIDC"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60574,6 +60587,13 @@ const game: Wargame = {
                     "description": "Host airfield (id)",
                     "editableByPlayer": false,
                     "name": "Airfield"
+                },
+                {
+                    "attrId": "a_SIDC",
+                    "attrType": "AttributeTypeString",
+                    "description": "SIDC symbol to use",
+                    "editableByPlayer": false,
+                    "name": "SIDC"
                 },
                 {
                     "attrId": "a_Search_Rate",
