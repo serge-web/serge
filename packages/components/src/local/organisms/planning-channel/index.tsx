@@ -5,7 +5,7 @@ import {
 } from '@serge/custom-types'
 import { clearUnsentMessage, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { circleMarker, LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
+import L, { circleMarker, LatLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
@@ -93,7 +93,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   areas
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
+  const [position] = useState<LatLngExpression | undefined>(undefined)
   const [zoom] = useState<number>((channel.constraints && channel.constraints.minZoom) || 5)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
 
