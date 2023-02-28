@@ -983,16 +983,18 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     const fullOrders = specialOrders.length > 0 ? orders.concat(specialOrders) : orders
 
     const fullTurnLength = gameTurnEndVal - gameTimeVal
-    let currentWindowMillis = getAll ? fullTurnLength : fullTurnLength / 20
+    const windowMilliSize = getAll ? fullTurnLength : fullTurnLength / 20
+    let currentWindowLength = windowMilliSize
 
     const contacts: PlanningContact[] = []
     let eventInWindow: ShortCircuitEvent | undefined
     let allRemainingEvents: TimedIntervention[] = []
 
-    console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowMillis, moment.utc(fullTurnLength).format('d HH:mm'), moment.utc(currentWindowMillis).format('d HH:mm'))
+    console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowLength, 
+      moment.utc(fullTurnLength).format('d HH:mm'), moment.utc(currentWindowLength).format('d HH:mm'))
 
-    while (contacts.length === 0 && currentWindowMillis <= fullTurnLength && eventInWindow === undefined) {
-      const windowEnd = gameTimeVal + currentWindowMillis
+    while (contacts.length === 0 && currentWindowLength <= fullTurnLength && eventInWindow === undefined) {
+      const windowEnd = gameTimeVal + currentWindowLength
 
       // if we're doing get-all, don't bother with shortcircuits
       if (getAll) {
@@ -1053,7 +1055,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 
       // console.log('binning complete, contacts:', contacts.length)
 
-      currentWindowMillis *= 2
+      currentWindowLength += windowMilliSize
     }
 
     // special handling for get-all
