@@ -63,9 +63,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   // note: we don't work directly with the list of interactions, since we need some special processing to prevent
   // note: interactions being edited from being wiped.  So we maintain an independent list
   const [cachedInteractions, setCachedInteractions] = useState<MessageInteraction[]>([])
+  const [pendingInteractions, setPendingInteractions] = useState<MessageInteraction[]>([])
   // note: this time is in military presentation
   const [currentTime, setCurrentTime] = useState<string>('pending')
   const [adjudicationTime, setAdjudicationTime] = useState<number | undefined>(undefined)
+  const [messageBeingEdited, setMessageBeingEdited] = useState<boolean>(false)
 
   const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
   const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
@@ -104,6 +106,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const isOpen = msg.details.interaction && msg.details.interaction.complete === false
       return isMine && isOpen
     })
+    setMessageBeingEdited(!!ownOpenMessages.length)
     // if filter is selected, only show own open messages
     const ownMessages = onlyShowOpen ? ownOpenMessages : interactionMessages
     if (cachedInteractions.length === 0) {
@@ -114,17 +117,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       // no messages received. Clear list
       setCachedInteractions([])
     } else {
-      // check the first message - it may be an update
-      //     const newMessage = ownMessages[0]
-      //   const row = toRow(newMessage)
-      //   const existingRow = rows.some(row => row.reference === newMessage.message.Reference)
-      //      if (existingRow) {
-      //      const existingMessages: AdjudicationRow[] = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
-      //        setRows([...existingMessages, row])
-      setCachedInteractions(ownMessages)
-      //  } else {
-      //  setRows([...rows, row])
-      // }
+      if (messageBeingEdited) {
+        setPendingInteractions(ownMessages)
+      } else {
+        setCachedInteractions(ownMessages)
+      }
     }
     // when determining the time of next adjudication, consider the full list
     if (interactionMessages.length > 0) {
@@ -137,6 +134,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
     setInteractionIsOpen(!!ownOpenMessages.length)
   }, [interactionMessages, onlyShowOpen])
+
+  useEffect(() => {
+    if (pendingInteractions.length) {
+      // check there are no rows open
+      if (!messageBeingEdited) {
+        setCachedInteractions(pendingInteractions)
+        setPendingInteractions([])
+      } else {
+        console.log('AdjudictionMessageList - not doing edit, message being edited')
+      }
+    }
+  }, [pendingInteractions, messageBeingEdited])
 
   useEffect(() => {
     setInPlanning(phase === Phase.Planning)
@@ -309,7 +318,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    if (planningMessages.length > 0) {
+    if (cachedInteractions.length > 0) {
       const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
         return toRow(message)
       })
@@ -337,7 +346,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     } else {
       setRows([])
     }
-  }, [planningMessages, cachedInteractions, turnFilter, filter])
+  }, [cachedInteractions, turnFilter, filter])
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
     // run the parent first
@@ -402,6 +411,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         // postBack. note - we use the mapping post back handler, so it
         // can modify the wargame, in addition to sending the message
         mapPostBack && mapPostBack(details, emptyOutcomes)
+        setMessageBeingEdited(false)
       }
     }
   }
@@ -469,7 +479,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             value.location = cleaned
           }
         })
-
+        setMessageBeingEdited(false)
         // (temporarily) fix the locations. While we're waiting for the outcomes table
         // to support the location editor, we're allowing locations to be entered as
         // lat-long pairs
@@ -493,6 +503,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   /** this is how we prevent draft messages getting corrected */
   const localStoreNewValue = (value: { [property: string]: any }): void => {
+    setMessageBeingEdited(true)
     currentAdjudication.current = value as MessageAdjudicationOutcomes
   }
 
