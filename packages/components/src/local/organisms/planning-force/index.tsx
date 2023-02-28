@@ -225,12 +225,11 @@ const PlanningForces: React.FC<PropTypes> = ({
     setSelectedAssets && setSelectedAssets([...selectedAssets])
   }
 
-  const getRawMarkerOption = (asset: AssetRow) => {
+  const getRawMarkerOption = (asset: AssetRow, interactive: boolean) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
     const isCurrent = currentAssets && currentAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
-    console.log('interactive', interactive)
     return {
       eventHandlers: {
         click: (): void => {
@@ -239,7 +238,7 @@ const PlanningForces: React.FC<PropTypes> = ({
           }
         }
       },
-      key: `asset-icon-${asset.id}` + Date.now(),
+      key: `asset-icon-${asset.id}` + interactive,
       position: loc,
       icon: L.divIcon({
         iconSize: [30, 30],
@@ -302,7 +301,7 @@ const PlanningForces: React.FC<PropTypes> = ({
             {clusteredRangeRings}
             <MarkerCluster markers={clustereredMarkers} />
             {rawMarkers && rawMarkers.map((asset: AssetRow) => {
-              const markerOption = getRawMarkerOption(asset)
+              const markerOption = getRawMarkerOption(asset, !!interactive)
               return <Marker
                 pmIgnore={interactive}
                 snapIgnore={false}

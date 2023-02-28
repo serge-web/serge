@@ -5,7 +5,7 @@ import {
 } from '@serge/custom-types'
 import { clearUnsentMessage, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { circleMarker, LatLng, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
+import L, { circleMarker, LatLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
@@ -93,7 +93,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   areas
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
+  const [position] = useState<LatLngExpression | undefined>(undefined)
   const [zoom] = useState<number>((channel.constraints && channel.constraints.minZoom) || 5)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
 
@@ -502,7 +502,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       }
       // create a bit of a buffer around the bounds
       if (workingBounds) {
-        // console.log('bounds 2', workingBounds)
         setBounds(workingBounds.pad(0.2))
       } else {
         setBounds(workingBounds)
@@ -655,40 +654,48 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [selectedAssets])
 
   useEffect(() => {
-    if (selectedAssets.length) {
-      const relevantRows = selectedAssets.map((id): AssetRow | undefined => {
-        let assetRow = allOwnAssets.find((row) => row.id === id)
-        if (!assetRow) {
-          assetRow = allOppAssets.find((row) => row.id === id)
-        }
-        return assetRow
-      })
-      const assets = relevantRows.filter((row) => row) as AssetRow[]
-      const assetsWithLocation = assets.filter((asset: AssetRow) => asset.position !== undefined)
-      const locations: any = assetsWithLocation.map((asset: AssetRow) => asset.position)
-      if (locations.length > 0) {
-        let mapBounds: LatLngBounds | undefined
-        locations.forEach((loc: LatLng) => {
-          if (!mapBounds) {
-            mapBounds = latLngBounds(loc, loc)
-          } else {
-            mapBounds.extend(loc)
-          }
-        })
-        if (mapBounds) {
-          // do we actually just have one location?
-          if (mapBounds.getNorthWest().equals(mapBounds.getSouthEast())) {
-            // ok, treat it as new map centre
-            setBounds(undefined)
-            setPosition(mapBounds.getNorthWest())
-          } else {
-            // zoom to
-            setPosition(undefined)
-            setBounds(mapBounds.pad(0.2))
-          }
-        }
-      }
-    }
+    // no, don't zoom in on the selected asset
+    // I just observed some screwy behaviour, where the asset icons
+    // if (selectedAssets.length) {
+    //   const relevantRows = selectedAssets.map((id): AssetRow | undefined => {
+    //     let assetRow = allOwnAssets.find((row) => row.id === id)
+    //     if (!assetRow) {
+    //       assetRow = allOppAssets.find((row) => row.id === id)
+    //     }
+    //     return assetRow
+    //   })
+    //   const assets = relevantRows.filter((row) => row) as AssetRow[]
+    //   const assetsWithLocation = assets.filter((asset: AssetRow) => asset.position !== undefined)
+    //   const locations: any = assetsWithLocation.map((asset: AssetRow) => asset.position)
+    //   if (locations.length > 0) {
+    //     let mapBounds: LatLngBounds | undefined
+    //     locations.forEach((loc: LatLng) => {
+    //       if (!mapBounds) {
+    //         mapBounds = latLngBounds(loc, loc)
+    //       } else {
+    //         mapBounds.extend(loc)
+    //       }
+    //     })
+    //     if (mapBounds) {
+    //       // do we actually just have one location?
+    //       if (mapBounds.getNorthWest().equals(mapBounds.getSouthEast())) {
+    //         // no, don't zoom in on the selected asset
+    //         // I just observed some screwy behaviour, where the asset icons
+    //         // moved to somewhere else on the globe, but the map didn't update
+    //         //        console.log('bounds 1a', mapBounds)
+
+    //         // ok, treat it as new map centre
+    //         // setBounds(undefined)
+    //         // setPosition(mapBounds.getNorthWest())
+    //       } else {
+    //         console.log('bounds 1b', mapBounds)
+    //         // zoom to
+    //         setPosition(undefined)
+    //         setBounds(mapBounds.pad(0.2))
+    //       }
+    //     }
+    //   }
+    // }
   }, [selectedAssets])
 
   useEffect(() => {
@@ -946,8 +953,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         }
       }
     })
-    if (localBounds) {
-      setBounds(localBounds)
+    // if we're editing an existing set of orders zoom in on them
+    console.log('activity being edited')
+    if (localBounds && activityBeingEdited && !7) {
+      setBounds(localBounds.pad(0.2))
     }
 
     setActivityBeingEdited(plans)
