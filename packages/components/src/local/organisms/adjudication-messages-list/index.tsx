@@ -832,7 +832,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         paging: true,
         pageSize: 20,
         emptyRowsWhenPaging: false,
-        pageSizeOptions: [5, 10, 15, 20],
+        pageSizeOptions: [10, 20, 50, 100],
         filtering: filter,
         selection: false,
         rowStyle: { fontSize: '80%' },
