@@ -103,7 +103,8 @@ const exportMessages = (channels: PlayerUiChannels, res: Record<string, Record<s
       const nonInfo = messages.filter((msg) => !msg.infoType && msg.messageType !== INFO_MESSAGE_CLIPPED) as MessageCustom[]
       const nonInteraction = nonInfo.filter((msg) => !msg.details.interaction)
       nonInteraction.forEach((msg) => {
-        const msgLabel = 'msg-' + msg.details.messageType
+        const fullMmsgLabel = msg.details.messageType
+        const msgLabel = fullMmsgLabel.substring(0, 30)
         const core = {
           id: msg._id,
           title: msg.message.title + '-' + msg.message.Reference,

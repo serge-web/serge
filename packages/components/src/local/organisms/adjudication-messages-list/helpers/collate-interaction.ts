@@ -71,7 +71,7 @@ export const updateWithAllAssets = (asset: Record<string, any>, interaction: Int
     const assets: Asset[] = []
     forces.forEach((force) => {
       if (force.assets) {
-        const liveAssets = assets.filter(isAlive)
+        const liveAssets = force.assets.filter(isAlive)
         assets.push(...liveAssets)
       }
     })

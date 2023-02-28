@@ -1,7 +1,8 @@
-import { Asset, ForceData, HealthOutcome, HealthOutcomes, InteractionDetails, MessageAdjudicationOutcomes } from '@serge/custom-types'
+import { Asset, AssetWithForce, ForceData, HealthOutcome, HealthOutcomes, InteractionDetails, MessageAdjudicationOutcomes } from '@serge/custom-types'
 import moment from 'moment'
-import findAsset from './find-asset'
+import findAsset, { findForceAndAsset } from './find-asset'
 import { cloneDeep } from 'lodash'
+import * as turf from '@turf/turf'
 import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
 
 export const injectRepairs = (interaction: InteractionDetails, payload: MessageAdjudicationOutcomes, allForces: ForceData[]): MessageAdjudicationOutcomes => {
@@ -55,34 +56,34 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
   const withRepairs = injectRepairs(interaction, payload, allForces)
 
   // we may apply observations to an asset in multiple lists. Cache the assets we find
-  const assetCache: Record<string, Asset> = {}
+  const assetCache: Record<string, AssetWithForce> = {}
 
   withRepairs.healthOutcomes.forEach((health) => {
-    const asset = assetCache[health.asset] || findAsset(allForces, health.asset)
+    const asset = assetCache[health.asset] || findForceAndAsset(allForces, health.asset)
     assetCache[health.asset] = asset
     if (typeof health.health === 'string') {
       const str = health.health as string
       if (str.length > 0) {
         console.log('Asset HEALTH updated', +str)
         // next line converts string to number
-        asset.health = +str
+        asset.asset.health = +str
       }
     } else {
-      asset.health = health.health
+      asset.asset.health = health.health
     }
     if (health.c4 && health.c4 !== 'Unchanged') {
-      const attrs = asset.attributes
+      const attrs = asset.asset.attributes
       if (attrs) {
         attrs.a_C4_Status = health.c4
       } else {
-        asset.attributes = { a_C4_Status: health.c4 }
+        asset.asset.attributes = { a_C4_Status: health.c4 }
       }
     }
     if (health.repairComplete) {
-      if (!asset.attributes) {
-        asset.attributes = {}
+      if (!asset.asset.attributes) {
+        asset.asset.attributes = {}
       }
-      const attrs = asset.attributes
+      const attrs = asset.asset.attributes
       if (health.repairComplete === 'I/R') {
         // ok, cannot be repaired. Clear the repair complete flag, if there is one
         if (attrs.a_Repair_Complete) {
@@ -97,12 +98,70 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
     }
   })
 
+  let targetAirport: Asset | undefined
   withRepairs.locationOutcomes.forEach((movement) => {
-    const asset = assetCache[movement.asset] || findAsset(allForces, movement.asset)
+    const asset: AssetWithForce = assetCache[movement.asset] || findForceAndAsset(allForces, movement.asset)
     assetCache[movement.asset] = asset
     // double-check we're not using a dummy value
     if (Array.isArray(movement.location)) {
-      asset.location = movement.location
+      asset.asset.location = movement.location
+
+      // we also need to update the airport, if this is an air order
+      if (asset.asset.platformTypeId.includes('_air')) {
+        // see if the destination is near an airport
+        const coords = movement.location
+        if (Array.isArray(coords)) {
+          const AIRFIELD_PROXIMITY_KM = 2
+
+          const setAirfield = (asset: Asset, uniqid: string): void => {
+            if (!asset.attributes) {
+              asset.attributes = {}
+            }
+            asset.attributes.a_Airfield = uniqid
+          }
+
+          // just see if the target airport is near this destination
+          let airfieldSet = false
+          if (targetAirport && targetAirport.location) {
+            const location = targetAirport.location
+            const destination = turf.point([coords[1], coords[0]])
+            const airportLoc = turf.point([location[1], location[0]])
+            const distanceApart = turf.distance(airportLoc, destination, { units: 'kilometers' })
+            if (distanceApart < AIRFIELD_PROXIMITY_KM) {
+              airfieldSet = true
+              setAirfield(asset.asset, targetAirport.uniqid)
+              // actually put the aircraft at the airfield
+              asset.asset.location = cloneDeep(targetAirport.location)
+              console.log('movement - setting to existing airfield', targetAirport.uniqid)
+            }
+          }
+          // did we sort it?
+          if (!airfieldSet) {
+            const forceAirportsWithLocation = (asset.force.assets && asset.force.assets.filter((asset) => {
+              return asset.location && asset.attributes && asset.attributes.a_Type === 'Airfield'
+            })) || []
+            const airfieldInRange = forceAirportsWithLocation.find((asset) => {
+              const location = asset.location
+              if (location) {
+                const destination = turf.point([coords[1], coords[0]])
+                const airportLoc = turf.point([location[1], location[0]])
+                const distanceApart = turf.distance(airportLoc, destination, { units: 'kilometers' })
+                return (distanceApart < AIRFIELD_PROXIMITY_KM)
+              } else {
+                return false
+              }
+            })
+            if (airfieldInRange) {
+              targetAirport = airfieldInRange
+              // set this as the host airfield for the aircraft
+              setAirfield(asset.asset, targetAirport.uniqid)
+              // actually put the aircraft at the airfield
+              asset.asset.location = cloneDeep(targetAirport.location)
+              console.log('movement - setting to existing airfield', targetAirport.uniqid)
+            }
+          }
+        }
+      }
     } else {
       console.warn('received non-array movement destination', movement.location)
     }
@@ -114,11 +173,11 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
     const by = perception.force
 
     // find/generate the perception for this force
-    let res = asset.perceptions.find((item) => item.by === by)
+    let res = asset.asset.perceptions.find((item) => item.by === by)
     if (!res) {
       // not found, create new perception
       res = { by: by }
-      asset.perceptions.push(res)
+      asset.asset.perceptions.push(res)
     }
     const resBefore = cloneDeep(res)
     // store the last observed time
@@ -160,7 +219,7 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
     if (perception.perceivedLocation) {
       if (typeof perception.perceivedLocation === 'string') {
         if (perception.perceivedLocation.toLowerCase() === 't') {
-          res.position = asset.location
+          res.position = asset.asset.location
         } else if (perception.perceivedLocation.toLowerCase() === 'x') {
           delete res.position
         } else if (perception.perceivedLocation.toLowerCase() === '"x"') {
@@ -183,7 +242,7 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
               console.warn('Parsed location not an array', parsedStr)
             }
           } catch (err) {
-            console.warn('Failed to parse location for', err, asset.uniqid, perception.perceivedLocation)
+            console.warn('Failed to parse location for', err, asset.asset.uniqid, perception.perceivedLocation)
             // clear location
             delete res.position
           }
