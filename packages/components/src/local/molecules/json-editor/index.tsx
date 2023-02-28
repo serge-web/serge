@@ -132,7 +132,7 @@ export const JsonEditor: React.FC<Props> = ({
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
 
     // initialise date editors
-    gameDate && console.warn('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
+    gameDate && console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
     const modSchema = gameDate ? configDateTimeLocal(template.details, gameDate) : template.details
 
     // apply any other template modifications
