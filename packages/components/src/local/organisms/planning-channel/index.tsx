@@ -765,11 +765,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const onSupportPanelLayoutChange = (key: string, value: string) => {
-    expiredStorage.setItem(key, value)
+    const panelState = JSON.parse(expiredStorage.getItem(selectedRoleId) || '{}')
+    panelState[key] = value
+    expiredStorage.setItem(selectedRoleId, JSON.stringify(panelState))
   }
 
+  const getSupportPanelState = () => JSON.parse(expiredStorage.getItem(selectedRoleId) || '{}')
+
   const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache, onSupportPanelLayoutChange }
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache, onSupportPanelLayoutChange, getSupportPanelState }
   ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
 
   const handleAdjudication = (interDetails: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void => {
