@@ -1,7 +1,9 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, AssetWithForce, CoreOutcome, ForceData, HealthOutcome, InteractionDetails, 
-  INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, 
-  MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import {
+  Asset, AssetWithForce, CoreOutcome, ForceData, HealthOutcome, InteractionDetails,
+  INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction,
+  MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry
+} from '@serge/custom-types'
 import { findAsset, findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Feature, Geometry, LineString, Polygon } from 'geojson'
@@ -253,7 +255,7 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: As
   return outcomes
 }
 
-const transitEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, 
+const transitEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   if (event === INTER_AT_END && plan.message.ownAssets && plan.message.location && plan.message.location.length === 1) {
     // ok, put the asset(s) at the destination
@@ -990,7 +992,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     let eventInWindow: ShortCircuitEvent | undefined
     let allRemainingEvents: TimedIntervention[] = []
 
-    console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowLength, 
+    console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowLength,
       moment.utc(fullTurnLength).format('d HH:mm'), moment.utc(currentWindowLength).format('d HH:mm'))
 
     while (contacts.length === 0 && currentWindowLength <= fullTurnLength && eventInWindow === undefined) {
