@@ -63,12 +63,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   // note: we don't work directly with the list of interactions, since we need some special processing to prevent
   // note: interactions being edited from being wiped.  So we maintain an independent list
   const [cachedInteractions, setCachedInteractions] = useState<MessageInteraction[]>([])
+  const [pendingInteractions, setPendingInteractions] = useState<MessageInteraction[]>([])
   // note: this time is in military presentation
   const [currentTime, setCurrentTime] = useState<string>('pending')
   const [adjudicationTime, setAdjudicationTime] = useState<number | undefined>(undefined)
   const [messageBeingEdited, setMessageBeingEdited] = useState<boolean>(false)
-  const [pendingMessages, setPendingMessages] = useState<MessagePlanning[]>([])
-  const [myPlanningMessages, setMyPlanningMessages] = useState<MessagePlanning[]>([])
+
   
   const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
   const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
@@ -118,22 +118,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       // no messages received. Clear list
       setCachedInteractions([])
     } else {
-      if (!messageBeingEdited) {
-        setCachedInteractions(ownMessages)
-        setPendingMessages([])
+      if (messageBeingEdited) {
+        setPendingInteractions(ownMessages)
       } else {
-        console.log('PlanningMessageList - not doing edit, message being edited')
+        setCachedInteractions(ownMessages)
       }
-      // check the first message - it may be an update
-      //     const newMessage = ownMessages[0]
-      //   const row = toRow(newMessage)
-      //   const existingRow = rows.some(row => row.reference === newMessage.message.Reference)
-      //      if (existingRow) {
-      //      const existingMessages: AdjudicationRow[] = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
-      //        setRows([...existingMessages, row])
-      //  } else {
-      //  setRows([...rows, row])
-      // }
     }
     // when determining the time of next adjudication, consider the full list
     if (interactionMessages.length > 0) {
@@ -148,17 +137,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }, [interactionMessages, onlyShowOpen])
   
   useEffect(() => {
-    if (pendingMessages.length) {
+    if (pendingInteractions.length) {
       // check there are no rows open
       if (!messageBeingEdited) {
-        console.log('PlanningMessageList = update pending', pendingMessages.length)
-        setMyPlanningMessages(pendingMessages)
-        setPendingMessages([])
+        setCachedInteractions(pendingInteractions)
+        setPendingInteractions([])
       } else {
-        console.log('PlanningMessageList - not doing edit, message being edited')
+        console.log('AdjudictionMessageList - not doing edit, message being edited')
       }
     }
-  }, [pendingMessages, messageBeingEdited])
+  }, [pendingInteractions, messageBeingEdited])
  
   useEffect(() => {
     setInPlanning(phase === Phase.Planning)
@@ -331,7 +319,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-      if (planningMessages.length > 0) {
+      if (cachedInteractions.length > 0) {
         const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
           return toRow(message)
         })
@@ -359,7 +347,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       } else {
         setRows([])
       }
-  }, [myPlanningMessages, cachedInteractions, turnFilter, filter])
+  }, [cachedInteractions, turnFilter, filter])
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
     // run the parent first
