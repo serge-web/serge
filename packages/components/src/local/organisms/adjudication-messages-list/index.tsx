@@ -69,7 +69,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [adjudicationTime, setAdjudicationTime] = useState<number | undefined>(undefined)
   const [messageBeingEdited, setMessageBeingEdited] = useState<boolean>(false)
 
-  
   const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
   const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
   const [endTime, setEndTime] = useState<Dayjs | null>(dayjs(gameDate))
@@ -135,7 +134,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
     setInteractionIsOpen(!!ownOpenMessages.length)
   }, [interactionMessages, onlyShowOpen])
-  
+
   useEffect(() => {
     if (pendingInteractions.length) {
       // check there are no rows open
@@ -147,7 +146,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
     }
   }, [pendingInteractions, messageBeingEdited])
- 
+
   useEffect(() => {
     setInPlanning(phase === Phase.Planning)
   }, [phase])
@@ -319,34 +318,34 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-      if (cachedInteractions.length > 0) {
-        const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
-          return toRow(message)
-        })
-        setRows(dataTable)
+    if (cachedInteractions.length > 0) {
+      const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
+        return toRow(message)
+      })
+      setRows(dataTable)
 
-        if (!columns.length || !filter) {
-          const umpireForce = forces.find((force: ForceData) => force.umpire)
-          // TODO: the column definitions should use the data collated in the column summary (below)
-          // provide more sophisticated column definition lookups
-          const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-          const hideTurnColumn = turnFilter !== SHOW_ALL_TURNS
-          const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
-            { title: 'Reference', field: 'reference' },
-            { title: 'Turn', field: 'turn', type: 'numeric', hidden: hideTurnColumn }, //  },
-            { title: 'Complete', field: 'complete', render: renderBoolean },
-            { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
-            { title: 'Owner', field: 'owner' },
-            { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
-            { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
-            { title: 'Activity', field: 'Reference' },
-            { title: 'Duration', field: 'period' }
-          ]
-          setColumns(columnsData)
-        }
-      } else {
-        setRows([])
+      if (!columns.length || !filter) {
+        const umpireForce = forces.find((force: ForceData) => force.umpire)
+        // TODO: the column definitions should use the data collated in the column summary (below)
+        // provide more sophisticated column definition lookups
+        const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
+        const hideTurnColumn = turnFilter !== SHOW_ALL_TURNS
+        const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
+          { title: 'Reference', field: 'reference' },
+          { title: 'Turn', field: 'turn', type: 'numeric', hidden: hideTurnColumn }, //  },
+          { title: 'Complete', field: 'complete', render: renderBoolean },
+          { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
+          { title: 'Owner', field: 'owner' },
+          { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
+          { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
+          { title: 'Activity', field: 'Reference' },
+          { title: 'Duration', field: 'period' }
+        ]
+        setColumns(columnsData)
       }
+    } else {
+      setRows([])
+    }
   }, [cachedInteractions, turnFilter, filter])
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
