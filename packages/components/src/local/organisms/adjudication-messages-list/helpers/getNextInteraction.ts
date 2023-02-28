@@ -1,5 +1,7 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, AssetWithForce, CoreOutcome, ForceData, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { Asset, AssetWithForce, CoreOutcome, ForceData, HealthOutcome, InteractionDetails, 
+  INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, 
+  MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { findAsset, findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Feature, Geometry, LineString, Polygon } from 'geojson'
@@ -37,6 +39,15 @@ export const timeOfLatestInteraction = (interactions: MessageInteraction[]): num
 export const createSpecialOrders = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[]): MessagePlanning[] => {
   !7 && console.log(gameTime, orders, interactions)
   return []
+}
+
+export const groupFor = (name: string): string => {
+  const separator = '-'
+  const last = name.lastIndexOf(separator)
+  const forceGroup = name.slice(0, last)
+  const first = forceGroup.lastIndexOf(separator)
+  const groupName = forceGroup.slice(first + 1)
+  return groupName
 }
 
 export const findActivity = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity | undefined => {
@@ -242,13 +253,12 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: As
   return outcomes
 }
 
-const transitEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
+const transitEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, 
+  event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   if (event === INTER_AT_END && plan.message.ownAssets && plan.message.location && plan.message.location.length === 1) {
     // ok, put the asset(s) at the destination
     const destGeom = plan.message.location[0].geometry.geometry as LineString
     const coords = destGeom.coordinates[destGeom.coordinates.length - 1]
-    // clean (shorten) coords
-
     plan.message.ownAssets.forEach((target: { asset: string }) => {
       const outCome: LocationOutcome = {
         asset: target.asset,
@@ -256,6 +266,7 @@ const transitEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
       }
       outcomes.locationOutcomes.push(outCome)
     })
+
     !7 && console.log(plan)
   }
   return outcomes
@@ -638,7 +649,11 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
   }
   // do we also have to update asset locations
   if (event === INTER_AT_END && endsWithMovement(plan.message.location)) {
-    insertMovementOutcomesFor(plan, outcomes, forces)
+    const group = groupFor(activity.uniqid)
+    const moveFor = ['Land', 'Maritime']
+    if (moveFor.includes(group)) {
+      insertMovementOutcomesFor(plan, outcomes, forces)
+    }
   }
   return outcomes
 }
