@@ -130,6 +130,9 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
             if (distanceApart < AIRFIELD_PROXIMITY_KM) {
               airfieldSet = true
               setAirfield(asset.asset, targetAirport.uniqid)
+              // actually put the aircraft at the airfield
+              asset.asset.location = cloneDeep(targetAirport.location)
+              console.log('movement - setting to existing airfield', targetAirport.uniqid)
             }
           }
           // did we sort it?
@@ -152,6 +155,9 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
               targetAirport = airfieldInRange
               // set this as the host airfield for the aircraft
               setAirfield(asset.asset, targetAirport.uniqid)
+              // actually put the aircraft at the airfield
+              asset.asset.location = cloneDeep(targetAirport.location)
+              console.log('movement - setting to existing airfield', targetAirport.uniqid)
             }
           }
         }
