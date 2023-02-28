@@ -111,7 +111,7 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
         // see if the destination is near an airport
         const coords = movement.location
         if (Array.isArray(coords)) {
-          const AIRFIELD_PROXIMITY_KM = 10
+          const AIRFIELD_PROXIMITY_KM = 2
 
           const setAirfield = (asset: Asset, uniqid: string): void => {
             if (!asset.attributes) {
