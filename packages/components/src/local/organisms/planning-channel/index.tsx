@@ -16,7 +16,7 @@ import { InteractionDetails, MessageAdjudicationOutcomes, MessageCustom, Message
 import { Feature, FeatureCollection, Point } from 'geojson'
 import LRU from 'lru-cache'
 import moment from 'moment-timezone'
-import { LayerGroup, MapContainer } from 'react-leaflet-v4'
+import { LayerGroup, MapContainer, useMapEvents } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
 import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import ApplyFilter from '../apply-filter'
@@ -1028,9 +1028,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     buildForceAsssets()
   }
 
+  const MyComponent = () => {
+    const map = useMapEvents({
+      contextmenu: () => {
+        map.locate()
+      },
+      locationfound: (location: L.LocationEvent) => {
+        const copyLocetion = JSON.stringify([location.latlng.lat, location.latlng.lng])
+        window.prompt('Copy to clipboard: Ctrl+C, Enter', copyLocetion)
+      }
+    })
+    return null
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
+        <MyComponent/>
         <Ruler showControl={true} />
         <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} />
