@@ -392,7 +392,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       // as a performance measure, we don't create attributes for OpFor assets
       // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
-      const health = (perception && perception.health) || undefined
+      const health = (perception && (perception.health !== undefined)) ? perception.health : undefined
       const c4 = 'unk'
       if (perceptionTypes && perception) {
         const lastUpdate = perception.lastUpdate

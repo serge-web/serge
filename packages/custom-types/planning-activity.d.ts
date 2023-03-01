@@ -163,7 +163,7 @@ export interface PerceptionOutcome extends CoreOutcome {
 }
 
 export interface LocationOutcome extends CoreOutcome  {
-  /** new location */
+  /** new location (lat, long) */
   location: [number, number]
 }
 

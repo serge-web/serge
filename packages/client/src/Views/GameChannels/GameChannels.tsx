@@ -153,14 +153,18 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   }
 
   const generateFile = () => {
-    const res = handleExport(gameDate, gameTurnTime, allPlatformTypes, allForces, currentTurn, channels)
-    // todo - convert the data to expected arrays
-    const data: SheetOptions[] = convertToXlsx(res)
-    return excellentExport.convert({
-      anchor: 'export_button_xlsx',
-      filename: 'SERGE-' + moment(gameDate).format('MMM DDHHmm[Z]'),
-      format: 'xlsx'
-    }, data)
+    try {
+      const res = handleExport(gameDate, gameTurnTime, allPlatformTypes, allForces, currentTurn, channels)
+      // todo - convert the data to expected arrays
+      const data: SheetOptions[] = convertToXlsx(res)
+      return excellentExport.convert({
+        anchor: 'export_button_xlsx',
+        filename: 'SERGE-' + moment(gameDate).format('MMM DDHHmm[Z]'),
+        format: 'xlsx'
+      }, data)  
+    } catch (err) {
+      console.error('Trouble exporting to excel', err)
+    }
   }
  
   return <div className='flex-content flex-content--row-wrap'>
