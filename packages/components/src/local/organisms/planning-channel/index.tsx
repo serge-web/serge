@@ -5,7 +5,7 @@ import {
 } from '@serge/custom-types'
 import { clearUnsentMessage, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { circleMarker, LatLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
+import L, { circleMarker, LatLngBounds, LatLngExpression, Layer, LeafletMouseEvent, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
@@ -1027,14 +1027,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     ownAssetsFiltered.current = assetRows
     buildForceAsssets()
   }
-
-  const MyComponent = () => {
-    const map = useMapEvents({
-      contextmenu: () => {
-        map.locate()
-      },
-      locationfound: (location: L.LocationEvent) => {
-        const copyLocetion = JSON.stringify([location.latlng.lat, location.latlng.lng])
+  const RightClickGenerator = () => {
+    useMapEvents({
+      contextmenu: (e: LeafletMouseEvent) => {
+        const hunK = 100000
+        const latVal = Math.floor(e.latlng.lat * hunK) / hunK
+        const lonVal = Math.floor(e.latlng.lng * hunK) / hunK
+        const copyLocetion = JSON.stringify([latVal, lonVal])
         window.prompt('Copy to clipboard: Ctrl+C, Enter', copyLocetion)
       }
     })
@@ -1044,7 +1043,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const mapChildren = useMemo(() => {
     return (
       <>
-        <MyComponent/>
+        <RightClickGenerator/>
         <Ruler showControl={true} />
         <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} />
