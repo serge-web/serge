@@ -211,6 +211,7 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             forcePlanningActivities={state.perForceActivities}
             areas={state.areas}
+            forceTemplateData={state.forceTemplateData}
           />
         default:
           console.log('not yet handling', channelData)

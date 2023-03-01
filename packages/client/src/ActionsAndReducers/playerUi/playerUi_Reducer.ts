@@ -63,7 +63,8 @@ export const initialState: PlayerUi = {
   isInsightViewer: false,
   isRFIManager: false,
   playerMessageLog: {},
-  areas: []
+  areas: [],
+  forceTemplateData: []
 }
 
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
@@ -102,6 +103,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.perForceActivities = perForceActivities ? perForceActivities.activities : []
       const areas = action.payload.data.areas
       newState.areas = areas ? areas.areas : []
+      const forceTemplateData = action.payload.data.forceTemplateData
+      newState.forceTemplateData = forceTemplateData ? forceTemplateData.forceMetadata : []
 
       // temporary workaround to get templates from warga
       const allTemplates = action.payload.data.templates ? action.payload.data.templates.templates : []

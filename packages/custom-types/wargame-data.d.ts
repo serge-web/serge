@@ -2,6 +2,7 @@ import AreaData from './area-data'
 import { AttributeTypeData } from './attributes'
 import Channel from './channel'
 import Force from './force'
+import ForceTemplateWrapper from './force-template-data'
 import { AnnotationMarkerData, MapAnnotationData } from './map-annotation'
 import { ActivityTypeData } from './planning-activity'
 import PlatformType from './platform-type'
@@ -19,4 +20,5 @@ export default interface WargameData {
   activities?: ActivityTypeData
   templates?: TemplateData
   areas?: AreaData
+  forceTemplateData?: ForceTemplateWrapper
 }

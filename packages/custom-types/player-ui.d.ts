@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { AreaCategory } from '.'
+import { AreaCategory, ForceTemplateData } from '.'
 import { AttributeTypes } from './attributes'
 import { ChannelTypes } from './channel-data'
 import ChannelUI from './channel-ui'
@@ -98,4 +98,6 @@ export default interface PlayerUi {
   perForceActivities: PerForcePlanningActivitySet[]
   /** set of standard areas */
   areas?: AreaCategory[]
+  /** force specific template data */
+  forceTemplateData?: ForceTemplateData[]
 }
