@@ -381,7 +381,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const domain = platformType ? domainFor(platformType.travelMode) : 'Unk'
   const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
   // we don't show some attributes, since they are shown in other columns
-  const attributesToSkip = ['a_Type', 'a_C4_Status', 'a_TaskGroup']
+  const attributesToSkip = ['a_Type', 'a_C4_Status', 'a_TaskGroup', 'a_SIDC']
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
