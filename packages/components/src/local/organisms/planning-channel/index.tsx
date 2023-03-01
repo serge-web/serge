@@ -765,12 +765,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const onSupportPanelLayoutChange = (key: string, value: string) => {
-    const panelState = JSON.parse(expiredStorage.getItem(selectedRoleId) || '{}')
+    const refKey = `support.planning.${selectedRoleId}`
+    const panelState = JSON.parse(expiredStorage.getItem(refKey) || '{}')
     panelState[key] = value
-    expiredStorage.setItem(selectedRoleId, JSON.stringify(panelState))
+    expiredStorage.setItem(refKey, JSON.stringify(panelState))
   }
 
-  const getSupportPanelState = () => JSON.parse(expiredStorage.getItem(selectedRoleId) || '{}')
+  const getSupportPanelState = () => JSON.parse(expiredStorage.getItem(`support.planning.${selectedRoleId}`) || '{}')
 
   const supportPanelContext = useMemo(() => (
     { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache, onSupportPanelLayoutChange, getSupportPanelState }

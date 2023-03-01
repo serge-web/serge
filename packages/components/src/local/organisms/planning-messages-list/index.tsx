@@ -12,7 +12,7 @@ import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import CustomFilterRow from '../planning-assets/helpers/custom-filter-row'
 import { TAB_MY_ORDERS } from '../support-panel/constants'
-import { getIsFilterState } from '../support-panel/helpers/caching-utils'
+import { getFilterApplied, getIsFilterState } from '../support-panel/helpers/caching-utils'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
 import { collateOutcomeDetails } from './helpers/collate-outcome-details'
@@ -134,6 +134,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           const isFilterState = getIsFilterState(panelState)
           isFilterState[TAB_MY_ORDERS] = !filter
           onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
+          // reset filters applied when toggle off filter state
+          if (filter) {
+            const filtersApplied = getFilterApplied(panelState)
+            delete filtersApplied[TAB_MY_ORDERS]
+            onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filtersApplied))
+          }
         }
       },
       {
