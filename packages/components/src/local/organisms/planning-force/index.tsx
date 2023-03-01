@@ -115,7 +115,7 @@ const PlanningForces: React.FC<PropTypes> = ({
       // if any of the toggles have changed, we need to force an update
       const mezChanged = lastShowMez !== showMezRings
       if (mezChanged) {
-        setLastShowMez(mezChanged)
+        setLastShowMez(showMezRings)
       }
       const hideNameChanged = lastHideName !== !!hideName
       if (hideNameChanged) {
