@@ -78,7 +78,7 @@ export default interface PropTypes {
    */
   initialTab?: string
   /** force-specific template data */
-  forceTemplateData?: ForceTemplateData
+  forceTemplateData?: ForceTemplateData[]
 }
 
 export type TabPanelProps = {

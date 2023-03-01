@@ -1,7 +1,7 @@
 import { ForceData, ForceTemplateData, MessageStructure } from '@serge/custom-types'
 
 export const customiseCyberCards = (_document: MessageStructure | undefined, schema: Record<string, any>,
-  forceId: ForceData['uniqid'], forceTemplateData: ForceTemplateData[]): Record<string, any> => {
+  forceId: ForceData['uniqid'], forceTemplateData?: ForceTemplateData[]): Record<string, any> => {
   const res = { ...schema }
   if (schema) {
     if (forceId && forceTemplateData && forceTemplateData.length) {
