@@ -5,7 +5,7 @@ import {
 } from '@serge/custom-types'
 import { clearUnsentMessage, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { circleMarker, LatLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
+import L, { circleMarker, LatLngBounds, LatLngExpression, Layer, LeafletMouseEvent, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
@@ -16,7 +16,7 @@ import { InteractionDetails, MessageAdjudicationOutcomes, MessageCustom, Message
 import { Feature, FeatureCollection, Point } from 'geojson'
 import LRU from 'lru-cache'
 import moment from 'moment-timezone'
-import { LayerGroup, MapContainer } from 'react-leaflet-v4'
+import { LayerGroup, MapContainer, useMapEvents } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
 import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import ApplyFilter from '../apply-filter'
@@ -1027,10 +1027,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     ownAssetsFiltered.current = assetRows
     buildForceAsssets()
   }
+  const RightClickGenerator = () => {
+    useMapEvents({
+      contextmenu: (e: LeafletMouseEvent) => {
+        const hunK = 100000
+        const latVal = Math.floor(e.latlng.lat * hunK) / hunK
+        const lonVal = Math.floor(e.latlng.lng * hunK) / hunK
+        const copyLocetion = JSON.stringify([latVal, lonVal])
+        window.prompt('Copy to clipboard: Ctrl+C, Enter', copyLocetion)
+      }
+    })
+    return null
+  }
 
   const mapChildren = useMemo(() => {
     return (
       <>
+        <RightClickGenerator/>
         <Ruler showControl={true} />
         <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} />
