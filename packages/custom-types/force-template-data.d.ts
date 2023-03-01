@@ -4,9 +4,9 @@ export interface ForceTemplateData {
   // the force 
   force: ForceData['uniqid']
   // list of missile types
-  missiles: string[]
+  missiles?: string[]
   // list of cyber cards
-  cards: string[]
+  cards?: string[]
 }
 
 /** the parent wrapper for the force specific metadata */
