@@ -63689,7 +63689,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.384Z",
+                    "lastUpdated": "2023-03-01T16:26:30.120Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -63878,9 +63878,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -64034,10 +64034,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2023-03-01T15:58:51.384Z"
+                    "_rev": "2023-03-01T16:26:30.120Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.384Z",
+                    "lastUpdated": "2023-03-01T16:26:30.120Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64226,9 +64226,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -64382,10 +64382,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2023-03-01T15:58:51.384Z"
+                    "_rev": "2023-03-01T16:26:30.120Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.384Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -64665,9 +64665,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -64702,10 +64702,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-03-01T15:58:51.384Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.384Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -64985,9 +64985,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -65022,10 +65022,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-03-01T15:58:51.393Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.393Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -65306,9 +65306,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -65352,10 +65352,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-03-01T15:58:51.393Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.393Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -65635,9 +65635,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -65681,10 +65681,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-03-01T15:58:51.393Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.393Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -65964,9 +65964,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -66010,10 +66010,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-03-01T15:58:51.393Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.393Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -66294,9 +66294,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -66349,10 +66349,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-03-01T15:58:51.393Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.393Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -66591,9 +66591,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -66628,10 +66628,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-03-01T15:58:51.393Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.393Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -66870,9 +66870,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -66907,10 +66907,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-03-01T15:58:51.393Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Air--AirToAir",
                     "details": {
                         "format": "grid",
@@ -67150,9 +67150,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -67196,10 +67196,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--AirToAir",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Land--Resupply",
                     "details": {
                         "format": "grid",
@@ -67438,9 +67438,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -67475,10 +67475,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Resupply",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Maritime--Resupply",
                     "details": {
                         "format": "grid",
@@ -67717,9 +67717,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -67754,10 +67754,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Resupply",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Air--Resupply",
                     "details": {
                         "format": "grid",
@@ -67997,9 +67997,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -68043,10 +68043,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Resupply",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -68285,9 +68285,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -68322,10 +68322,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -68564,9 +68564,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -68601,10 +68601,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -68844,9 +68844,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -68890,10 +68890,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Maritime--Activity",
                     "details": {
                         "format": "grid",
@@ -69172,9 +69172,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -69201,10 +69201,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Activity",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Air--Activity",
                     "details": {
                         "format": "grid",
@@ -69484,9 +69484,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -69522,10 +69522,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Activity",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -69716,9 +69716,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -69892,10 +69892,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--MissileStrike",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -70176,9 +70176,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -70223,10 +70223,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Cyber--Effects",
                     "details": {
                         "format": "grid",
@@ -70543,10 +70543,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--Effects",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Space--Effects",
                     "details": {
                         "format": "grid",
@@ -70863,10 +70863,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--Effects",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Info Ops--Effects",
                     "details": {
                         "format": "grid",
@@ -71183,10 +71183,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--Effects",
-                    "_rev": "2023-03-01T15:58:51.394Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.395Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Cyber--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -71515,10 +71515,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--AreaEffects",
-                    "_rev": "2023-03-01T15:58:51.395Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.395Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Space--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -71847,10 +71847,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--AreaEffects",
-                    "_rev": "2023-03-01T15:58:51.395Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.395Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Info Ops--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -72179,10 +72179,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--AreaEffects",
-                    "_rev": "2023-03-01T15:58:51.395Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.395Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "SOF--SOFActivity",
                     "details": {
                         "format": "grid",
@@ -72475,10 +72475,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "SOF--SOFActivity",
-                    "_rev": "2023-03-01T15:58:51.395Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T15:58:51.395Z",
+                    "lastUpdated": "2023-03-01T16:26:30.121Z",
                     "title": "Land--Activity",
                     "details": {
                         "format": "grid",
@@ -72757,9 +72757,9 @@ const game: Wargame = {
                             },
                             "emconState": {
                                 "enum": [
+                                    "Normal Operations",
                                     "Electronic Silence",
                                     "Radio Silence",
-                                    "Normal Operations",
                                     "No restrictions"
                                 ],
                                 "title": "Emcon State",
@@ -72786,7 +72786,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Activity",
-                    "_rev": "2023-03-01T15:58:51.395Z"
+                    "_rev": "2023-03-01T16:26:30.121Z"
                 }
             ]
         },
@@ -72965,56 +72965,55 @@ const game: Wargame = {
         "forceTemplateData": {
             "forceMetadata": [
                 {
-                    force: 'f-blue',
-                    missiles: [
-                        'Blue Missile AA',
-                        'Blue Missile BB',
-                        'Blue Missile CC',
-                        'Blue Missile DD',
-                        'Blue Missile EE',
-                        'Blue Missile FF'
-                    ],
-                    cards: [
-                        'Blue Activity Card  AA',
-                        'Blue Activity Card  BB',
-                        'Blue Activity Card  CC',
-                        'Blue Activity Card  DD',
-                        'Blue Activity Card  EE',
-                        'Blue Activity Card  FF'
-                    ]
+                  "force":"f-blue",
+                  "missiles":[
+                    "Blue Missile AA",
+                    "Blue Missile BB",
+                    "Blue Missile CC",
+                    "Blue Missile DD",
+                    "Blue Missile EE",
+                    "Blue Missile FF"
+                  ],
+                  "cards":[
+                    "Blue Activity Card  AA",
+                    "Blue Activity Card  BB",
+                    "Blue Activity Card  CC",
+                    "Blue Activity Card  DD",
+                    "Blue Activity Card  EE",
+                    "Blue Activity Card  FF"
+                  ]
                 },
                 {
-                    force: 'f-red',
-                    missiles: [
-                        'Red Missile AA',
-                        'Red Missile BB',
-                        'Red Missile CC',
-                        'Red Missile DD',
-                        'Red Missile EE',
-                        'Red Missile FF'
-                    ],
-                    cards: [
-                        'Red A ctivity Card  AA',
-                        'Red A ctivity Card  BB',
-                        'Red A ctivity Card  CC',
-                        'Red A ctivity Card  DD',
-                        'Red A ctivity Card  EE',
-                        'Red A ctivity Card  FF'
-                    ]
+                  "force":"f-red",
+                  "missiles":[
+                    "Red Missile AA",
+                    "Red Missile BB",
+                    "Red Missile CC",
+                    "Red Missile DD",
+                    "Red Missile EE",
+                    "Red Missile FF"
+                  ],
+                  "cards":[
+                    "Red A ctivity Card  AA",
+                    "Red A ctivity Card  BB",
+                    "Red A ctivity Card  CC",
+                    "Red A ctivity Card  DD",
+                    "Red A ctivity Card  EE",
+                    "Red A ctivity Card  FF"
+                  ]
                 },
                 {
-                    force: 'f-green',
-                    missiles: [
-                        'Green Missile AA',
-                        'Green Missile BB',
-                        'Green Missile CC',
-                        'Green Missile DD',
-                        'Green Missile EE',
-                        'Green Missile FF'
-
-                    ]
+                  "force":"f-green",
+                  "missiles":[
+                    "Green Missile AA",
+                    "Green Missile BB",
+                    "Green Missile CC",
+                    "Green Missile DD",
+                    "Green Missile EE",
+                    "Green Missile FF"
+                  ]
                 }
-            ]
+              ]
         }
     },
     "gameTurn": 1,
