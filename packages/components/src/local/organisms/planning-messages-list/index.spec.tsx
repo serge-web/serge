@@ -64,7 +64,8 @@ describe('ChannelMessagesList component: ', () => {
         currentTurn={P9Mock.gameTurn} gameTurnEndDate={turnEndDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
-        phase={Phase.Planning} editLocation={noop} onMarkAllAsRead={markAllAsRead} onSupportPanelLayoutChange={noop} />, {
+        phase={Phase.Planning} editLocation={noop} onMarkAllAsRead={markAllAsRead} onSupportPanelLayoutChange={noop}
+        getSupportPanelState={() => ({})} />, {
         createNodeMock: node => {
           return document.createElement(node.type as string)
         }

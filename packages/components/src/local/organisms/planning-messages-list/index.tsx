@@ -12,7 +12,7 @@ import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import CustomFilterRow from '../planning-assets/helpers/custom-filter-row'
 import { TAB_MY_ORDERS } from '../support-panel/constants'
-import { getIsFilterState } from '../support-panel/helpers/caching-utils'
+import { getFilterApplied, getIsFilterState } from '../support-panel/helpers/caching-utils'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
 import { collateOutcomeDetails } from './helpers/collate-outcome-details'
@@ -25,7 +25,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders, allForces, forceColors,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter, platformTypes,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  modifyForSave, phase, onSupportPanelLayoutChange, copyMessage
+  modifyForSave, phase, onSupportPanelLayoutChange, getSupportPanelState, copyMessage
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column<OrderRow>[]>([])
@@ -49,8 +49,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, planningMessages.length)
 
+  const panelState = useMemo(() => getSupportPanelState(), [])
+
   useEffect(() => {
-    const isFilterState = getIsFilterState()
+    const isFilterState = getIsFilterState(panelState)
     if (isFilterState[TAB_MY_ORDERS] && isFilterState[TAB_MY_ORDERS] !== filter) {
       setTimeout(() => {
         setFilter(isFilterState[TAB_MY_ORDERS])
@@ -129,9 +131,15 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         isFreeAction: true,
         onClick: (): void => {
           setFilter(!filter)
-          const isFilterState = getIsFilterState()
+          const isFilterState = getIsFilterState(panelState)
           isFilterState[TAB_MY_ORDERS] = !filter
           onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
+          // reset filters applied when toggle off filter state
+          if (filter) {
+            const filtersApplied = getFilterApplied(panelState)
+            delete filtersApplied[TAB_MY_ORDERS]
+            onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filtersApplied))
+          }
         }
       },
       {
@@ -470,7 +478,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             {...props}
           />)
         },
-        FilterRow: props => <CustomFilterRow {...props} onSupportPanelLayoutChange={onSupportPanelLayoutChange} cacheKey={TAB_MY_ORDERS} />
+        FilterRow: props => <CustomFilterRow
+          {...props}
+          onSupportPanelLayoutChange={onSupportPanelLayoutChange}
+          getSupportPanelState={getSupportPanelState}
+          cacheKey={TAB_MY_ORDERS}
+        />
       }}
     />
   }, [rows, filter, toolbarActions, onlyShowMyOrders])
