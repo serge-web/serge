@@ -4,7 +4,7 @@ export const customiseCyberCards = (_document: MessageStructure | undefined, sch
   forceId: ForceData['uniqid'], forceTemplateData: ForceTemplateData[]): Record<string, any> => {
   const res = { ...schema }
   if (schema) {
-    if (forceId && forceTemplateData &&  forceTemplateData.length) {
+    if (forceId && forceTemplateData && forceTemplateData.length) {
       const cards = res.properties?.activityCard
       if (cards) {
         const myData = forceTemplateData.find((data) => data.force === forceId)

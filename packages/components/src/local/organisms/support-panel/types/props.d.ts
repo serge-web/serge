@@ -1,5 +1,5 @@
 import {
-  AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
+  AttributeTypes, ChannelPlanning, ForceData, ForceTemplateData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
