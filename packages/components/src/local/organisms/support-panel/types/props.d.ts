@@ -1,5 +1,5 @@
 import {
-  AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
+  AttributeTypes, ChannelPlanning, ForceData, ForceTemplateData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
@@ -77,6 +77,8 @@ export default interface PropTypes {
    * the initial tab to show (useful for story testing)
    */
   initialTab?: string
+  /** force-specific template data */
+  forceTemplateData?: ForceTemplateData[]
 }
 
 export type TabPanelProps = {

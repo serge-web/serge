@@ -1,6 +1,6 @@
 import { dropDownObject } from './p9-helpers'
 
-export const emconState = dropDownObject('Emcon State', ['Electronic Silence', 'Radio Silence', 'Normal Operations', 'No restrictions'], 3, 220)
+export const emconState = dropDownObject('Emcon State', ['Normal Operations', 'Electronic Silence', 'Radio Silence', 'No restrictions'], 3, 220)
 export const rulesOfEngagement = dropDownObject('Rules of Engagement', ['Weapons Free', 'Weapons Tight', 'Weapons Held'], 3, 210)
 
 const flatpickrOptions = {

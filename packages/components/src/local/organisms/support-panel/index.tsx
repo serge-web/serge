@@ -28,6 +28,8 @@ import TurnFilter from './helpers/TurnFilter'
 import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
+import { customiseMissiles } from './helpers/customise-missiles'
+import { customiseCyberCards } from './helpers/customise-cards'
 
 export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop, assetsCache: new LRU<string, string>(LRU_CACHE_OPTION), onSupportPanelLayoutChange: noop, getSupportPanelState: noop })
 
@@ -73,7 +75,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   editLocation,
   attributeTypes,
   handleAdjudication,
-  initialTab
+  initialTab,
+  forceTemplateData
 }) => {
   const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
   const [activeTab, setActiveTab] = useState<string>(initialTab || (umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE))
@@ -350,7 +353,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
       (document, template) => customiseLocation(document, template),
-      (document, template) => customiseLiveOrders(document, template, liveOrders)
+      (document, template) => customiseLiveOrders(document, template, liveOrders),
+      (document, template) => customiseMissiles(document, template, selectedForce.uniqid, forceTemplateData),
+      (document, template) => customiseCyberCards(document, template, selectedForce.uniqid, forceTemplateData)
     ]
 
     let current: Record<string, any> = { ...schema }

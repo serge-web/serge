@@ -230,7 +230,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const rndEnd: INTERACTION_SHORT_CIRCUIT[] = [INTER_AT_RANDOM, INTER_AT_END]
 
   const acts: Activity[] = []
-  acts.push({ uniqid: 'STRIKE', title: 'Strike', events: end, forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike', pfTmpl: true })
+  acts.push({ uniqid: 'STRIKE', title: 'Strike', events: end, forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
   acts.push({ uniqid: 'EW', title: 'EW Attack', events: both, forces: redBlue, domains: seaAirLand, acts: thereBack, actDesc: ['EW Area of Effect'], specific: 'EWAttack', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'ISTAR', title: 'ISTAR', events: rndEnd, forces: redBlue, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR', spatialP: true })
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: landMar, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
@@ -242,7 +242,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'M-Lay', title: 'Mine Laying', events: rndEnd, forces: redBlue, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], spatialP: true, spatialH: true })
   acts.push({ uniqid: 'DCA', title: 'Defensive Counter Air', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['DCA Area'], spatialP: true, spatialH: true })
   acts.push({ uniqid: 'OCA', title: 'Offensive Counter Air', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['OCA Area'], spatialP: true, spatialH: true })
-  acts.push({ uniqid: 'SoffS', title: 'Stand Off Strike', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['Launch Location'], specific: 'MissileStrike', pfTmpl: true })
+  acts.push({ uniqid: 'SoffS', title: 'Stand Off Strike', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['Launch Location'], specific: 'MissileStrike' })
   acts.push({ uniqid: 'SEAD', title: 'Suppression of Air Defences (SEAD)', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['SEAD Area'] })
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', spatialH: true })
   acts.push({ uniqid: 'Activity', title: 'Targeted Activity', events: all, forces: redBlue, domains: [cyber, space, info], specific: 'Effects' })
