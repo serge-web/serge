@@ -77,6 +77,8 @@ export default interface PropTypes {
    * the initial tab to show (useful for story testing)
    */
   initialTab?: string
+  /** force-specific template data */
+  forceTemplateData?: ForceTemplateData
 }
 
 export type TabPanelProps = {

@@ -90,7 +90,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   currentTurn,
   forcePlanningActivities,
   attributeTypes,
-  areas
+  areas,
+  forceTemplateData
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position] = useState<LatLngExpression | undefined>(undefined)
@@ -1127,6 +1128,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             forcePlanningActivities={forcePlanningActivities}
             editLocation={editOrderGeometries}
             handleAdjudication={handleAdjudication}
+            forceTemplateData={forceTemplateData}
           />
           <div className={styles['map-container']}>
             <div style={{ width: mapWidth }}>
