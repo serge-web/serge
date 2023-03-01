@@ -54,7 +54,7 @@ export default interface PropTypes {
   /** set of standard areas */
   areas?: AreaCategory[]
   /** force-specific template data */
-  forceTemplateData?: ForceTemplateData
+  forceTemplateData?: ForceTemplateData[]
 }
 
 export type PlanningActitivityMenuType = {
