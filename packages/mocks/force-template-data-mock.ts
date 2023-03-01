@@ -1,4 +1,4 @@
-import { AreaCategory, ForceTemplateData } from "@serge/custom-types";
+import { ForceTemplateData } from "@serge/custom-types";
 
 export const fTempData: ForceTemplateData[] = [
   { 
