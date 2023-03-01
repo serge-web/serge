@@ -123,4 +123,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onLocationEditorLoaded?: (editorElm: HTMLDivElement) => void
 
   onSupportPanelLayoutChange: (key: string, value: string) => void
+
+  getSupportPanelState: () => void
 }

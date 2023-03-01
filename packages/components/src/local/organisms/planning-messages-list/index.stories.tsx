@@ -174,6 +174,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     editLocation={editLocation}
     forcePlanningActivities={filledInPerForcePlanningActivities}
     onSupportPanelLayoutChange={noop}
+    getSupportPanelState={noop}
   />
 }
 

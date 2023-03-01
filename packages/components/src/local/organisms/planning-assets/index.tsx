@@ -1,18 +1,18 @@
-import { faSearchMinus, faSearchPlus, faSkull, faBan } from '@fortawesome/free-solid-svg-icons'
+import { faBan, faSearchMinus, faSearchPlus, faSkull } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, EditCellColumnDef, MTableBody, MTableBodyRow } from '@material-table/core'
+import { SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import cx from 'classnames'
+import { isEqual, uniq } from 'lodash'
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
-import { materialIcons } from '../support-panel/helpers/material-icons'
-import { getColumns } from './helpers/collate-assets'
-import styles from './styles.module.scss'
-import PropTypes, { AssetRow } from './types/props'
-import { expiredStorage, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { TAB_MY_FORCE, TAB_OPP_FOR } from '../support-panel/constants'
 import { getFilterApplied, getIsFilterState } from '../support-panel/helpers/caching-utils'
-import { isEqual, uniq } from 'lodash'
+import { materialIcons } from '../support-panel/helpers/material-icons'
+import { getColumns } from './helpers/collate-assets'
 import CustomFilterRow from './helpers/custom-filter-row'
+import styles from './styles.module.scss'
+import PropTypes, { AssetRow } from './types/props'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
   assets, forces, playerForce, opFor, platformStyles,
@@ -25,7 +25,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const [showColumnFilters, setFilter] = useState<boolean>(true)
   const [showDead, setShowDead] = useState<boolean>(false)
   const preventScroll = useRef<boolean>(false)
-  const { selectedAssets, assetsCache, onSupportPanelLayoutChange } = useContext(SupportPanelContext)
+  const { selectedAssets, assetsCache, onSupportPanelLayoutChange, getSupportPanelState } = useContext(SupportPanelContext)
 
   const [visibleRows, setVisibleRows] = useState<AssetRow[]>([])
   const [visibleRowsCache, setVisibleRowsCache] = useState<string[]>([])
@@ -36,9 +36,11 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   // reference to table, we use it to clear the selection
   const tableRef = useRef<typeof MaterialTable | undefined>(null)
 
+  const panelState = useMemo(() => getSupportPanelState(), [])
+
   useEffect(() => {
     const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE
-    const isFilterState = getIsFilterState()
+    const isFilterState = getIsFilterState(panelState)
     if (isFilterState[key] && isFilterState[key] !== showColumnFilters) {
       setTimeout(() => {
         setFilter(isFilterState[key])
@@ -80,12 +82,12 @@ export const PlanningAssets: React.FC<PropTypes> = ({
           onClick: (): void => {
             setFilter(!showColumnFilters)
             const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE
-            const isFilterState = getIsFilterState()
+            const isFilterState = getIsFilterState(panelState)
             isFilterState[key] = !showColumnFilters
             onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
             // reset filters applied when toggle off filter state
             if (showColumnFilters) {
-              const filtersApplied = getFilterApplied()
+              const filtersApplied = getFilterApplied(panelState)
               delete filtersApplied[key]
               onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filtersApplied))
             }
@@ -194,7 +196,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   useEffect(() => {
     if (!columns.length || !showColumnFilters) {
       const columns = getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache)
-      const cachedColumns = expiredStorage.getItem(SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS)
+      const cachedColumns = panelState[SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS]
       if (cachedColumns) {
         const parsedCols: { [x: string]: { field: string, hidden: string }[] } = JSON.parse(cachedColumns)
         const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE;
@@ -290,6 +292,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
           {...props}
           cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE}
           onSupportPanelLayoutChange={onSupportPanelLayoutChange}
+          getSupportPanelState={getSupportPanelState}
         />
       }}
     />

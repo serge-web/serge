@@ -1,15 +1,15 @@
+import { Column } from '@material-table/core'
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
-import { ADJUDICATION_PHASE, expiredStorage, MESSAGE_SENT_INTERACTION, SUPPORT_PANEL_LAYOUT } from '@serge/config'
+import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructure, PlanningMessageStructureCore } from '@serge/custom-types'
 import { incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import { updateLocationNames } from '@serge/helpers/build/geometry-helpers'
 import cx from 'classnames'
-import { Column } from '@material-table/core'
 import { cloneDeep, noop } from 'lodash'
 import LRU from 'lru-cache'
 import moment from 'moment'
-import React, { createContext, useContext, useEffect, useState, useRef } from 'react'
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -31,7 +31,7 @@ import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from '.
 import { customiseMissiles } from './helpers/customise-missiles'
 import { customiseCyberCards } from './helpers/customise-cards'
 
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop, assetsCache: new LRU<string, string>(LRU_CACHE_OPTION), onSupportPanelLayoutChange: noop })
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop, assetsCache: new LRU<string, string>(LRU_CACHE_OPTION), onSupportPanelLayoutChange: noop, getSupportPanelState: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -94,10 +94,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction, onSupportPanelLayoutChange } = useContext(SupportPanelContext)
+  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction, onSupportPanelLayoutChange, getSupportPanelState } = useContext(SupportPanelContext)
 
   const [pendingDetailOpen, setPendingDetailOpen] = useState<undefined | OrderRow | AdjudicationRow>(undefined)
   const [pendingDetailClose, setPendingDetailClose] = useState<boolean>(false)
+
+  const panelState = useMemo(() => getSupportPanelState(), [])
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -106,7 +108,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const getPanelWidthFromCache = () => {
-    const panelWidth = expiredStorage.getItem(SUPPORT_PANEL_LAYOUT.SUPPORT_PANEL_WIDTH)
+    const panelWidth = panelState[SUPPORT_PANEL_LAYOUT.SUPPORT_PANEL_WIDTH]
     if (panelWidth && !isNaN(parseInt(panelWidth))) {
       return parseInt(panelWidth)
     }
@@ -114,7 +116,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const openingTab = expiredStorage.getItem(SUPPORT_PANEL_LAYOUT.OPENING_TAB)
+    const openingTab = panelState[SUPPORT_PANEL_LAYOUT.OPENING_TAB]
     if (openingTab) {
       setActiveTab(openingTab)
     }
@@ -312,7 +314,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
       return element
     }
 
-    const toLocale = (date:string): string => {
+    const toLocale = (date: string): string => {
       return moment.utc(date).toLocaleString()
     }
 
@@ -603,6 +605,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onDetailPanelClose={onDetailPanelClose}
                   editThisMessage={editThisMessage}
                   onSupportPanelLayoutChange={onSupportPanelLayoutChange}
+                  getSupportPanelState={getSupportPanelState}
                 />
                 {localDraftMessage && <NewMessage
                   orderableChannel={true}
