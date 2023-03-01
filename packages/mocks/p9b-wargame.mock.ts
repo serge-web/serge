@@ -60895,7 +60895,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Land-Strike",
-                                    "template": "f-blue--Land--MissileStrike",
+                                    "template": "Land--MissileStrike",
                                     "events": [
                                         "i-end"
                                     ]
@@ -61236,7 +61236,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Maritime-Strike",
-                                    "template": "f-blue--Maritime--MissileStrike",
+                                    "template": "Maritime--MissileStrike",
                                     "events": [
                                         "i-end"
                                     ]
@@ -61540,7 +61540,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Air-Stand Off Strike",
-                                    "template": "f-blue--Air--MissileStrike",
+                                    "template": "Air--MissileStrike",
                                     "events": [
                                         "i-random"
                                     ],
@@ -62085,7 +62085,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Land-Strike",
-                                    "template": "f-red--Land--MissileStrike",
+                                    "template": "Land--MissileStrike",
                                     "events": [
                                         "i-end"
                                     ]
@@ -62443,7 +62443,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Maritime-Strike",
-                                    "template": "f-red--Maritime--MissileStrike",
+                                    "template": "Maritime--MissileStrike",
                                     "events": [
                                         "i-end"
                                     ]
@@ -62747,7 +62747,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Air-Stand Off Strike",
-                                    "template": "f-red--Air--MissileStrike",
+                                    "template": "Air--MissileStrike",
                                     "events": [
                                         "i-random"
                                     ],
@@ -63150,7 +63150,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Land-Strike",
-                                    "template": "f-green--Land--MissileStrike",
+                                    "template": "Land--MissileStrike",
                                     "events": [
                                         "i-end"
                                     ]
@@ -63239,7 +63239,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Maritime-Strike",
-                                    "template": "f-green--Maritime--MissileStrike",
+                                    "template": "Maritime--MissileStrike",
                                     "events": [
                                         "i-end"
                                     ]
@@ -63552,7 +63552,7 @@ const game: Wargame = {
                                             }
                                         },
                                         "health": {
-                                            "title": "Health",
+                                            "title": "Health (empty for unchanged)",
                                             "propertyOrder": 20,
                                             "type": "number",
                                             "options": {
@@ -63689,8 +63689,8 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.386Z",
-                    "title": "f-blue--Land--MissileStrike",
+                    "lastUpdated": "2023-03-01T15:58:51.384Z",
+                    "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
                         "required": [
@@ -64029,16 +64029,16 @@ const game: Wargame = {
                                 }
                             }
                         },
-                        "title": "f-blue--Land--MissileStrike",
+                        "title": "Land--MissileStrike",
                         "type": "object"
                     },
                     "completed": true,
-                    "_id": "f-blue--Land--MissileStrike",
-                    "_rev": "2023-02-26T08:17:05.386Z"
+                    "_id": "Land--MissileStrike",
+                    "_rev": "2023-03-01T15:58:51.384Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.386Z",
-                    "title": "f-blue--Maritime--MissileStrike",
+                    "lastUpdated": "2023-03-01T15:58:51.384Z",
+                    "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
                         "required": [
@@ -64377,1407 +64377,15 @@ const game: Wargame = {
                                 }
                             }
                         },
-                        "title": "f-blue--Maritime--MissileStrike",
+                        "title": "Maritime--MissileStrike",
                         "type": "object"
                     },
                     "completed": true,
-                    "_id": "f-blue--Maritime--MissileStrike",
-                    "_rev": "2023-02-26T08:17:05.386Z"
+                    "_id": "Maritime--MissileStrike",
+                    "_rev": "2023-03-01T15:58:51.384Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.386Z",
-                    "title": "f-red--Land--MissileStrike",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "activityDescription",
-                            "intent",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "ownAssets",
-                            "otherAssets"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "minLength": 10,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter start date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter end date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "High-level Activity Supported",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "title": "Associated Cyber/Space Activity Ref#",
-                                "propertyOrder": 120,
-                                "type": "string",
-                                "enum": [
-                                    "None",
-                                    "FR Cyper Op 12 - Green Drain",
-                                    "DE Cyper Op 14 - Brain Smash",
-                                    "GR Space Op 16 - Ruby Spaniel",
-                                    "SP Info Op 18 - Orange Drawn"
-                                ],
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "rulesOfEngagement": {
-                                "enum": [
-                                    "Weapons Free",
-                                    "Weapons Tight",
-                                    "Weapons Held"
-                                ],
-                                "title": "Rules of Engagement",
-                                "type": "string",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "emconState": {
-                                "enum": [
-                                    "Electronic Silence",
-                                    "Radio Silence",
-                                    "Normal Operations",
-                                    "No restrictions"
-                                ],
-                                "title": "Emcon State",
-                                "type": "string",
-                                "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets (Launchers)",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Launcher",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Battery A",
-                                                    "Battery B",
-                                                    "Battery C",
-                                                    "Battery D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 75,
-                                "title": "Targets",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Site A",
-                                                    "Opp Site B",
-                                                    "Opp Site C",
-                                                    "Opp Site D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "title": "f-red--Land--MissileStrike",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "f-red--Land--MissileStrike",
-                    "_rev": "2023-02-26T08:17:05.387Z"
-                },
-                {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
-                    "title": "f-red--Maritime--MissileStrike",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "activityDescription",
-                            "intent",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "ownAssets",
-                            "otherAssets"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "minLength": 10,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter start date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter end date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "High-level Activity Supported",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "title": "Associated Cyber/Space Activity Ref#",
-                                "propertyOrder": 120,
-                                "type": "string",
-                                "enum": [
-                                    "None",
-                                    "FR Cyper Op 12 - Green Drain",
-                                    "DE Cyper Op 14 - Brain Smash",
-                                    "GR Space Op 16 - Ruby Spaniel",
-                                    "SP Info Op 18 - Orange Drawn"
-                                ],
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "rulesOfEngagement": {
-                                "enum": [
-                                    "Weapons Free",
-                                    "Weapons Tight",
-                                    "Weapons Held"
-                                ],
-                                "title": "Rules of Engagement",
-                                "type": "string",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "emconState": {
-                                "enum": [
-                                    "Electronic Silence",
-                                    "Radio Silence",
-                                    "Normal Operations",
-                                    "No restrictions"
-                                ],
-                                "title": "Emcon State",
-                                "type": "string",
-                                "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets (Launchers)",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Launcher",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Battery A",
-                                                    "Battery B",
-                                                    "Battery C",
-                                                    "Battery D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 75,
-                                "title": "Targets",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Site A",
-                                                    "Opp Site B",
-                                                    "Opp Site C",
-                                                    "Opp Site D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "title": "f-red--Maritime--MissileStrike",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "f-red--Maritime--MissileStrike",
-                    "_rev": "2023-02-26T08:17:05.387Z"
-                },
-                {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
-                    "title": "f-green--Land--MissileStrike",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "activityDescription",
-                            "intent",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "ownAssets",
-                            "otherAssets"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "minLength": 10,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter start date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter end date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "High-level Activity Supported",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "title": "Associated Cyber/Space Activity Ref#",
-                                "propertyOrder": 120,
-                                "type": "string",
-                                "enum": [
-                                    "None",
-                                    "FR Cyper Op 12 - Green Drain",
-                                    "DE Cyper Op 14 - Brain Smash",
-                                    "GR Space Op 16 - Ruby Spaniel",
-                                    "SP Info Op 18 - Orange Drawn"
-                                ],
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "rulesOfEngagement": {
-                                "enum": [
-                                    "Weapons Free",
-                                    "Weapons Tight",
-                                    "Weapons Held"
-                                ],
-                                "title": "Rules of Engagement",
-                                "type": "string",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "emconState": {
-                                "enum": [
-                                    "Electronic Silence",
-                                    "Radio Silence",
-                                    "Normal Operations",
-                                    "No restrictions"
-                                ],
-                                "title": "Emcon State",
-                                "type": "string",
-                                "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets (Launchers)",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Launcher",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Battery A",
-                                                    "Battery B",
-                                                    "Battery C",
-                                                    "Battery D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 75,
-                                "title": "Targets",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Site A",
-                                                    "Opp Site B",
-                                                    "Opp Site C",
-                                                    "Opp Site D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "title": "f-green--Land--MissileStrike",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "f-green--Land--MissileStrike",
-                    "_rev": "2023-02-26T08:17:05.387Z"
-                },
-                {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
-                    "title": "f-green--Maritime--MissileStrike",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "activityDescription",
-                            "intent",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "ownAssets",
-                            "otherAssets"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "minLength": 10,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter start date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter end date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "High-level Activity Supported",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "title": "Associated Cyber/Space Activity Ref#",
-                                "propertyOrder": 120,
-                                "type": "string",
-                                "enum": [
-                                    "None",
-                                    "FR Cyper Op 12 - Green Drain",
-                                    "DE Cyper Op 14 - Brain Smash",
-                                    "GR Space Op 16 - Ruby Spaniel",
-                                    "SP Info Op 18 - Orange Drawn"
-                                ],
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "rulesOfEngagement": {
-                                "enum": [
-                                    "Weapons Free",
-                                    "Weapons Tight",
-                                    "Weapons Held"
-                                ],
-                                "title": "Rules of Engagement",
-                                "type": "string",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "emconState": {
-                                "enum": [
-                                    "Electronic Silence",
-                                    "Radio Silence",
-                                    "Normal Operations",
-                                    "No restrictions"
-                                ],
-                                "title": "Emcon State",
-                                "type": "string",
-                                "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets (Launchers)",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Launcher",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Battery A",
-                                                    "Battery B",
-                                                    "Battery C",
-                                                    "Battery D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 75,
-                                "title": "Targets",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Site A",
-                                                    "Opp Site B",
-                                                    "Opp Site C",
-                                                    "Opp Site D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "title": "f-green--Maritime--MissileStrike",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "f-green--Maritime--MissileStrike",
-                    "_rev": "2023-02-26T08:17:05.387Z"
-                },
-                {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.384Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66094,10 +64702,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.384Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.384Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66414,10 +65022,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.393Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.393Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66744,10 +65352,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.393Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.393Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67073,10 +65681,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.393Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.393Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67402,10 +66010,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.393Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.393Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67741,10 +66349,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.393Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.393Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -68020,10 +66628,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.393Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.393Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -68299,10 +66907,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.393Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Air--AirToAir",
                     "details": {
                         "format": "grid",
@@ -68588,10 +67196,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--AirToAir",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Land--Resupply",
                     "details": {
                         "format": "grid",
@@ -68867,10 +67475,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Resupply",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Maritime--Resupply",
                     "details": {
                         "format": "grid",
@@ -69146,10 +67754,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Resupply",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Air--Resupply",
                     "details": {
                         "format": "grid",
@@ -69435,10 +68043,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Resupply",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -69714,10 +68322,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -69993,10 +68601,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -70282,10 +68890,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Maritime--Activity",
                     "details": {
                         "format": "grid",
@@ -70593,10 +69201,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Activity",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Air--Activity",
                     "details": {
                         "format": "grid",
@@ -70914,11 +69522,11 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Activity",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
-                    "title": "f-blue--Air--MissileStrike",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
+                    "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
                         "required": [
@@ -71279,385 +69887,15 @@ const game: Wargame = {
                                 }
                             }
                         },
-                        "title": "f-blue--Air--MissileStrike",
+                        "title": "Air--MissileStrike",
                         "type": "object"
                     },
                     "completed": true,
-                    "_id": "f-blue--Air--MissileStrike",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_id": "Air--MissileStrike",
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
-                    "title": "f-red--Air--MissileStrike",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "activityDescription",
-                            "intent",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "requiresAirToAir",
-                            "ownAssets",
-                            "otherAssets",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "minLength": 10,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter start date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 3,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter end date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "allowInput": false,
-                                        "dateFormat": "Z"
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "High-level Activity Supported",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "title": "Associated Cyber/Space Activity Ref#",
-                                "propertyOrder": 120,
-                                "type": "string",
-                                "enum": [
-                                    "None",
-                                    "FR Cyper Op 12 - Green Drain",
-                                    "DE Cyper Op 14 - Brain Smash",
-                                    "GR Space Op 16 - Ruby Spaniel",
-                                    "SP Info Op 18 - Orange Drawn"
-                                ],
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "rulesOfEngagement": {
-                                "enum": [
-                                    "Weapons Free",
-                                    "Weapons Tight",
-                                    "Weapons Held"
-                                ],
-                                "title": "Rules of Engagement",
-                                "type": "string",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "emconState": {
-                                "enum": [
-                                    "Electronic Silence",
-                                    "Radio Silence",
-                                    "Normal Operations",
-                                    "No restrictions"
-                                ],
-                                "title": "Emcon State",
-                                "type": "string",
-                                "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "requiresAirToAir": {
-                                "type": "boolean",
-                                "title": "Requires Air to Air refuelling",
-                                "format": "checkbox",
-                                "propertyOrder": 230,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets (Launchers)",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Launcher",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Battery A",
-                                                    "Battery B",
-                                                    "Battery C",
-                                                    "Battery D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 75,
-                                "title": "Targets",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Site A",
-                                                    "Opp Site B",
-                                                    "Opp Site C",
-                                                    "Opp Site D"
-                                                ]
-                                            }
-                                        },
-                                        "missileType": {
-                                            "title": "Missile Type",
-                                            "type": "string",
-                                            "enum": [
-                                                "###Ballistic",
-                                                "SRBM",
-                                                "MRBM",
-                                                "IRBM",
-                                                "###Cruise",
-                                                "Standard Cruise",
-                                                "Low Obs Cruise",
-                                                "###UAV",
-                                                "Propellor OWA UAV",
-                                                "Jet OWA UAV"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 1
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "location": {
-                                "format": "location",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 53,
-                                "options": {
-                                    "grid_columns": 12
-                                }
-                            }
-                        },
-                        "title": "f-red--Air--MissileStrike",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "f-red--Air--MissileStrike",
-                    "_rev": "2023-02-26T08:17:05.387Z"
-                },
-                {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -71985,10 +70223,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Cyber--Effects",
                     "details": {
                         "format": "grid",
@@ -72305,10 +70543,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--Effects",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Space--Effects",
                     "details": {
                         "format": "grid",
@@ -72625,10 +70863,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--Effects",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.394Z",
                     "title": "Info Ops--Effects",
                     "details": {
                         "format": "grid",
@@ -72945,10 +71183,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--Effects",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.394Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.395Z",
                     "title": "Cyber--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73277,10 +71515,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--AreaEffects",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.395Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.395Z",
                     "title": "Space--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73609,10 +71847,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--AreaEffects",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.395Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.395Z",
                     "title": "Info Ops--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73941,10 +72179,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--AreaEffects",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.395Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.395Z",
                     "title": "SOF--SOFActivity",
                     "details": {
                         "format": "grid",
@@ -74237,10 +72475,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "SOF--SOFActivity",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.395Z"
                 },
                 {
-                    "lastUpdated": "2023-02-26T08:17:05.387Z",
+                    "lastUpdated": "2023-03-01T15:58:51.395Z",
                     "title": "Land--Activity",
                     "details": {
                         "format": "grid",
@@ -74548,7 +72786,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Activity",
-                    "_rev": "2023-02-26T08:17:05.387Z"
+                    "_rev": "2023-03-01T15:58:51.395Z"
                 }
             ]
         },
