@@ -1,6 +1,6 @@
 import ForceData from "./force-data"
 
-export interface ForceMetadata {
+export interface ForceTemplateData {
   // the force 
   force: ForceData['uniqid']
   // list of missile types
@@ -10,6 +10,6 @@ export interface ForceMetadata {
 }
 
 /** the parent wrapper for the force specific metadata */
-export default interface ForceMetadataWrapper {
-  forceMetadata: Array<ForceMetadata>
+export default interface ForceTemplateWrapper {
+  forceMetadata: Array<ForceTemplateData>
 }
