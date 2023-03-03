@@ -95,7 +95,6 @@ export const JsonEditor: React.FC<Props> = ({
          * heading option should have pattern: ###<heading>
          */
     const selectElms = Array.from(document.querySelectorAll('select'))
-    console.log('selectElms AAA', selectElms)
     for (const select of selectElms) {
       const options = Array.from(select.querySelectorAll('option')).filter((option: any) => {
         return /^###/.test(option.value)
