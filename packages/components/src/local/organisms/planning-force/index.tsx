@@ -58,9 +58,9 @@ const PlanningForces: React.FC<PropTypes> = ({
         const html = ReactDOMServer.renderToString(<div style={{ backgroundColor: rgb }} className={cx({ [color]: true })} >{markers.length}</div>)
         return L.divIcon({ html: html, className: cx({ [styles.mycluster]: true }), iconSize: L.point(size, size) })
       },
-      spiderfyOnMaxZoom: true,
-      showCoverageOnHover: true,
-      zoomToBoundsOnClick: true,
+      spiderfyOnMaxZoom: interactive,
+      showCoverageOnHover: interactive,
+      zoomToBoundsOnClick: interactive,
       removeOutsideVisibleBounds: true,
       spiderfyDistanceMultiplier: 4,
       animate: true
@@ -141,6 +141,22 @@ const PlanningForces: React.FC<PropTypes> = ({
       setRawMarkers([])
     }
   }, [assets, selectedAssets, currentAssets, clusterIcons, showData, showMezRings, hideName, interactive])
+
+  useEffect(() => {
+    if (clusterGroup) {
+      map.eachLayer(function (layer) {
+        if ((layer instanceof L.MarkerClusterGroup) && ((layer as any).clusterId === forceColor)) {
+          map.removeLayer(layer)
+        }
+      })
+
+      clusterGroup.clearLayers()
+
+      const existingCluster = L.markerClusterGroup(createClusterIcon())
+      setClusterGroup(existingCluster)
+      map.addLayer(existingCluster)
+    }
+  }, [JSON.stringify(interactive)])
 
   /** utility method to find assets at the same location, and cluster them */
   const clusterRawIcons = (assets: AssetRow[]): AssetRow[] => {
