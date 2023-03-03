@@ -86,6 +86,27 @@ export const JsonEditor: React.FC<Props> = ({
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
     if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
       storeNewValue && storeNewValue(newDoc)
+      setSelectOptionsHeaders()
+    }
+  }
+
+  const setSelectOptionsHeaders = (): void => {
+    /**
+         * heading option should have pattern: ###<heading>
+         */
+    const selectElms = Array.from(document.querySelectorAll('select'))
+    console.log('selectElms AAA', selectElms)
+    for (const select of selectElms) {
+      const options = Array.from(select.querySelectorAll('option')).filter((option: any) => {
+        return /^###/.test(option.value)
+      })
+      options.forEach((option: any) => {
+        const oGroup = document.createElement('optgroup')
+        oGroup.label = option.value.replace(/^###/g, '')
+        option.parentNode.insertBefore(oGroup, option.nextSibling)
+        option.parentNode.removeChild(option)
+        option.style.display = 'none'
+      })
     }
   }
 
@@ -241,23 +262,7 @@ export const JsonEditor: React.FC<Props> = ({
         Array.from(editInLocationBtns).forEach(btn => {
           btn.classList.remove('btn-hide')
         })
-
-        /**
-         * heading option should have pattern: ###<heading>
-         */
-        const selectElms = Array.from(document.querySelectorAll('select'))
-        for (const select of selectElms) {
-          const options = Array.from(select.querySelectorAll('option')).filter((option: any) => {
-            return /^###/.test(option.value)
-          })
-          options.forEach((option: any) => {
-            const oGroup = document.createElement('optgroup')
-            oGroup.label = option.value.replace(/^###/g, '')
-            option.parentNode.insertBefore(oGroup, option.nextSibling)
-            option.parentNode.removeChild(option)
-            option.style.display = 'none'
-          })
-        }
+        setSelectOptionsHeaders()
       }, 50)
       return
     }
