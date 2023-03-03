@@ -53,11 +53,11 @@ type RulerOption = {
 }
 
 type DialogOption = {
-  size: [number, number],
-  minSize?: [number, number],
-  maxSize?: [number, number],
-  anchor?: [number, number],
-  position: 'topleft' | 'topright' | 'bottomleft' | 'bottomright',
+  size: [number, number]
+  minSize?: [number, number]
+  maxSize?: [number, number]
+  anchor?: [number, number]
+  position: 'topleft' | 'topright' | 'bottomleft' | 'bottomright'
   initOpen?: boolean
 }
 

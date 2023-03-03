@@ -32,9 +32,9 @@ const LeafletDialog: React.FC<LeafletDialogProps> = ({ showControl }) => {
       setLeafletDialog(dialog)
     }
     if (showControl) {
-      leafletDialog?.open()
+      leafletDialog && leafletDialog.open()
     } else {
-      leafletDialog?.close()
+      leafletDialog && leafletDialog.close()
     }
   }, [showControl])
 
