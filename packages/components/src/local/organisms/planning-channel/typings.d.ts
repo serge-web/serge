@@ -52,6 +52,15 @@ type RulerOption = {
   }
 }
 
+type DialogOption = {
+  size: [number, number],
+  minSize?: [number, number],
+  maxSize?: [number, number],
+  anchor?: [number, number],
+  position: 'topleft' | 'topright' | 'bottomleft' | 'bottomright',
+  initOpen?: boolean
+}
+
 class Select extends Control {
   constructor(options?: SelectOption);
   addTo(map: Map): this;
@@ -64,6 +73,24 @@ class Ruler extends Control {
   addTo(map: Map): this;
   // remove comes from the parent contrlol
   remove(): void;
+}
+
+class Dialog extends Control {
+  constructor(options?: DialogOption);
+  addTo(map: Map): this;
+  open(): this;
+  close(): this;
+  destroy(): this;
+  setSize([number, number]): this;
+  lock(): this;
+  unlock(): this;
+  freeze(): this;
+  unfreeze(): this;
+  hideClose(): this;
+  showClose(): this;
+  hideResize(): this;
+  showResize(): this;
+  setContent(content: string): this;
 }
 
 type TimelineControlOption = {
@@ -81,7 +108,7 @@ class TimelineData extends Control {
   addTo(map: Map): this;
   // remove comes from the parent contrlol
   remove(): void;
-  on(event:string, func: { (e: any): void}): void
+  on(event: string, func: { (e: any): void }): void
 }
 
 class Timeline extends Control {
@@ -97,6 +124,7 @@ declare module 'leaflet' {
   export namespace control {
     function select(options?: SelectOption): Select;
     function ruler(options?: RulerOption): Ruler;
+    function dialog(options?: DialogOption): Dialog;
   }
   export function timelineSliderControl(options?: TimelineControlOption): Timeline;
   export function timeline(data?: FeatureCollection<Geometry, GeoJsonProperties>, option?: TimelineDataOption): TimelineData;

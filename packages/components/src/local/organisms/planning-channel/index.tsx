@@ -41,6 +41,7 @@ import Timeline from './helpers/Timeline'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import { ReplayFeature } from '../map-planning-orders/types/props'
+import LeafletDialog from './helpers/LeafletDialog'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
 
@@ -1049,7 +1050,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const mapChildren = useMemo(() => {
     return (
       <>
-        <RightClickGenerator/>
+        <RightClickGenerator />
         <Ruler showControl={true} />
         <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} />
@@ -1216,8 +1217,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                                 <div className={cx('leaflet-control')}>
                                   <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
                                 </div>
-                              }</>
+                              }
+                            </>
+
                           }
+                          <LeafletDialog showControl={showTimeControl} />
                           <div className={cx('leaflet-control')}>
                             <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
                               onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>

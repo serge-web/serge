@@ -13,6 +13,7 @@
   margin: 2%;
   margin-bottom: 20px;
   text-align: center;
+  transform: translateY(300px);
 }
 .leaflet-control.leaflet-timeline-control * {
   vertical-align: middle;

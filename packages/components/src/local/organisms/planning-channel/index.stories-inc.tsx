@@ -54,7 +54,8 @@ const wrapper: React.FC = (storyFn: any) =>
   <ScriptDecorator scripts={[
     '/leaflet/select/leaflet.select.js',
     '/leaflet/ruler/leaflet.ruler.js',
-    '/leaflet/timeline/leaflet.timeline.js'
+    '/leaflet/timeline/leaflet.timeline.js',
+    '/leaflet/dialog/leaflet.dialog.js'
   ]} style={{ height: '600px' }}>
     {storyFn()}
   </ScriptDecorator>
