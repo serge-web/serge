@@ -1042,6 +1042,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const lonVal = Math.floor(e.latlng.lng * hunK) / hunK
         const copyLocetion = JSON.stringify([latVal, lonVal])
         window.prompt('Copy to clipboard: Ctrl+C, Enter', copyLocetion)
+        // TODO: For Phi - could you allow this next dummy function to work please?
+        // setReplayDialogContent('<div><ul><li>Clicked on: ' + copyLocetion + '</li></ul></div>')
       }
     })
     return null
