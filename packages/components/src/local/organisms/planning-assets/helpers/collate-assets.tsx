@@ -423,11 +423,15 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           lastUpdated: updatePeriod
         }
 
-        const perceivedPlatformType = perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
-        if (perceivedPlatformType && perceivedPlatformType.sidc) {
-          res.sidc = perceivedPlatformType.sidc
+        if (asset.attributes && asset.attributes.a_SIDC) {
+          res.sidc = asset.attributes.a_SIDC as string
         } else {
-          // TODO: use `special` lookup to get sidc
+          const perceivedPlatformType = perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
+          if (perceivedPlatformType && perceivedPlatformType.sidc) {
+            res.sidc = perceivedPlatformType.sidc
+          } else if (platformType && platformType.sidc) {
+            res.sidc = platformType.sidc
+          }
         }
 
         itemRows.push(res)
