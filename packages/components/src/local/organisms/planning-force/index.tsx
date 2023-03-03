@@ -59,8 +59,8 @@ const PlanningForces: React.FC<PropTypes> = ({
         return L.divIcon({ html: html, className: cx({ [styles.mycluster]: true }), iconSize: L.point(size, size) })
       },
       spiderfyOnMaxZoom: interactive,
-      showCoverageOnHover: true,
-      zoomToBoundsOnClick: true,
+      showCoverageOnHover: interactive,
+      zoomToBoundsOnClick: interactive,
       removeOutsideVisibleBounds: true,
       spiderfyDistanceMultiplier: 4,
       animate: true
