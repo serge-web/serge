@@ -5,7 +5,7 @@ import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHe
 import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
-import { isEqual } from 'lodash'
+import { cloneDeep, isEqual } from 'lodash'
 import moment from 'moment'
 import React, { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
@@ -369,7 +369,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           }, [])
           return <></>
         }
-        const editorRightValue = message.message ? message.message : undefined
+
+        const editorRightValue = message.message ? cloneDeep(message.message) : undefined
 
         const outcomesFor = outcomesForPlan(message, selectedForce.uniqid, isUmpire, allForces)
 
