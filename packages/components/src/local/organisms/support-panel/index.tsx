@@ -346,8 +346,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
     }
 
-    console.log('modified template', schema.properties)
-
     // now modify the template
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
