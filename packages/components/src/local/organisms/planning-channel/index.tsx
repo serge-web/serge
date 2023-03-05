@@ -1049,7 +1049,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const mapChildren = useMemo(() => {
     return (
       <>
-        <RightClickGenerator/>
+        <RightClickGenerator />
         <Ruler showControl={true} />
         <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} />
@@ -1218,10 +1218,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                                 </div>
                               }</>
                           }
-                          <div className={cx('leaflet-control')}>
+                          {isUmpire && <div className={cx('leaflet-control')}>
                             <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
                               onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
-                          </div>
+                          </div>}
                         </>
                       }
                     </>
