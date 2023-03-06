@@ -1078,11 +1078,15 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
             if (!intersects) {
               throw Error('One method reported overlap, the other didn\'t')
             }
-            const fPoly = turf.polygon(intersects.geometry.coordinates)
-            intersection = {
-              startTime: intersectionTime[0],
-              endTime: intersectionTime[1],
-              intersection: fPoly
+            try {
+              const fPoly = turf.polygon(intersects.geometry.coordinates)
+              intersection = {
+                startTime: intersectionTime[0],
+                endTime: intersectionTime[1],
+                intersection: fPoly
+              }
+            } catch (err) {
+              console.warn('Issue generating poly overlap', me.plan.message.Reference, other.plan.message.Reference, err, me.plan.message.location, other.plan.message.location)
             }
           }
           break
