@@ -35,6 +35,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [myPlanningMessages, setMyPlanningMessages] = useState<MessagePlanning[]>([])
   const [myInteractionMessages, setMyInteractionMessages] = useState<MessageInteraction[]>([])
   const messageValue = useRef<any>(null)
+  const tableRef = useRef<any>()
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
   const [toolbarActions, setToolbarActions] = useState<Action<OrderRow>[]>([])
   const [visibleRows, setVisibleRows] = useState<OrderRow[]>([])
@@ -95,6 +96,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const myForceMessages = planningMessages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
+    const checkOpenRows = visibleRows.filter((item) => {
+      const showPanel: any = item.tableData
+      return item.tableData && showPanel.showDetailPanel
+    })
     if (myPlanningMessages.length === 0) {
       console.log('PlanningMessageList = update 1. Initialise list')
       // initial load, just load them
@@ -105,7 +110,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       setMyPlanningMessages([])
     } else {
       // cache changes if a message is currently being edited
-      if (messageBeingEdited) {
+      if (messageBeingEdited && !!checkOpenRows.length) {
         console.log('PlanningMessageList = update 3 - store pending messages', myRoleMessages.length)
         setPendingMessages(myRoleMessages)
       } else {
@@ -341,6 +346,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             // so that we display updated document
             console.log('PlanningMessageList = about to clear only update flag')
             setMessageBeingEdited(false)
+            const rowTable: any = rowData.tableData
+            const rowIndex: number = rowTable.index
+            tableRef.current.onToggleDetailPanel([rowIndex], tableRef.current.props.detailPanel === undefined)
           }
         }
 
@@ -453,6 +461,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     return <MaterialTable
       title={'Orders'}
       columns={columns}
+      tableRef={tableRef}
       data={rows}
       icons={materialIcons as any}
       actions={toolbarActions}
