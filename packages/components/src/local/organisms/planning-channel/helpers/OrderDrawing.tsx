@@ -244,6 +244,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         // standard reference area
         layers.forEach((layer: Layer) => layer.remove && layer.remove())
       }
+      // remove standard area when finished
+      if (selectedPolygonLayer.current) {
+        map.removeLayer(selectedPolygonLayer.current)
+      }
     }
     // when we cancel drawing, this component is unmount => we should remove the Standard Area Menu also
     if (standardAreaBtn.current) {
