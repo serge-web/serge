@@ -1224,10 +1224,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
                           }
                           <LeafletDialog showControl={showTimeControl} />
-                          <div className={cx('leaflet-control')}>
+                          {isUmpire && <div className={cx('leaflet-control')}>
                             <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
                               onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
-                          </div>
+                          </div>}
                         </>
                       }
                     </>
