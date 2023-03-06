@@ -869,7 +869,9 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
 }
 
 const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
-  return me.force !== other.force
+  const forces = [me.force, other.force]
+  const blueAndGreen = forces.includes('f-blue') && forces.includes('f-green')
+  return (me.force !== other.force) && !blueAndGreen
 }
 
 export const createContactReference = (me: string, other: string): string => {
