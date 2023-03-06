@@ -88,18 +88,18 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const selectedOwnAssets = useRef<AssetRow[]>([])
   const selectedOpAssets = useRef<AssetRow[]>([])
 
+  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction, onSupportPanelLayoutChange, getSupportPanelState } = useContext(SupportPanelContext)
+  const panelState = useMemo(() => getSupportPanelState(), [])
+
   const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
   const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
-  const [turnFilter, setTurnFilter] = useState<number>(-1)
+  const [turnFilter, setTurnFilter] = useState<number>(parseInt(panelState[SUPPORT_PANEL_LAYOUT.TURN_NUMBER]) || -1)
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction, onSupportPanelLayoutChange, getSupportPanelState } = useContext(SupportPanelContext)
 
   const [pendingDetailOpen, setPendingDetailOpen] = useState<undefined | OrderRow | AdjudicationRow>(undefined)
   const [pendingDetailClose, setPendingDetailClose] = useState<boolean>(false)
-
-  const panelState = useMemo(() => getSupportPanelState(), [])
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -279,6 +279,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const onTurnFilterChange = (turn: number) => {
+    onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.TURN_NUMBER, '' + turn)
     setTurnFilter(turn)
   }
 

@@ -279,6 +279,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         Body: (props): React.ReactElement => {
           if (props.columns.length) {
             setTimeout(() => {
+              // onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.VISIBLE_ROWS, props.data.length)
               setVisibleRows(props.data)
               onVisibleColumnsChange && onVisibleColumnsChange(props.columns)
             })

@@ -200,5 +200,7 @@ export const SUPPORT_PANEL_LAYOUT = {
   VISIBLE_COLUMNS: 'serge.planning.visibleColumns',
   IS_FILTER: 'serge.planning.isFilter',
   SORT_COLUMNS: 'serge.planning.sortColumns',
-  FILTER_APPLIED: 'serge.planning.filterApplied'
+  FILTER_APPLIED: 'serge.planning.filterApplied',
+  VISIBLE_ROWS: 'serge.planning.visibleRows',
+  TURN_NUMBER: 'serge.planning.turnNumber'
 }
