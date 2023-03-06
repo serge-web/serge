@@ -904,9 +904,12 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
                   res.push(cachedResult)
                 }
               } else {
-                const interacts = interactsWith(first.activity, second.activity)
                 // see if they should interact with each other
-                if (interacts) {
+                const interacts = interactsWith(first.activity, second.activity)
+                const ISTAR_OBS = 'ISTAR-2'
+                const bothObs = first.uniqid === ISTAR_OBS && second.uniqid === ISTAR_OBS
+                // check for special case, or ISTAR obs box
+                if (interacts && !bothObs) {
                   const contact = touches(me, other, id, Math.random, sensorRangeKm)
                   if (contact) {
                     res.push(contact)
