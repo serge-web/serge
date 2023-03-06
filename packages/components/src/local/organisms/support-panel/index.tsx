@@ -137,7 +137,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setSortedOwnAssets(sortBy(allOwnAssets, function (row) { return row.name }))
   }, [allOwnAssets])
 
-
   useEffect(() => {
     setSortedOppAssets(sortBy(allOppAssets, function (row) { return row.name }))
   }, [allOppAssets])
