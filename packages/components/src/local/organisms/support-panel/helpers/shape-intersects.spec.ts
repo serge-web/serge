@@ -184,8 +184,8 @@ it('intersection of line & poly', () => {
 
   const res = linePolyContact(simpleLine.geometry, [0, 10], simplePoly.geometry, [0, 10])
   expect(res).toBeTruthy()
-  expect(res?.startTime).toEqual(0)
-  expect(res?.endTime).toEqual(10)
+  expect(res?.startTime).toBeCloseTo(2, 2)
+  expect(res?.endTime).toBeCloseTo(4, 2)
   const twoCross = res?.intersection.geometry as any
   expect(twoCross.coordinates.length).toEqual(2)
   expect(twoCross.coordinates[0]).toEqual([0, 2])
