@@ -935,6 +935,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
               "asset": {
                 "title": "Asset",
                 "type": "string",
+                "format": "selectize",
                 "enum": [
                   "ta",
                   "tb",
