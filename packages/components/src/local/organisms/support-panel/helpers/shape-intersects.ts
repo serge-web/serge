@@ -134,15 +134,15 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
       const beforeLeg = turf.lineSplit(fullLine, startPoint).features[0]
       const beforeLen = turf.length(beforeLeg)
       const beforeProportion = beforeLen / fullLen
-      const endCoords = midSection.features[0].geometry.coordinates
-      const endCoord = endCoords[endCoords.length - 1]
-      const endPoint = turf.point(endCoord)
-      const endLine = turf.lineSplit(fullLine, endPoint).features[1]
-      const endLen = turf.length(endLine)
-      const endProportion = endLen / fullLen
+      const afterCoords = midSection.features[0].geometry.coordinates
+      const afterCoord = afterCoords[afterCoords.length - 1]
+      const afterPoint = turf.point(afterCoord)
+      const afterLine = turf.lineSplit(fullLine, afterPoint).features[1]
+      const afterLen = turf.length(afterLine)
+      const afterProportion = afterLen / fullLen
       const totalTime = lineTime[1] - lineTime[0]
       const startTime = lineTime[0] + totalTime * beforeProportion
-      const endTime = lineTime[1] - totalTime * endProportion
+      const endTime = lineTime[1] - totalTime * afterProportion
       const res: ShapeInteraction = {
         intersection: midSection.features[0],
         startTime: startTime,
@@ -163,14 +163,14 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
       let endTime = timeI[1]
       if (startInPoly) {
         // trim time off the start
-        const endCoords = singleCrossing.features[0].geometry.coordinates
-        const endCoord = endCoords[endCoords.length - 1]
-        const endPoint = turf.point(endCoord)
-        const endLine = turf.lineSplit(fullLine, endPoint).features[1]
-        const endLen = turf.length(endLine)
-        const endProportion = endLen / fullLen
+        const afterCoords = singleCrossing.features[0].geometry.coordinates
+        const afterCoord = afterCoords[afterCoords.length - 1]
+        const afterPoint = turf.point(afterCoord)
+        const afterLine = turf.lineSplit(fullLine, afterPoint).features[1]
+        const afterLen = turf.length(afterLine)
+        const afterProportion = afterLen / fullLen
         startTime = timeI[0]
-        endTime = lineTime[1] - totalTime * endProportion
+        endTime = lineTime[1] - totalTime * afterProportion
       } else {
         // trim time off the end
         const startCoords = singleCrossing.features[1].geometry.coordinates[0]
