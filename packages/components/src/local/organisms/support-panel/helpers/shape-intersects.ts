@@ -159,8 +159,8 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
       const totalTime = lineTime[1] - lineTime[0]
 
       const startInPoly = turf.booleanContains(fPoly, fPoint)
-      let startTime = timeI[0]
-      let endTime = timeI[1]
+      let startTime
+      let endTime
       if (startInPoly) {
         // trim time off the start
         const afterCoords = singleCrossing.features[0].geometry.coordinates
