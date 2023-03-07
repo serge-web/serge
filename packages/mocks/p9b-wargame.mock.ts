@@ -63031,6 +63031,114 @@ const game: Wargame = {
                             "category": "Land",
                             "activities": [
                                 {
+                                    "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "SOF Activity",
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "AAR",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
+                                    ],
+                                    "uniqid": "f-green-Land-EW Attack",
+                                    "template": "Land--EWAttack",
+                                    "events": [
+                                        "i-start",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Area of Effect",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Land-ISTAR",
+                                    "template": "Land--ISTAR",
+                                    "events": [
+                                        "i-random",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-3"
+                                        }
+                                    ],
+                                    "spatialPerception": true
+                                },
+                                {
                                     "name": "Land Close Combat",
                                     "actId": "LAND",
                                     "interactsWith": [
@@ -63137,6 +63245,40 @@ const game: Wargame = {
                                     "spatialHealth": true
                                 },
                                 {
+                                    "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Land-Resupply",
+                                    "template": "Land--Resupply",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply at this location",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
@@ -63188,6 +63330,224 @@ const game: Wargame = {
                             "category": "Maritime",
                             "activities": [
                                 {
+                                    "name": "ASW Barrier",
+                                    "actId": "ASW-B",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT"
+                                    ],
+                                    "uniqid": "f-green-Maritime-ASW Barrier",
+                                    "template": "Maritime--Activity",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "ASW Area",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "SOF Activity",
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "AAR",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
+                                    ],
+                                    "uniqid": "f-green-Maritime-EW Attack",
+                                    "template": "Maritime--EWAttack",
+                                    "events": [
+                                        "i-start",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Area of Effect",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Maritime-ISTAR",
+                                    "template": "Maritime--ISTAR",
+                                    "events": [
+                                        "i-random",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-3"
+                                        }
+                                    ],
+                                    "spatialPerception": true
+                                },
+                                {
+                                    "name": "Mine Clearance",
+                                    "actId": "M-Clr",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "FIAC"
+                                    ],
+                                    "uniqid": "f-green-Maritime-Mine Clearance",
+                                    "template": "Maritime--Activity",
+                                    "events": [
+                                        "i-random",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Mine Clearance Area Area",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-2"
+                                        }
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
+                                },
+                                {
+                                    "name": "Mine Laying",
+                                    "actId": "M-Lay",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "FIAC"
+                                    ],
+                                    "uniqid": "f-green-Maritime-Mine Laying",
+                                    "template": "Maritime--Activity",
+                                    "events": [
+                                        "i-random",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Mine Area",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-2"
+                                        }
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
+                                },
+                                {
                                     "name": "Patrol",
                                     "actId": "PATRL",
                                     "interactsWith": [
@@ -63222,6 +63582,40 @@ const game: Wargame = {
                                             "name": "Route back",
                                             "optional": false,
                                             "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Maritime-Resupply",
+                                    "template": "Maritime--Resupply",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply at this location",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
                                         }
                                     ]
                                 },
@@ -63277,6 +63671,369 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
+                                    "name": "Air to Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "EW",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Air-Air to Air Refuel",
+                                    "template": "Air--AirToAir",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air to Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air to Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air to Air Refuel-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Defensive Counter Air",
+                                    "actId": "DCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "AAR",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
+                                    "uniqid": "f-green-Air-Defensive Counter Air",
+                                    "template": "Air--Activity",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "DCA Area",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-2"
+                                        }
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "SOF Activity",
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "AAR",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
+                                    ],
+                                    "uniqid": "f-green-Air-EW Attack",
+                                    "template": "Air--EWAttack",
+                                    "events": [
+                                        "i-start",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Area of Effect",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Air-ISTAR",
+                                    "template": "Air--ISTAR",
+                                    "events": [
+                                        "i-random",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-3"
+                                        }
+                                    ],
+                                    "spatialPerception": true
+                                },
+                                {
+                                    "name": "Offensive Counter Air",
+                                    "actId": "OCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "AAR",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
+                                    "uniqid": "f-green-Air-Offensive Counter Air",
+                                    "template": "Air--Activity",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "OCA Area",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-2"
+                                        }
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Air-Resupply",
+                                    "template": "Air--Resupply",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply at this location",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Stand Off Strike",
+                                    "actId": "SoffS",
+                                    "interactsWith": [
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Air-Stand Off Strike",
+                                    "template": "Air--MissileStrike",
+                                    "events": [
+                                        "i-random"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Launch Location",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Suppression of Air Defences (SEAD)",
+                                    "actId": "SEAD",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Air-Suppression of Air Defences (SEAD)",
+                                    "template": "Air--Activity",
+                                    "events": [
+                                        "i-random"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "SEAD Area",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Time Sensitive Targeting (TST)",
+                                    "actId": "TST",
+                                    "interactsWith": [
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Air-Time Sensitive Targeting (TST)",
+                                    "template": "Air--TST",
+                                    "events": [
+                                        "i-random"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "TST Area",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-2"
+                                        }
+                                    ],
+                                    "spatialHealth": true
+                                },
+                                {
                                     "name": "Transit",
                                     "actId": "TRANSIT",
                                     "interactsWith": [
@@ -63302,6 +64059,156 @@ const game: Wargame = {
                                             "uniqid": "Transit-0"
                                         }
                                     ]
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Cyber",
+                            "activities": [
+                                {
+                                    "name": "Area Activity",
+                                    "actId": "AreaActivity",
+                                    "interactsWith": [],
+                                    "uniqid": "f-green-Cyber-Area Activity",
+                                    "template": "Cyber--AreaEffects",
+                                    "events": [
+                                        "i-start",
+                                        "i-random",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Area of effect",
+                                            "optional": false,
+                                            "uniqid": "Area Activity-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Targeted Activity",
+                                    "actId": "Activity",
+                                    "interactsWith": [],
+                                    "uniqid": "f-green-Cyber-Targeted Activity",
+                                    "template": "Cyber--Effects",
+                                    "events": [
+                                        "i-start",
+                                        "i-random",
+                                        "i-end"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Space",
+                            "activities": [
+                                {
+                                    "name": "Area Activity",
+                                    "actId": "AreaActivity",
+                                    "interactsWith": [],
+                                    "uniqid": "f-green-Space-Area Activity",
+                                    "template": "Space--AreaEffects",
+                                    "events": [
+                                        "i-start",
+                                        "i-random",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Area of effect",
+                                            "optional": false,
+                                            "uniqid": "Area Activity-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Targeted Activity",
+                                    "actId": "Activity",
+                                    "interactsWith": [],
+                                    "uniqid": "f-green-Space-Targeted Activity",
+                                    "template": "Space--Effects",
+                                    "events": [
+                                        "i-start",
+                                        "i-random",
+                                        "i-end"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Info Ops",
+                            "activities": [
+                                {
+                                    "name": "Area Activity",
+                                    "actId": "AreaActivity",
+                                    "interactsWith": [],
+                                    "uniqid": "f-green-Info Ops-Area Activity",
+                                    "template": "Info Ops--AreaEffects",
+                                    "events": [
+                                        "i-start",
+                                        "i-random",
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Area of effect",
+                                            "optional": false,
+                                            "uniqid": "Area Activity-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Targeted Activity",
+                                    "actId": "Activity",
+                                    "interactsWith": [],
+                                    "uniqid": "f-green-Info Ops-Targeted Activity",
+                                    "template": "Info Ops--Effects",
+                                    "events": [
+                                        "i-start",
+                                        "i-random",
+                                        "i-end"
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "category": "SOF",
+                            "activities": [
+                                {
+                                    "name": "Activity",
+                                    "actId": "SOF Activity",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
+                                    "uniqid": "f-green-SOF-Activity",
+                                    "template": "SOF--SOFActivity",
+                                    "events": [
+                                        "i-end"
+                                    ],
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Activity-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Effect Location",
+                                            "optional": false,
+                                            "uniqid": "Activity-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Activity-2"
+                                        }
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 }
                             ]
                         }
