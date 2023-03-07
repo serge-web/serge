@@ -60177,6 +60177,13 @@ const game: Wargame = {
                             "templates": []
                         },
                         {
+                            "forceUniqid": "f-green",
+                            "pType": "ParticipantPlanning",
+                            "roles": [],
+                            "subscriptionId": "h1asdf3qr",
+                            "templates": []
+                        },
+                        {
                             "forceUniqid": "umpire",
                             "pType": "ParticipantPlanning",
                             "roles": [
