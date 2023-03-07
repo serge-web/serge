@@ -1,23 +1,17 @@
 import L from 'leaflet'
 import React, { useEffect, useState } from 'react'
-import * as ReactDOMServer from 'react-dom/server'
 import { useMap } from 'react-leaflet-v4'
 import { Dialog } from '../typings'
 
 type LeafletDialogProps = {
   showControl: boolean
+  content?: string
 }
 
-const LeafletDialog: React.FC<LeafletDialogProps> = ({ showControl }) => {
+const LeafletDialog: React.FC<LeafletDialogProps> = ({ showControl, content = '' }) => {
   const map = useMap()
 
   const [leafletDialog, setLeafletDialog] = useState<Dialog>()
-
-  const buildDialogContent = () => {
-    return <div style={{ color: '#000' }}>
-      This is dialog content
-    </div>
-  }
 
   useEffect(() => {
     if (!leafletDialog) {
@@ -25,7 +19,7 @@ const LeafletDialog: React.FC<LeafletDialogProps> = ({ showControl }) => {
         size: [300, 300],
         anchor: [0, 0],
         position: 'bottomleft'
-      }).setContent(ReactDOMServer.renderToString(buildDialogContent()))
+      }).setContent(content)
         .addTo(map)
         .hideResize()
         .hideClose()
@@ -37,6 +31,12 @@ const LeafletDialog: React.FC<LeafletDialogProps> = ({ showControl }) => {
       leafletDialog && leafletDialog.close()
     }
   }, [showControl])
+
+  useEffect(() => {
+    if (leafletDialog && content) {
+      leafletDialog.setContent(content)
+    }
+  }, [content])
 
   return <></>
 }

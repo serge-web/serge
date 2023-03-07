@@ -181,6 +181,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
   const [assetsCache] = useState<LRU<string, string>>(new LRU(LRU_CACHE_OPTION))
 
+  const [replayDialogContent, setReplayDialogContent] = useState<string>('')
+
   const genData = (): void => {
     const doGenny = 7
     if (!doGenny) {
@@ -1042,8 +1044,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const lonVal = Math.floor(e.latlng.lng * hunK) / hunK
         const copyLocetion = JSON.stringify([latVal, lonVal])
         window.prompt('Copy to clipboard: Ctrl+C, Enter', copyLocetion)
-        // TODO: For Phi - could you allow this next dummy function to work please?
-        // setReplayDialogContent('<div><ul><li>Clicked on: ' + copyLocetion + '</li></ul></div>')
+        setReplayDialogContent('<div style="color: #000;"><ul><li>Clicked on: ' + copyLocetion + '</li></ul></div>')
       }
     })
     return null
@@ -1223,7 +1224,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             </>
 
                           }
-                          <LeafletDialog showControl={showTimeControl} />
+                          <LeafletDialog showControl={showTimeControl} content={replayDialogContent} />
                           {isUmpire && <div className={cx('leaflet-control')}>
                             <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
                               onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
