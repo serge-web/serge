@@ -551,15 +551,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const interactionMap = sortedInteractions.map((interv, ctr) => {
         const m1 = interv.first.plan.message
         const m2 = interv.second.plan.message
+        const firstGeom = interv.first.geometry && interv.first.geometry.properties?.id
+        const secondGeom = interv.second.geometry && interv.second.geometry.properties?.id
         return {
           id: '' + (ctr + 1),
           time: formatMilitaryDate(moment.utc(interv.timeStart).toISOString()),
           firstRef: m1.Reference,
           firstTitle: m1.title,
-          firstActivity: interv.first.activity.name,
+          firstActivity: firstGeom || interv.first.activity.name,
           secondRef: m2.Reference,
           secondTitle: m2.title,
-          secondActivity: interv.second.activity.name
+          secondActivity: secondGeom || interv.second.activity.name
         }
       })
       console.table(interactionMap)
