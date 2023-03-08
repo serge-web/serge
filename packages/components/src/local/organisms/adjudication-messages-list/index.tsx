@@ -400,7 +400,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           healthOutcomes: [],
           locationOutcomes: [],
           perceptionOutcomes: [],
-          narrative: 'Adjudication skipped by ' + document.details.from.roleName,
+          // NOTE: 'SKIPPING' on the next line prevents wargame update
+          narrative: 'SKIPPING Adjudication by ' + document.details.from.roleName,
           Reference: current.Reference,
           important: false
         }
@@ -410,6 +411,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         if (interaction) {
           // mark as adjudicatead
           interaction.complete = true
+          // mark as skipped
+          interaction.skipped = true
         }
 
         // postBack. note - we use the mapping post back handler, so it
@@ -550,7 +553,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           other: other
         }
       })
-      console.table(eventMap)
+      // console.table(eventMap)
       const sortedInteractions = _.sortBy(interactions, o => o.timeStart)
       const interactionMap = sortedInteractions.map((interv, ctr) => {
         const m1 = interv.first.plan.message
@@ -568,7 +571,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           secondActivity: secondGeom || interv.second.activity.name
         }
       })
-      console.table(interactionMap)
+      // console.table(interactionMap)
       const message = '' + events.length + ' events remaining' + ', ' + interactions.length + ' interactions remaining'
       //
       setDialogMessage(<>{message}{arrayToTable(eventMap)}{arrayToTable(interactionMap)}</>)
