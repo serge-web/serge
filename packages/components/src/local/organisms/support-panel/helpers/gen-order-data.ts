@@ -11,6 +11,7 @@ import { Feature, Geometry, Polygon } from 'geojson'
 import L from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment-timezone'
+import { findActivityFromCompositeString } from '../../adjudication-messages-list/helpers/getNextInteraction'
 import { lineLineContact, linePointContact, linePolyContact, ShapeInteraction, timeIntersect2, TimePeriod } from './shape-intersects'
 
 const msgContents: PlanningMessageStructureCore = {
@@ -520,7 +521,8 @@ export const findPlanningGeometry = (id: string, forceId: string,
   return activity.name
 }
 
-export const findActivity = (id: string, category: GroupedActivitySet['category'], forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
+/** on occasion we don't have all of these fields  */
+export const findActivity2 = (id: string, category: GroupedActivitySet['category'], forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
     console.log('activities', activities)
@@ -583,7 +585,16 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
           geom.coordinates = fixPoly(geom.coordinates)
         }
         const fromBit = message.details.from
-        const activity = findPlanningActivity(message.details.messageType, forceId, activities)
+        const forceActivities = activities.find((set) => set.force === fromBit.forceId)
+        if (!forceActivities) {
+          console.warn('Failed to find activities for 1', fromBit.forceId)
+          return
+        }
+        const activity = findActivityFromCompositeString(message.message.activity, forceActivities)
+        if (!activity) {
+          console.warn('Failed to find activities for 2', message.message.activity)
+          return
+        }
         const geometry = findPlanningGeometry(plan.uniqid, forceId, activities, message.message.Reference) // activity.geometries && activity.geometries.find((geom) => geom.uniqid === plan.uniqid)
         // findPlanningGeometry(plan.uniqid, forceId, activities)
         const id = message.message.Reference + '//' + message.message.title + '//' + geometry
