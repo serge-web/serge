@@ -1034,7 +1034,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
           }
           case 'Polygon': {
             const turfPoly = turf.polygon(otherCoords)
-            res = turf.booleanCrosses(meLine, turfPoly)  || turf.booleanContains(turfPoly, meLine)
+            res = turf.booleanCrosses(meLine, turfPoly) || turf.booleanContains(turfPoly, meLine)
             // console.log('linestring vs polygon 1', me.plan.message.Reference, other.plan.message.Reference, turf.booleanCrosses(meLine, turfPoly), turf.booleanContains(turfPoly, meLine))
             if (res) {
               intersection = linePolyContact(meLine.geometry, myTime, turfPoly.geometry, otherTime)
