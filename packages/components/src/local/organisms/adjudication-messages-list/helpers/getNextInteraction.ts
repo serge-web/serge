@@ -61,7 +61,7 @@ export const findActivityFromCompositeString = (name: string, activities: PerFor
   const groupName = forceGroup.slice(first + 1)
   const forceName = forceGroup.slice(0, first)
   if (forceName !== activities.force) {
-    console.warn('Warning: findActivitiy received activities for wrong force')
+    console.warn('Warning: findActivitiy received activities for wrong force', forceName, activities.force)
   }
   const groupActivities = activities.groupedActivities.find((group) => group.category === groupName)
   if (groupActivities) {
