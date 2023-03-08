@@ -1,5 +1,6 @@
 import * as turf from '@turf/turf'
 import { Feature, LineString, Point, Polygon } from 'geojson'
+import moment from 'moment'
 
 /** the interaction of two shapes */
 export interface ShapeInteraction {
@@ -110,6 +111,10 @@ export const lineLineContact = (lineOne: LineString, lineOneTime: TimePeriod, li
   return undefined
 }
 
+const showPeriod = (timePeriod: TimePeriod): string => {
+  return moment(timePeriod[0]).toISOString() + ' - ' + moment(timePeriod[1]).toISOString()
+}
+
 export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Polygon, polyTime: TimePeriod): ShapeInteraction | undefined => {
   // trim the line to the valid period of the poly
   const tLine: LineString | undefined = trimLineToPeriod(line, lineTime, polyTime)
@@ -119,7 +124,7 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
     const overlap = turf.lineIntersect(tLine, fPoly)
     const contains = turf.booleanContains(fPoly, fLine)
     const timeI = timeIntersect2(lineTime, polyTime)
-    console.log('LinePolygonInteraction', tLine, fLine, fPoly, timeI, overlap, contains, overlap && overlap.features.length)
+    console.log('LinePolygonInteraction', tLine, fLine, fPoly, showPeriod(lineTime), showPeriod(polyTime), showPeriod(timeI), overlap, contains, overlap && overlap.features.length)
     if (contains) {
       const res: ShapeInteraction = {
         intersection: fLine,
