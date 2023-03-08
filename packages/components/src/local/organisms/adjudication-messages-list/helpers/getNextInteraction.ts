@@ -52,7 +52,7 @@ export const groupFor = (name: string): string => {
   return groupName
 }
 
-export const findActivity = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity | undefined => {
+export const findActivityFromCompositeString = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity | undefined => {
   const separator = '-'
   const last = name.lastIndexOf(separator)
   const actName = name.slice(last + 1)
@@ -696,7 +696,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
     const forceActivities = activities.find((act: PerForcePlanningActivitySet) => act.force === force)
     if (forceActivities) {
       const actName = plan.message.activity
-      const activity = findActivity(actName, forceActivities)
+      const activity = findActivityFromCompositeString(actName, forceActivities)
       if (activity) {
         const activityEvents = activity.events
         let endActivityGenerated = false
@@ -898,7 +898,7 @@ const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, g
     console.log('Failed to find force activities for', forceActs)
     return
   }
-  const activity = findActivity(activeName, forceActs)
+  const activity = findActivityFromCompositeString(activeName, forceActs)
   if (!activity) {
     console.log('Failed to find activity for 2', activeName)
     return
