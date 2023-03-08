@@ -356,7 +356,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     try {
       // now our local changes. Note: we don't just provide the assets in the orders, we show all assets,
       // since an activity may relate to all assets in the area
-      updateWithAllAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction, forces)
+
+      // NOTE: special processing. If we have loads of assets, don't generate full list
+      const forceData = interaction.otherAssets.length > 40 ? [] : forces
+
+      updateWithAllAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction, forceData)
       updateWithAllAssets(firstUpdate.properties.healthOutcomes.items.properties.asset, interaction, forces)
       updateWithAllAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction, forces)
 
@@ -742,7 +746,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                 <li><b>Date/time: </b>{time}</li>
                 <li><b>Geometry provided: </b>{interaction.geometry ? 'Yes (' + descriptionFor(interaction.geometry) + ')' : 'No'}</li>
                 {interaction.event && <li><b>Event: </b>{translateEvent(interaction.event)}</li>}
-                <li><b>Other assets: </b>
+                <li><b>Other assets ({data.otherAssets && data.otherAssets.length}): </b>
                   <span>{data.otherAssets && data.otherAssets.length > 0
                     ? <table className={styles.assets}>
                       <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C4</th></tr></thead>
