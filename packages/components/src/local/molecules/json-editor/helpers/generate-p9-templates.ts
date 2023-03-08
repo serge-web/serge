@@ -1,4 +1,4 @@
-import { GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { GeometryType, infoOpsGroup, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
 import { GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry, TemplateBody } from '@serge/custom-types'
 import _ from 'lodash'
 import moment from 'moment'
@@ -192,7 +192,6 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const sof = 'SOF'
   const cyber = 'Cyber'
   const space = 'Space'
-  const info = 'Info Ops'
 
   const landMar = [land, mar]
   const seaAirLand = [land, mar, air]
@@ -245,8 +244,8 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'SoffS', title: 'Stand Off Strike', events: rnd, forces: allForces, domains: [air], acts: thereBack, actDesc: ['Launch Location'], specific: 'MissileStrike' })
   acts.push({ uniqid: 'SEAD', title: 'Suppression of Air Defences (SEAD)', events: rnd, forces: allForces, domains: [air], acts: thereBack, actDesc: ['SEAD Area'] })
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', events: rnd, forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', spatialH: true })
-  acts.push({ uniqid: 'Activity', title: 'Targeted Activity', events: all, forces: allForces, domains: [cyber, space, info], specific: 'Effects' })
-  acts.push({ uniqid: 'AreaActivity', title: 'Area Activity', events: all, forces: allForces, domains: [cyber, space, info], acts: [activity], actDesc: ['Area of effect'], specific: 'AreaEffects' })
+  acts.push({ uniqid: 'Activity', title: 'Targeted Activity', events: all, forces: allForces, domains: [cyber, space, infoOpsGroup], specific: 'Effects' })
+  acts.push({ uniqid: 'AreaActivity', title: 'Area Activity', events: all, forces: allForces, domains: [cyber, space, infoOpsGroup], acts: [activity], actDesc: ['Area of effect'], specific: 'AreaEffects' })
   acts.push({ uniqid: 'SOF Activity', title: 'Activity', events: end, forces: allForces, domains: [sof], acts: thereBack, actDesc: ['Effect Location'], specific: 'SOFActivity', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Area'] })
   acts.push({ uniqid: 'Raid', title: 'Raid', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Raid Location'], spatialP: true, spatialH: true })

@@ -1,4 +1,4 @@
-import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, GeometryType, infoOpsGroup, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
 import {
   Asset, AssetWithForce, CoreOutcome, ForceData, HealthOutcome, InteractionDetails,
   INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction,
@@ -932,7 +932,7 @@ const contactOutcomes = (interaction: InteractionDetails, contact: PlanningConta
   return res
 }
 
-export const getNextInteraction2 = (orders: MessagePlanning[],
+export const getNextInteraction2 = (allOrders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
   _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string,
   forces: ForceData[], getAll: boolean, turnNumber: number): InteractionResults => {
@@ -949,6 +949,12 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       throw Error('Interaction missing')
     }
     return inter.id
+  })
+
+  // strip out info ops orders. We don't want to generate interactions (or events) for them
+  const orders = allOrders.filter((plan) => {
+    const activity = plan.message.activity
+    return !(activity.includes(infoOpsGroup))
   })
 
   !7 && listPlans(orders, gameTime)
