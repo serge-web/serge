@@ -362,6 +362,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const isUmpire = playerForce.umpire
   const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
 
+  const hasGodsEyeView = isUmpire || (playerForce.uniqid !== 'f-red')
+
   const domainFor = (travelMode?: string): string => {
     if (travelMode) {
       switch (travelMode) {
@@ -382,7 +384,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
   // we don't show some attributes, since they are shown in other columns
   const attributesToSkip = ['a_Type', 'a_C4_Status', 'a_TaskGroup', 'a_SIDC']
-  if (opFor && !isUmpire) {
+  if (opFor && !hasGodsEyeView) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
     if (assetForce.uniqid !== playerForce.uniqid) {
