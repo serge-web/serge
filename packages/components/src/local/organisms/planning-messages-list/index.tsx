@@ -1,4 +1,4 @@
-import { faSearchMinus, faMedkit, faEye, faGlobe, faSearchPlus, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faMedkit, faEye, faGlobe, faSkull, faSearchPlus, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
@@ -32,6 +32,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [filter, setFilter] = useState<boolean>(false)
   const [initialised, setInitialised] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
+  const [showArchivedOrders, setShowArchivedOrders] = useState<boolean>(false)
   const [myPlanningMessages, setMyPlanningMessages] = useState<MessagePlanning[]>([])
   const [myInteractionMessages, setMyInteractionMessages] = useState<MessageInteraction[]>([])
   const messageValue = useRef<any>(null)
@@ -157,13 +158,20 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       }
     ]
     if (isUmpire) {
-      // also provide the `achive` button
+      // also provide the `archive` button
       res.unshift({
         icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
         iconProps: { color: 'action' },
         tooltip: 'Archive messages',
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
+      })
+      res.push(      {
+        icon: () => <FontAwesomeIcon title='Show archived plans' icon={faSkull} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+        iconProps: showArchivedOrders ? { color: 'error' } : { color: 'action' },
+        tooltip: showArchivedOrders ? 'Show archived orders' : 'Hide archived orders',
+        isFreeAction: true,
+        onClick: (): void => setShowArchivedOrders(!showArchivedOrders)
       })
     }
     setToolbarActions(res)
