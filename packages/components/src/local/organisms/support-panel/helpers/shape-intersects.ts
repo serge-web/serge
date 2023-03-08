@@ -124,8 +124,8 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
     const overlap = turf.lineIntersect(tLine, fPoly)
     const contains = turf.booleanContains(fPoly, fLine)
     const timeI = timeIntersect2(lineTime, polyTime)
-    console.log('LinePolygonInteraction', tLine, fLine, fPoly, 'line time:', showPeriod(lineTime), 
-      'poly time:', showPeriod(polyTime), 
+    console.log('LinePolygonInteraction', tLine, fLine, fPoly, 'line time:', showPeriod(lineTime),
+      'poly time:', showPeriod(polyTime),
       'intersect time:', showPeriod(timeI), 'overlap:', overlap, ' contains:', contains, overlap && overlap.features.length)
     if (contains) {
       const res: ShapeInteraction = {
