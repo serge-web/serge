@@ -356,7 +356,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     try {
       // now our local changes. Note: we don't just provide the assets in the orders, we show all assets,
       // since an activity may relate to all assets in the area
-      updateWithAllAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction, forces)
+
+      // NOTE: special processing. If we have loads of assets, don't generate full list
+      const forceData = interaction.otherAssets.length > 40 ? [] : forces
+
+      updateWithAllAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction, forceData)
       updateWithAllAssets(firstUpdate.properties.healthOutcomes.items.properties.asset, interaction, forces)
       updateWithAllAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction, forces)
 
