@@ -6,7 +6,7 @@ import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInterac
 import { incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import { updateLocationNames } from '@serge/helpers/build/geometry-helpers'
 import cx from 'classnames'
-import { cloneDeep, noop } from 'lodash'
+import { cloneDeep, noop, sortBy } from 'lodash'
 import LRU from 'lru-cache'
 import moment from 'moment'
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
@@ -90,6 +90,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const { setCurrentOrders, setCurrentAssets, setCurrentInteraction, onSupportPanelLayoutChange, getSupportPanelState } = useContext(SupportPanelContext)
   const panelState = useMemo(() => getSupportPanelState(), [])
+  const [sortedOwnAssets, setSortedOwnAssets] = useState<AssetRow[]>([])
+  const [sortedOppAssets, setSortedOppAssets] = useState<AssetRow[]>([])
 
   const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
   const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
@@ -129,6 +131,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
     })
   }, [])
+
+  useEffect(() => {
+    setSortedOwnAssets(sortBy(allOwnAssets, function (row) { return row.name }))
+  }, [allOwnAssets])
+
+  useEffect(() => {
+    setSortedOppAssets(sortBy(allOppAssets, function (row) { return row.name }))
+  }, [allOppAssets])
 
   useEffect(() => {
     setLocalDraftMessage(draftMessage)
@@ -315,16 +325,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
       return element
     }
 
-    const toLocale = (date: string): string => {
-      return moment.utc(date).toLocaleString()
-    }
-
-    const toUTC = (date: string): string => {
-      return moment(date).toISOString()
-    }
-
-    console.log('test date', gameDate, toLocale(gameDate), toUTC(gameDate))
-
     // check this isn't an adjudication message, since we only
     // set the default dates, if this is a planning message
     const schemaTitle: string = schema.title || 'unknown'
@@ -349,7 +349,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
     // now modify the template
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
-      (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
+      (document, template) => customiseAssets(document, template, sortedOwnAssets, sortedOppAssets),
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
       (document, template) => customiseLocation(document, template),
       (document, template) => customiseLiveOrders(document, template, liveOrders),

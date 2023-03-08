@@ -490,7 +490,8 @@ export const findPlanningActivity = (id: string, forceId: string, activities: Pe
   return activity as any as PlanningActivity
 }
 
-export const findPlanningGeometry = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
+export const findPlanningGeometry = (id: string, forceId: string,
+  activities: PerForcePlanningActivitySet[], messageId?: string): string => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
     console.log('activities', activities, forceId)
@@ -500,7 +501,7 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
     return !!findGeometryInGroup(id, val)
   })
   if (!group) {
-    console.log('Failed to find group in force 2', forceId, 'id:', id)
+    console.log('Failed to find group in force 2', forceId, 'id:', id, ' message:', messageId)
     force.groupedActivities.forEach((group) => {
       console.table(group.activities.map((act) => {
         return {
@@ -510,7 +511,7 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
         }
       }))
     })
-    throw Error('Failed to find group activities for this activity:' + id)
+    throw Error('Failed to find group activities for this activity:' + id + ' message:' + messageId)
   }
   const activity = findGeometryInGroup(id, group)
   if (!activity) {
@@ -583,7 +584,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         }
         const fromBit = message.details.from
         const activity = findPlanningActivity(message.details.messageType, forceId, activities)
-        const geometry = findPlanningGeometry(plan.uniqid, forceId, activities) // activity.geometries && activity.geometries.find((geom) => geom.uniqid === plan.uniqid)
+        const geometry = findPlanningGeometry(plan.uniqid, forceId, activities, message.message.Reference) // activity.geometries && activity.geometries.find((geom) => geom.uniqid === plan.uniqid)
         // findPlanningGeometry(plan.uniqid, forceId, activities)
         const id = message.message.Reference + '//' + message.message.title + '//' + geometry
         const newItem: GeomWithOrders = { ...plan, activity: activity, plan: message, force: fromBit.forceId || fromBit.force, id: id }
@@ -868,7 +869,9 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
 }
 
 const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
-  return me.force !== other.force
+  const forces = [me.force, other.force]
+  const blueAndGreen = forces.includes('f-blue') && forces.includes('f-green')
+  return (me.force !== other.force) && !blueAndGreen
 }
 
 export const createContactReference = (me: string, other: string): string => {
@@ -901,9 +904,12 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
                   res.push(cachedResult)
                 }
               } else {
-                const interacts = interactsWith(first.activity, second.activity)
                 // see if they should interact with each other
-                if (interacts) {
+                const interacts = interactsWith(first.activity, second.activity)
+                const ISTAR_OBS = 'ISTAR-2'
+                const bothObs = first.uniqid === ISTAR_OBS && second.uniqid === ISTAR_OBS
+                // check for special case, or ISTAR obs box
+                if (interacts && !bothObs) {
                   const contact = touches(me, other, id, Math.random, sensorRangeKm)
                   if (contact) {
                     res.push(contact)
@@ -946,150 +952,161 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
       return null
     }
   }
-  switch (me.geometry.geometry.type) {
-    case 'Point': {
-      const mePt = turf.point(myCoords)
-      switch (other.geometry.geometry.type) {
-        case 'Point': {
-          const otherPt = turf.point(otherCoords)
-          res = turf.booleanEqual(mePt, otherPt)
-          if (res) {
-            intersection = {
-              startTime: intersectionTime[0],
-              endTime: intersectionTime[1],
-              intersection: mePt
+  try {
+    switch (me.geometry.geometry.type) {
+      case 'Point': {
+        const mePt = turf.point(myCoords)
+        switch (other.geometry.geometry.type) {
+          case 'Point': {
+            const otherPt = turf.point(otherCoords)
+            res = turf.booleanEqual(mePt, otherPt)
+            if (res) {
+              intersection = {
+                startTime: intersectionTime[0],
+                endTime: intersectionTime[1],
+                intersection: mePt
+              }
             }
+            break
           }
-          break
-        }
-        case 'LineString': {
-          const otherLine = turf.lineString(otherCoords)
-          res = turf.booleanPointOnLine(mePt, otherLine)
-          if (res) {
-            intersection = linePointContact(otherLine.geometry, otherTime, mePt.geometry, myTime)
-            if (!intersection) {
-              res = undefined
+          case 'LineString': {
+            const otherLine = turf.lineString(otherCoords)
+            res = turf.booleanPointOnLine(mePt, otherLine)
+            if (res) {
+              intersection = linePointContact(otherLine.geometry, otherTime, mePt.geometry, myTime)
+              if (!intersection) {
+                res = undefined
+              }
             }
+            break
           }
-          break
-        }
-        case 'Polygon': {
-          const turfPoly = turf.polygon(otherCoords)
-          res = (turf.booleanPointInPolygon(mePt, turfPoly))
-          if (res) {
-            intersection = {
-              startTime: intersectionTime[0],
-              endTime: intersectionTime[1],
-              intersection: mePt
+          case 'Polygon': {
+            const turfPoly = turf.polygon(otherCoords)
+            res = (turf.booleanPointInPolygon(mePt, turfPoly))
+            if (res) {
+              intersection = {
+                startTime: intersectionTime[0],
+                endTime: intersectionTime[1],
+                intersection: mePt
+              }
             }
+            break
           }
-          break
         }
+        break
       }
-      break
-    }
-    case 'LineString': {
-      const meLine = turf.lineString(myCoords)
-      switch (other.geometry.geometry.type) {
-        case 'Point': {
-          const otherPt = turf.point(otherCoords)
-          res = turf.booleanPointOnLine(otherPt, meLine)
-          if (res) {
-            intersection = linePointContact(meLine.geometry, myTime, otherPt.geometry, otherTime)
-            if (!intersection) {
-              res = undefined
+      case 'LineString': {
+        const meLine = turf.lineString(myCoords)
+        switch (other.geometry.geometry.type) {
+          case 'Point': {
+            const otherPt = turf.point(otherCoords)
+            res = turf.booleanPointOnLine(otherPt, meLine)
+            if (res) {
+              intersection = linePointContact(meLine.geometry, myTime, otherPt.geometry, otherTime)
+              if (!intersection) {
+                res = undefined
+              }
             }
+            break
           }
-          break
-        }
-        case 'LineString': {
-          const otherLine = turf.lineString(otherCoords)
-          const inter = turf.lineIntersect(meLine, otherLine)
-          res = inter.features.length > 0
-          if (res) {
-            intersection = lineLineContact(meLine.geometry, myTime, otherLine.geometry, otherTime, lineSensorRangeKm)
-            if (!intersection) {
-              res = undefined
+          case 'LineString': {
+            const otherLine = turf.lineString(otherCoords)
+            const inter = turf.lineIntersect(meLine, otherLine)
+            res = inter.features.length > 0
+            if (res) {
+              intersection = lineLineContact(meLine.geometry, myTime, otherLine.geometry, otherTime, lineSensorRangeKm)
+              if (!intersection) {
+                res = undefined
+              }
             }
+            break
           }
-          break
-        }
-        case 'Polygon': {
-          const turfPoly = turf.polygon(otherCoords)
-          res = (turf.booleanCrosses(meLine, turfPoly))
-          if (res) {
-            intersection = linePolyContact(meLine.geometry, myTime, turfPoly.geometry, otherTime)
-            // if the line doesn't actually enter poly when it's running, cancel contact
-            if (!intersection) {
-              res = undefined
+          case 'Polygon': {
+            const turfPoly = turf.polygon(otherCoords)
+            res = (turf.booleanCrosses(meLine, turfPoly))
+            if (res) {
+              intersection = linePolyContact(meLine.geometry, myTime, turfPoly.geometry, otherTime)
+              // if the line doesn't actually enter poly when it's running, cancel contact
+              if (!intersection) {
+                res = undefined
+              }
             }
+            break
           }
-          break
         }
+        break
       }
-      break
-    }
-    case 'Polygon': {
-      const mePoly = turf.polygon(myCoords)
-      switch (other.geometry.geometry.type) {
-        case 'Point': {
-          const otherPt = turf.point(otherCoords)
-          res = turf.booleanPointInPolygon(otherPt, mePoly)
-          if (res) {
-            intersection = {
-              startTime: intersectionTime[0],
-              endTime: intersectionTime[1],
-              intersection: otherPt
+      case 'Polygon': {
+        const mePoly = turf.polygon(myCoords)
+        switch (other.geometry.geometry.type) {
+          case 'Point': {
+            const otherPt = turf.point(otherCoords)
+            res = turf.booleanPointInPolygon(otherPt, mePoly)
+            if (res) {
+              intersection = {
+                startTime: intersectionTime[0],
+                endTime: intersectionTime[1],
+                intersection: otherPt
+              }
             }
+            break
           }
-          break
-        }
-        case 'LineString': {
-          const otherLine = turf.lineString(otherCoords)
-          res = turf.booleanCrosses(mePoly, otherLine)
-          if (res) {
-            intersection = linePolyContact(otherLine.geometry, otherTime, mePoly.geometry, myTime)
-            // if the line doesn't actually enter poly when it's running, cancel contact
-            if (!intersection) {
-              res = undefined
+          case 'LineString': {
+            const otherLine = turf.lineString(otherCoords)
+            res = turf.booleanCrosses(mePoly, otherLine)
+            if (res) {
+              intersection = linePolyContact(otherLine.geometry, otherTime, mePoly.geometry, myTime)
+              // if the line doesn't actually enter poly when it's running, cancel contact
+              if (!intersection) {
+                res = undefined
+              }
             }
+            break
           }
-          break
-        }
-        case 'Polygon': {
-          const turfPoly = turf.polygon(otherCoords)
-          // if one contains the other, overlap doesn't work
-          const overlaps = turf.booleanOverlap(mePoly, turfPoly)
-          const aContainsB = turf.booleanContains(mePoly, turfPoly)
-          const bContainsA = turf.booleanContains(turfPoly, mePoly)
-          res = overlaps || aContainsB || bContainsA
-          if (res) {
-            let intersects
-            // if they overlap, then intersect returns intersecting region
-            // but, if one contains the other, the `other` represents the intersection
-            if (overlaps) {
-              intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
-            } else if (aContainsB) {
-              intersects = turfPoly
-            } else {
-              intersects = mePoly
+          case 'Polygon': {
+            const turfPoly = turf.polygon(otherCoords)
+            // if one contains the other, overlap doesn't work
+            const overlaps = turf.booleanOverlap(mePoly, turfPoly)
+            const aContainsB = turf.booleanContains(mePoly, turfPoly)
+            const bContainsA = turf.booleanContains(turfPoly, mePoly)
+            res = overlaps || aContainsB || bContainsA
+            if (res) {
+              let intersects
+              // if they overlap, then intersect returns intersecting region
+              // but, if one contains the other, the `other` represents the intersection
+              if (overlaps) {
+                intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
+              } else if (aContainsB) {
+                intersects = turfPoly
+              } else {
+                intersects = mePoly
+              }
+              if (!intersects) {
+                throw Error('One method reported overlap, the other didn\'t')
+              }
+              try {
+                const fPoly = turf.polygon(intersects.geometry.coordinates)
+                intersection = {
+                  startTime: intersectionTime[0],
+                  endTime: intersectionTime[1],
+                  intersection: fPoly
+                }
+              } catch (err) {
+                console.warn('Issue generating poly overlap', me.plan.message.Reference, other.plan.message.Reference,
+                  err, me.plan.message.location, other.plan.message.location)
+              }
             }
-            if (!intersects) {
-              throw Error('One method reported overlap, the other didn\'t')
-            }
-            const fPoly = turf.polygon(intersects.geometry.coordinates)
-            intersection = {
-              startTime: intersectionTime[0],
-              endTime: intersectionTime[1],
-              intersection: fPoly
-            }
+            break
           }
-          break
         }
+        break
       }
-      break
     }
+  } catch (err2) {
+    console.warn('Issue in touches logic', me.plan.message.Reference, other.plan.message.Reference,
+      err2, me.plan.message.location, other.plan.message.location)
   }
+
   if (res === undefined) {
     // console.warn('Didn\'t handle this case', me, other)
     return null
