@@ -50,7 +50,7 @@ type ManualInteractionResults = {
 export const DEFAULT_SEARCH_RATE = 2000
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
-  forces, interactionMessages, planningMessages, template, gameDate, turnFilter,
+  forces, interactionMessages, turnPlanningMessages, allPlanningMessages, template, gameDate, turnFilter,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
   platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack, phase,
   gameTurnLength, onLocationEditorLoaded, currentTurn
@@ -217,7 +217,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (id === 'n/a') {
       return <span>n/a</span>
     } else {
-      const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
+      const plan: MessagePlanning | undefined = allPlanningMessages.find((val: MessagePlanning) => val._id === id)
       if (!plan) {
         console.warn('Failed to find message 1:', id)
         return <span>Order not found</span>
@@ -284,7 +284,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (id === 'n/a') {
       return <span>n/a</span>
     } else {
-      const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
+      const plan: MessagePlanning | undefined = allPlanningMessages.find((val: MessagePlanning) => val._id === id)
       if (!plan) {
         console.warn('Failed to find message 2:', id)
         return <span>Order not found</span>
@@ -529,7 +529,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const countRemainingInteractions = (): void => {
     console.time('count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
-    const contacts: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true, currentTurn)
+    const contacts: InteractionResults = getNextInteraction2(turnPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true, currentTurn)
     if (Array.isArray(contacts)) {
       const events = contacts[0]
       const interactions = contacts[1]
@@ -585,7 +585,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const getInteraction = (): void => {
     // const special: string | undefined = withTg && withTg.message.activity // undefined // 'tst'
-    const trimmedPlanningMessages = planningMessages // [withTg as MessagePlanning] // || special ? planningMessages.filter((msg) => msg.message.activity.toLowerCase().includes(special)) : planningMessages
+    const trimmedPlanningMessages = turnPlanningMessages // [withTg as MessagePlanning] // || special ? planningMessages.filter((msg) => msg.message.activity.toLowerCase().includes(special)) : planningMessages
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
     console.log('get next inter recieved:', results)
@@ -606,7 +606,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
     // orders
     const forceMsgs: ForceMessages[] = []
-    planningMessages.forEach((msg: MessagePlanning) => {
+    turnPlanningMessages.forEach((msg: MessagePlanning) => {
       const force = msg.details.from.force
       let forceData = forceMsgs.find((val: ForceMessages) => val.forceName === force)
       if (!forceData) {
@@ -728,7 +728,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const msg = message.message
         const isComplete = message.details.interaction?.complete
         const interaction = message.details.interaction
-        const data = interaction && collateInteraction(message._id, interactionMessages, planningMessages, forces, forceStyles, forcePlanningActivities)
+        const data = interaction && collateInteraction(message._id, interactionMessages, allPlanningMessages, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {

@@ -92,6 +92,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [sortedOppAssets, setSortedOppAssets] = useState<AssetRow[]>([])
 
   const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
+  const [allPlanningMessages, setAllPlanningMessages] = useState<MessagePlanning[]>([])
   const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
   const [turnFilter, setTurnFilter] = useState<number>(-1)
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
@@ -181,6 +182,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
       filteredMessages = planningMessages
     }
     setFilteredPlanningMessages(filteredMessages)
+    setAllPlanningMessages(planningMessages)
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
@@ -654,7 +656,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <TurnFilter label='Show interactions for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
                   interactionMessages={filteredInteractionMessages}
-                  planningMessages={filteredPlanningMessages}
+                  allPlanningMessages={allPlanningMessages}
+                  turnPlanningMessages={filteredPlanningMessages}
                   forces={allForces}
                   currentTurn={currentTurn}
                   periods={allPeriods}
