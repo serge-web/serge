@@ -748,6 +748,14 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
     return err
   })
 
+  // special case. If this is adjudication, and we skip, do not to handle force delta
+  if (message.messageType === ADJUDICATION_OUTCOMES) {
+    const interaction = details.interaction as InteractionDetails
+    if (interaction && interaction.skipped) {
+      return
+    } 
+  }
+
   /**
    * annotations are optional. So, if they're unset, initialise them
    */

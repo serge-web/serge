@@ -400,7 +400,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           healthOutcomes: [],
           locationOutcomes: [],
           perceptionOutcomes: [],
-          narrative: 'Adjudication skipped by ' + document.details.from.roleName,
+          // NOTE: 'SKIPPING' on the next line prevents wargame update
+          narrative: 'SKIPPING Adjudication by ' + document.details.from.roleName,
           Reference: current.Reference,
           important: false
         }
@@ -410,6 +411,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         if (interaction) {
           // mark as adjudicatead
           interaction.complete = true
+          // mark as skipped
+          interaction.skipped = true
         }
 
         // postBack. note - we use the mapping post back handler, so it
