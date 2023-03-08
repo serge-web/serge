@@ -122,7 +122,7 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
     console.log('LinePolygonInteraction', tLine, fLine, fPoly, timeI, overlap, contains, overlap && overlap.features.length)
     if (contains) {
       const res: ShapeInteraction = {
-        intersection:fLine,
+        intersection: fLine,
         startTime: timeI[0],
         endTime: timeI[1]
       }
@@ -135,7 +135,7 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
         // ok, line runs both sides of polygon
         const beforeSection = turf.lineSplit(fLine, overlap.features[0])
         const midSection = turf.lineSplit(beforeSection.features[1], overlap.features[1])
-  
+
         // trim time to the period representing the mid-section
         const fullLine = turf.lineString(line.coordinates)
         const fullLen = turf.length(fullLine)
@@ -167,7 +167,7 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
         const fullLine = turf.lineString(line.coordinates)
         const fullLen = turf.length(fullLine)
         const totalTime = lineTime[1] - lineTime[0]
-  
+
         const startInPoly = turf.booleanContains(fPoly, fPoint)
         let startTime
         let endTime
@@ -200,7 +200,6 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
         return res
       }
     }
-
   } else {
     return undefined
   }
