@@ -6,7 +6,7 @@ import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
 import { PlanningContact, invertMessages, injectTimes, overlapsInTime, interactsWith } from '../../support-panel/helpers/gen-order-data'
-import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, istarSearchRate, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
+import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, findActivityFromCompositeString, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, istarSearchRate, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
@@ -75,6 +75,20 @@ it('calculates search rate', () => {
   expect(emptyRate).toEqual(1000)
   const rate = istarSearchRate(items, forces, 1000)
   expect(rate).toEqual(1400) // TODO investigte, it should be 1540
+})
+
+it('extracts activity', () => {
+  const testStr = 'f-blue-Maritime-Transit'
+  const force = 'f-blue'
+  const forceActs = activities.find((set) => set.force === force)
+  expect(forceActs).toBeTruthy()
+  if (forceActs) {
+    const activity = findActivityFromCompositeString(testStr, forceActs)
+    expect(activity).toBeTruthy()
+    if (activity) {
+      expect(activity.name).toEqual('Transit')
+    }
+  }
 })
 
 it('generates movement outcomes', () => {
