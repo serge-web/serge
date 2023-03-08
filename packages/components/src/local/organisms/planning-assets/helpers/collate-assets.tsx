@@ -409,7 +409,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           updatePeriod = 'unk'
         }
         const forceStyle = perceptionTypes ? forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId) : ''
-        const position = hasGodsEyeView ?  (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
+        const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
 
         const res: AssetRow = {
           id: asset.uniqid,
@@ -418,7 +418,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           name: hasGodsEyeView ? asset.name : perceptionTypes ? perceptionTypes.name : '',
           platformType: hasGodsEyeView ? asset.platformTypeId : perceptionTypes ? perceptionTypes.typeId : '',
           subType: subType,
-          position: position ,
+          position: position,
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
           c4: c4,
