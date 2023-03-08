@@ -119,9 +119,10 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
     const overlap = turf.lineIntersect(tLine, fPoly)
     const timeI = timeIntersect2(lineTime, polyTime)
     const items = overlap.features.length
+    console.log('CROSSES', items)
     if (items === 0) {
       return undefined
-    } else if (items === 2) {
+    } else if (items >= 2) {
       // ok, line runs both sides of polygon
       const beforeSection = turf.lineSplit(fLine, overlap.features[0])
       const midSection = turf.lineSplit(beforeSection.features[1], overlap.features[1])
