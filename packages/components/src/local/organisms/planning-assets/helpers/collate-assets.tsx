@@ -364,6 +364,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
 
   const nationsWithGodsEyeView = ['f-blue', 'f-green']
   const hasGodsEyeView = nationsWithGodsEyeView.includes(playerForce.uniqid.toLowerCase())
+  console.log('has gods eye view', hasGodsEyeView, asset.name, asset.uniqid, playerForce.uniqid.toLowerCase())
 
   const domainFor = (travelMode?: string): string => {
     if (travelMode) {
@@ -407,6 +408,9 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           updatePeriod = diff.humanize()
         } else {
           updatePeriod = 'unk'
+        }
+        if (hasGodsEyeView) {
+          updatePeriod = 'Live'
         }
         const forceStyle = perceptionTypes ? forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId) : ''
         const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
