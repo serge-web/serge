@@ -120,7 +120,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setCachedInteractions([])
       console.log('Adj Mess List 2 - load all:', cachedInteractions.length)
     } else {
-      if (messageBeingEdited) {
+      if (!7 && messageBeingEdited) {
         console.log('Adj Mess List 3 - no load, message being edited:', cachedInteractions.length)
         setPendingInteractions(ownMessages)
       } else {
