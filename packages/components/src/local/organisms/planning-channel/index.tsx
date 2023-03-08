@@ -29,7 +29,7 @@ import { LocationEditCallbackHandler } from '../planning-messages-list/types/pro
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import { LRU_CACHE_OPTION } from '../support-panel/constants'
-import { findActivity, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import { findActivity2, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import AreaPlotter from './helpers/AreaPlotter'
 import OrderDrawing from './helpers/OrderDrawing'
@@ -895,7 +895,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   /** player has used menu to trigger the creation of a new set of orders (activity) */
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
     if (forcePlanningActivities) {
-      const newActivity = findActivity(activity, group, selectedForce.uniqid, forcePlanningActivities)
+      const newActivity = findActivity2(activity, group, selectedForce.uniqid, forcePlanningActivities)
       if (newActivity.geometries) {
         setActivityBeingPlanned(newActivity)
       } else {
