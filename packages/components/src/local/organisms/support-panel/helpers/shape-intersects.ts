@@ -117,79 +117,89 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
     const fLine: Feature<LineString> = turf.lineString(tLine.coordinates)
     const fPoly: Feature<Polygon> = turf.polygon(poly.coordinates)
     const overlap = turf.lineIntersect(tLine, fPoly)
+    const contains = turf.booleanContains(fPoly, fLine)
     const timeI = timeIntersect2(lineTime, polyTime)
-    const items = overlap.features.length
-    console.log('CROSSES', items)
-    if (items === 0) {
-      return undefined
-    } else if (items >= 2) {
-      // ok, line runs both sides of polygon
-      const beforeSection = turf.lineSplit(fLine, overlap.features[0])
-      const midSection = turf.lineSplit(beforeSection.features[1], overlap.features[1])
-
-      // trim time to the period representing the mid-section
-      const fullLine = turf.lineString(line.coordinates)
-      const fullLen = turf.length(fullLine)
-      const startCoords = midSection.features[0].geometry.coordinates[0]
-      const startPoint = turf.point(startCoords)
-      const beforeLeg = turf.lineSplit(fullLine, startPoint).features[0]
-      const beforeLen = turf.length(beforeLeg)
-      const beforeProportion = beforeLen / fullLen
-      const afterCoords = midSection.features[0].geometry.coordinates
-      const afterCoord = afterCoords[afterCoords.length - 1]
-      const afterPoint = turf.point(afterCoord)
-      const afterLine = turf.lineSplit(fullLine, afterPoint).features[1]
-      const afterLen = turf.length(afterLine)
-      const afterProportion = afterLen / fullLen
-      const totalTime = lineTime[1] - lineTime[0]
-      const startTime = lineTime[0] + totalTime * beforeProportion
-      const endTime = lineTime[1] - totalTime * afterProportion
+    if (contains) {
       const res: ShapeInteraction = {
-        intersection: midSection.features[0],
-        startTime: startTime,
-        endTime: endTime
+        intersection:fLine,
+        startTime: timeI[0],
+        endTime: timeI[1]
       }
       return res
     } else {
-      // line only passes it once, so one end is inside the polygon.
-      //  Have to find out if start or end is in polygon
-      const fPoint = turf.point(line.coordinates[0])
-      const singleCrossing = turf.lineSplit(fLine, overlap.features[0])
-      const fullLine = turf.lineString(line.coordinates)
-      const fullLen = turf.length(fullLine)
-      const totalTime = lineTime[1] - lineTime[0]
-
-      const startInPoly = turf.booleanContains(fPoly, fPoint)
-      let startTime
-      let endTime
-      if (startInPoly) {
-        // trim time off the start
-        const afterCoords = singleCrossing.features[0].geometry.coordinates
+      const items = overlap.features.length
+      if (items === 0) {
+        return undefined
+      } else if (items >= 2) {
+        // ok, line runs both sides of polygon
+        const beforeSection = turf.lineSplit(fLine, overlap.features[0])
+        const midSection = turf.lineSplit(beforeSection.features[1], overlap.features[1])
+  
+        // trim time to the period representing the mid-section
+        const fullLine = turf.lineString(line.coordinates)
+        const fullLen = turf.length(fullLine)
+        const startCoords = midSection.features[0].geometry.coordinates[0]
+        const startPoint = turf.point(startCoords)
+        const beforeLeg = turf.lineSplit(fullLine, startPoint).features[0]
+        const beforeLen = turf.length(beforeLeg)
+        const beforeProportion = beforeLen / fullLen
+        const afterCoords = midSection.features[0].geometry.coordinates
         const afterCoord = afterCoords[afterCoords.length - 1]
         const afterPoint = turf.point(afterCoord)
         const afterLine = turf.lineSplit(fullLine, afterPoint).features[1]
         const afterLen = turf.length(afterLine)
         const afterProportion = afterLen / fullLen
-        startTime = timeI[0]
-        endTime = lineTime[1] - totalTime * afterProportion
+        const totalTime = lineTime[1] - lineTime[0]
+        const startTime = lineTime[0] + totalTime * beforeProportion
+        const endTime = lineTime[1] - totalTime * afterProportion
+        const res: ShapeInteraction = {
+          intersection: midSection.features[0],
+          startTime: startTime,
+          endTime: endTime
+        }
+        return res
       } else {
-        // trim time off the end
-        const startCoords = singleCrossing.features[1].geometry.coordinates[0]
-        const startPoint = turf.point(startCoords)
-        const beforeLeg = turf.lineSplit(fullLine, startPoint).features[0]
-        const beforeLen = turf.length(beforeLeg)
-        const beforeProportion = beforeLen / fullLen
-        startTime = lineTime[0] + totalTime * beforeProportion
-        endTime = timeI[1]
+        // line only passes it once, so one end is inside the polygon.
+        //  Have to find out if start or end is in polygon
+        const fPoint = turf.point(line.coordinates[0])
+        const singleCrossing = turf.lineSplit(fLine, overlap.features[0])
+        const fullLine = turf.lineString(line.coordinates)
+        const fullLen = turf.length(fullLine)
+        const totalTime = lineTime[1] - lineTime[0]
+  
+        const startInPoly = turf.booleanContains(fPoly, fPoint)
+        let startTime
+        let endTime
+        if (startInPoly) {
+          // trim time off the start
+          const afterCoords = singleCrossing.features[0].geometry.coordinates
+          const afterCoord = afterCoords[afterCoords.length - 1]
+          const afterPoint = turf.point(afterCoord)
+          const afterLine = turf.lineSplit(fullLine, afterPoint).features[1]
+          const afterLen = turf.length(afterLine)
+          const afterProportion = afterLen / fullLen
+          startTime = timeI[0]
+          endTime = lineTime[1] - totalTime * afterProportion
+        } else {
+          // trim time off the end
+          const startCoords = singleCrossing.features[1].geometry.coordinates[0]
+          const startPoint = turf.point(startCoords)
+          const beforeLeg = turf.lineSplit(fullLine, startPoint).features[0]
+          const beforeLen = turf.length(beforeLeg)
+          const beforeProportion = beforeLen / fullLen
+          startTime = lineTime[0] + totalTime * beforeProportion
+          endTime = timeI[1]
+        }
+        const indexToUse = startInPoly ? 0 : 1
+        const res: ShapeInteraction = {
+          intersection: singleCrossing.features[indexToUse],
+          startTime: startTime,
+          endTime: endTime
+        }
+        return res
       }
-      const indexToUse = startInPoly ? 0 : 1
-      const res: ShapeInteraction = {
-        intersection: singleCrossing.features[indexToUse],
-        startTime: startTime,
-        endTime: endTime
-      }
-      return res
     }
+
   } else {
     return undefined
   }
