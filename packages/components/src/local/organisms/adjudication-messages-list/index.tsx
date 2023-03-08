@@ -107,19 +107,24 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       return isMine && isOpen
     })
     setMessageBeingEdited(!!ownOpenMessages.length)
+    console.log('Message being edited', setMessageBeingEdited, ownOpenMessages.length)
     // if filter is selected, only show own open messages
     const ownMessages = onlyShowOpen ? ownOpenMessages : interactionMessages
     if (cachedInteractions.length === 0) {
       // application load. No interactions known about, so we can't lose
       // any data - just take the value
       setCachedInteractions(ownMessages)
+      console.log('Adj Mess List 1:', cachedInteractions.length)
     } else if (ownMessages.length === 0) {
       // no messages received. Clear list
       setCachedInteractions([])
+      console.log('Adj Mess List 2 - load all:', cachedInteractions.length)
     } else {
       if (messageBeingEdited) {
+        console.log('Adj Mess List 3 - no load, message being edited:', cachedInteractions.length)
         setPendingInteractions(ownMessages)
       } else {
+        console.log('Adj Mess List 5 - load all, message not being edited:', cachedInteractions.length)
         setCachedInteractions(ownMessages)
       }
     }
