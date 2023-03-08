@@ -595,7 +595,6 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
           console.warn('Failed to find activities for 2', message.message.activity)
           return
         }
-        console.log('Activity:', message.message.activity, activity)
         const geometry = findPlanningGeometry(plan.uniqid, forceId, activities, message.message.Reference) // activity.geometries && activity.geometries.find((geom) => geom.uniqid === plan.uniqid)
         // findPlanningGeometry(plan.uniqid, forceId, activities)
         const id = message.message.Reference + '//' + message.message.title + '//' + geometry
