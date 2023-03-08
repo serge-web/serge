@@ -550,7 +550,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           other: other
         }
       })
-      console.table(eventMap)
+      // console.table(eventMap)
       const sortedInteractions = _.sortBy(interactions, o => o.timeStart)
       const interactionMap = sortedInteractions.map((interv, ctr) => {
         const m1 = interv.first.plan.message
@@ -568,7 +568,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           secondActivity: secondGeom || interv.second.activity.name
         }
       })
-      console.table(interactionMap)
+      // console.table(interactionMap)
       const message = '' + events.length + ' events remaining' + ', ' + interactions.length + ' interactions remaining'
       //
       setDialogMessage(<>{message}{arrayToTable(eventMap)}{arrayToTable(interactionMap)}</>)
