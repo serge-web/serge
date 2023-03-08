@@ -166,7 +166,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
       })
-      res.push(      {
+      res.push({
         icon: () => <FontAwesomeIcon title='Show archived plans' icon={faSkull} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
         iconProps: showArchivedOrders ? { color: 'error' } : { color: 'action' },
         tooltip: showArchivedOrders ? 'Show archived orders' : 'Hide archived orders',
