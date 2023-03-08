@@ -8,10 +8,8 @@ export const customiseAssets = (_document: MessageStructure | undefined, schema:
   if (schema && oldOwnAssets) {
     const isAlive = (asset: AssetRow) => { return (asset.health === undefined) || asset.health > 0 }
     const liveOwnAssets = ownAssets.filter(isAlive)
-    if (oldOwnAssets) {
-      oldOwnAssets.enum = liveOwnAssets.map((asset: AssetRow) => asset.id)
-      oldOwnAssets.options.enum_titles = liveOwnAssets.map((asset: AssetRow) => asset.name)
-    }
+    oldOwnAssets.enum = liveOwnAssets.map((asset: AssetRow) => asset.id)
+    oldOwnAssets.options.enum_titles = liveOwnAssets.map((asset: AssetRow) => asset.name)
     const oldTargets = res.properties?.otherAssets?.items?.properties?.asset
     if (oldTargets) {
       // note. if this is an umpire, there aren't any other assets
