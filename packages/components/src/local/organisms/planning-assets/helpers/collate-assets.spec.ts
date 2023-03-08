@@ -53,9 +53,9 @@ describe('check collating assets', () => {
       expect(item.length).toEqual(1)
       const first = item[0]
       expect(first.id).toEqual(redAssetWithUnknown.uniqid)
-      expect(first.platformType).toEqual(UNKNOWN_TYPE)
-      expect(first.force).toEqual(UNKNOWN_TYPE)
-      expect(first.name).toEqual(redAssetWithUnknown.contactId)
+      expect(first.platformType).toEqual(redAssetWithUnknown.platformTypeId)
+      expect(first.force).toEqual(redForce.name)
+      expect(first.name).toEqual(redAssetWithUnknown.name)
     }
   })
 
@@ -66,7 +66,7 @@ describe('check collating assets', () => {
       expect(item.length).toEqual(1)
       const first = item[0]
       expect(first.id).toEqual(redAssetWithUnknown.uniqid)
-      expect(first.platformType).toEqual(UNKNOWN_TYPE)
+      expect(first.platformType).toEqual(redAssetWithUnknown.platformTypeId)
     }
   })
 
@@ -111,7 +111,7 @@ describe('check collating assets', () => {
 
     const blueOppForces = getOppAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow, [])
     expect(blueOppForces).toBeTruthy()
-    expect(blueOppForces.length).toEqual(13)
+    expect(blueOppForces.length).toEqual(22)
   })
 
   it('handles opFor tab', () => {
@@ -129,6 +129,6 @@ describe('check collating assets', () => {
 
     const blueRows = getOppAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow, [])
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(13)
+    expect(blueRows.length).toEqual(22)
   })
 })
