@@ -1106,7 +1106,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
                 }
               } catch (err) {
                 console.warn('Issue generating poly overlap', me.plan.message.Reference, other.plan.message.Reference,
-                  err, me.geometry, other.geometry)
+                  err, intersects)
               }
             }
             break
