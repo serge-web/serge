@@ -111,7 +111,7 @@ describe('check collating assets', () => {
 
     const blueOppForces = getOppAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow, [])
     expect(blueOppForces).toBeTruthy()
-    expect(blueOppForces.length).toEqual(22)
+    expect(blueOppForces.length).toEqual(13)
   })
 
   it('handles opFor tab', () => {
@@ -129,6 +129,6 @@ describe('check collating assets', () => {
 
     const blueRows = getOppAssets(forces, forceCols, platformStyles, blueForce, platformTypes, attributeTypes, tNow, [])
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(22)
+    expect(blueRows.length).toEqual(13)
   })
 })

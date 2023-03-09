@@ -395,7 +395,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const health = (perception && (perception.health !== undefined)) ? perception.health : undefined
-      const c4 = hasGodsEyeView ? (asset.attributes && asset.attributes.a_C4_Status as string) || 'Unk'  : 'unk'
+      const c4 = hasGodsEyeView ? (asset.attributes && asset.attributes.a_C4_Status as string) || 'Unk' : 'unk'
       if (perceptionTypes && perception) {
         const lastUpdate = perception.lastUpdate
         let updatePeriod
