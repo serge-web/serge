@@ -170,50 +170,57 @@ interface ProtectedTarget {
  * @param activity the activity being conducted
  * @returns
  */
-const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: AssetWithForce[], outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity): MessageAdjudicationOutcomes => {
+const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: AssetWithForce[],
+  outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity,
+  playerForce: ForceData['uniqid']): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
   console.log('kinetic', targets.length)
+  const targetForces: Array<ForceData['uniqid']> = (playerForce === 'f-red') ? ['f-blue', 'f-green'] : ['f-red']
+
   // loop through targets
   targets.forEach((asset: AssetWithForce) => {
     const tgtAsset = asset.asset
     const tgtForce = asset.force
-    if (tgtAsset.location !== undefined) {
-      const tgtPoint = turf.point([tgtAsset.location[1], tgtAsset.location[0]])
-      // loop through other assets of that force
-      tgtForce.assets && tgtForce.assets.forEach((oppAsset: Asset) => {
-        // see if this has MEZ range
-        const attrs = oppAsset.attributes
-        if (attrs && attrs.a_MEZ_range && oppAsset.location && (oppAsset.health && oppAsset.health > 0)) {
-          // ok, it has a MEZ range
-          const mezAsset = oppAsset
-          // generate
-          const mezPoint = turf.point([oppAsset.location[1], oppAsset.location[0]])
-          const distanceApart = turf.distance(tgtPoint, mezPoint, { units: 'kilometers' })
-          if (distanceApart < attrs.a_MEZ_range && tgtForce && tgtAsset) {
-            // ok, it's covered.
-            let protTarget = protectedTargets.find((target: ProtectedTarget) => tgtAsset && target.target.uniqid === tgtAsset.uniqid)
-            if (!protTarget) {
-              protTarget = {
-                force: tgtForce.uniqid,
-                target: tgtAsset,
-                protectedBy: []
+    if (targetForces.includes(asset.force.uniqid)) {
+      if (tgtAsset.location !== undefined) {
+        const tgtPoint = turf.point([tgtAsset.location[1], tgtAsset.location[0]])
+        // loop through other assets of that force
+        tgtForce.assets && tgtForce.assets.forEach((oppAsset: Asset) => {
+          // see if this has MEZ range
+          const attrs = oppAsset.attributes
+          if (attrs && attrs.a_MEZ_range && oppAsset.location && (oppAsset.health && oppAsset.health > 0)) {
+            // ok, it has a MEZ range
+            const mezAsset = oppAsset
+            // generate
+            const mezPoint = turf.point([oppAsset.location[1], oppAsset.location[0]])
+            const distanceApart = turf.distance(tgtPoint, mezPoint, { units: 'kilometers' })
+            if (distanceApart < attrs.a_MEZ_range && tgtForce && tgtAsset) {
+              // ok, it's covered.
+              let protTarget = protectedTargets.find((target: ProtectedTarget) => tgtAsset && target.target.uniqid === tgtAsset.uniqid)
+              if (!protTarget) {
+                protTarget = {
+                  force: tgtForce.uniqid,
+                  target: tgtAsset,
+                  protectedBy: []
+                }
+                protectedTargets.push(protTarget)
               }
-              protectedTargets.push(protTarget)
+              protTarget.protectedBy.push(mezAsset)
             }
-            protTarget.protectedBy.push(mezAsset)
           }
-        }
-      })
+        })
+      }
+
+      // create damage outcome for this asset
+      const existingC4: 'None' | 'Degraded' | 'Operational' = (tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
+      const health: HealthOutcome = {
+        asset: tgtAsset.uniqid,
+        health: 50,
+        c4: existingC4,
+        narrative: 'Damage by ' + activity.name
+      }
+      outcomes.healthOutcomes.push(health)
     }
-    // create damage outcome for this asset
-    const existingC4: 'None' | 'Degraded' | 'Operational' = (tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
-    const health: HealthOutcome = {
-      asset: tgtAsset.uniqid,
-      health: 50,
-      c4: existingC4,
-      narrative: 'Damage by ' + activity.name
-    }
-    outcomes.healthOutcomes.push(health)
   })
   if (protectedTargets.length) {
     const message = protectedTargets.map((prot: ProtectedTarget) => {
@@ -610,20 +617,21 @@ export const squadronsAtTheseAirfields = (targetAssets: Array<AssetWithForce>, f
 export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   console.log('handle outcomes', activity.actId, event, plan)
+  const playerForce = plan.details.from.forceId || ''
   switch (activity.actId) {
     case 'STRIKE': {
       const targetAssets = plan.message.otherAssets ? plan.message.otherAssets.map((item) => findForceAndAsset(forces, item.asset)) : []
       const squadronsAtAirfields = squadronsAtTheseAirfields(targetAssets, forces)
       // TODO: create scenario to test this
       const allTargets = targetAssets.concat(...squadronsAtAirfields)
-      kineticEventOutcomesFor(allTargets, squadronsAtAirfields, outcomes, activity)
+      kineticEventOutcomesFor(allTargets, squadronsAtAirfields, outcomes, activity, playerForce)
       break
     }
     case 'TST': {
       // find all op-for assets in the box
       const targetAssets = assetsInArea(plan, forces)
       console.log('TST assets in area', targetAssets)
-      kineticEventOutcomesFor(targetAssets, [], outcomes, activity)
+      kineticEventOutcomesFor(targetAssets, [], outcomes, activity, playerForce)
       console.log('TST outcomes', outcomes)
       break
     }
@@ -661,15 +669,15 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
 }
 
 export interface TimedIntervention {
-    // id of the interaction (composite of planning message & event)
-    id: string
-    time: number
-    timeStr: string
-    event: INTERACTION_SHORT_CIRCUIT
-    message: MessagePlanning
-    activity: PlanningActivity
-    geomId: PlannedActivityGeometry['uniqid'] | undefined
-  }
+  // id of the interaction (composite of planning message & event)
+  id: string
+  time: number
+  timeStr: string
+  event: INTERACTION_SHORT_CIRCUIT
+  message: MessagePlanning
+  activity: PlanningActivity
+  geomId: PlannedActivityGeometry['uniqid'] | undefined
+}
 
 const endsWithMovement = (activity?: PlannedActivityGeometry[]): boolean => {
   if (activity && activity.length > 0) {
@@ -1072,12 +1080,10 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
         //     end: props.endDate
         //   }
         // }))
-        console.time('LLOG_Bin_' + _index)
         const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
           interactionsTested, sensorRangeKm)
         !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
         contacts.push(...newContacts)
-        console.timeEnd('LLOG_Bin_' + _index)
       })
 
       // console.log('binning complete, contacts:', contacts.length)
@@ -1091,9 +1097,9 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
       // collate the data
       return [allRemainingEvents, contacts]
     } else {
-    // do we have any contacts?
+      // do we have any contacts?
       if (contacts.length !== 0) {
-      // sort ascending
+        // sort ascending
         const sortedContacts = _.sortBy(contacts, function (contact) { return moment.utc(contact.timeStart).valueOf() })
         const firstContact = sortedContacts[0]
 
