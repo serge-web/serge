@@ -154,18 +154,33 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
         const afterCoords = midSection.features[0].geometry.coordinates
         const afterCoord = afterCoords[afterCoords.length - 1]
         const afterPoint = turf.point(afterCoord)
-        const afterLine = turf.lineSplit(fullLine, afterPoint).features[1]
-        const afterLen = turf.length(afterLine)
-        const afterProportion = afterLen / fullLen
-        const totalTime = lineTime[1] - lineTime[0]
-        const startTime = lineTime[0] + totalTime * beforeProportion
-        const endTime = lineTime[1] - totalTime * afterProportion
-        const res: ShapeInteraction = {
-          intersection: midSection.features[0],
-          startTime: startTime,
-          endTime: endTime
+        const split = turf.lineSplit(fullLine, afterPoint)
+        if (split.features.length > 1) {
+          // line crosses polygon, get ready to trim remainder
+          const afterLine = split.features[1]
+          const afterLen = turf.length(afterLine)
+          const afterProportion = afterLen / fullLen
+          const totalTime = lineTime[1] - lineTime[0]
+          const startTime = lineTime[0] + totalTime * beforeProportion
+          const endTime = lineTime[1] - totalTime * afterProportion
+          const res: ShapeInteraction = {
+            intersection: midSection.features[0],
+            startTime: startTime,
+            endTime: endTime
+          }
+          return res
+        } else {
+          // line finishes on poly
+          const totalTime = lineTime[1] - lineTime[0]
+          const startTime = lineTime[0] + totalTime * beforeProportion
+          const endTime = lineTime[1]
+          const res: ShapeInteraction = {
+            intersection: midSection.features[0],
+            startTime: startTime,
+            endTime: endTime
+          }
+          return res
         }
-        return res
       } else {
         // line only passes it once, so one end is inside the polygon.
         //  Have to find out if start or end is in polygon
