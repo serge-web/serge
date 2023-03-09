@@ -278,7 +278,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   // show attributes for own forces (or if we're umpire)
   if (ownAssets) {
     columns.push({ title: 'Task Group', field: 'taskGroup', width: 'auto', hidden: false, lookup: arrToDict(summaryData.taskGroups) })
-    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
+    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', hidden: true, render: renderAttributes })
   } else {
     columns.push({ title: 'Age', field: 'lastUpdated', width: 'auto', type: 'string' })
   }
