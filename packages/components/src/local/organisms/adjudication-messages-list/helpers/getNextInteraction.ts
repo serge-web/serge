@@ -1080,10 +1080,10 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
       })
 
       // console.log('binning complete, contacts:', contacts.length)
+      console.timeEnd('LLOG_BinOrders')
 
       currentWindowLength += windowMilliSize
     }
-    console.timeEnd('LLOG_BinOrders')
 
     // special handling for get-all
     if (getAll) {

@@ -179,7 +179,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
     if (!columns.length || !filter || !initialised) {
       setInitialised(true)
-      const columnData = toColumn(myPlanningMessages)
+      const columnData = toColumn(myPlanningMessages, isUmpire)
       setColumns(columnData)
     }
   }, [turnFilter, filter, myPlanningMessages])
@@ -473,6 +473,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         pageSizeOptions: [20, 50, 100],
         filtering: filter,
         selection: true,
+        columnsButton: true,
         rowStyle: { fontSize: '80%' }
       }}
       onSelectionChange={onSelectionChange}

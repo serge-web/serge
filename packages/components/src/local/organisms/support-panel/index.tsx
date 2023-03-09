@@ -355,8 +355,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
       (document, template) => customiseLocation(document, template),
       (document, template) => customiseLiveOrders(document, template, liveOrders),
-      (document, template) => customiseMissiles(document, template, selectedForce.uniqid, forceTemplateData),
-      (document, template) => customiseCyberCards(document, template, selectedForce.uniqid, forceTemplateData)
+      (document, template) => customiseMissiles(document, template, selectedForce.uniqid, !!selectedForce.umpire, forceTemplateData),
+      (document, template) => customiseCyberCards(document, template, selectedForce.uniqid, !!selectedForce.umpire, forceTemplateData)
     ]
 
     let current: Record<string, any> = { ...schema }
