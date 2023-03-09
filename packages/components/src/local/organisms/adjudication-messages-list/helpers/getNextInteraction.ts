@@ -963,8 +963,10 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   // see if a short-circuit is overdue
+  console.time('LLOG_GetEvents1')
   const event = !getAll && checkForEvent(gameTimeVal, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
   console.log('event found?', !!event)
+  console.timeEnd('LLOG_GetEvents1')
 
   if (event && event.timeStart <= gameTimeVal) {
     // return the short-circuit interaction
@@ -1003,14 +1005,17 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
 
     while (contacts.length === 0 && currentWindowLength <= fullTurnLength && eventInWindow === undefined) {
       const windowEnd = gameTimeVal + currentWindowLength
+      console.time('LLOG_PrepareOrders')
 
       // if we're doing get-all, don't bother with shortcircuits
       if (getAll) {
         console.log('doing get all to finish before', moment.utc(windowEnd).toISOString())
         allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities, turnPeriod, turnNumber)
       } else {
+        console.time('LLOG_GetEvents2')
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
         console.log('found event in window?:', !!eventInWindow, eventInWindow && eventInWindow.id, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow.timeStart).toISOString())
+        console.timeEnd('LLOG_GetEvents2')
       }
 
       // trim for 'live' orders
@@ -1042,6 +1047,9 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
       const interactionsConsidered: string[] = []
       const interactionsTested: Record<string, PlanningContact | null> = {}
       // console.log('Existing interactions received', existingInteractionIDs.length)
+      console.timeEnd('LLOG_PrepareOrders')
+
+      console.time('LLOG_BinOrders')
 
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
         // console.log('bin', _index, bin.orders.length)
@@ -1065,6 +1073,7 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
 
       currentWindowLength += windowMilliSize
     }
+    console.timeEnd('LLOG_BinOrders')
 
     // special handling for get-all
     if (getAll) {
