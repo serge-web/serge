@@ -55,7 +55,7 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
                   }
                 })
               }
-            }  
+            }
           }
         })
       }
