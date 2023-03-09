@@ -932,7 +932,7 @@ const contactOutcomes = (interaction: InteractionDetails, contact: PlanningConta
   return res
 }
 
-export const getNextInteraction2 = (allOrders: MessagePlanning[],
+export const getNextInteraction2 = (ordersIn: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
   _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string,
   forces: ForceData[], getAll: boolean, turnNumber: number): InteractionResults => {
@@ -951,8 +951,16 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
     return inter.id
   })
 
+  // strip out orders not valid in this time period
+  const ordersInPeriod = ordersIn.filter((plan) => {
+    const tStart = moment(plan.message.startDate).valueOf()
+    const tEnd = moment(plan.message.endDate).valueOf()
+    return (tStart < gameTurnEndVal) && (tEnd > gameTimeVal)
+  })
+  console.log('LLOG_Trimmed', ordersIn.length, ordersInPeriod.length)
+
   // strip out info ops orders. We don't want to generate interactions (or events) for them
-  const orders = allOrders.filter((plan) => {
+  const orders = ordersInPeriod.filter((plan) => {
     const activity = plan.message.activity
     return !(activity.includes(infoOpsGroup))
   })
