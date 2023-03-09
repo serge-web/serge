@@ -707,7 +707,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
               const interactionId = generateEventId(plan._id, event, turnNumber)
               // check this hasn't been processed already
               if (interactionIDs.includes(interactionId)) {
-                console.log('Skipping this event, already processed', interactionId)
+                // console.log('Skipping this event, already processed', interactionId)
                 endActivityGenerated = true
               } else {
                 // check the time of this event has passed
@@ -736,7 +736,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
             const interactionId = generateEventId(plan._id, INTER_AT_END, turnNumber)
             // check it hasn't already been processed
             if (interactionIDs.includes(interactionId)) {
-              console.log('Skipping this event 2, already processed', interactionId)
+              // console.log('Skipping this event 2, already processed', interactionId)
             } else {
               const planned = locData[locData.length - 1]
               if (planned) {
@@ -932,7 +932,7 @@ const contactOutcomes = (interaction: InteractionDetails, contact: PlanningConta
   return res
 }
 
-export const getNextInteraction2 = (allOrders: MessagePlanning[],
+export const getNextInteraction2 = (ordersIn: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
   _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string,
   forces: ForceData[], getAll: boolean, turnNumber: number): InteractionResults => {
@@ -951,8 +951,16 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
     return inter.id
   })
 
+  // strip out orders not valid in this time period
+  const ordersInPeriod = ordersIn.filter((plan) => {
+    const tStart = moment(plan.message.startDate).valueOf()
+    const tEnd = moment(plan.message.endDate).valueOf()
+    return (tStart < gameTurnEndVal) && (tEnd > gameTimeVal)
+  })
+  console.log('LLOG_Trimmed', ordersIn.length, ordersInPeriod.length)
+
   // strip out info ops orders. We don't want to generate interactions (or events) for them
-  const orders = allOrders.filter((plan) => {
+  const orders = ordersInPeriod.filter((plan) => {
     const activity = plan.message.activity
     return !(activity.includes(infoOpsGroup))
   })
@@ -963,8 +971,10 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   // see if a short-circuit is overdue
+  console.time('LLOG_GetEvents1')
   const event = !getAll && checkForEvent(gameTimeVal, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
   console.log('event found?', !!event)
+  console.timeEnd('LLOG_GetEvents1')
 
   if (event && event.timeStart <= gameTimeVal) {
     // return the short-circuit interaction
@@ -1003,14 +1013,17 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
 
     while (contacts.length === 0 && currentWindowLength <= fullTurnLength && eventInWindow === undefined) {
       const windowEnd = gameTimeVal + currentWindowLength
+      console.time('LLOG_PrepareOrders')
 
       // if we're doing get-all, don't bother with shortcircuits
       if (getAll) {
         console.log('doing get all to finish before', moment.utc(windowEnd).toISOString())
         allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities, turnPeriod, turnNumber)
       } else {
+        console.time('LLOG_GetEvents2')
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
         console.log('found event in window?:', !!eventInWindow, eventInWindow && eventInWindow.id, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow.timeStart).toISOString())
+        console.timeEnd('LLOG_GetEvents2')
       }
 
       // trim for 'live' orders
@@ -1042,6 +1055,9 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
       const interactionsConsidered: string[] = []
       const interactionsTested: Record<string, PlanningContact | null> = {}
       // console.log('Existing interactions received', existingInteractionIDs.length)
+      console.timeEnd('LLOG_PrepareOrders')
+
+      console.time('LLOG_BinOrders')
 
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
         // console.log('bin', _index, bin.orders.length)
@@ -1055,16 +1071,19 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
         //     end: props.endDate
         //   }
         // }))
+        console.time('LLOG_Bin_' + _index)
         const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
           interactionsTested, sensorRangeKm)
         !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
         contacts.push(...newContacts)
+        console.timeEnd('LLOG_Bin_' + _index)
       })
 
       // console.log('binning complete, contacts:', contacts.length)
 
       currentWindowLength += windowMilliSize
     }
+    console.timeEnd('LLOG_BinOrders')
 
     // special handling for get-all
     if (getAll) {

@@ -324,6 +324,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
+    console.time('LLOG_RenderInteractions')
     if (cachedInteractions.length > 0) {
       const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
         return toRow(message)
@@ -352,6 +353,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     } else {
       setRows([])
     }
+    console.timeEnd('LLOG_RenderInteractions')
   }, [cachedInteractions, turnFilter, filter])
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
@@ -536,7 +538,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const countRemainingInteractions = (): void => {
-    console.time('count interactions')
+    console.time('LLOG_count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const contacts: InteractionResults = getNextInteraction2(turnPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true, currentTurn)
     if (Array.isArray(contacts)) {
@@ -584,7 +586,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     } else {
       setDialogMessage(<>No events or interactions remaining</>)
     }
-    console.timeLog('count interactions')
+    console.timeLog('LLOG_count interactions')
   }
 
   // find plan with task group
@@ -596,15 +598,19 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     // const special: string | undefined = withTg && withTg.message.activity // undefined // 'tst'
     const trimmedPlanningMessages = turnPlanningMessages // [withTg as MessagePlanning] // || special ? planningMessages.filter((msg) => msg.message.activity.toLowerCase().includes(special)) : planningMessages
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
+    console.time('LLOG_GetInteraction')
     const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
+    console.timeEnd('LLOG_GetInteraction')
     console.log('get next inter recieved:', results)
     if (results === undefined) {
       setDialogMessage(<>No interactions found</>)
       // fine, ignore it
     } else if (!Array.isArray(results) && results !== undefined) {
+      console.time('LLOG_SubmitInteraction2')
       setInteractionIsOpen(true)
       const outcomes = results as { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
       handleAdjudication && handleAdjudication(outcomes.details, outcomes.outcomes)
+      console.timeEnd('LLOG_SubmitInteraction2')
     } else {
       console.warn('not expecting number return from get next interaction', results)
     }
