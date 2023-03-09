@@ -150,7 +150,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
     currentTurn={1}
     phase={Phase.Adjudication}
     interactionMessages={interactionMessages}
-    planningMessages={planningMessages}
+    turnPlanningMessages={planningMessages}
+    allPlanningMessages={planningMessages}
     forceColors={forceColors(forces)}
     channel={planningChannel}
     gameDate={gameStartTimeLocal}

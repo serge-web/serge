@@ -1,4 +1,4 @@
-import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, GeometryType, infoOpsGroup, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
 import {
   Asset, AssetWithForce, CoreOutcome, ForceData, HealthOutcome, InteractionDetails,
   INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction,
@@ -52,7 +52,7 @@ export const groupFor = (name: string): string => {
   return groupName
 }
 
-export const findActivity = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity | undefined => {
+export const findActivityFromCompositeString = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity | undefined => {
   const separator = '-'
   const last = name.lastIndexOf(separator)
   const actName = name.slice(last + 1)
@@ -61,7 +61,7 @@ export const findActivity = (name: string, activities: PerForcePlanningActivityS
   const groupName = forceGroup.slice(first + 1)
   const forceName = forceGroup.slice(0, first)
   if (forceName !== activities.force) {
-    console.warn('Warning: findActivitiy received activities for wrong force')
+    console.warn('Warning: findActivitiy received activities for wrong force', forceName, activities.force)
   }
   const groupActivities = activities.groupedActivities.find((group) => group.category === groupName)
   if (groupActivities) {
@@ -696,7 +696,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
     const forceActivities = activities.find((act: PerForcePlanningActivitySet) => act.force === force)
     if (forceActivities) {
       const actName = plan.message.activity
-      const activity = findActivity(actName, forceActivities)
+      const activity = findActivityFromCompositeString(actName, forceActivities)
       if (activity) {
         const activityEvents = activity.events
         let endActivityGenerated = false
@@ -898,7 +898,7 @@ const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, g
     console.log('Failed to find force activities for', forceActs)
     return
   }
-  const activity = findActivity(activeName, forceActs)
+  const activity = findActivityFromCompositeString(activeName, forceActs)
   if (!activity) {
     console.log('Failed to find activity for 2', activeName)
     return
@@ -932,7 +932,7 @@ const contactOutcomes = (interaction: InteractionDetails, contact: PlanningConta
   return res
 }
 
-export const getNextInteraction2 = (orders: MessagePlanning[],
+export const getNextInteraction2 = (allOrders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
   _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string,
   forces: ForceData[], getAll: boolean, turnNumber: number): InteractionResults => {
@@ -949,6 +949,12 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       throw Error('Interaction missing')
     }
     return inter.id
+  })
+
+  // strip out info ops orders. We don't want to generate interactions (or events) for them
+  const orders = allOrders.filter((plan) => {
+    const activity = plan.message.activity
+    return !(activity.includes(infoOpsGroup))
   })
 
   !7 && listPlans(orders, gameTime)

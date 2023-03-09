@@ -1,6 +1,6 @@
 import { Asset, AssetWithForce, ForceData, HealthOutcome, HealthOutcomes, InteractionDetails, MessageAdjudicationOutcomes } from '@serge/custom-types'
 import moment from 'moment'
-import findAsset, { findForceAndAsset } from './find-asset'
+import { findForceAndAsset } from './find-asset'
 import { cloneDeep } from 'lodash'
 import * as turf from '@turf/turf'
 import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
@@ -168,88 +168,92 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
   })
 
   withRepairs.perceptionOutcomes.forEach((perception) => {
-    const asset = assetCache[perception.asset] || findAsset(allForces, perception.asset)
+    const asset = assetCache[perception.asset] || findForceAndAsset(allForces, perception.asset)
     assetCache[perception.asset] = asset
     const by = perception.force
 
     // find/generate the perception for this force
-    let res = asset.asset.perceptions.find((item) => item.by === by)
-    if (!res) {
-      // not found, create new perception
-      res = { by: by }
-      asset.asset.perceptions.push(res)
-    }
-    const resBefore = cloneDeep(res)
-    // store the last observed time
-    if (interaction.endTime && interaction.endTime.length > 0) {
-      res.lastUpdate = moment.utc(interaction.endTime).valueOf()
-    }
-    if (perception.perceivedForce) {
-      if (perception.perceivedForce === UNCHANGED) {
-        // leave unchanged
-      } else if (perception.perceivedForce === UNKNOWN_TYPE) {
-        delete res.force
-      } else {
-        res.force = perception.perceivedForce
-      }
+    if (!asset.asset.perceptions) {
+      console.warn('Perceptions missing for', asset.asset.name, asset.asset.uniqid)
     } else {
-      delete res.force
-    }
-    if (perception.perceivedType) {
-      if (perception.perceivedType === UNCHANGED) {
-        // leave unchanged
-      } else if (perception.perceivedType === UNKNOWN_TYPE) {
-        delete res.typeId
-      } else {
-        res.typeId = perception.perceivedType
+      let res = asset.asset.perceptions && asset.asset.perceptions.find((item) => item.by === by)
+      if (!res) {
+        // not found, create new perception
+        res = { by: by }
+        asset.asset.perceptions.push(res)
       }
-    } else {
-      delete res.typeId
-    }
-    if (perception.perceivedHealth !== undefined) {
-      if (typeof perception.perceivedHealth === 'string') {
-        // leave unchanged, it's an empty field
-      } else {
-        res.health = perception.perceivedHealth
+      const resBefore = cloneDeep(res)
+      // store the last observed time
+      if (interaction.endTime && interaction.endTime.length > 0) {
+        res.lastUpdate = moment.utc(interaction.endTime).valueOf()
       }
-    }
-    if (perception.perceivedName) {
-      res.name = perception.perceivedName
-    }
-    if (perception.perceivedLocation) {
-      if (typeof perception.perceivedLocation === 'string') {
-        if (perception.perceivedLocation.toLowerCase() === 't') {
-          res.position = asset.asset.location
-        } else if (perception.perceivedLocation.toLowerCase() === 'x') {
-          delete res.position
-        } else if (perception.perceivedLocation.toLowerCase() === '"x"') {
-          delete res.position
+      if (perception.perceivedForce) {
+        if (perception.perceivedForce === UNCHANGED) {
+          // leave unchanged
+        } else if (perception.perceivedForce === UNKNOWN_TYPE) {
+          delete res.force
         } else {
-          try {
-            const parsedStr = JSON.parse(perception.perceivedLocation)
-            if (Array.isArray(parsedStr)) {
-              const numArr = parsedStr as number[]
-              if (numArr.length === 2) {
-                if (numArr[0] !== null && numArr[1] !== null) {
-                  res.position = parsedStr as [number, number]
+          res.force = perception.perceivedForce
+        }
+      } else {
+        delete res.force
+      }
+      if (perception.perceivedType) {
+        if (perception.perceivedType === UNCHANGED) {
+          // leave unchanged
+        } else if (perception.perceivedType === UNKNOWN_TYPE) {
+          delete res.typeId
+        } else {
+          res.typeId = perception.perceivedType
+        }
+      } else {
+        delete res.typeId
+      }
+      if (perception.perceivedHealth !== undefined) {
+        if (typeof perception.perceivedHealth === 'string') {
+          // leave unchanged, it's an empty field
+        } else {
+          res.health = perception.perceivedHealth
+        }
+      }
+      if (perception.perceivedName) {
+        res.name = perception.perceivedName
+      }
+      if (perception.perceivedLocation) {
+        if (typeof perception.perceivedLocation === 'string') {
+          if (perception.perceivedLocation.toLowerCase() === 't') {
+            res.position = asset.asset.location
+          } else if (perception.perceivedLocation.toLowerCase() === 'x') {
+            delete res.position
+          } else if (perception.perceivedLocation.toLowerCase() === '"x"') {
+            delete res.position
+          } else {
+            try {
+              const parsedStr = JSON.parse(perception.perceivedLocation)
+              if (Array.isArray(parsedStr)) {
+                const numArr = parsedStr as number[]
+                if (numArr.length === 2) {
+                  if (numArr[0] !== null && numArr[1] !== null) {
+                    res.position = parsedStr as [number, number]
+                  } else {
+                    console.warn('Location array had one or more null entries', parsedStr)
+                  }
                 } else {
-                  console.warn('Location array had one or more null entries', parsedStr)
+                  console.warn('Location array of wrong length', numArr.length)
                 }
               } else {
-                console.warn('Location array of wrong length', numArr.length)
+                console.warn('Parsed location not an array', parsedStr)
               }
-            } else {
-              console.warn('Parsed location not an array', parsedStr)
+            } catch (err) {
+              console.warn('Failed to parse location for', err, asset.asset.uniqid, perception.perceivedLocation)
+              // clear location
+              delete res.position
             }
-          } catch (err) {
-            console.warn('Failed to parse location for', err, asset.asset.uniqid, perception.perceivedLocation)
-            // clear location
-            delete res.position
           }
         }
       }
+      console.log('HANDLE OUTCOMES - perception updated', resBefore, res)
     }
-    console.log('HANDLE OUTCOMES - perception updated', resBefore, res)
   })
   return allForces
 }

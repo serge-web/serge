@@ -19,7 +19,7 @@ export type InteractionData = {
   order2GeometryID: string | undefined
 }
 
-const getActivity = (activities:PerForcePlanningActivitySet[], activityId: PlanningMessageStructure['activity'], forceId?: ForceData['uniqid']): PlanningActivity | undefined => {
+const getActivity = (activities: PerForcePlanningActivitySet[], activityId: PlanningMessageStructure['activity'], forceId?: ForceData['uniqid']): PlanningActivity | undefined => {
   const force = activities.find((act) => act.force === forceId)
   if (!force) {
     throw Error('Failed to find group for:' + force)
@@ -62,10 +62,14 @@ export const updateAssets = (asset: Record<string, any>, interaction: Interactio
 
 export const updateWithAllAssets = (asset: Record<string, any>, interaction: InteractionData, forces: ForceData[]): Record<string, any> => {
   if (asset !== undefined) {
-    const isAlive = (asset: Asset) => { return (asset.health === undefined) || asset.health > 0 }
+    // collate the list of assets involved
+    const fullList = interaction.allAssets.concat(interaction.otherAssets)
+
     // start off with the live assets in this interaction
-    asset.enum = interaction.allAssets.filter(isAlive).map((asset) => asset.uniqid)
-    asset.options.enum_titles = interaction.allAssets.filter(isAlive).map((asset) => asset.name)
+    const isAlive = (asset: Asset) => { return (asset.health === undefined) || asset.health > 0 }
+    const liveAssets = fullList.filter(isAlive)
+    asset.enum = liveAssets.filter(isAlive).map((asset) => asset.uniqid)
+    asset.options.enum_titles = liveAssets.filter(isAlive).map((asset) => asset.name)
 
     // now the remaining assets
     const assets: Asset[] = []
