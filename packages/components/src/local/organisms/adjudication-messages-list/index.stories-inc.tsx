@@ -12,6 +12,7 @@ import moment from 'moment-timezone'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
+import { noop } from 'lodash'
 
 const wargame = P9BMock.data
 const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
@@ -164,6 +165,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
     forcePlanningActivities={planningActivities}
     handleAdjudication={handler}
     mapPostBack={handler2}
+    onSupportPanelLayoutChange={noop}
+    getSupportPanelState={noop}
   />
 }
 
