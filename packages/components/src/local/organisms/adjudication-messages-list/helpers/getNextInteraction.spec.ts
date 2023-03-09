@@ -1,5 +1,5 @@
 import { ADJUDICATION_OUTCOMES, INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
-import { Asset, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
 import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
@@ -148,7 +148,10 @@ it('handles spatial outcomes', () => {
   }
   // find a plan using this activity
   if (plan && dca) {
-    insertSpatialOutcomesFor(plan, outcomes, dca, forces)
+    const playerForce = plan.details.from.forceId 
+    const targetForces: Array<ForceData['uniqid']> = (playerForce === 'f-red') ? ['f-blue', 'f-green'] : ['f-red']
+
+    insertSpatialOutcomesFor(plan, outcomes, dca, forces, targetForces)
     expect(outcomes.healthOutcomes.length).toBeTruthy()
     expect(outcomes.perceptionOutcomes.length).toBeTruthy()
   } else {
