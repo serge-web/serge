@@ -168,7 +168,7 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
             startTime: startTime,
             endTime: endTime
           }
-          return res  
+          return res
         } else {
           // line finishes on poly
           const totalTime = lineTime[1] - lineTime[0]
