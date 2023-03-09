@@ -364,7 +364,6 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
 
   const nationsWithGodsEyeView = ['f-blue', 'f-green']
   const hasGodsEyeView = nationsWithGodsEyeView.includes(playerForce.uniqid.toLowerCase())
-  console.log('has gods eye view', hasGodsEyeView, asset.name, asset.uniqid, playerForce.uniqid.toLowerCase())
 
   const domainFor = (travelMode?: string): string => {
     if (travelMode) {
