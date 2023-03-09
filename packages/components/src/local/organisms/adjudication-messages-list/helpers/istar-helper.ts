@@ -36,29 +36,31 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
   // find all asset in the area
   const assetsInArea: Array<{ force: ForceData, asset: Asset }> = []
   forces.forEach((force: ForceData) => {
-    if (force.uniqid !== ownFor && (!(targetForces.includes(force.uniqid)))) {
+    if (force.uniqid !== ownFor && targetForces.includes(force.uniqid)) {
       if (force.assets) {
         force.assets.forEach((asset: Asset) => {
-          if (asset.location) {
-            if (checkInArea(mePoly, asset.location)) {
-              assetsInArea.push({ force, asset })
-            }
-            if (asset.comprising) {
-              // check child assets
-              asset.comprising.forEach((asset2: Asset) => {
-                if (asset2.location) {
-                  if (checkInArea(mePoly, asset2.location)) {
-                    assetsInArea.push({ force, asset: asset2 })
+          // check it's not fixed infrastructure
+          if (asset.platformTypeId !== '_land_asset') {
+            if (asset.location) {
+              if (checkInArea(mePoly, asset.location)) {
+                assetsInArea.push({ force, asset })
+              }
+              if (asset.comprising) {
+                // check child assets
+                asset.comprising.forEach((asset2: Asset) => {
+                  if (asset2.location) {
+                    if (checkInArea(mePoly, asset2.location)) {
+                      assetsInArea.push({ force, asset: asset2 })
+                    }
                   }
-                }
-              })
-            }
+                })
+              }
+            }  
           }
         })
       }
     }
   })
-  console.log('ISTAR interaction', assetsInArea.length, ownFor)
   // randomly include some
   const randomised = shuffle(assetsInArea)
   const numToTake = Math.floor(randomised.length * searchProb)

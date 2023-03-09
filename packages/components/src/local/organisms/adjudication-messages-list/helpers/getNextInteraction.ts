@@ -344,7 +344,7 @@ export const istarSearchRate = (own: Array<{ asset: Asset['uniqid'], number: num
   return defaultRate
 }
 
-const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, 
+const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   forces: ForceData[], targetForces: string[]): MessageAdjudicationOutcomes => {
   if (!plan.message.location) {
     console.warn('ISTAR plan doesn\'t have location data')
@@ -427,9 +427,9 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   return outcomes
 }
 
-const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: Feature<Polygon>, existingOutcomes: Asset['uniqid'][], special?: string): AssetWithForce[] => {
+const opForInArea = (targetForces: string[], forces: ForceData[], mePoly: Feature<Polygon>, existingOutcomes: Asset['uniqid'][], special?: string): AssetWithForce[] => {
   const assets: AssetWithForce[] = []
-  const opFor = forces.filter((force) => force.assets && force.uniqid !== forceId)
+  const opFor = forces.filter((force) => force.assets && targetForces.includes(force.uniqid))
   opFor.forEach((force) => {
     force.assets && force.assets.forEach((asset) => {
       if (!existingOutcomes.includes(asset.uniqid)) {
@@ -480,7 +480,7 @@ export const insertMovementOutcomesFor = (plan: MessagePlanning, outcomes: Messa
 }
 
 export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
-  activity: PlanningActivity, forces: ForceData[]): void => {
+  activity: PlanningActivity, forces: ForceData[], targetForces: string[]): void => {
   const location = plan.message.location
   if (!location) {
     console.warn('Warning: orders have location, but not activity', plan._id, activity.uniqid)
@@ -507,7 +507,7 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
         const existingOutcomes = outcomes.healthOutcomes.map((item) => item.asset)
         // console.log('TST existing outcomes', existingOutcomes)
         const special = undefined // 'Green:4'
-        const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly, existingOutcomes, special)
+        const assets = opForInArea(targetForces, forces, mePoly, existingOutcomes, special)
         /// console.log('TST detections', assets)
 
         special && console.table(assets.map((fAsset) => {
@@ -545,7 +545,8 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
               }
             }
             if (activity.spatialPerception) {
-              if (notPresent(uniqid, outcomes.perceptionOutcomes)) {
+              // not for land asset
+              if (asset.asset.platformTypeId !== '_land_asset' && notPresent(uniqid, outcomes.perceptionOutcomes)) {
                 outcomes.perceptionOutcomes.push({
                   asset: uniqid,
                   force: plan.details.from.forceId || '',
@@ -614,6 +615,8 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
   activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   console.log('handle outcomes', activity.actId, event, plan)
   const playerForce = plan.details.from.forceId || ''
+  const targetForces: Array<ForceData['uniqid']> = (playerForce === 'f-red') ? ['f-blue', 'f-green'] : ['f-red']
+
   switch (activity.actId) {
     case 'STRIKE': {
       const targetAssets = plan.message.otherAssets ? plan.message.otherAssets.map((item) => findForceAndAsset(forces, item.asset)) : []
@@ -626,7 +629,6 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
     case 'TST': {
       // find all op-for assets in the box
       const assetsInArea = findAssetsInArea(plan, forces)
-      const targetForces: Array<ForceData['uniqid']> = (playerForce === 'f-red') ? ['f-blue', 'f-green'] : ['f-red']
       const targetAssets = assetsInArea.filter((item) => targetForces.includes(item.force.uniqid))
       console.log('TST assets in area', targetAssets)
       kineticEventOutcomesFor(targetAssets, [], outcomes, activity)
@@ -638,7 +640,6 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
       break
     }
     case 'ISTAR': {
-      const targetForces: Array<ForceData['uniqid']> = (playerForce === 'f-red') ? ['f-blue', 'f-green'] : ['f-red']
       istarEventOutcomesFor(plan, outcomes, forces, targetForces)
       break
     }
@@ -654,7 +655,7 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
   // console.log('%c event outcomes, spatial?', 'color: blue', activity.actId, activity.spatialHealth, activity.spatialPerception, !!plan.message.location)
   // do we also have to insert assets in the target polygon?
   if ((activity.spatialPerception || activity.spatialHealth) && plan.message.location && plan.message.location.length) {
-    insertSpatialOutcomesFor(plan, outcomes, activity, forces)
+    insertSpatialOutcomesFor(plan, outcomes, activity, forces, targetForces)
   }
   // do we also have to update asset locations
   if (event === INTER_AT_END && endsWithMovement(plan.message.location)) {
