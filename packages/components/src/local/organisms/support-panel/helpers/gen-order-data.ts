@@ -1117,7 +1117,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
     }
   } catch (err2) {
     console.warn('Issue in touches logic', me.plan.message.Reference, other.plan.message.Reference,
-     me.geometry, other.geometry, err2)
+      me.geometry, other.geometry, err2)
   }
 
   if (res === undefined) {
