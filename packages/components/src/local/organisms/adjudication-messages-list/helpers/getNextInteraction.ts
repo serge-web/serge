@@ -1063,10 +1063,12 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
         //     end: props.endDate
         //   }
         // }))
+        console.time('LLOG_Bin_' + _index)
         const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
           interactionsTested, sensorRangeKm)
         !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
         contacts.push(...newContacts)
+        console.timeEnd('LLOG_Bin_' + _index)
       })
 
       // console.log('binning complete, contacts:', contacts.length)
