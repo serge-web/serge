@@ -34,7 +34,12 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * The list of channel messages properties required
    * for ChannelMessage components
    */
-  planningMessages: Array<MessagePlanning>
+  turnPlanningMessages: Array<MessagePlanning>
+  /**
+   * The list of channel messages properties required
+   * for ChannelMessage components
+   */
+  allPlanningMessages: Array<MessagePlanning>
   /** forces in this game
   *
   */

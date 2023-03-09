@@ -278,7 +278,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   // show attributes for own forces (or if we're umpire)
   if (ownAssets) {
     columns.push({ title: 'Task Group', field: 'taskGroup', width: 'auto', hidden: false, lookup: arrToDict(summaryData.taskGroups) })
-    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
+    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', hidden: true, render: renderAttributes })
   } else {
     columns.push({ title: 'Age', field: 'lastUpdated', width: 'auto', type: 'string' })
   }
@@ -362,6 +362,9 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const isUmpire = playerForce.umpire
   const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
 
+  const nationsWithGodsEyeView = ['f-blue', 'f-green']
+  const hasGodsEyeView = nationsWithGodsEyeView.includes(playerForce.uniqid.toLowerCase())
+
   const domainFor = (travelMode?: string): string => {
     if (travelMode) {
       switch (travelMode) {
@@ -392,10 +395,10 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       // as a performance measure, we don't create attributes for OpFor assets
       // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
-      const health = (perception && (perception.health !== undefined)) ? perception.health : undefined
-      const c4 = 'unk'
-      if (perceptionTypes && perception) {
-        const lastUpdate = perception.lastUpdate
+      const health = hasGodsEyeView ? asset.health : (perception && (perception.health !== undefined)) ? perception.health : undefined
+      const c4 = hasGodsEyeView ? ((asset.attributes && asset.attributes.a_C4_Status as string) || 'Unk') : 'Unk'
+      if ((perceptionTypes && perception) || hasGodsEyeView) {
+        const lastUpdate = perception && perception.lastUpdate
         let updatePeriod
         if (lastUpdate) {
           const tNow = moment.utc(gameTime)
@@ -405,15 +408,20 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         } else {
           updatePeriod = 'unk'
         }
-        const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId)
+        if (hasGodsEyeView) {
+          updatePeriod = 'Live'
+        }
+        const forceStyle = perceptionTypes ? forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId) : ''
+        const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
+
         const res: AssetRow = {
           id: asset.uniqid,
-          icon: iconFor(perceptionTypes.typeId) + ',' + colorFor(perceptionTypes.forceId) + ',' + perceptionTypes.name + ',' + health,
-          force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
-          name: perceptionTypes.name,
-          platformType: perceptionTypes.typeId,
+          icon: hasGodsEyeView ? iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name + ',' + health : perceptionTypes ? iconFor(perceptionTypes.typeId) + ',' + colorFor(perceptionTypes.forceId) + ',' + perceptionTypes.name + ',' + health : '',
+          force: hasGodsEyeView ? assetForce.name : forceStyle ? forceStyle.force : UNKNOWN_TYPE,
+          name: hasGodsEyeView ? asset.name : perceptionTypes ? perceptionTypes.name : '',
+          platformType: hasGodsEyeView ? asset.platformTypeId : perceptionTypes ? perceptionTypes.typeId : '',
           subType: subType,
-          position: perception.position && latLng(perception.position[0], perception.position[1]),
+          position: position,
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
           c4: c4,
@@ -426,7 +434,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         if (asset.attributes && asset.attributes.a_SIDC) {
           res.sidc = asset.attributes.a_SIDC as string
         } else {
-          const perceivedPlatformType = perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
+          const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
           if (perceivedPlatformType && perceivedPlatformType.sidc) {
             res.sidc = perceivedPlatformType.sidc
           } else if (platformType && platformType.sidc) {

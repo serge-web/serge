@@ -75,7 +75,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       const inter = msg.details.interaction
       return inter && (planIds.includes(inter.orders1) || (inter.orders2 && planIds.includes(inter.orders2)))
     })
-    console.log('Planning Message List of interactions', interactionMessages.length, myInteractions.length)
+    // console.log('Planning Message List of interactions', interactionMessages.length, myInteractions.length)
     setMyInteractionMessages(myInteractions)
   }, [myPlanningMessages])
 
@@ -171,7 +171,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
-    console.log('PlanningMessageList update messages:', myPlanningMessages.length, myPlanningMessages.length && myPlanningMessages[0].message.title)
+    // console.log('PlanningMessageList update messages:', myPlanningMessages.length, myPlanningMessages.length && myPlanningMessages[0].message.title)
     const dataTable: OrderRow[] = myPlanningMessages.map((message) => {
       return toRow(message)
     })
