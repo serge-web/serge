@@ -408,6 +408,9 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         } else {
           updatePeriod = 'unk'
         }
+        if (hasGodsEyeView) {
+          updatePeriod = 'Live'
+        }
         const forceStyle = perceptionTypes ? forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId) : ''
         const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
 
