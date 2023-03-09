@@ -22,7 +22,7 @@ const bufferShape = (geom: Geometry, bufferKM: number): Polygon => {
 }
 
 export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceData[], areaGeometry: Geometry,
-  startD: number, endD: number, searchRateKm2perHour: number, narrative: string): PerceptionOutcomes => {
+  startD: number, endD: number, searchRateKm2perHour: number, narrative: string, targetForces: string[]): PerceptionOutcomes => {
   const box = areaGeometry.type === 'Polygon' ? areaGeometry as Geometry as Polygon : bufferShape(areaGeometry, 30)
   const coords = box.coordinates
   // calculate prob of detecting sometghing
@@ -36,22 +36,25 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
   // find all asset in the area
   const assetsInArea: Array<{ force: ForceData, asset: Asset }> = []
   forces.forEach((force: ForceData) => {
-    if (force.uniqid !== ownFor) {
+    if (force.uniqid !== ownFor && targetForces.includes(force.uniqid)) {
       if (force.assets) {
         force.assets.forEach((asset: Asset) => {
-          if (asset.location) {
-            if (checkInArea(mePoly, asset.location)) {
-              assetsInArea.push({ force, asset })
-            }
-            if (asset.comprising) {
-              // check child assets
-              asset.comprising.forEach((asset2: Asset) => {
-                if (asset2.location) {
-                  if (checkInArea(mePoly, asset2.location)) {
-                    assetsInArea.push({ force, asset: asset2 })
+          // check it's not fixed infrastructure
+          if (asset.platformTypeId !== '_land_asset') {
+            if (asset.location) {
+              if (checkInArea(mePoly, asset.location)) {
+                assetsInArea.push({ force, asset })
+              }
+              if (asset.comprising) {
+                // check child assets
+                asset.comprising.forEach((asset2: Asset) => {
+                  if (asset2.location) {
+                    if (checkInArea(mePoly, asset2.location)) {
+                      assetsInArea.push({ force, asset: asset2 })
+                    }
                   }
-                }
-              })
+                })
+              }
             }
           }
         })
@@ -123,7 +126,9 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   const combinedSearchRate = istarSearchRate(geom.plan.message.ownAssets || [], forces, DEFAULT_SEARCH_RATE)
 
   // run the calculator
-  const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, combinedSearchRate, 'In interaction area')
+  const targetForces: Array<ForceData['uniqid']> = (ownFor === 'f-red') ? ['f-blue', 'f-green'] : ['f-red']
+
+  const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, combinedSearchRate, 'In interaction area', targetForces)
 
   const targetPerceptions: PerceptionOutcomes = []
 
