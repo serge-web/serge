@@ -1036,7 +1036,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
             const turfPoly = turf.polygon(otherCoords)
             res = turf.booleanCrosses(meLine, turfPoly) || turf.booleanContains(turfPoly, meLine)
             if (res) {
-              console.log('linestring vs polygon 1', me.plan.message.Reference, other.plan.message.Reference, turf.booleanCrosses(meLine, turfPoly), turf.booleanContains(turfPoly, meLine))
+              // console.log('linestring vs polygon 1', me.plan.message.Reference, other.plan.message.Reference, turf.booleanCrosses(meLine, turfPoly), turf.booleanContains(turfPoly, meLine))
               intersection = linePolyContact(meLine.geometry, myTime, turfPoly.geometry, otherTime)
               // if the line doesn't actually enter poly when it's running, cancel contact
               if (!intersection) {
@@ -1067,7 +1067,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
             const otherLine = turf.lineString(otherCoords)
             res = turf.booleanCrosses(mePoly, otherLine) || turf.booleanContains(mePoly, otherLine)
             if (res) {
-              console.log('linestring vs polygon 2', me.uniqid, other.uniqid, me.plan.message.Reference, other.plan.message.Reference, turf.booleanCrosses(mePoly, otherLine), turf.booleanContains(mePoly, otherLine))
+              // console.log('linestring vs polygon 2', me.uniqid, other.uniqid, me.plan.message.Reference, other.plan.message.Reference, turf.booleanCrosses(mePoly, otherLine), turf.booleanContains(mePoly, otherLine))
               intersection = linePolyContact(otherLine.geometry, otherTime, mePoly.geometry, myTime)
               // if the line doesn't actually enter poly when it's running, cancel contact
               if (!intersection) {
