@@ -210,7 +210,7 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
           endTime: endTime
         }
         return res
-  }
+      }
     }
   } else {
     return undefined
