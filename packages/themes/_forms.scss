@@ -21,7 +21,8 @@
 
   .selectize-input.full {
    background-color:  $background-field;
-   color: #fff
+   color: rgba(255, 255, 255, 0.8);
+   border: none;
   }
   .selectize-input {
    background-color:  $background-field !important;
@@ -29,7 +30,7 @@
   .selectize-dropdown-content {
    background-color:  $background-field;
   }
-  
+
   .form-control-label {
     @include white-on-message-creator;
     font-size: 12px;
