@@ -353,7 +353,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setRows([])
     }
     console.timeEnd('LLOG_RenderInteractions')
-
   }, [cachedInteractions, turnFilter, filter])
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {

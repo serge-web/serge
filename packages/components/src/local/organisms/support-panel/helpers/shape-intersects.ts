@@ -111,7 +111,7 @@ export const lineLineContact = (lineOne: LineString, lineOneTime: TimePeriod, li
   return undefined
 }
 
-const showPeriod = (timePeriod: TimePeriod): string => {
+export const showPeriod = (timePeriod: TimePeriod): string => {
   return moment(timePeriod[0]).toISOString() + ' - ' + moment(timePeriod[1]).toISOString()
 }
 
