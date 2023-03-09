@@ -1019,6 +1019,7 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
       if (getAll) {
         console.log('doing get all to finish before', moment.utc(windowEnd).toISOString())
         allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities, turnPeriod, turnNumber)
+        console.log('events 2', allRemainingEvents)
       } else {
         console.time('LLOG_GetEvents2')
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
