@@ -19,17 +19,6 @@
     margin-top: 16px;
   }
 
-  .selectize-input.full {
-   background-color:  $background-field;
-   color: rgba(255, 255, 255, 0.8);
-   border: none;
-  }
-  .selectize-input {
-   background-color:  $background-field !important;
-  }
-  .selectize-dropdown-content {
-   background-color:  $background-field;
-  }
 
   .form-control-label {
     @include white-on-message-creator;
@@ -46,6 +35,21 @@
   font-size: 14px;
 
   .new-message-creator & {
+    
+    .selectize-input.full {
+      background-color:  $background-field;
+      color: rgba(255, 255, 255, 0.8);
+      border: none;
+     }
+     .selectize-input {
+      background-color:  $background-field !important;
+     }
+     .selectize-dropdown-content {
+      background-color:  $background-field;
+      position: relative;
+      z-index: 1999 !important;
+    }
+
     @include field-shadow;
     background-color: $background-field;
     border: 0;
