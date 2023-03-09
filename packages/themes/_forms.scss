@@ -15,6 +15,24 @@
 .form-group {
   margin-bottom: 0;
 
+  .selectize-input {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    height: 100%;
+    padding: 0;
+   }
+
+  .selectize-input .item {
+    max-width: 88%;
+    padding: 4px;
+   }
+  
+  .selectize-dropdown .active {
+    background-color: #007bff;
+    color: #fff;
+  }
+
   + .form-group {
     margin-top: 16px;
   }
@@ -35,14 +53,14 @@
   font-size: 14px;
 
   .new-message-creator & {
-    
+    .selectize-input {
+      background-color:  $background-field !important;
+     }
+     
     .selectize-input.full {
       background-color:  $background-field;
       color: rgba(255, 255, 255, 0.8);
       border: none;
-     }
-     .selectize-input {
-      background-color:  $background-field !important;
      }
      .selectize-dropdown-content {
       background-color:  $background-field;
