@@ -148,7 +148,7 @@ it('handles spatial outcomes', () => {
   }
   // find a plan using this activity
   if (plan && dca) {
-    const playerForce = plan.details.from.forceId 
+    const playerForce = plan.details.from.forceId
     const targetForces: Array<ForceData['uniqid']> = (playerForce === 'f-red') ? ['f-blue', 'f-green'] : ['f-red']
 
     insertSpatialOutcomesFor(plan, outcomes, dca, forces, targetForces)
