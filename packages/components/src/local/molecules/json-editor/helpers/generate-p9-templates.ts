@@ -201,7 +201,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   actInteracts.push({ uniqid: 'STRIKE', interactsWith: ['EW', 'RESUPP', 'TRANSIT', 'ASW-B', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'SoffS', interactsWith: ['EW', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'EW', interactsWith: ['SOF Activity', 'BMD-MEZ', 'SAM-MEZ', 'STRIKE', 'EW', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST', 'SOF', 'Sea Denial', 'Raid', 'LAND'] })
-  actInteracts.push({ uniqid: 'ISTAR', interactsWith: [ ] })
+  actInteracts.push({ uniqid: 'ISTAR', interactsWith: [] })
   actInteracts.push({ uniqid: 'PATRL', interactsWith: ['EW', 'PATRL', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'AAR', interactsWith: ['EW', 'FIAC', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'RESUPP', interactsWith: ['STRIKE', 'EW', 'ASW-B', 'FIAC', 'DCA', 'OCA'] })
