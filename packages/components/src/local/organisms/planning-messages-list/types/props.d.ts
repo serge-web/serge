@@ -11,6 +11,7 @@ export type OrderRow = {
   rawRef: string
   // the combined reference and turn number
   reference: string
+  force: ForceData['name']
   title: string
   role: string
   activity: string
