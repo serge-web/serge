@@ -278,7 +278,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   // show attributes for own forces (or if we're umpire)
   if (ownAssets) {
     columns.push({ title: 'Task Group', field: 'taskGroup', width: 'auto', hidden: false, lookup: arrToDict(summaryData.taskGroups) })
-    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
+    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', hidden: true, render: renderAttributes })
   } else {
     columns.push({ title: 'Age', field: 'lastUpdated', width: 'auto', type: 'string' })
   }
@@ -407,6 +407,9 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           updatePeriod = diff.humanize()
         } else {
           updatePeriod = 'unk'
+        }
+        if (hasGodsEyeView) {
+          updatePeriod = 'Live'
         }
         const forceStyle = perceptionTypes ? forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId) : ''
         const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
