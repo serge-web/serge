@@ -707,7 +707,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
               const interactionId = generateEventId(plan._id, event, turnNumber)
               // check this hasn't been processed already
               if (interactionIDs.includes(interactionId)) {
-                console.log('Skipping this event, already processed', interactionId)
+                // console.log('Skipping this event, already processed', interactionId)
                 endActivityGenerated = true
               } else {
                 // check the time of this event has passed
@@ -736,7 +736,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
             const interactionId = generateEventId(plan._id, INTER_AT_END, turnNumber)
             // check it hasn't already been processed
             if (interactionIDs.includes(interactionId)) {
-              console.log('Skipping this event 2, already processed', interactionId)
+              // console.log('Skipping this event 2, already processed', interactionId)
             } else {
               const planned = locData[locData.length - 1]
               if (planned) {
