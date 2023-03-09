@@ -458,6 +458,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   const TableData = useMemo(() => {
+    const panelState = getSupportPanelState()
+    const pageSize = panelState[SUPPORT_PANEL_LAYOUT.VISIBLE_ROWS] || 20
+
     return <MaterialTable
       title={'Orders'}
       columns={columns}
@@ -468,7 +471,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       options={{
         search: true,
         paging: true,
-        pageSize: 20,
+        pageSize,
         emptyRowsWhenPaging: false,
         pageSizeOptions: [20, 50, 100],
         filtering: filter,
@@ -484,6 +487,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
               setVisibleRows(props.data)
             })
           }
+          onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.VISIBLE_ROWS, props.pageSize)
           return (<MTableBody
             {...props}
           />)

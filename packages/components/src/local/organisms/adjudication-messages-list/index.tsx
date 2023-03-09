@@ -1,13 +1,13 @@
 import { faSearchMinus, faSearchPlus, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MaterialTable, { Column } from '@material-table/core'
+import MaterialTable, { Column, MTableBody } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START, Phase } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START, Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { findAsset, findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
@@ -53,7 +53,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate, turnFilter,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
   platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack, phase,
-  gameTurnLength, onLocationEditorLoaded, currentTurn
+  gameTurnLength, onLocationEditorLoaded, currentTurn, onSupportPanelLayoutChange,
+  getSupportPanelState
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
@@ -824,6 +825,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }, [gameTurnLength])
 
   const TableData = useMemo(() => {
+    const panelState = getSupportPanelState()
+    const pageSize = panelState[SUPPORT_PANEL_LAYOUT.VISIBLE_ROWS] || 20
+
     return <MaterialTable
       title={'Adjudication'}
       columns={columns}
@@ -847,7 +851,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       ]}
       options={{
         paging: true,
-        pageSize: 20,
+        pageSize,
         emptyRowsWhenPaging: false,
         pageSizeOptions: [10, 20, 50, 100],
         filtering: filter,
@@ -856,6 +860,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         columnsButton: true
       }}
       detailPanel={detailPanel}
+      components={{
+        Body: (props): React.ReactElement => {
+          setTimeout(() => {
+            onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.VISIBLE_ROWS, props.pageSize)
+          })
+          return (<MTableBody
+            {...props}
+          />)
+        }
+      }}
     />
   }, [rows, filter])
 

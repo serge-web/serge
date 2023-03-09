@@ -5,9 +5,10 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { AdjudicationMessagesList } from './index'
 
+import { Phase } from '@serge/config'
 import { forceColors } from '@serge/helpers'
 import { P9Mock, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
-import { Phase } from '@serge/config'
+import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const forces = P9Mock.data.forces.forces
@@ -30,7 +31,7 @@ describe('AdjudicationMessagesList component: ', () => {
       .create(<AdjudicationMessagesList currentTurn={1} currentWargame={P9Mock.name} handleAdjudication={handler} planningMessages={planningMessages} forces={forces}
         periods={turnPeriod} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
         interactionMessages={messages} phase={Phase.Adjudication} gameTurnLength={P9Mock.data.overview.gameTurnTime} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} playerRoleId={blueRole.roleId}
-        platformTypes={platformTypes} onMarkAllAsRead={markAllAsRead} />, {
+        platformTypes={platformTypes} onMarkAllAsRead={markAllAsRead} onSupportPanelLayoutChange={noop} getSupportPanelState={() => ({})} />, {
         createNodeMock: node => {
           return document.createElement(node.type as string)
         }

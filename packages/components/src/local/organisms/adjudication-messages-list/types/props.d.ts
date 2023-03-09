@@ -66,9 +66,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
 
   currentWargame: string
-   /**
-   * the name of the wargame
-   */
+  /**
+  * the name of the wargame
+  */
 
   onRead?: { (message: MessagePlanning, count?: number): void }
 
@@ -123,4 +123,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   /** current phase of game */
   phase: Phase
+
+  onSupportPanelLayoutChange: (key: string, value: string) => void
+  getSupportPanelState: () => void
 }

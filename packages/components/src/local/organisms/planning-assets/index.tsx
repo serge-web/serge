@@ -257,6 +257,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   }
 
   const TableData = useMemo(() => {
+    const panelState = getSupportPanelState()
+    const pageSize = panelState[SUPPORT_PANEL_LAYOUT.VISIBLE_ROWS] || 100
+
     return <MaterialTable
       title={opFor ? 'Other force assets' : 'Own force Assets'}
       tableRef={tableRef}
@@ -266,7 +269,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       icons={materialIcons as any}
       options={{
         paging: true,
-        pageSize: 100,
+        pageSize,
         pageSizeOptions: [20, 50, 100, 200, 500],
         filtering: showColumnFilters,
         selection: true,
@@ -279,11 +282,11 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         Body: (props): React.ReactElement => {
           if (props.columns.length) {
             setTimeout(() => {
-              // onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.VISIBLE_ROWS, props.data.length)
               setVisibleRows(props.data)
               onVisibleColumnsChange && onVisibleColumnsChange(props.columns)
             })
           }
+          onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.VISIBLE_ROWS, props.pageSize)
           return (<MTableBody
             {...props}
           />)

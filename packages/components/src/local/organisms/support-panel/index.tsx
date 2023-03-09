@@ -679,6 +679,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   handleAdjudication={handleAdjudication}
                   postBack={postBack}
                   onLocationEditorLoaded={onLocationEditorLoaded}
+                  onSupportPanelLayoutChange={onSupportPanelLayoutChange}
+                  getSupportPanelState={getSupportPanelState}
                 />
               </div>
               <div className={styles['resize-indicator-container']} >
