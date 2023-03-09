@@ -193,18 +193,22 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
           const startCoords = singleCrossing.features[1].geometry.coordinates[0]
           const startPoint = turf.point(startCoords)
           const beforeLeg = turf.lineSplit(fullLine, startPoint).features[0]
-          const beforeLen = turf.length(beforeLeg)
-          const beforeProportion = beforeLen / fullLen
-          startTime = lineTime[0] + totalTime * beforeProportion
-          endTime = timeI[1]
+          try {
+            const beforeLen = turf.length(beforeLeg)
+            const beforeProportion = beforeLen / fullLen
+            startTime = lineTime[0] + totalTime * beforeProportion
+            endTime = timeI[1]
+            const indexToUse = startInPoly ? 0 : 1
+            const res: ShapeInteraction = {
+              intersection: singleCrossing.features[indexToUse],
+              startTime: startTime,
+              endTime: endTime
+            }
+            return res
+          } catch (err) {
+            console.log('turn issue in line length', startCoords, startPoint, beforeLeg)
+          }
         }
-        const indexToUse = startInPoly ? 0 : 1
-        const res: ShapeInteraction = {
-          intersection: singleCrossing.features[indexToUse],
-          startTime: startTime,
-          endTime: endTime
-        }
-        return res
       }
     }
   } else {
