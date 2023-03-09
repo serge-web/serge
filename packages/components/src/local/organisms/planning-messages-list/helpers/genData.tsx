@@ -54,7 +54,7 @@ export const toColumn = (message: MessagePlanning[], isUmpire: boolean): Column<
 
   const columnData: Column<OrderRow>[] = [
     { title: 'Reference', field: 'reference', width: fixedColWidth, minWidth: fixedColWidth },
-    { title: 'Force', field: 'force', width: 'auto', hidden:!isUmpire, lookup: arrToDict(forces) },
+    { title: 'Force', field: 'force', width: 'auto', hidden: !isUmpire, lookup: arrToDict(forces) },
     { title: 'Author', field: 'role', width: 'auto', lookup: arrToDict(roles) },
     { title: 'Title', field: 'title', width: 'auto' },
     { title: 'Activity', field: 'activity', width: 'auto', lookup: activityDict },
