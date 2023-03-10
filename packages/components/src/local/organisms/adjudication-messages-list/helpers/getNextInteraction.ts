@@ -714,7 +714,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
             if (thisTime) {
               const interactionId = generateEventId(plan._id, event, turnNumber)
               // check this hasn't been processed already
-              if (interactionIDs.includes(interactionId)) {
+              if (_.sortedIndexOf(interactionIDs, interactionId) !== -1) {
                 // console.log('Skipping this event, already processed', interactionId)
                 endActivityGenerated = true
               } else {
@@ -743,7 +743,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
           if (locData && locData.length > 0 && endsWithMovement(locData)) {
             const interactionId = generateEventId(plan._id, INTER_AT_END, turnNumber)
             // check it hasn't already been processed
-            if (interactionIDs.includes(interactionId)) {
+            if (_.sortedIndexOf(interactionIDs, interactionId) !== -1) {
               // console.log('Skipping this event 2, already processed', interactionId)
             } else {
               const planned = locData[locData.length - 1]
@@ -959,13 +959,7 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
     return inter.id
   })
   // sort the list
-  console.time('ArraySort')
   const existingInteractionIDs = interactionIDs.sort()
-  console.timeEnd('ArraySort')
-  console.time('LoDashSort')
-  const loDashInteractionIDs = _.sortBy(interactionIDs)
-  console.timeEnd('LoDashSort')
-  console.log('loDash len', loDashInteractionIDs)
 
   // strip out orders not valid in this time period
   const ordersInPeriod = ordersIn.filter((plan) => {
