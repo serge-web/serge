@@ -64681,6 +64681,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -65029,6 +65030,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -65290,6 +65292,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -65610,6 +65613,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -65931,6 +65935,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -66589,6 +66594,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -66919,6 +66925,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -67256,6 +67263,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -67535,6 +67543,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -67815,6 +67824,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -68103,6 +68113,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -68382,6 +68393,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -68662,6 +68674,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -68950,6 +68963,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -69229,6 +69243,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -69509,6 +69524,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -69797,6 +69813,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -70109,6 +70126,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -70528,6 +70546,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -70801,6 +70820,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -71132,6 +71152,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -71452,6 +71473,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -71772,6 +71794,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -72093,6 +72116,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -72425,6 +72449,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -72757,6 +72782,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -73085,6 +73111,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
@@ -73382,6 +73409,7 @@ const game: Wargame = {
                                                 "tc",
                                                 "pa"
                                             ],
+                                            "format": "selectize",
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
