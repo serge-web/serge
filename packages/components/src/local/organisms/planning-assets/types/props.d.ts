@@ -23,8 +23,6 @@ export type AssetRow = {
   attributes: Record<string, any>
   domain: string
   taskGroup: string
-  // how long since last update
-  lastUpdated: string
 }
 
 export default interface PropTypes {

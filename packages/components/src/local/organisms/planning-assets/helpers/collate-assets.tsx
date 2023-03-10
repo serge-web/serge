@@ -265,7 +265,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
   const ownAssets = !!(playerForce && !opFor)
 
-  const columns: Column<any>[] = [
+  const columns: Column<AssetRow>[] = [
     { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: nameWidth, minWidth: nameWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
@@ -279,8 +279,6 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   if (ownAssets) {
     columns.push({ title: 'Task Group', field: 'taskGroup', width: 'auto', hidden: false, lookup: arrToDict(summaryData.taskGroups) })
     columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', hidden: true, render: renderAttributes })
-  } else {
-    columns.push({ title: 'Age', field: 'lastUpdated', width: 'auto', type: 'string' })
   }
 
   return columns
@@ -398,19 +396,6 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       const health = hasGodsEyeView ? asset.health : (perception && (perception.health !== undefined)) ? perception.health : undefined
       const c4 = hasGodsEyeView ? ((asset.attributes && asset.attributes.a_C4_Status as string) || 'Unk') : 'Unk'
       if ((perceptionTypes && perception) || hasGodsEyeView) {
-        const lastUpdate = perception && perception.lastUpdate
-        let updatePeriod
-        if (lastUpdate) {
-          const tNow = moment.utc(gameTime)
-          const tThen = moment.utc(lastUpdate)
-          const diff = moment.duration(tNow.diff(tThen))
-          updatePeriod = diff.humanize()
-        } else {
-          updatePeriod = 'unk'
-        }
-        if (hasGodsEyeView) {
-          updatePeriod = 'Live'
-        }
         const forceStyle = perceptionTypes ? forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId) : ''
         const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
 
@@ -427,8 +412,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           c4: c4,
           domain: domain,
           attributes: modernAttrDict,
-          taskGroup: '',
-          lastUpdated: updatePeriod
+          taskGroup: ''
         }
 
         if (asset.attributes && asset.attributes.a_SIDC) {
@@ -468,8 +452,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         c4: '' + c4,
         domain: domain,
         attributes: modernAttrDict,
-        taskGroup: tg,
-        lastUpdated: ''
+        taskGroup: tg
       }
 
       // check if we have an SIDC for this asset
