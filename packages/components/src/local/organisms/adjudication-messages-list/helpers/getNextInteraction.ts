@@ -951,13 +951,21 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
 
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : gameTimeVal
 
-  const existingInteractionIDs = interactions.map((val) => {
+  const interactionIDs = interactions.map((val) => {
     const inter = val.details.interaction
     if (!inter) {
       throw Error('Interaction missing')
     }
     return inter.id
   })
+  // sort the list
+  console.time('ArraySort')
+  const existingInteractionIDs = interactionIDs.sort()
+  console.timeEnd('ArraySort')
+  console.time('LoDashSort')
+  const loDashInteractionIDs = _.sortBy(interactionIDs)
+  console.timeEnd('LoDashSort')
+  console.log('loDash len', loDashInteractionIDs)
 
   // strip out orders not valid in this time period
   const ordersInPeriod = ordersIn.filter((plan) => {

@@ -905,7 +905,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
         // have we already checked this permutation (maybe in another bin)?
         if (!interactionsConsidered.includes(id)) {
           // has it already been adjudicated
-          if (!interactionsProcessed.includes(id)) {
+          if (!_.sortedIndexOf(interactionsProcessed, id)) {
             interactionsConsidered.push(id)
             if (differentForces(me, other) && overlapsInTime(me, other)) {
               // see if we have a cached contact
