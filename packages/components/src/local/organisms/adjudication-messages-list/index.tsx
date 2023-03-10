@@ -331,6 +331,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setRows(dataTable)
 
       if (!columns.length || !filter) {
+        console.time('LLOG_Collate Adjudicate Message Filters')
         const umpireForce = forces.find((force: ForceData) => force.umpire)
         // TODO: the column definitions should use the data collated in the column summary (below)
         // provide more sophisticated column definition lookups
@@ -348,6 +349,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           { title: 'Duration', field: 'period' }
         ]
         setColumns(columnsData)
+        console.timeEnd('LLOG_Collate Adjudicate Message Filters')
       }
     } else {
       setRows([])
