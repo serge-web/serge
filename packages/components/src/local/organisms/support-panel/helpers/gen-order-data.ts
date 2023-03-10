@@ -1099,21 +1099,19 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
               }
               try {
                 let tPoly: Feature<Geometry> | undefined
-                if (intersects) {
-                  switch (intersects.geometry.type) {
-                    case 'Polygon': {
-                      const poly = intersects as Feature<Polygon>
-                      tPoly = turf.polygon(poly.geometry.coordinates)
-                      break
-                    }
-                    case 'MultiPolygon' : {
-                      const mPoly = intersects as Feature<MultiPolygon>
-                      tPoly = turf.multiPolygon(mPoly.geometry.coordinates)
-                      break
-                    }
-                    default: {
-                      console.warn('Failed to generate geometry for ', intersects.geometry.type)
-                    }
+                switch (intersects.geometry.type) {
+                  case 'Polygon': {
+                    const poly = intersects as Feature<Polygon>
+                    tPoly = turf.polygon(poly.geometry.coordinates)
+                    break
+                  }
+                  case 'MultiPolygon': {
+                    const mPoly = intersects as Feature<MultiPolygon>
+                    tPoly = turf.multiPolygon(mPoly.geometry.coordinates)
+                    break
+                  }
+                  default: {
+                    console.warn('Failed to generate geometry for ', intersects.geometry.type)
                   }
                 }
                 if (tPoly) {
