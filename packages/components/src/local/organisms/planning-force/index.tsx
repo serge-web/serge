@@ -296,16 +296,16 @@ const PlanningForces: React.FC<PropTypes> = ({
     )
   }
 
-  const elapsed = (lastUpdate?: string): string => {
-    if (lastUpdate && lastUpdate !== 'unk') {
-      return '\n (' + lastUpdate + ')'
-    } else {
-      return ''
-    }
-  }
+  // const elapsed = (lastUpdate?: string): string => {
+  //   if (lastUpdate && lastUpdate !== 'unk') {
+  //     return '\n (' + lastUpdate + ')'
+  //   } else {
+  //     return ''
+  //   }
+  // }
 
   const labelFor = (asset: AssetRow): string => {
-    return asset.name + ', ' + asset.id + elapsed(asset.lastUpdated)
+    return asset.name + ', ' + asset.id
   }
 
   const iconLayer = useMemo(() => {
