@@ -7,7 +7,7 @@ import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, Pl
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Position } from '@turf/turf'
-import { Feature, Geometry, Polygon } from 'geojson'
+import { Feature, Geometry, MultiPolygon, Polygon } from 'geojson'
 import L from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment-timezone'
@@ -1088,7 +1088,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
               // if they overlap, then intersect returns intersecting region
               // but, if one contains the other, the `other` represents the intersection
               if (overlaps) {
-                intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
+                intersects = turf.intersect(mePoly, turfPoly) as Feature<Geometry>
               } else if (aContainsB) {
                 intersects = turfPoly
               } else {
@@ -1098,11 +1098,28 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
                 throw Error('One method reported overlap, the other didn\'t')
               }
               try {
-                const fPoly = turf.polygon(intersects.geometry.coordinates)
-                intersection = {
-                  startTime: intersectionTime[0],
-                  endTime: intersectionTime[1],
-                  intersection: fPoly
+                let tPoly: Feature<Geometry> | undefined
+                switch (intersects.geometry.type) {
+                  case 'Polygon': {
+                    const poly = intersects as Feature<Polygon>
+                    tPoly = turf.polygon(poly.geometry.coordinates)
+                    break
+                  }
+                  case 'MultiPolygon': {
+                    const mPoly = intersects as Feature<MultiPolygon>
+                    tPoly = turf.multiPolygon(mPoly.geometry.coordinates)
+                    break
+                  }
+                  default: {
+                    console.warn('Failed to generate geometry for ', intersects.geometry.type)
+                  }
+                }
+                if (tPoly) {
+                  intersection = {
+                    startTime: intersectionTime[0],
+                    endTime: intersectionTime[1],
+                    intersection: tPoly
+                  }
                 }
               } catch (err) {
                 console.warn('Issue generating poly overlap', me.plan.message.Reference, other.plan.message.Reference,
