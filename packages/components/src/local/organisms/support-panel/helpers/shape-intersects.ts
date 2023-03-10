@@ -111,7 +111,7 @@ export const lineLineContact = (lineOne: LineString, lineOneTime: TimePeriod, li
   return undefined
 }
 
-const showPeriod = (timePeriod: TimePeriod): string => {
+export const showPeriod = (timePeriod: TimePeriod): string => {
   return moment(timePeriod[0]).toISOString() + ' - ' + moment(timePeriod[1]).toISOString()
 }
 
@@ -124,9 +124,9 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
     const overlap = turf.lineIntersect(tLine, fPoly)
     const contains = turf.booleanContains(fPoly, fLine)
     const timeI = timeIntersect2(lineTime, polyTime)
-    console.log('LinePolygonInteraction', tLine, fLine, fPoly, 'line time:', showPeriod(lineTime),
-      'poly time:', showPeriod(polyTime),
-      'intersect time:', showPeriod(timeI), 'overlap:', overlap, ' contains:', contains, overlap && overlap.features.length)
+    // console.log('LinePolygonInteraction', tLine, fLine, fPoly, 'line time:', showPeriod(lineTime),
+    //   'poly time:', showPeriod(polyTime),
+    //   'intersect time:', showPeriod(timeI), 'overlap:', overlap, ' contains:', contains, overlap && overlap.features.length)
     if (contains) {
       const res: ShapeInteraction = {
         intersection: fLine,
@@ -154,18 +154,33 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
         const afterCoords = midSection.features[0].geometry.coordinates
         const afterCoord = afterCoords[afterCoords.length - 1]
         const afterPoint = turf.point(afterCoord)
-        const afterLine = turf.lineSplit(fullLine, afterPoint).features[1]
-        const afterLen = turf.length(afterLine)
-        const afterProportion = afterLen / fullLen
-        const totalTime = lineTime[1] - lineTime[0]
-        const startTime = lineTime[0] + totalTime * beforeProportion
-        const endTime = lineTime[1] - totalTime * afterProportion
-        const res: ShapeInteraction = {
-          intersection: midSection.features[0],
-          startTime: startTime,
-          endTime: endTime
+        const split = turf.lineSplit(fullLine, afterPoint)
+        if (split.features.length > 1) {
+          // line crosses polygon, get ready to trim remainder
+          const afterLine = split.features[1]
+          const afterLen = turf.length(afterLine)
+          const afterProportion = afterLen / fullLen
+          const totalTime = lineTime[1] - lineTime[0]
+          const startTime = lineTime[0] + totalTime * beforeProportion
+          const endTime = lineTime[1] - totalTime * afterProportion
+          const res: ShapeInteraction = {
+            intersection: midSection.features[0],
+            startTime: startTime,
+            endTime: endTime
+          }
+          return res
+        } else {
+          // line finishes on poly
+          const totalTime = lineTime[1] - lineTime[0]
+          const startTime = lineTime[0] + totalTime * beforeProportion
+          const endTime = lineTime[1]
+          const res: ShapeInteraction = {
+            intersection: midSection.features[0],
+            startTime: startTime,
+            endTime: endTime
+          }
+          return res
         }
-        return res
       } else {
         // line only passes it once, so one end is inside the polygon.
         //  Have to find out if start or end is in polygon
@@ -193,10 +208,15 @@ export const linePolyContact = (line: LineString, lineTime: TimePeriod, poly: Po
           const startCoords = singleCrossing.features[1].geometry.coordinates[0]
           const startPoint = turf.point(startCoords)
           const beforeLeg = turf.lineSplit(fullLine, startPoint).features[0]
-          const beforeLen = turf.length(beforeLeg)
-          const beforeProportion = beforeLen / fullLen
-          startTime = lineTime[0] + totalTime * beforeProportion
-          endTime = timeI[1]
+          try {
+            const beforeLen = turf.length(beforeLeg)
+            const beforeProportion = beforeLen / fullLen
+            startTime = lineTime[0] + totalTime * beforeProportion
+            endTime = timeI[1]
+          } catch (err) {
+            console.log('turn issue in line length', startCoords, startPoint, beforeLeg)
+            return undefined
+          }
         }
         const indexToUse = startInPoly ? 0 : 1
         const res: ShapeInteraction = {
