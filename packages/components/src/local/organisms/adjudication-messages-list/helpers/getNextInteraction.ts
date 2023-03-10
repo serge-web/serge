@@ -951,7 +951,11 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
 
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : gameTimeVal
 
-  const existingInteractionIDs = interactions.map((val) => {
+  // only include interactions from this turn and the previous turn
+  const interactionsToUse = interactions.filter((inter) => {
+    return inter.details.turnNumber >= turnNumber - 1
+  })
+  const existingInteractionIDs = interactionsToUse.map((val) => {
     const inter = val.details.interaction
     if (!inter) {
       throw Error('Interaction missing')
