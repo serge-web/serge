@@ -5,7 +5,6 @@ import { findPerceivedAsTypes, ForceStyle, PlatformStyle, sortDictionaryByValue 
 import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'
 import LRUCache from 'lru-cache'
-import moment from 'moment'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
 import SymbolAssetIcon from '../../../symbol-asset-icon'
