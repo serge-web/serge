@@ -4,9 +4,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
 <div
   className="messages-list"
 >
-  <div
-    className="button-wrap"
-  >
+  <div>
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
       disabled={false}
