@@ -11,6 +11,7 @@ import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START, P
 import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { findAsset, findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
+import cx from 'classnames'
 import dayjs, { Dayjs } from 'dayjs'
 import { Geometry } from 'geojson'
 import _ from 'lodash'
@@ -20,13 +21,13 @@ import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
+import { needToUpdate } from '../planning-messages-list/helpers/genData'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateForcesDropdown, updatePlatformTypes, updateWithAllAssets } from './helpers/collate-interaction'
 import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
-import cx from 'classnames'
 
 type ForceMessages = {
   forceName: string
@@ -83,6 +84,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [interactionIsOpen, setInteractionIsOpen] = useState<boolean>(false)
 
   const [inPlanning, setInPlanning] = useState<boolean>(true)
+
+  const currentColumnsData = useRef<Column<AdjudicationRow>[]>([])
 
   const msgSeparator = ' - '
 
@@ -330,24 +333,28 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       })
       setRows(dataTable)
 
-      if (!columns.length || !filter) {
-        console.time('LLOG_Collate Adjudicate Message Filters')
-        const umpireForce = forces.find((force: ForceData) => force.umpire)
-        // TODO: the column definitions should use the data collated in the column summary (below)
-        // provide more sophisticated column definition lookups
-        const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-        const hideTurnColumn = turnFilter !== SHOW_ALL_TURNS
-        const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
-          { title: 'Reference', field: 'reference' },
-          { title: 'Turn', field: 'turn', type: 'numeric', hidden: hideTurnColumn }, //  },
-          { title: 'Complete', field: 'complete', render: renderBoolean },
-          { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
-          { title: 'Owner', field: 'owner' },
-          { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
-          { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
-          { title: 'Activity', field: 'Reference' },
-          { title: 'Duration', field: 'period' }
-        ]
+      console.time('LLOG_Collate Adjudicate Message Filters')
+      const umpireForce = forces.find((force: ForceData) => force.umpire)
+      // TODO: the column definitions should use the data collated in the column summary (below)
+      // provide more sophisticated column definition lookups
+      const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
+      const hideTurnColumn = turnFilter !== SHOW_ALL_TURNS
+      const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
+        { title: 'Reference', field: 'reference' },
+        { title: 'Turn', field: 'turn', type: 'numeric', hidden: hideTurnColumn }, //  },
+        { title: 'Complete', field: 'complete', render: renderBoolean },
+        { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
+        { title: 'Owner', field: 'owner' },
+        { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
+        { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
+        { title: 'Activity', field: 'Reference' },
+        { title: 'Duration', field: 'period' }
+      ]
+
+      const needUpdate = needToUpdate(currentColumnsData.current, columnsData)
+
+      if (!columns.length || !filter || needUpdate) {
+        currentColumnsData.current = columnsData
         setColumns(columnsData)
         console.timeEnd('LLOG_Collate Adjudicate Message Filters')
       }
