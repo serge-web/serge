@@ -27,6 +27,7 @@ import { getNextInteraction2, InteractionResults } from './helpers/getNextIntera
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 import cx from 'classnames'
+import L from 'leaflet'
 
 type ForceMessages = {
   forceName: string
@@ -538,10 +539,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <></>
   }
 
-  const countRemainingInteractions = (): void => {
+  const countRemainingInteractions = (fixedBounds?: boolean): void => {
+    const tl = L.latLng(40, 40)
+    const br = L.latLng(-2, 82)
+    const bounds = fixedBounds ? L.latLngBounds(tl, br) : undefined
+
     console.time('LLOG_count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
-    const contacts: InteractionResults = getNextInteraction2(turnPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true, currentTurn)
+    const contacts: InteractionResults = getNextInteraction2(turnPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30,
+      gameDate, gameTurnEnd, forces, true, currentTurn, bounds)
     if (Array.isArray(contacts)) {
       const events = contacts[0]
       const interactions = contacts[1]
@@ -595,12 +601,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   //   return message.message.Reference === 'Red-7'
   // })
 
-  const getInteraction = (): void => {
+  const getInteraction = (fixedBounds?: boolean): void => {
+    const tl = L.latLng(40, 40)
+    const br = L.latLng(-2, 82)
+    const bounds = fixedBounds ? L.latLngBounds(tl, br) : undefined
+
     // const special: string | undefined = withTg && withTg.message.activity // undefined // 'tst'
     const trimmedPlanningMessages = turnPlanningMessages // [withTg as MessagePlanning] // || special ? planningMessages.filter((msg) => msg.message.activity.toLowerCase().includes(special)) : planningMessages
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     console.time('LLOG_GetInteraction')
-    const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
+    const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30,
+      gameDate, gameTurnEnd, forces, false, currentTurn, bounds)
     console.timeEnd('LLOG_GetInteraction')
     console.log('get next inter recieved:', results)
     if (results === undefined) {
@@ -993,11 +1004,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         </CustomDialog>
       }
       <div className='button-wrap' >
-        <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={getInteraction} icon='save'>Get next</Button>
-        &nbsp;
+        <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={() => getInteraction(true)} icon='save'>Next (local)</Button>
+        <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={() => getInteraction(false)} icon='save'>Next</Button>
         <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={createManualInteraction} icon='add'>Create manual</Button>
-        &nbsp;
-        <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
+        <Button color="secondary" onClick={() => countRemainingInteractions(true)} icon='functions'># Rem (local)</Button>
+        <Button color="secondary" onClick={() => countRemainingInteractions(false)} icon='functions'># Rem</Button>
         <Chip label={currentTime} />
       </div>
       {TableData}
