@@ -9,7 +9,7 @@ export type OnLocationEditorLoaded = (editorElm: HTMLDivElement) => void
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>,
-  jsonEditorConfig: any, editCallback: EditCallback, onLocationEditorLoaded: OnLocationEditorLoaded,
+  jsonEditorConfig: Record<string, any>, editCallback: EditCallback, onLocationEditorLoaded: OnLocationEditorLoaded,
   showErrorsMode?: string): Editor | null => {
   if (editor !== null) {
     editor.destroy()

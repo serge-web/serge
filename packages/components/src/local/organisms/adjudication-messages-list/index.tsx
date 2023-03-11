@@ -763,7 +763,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           return <>
             <DetailPanelStateListener />
             {!isComplete &&
-              <div className='button-wrap' >
+              <div >
                 <Button color='secondary' onClick={localSubmitSkip} icon='delete'>Skip Adjudication</Button>
                 <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
               </div>
@@ -805,7 +805,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               onLocationEditorLoaded={onLocationEditorLoaded}
             />
             {!isComplete &&
-              <div className='button-wrap' >
+              <div>
                 <Button color='secondary' onClick={localSubmitSkip} icon='delete'>Skip Adjudication</Button>
                 <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
               </div>
@@ -1003,7 +1003,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <>{dialogMessage}</>
         </CustomDialog>
       }
-      <div className='button-wrap' >
+      <div>
         <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={() => getInteraction(true)} icon='save'>Next (local)</Button>
         <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={() => getInteraction(false)} icon='save'>Next</Button>
         <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={createManualInteraction} icon='add'>Create manual</Button>
