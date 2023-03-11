@@ -7,10 +7,11 @@ import {
 import { findAsset, findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Feature, Geometry, LineString, Polygon } from 'geojson'
+import { LatLngBounds } from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment'
 import { DEFAULT_SEARCH_RATE } from '..'
-import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { findTouching, GeomWithOrders, getBounds, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 import { calculateDetections, checkInArea, insertIstarInteractionOutcomes, istarBoundingBox } from './istar-helper'
 
 type TimePlusGeometry = { time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined }
@@ -943,7 +944,7 @@ const contactOutcomes = (interaction: InteractionDetails, contact: PlanningConta
 export const getNextInteraction2 = (ordersIn: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
   _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string,
-  forces: ForceData[], getAll: boolean, turnNumber: number): InteractionResults => {
+  forces: ForceData[], getAll: boolean, turnNumber: number, bounds?: LatLngBounds): InteractionResults => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
 
@@ -1057,8 +1058,22 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
       //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
 
       // now do spatial binning
-      const bins = spatialBinning(geometriesInTimeWindow, 4)
-      const binnedOrders = putInBin(geometriesInTimeWindow, bins)
+      const boundsToUse = bounds || getBounds(geometriesInTimeWindow)
+      const bins = spatialBinning(geometriesInTimeWindow, 4, boundsToUse)
+      const binnedOrders = putInBin(geometriesInTimeWindow, bins, boundsToUse)
+      //      const list: any[] = []
+      // console.table(binnedOrders.map((bin) => {
+      //   const poly = bin.polygon as Feature<Polygon> || undefined
+      //   const name = (poly && poly.properties && poly.properties.name) || 'Zero'
+      //   poly && list.push(poly.geometry.coordinates)
+      //   return {
+      //     id: name,
+      //     num: bin.orders.length,
+      //     orders: bin.orders.map((geom) => geom.plan.message.Reference).join(', ')
+      //   }
+      // }))
+      // const multip = multiPolygon(list)
+      // console.log('list', multip)
 
       const interactionsConsidered: string[] = []
       const interactionsTested: Record<string, PlanningContact | null> = {}
@@ -1068,6 +1083,7 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
       console.time('LLOG_BinOrders')
 
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
+        console.time('LLOG_BinOrders_' + _index + '__' + bin.orders.length)
         // console.log('bin', _index, bin.orders.length)
         // console.table(bin.orders.map((geom) => {
         //   const props = geom.geometry.properties as PlannedProps
@@ -1083,6 +1099,7 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
           interactionsTested, sensorRangeKm)
         !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
         contacts.push(...newContacts)
+        console.timeEnd('LLOG_BinOrders_' + _index + '__' + bin.orders.length)
       })
 
       // console.log('binning complete, contacts:', contacts.length)
