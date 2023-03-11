@@ -68,8 +68,8 @@ export const toColumn = (message: MessagePlanning[], isUmpire: boolean): Column<
 }
 
 export const needToUpdate = (oldColumnsData: (Column<OrderRow> | Column<AdjudicationRow>)[], newColumnData: (Column<OrderRow> | Column<AdjudicationRow>)[]): boolean => {
-  const oldLookup = oldColumnsData.filter(col => col.lookup) || []
-  const newLookup = newColumnData.filter(col => col.lookup) || []
+  const oldLookup = oldColumnsData.filter(col => col.lookup)
+  const newLookup = newColumnData.filter(col => col.lookup)
   if (oldLookup.length !== newLookup.length) {
     return true
   }
