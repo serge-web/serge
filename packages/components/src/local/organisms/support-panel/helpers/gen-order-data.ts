@@ -771,34 +771,37 @@ const clean = (val: number): number => {
 }
 
 export const spatialBinning = (orders: GeomWithOrders[], binsPerSide: number): turf.Feature[] => {
-  let bounds: L.LatLngBounds | undefined
-  orders.forEach((geom: GeomWithOrders) => {
-    const geoAny = geom.geometry.geometry as any
-    let coords
-    switch (geom.geometry.geometry.type) {
-      case 'LineString': {
-        coords = geoAny.coordinates
-        break
-      }
-      case 'Point': {
-        coords = geoAny.coordinates
-        break
-      }
-      case 'Polygon': {
-        coords = geoAny.coordinates[0][0]
-        break
-      }
-    }
+  // let bounds: L.LatLngBounds | undefined
+  // orders.forEach((geom: GeomWithOrders) => {
+  //   const geoAny = geom.geometry.geometry as any
+  //   let coords
+  //   switch (geom.geometry.geometry.type) {
+  //     case 'LineString': {
+  //       coords = geoAny.coordinates
+  //       break
+  //     }
+  //     case 'Point': {
+  //       coords = geoAny.coordinates
+  //       break
+  //     }
+  //     case 'Polygon': {
+  //       coords = geoAny.coordinates[0][0]
+  //       break
+  //     }
+  //   }
 
-    coords && coords.forEach((point: number[]) => {
-      const pt = L.latLng(point[1], point[0])
-      if (!bounds) {
-        bounds = L.latLngBounds(pt, pt)
-      } else {
-        bounds.extend(pt)
-      }
-    })
-  })
+  //   coords && coords.forEach((point: number[]) => {
+  //     const pt = L.latLng(point[1], point[0])
+  //     if (!bounds) {
+  //       bounds = L.latLngBounds(pt, pt)
+  //     } else {
+  //       bounds.extend(pt)
+  //     }
+  //   })
+  // })
+  const tl = L.latLng(40, 40)
+  const br = L.latLng(-2, 82)
+  const bounds = L.latLngBounds(tl, br)
   const boxes: turf.Feature[] = []
   if (bounds && bounds.isValid()) {
     const height = bounds.getNorth() - bounds.getSouth()
@@ -826,12 +829,17 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSide: number): t
 }
 
 export interface SpatialBin {
-  polygon: turf.Feature
+  polygon: turf.Feature | undefined
   orders: GeomWithOrders[]
 }
 
 export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): SpatialBin[] => {
   const res: SpatialBin[] = []
+  const binZero: SpatialBin = {
+    polygon: undefined,
+    orders: []
+  }
+  res.push(binZero)
   bins.forEach((poly: turf.Feature, _index: number) => {
     const thisBin: SpatialBin = {
       polygon: poly,
