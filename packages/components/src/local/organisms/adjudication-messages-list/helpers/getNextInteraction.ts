@@ -1017,8 +1017,8 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
     let eventInWindow: ShortCircuitEvent | undefined
     let allRemainingEvents: TimedIntervention[] = []
 
-    console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowLength,
-      moment.utc(fullTurnLength).format('d HH:mm'), moment.utc(currentWindowLength).format('d HH:mm'))
+    console.log('Start windowed time loop. Full turn size, window size:', fullTurnLength, currentWindowLength,
+      moment.utc(fullTurnLength).format('DDD HH:mm'), moment.utc(currentWindowLength).format('DDD HH:mm'))
 
     while (contacts.length === 0 && currentWindowLength <= fullTurnLength && eventInWindow === undefined) {
       const windowEnd = gameTimeVal + currentWindowLength
@@ -1043,19 +1043,6 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
       const withTimes = injectTimes(newGeometries)
       const geometriesInTimeWindow = withTimes.filter((val) => startBeforeTime(val, windowEnd)).filter((val) => endAfterTime(val, gameTimeVal))
       console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length)
-      // console.table(liveOrders.map((plan: MessagePlanning) => {
-      //   return {
-      //     id: plan._id,
-      //     start: plan.message.startDate,
-      //     end: plan.message.endDate
-      //   }
-      // }))
-
-      //      const geometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, earliestTime, currentWindowMillis)
-
-      // const timeEnd = moment(earliestTime).add(currentWindowMillis, 'ms')
-      // console.log('geoms in this window:', moment(earliestTime).toISOString(), timeEnd.toISOString(), ' windows size (millis):', currentWindowMillis, 'matching geoms:', geometriesInTimeWindow.length)
-      //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
 
       // now do spatial binning
       const boundsToUse = bounds || getBounds(geometriesInTimeWindow)
@@ -1083,23 +1070,12 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
       console.time('LLOG_BinOrders')
 
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
-        console.time('LLOG_BinOrders_' + _index + '__' + bin.orders.length)
-        // console.log('bin', _index, bin.orders.length)
-        // console.table(bin.orders.map((geom) => {
-        //   const props = geom.geometry.properties as PlannedProps
-        //   return {
-        //     id: geom.id,
-        //     force: geom.force,
-        //     geom: geom.geometry.type,
-        //     start: props.startDate,
-        //     end: props.endDate
-        //   }
-        // }))
+        const binId = [_index, !!bin.polygon, bin.orders.length].join('_')
+        console.time('LLOG_BinOrders_' + binId)
         const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
           interactionsTested, sensorRangeKm)
-        !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
         contacts.push(...newContacts)
-        console.timeEnd('LLOG_BinOrders_' + _index + '__' + bin.orders.length)
+        console.timeEnd('LLOG_BinOrders_' + binId)
       })
 
       // console.log('binning complete, contacts:', contacts.length)
