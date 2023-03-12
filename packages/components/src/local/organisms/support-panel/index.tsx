@@ -186,13 +186,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
-    let filteredMessages: MessageInteraction[] = interactionMessages.filter((inter) => {
+    const filteredMessages: MessageInteraction[] = interactionMessages.filter((inter) => {
       return (turnFilter === -1) || (inter.details.turnNumber === turnFilter)
     })
-    console.log('support panel filter interactions', interactionMessages, interactionMessages.length, filteredMessages.length, turnFilter)
-    if (filteredMessages === undefined) {
-      filteredMessages = interactionMessages
-    }
     setFilteredInteractionMessages(filteredMessages)
   }, [interactionMessages, turnFilter])
 
