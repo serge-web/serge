@@ -20,8 +20,6 @@ import React, { CSSProperties, Fragment, SyntheticEvent, useCallback, useEffect,
 import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
-import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
-import { needToUpdate } from '../planning-messages-list/helpers/genData'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateForcesDropdown, updatePlatformTypes, updateWithAllAssets } from './helpers/collate-interaction'
@@ -333,30 +331,21 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       })
       setRows(dataTable)
 
-      console.time('LLOG_Collate Adjudicate Message Filters')
-      const umpireForce = forces.find((force: ForceData) => force.umpire)
-      // TODO: the column definitions should use the data collated in the column summary (below)
-      // provide more sophisticated column definition lookups
-      const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-      const hideTurnColumn = turnFilter !== SHOW_ALL_TURNS
-      const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
-        { title: 'Reference', field: 'reference' },
-        { title: 'Turn', field: 'turn', type: 'numeric', hidden: hideTurnColumn }, //  },
-        { title: 'Complete', field: 'complete', render: renderBoolean },
-        { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
-        { title: 'Owner', field: 'owner' },
-        { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
-        { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
-        { title: 'Activity', field: 'Reference' },
-        { title: 'Duration', field: 'period' }
-      ]
-
-      const needUpdate = needToUpdate(currentColumnsData.current, columnsData)
-
-      if (!columns.length || !filter || needUpdate) {
+      if (!columns.length || !filter) {
+        const hideTurnColumn = turnFilter !== SHOW_ALL_TURNS
+        const columnsData: Column<AdjudicationRow>[] = [
+          { title: 'Reference', field: 'reference' },
+          { title: 'Turn', field: 'turn', type: 'numeric', hidden: hideTurnColumn }, //  },
+          { title: 'Complete', field: 'complete', render: renderBoolean },
+          { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
+          { title: 'Owner', field: 'owner' },
+          { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
+          { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
+          { title: 'Activity', field: 'Reference' },
+          { title: 'Duration', field: 'period' }
+        ]
         currentColumnsData.current = columnsData
         setColumns(columnsData)
-        console.timeEnd('LLOG_Collate Adjudicate Message Filters')
       }
     } else {
       setRows([])
