@@ -45,6 +45,21 @@ type ManualInteractionResults = {
   endDate: string
 }
 
+export const arrayToTable = (data: Record<string, string>[]): React.ReactElement => {
+  if (data.length) {
+    return <table className={styles.assets}>
+      <thead>
+        <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>
+      </thead>
+      <tbody>
+        {data.map((row, index) =>
+          <tr key={index}>{Object.keys(row).map((field, index) => <td key={index}>{row[field]}</td>)}</tr>)}
+      </tbody>
+    </table>
+  }
+  return <></>
+}
+
 /** fallback for if we don't know search rate for ISTAR platforms .
  * Value expected to be in km2/hour */
 export const DEFAULT_SEARCH_RATE = 2000
@@ -520,21 +535,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const localStoreNewValue = (value: { [property: string]: any }): void => {
     setMessageBeingEdited(true)
     currentAdjudication.current = value as MessageAdjudicationOutcomes
-  }
-
-  const arrayToTable = (data: Record<string, string>[]): React.ReactElement => {
-    if (data.length) {
-      return <table className={styles.assets}>
-        <thead>
-          <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>
-        </thead>
-        <tbody>
-          {data.map((row, index) =>
-            <tr key={index}>{Object.keys(row).map((field, index) => <td key={index}>{row[field]}</td>)}</tr>)}
-        </tbody>
-      </table>
-    }
-    return <></>
   }
 
   const countRemainingInteractions = (fixedBounds?: boolean): void => {

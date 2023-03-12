@@ -1,15 +1,17 @@
-import { faSearchMinus, faMedkit, faEye, faGlobe, faSearchPlus, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faMedkit, faEye, faGlobe, faSearchPlus, faTable, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { ForceData, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
+import { findForceAndAsset } from '@serge/helpers'
 import cx from 'classnames'
-import { cloneDeep, isEqual } from 'lodash'
+import _, { cloneDeep, isEqual } from 'lodash'
 import moment from 'moment'
-import React, { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { CSSProperties, Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
+import { arrayToTable } from '../adjudication-messages-list'
 import CustomFilterRow from '../planning-assets/helpers/custom-filter-row'
 import { TAB_MY_ORDERS } from '../support-panel/constants'
 import { getFilterApplied, getIsFilterState } from '../support-panel/helpers/caching-utils'
@@ -45,6 +47,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [messageBeingEdited, setMessageBeingEdited] = useState<boolean>(false)
 
   const [countOfSelectedPlans, setCountOfSelectedPlans] = useState<number>(0)
+  const [dialogMessage, setDialogMessage] = useState<React.ReactElement | undefined>()
+  const [showTurnSummaryTable, setShowTurnSummaryTable] = useState<boolean>(false)
 
   const currentColumnsData = useRef<Column<OrderRow>[]>([])
 
@@ -52,6 +56,102 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, planningMessages.length)
 
   const panelState = useMemo(() => getSupportPanelState(), [])
+
+  useEffect(() => {
+    if (showTurnSummaryTable) {
+      interface BaseEntry {
+        Name: string
+        Turn: number
+      }
+      interface HealthEntry extends BaseEntry {
+        Health: string
+        C4: string
+        orders?: string
+        activity?: string
+      }
+      interface MovementEntry extends BaseEntry {
+        Location: string
+        orders?: string
+        activity?: string
+      }
+      const myHealthList: HealthEntry[] = []
+      const myMovementList: MovementEntry[] = []
+      const myFriendlyForces = selectedForce.uniqid === 'f-red' ? ['f-red'] : ['f-blue', 'f-green']
+
+      // filter for interaction messages from previous turn
+      const lastTurnInteractions = interactionMessages.filter((msg) => {
+        return msg.details.turnNumber >= currentTurn - 1
+      })
+
+      lastTurnInteractions.forEach((msg) => {
+        if (msg.message.healthOutcomes) {
+          msg.message.healthOutcomes.forEach((outcome) => {
+            const assetId = outcome.asset
+            const asset = findForceAndAsset(allForces, assetId)
+            if (asset) {
+              // collate data
+              const entry: HealthEntry = {
+                Name: asset.asset.name,
+                Turn: msg.details.turnNumber,
+                Health: '' + outcome.health,
+                C4: outcome.c4
+              }
+              if (myFriendlyForces.includes(asset.force.uniqid)) {
+                myHealthList.push(entry)
+              }
+            }
+          })
+        }
+        if (msg.message.locationOutcomes) {
+          const formatLocation = (val: number): string => {
+            return '' + Math.floor(val * 1000) / 1000
+          }
+          msg.message.locationOutcomes.forEach((outcome) => {
+            const assetId = outcome.asset
+            const asset = findForceAndAsset(allForces, assetId)
+            if (asset) {
+              if (myFriendlyForces.includes(asset.force.uniqid)) {
+                // collate data
+                const loc = outcome.location
+                if (Array.isArray(loc)) {
+                  const entry: MovementEntry = {
+                    Name: asset.asset.name,
+                    Turn: msg.details.turnNumber,
+                    Location: '[' + formatLocation(loc[0]) + ', ' + formatLocation(loc[1]) + ']'
+                  }
+                  myMovementList.push(entry)
+                }
+              }
+            }
+          })
+        }
+      })
+      const sortAndConvert = (data: BaseEntry[]): React.ReactElement => {
+        // sort the array
+        const sorted = _.sortBy(data, (item) => item.Name)
+        const map = sorted.map((item): Record<string, any> => {
+          const objAny = item as any
+          if (objAny.Location) {
+            return {
+              Name: item.Name,
+              Turn: item.Turn,
+              Location: objAny.Location
+            }
+          } else {
+            return {
+              Name: item.Name,
+              Turn: item.Turn,
+              Health: objAny.Health,
+              C4: objAny.C4
+            }
+          }
+        })
+        return arrayToTable(map)
+      }
+      setDialogMessage(<>Health changes in selected turn(s)<br />Health Changes:{sortAndConvert(myHealthList)}Movement changes:{sortAndConvert(myMovementList)}</>)
+      setShowTurnSummaryTable(false)
+    }
+  }, [showTurnSummaryTable])
 
   useEffect(() => {
     const isFilterState = getIsFilterState(panelState)
@@ -110,6 +210,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }, [planningMessages, selectedForce.uniqid, playerRoleId, onlyShowMyOrders])
 
+  const closeDialogCallback = useCallback(() => setDialogMessage(undefined), [])
+
   useEffect(() => {
     const res: Action<OrderRow>[] = [
       {
@@ -138,12 +240,20 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         }
       },
       {
-        icon: () => <FontAwesomeIcon title='Copy Message' icon={faCopy} className={cx({ [styles.selected]: filter })} />,
+        icon: () => <FontAwesomeIcon title='Copy Message' icon={faCopy} />,
         iconProps: { color: 'action' },
         tooltip: countOfSelectedPlans === 1 ? 'Copy Message' : 'Only a single set of orders can be copied',
         disabled: countOfSelectedPlans !== 1,
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => localCopyMessage(data)
+      },
+      {
+        icon: () => <FontAwesomeIcon title='View summary' icon={faTable} className={cx({ [styles.selected]: true })} />,
+        iconProps: { color: 'action' },
+        tooltip: 'Show summary of outcomes of previous turn',
+        disabled: false,
+        isFreeAction: true,
+        onClick: (): void => setShowTurnSummaryTable(true)
       }
     ]
     if (isUmpire) {
@@ -503,8 +613,28 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     />
   }, [rows, filter, toolbarActions, onlyShowMyOrders, columns])
 
+  // linter warned that this object was being created on each render, so use a useMemo
+  const eventList = useMemo(() => {
+    const eventList: CSSProperties = {
+      height: '700px',
+      overflowY: 'scroll'
+    } as CSSProperties
+    return eventList
+  }, [currentTurn])
+
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
+      {dialogMessage !== undefined &&
+        <CustomDialog
+          isOpen={dialogMessage !== undefined}
+          header={'Generate interactions'}
+          cancelBtnText={'OK'}
+          onClose={closeDialogCallback}
+          bodyStyle={eventList}
+        >
+          <>{dialogMessage}</>
+        </CustomDialog>
+      }
       {pendingArchive.length > 0 &&
         <CustomDialog
           isOpen={pendingArchive.length > 0}
