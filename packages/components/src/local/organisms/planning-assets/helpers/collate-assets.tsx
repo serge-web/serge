@@ -391,7 +391,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       const perception = asset.perceptions.find((perc) => perc.by === playerForce.uniqid)
       // as a performance measure, we don't create attributes for OpFor assets
       // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
-      const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
+      const modernAttrDict = getModernAttributes(asset, attributeTypes, attributesToSkip)
       const health = hasGodsEyeView ? asset.health : (perception && (perception.health !== undefined)) ? perception.health : undefined
       const c4 = hasGodsEyeView ? ((asset.attributes && asset.attributes.a_C4_Status as string) || 'Unk') : 'Unk'
       if ((perceptionTypes && perception) || hasGodsEyeView) {
