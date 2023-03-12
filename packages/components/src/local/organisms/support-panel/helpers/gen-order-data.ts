@@ -7,8 +7,8 @@ import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, Pl
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Position } from '@turf/turf'
-import { Feature, Geometry, Polygon } from 'geojson'
-import L from 'leaflet'
+import { Feature, Geometry, MultiPolygon, Polygon } from 'geojson'
+import L, { LatLngBounds } from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment-timezone'
 import { findActivityFromCompositeString } from '../../adjudication-messages-list/helpers/getNextInteraction'
@@ -770,7 +770,7 @@ const clean = (val: number): number => {
   return Math.floor(val * scalar) / scalar
 }
 
-export const spatialBinning = (orders: GeomWithOrders[], binsPerSide: number): turf.Feature[] => {
+export const getBounds = (orders: GeomWithOrders[]): LatLngBounds | undefined => {
   let bounds: L.LatLngBounds | undefined
   orders.forEach((geom: GeomWithOrders) => {
     const geoAny = geom.geometry.geometry as any
@@ -799,6 +799,10 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSide: number): t
       }
     })
   })
+  return bounds
+}
+
+export const spatialBinning = (_orders: GeomWithOrders[], binsPerSide: number, bounds?: LatLngBounds): turf.Feature[] => {
   const boxes: turf.Feature[] = []
   if (bounds && bounds.isValid()) {
     const height = bounds.getNorth() - bounds.getSouth()
@@ -826,57 +830,92 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSide: number): t
 }
 
 export interface SpatialBin {
-  polygon: turf.Feature
+  polygon: turf.Feature | undefined
   orders: GeomWithOrders[]
 }
 
-export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): SpatialBin[] => {
-  const res: SpatialBin[] = []
+export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[], bounds?: LatLngBounds): SpatialBin[] => {
+  if (!bounds) {
+    console.log('bounds missing')
+    return []
+  }
+  const spatialBins: SpatialBin[] = []
+  const binZero: SpatialBin = {
+    polygon: undefined,
+    orders: []
+  }
+  spatialBins.push(binZero)
+  // initialise the other bins
   bins.forEach((poly: turf.Feature, _index: number) => {
     const thisBin: SpatialBin = {
       polygon: poly,
       orders: []
     }
-    const polyGeo = poly.geometry as any
-    const turfPoly = turf.polygon(polyGeo.coordinates)
-    orders.forEach((order: GeomWithOrders) => {
-      const geom = order.geometry.geometry as any
-      const coords = geom.coordinates
-      switch (order.geometry.geometry.type) {
-        case 'Point': {
-          const pt = turf.point(coords)
-          if (turf.booleanPointInPolygon(pt, turfPoly)) {
-            thisBin.orders.push(order)
+    spatialBins.push(thisBin)
+  })
+  const tl = bounds.getNorthWest()
+  const br = bounds.getSouthEast()
+  const poly = [[[tl.lng, tl.lat], [tl.lng, br.lat], [br.lng, br.lat], [br.lng, tl.lat], [tl.lng, tl.lat]]]
+  const boundsPoly = turf.polygon(poly)
+  orders.forEach((order: GeomWithOrders) => {
+    const geom = order.geometry.geometry as any
+    const coords = geom.coordinates
+    let binFound = false
+    let goesOutsideBounds = false
+    spatialBins.forEach((bin: SpatialBin, _index: number) => {
+      // don't consider bin zero
+      if (bin.polygon) {
+        const polyGeo = bin.polygon.geometry as any
+        const turfPoly = turf.polygon(polyGeo.coordinates)
+        switch (order.geometry.geometry.type) {
+          case 'Point': {
+            const pt = turf.point(coords)
+            if (turf.booleanPointInPolygon(pt, turfPoly)) {
+              bin.orders.push(order)
+              binFound = true
+            }
+            if (!goesOutsideBounds && !turf.booleanContains(boundsPoly, pt)) {
+              goesOutsideBounds = true
+            }
+            break
           }
-          break
-        }
-        case 'LineString': {
-          const lineS = turf.lineString(coords)
-          if (turf.booleanCrosses(lineS, poly)) {
-            thisBin.orders.push(order)
+          case 'LineString': {
+            const lineS = turf.lineString(coords)
+            if (turf.booleanCrosses(lineS, bin.polygon)) {
+              bin.orders.push(order)
+              binFound = true
+            }
+            if (!goesOutsideBounds && !turf.booleanContains(boundsPoly, lineS)) {
+              goesOutsideBounds = true
+            }
+
+            break
           }
-          break
-        }
-        case 'Polygon': {
-          const coords2 = fixPoly(coords)
-          const thisPoly = turf.polygon(coords2 as any)
-          // note: overlap return false if one contains the other, so also
-          // note: check for one containing the other
-          if (turf.booleanOverlap(poly, thisPoly) || turf.booleanContains(poly, thisPoly) || turf.booleanContains(thisPoly, poly)) {
-            thisBin.orders.push(order)
+          case 'Polygon': {
+            const coords2 = fixPoly(coords)
+            const thisPoly = turf.polygon(coords2 as any)
+            // note: overlap return false if one contains the other, so also
+            // note: check for one containing the other
+            if (turf.booleanOverlap(bin.polygon, thisPoly) || turf.booleanContains(bin.polygon, thisPoly) ||
+              turf.booleanContains(thisPoly, bin.polygon)) {
+              bin.orders.push(order)
+              binFound = true
+            }
+            if (!goesOutsideBounds && !turf.booleanContains(boundsPoly, thisPoly)) {
+              goesOutsideBounds = true
+            }
+            break
           }
-          break
         }
       }
     })
-    // store the bin count
-    if (!poly.properties) {
-      poly.properties = {}
+    // if it hasn't been put in a bin, or if it goes outside bounds, pit
+    // it in bin zero
+    if (!binFound || goesOutsideBounds) {
+      binZero.orders.push(order)
     }
-    poly.properties.orderNum = thisBin.orders.length
-    res.push(thisBin)
   })
-  return res
+  return spatialBins
 }
 
 const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
@@ -1088,7 +1127,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
               // if they overlap, then intersect returns intersecting region
               // but, if one contains the other, the `other` represents the intersection
               if (overlaps) {
-                intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
+                intersects = turf.intersect(mePoly, turfPoly) as Feature<Geometry>
               } else if (aContainsB) {
                 intersects = turfPoly
               } else {
@@ -1098,15 +1137,32 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
                 throw Error('One method reported overlap, the other didn\'t')
               }
               try {
-                const fPoly = turf.polygon(intersects.geometry.coordinates)
-                intersection = {
-                  startTime: intersectionTime[0],
-                  endTime: intersectionTime[1],
-                  intersection: fPoly
+                let tPoly: Feature<Geometry> | undefined
+                switch (intersects.geometry.type) {
+                  case 'Polygon': {
+                    const poly = intersects as Feature<Polygon>
+                    tPoly = turf.polygon(poly.geometry.coordinates)
+                    break
+                  }
+                  case 'MultiPolygon': {
+                    const mPoly = intersects as Feature<MultiPolygon>
+                    tPoly = turf.multiPolygon(mPoly.geometry.coordinates)
+                    break
+                  }
+                  default: {
+                    console.warn('Failed to generate geometry for ', intersects.geometry.type)
+                  }
+                }
+                if (tPoly) {
+                  intersection = {
+                    startTime: intersectionTime[0],
+                    endTime: intersectionTime[1],
+                    intersection: tPoly
+                  }
                 }
               } catch (err) {
                 console.warn('Issue generating poly overlap', me.plan.message.Reference, other.plan.message.Reference,
-                  err, me.plan.message.location, other.plan.message.location)
+                  err, intersects)
               }
             }
             break
@@ -1117,7 +1173,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
     }
   } catch (err2) {
     console.warn('Issue in touches logic', me.plan.message.Reference, other.plan.message.Reference,
-      err2, me.plan.message.location, other.plan.message.location)
+      me.geometry, other.geometry, err2)
   }
 
   if (res === undefined) {

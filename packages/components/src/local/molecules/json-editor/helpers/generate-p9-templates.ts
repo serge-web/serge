@@ -231,7 +231,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const acts: Activity[] = []
   acts.push({ uniqid: 'STRIKE', title: 'Strike', events: end, forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
   acts.push({ uniqid: 'EW', title: 'EW Attack', events: both, forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Area of Effect'], specific: 'EWAttack', spatialP: true, spatialH: true })
-  acts.push({ uniqid: 'ISTAR', title: 'ISTAR', events: rndEnd, forces: allForces, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR', spatialP: true })
+  acts.push({ uniqid: 'ISTAR', title: 'ISTAR', events: end, forces: allForces, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR' })
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: landMar, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
   acts.push({ uniqid: 'AAR', title: 'Air to Air Refuel', forces: allForces, domains: [air], acts: thereBack, actDesc: ['AAR at this location'], specific: 'AirToAir' })
   acts.push({ uniqid: 'RESUPP', title: 'Resupply', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Resupply at this location'], specific: 'Resupply' })

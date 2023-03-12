@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
 import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
-import { ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
+import { ForceData, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import { cloneDeep, isEqual } from 'lodash'
 import moment from 'moment'
@@ -16,7 +16,7 @@ import { getFilterApplied, getIsFilterState } from '../support-panel/helpers/cac
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
 import { collateOutcomeDetails } from './helpers/collate-outcome-details'
-import { toColumn, toRow } from './helpers/genData'
+import { needToUpdate, toColumn, toRow } from './helpers/genData'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
@@ -33,7 +33,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [initialised, setInitialised] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const [myPlanningMessages, setMyPlanningMessages] = useState<MessagePlanning[]>([])
-  const [myInteractionMessages, setMyInteractionMessages] = useState<MessageInteraction[]>([])
   const messageValue = useRef<any>(null)
   const tableRef = useRef<any>()
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
@@ -46,6 +45,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [messageBeingEdited, setMessageBeingEdited] = useState<boolean>(false)
 
   const [countOfSelectedPlans, setCountOfSelectedPlans] = useState<number>(0)
+
+  const currentColumnsData = useRef<Column<OrderRow>[]>([])
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, planningMessages.length)
@@ -67,17 +68,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }).length
     setCountOfSelectedPlans(selectedCount)
   }, [visibleRows])
-
-  useEffect(() => {
-    // find interactions that relate to these messages
-    const planIds = myPlanningMessages.map((plan) => plan._id)
-    const myInteractions = interactionMessages.filter((msg) => {
-      const inter = msg.details.interaction
-      return inter && (planIds.includes(inter.orders1) || (inter.orders2 && planIds.includes(inter.orders2)))
-    })
-    // console.log('Planning Message List of interactions', interactionMessages.length, myInteractions.length)
-    setMyInteractionMessages(myInteractions)
-  }, [myPlanningMessages])
 
   useEffect(() => {
     if (pendingMessages.length) {
@@ -177,10 +167,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     })
     setRows(dataTable)
 
-    if (!columns.length || !filter || !initialised) {
+    const columnData = toColumn(myPlanningMessages, isUmpire)
+    const needUpdate = needToUpdate(currentColumnsData.current, columnData)
+
+    if (!columns.length || !filter || !initialised || needUpdate) {
       setInitialised(true)
-      const columnData = toColumn(myPlanningMessages)
       setColumns(columnData)
+      currentColumnsData.current = columnData
     }
   }, [turnFilter, filter, myPlanningMessages])
 
@@ -207,6 +200,17 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   const outcomesForPlan = (plan: MessagePlanning, forceId: ForceData['uniqid'], isUmpire: boolean, forces: ForceData[]): React.ReactElement | undefined => {
+    // find interactions that relate to these messages
+    const planId = plan._id
+    const myInteractionMessages = interactionMessages.filter((msg) => {
+      const inter = msg.details.interaction
+      if (inter) {
+        const planIds = inter.orders2 ? [inter.orders1, inter.orders2] : [inter.orders1]
+        return planIds.includes(planId)
+      }
+      return false
+    })
+
     const details = collateOutcomeDetails(plan, myInteractionMessages, isUmpire, forceId, forces, forceColors, platformTypes)
     const specialFields = ['name', 'location', 'nature']
     if (details !== undefined) {
@@ -476,6 +480,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         pageSizeOptions: [20, 50, 100],
         filtering: filter,
         selection: true,
+        columnsButton: true,
         rowStyle: { fontSize: '80%' }
       }}
       onSelectionChange={onSelectionChange}
@@ -500,7 +505,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         />
       }}
     />
-  }, [rows, filter, toolbarActions, onlyShowMyOrders])
+  }, [rows, filter, toolbarActions, onlyShowMyOrders, columns])
 
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>

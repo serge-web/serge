@@ -30,7 +30,7 @@ const createContactReference = (me: string, other: string): string => {
 
 export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activities, handleAdjudication, forceCols }) => {
   const [bins, setBins] = useState<SpatialBin[]>([])
-  const [currentBins, setCurrentBins] = useState<SpatialBin[]>([])
+  //   const [currentBins, setCurrentBins] = useState<SpatialBin[]>([])
   const [interactionsProcessed, setInteractionsProcessed] = useState<string[]>([])
   const [geometriesWithOrders, setGeometriesWithOrders] = useState<GeomWithOrders[]>([])
   const [geometries, setGeometries] = useState<GeoJsonObject | undefined>(undefined)
@@ -126,7 +126,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       const bins = spatialBinning(geometriesInTimeWindow, 6)
       const binnedOrders = putInBin(geometriesInTimeWindow, bins)
       setBins(binnedOrders)
-      setCurrentBins(binnedOrders)
+      //      setCurrentBins(binnedOrders)
 
       setMessage1('Generating interactions for' + geometriesInTimeWindow.length + ' orders in this time window in ' + bins.length + ' bins')
     }
@@ -168,7 +168,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
         return newItem
       })
       setGeometriesWithOrders(updated)
-      setCurrentBins([bin])
+      // setCurrentBins([bin])
       if (binToProcess < bins.length - 1) {
         setTimeout(() => setBinToProcess(1 + binToProcess), 0)
       } else {
@@ -199,7 +199,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
         setContacts([])
         setInteractionsProcessed([])
         setBins([])
-        setCurrentBins(bins)
+        // setCurrentBins(bins)
         sentForAdjudication.push(nextToProcess)
 
         setMessage1('Sending for adjudication:' + nextToProcess.id)
@@ -255,14 +255,14 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
     }
   }
 
-  const styleForBoxes: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
-    const hasOrders = feature && feature.properties && feature.properties.orderNum > 0
-    return {
-      color: '#f0f',
-      fillColor: hasOrders ? '#0f0' : '#eee',
-      className: 'leaflet-default-icon-path'
-    }
-  }
+  // const styleForBoxes: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
+  //   const hasOrders = feature && feature.properties && feature.properties.orderNum > 0
+  //   return {
+  //     color: '#f0f',
+  //     fillColor: hasOrders ? '#0f0' : '#eee',
+  //     className: 'leaflet-default-icon-path'
+  //   }
+  // }
 
   const geojsonMarkerOptions = {
     radius: 10,
@@ -332,13 +332,13 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
         </Tooltip>
       </Marker>
     }
-    {bins.length > 0 &&
+    {/* {bins.length > 0 &&
       <LayerGroup key={'bins'}>
         {!7 && currentBins.map((bin: SpatialBin, index: number) =>
           <GeoJSON style={styleForBoxes} onEachFeature={onEachFeature} data={bin.polygon} key={'a_' + index + Math.random()} />
         )}
       </LayerGroup>
-    }
+    } */}
     {
       geometries !== undefined && !toAdjudicateFeature &&
       <>

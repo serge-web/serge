@@ -218,14 +218,18 @@ const PlanningForces: React.FC<PropTypes> = ({
 
   const MarkerCluster = ({ markers }: { markers: AssetRow[] }) => {
     useEffect(() => {
-      if (clusterGroup) {
-        clusterGroup.clearLayers()
-        const markersWithLocation = markers.filter((row: AssetRow) => row.position)
-        const markerList = markersWithLocation.map((asset) => getClusteredMarkerOption(asset))
-        if (markerList.length) {
-          clusterGroup.addLayers(markerList)
+      const clusterUnMount = setTimeout(() => {
+        if (clusterGroup) {
+          clusterGroup.clearLayers()
+          const markersWithLocation = markers.filter((row: AssetRow) => row.position)
+          const markerList = markersWithLocation.map((asset) => getClusteredMarkerOption(asset))
+          if (markerList.length) {
+            clusterGroup.addLayers(markerList)
+          }
         }
-      }
+      }, 300)
+
+      return (): void => clearInterval(clusterUnMount)
     }, [markers, clusterGroup, clusteredRangeRings])
 
     return null
@@ -296,16 +300,16 @@ const PlanningForces: React.FC<PropTypes> = ({
     )
   }
 
-  const elapsed = (lastUpdate?: string): string => {
-    if (lastUpdate && lastUpdate !== 'unk') {
-      return '\n (' + lastUpdate + ')'
-    } else {
-      return ''
-    }
-  }
+  // const elapsed = (lastUpdate?: string): string => {
+  //   if (lastUpdate && lastUpdate !== 'unk') {
+  //     return '\n (' + lastUpdate + ')'
+  //   } else {
+  //     return ''
+  //   }
+  // }
 
   const labelFor = (asset: AssetRow): string => {
-    return asset.name + ', ' + asset.id + elapsed(asset.lastUpdated)
+    return asset.name + ', ' + asset.id
   }
 
   const iconLayer = useMemo(() => {
