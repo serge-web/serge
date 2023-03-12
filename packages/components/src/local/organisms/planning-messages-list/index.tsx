@@ -16,7 +16,7 @@ import { getFilterApplied, getIsFilterState } from '../support-panel/helpers/cac
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
 import { collateOutcomeDetails } from './helpers/collate-outcome-details'
-import { toColumn, toRow } from './helpers/genData'
+import { needToUpdate, toColumn, toRow } from './helpers/genData'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
@@ -45,6 +45,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [messageBeingEdited, setMessageBeingEdited] = useState<boolean>(false)
 
   const [countOfSelectedPlans, setCountOfSelectedPlans] = useState<number>(0)
+
+  const currentColumnsData = useRef<Column<OrderRow>[]>([])
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, planningMessages.length)
@@ -165,10 +167,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     })
     setRows(dataTable)
 
-    if (!columns.length || !filter || !initialised) {
+    const columnData = toColumn(myPlanningMessages, isUmpire)
+    const needUpdate = needToUpdate(currentColumnsData.current, columnData)
+
+    if (!columns.length || !filter || !initialised || needUpdate) {
       setInitialised(true)
-      const columnData = toColumn(myPlanningMessages, isUmpire)
       setColumns(columnData)
+      currentColumnsData.current = columnData
     }
   }, [turnFilter, filter, myPlanningMessages])
 
@@ -496,7 +501,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         />
       }}
     />
-  }, [rows, filter, toolbarActions, onlyShowMyOrders])
+  }, [rows, filter, toolbarActions, onlyShowMyOrders, columns])
 
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>

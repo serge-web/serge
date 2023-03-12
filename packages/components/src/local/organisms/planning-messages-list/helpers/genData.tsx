@@ -1,6 +1,8 @@
 import { Column } from '@material-table/core'
 import { MessagePlanning, PlanningMessageStructureCore } from '@serge/custom-types'
+import { isEqual } from 'lodash'
 import moment from 'moment'
+import { AdjudicationRow } from '../../adjudication-messages-list/types/props'
 import { arrToDict, collateActivities } from '../../planning-assets/helpers/collate-assets'
 
 import { OrderRow } from '../types/props'
@@ -63,4 +65,13 @@ export const toColumn = (message: MessagePlanning[], isUmpire: boolean): Column<
   ]
 
   return columnData
+}
+
+export const needToUpdate = (oldColumnsData: (Column<OrderRow> | Column<AdjudicationRow>)[], newColumnData: (Column<OrderRow> | Column<AdjudicationRow>)[]): boolean => {
+  const oldLookup = oldColumnsData.filter(col => col.lookup)
+  const newLookup = newColumnData.filter(col => col.lookup)
+  if (oldLookup.length !== newLookup.length) {
+    return true
+  }
+  return newLookup.some((lookup, idx) => !isEqual(lookup.lookup, oldLookup[idx].lookup))
 }

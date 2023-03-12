@@ -11,6 +11,7 @@ import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START, P
 import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { findAsset, findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
+import cx from 'classnames'
 import dayjs, { Dayjs } from 'dayjs'
 import { Geometry } from 'geojson'
 import _ from 'lodash'
@@ -19,14 +20,12 @@ import React, { CSSProperties, Fragment, SyntheticEvent, useCallback, useEffect,
 import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
-import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateForcesDropdown, updatePlatformTypes, updateWithAllAssets } from './helpers/collate-interaction'
 import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
-import cx from 'classnames'
 import L from 'leaflet'
 
 type ForceMessages = {
@@ -85,6 +84,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const [inPlanning, setInPlanning] = useState<boolean>(true)
 
+  const currentColumnsData = useRef<Column<AdjudicationRow>[]>([])
+
   const msgSeparator = ' - '
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
@@ -108,7 +109,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       return isMine && isOpen
     })
     setMessageBeingEdited(!!ownOpenMessages.length)
-    console.log('Message being edited', ownOpenMessages.length)
     // if filter is selected, only show own open messages
     const ownMessages = onlyShowOpen ? ownOpenMessages : interactionMessages
     if (cachedInteractions.length === 0) {
@@ -332,13 +332,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setRows(dataTable)
 
       if (!columns.length || !filter) {
-        console.time('LLOG_Collate Adjudicate Message Filters')
-        const umpireForce = forces.find((force: ForceData) => force.umpire)
-        // TODO: the column definitions should use the data collated in the column summary (below)
-        // provide more sophisticated column definition lookups
-        const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
         const hideTurnColumn = turnFilter !== SHOW_ALL_TURNS
-        const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
+        const columnsData: Column<AdjudicationRow>[] = [
           { title: 'Reference', field: 'reference' },
           { title: 'Turn', field: 'turn', type: 'numeric', hidden: hideTurnColumn }, //  },
           { title: 'Complete', field: 'complete', render: renderBoolean },
@@ -349,8 +344,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           { title: 'Activity', field: 'Reference' },
           { title: 'Duration', field: 'period' }
         ]
+        currentColumnsData.current = columnsData
         setColumns(columnsData)
-        console.timeEnd('LLOG_Collate Adjudicate Message Filters')
       }
     } else {
       setRows([])
@@ -613,7 +608,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30,
       gameDate, gameTurnEnd, forces, false, currentTurn, bounds)
     console.timeEnd('LLOG_GetInteraction')
-    console.log('get next inter recieved:', results)
+    console.log('GetNextAdjudication returned:', results)
     if (results === undefined) {
       setDialogMessage(<>No interactions found</>)
       // fine, ignore it
