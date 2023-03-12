@@ -6,8 +6,7 @@ import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { ForceData, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import { findForceAndAsset } from '@serge/helpers'
 import cx from 'classnames'
-import _ from 'lodash'
-import { cloneDeep, isEqual } from 'lodash'
+import _, { cloneDeep, isEqual } from 'lodash'
 import moment from 'moment'
 import React, { CSSProperties, Fragment, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
@@ -124,7 +123,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
                     Turn: msg.details.turnNumber,
                     Location: '[' + formatLocation(loc[0]) + ', ' + formatLocation(loc[1]) + ']'
                   }
-                  myMovementList.push(entry)  
+                  myMovementList.push(entry)
                 }
               }
             }
