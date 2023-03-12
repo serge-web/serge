@@ -396,7 +396,10 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       const c4 = hasGodsEyeView ? ((asset.attributes && asset.attributes.a_C4_Status as string) || 'Unk') : 'Unk'
       if ((perceptionTypes && perception) || hasGodsEyeView) {
         const forceStyle = perceptionTypes ? forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId) : ''
-        const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
+
+        // note: we used to use perceived location, but it was hassle to maintain, so we provide red with actual location
+        // const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
+        const position = asset.location && latLng(asset.location[0], asset.location[1])
 
         const res: AssetRow = {
           id: asset.uniqid,
