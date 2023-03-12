@@ -108,7 +108,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       return isMine && isOpen
     })
     setMessageBeingEdited(!!ownOpenMessages.length)
-    console.log('Message being edited', ownOpenMessages.length)
     // if filter is selected, only show own open messages
     const ownMessages = onlyShowOpen ? ownOpenMessages : interactionMessages
     if (cachedInteractions.length === 0) {
@@ -598,7 +597,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     console.time('LLOG_GetInteraction')
     const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
     console.timeEnd('LLOG_GetInteraction')
-    console.log('get next inter recieved:', results)
+    console.log('GetNextAdjudication returned:', results)
     if (results === undefined) {
       setDialogMessage(<>No interactions found</>)
       // fine, ignore it
