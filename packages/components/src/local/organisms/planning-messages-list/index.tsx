@@ -57,8 +57,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const panelState = useMemo(() => getSupportPanelState(), [])
 
-  console.log('PlanningMessages # interactions:', interactionMessages.length)
-
   useEffect(() => {
     if (showTurnSummaryTable) {
       interface BaseEntry {
@@ -79,8 +77,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       const myHealthList: HealthEntry[] = []
       const myMovementList: MovementEntry[] = []
       const myFriendlyForces = selectedForce.uniqid === 'f-red' ? ['f-red'] : ['f-blue', 'f-green']
-
-      console.log('interaction messages', interactionMessages.length)
 
       // filter for interaction messages from previous turn
       const lastTurnInteractions = interactionMessages.filter((msg) => {
