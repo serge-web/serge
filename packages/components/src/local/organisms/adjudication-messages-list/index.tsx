@@ -49,6 +49,9 @@ type ManualInteractionResults = {
  * Value expected to be in km2/hour */
 export const DEFAULT_SEARCH_RATE = 2000
 
+const fixedTl = L.latLng(41, 28)
+const fixedBr = L.latLng(-12, 84)
+
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, turnPlanningMessages, allPlanningMessages, template, gameDate, turnFilter,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
@@ -535,9 +538,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const countRemainingInteractions = (fixedBounds?: boolean): void => {
-    const tl = L.latLng(40, 40)
-    const br = L.latLng(-2, 82)
-    const bounds = fixedBounds ? L.latLngBounds(tl, br) : undefined
+    const bounds = fixedBounds ? L.latLngBounds(fixedTl, fixedBr) : undefined
 
     console.time('LLOG_count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
@@ -597,9 +598,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   // })
 
   const getInteraction = (fixedBounds?: boolean): void => {
-    const tl = L.latLng(40, 40)
-    const br = L.latLng(-2, 82)
-    const bounds = fixedBounds ? L.latLngBounds(tl, br) : undefined
+    const bounds = fixedBounds ? L.latLngBounds(fixedTl, fixedBr) : undefined
 
     // const special: string | undefined = withTg && withTg.message.activity // undefined // 'tst'
     const trimmedPlanningMessages = turnPlanningMessages // [withTg as MessagePlanning] // || special ? planningMessages.filter((msg) => msg.message.activity.toLowerCase().includes(special)) : planningMessages
