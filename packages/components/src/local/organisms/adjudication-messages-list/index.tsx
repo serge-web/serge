@@ -1,4 +1,4 @@
-import { faSearchMinus, faSearchPlus, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faSearchPlus, faUser, faBug } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START, Phase } from '@serge/config'
-import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
 import { findAsset, findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
 import cx from 'classnames'
@@ -23,7 +23,7 @@ import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateForcesDropdown, updatePlatformTypes, updateWithAllAssets } from './helpers/collate-interaction'
-import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
+import { findActivityFromCompositeString, getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 import L from 'leaflet'
@@ -833,6 +833,55 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     setValidationErrors(res)
   }
 
+  const checkOrders = (): void => {
+    const invalidLocationIds: Array<PlanningMessageStructureCore['Reference']> = []
+    const invalidDates: string[] = []
+    const forceActs = forcePlanningActivities || []
+    turnPlanningMessages.forEach((order) => {
+      const actName = order.message.activity
+      if (order.message.location && order.message.location.length > 0) {
+        const activSet = forceActs?.find((act) => act.force === order.details.from.forceId)
+        if (activSet) {
+          const activity = findActivityFromCompositeString(actName, activSet)
+          if (activity && activity.geometries) {
+            const actIds = activity.geometries.map((geom) => geom.uniqid)
+            const locIds = order.message.location.map((plan) => plan.uniqid)
+            const inList = locIds.every((locationId) => actIds.includes(locationId))
+            if (!inList) {
+              invalidLocationIds.push(order.message.Reference)
+            }
+          } else {
+            console.warn('Failed to find acftivities for', actName, order.details.from.forceId)
+          }
+        } else {
+          console.warn('Failed to find acftivities for', order.details.from.forceId)
+        }
+      }
+      // also check the start/end dates
+      const startD = moment.utc(order.message.startDate)
+      const endD = moment.utc(order.message.endDate)
+      const validYear = (date: moment.Moment): boolean => {
+        return date.year() === 2033 || date.year() === 2034
+      }
+      if (!validYear(startD)) {
+        invalidDates.push(order.message.Reference + ' ' + startD.toISOString())
+      }
+      if (!validYear(endD)) {
+        invalidDates.push(order.message.Reference + ' ' + endD.toISOString())
+      }
+    })
+    if (invalidLocationIds) {
+      console.log('Invalid location ids:', invalidLocationIds)
+    } else {
+      console.log(['Location IDS all valid'])
+    }
+    if (invalidDates) {
+      console.log('Invalid date values:', invalidDates)
+    } else {
+      console.log(['Date values all valid'])
+    }
+  }
+
   type MessageValue = { id: string, label: string }
 
   // linter warned that this object was being created on each render, so use a useMemo
@@ -857,6 +906,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           tooltip: 'Only show open interactions',
           isFreeAction: true,
           onClick: (): void => setOnlyShowOpwn(!onlyShowOpen)
+        },
+        {
+          icon: () => <FontAwesomeIcon title='Check orders' icon={faBug} className={cx({ [styles.selected]: true })} />,
+          iconProps: { color: 'action' },
+          tooltip: 'Check orders valid',
+          isFreeAction: true,
+          onClick: (): void => checkOrders()
         },
         {
           icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
