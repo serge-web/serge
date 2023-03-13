@@ -78,6 +78,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [filter, setFilter] = useState<boolean>(false)
   const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(true)
   const [dialogMessage, setDialogMessage] = useState<React.ReactElement | undefined>()
+  const [dialogHeader, setDialogHeader] = useState<string>('')
   // note: we don't work directly with the list of interactions, since we need some special processing to prevent
   // note: interactions being edited from being wiped.  So we maintain an independent list
   const [cachedInteractions, setCachedInteractions] = useState<MessageInteraction[]>([])
@@ -585,6 +586,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       // console.table(interactionMap)
       const message = '' + events.length + ' events remaining' + ', ' + interactions.length + ' interactions remaining'
       //
+      setDialogHeader('Count interactions')
       setDialogMessage(<>{message}{arrayToTable(eventMap)}{arrayToTable(interactionMap)}</>)
     } else {
       setDialogMessage(<>No events or interactions remaining</>)
@@ -609,6 +611,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     console.timeEnd('LLOG_GetInteraction')
     console.log('GetNextAdjudication returned:', results)
     if (results === undefined) {
+      setDialogHeader('Generate interactions')
       setDialogMessage(<>No interactions found</>)
       // fine, ignore it
     } else if (!Array.isArray(results) && results !== undefined) {
@@ -864,22 +867,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         return date.year() === 2033 || date.year() === 2034
       }
       if (!validYear(startD)) {
-        invalidDates.push(order.message.Reference + ' ' + startD.toISOString())
+        invalidDates.push(order.message.Reference + ', start date: ' + startD.toISOString())
       }
       if (!validYear(endD)) {
-        invalidDates.push(order.message.Reference + ' ' + endD.toISOString())
+        invalidDates.push(order.message.Reference + ', end date: ' + endD.toISOString())
       }
     })
-    if (invalidLocationIds.length > 0) {
-      console.log('Invalid location ids:', invalidLocationIds)
-    } else {
-      console.log(['Location IDS all valid'])
-    }
-    if (invalidDates.length > 0) {
-      console.log('Invalid date values:', invalidDates)
-    } else {
-      console.log(['Date values all valid'])
-    }
+    const locationData = (invalidLocationIds.length > 0) ? <div>Invalid location geometries:<ul></ul>{invalidLocationIds.map((item) => <li>{item}</li>)}</div>
+      : <div>Location ids valid</div>
+    const dateData = invalidDates.length > 0 ? <div><br/>Invalid date data:{invalidDates.map((item) => <li>{item}</li>)}</div>
+      : <div>Dates all valid</div>
+    setDialogHeader('Validate orders')
+    setDialogMessage(<Fragment>{locationData} {dateData}</Fragment>)
   }
 
   type MessageValue = { id: string, label: string }
@@ -1045,7 +1044,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       {dialogMessage !== undefined &&
         <CustomDialog
           isOpen={dialogMessage !== undefined}
-          header={'Generate interactions'}
+          header={dialogHeader}
           cancelBtnText={'OK'}
           onClose={closeDialogCallback}
           bodyStyle={eventList}
