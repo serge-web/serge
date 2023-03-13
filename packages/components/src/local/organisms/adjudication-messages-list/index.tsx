@@ -836,7 +836,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const checkOrders = (): void => {
     const invalidLocationIds: Array<PlanningMessageStructureCore['Reference']> = []
     const invalidDates: string[] = []
-    const forceActs = forcePlanningActivities || []
+    const forceActs = forcePlanningActivities
     turnPlanningMessages.forEach((order) => {
       const actName = order.message.activity
       if (order.message.location && order.message.location.length > 0) {
@@ -870,12 +870,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         invalidDates.push(order.message.Reference + ' ' + endD.toISOString())
       }
     })
-    if (invalidLocationIds) {
+    if (invalidLocationIds.length > 0) {
       console.log('Invalid location ids:', invalidLocationIds)
     } else {
       console.log(['Location IDS all valid'])
     }
-    if (invalidDates) {
+    if (invalidDates.length > 0) {
       console.log('Invalid date values:', invalidDates)
     } else {
       console.log(['Date values all valid'])
