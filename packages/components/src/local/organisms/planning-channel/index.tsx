@@ -722,7 +722,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const nonTurnMessagesRemoveDublicate = _.uniqBy(nonTurnMessages, (e) => {
       return e.message && e.message.Reference
     })
-    const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessagesRemoveDublicate.filter((message) => !message.details.archived)
+    // note: we no longer filter out archived messages
+    const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessagesRemoveDublicate
+    // note: this code used to filter out archived message: .filter((message) => !message.details.archived)
     // TODO: these filters should just use `messageType` to get the correct data, but currently
     // all messages have "CUSTOM_MESSAGE". So the filters fall back on other `tell-tales`.
     const myPlanningMessages = unArchivedMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction)) as MessagePlanning[]
