@@ -9,7 +9,7 @@ import * as turf from '@turf/turf'
 import { Position } from '@turf/turf'
 import { Feature, Geometry, MultiPolygon, Polygon } from 'geojson'
 import L, { LatLngBounds } from 'leaflet'
-import _ from 'lodash'
+import _, { cloneDeep } from 'lodash'
 import moment from 'moment-timezone'
 import { findActivityFromCompositeString } from '../../adjudication-messages-list/helpers/getNextInteraction'
 import { lineLineContact, linePointContact, linePolyContact, ShapeInteraction, timeIntersect2, TimePeriod } from './shape-intersects'
@@ -576,7 +576,8 @@ const fixPoly = (coords: number[][]): Position[] => {
 
 export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {
   const res: GeomWithOrders[] = []
-  messages.forEach((message: MessagePlanning) => {
+  messages.forEach((messageOrig: MessagePlanning) => {
+    const message = cloneDeep(messageOrig)
     if (message.message.location) {
       const forceId = message.details.from.forceId || 'unknown'
       message.message.location.forEach((plan: PlannedActivityGeometry) => {

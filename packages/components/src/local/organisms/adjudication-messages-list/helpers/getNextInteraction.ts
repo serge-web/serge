@@ -1021,17 +1021,18 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
 
     const fullTurnLength = gameTurnEndVal - gameTimeVal
     const windowMilliSize = getAll ? fullTurnLength : fullTurnLength / 20
-    let currentWindowLength = windowMilliSize
+    const windowLength = windowMilliSize
+    let windowStartTime = gameTimeVal
 
     const contacts: PlanningContact[] = []
     let eventInWindow: ShortCircuitEvent | undefined
     let allRemainingEvents: TimedIntervention[] = []
 
-    console.log('Start windowed time loop. Full turn size, window size:', fullTurnLength, currentWindowLength,
-      moment.utc(fullTurnLength).format('DDD HH:mm'), moment.utc(currentWindowLength).format('DDD HH:mm'))
+    console.log('Start windowed time loop. Full turn size, window size:', fullTurnLength, windowLength,
+      moment.utc(fullTurnLength).format('DDD HH:mm'), moment.utc(windowLength).format('DDD HH:mm'))
 
-    while (contacts.length === 0 && currentWindowLength <= fullTurnLength && eventInWindow === undefined) {
-      const windowEnd = gameTimeVal + currentWindowLength
+    while (contacts.length === 0 && (windowStartTime + windowMilliSize < gameTurnEndVal) && eventInWindow === undefined) {
+      const windowEnd = windowStartTime + windowLength
       console.time('LLOG_PrepareOrders')
 
       // if we're doing get-all, don't bother with shortcircuits
@@ -1046,12 +1047,12 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
       }
 
       // trim for 'live' orders
-      const liveOrders = ordersLiveIn(fullOrders, gameTimeVal, windowEnd)
-      console.log('window size', moment(gameTimeVal).toISOString(), moment(windowEnd).toISOString(), fullOrders.length, liveOrders.length)
+      const liveOrders = ordersLiveIn(fullOrders, windowStartTime, windowEnd)
+      console.log('window size', moment(windowStartTime).toISOString(), moment(windowEnd).toISOString(), fullOrders.length, liveOrders.length)
 
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)
-      const geometriesInTimeWindow = withTimes.filter((val) => startBeforeTime(val, windowEnd)).filter((val) => endAfterTime(val, gameTimeVal))
+      const geometriesInTimeWindow = withTimes.filter((val) => startBeforeTime(val, windowEnd)).filter((val) => endAfterTime(val, windowStartTime))
       console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length)
 
       // now do spatial binning
@@ -1091,7 +1092,7 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
       // console.log('binning complete, contacts:', contacts.length)
       console.timeEnd('LLOG_BinOrders')
 
-      currentWindowLength += windowMilliSize
+      windowStartTime += windowMilliSize
     }
 
     // special handling for get-all
