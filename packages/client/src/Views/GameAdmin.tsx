@@ -1,6 +1,6 @@
 import { MessageChannel } from '@serge/custom-types'
 import { setMessageState } from '@serge/helpers'
-import React, { useMemo } from 'react'
+import React, { useMemo, memo } from 'react'
 import { updateMessageState } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import MessageCreatorChatChannel from '../Components/MessageCreatorChatChannel/MessageCreatorChatChannel'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
@@ -38,4 +38,4 @@ const GameAdmin = (): React.ReactElement => {
   )
 }
 
-export default GameAdmin
+export default memo(GameAdmin)
