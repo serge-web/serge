@@ -408,7 +408,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       const adjInAdjuPhase = isUmpire && phase === Phase.Adjudication
       const canEdit = myForceMessageInPlanning || adjInAdjuPhase
 
-
       // check if message is being edited
       const localTemplates = allTemplates || []
       const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
