@@ -873,9 +873,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         invalidDates.push(order.message.Reference + ', end date: ' + endD.toISOString())
       }
     })
-    const locationData = (invalidLocationIds.length > 0) ? <div>Invalid location geometries:<ul></ul>{invalidLocationIds.map((item) => <li>{item}</li>)}</div>
+    const locationData = (invalidLocationIds.length > 0)
+      ? <div>Invalid location geometries:<ul></ul>{invalidLocationIds.map((item, index) => <li key={index}>{item}</li>)}</div>
       : <div>Location ids valid</div>
-    const dateData = invalidDates.length > 0 ? <div><br/>Invalid date data:{invalidDates.map((item) => <li>{item}</li>)}</div>
+    const dateData = invalidDates.length > 0 ? <div><br/>Invalid date data:{invalidDates.map((item, index) => <li key={index}>{item}</li>)}</div>
       : <div>Dates all valid</div>
     setDialogHeader('Validate orders')
     setDialogMessage(<Fragment>{locationData} {dateData}</Fragment>)
