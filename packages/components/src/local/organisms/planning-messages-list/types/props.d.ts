@@ -20,6 +20,8 @@ export type OrderRow = {
   /* note - the tableData object is
   injected by material-table */
   tableData?: { checked: boolean }
+  // if this order has been arcbived
+  archived: boolean
 }
 
 export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void }

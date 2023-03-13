@@ -44,7 +44,8 @@ export const toRow = (message: MessagePlanning): OrderRow => {
     role: author,
     activity: trimActivity(message.details.from.forceId || '', plan.activity),
     startDate: shortDate(plan.startDate),
-    endDate: shortDate(plan.endDate)
+    endDate: shortDate(plan.endDate),
+    archived: !!message.details.archived
   }
   return row
 }
@@ -56,6 +57,7 @@ export const toColumn = (message: MessagePlanning[], isUmpire: boolean): Column<
 
   const columnData: Column<OrderRow>[] = [
     { title: 'Reference', field: 'reference', width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'Archived', field: 'archived', hidden: false, width: 'auto' },
     { title: 'Force', field: 'force', width: 'auto', hidden: !isUmpire, lookup: arrToDict(forces) },
     { title: 'Author', field: 'role', width: 'auto', lookup: arrToDict(roles) },
     { title: 'Title', field: 'title', width: 'auto' },
