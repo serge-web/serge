@@ -1031,7 +1031,7 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
     console.log('Start windowed time loop. Full turn size, window size:', fullTurnLength, windowLength,
       moment.utc(fullTurnLength).format('DDD HH:mm'), moment.utc(windowLength).format('DDD HH:mm'))
 
-    while (contacts.length === 0 && (windowStartTime + windowMilliSize < gameTurnEndVal) && eventInWindow === undefined) {
+    while (contacts.length === 0 && (windowStartTime + windowMilliSize <= gameTurnEndVal) && eventInWindow === undefined) {
       const windowEnd = windowStartTime + windowLength
       console.time('LLOG_PrepareOrders')
 
