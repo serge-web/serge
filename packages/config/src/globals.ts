@@ -199,7 +199,7 @@ export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'
 export const SUPPORT_PANEL_LAYOUT = {
   OPENING_TAB: 'serge.planning.openingTab',
   SUPPORT_PANEL_WIDTH: 'serge.planning.supportPanelWidth',
-  VISIBLE_COLUMNS: 'serge.planning.visibleColumns',
+  VISIBLE_COLUMNS: 'serge.planning.visibleColumns2',
   IS_FILTER: 'serge.planning.isFilter',
   SORT_COLUMNS: 'serge.planning.sortColumns',
   FILTER_APPLIED: 'serge.planning.filterApplied'

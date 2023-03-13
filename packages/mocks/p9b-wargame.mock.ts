@@ -60633,7 +60633,7 @@ const game: Wargame = {
             ]
         },
         "activities": {
-            "activities": [
+            "activities":[
                 {
                     "force": "f-blue",
                     "groupedActivities": [
@@ -60649,7 +60649,6 @@ const game: Wargame = {
                                         "SAM-MEZ",
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -60700,24 +60699,10 @@ const game: Wargame = {
                                 {
                                     "name": "ISTAR",
                                     "actId": "ISTAR",
-                                    "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "TRANSIT",
-                                        "ASW-B",
-                                        "FIAC",
-                                        "M-Clr",
-                                        "M-Lay",
-                                        "DCA",
-                                        "OCA"
-                                    ],
+                                    "interactsWith": [],
                                     "uniqid": "f-blue-Land-ISTAR",
                                     "template": "Land--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -60745,8 +60730,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Land Close Combat",
@@ -60787,7 +60771,6 @@ const game: Wargame = {
                                     "actId": "PATRL",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "TRANSIT",
                                         "ASW-B",
@@ -60892,8 +60875,6 @@ const game: Wargame = {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
                                         "EW",
                                         "RESUPP",
                                         "TRANSIT",
@@ -60913,12 +60894,12 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "ASW-B",
                                         "FIAC",
                                         "DCA",
-                                        "OCA"
+                                        "OCA",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-blue-Land-Transit",
                                     "template": "Land--Transit",
@@ -60945,10 +60926,10 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "RESUPP",
-                                        "TRANSIT"
+                                        "TRANSIT",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-blue-Maritime-ASW Barrier",
                                     "template": "Maritime--Activity",
@@ -60982,7 +60963,6 @@ const game: Wargame = {
                                         "SAM-MEZ",
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -61033,24 +61013,10 @@ const game: Wargame = {
                                 {
                                     "name": "ISTAR",
                                     "actId": "ISTAR",
-                                    "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "TRANSIT",
-                                        "ASW-B",
-                                        "FIAC",
-                                        "M-Clr",
-                                        "M-Lay",
-                                        "DCA",
-                                        "OCA"
-                                    ],
+                                    "interactsWith": [],
                                     "uniqid": "f-blue-Maritime-ISTAR",
                                     "template": "Maritime--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -61078,15 +61044,13 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Mine Clearance",
                                     "actId": "M-Clr",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "FIAC"
                                     ],
@@ -61124,9 +61088,11 @@ const game: Wargame = {
                                     "actId": "M-Lay",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
-                                        "FIAC"
+                                        "TRANSIT",
+                                        "FIAC",
+                                        "ASW-B",
+                                        "Sea Denial"
                                     ],
                                     "uniqid": "f-blue-Maritime-Mine Laying",
                                     "template": "Maritime--Activity",
@@ -61162,7 +61128,6 @@ const game: Wargame = {
                                     "actId": "PATRL",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "TRANSIT",
                                         "ASW-B",
@@ -61233,8 +61198,6 @@ const game: Wargame = {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
                                         "EW",
                                         "RESUPP",
                                         "TRANSIT",
@@ -61254,12 +61217,12 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "ASW-B",
                                         "FIAC",
                                         "DCA",
-                                        "OCA"
+                                        "OCA",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-blue-Maritime-Transit",
                                     "template": "Maritime--Transit",
@@ -61318,7 +61281,6 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -61363,7 +61325,6 @@ const game: Wargame = {
                                         "SAM-MEZ",
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -61414,24 +61375,10 @@ const game: Wargame = {
                                 {
                                     "name": "ISTAR",
                                     "actId": "ISTAR",
-                                    "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "TRANSIT",
-                                        "ASW-B",
-                                        "FIAC",
-                                        "M-Clr",
-                                        "M-Lay",
-                                        "DCA",
-                                        "OCA"
-                                    ],
+                                    "interactsWith": [],
                                     "uniqid": "f-blue-Air-ISTAR",
                                     "template": "Air--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -61459,8 +61406,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Offensive Counter Air",
@@ -61468,7 +61414,6 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -61576,8 +61521,6 @@ const game: Wargame = {
                                     "name": "Suppression of Air Defences (SEAD)",
                                     "actId": "SEAD",
                                     "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
                                         "EW",
                                         "DCA",
                                         "OCA"
@@ -61649,12 +61592,12 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "ASW-B",
                                         "FIAC",
                                         "DCA",
-                                        "OCA"
+                                        "OCA",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-blue-Air-Transit",
                                     "template": "Air--Transit",
@@ -61839,7 +61782,6 @@ const game: Wargame = {
                                         "SAM-MEZ",
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -61890,24 +61832,10 @@ const game: Wargame = {
                                 {
                                     "name": "ISTAR",
                                     "actId": "ISTAR",
-                                    "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "TRANSIT",
-                                        "ASW-B",
-                                        "FIAC",
-                                        "M-Clr",
-                                        "M-Lay",
-                                        "DCA",
-                                        "OCA"
-                                    ],
+                                    "interactsWith": [],
                                     "uniqid": "f-red-Land-ISTAR",
                                     "template": "Land--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -61935,8 +61863,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Land Close Combat",
@@ -61977,7 +61904,6 @@ const game: Wargame = {
                                     "actId": "PATRL",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "TRANSIT",
                                         "ASW-B",
@@ -62082,8 +62008,6 @@ const game: Wargame = {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
                                         "EW",
                                         "RESUPP",
                                         "TRANSIT",
@@ -62103,12 +62027,12 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "ASW-B",
                                         "FIAC",
                                         "DCA",
-                                        "OCA"
+                                        "OCA",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-red-Land-Transit",
                                     "template": "Land--Transit",
@@ -62135,10 +62059,10 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "RESUPP",
-                                        "TRANSIT"
+                                        "TRANSIT",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-red-Maritime-ASW Barrier",
                                     "template": "Maritime--Activity",
@@ -62172,7 +62096,6 @@ const game: Wargame = {
                                         "SAM-MEZ",
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -62223,24 +62146,10 @@ const game: Wargame = {
                                 {
                                     "name": "ISTAR",
                                     "actId": "ISTAR",
-                                    "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "TRANSIT",
-                                        "ASW-B",
-                                        "FIAC",
-                                        "M-Clr",
-                                        "M-Lay",
-                                        "DCA",
-                                        "OCA"
-                                    ],
+                                    "interactsWith": [],
                                     "uniqid": "f-red-Maritime-ISTAR",
                                     "template": "Maritime--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -62268,15 +62177,13 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Mine Clearance",
                                     "actId": "M-Clr",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "FIAC"
                                     ],
@@ -62314,9 +62221,11 @@ const game: Wargame = {
                                     "actId": "M-Lay",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
-                                        "FIAC"
+                                        "TRANSIT",
+                                        "FIAC",
+                                        "ASW-B",
+                                        "Sea Denial"
                                     ],
                                     "uniqid": "f-red-Maritime-Mine Laying",
                                     "template": "Maritime--Activity",
@@ -62352,7 +62261,6 @@ const game: Wargame = {
                                     "actId": "PATRL",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "TRANSIT",
                                         "ASW-B",
@@ -62423,7 +62331,8 @@ const game: Wargame = {
                                     "name": "Sea Denial",
                                     "actId": "Sea Denial",
                                     "interactsWith": [
-                                        "EW"
+                                        "EW",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-red-Maritime-Sea Denial",
                                     "template": "Maritime--Activity",
@@ -62440,8 +62349,6 @@ const game: Wargame = {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
                                         "EW",
                                         "RESUPP",
                                         "TRANSIT",
@@ -62461,12 +62368,12 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "ASW-B",
                                         "FIAC",
                                         "DCA",
-                                        "OCA"
+                                        "OCA",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-red-Maritime-Transit",
                                     "template": "Maritime--Transit",
@@ -62525,7 +62432,6 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -62570,7 +62476,6 @@ const game: Wargame = {
                                         "SAM-MEZ",
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -62621,24 +62526,10 @@ const game: Wargame = {
                                 {
                                     "name": "ISTAR",
                                     "actId": "ISTAR",
-                                    "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "TRANSIT",
-                                        "ASW-B",
-                                        "FIAC",
-                                        "M-Clr",
-                                        "M-Lay",
-                                        "DCA",
-                                        "OCA"
-                                    ],
+                                    "interactsWith": [],
                                     "uniqid": "f-red-Air-ISTAR",
                                     "template": "Air--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -62666,8 +62557,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Offensive Counter Air",
@@ -62675,7 +62565,6 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -62783,8 +62672,6 @@ const game: Wargame = {
                                     "name": "Suppression of Air Defences (SEAD)",
                                     "actId": "SEAD",
                                     "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
                                         "EW",
                                         "DCA",
                                         "OCA"
@@ -62856,12 +62743,12 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "ASW-B",
                                         "FIAC",
                                         "DCA",
-                                        "OCA"
+                                        "OCA",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-red-Air-Transit",
                                     "template": "Air--Transit",
@@ -63046,7 +62933,6 @@ const game: Wargame = {
                                         "SAM-MEZ",
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -63097,24 +62983,10 @@ const game: Wargame = {
                                 {
                                     "name": "ISTAR",
                                     "actId": "ISTAR",
-                                    "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "TRANSIT",
-                                        "ASW-B",
-                                        "FIAC",
-                                        "M-Clr",
-                                        "M-Lay",
-                                        "DCA",
-                                        "OCA"
-                                    ],
+                                    "interactsWith": [],
                                     "uniqid": "f-green-Land-ISTAR",
                                     "template": "Land--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -63142,8 +63014,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Land Close Combat",
@@ -63184,7 +63055,6 @@ const game: Wargame = {
                                     "actId": "PATRL",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "TRANSIT",
                                         "ASW-B",
@@ -63289,8 +63159,6 @@ const game: Wargame = {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
                                         "EW",
                                         "RESUPP",
                                         "TRANSIT",
@@ -63310,12 +63178,12 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "ASW-B",
                                         "FIAC",
                                         "DCA",
-                                        "OCA"
+                                        "OCA",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-green-Land-Transit",
                                     "template": "Land--Transit",
@@ -63342,10 +63210,10 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "RESUPP",
-                                        "TRANSIT"
+                                        "TRANSIT",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-green-Maritime-ASW Barrier",
                                     "template": "Maritime--Activity",
@@ -63379,7 +63247,6 @@ const game: Wargame = {
                                         "SAM-MEZ",
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -63430,24 +63297,10 @@ const game: Wargame = {
                                 {
                                     "name": "ISTAR",
                                     "actId": "ISTAR",
-                                    "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "TRANSIT",
-                                        "ASW-B",
-                                        "FIAC",
-                                        "M-Clr",
-                                        "M-Lay",
-                                        "DCA",
-                                        "OCA"
-                                    ],
+                                    "interactsWith": [],
                                     "uniqid": "f-green-Maritime-ISTAR",
                                     "template": "Maritime--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -63475,15 +63328,13 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Mine Clearance",
                                     "actId": "M-Clr",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "FIAC"
                                     ],
@@ -63521,9 +63372,11 @@ const game: Wargame = {
                                     "actId": "M-Lay",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
-                                        "FIAC"
+                                        "TRANSIT",
+                                        "FIAC",
+                                        "ASW-B",
+                                        "Sea Denial"
                                     ],
                                     "uniqid": "f-green-Maritime-Mine Laying",
                                     "template": "Maritime--Activity",
@@ -63559,7 +63412,6 @@ const game: Wargame = {
                                     "actId": "PATRL",
                                     "interactsWith": [
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "TRANSIT",
                                         "ASW-B",
@@ -63630,8 +63482,6 @@ const game: Wargame = {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
                                         "EW",
                                         "RESUPP",
                                         "TRANSIT",
@@ -63651,12 +63501,12 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "ASW-B",
                                         "FIAC",
                                         "DCA",
-                                        "OCA"
+                                        "OCA",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-green-Maritime-Transit",
                                     "template": "Maritime--Transit",
@@ -63715,7 +63565,6 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -63760,7 +63609,6 @@ const game: Wargame = {
                                         "SAM-MEZ",
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -63811,24 +63659,10 @@ const game: Wargame = {
                                 {
                                     "name": "ISTAR",
                                     "actId": "ISTAR",
-                                    "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "TRANSIT",
-                                        "ASW-B",
-                                        "FIAC",
-                                        "M-Clr",
-                                        "M-Lay",
-                                        "DCA",
-                                        "OCA"
-                                    ],
+                                    "interactsWith": [],
                                     "uniqid": "f-green-Air-ISTAR",
                                     "template": "Air--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -63856,8 +63690,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Offensive Counter Air",
@@ -63865,7 +63698,6 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "AAR",
                                         "RESUPP",
@@ -63973,8 +63805,6 @@ const game: Wargame = {
                                     "name": "Suppression of Air Defences (SEAD)",
                                     "actId": "SEAD",
                                     "interactsWith": [
-                                        "BMD-MEZ",
-                                        "SAM-MEZ",
                                         "EW",
                                         "DCA",
                                         "OCA"
@@ -64046,12 +63876,12 @@ const game: Wargame = {
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
-                                        "ISTAR",
                                         "PATRL",
                                         "ASW-B",
                                         "FIAC",
                                         "DCA",
-                                        "OCA"
+                                        "OCA",
+                                        "M-Lay"
                                     ],
                                     "uniqid": "f-green-Air-Transit",
                                     "template": "Air--Transit",
@@ -64603,7 +64433,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.120Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64948,10 +64778,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2023-03-01T16:26:30.120Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.120Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -65296,10 +65126,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2023-03-01T16:26:30.120Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -65616,10 +65446,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -65936,10 +65766,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66266,10 +66096,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -66595,10 +66425,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -66924,10 +66754,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67263,10 +67093,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -67542,10 +67372,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -67821,10 +67651,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.192Z",
                     "title": "Air--AirToAir",
                     "details": {
                         "format": "grid",
@@ -68110,10 +67940,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--AirToAir",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.192Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Land--Resupply",
                     "details": {
                         "format": "grid",
@@ -68389,10 +68219,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Resupply",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Maritime--Resupply",
                     "details": {
                         "format": "grid",
@@ -68668,10 +68498,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Resupply",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Air--Resupply",
                     "details": {
                         "format": "grid",
@@ -68957,10 +68787,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Resupply",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -69236,10 +69066,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -69515,10 +69345,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -69804,10 +69634,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Maritime--Activity",
                     "details": {
                         "format": "grid",
@@ -70115,10 +69945,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Activity",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Air--Activity",
                     "details": {
                         "format": "grid",
@@ -70436,10 +70266,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Activity",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -70806,10 +70636,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--MissileStrike",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -71137,10 +70967,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Cyber--Effects",
                     "details": {
                         "format": "grid",
@@ -71457,10 +71287,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--Effects",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Space--Effects",
                     "details": {
                         "format": "grid",
@@ -71777,10 +71607,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--Effects",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Info Ops--Effects",
                     "details": {
                         "format": "grid",
@@ -72097,10 +71927,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--Effects",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Cyber--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -72429,10 +72259,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--AreaEffects",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Space--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -72761,10 +72591,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--AreaEffects",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Info Ops--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73093,10 +72923,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--AreaEffects",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "SOF--SOFActivity",
                     "details": {
                         "format": "grid",
@@ -73389,10 +73219,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "SOF--SOFActivity",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 },
                 {
-                    "lastUpdated": "2023-03-01T16:26:30.121Z",
+                    "lastUpdated": "2023-03-09T12:14:00.193Z",
                     "title": "Land--Activity",
                     "details": {
                         "format": "grid",
@@ -73700,7 +73530,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Activity",
-                    "_rev": "2023-03-01T16:26:30.121Z"
+                    "_rev": "2023-03-09T12:14:00.193Z"
                 }
             ]
         },

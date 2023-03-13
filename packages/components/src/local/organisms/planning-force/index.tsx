@@ -182,18 +182,21 @@ const PlanningForces: React.FC<PropTypes> = ({
     // create a ring for each clustered marker
     const rings: React.ReactElement[] = []
     assets.forEach((asset: AssetRow) => {
-      const attrs = asset.attributes
-      // try for the two range attributes
-      const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
-      // only plot range rings for SAM sites
-      // const isSAM = asset.platformType.indexOf('sam') >= 0
-      if (range) {
-        const index = range.indexOf(' km')
-        const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
-        const centre = asset.position ? asset.position : latLng([0, 0])
-        const rad = rangeKm * 1000
-        if (rad > 0) {
-          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceColor, fillOpacity: 0.1 }} />)
+      // check asset is alive
+      if (asset.health && asset.health > 0) {
+        // try for the two range attributes
+        const attrs = asset.attributes
+        const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
+        // only plot range rings for SAM sites
+        // const isSAM = asset.platformType.indexOf('sam') >= 0
+        if (range) {
+          const index = range.indexOf(' km')
+          const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
+          const centre = asset.position ? asset.position : latLng([0, 0])
+          const rad = rangeKm * 1000
+          if (rad > 0) {
+            rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceColor, fillOpacity: 0.1 }} />)
+          }
         }
       }
     })
@@ -218,14 +221,18 @@ const PlanningForces: React.FC<PropTypes> = ({
 
   const MarkerCluster = ({ markers }: { markers: AssetRow[] }) => {
     useEffect(() => {
-      if (clusterGroup) {
-        clusterGroup.clearLayers()
-        const markersWithLocation = markers.filter((row: AssetRow) => row.position)
-        const markerList = markersWithLocation.map((asset) => getClusteredMarkerOption(asset))
-        if (markerList.length) {
-          clusterGroup.addLayers(markerList)
+      const clusterUnMount = setTimeout(() => {
+        if (clusterGroup) {
+          clusterGroup.clearLayers()
+          const markersWithLocation = markers.filter((row: AssetRow) => row.position)
+          const markerList = markersWithLocation.map((asset) => getClusteredMarkerOption(asset))
+          if (markerList.length) {
+            clusterGroup.addLayers(markerList)
+          }
         }
-      }
+      }, 300)
+
+      return (): void => clearInterval(clusterUnMount)
     }, [markers, clusterGroup, clusteredRangeRings])
 
     return null
@@ -296,16 +303,16 @@ const PlanningForces: React.FC<PropTypes> = ({
     )
   }
 
-  const elapsed = (lastUpdate?: string): string => {
-    if (lastUpdate && lastUpdate !== 'unk') {
-      return '\n (' + lastUpdate + ')'
-    } else {
-      return ''
-    }
-  }
+  // const elapsed = (lastUpdate?: string): string => {
+  //   if (lastUpdate && lastUpdate !== 'unk') {
+  //     return '\n (' + lastUpdate + ')'
+  //   } else {
+  //     return ''
+  //   }
+  // }
 
   const labelFor = (asset: AssetRow): string => {
-    return asset.name + ', ' + asset.id + elapsed(asset.lastUpdated)
+    return asset.name + ', ' + asset.id
   }
 
   const iconLayer = useMemo(() => {

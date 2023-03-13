@@ -42,13 +42,12 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
             />
           </svg>
         </span>
-        Get next
+        Get Next
       </span>
       <span
         className="MuiTouchRipple-root"
       />
     </button>
-     
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
       disabled={false}
@@ -90,7 +89,6 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
         className="MuiTouchRipple-root"
       />
     </button>
-     
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
       disabled={false}

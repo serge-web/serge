@@ -7,10 +7,11 @@ import {
 import { findAsset, findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Feature, Geometry, LineString, Polygon } from 'geojson'
+import { LatLngBounds } from 'leaflet'
 import _ from 'lodash'
 import moment from 'moment'
 import { DEFAULT_SEARCH_RATE } from '..'
-import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { findTouching, GeomWithOrders, getBounds, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 import { calculateDetections, checkInArea, insertIstarInteractionOutcomes, istarBoundingBox } from './istar-helper'
 
 type TimePlusGeometry = { time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined }
@@ -170,9 +171,10 @@ interface ProtectedTarget {
  * @param activity the activity being conducted
  * @returns
  */
-const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: AssetWithForce[], outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity): MessageAdjudicationOutcomes => {
+const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: AssetWithForce[],
+  outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
-  console.log('kinetic', targets.length)
+
   // loop through targets
   targets.forEach((asset: AssetWithForce) => {
     const tgtAsset = asset.asset
@@ -205,6 +207,7 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: As
         }
       })
     }
+
     // create damage outcome for this asset
     const existingC4: 'None' | 'Degraded' | 'Operational' = (tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
     const health: HealthOutcome = {
@@ -342,7 +345,8 @@ export const istarSearchRate = (own: Array<{ asset: Asset['uniqid'], number: num
   return defaultRate
 }
 
-const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, forces: ForceData[]): MessageAdjudicationOutcomes => {
+const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
+  forces: ForceData[], targetForces: string[]): MessageAdjudicationOutcomes => {
   if (!plan.message.location) {
     console.warn('ISTAR plan doesn\'t have location data')
     return outcomes
@@ -369,7 +373,7 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
 
   // run the calculator
   const inAreaPerceptions = calculateDetections(ownFor, forces, boxGeometry.geometry.geometry,
-    startTime, endTime, searchRateKm2perHour, 'ISTAR: Asset detected in observation area')
+    startTime, endTime, searchRateKm2perHour, 'ISTAR: Asset detected in observation area', targetForces)
 
   // start off with the selected op-for assets
   const perceptions: PerceptionOutcomes = []
@@ -424,9 +428,9 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   return outcomes
 }
 
-const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: Feature<Polygon>, existingOutcomes: Asset['uniqid'][], special?: string): AssetWithForce[] => {
+const opForInArea = (targetForces: string[], forces: ForceData[], mePoly: Feature<Polygon>, existingOutcomes: Asset['uniqid'][], special?: string): AssetWithForce[] => {
   const assets: AssetWithForce[] = []
-  const opFor = forces.filter((force) => force.assets && force.uniqid !== forceId)
+  const opFor = forces.filter((force) => force.assets && targetForces.includes(force.uniqid))
   opFor.forEach((force) => {
     force.assets && force.assets.forEach((asset) => {
       if (!existingOutcomes.includes(asset.uniqid)) {
@@ -477,7 +481,7 @@ export const insertMovementOutcomesFor = (plan: MessagePlanning, outcomes: Messa
 }
 
 export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
-  activity: PlanningActivity, forces: ForceData[]): void => {
+  activity: PlanningActivity, forces: ForceData[], targetForces: string[]): void => {
   const location = plan.message.location
   if (!location) {
     console.warn('Warning: orders have location, but not activity', plan._id, activity.uniqid)
@@ -504,7 +508,7 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
         const existingOutcomes = outcomes.healthOutcomes.map((item) => item.asset)
         // console.log('TST existing outcomes', existingOutcomes)
         const special = undefined // 'Green:4'
-        const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly, existingOutcomes, special)
+        const assets = opForInArea(targetForces, forces, mePoly, existingOutcomes, special)
         /// console.log('TST detections', assets)
 
         special && console.table(assets.map((fAsset) => {
@@ -542,7 +546,8 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
               }
             }
             if (activity.spatialPerception) {
-              if (notPresent(uniqid, outcomes.perceptionOutcomes)) {
+              // not for land asset
+              if (asset.asset.platformTypeId !== '_land_asset' && notPresent(uniqid, outcomes.perceptionOutcomes)) {
                 outcomes.perceptionOutcomes.push({
                   asset: uniqid,
                   force: plan.details.from.forceId || '',
@@ -568,7 +573,7 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
   }
 }
 
-export const assetsInArea = (plan: MessagePlanning, forces: ForceData[]): AssetWithForce[] => {
+export const findAssetsInArea = (plan: MessagePlanning, forces: ForceData[]): AssetWithForce[] => {
   const area = plan.message.location
   const targets: AssetWithForce[] = []
   if (area) {
@@ -610,6 +615,9 @@ export const squadronsAtTheseAirfields = (targetAssets: Array<AssetWithForce>, f
 export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   console.log('handle outcomes', activity.actId, event, plan)
+  const playerForce = plan.details.from.forceId || ''
+  const targetForces: Array<ForceData['uniqid']> = (playerForce === 'f-red') ? ['f-blue', 'f-green'] : ['f-red']
+
   switch (activity.actId) {
     case 'STRIKE': {
       const targetAssets = plan.message.otherAssets ? plan.message.otherAssets.map((item) => findForceAndAsset(forces, item.asset)) : []
@@ -621,7 +629,8 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
     }
     case 'TST': {
       // find all op-for assets in the box
-      const targetAssets = assetsInArea(plan, forces)
+      const assetsInArea = findAssetsInArea(plan, forces)
+      const targetAssets = assetsInArea.filter((item) => targetForces.includes(item.force.uniqid))
       console.log('TST assets in area', targetAssets)
       kineticEventOutcomesFor(targetAssets, [], outcomes, activity)
       console.log('TST outcomes', outcomes)
@@ -632,7 +641,7 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
       break
     }
     case 'ISTAR': {
-      istarEventOutcomesFor(plan, outcomes, forces)
+      istarEventOutcomesFor(plan, outcomes, forces, targetForces)
       break
     }
     case 'CYB/SPA':
@@ -647,7 +656,7 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
   // console.log('%c event outcomes, spatial?', 'color: blue', activity.actId, activity.spatialHealth, activity.spatialPerception, !!plan.message.location)
   // do we also have to insert assets in the target polygon?
   if ((activity.spatialPerception || activity.spatialHealth) && plan.message.location && plan.message.location.length) {
-    insertSpatialOutcomesFor(plan, outcomes, activity, forces)
+    insertSpatialOutcomesFor(plan, outcomes, activity, forces, targetForces)
   }
   // do we also have to update asset locations
   if (event === INTER_AT_END && endsWithMovement(plan.message.location)) {
@@ -661,15 +670,15 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
 }
 
 export interface TimedIntervention {
-    // id of the interaction (composite of planning message & event)
-    id: string
-    time: number
-    timeStr: string
-    event: INTERACTION_SHORT_CIRCUIT
-    message: MessagePlanning
-    activity: PlanningActivity
-    geomId: PlannedActivityGeometry['uniqid'] | undefined
-  }
+  // id of the interaction (composite of planning message & event)
+  id: string
+  time: number
+  timeStr: string
+  event: INTERACTION_SHORT_CIRCUIT
+  message: MessagePlanning
+  activity: PlanningActivity
+  geomId: PlannedActivityGeometry['uniqid'] | undefined
+}
 
 const endsWithMovement = (activity?: PlannedActivityGeometry[]): boolean => {
   if (activity && activity.length > 0) {
@@ -707,7 +716,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
               const interactionId = generateEventId(plan._id, event, turnNumber)
               // check this hasn't been processed already
               if (interactionIDs.includes(interactionId)) {
-                console.log('Skipping this event, already processed', interactionId)
+                // console.log('Skipping this event, already processed', interactionId)
                 endActivityGenerated = true
               } else {
                 // check the time of this event has passed
@@ -736,7 +745,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
             const interactionId = generateEventId(plan._id, INTER_AT_END, turnNumber)
             // check it hasn't already been processed
             if (interactionIDs.includes(interactionId)) {
-              console.log('Skipping this event 2, already processed', interactionId)
+              // console.log('Skipping this event 2, already processed', interactionId)
             } else {
               const planned = locData[locData.length - 1]
               if (planned) {
@@ -932,10 +941,10 @@ const contactOutcomes = (interaction: InteractionDetails, contact: PlanningConta
   return res
 }
 
-export const getNextInteraction2 = (allOrders: MessagePlanning[],
+export const getNextInteraction2 = (ordersIn: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
   _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string,
-  forces: ForceData[], getAll: boolean, turnNumber: number): InteractionResults => {
+  forces: ForceData[], getAll: boolean, turnNumber: number, bounds?: LatLngBounds): InteractionResults => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
 
@@ -951,8 +960,16 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
     return inter.id
   })
 
+  // strip out orders not valid in this time period
+  const ordersInPeriod = ordersIn.filter((plan) => {
+    const tStart = moment(plan.message.startDate).valueOf()
+    const tEnd = moment(plan.message.endDate).valueOf()
+    return (tStart < gameTurnEndVal) && (tEnd > gameTimeVal)
+  })
+  console.log('LLOG_Trimmed', ordersIn.length, ordersInPeriod.length)
+
   // strip out info ops orders. We don't want to generate interactions (or events) for them
-  const orders = allOrders.filter((plan) => {
+  const orders = ordersInPeriod.filter((plan) => {
     const activity = plan.message.activity
     return !(activity.includes(infoOpsGroup))
   })
@@ -963,8 +980,10 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   // see if a short-circuit is overdue
+  console.time('LLOG_GetEvents1')
   const event = !getAll && checkForEvent(gameTimeVal, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
   console.log('event found?', !!event)
+  console.timeEnd('LLOG_GetEvents1')
 
   if (event && event.timeStart <= gameTimeVal) {
     // return the short-circuit interaction
@@ -998,19 +1017,22 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
     let eventInWindow: ShortCircuitEvent | undefined
     let allRemainingEvents: TimedIntervention[] = []
 
-    console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowLength,
-      moment.utc(fullTurnLength).format('d HH:mm'), moment.utc(currentWindowLength).format('d HH:mm'))
+    console.log('Start windowed time loop. Full turn size, window size:', fullTurnLength, currentWindowLength,
+      moment.utc(fullTurnLength).format('DDD HH:mm'), moment.utc(currentWindowLength).format('DDD HH:mm'))
 
     while (contacts.length === 0 && currentWindowLength <= fullTurnLength && eventInWindow === undefined) {
       const windowEnd = gameTimeVal + currentWindowLength
+      console.time('LLOG_PrepareOrders')
 
       // if we're doing get-all, don't bother with shortcircuits
       if (getAll) {
         console.log('doing get all to finish before', moment.utc(windowEnd).toISOString())
         allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities, turnPeriod, turnNumber)
       } else {
+        console.time('LLOG_GetEvents2')
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
         console.log('found event in window?:', !!eventInWindow, eventInWindow && eventInWindow.id, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow.timeStart).toISOString())
+        console.timeEnd('LLOG_GetEvents2')
       }
 
       // trim for 'live' orders
@@ -1021,47 +1043,43 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
       const withTimes = injectTimes(newGeometries)
       const geometriesInTimeWindow = withTimes.filter((val) => startBeforeTime(val, windowEnd)).filter((val) => endAfterTime(val, gameTimeVal))
       console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length)
-      // console.table(liveOrders.map((plan: MessagePlanning) => {
-      //   return {
-      //     id: plan._id,
-      //     start: plan.message.startDate,
-      //     end: plan.message.endDate
-      //   }
-      // }))
-
-      //      const geometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, earliestTime, currentWindowMillis)
-
-      // const timeEnd = moment(earliestTime).add(currentWindowMillis, 'ms')
-      // console.log('geoms in this window:', moment(earliestTime).toISOString(), timeEnd.toISOString(), ' windows size (millis):', currentWindowMillis, 'matching geoms:', geometriesInTimeWindow.length)
-      //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
 
       // now do spatial binning
-      const bins = spatialBinning(geometriesInTimeWindow, 4)
-      const binnedOrders = putInBin(geometriesInTimeWindow, bins)
+      const boundsToUse = bounds || getBounds(geometriesInTimeWindow)
+      const bins = spatialBinning(geometriesInTimeWindow, 4, boundsToUse)
+      const binnedOrders = putInBin(geometriesInTimeWindow, bins, boundsToUse)
+      //      const list: any[] = []
+      // console.table(binnedOrders.map((bin) => {
+      //   const poly = bin.polygon as Feature<Polygon> || undefined
+      //   const name = (poly && poly.properties && poly.properties.name) || 'Zero'
+      //   poly && list.push(poly.geometry.coordinates)
+      //   return {
+      //     id: name,
+      //     num: bin.orders.length,
+      //     orders: bin.orders.map((geom) => geom.plan.message.Reference).join(', ')
+      //   }
+      // }))
+      // const multip = multiPolygon(list)
+      // console.log('list', multip)
 
       const interactionsConsidered: string[] = []
       const interactionsTested: Record<string, PlanningContact | null> = {}
       // console.log('Existing interactions received', existingInteractionIDs.length)
+      console.timeEnd('LLOG_PrepareOrders')
+
+      console.time('LLOG_BinOrders')
 
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
-        // console.log('bin', _index, bin.orders.length)
-        // console.table(bin.orders.map((geom) => {
-        //   const props = geom.geometry.properties as PlannedProps
-        //   return {
-        //     id: geom.id,
-        //     force: geom.force,
-        //     geom: geom.geometry.type,
-        //     start: props.startDate,
-        //     end: props.endDate
-        //   }
-        // }))
+        const binId = [_index, !!bin.polygon, bin.orders.length].join('_')
+        console.time('LLOG_BinOrders_' + binId)
         const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
           interactionsTested, sensorRangeKm)
-        !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
         contacts.push(...newContacts)
+        console.timeEnd('LLOG_BinOrders_' + binId)
       })
 
       // console.log('binning complete, contacts:', contacts.length)
+      console.timeEnd('LLOG_BinOrders')
 
       currentWindowLength += windowMilliSize
     }
@@ -1071,9 +1089,9 @@ export const getNextInteraction2 = (allOrders: MessagePlanning[],
       // collate the data
       return [allRemainingEvents, contacts]
     } else {
-    // do we have any contacts?
+      // do we have any contacts?
       if (contacts.length !== 0) {
-      // sort ascending
+        // sort ascending
         const sortedContacts = _.sortBy(contacts, function (contact) { return moment.utc(contact.timeStart).valueOf() })
         const firstContact = sortedContacts[0]
 

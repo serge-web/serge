@@ -186,28 +186,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
-    let filteredMessages: MessageInteraction[] | undefined
-    if (turnFilter) {
-      const thisTurn = allPeriods.find((turn) => turn.gameTurn === turnFilter)
-      if (thisTurn) {
-        const turnEnd = incrementGameTime(thisTurn.gameDate, gameTurnTime)
-        const turnStartTime = moment.utc(thisTurn.gameDate).valueOf()
-        const turnEndTime = moment.utc(turnEnd).valueOf()
-        filteredMessages = interactionMessages.filter((msg) => {
-          if (msg.details.interaction) {
-            const pStart = moment.utc(msg.details.interaction.startTime).valueOf()
-            const pEnd = moment.utc(msg.details.interaction.endTime).valueOf()
-            return pEnd >= turnStartTime && pStart < turnEndTime
-          } else {
-            console.log('interaction missing')
-            return false
-          }
-        })
-      }
-    }
-    if (filteredMessages === undefined) {
-      filteredMessages = interactionMessages
-    }
+    const filteredMessages: MessageInteraction[] = interactionMessages.filter((inter) => {
+      return (turnFilter === -1) || (inter.details.turnNumber === turnFilter)
+    })
     setFilteredInteractionMessages(filteredMessages)
   }, [interactionMessages, turnFilter])
 
@@ -355,8 +336,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
       (document, template) => customiseLocation(document, template),
       (document, template) => customiseLiveOrders(document, template, liveOrders),
-      (document, template) => customiseMissiles(document, template, selectedForce.uniqid, forceTemplateData),
-      (document, template) => customiseCyberCards(document, template, selectedForce.uniqid, forceTemplateData)
+      (document, template) => customiseMissiles(document, template, selectedForce.uniqid, !!selectedForce.umpire, forceTemplateData),
+      (document, template) => customiseCyberCards(document, template, selectedForce.uniqid, !!selectedForce.umpire, forceTemplateData)
     ]
 
     let current: Record<string, any> = { ...schema }
