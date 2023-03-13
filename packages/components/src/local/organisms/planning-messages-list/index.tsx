@@ -77,6 +77,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         activity?: string
       }
       const myHealthList: HealthEntry[] = []
+      const oppHealthList: HealthEntry[] = []
       const myMovementList: MovementEntry[] = []
       const myFriendlyForces = selectedForce.uniqid === 'f-red' ? ['f-red'] : ['f-blue', 'f-green']
 
@@ -98,8 +99,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
                 Health: '' + outcome.health,
                 C4: outcome.c4
               }
-              if (myFriendlyForces.includes(asset.force.uniqid)) {
+              if (isUmpire || myFriendlyForces.includes(asset.force.uniqid)) {
                 myHealthList.push(entry)
+              } else {
+                oppHealthList.push(entry)
               }
             }
           })
@@ -128,29 +131,31 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           })
         }
       })
-      const sortAndConvert = (data: BaseEntry[]): React.ReactElement => {
+      const sortAndConvert = (data: Array<HealthEntry | MovementEntry>): React.ReactElement => {
         // sort the array
         const sorted = _.sortBy(data, (item) => item.Name)
         const map = sorted.map((item): Record<string, any> => {
           const objAny = item as any
           if (objAny.Location) {
+            const move = item as MovementEntry
             return {
               Name: item.Name,
               Turn: item.Turn,
-              Location: objAny.Location
+              Location: move.Location
             }
           } else {
+            const health = item as HealthEntry
             return {
               Name: item.Name,
               Turn: item.Turn,
-              Health: objAny.Health,
-              C4: objAny.C4
+              Health: health.Health,
+              C4: health.C4
             }
           }
         })
         return arrayToTable(map)
       }
-      setDialogMessage(<>Health changes in selected turn(s)<br />Health Changes:{sortAndConvert(myHealthList)}Movement changes:{sortAndConvert(myMovementList)}</>)
+      setDialogMessage(<>Adjudication outcomes in selected turn(s)<br />Friendly Force Health Changes:{sortAndConvert(myHealthList)}Opp Force Health Changes:{sortAndConvert(oppHealthList)}Movement changes:{sortAndConvert(myMovementList)}</>)
       setShowTurnSummaryTable(false)
     }
   }, [showTurnSummaryTable])
@@ -220,6 +225,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const res: Action<OrderRow>[] = [
+      {
+        icon: () => <FontAwesomeIcon title='View summary' icon={faTable} className={cx({ [styles.selected]: true })} />,
+        iconProps: { color: 'action' },
+        tooltip: 'Show summary of outcomes of previous turn',
+        disabled: false,
+        isFreeAction: true,
+        onClick: (): void => setShowTurnSummaryTable(true)
+      },
       {
         icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
         iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
