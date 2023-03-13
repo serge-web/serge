@@ -1,4 +1,4 @@
-import { faSearchMinus, faMedkit, faEye, faGlobe, faSkull, faSearchPlus, faTable, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faMedkit, faEye, faGlobe, faRecycle, faSkull, faSearchPlus, faTable, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
@@ -39,6 +39,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const messageValue = useRef<any>(null)
   const tableRef = useRef<any>()
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
+  const [pendingRecover, setPendingRecover] = useState<OrderRow[]>([])
   const [toolbarActions, setToolbarActions] = useState<Action<OrderRow>[]>([])
   const [visibleRows, setVisibleRows] = useState<OrderRow[]>([])
 
@@ -171,17 +172,22 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }, [visibleRows])
 
   useEffect(() => {
+    console.log('pending', pendingMessages.length)
     if (pendingMessages.length) {
       // check there are no rows open
       if (!messageBeingEdited) {
         console.log('PlanningMessageList = update pending', pendingMessages.length)
-        setMyPlanningMessages(pendingMessages)
+        const unarchivedOrders = pendingMessages.filter((order) => {
+          return showArchivedOrders || !order.details.archived
+        })
+        console.log('refresh planning orderrs', pendingMessages.length, unarchivedOrders.length)
+        setMyPlanningMessages(unarchivedOrders)
         setPendingMessages([])
       } else {
         console.log('PlanningMessageList - not doing edit, message being edited')
       }
     }
-  }, [pendingMessages, visibleRows, messageBeingEdited])
+  }, [pendingMessages, visibleRows, messageBeingEdited, showArchivedOrders])
 
   useEffect(() => {
     const myForceMessages = planningMessages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
@@ -260,27 +266,39 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     if (isUmpire) {
       // also provide the `archive` button
       res.unshift({
-        icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
+        icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: true })} />,
         iconProps: { color: 'action' },
         tooltip: 'Archive messages',
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
       })
-      res.push({
-        icon: () => <FontAwesomeIcon title='Show archived plans' icon={faSkull} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+      // also provide the `recover` button
+      res.unshift({
+        icon: () => <FontAwesomeIcon title='Recover selected messages' icon={faRecycle} className={cx({ [styles.selected]: true })} />,
+        iconProps: { color: 'action' },
+        tooltip: 'Recover messages',
+        isFreeAction: false,
+        onClick: (_event: any, data: OrderRow | OrderRow[]): void => recoverSelected(data)
+      })
+      res.unshift({
+        icon: () => <FontAwesomeIcon title='Show archived plans' icon={faSkull} className={cx({ [styles.selected]: showArchivedOrders })} />,
         iconProps: showArchivedOrders ? { color: 'error' } : { color: 'action' },
-        tooltip: showArchivedOrders ? 'Show archived orders' : 'Hide archived orders',
+        tooltip: showArchivedOrders ? 'Hide archived orders' : 'Show archived orders',
         isFreeAction: true,
         onClick: (): void => setShowArchivedOrders(!showArchivedOrders)
       })
     }
     setToolbarActions(res)
-  }, [isUmpire, filter, onlyShowMyOrders, countOfSelectedPlans])
+  }, [isUmpire, filter, onlyShowMyOrders, countOfSelectedPlans, showArchivedOrders])
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
+    const unArchived = myPlanningMessages.filter((order) => {
+      return showArchivedOrders || !order.details.archived
+    })
+    console.log('unarchived', myPlanningMessages.length, unArchived.length)
     // console.log('PlanningMessageList update messages:', myPlanningMessages.length, myPlanningMessages.length && myPlanningMessages[0].message.title)
-    const dataTable: OrderRow[] = myPlanningMessages.map((message) => {
+    const dataTable: OrderRow[] = unArchived.map((message) => {
       return toRow(message)
     })
     setRows(dataTable)
@@ -536,6 +554,30 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   /*eslint-disable */
+  const recoverConfirmed = (): void => {
+    if (pendingRecover) {
+      const actualMessages = pendingRecover.map((row): MessagePlanning | undefined => planningMessages.find((msg) => msg.message.Reference === row.rawRef))
+      if (actualMessages.length !== pendingRecover.length) {
+        console.warn('failed to find actual version of some messages', rows, actualMessages)
+      }
+      const foundMessaes = actualMessages.filter((msg) => msg !== undefined) as MessagePlanning[]
+      const markUnArchived = foundMessaes.map((msg, index): MessagePlanning => {
+        msg.details.archived = false
+
+        const archivedMessage = {
+          ...msg,
+          _id: new Date().toISOString() + index,
+          _rev: undefined
+        }
+
+        return archivedMessage
+      })
+      postBackArchive && postBackArchive(markUnArchived)
+      setPendingRecover([])
+    }
+  }
+
+  /*eslint-disable */
   const archiveConfirmed = (): void => {
     if (pendingArchive) {
       const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => planningMessages.find((msg) => msg.message.Reference === row.rawRef))
@@ -565,6 +607,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
     setPendingArchive(rows)
+  }
+
+  const recoverCancelled = () => setPendingRecover([])
+  /* eslint-enable */
+
+  const recoverSelected = (data: OrderRow | OrderRow[]): void => {
+    const rows: OrderRow[] = Array.isArray(data) ? data : [data]
+    setPendingRecover(rows)
   }
 
   const localCopyMessage = (data: OrderRow | OrderRow[]): void => {
@@ -655,6 +705,20 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
         >
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
+        </CustomDialog>
+      }
+      {pendingRecover.length > 0 &&
+        <CustomDialog
+          isOpen={pendingRecover.length > 0}
+          header={'Recover orders'}
+          cancelBtnText={'Cancel'}
+          saveBtnText={'Recover'}
+          /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
+          onClose={recoverCancelled}
+          onSave={recoverConfirmed}
+        /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
+        >
+          <>Are you sure you wish to recover {pendingRecover.length} sets of orders?</>
         </CustomDialog>
       }
       {TableData}
