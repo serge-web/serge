@@ -132,7 +132,7 @@ const PlanningForces: React.FC<PropTypes> = ({
         setClusteredRangeRings(showMezRings ? getRingsFor(clustered) : [])
       }
       if (interactiveChanged || mezChanged || !isEqual(rawMarkers, raw)) {
-        // console.log('> update raw', label, raw.length)
+        // console.log('> update raw', label, raw.length)
         setRawMarkers(raw)
         setRawRangeRings(showMezRings ? getRingsFor(raw) : [])
       }
