@@ -153,7 +153,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         })
         return arrayToTable(map)
       }
-      setDialogMessage(<>Adjudication outcomes in selected turn(s)<br />Friendly Force Health Changes:{sortAndConvert(myHealthList)}Opp Force Health Changes:{sortAndConvert(oppHealthList)}Movement changes:{sortAndConvert(myMovementList)}</>)
+      setDialogMessage(
+        <>Adjudication outcomes in selected turn(s)<br />
+          {myHealthList.length > 0 && <span>Friendly Force Health Changes:{sortAndConvert(myHealthList)}</span>}
+          {oppHealthList.length > 0 && <span>Opp Force Health Changes:{sortAndConvert(oppHealthList)}</span>}
+          {myMovementList.length > 0 && <span>Movement changes:{sortAndConvert(myMovementList)}</span>}</>)
       setShowTurnSummaryTable(false)
     }
   }, [showTurnSummaryTable])
@@ -632,7 +636,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       {dialogMessage !== undefined &&
         <CustomDialog
           isOpen={dialogMessage !== undefined}
-          header={'Generate interactions'}
+          header={'Review outcomes'}
           cancelBtnText={'OK'}
           onClose={closeDialogCallback}
           bodyStyle={eventList}
