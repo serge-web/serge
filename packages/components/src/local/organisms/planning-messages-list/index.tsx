@@ -1,4 +1,4 @@
-import { faSearchMinus, faMedkit, faEye, faGlobe, faRecycle, faSkull, faSearchPlus, faTable, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faMedkit, faEye, faGlobe, faRecycle, faTrash, faSearchPlus, faTable, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
@@ -172,7 +172,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }, [visibleRows])
 
   useEffect(() => {
-    console.log('pending', pendingMessages.length)
     if (pendingMessages.length) {
       // check there are no rows open
       if (!messageBeingEdited) {
@@ -229,6 +228,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
       },
       {
+        icon: () => <FontAwesomeIcon title='View summary' icon={faTable} className={cx({ [styles.selected]: true })} />,
+        iconProps: { color: 'action' },
+        tooltip: 'Show summary of outcomes of previous turn',
+        disabled: false,
+        isFreeAction: true,
+        onClick: (): void => setShowTurnSummaryTable(true)
+      },
+      {
         icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
         iconProps: filter ? { color: 'error' } : { color: 'action' },
         tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
@@ -253,37 +260,29 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         disabled: countOfSelectedPlans !== 1,
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => localCopyMessage(data)
-      },
-      {
-        icon: () => <FontAwesomeIcon title='View summary' icon={faTable} className={cx({ [styles.selected]: true })} />,
-        iconProps: { color: 'action' },
-        tooltip: 'Show summary of outcomes of previous turn',
-        disabled: false,
-        isFreeAction: true,
-        onClick: (): void => setShowTurnSummaryTable(true)
       }
     ]
     if (isUmpire) {
       // also provide the `archive` button
       res.unshift({
-        icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: true })} />,
+        icon: () => <FontAwesomeIcon title='Archive selected orders' icon={faTrashAlt} className={cx({ [styles.selected]: true })} />,
         iconProps: { color: 'action' },
-        tooltip: 'Archive messages',
+        tooltip: 'Archive orders',
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
       })
       // also provide the `recover` button
       res.unshift({
-        icon: () => <FontAwesomeIcon title='Recover selected messages' icon={faRecycle} className={cx({ [styles.selected]: true })} />,
+        icon: () => <FontAwesomeIcon title='Recover selected orders' icon={faRecycle} className={cx({ [styles.selected]: true })} />,
         iconProps: { color: 'action' },
-        tooltip: 'Recover messages',
+        tooltip: 'Recover orders',
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => recoverSelected(data)
       })
       res.unshift({
-        icon: () => <FontAwesomeIcon title='Show archived plans' icon={faSkull} className={cx({ [styles.selected]: showArchivedOrders })} />,
+        icon: () => <FontAwesomeIcon title='Show archived plans' icon={faTrash} className={cx({ [styles.selected]: showArchivedOrders })} />,
         iconProps: showArchivedOrders ? { color: 'error' } : { color: 'action' },
-        tooltip: showArchivedOrders ? 'Hide archived orders' : 'Show archived orders',
+        tooltip: showArchivedOrders ? 'Exclude archived orders' : 'Include archived orders',
         isFreeAction: true,
         onClick: (): void => setShowArchivedOrders(!showArchivedOrders)
       })
@@ -296,7 +295,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const unArchived = myPlanningMessages.filter((order) => {
       return showArchivedOrders || !order.details.archived
     })
-    console.log('unarchived', myPlanningMessages.length, unArchived.length)
     // console.log('PlanningMessageList update messages:', myPlanningMessages.length, myPlanningMessages.length && myPlanningMessages[0].message.title)
     const dataTable: OrderRow[] = unArchived.map((message) => {
       return toRow(message)
@@ -311,7 +309,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       setColumns(columnData)
       currentColumnsData.current = columnData
     }
-  }, [turnFilter, filter, myPlanningMessages])
+  }, [turnFilter, filter, myPlanningMessages, showArchivedOrders])
 
   const editorValue = (val: { [property: string]: any }): void => {
     if (!isEqual(val, messageValue.current)) {
