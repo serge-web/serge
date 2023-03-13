@@ -974,7 +974,7 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
   console.log('LLOG_Trimmed', ordersIn.length, ordersInPeriod.length)
 
   // strip out info ops orders. We don't want to generate interactions (or events) for them
-  const ordersNoInfo = unArchivedOrders.filter((plan) => {
+  const ordersNoInfo = ordersInPeriod.filter((plan) => {
     const activity = plan.message.activity
     return !(activity.includes(infoOpsGroup))
   })
