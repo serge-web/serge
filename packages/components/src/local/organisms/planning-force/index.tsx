@@ -132,7 +132,7 @@ const PlanningForces: React.FC<PropTypes> = ({
         setClusteredRangeRings(showMezRings ? getRingsFor(clustered) : [])
       }
       if (interactiveChanged || mezChanged || !isEqual(rawMarkers, raw)) {
-        // console.log('> update raw', label, raw.length)
+        // console.log('> update raw', label, raw.length)
         setRawMarkers(raw)
         setRawRangeRings(showMezRings ? getRingsFor(raw) : [])
       }
@@ -182,8 +182,8 @@ const PlanningForces: React.FC<PropTypes> = ({
     // create a ring for each clustered marker
     const rings: React.ReactElement[] = []
     assets.forEach((asset: AssetRow) => {
-      // check asset is alive
-      if (asset.health && asset.health > 0) {
+      // check asset is alive, or player doesn't know asset health status
+      if ((asset.health === undefined) || (asset.health && asset.health > 0)) {
         // try for the two range attributes
         const attrs = asset.attributes
         const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
