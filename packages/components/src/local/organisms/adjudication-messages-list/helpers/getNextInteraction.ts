@@ -960,7 +960,6 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
     return inter.id
   })
 
-
   // strip out orders that are archived
   const unArchivedOrders = ordersIn.filter((plan) => {
     return !plan.details.archived
