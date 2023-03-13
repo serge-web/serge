@@ -960,8 +960,14 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
     return inter.id
   })
 
+
+  // strip out orders that are archived
+  const unArchivedOrders = ordersIn.filter((plan) => {
+    return !plan.details.archived
+  })
+
   // strip out orders not valid in this time period
-  const ordersInPeriod = ordersIn.filter((plan) => {
+  const ordersInPeriod = unArchivedOrders.filter((plan) => {
     const tStart = moment(plan.message.startDate).valueOf()
     const tEnd = moment(plan.message.endDate).valueOf()
     return (tStart < gameTurnEndVal) && (tEnd > gameTimeVal)
@@ -969,9 +975,14 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
   console.log('LLOG_Trimmed', ordersIn.length, ordersInPeriod.length)
 
   // strip out info ops orders. We don't want to generate interactions (or events) for them
-  const orders = ordersInPeriod.filter((plan) => {
+  const ordersNoInfo = unArchivedOrders.filter((plan) => {
     const activity = plan.message.activity
     return !(activity.includes(infoOpsGroup))
+  })
+  // strip out blue/green ISTAR ops
+  const orders = ordersNoInfo.filter((plan) => {
+    const activity = plan.message.activity
+    return (plan.details.from.forceId === 'f-red' || !activity.endsWith('ISTAR'))
   })
 
   !7 && listPlans(orders, gameTime)
