@@ -74,8 +74,8 @@ export const deleteWargame = (wargamePath: string): void => {
   wargameDbStore.splice(index, 1)
 }
 
-export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void => {
-  db.changes((msg) => {
+export const listenNewMessage = async ({ db, dispatch }: ListenNewMessageType): Promise<void> => {
+  return await db.changes((msg) => {
     const doc = msg as Message
     if (doc === undefined) return
     if (doc.messageType === INFO_MESSAGE) {

@@ -15,7 +15,7 @@ import { getParticipantStates } from './participant-states'
  * @param { string } channel id of the cahnnel
  * @param { MessageCustom } message the new message
  */
-const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message: MessageCustom, playerId: string) => {
+const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message: MessageCustom, playerId: string): SetWargameMessage => {
   const sourceRole: string = message.details.from.roleId
   const logger: PlayerMessage = {
     roleId: message.details.from.roleId,
@@ -25,10 +25,10 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
     _id: message._id
   }
   data.playerMessageLog[sourceRole] = logger
-  if (channel === CHAT_CHANNEL_ID) {
+  if (channel === CHAT_CHANNEL_ID ) {
     data.chatChannel.messages.unshift(deepCopy(message))
   } else if (data.channels[channel]) {
-    const theChannel: ChannelUI = data.channels[channel]
+    const theChannel: ChannelUI = deepCopy(data.channels[channel])
 
     // create the messages array, if necessary
     if (theChannel.messages === undefined) {
@@ -87,7 +87,9 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
     } else {
       console.warn('Duplicate message ditched. But, we should be preventing this in DBProvider', message)
     }
+    data.channels[channel] = theChannel
   }
+  return data
 }
 
 /** create a new (empty) channel */
@@ -234,7 +236,7 @@ export const handleNewMessageData = (
     }
     channel.messages.unshift(payload)
   } else {
-    handleNonInfoMessage(res, payload.details.channel, payload, playerId)
+   return handleNonInfoMessage(res, payload.details.channel, payload, playerId)
   }
 
   return res
