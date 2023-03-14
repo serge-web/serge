@@ -27,7 +27,7 @@ export const SupportMapping: React.FC<PropTypes> = ({
       try {
         map.flyToBounds(bounds, { duration: 0.6 })
       } catch (err) {
-        console.log('Problem with flyTo in SupportMapping')
+        console.log('Problem with flyToBounds in SupportMapping')
         console.error(err)
       }
     }
