@@ -57,7 +57,12 @@ export const MapControl: React.FC<PropTypes> = ({
     if (!localMap || !originalBounds) {
       return
     }
-    localMap.flyToBounds(originalBounds, { duration: 0.75 })
+    try {
+      localMap.flyToBounds(originalBounds, { duration: 0.75 })
+    } catch (err) {
+      console.log('Problem with flyToBounds in MapControl')
+      console.error(err)
+    }
   }
 
   if (!localMap) return null
