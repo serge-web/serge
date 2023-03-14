@@ -890,8 +890,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (!validYear(endD)) {
         invalidDates.push(order.message.Reference + ', end date: ' + endD.toISOString())
       }
-      if (checkForAllDeadAssets(forces, order.message.ownAssets) || checkForAllDeadAssets(forces, order.message.otherAssets)) {
-        allAssetsDead.push(order.message.Reference)
+      const ownAssetsDead = checkForAllDeadAssets(forces, order.message.ownAssets)
+      const oppAssetsDead = checkForAllDeadAssets(forces, order.message.otherAssets)
+      if (ownAssetsDead || oppAssetsDead) {
+        allAssetsDead.push(order.message.Reference + ', ' + order.message.activity + ', ' +
+          (ownAssetsDead ? 'All Own Dead' : '') + (oppAssetsDead ? ' All Opp Dead' : ''))
       }
     })
     const locationData = (invalidLocationIds.length > 0)
