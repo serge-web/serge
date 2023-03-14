@@ -435,16 +435,19 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       if (message && template) {
         const saveMessage = () => {
           if (messageValue.current) {
+            // note if this player is from umpire force they may be tidying a set of orders.
+            // if so, keep the from field
+            const fromField = selectedForce.umpire ? message.details.from : {
+              force: selectedForce.name,
+              forceColor: selectedForce.color,
+              roleName: selectedRoleName,
+              forceId: selectedForce.uniqid,
+              roleId: playerRoleId,
+              iconURL: selectedForce.iconURL || selectedForce.icon || ''
+            }
             const details: MessageDetails = {
               channel: channel.uniqid,
-              from: {
-                force: selectedForce.name,
-                forceColor: selectedForce.color,
-                roleName: selectedRoleName,
-                forceId: selectedForce.uniqid,
-                roleId: playerRoleId,
-                iconURL: selectedForce.iconURL || selectedForce.icon || ''
-              },
+              from: fromField,
               messageType: message.details.messageType,
               timestamp: new Date().toISOString(),
               turnNumber: currentTurn
