@@ -960,13 +960,13 @@ export const getNextInteraction2 = (ordersIn: MessagePlanning[],
     return inter.id
   })
 
-  // strip out orders that are archived
-  const unArchivedOrders = ordersIn.filter((plan) => {
-    return !plan.details.archived
+  // strip out orders that are archived or excluded
+  const validOrders = ordersIn.filter((plan) => {
+    return !(plan.details.archived || plan.details.excluded)
   })
 
   // strip out orders not valid in this time period
-  const ordersInPeriod = unArchivedOrders.filter((plan) => {
+  const ordersInPeriod = validOrders.filter((plan) => {
     const tStart = moment(plan.message.startDate).valueOf()
     const tEnd = moment(plan.message.endDate).valueOf()
     return (tStart < gameTurnEndVal) && (tEnd > gameTimeVal)

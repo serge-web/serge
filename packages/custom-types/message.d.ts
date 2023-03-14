@@ -70,6 +70,8 @@ export interface MessageDetails {
   counter?: number
   /** if this message has been archived */
   archived?: boolean
+  /** if this message is to be excluded from adjudication */
+  excluded?: boolean
 }
 
 export interface MessageStructure {
