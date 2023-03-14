@@ -1,4 +1,4 @@
-import { faSearchMinus, faMedkit, faEye, faGlobe, faSearchPlus, faTable, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faMedkit, faEye, faEyeSlash, faGlobe, faSearchPlus, faTable, faTrashAlt, faUser, faUserLock, faCopy } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Card, CardContent, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@material-ui/core'
@@ -38,6 +38,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const messageValue = useRef<any>(null)
   const tableRef = useRef<any>()
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
+  const [pendingExclude, setPendingExclude] = useState<OrderRow[]>([])
   const [toolbarActions, setToolbarActions] = useState<Action<OrderRow>[]>([])
   const [visibleRows, setVisibleRows] = useState<OrderRow[]>([])
 
@@ -266,13 +267,21 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       }
     ]
     if (isUmpire) {
-      // also provide the `achive` button
+      // also provide the `archive` button
       res.unshift({
         icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
         iconProps: { color: 'action' },
         tooltip: 'Archive messages',
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
+      })
+      // also provide the `skip adjudication` button
+      res.unshift({
+        icon: () => <FontAwesomeIcon title='Exclude orders from adjudication' icon={faEyeSlash} className={cx({ [styles.selected]: filter })} />,
+        iconProps: { color: 'action' },
+        tooltip: 'Exclude orders from addjudication',
+        isFreeAction: false,
+        onClick: (_event: any, data: OrderRow | OrderRow[]): void => excludeSelected(data)
       })
     }
     setToolbarActions(res)
@@ -562,11 +571,42 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   const archiveCancelled = () => setPendingArchive([])
+
+  const excludeConfirmed = (): void => {
+    if (pendingExclude) {
+      const actualMessages = pendingExclude.map((row): MessagePlanning | undefined => planningMessages.find((msg) => msg.message.Reference === row.rawRef))
+      if (actualMessages.length !== pendingExclude.length) {
+        console.warn('failed to find actual version of some messages', rows, actualMessages)
+      }
+      const foundMessaes = actualMessages.filter((msg) => msg !== undefined) as MessagePlanning[]
+      const markExcluded = foundMessaes.map((msg, index): MessagePlanning => {
+        msg.details.excluded = true
+
+        const archivedMessage = {
+          ...msg,
+          _id: new Date().toISOString() + index,
+          _rev: undefined
+        }
+
+        return archivedMessage
+      })
+      postBackArchive && postBackArchive(markExcluded)
+      setPendingExclude([])
+    }
+  }
+
+  const excludeCancelled = () => setPendingExclude([])
+
   /* eslint-enable */
 
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
     setPendingArchive(rows)
+  }
+
+  const excludeSelected = (data: OrderRow | OrderRow[]): void => {
+    const rows: OrderRow[] = Array.isArray(data) ? data : [data]
+    setPendingExclude(rows)
   }
 
   const localCopyMessage = (data: OrderRow | OrderRow[]): void => {
@@ -657,6 +697,20 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
         >
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
+        </CustomDialog>
+      }
+      {pendingExclude.length > 0 &&
+        <CustomDialog
+          isOpen={pendingExclude.length > 0}
+          header={'Exclude orders'}
+          cancelBtnText={'Cancel'}
+          saveBtnText={'Exclude'}
+          /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
+          onClose={excludeCancelled}
+          onSave={excludeConfirmed}
+        /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
+        >
+          <>Are you sure you wish to exclude {pendingExclude.length} sets of orders from the interaction generator?</>
         </CustomDialog>
       }
       {TableData}
