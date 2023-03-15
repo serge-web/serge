@@ -52,10 +52,14 @@ const planningMessages = (channels: PlayerUiChannels): {interactions: MessageInt
   })
 
   if (messages) {
+    console.log('Export interactions 1. Messages:', messages.length)
     const nonInfo = messages.filter((msg) => !msg.infoType) as MessageCustom[]
     const interactions = nonInfo.filter((msg) => msg.details.interaction) as unknown as MessageInteraction[]
+    console.log('Export interactions 2. Interactions:', interactions.length)
     const completeInteractions = interactions.filter((msg) => msg.details.interaction && msg.details.interaction.complete)
+    console.log('Export interactions 3. Complete Interactions:', completeInteractions.length)
     const plans = nonInfo.filter((msg) => !msg.details.interaction) as unknown as MessagePlanning[]
+    console.log('Export interactions 4. plans:', plans.length)
     return { interactions: completeInteractions, plans }
   } else {
     console.warn('Didn\t find planning channel')
@@ -151,6 +155,7 @@ const handleExport = (gameDate: string, gameTurnTime: GameTurnLength, allPlatfor
   res.assets = assets
   const { interactions, plans } = planningMessages(channels)
   interactions.forEach((msg) => extractOutcomes(msg, plans, res))
+  console.log('Export interactions 1.', interactions.length)
   exportMessages(channels, res)
   return res
 }
