@@ -718,15 +718,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // drop the turn markers
-    const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
-    const nonTurnMessagesRemoveDublicate = _.uniqBy(nonTurnMessages, (e) => {
-      return e.message && e.message.Reference
+    const nonTurnUnArchivedMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED && !msg.details.archived) as Array<MessagePlanning | MessageInteraction>
+    const nonTurnMessagesRemoveDublicate = _.uniqBy(nonTurnUnArchivedMessages, (e) => {
+        return e.message && e.message.Reference
     })
-    const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessagesRemoveDublicate.filter((message) => !message.details.archived)
+
     // TODO: these filters should just use `messageType` to get the correct data, but currently
     // all messages have "CUSTOM_MESSAGE". So the filters fall back on other `tell-tales`.
-    const myPlanningMessages = unArchivedMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction)) as MessagePlanning[]
-    const myInteractionMessages = unArchivedMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
+    const myPlanningMessages = nonTurnMessagesRemoveDublicate.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction)) as MessagePlanning[]
+    const myInteractionMessages = nonTurnMessagesRemoveDublicate.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
 
     // log of number of message ids and forces, used to config interactions
     !7 && console.table(myPlanningMessages.map((plan) => { return { id: plan._id, force: plan.details.from.forceId } }))
