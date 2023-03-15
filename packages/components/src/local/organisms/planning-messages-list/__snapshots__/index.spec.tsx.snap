@@ -165,6 +165,36 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 }
               >
                 <button
+                  aria-label="Show summary of outcomes of previous turn"
+                  aria-labelledby={null}
+                  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+                  data-mui-internal-clone-element={true}
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onContextMenu={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={0}
+                  type="button"
+                >
+                  <svg
+                    className="svg-inline--fa fa-table"
+                  />
+                  <span
+                    className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </button>
+                <button
                   aria-label="Only show orders created by me"
                   aria-labelledby={null}
                   className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
@@ -464,73 +494,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     <div
                       aria-describedby="rfd-hidden-text-0-hidden-text-0"
                       data-rfd-drag-handle-context-id="0"
-                      data-rfd-drag-handle-draggable-id="2"
-                      data-rfd-draggable-context-id="0"
-                      data-rfd-draggable-id="2"
-                      draggable={false}
-                      onDragStart={[Function]}
-                      role="button"
-                      style={
-                        Object {
-                          "display": "flex",
-                          "flexDirection": undefined,
-                          "minWidth": 0,
-                          "position": "relative",
-                        }
-                      }
-                      tabIndex={0}
-                    >
-                      <span
-                        aria-sort="none"
-                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
-                        data-testid="mtableheader-sortlabel"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onContextMenu={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        role="columnheader"
-                        tabIndex={0}
-                      >
-                        Author
-                        <svg
-                          className="svg-inline--fa fa-sort-up"
-                        />
-                      </span>
-                      <span
-                        data-testid="material-table-column-sort-order-indicator"
-                        style={
-                          Object {
-                            "width": "1em",
-                          }
-                        }
-                      >
-                        
-                      </span>
-                    </div>
-                  </th>
-                  <th
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
-                    scope="col"
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "width": "auto",
-                      }
-                    }
-                  >
-                    <div
-                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
-                      data-rfd-drag-handle-context-id="0"
                       data-rfd-drag-handle-draggable-id="3"
                       data-rfd-draggable-context-id="0"
                       data-rfd-draggable-id="3"
@@ -567,7 +530,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         role="columnheader"
                         tabIndex={0}
                       >
-                        Title
+                        Author
                         <svg
                           className="svg-inline--fa fa-sort-up"
                         />
@@ -634,6 +597,73 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         role="columnheader"
                         tabIndex={0}
                       >
+                        Title
+                        <svg
+                          className="svg-inline--fa fa-sort-up"
+                        />
+                      </span>
+                      <span
+                        data-testid="material-table-column-sort-order-indicator"
+                        style={
+                          Object {
+                            "width": "1em",
+                          }
+                        }
+                      >
+                        
+                      </span>
+                    </div>
+                  </th>
+                  <th
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "width": "auto",
+                      }
+                    }
+                  >
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="5"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="5"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        aria-sort="none"
+                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
+                        data-testid="mtableheader-sortlabel"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        role="columnheader"
+                        tabIndex={0}
+                      >
                         Activity
                         <svg
                           className="svg-inline--fa fa-sort-up"
@@ -666,9 +696,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     <div
                       aria-describedby="rfd-hidden-text-0-hidden-text-0"
                       data-rfd-drag-handle-context-id="0"
-                      data-rfd-drag-handle-draggable-id="5"
+                      data-rfd-drag-handle-draggable-id="6"
                       data-rfd-draggable-context-id="0"
-                      data-rfd-draggable-id="5"
+                      data-rfd-draggable-id="6"
                       draggable={false}
                       onDragStart={[Function]}
                       role="button"
@@ -734,9 +764,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     <div
                       aria-describedby="rfd-hidden-text-0-hidden-text-0"
                       data-rfd-drag-handle-context-id="0"
-                      data-rfd-drag-handle-draggable-id="6"
+                      data-rfd-drag-handle-draggable-id="7"
                       data-rfd-draggable-context-id="0"
-                      data-rfd-draggable-id="6"
+                      data-rfd-draggable-id="7"
                       draggable={false}
                       onDragStart={[Function]}
                       role="button"

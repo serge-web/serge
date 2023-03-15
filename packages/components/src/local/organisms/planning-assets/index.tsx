@@ -5,6 +5,8 @@ import { SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import cx from 'classnames'
 import { isEqual, uniq } from 'lodash'
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { needToUpdate } from '../planning-messages-list/helpers/genData'
+import { OrderRow } from '../planning-messages-list/types/props'
 import { SupportPanelContext } from '../support-panel'
 import { TAB_MY_FORCE, TAB_OPP_FOR } from '../support-panel/constants'
 import { getFilterApplied, getIsFilterState } from '../support-panel/helpers/caching-utils'
@@ -32,6 +34,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
 
   const [selectedAssetsInThisTable, setSelectedAssetsInThisTable] = useState<boolean>(false)
   const [toolbarActions, setToolbarActions] = useState<Action<AssetRow>[]>([])
+
+  const currentColumnsData = useRef<Column<OrderRow>[]>([])
 
   // reference to table, we use it to clear the selection
   const tableRef = useRef<typeof MaterialTable | undefined>(null)
@@ -114,9 +118,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       // BIG PICTURE: for columns that have a filter, we will ensure it contains the full set of possible values for
       // that column, so the user can expand the selection.  But, if the column does not have a filter applied,
       // then restrict it to current values in the dataset.
-      // console.time('get columns')
+      console.time('LLOG_UpdateAssetSearchFields')
       const allColumns = getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache)
-      // console.timeEnd('get columns')
+      console.timeEnd('LLOG_UpdateAssetSearchFields')
       // const cached = cachedColumns
       // // see if any filters have been relaxed. If they have, we need to relax the filters in other columns
       // const relaxedColumns = columns.filter((column) => {
@@ -194,8 +198,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   }, [visibleRows])
 
   useEffect(() => {
-    if (!columns.length || !showColumnFilters) {
-      const columns = getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache)
+    const columns = getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache)
+    const needUpdate = needToUpdate(currentColumnsData.current, columns)
+    if (!columns.length || !showColumnFilters || needUpdate) {
       const cachedColumns = panelState[SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS]
       if (cachedColumns) {
         const parsedCols: { [x: string]: { field: string, hidden: string }[] } = JSON.parse(cachedColumns)
@@ -210,6 +215,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
           })
         })
       }
+      currentColumnsData.current = columns
       setColumns(columns)
     }
   }, [playerForce, forces, showColumnFilters])

@@ -186,28 +186,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
-    let filteredMessages: MessageInteraction[] | undefined
-    if (turnFilter) {
-      const thisTurn = allPeriods.find((turn) => turn.gameTurn === turnFilter)
-      if (thisTurn) {
-        const turnEnd = incrementGameTime(thisTurn.gameDate, gameTurnTime)
-        const turnStartTime = moment.utc(thisTurn.gameDate).valueOf()
-        const turnEndTime = moment.utc(turnEnd).valueOf()
-        filteredMessages = interactionMessages.filter((msg) => {
-          if (msg.details.interaction) {
-            const pStart = moment.utc(msg.details.interaction.startTime).valueOf()
-            const pEnd = moment.utc(msg.details.interaction.endTime).valueOf()
-            return pEnd >= turnStartTime && pStart < turnEndTime
-          } else {
-            console.log('interaction missing')
-            return false
-          }
-        })
-      }
-    }
-    if (filteredMessages === undefined) {
-      filteredMessages = interactionMessages
-    }
+    const filteredMessages: MessageInteraction[] = interactionMessages.filter((inter) => {
+      return (turnFilter === -1) || (inter.details.turnNumber === turnFilter)
+    })
     setFilteredInteractionMessages(filteredMessages)
   }, [interactionMessages, turnFilter])
 
@@ -259,11 +240,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('SupportPanel - save message postack', message.Reference)
 
     // We removed an hour from dates - due to flatPickr bug.  Replace that hour
+    // NO - game now out of daylight savings time, so locale format is GMT,
+    // and flatPickr bug doesn't apply.
     if (message.startDate) {
-      message.startDate = moment(message.startDate).add(1, 'hour').toISOString()
+      message.startDate = moment(message.startDate).toISOString()
     }
     if (message.endDate) {
-      message.endDate = moment(message.endDate).add(1, 'hour').toISOString()
+      message.endDate = moment(message.endDate).toISOString()
     }
 
     // do we have any pending geometry
@@ -320,7 +303,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         element.options.flatpickr.altInput = true
         element.options.flatpickr.altFormat = 'M dHi\\Z'
         if (gameDate) {
-          const localDate = moment.utc(gameDate).subtract(1, 'hour').toISOString()
+          const localDate = moment.utc(gameDate).toISOString()
           element.options.flatpickr.defaultDate = localDate
         }
       }
@@ -339,13 +322,15 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
     // we have an issue where flatPickr is showing dates on hour out - it is adding an hour.
     // There isn't a fix for it, so manually subtract an hour - so the Z date-time is displayed
+    // NO: game time now in winter, so locale time is GMT, and flatpickr bug
+    // doesnt' apply
     if (document) {
       const plan = document as PlanningMessageStructure
       if (plan.startDate && plan.startDate.length > 0) {
-        plan.startDate = moment.utc(plan.startDate).subtract(1, 'hour').toISOString()
+        plan.startDate = moment.utc(plan.startDate).toISOString()
       }
       if (plan.endDate && plan.endDate.length > 0) {
-        plan.endDate = moment.utc(plan.endDate).subtract(1, 'hour').toISOString()
+        plan.endDate = moment.utc(plan.endDate).toISOString()
       }
     }
 

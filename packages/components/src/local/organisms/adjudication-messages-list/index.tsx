@@ -1,4 +1,4 @@
-import { faSearchMinus, faSearchPlus, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faSearchPlus, faUser, faBug } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
@@ -8,9 +8,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START, Phase } from '@serge/config'
-import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerceptionOutcome, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
 import { findAsset, findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
+import cx from 'classnames'
 import dayjs, { Dayjs } from 'dayjs'
 import { Geometry } from 'geojson'
 import _ from 'lodash'
@@ -19,14 +20,13 @@ import React, { CSSProperties, Fragment, SyntheticEvent, useCallback, useEffect,
 import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
-import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateForcesDropdown, updatePlatformTypes, updateWithAllAssets } from './helpers/collate-interaction'
-import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
+import { findActivityFromCompositeString, getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
-import cx from 'classnames'
+import L from 'leaflet'
 
 type ForceMessages = {
   forceName: string
@@ -45,9 +45,27 @@ type ManualInteractionResults = {
   endDate: string
 }
 
+export const arrayToTable = (data: Record<string, string>[]): React.ReactElement => {
+  if (data.length) {
+    return <table className={styles.assets}>
+      <thead>
+        <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>
+      </thead>
+      <tbody>
+        {data.map((row, index) =>
+          <tr key={index}>{Object.keys(row).map((field, index) => <td key={index}>{row[field]}</td>)}</tr>)}
+      </tbody>
+    </table>
+  }
+  return <></>
+}
+
 /** fallback for if we don't know search rate for ISTAR platforms .
  * Value expected to be in km2/hour */
 export const DEFAULT_SEARCH_RATE = 2000
+
+const fixedTl = L.latLng(41, 28)
+const fixedBr = L.latLng(-12, 84)
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, turnPlanningMessages, allPlanningMessages, template, gameDate, turnFilter,
@@ -60,6 +78,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [filter, setFilter] = useState<boolean>(false)
   const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(true)
   const [dialogMessage, setDialogMessage] = useState<React.ReactElement | undefined>()
+  const [dialogHeader, setDialogHeader] = useState<string>('')
   // note: we don't work directly with the list of interactions, since we need some special processing to prevent
   // note: interactions being edited from being wiped.  So we maintain an independent list
   const [cachedInteractions, setCachedInteractions] = useState<MessageInteraction[]>([])
@@ -84,6 +103,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const [inPlanning, setInPlanning] = useState<boolean>(true)
 
+  const currentColumnsData = useRef<Column<AdjudicationRow>[]>([])
+
   const msgSeparator = ' - '
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
@@ -107,7 +128,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       return isMine && isOpen
     })
     setMessageBeingEdited(!!ownOpenMessages.length)
-    console.log('Message being edited', ownOpenMessages.length)
     // if filter is selected, only show own open messages
     const ownMessages = onlyShowOpen ? ownOpenMessages : interactionMessages
     if (cachedInteractions.length === 0) {
@@ -331,12 +351,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setRows(dataTable)
 
       if (!columns.length || !filter) {
-        const umpireForce = forces.find((force: ForceData) => force.umpire)
-        // TODO: the column definitions should use the data collated in the column summary (below)
-        // provide more sophisticated column definition lookups
-        const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
         const hideTurnColumn = turnFilter !== SHOW_ALL_TURNS
-        const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
+        const columnsData: Column<AdjudicationRow>[] = [
           { title: 'Reference', field: 'reference' },
           { title: 'Turn', field: 'turn', type: 'numeric', hidden: hideTurnColumn }, //  },
           { title: 'Complete', field: 'complete', render: renderBoolean },
@@ -347,6 +363,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           { title: 'Activity', field: 'Reference' },
           { title: 'Duration', field: 'period' }
         ]
+        currentColumnsData.current = columnsData
         setColumns(columnsData)
       }
     } else {
@@ -521,25 +538,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     currentAdjudication.current = value as MessageAdjudicationOutcomes
   }
 
-  const arrayToTable = (data: Record<string, string>[]): React.ReactElement => {
-    if (data.length) {
-      return <table className={styles.assets}>
-        <thead>
-          <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>
-        </thead>
-        <tbody>
-          {data.map((row, index) =>
-            <tr key={index}>{Object.keys(row).map((field, index) => <td key={index}>{row[field]}</td>)}</tr>)}
-        </tbody>
-      </table>
-    }
-    return <></>
-  }
+  const countRemainingInteractions = (fixedBounds?: boolean): void => {
+    const bounds = fixedBounds ? L.latLngBounds(fixedTl, fixedBr) : undefined
 
-  const countRemainingInteractions = (): void => {
     console.time('LLOG_count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
-    const contacts: InteractionResults = getNextInteraction2(turnPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true, currentTurn)
+    const contacts: InteractionResults = getNextInteraction2(turnPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30,
+      gameDate, gameTurnEnd, forces, true, currentTurn, bounds)
     if (Array.isArray(contacts)) {
       const events = contacts[0]
       const interactions = contacts[1]
@@ -581,6 +586,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       // console.table(interactionMap)
       const message = '' + events.length + ' events remaining' + ', ' + interactions.length + ' interactions remaining'
       //
+      setDialogHeader('Count interactions')
       setDialogMessage(<>{message}{arrayToTable(eventMap)}{arrayToTable(interactionMap)}</>)
     } else {
       setDialogMessage(<>No events or interactions remaining</>)
@@ -593,15 +599,19 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   //   return message.message.Reference === 'Red-7'
   // })
 
-  const getInteraction = (): void => {
+  const getInteraction = (fixedBounds?: boolean): void => {
+    const bounds = fixedBounds ? L.latLngBounds(fixedTl, fixedBr) : undefined
+
     // const special: string | undefined = withTg && withTg.message.activity // undefined // 'tst'
     const trimmedPlanningMessages = turnPlanningMessages // [withTg as MessagePlanning] // || special ? planningMessages.filter((msg) => msg.message.activity.toLowerCase().includes(special)) : planningMessages
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     console.time('LLOG_GetInteraction')
-    const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
+    const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30,
+      gameDate, gameTurnEnd, forces, false, currentTurn, bounds)
     console.timeEnd('LLOG_GetInteraction')
-    console.log('get next inter recieved:', results)
+    console.log('GetNextAdjudication returned:', results)
     if (results === undefined) {
+      setDialogHeader('Generate interactions')
       setDialogMessage(<>No interactions found</>)
       // fine, ignore it
     } else if (!Array.isArray(results) && results !== undefined) {
@@ -750,7 +760,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           return <>
             <DetailPanelStateListener />
             {!isComplete &&
-              <div className='button-wrap' >
+              <div>
                 <Button color='secondary' onClick={localSubmitSkip} icon='delete'>Skip Adjudication</Button>
                 <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
               </div>
@@ -792,7 +802,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               onLocationEditorLoaded={onLocationEditorLoaded}
             />
             {!isComplete &&
-              <div className='button-wrap' >
+              <div>
                 <Button color='secondary' onClick={localSubmitSkip} icon='delete'>Skip Adjudication</Button>
                 <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
               </div>
@@ -826,6 +836,52 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     setValidationErrors(res)
   }
 
+  const checkOrders = (): void => {
+    const invalidLocationIds: Array<PlanningMessageStructureCore['Reference']> = []
+    const invalidDates: string[] = []
+    const forceActs = forcePlanningActivities
+    turnPlanningMessages.forEach((order) => {
+      const actName = order.message.activity
+      if (order.message.location && order.message.location.length > 0) {
+        const activSet = forceActs?.find((act) => act.force === order.details.from.forceId)
+        if (activSet) {
+          const activity = findActivityFromCompositeString(actName, activSet)
+          if (activity && activity.geometries) {
+            const actIds = activity.geometries.map((geom) => geom.uniqid)
+            const locIds = order.message.location.map((plan) => plan.uniqid)
+            const inList = locIds.every((locationId) => actIds.includes(locationId))
+            if (!inList) {
+              invalidLocationIds.push(order.message.Reference)
+            }
+          } else {
+            console.warn('Failed to find acftivities for', actName, order.details.from.forceId)
+          }
+        } else {
+          console.warn('Failed to find acftivities for', order.details.from.forceId)
+        }
+      }
+      // also check the start/end dates
+      const startD = moment.utc(order.message.startDate)
+      const endD = moment.utc(order.message.endDate)
+      const validYear = (date: moment.Moment): boolean => {
+        return date.year() === 2033 || date.year() === 2034
+      }
+      if (!validYear(startD)) {
+        invalidDates.push(order.message.Reference + ', start date: ' + startD.toISOString())
+      }
+      if (!validYear(endD)) {
+        invalidDates.push(order.message.Reference + ', end date: ' + endD.toISOString())
+      }
+    })
+    const locationData = (invalidLocationIds.length > 0)
+      ? <div>Invalid location geometries:<ul></ul>{invalidLocationIds.map((item, index) => <li key={index}>{item}</li>)}</div>
+      : <div>Location ids valid</div>
+    const dateData = invalidDates.length > 0 ? <div><br/>Invalid date data:{invalidDates.map((item, index) => <li key={index}>{item}</li>)}</div>
+      : <div>Dates all valid</div>
+    setDialogHeader('Validate orders')
+    setDialogMessage(<Fragment>{locationData} {dateData}</Fragment>)
+  }
+
   type MessageValue = { id: string, label: string }
 
   // linter warned that this object was being created on each render, so use a useMemo
@@ -850,6 +906,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           tooltip: 'Only show open interactions',
           isFreeAction: true,
           onClick: (): void => setOnlyShowOpwn(!onlyShowOpen)
+        },
+        {
+          icon: () => <FontAwesomeIcon title='Check orders' icon={faBug} className={cx({ [styles.selected]: true })} />,
+          iconProps: { color: 'action' },
+          tooltip: 'Check orders valid',
+          isFreeAction: true,
+          onClick: (): void => checkOrders()
         },
         {
           icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
@@ -982,7 +1045,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       {dialogMessage !== undefined &&
         <CustomDialog
           isOpen={dialogMessage !== undefined}
-          header={'Generate interactions'}
+          header={dialogHeader}
           cancelBtnText={'OK'}
           onClose={closeDialogCallback}
           bodyStyle={eventList}
@@ -990,12 +1053,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <>{dialogMessage}</>
         </CustomDialog>
       }
-      <div className='button-wrap' >
-        <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={getInteraction} icon='save'>Get next</Button>
-        &nbsp;
+      <div className='button-wrap'>
+        <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={() => getInteraction(true)} icon='save'>Get Next</Button>
         <Button color='secondary' disabled={inPlanning || interactionIsOpen} onClick={createManualInteraction} icon='add'>Create manual</Button>
-        &nbsp;
-        <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
+        <Button color="secondary" onClick={() => countRemainingInteractions(true)} icon='functions'># Remaining</Button>
         <Chip label={currentTime} />
       </div>
       {TableData}

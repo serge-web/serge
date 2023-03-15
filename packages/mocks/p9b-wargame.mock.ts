@@ -60633,7 +60633,7 @@ const game: Wargame = {
             ]
         },
         "activities": {
-            "activities": [
+            "activities":[
                 {
                     "force": "f-blue",
                     "groupedActivities": [
@@ -60703,7 +60703,6 @@ const game: Wargame = {
                                     "uniqid": "f-blue-Land-ISTAR",
                                     "template": "Land--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -60731,8 +60730,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Land Close Combat",
@@ -61019,7 +61017,6 @@ const game: Wargame = {
                                     "uniqid": "f-blue-Maritime-ISTAR",
                                     "template": "Maritime--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -61047,8 +61044,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Mine Clearance",
@@ -61383,7 +61379,6 @@ const game: Wargame = {
                                     "uniqid": "f-blue-Air-ISTAR",
                                     "template": "Air--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -61411,8 +61406,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Offensive Counter Air",
@@ -61842,7 +61836,6 @@ const game: Wargame = {
                                     "uniqid": "f-red-Land-ISTAR",
                                     "template": "Land--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -61870,8 +61863,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Land Close Combat",
@@ -62158,7 +62150,6 @@ const game: Wargame = {
                                     "uniqid": "f-red-Maritime-ISTAR",
                                     "template": "Maritime--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -62186,8 +62177,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Mine Clearance",
@@ -62540,7 +62530,6 @@ const game: Wargame = {
                                     "uniqid": "f-red-Air-ISTAR",
                                     "template": "Air--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -62568,8 +62557,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Offensive Counter Air",
@@ -62999,7 +62987,6 @@ const game: Wargame = {
                                     "uniqid": "f-green-Land-ISTAR",
                                     "template": "Land--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -63027,8 +63014,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Land Close Combat",
@@ -63315,7 +63301,6 @@ const game: Wargame = {
                                     "uniqid": "f-green-Maritime-ISTAR",
                                     "template": "Maritime--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -63343,8 +63328,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Mine Clearance",
@@ -63679,7 +63663,6 @@ const game: Wargame = {
                                     "uniqid": "f-green-Air-ISTAR",
                                     "template": "Air--ISTAR",
                                     "events": [
-                                        "i-random",
                                         "i-end"
                                     ],
                                     "geometries": [
@@ -63707,8 +63690,7 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "ISTAR-3"
                                         }
-                                    ],
-                                    "spatialPerception": true
+                                    ]
                                 },
                                 {
                                     "name": "Offensive Counter Air",

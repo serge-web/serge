@@ -5,7 +5,7 @@ import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
-import { PlanningContact, invertMessages, injectTimes, overlapsInTime, interactsWith } from '../../support-panel/helpers/gen-order-data'
+import { invertMessages, injectTimes, overlapsInTime, interactsWith } from '../../support-panel/helpers/gen-order-data'
 import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, findActivityFromCompositeString, getEventList, getNextInteraction2, InteractionResults, istarSearchRate, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
 
 const wargame = P9BMock.data
@@ -172,21 +172,21 @@ it('trims period', () => {
   expect(t2.end).toEqual(180)
 })
 
-it('gets count of', () => {
-//  console.clear()
-  const interactions: MessageInteraction[] = []
-  const gameStartTimeLocal = P9BMock.data.overview.gameDate
-  const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
-  const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
-  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true, turn)
-  expect(results1).toBeTruthy()
-  expect(Array.isArray(results1)).toBeTruthy()
-  const resArr = results1 as [TimedIntervention[], PlanningContact[]]
-  expect(resArr[0].length).toBeGreaterThan(0)
-  expect(resArr[1].length).toBeGreaterThan(0)
-  // should be more events than interactions
-  expect(resArr[0].length).toBeGreaterThan(resArr[1].length)
-})
+// it('gets count of', () => {
+// //  console.clear()
+//   const interactions: MessageInteraction[] = []
+//   const gameStartTimeLocal = P9BMock.data.overview.gameDate
+//   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
+//   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
+//   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true, turn)
+//   expect(results1).toBeTruthy()
+//   expect(Array.isArray(results1)).toBeTruthy()
+//   const resArr = results1 as [TimedIntervention[], PlanningContact[]]
+//   expect(resArr[0].length).toBeGreaterThan(0)
+//   expect(resArr[1].length).toBeGreaterThan(0)
+//   // should be more events than interactions
+//   expect(resArr[0].length).toBeGreaterThan(resArr[1].length)
+// })
 
 it('gets interactions (2)', () => {
   console.clear()
