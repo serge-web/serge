@@ -45,6 +45,23 @@ type ManualInteractionResults = {
   endDate: string
 }
 
+export const checkForAllDeadAssets = (forces: ForceData[], assets: undefined | Array<{ asset: string }>): boolean => {
+  if (assets && assets.length > 0) {
+    const someAlive = assets.some((item) => {
+      const asset = findAsset(forces, item.asset)
+      const health = asset.health
+      if (health === undefined) {
+        return true
+      } else {
+        return health > 0
+      }
+    })
+    return !someAlive
+  } else {
+    return false
+  }
+}
+
 export const arrayToTable = (data: Record<string, string>[]): React.ReactElement => {
   if (data.length) {
     return <table className={styles.assets}>
@@ -839,6 +856,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const checkOrders = (): void => {
     const invalidLocationIds: Array<PlanningMessageStructureCore['Reference']> = []
     const invalidDates: string[] = []
+    const allAssetsDead: string[] = []
     const forceActs = forcePlanningActivities
     turnPlanningMessages.forEach((order) => {
       const actName = order.message.activity
@@ -872,14 +890,23 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (!validYear(endD)) {
         invalidDates.push(order.message.Reference + ', end date: ' + endD.toISOString())
       }
+      const ownAssetsDead = checkForAllDeadAssets(forces, order.message.ownAssets)
+      const oppAssetsDead = checkForAllDeadAssets(forces, order.message.otherAssets)
+      if (ownAssetsDead || oppAssetsDead) {
+        allAssetsDead.push(order.message.Reference + ', ' + order.message.activity + ', ' +
+          (ownAssetsDead ? 'All Own Dead' : '') + (oppAssetsDead ? ' All Opp Dead' : ''))
+      }
     })
     const locationData = (invalidLocationIds.length > 0)
       ? <div>Invalid location geometries:<ul></ul>{invalidLocationIds.map((item, index) => <li key={index}>{item}</li>)}</div>
       : <div>Location ids valid</div>
-    const dateData = invalidDates.length > 0 ? <div><br/>Invalid date data:{invalidDates.map((item, index) => <li key={index}>{item}</li>)}</div>
+    const dateData = invalidDates.length > 0 ? <div><br />Invalid date data:{invalidDates.map((item, index) => <li key={index}>{item}</li>)}</div>
       : <div>Dates all valid</div>
+    const deadData = allAssetsDead.length > 0 ? <div><br />All assets of one force are dead:{allAssetsDead.map((item, index) => <li key={index}>{item}</li>)}</div>
+      : <div>No orders have all dead assets on one side</div>
+
     setDialogHeader('Validate orders')
-    setDialogMessage(<Fragment>{locationData} {dateData}</Fragment>)
+    setDialogMessage(<Fragment>{locationData} {dateData} {deadData}</Fragment>)
   }
 
   type MessageValue = { id: string, label: string }
