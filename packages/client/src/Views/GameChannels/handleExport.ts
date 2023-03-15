@@ -88,9 +88,15 @@ const extractOutcomes = (msg: MessageInteraction, plans: MessagePlanning[], outc
       end: inter.endTime,
       event: inter.event
     }
-    outcomes.outcomes_perception = []
-    outcomes.outcomes_health = []
-    outcomes.outcomes_movement = []
+    if (!outcomes.outcomes_perception) {
+      outcomes.outcomes_perception = []
+    }
+    if (!outcomes.outcomes_health) {
+      outcomes.outcomes_health = []
+    }
+    if (!outcomes.outcomes_movement) {
+      outcomes.outcomes_movement = []
+    }
     extractItems('perception', res, msg.message.perceptionOutcomes, outcomes.outcomes_perception)
     extractItems('health', res, msg.message.healthOutcomes, outcomes.outcomes_health)
     extractItems('movement', res, msg.message.locationOutcomes, outcomes.outcomes_movement)
