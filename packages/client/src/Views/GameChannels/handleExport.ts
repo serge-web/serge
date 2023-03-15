@@ -155,8 +155,9 @@ const handleExport = (gameDate: string, gameTurnTime: GameTurnLength, allPlatfor
   res.assets = assets
   const { interactions, plans } = planningMessages(channels)
   interactions.forEach((msg) => extractOutcomes(msg, plans, res))
-  console.log('Export interactions 1.', interactions.length)
+  console.log('Export interactions 5.', res)
   exportMessages(channels, res)
+  console.log('Export interactions 6.', res)
   return res
 }
 
