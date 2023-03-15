@@ -139,7 +139,6 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         return row
       })
       rows.unshift(colNames)
-      console.log('Export interactions 7.', key, rows)
       return ({
         name: key,
         from: {
@@ -149,8 +148,6 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         }
       })
     })
-    console.log('Export interactions 8.', data)
-
     return data
   }
 

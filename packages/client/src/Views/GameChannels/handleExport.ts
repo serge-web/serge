@@ -42,7 +42,7 @@ const storeAsset = (asset: Asset, assets: Record<string, any>[], forceName: stri
   }
 }
 
-const planningMessages = (channels: PlayerUiChannels): {interactions: MessageInteraction[], plans: MessagePlanning[]} => {
+const planningMessages = (channels: PlayerUiChannels): { interactions: MessageInteraction[], plans: MessagePlanning[] } => {
   let messages: MessageChannel[] | undefined
   Object.keys(channels).forEach(key => {
     const channel: ChannelUI = channels[key]
@@ -52,14 +52,10 @@ const planningMessages = (channels: PlayerUiChannels): {interactions: MessageInt
   })
 
   if (messages) {
-    console.log('Export interactions 1. Messages:', messages.length)
     const nonInfo = messages.filter((msg) => !msg.infoType) as MessageCustom[]
     const interactions = nonInfo.filter((msg) => msg.details.interaction) as unknown as MessageInteraction[]
-    console.log('Export interactions 2. Interactions:', interactions.length)
     const completeInteractions = interactions.filter((msg) => msg.details.interaction && msg.details.interaction.complete)
-    console.log('Export interactions 3. Complete Interactions:', completeInteractions.length)
     const plans = nonInfo.filter((msg) => !msg.details.interaction) as unknown as MessagePlanning[]
-    console.log('Export interactions 4. plans:', plans.length)
     return { interactions: completeInteractions, plans }
   } else {
     console.warn('Didn\t find planning channel')
@@ -82,6 +78,7 @@ const extractOutcomes = (msg: MessageInteraction, plans: MessagePlanning[], outc
     const plan2 = inter.orders2 && plans.find((plan) => plan._id === inter.orders2)
     const res: Record<string, any> = {
       id: msg._id,
+      turn: msg.details.turnNumber,
       order1: plan1 && plan1.message.Reference + ' - ' + plan1.message.title,
       order2: plan2 && plan2.message.Reference + ' - ' + plan2.message.title,
       start: inter.startTime,
@@ -161,9 +158,7 @@ const handleExport = (gameDate: string, gameTurnTime: GameTurnLength, allPlatfor
   res.assets = assets
   const { interactions, plans } = planningMessages(channels)
   interactions.forEach((msg) => extractOutcomes(msg, plans, res))
-  console.log('Export interactions 5.', res)
   exportMessages(channels, res)
-  console.log('Export interactions 6.', res)
   return res
 }
 
