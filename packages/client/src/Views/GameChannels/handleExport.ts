@@ -42,7 +42,7 @@ const storeAsset = (asset: Asset, assets: Record<string, any>[], forceName: stri
   }
 }
 
-const planningMessages = (channels: PlayerUiChannels): {interactions: MessageInteraction[], plans: MessagePlanning[]} => {
+const planningMessages = (channels: PlayerUiChannels): { interactions: MessageInteraction[], plans: MessagePlanning[] } => {
   let messages: MessageChannel[] | undefined
   Object.keys(channels).forEach(key => {
     const channel: ChannelUI = channels[key]
@@ -78,15 +78,22 @@ const extractOutcomes = (msg: MessageInteraction, plans: MessagePlanning[], outc
     const plan2 = inter.orders2 && plans.find((plan) => plan._id === inter.orders2)
     const res: Record<string, any> = {
       id: msg._id,
+      turn: msg.details.turnNumber,
       order1: plan1 && plan1.message.Reference + ' - ' + plan1.message.title,
       order2: plan2 && plan2.message.Reference + ' - ' + plan2.message.title,
       start: inter.startTime,
       end: inter.endTime,
       event: inter.event
     }
-    outcomes.outcomes_perception = []
-    outcomes.outcomes_health = []
-    outcomes.outcomes_movement = []
+    if (!outcomes.outcomes_perception) {
+      outcomes.outcomes_perception = []
+    }
+    if (!outcomes.outcomes_health) {
+      outcomes.outcomes_health = []
+    }
+    if (!outcomes.outcomes_movement) {
+      outcomes.outcomes_movement = []
+    }
     extractItems('perception', res, msg.message.perceptionOutcomes, outcomes.outcomes_perception)
     extractItems('health', res, msg.message.healthOutcomes, outcomes.outcomes_health)
     extractItems('movement', res, msg.message.locationOutcomes, outcomes.outcomes_movement)
