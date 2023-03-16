@@ -64,6 +64,7 @@ export const SERVER_PING_INTERVAL = 20000
 // were failing CORS test
 export const baseUrl = () => {
   const { hostname, protocol } = window.location
+  // @ts-ignore
   const host = (new URL(window.location)).searchParams.get('host')
 
   // NOTE: for all non-heroku deployments, we need to append the port number
@@ -75,6 +76,7 @@ export const baseUrl = () => {
 }
 
 export const serverPath = (
+  // @ts-ignore
   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
 ).replace(/\/?$/, '/')
 

@@ -14,6 +14,40 @@ const playerUi: PlayerUi = {
   perForceActivities: [],
   infoMarkers: [],
   markerIcons: [],
+  allPeriods: [
+    {
+      gameDate: '2022-05-25T04:00',
+      gameTurnTime: {
+        millis: 259200000,
+        unit: 'millis'
+      },
+      gameTurn: 1
+    },
+    {
+      gameDate: '2022-05-28T04:00',
+      gameTurnTime: {
+        millis: 259200000,
+        unit: 'millis'
+      },
+      gameTurn: 1
+    },
+    {
+      gameDate: '2022-05-04T04:00',
+      gameTurnTime: {
+        millis: 259200000,
+        unit: 'millis'
+      },
+      gameTurn: 2
+    },
+    {
+      gameDate: '2022-05-04T04:00',
+      gameTurnTime: {
+        millis: 259200000,
+        unit: 'millis'
+      },
+      gameTurn: 2
+    }
+  ],
   playerMessageLog: {},
   updateMessageState: true,
   isRFIManager: false,

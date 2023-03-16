@@ -7,6 +7,9 @@ import machineryFailure from '../../../Schemas/machinery_failure.json'
 import * as Globals from '@serge/config'
 import { messagesReducer } from '../../../ActionsAndReducers/dbMessages/messages_Reducer'
 
+window.G_CONFIG = {
+  REACT_APP_SERVER_PATH: 'http://localhost:8080'
+}
 const mockStore = configureStore([thunk])
 
 describe('message actions', () => {

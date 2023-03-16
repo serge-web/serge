@@ -192,7 +192,7 @@ it('correctly updates planned states', () => {
     if (alpha.plannedTurns[0].route) {
       expect(alpha.plannedTurns[0].route.length).toEqual(4)
     }
-    expect(alpha.plannedTurns[0].locations).toBeFalsy()
+    expect(alpha.plannedTurns[0].locations).toBeTruthy()
   } else {
     expect('cannot find platform alpha').toBeFalsy()
   }

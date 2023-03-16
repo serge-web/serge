@@ -25,6 +25,7 @@
     "@types/reactour": "^1.17.1",
     "@types/uniqid": "^5.2.0",
     "@typescript-eslint/parser": "^5.22.0",
+    "babel-jest": "^29.5.0",
     "bootstrap": "^4.3.1",
     "check-types": "^8.0.1",
     "classnames": "^2.2.6",
@@ -77,7 +78,9 @@
     "node-sass": "^7.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.3",
     "@types/preval.macro": "^3.0.0",
+    "babel-jest": "^29.5.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
@@ -92,6 +95,7 @@
     "start": "react-scripts start",
     "build": "react-scripts --max_old_space_size=3000 build",
     "test": "react-scripts test",
+    "test:unit": "jest --passWithNoTests",
     "eject": "react-scripts eject",
     "develop": "nodemon --exec yarn start"
   },
