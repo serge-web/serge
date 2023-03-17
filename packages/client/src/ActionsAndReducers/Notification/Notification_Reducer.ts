@@ -1,6 +1,6 @@
 import * as ActionConstant from '@serge/config'
 import { ADD_NOTIFICATION } from '@serge/config'
-import copyState from '../../Helpers/copyStateHelper.js'
+import copyState from '../../Helpers/copyStateHelper'
 import { AddNotificationInterface } from './Notification_ActionCreators.js'
 
 const initialState: AddNotificationInterface['payload'][] = []

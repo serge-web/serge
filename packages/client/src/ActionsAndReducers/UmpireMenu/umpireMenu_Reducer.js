@@ -1,5 +1,5 @@
 import * as ActionConstant from '@serge/config'
-import deepCopy from '../../Helpers/copyStateHelper.js'
+import deepCopy from '../../Helpers/copyStateHelper'
 
 const initialState = {
   selectedSchemaID: '',

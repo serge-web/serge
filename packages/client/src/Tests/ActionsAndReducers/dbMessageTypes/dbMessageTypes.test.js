@@ -1,5 +1,6 @@
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
+import { describe, it, expect, jest, beforeEach } from '@jest/globals'
 
 import * as messageTypes from '../../../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import * as messageTypesApi from '../../../api/messageTypes_api'
@@ -37,16 +38,16 @@ describe('messageTypes actions', () => {
     })
   })
 
-  var message = {
-    Date: '2019-04-18T18:18',
-    Description: 'description',
-    Status: 'Minor',
-    title: 'Test'
-  }
+  // var message = {
+  //   Date: '2019-04-18T18:18',
+  //   Description: 'description',
+  //   Status: 'Minor',
+  //   title: 'Test'
+  // }
 
   it('creates a messageType ActionConstant.DB_MESSAGE_SAVED after successful save', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: true },
+      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, payload: true },
       {
         type: ActionConstant.DB_MESSAGE_STATUS,
         payload: {
@@ -56,7 +57,7 @@ describe('messageTypes actions', () => {
         }
       },
       { type: ActionConstant.DB_MESSAGE_TYPES_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false },
+      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, payload: false },
       { type: ActionConstant.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_TEMPLATE_ROUTE }
     ]
 
@@ -70,10 +71,10 @@ describe('messageTypes actions', () => {
 
   it('duplicates a messageType ActionConstant.DB_MESSAGE_SAVED after successful save', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: true },
+      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, payload: true },
       { type: ActionConstant.DB_MESSAGE_STATUS, payload: true },
       { type: ActionConstant.DB_MESSAGE_TYPES_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false }
+      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, payload: false }
     ]
 
     const store = mockStore({})
@@ -86,10 +87,10 @@ describe('messageTypes actions', () => {
 
   it('updates a messageType ActionConstant.DB_MESSAGE_SAVED after successful save', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: true },
+      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, payload: true },
       { type: ActionConstant.DB_MESSAGE_STATUS, payload: true },
       { type: ActionConstant.DB_MESSAGE_TYPES_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false },
+      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, payload: false },
       { type: ActionConstant.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_TEMPLATE_ROUTE }
     ]
 
@@ -103,9 +104,9 @@ describe('messageTypes actions', () => {
 
   it('deletes a messageType ActionConstant.DB_MESSAGE_TYPES_SAVED after successful delete', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: true },
+      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, payload: true },
       { type: ActionConstant.DB_MESSAGE_TYPES_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false }
+      { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, payload: false }
     ]
 
     const store = mockStore({})
@@ -118,9 +119,9 @@ describe('messageTypes actions', () => {
 
   it('gets all messageTypes ActionConstant.DB_MESSAGE_TYPES_SAVED after successful get', async () => {
     const expectedActions = [
-      { type: ActionConstant.DB_MESSAGE_TYPES_GET, isLoading: true },
+      { type: ActionConstant.DB_MESSAGE_TYPES_GET, payload: true },
       { type: ActionConstant.DB_MESSAGE_TYPES_SAVED, payload: [{ message: 'message' }] },
-      { type: ActionConstant.DB_MESSAGE_TYPES_GET, isLoading: false }
+      { type: ActionConstant.DB_MESSAGE_TYPES_GET, payload: false }
     ]
 
     const store = mockStore({})
@@ -136,19 +137,22 @@ describe('messageTypes reducer', () => {
   it('should save messageTypes to store', () => {
     const saveMessagesAction = {
       type: ActionConstant.DB_MESSAGE_TYPES_SAVED,
-      payload: ['Test']
+      payload: [{ message: 'Test', _id: 'id' }]
     }
 
     expect(messageTypesReducer({ isLoading: false, messages: [] }, saveMessagesAction)).toEqual({
       isLoading: false,
-      messages: ['Test']
+      messages: [{ message: 'Test', _id: 'id' }],
+      templatesByKey: {
+        id: { message: 'Test', _id: 'id' }
+      }
     })
   })
 
   it('should set isLoading to true', () => {
     const action = {
       type: ActionConstant.DB_MESSAGE_TYPES_GET,
-      isLoading: true
+      payload: true
     }
 
     expect(messageTypesReducer({ isLoading: false }, action)).toEqual({
