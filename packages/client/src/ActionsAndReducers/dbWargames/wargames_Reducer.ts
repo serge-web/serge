@@ -102,7 +102,7 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
       break
 
     case ActionConstant.SET_SELECTED_FORCE:
-      newState.data.forces.selectedForce = action.payload
+      newState.data[tab].selectedForce = action.payload
       break
 
     case ActionConstant.ADD_NEW_CHANNEL:
