@@ -123,7 +123,7 @@ const playerUi: PlayerUi = {
           templates: [
             {
               title: 'Chat',
-              _id: 'k16eedkl'
+              _id: 'State of World L'
             }
           ],
           icon: 'http://localhost:8080/default_img/forceDefault.png',
@@ -143,7 +143,7 @@ const playerUi: PlayerUi = {
           templates: [
             {
               title: 'PG19 Weekly Orders',
-              _id: 'k16eedko'
+              _id: 'Daily intentions'
             }
           ],
           icon: 'http://localhost:8080/default_img/forceDefault.png',
@@ -158,7 +158,7 @@ const playerUi: PlayerUi = {
           templates: [
             {
               title: 'Chat',
-              _id: 'k16eedkl'
+              _id: 'Orders (M2)'
             }
           ],
           icon: 'http://localhost:8080/default_img/umpireDefault.png',
@@ -766,6 +766,8 @@ describe('PlayerUi Message Actions', () => {
 
 describe('PlayerUi Message Reducers', () => {
   it('Should convert and set SET_ALL_MESSAGES gained from db to state', () => {
+    console.log(reducer(playerUi, actionSetWargameMessages)['channels']['channel-k16fheej'])
+    console.log(setAllMessagesData.channels['channel-k16fheej'])
     expect(reducer(playerUi, actionSetWargameMessages))
       .toEqual({
         ...playerUi,

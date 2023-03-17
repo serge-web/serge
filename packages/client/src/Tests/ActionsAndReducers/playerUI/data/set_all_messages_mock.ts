@@ -125,29 +125,243 @@ const testState: PlayerUi = {
   channels: {
     'channel-k16fgs63': {
       name: 'Blue Chat',
-      messages: [],
-      unreadMessageCount: 0,
+      forceColors: [                                                  
+        '#3dd0ff'                                                            
+      ],                                                                      
+      forceIcons: [                                                   
+        'http://localhost:8080/default_img/forceDefault.png'                 
+      ],                                                                      
+      forceNames: [                                                   
+        'Blue'                                                               
+      ],                                                                      
+      messages: [                                                     
+        {                                                              
+          _id: '2020-12-06T11:07:18.374Z',                                  
+          _rev: '1-b0787ec1a69761adbd14ebe5186265fa',                       
+          details: {                                                 
+            channel: 'channel-k16fgs63',                                    
+            from: {                                                  
+              force: 'Blue',                                                
+              forceColor: '#3dd0ff',                                        
+              iconURL: 'http://localhost:8080/default_img/forceDefault.png',
+              roleId: 'rkrlw445e',                                          
+              roleName: 'CO'                                               
+            },                                                                
+            messageType: 'Chat',                                            
+            timestamp: '2020-12-06T11:07:18.374Z',                          
+            turnNumber: 1                                                  
+          },                                                                  
+          hasBeenRead: false,                                               
+          isOpen: false,                                                    
+          message: {                                                 
+            content: 'My second test mesage bluechat'                      
+          },                                                                  
+          messageType: 'CustomMessage'                                     
+        },                                                                    
+        {                                                              
+          _id: '2020-12-06T11:07:08.130Z',                                  
+          _rev: '1-22eb14479c475bdf0bd31fb08ea029c6',                       
+          details: {                                                 
+            channel: 'channel-k16fgs63',                                    
+            from: {                                                  
+              force: 'Blue',                                                
+              forceColor: '#3dd0ff',                                        
+              iconURL: 'http://localhost:8080/default_img/forceDefault.png',
+              roleId: 'rkrlw445e',                                          
+              roleName: 'CO'                                               
+            },                                                                
+            messageType: 'Chat',                                            
+            timestamp: '2020-12-06T11:07:08.130Z',                          
+            turnNumber: 1                                                  
+          },                                                                  
+          hasBeenRead: false,                                               
+          isOpen: false,                                                    
+          message: {                                                 
+            content: 'My test mesage bluechat'                        
+          },                                                             
+          messageType: 'CustomMessage'                                 
+        }                                                                    
+      ],                                                                      
+      unreadMessageCount: 2,
       observing: false,
+      templates: [                             
+        {                                       
+          _id: 'k16eedkp',                           
+          _rev: '1-612d7dc5d10fc81bc7459b2801c66816',
+          completed: false,                          
+          details: {                          
+            properties: {                     
+              Forces: {                       
+                format: 'table',  
+                items: {                      
+                  minItems: 1,                       
+                  properties: {               
+                    assets: {                 
+                      format: 'table',               
+                      items: {                
+                        properties: {         
+                          location: {         
+                            maxLength: 3,            
+                            type: 'string'          
+                          },                           
+                          name: {             
+                            type: 'string'          
+                          },                           
+                          visibleTo: {        
+                            format: 'table',         
+                            items: {          
+                              properties: {   
+                                Force: {      
+                                  enum: [      
+                                    'Blue',            
+                                    'Red',             
+                                    'Green'           
+                                  ],                   
+                                  type: 'string'    
+                                }       
+                              }                      
+                            },                        
+                            type: 'array'           
+                          }                           
+                        }                             
+                      },                               
+                      minItems: 1,                   
+                      type: 'array'                 
+                    },                                 
+                    force: {                  
+                      enum: [                  
+                        'Blue',                        
+                        'Red',                         
+                        'Green'                       
+                      ],                               
+                      propertyOrder: 100,            
+                      type: 'string'                
+                    }                   
+                  }                                  
+                },                                     
+                minItems: 1,                         
+                type: 'array'                       
+              }                                       
+            },                                         
+            title: 'State of World (laydown 2)',     
+            type: 'object'                          
+          },                                           
+          lastUpdated: '2019-09-30T12:37:26.705Z',   
+          title: 'State of World L'                 
+        }                                            
+      ],                                               
       uniqid: 'channel-k16fgs63',
       cData: {
-        name: 'blue chat',
-        participants: [],
+        name: 'Blue Chat',
+        participants: [
+          {
+            forceUniqid: 'force-k16fdykj',
+            icon: 'http://localhost:8080/default_img/forceDefault.png',
+            pType: 'ParticipantCustom',
+            roles: [],
+            subscriptionId: 'k16fh4xo',
+            templates: [
+              {
+                _id: 'State of World L',
+                title: 'Chat'
+              }                                            
+            ]
+          }
+        ],
         channelType: CHANNEL_CUSTOM,
         uniqid: 'channel-k16fgs63'  
       }
     },
     'channel-k16fheej': {
-      messages: [],
-      unreadMessageCount: 0,
-      observing: false,
-      uniqid: 'channel-k16fgs123',
       name: 'Blue HQ',
+      forceColors: [                                                   
+        '#3dd0ff',                                                             
+        '#FCFBEE'                                                             
+      ],
+      templates: [],                                                                       
+      forceIcons: [                                                    
+        'http://localhost:8080/default_img/forceDefault.png',
+        'http://localhost:8080/default_img/umpireDefault.png'
+      ],                                                                       
+      forceNames: [                                                    
+        'Blue',                                                                
+        'White'                                                               
+      ],                                                                       
+      messages: [                                                      
+        {                                                               
+          _id: '2020-12-06T11:06:51.596Z',                                   
+          _rev: '1-011c35315375d64dab2a7de520613875',                        
+          details: {                                                  
+            channel: 'channel-k16fheej',                                     
+            from: {                                                   
+              force: 'Blue',                                                 
+              forceColor: '#3dd0ff',                                         
+              iconURL: 'http://localhost:8080/default_img/forceDefault.png', 
+              roleId: 'rkrlw445e',                                           
+              roleName: 'CO'                                                
+            },                                                                 
+            messageType: 'PG19 Weekly Orders',                               
+            timestamp: '2020-12-06T11:06:51.596Z',                           
+            turnNumber: 1                                                   
+          },                                                                   
+          hasBeenRead: false,                                                
+          isOpen: false,                                                     
+          message: {                                                  
+            AlliedUnitTasking: 'Px Tasking\n',                  
+            CommandersIntent: 'Commanders Intent\n',                          
+            ForceActionOnContact: 'Px Tasking\n',                           
+            ForceActionOnLossOfContact: '',                                  
+            Orders: [                                                  
+              {                                                         
+                ContingencyOrders: 'Contingency Orders',                     
+                Orders: 'Orders',                                            
+                Unit: 'Unit'                                                
+              }                                                               
+            ],                                                                 
+            PxTasking: 'Px Tasking\n',                                                 
+            SupportingLogisticsActivity: ''                                
+          },                                                                   
+          messageType: 'CustomMessage'                                      
+        }
+      ],                                                                    
+      observing: false,
       cData: {
-        name: 'blue chat',
-        participants: [],
+        name: 'Blue HQ',
+        participants: [                                             
+          {                                                          
+            forceUniqid: 'force-k16fdykj',                                
+            icon: 'http://localhost:8080/default_img/forceDefault.png',   
+            pType: 'ParticipantCustom',                                   
+            roles: [],                                              
+            subscriptionId: 'k16fhq4b',                                   
+            templates: [                                            
+              {                                                      
+                _id: 'State of World L',                                  
+                title: 'PG19 Weekly Orders'                              
+              }                                                            
+            ]                                                              
+          },                                                                
+          {                                                          
+            forceUniqid: 'umpire',                                        
+            icon: 'http://localhost:8080/default_img/umpireDefault.png',  
+            pType: 'ParticipantCustom',                                   
+            roles: [                                                
+              'rk16ffhn2'                                                  
+            ],                                                              
+            subscriptionId: 'k16fhy24',                                   
+            templates: [                                            
+              {                                                      
+                _id: 'State of World L',                                  
+                title: 'Chat'                                            
+              }                                                            
+            ]                                                             
+          }                                                               
+        ],                                                                  
         channelType: CHANNEL_CUSTOM,
-        uniqid: 'channel-k16fgs123'  
-      }
+        uniqid: 'channel-k16fheej'  
+      },
+      uniqid: 'channel-k16fheej',
+      unreadMessageCount: 1
     },
     'channel-k4cnw3nr': {
       name: 'Mapping',
