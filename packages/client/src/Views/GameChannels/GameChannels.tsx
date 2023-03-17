@@ -148,7 +148,6 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         }
       })
     })
-
     return data
   }
 
