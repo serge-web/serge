@@ -3,11 +3,16 @@ import thunk from 'redux-thunk'
 import * as ActionConstants from '@serge/config'
 import { createMessageExportItem } from '../../../ActionsAndReducers/ExportItems/ExportItems_ActionsCreators'
 import { exportItems } from '../../../ActionsAndReducers/ExportItems/ExportItems_Reducer'
-import { expect } from '@jest/globals'
+import { expect, describe, it } from '@jest/globals'
+import { ADJUDICATION_PHASE } from '@serge/config'
 
 const mockStore = configureStore([thunk])
 // wargame backup
+
 const wargame = {
+  name: '',
+  phase: ADJUDICATION_PHASE,
+  gameTurn: 1,
   isLoading: false,
   wargameList: [
     {
@@ -1610,6 +1615,7 @@ describe('exportItems actions', () => {
   it('gets wargame and ActionConstant.CREATE_EXPORT_ITEM after successful mapping', async () => {
     const store = mockStore({})
 
+    // @ts-ignore
     store.dispatch(createMessageExportItem(wargame))
 
     const [action] = store.getActions()
@@ -1624,7 +1630,7 @@ describe('exportItems actions', () => {
     expect(Array.isArray(action.payload.data)).toBeTruthy()
     // if have items check items object props
     if (action.payload.data.length) {
-      expect(action.payload.data.filter(tab => (
+      expect(action.payload.data.filter((tab: any) => (
         !tab.title || !Array.isArray(tab.items))
       ).length).toEqual(0)
     }
@@ -1637,7 +1643,7 @@ describe('exportItems reducer', () => {
       type: ActionConstants.CREATE_EXPORT_ITEM,
       payload: exportItem
     }
-
+    // @ts-ignore
     expect(exportItems({ data: [] }, exportItemAction)).toEqual({ data: [exportItem], loader: false })
   })
 })
