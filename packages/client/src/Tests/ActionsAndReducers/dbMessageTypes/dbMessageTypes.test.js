@@ -37,13 +37,6 @@ describe('messageTypes actions', () => {
     })
   })
 
-  // var message = {
-  //   Date: '2019-04-18T18:18',
-  //   Description: 'description',
-  //   Status: 'Minor',
-  //   title: 'Test'
-  // }
-
   it('creates a messageType ActionConstant.DB_MESSAGE_SAVED after successful save', async () => {
     const expectedActions = [
       { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, payload: true },
