@@ -3,7 +3,6 @@ import thunk from 'redux-thunk'
 import * as ActionConstants from '@serge/config'
 import { createMessageExportItem } from '../../../ActionsAndReducers/ExportItems/ExportItems_ActionsCreators'
 import { exportItems } from '../../../ActionsAndReducers/ExportItems/ExportItems_Reducer'
-import { describe, it, expect } from '@jest/globals'
 
 const mockStore = configureStore([thunk])
 // wargame backup
