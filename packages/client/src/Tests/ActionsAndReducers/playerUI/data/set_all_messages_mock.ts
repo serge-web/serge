@@ -51,12 +51,11 @@ const testState: PlayerUi = {
       {
         details: {
           channel: 'game-admin',
-          turnNumber: 3,
+          turnNumber: 1,
           from: {
             force: 'Blue',
             forceColor: '#3dd0ff',
-            forceId: 'blue',
-            roleId: 'CO',
+            roleId: 'rkrlw445e',
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
@@ -75,12 +74,11 @@ const testState: PlayerUi = {
       {
         details: {
           channel: 'game-admin',
-          turnNumber: 4,
+          turnNumber: 1,
           from: {
             force: 'Blue',
             forceColor: '#3dd0ff',
-            forceId: 'blue',
-            roleId: 'CO',
+            roleId: 'rkrlw445e',
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
@@ -99,12 +97,11 @@ const testState: PlayerUi = {
       {
         details: {
           channel: 'game-admin',
-          turnNumber: 4,
+          turnNumber: 1,
           from: {
             force: 'Blue',
             forceColor: '#3dd0ff',
-            roleId: 'CO',
-            forceId: 'blue',
+            roleId: 'rkrlw445e',
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
@@ -278,7 +275,77 @@ const testState: PlayerUi = {
         '#3dd0ff',                                                             
         '#FCFBEE'                                                             
       ],
-      templates: [],                                                                       
+      templates: [                            
+        {                                      
+          _id: 'k16eedkn',                          
+          _rev: '1-cc8e8cdb01447959c266761066448382',
+          completed: false,                         
+          details: {                         
+            properties: {                    
+              Orders: {                      
+                format: 'table',                    
+                items: {                     
+                  properties: {              
+                    ActionOnContact: {       
+                      enum: [                 
+                        'Ignore',                     
+                        'Evade',                      
+                        'Covert Trail',               
+                        'Overt Trail',                
+                        'Harass'                     
+                      ],                              
+                      title: 'Action on Contact',   
+                      type: 'string'               
+                    },                                
+                    AnyOtherComments: {      
+                      format: 'textarea',           
+                      title: 'Any other comments',  
+                      type: 'string'               
+                    },                                
+                    SearchPolicy: {          
+                      format: 'textarea',           
+                      title: 'Search Policy',       
+                      type: 'string'               
+                    },                                
+                    Tasking: {               
+                      format: 'textarea',           
+                      title: 'Tasking',             
+                      type: 'string'               
+                    },                                
+                    Unit: {                  
+                      format: 'text',               
+                      title: 'Unit',                
+                      type: 'string'               
+                    }                                
+                  },                                  
+                  type: 'object'                  
+                },                                    
+                minItems: 1,                        
+                title: 'Orders',                    
+                type: 'array'                     
+              },                                      
+              OverallIntentions: {           
+                format: 'textarea',                 
+                title: 'Overall intentions',        
+                type: 'string'                     
+              },                                      
+              TurnNumber: {                  
+                format: 'number',                   
+                title: 'Turn',                      
+                type: 'string'                     
+              }                                      
+            },                                        
+            required: [                       
+              'OverallIntentions',                    
+              'Orders'                               
+            ],                                        
+            title: 'Daily Intent',                  
+            type: 'object'                         
+          },                                          
+          lastUpdated: '2019-09-30T12:37:26.705Z',  
+          title: 'Daily intentions'               
+        }                                           
+      ],                                                                    
       forceIcons: [                                                    
         'http://localhost:8080/default_img/forceDefault.png',
         'http://localhost:8080/default_img/umpireDefault.png'
@@ -336,7 +403,7 @@ const testState: PlayerUi = {
             subscriptionId: 'k16fhq4b',                                   
             templates: [                                            
               {                                                      
-                _id: 'State of World L',                                  
+                _id: 'Daily intentions',                                  
                 title: 'PG19 Weekly Orders'                              
               }                                                            
             ]                                                              
@@ -351,7 +418,7 @@ const testState: PlayerUi = {
             subscriptionId: 'k16fhy24',                                   
             templates: [                                            
               {                                                      
-                _id: 'State of World L',                                  
+                _id: 'Orders (M2)',                                  
                 title: 'Chat'                                            
               }                                                            
             ]                                                             
@@ -370,16 +437,65 @@ const testState: PlayerUi = {
       observing: false,
       uniqid: 'channel-k4cnw3nr',
       cData: {
-        channelType: CHANNEL_MAPPING,
-        name: 'Mapping',
-        uniqid: 'channel-k4cnw3nr',
-        participants: [],
-        constraints: {
-          bounds: [[1, 2], [3, 4]],
-          minZoom: 3,
-          h3res: 3
-        }
-      }
+        channelType: CHANNEL_CUSTOM,                                   
+        name: 'Mapping',                                                
+        participants: [                                           
+          {                                                        
+            forceUniqid: 'umpire',                                      
+            icon: 'http://localhost:8080/default_img/umpireDefault.png',
+            pType: 'ParticipantCustom',                                 
+            roles: [],                                            
+            subscriptionId: 'k4cnwg1q',                                 
+            templates: []                                        
+          },                                                              
+          {                                                        
+            forceUniqid: 'force-k16fdykj',                              
+            icon: 'http://localhost:8080/default_img/forceDefault.png', 
+            pType: 'ParticipantCustom',                                 
+            roles: [],                                            
+            subscriptionId: 'k4cnwjfx',                                 
+            templates: []                                       
+          }                                                              
+        ],                                                                
+        uniqid: 'channel-k4cnw3nr'
+      },
+      forceColors: [   
+        '#FCFBEE',             
+        '#3dd0ff'            
+      ],
+      forceIcons: [                                   
+        'http://localhost:8080/default_img/umpireDefault.png',
+        'http://localhost:8080/default_img/forceDefault.png' 
+      ],                                                      
+      forceNames: [                                   
+        'White',                                              
+        'Blue'                                               
+      ], 
+      templates: [                               
+        {                                         
+          _id: 'k16eedkl',                             
+          _rev: '1-09ab7a18ff677cec5d9a56f02a45788d',  
+          completed: false,                            
+          details: {                            
+            format: 'grid',                            
+            properties: {                       
+              content: {                        
+                format: 'textarea',                    
+                options: {                      
+                  inputAttributes: {            
+                    placeholder: 'type the text'      
+                  }                                     
+                },                                       
+                type: 'string'                        
+              }                                         
+            },                                           
+            title: 'Chat',                             
+            type: 'object'                            
+          },                                             
+          lastUpdated: '2019-09-30T12:37:26.705Z',     
+          title: 'Chat'                               
+        }                                               
+      ]                                                                                                                          
     }
   },
   allChannels: [

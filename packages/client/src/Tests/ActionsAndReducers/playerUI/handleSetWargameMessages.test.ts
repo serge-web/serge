@@ -1,5 +1,5 @@
 import reducer from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
-
+import { describe, it, expect } from '@jest/globals'
 import { PlayerUi } from '@serge/custom-types'
 import { actionSetWargameMessages } from '@serge/mocks'
 import { setWargameMessages } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -48,7 +48,15 @@ const playerUi: PlayerUi = {
       gameTurn: 2
     }
   ],
-  playerMessageLog: {},
+  playerMessageLog: {                        
+    rkrlw445e: {                             
+      _id: '2020-12-06T11:07:18.374Z',              
+      hasBeenRead: false,                           
+      lastMessageTime: '2020-12-06T11:07:18.374Z',  
+      lastMessageTitle: 'Chat',                     
+      roleId: 'rkrlw445e'                          
+    }                                                
+  },
   updateMessageState: true,
   isRFIManager: false,
   selectedForce: {
@@ -766,8 +774,6 @@ describe('PlayerUi Message Actions', () => {
 
 describe('PlayerUi Message Reducers', () => {
   it('Should convert and set SET_ALL_MESSAGES gained from db to state', () => {
-    console.log(reducer(playerUi, actionSetWargameMessages)['channels']['channel-k16fheej'])
-    console.log(setAllMessagesData.channels['channel-k16fheej'])
     expect(reducer(playerUi, actionSetWargameMessages))
       .toEqual({
         ...playerUi,
