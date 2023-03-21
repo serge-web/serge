@@ -196,7 +196,7 @@ export const createWargame = (): Promise<Wargame> => {
 
   const settings: Wargame = { 
     ...dbDefaultSettings, 
-    name: name, 
+    name, 
     wargameTitle: name, 
     phase: ADJUDICATION_PHASE 
   }
