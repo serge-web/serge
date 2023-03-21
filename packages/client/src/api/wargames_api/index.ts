@@ -194,7 +194,12 @@ export const createWargame = (): Promise<Wargame> => {
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name: name, db })
 
-  const settings: Wargame = { ...dbDefaultSettings, name: name, wargameTitle: name, phase: ADJUDICATION_PHASE }
+  const settings: Wargame = { 
+    ...dbDefaultSettings, 
+    name: name, 
+    wargameTitle: name, 
+    phase: ADJUDICATION_PHASE 
+  }
 
   return new Promise((resolve, reject) => {
     // TODO: this method returns the inserted wargame.  I believe we could
