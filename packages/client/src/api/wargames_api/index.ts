@@ -94,8 +94,7 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
       // eslint-disable-next-line no-useless-return
       return
     } else {
-      // @ts-ignore: TODO: check this case
-      dispatch(setLatestWargameMessage(doc))
+      dispatch(setLatestWargameMessage(doc as MessageChannel))
     }
   })
 }
@@ -180,8 +179,7 @@ export const getIpAddress = (): Promise<{ ip: string }> => {
 }
 
 // TODO: Need to check component 'ImageDropzone' it returns file with Any type
-// @ts-ignore
-export const saveIcon = (file) => {
+export const saveIcon = (file: string) => {
   return fetch(serverPath + 'saveIcon', {
     method: 'POST',
     headers: {
@@ -196,16 +194,14 @@ export const createWargame = (): Promise<Wargame> => {
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name: name, db })
 
-  // TODo: update dbDefaultSettings to valid wargame json
-  // @ts-ignore
-  const settings: Wargame = { ...dbDefaultSettings, name: name, wargameTitle: name }
+  const settings: Wargame = { ...dbDefaultSettings, name: name, wargameTitle: name, phase: ADJUDICATION_PHASE }
 
   return new Promise((resolve, reject) => {
     // TODO: this method returns the inserted wargame.  I believe we could
     // return that, instead of `getLatestWargameRevisiion`
     db.put(settings)
       .then(() => {
-        db.get(dbDefaultSettings._id).then((res) => {
+        db.get(wargameSettings).then((res) => {
           // @ts-ignore
           resolve(res)
         }).catch((err) => {
@@ -255,8 +251,7 @@ export const exportWargame = (dbPath: string): Promise<Wargame> => {
 
 export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
   const { db } = getWargameDbByName(dbName)
-
-  return db.get(dbDefaultSettings._id).then((res) => {
+  return db.get(wargameSettings).then((res) => {
     const wargame = res as Wargame
     const initiatedWargame: Wargame = {
       ...wargame,
@@ -272,8 +267,7 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
       _rev: undefined,
       _id: new Date().toISOString(),
       messageType: INFO_MESSAGE,
-      gameTurn: 0,
-      infoType: true // TODO: remove infoType
+      gameTurn: 0
     }
     return db.put(messageInfoType).then(() => messageInfoType)
   }).catch((err) => {
@@ -540,7 +534,7 @@ export const cleanWargame = (dbPath: string): Promise<WargameRevision[]> => {
   const uniqId = uniqid.time()
   const newDbName = `wargame-${uniqId}`
   const newDb: ApiWargameDb = new DbProvider(databasePath + newDbName)
-  return db.get(dbDefaultSettings._id).then((res) => {
+  return db.get(wargameSettings).then((res) => {
     const wargame = res as Wargame
     return updateWargameByDb({
       ...wargame,
@@ -605,7 +599,7 @@ export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
   // TODO: this should look for most recent wargame (INFO), it currently
   // looks for the un-initiated version of the wargame
-  return db.get(dbDefaultSettings._id).then((res) => res as Wargame)
+  return db.get(wargameSettings).then((res) => res as Wargame)
 }
 
 export const getWargame = (gamePath: string): Promise<Wargame> => {
