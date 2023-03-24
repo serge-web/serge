@@ -1,6 +1,7 @@
 import { CHANNEL_PLANNING, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { Asset, ChannelUI, ForceData, GameTurnLength, MessageChannel, MessageCustom, MessageInteraction, MessagePlanning, PlatformTypeData, PlayerUiChannels } from '@serge/custom-types'
 import { incrementGameTime } from '@serge/helpers'
+import { cloneDeep } from 'lodash'
 
 export const FORCES = 'forces'
 export const INTERACTIONS = 'interactions'
@@ -26,7 +27,8 @@ const storeAsset = (asset: Asset, assets: Record<string, any>[], forceName: stri
     subType: attrs.a_Type,
     health: asset.health || 'UNKNOWN',
     c4: attrs.a_C4_Status,
-    location: asset.location,
+    location_lat: asset.location && asset.location[0],
+    location_long: asset.location && asset.location[1],
     attributes: attrList,
     gameTurn: turnNumber,
     turnStart,
@@ -40,7 +42,7 @@ const storeAsset = (asset: Asset, assets: Record<string, any>[], forceName: stri
   }
 }
 
-const planningMessages = (channels: PlayerUiChannels): {interactions: MessageInteraction[], plans: MessagePlanning[]} => {
+const planningMessages = (channels: PlayerUiChannels): { interactions: MessageInteraction[], plans: MessagePlanning[] } => {
   let messages: MessageChannel[] | undefined
   Object.keys(channels).forEach(key => {
     const channel: ChannelUI = channels[key]
@@ -76,15 +78,22 @@ const extractOutcomes = (msg: MessageInteraction, plans: MessagePlanning[], outc
     const plan2 = inter.orders2 && plans.find((plan) => plan._id === inter.orders2)
     const res: Record<string, any> = {
       id: msg._id,
+      turn: msg.details.turnNumber,
       order1: plan1 && plan1.message.Reference + ' - ' + plan1.message.title,
       order2: plan2 && plan2.message.Reference + ' - ' + plan2.message.title,
       start: inter.startTime,
       end: inter.endTime,
       event: inter.event
     }
-    outcomes.outcomes_perception = []
-    outcomes.outcomes_health = []
-    outcomes.outcomes_movement = []
+    if (!outcomes.outcomes_perception) {
+      outcomes.outcomes_perception = []
+    }
+    if (!outcomes.outcomes_health) {
+      outcomes.outcomes_health = []
+    }
+    if (!outcomes.outcomes_movement) {
+      outcomes.outcomes_movement = []
+    }
     extractItems('perception', res, msg.message.perceptionOutcomes, outcomes.outcomes_perception)
     extractItems('health', res, msg.message.healthOutcomes, outcomes.outcomes_health)
     extractItems('movement', res, msg.message.locationOutcomes, outcomes.outcomes_movement)
@@ -101,7 +110,8 @@ const exportMessages = (channels: PlayerUiChannels, res: Record<string, Record<s
       const nonInfo = messages.filter((msg) => !msg.infoType && msg.messageType !== INFO_MESSAGE_CLIPPED) as MessageCustom[]
       const nonInteraction = nonInfo.filter((msg) => !msg.details.interaction)
       nonInteraction.forEach((msg) => {
-        const msgLabel = 'msg-' + msg.details.messageType
+        const fullMmsgLabel = msg.details.messageType
+        const msgLabel = fullMmsgLabel.substring(0, 30)
         const core = {
           id: msg._id,
           title: msg.message.title + '-' + msg.message.Reference,
@@ -112,7 +122,14 @@ const exportMessages = (channels: PlayerUiChannels, res: Record<string, Record<s
           time: msg.details.timestamp,
           turnNumber: msg.details.turnNumber
         }
-        const combined = Object.assign({}, core, msg.message)
+        const msgAny = cloneDeep(msg.message)
+        const unpack = ['location', 'ownAssets', 'otherAssets', 'domain', 'synchronisedWith']
+        unpack.forEach((item) => {
+          if (msgAny[item]) {
+            msgAny[item] = JSON.stringify(msgAny[item])
+          }
+        })
+        const combined = Object.assign({}, core, msgAny)
         if (!res[msgLabel]) {
           res[msgLabel] = []
         }

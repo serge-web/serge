@@ -1,12 +1,15 @@
 import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
 import { configDateTimeLocal, deepCopy, usePrevious } from '@serge/helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { isEqual } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
 import Props from './types/props'
+
+const alwaysShowEditorErrors = 'always'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
@@ -24,7 +27,9 @@ export const JsonEditor: React.FC<Props> = ({
   expandHeight = true,
   gameDate,
   disableArrayToolsWithEditor = true,
+  clearForm,
   saveMessage,
+  onCancelEdit,
   modifyForSave,
   confirmCancel = false,
   viewSaveButton = false,
@@ -35,6 +40,7 @@ export const JsonEditor: React.FC<Props> = ({
   const [editor, setEditor] = useState<Editor | null>(null)
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
+  const [originalMessage] = useState<string>(JSON.stringify(messageContent))
 
   const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
@@ -78,7 +84,29 @@ export const JsonEditor: React.FC<Props> = ({
      */
     const fixedDate = fixDate(value)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
-    storeNewValue && storeNewValue(newDoc)
+    if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
+      storeNewValue && storeNewValue(newDoc)
+      setSelectOptionsHeaders()
+    }
+  }
+
+  const setSelectOptionsHeaders = (): void => {
+    /**
+         * heading option should have pattern: ###<heading>
+         */
+    const selectElms = Array.from(document.querySelectorAll('select'))
+    for (const select of selectElms) {
+      const options = Array.from(select.querySelectorAll('option')).filter((option: any) => {
+        return /^###/.test(option.value)
+      })
+      options.forEach((option: any) => {
+        const oGroup = document.createElement('optgroup')
+        oGroup.label = option.value.replace(/^###/g, '')
+        option.parentNode.insertBefore(oGroup, option.nextSibling)
+        option.parentNode.removeChild(option)
+        option.style.display = 'none'
+      })
+    }
   }
 
   const OnSave = () => {
@@ -95,6 +123,7 @@ export const JsonEditor: React.FC<Props> = ({
     if (!viewSaveButton) {
       initEditor()
     }
+    onCancelEdit && onCancelEdit()
     setConfirmIsOpen(false)
     setBeingEdited(false)
   }
@@ -123,14 +152,15 @@ export const JsonEditor: React.FC<Props> = ({
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
 
     // initialise date editors
-    const modSchema = configDateTimeLocal(template.details, gameDate)
+    gameDate && console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
+    const modSchema = gameDate ? configDateTimeLocal(template.details, gameDate) : template.details
 
     // apply any other template modifications
     const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded, alwaysShowEditorErrors)
 
     const changeListenter = (): void => {
       if (nextEditor) {
@@ -206,6 +236,14 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   useEffect(() => {
+    if (template.details && editor) {
+      return initEditor()
+    }
+
+    return (): void => destroyEditor(editor)
+  }, [template.details, clearForm])
+
+  useEffect(() => {
     if (editor) {
       setTimeout(() => {
         try {
@@ -223,23 +261,7 @@ export const JsonEditor: React.FC<Props> = ({
         Array.from(editInLocationBtns).forEach(btn => {
           btn.classList.remove('btn-hide')
         })
-
-        /**
-         * heading option should have pattern: ###<heading>
-         */
-        const selectElms = Array.from(document.querySelectorAll('select'))
-        for (const select of selectElms) {
-          const options = Array.from(select.querySelectorAll('option')).filter((option: any) => {
-            return /^###/.test(option.value)
-          })
-          options.forEach((option: any) => {
-            const oGroup = document.createElement('optgroup')
-            oGroup.label = option.value.replace(/^###/g, '')
-            option.parentNode.insertBefore(oGroup, option.nextSibling)
-            option.parentNode.removeChild(option)
-            option.style.display = 'none'
-          })
-        }
+        setSelectOptionsHeaders()
       }, 50)
       return
     }
@@ -253,7 +275,6 @@ export const JsonEditor: React.FC<Props> = ({
   }, [template.details, messageId, messageContent, prevTemplates, beingEdited, editor])
 
   useLayoutEffect(() => {
-    console.log('destoy', editor)
     if (editor) editor.destroy()
   }, [disableArrayToolsWithEditor && disabled])
 

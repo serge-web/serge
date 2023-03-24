@@ -7,6 +7,7 @@ import { AdjudicationMessagesList } from './index'
 
 import { forceColors } from '@serge/helpers'
 import { P9Mock, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
+import { Phase } from '@serge/config'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const forces = P9Mock.data.forces.forces
@@ -26,9 +27,9 @@ describe('AdjudicationMessagesList component: ', () => {
     const planningMessages: MessagePlanning[] = []
 
     const tree = renderer
-      .create(<AdjudicationMessagesList currentWargame={P9Mock.name} handleAdjudication={handler} planningMessages={planningMessages} forces={forces}
-        periods={turnPeriod} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
-        interactionMessages={messages} gameTurnLength={P9Mock.data.overview.gameTurnTime} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} playerRoleId={blueRole.roleId}
+      .create(<AdjudicationMessagesList currentTurn={1} currentWargame={P9Mock.name} handleAdjudication={handler} turnPlanningMessages={planningMessages} forces={forces}
+        periods={turnPeriod} allPlanningMessages={planningMessages} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
+        interactionMessages={messages} phase={Phase.Adjudication} gameTurnLength={P9Mock.data.overview.gameTurnTime} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} playerRoleId={blueRole.roleId}
         platformTypes={platformTypes} onMarkAllAsRead={markAllAsRead} />, {
         createNodeMock: node => {
           return document.createElement(node.type as string)

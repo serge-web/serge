@@ -1,34 +1,11 @@
+import { emconState, rulesOfEngagement } from './p9-core'
+
 export const airTemplate = {
-  rulesOfEngagement: {
-    type: 'string',
-    title: 'Rules of Engagement',
-    format: 'textarea',
-    propertyOrder: 200,
-    options: {
-      grid_columns: 4
-    }
-  },
-  emconState: {
-    type: 'string',
-    title: 'Emcon State',
-    format: 'textarea',
-    propertyOrder: 210,
-    options: {
-      grid_columns: 4
-    }
-  },
-  posture: {
-    type: 'string',
-    title: 'Posture',
-    format: 'textarea',
-    propertyOrder: 220,
-    options: {
-      grid_columns: 4
-    }
-  },
+  rulesOfEngagement: rulesOfEngagement,
+  emconState: emconState,
   requiresAirToAir: {
     type: 'boolean',
-    title: 'Requires A to A',
+    title: 'Requires Air to Air refuelling',
     format: 'checkbox',
     propertyOrder: 230,
     options: {

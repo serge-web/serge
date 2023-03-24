@@ -1,19 +1,22 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
-import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
+import { expiredStorage, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
+import {
+  AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet,
+  PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry
+} from '@serge/custom-types'
+import { clearUnsentMessage, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
+import L, { circleMarker, LatLngBounds, LatLngExpression, Layer, LeafletMouseEvent, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
-import { faCalculator, faHistory } from '@fortawesome/free-solid-svg-icons'
+import { faHistory, faObjectUngroup, faShapes, faTag, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
-import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
-import { Feature, FeatureCollection } from 'geojson'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessageCustom, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { Feature, FeatureCollection, Point } from 'geojson'
 import LRU from 'lru-cache'
 import moment from 'moment-timezone'
-import { LayerGroup, MapContainer } from 'react-leaflet-v4'
+import { LayerGroup, MapContainer, useMapEvents } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
 import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import ApplyFilter from '../apply-filter'
@@ -26,20 +29,36 @@ import { LocationEditCallbackHandler } from '../planning-messages-list/types/pro
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import { LRU_CACHE_OPTION } from '../support-panel/constants'
-import { findActivity, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import { findActivity2, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
+import AreaPlotter from './helpers/AreaPlotter'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
-import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
-import RangeRingPlotter from './helpers/RangeRingPlotter'
 import Ruler from './helpers/Ruler'
 import { boundsForGeometry } from './helpers/spatial-helpers'
 import Timeline from './helpers/Timeline'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+import { ReplayFeature } from '../map-planning-orders/types/props'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
+
+/** helper object, to allow clustering of assets by force */
+type PerForceAssets = {
+  force: ForceData['uniqid']
+  color: string
+  rows: AssetRow[]
+}
+
+/** the extra labelling we use for timeline replay */
+export type ReplayAnnotations = {
+  start: number
+  end: number
+  force: ForceData['name']
+  activity: PlanningActivityGeometry['name']
+  id: MessageCustom['_id']
+}
 
 export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
@@ -48,6 +67,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   markUnread,
   markAllAsRead,
   saveNewActivityTimeMessage,
+  saveArchiveMessage,
   openMessage,
   saveMessage,
   mapPostBack,
@@ -69,32 +89,50 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   gameTurnLength,
   currentTurn,
   forcePlanningActivities,
-  attributeTypes
+  attributeTypes,
+  areas,
+  forceTemplateData
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
-  const [zoom] = useState<number>(7)
+  const [position] = useState<LatLngExpression | undefined>(undefined)
+  const [zoom] = useState<number>((channel.constraints && channel.constraints.minZoom) || 5)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
+
+  const [myAreas, setMyAreas] = useState<Array<AreaCategory>>([])
 
   // which force to view the data as
   const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
   const [currentForce, setCurrentForce] = useState<ForceData>(selectedForce)
 
+  // whether to filter the map assets to match the table filter
+  const [filterApplied, setFilterApplied] = useState<boolean>(true)
+
   // all of the assets known to players of this force
   const [allOwnAssets, setAllOwnAssets] = useState<AssetRow[]>([])
   const [allOppAssets, setAllOppAssets] = useState<AssetRow[]>([])
 
-  const [ownAssetsFiltered, setOwnAssetsFiltered] = useState<AssetRow[]>([])
-  const [opAssetsFiltered, setOpAssetsFiltered] = useState<AssetRow[]>([])
-
-  const [filterApplied, setFilterApplied] = useState<boolean>(true)
+  const ownAssetsFiltered = useRef<AssetRow[]>([])
+  const opAssetsFiltered = useRef<AssetRow[]>([])
 
   // handle selections from asset tables
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
+
   // have `local` selected assets handler, since we don't always want to
   // propagate changes to selected assets
-  const [localSelectedAssets, setLocalSelectedAssets] = useState<string[]>([])
+  const localSelectedAssets = useRef<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
+
+  // we need to break down assets by force, so they can be plotted (clustered) by color
+  // will show current assets (if present), then filtered or all, according to show all filter
+  const [perForceAssets, setPerForceAssets] = useState<PerForceAssets[]>([])
+
+  // the currently active assets and orders. i.e. if an order or adjudication is expanded,
+  // show the child elements, regardless of what is selected
+  // NOTE: for current assets there is a separate meaning of a zero length list of current assets,
+  // and undefined list that indicates there we shouldn't focus on a specific set of assets
+  const [currentAssetIds, setCurrentAssetIds] = useState<string[] | undefined>(undefined)
+
+  const [currentOrders, setCurrentOrders] = useState<string[]>([])
 
   const [mapWidth, setMapWidth] = useState<string>('calc(100% - 330px)')
 
@@ -105,31 +143,40 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
   const [interactionMessages, setInteractionMessages] = useState<MessageInteraction[]>([])
 
-  const [debugStep, setDebugStep] = useState<number>(0)
-
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
   const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
 
   const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
   const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<PlannedActivityGeometryCallback | undefined>(undefined)
 
-  const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
+  const [showIconName, setShowIconName] = useState<boolean>(false)
+  const [showStandardAreas, setShowStandardAreas] = useState<boolean>(false)
+  const [clusterIcons, setClusterIcons] = useState<boolean>(true)
+  const [showMezRings, setShowMezRings] = useState<boolean>(false)
 
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
   const [draftMessage, setDraftMessage] = useState<MessagePlanning | undefined>(undefined)
 
+  const [isUmpire, setIsUmpire] = useState<boolean>(false)
   const [playerInPlanning, setPlayerInPlanning] = useState<boolean>(false)
-  const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
+  // TIMELINE related
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
+  const [timelineLiveEntities, setTimelineLiveEntities] = useState<string[]>([])
+
   const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
+  const [showTimeOutcomes, setShowTimeOutcomes] = useState<boolean>(false)
+  const [showTimeOrders, setShowTimeOrders] = useState<boolean>(false)
+  const [showTimeInteractions, setShowTimeInteractions] = useState<boolean>(false)
+  const [timelineOrders, setTimelineOrders] = useState<string[]>([])
+  const [timelineInteractions, setTimelineInteractions] = useState<MessageInteraction[]>([])
+  const [timelineFeatures, setTimelineFeatures] = useState<ReplayFeature[]>([])
+  const [timelineFeatureCache, setTimelineFeatureCache] = useState<Record<string, ReplayFeature>>({})
 
-  // the currently active assets and orders. i.e. if an order or adjudication is expanded,
-  // show the child elements, regardless of what is selected
-  const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
-  const [currentOrders, setCurrentOrders] = useState<string[]>([])
-
+  /** note we store the interaction reference here, not the id, to allow for the
+   * document being updated
+   */
   const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
   const [assetsCache] = useState<LRU<string, string>>(new LRU(LRU_CACHE_OPTION))
 
@@ -139,22 +186,162 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
       setActivityBeingPlanned(newPlan)
     } else {
-      const createAssets = true
-      if (createAssets) {
-        const forces = generateTestData2(400, channel.constraints, allForces, platformTypes, attributeTypes || [])
-        // const forces = fixPerceivedPositions(allForces)
-        console.log('forces', forces)
+      // const forces = updateBounds(channel.constraints, allForces)
+      const forces = generateTestData2(400, channel.constraints, allForces, platformTypes, attributeTypes || [])
+      // const forces = fixPerceivedPositions(allForces)
+      console.log('forces', forces)
+      const allForceIds = [allForces[1].uniqid, allForces[2].uniqid, allForces[3].uniqid]
+      console.log('orders documents')
+      if (forcePlanningActivities) {
+        console.log(randomOrdersDocs(channelId, 200, allForces, allForceIds, forcePlanningActivities, adjudicationTemplate._id, gameDate))
+        console.log(randomOrdersDocs(channelId, 30, allForces, allForceIds, forcePlanningActivities, adjudicationTemplate._id, gameDate))
       } else {
-        console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
-        console.log(randomOrdersDocs(channelId, 30, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+        console.error('Cannot create docs, force activities missing')
       }
     }
   }
 
   useEffect(() => {
+    if (showTimeControl) {
+      const features: Feature[] = []
+
+      planningMessages.forEach((plan) => {
+        if (plan.message.location) {
+          plan.message.location.forEach((planned) => {
+            // check we have start/end date, otherwise use it for whole plan
+            const props = planned.geometry.properties as PlannedProps
+            let startTime: number
+            let endTime: number
+            if (props.startDate && props.endDate) {
+              startTime = moment.utc(props.startDate).valueOf()
+              endTime = moment.utc(props.endDate).valueOf()
+            } else {
+              startTime = moment.utc(plan.message.startDate).valueOf()
+              endTime = moment.utc(plan.message.endDate).valueOf()
+            }
+            const propsReplay: ReplayAnnotations = {
+              id: plan._id + '//' + planned.uniqid,
+              start: startTime,
+              end: endTime,
+              force: 'ignored',
+              activity: 'ignored'
+            }
+
+            const point: Feature<Point> = {
+              id: plan._id + '//' + planned.uniqid,
+              type: 'Feature',
+              properties: propsReplay,
+              geometry: {
+                type: 'Point',
+                coordinates: [60, 36]
+              }
+            }
+            // push this interaction to the stack
+            features.push(point)
+          })
+        }
+      })
+
+      interactionMessages.forEach((iMessage) => {
+        // find interactions that either relate to my assets, or where my perception of op-for asset changes
+        iMessage.message.locationOutcomes.forEach((location) => {
+          const id = location.asset
+          const asset = allOwnAssets.find((row) => row.id === id)
+          if (asset) {
+            // see if it is from my force, or I am umpire
+          }
+        })
+
+        // sort out the orders to show
+        const interaction = iMessage.details.interaction
+        if (interaction) {
+          const propsReplay: ReplayAnnotations = {
+            id: iMessage._id,
+            start: moment.utc(interaction.startTime).valueOf(),
+            end: moment.utc(interaction.endTime).valueOf(),
+            force: 'ignored',
+            activity: 'ignored'
+          }
+
+          const point: Feature<Point> = {
+            id: iMessage._id,
+            type: 'Feature',
+            properties: propsReplay,
+            geometry: {
+              type: 'Point',
+              coordinates: [60, 36]
+            }
+          }
+          // push this interaction to the stack
+          features.push(point)
+        }
+      })
+
+      console.table(features.map((feature) => {
+        const props = feature.properties as ReplayAnnotations
+        return {
+          id: feature.id,
+          start: moment.utc(props.start).toISOString(),
+          end: moment.utc(props.end).toISOString()
+        }
+      }))
+
+      const collection: FeatureCollection = {
+        type: 'FeatureCollection',
+        features: features
+      }
+      // console.log('my events', collection)
+      setTimeControlEvents(collection)
+    } else {
+      // flush the cache
+      setTimelineFeatureCache({})
+      setTimeControlEvents(undefined)
+    }
+  }, [showTimeControl, planningMessages, selectedForce])
+
+  useEffect(() => {
     // game date has changed, get updated periods
     onTurnPeriods && onTurnPeriods(currentWargame)(dispatch)
   }, [gameDate])
+
+  useEffect(() => {
+    // collate data
+    const features = timelineLiveEntities.filter((item) => item.includes('//'))
+    const nonFeatures = timelineLiveEntities.filter((item) => !item.includes('//'))
+    const plans = planningMessages.filter((msg) => nonFeatures.includes(msg._id))
+    const inters = interactionMessages.filter((msg) => nonFeatures.includes(msg._id))
+    const replayFeatures = features.map((item): ReplayFeature => {
+      const match = timelineFeatureCache[item]
+      if (match) {
+        return match
+      } else {
+        const separ = item.split('//')
+        const orderId = separ[0]
+        const activityId = separ[1]
+        const order = planningMessages.find((msg) => msg._id === orderId)
+        const activity = order && order.message.location && order.message.location.find((plan) => plan.uniqid === activityId)
+        const res = {
+          color: order ? order.details.from.forceColor : '#ccd',
+          feature: activity as PlannedActivityGeometry,
+          name: activity ? activity.uniqid : 'unknown'
+        }
+        timelineFeatureCache[item] = res
+        return res
+      }
+    })
+    // update state
+    setTimelineInteractions(inters)
+    setTimelineOrders(plans.map((pln) => pln._id))
+    setTimelineFeatures(replayFeatures)
+  }, [timelineLiveEntities])
+
+  useEffect(() => {
+    if (areas) {
+      // produce a list of standard areas for a player of this force
+      const filtered = areas.filter((area: AreaCategory) => area.usedBy && area.usedBy.includes(selectedForce.uniqid))
+      setMyAreas(filtered)
+    }
+  }, [areas, selectedForce])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -166,88 +353,236 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setThisForcePlanningActivities(force)
 
       // produce flattened set of activities, for convenience
-      if (force) {
-        const activities: Array<PlanningActivity[]> = force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
-        setFlattenedPlanningActivities(_.flatten(activities))
+      if (selectedForce.umpire) {
+        // special case - need a unique set of all activities, to plot orders from all forces
+        const activities: Record<string, PlanningActivity> = {}
+        forcePlanningActivities.forEach((val: PerForcePlanningActivitySet) => {
+          val.groupedActivities.forEach((act: GroupedActivitySet) => {
+            act.activities.forEach((activ) => {
+              const id = activ.actId
+              activities[id] = activ
+            })
+          })
+        })
+        const flatActivities = Object.values(activities)
+        setFlattenedPlanningActivities(flatActivities)
+      } else {
+        if (force) {
+          const activities: Array<PlanningActivity[]> = force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
+          const flatActivities = _.flatten(activities)
+          setFlattenedPlanningActivities(flatActivities)
+        }
       }
     }
   }, [selectedForce, forcePlanningActivities])
 
+  const buildForceAsssets = () => {
+    const res: PerForceAssets[] = []
+    // we need empty arrays (to clear existing icons), so pre-populate arrays
+    allForces.forEach((force) => {
+      // only forces with assets
+      if (force.assets && force.assets.length) {
+        const item: PerForceAssets = {
+          force: force.name,
+          rows: [],
+          color: force.color
+        }
+        res.push(item)
+      }
+    })
+    res.push({
+      force: UNKNOWN_TYPE,
+      rows: [],
+      color: '#ccc'
+    })
+    const doRows = (rows: AssetRow[]) => {
+      rows.forEach((row) => {
+        const force = row.force
+        // check selected status
+        const selected = selectedAssets.includes(row.id)
+        if (row.tableData) {
+          row.tableData.checked = selected
+        }
+        const forceToUse = force || UNKNOWN_TYPE
+        const thisA = res.find((force) => force.force === forceToUse)
+        if (thisA === undefined) {
+          console.warn('Failed to find existing entry for', force, row)
+        } else {
+          thisA.rows.push(row)
+        }
+      })
+    }
+    if (currentAssetIds !== undefined) {
+      const currentOwn = allOwnAssets.filter((row) => currentAssetIds && currentAssetIds.includes(row.id))
+      const currentOpp = allOppAssets.filter((row) => currentAssetIds && currentAssetIds.includes(row.id))
+      const currentAssets = currentOwn.concat(currentOpp)
+      doRows(currentAssets)
+    } else {
+      if (filterApplied) {
+        doRows(ownAssetsFiltered.current)
+        doRows(opAssetsFiltered.current)
+      } else {
+        doRows(allOwnAssets)
+        doRows(allOppAssets)
+      }
+    }
+    setPerForceAssets(res)
+  }
+
   useEffect(() => {
-    const isUmpire = !!selectedForce.umpire
+    buildForceAsssets()
+  }, [currentAssetIds, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied, selectedAssets])
+
+  useEffect(() => {
+    const isUmpireForce = !!selectedForce.umpire
+    setIsUmpire(isUmpireForce)
     const planningPhase = phase === PLANNING_PHASE
-    setPlayerInPlanning(!isUmpire && planningPhase)
-    setUmpireInAdjudication(isUmpire && !planningPhase)
+    setPlayerInPlanning(!isUmpireForce && planningPhase)
   }, [selectedForce, phase])
 
   useEffect(() => {
-    // find bounds of assets & orders
-    let workingBounds: L.LatLngBounds | undefined
-    currentAssetIds.forEach((id) => {
-      const asset = findAsset(allForces, id)
-      if (asset) {
-        const loc = asset.location
-        if (loc) {
-          const coords = L.latLng(loc[0], loc[1])
-          if (!workingBounds) {
-            workingBounds = L.latLngBounds(coords, coords)
-          } else {
-            workingBounds = workingBounds.extend(coords)
+    // don't zoom to fit if we're in timeline replay mode
+    if (!showTimeControl) {
+      // find bounds of assets & orders
+      let workingBounds: L.LatLngBounds | undefined
+
+      const extendBounds = (assetId: string, assetList: AssetRow[], bounds: LatLngBounds | undefined): LatLngBounds | undefined => {
+        const asset = assetList.find((row) => row.id === assetId)
+        if (asset && asset.position) {
+          const pos = asset.position
+          return bounds ? bounds.extend(pos) : L.latLngBounds(pos, pos)
+        }
+        return bounds
+      }
+
+      // also see if there are asset locations we should include in viewport
+      currentAssetIds && currentAssetIds.forEach((id) => {
+        let assetRow = allOwnAssets.find((row) => row.id === id)
+        if (!assetRow) {
+          assetRow = allOppAssets.find((row) => row.id === id)
+        }
+        if (!assetRow) {
+          console.log('PlanningChannel calc bounds on current data. Failed to find asset with id', id)
+        } else {
+          if (assetRow && assetRow.position) {
+            const pos = assetRow.position
+            workingBounds = workingBounds ? workingBounds.extend(pos) : L.latLngBounds(pos, pos)
+          }
+        }
+      })
+      const boundsForOrders = (id: string, bounds: LatLngBounds | undefined): LatLngBounds | undefined => {
+        const plan = planningMessages.find((msg) => id === msg._id)
+        if (plan) {
+          const activities = plan.message.location
+          if (activities) {
+            activities.forEach((act) => {
+              bounds = boundsForGeometry(act.geometry.geometry, bounds)
+            })
+          }
+
+          plan.message.ownAssets && plan.message.ownAssets.forEach(({ asset }) => {
+            workingBounds = extendBounds(asset, allOwnAssets, workingBounds)
+          })
+          plan.message.otherAssets && plan.message.otherAssets.forEach(({ asset }) => {
+            workingBounds = extendBounds(asset, allOppAssets, workingBounds)
+          })
+        }
+        return bounds
+      }
+      currentOrders.forEach((id) => {
+        workingBounds = boundsForOrders(id, workingBounds)
+      })
+      if (currentInteraction) {
+        const inter = interactionMessages.find((msg) => msg.message.Reference === currentInteraction)
+        if (inter && inter.details.interaction) {
+          workingBounds = boundsForOrders(inter.details.interaction.orders1, workingBounds)
+          if (inter.details.interaction.orders2) {
+            workingBounds = boundsForOrders(inter.details.interaction.orders2, workingBounds)
           }
         }
       }
-    })
-    currentOrders.forEach((id) => {
-      const plan = planningMessages.find((msg) => id === msg._id)
-      if (plan) {
-        const activities = plan.message.location
-        if (activities) {
-          activities.forEach((act) => {
-            workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
-          })
-        }
+      // create a bit of a buffer around the bounds
+      if (workingBounds) {
+        setBounds(workingBounds.pad(0.2))
+      } else {
+        setBounds(workingBounds)
       }
-    })
-    if (workingBounds) {
-      setBounds(workingBounds)
-    } else {
-      setBounds(undefined)
     }
-
     // update map bounds
-  }, [currentAssetIds, currentOrders])
+  }, [currentAssetIds, currentOrders, currentInteraction])
 
-  useEffect(() => {
-    if (showTimeControl) {
-      const isUmpire = selectedForce.umpire
-      const myOrders = isUmpire ? planningMessages : planningMessages.filter((msg) => msg.details.from.forceId === selectedForce.uniqid)
-      const features: Feature[] = []
-      myOrders.forEach((plan) => {
-        if (plan.message.location) {
-          // until we have times in features, we get it from the message
-          const startTime = plan.message.startDate
-          const endTime = plan.message.endDate
-          const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
-            // create the new props, if they are missing
-            if (geom.geometry && geom.geometry.properties) {
-              const props = geom.geometry.properties
-              props.start = moment(startTime).valueOf()
-              props.end = moment(endTime).valueOf()
-            }
-            return geom.geometry
-          })
-          features.push(...steps)
-        }
-      })
-      const collection: FeatureCollection = {
-        type: 'FeatureCollection',
-        features: features
-      }
-      setTimeControlEvents(collection)
-    } else {
-      setTimeControlEvents(undefined)
-    }
-  }, [showTimeControl, planningMessages, selectedForce])
+  // useEffect(() => {
+  //   if (showTimeControl) {
+  //     const isUmpire = selectedForce.umpire
+  //     const features: Feature[] = []
+  //     interactionMessages.forEach((iMessage) => {
+  //       // sort out the orders to show
+  //       const interaction = iMessage.details.interaction
+  //       if (interaction) {
+  //         // TODO: switch to generating block of interactions
+  //         // TODO: use valid start/end date for interactions,
+  //         // TODO: start date plus buffer for events
+  //         const orders = [interaction.orders1]
+  //         if (interaction.orders2) {
+  //           orders.push(interaction.orders2)
+  //         }
+  //         const populatedOrders = planningMessages.filter((msg) => orders.includes(msg._id))
+  //         const myOrders = isUmpire ? populatedOrders : populatedOrders.filter((msg) => msg.details.from.forceId === selectedForce.uniqid)
+  //         if (myOrders.length) {
+  //           myOrders.forEach((plan) => {
+  //             if (plan.message.location) {
+  //               // until we have times in features, we get it from the message
+  //               const msg = plan.message
+  //               const startTime = msg.startDate
+  //               const endTime = msg.endDate
+  //               // check plan has start & end dates
+  //               if (startTime && endTime) {
+  //                 const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
+  //                   // note: we aren't generating a feature to plot (or using the feature stored in the location data)
+  //                   // that's because we already have renderers for orders, interactions, assets.
+  //                   // so, just generate series of time-stamped points for timeline to manage.
+  //                   // when timeline updates, it will spit out ids of interactions to display.
+  //                   const point: Feature<Point> = {
+  //                     type: 'Feature',
+  //                     properties: geom.geometry.properties,
+  //                     geometry: {
+  //                       type: 'Point',
+  //                       coordinates: [60, 36]
+  //                     }
+  //                   }
+  //                   // create the new props, if they are missing
+  //                   if (point.properties) {
+  //                     const propsReplay = point.properties as ReplayAnnotations
+  //                     const props = point.properties as PlannedProps
+  //                     if (props.startDate && props.endDate) {
+  //                       propsReplay.start = moment.utc(props.startDate).valueOf()
+  //                       propsReplay.end = moment.utc(props.endDate).valueOf()
+  //                     } else {
+  //                       propsReplay.start = moment.utc(startTime).valueOf()
+  //                       propsReplay.end = moment.utc(endTime).valueOf()
+  //                     }
+  //                     propsReplay.force = plan.details.from.force
+  //                     propsReplay.activity = point.properties.uniqid
+  //                     propsReplay.id = plan._id
+  //                   }
+  //                   return point
+  //                 })
+  //                 features.push(...steps)
+  //               }
+  //             }
+  //           })
+  //         }
+  //       }
+  //     })
+  //     const collection: FeatureCollection = {
+  //       type: 'FeatureCollection',
+  //       features: features
+  //     }
+  //     setTimeControlEvents(collection)
+  //   } else {
+  //     setTimeControlEvents(undefined)
+  //   }
+  // }, [showTimeControl, planningMessages, selectedForce])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -257,53 +592,111 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [viewAsForce])
 
   useEffect(() => {
-    // only update selected assets if we're not planning an activity
-    if (!activityBeingPlanned) {
-      setSelectedAssets(localSelectedAssets)
-    }
-  }, [localSelectedAssets])
-
-  useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
-    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
-    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
+    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
+    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf(), [])
+
+    // no - do not clear the filtered assets arrays.  They get assigned
+    // in a round-trip from the `visibleRows` handler from the assets table
+    // update the own filtered arrays with the new values
+    const ownIds = ownAssetsFiltered.current.map((row) => row.id)
+    const filteredOwn = own.filter((row) => ownIds.includes(row.id))
+    ownAssetsFiltered.current = filteredOwn
+    const opIds = opAssetsFiltered.current.map((row) => row.id)
+    const filteredOp = opp.filter((row) => opIds.includes(row.id))
+    opAssetsFiltered.current = filteredOp
+    // ownAssetsFiltered.current = []
+    // opAssetsFiltered.current = []
+
     setAllOwnAssets(own)
-    setOwnAssetsFiltered(own.slice())
     setAllOppAssets(opp)
-    setOpAssetsFiltered(opp.slice())
     setForceColors(forceCols)
   }, [allForces, currentForce])
 
   useEffect(() => {
-    if (selectedAssets.length) {
-      const assets = selectedAssets.map((id: string): Asset => findAsset(allForces, id))
-      const assetsWithLocation = assets.filter((asset: Asset) => asset.location !== undefined)
-      const locations: any = assetsWithLocation.map((asset: Asset) => asset.location)
-      if (locations.length > 0) {
-        let mapBounds: LatLngBounds | undefined
-        locations.forEach((loc: [number, number]) => {
-          if (!mapBounds) {
-            mapBounds = latLngBounds(loc, loc)
-          } else {
-            mapBounds.extend(loc)
-          }
-        })
-        if (mapBounds) {
-          // do we actually just have one location?
-          if (mapBounds.getNorthWest().equals(mapBounds.getSouthEast())) {
-            // ok, treat it as new map centre
-            setBounds(undefined)
-            setPosition(mapBounds.getNorthWest())
-          } else {
-            // zoom to
-            setPosition(undefined)
-            setBounds(mapBounds)
-          }
-        }
-      }
-    }
+    // comment out - incomplete
+    // const updateList = (assets: AssetRow[], selectedAssets: string[]): AssetRow[] | undefined => {
+    //   let ownChanged = false
+    //   const res = assets.map((asset): AssetRow => {
+    //     const toBeSelected = selectedAssets.includes(asset.id)
+    //     const isSelected = asset.tableData && asset.tableData.checked
+    //     if (toBeSelected === isSelected) {
+    //       return asset
+    //     } else {
+    //       ownChanged = true
+    //       if (toBeSelected) {
+    //         if (!asset.tableData) {
+    //           asset.tableData = {checked: true}
+    //         } else {
+    //           asset.tableData.checked = true
+    //         }
+    //       } else {
+    //         if (asset.tableData) {
+    //           asset.tableData.checked = false
+    //         }
+    //       }
+    //       return asset
+    //     }
+    //   })
+    //   return ownChanged ? res : undefined
+    // }
+    // const updateOwnAssets = updateList(allOwnAssets, selectedAssets)
+    // if (updateOwnAssets !== undefined) {
+    //   console.log('updating own selection')
+    //   setAllOwnAssets(updateOwnAssets)
+    // }
+    // const updateOtherAssets = updateList(allOppAssets, selectedAssets)
+    // if (updateOtherAssets !== undefined) {
+    //   console.log('updating opp selection')
+    //   setAllOppAssets(updateOtherAssets)
+    // }
+  }, [selectedAssets])
+
+  useEffect(() => {
+    // no, don't zoom in on the selected asset
+    // I just observed some screwy behaviour, where the asset icons
+    // if (selectedAssets.length) {
+    //   const relevantRows = selectedAssets.map((id): AssetRow | undefined => {
+    //     let assetRow = allOwnAssets.find((row) => row.id === id)
+    //     if (!assetRow) {
+    //       assetRow = allOppAssets.find((row) => row.id === id)
+    //     }
+    //     return assetRow
+    //   })
+    //   const assets = relevantRows.filter((row) => row) as AssetRow[]
+    //   const assetsWithLocation = assets.filter((asset: AssetRow) => asset.position !== undefined)
+    //   const locations: any = assetsWithLocation.map((asset: AssetRow) => asset.position)
+    //   if (locations.length > 0) {
+    //     let mapBounds: LatLngBounds | undefined
+    //     locations.forEach((loc: LatLng) => {
+    //       if (!mapBounds) {
+    //         mapBounds = latLngBounds(loc, loc)
+    //       } else {
+    //         mapBounds.extend(loc)
+    //       }
+    //     })
+    //     if (mapBounds) {
+    //       // do we actually just have one location?
+    //       if (mapBounds.getNorthWest().equals(mapBounds.getSouthEast())) {
+    //         // no, don't zoom in on the selected asset
+    //         // I just observed some screwy behaviour, where the asset icons
+    //         // moved to somewhere else on the globe, but the map didn't update
+    //         //        console.log('bounds 1a', mapBounds)
+
+    //         // ok, treat it as new map centre
+    //         // setBounds(undefined)
+    //         // setPosition(mapBounds.getNorthWest())
+    //       } else {
+    //         console.log('bounds 1b', mapBounds)
+    //         // zoom to
+    //         setPosition(undefined)
+    //         setBounds(mapBounds.pad(0.2))
+    //       }
+    //     }
+    //   }
+    // }
   }, [selectedAssets])
 
   useEffect(() => {
@@ -326,11 +719,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     // drop the turn markers
     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
-
+    const nonTurnMessagesRemoveDublicate = _.uniqBy(nonTurnMessages, (e) => {
+      return e.message && e.message.Reference
+    })
+    const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessagesRemoveDublicate.filter((message) => !message.details.archived)
     // TODO: these filters should just use `messageType` to get the correct data, but currently
     // all messages have "CUSTOM_MESSAGE". So the filters fall back on other `tell-tales`.
-    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction)) as MessagePlanning[]
-    const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
+    const myPlanningMessages = unArchivedMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction)) as MessagePlanning[]
+    const myInteractionMessages = unArchivedMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
 
     // log of number of message ids and forces, used to config interactions
     !7 && console.table(myPlanningMessages.map((plan) => { return { id: plan._id, force: plan.details.from.forceId } }))
@@ -369,35 +765,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('action clicked', force, category, actionId)
   }
 
-  const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache }
-  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
-
-  const incrementDebugStep = (): void => {
-    // do something
-    // const msgs = dummyMessages.map((plan: MessagePlanning) => {
-    //   const force = plan.details.from.forceId
-    //   if (!force) {
-    //     console.log('force', plan._id)
-    //     throw Error('force missing for:' + plan._id)
-    //   }
-    //   const forceActs = forcePlanningActivities && forcePlanningActivities.find((value) => value.force === force)
-    //   if (forceActs) {
-    //     const cats = forceActs.groupedActivities
-    //     const randType = cats[Math.floor(Math.random() * cats.length)]
-    //     const acts = randType.activities[Math.floor(randType.activities.length * Math.random())] as PlanningActivity
-    //     plan.message.activity = acts.uniqid
-    //   }
-    //   return plan
-    // })
-    // console.log(msgs)
-
-    console.log('debug step', debugStep)
-    setDebugStep(1 + debugStep)
+  const onSupportPanelLayoutChange = (key: string, value: string) => {
+    const refKey = `support.planning.${selectedRoleId}`
+    const panelState = JSON.parse(expiredStorage.getItem(refKey) || '{}')
+    panelState[key] = value
+    expiredStorage.setItem(refKey, JSON.stringify(panelState))
   }
 
+  const getSupportPanelState = () => JSON.parse(expiredStorage.getItem(`support.planning.${selectedRoleId}`) || '{}')
+
+  const supportPanelContext = useMemo(() => (
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache, onSupportPanelLayoutChange, getSupportPanelState }
+  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
+
   const handleAdjudication = (interDetails: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void => {
-    console.log('Apply some adjudication for', outcomes.Reference, outcomes)
     const from: MessageDetailsFrom = {
       force: selectedForce.uniqid,
       forceId: selectedForce.uniqid,
@@ -451,13 +832,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         channel: channel.uniqid,
         from: from,
         messageType: activityBeingPlanned.template,
-        timestamp: moment().toISOString(),
+        timestamp: moment.utc().toISOString(),
         turnNumber: currentTurn
       }
       const timeBounds = activityBounds(activityPlanned)
       const plans: PlanningMessageStructureCore = {
         Reference: '',
-        title: 'Pending',
+        title: '',
         activity: activityBeingPlanned.uniqid,
         startDate: timeBounds ? timeBounds[0] : '',
         endDate: timeBounds ? timeBounds[1] : ''
@@ -513,7 +894,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   /** player has used menu to trigger the creation of a new set of orders (activity) */
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
     if (forcePlanningActivities) {
-      const newActivity = findActivity(activity, group, selectedForce.uniqid, forcePlanningActivities)
+      const newActivity = findActivity2(activity, group, selectedForce.uniqid, forcePlanningActivities)
       if (newActivity.geometries) {
         setActivityBeingPlanned(newActivity)
       } else {
@@ -577,8 +958,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         }
       }
     })
-    if (localBounds) {
-      setBounds(localBounds)
+    // if we're editing an existing set of orders zoom in on them
+    console.log('activity being edited')
+    if (localBounds && activityBeingEdited && !7) {
+      setBounds(localBounds.pad(0.2))
     }
 
     setActivityBeingEdited(plans)
@@ -602,18 +985,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const timelineOnEachFeature = (data: Feature, layer: L.Layer): void => {
-    const props = data.properties as PlannedProps
-    const forceId = props.force
-    const thisForce = allForces.find((force) => force.uniqid === forceId)
-    const forceName = thisForce ? thisForce.name : 'Force not found'
-    const label = forceName + ' - ' + props.id
+    const props = data.properties as ReplayAnnotations
+    const label = props.force + ' - ' + props.activity
     layer.bindPopup(label)
   }
 
   const timelineStyle = (data: Feature): PathOptions => {
-    const props = data.properties as PlannedProps
-    const forceId = props.force
-    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const props = data.properties as ReplayAnnotations
+    const forceName = props.force
+    const thisForce = allForces.find((force) => force.name === forceName)
     const color = thisForce ? thisForce.color : '#ff0'
     return {
       color: color
@@ -621,9 +1001,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const timelinePointToLayer = (data: Feature<any>, latlng: LatLngExpression): Layer => {
-    const props = data.properties as PlannedProps
-    const forceId = props.force
-    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const props = data.properties as ReplayAnnotations
+    const forceName = props.force
+    const thisForce = allForces.find((force) => force.name === forceName)
     const thisCol = thisForce ? thisForce.color : '#f00'
     const geojsonMarkerOptions = {
       radius: 10,
@@ -636,61 +1016,70 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return circleMarker(latlng, geojsonMarkerOptions)
   }
 
+  const onSetSelectedAssets = (selected: string[]) => {
+    localSelectedAssets.current = selected
+    if (!activityBeingPlanned) {
+      setSelectedAssets(selected)
+    }
+  }
+
+  const setOpAssetsFiltered = (assetRows: AssetRow[]) => {
+    opAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+
+  const setOwnAssetsFiltered = (assetRows: AssetRow[]) => {
+    ownAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+  const RightClickGenerator = () => {
+    useMapEvents({
+      contextmenu: (e: LeafletMouseEvent) => {
+        const hunK = 100000
+        const latVal = Math.floor(e.latlng.lat * hunK) / hunK
+        const lonVal = Math.floor(e.latlng.lng * hunK) / hunK
+        const copyLocetion = JSON.stringify([latVal, lonVal])
+        window.prompt('Copy to clipboard: Ctrl+C, Enter', copyLocetion)
+      }
+    })
+    return null
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
+        <RightClickGenerator />
         <Ruler showControl={true} />
-        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} showControl={showTimeControl} data={timeControlEvents} />
-        <PlanningActitivityMenu showControl={playerInPlanning && !showInteractionGenerator && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
-        {showInteractionGenerator
-          ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
+        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
+          showControl={showTimeControl} data={timeControlEvents} />
+        <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
+        {showStandardAreas && <AreaPlotter areas={myAreas} />}
+        {showTimeControl ? <Fragment>
+          <MapPlanningOrders forceColors={forceColors} features={timelineFeatures} orders={planningMessages} selectedOrders={timelineOrders} activities={flattenedPlanningActivities} interactions={timelineInteractions} setSelectedOrders={noop} />
+        </Fragment>
           : <Fragment>
             <Fragment key='selectedObjects'>
-              <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+              <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} interactions={interactionMessages} selectedInteraction={currentInteraction} />
+              <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-                {allOwnAssets.length !== ownAssetsFiltered.length
-                  ? <>
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                    <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} />
-                  </>
-                  : <>
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                    <RangeRingPlotter title={'Own range rings'} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} forceCols={forceColors} />
-                  </>
+                {perForceAssets.map((force) => {
+                  return <PlanningForces showData={!showTimeControl} showMezRings={showMezRings} clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
+                    assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={!showIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                })
                 }
-              </LayerGroup>
-              <LayerGroup pmIgnore={true} key={'sel-opp-forces'}>
-                {allOppAssets.length !== opAssetsFiltered.length
-                  ? <>
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                    <RangeRingPlotter title={'Opp range rings'} assets={filterApplied ? opAssetsFiltered : allOppAssets} forceCols={forceColors} />
-                  </>
-                  : <>
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                    <RangeRingPlotter title={'Opp range rings'} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} forceCols={forceColors} />
-                  </>}
-              </LayerGroup>
-            </Fragment>
-            <Fragment key='currentObjects'>
-              <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
-              <LayerGroup pmIgnore={true} key={'cur-own-forces'}>
-                <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((row) => currentAssetIds.includes(row.id))} setSelectedAssets={noop} selectedAssets={currentAssetIds} />
-                <RangeRingPlotter title={'Own range rings'} assets={allOwnAssets.filter((asset: AssetRow) => currentAssetIds.includes(asset.id))} forceCols={forceColors} />
-              </LayerGroup>
-              <LayerGroup key={'cur-opp-forces'}>
-                <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((row) => currentAssetIds.includes(row.id))} setSelectedAssets={noop} selectedAssets={currentAssetIds} />
-                <RangeRingPlotter title={'Opp range rings'} assets={allOppAssets.filter((asset: AssetRow) => currentAssetIds.includes(asset.id))} forceCols={forceColors} />
+                {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
               </LayerGroup>
             </Fragment>
             {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
-            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
+            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} areas={myAreas} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </Fragment>
+
         }
       </>
     )
-  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
-    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders])
+  }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings, showTimeControl,
+    timelineInteractions, timelineFeatures])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -725,6 +1114,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             adjudicationTemplate={adjudicationTemplate}
             activityTimeChanel={newActiveMessage}
             saveMessage={saveMessageLocal}
+            postBackArchive={saveArchiveMessage}
             mapPostBack={mapPostBack}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}
@@ -738,8 +1128,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             gameTurnLength={gameTurnLength}
             currentTurn={currentTurn}
             phase={phase}
-            selectedAssets={selectedAssets}
-            setSelectedAssets={setLocalSelectedAssets}
+            forceColors={forceColors}
+            setSelectedAssets={onSetSelectedAssets}
             selectedOrders={selectedOrders}
             saveCachedNewMessageValue={cacheMessage}
             getCachedNewMessagevalue={getCachedMessage}
@@ -755,6 +1145,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             forcePlanningActivities={forcePlanningActivities}
             editLocation={editOrderGeometries}
             handleAdjudication={handleAdjudication}
+            forceTemplateData={forceTemplateData}
           />
           <div className={styles['map-container']}>
             <div style={{ width: mapWidth }}>
@@ -781,29 +1172,55 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                       {!activityBeingPlanned &&
                         <>
                           {
-                            umpireInAdjudication &&
+                            myAreas && myAreas.length > 0 &&
                             <div className={cx('leaflet-control')}>
-                              <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
-                                onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                              <Item title='Toggle display of standard areas' contentTheme={showStandardAreas ? 'light' : 'dark'}
+                                onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
                             </div>
                           }
-                          {showInteractionGenerator ? <div className={cx('leaflet-control')}>
-                            <Item onClick={incrementDebugStep}>Step</Item>
-                          </div>
+                          {showTimeControl
+                            ? <>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showTimeOutcomes ? 'Hide outcomes' : 'Show outcomes'} contentTheme={showTimeOutcomes ? 'light' : 'dark'}
+                                  onClick={() => setShowTimeOutcomes(!showTimeOutcomes)}>A</Item>
+                              </div>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showTimeOrders ? 'Hide orders' : 'Show Orders'} contentTheme={showTimeOrders ? 'light' : 'dark'}
+                                  onClick={() => setShowTimeOrders(!showTimeOrders)}>O</Item>
+                              </div>
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showTimeInteractions ? 'Hide interactions' : 'Show Interactions'} contentTheme={showTimeInteractions ? 'light' : 'dark'}
+                                  onClick={() => setShowTimeInteractions(!showTimeInteractions)}>I</Item>
+                              </div>
+                            </>
                             : <>
-                              <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                              <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                              {7 && // don't bother with this, but keep it in case we want to gen more data
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showMezRings ? 'Hide MEZ rings' : 'Show MEZ Rings'} contentTheme={showMezRings ? 'light' : 'dark'}
+                                  onClick={() => setShowMezRings(!showMezRings)}><FontAwesomeIcon size={'lg'} icon={faCircle} /></Item>
+                              </div>
+
+                              <div className={cx('leaflet-control')}>
+                                <Item title={showIconName ? 'Hide asset names' : 'Show asset names'} contentTheme={showIconName ? 'light' : 'dark'}
+                                  onClick={() => setShowIconName(!showIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
+                              </div>
+                              {
                                 <div className={cx('leaflet-control')}>
-                                  <Item onClick={genData}>gen data</Item>
+                                  <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}
+                                    onClick={() => setClusterIcons(!clusterIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
                                 </div>
                               }
-                            </>
+                              <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                              <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                              {isUmpire && // don't bother with this, but keep it in case we want to gen more data
+                                <div className={cx('leaflet-control')}>
+                                  <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
+                                </div>
+                              }</>
                           }
-                          <div className={cx('leaflet-control')}>
+                          {isUmpire && <div className={cx('leaflet-control')}>
                             <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
                               onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
-                          </div>
+                          </div>}
                         </>
                       }
                     </>
@@ -821,4 +1238,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 }
 
-export default PlanningChannel
+const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => JSON.stringify(prevProps) === JSON.stringify(nextProps)
+
+export default React.memo(PlanningChannel, areEqual)

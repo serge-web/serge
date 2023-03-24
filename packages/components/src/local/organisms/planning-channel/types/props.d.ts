@@ -1,6 +1,6 @@
 import { Phase } from '@serge/config'
 import {
-  AttributeTypes, ChannelPlanning, ChatMessage, ForceData, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped,
+  AreaCategory, AttributeTypes, ChannelPlanning, ChatMessage, ForceData, ForceTemplateData, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped,
   MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import React, { Dispatch } from 'react'
@@ -37,6 +37,7 @@ export default interface PropTypes {
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
   openMessage: (channel: string, message: MessageChannel) => PlayerUiActionTypes
   saveMessage: (dbName: string, details: MessageDetails, message: any) => {(): void}
+  saveArchiveMessage?: (archiveMark: MessagePlanning[]) => {(): void}
   onTurnPeriods?: (currentWargame: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
 
   /**
@@ -50,6 +51,10 @@ export default interface PropTypes {
   phase: Phase
   /** generic descriptions of attributes */
   attributeTypes?: AttributeTypes
+  /** set of standard areas */
+  areas?: AreaCategory[]
+  /** force-specific template data */
+  forceTemplateData?: ForceTemplateData[]
 }
 
 export type PlanningActitivityMenuType = {

@@ -10,10 +10,9 @@ export const updateLocationTimings = (planId: string, plans: PlannedActivityGeom
     const asset = findAsset(forces, id)
     const attributes = asset.attributes
     if (attributes) {
-      for (const [key, value] of Object.entries(attributes)) {
-        if (key === 'a_Speed') {
-          speeds.push(value as number)
-        }
+      const spdVal = attributes.a_Speed
+      if (spdVal) {
+        speeds.push(spdVal as number)
       }
     }
   })

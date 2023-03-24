@@ -1,9 +1,9 @@
-import { TurnFormats } from '@serge/config'
 import {
-  AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
+  AttributeTypes, ChannelPlanning, ForceData, ForceTemplateData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
+import { ForceStyle } from '@serge/helpers'
 import LRUCache from 'lru-cache'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
@@ -12,7 +12,6 @@ import { LocationEditCallbackHandler } from '../../planning-messages-list/types/
 export default interface PropTypes {
   planningMessages: MessagePlanning[]
   interactionMessages: MessageInteraction[]
-  turnPresentation?: TurnFormats
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessagePlanning) => void
   onReadAll: () => void
@@ -31,6 +30,7 @@ export default interface PropTypes {
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
   saveMessage: (currentWargame: string, details: MessageDetails, message: any) => { (): void }
+  postBackArchive?: { (archiveMark: MessagePlanning[]): void }
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => void
   saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void
   getCachedNewMessagevalue?: (value: string) => string
@@ -40,18 +40,18 @@ export default interface PropTypes {
   selectedRoleId: Role['roleId']
   selectedForce: ForceData
   allForces: ForceData[]
+  forceColors: ForceStyle[]
   allPeriods: TurnPeriods
   gameDate: string
   phase: Phase
   currentTurn: number
   gameTurnLength: GameTurnLength
   currentWargame: string
-  selectedAssets: string[]
-  setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
+  setSelectedAssets: (assets: string[]) => void
   selectedOrders: string[]
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
-  setOpForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
-  setOwnForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
+  setOpForcesForParent: (assetRows: AssetRow[]) => void
+  setOwnForcesForParent: (assetRows: AssetRow[]) => void
   allOwnAssets: AssetRow[]
   allOppAssets: AssetRow[]
   onPanelWidthChange?: (width: number) => void
@@ -73,6 +73,12 @@ export default interface PropTypes {
    * in the wargame
    */
   mapPostBack?: AdjudicationPostBack
+  /**
+   * the initial tab to show (useful for story testing)
+   */
+  initialTab?: string
+  /** force-specific template data */
+  forceTemplateData?: ForceTemplateData[]
 }
 
 export type TabPanelProps = {
@@ -90,7 +96,9 @@ export type PanelActionTabsProps = {
 export type SupportPanelContextInterface = {
   selectedAssets: string[]
   assetsCache: LRUCache<string, string>
-  setCurrentAssets: React.Dispatch<React.SetStateAction<string[]>>
+  setCurrentAssets: React.Dispatch<React.SetStateAction<string[] | undefined>>
   setCurrentOrders: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentInteraction: React.Dispatch<React.SetStateAction<string | undefined>>
+  onSupportPanelLayoutChange: (key: string, value: string) => void
+  getSupportPanelState: () => void
 }

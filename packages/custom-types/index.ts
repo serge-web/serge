@@ -3,7 +3,8 @@
 * To generate an updated version, please run `yarn genreg`
 ***/
 
-export { default as Asset } from './asset.d'
+export * from './asset.d'
+export * from './area-data.d'
 export * from './attributes'
 export * from './channel-data.d'
 export { default as ChannelUI } from './channel-ui.d'
@@ -11,6 +12,7 @@ export { default as Channel } from './channel.d'
 export { default as Editor } from './editor.d'
 export * from './export-items-actions.d'
 export * from './export-items.d'
+export * from './force-template-data.d'
 export { default as ForceData } from './force-data.d'
 export { default as ForceOption } from './force-option.d'
 export { default as ForceRole } from './force-role.d'

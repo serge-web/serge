@@ -3,18 +3,16 @@ import {
   CHANNEL_CHAT, CHANNEL_COLLAB,
   CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
-import { ChannelMapping, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from '@serge/custom-types'
+import { ChannelMapping, PlayerUiActionTypes, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from '@serge/custom-types'
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
 import React from 'react'
-import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveBulkMessages, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
 
-import { useDispatch } from 'react-redux'
 import { saveNewActivityTimeMessage } from '../../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import CollabChannel from '../../../Components/CollabChannel'
-import { usePlayerUiDispatch } from '../../../Store/PlayerUi'
 import { mockPlanningMessages } from './mock-message-data'
 
 type Factory = (node: TabNode) => React.ReactNode
@@ -28,12 +26,13 @@ const phaseFor = (phase: string): Phase => {
   return phase === 'planning' ? Phase.Planning : Phase.Adjudication
 }
 
-const factory = (state: PlayerUi): Factory => {
-  const dispatch = usePlayerUiDispatch()
-  const reduxDisplatch = useDispatch()
-  
+const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>, reduxDisplatch: React.Dispatch<any>): Factory => {  
   const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
     saveMapMessage(state.currentWargame, details, outcomes)
+  }
+
+  const ArchivePostBack = (archiveMark: MessagePlanning[]): void => {
+    saveBulkMessages(state.currentWargame, archiveMark)
   }
 
   const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
@@ -206,10 +205,13 @@ const factory = (state: PlayerUi): Factory => {
             markAllAsRead={markAllAsRead}
             markUnread={markUnread}
             openMessage={openMessage}
+            saveArchiveMessage={ArchivePostBack}
             saveMessage={saveMessage}
             reduxDispatch={reduxDisplatch}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             forcePlanningActivities={state.perForceActivities}
+            areas={state.areas}
+            forceTemplateData={state.forceTemplateData}
           />
         default:
           console.log('not yet handling', channelData)

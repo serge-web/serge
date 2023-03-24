@@ -7,6 +7,7 @@ import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import computeTabs from './helpers/computeTabs'
 import { setDefaultModel } from './helpers/DefaultModel'
 import factory from './helpers/factory'
+import { useDispatch } from 'react-redux'
 import tabRender from './helpers/tabRender'
 import Props from './types'
 
@@ -17,6 +18,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
 
   const state = usePlayerUiState()
   const playerUiDispatch = usePlayerUiDispatch()
+  const dispatch = useDispatch()
   const { selectedForce, allChannels } = state
   
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
@@ -70,7 +72,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
           ? (
             <FlexLayout.Layout
               model={modelData}
-              factory={factory(state)}
+              factory={factory(state, playerUiDispatch, dispatch)}
               onRenderTab={onRenderTab}
               onModelChange={() => {
                 setAllowTabChangeEvent(true)

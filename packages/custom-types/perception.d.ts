@@ -30,4 +30,8 @@ export default interface Perception {
    * the perceived location
    */ 
   position?: [number, number]
+  /** the time the perception was
+   * last updated
+   */
+  lastUpdate?: number
 }

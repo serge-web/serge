@@ -39,6 +39,7 @@ const MessageCreator: React.FC<PropTypes> = ({
 }) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [formMessage, setFormMessage] = useState<any>()
+  const [clearForm, setClearForm] = useState(false)
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
@@ -89,6 +90,7 @@ const MessageCreator: React.FC<PropTypes> = ({
 
     // send the data
     setPrivateValue('')
+    setClearForm(!clearForm)
     postBack && postBack(details, formMessage)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
@@ -116,6 +118,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     setConfirmIsOpen(false)
     setPrivateValue('')
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
+    setClearForm(!clearForm)
     onCancel && onCancel(event)
   }
 
@@ -160,6 +163,7 @@ const MessageCreator: React.FC<PropTypes> = ({
         storeNewValue={responseHandler}
         disabled={false}
         gameDate={gameDate}
+        clearForm={clearForm}
         messageContent={messageContent}
         modifyForEdit={modifyForEdit}
         modifyForSave={modifyForSave}

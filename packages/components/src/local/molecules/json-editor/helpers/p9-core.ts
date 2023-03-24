@@ -1,3 +1,15 @@
+import { dropDownObject } from './p9-helpers'
+
+export const emconState = dropDownObject('Emcon State', ['Normal Operations', 'Electronic Silence', 'Radio Silence', 'No restrictions'], 3, 220)
+export const rulesOfEngagement = dropDownObject('Rules of Engagement', ['Weapons Free', 'Weapons Tight', 'Weapons Held'], 3, 210)
+
+const flatpickrOptions = {
+  time_24hr: true,
+  enableTime: true,
+  allowInput: false,
+  dateFormat: 'Z'
+}
+
 export const coreTemplate = {
   Reference: {
     type: 'string',
@@ -12,6 +24,7 @@ export const coreTemplate = {
     type: 'string',
     title: 'Title',
     propertyOrder: 20,
+    minLength: 10,
     options: {
       grid_columns: 10
     }
@@ -22,15 +35,11 @@ export const coreTemplate = {
     propertyOrder: 40,
     title: 'Start Date',
     options: {
-      grid_columns: 4,
+      grid_columns: 3,
       inputAttributes: {
-        placeholder: 'Enter date'
+        placeholder: 'Enter start date'
       },
-      flatpickr: {
-        time_24hr: true,
-        dateFormat: 'Z',
-        enableTime: true
-      }
+      flatpickr: flatpickrOptions
     }
   },
   endDate: {
@@ -39,15 +48,11 @@ export const coreTemplate = {
     propertyOrder: 45,
     title: 'End Date',
     options: {
-      grid_columns: 4,
+      grid_columns: 3,
       inputAttributes: {
-        placeholder: 'Enter date'
+        placeholder: 'Enter end date'
       },
-      flatpickr: {
-        time_24hr: true,
-        dateFormat: 'Z',
-        enableTime: true
-      }
+      flatpickr: flatpickrOptions
     }
   },
   activity: {
@@ -61,13 +66,22 @@ export const coreTemplate = {
       'asymmetric'
     ],
     options: {
-      grid_columns: 4,
+      grid_columns: 6,
       enum_titles: [
         'Transit1',
         'Kinetic1',
         'Asymmetric1'
       ]
     }
+  },
+  activityDescription: {
+    format: 'textarea',
+    title: 'Activity Description',
+    propertyOrder: 55,
+    options: {
+      grid_columns: 6
+    },
+    type: 'string'
   },
   intent: {
     format: 'textarea',
@@ -85,7 +99,7 @@ export const coreTemplate = {
     propertyOrder: 70,
     title: 'Own Assets',
     options: {
-      grid_columns: 5,
+      grid_columns: 6,
       disable_array_reorder: true
     },
     items: {
@@ -118,7 +132,7 @@ export const coreTemplate = {
         },
         number: {
           title: 'Quantity',
-          type: 'string',
+          type: 'number',
           options: {
             grid_columns: 2
           },
@@ -132,9 +146,9 @@ export const coreTemplate = {
     propertyOrder: 80,
     format: 'table',
     minItems: 0,
-    title: 'Subject(s) of orders',
+    title: 'Opp Force',
     options: {
-      grid_columns: 5,
+      grid_columns: 6,
       disable_array_reorder: true
     },
     items: {
@@ -206,7 +220,7 @@ export const coreTemplate = {
   },
   supports: {
     format: 'textarea',
-    title: 'Supports High-Level',
+    title: 'High-level Activity Supported',
     propertyOrder: 110,
     options: {
       grid_columns: 6
@@ -214,21 +228,18 @@ export const coreTemplate = {
     type: 'string'
   },
   activityCard: {
-    format: 'text',
-    title: 'Activity Card',
+    title: 'Associated Cyber/Space Activity Ref#',
     propertyOrder: 120,
+    type: 'string',
+    enum: [
+      'None',
+      'FR Cyper Op 12 - Green Drain',
+      'DE Cyper Op 14 - Brain Smash',
+      'GR Space Op 16 - Ruby Spaniel',
+      'SP Info Op 18 - Orange Drawn'
+    ],
     options: {
       grid_columns: 4
-    },
-    type: 'string'
-  },
-  activityDescription: {
-    format: 'textarea',
-    title: 'Activity Description',
-    propertyOrder: 130,
-    options: {
-      grid_columns: 8
-    },
-    type: 'string'
+    }
   }
 }

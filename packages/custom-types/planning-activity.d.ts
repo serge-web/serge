@@ -58,7 +58,7 @@ export interface PlannedActivityGeometry {
   geometry: GeoJSON.Feature
 }
 
-/** structure for how we store date in props */
+/** structure for how we store data in props */
 export interface PlannedProps {
   // combination of activity name & geometry name
   id: string
@@ -82,7 +82,6 @@ export interface PlannedProps {
   /** this geometry is to be considered in this turn */
   toBeConsidered?: boolean
 }
-
 
 export type INTERACTION_SHORT_CIRCUIT = typeof INTER_AT_START | typeof INTER_AT_END | typeof INTER_AT_RANDOM
 
@@ -115,9 +114,13 @@ export interface PlanningActivity {
    */
   color?: ForceData['color']
   /**
-   * for interaction, return all OpFor assets contained within Geometries for this activity
+   * for interaction/event, generate perception outcomes OpFor assets contained within area of this activity
    */
-  provideSpatialAssets?: boolean
+  spatialPerception?: boolean
+  /**
+   * for interaction/event, generate health outcomes OpFor assets contained within area of this activity
+   */
+  spatialHealth?: boolean
   /** 
    * list of activity types that this activity interacts with
    */
@@ -160,7 +163,7 @@ export interface PerceptionOutcome extends CoreOutcome {
 }
 
 export interface LocationOutcome extends CoreOutcome  {
-  /** new location */
+  /** new location (lat, long) */
   location: [number, number]
 }
 
@@ -168,7 +171,9 @@ export interface HealthOutcome extends CoreOutcome  {
   /** new health */
   health: number
   /** c4 ability */
-  c4: 'None' | 'Degraded' | 'Operational'
+  c4: 'Unchanged' | 'None' | 'Degraded' | 'Operational'
+  /** when repair will be complete by */
+  repairComplete?: 'I/R' | '1' | '2' | '3'
 }
 
 export type LocationOutcomes = LocationOutcome[]

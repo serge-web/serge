@@ -34,10 +34,12 @@ export {
   clipInfoMEssage
 } from './handle-channel-updates'
 export { default as handleVisibilityAndConditionChanges } from './handle-visibility-condition-changes'
+export { default as handleOutcomes } from './handle-outcomes'
 export { default as handleUpdateMarker } from './handle-update-marker'
 export { default as handleDeleteMarker } from './handle-delete-marker'
 export { default as handleCloneMarker } from './handle-clone-marker'
 export { default as hexNamed } from './hex-named'
+export { default as hexToRGBA } from './hex-to-rgba'
 export { default as findEmptyRolenames } from './find-empty-rolenames'
 export { default as findDuplicatePasscodes } from './find-duplicate-passcodes'
 export { default as getUniquePasscode } from './get-unique-passcode'

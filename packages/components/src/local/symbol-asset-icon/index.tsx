@@ -18,15 +18,16 @@ const forceFor = (force?: string): SymbolForces | undefined => {
       case 'Red':
         return SymbolForces.Hostile
       case 'Green':
-      default:
         return SymbolForces.Neutral
+      default:
+        return SymbolForces.Unknown
     }
   } else {
     return undefined
   }
 }
 
-const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}, iconName, force, isSelected, assetsCache }) => {
+const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}, iconName, health, force, isSelected, assetsCache, hideName }) => {
   // update the forc color, if we know it
   const forceVal = forceFor(force)
   const sidc2 = forceVal ? setCharAt(sidc, 1, forceVal) : sidc
@@ -36,17 +37,24 @@ const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}
   let iconDataUrl = assetsCache.get(key)
 
   if (!iconDataUrl) {
-    console.log('sym', sidc, sidc2, force)
     const icon = new ms.Symbol(sidc2).setOptions(options)
     iconDataUrl = icon.toDataURL()
     assetsCache.set(key, iconDataUrl)
   }
 
+  // note: health may (mistakenly) be a string
+  const healthAny = health as any
+  const healthNum = +healthAny
+
   return <div className={cx({ [styles['asset-icon-background']]: true, [styles.selected]: isSelected })} onClick={onClick}>
     <div className={styles['asset-icon-with-image']}>
       <img src={iconDataUrl} className={styles.img} />
-      <span>{iconName}</span>
+      {(!hideName || isSelected) && <span>{iconName}</span>}
     </div>
+    {
+      healthNum === 0
+        ? <span className={styles['corner-line']} /> : null
+    }
   </div>
 }
 

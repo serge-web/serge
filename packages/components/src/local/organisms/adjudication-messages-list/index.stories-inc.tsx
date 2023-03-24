@@ -3,8 +3,8 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useEffect, useState } from 'react'
 
 // Import component files
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { Asset, ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
 import { forceColors } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
 import uniqBy from 'lodash/uniqBy'
@@ -18,7 +18,7 @@ const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 const forces = P9BMock.data.forces.forces
 
-console.clear()
+// console.clear()
 
 export default {
   title: 'local/organisms/AdjudicationMessagesList',
@@ -48,41 +48,7 @@ export default {
 
 const planningActivities = wargame.activities ? wargame.activities.activities : []
 
-// push in a few green messages
-const green = forces[3]
-const greenRole = green.roles[0]
-const greenMessages = []
-for (let i = 0; i < 5; i++) {
-  const newM: MessagePlanning = {
-    _id: moment().toISOString(),
-    messageType: PLANNING_MESSAGE,
-    details: {
-      from: {
-        force: green.name,
-        forceId: green.uniqid,
-        forceColor: green.color,
-        roleName: greenRole.name,
-        iconURL: 'default_img/umpireDefault.png',
-        roleId: greenRole.roleId
-      },
-      channel: 'channel-planning',
-      messageType: PLANNING_MESSAGE,
-      timestamp: moment().toISOString(),
-      turnNumber: 3
-    },
-    message: {
-      activity: 'dummy',
-      startDate: moment().toISOString(),
-      endDate: moment().toISOString(),
-      Reference: green.name + '-' + (i + 1),
-      title: 'Title-' + (i + 1)
-    }
-  }
-  greenMessages.push(newM)
-}
-
 const copyMessages = JSON.parse(JSON.stringify(planningChannelMessages)) as Array<MessagePlanning | MessageInteraction | MessageInfoTypeClipped>
-copyMessages.push(...greenMessages)
 
 const Template: Story<MessageListPropTypes> = (args) => {
   const { playerRoleId, messages, gameDate } = args
@@ -181,8 +147,11 @@ const Template: Story<MessageListPropTypes> = (args) => {
     forces={forces}
     periods={turnPeriod}
     platformTypes={platformTypes}
+    currentTurn={1}
+    phase={Phase.Adjudication}
     interactionMessages={interactionMessages}
-    planningMessages={planningMessages}
+    turnPlanningMessages={planningMessages}
+    allPlanningMessages={planningMessages}
     forceColors={forceColors(forces)}
     channel={planningChannel}
     gameDate={gameStartTimeLocal}
@@ -209,84 +178,107 @@ Default.args = {
 
 const planningMessages = copyMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
   if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
-    return msg.details.from.forceId !== 'f-green' && msg.details.messageType !== 'p9adjudicate'
+    return msg.details.messageType !== 'p9adjudicate'
   }
   return true
 }) as MessagePlanning[]
 
-const interMessages = copyMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
-  if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
-    return msg.details.messageType === 'p9adjudicate'
-  }
-  return false
-})
-const oneInterMessage = planningMessages.concat(interMessages[0] as MessagePlanning)
-
-export const OneInteraction = Template.bind({})
-OneInteraction.args = {
-  playerRoleId: umpireFole.roleId,
-  messages: oneInterMessage as CoreMessage[]
-}
-
-const openInter = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
-if (openInter.details.interaction) {
-  openInter.details.interaction.complete = false
-  openInter.details.from = { ...openInter.details.from, roleId: umpireFole.roleId }
-}
-const firstAsset = forces[1].assets ? forces[1].assets[0].uniqid : 'unknown'
-openInter.message.perceptionOutcomes.push({ force: forces[1].uniqid, asset: firstAsset })
-const oneOpenInterMessage = planningMessages.concat(openInter as any as MessagePlanning)
-
-export const OneOpenInteraction = Template.bind({})
-OneOpenInteraction.args = {
-  playerRoleId: umpireFole.roleId,
-  messages: oneOpenInterMessage as CoreMessage[]
-}
-
-// console.table(planningMessages.map((msg: MessagePlanning) => {
-//   return {
-//     ref: msg.message.Reference, type: msg.message.activity, start: msg.message.startDate, end: msg.message.endDate
+// const interMessages = copyMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
+//   if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
+//     return msg.details.messageType === 'p9adjudicate'
 //   }
-// }))
+//   return false
+// })
 
-export const ZeroInteractions = Template.bind({})
-ZeroInteractions.args = {
-  playerRoleId: umpireFole.roleId,
-  messages: planningMessages as CoreMessage[]
+// const oneInterMessage = planningMessages.concat(interMessages[0] as MessagePlanning)
+// export const OneInteraction = Template.bind({})
+// OneInteraction.args = {
+//   playerRoleId: umpireFole.roleId,
+//   messages: oneInterMessage as CoreMessage[]
+// }
+
+// const openInter = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
+// if (openInter.details.interaction) {
+//   openInter.details.interaction.complete = false
+//   openInter.details.from = { ...openInter.details.from, roleId: umpireFole.roleId }
+// }
+// const firstAsset = forces[1].assets ? forces[1].assets[0].uniqid : 'unknown'
+// openInter.message.perceptionOutcomes.push({ force: forces[1].uniqid, asset: firstAsset })
+// const oneOpenInterMessage = planningMessages.concat(openInter as any as MessagePlanning)
+
+// export const OneOpenInteraction = Template.bind({})
+// OneOpenInteraction.args = {
+//   playerRoleId: umpireFole.roleId,
+//   messages: oneOpenInterMessage as CoreMessage[]
+// }
+
+// export const ZeroInteractions = Template.bind({})
+// ZeroInteractions.args = {
+//   playerRoleId: umpireFole.roleId,
+//   messages: planningMessages as CoreMessage[]
+// }
+
+// find an istar asset
+let istarAsset: Asset | undefined
+forces.some((force) => {
+  return force.assets && force.assets.some((asset) => {
+    if (asset.platformTypeId.toLowerCase().includes('istar')) {
+      istarAsset = asset
+      return true
+    } else {
+      return false
+    }
+  })
+})
+const istarEvent = planningMessages.find((msg) => msg.message.activity.includes('ISTAR') && msg.message.ownAssets && msg.message.ownAssets.length > 0)
+if (istarAsset && istarEvent && istarEvent.message.ownAssets) {
+  istarEvent.message.ownAssets.push({ asset: istarAsset.uniqid, number: 4 })
 }
-
-const istarIdsOfInterest = ['Red-5']
+const eventIdsOfInterest = istarEvent ? [istarEvent.message.Reference] : []
 export const TestIstar = Template.bind({})
 TestIstar.args = {
   playerRoleId: umpireFole.roleId,
-  messages: planningMessages.filter((msg: MessagePlanning) => istarIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
+  messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference))
 }
 
-const interactionIdsOfInterest = ['Red-5', 'Blue-17']
-const istarInterMessages = planningMessages.filter((msg: MessagePlanning) => interactionIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
-// get an adjudication
-const openInter2 = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
-if (openInter2.details && openInter2.details.interaction) {
-//  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
-  istarInterMessages.push(openInter2)
-}
-export const istarInteraction = Template.bind({})
-istarInteraction.args = {
-  playerRoleId: umpireFole.roleId,
-  gameDate: '2022-05-01T00:05:00.000Z',
-  messages: istarInterMessages
-}
+// const interactionIdsOfInterest = ['Red-5', 'Blue-17']
+// const istarInterMessages = planningMessages.filter((msg: MessagePlanning) => interactionIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
+// // get an adjudication
+// const openInter2 = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
+// if (openInter2.details && openInter2.details.interaction) {
+//   //  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
+//   istarInterMessages.push(openInter2)
+// }
+// export const istarInteraction = Template.bind({})
+// istarInteraction.args = {
+//   playerRoleId: umpireFole.roleId,
+//   gameDate: '2022-05-01T00:05:00.000Z',
+//   messages: istarInterMessages
+// }
 
-const cyberEvent = ['Blue-17']
-export const CyberEvent = Template.bind({})
-CyberEvent.args = {
-  playerRoleId: umpireFole.roleId,
-  messages: planningMessages.filter((msg: MessagePlanning) => cyberEvent.includes(msg.message.Reference)) as CoreMessage[]
-}
+// const cyberEvent = ['Blue-17']
+// export const CyberEvent = Template.bind({})
+// CyberEvent.args = {
+//   playerRoleId: umpireFole.roleId,
+//   messages: planningMessages.filter((msg: MessagePlanning) => cyberEvent.includes(msg.message.Reference)) as CoreMessage[]
+// }
 
-const idsOfInterest = ['Red-9', 'Blue-24']
-export const TestSubjects = Template.bind({})
-TestSubjects.args = {
-  playerRoleId: umpireFole.roleId,
-  messages: planningMessages.filter((msg: MessagePlanning) => idsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
-}
+// const idsOfInterest = ['Green-5']
+// const greenMission = planningMessages.find((msg) => idsOfInterest.includes(msg.message.Reference))
+// if (greenMission) {
+//   greenMission.message.activity = 'f-red-Air-Stand Off Strike'
+//   // mangle the opp assetsc
+//   const blueF = forces[1].assets || []
+//   const airfields = blueF.filter((asset) => asset.attributes && asset.attributes.a_Type === 'Airfield')
+//   const rndA = airfields.length > 2 && airfields[Math.floor(airfields.length / 2)]
+//   const other = greenMission.message.otherAssets
+//   if (other && rndA) {
+//     other.push({ asset: rndA.uniqid })
+//   }
+// }
+
+// export const TestSubjects = Template.bind({})
+// TestSubjects.args = {
+//   playerRoleId: umpireFole.roleId,
+//   messages: planningMessages.filter((msg: MessagePlanning) => idsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
+// }

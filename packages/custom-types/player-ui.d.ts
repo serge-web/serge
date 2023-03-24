@@ -1,9 +1,9 @@
 import { TurnFormats } from '@serge/config'
+import { AreaCategory, ForceTemplateData } from '.'
 import { AttributeTypes } from './attributes'
 import { ChannelTypes } from './channel-data'
 import ChannelUI from './channel-ui'
 import ForceData from './force-data'
-import { TurnPeriods } from './turn-period'
 import { AnnotationIcons, MapAnnotations } from './map-annotation'
 import MappingConstraints from './mapping-constraints'
 import { MessageChannel, MessageFeedback } from './message'
@@ -13,6 +13,7 @@ import PlatformTypeData from './platform-type-data'
 import { PlayerMessageLog } from './player-log'
 import Role from './role'
 import { GameTurnLength } from './turn-length'
+import { TurnPeriods } from './turn-period'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -95,4 +96,8 @@ export default interface PlayerUi {
   hideForcesInChannels?: boolean
   /** definitions of activities for forces */
   perForceActivities: PerForcePlanningActivitySet[]
+  /** set of standard areas */
+  areas?: AreaCategory[]
+  /** force specific template data */
+  forceTemplateData?: ForceTemplateData[]
 }

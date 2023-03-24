@@ -1,13 +1,15 @@
+import { Column } from '@material-table/core'
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
-import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
-import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
+import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION, SUPPORT_PANEL_LAYOUT } from '@serge/config'
+import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructure, PlanningMessageStructureCore } from '@serge/custom-types'
+import { incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
+import { updateLocationNames } from '@serge/helpers/build/geometry-helpers'
 import cx from 'classnames'
-import { noop } from 'lodash'
+import { cloneDeep, noop, sortBy } from 'lodash'
 import LRU from 'lru-cache'
 import moment from 'moment'
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -22,18 +24,19 @@ import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseLiveOrders } from './helpers/customise-live-orders'
 import { customiseLocation } from './helpers/customise-location'
-import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
+import TurnFilter from './helpers/TurnFilter'
 import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
+import { customiseMissiles } from './helpers/customise-missiles'
+import { customiseCyberCards } from './helpers/customise-cards'
 
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop, assetsCache: new LRU<string, string>(LRU_CACHE_OPTION) })
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop, assetsCache: new LRU<string, string>(LRU_CACHE_OPTION), onSupportPanelLayoutChange: noop, getSupportPanelState: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
   planningMessages,
   interactionMessages,
-  turnPresentation,
   onRead,
   onUnread,
   onReadAll,
@@ -42,6 +45,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   adjudicationTemplate,
   mapPostBack,
   saveMessage,
+  postBackArchive,
   saveNewActivityTimeMessage,
   saveCachedNewMessageValue,
   getCachedNewMessagevalue,
@@ -50,6 +54,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleId,
   selectedRoleName,
   allForces,
+  forceColors,
   allPeriods,
   gameDate,
   gameTurnLength: gameTurnTime,
@@ -69,33 +74,79 @@ export const SupportPanel: React.FC<PropTypes> = ({
   forcePlanningActivities,
   editLocation,
   attributeTypes,
-  handleAdjudication
+  handleAdjudication,
+  initialTab,
+  forceTemplateData
 }) => {
   const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
-  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE)
+  const [activeTab, setActiveTab] = useState<string>(initialTab || (umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE))
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
-  const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
   const [gameTurnEndDate, setGameTurnEndDate] = useState<string>('')
 
-  const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
-  const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
+  const selectedOwnAssets = useRef<AssetRow[]>([])
+  const selectedOpAssets = useRef<AssetRow[]>([])
+
+  const [sortedOwnAssets, setSortedOwnAssets] = useState<AssetRow[]>([])
+  const [sortedOppAssets, setSortedOppAssets] = useState<AssetRow[]>([])
+
   const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
+  const [allPlanningMessages, setAllPlanningMessages] = useState<MessagePlanning[]>([])
   const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
   const [turnFilter, setTurnFilter] = useState<number>(-1)
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction } = useContext(SupportPanelContext)
+  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction, onSupportPanelLayoutChange, getSupportPanelState } = useContext(SupportPanelContext)
+
+  const [pendingDetailOpen, setPendingDetailOpen] = useState<undefined | OrderRow | AdjudicationRow>(undefined)
+  const [pendingDetailClose, setPendingDetailClose] = useState<boolean>(false)
+
+  const panelState = useMemo(() => getSupportPanelState(), [])
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
     setActiveTab(tab)
+    onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.OPENING_TAB, tab)
+  }
+
+  const getPanelWidthFromCache = () => {
+    const panelWidth = panelState[SUPPORT_PANEL_LAYOUT.SUPPORT_PANEL_WIDTH]
+    if (panelWidth && !isNaN(parseInt(panelWidth))) {
+      return parseInt(panelWidth)
+    }
+    return MIN_PANEL_WIDTH
   }
 
   useEffect(() => {
+    const openingTab = panelState[SUPPORT_PANEL_LAYOUT.OPENING_TAB]
+    if (openingTab) {
+      setActiveTab(openingTab)
+    }
+    setTimeout(() => {
+      const panelWidth = getPanelWidthFromCache()
+      if (panelWidth !== MIN_PANEL_WIDTH) {
+        onPanelWidthChange && onPanelWidthChange(panelWidth)
+      } else {
+        onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.SUPPORT_PANEL_WIDTH, '' + panelWidth)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    setSortedOwnAssets(sortBy(allOwnAssets, function (row) { return row.name }))
+  }, [allOwnAssets])
+
+  useEffect(() => {
+    setSortedOppAssets(sortBy(allOppAssets, function (row) { return row.name }))
+  }, [allOppAssets])
+
+  useEffect(() => {
     setLocalDraftMessage(draftMessage)
+    if (draftMessage) {
+      setActiveTab(TAB_MY_ORDERS)
+    }
   }, [draftMessage])
 
   useEffect(() => {
@@ -103,7 +154,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
       const endDate = incrementGameTime(gameDate, gameTurnTime)
       setGameTurnEndDate(endDate)
     }
-    setLocalDraftMessage(draftMessage)
   }, [gameDate, gameTurnTime])
 
   useEffect(() => {
@@ -132,11 +182,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
       filteredMessages = planningMessages
     }
     setFilteredPlanningMessages(filteredMessages)
+    setAllPlanningMessages(planningMessages)
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
-    const filtered = turnFilter === SHOW_ALL_TURNS ? interactionMessages : interactionMessages.filter((msg) => msg.details.turnNumber === turnFilter)
-    setFilteredInteractionMessages(filtered)
+    const filteredMessages: MessageInteraction[] = interactionMessages.filter((inter) => {
+      return (turnFilter === -1) || (inter.details.turnNumber === turnFilter)
+    })
+    setFilteredInteractionMessages(filteredMessages)
   }, [interactionMessages, turnFilter])
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
@@ -159,21 +212,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('=> render')
   }
 
-  useEffect(() => {
-    const allSelectedAssets = selectedOwnAssets.concat(selectedOpAssets)
+  const handleSelectedAssetChange = () => {
+    const allSelectedAssets = selectedOwnAssets.current.concat(selectedOpAssets.current)
     const selectedAssetIDs = allSelectedAssets.map((row: AssetRow) => row.id)
     setSelectedAssets(selectedAssetIDs)
-  }, [selectedOwnAssets, selectedOpAssets])
+  }
 
   useEffect(() => {
-    // if there is a draft message, open the `my orders` tab
-    if (draftMessage) {
-      setActiveTab(TAB_MY_ORDERS)
-    }
-  }, [draftMessage])
-
-  useEffect(() => {
-    onPanelWidthChange && onPanelWidthChange(isShowPanel ? 330 : 0)
+    onPanelWidthChange && onPanelWidthChange(isShowPanel ? MIN_PANEL_WIDTH : 0)
   }, [isShowPanel])
 
   const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
@@ -191,6 +237,18 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const postBack = (details: MessageDetails, message: any): void => {
+    console.log('SupportPanel - save message postack', message.Reference)
+
+    // We removed an hour from dates - due to flatPickr bug.  Replace that hour
+    // NO - game now out of daylight savings time, so locale format is GMT,
+    // and flatPickr bug doesn't apply.
+    if (message.startDate) {
+      message.startDate = moment(message.startDate).toISOString()
+    }
+    if (message.endDate) {
+      message.endDate = moment(message.endDate).toISOString()
+    }
+
     // do we have any pending geometry
     if (pendingLocationData.length > 0) {
       const plan = message as MessagePlanning
@@ -212,6 +270,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const onSizeChange = (_: MouseEvent | TouchEvent, __: any, elementRef: HTMLElement): void => {
+    onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.SUPPORT_PANEL_WIDTH, '' + elementRef.offsetWidth)
     onPanelWidthChange && onPanelWidthChange(elementRef.offsetWidth)
   }
 
@@ -223,7 +282,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // sort out which orders are currently "live"
     const turnStart = moment(gameDate)
     const turnEnd = moment(gameTurnEndDate)
-    const liveOrders: MessagePlanning[] = planningMessages.filter((plan: MessagePlanning) => {
+    const myForceOrders = planningMessages.filter((plan) => plan.details.from.forceId === selectedForce.uniqid)
+    const liveOrders: MessagePlanning[] = myForceOrders.filter((plan: MessagePlanning) => {
       const startDate = plan.message.startDate
       const endDate = plan.message.endDate
       if (startDate && endDate) {
@@ -231,27 +291,57 @@ export const SupportPanel: React.FC<PropTypes> = ({
         const endD = moment(endDate)
         return startD.isBefore(turnEnd) && endD.isAfter(turnStart)
       } else {
-        console.warn('Support panel. Orders start/end missing for', plan)
-        return false
+        // console.log('Support panel. Orders start/end missing, so cannot offer for live orders', plan.message.Reference, plan)
+        return true
       }
     })
 
+    // specify the date formats, and default date for any flatPickr controls
+    const fixDate = (element: any, gameDate: string): any => {
+      if (element && element.options && element.options.flatpickr) {
+        element.options.flatpickr.dateFormat = 'Z'
+        element.options.flatpickr.altInput = true
+        element.options.flatpickr.altFormat = 'M dHi\\Z'
+        if (gameDate) {
+          const localDate = moment.utc(gameDate).toISOString()
+          element.options.flatpickr.defaultDate = localDate
+        }
+      }
+      return element
+    }
+
+    // check this isn't an adjudication message, since we only
     // set the default dates, if this is a planning message
-    const docAsAny = document as any
-    if (docAsAny.ownAssets !== undefined) {
-      const plan = document as PlanningMessageStructureCore
-      if (gameDate && (!plan.startDate || !plan.endDate)) {
-        plan.startDate = gameDate
-        plan.endDate = gameDate
+    const schemaTitle: string = schema.title || 'unknown'
+    if (!schemaTitle.startsWith('Adjudicat')) {
+      if (gameDate && schema.properties) {
+        fixDate(schema.properties.startDate, gameDate)
+        fixDate(schema.properties.endDate, gameDate)
+      }
+    }
+
+    // we have an issue where flatPickr is showing dates on hour out - it is adding an hour.
+    // There isn't a fix for it, so manually subtract an hour - so the Z date-time is displayed
+    // NO: game time now in winter, so locale time is GMT, and flatpickr bug
+    // doesnt' apply
+    if (document) {
+      const plan = document as PlanningMessageStructure
+      if (plan.startDate && plan.startDate.length > 0) {
+        plan.startDate = moment.utc(plan.startDate).toISOString()
+      }
+      if (plan.endDate && plan.endDate.length > 0) {
+        plan.endDate = moment.utc(plan.endDate).toISOString()
       }
     }
 
     // now modify the template
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
-      (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
+      (document, template) => customiseAssets(document, template, sortedOwnAssets, sortedOppAssets),
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
       (document, template) => customiseLocation(document, template),
-      (document, template) => customiseLiveOrders(document, template, liveOrders)
+      (document, template) => customiseLiveOrders(document, template, liveOrders),
+      (document, template) => customiseMissiles(document, template, selectedForce.uniqid, !!selectedForce.umpire, forceTemplateData),
+      (document, template) => customiseCyberCards(document, template, selectedForce.uniqid, !!selectedForce.umpire, forceTemplateData)
     ]
 
     let current: Record<string, any> = { ...schema }
@@ -261,9 +351,49 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return current
   }
 
+  const localModifyForSave = (document: Record<string, any>): Record<string, any> => {
+    const fixedLocation = expandLocation(document)
+    const planDoc = fixedLocation as PlanningMessageStructureCore
+    if (planDoc.location && planDoc.ownAssets) {
+      const ownAssets = planDoc.ownAssets.map((item: { asset: string }) => item.asset)
+      // update the start/end time in the props
+      const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
+      !7 && summariseLocations('before', planDoc.location)
+      !7 && summariseLocations('after', updatedLocations)
+      planDoc.location = updatedLocations
+    }
+
+    // also try to fix the names
+    planDoc.location = planDoc.location ? updateLocationNames(planDoc.location, activitiesForThisForce) : undefined
+
+    return planDoc
+  }
+
   const editThisMessage = (docId: string): void => {
     const order = planningMessages.find((doc) => doc._id === docId)
     setLocalDraftMessage(order)
+  }
+
+  const copyMessage = (docId: string): void => {
+    const order = planningMessages.find((doc) => doc._id === docId)
+
+    if (order) {
+      // make duplicate
+      const dupe = cloneDeep(order)
+
+      // strip out some bits
+      const dupeAny = dupe as any
+      console.log('Making duplicate of', dupe._id, dupe._rev, dupe.message.Reference, dupe.message.title)
+      dupeAny._id = ''
+      delete dupeAny._rev
+      delete dupeAny.message.Reference
+      dupe.message.title = dupe.message.title + ' Copy'
+      dupe.details.timestamp = moment.utc().toISOString()
+      console.log('copying order', docId, order, dupe)
+
+      // clear out some bits
+      setLocalDraftMessage(dupe)
+    }
   }
 
   const assetsForOrders = (id?: string): string[] => {
@@ -278,49 +408,63 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return res
   }
 
-  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
-    // if this is an orders item, or an adjudication, mark the relevant data
-    // as 'current
-    switch (activeTab) {
-      case TAB_MY_ORDERS: {
-        const order = rowData as OrderRow
-        const plan = planningMessages.find((msg) => msg._id === order.id)
-        if (plan) {
-          const mine = plan.message.ownAssets || []
-          const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
-          const others = plan.message.otherAssets ? plan.message.otherAssets.map((val: { asset: string }): string => val.asset) : []
-          const allIds = myIds.concat(others)
-          setCurrentAssets(allIds)
-          setCurrentOrders([plan._id])
+  useEffect(() => {
+    if (pendingDetailOpen) {
+      const rowData = pendingDetailOpen
+      setPendingDetailOpen(undefined)
+      switch (activeTab) {
+        case TAB_MY_ORDERS: {
+          const order = rowData as OrderRow
+          const plan = planningMessages.find((msg) => msg._id === order.id)
+          if (plan) {
+            const mine = plan.message.ownAssets || []
+            const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
+            const others = plan.message.otherAssets ? plan.message.otherAssets.map((val: { asset: string }): string => val.asset) : []
+            const allIds = myIds.concat(others)
+            setCurrentAssets(allIds)
+            setCurrentOrders([plan._id])
+          }
+          break
         }
-        break
-      }
-      case TAB_ADJUDICATE: {
-        const adj = rowData as AdjudicationRow
+        case TAB_ADJUDICATE: {
+          const adj = rowData as AdjudicationRow
 
-        const doc = interactionMessages.find((doc) => doc._id === adj.id)
-        if (doc) {
-          const inter = doc.details.interaction
-          if (inter) {
-            // get the assets
-            const assets1 = assetsForOrders(inter.orders1)
-            const assets2 = assetsForOrders(inter.orders2)
-            const assets3 = inter.otherAssets || []
-            const allAssets = assets1.concat(assets2).concat(assets3)
-            setCurrentAssets(allAssets)
-            setCurrentInteraction(adj.id)
+          const doc = interactionMessages.find((doc) => doc._id === adj.id)
+          if (doc) {
+            const inter = doc.details.interaction
+            if (inter) {
+              // get the assets
+              const assets1 = assetsForOrders(inter.orders1)
+              const assets2 = assetsForOrders(inter.orders2)
+              const assets3 = inter.otherAssets || []
+              const allAssets = assets1.concat(assets2).concat(assets3)
+              setCurrentAssets(allAssets)
+              setCurrentInteraction(adj.reference)
+            }
           }
         }
       }
     }
+  }, [planningMessages, interactionMessages, pendingDetailOpen, activeTab])
+
+  useEffect(() => {
+    if (pendingDetailClose) {
+      setPendingDetailClose(false)
+      setCurrentAssets(undefined)
+      setCurrentOrders([])
+      if (activeTab === TAB_ADJUDICATE) {
+        setCurrentInteraction(undefined)
+      }
+    }
+  }, [pendingDetailClose, activeTab])
+
+  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
+    // we need the page state to handle this, so push into state
+    setPendingDetailOpen(rowData)
   }
 
   const onDetailPanelClose = () => {
-    setCurrentAssets([])
-    setCurrentOrders([])
-    if (activeTab === TAB_ADJUDICATE) {
-      setCurrentInteraction(undefined)
-    }
+    setPendingDetailClose(true)
   }
 
   const storeNewLocation = (geoms: PlannedActivityGeometry[]): void => {
@@ -358,17 +502,23 @@ export const SupportPanel: React.FC<PropTypes> = ({
     }))
   }
 
-  const localModifyForSave = (document: Record<string, any>): Record<string, any> => {
-    const fixedLocation = expandLocation(document)
-    const planDoc = fixedLocation as PlanningMessageStructureCore
-    if (planDoc.location && planDoc.ownAssets) {
-      const ownAssets = planDoc.ownAssets.map((item: { asset: string }) => item.asset)
-      const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
-      !7 && summariseLocations('before', planDoc.location)
-      !7 && summariseLocations('after', updatedLocations)
-      planDoc.location = updatedLocations
+  const mapColumnState = (activeTab: string, columns: Column<any>[]): string => {
+    const mapCols = columns.map(col => ({ field: col.field, hidden: col.hidden || false }))
+    const objRes = {}
+    objRes[activeTab] = mapCols
+    return JSON.stringify(objRes)
+  }
+
+  const onMyForceTableColumnChange = (columns: Column<any>[]) => {
+    if (activeTab === TAB_MY_FORCE) {
+      onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS, mapColumnState(activeTab, columns))
     }
-    return planDoc
+  }
+
+  const onOtherForceTableColumnChange = (columns: Column<any>[]) => {
+    if (activeTab === TAB_OPP_FOR) {
+      onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS, mapColumnState(activeTab, columns))
+    }
   }
 
   return (
@@ -378,7 +528,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           <Rnd
             disableDragging
             style={PANEL_STYLES}
-            default={DEFAULT_SIZE}
+            default={{ ...DEFAULT_SIZE, width: getPanelWidthFromCache() }}
             minWidth={MIN_PANEL_WIDTH}
             maxWidth={MAX_PANEL_WIDTH}
             minHeight={MIN_PANEL_HEIGHT}
@@ -388,7 +538,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <div className={styles.content}>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_FORCE })}>
                 <PlanningAssets
-                  forceColors={forceCols}
+                  forceColors={forceColors}
                   assets={allOwnAssets}
                   attributeTypes={attributeTypes}
                   platformStyles={platIcons}
@@ -397,33 +547,41 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   platformTypes={platformTypes}
                   render={onRender}
                   opFor={false}
-                  onSelectionChange={setSelectedOwnAssets}
+                  onSelectionChange={ownAssets => {
+                    selectedOwnAssets.current = ownAssets
+                    handleSelectedAssetChange()
+                  }}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)}
+                  onVisibleColumnsChange={onMyForceTableColumnChange}
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
                 <TurnFilter label='Show orders for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
-                  messages={filteredPlanningMessages}
-                  gameDate={gameDate}
+                  planningMessages={filteredPlanningMessages}
+                  interactionMessages={filteredInteractionMessages}
+                  platformTypes={platformTypes}
+                  phase={phase}
                   gameTurnEndDate={gameTurnEndDate}
-                  playerForceId={selectedForce.uniqid}
                   playerRoleId={selectedRoleId}
                   isUmpire={!!selectedForce.umpire}
-                  turnPresentation={turnPresentation}
                   selectedForce={selectedForce}
                   selectedRoleName={selectedRoleName}
                   currentTurn={currentTurn}
                   hideForcesInChannel={false}
+                  allForces={allForces}
+                  forceColors={forceColors}
                   onRead={onRead}
                   onUnread={onUnread}
                   onMarkAllAsRead={onReadAll}
                   channel={channel}
                   allTemplates={allTemplates}
                   confirmCancel={true}
+                  copyMessage={copyMessage}
                   customiseTemplate={localCustomiseTemplate}
                   selectedOrders={selectedOrders}
                   setSelectedOrders={setSelectedOrders}
+                  postBackArchive={postBackArchive}
                   postBack={postBack}
                   turnFilter={turnFilter}
                   editLocation={editLocation}
@@ -432,6 +590,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onDetailPanelOpen={onDetailPanelOpen}
                   onDetailPanelClose={onDetailPanelClose}
                   editThisMessage={editThisMessage}
+                  onSupportPanelLayoutChange={onSupportPanelLayoutChange}
+                  getSupportPanelState={getSupportPanelState}
                 />
                 {localDraftMessage && <NewMessage
                   orderableChannel={true}
@@ -460,7 +620,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_OPP_FOR })}>
                 <PlanningAssets
-                  forceColors={forceCols}
+                  forceColors={forceColors}
                   platformStyles={platIcons}
                   attributeTypes={attributeTypes}
                   assets={allOppAssets}
@@ -469,21 +629,28 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   playerForce={selectedForce}
                   render={onRender}
                   opFor={true}
-                  onSelectionChange={setSelectedOpAssets}
+                  onSelectionChange={opAssets => {
+                    selectedOpAssets.current = opAssets
+                    handleSelectedAssetChange()
+                  }}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)}
+                  onVisibleColumnsChange={onOtherForceTableColumnChange}
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>
                 <TurnFilter label='Show interactions for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
                   interactionMessages={filteredInteractionMessages}
-                  planningMessages={filteredPlanningMessages}
+                  allPlanningMessages={allPlanningMessages}
+                  turnPlanningMessages={filteredPlanningMessages}
                   forces={allForces}
+                  currentTurn={currentTurn}
                   periods={allPeriods}
                   gameDate={gameDate}
                   gameTurnLength={gameTurnTime}
+                  phase={phase}
                   playerRoleId={selectedRoleId}
-                  forceColors={forceCols}
+                  forceColors={forceColors}
                   onRead={onRead}
                   onUnread={onUnread}
                   onMarkAllAsRead={onReadAll}

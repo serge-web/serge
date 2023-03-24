@@ -24,6 +24,9 @@ export default interface Props {
    */
   title?: string
   saveMessage?: () => void
+
+  // Called when user cancels document edit
+  onCancelEdit?: () => void
   confirmCancel?: boolean
   /**
    * whether the form is editable (disable for read-only view)
@@ -39,8 +42,17 @@ export default interface Props {
    * in read view (disabled) make textarea items tall enough to view all contents
    */
   expandHeight?: boolean
+  /** flag from parent class to clear the form, possibly on
+   * send or cancel. The value toggles between states on update,
+   * rather than requiring a specific true/false value
+   */
+  clearForm?: boolean
   /** current game time, used for initialising date-time controls */
-  gameDate: string
+  // NOTE: provide game date using `customiseTemplate` helper. This allows
+  // you to specify the default value in the schema, rather than the document itself
+  // in that way - validation can be applied to the field - forcing the user
+  // to enter dates
+  gameDate?: string
   /** disable/enable Array tools with form */
   disableArrayToolsWithEditor?: boolean
   formClassName?: string

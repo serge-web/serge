@@ -1,4 +1,5 @@
 
+import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
 import { findAsset, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
@@ -18,7 +19,7 @@ export type InteractionData = {
   order2GeometryID: string | undefined
 }
 
-const getActivity = (activities:PerForcePlanningActivitySet[], activityId: PlanningMessageStructure['activity'], forceId?: ForceData['uniqid']): PlanningActivity | undefined => {
+const getActivity = (activities: PerForcePlanningActivitySet[], activityId: PlanningMessageStructure['activity'], forceId?: ForceData['uniqid']): PlanningActivity | undefined => {
   const force = activities.find((act) => act.force === forceId)
   if (!force) {
     throw Error('Failed to find group for:' + force)
@@ -61,15 +62,21 @@ export const updateAssets = (asset: Record<string, any>, interaction: Interactio
 
 export const updateWithAllAssets = (asset: Record<string, any>, interaction: InteractionData, forces: ForceData[]): Record<string, any> => {
   if (asset !== undefined) {
-    // start off with the assets in this interaction
-    asset.enum = interaction.allAssets.map((asset) => asset.uniqid)
-    asset.options.enum_titles = interaction.allAssets.map((asset) => asset.name)
+    // collate the list of assets involved
+    const fullList = interaction.allAssets.concat(interaction.otherAssets)
+
+    // start off with the live assets in this interaction
+    const isAlive = (asset: Asset) => { return (asset.health === undefined) || asset.health > 0 }
+    const liveAssets = fullList.filter(isAlive)
+    asset.enum = liveAssets.filter(isAlive).map((asset) => asset.uniqid)
+    asset.options.enum_titles = liveAssets.filter(isAlive).map((asset) => asset.name)
 
     // now the remaining assets
     const assets: Asset[] = []
     forces.forEach((force) => {
       if (force.assets) {
-        assets.push(...force.assets)
+        const liveAssets = force.assets.filter(isAlive)
+        assets.push(...liveAssets)
       }
     })
     asset.enum.push(...assets.map((asset) => asset.uniqid))
@@ -78,16 +85,15 @@ export const updateWithAllAssets = (asset: Record<string, any>, interaction: Int
   return asset
 }
 
-const unknownId = 'unknown'
-const unknownLabel = 'Unk'
-
-export const updateForces = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
+export const updateForcesDropdown = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
   if (force !== undefined) {
     force.enum = forces.map((force) => force.forceId)
     force.options.enum_titles = forces.map((force) => force.force)
     if (includeUnknown) {
-      force.enum.unshift(unknownId)
-      force.options.enum_titles.unshift(unknownLabel)
+      force.enum.unshift(UNKNOWN_TYPE)
+      force.options.enum_titles.unshift(UNKNOWN_TYPE)
+      force.enum.unshift(UNCHANGED)
+      force.options.enum_titles.unshift(UNCHANGED)
     }
   }
   return force
@@ -100,8 +106,10 @@ export const updatePlatformTypes = (platformType: Record<string, any>, pTypes: P
     platformType.enum = sorted.map((pType) => pType.uniqid)
     platformType.options.enum_titles = sorted.map((pType) => pType.name)
     if (includeUnknown) {
-      platformType.enum.unshift(unknownId)
-      platformType.options.enum_titles.unshift(unknownLabel)
+      platformType.enum.unshift(UNKNOWN_TYPE)
+      platformType.options.enum_titles.unshift(UNKNOWN_TYPE)
+      platformType.enum.unshift(UNCHANGED)
+      platformType.options.enum_titles.unshift(UNCHANGED)
     }
   }
   return platformType

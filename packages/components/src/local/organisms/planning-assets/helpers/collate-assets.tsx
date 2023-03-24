@@ -18,6 +18,7 @@ type SummaryData = {
   statuses: string[]
   conditions: string[]
   forces: string[]
+  taskGroups: string[]
 }
 
 const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
@@ -37,11 +38,11 @@ const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: Pl
 }
 
 export const getOwnAssets = (forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData, platformTypes: PlatformTypeData[],
-  attributeTypes: AttributeTypes): AssetRow[] => {
+  attributeTypes: AttributeTypes, gameTime: number, selectedAssets: string[]): AssetRow[] => {
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     force.assets && force.assets.forEach((asset: Asset) => {
-      const assets = collateItem(false, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, undefined)
+      const assets = collateItem(false, asset, playerForce, force, forceColors, platformIcons, selectedAssets, platformTypes, attributeTypes, gameTime, undefined)
       rows.push(...assets)
     }
     )
@@ -50,13 +51,13 @@ export const getOwnAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
 }
 
 export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData, platformTypes: PlatformTypeData[],
-  attributeTypes: AttributeTypes): AssetRow[] => {
+  attributeTypes: AttributeTypes, gameTime: number, selectedAssets: string[]): AssetRow[] => {
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     // don't generate op-for for umpire
     if (!force.umpire) {
       force.assets && force.assets.forEach((asset: Asset) => {
-        const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, undefined)
+        const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, selectedAssets, platformTypes, attributeTypes, gameTime, undefined)
         rows.push(...assets)
       })
     }
@@ -71,6 +72,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   const statuses: string[] = []
   const conditions: string[] = []
   const forcesNames: string[] = []
+  const taskGroups: string[] = []
   const subTypes: string[] = []
   const isUmpireForce = forces.find((force: ForceData) => force.uniqid === playerForce && force.umpire)
   forces.forEach((force: ForceData) => {
@@ -94,6 +96,12 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
             if (perception.typeId) {
               const pType = perception.typeId
               storePlatformType(pType, platformStyles, platformTypesDict)
+            }
+            if (asset.attributes) {
+              const subType = asset.attributes.a_Type as string
+              if (!subTypes.includes(subType)) {
+                subTypes.push(subType)
+              }
             }
           }
         })
@@ -124,6 +132,10 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
             if (!subTypes.includes(subType)) {
               subTypes.push(subType)
             }
+            const group = asset.attributes.a_TaskGroup as string
+            if (group !== undefined && group !== '' && !taskGroups.includes(group)) {
+              taskGroups.push(group)
+            }
           }
           storePlatformType(asset.platformTypeId, platformStyles, platformTypesDict)
         })
@@ -131,10 +143,19 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
     }
   })
 
-  // sort sub-types
-  const sortedSubTypes = subTypes.slice().sort()
-
-  const sortedPlatforms = sortDictionaryByValue(platformTypesDict)
+  // NOTE: we're getting a localCompare exception thrown.  See if it's in this sort block
+  let sortedSubTypes: string[] = []
+  let sortedTaskGroups: string[] = []
+  let sortedPlatforms = {}
+  try {
+    // sort sub-types
+    sortedSubTypes = subTypes.length ? subTypes.slice().sort() : []
+    sortedTaskGroups = taskGroups.length ? taskGroups.slice().sort() : []
+    sortedPlatforms = sortDictionaryByValue(platformTypesDict)
+  } catch (err) {
+    console.log('Exception caught, data:', subTypes, taskGroups, platformTypesDict, sortedSubTypes, sortedTaskGroups, sortedPlatforms)
+    console.error(err)
+  }
 
   const res: SummaryData = {
     roles: roleDict,
@@ -142,7 +163,8 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
     subTypes: sortedSubTypes,
     conditions: conditions,
     statuses: statuses,
-    forces: forcesNames
+    forces: forcesNames,
+    taskGroups: sortedTaskGroups
   }
   return res
 }
@@ -157,7 +179,7 @@ const renderIcon = (row: AssetRow, assetsCache: LRUCache<string, string>): React
   // test new asset icon component
   if (row.sidc) {
     // SGG*UCIN--
-    return <SymbolAssetIcon sidc={row.sidc} force={row.force} iconName={icons[2]} assetsCache={assetsCache} />
+    return <span><SymbolAssetIcon sidc={row.sidc} health={row.health} hideName={true} force={row.force} iconName={icons[2]} assetsCache={assetsCache} />{row.name}</span>
   }
   // end
 
@@ -236,14 +258,17 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
 export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[], assetsCache: LRUCache<string, string>): Column<any>[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
   const fixedColWidth = 100
+  const fixedColWidth2 = 200
+
+  const nameWidth = opFor ? fixedColWidth2 : fixedColWidth
 
   const ownAssets = !!(playerForce && !opFor)
 
-  const columns: Column<any>[] = [
-    { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: fixedColWidth, minWidth: fixedColWidth },
+  const columns: Column<AssetRow>[] = [
+    { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: nameWidth, minWidth: nameWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
-    { title: 'SubType', type: 'string', width: 'auto', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
+    { title: 'SubType', type: 'string', width: 'auto', field: 'subType', hidden: false, lookup: arrToDict(summaryData.subTypes) },
     { title: 'Domain', type: 'string', field: 'domain', width: fixedColWidth, minWidth: fixedColWidth, lookup: arrToDict(['Land', 'Maritime', 'Air']) },
     { title: 'Health', type: 'numeric', field: 'health', width: fixedColWidth, minWidth: fixedColWidth },
     { title: 'C4', type: 'string', field: 'c4', width: fixedColWidth, minWidth: fixedColWidth }
@@ -251,7 +276,8 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
   // show attributes for own forces (or if we're umpire)
   if (ownAssets) {
-    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
+    columns.push({ title: 'Task Group', field: 'taskGroup', width: 'auto', hidden: false, lookup: arrToDict(summaryData.taskGroups) })
+    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', hidden: true, render: renderAttributes })
   }
 
   return columns
@@ -293,6 +319,16 @@ const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes, skipT
           console.warn('Haven\'t handled attribute', attrId)
         }
       }
+    } else {
+      // just shoe-horn the value in
+      const name = attrId
+      const prefix = name.indexOf('a_')
+      if (prefix === 0) {
+        const name2 = name.substring('a_'.length)
+        const name3 = name2.replace('_', ' ')
+        // yes, it's an attribute
+        attrDict[name3] = ids[attrId]
+      }
     }
   })
   return attrDict
@@ -308,9 +344,9 @@ const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes, skipT
  * @returns a list of rows, representing the asset and it's children
  */
 export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData, assetForce: ForceData,
-  forceColors: ForceStyle[], platformIcons: PlatformStyle[], selectedAssets: string[], platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes, parentId?: string): AssetRow[] => {
+  forceColors: ForceStyle[], platformIcons: PlatformStyle[], selectedAssets: string[],
+  platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes, gameTime: number, parentId?: string): AssetRow[] => {
   const itemRows: AssetRow[] = []
-
   const iconFor = (platformType: string): string => {
     const pType = platformIcons.find((value: PlatformStyle) => value.uniqid === platformType)
     return (platformType === UNKNOWN_TYPE) ? 'unknown.svg' : (pType && pType.icon) || ''
@@ -322,6 +358,9 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
 
   const isUmpire = playerForce.umpire
   const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
+
+  const nationsWithGodsEyeView = ['f-blue', 'f-green']
+  const hasGodsEyeView = nationsWithGodsEyeView.includes(playerForce.uniqid.toLowerCase())
 
   const domainFor = (travelMode?: string): string => {
     if (travelMode) {
@@ -342,8 +381,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const domain = platformType ? domainFor(platformType.travelMode) : 'Unk'
   const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
   // we don't show some attributes, since they are shown in other columns
-  const attributesToSkip = ['a_Type', 'a_C4_Status']
-
+  const attributesToSkip = ['a_Type', 'a_C4_Status', 'a_TaskGroup', 'a_SIDC']
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
@@ -353,29 +391,41 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       const perception = asset.perceptions.find((perc) => perc.by === playerForce.uniqid)
       // as a performance measure, we don't create attributes for OpFor assets
       // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
-      const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
-      const health = asset.health === 0 ? 0 : (asset.health || 100)
-      const c4 = 'unk'
-      if (perceptionTypes) {
-        const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId)
+      const modernAttrDict = getModernAttributes(asset, attributeTypes, attributesToSkip)
+      const health = hasGodsEyeView ? asset.health : (perception && (perception.health !== undefined)) ? perception.health : undefined
+      const c4 = hasGodsEyeView ? ((asset.attributes && asset.attributes.a_C4_Status as string) || 'Unk') : 'Unk'
+      if ((perceptionTypes && perception) || hasGodsEyeView) {
+        const forceStyle = perceptionTypes ? forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId) : ''
+
+        // note: we used to use perceived location, but it was hassle to maintain, so we provide red with actual location
+        // const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
+        const position = asset.location && latLng(asset.location[0], asset.location[1])
+
         const res: AssetRow = {
           id: asset.uniqid,
-          icon: iconFor(perceptionTypes.typeId) + ',' + colorFor(perceptionTypes.forceId) + ',' + perceptionTypes.name + ',' + health,
-          force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
-          name: perceptionTypes.name,
-          platformType: perceptionTypes.typeId,
+          icon: hasGodsEyeView ? iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name + ',' + health : perceptionTypes ? iconFor(perceptionTypes.typeId) + ',' + colorFor(perceptionTypes.forceId) + ',' + perceptionTypes.name + ',' + health : '',
+          force: hasGodsEyeView ? assetForce.name : forceStyle ? forceStyle.force : UNKNOWN_TYPE,
+          name: hasGodsEyeView ? asset.name : perceptionTypes ? perceptionTypes.name : '',
+          platformType: hasGodsEyeView ? asset.platformTypeId : perceptionTypes ? perceptionTypes.typeId : '',
           subType: subType,
-          position: perception && perception.position && latLng(perception.position[0], perception.position[1]),
+          position: position,
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
           c4: c4,
           domain: domain,
-          attributes: modernAttrDict
+          attributes: modernAttrDict,
+          taskGroup: ''
         }
 
-        const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
-        if (perceivedPlatformType && perceivedPlatformType.sidc) {
-          res.sidc = perceivedPlatformType.sidc
+        if (asset.attributes && asset.attributes.a_SIDC) {
+          res.sidc = asset.attributes.a_SIDC as string
+        } else {
+          const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
+          if (perceivedPlatformType && perceivedPlatformType.sidc) {
+            res.sidc = perceivedPlatformType.sidc
+          } else if (platformType && platformType.sidc) {
+            res.sidc = platformType.sidc
+          }
         }
 
         itemRows.push(res)
@@ -388,6 +438,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
     const health = asset.health === 0 ? 0 : (asset.health || 100)
     const c4 = asset.attributes ? asset.attributes.a_C4_Status : 'Unk'
+    const tg = asset.attributes ? asset.attributes.a_TaskGroup as string : ''
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
@@ -402,11 +453,17 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         health: health,
         c4: '' + c4,
         domain: domain,
-        attributes: modernAttrDict
+        attributes: modernAttrDict,
+        taskGroup: tg
       }
 
-      if (platformType && platformType.sidc) {
-        res.sidc = platformType.sidc
+      // check if we have an SIDC for this asset
+      if (asset.attributes && asset.attributes.a_SIDC) {
+        res.sidc = asset.attributes.a_SIDC as string
+      } else {
+        if (platformType && platformType.sidc) {
+          res.sidc = platformType.sidc
+        }
       }
 
       // if we're handling the child of an asset, we need to specify the parent
@@ -420,7 +477,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   // also sort out the comprising entries
   if (asset.comprising) {
     asset.comprising.forEach((asset2: Asset) => {
-      itemRows.push(...collateItem(opFor, asset2, playerForce, assetForce, forceColors, platformIcons, selectedAssets, platformTypes, attributeTypes, asset.uniqid))
+      itemRows.push(...collateItem(opFor, asset2, playerForce, assetForce, forceColors, platformIcons, selectedAssets, platformTypes, attributeTypes, gameTime, asset.uniqid))
     })
   }
   return itemRows

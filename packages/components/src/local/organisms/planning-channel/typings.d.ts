@@ -22,6 +22,10 @@ type SelectOption = {
   onClose?: () => void
   onSelect?: (item: any) => void
   onGroupOpen?: (groupItem: any) => void
+  additionalClass?: string
+  id?: string
+  preventClickThrough?: boolean
+  showSelectedIcon?: boolean
 }
 
 type RulerOption = {
@@ -77,6 +81,7 @@ class TimelineData extends Control {
   addTo(map: Map): this;
   // remove comes from the parent contrlol
   remove(): void;
+  on(event:string, func: { (e: any): void}): void
 }
 
 class Timeline extends Control {

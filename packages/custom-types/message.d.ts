@@ -70,6 +70,8 @@ export interface MessageDetails {
   counter?: number
   /** if this message has been archived */
   archived?: boolean
+  /** if this message is to be excluded from adjudication */
+  excluded?: boolean
 }
 
 export interface MessageStructure {
@@ -178,6 +180,8 @@ export interface InteractionDetails {
   readonly id: string
   /** whether adjudication of this interaction is complete */
   complete?: boolean
+  /** whether this interaction has been slipped */
+  skipped?: boolean
   /** if this is in response to an event, rather than interaction */
   event?: INTERACTION_SHORT_CIRCUIT
   /** first set of orders this relates to */
@@ -251,6 +255,13 @@ export interface MessageFeedback extends CoreMessage {
   message: MessageStructure
 }
 
+/** an instance of feedback to a particular force
+ */  
+export interface PerForceNarrative {
+  force: ForceData['uniqid']
+  feedback: string
+}
+
 /** the outcome-related content of an adjudication */
 export interface MessageAdjudicationOutcomes {
   readonly messageType: typeof ADJUDICATION_OUTCOMES,
@@ -266,7 +277,8 @@ export interface MessageAdjudicationOutcomes {
    * to InteractionDetails
    */
   otherAssets?: Array<Asset['uniqid']>
-  narrative: string
+  narrative?: string
+  perForceNarratives?: PerForceNarrative[]
 }
 
 /** message containing updated game status, could be one of:
@@ -385,6 +397,7 @@ export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom
 
 type Message = MessageCustom |
+  MessagePlanning |
   ChatMessage |
   MessageFeedback |
   MessageInfoTypeClipped |

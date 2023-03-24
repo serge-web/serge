@@ -42,13 +42,12 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
             />
           </svg>
         </span>
-        Get next
+        Get Next
       </span>
       <span
         className="MuiTouchRipple-root"
       />
     </button>
-     
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
       disabled={false}
@@ -90,7 +89,6 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
         className="MuiTouchRipple-root"
       />
     </button>
-     
     <button
       className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
       disabled={false}
@@ -252,6 +250,46 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
             }
           >
             <span>
+              <button
+                aria-label="Show Columns"
+                aria-labelledby={null}
+                className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+                data-mui-internal-clone-element={true}
+                disabled={false}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                  data-testid="view_column"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M14.67 5v14H9.33V5h5.34zm1 14H21V5h-5.33v14zm-7.34 0V5H3v14h5.33z"
+                  />
+                </svg>
+                <span
+                  className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </span>
+            <span>
               <div
                 style={
                   Object {
@@ -259,36 +297,6 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                   }
                 }
               >
-                <button
-                  aria-label="Show filter controls"
-                  aria-labelledby={null}
-                  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
-                  data-mui-internal-clone-element={true}
-                  disabled={false}
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onContextMenu={[Function]}
-                  onDragLeave={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  onMouseDown={[Function]}
-                  onMouseLeave={[Function]}
-                  onMouseOver={[Function]}
-                  onMouseUp={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  tabIndex={0}
-                  type="button"
-                >
-                  <svg
-                    className="svg-inline--fa fa-filter"
-                  />
-                  <span
-                    className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                  />
-                </button>
                 <button
                   aria-label="Only show open interactions"
                   aria-labelledby={null}
@@ -313,7 +321,67 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                   type="button"
                 >
                   <svg
-                    className="svg-inline--fa fa-envelope-open"
+                    className="svg-inline--fa fa-user"
+                  />
+                  <span
+                    className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </button>
+                <button
+                  aria-label="Check orders valid"
+                  aria-labelledby={null}
+                  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+                  data-mui-internal-clone-element={true}
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onContextMenu={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={0}
+                  type="button"
+                >
+                  <svg
+                    className="svg-inline--fa fa-bug"
+                  />
+                  <span
+                    className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </button>
+                <button
+                  aria-label="Show filter controls"
+                  aria-labelledby={null}
+                  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+                  data-mui-internal-clone-element={true}
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onContextMenu={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={0}
+                  type="button"
+                >
+                  <svg
+                    className="svg-inline--fa fa-magnifying-glass-plus"
                   />
                   <span
                     className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
@@ -361,55 +429,6 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                     className="MuiTableCell-root MuiTableCell-head MuiTableCell-paddingNone MuiTableCell-sizeMedium css-2ug12u-MuiTableCell-root"
                     scope="col"
                   />
-                  <th
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-paddingNone MuiTableCell-sizeMedium css-2ug12u-MuiTableCell-root"
-                    scope="col"
-                    style={
-                      Object {
-                        "width": 48,
-                      }
-                    }
-                  >
-                    <span
-                      className="MuiButtonBase-root MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-root MuiCheckbox-root MuiCheckbox-colorPrimary MuiCheckbox-root MuiCheckbox-colorPrimary css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root"
-                      onBlur={[Function]}
-                      onContextMenu={[Function]}
-                      onDragLeave={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                      onMouseDown={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      onTouchEnd={[Function]}
-                      onTouchMove={[Function]}
-                      onTouchStart={[Function]}
-                      tabIndex={null}
-                    >
-                      <input
-                        checked={false}
-                        className="PrivateSwitchBase-input css-1m9pwf3"
-                        data-indeterminate={false}
-                        onChange={[Function]}
-                        type="checkbox"
-                      />
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-                        data-testid="CheckBoxOutlineBlankIcon"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
-                        />
-                      </svg>
-                      <span
-                        className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                      />
-                    </span>
-                  </th>
                 </tr>
               </thead>
               <tbody
@@ -421,14 +440,14 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                   role={null}
                   style={
                     Object {
-                      "height": 980,
+                      "height": 49,
                     }
                   }
                 >
                   <td
                     aria-sort={null}
                     className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    colSpan={2}
+                    colSpan={1}
                     style={
                       Object {
                         "paddingBottom": 0,
@@ -481,7 +500,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
               />
               <p
                 className="MuiTablePagination-selectLabel css-pdct74-MuiTablePagination-selectLabel"
-                id="mui-10"
+                id="mui-12"
               >
                 Rows per page:
               </p>
@@ -492,9 +511,9 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                 <div
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-labelledby="mui-10 mui-9"
+                  aria-labelledby="mui-12 mui-11"
                   className="MuiSelect-select MuiTablePagination-select MuiSelect-standard MuiInputBase-input css-194a1fa-MuiSelect-select-MuiInputBase-input"
-                  id="mui-9"
+                  id="mui-11"
                   onBlur={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}

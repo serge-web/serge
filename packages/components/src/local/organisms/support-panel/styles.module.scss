@@ -54,6 +54,15 @@
   width: 100%;
   color: #000;
   overflow-y: auto;
+  /* stylelint-disable selector-max-compound-selectors */
+  div {
+    &:nth-child(2) {
+      div > div > div {
+        overflow-y: hidden;
+      }
+    }
+  }
+  /* stylelint-enable selector-max-compound-selectors */
 }
 
 .panel {
@@ -127,4 +136,9 @@
 
 .hide {
   display: none;
+}
+
+th {
+  color: #999;
+  font-weight: normal;
 }

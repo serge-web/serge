@@ -1,46 +1,56 @@
 import { Column, MTableFilterRow } from '@material-table/core'
-import { Asset, ForceData } from '@serge/custom-types'
-import { sortDictionaryByValue } from '@serge/helpers'
-import React, { useState } from 'react'
+import { SUPPORT_PANEL_LAYOUT } from '@serge/config'
+import { cloneDeep } from 'lodash'
+import React, { useEffect, useMemo, useState } from 'react'
+import { FilterObject, getFilterApplied } from '../../support-panel/helpers/caching-utils'
 
 type CustomFilterRowProps = {
   columns: Column<any>[]
   onFilterChanged: (columnId: number, value: string[]) => void
-  forces: ForceData[]
+  cacheKey: string
+  onSupportPanelLayoutChange: (key: string, value: string) => void
+  getSupportPanelState: () => void
 }
 
 const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElement => {
-  const [localProps, setLocalProps] = useState<CustomFilterRowProps>(props)
+  const [localProps, setLocalProps] = useState(props)
+
+  const panelState = useMemo(() => props.getSupportPanelState(), [])
+
+  useEffect(() => {
+    const filters: FilterObject = getFilterApplied(panelState)
+    if (filters[props.cacheKey]) {
+      filters[props.cacheKey].forEach(f => {
+        props.columns.some(col => {
+          if ((col as any).tableData.id === f.id && f.filterValue.length) {
+            props.onFilterChanged(f.id, f.filterValue)
+            return true
+          }
+          return false
+        })
+      })
+    }
+  }, [])
 
   const onFilterChanged = (columnId: number, filter: string[]) => {
-    props.onFilterChanged(columnId, filter)
-    const platformTypeColIdx = props.columns.findIndex(col => col.field === 'platformType')
-    if (platformTypeColIdx === -1 || columnId !== platformTypeColIdx) {
-      return
-    }
-    const filterSubTypes = {}
-    props.forces.forEach(force => {
-      if (!force.assets) {
-        return
+    const filterApplied = props.columns.map(col => {
+      if ((col as any).tableData.id === columnId) {
+        return ({ id: (col as any).tableData.id, filterValue: filter })
       }
-      force.assets.forEach((asset: Asset) => {
-        if (asset.attributes && (!filter.length || filter.includes(asset.platformTypeId))) {
-          const subType = asset.attributes.a_Type as string
-          filterSubTypes[subType] = subType
-        }
-      })
-      // sort the list
-      const sortedDict = sortDictionaryByValue(filterSubTypes)
-
-      const subTypeColIdx = props.columns.findIndex(col => col.field === 'subType')
-      if (subTypeColIdx !== -1 && props.columns[subTypeColIdx].lookup) {
-        props.columns[subTypeColIdx].lookup = sortedDict
-      }
-      setLocalProps({ ...props })
+      return ({ id: (col as any).tableData.id, filterValue: (col as any).tableData.filterValue || [] })
     })
+    const filters: FilterObject = getFilterApplied(panelState)
+    if (props.onSupportPanelLayoutChange) {
+      filters[props.cacheKey] = filterApplied
+      props.onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filters))
+    }
+    props.onFilterChanged(columnId, filter)
+    setTimeout(() => {
+      setLocalProps(cloneDeep(props))
+    }, 500)
   }
 
-  return <MTableFilterRow {...localProps} onFilterChanged={onFilterChanged}></MTableFilterRow>
+  return <MTableFilterRow {...localProps} onFilterChanged={onFilterChanged} />
 }
 
 export default CustomFilterRow

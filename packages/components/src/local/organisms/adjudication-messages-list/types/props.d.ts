@@ -1,3 +1,4 @@
+import { Phase } from '@serge/config'
 import {
   ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
   PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody, TurnPeriods
@@ -33,7 +34,12 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * The list of channel messages properties required
    * for ChannelMessage components
    */
-  planningMessages: Array<MessagePlanning>
+  turnPlanningMessages: Array<MessagePlanning>
+  /**
+   * The list of channel messages properties required
+   * for ChannelMessage components
+   */
+  allPlanningMessages: Array<MessagePlanning>
   /** forces in this game
   *
   */
@@ -116,4 +122,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   mapPostBack?: AdjudicationPostBack
 
   onLocationEditorLoaded?: (editorElm: HTMLDivElement) => void
+
+  /** the current turn for the game */
+  currentTurn: number
+
+  /** current phase of game */
+  phase: Phase
 }
