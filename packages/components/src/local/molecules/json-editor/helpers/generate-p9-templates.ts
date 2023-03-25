@@ -1,4 +1,4 @@
-import { GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { GeometryType, infoOpsGroup, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
 import { GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry, TemplateBody } from '@serge/custom-types'
 import _ from 'lodash'
 import moment from 'moment'
@@ -192,29 +192,28 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const sof = 'SOF'
   const cyber = 'Cyber'
   const space = 'Space'
-  const info = 'Info Ops'
 
   const landMar = [land, mar]
   const seaAirLand = [land, mar, air]
 
   // store which activites interact with which other activities
   const actInteracts: InteractsWithEntry[] = []
-  actInteracts.push({ uniqid: 'STRIKE', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'RESUPP', 'TRANSIT', 'ASW-B', 'DCA', 'OCA'] })
+  actInteracts.push({ uniqid: 'STRIKE', interactsWith: ['EW', 'RESUPP', 'TRANSIT', 'ASW-B', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'SoffS', interactsWith: ['EW', 'DCA', 'OCA'] })
-  actInteracts.push({ uniqid: 'EW', interactsWith: ['SOF Activity', 'BMD-MEZ', 'SAM-MEZ', 'STRIKE', 'EW', 'ISTAR', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST', 'SOF', 'Sea Denial', 'Raid', 'LAND'] })
-  actInteracts.push({ uniqid: 'ISTAR', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'ISTAR', 'PATRL', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA'] })
-  actInteracts.push({ uniqid: 'PATRL', interactsWith: ['EW', 'ISTAR', 'PATRL', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA'] })
+  actInteracts.push({ uniqid: 'EW', interactsWith: ['SOF Activity', 'BMD-MEZ', 'SAM-MEZ', 'STRIKE', 'EW', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST', 'SOF', 'Sea Denial', 'Raid', 'LAND'] })
+  actInteracts.push({ uniqid: 'ISTAR', interactsWith: [] })
+  actInteracts.push({ uniqid: 'PATRL', interactsWith: ['EW', 'PATRL', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'AAR', interactsWith: ['EW', 'FIAC', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'RESUPP', interactsWith: ['STRIKE', 'EW', 'ASW-B', 'FIAC', 'DCA', 'OCA'] })
-  actInteracts.push({ uniqid: 'TRANSIT', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'ASW-B', 'FIAC', 'DCA', 'OCA'] })
-  actInteracts.push({ uniqid: 'ASW-B', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT'] })
-  actInteracts.push({ uniqid: 'M-Clr', interactsWith: ['EW', 'ISTAR', 'PATRL', 'FIAC'] })
-  actInteracts.push({ uniqid: 'M-Lay', interactsWith: ['EW', 'ISTAR', 'PATRL', 'FIAC'] })
-  actInteracts.push({ uniqid: 'DCA', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST'] })
-  actInteracts.push({ uniqid: 'OCA', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST'] })
-  actInteracts.push({ uniqid: 'SEAD', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'DCA', 'OCA'] })
+  actInteracts.push({ uniqid: 'TRANSIT', interactsWith: ['STRIKE', 'EW', 'PATRL', 'ASW-B', 'FIAC', 'DCA', 'OCA', 'M-Lay'] })
+  actInteracts.push({ uniqid: 'ASW-B', interactsWith: ['STRIKE', 'EW', 'PATRL', 'RESUPP', 'TRANSIT', 'M-Lay'] })
+  actInteracts.push({ uniqid: 'M-Clr', interactsWith: ['EW', 'PATRL', 'FIAC'] })
+  actInteracts.push({ uniqid: 'M-Lay', interactsWith: ['EW', 'PATRL', 'TRANSIT', 'FIAC', 'ASW-B', 'Sea Denial'] })
+  actInteracts.push({ uniqid: 'DCA', interactsWith: ['STRIKE', 'EW', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST'] })
+  actInteracts.push({ uniqid: 'OCA', interactsWith: ['STRIKE', 'EW', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST'] })
+  actInteracts.push({ uniqid: 'SEAD', interactsWith: ['EW', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'TST', interactsWith: ['EW', 'DCA', 'OCA'] })
-  actInteracts.push({ uniqid: 'Sea Denial', interactsWith: ['EW'] })
+  actInteracts.push({ uniqid: 'Sea Denial', interactsWith: ['EW', 'M-Lay'] })
   actInteracts.push({ uniqid: 'Raid', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'LAND', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'SOF Activity', interactsWith: ['EW'] })
@@ -232,7 +231,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const acts: Activity[] = []
   acts.push({ uniqid: 'STRIKE', title: 'Strike', events: end, forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
   acts.push({ uniqid: 'EW', title: 'EW Attack', events: both, forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Area of Effect'], specific: 'EWAttack', spatialP: true, spatialH: true })
-  acts.push({ uniqid: 'ISTAR', title: 'ISTAR', events: rndEnd, forces: allForces, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR', spatialP: true })
+  acts.push({ uniqid: 'ISTAR', title: 'ISTAR', events: end, forces: allForces, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR' })
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: landMar, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
   acts.push({ uniqid: 'AAR', title: 'Air to Air Refuel', forces: allForces, domains: [air], acts: thereBack, actDesc: ['AAR at this location'], specific: 'AirToAir' })
   acts.push({ uniqid: 'RESUPP', title: 'Resupply', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Resupply at this location'], specific: 'Resupply' })
@@ -245,8 +244,8 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'SoffS', title: 'Stand Off Strike', events: rnd, forces: allForces, domains: [air], acts: thereBack, actDesc: ['Launch Location'], specific: 'MissileStrike' })
   acts.push({ uniqid: 'SEAD', title: 'Suppression of Air Defences (SEAD)', events: rnd, forces: allForces, domains: [air], acts: thereBack, actDesc: ['SEAD Area'] })
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', events: rnd, forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', spatialH: true })
-  acts.push({ uniqid: 'Activity', title: 'Targeted Activity', events: all, forces: allForces, domains: [cyber, space, info], specific: 'Effects' })
-  acts.push({ uniqid: 'AreaActivity', title: 'Area Activity', events: all, forces: allForces, domains: [cyber, space, info], acts: [activity], actDesc: ['Area of effect'], specific: 'AreaEffects' })
+  acts.push({ uniqid: 'Activity', title: 'Targeted Activity', events: all, forces: allForces, domains: [cyber, space, infoOpsGroup], specific: 'Effects' })
+  acts.push({ uniqid: 'AreaActivity', title: 'Area Activity', events: all, forces: allForces, domains: [cyber, space, infoOpsGroup], acts: [activity], actDesc: ['Area of effect'], specific: 'AreaEffects' })
   acts.push({ uniqid: 'SOF Activity', title: 'Activity', events: end, forces: allForces, domains: [sof], acts: thereBack, actDesc: ['Effect Location'], specific: 'SOFActivity', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Area'] })
   acts.push({ uniqid: 'Raid', title: 'Raid', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Raid Location'], spatialP: true, spatialH: true })

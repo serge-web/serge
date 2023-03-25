@@ -24,15 +24,25 @@ export const SupportMapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (bounds && map) {
-      map.flyToBounds(bounds, { duration: 0.6 })
+      try {
+        map.flyToBounds(bounds, { duration: 0.6 })
+      } catch (err) {
+        console.log('Problem with flyToBounds in SupportMapping')
+        console.error(err)
+      }
     }
   }, [bounds])
 
   useEffect(() => {
     if (position && map) {
-      // note: fly-to zoom is left as undefined,
-      // this prevents zooming in too far
-      map.flyTo(position, undefined, { duration: 0.6 })
+      try {
+        // note: fly-to zoom is left as undefined,
+        // this prevents zooming in too far
+        map.flyTo(position, undefined, { duration: 0.6 })
+      } catch (err) {
+        console.log('Problem with flyTo in SupportMapping')
+        console.error(err)
+      }
     }
   }, [position])
 

@@ -23,6 +23,8 @@ export const LOCATION_PENDING = 'LocationPending' // special state where platfor
 export const UNKNOWN_TYPE = 'Unknown' // type use when force or platform-type not known for mapping asset
 export const UNCHANGED = 'Unchanged' // type use when force or platform-type not known for mapping asset
 
+export const infoOpsGroup = 'Info Ops' // type of activity in planning message
+
 //TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
 
 export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
@@ -197,7 +199,7 @@ export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'
 export const SUPPORT_PANEL_LAYOUT = {
   OPENING_TAB: 'serge.planning.openingTab',
   SUPPORT_PANEL_WIDTH: 'serge.planning.supportPanelWidth',
-  VISIBLE_COLUMNS: 'serge.planning.visibleColumns',
+  VISIBLE_COLUMNS: 'serge.planning.visibleColumns2',
   IS_FILTER: 'serge.planning.isFilter',
   SORT_COLUMNS: 'serge.planning.sortColumns',
   FILTER_APPLIED: 'serge.planning.filterApplied'

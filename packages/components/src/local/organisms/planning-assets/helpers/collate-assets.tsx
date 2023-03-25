@@ -5,7 +5,6 @@ import { findPerceivedAsTypes, ForceStyle, PlatformStyle, sortDictionaryByValue 
 import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'
 import LRUCache from 'lru-cache'
-import moment from 'moment'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
 import SymbolAssetIcon from '../../../symbol-asset-icon'
@@ -265,11 +264,11 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
   const ownAssets = !!(playerForce && !opFor)
 
-  const columns: Column<any>[] = [
+  const columns: Column<AssetRow>[] = [
     { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: nameWidth, minWidth: nameWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
-    { title: 'SubType', type: 'string', width: 'auto', field: 'subType', hidden: !ownAssets, lookup: arrToDict(summaryData.subTypes) },
+    { title: 'SubType', type: 'string', width: 'auto', field: 'subType', hidden: false, lookup: arrToDict(summaryData.subTypes) },
     { title: 'Domain', type: 'string', field: 'domain', width: fixedColWidth, minWidth: fixedColWidth, lookup: arrToDict(['Land', 'Maritime', 'Air']) },
     { title: 'Health', type: 'numeric', field: 'health', width: fixedColWidth, minWidth: fixedColWidth },
     { title: 'C4', type: 'string', field: 'c4', width: fixedColWidth, minWidth: fixedColWidth }
@@ -278,9 +277,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   // show attributes for own forces (or if we're umpire)
   if (ownAssets) {
     columns.push({ title: 'Task Group', field: 'taskGroup', width: 'auto', hidden: false, lookup: arrToDict(summaryData.taskGroups) })
-    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
-  } else {
-    columns.push({ title: 'Age', field: 'lastUpdated', width: 'auto', type: 'string' })
+    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', hidden: true, render: renderAttributes })
   }
 
   return columns
@@ -362,6 +359,9 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const isUmpire = playerForce.umpire
   const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
 
+  const nationsWithGodsEyeView = ['f-blue', 'f-green']
+  const hasGodsEyeView = nationsWithGodsEyeView.includes(playerForce.uniqid.toLowerCase())
+
   const domainFor = (travelMode?: string): string => {
     if (travelMode) {
       switch (travelMode) {
@@ -391,42 +391,36 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       const perception = asset.perceptions.find((perc) => perc.by === playerForce.uniqid)
       // as a performance measure, we don't create attributes for OpFor assets
       // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
-      const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
-      const health = (perception && (perception.health !== undefined)) ? perception.health : undefined
-      const c4 = 'unk'
-      if (perceptionTypes && perception) {
-        const lastUpdate = perception.lastUpdate
-        let updatePeriod
-        if (lastUpdate) {
-          const tNow = moment.utc(gameTime)
-          const tThen = moment.utc(lastUpdate)
-          const diff = moment.duration(tNow.diff(tThen))
-          updatePeriod = diff.humanize()
-        } else {
-          updatePeriod = 'unk'
-        }
-        const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId)
+      const modernAttrDict = getModernAttributes(asset, attributeTypes, attributesToSkip)
+      const health = hasGodsEyeView ? asset.health : (perception && (perception.health !== undefined)) ? perception.health : undefined
+      const c4 = hasGodsEyeView ? ((asset.attributes && asset.attributes.a_C4_Status as string) || 'Unk') : 'Unk'
+      if ((perceptionTypes && perception) || hasGodsEyeView) {
+        const forceStyle = perceptionTypes ? forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId) : ''
+
+        // note: we used to use perceived location, but it was hassle to maintain, so we provide red with actual location
+        // const position = hasGodsEyeView ? (asset.location && latLng(asset.location[0], asset.location[1])) : (perception && perception.position && latLng(perception.position[0], perception.position[1]))
+        const position = asset.location && latLng(asset.location[0], asset.location[1])
+
         const res: AssetRow = {
           id: asset.uniqid,
-          icon: iconFor(perceptionTypes.typeId) + ',' + colorFor(perceptionTypes.forceId) + ',' + perceptionTypes.name + ',' + health,
-          force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
-          name: perceptionTypes.name,
-          platformType: perceptionTypes.typeId,
+          icon: hasGodsEyeView ? iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name + ',' + health : perceptionTypes ? iconFor(perceptionTypes.typeId) + ',' + colorFor(perceptionTypes.forceId) + ',' + perceptionTypes.name + ',' + health : '',
+          force: hasGodsEyeView ? assetForce.name : forceStyle ? forceStyle.force : UNKNOWN_TYPE,
+          name: hasGodsEyeView ? asset.name : perceptionTypes ? perceptionTypes.name : '',
+          platformType: hasGodsEyeView ? asset.platformTypeId : perceptionTypes ? perceptionTypes.typeId : '',
           subType: subType,
-          position: perception.position && latLng(perception.position[0], perception.position[1]),
+          position: position,
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
           c4: c4,
           domain: domain,
           attributes: modernAttrDict,
-          taskGroup: '',
-          lastUpdated: updatePeriod
+          taskGroup: ''
         }
 
         if (asset.attributes && asset.attributes.a_SIDC) {
           res.sidc = asset.attributes.a_SIDC as string
         } else {
-          const perceivedPlatformType = perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
+          const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
           if (perceivedPlatformType && perceivedPlatformType.sidc) {
             res.sidc = perceivedPlatformType.sidc
           } else if (platformType && platformType.sidc) {
@@ -460,8 +454,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         c4: '' + c4,
         domain: domain,
         attributes: modernAttrDict,
-        taskGroup: tg,
-        lastUpdated: ''
+        taskGroup: tg
       }
 
       // check if we have an SIDC for this asset

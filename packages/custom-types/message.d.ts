@@ -70,6 +70,8 @@ export interface MessageDetails {
   counter?: number
   /** if this message has been archived */
   archived?: boolean
+  /** if this message is to be excluded from adjudication */
+  excluded?: boolean
 }
 
 export interface MessageStructure {
@@ -178,6 +180,8 @@ export interface InteractionDetails {
   readonly id: string
   /** whether adjudication of this interaction is complete */
   complete?: boolean
+  /** whether this interaction has been slipped */
+  skipped?: boolean
   /** if this is in response to an event, rather than interaction */
   event?: INTERACTION_SHORT_CIRCUIT
   /** first set of orders this relates to */

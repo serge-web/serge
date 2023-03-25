@@ -117,6 +117,46 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
             }
           >
             <span>
+              <button
+                aria-label="Show Columns"
+                aria-labelledby={null}
+                className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+                data-mui-internal-clone-element={true}
+                disabled={false}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onContextMenu={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseOver={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                  data-testid="view_column"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M14.67 5v14H9.33V5h5.34zm1 14H21V5h-5.33v14zm-7.34 0V5H3v14h5.33z"
+                  />
+                </svg>
+                <span
+                  className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                />
+              </button>
+            </span>
+            <span>
               <div
                 style={
                   Object {
@@ -124,6 +164,36 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                   }
                 }
               >
+                <button
+                  aria-label="Show summary of outcomes of previous turn"
+                  aria-labelledby={null}
+                  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
+                  data-mui-internal-clone-element={true}
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onContextMenu={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={0}
+                  type="button"
+                >
+                  <svg
+                    className="svg-inline--fa fa-table"
+                  />
+                  <span
+                    className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+                  />
+                </button>
                 <button
                   aria-label="Only show orders created by me"
                   aria-labelledby={null}
@@ -393,74 +463,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         role="columnheader"
                         tabIndex={0}
                       >
-                        Author
-                        <svg
-                          className="svg-inline--fa fa-sort-up"
-                        />
-                      </span>
-                      <span
-                        data-testid="material-table-column-sort-order-indicator"
-                        style={
-                          Object {
-                            "width": "1em",
-                          }
-                        }
-                      >
-                        
-                      </span>
-                    </div>
-                  </th>
-                  <th
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
-                    scope="col"
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "width": "auto",
-                      }
-                    }
-                  >
-                    <div
-                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
-                      data-rfd-drag-handle-context-id="0"
-                      data-rfd-drag-handle-draggable-id="2"
-                      data-rfd-draggable-context-id="0"
-                      data-rfd-draggable-id="2"
-                      draggable={false}
-                      onDragStart={[Function]}
-                      role="button"
-                      style={
-                        Object {
-                          "display": "flex",
-                          "flexDirection": undefined,
-                          "minWidth": 0,
-                          "position": "relative",
-                        }
-                      }
-                      tabIndex={0}
-                    >
-                      <span
-                        aria-sort="none"
-                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
-                        data-testid="mtableheader-sortlabel"
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onContextMenu={[Function]}
-                        onDragLeave={[Function]}
-                        onFocus={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyUp={[Function]}
-                        onMouseDown={[Function]}
-                        onMouseLeave={[Function]}
-                        onMouseUp={[Function]}
-                        onTouchEnd={[Function]}
-                        onTouchMove={[Function]}
-                        onTouchStart={[Function]}
-                        role="columnheader"
-                        tabIndex={0}
-                      >
-                        Title
+                        Force
                         <svg
                           className="svg-inline--fa fa-sort-up"
                         />
@@ -527,6 +530,140 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         role="columnheader"
                         tabIndex={0}
                       >
+                        Author
+                        <svg
+                          className="svg-inline--fa fa-sort-up"
+                        />
+                      </span>
+                      <span
+                        data-testid="material-table-column-sort-order-indicator"
+                        style={
+                          Object {
+                            "width": "1em",
+                          }
+                        }
+                      >
+                        
+                      </span>
+                    </div>
+                  </th>
+                  <th
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "width": "auto",
+                      }
+                    }
+                  >
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="4"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="4"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        aria-sort="none"
+                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
+                        data-testid="mtableheader-sortlabel"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        role="columnheader"
+                        tabIndex={0}
+                      >
+                        Title
+                        <svg
+                          className="svg-inline--fa fa-sort-up"
+                        />
+                      </span>
+                      <span
+                        data-testid="material-table-column-sort-order-indicator"
+                        style={
+                          Object {
+                            "width": "1em",
+                          }
+                        }
+                      >
+                        
+                      </span>
+                    </div>
+                  </th>
+                  <th
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "width": "auto",
+                      }
+                    }
+                  >
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="5"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="5"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        aria-sort="none"
+                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
+                        data-testid="mtableheader-sortlabel"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        role="columnheader"
+                        tabIndex={0}
+                      >
                         Activity
                         <svg
                           className="svg-inline--fa fa-sort-up"
@@ -559,9 +696,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     <div
                       aria-describedby="rfd-hidden-text-0-hidden-text-0"
                       data-rfd-drag-handle-context-id="0"
-                      data-rfd-drag-handle-draggable-id="4"
+                      data-rfd-drag-handle-draggable-id="6"
                       data-rfd-draggable-context-id="0"
-                      data-rfd-draggable-id="4"
+                      data-rfd-draggable-id="6"
                       draggable={false}
                       onDragStart={[Function]}
                       role="button"
@@ -627,9 +764,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     <div
                       aria-describedby="rfd-hidden-text-0-hidden-text-0"
                       data-rfd-drag-handle-context-id="0"
-                      data-rfd-drag-handle-draggable-id="5"
+                      data-rfd-drag-handle-draggable-id="7"
                       data-rfd-draggable-context-id="0"
-                      data-rfd-draggable-id="5"
+                      data-rfd-draggable-id="7"
                       draggable={false}
                       onDragStart={[Function]}
                       role="button"
@@ -816,6 +953,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Blue-2 (Turn 3)"
                   >
                     Blue-2 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Blue"
+                  >
+                    Blue
                   </td>
                   <td
                     aria-sort={null}
@@ -1065,6 +1222,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Green"
+                  >
+                    Green
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="CO"
                   >
                     CO
@@ -1280,6 +1457,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Blue-8 (Turn 3)"
                   >
                     Blue-8 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Blue"
+                  >
+                    Blue
                   </td>
                   <td
                     aria-sort={null}
@@ -1529,6 +1726,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Red"
+                  >
+                    Red
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="Threat Network"
                   >
                     Threat Network
@@ -1744,6 +1961,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Blue-14 (Turn 3)"
                   >
                     Blue-14 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Blue"
+                  >
+                    Blue
                   </td>
                   <td
                     aria-sort={null}
@@ -1993,6 +2230,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Blue"
+                  >
+                    Blue
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="Sub-Surface"
                   >
                     Sub-Surface
@@ -2208,6 +2465,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Red-20 (Turn 3)"
                   >
                     Red-20 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Red"
+                  >
+                    Red
                   </td>
                   <td
                     aria-sort={null}
@@ -2457,6 +2734,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Green"
+                  >
+                    Green
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="CO"
                   >
                     CO
@@ -2672,6 +2969,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Green-26 (Turn 3)"
                   >
                     Green-26 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Green"
+                  >
+                    Green
                   </td>
                   <td
                     aria-sort={null}
@@ -2921,6 +3238,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Green"
+                  >
+                    Green
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="CO"
                   >
                     CO
@@ -3136,6 +3473,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Blue-32 (Turn 3)"
                   >
                     Blue-32 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Blue"
+                  >
+                    Blue
                   </td>
                   <td
                     aria-sort={null}
@@ -3385,6 +3742,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Green"
+                  >
+                    Green
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="CO"
                   >
                     CO
@@ -3600,6 +3977,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Green-38 (Turn 3)"
                   >
                     Green-38 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Green"
+                  >
+                    Green
                   </td>
                   <td
                     aria-sort={null}
@@ -3849,6 +4246,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Blue"
+                  >
+                    Blue
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="MTG 2"
                   >
                     MTG 2
@@ -4064,6 +4481,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Red-44 (Turn 3)"
                   >
                     Red-44 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Red"
+                  >
+                    Red
                   </td>
                   <td
                     aria-sort={null}
@@ -4313,6 +4750,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Red"
+                  >
+                    Red
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="Threat Network"
                   >
                     Threat Network
@@ -4528,6 +4985,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Red-50 (Turn 3)"
                   >
                     Red-50 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Red"
+                  >
+                    Red
                   </td>
                   <td
                     aria-sort={null}
@@ -4777,6 +5254,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Green"
+                  >
+                    Green
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="CO"
                   >
                     CO
@@ -4992,6 +5489,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     value="Red-56 (Turn 3)"
                   >
                     Red-56 (Turn 3)
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
+                    value="Red"
+                  >
+                    Red
                   </td>
                   <td
                     aria-sort={null}
@@ -5241,6 +5758,26 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
+                    value="Red"
+                  >
+                    Red
+                  </td>
+                  <td
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
+                    onClick={[Function]}
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "color": "inherit",
+                        "fontFamily": "inherit",
+                        "fontSize": "inherit",
+                        "fontWeight": "inherit",
+                        "maxWidth": undefined,
+                        "minWidth": undefined,
+                        "width": "auto",
+                      }
+                    }
                     value="Direct Action"
                   >
                     Direct Action
@@ -5367,7 +5904,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
               />
               <p
                 className="MuiTablePagination-selectLabel css-pdct74-MuiTablePagination-selectLabel"
-                id="mui-8"
+                id="mui-9"
               >
                 Rows per page:
               </p>
@@ -5378,9 +5915,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 <div
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-labelledby="mui-8 mui-7"
+                  aria-labelledby="mui-9 mui-8"
                   className="MuiSelect-select MuiTablePagination-select MuiSelect-standard MuiInputBase-input css-194a1fa-MuiSelect-select-MuiInputBase-input"
-                  id="mui-7"
+                  id="mui-8"
                   onBlur={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
