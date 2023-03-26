@@ -17,7 +17,6 @@
     "test": "run-p test:*",
     "test:ts": "tsc --pretty",
     "test:unit": "jest --passWithNoTests",
-    "test:debug": "jest --runInBand",
     "lint": "run-p lint:*",
     "lint:ts": "eslint --fix src/**/*.ts*",
     "lint:styles": "stylelint --fix src/**/*.scss",
