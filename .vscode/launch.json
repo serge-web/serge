@@ -19,7 +19,7 @@
         "packages/components/jest.config.js"
       ],
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
+      "internalConsoleOptions": "neverOpen"
     },
     {
       "type": "node",
@@ -33,7 +33,7 @@
         "packages/components/jest.config.js"
       ],
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
