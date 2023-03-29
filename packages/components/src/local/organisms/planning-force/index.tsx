@@ -50,12 +50,13 @@ const PlanningForces: React.FC<PropTypes> = ({
 
   const createClusterIcon = (): MarkerClusterGroupOptions => {
     return {
-      iconCreateFunction: function (cluster: MarkerCluster): L.DivIcon {
+      iconCreateFunction: (cluster: MarkerCluster): L.DivIcon => {
         const markers = cluster.getAllChildMarkers()
+        const selectedCount = markers.filter(m => m.options.attribution === 'true')
         const size = markers.length / 5 + 60
         const color = styles.circle
         const rgb = hexToRGBA(forceColor, 0.6)
-        const html = ReactDOMServer.renderToString(<div style={{ backgroundColor: rgb }} className={cx({ [color]: true })} >{markers.length}</div>)
+        const html = ReactDOMServer.renderToString(<div style={{ backgroundColor: rgb }} className={cx({ [color]: true, [styles.selected]: selectedCount.length })} >{markers.length - selectedCount.length}</div>)
         return L.divIcon({ html: html, className: cx({ [styles.mycluster]: true }), iconSize: L.point(size, size) })
       },
       spiderfyOnMaxZoom: interactive,
@@ -99,9 +100,8 @@ const PlanningForces: React.FC<PropTypes> = ({
         if (asset.position) {
           if (!clusterIcons || selectedAssets.includes(asset.id) || (currentAssets && currentAssets.includes(asset.id))) {
             raw.push(asset)
-          } else {
-            clustered.push(asset)
           }
+          clustered.push(asset)
         }
       })
       // special processing. If there aren't too may assets, cluster any that share a location
@@ -156,7 +156,7 @@ const PlanningForces: React.FC<PropTypes> = ({
       setClusterGroup(existingCluster)
       map.addLayer(existingCluster)
     }
-  }, [JSON.stringify(interactive)])
+  }, [JSON.stringify(interactive), selectedAssets])
 
   /** utility method to find assets at the same location, and cluster them */
   const clusterRawIcons = (assets: AssetRow[]): AssetRow[] => {
@@ -253,6 +253,7 @@ const PlanningForces: React.FC<PropTypes> = ({
     const isSelected = selectedAssets.includes(asset.id)
     const isCurrent = currentAssets && currentAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
+
     return {
       eventHandlers: {
         click: (): void => {
@@ -294,7 +295,8 @@ const PlanningForces: React.FC<PropTypes> = ({
             iconSize: [30, 30],
             html: getAssetIcon(asset, isSelected, !!isDestroyed, isCurrent ? false : !!hideName),
             className: styles['map-icon']
-          })
+          }),
+          attribution: isSelected ? 'true' : 'false'
         })
         .addTo(clusterGroup as MarkerClusterGroup)
         .bindPopup(labelFor(asset))
