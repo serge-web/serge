@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, COUNTER_MESSAGE } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, CUSTOM_MESSAGE } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -24,7 +24,7 @@ const pouchDb = (app, io, pouchOptions) => {
       timeout: false,
       heartbeat: false,
       include_docs: true
-    }).on('change', (result) => io.emit(wargameName, result.doc))
+    }).on('change', (result) => { io.emit(wargameName, result.doc) })
   }
 
   // check listeners queue to add a new listenr
@@ -47,6 +47,8 @@ const pouchDb = (app, io, pouchOptions) => {
   }
 
   app.put('/:wargame', async (req, res) => {
+    // TODO: if this req is an activity document (or list of them)
+    // then we should actually push it to the player logs database
     const databaseName = checkSqliteExists(req.params.wargame)
     const db = new PouchDB(databaseName, pouchOptions)
     const putData = req.body
@@ -82,6 +84,24 @@ const pouchDb = (app, io, pouchOptions) => {
       })
     }
     retryUntilWritten(db, putData)
+  })
+
+  app.put('/bulkDocs/:dbname', async (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+    const db = new PouchDB(databaseName, pouchOptions)
+    const docs = req.body
+    if (docs.length === 0) {
+      // nothing to do
+      res.send({ msg: 'OK' })
+    } else {
+      return db.bulkDocs(docs).then(async () => {
+        io.emit(req.params.dbname, docs)
+        await db.compact()
+        res.send({ msg: 'OK' })
+      }).catch(err => {
+        res.send({ msg: 'err', data: err })
+      })
+    }
   })
 
   app.get('/replicate/:replicate/:dbname', (req, res) => {
@@ -129,9 +149,10 @@ const pouchDb = (app, io, pouchOptions) => {
         // unpack the documents
         const docs = result.rows.map((item) => item.doc)
         // drop wargame & info messages
-        const ignoreTypes = [INFO_MESSAGE, COUNTER_MESSAGE]
-        const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
-        res.send({ msg: 'ok', data: messages })
+        // NO, don't. We need the info messages, for the turn markers
+        // const ignoreTypes = [] //INFO_MESSAGE, COUNTER_MESSAGE]
+        // const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
+        res.send({ msg: 'ok', data: docs })
       }).catch(() => res.send([]))
   })
 
@@ -158,6 +179,127 @@ const pouchDb = (app, io, pouchOptions) => {
       limit: 1,
       sort: [{ _id: 'desc' }]
     }).then((result) => res.send({ msg: 'ok', data: result.docs }))
+      .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/turns', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+
+    db.find({
+      selector: {
+        adjudicationStartTime: { $exists: true }
+      },
+      fields: ['data', 'gameTurn']
+
+    }).then((result) => {
+      const uniqBy = (data, key) => {
+        return [
+          ...new Map(
+            data.map(x => [key(x),
+              {
+                gameTurn: x.gameTurn,
+                gameTurnTime: x.data.overview.gameTurnTime,
+                gameDate: x.data.overview.gameDate
+
+              }])
+          ).values()
+        ]
+      }
+      const resaultData = uniqBy(result.docs, it => it.gameTurn)
+
+      res.send({ msg: 'ok', data: resaultData })
+    })
+      .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/:dbname/logs', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Player Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+
+    db.find({
+      selector: {
+        wargame: req.params.wargame
+      }
+    }).then((result) => {
+      res.send({ msg: 'ok', data: result.docs })
+    })
+      .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/:force/:id/counter', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+    let messageDefaultCount = 1
+
+    db.get(req.params.id)
+      .then(data => res.send({ msg: 'ok', data: data.details.counter }))
+      .catch(() => {
+        db.find({
+          selector: {
+            messageType: CUSTOM_MESSAGE,
+            details: {
+              from: { force: req.params.force },
+              counter: { $exists: true }
+            },
+            _id: { $ne: settings }
+          },
+          fields: ['details.counter']
+        }).then((result) => {
+          if (result.docs.length) {
+            const Biggestcount = Math.max(...result.docs.map(data => data.details.counter))
+            if (Biggestcount) {
+              messageDefaultCount += Biggestcount
+            }
+          }
+          res.send({ msg: 'ok', data: messageDefaultCount })
+        })
+          .catch(() => res.send([]))
+      })
+  })
+
+  app.get('/:wargame/:dbname/logs-latest', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Player Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+
+    db.find({
+      selector: {
+        wargame: req.params.wargame
+      },
+      fields: ['role', 'activityTime', 'activityType']
+    }).then((result) => {
+      const uniqByKeepLast = (data, key) => {
+        return [
+          ...new Map(
+            data.map(x => [key(x), x])
+          ).values()
+        ]
+      }
+
+      const lastLogs = result.docs && uniqByKeepLast(result.docs, it => it.role)
+
+      res.send({ msg: 'ok', data: lastLogs })
+    })
       .catch(() => res.send([]))
   })
 

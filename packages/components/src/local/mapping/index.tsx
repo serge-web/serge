@@ -1,71 +1,45 @@
+import HistoryIcon from '@material-ui/icons/History'
+import InfoIcon from '@material-ui/icons/Info'
+import PlannedIcon from '@material-ui/icons/Update'
+import { ADJUDICATION_PHASE, CellLabelStyle, CHANNEL_MAPPING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, FLAG_MARKER, HOST_PLATFORM, LaydownPhases, LEAVE_TASK_GROUP, Phase, PlanningStates, serverPath, UMPIRE_FORCE, UPDATE_MARKER } from '@serge/config'
+import cx from 'classnames'
+import * as h3 from 'h3-js'
 import L from 'leaflet'
-import React, { createContext, useState, useEffect } from 'react'
+import { cloneDeep, isEqual } from 'lodash'
+import React, { createContext, useEffect, useState } from 'react'
+import { Map, ScaleControl, TileLayer } from 'react-leaflet'
 import { fetch as whatFetch } from 'whatwg-fetch'
-import { Map, TileLayer, ScaleControl } from 'react-leaflet'
-import {
-  CellLabelStyle, Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PlanningStates, LaydownPhases,
-  serverPath, CREATE_TASK_GROUP, LEAVE_TASK_GROUP, HOST_PLATFORM, UPDATE_MARKER, CHANNEL_MAPPING, DELETE_MARKER
-} from '@serge/config'
 import MapBar from '../map-bar'
 import MapControl from '../map-control'
-import { cloneDeep, isEqual } from 'lodash'
-import * as h3 from 'h3-js'
 
 /* helper functions */
 import { createGridH3 } from './helpers/h3-helpers'
 
 import {
-  roundToNearest,
-  routeCreateStore,
-  routeAddSteps,
-  routeSetCurrent,
-  routeGetLatestPosition,
-  routeClearFromStep,
-  findPlatformTypeFor,
-  routeSetLaydown,
-  enumFromString,
-  turnTimeAsMillis,
-  routeDeclutter2,
   DeclutterData,
-  deepCopy
+  deepCopy, enumFromString, findPlatformTypeFor, roundToNearest, routeAddSteps, routeClearFromStep, routeCreateStore, routeDeclutter2, routeGetLatestPosition, routeSetCurrent, routeSetLaydown, turnTimeAsMillis
 } from '@serge/helpers'
 
 /* Import Types */
-import PropTypes from './types/props'
 import {
-  SergeGrid3,
-  MappingContext,
-  NewTurnValues,
-  PlanMobileAsset,
-  SelectedAsset,
-  RouteStore,
-  Route,
-  RouteTurn,
-  PlanTurnFormValues,
-  ForceData,
-  Asset,
-  Status,
-  MessageCreateTaskGroup,
-  MessageLeaveTaskGroup,
-  MessageHostPlatform,
-  SergeHex3,
-  TurningDetails,
-  MappingConstraints,
-  MessageMap,
-  MapAnnotation,
-  MapAnnotations,
-  MessageUpdateMarker
+  Asset, ForceData, MapAnnotation,
+  MapAnnotations, MappingConstraints, MappingContext, MessageCloneMarker, MessageCreateTaskGroup, MessageDeleteMarker, MessageHostPlatform, MessageLeaveTaskGroup, MessageMap, MessageUpdateMarker, NewTurnValues,
+  PlanMobileAsset, PlanTurnFormValues, Route, RouteStore, RouteTurn, SelectedAsset, SergeGrid3, SergeHex3, Status, TurningDetails
 } from '@serge/custom-types'
+import PropTypes from './types/props'
 
 import ContextInterface from './types/context'
 
 /* Import Stylesheet */
-import './leaflet.css'
-import styles from './styles.module.scss'
-import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
-import { MessageDeleteMarker } from '@serge/custom-types/message'
+import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
+import Item from '../map-control/helpers/item'
+import ViewAs from '../organisms/view-as'
+import CellLabelStyleSelector from './helpers/CellLabelStyleSelector'
+import generateTestData from './helpers/gen-test-mapping-data'
+import './leaflet.css'
+import styles from './styles.module.scss'
 
 // Create a context which will be provided to any child of Map
 export const MapContext = createContext<ContextInterface>({ props: undefined })
@@ -77,6 +51,7 @@ export const Mapping: React.FC<PropTypes> = ({
   forces,
   playerForce,
   isGameControl,
+  isUmpire,
   playerRole,
   platforms,
   infoMarkers,
@@ -126,14 +101,18 @@ export const Mapping: React.FC<PropTypes> = ({
   const [plansSubmitted, setPlansSubmitted] = useState<boolean>(false)
   const [showAddInfo, setShowAddInfo] = useState<boolean>(false)
   const [currentPhase, setCurrentPhase] = useState<Phase>(Phase.Adjudication)
-  const [atlanticCells, setAtlanticCells] = useState<GeoJSON.FeatureCollection>()
-  const [lastAtlanticCells, setLastAtlanticCells] = useState<GeoJSON.FeatureCollection>()
+  const [atlanticCells, setAtlanticCells] = useState<FeatureCollection>()
+  const [lastAtlanticCells, setLastAtlanticCells] = useState<FeatureCollection>()
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
   const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
   const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
+  const [viewAsUmpire, setViewAsUmpire] = useState<boolean>(isUmpire)
 
   if (!channel) {
-    console.warn('Channel is missing from mapping component')
+    // we don't have mapping channel for some unit tests, so don't throw warning when that happens
+    const jestWorkerId = process.env.JEST_WORKER_ID
+    const inProduction = !jestWorkerId
+    inProduction && console.warn('Channel is missing from mapping component')
   }
 
   // only update bounds if they're different to the current one
@@ -290,7 +269,7 @@ export const Mapping: React.FC<PropTypes> = ({
         platforms, filterHistoryRoutes, filterPlannedRoutes, wargameInitiated, routeStore, channel, turnNumber)
       setRouteStore(store)
     }
-  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce])
+  }, [forcesState, playerForce, currentPhase, h3gridCells, filterHistoryRoutes, filterPlannedRoutes, viewAsForce, selectedAsset])
 
   /**
    * the route-store has changed for some reason. So, declutter it
@@ -302,7 +281,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const data: DeclutterData = { routes: routeStore, markers: infoMarkersState }
 
       // sort out the cell diameter
-      const cellRes = mappingConstraintState.h3res
+      const cellRes = mappingConstraintState.h3res || 5
       const edgeLengthM = h3.edgeLength(cellRes, 'm')
       const diamMins = edgeLengthM / 1852.0 * 2
       const declutteredData: DeclutterData = clutterFunc(data, diamMins)
@@ -536,7 +515,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (!mappingConstraintState) {
       throw new Error('Cannot calculate distance without mapping constraints')
     }
-    const tileRadiusM = h3.edgeLength(mappingConstraintState.h3res, 'm')
+    const tileRadiusM = h3.edgeLength(mappingConstraintState.h3res || 5, 'm')
     const tileDiameterM = tileRadiusM * 2
     return tileDiameterM * 0.75
   }
@@ -568,7 +547,7 @@ export const Mapping: React.FC<PropTypes> = ({
         // which represents unlimited travel
         if (plannedTurn.speedVal) {
           // special case. check turn time is non-zero
-          if (gameTurnTime === 0) {
+          if (!gameTurnTime) {
             console.error('Cannot plan route with zero game turn time')
             window.alert('Cannot plan route with zero game turn time')
           }
@@ -582,12 +561,11 @@ export const Mapping: React.FC<PropTypes> = ({
 
           // produce a heading value
           const heading = lastStepOrientationFor(origin, current.currentPosition, current.history, current.planned)
-          const turnData: TurningDetails | undefined = (heading !== undefined && pType.turningCircle) ? {
+          const turnData: TurningDetails | undefined = pType.turningCircle ? {
             radius: pType.turningCircle,
             heading: heading,
             distance: distancePerTurnM
           } : undefined
-
           const mobileConstraints: PlanMobileAsset = {
             origin: origin,
             travelMode: pType.travelMode,
@@ -631,23 +609,57 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   const updateMarker = (event: string, marker: MapAnnotation): void => {
+    // we cache the lat-long inside the marker, but it sometimes persists,
+    // and causes trouble. Just delete the bugger
+    delete marker.position
+
+    // NOTE: special handling. updateMarker may have been called from the annotation
+    // form. If that's the case, the marker location may have separately been edited by
+    // dragging on the map.  So, first check if there is a flag on the location
+    if (marker.location.substring(0, 1) === FLAG_MARKER) {
+      const old = infoMarkersState.find((item: MapAnnotation) => item.uniqid === marker.uniqid)
+      if (old) {
+        // use the existing location
+        marker.location = old.location
+      } else {
+        // trim the new one, and use that
+        marker.location = marker.location.substring(1)
+      }
+    }
+
+    // utility function to clean the lat/lng from the marker
+    type CleanAnno = Omit<MapAnnotation, 'position'>
+    const cleanMarker = (ann: MapAnnotation): CleanAnno => {
+      const res = deepCopy(ann)
+      delete res.position
+      return res
+    }
+
     // do the external update, depending on which phase this is
     // check which phase we're in
     switch (phase) {
       case Phase.Adjudication: {
         // start off by updating the local data. We don't transmit the change,
         // since it will get caught up with sending new state of world
-        const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
         switch (event) {
           case UPDATE_MARKER: {
+            const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
             others.push(marker)
+            setInfoMarkersState(others)
+            break
+          }
+          case CLONE_MARKER: {
+            const clone: MapAnnotation = { ...marker, uniqid: uniqid('a') }
+            infoMarkersState.push(clone)
+            setInfoMarkersState(infoMarkersState)
             break
           }
           case DELETE_MARKER: {
-            // don't do anything
+            const others = infoMarkersState.filter((item: MapAnnotation) => item.uniqid !== marker.uniqid)
+            setInfoMarkersState(others)
+            break
           }
         }
-        setInfoMarkersState(others)
         break
       }
       case Phase.Planning: {
@@ -656,7 +668,7 @@ export const Mapping: React.FC<PropTypes> = ({
             // send the update out immediately
             const message: MessageUpdateMarker = {
               messageType: event,
-              marker: marker
+              marker: cleanMarker(marker)
             }
             mapPostBack(event, message, CHANNEL_MAPPING)
             break
@@ -670,43 +682,60 @@ export const Mapping: React.FC<PropTypes> = ({
             mapPostBack(event, message, CHANNEL_MAPPING)
             break
           }
+          case CLONE_MARKER: {
+            // send the update out immediately
+            const message: MessageCloneMarker = {
+              messageType: CLONE_MARKER,
+              marker: marker
+            }
+            mapPostBack(event, message, CHANNEL_MAPPING)
+            break
+          }
         }
       }
     }
   }
 
   const localAddInfoMarker = (): void => {
-    // get the centre of the map
-    if (leafletElement) {
-      const center: L.LatLng = leafletElement.getBounds().getCenter()
-      const cell = h3.geoToH3(center.lat, center.lng, h3Resolution)
-      // create new marker
-      const marker: MapAnnotation = {
-        uniqid: uniqid('a'),
-        color: '#f00',
-        iconId: 'unk',
-        label: 'pending label',
-        description: 'pending description',
-        visibleTo: [],
-        location: cell
+    const runTest = false
+    if (runTest) {
+      generateTestData(mappingConstraintState, forces, platforms, setForcesState)
+    } else {
+      // get the centre of the map
+      if (leafletElement) {
+        const center: L.LatLng = leafletElement.getBounds().getCenter()
+        const cell = h3.geoToH3(center.lat, center.lng, h3Resolution)
+        // create new marker
+        const marker: MapAnnotation = {
+          uniqid: uniqid('a'),
+          color: '#f00',
+          iconId: 'unk',
+          label: 'pending label',
+          description: 'pending description',
+          visibleTo: [],
+          location: cell
+        }
+
+        // just add new marker to current set of annotations
+        infoMarkersState.push(marker)
+        setInfoMarkersState(infoMarkersState)
+
+        // finally, select the new marker
+        setSelectedMarker(marker.uniqid)
+
+        // now the marker is selected, its form
+        // should be displayed.
+        // the new marker will get "stored"
+        // when the user clicks on "Save"
       }
-
-      // just add new marker to current set of annotations
-      infoMarkersState.push(marker)
-      setInfoMarkersState(infoMarkersState)
-
-      // finally, select the new marker
-      setSelectedMarker(marker.uniqid)
-
-      // now the marker is selected, its form
-      // should be displayed.
-      // the new marker will get "stored"
-      // when the user clicks on "Save"
     }
   }
 
-  const viewAsCallback = (force: string): void => {
+  const viewAsCallback = (force: ForceData['uniqid']): void => {
     setViewAsForce(force)
+    // see if this is player viewing as an umpire force
+    const theForce = forcesState.find((forceD: ForceData) => forceD.uniqid === force)
+    setViewAsUmpire(!!(theForce && theForce.umpire))
   }
 
   const groupMoveToRootLocal = (uniqid: string): void => {
@@ -767,6 +796,7 @@ export const Mapping: React.FC<PropTypes> = ({
     platforms,
     playerForce,
     isGameControl,
+    viewAsUmpire,
     phase,
     turnNumber,
     planningConstraints,
@@ -835,6 +865,16 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
+  /* utilty method for whether we're filtering planned routes  */
+  const isFilterAsPlannedRoutes = (): 'light' | 'dark' => {
+    return filterPlannedRoutes ? 'dark' : 'light'
+  }
+
+  /* utilty method for whether we're filtering planned routes  */
+  const isFilterAsHistoryRoutes = (): 'light' | 'dark' => {
+    return filterHistoryRoutes ? 'dark' : 'light'
+  }
+
   /**
    * this callback is called when the user clicks on a blank part of the map.
    * When that happens, clear the selection
@@ -867,22 +907,33 @@ export const Mapping: React.FC<PropTypes> = ({
             map={leafletElement}
             home={mapCentre}
             bounds={mapBounds}
-            forces={playerForce === UMPIRE_FORCE ? forcesState : undefined}
-            viewAsCallback={viewAsCallback}
-            viewAsForce={viewAsForce}
-            filterPlannedRoutes={filterPlannedRoutes}
-            setFilterPlannedRoutes={setFilterPlannedRoutes}
-            filterHistoryRoutes={filterHistoryRoutes}
-            setFilterHistoryRoutes={setFilterHistoryRoutes}
-            cellLabelType={cellLabelStyle}
-            cellLabelCallback={setCellLabelStyle}
-            addInfoMarker={showAddInfo ? localAddInfoMarker : undefined}
-          />
+          >
+            <>
+              <div className={cx('leaflet-control')} data-tour="counter-clockwise">
+                <Item title="View full history" onClick={(): void => { setFilterHistoryRoutes(!filterHistoryRoutes) }}
+                  contentTheme={isFilterAsHistoryRoutes()} >
+                  <HistoryIcon />
+                </Item>
+                <Item title="View all planned steps" onClick={(): void => { setFilterPlannedRoutes(!filterPlannedRoutes) }}
+                  contentTheme={isFilterAsPlannedRoutes()} >
+                  <PlannedIcon />
+                </Item>
+              </div>
+              { showAddInfo && <div className={cx('leaflet-control')}>
+                <Item title='Add information marker' onClick={(): void => { localAddInfoMarker() }}
+                  contentTheme={'dark'} >
+                  <InfoIcon />
+                </Item>
+              </div>}
+              <CellLabelStyleSelector cellLabelStyle={cellLabelStyle} setCellLabelStyle={setCellLabelStyle} />
+              <ViewAs isUmpire={isUmpire} viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : []} />
+            </>
+          </MapControl>
           {mappingConstraintState && mappingConstraintState.tileLayer &&
             <TileLayer
               url={mappingConstraintState.tileLayer.url}
               attribution={mappingConstraintState.tileLayer.attribution}
-              maxNativeZoom={mappingConstraintState.maxNativeZoom}
+              maxNativeZoom={mappingConstraintState.tileLayer.maxNativeZoom}
               bounds={mapBounds}
             />
           }
@@ -893,7 +944,5 @@ export const Mapping: React.FC<PropTypes> = ({
     </MapContext.Provider>
   )
 }
-
 // Mapping.defaultProps = defaultProps
-
 export default Mapping

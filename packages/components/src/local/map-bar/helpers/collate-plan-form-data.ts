@@ -1,17 +1,30 @@
-import { SelectedAsset, PlanTurnFormData, PlatformTypeData, State, RouteStatus, AttributeValues, AttributeTypes } from '@serge/custom-types'
+import { PlanTurnFormData, PlatformTypeData, State, RouteStatus, AttributeValues, AttributeTypes, Route } from '@serge/custom-types'
+
+/** either provide the status of the latest planned turn, or the current asset status
+ * @param Asset the current planned route for this asset
+ * @return the latest planned status, or the current status,or undefined
+ */
+const getLatestStatus = (asset: Route): RouteStatus | undefined => {
+  if (asset.planned && asset.planned.length > 0) {
+    return asset.planned[asset.planned.length - 1].status
+  } else {
+    return asset.asset.status
+  }
+}
 
 /** determine which form to show on this click
  * @param {PlatformTypeData[]} platforms list of platform types in the wargame
- * @param {SelectedAsset} selectedAsset the currently selected asset
+ * @param {Asset} asset the currently selected asset
  * @return {string} data necessary for the plan turn form
  */
-const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: SelectedAsset
+const collatePlanFormData = (platforms: PlatformTypeData[], asset: Route
 ): PlanTurnFormData => {
-  const currentPlatform = platforms.find((platform: PlatformTypeData) => platform.uniqid === selectedAsset.typeId)
-  const currentStatus: State | undefined = currentPlatform && currentPlatform.states.find((s: State) => selectedAsset.status && s.name === selectedAsset.status.state)
-  const availableStatus: State | undefined = currentStatus || (currentPlatform && currentPlatform.states[0])
-  const status: RouteStatus | undefined = selectedAsset.status
-  const attributeValues: AttributeValues = selectedAsset.attributes
+  const currentPlatform = platforms.find((platform: PlatformTypeData) => platform.uniqid === asset.platformTypeId)
+  // for planning a turn, we should be using the most recent status
+  const latestStatus = getLatestStatus(asset)
+  const currentState: State | undefined = currentPlatform && currentPlatform.states.find((s: State) => latestStatus && s.name === latestStatus.state)
+  const availableStatus: State | undefined = currentState || (currentPlatform && currentPlatform.states[0])
+  const attributeValues: AttributeValues = asset.attributes
   const attributeTypes: AttributeTypes = (currentPlatform && currentPlatform.attributeTypes) ? currentPlatform.attributeTypes : []
   // we're doing extra check that platform type has speeds, in case initialisation
   // data accidentally has speed in current/historic states, but that platform type
@@ -26,9 +39,9 @@ const collatePlanFormData = (platforms: PlatformTypeData[], selectedAsset: Selec
     values: {
       // we will always have the status, but compiler doesn't trust us
       statusVal: availableStatus || { name: 'unfound', mobile: false },
-      speedVal: status && status.speedKts !== undefined && platformTypeHasSpeeds ? status.speedKts : 0,
+      speedVal: latestStatus && latestStatus.speedKts !== undefined && platformTypeHasSpeeds ? latestStatus.speedKts : 0,
       turnsVal: 1,
-      condition: selectedAsset.condition,
+      condition: asset.asset.condition,
       attributes: attributeValues
     }
   }

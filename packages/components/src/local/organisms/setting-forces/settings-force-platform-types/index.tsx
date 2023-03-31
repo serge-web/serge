@@ -118,7 +118,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     }
 
     const fixedLocationHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-      const currentValue = event.target.value.toUpperCase()
+      const currentValue = event.target.value
       // TODO: fix regex, so it takes 16 digit h3 index number
       // const regex = /^[0-9a-f]{16}$/
       // if (regex.test(currentValue)) {
@@ -197,7 +197,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
             <div className={styles['input-group']}>
               <span className={styles['list-title']}>Location</span>
               <NativeSelect
-                value={selectedAssetItem.locationPending ? selectedAssetItem.locationPending : ''}
+                value={selectedAssetItem.locationPending ? selectedAssetItem.locationPending : LaydownTypes.Fixed}
                 name="location"
                 className={styles['location-select']}
                 onChange={handleChangeAssetLocation}
@@ -210,7 +210,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
             </div>
           </ListItemText>
         </ListItem>
-        {selectedAssetItem.locationPending === LaydownTypes.Fixed &&
+        {((selectedAssetItem.locationPending === undefined) || (selectedAssetItem.locationPending === LaydownTypes.Fixed)) &&
           <ListItem>
             <ListItemText>
               <TextInput
@@ -246,7 +246,7 @@ export const AssetsAccordion: FC<PropTypes> = ({ platformTypes, selectedForce, o
     const platform = platformTypes.find((platform) => platform.uniqid === platformTypeId)
     return typeof platform === 'undefined' ? '' : platform.icon
   }
-  const renderContent = (groupItem: GroupItem): JSX.Element => {
+  const renderContent = (groupItem: GroupItem): React.ReactElement => {
     const item = groupItem as ForceItemType
     // const icClassName = getIconClassname('', item.platformType)
     return (

@@ -19,8 +19,8 @@ export const VisibilityAndConditionForm: React.FC<PropTypes> = ({ formData, icon
   const forces: Array<ForceOption> = formData.availableForces
   const conditionValues: Array<string> = formData.condition
 
-  const changeHandler = (e: any): void => {
-    setVisibleTo(e.visibleTo)
+  const changeHandler = (data: Array<ForceData['uniqid']>): void => {
+    setVisibleTo(data)
   }
 
   const submitForm = (): void => {

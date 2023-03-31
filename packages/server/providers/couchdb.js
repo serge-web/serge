@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, COUNTER_MESSAGE, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, CUSTOM_MESSAGE } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
 
@@ -108,6 +108,24 @@ const couchDb = (app, io, pouchOptions) => {
     retryUntilWritten(db, putData)
   })
 
+  app.put('/bulkDocs/:dbname', async (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+    const db = new CouchDB(couchDbURL(databaseName))
+    const docs = req.body
+    if (docs.length === 0) {
+      // nothing to do
+      res.send({ msg: 'OK' })
+    } else {
+      return db.bulkDocs(docs).then(async () => {
+        await db.compact()
+        io.emit(req.params.dbname, docs)
+        res.send({ msg: 'OK', data: docs })
+      }).catch(err => {
+        res.send({ msg: 'err', data: err })
+      })
+    }
+  })
+
   app.get('/replicate/:replicate/:dbname', (req, res) => {
     const newDbName = checkSqliteExists(req.params.replicate) // new db name
     const newDb = new CouchDB(couchDbURL(newDbName))
@@ -173,9 +191,10 @@ const couchDb = (app, io, pouchOptions) => {
         // unpack the documents
         const docs = result.rows.map((item) => item.doc)
         // drop wargame & info messages
-        const ignoreTypes = [INFO_MESSAGE, COUNTER_MESSAGE]
-        const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
-        res.send({ msg: 'ok', data: messages })
+        // NO, don't. We need the info messages, for the turn markers
+        // const ignoreTypes = [] //INFO_MESSAGE, COUNTER_MESSAGE]
+        // const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
+        res.send({ msg: 'ok', data: docs })
       }).catch(() => res.send([]))
   })
 
@@ -196,6 +215,128 @@ const couchDb = (app, io, pouchOptions) => {
       sort: [{ _id: 'desc' }],
       limit: 1
     }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
+      .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/:dbname/logs', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Player Name', data: null })
+    }
+
+    const db = new CouchDB(couchDbURL(databaseName))
+
+    db.find({
+      selector: {
+        wargame: req.params.wargame
+      }
+    }).then((result) => {
+      res.send({ msg: 'ok', data: result.docs })
+    })
+      .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/turns', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new CouchDB(couchDbURL(databaseName))
+
+    db.find({
+      selector: {
+        adjudicationStartTime: { $exists: true }
+      },
+      fields: ['data', 'gameTurn']
+    }).then((result) => {
+      const uniqBy = (data, key) => {
+        return [
+          ...new Map(
+            data.map(x => [key(x),
+              {
+                gameTurn: x.gameTurn,
+                gameTurnTime: x.data.overview.gameTurnTime,
+                gameDate: x.data.overview.gameDate
+
+              }])
+          ).values()
+        ]
+      }
+
+      const resaultData = uniqBy(result.docs, it => it.gameTurn)
+
+      res.send({ msg: 'ok', data: resaultData })
+    })
+      .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/:force/:id/counter', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new CouchDB(couchDbURL(databaseName))
+
+    let messageDefaultCount = 1
+
+    db.get(req.params.id)
+      .then(data => res.send({ msg: 'ok', data: data.details.counter }))
+      .catch(() => {
+        db.find({
+          selector: {
+            messageType: CUSTOM_MESSAGE,
+            details: {
+              from: { force: req.params.force },
+              counter: { $exists: true }
+            },
+            _id: { $ne: settings, $gte: null }
+          },
+          fields: ['details.counter']
+        }).then((result) => {
+          if (result.docs.length) {
+            const Biggestcount = Math.max(...result.docs.map(data => data.details.counter))
+            if (Biggestcount) {
+              messageDefaultCount += Biggestcount
+            }
+          }
+          res.send({ msg: 'ok', data: messageDefaultCount })
+        })
+          .catch(() => res.send([]))
+      })
+  })
+
+  app.get('/:wargame/:dbname/logs-latest', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.dbname)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Player Name', data: null })
+    }
+
+    const db = new CouchDB(couchDbURL(databaseName))
+
+    db.find({
+      selector: {
+        wargame: req.params.wargame
+      },
+      fields: ['role', 'activityTime', 'activityType']
+    }).then((result) => {
+      const uniqByKeepLast = (data, key) => {
+        return [
+          ...new Map(
+            data.map(x => [key(x), x])
+          ).values()
+        ]
+      }
+
+      const lastLogs = result.docs && uniqByKeepLast(result.docs, logs => logs.role)
+
+      res.send({ msg: 'ok', data: lastLogs })
+    })
       .catch(() => res.send([]))
   })
 

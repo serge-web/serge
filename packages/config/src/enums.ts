@@ -22,6 +22,15 @@ export enum CollaborativePermission {
   CanUnClaim
 }
 
+/** 
+ * the type of geometry that can represent planning activities
+ */
+ export enum GeometryType {
+  point = 'Point',
+  polyline = 'Polyline',
+  polygon = 'Polygon'
+}
+
 /** the initial state for new messages in a collab edit channel */
 export enum InitialStates {
   PENDING_REVIEW = 'PENDING_REVIEW',
@@ -59,7 +68,9 @@ export enum CellLabelStyle {
   // 432
   CTR_LABELS = 'ctr_labels',
   // 35234fe5effffff
-  H3_LABELS = 'h3_labels'
+  H3_LABELS = 'h3_labels',
+  // don't show labels
+  BLANK = 'blank'
 }
 
 /** who is required to give asset an initial location */
@@ -97,7 +108,6 @@ export enum CollaborativeMessageStates {
    */
   Closed = 'Closed',
 }
-
 
 /** the commands that can be appled to a collaborative message
  */
@@ -181,3 +191,10 @@ export enum AdminTabs {
   Channels = 'channels',
   Annotations = 'annotationIcons'
 };
+
+export enum SymbolForces {
+  Friend = 'F',
+  Hostile = 'H',
+  Neutral = 'N',
+  Unknown = 'U'
+}

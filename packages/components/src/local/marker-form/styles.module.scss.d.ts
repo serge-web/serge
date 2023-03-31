@@ -7,6 +7,7 @@ interface CssExports {
   'color-indicator': string;
   'delete-marker-btn': string;
   'description': string;
+  'duplicate-marker-btn': string;
   'fieldset': string;
   'force-color': string;
   'form-header': string;

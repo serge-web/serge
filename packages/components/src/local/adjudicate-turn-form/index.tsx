@@ -1,7 +1,7 @@
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import { PlanningCommands } from '@serge/config'
-import { AttributeEditorData, AttributeValues, ForceOption, RouteStatus, Status } from '@serge/custom-types'
+import { AttributeEditorData, AttributeValues, ForceData, ForceOption, RouteStatus, Status } from '@serge/custom-types'
 /* Import helpers */
 import { collateEditorData, deepCompare, isNumber } from '@serge/helpers'
 import React, { ReactElement, useEffect, useState } from 'react'
@@ -97,9 +97,9 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
     }
   }
 
-  const visibleHandler = (e: any): void => {
-    setVisibleVal(e.visibleTo)
-    manager && manager.setCurrentVisibleTo(e.visibleTo)
+  const visibleHandler = (data: Array<ForceData['uniqid']>): void => {
+    setVisibleVal(data)
+    manager && manager.setCurrentVisibleTo(data)
   }
 
   const updateIfNecessary = (_name: string, before: any, after: any, doUpdate: { (value: any): void }): void => { // deepscan-disable-line UNUSED_PARAM
@@ -157,7 +157,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
 
   return (
     <div className={styles.adjudicate}>
-      <AttributeEditor isOpen={attributeEditorOpen} onClose={closeModal} onSave={updateData} attributeTypes={manager && manager.getPlatformDetails().attributeTypes} data={attributes} />
+      <AttributeEditor isOpen={attributeEditorOpen} inAdjudication={true} onClose={closeModal} onSave={updateData} attributeTypes={manager && manager.getPlatformDetails().attributeTypes} data={attributes} />
       <TitleWithIcon
         forceColor={icon.forceColor}
         icon={icon.icon}

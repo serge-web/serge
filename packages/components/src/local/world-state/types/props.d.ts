@@ -1,4 +1,5 @@
-import { MapAnnotations, PlatformTypeData, RouteStore } from '@serge/custom-types'
+import React from 'react'
+import { AnnotationIcons, ForceData, MapAnnotation, MapAnnotations, PlatformTypeData, RouteStore } from '@serge/custom-types'
 import { WorldStatePanels } from '../helpers/enums'
 
 export default interface PropTypes {
@@ -49,15 +50,15 @@ export default interface PropTypes {
   /**
    * callback for asset selected
    */
-  setSelectedAssetById?: {(id: string): void}
+  setSelectedAssetById?: { (id: string): void }
   /**
    * callback for asset selected
    */
-  setSelectedMarkerById?: {(id: MapAnnotation['uniqid']): void}
-   /**
-   * callback for submit changes
-   */
-  submitForm?: {(): void}
+  setSelectedMarkerById?: { (id: MapAnnotation['uniqid']): void }
+  /**
+  * callback for submit changes
+  */
+  submitForm?: { (): void }
   /**
    * which world state panel to display
    */
@@ -65,22 +66,22 @@ export default interface PropTypes {
   /**
    * handler to move asset to top level of this force
    */
-  groupMoveToRoot?: {(uniqid: string): void}
- /**
-   * handler to create new group for provided assets
-   */
-  groupCreateNewGroup?: {(dragged: string, target: string): void}
- /**
-   * handler to host one platform on another
-   */
-  groupHostPlatform?: {(dragged: string, target: string): void}
+  groupMoveToRoot?: { (uniqid: string): void }
+  /**
+    * handler to create new group for provided assets
+    */
+  groupCreateNewGroup?: { (dragged: string, target: string): void }
+  /**
+    * handler to host one platform on another
+    */
+  groupHostPlatform?: { (dragged: string, target: string): void }
   /**
    * whether plans have been submitted
    */
   plansSubmitted: boolean
-    /**
-   * update whether plans have been submitted
-   */
+  /**
+ * update whether plans have been submitted
+ */
   setPlansSubmitted?: React.Dispatch<React.SetStateAction<boolean>>
   /**
    *  label to show on secondary button
@@ -89,5 +90,7 @@ export default interface PropTypes {
   /**
    * callback for secondary button
    */
-  secondaryButtonCallback?: {(): void}
+  secondaryButtonCallback?: { (): void }
+
+  playerRole?: string
 }

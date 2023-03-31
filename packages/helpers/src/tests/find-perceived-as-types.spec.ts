@@ -9,7 +9,6 @@ const perceptions: Perception[] = [{
   by: 'Blue',
   force: 'Green',
   name: 'Dumbo',
-  type: 'merchant-vessel',
   typeId: 'a12'
 }]
 
@@ -17,7 +16,6 @@ const perceptions: Perception[] = [{
 const perceptionsForceMissing: Perception[] = [{
   by: 'Blue',
   name: 'Dumbo',
-  type: 'merchant-vessel',
   typeId: 'a12'
 }]
 
@@ -32,7 +30,6 @@ const perceptionsTypeMissing: Perception[] = [{
 const perceptionsNameMissing: Perception[] = [{
   by: 'Blue',
   force: 'Green',
-  type: 'merchant-vessel',
   typeId: 'a12'
 }]
 

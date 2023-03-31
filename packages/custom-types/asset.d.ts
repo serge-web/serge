@@ -1,5 +1,11 @@
-import { AttributeValues, Perception, PlatformTypeData, RouteStatus, RouteTurn } from '.'
 import { LaydownTypes } from '@serge/config'
+import { AttributeValues, AttributeValues2, ForceData, Perception, PlatformTypeData, Role, RouteStatus, RouteTurn } from '.'
+
+export type AssetWithForce = {
+  force: ForceData
+  asset: Asset
+}
+
 export interface Asset {
   /**
    * the name of this asset
@@ -14,10 +20,19 @@ export interface Asset {
    * name present in game
    */
   readonly uniqid: string,
+  /** the owner of this asset. This is used to give 
+   * control of the asset to a specific player
+   */
+  owner?: Role['roleId']
   /** the current position of an asset. It's optional,
    * since an asset may be carried by another
    */
   position?: string,
+  /** the geographic position of an asset.
+   * If it's not present, but a `position` is, then
+   * the location will be generated. Sequence is `Lat, Long`
+   */
+  location?: [number, number],
   /** how other forces perceive this asset
    */
   perceptions: Array<Perception>,
@@ -30,10 +45,6 @@ export interface Asset {
   /** the current condition of this asset
    */
   condition: string,
-  /** 
-   * the type of this platform. To be @deprecated
-   */
-  platformType?: string,
   /** 
    * the type-id of this platform 
    */
@@ -61,6 +72,11 @@ export interface Asset {
   /** attributes for this asset 
    */
   attributeValues?: AttributeValues
+  /** attributes for this asset, using the streamlined notation
+   */
+  attributes?: AttributeValues2
+   /** health of this asset. 0-100, with 0 treated as destroyed */
+  health?: number
 }
 
 export default Asset

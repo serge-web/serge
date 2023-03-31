@@ -1,80 +1,34 @@
-import uniqid from 'uniqid'
+import {
+  ADJUDICATION_OUTCOMES,
+  ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE,
+  MSG_TYPE_STORE,
+  PLANNING_PHASE, SERGE_INFO, serverPath, STATE_OF_WORLD, UPDATE_MARKER, wargameSettings
+} from '@serge/config'
+import { deleteRoleAndParts, duplicateThisForce, handleCloneMarker, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
 import _ from 'lodash'
 import moment from 'moment'
-import fetch, { Response } from 'node-fetch'
-import deepCopy from '../../Helpers/copyStateHelper'
+import fetch from 'node-fetch'
+import uniqid from 'uniqid'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { deleteRoleAndParts, duplicateThisForce, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
-import {
-  databasePath,
-  serverPath,
-  MSG_STORE,
-  MSG_TYPE_STORE,
-  PLANNING_PHASE,
-  ADJUDICATION_PHASE,
-  clearAll,
-  allDbs,
-  COUNTER_MESSAGE,
-  expiredStorage,
-  ACTIVITY_TIME,
-  ACTIVITY_TYPE,
-  SERGE_INFO,
-  INFO_MESSAGE,
-  FEEDBACK_MESSAGE,
-  CUSTOM_MESSAGE,
-  UPDATE_MARKER,
-  STATE_OF_WORLD,
-  hiddenPrefix,
-  DELETE_MARKER,
-  wargameSettings
-} from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
+import deepCopy from '../../Helpers/copyStateHelper'
 
 import {
-  setLatestFeedbackMessage,
-  setCurrentWargame,
-  setLatestWargameMessage
+  setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
-  PlayerUiDispatch,
-  Wargame,
-  Message,
-  MessageInfoType,
-  WargameOverview,
-  PlatformType,
-  ForceData,
-  MessageDetailsFrom,
-  MessageDetails,
-  MessageFeedback,
-  MessageStructure,
-  MessageCustom,
-  MessageChannel,
-  MessageMap,
-  GameTurnLength,
-  ChannelTypes,
-  PlatformTypeData,
-  Role,
-  ParticipantTypes,
-  ParticipantChat,
-  MessageUpdateMarker,
-  MapAnnotationData,
-  MessageStateOfWorld,
-  WargameRevision,
-  IconOption,
-  AnnotationMarkerData
+  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, MessagePlanning, TurnPeriod, Wargame, WargameOverview, WargameRevision
 } from '@serge/custom-types'
 
 import {
-  ApiWargameDbObject,
-  ApiWargameDb,
-  ListenNewMessageType
+  ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
 
+import handleAdjudicationOutcomes from '../../ActionsAndReducers/playerUi/helpers/handleAdjudicationOutcomes'
+import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
-import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
-import { MessageDeleteMarker } from '@serge/custom-types/message'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 
@@ -152,45 +106,33 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch
   listenNewMessage({ db, name, dispatch })
 }
 
-export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {
-  const activityMissing = 'The player has not shown any activity yet'
-  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)
-  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)
+/** dual function method, to both check the server is still running, and to push
+ * details of recent player activity
+ * @param log a list of the most recent interactions
+ * @param logAllActivity whether to store all events since last ping, or just the most recent one
+ * @returns the server response
+ */
+export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: boolean): Promise<string> => { 
+  const allItems = log.items
+  
+  // if we're not storing all activity, just store the latest item
+  const items: PlayerLogEntries = logAllActivity ? allItems : allItems.length > 0 ? [allItems[allItems.length - 1]] : []
 
-  const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`
+  // get the wargame to operate upon
+  const { db } = getWargameDbByName(log.currentDbname)
 
-  return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then((response: Response): Promise<any> => response.json())
-    .then((data: any) => {
-      return data.status
-    })
-    .catch((err) => {
-      console.log(err)
-      return 'NOT_OK'
-    })
+  // In addition to pushing data to the server, we're also checking the server is still alive
+  // So, even if the log is empty, we should push an empty list, since still we want to get a 
+  // 'success' back from the server
+  return db.bulkDocs(items).then(res => res.msg)
 }
+ 
+export const getPlayerActivityLogs = async (wargame: string, dbName: string, query: string): Promise<PlayerLogEntries> => {
+  const { db } = getWargameDbByName(dbName)
 
-export const getPlayerActivityLogs = () => {
-  const url = `${serverPath}playerlog`
-
-  return fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-    .then((response: Response): Promise<any> => response.json())
-    .then((data: any) => {
-      return data
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+  return await db.getPlayerLogs(wargame, query)
+    .then(res => res)
+    .catch(err => err)
 }
 
 export const populateWargame = (): Promise<string | Wargame[]> => {
@@ -706,14 +648,15 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
       case ADJUDICATION_PHASE:
         res.phase = PLANNING_PHASE
         res.gameTurn += 1
+        res.adjudicationStartTime = '0'
+        // move the turn forward
 
         const gameDate: string = res.data.overview.gameDate
         const gameTurn: GameTurnLength = res.data.overview.gameTurnTime
-        //        const twoM: MonthTurns = { unit: 'months', months: 2 }
-        console.log('inc', gameDate, gameTurn)
         const newTime: number = incrementGameTime(gameDate, gameTurn)
         res.data.overview.gameDate = moment(newTime).format('YYYY-MM-DDTHH:mm')
-        console.log('inc 2', newTime, res.data.overview.gameDate)
+        
+        // calculate when the planning must finish
         res.turnEndTime = moment().add(res.data.overview.realtimeTurnTime, 'ms').format()
         break
     }
@@ -741,41 +684,27 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
   return db.put(feedback).catch(rejectDefault)
 }
 
-const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails) => {
+const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails): Promise<MessageCustom> => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve): Promise<void> => {
-    if (message.details.messageType !== 'Chat') {
-      // default value for message counter
-      message.message.counter = 1
-
-      const forceMessagesWithCounter = await db.allDocs().then(res => {
-        const validMessage = (message: Message): boolean => {
-          if (message.messageType === CUSTOM_MESSAGE) {
-            const custom = message as MessageCustom
-            return custom.details && custom.details.from.force === details.from.force && custom.message.counter
-          } else {
-            return false
-          }
-        }
-        const thisForceMessagesWithCounter = res.filter((message) => validMessage(message)) as MessageCustom[]
-        const counters = thisForceMessagesWithCounter.map((message: MessageCustom) => message.message.counter)
-        const existId = res.find((message:any) => message._id === details.timestamp)
-        return [Math.max(...counters), existId]
-      })
-
-      const [counter, existId] = forceMessagesWithCounter
-
-      // @ts-ignore
-      const counterExist = existId ? existId.message.counter : message.message.counter
-
-      counter as number >= message.message.counter && !existId ? message.message.counter += counter : message.message.counter = counterExist
-      message.message.Reference = [message.details.from.force, message.message.counter].join('-')
+    if (message.details.messageType !== 'Chat' && typeof message.message.Reference === 'string' && message.message.Reference.length === 0) {
+      await db.lastCounter(details.from.force, details.timestamp).then((counter) => {
+        message.details.counter = counter
+        message.message.Reference = [message.details.from.force, counter].join('-')
+      }).catch(err => err)
 
       resolve(message)
     } else {
       resolve(message)
     }
   })
+}
+
+export const PostBulkMessages = (dbName: string, bulkData: MessagePlanning[]) => {
+  const { db } = getWargameDbByName(dbName)
+
+  const customBulkMessage: MessagePlanning[] = bulkData
+  return db.bulkDocs(customBulkMessage).catch(rejectDefault)
 }
 
 export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
@@ -793,7 +722,6 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
   }
 
   return checkReference(customMessage, db, details).then(messageUpdated => {
-    // @ts-ignore
     return db.put(messageUpdated).catch(rejectDefault)
   })
 }
@@ -809,7 +737,7 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
     _id: new Date().toISOString(),
     // defined constat for messages, it's not same as message.details.messageType,
     // ex for all template based messages will be used CUSTOM_MESSAGE Type
-    messageType: details.messageType,
+    messageType: CUSTOM_MESSAGE,
     details,
     message,
     isOpen: false,
@@ -819,6 +747,14 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
     console.log(err)
     return err
   })
+
+  // special case. If this is adjudication, and we skip, do not to handle force delta
+  if (message.messageType === ADJUDICATION_OUTCOMES) {
+    const interaction = details.interaction as InteractionDetails
+    if (interaction && interaction.skipped) {
+      return
+    } 
+  }
 
   /**
    * annotations are optional. So, if they're unset, initialise them
@@ -850,10 +786,18 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageUpdateMarker = message
           res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
+        } else if (message.messageType === CLONE_MARKER) {
+          res.data.annotations = checkAnnotations(res.data.annotations)
+          const validMessage: MessageCloneMarker = message
+          res.data.annotations.annotations = handleCloneMarker(validMessage, res.data.annotations.annotations)
         } else if (message.messageType === DELETE_MARKER) {
           res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageDeleteMarker = message
           res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
+        } else if (message.messageType === ADJUDICATION_OUTCOMES) {
+          const validMessage: MessageAdjudicationOutcomes = message
+          const interaction = details.interaction as InteractionDetails
+          res.data.forces.forces = handleAdjudicationOutcomes(interaction, validMessage, res.data.forces.forces)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
           const validMessage: MessageStateOfWorld = message
@@ -893,7 +837,22 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
     // TODO: this should probably be a filter function
-    .then((res): Array<Message> => res.filter((message: Message) => message.messageType !== COUNTER_MESSAGE))
+    .then((res): Array<Message> => {
+      // drop counters
+      const nonCounter = res.filter((message: Message) => message.messageType !== COUNTER_MESSAGE)
+      // NOTE: SPECIAL CASE. It appears the docs are being sorted by _id before being returned.
+      // This is putting the initial 'settings' doc at the end. It should be at the start. 
+      // If it's at the end, move it to the start
+      if (nonCounter.length > 0) {
+        const lastDoc = nonCounter[nonCounter.length - 1] as any
+        if (lastDoc._id === 'settings') {
+          nonCounter.pop()
+          nonCounter.unshift(lastDoc)
+        }
+      }
+      return nonCounter
+    }
+    )
     .catch(() => {
       throw new Error('Serge disconnected')
     })
@@ -945,4 +904,12 @@ export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption)
   
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
+}
+
+export const getTurnPeriodsList = (dbName: string): Promise<TurnPeriod[]> => {
+  const { db } = getWargameDbByName(dbName)
+
+  return db.getTurnPeriods()
+    .then((res) => res)
+    .catch(rejectDefault)
 }

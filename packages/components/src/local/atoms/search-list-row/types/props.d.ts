@@ -14,7 +14,7 @@ export default interface Props {
   /**
    * Callback on delete menu click event
    */
-  onDelete?: () => void
+  onDelete?: (event: MouseEvent<SVGSVGElement>) => void
   /**
    * The title text or node
    */

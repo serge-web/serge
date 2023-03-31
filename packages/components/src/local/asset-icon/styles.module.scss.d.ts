@@ -4,6 +4,7 @@ interface CssExports {
   'asset-icon': string;
   'asset-icon-background': string;
   'asset-icon-with-image': string;
+  'corner-line': string;
   'destroyed': string;
   'img': string;
   'selected': string;

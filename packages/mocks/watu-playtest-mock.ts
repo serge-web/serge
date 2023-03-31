@@ -1,9 +1,6 @@
 import { Wargame } from "@serge/custom-types";
 
-const wargame: Wargame =
-{
-    "_id": "2022-08-02T12:33:41.772Z",
-    "_rev": "1-75201463bf4c6a20d20acaa1027d2183",
+const wargame: Wargame = {
     "adjudicationStartTime": "2022-08-02T11:59:27+01:00",
     "wargameList": [],
     "data": {
@@ -64,42 +61,36 @@ const wargame: Wargame =
                     "channelType": "ChannelChat",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [],
                             "subscriptionId": "nci8",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B1",
                             "forceUniqid": "force-b1",
                             "roles": [],
                             "subscriptionId": "119o",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B2",
                             "forceUniqid": "force-b2",
                             "roles": [],
                             "subscriptionId": "y8e5h",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B3",
                             "forceUniqid": "force-b3",
                             "roles": [],
                             "subscriptionId": "rrcif",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B4",
                             "forceUniqid": "force-b4",
                             "roles": [],
                             "subscriptionId": "njra",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B5",
                             "forceUniqid": "force-b5",
                             "roles": [],
                             "subscriptionId": "ovmn",
@@ -113,21 +104,18 @@ const wargame: Wargame =
                     "channelType": "ChannelChat",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [],
                             "subscriptionId": "dfyw8",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "R1",
                             "forceUniqid": "force-r1",
                             "roles": [],
                             "subscriptionId": "ttgbg",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "R2",
                             "forceUniqid": "force-r2",
                             "roles": [],
                             "subscriptionId": "08iqa",
@@ -141,42 +129,36 @@ const wargame: Wargame =
                     "channelType": "ChannelChat",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [],
                             "subscriptionId": "epplc",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B1",
                             "forceUniqid": "force-b1",
                             "roles": [],
                             "subscriptionId": "eca6s",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B2",
                             "forceUniqid": "force-b2",
                             "roles": [],
                             "subscriptionId": "1i72a",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B3",
                             "forceUniqid": "force-b3",
                             "roles": [],
                             "subscriptionId": "m87ny",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B4",
                             "forceUniqid": "force-b4",
                             "roles": [],
                             "subscriptionId": "90mjl",
                             "pType": "ParticipantChat"
                         },
                         {
-                            "force": "B5",
                             "forceUniqid": "force-b5",
                             "roles": [],
                             "subscriptionId": "2v4wa",
@@ -190,7 +172,6 @@ const wargame: Wargame =
                     "channelType": "mapping",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "roles": [
                                 "pl63jl7so"
@@ -202,7 +183,6 @@ const wargame: Wargame =
                             ]
                         },
                         {
-                            "force": "B1",
                             "forceUniqid": "force-b1",
                             "roles": [
                                 "pl65060rb"
@@ -214,7 +194,6 @@ const wargame: Wargame =
                             ]
                         },
                         {
-                            "force": "B2",
                             "forceUniqid": "force-b2",
                             "roles": [
                                 "rl6506vlp"
@@ -226,7 +205,6 @@ const wargame: Wargame =
                             ]
                         },
                         {
-                            "force": "B3",
                             "forceUniqid": "force-b3",
                             "roles": [
                                 "rl65088ad"
@@ -238,7 +216,6 @@ const wargame: Wargame =
                             ]
                         },
                         {
-                            "force": "B4",
                             "forceUniqid": "force-b4",
                             "roles": [
                                 "rl6509vwn"
@@ -250,7 +227,6 @@ const wargame: Wargame =
                             ]
                         },
                         {
-                            "force": "B5",
                             "forceUniqid": "force-b5",
                             "roles": [
                                 "rl650arbo"
@@ -262,7 +238,6 @@ const wargame: Wargame =
                             ]
                         },
                         {
-                            "force": "R1",
                             "forceUniqid": "force-r1",
                             "roles": [
                                 "rl650chc3"
@@ -274,7 +249,6 @@ const wargame: Wargame =
                             ]
                         },
                         {
-                            "force": "R2",
                             "forceUniqid": "force-r2",
                             "roles": [
                                 "rl650dmne"
@@ -300,8 +274,7 @@ const wargame: Wargame =
                         "h3res": 9,
                         "cellLabelsStyle": "x_y_labels",
                         "minZoom": 8,
-                        "maxZoom": 17,
-                        "maxNativeZoom": 8
+                        "maxZoom": 17
                     }
                 },
                 {
@@ -309,7 +282,6 @@ const wargame: Wargame =
                     "name": "White Comms",
                     "participants": [
                         {
-                            "force": "White",
                             "forceUniqid": "umpire",
                             "pType": "ParticipantChat",
                             "roles": [],
@@ -366,37 +338,52 @@ const wargame: Wargame =
                             "uniqid": "al65069c1",
                             "contactId": "C777",
                             "name": "B1",
-                            "platformType": "Frigate",
-                            "platformTypeId": "a1",
+                            "platformTypeId": "a6",
                             "perceptions": [
                                 {
                                     "by": "force-b2",
                                     "force": "force-b1",
-                                    "typeId": "a1"
+                                    "typeId": "a6",
+                                    "name": "B1"
                                 },
                                 {
                                     "by": "force-b3",
                                     "force": "force-b1",
-                                    "typeId": "a1"
+                                    "typeId": "a6",
+                                    "name": "B1"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-b1",
-                                    "typeId": "a1"
+                                    "typeId": "a6",
+                                    "name": "B1"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-b1",
-                                    "typeId": "a1"
+                                    "typeId": "a6",
+                                    "name": "B1"
                                 },
                                 {
                                     "by": "force-r2",
                                     "force": "force-b1",
-                                    "typeId": "a1"
+                                    "typeId": "a6",
+                                    "name": "B1"
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-de",
+                                    "value": 0,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-de",
+                                    "value": 16,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ],
                             "position": "89195012a6bffff",
                             "plannedTurns": [
                                 {
@@ -404,9 +391,6 @@ const wargame: Wargame =
                                     "route": [
                                         "89195012a6bffff",
                                         "89195010cd3ffff",
-                                        "89195010cd3ffff",
-                                        "89195010cd3ffff",
-                                        "89195010cc3ffff",
                                         "89195010cc3ffff"
                                     ],
                                     "status": {
@@ -420,8 +404,6 @@ const wargame: Wargame =
                                         "89195010cc3ffff",
                                         "89195010ccfffff",
                                         "89195010cc7ffff",
-                                        "89195010cc7ffff",
-                                        "89195010c1bffff",
                                         "89195010c1bffff"
                                     ],
                                     "status": {
@@ -433,9 +415,6 @@ const wargame: Wargame =
                                     "turn": 5,
                                     "route": [
                                         "89195010c03ffff",
-                                        "89195010c03ffff",
-                                        "89195010c03ffff",
-                                        "89195010c07ffff",
                                         "89195010c07ffff",
                                         "89195010c3bffff"
                                     ],
@@ -450,10 +429,8 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "89195012a4fffff",
-                                        "89195012a4fffff",
                                         "89195012a7bffff",
                                         "891950101b7ffff",
-                                        "89195012a6bffff",
                                         "89195012a6bffff"
                                     ],
                                     "status": {
@@ -491,40 +468,40 @@ const wargame: Wargame =
                             "uniqid": "al6506vlq",
                             "contactId": "C813",
                             "name": "B2",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
                                     "by": "force-b1",
                                     "force": "force-b2",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B2"
                                 },
                                 {
                                     "by": "force-b3",
                                     "force": "force-b2",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B2"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-b2",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B2"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-b2",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B2"
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
                             "position": "89195010627ffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
                                         "89195010627ffff",
-                                        "89195010627ffff",
-                                        "8919501005bffff",
                                         "8919501005bffff"
                                     ],
                                     "status": {
@@ -535,8 +512,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "89195010043ffff",
-                                        "89195010043ffff",
                                         "89195010043ffff",
                                         "89195010047ffff"
                                     ],
@@ -549,8 +524,6 @@ const wargame: Wargame =
                                     "turn": 5,
                                     "route": [
                                         "89195010047ffff",
-                                        "8919501007bffff",
-                                        "8919501007bffff",
                                         "8919501007bffff"
                                     ],
                                     "status": {
@@ -562,8 +535,6 @@ const wargame: Wargame =
                                     "turn": 6,
                                     "route": [
                                         "89195010063ffff",
-                                        "89195010063ffff",
-                                        "8919501006fffff",
                                         "8919501006fffff"
                                     ],
                                     "status": {
@@ -574,8 +545,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "8919501039bffff",
-                                        "8919501039bffff",
                                         "8919501039bffff",
                                         "8919501038bffff"
                                     ],
@@ -588,8 +557,6 @@ const wargame: Wargame =
                                     "turn": 8,
                                     "route": [
                                         "8919501038bffff",
-                                        "8919501038fffff",
-                                        "8919501038fffff",
                                         "8919501038fffff"
                                     ],
                                     "status": {
@@ -604,7 +571,6 @@ const wargame: Wargame =
                                     "route": [
                                         "89195010633ffff",
                                         "89195010623ffff",
-                                        "89195010623ffff",
                                         "89195010627ffff"
                                     ],
                                     "status": {
@@ -616,7 +582,19 @@ const wargame: Wargame =
                             "status": {
                                 "state": "Transiting",
                                 "speedKts": 6
-                            }
+                            },
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-fr",
+                                    "value": 240,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-fr",
+                                    "value": 13,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ]
                         }
                     ]
                 },
@@ -642,47 +620,60 @@ const wargame: Wargame =
                             "uniqid": "al65088ae",
                             "contactId": "C166",
                             "name": "B3",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
                                     "by": "force-b1",
                                     "force": "force-b3",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B3"
                                 },
                                 {
                                     "by": "force-b2",
                                     "force": "force-b3",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B3"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-b3",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B3"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-b3",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B3"
                                 },
                                 {
                                     "by": "force-r2",
                                     "force": "force-b3",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B3"
                                 },
                                 {
                                     "by": "force-green"
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-fr",
+                                    "value": 120,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-fr",
+                                    "value": 17,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ],
                             "position": "89195012c13ffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195012c03ffff",
-                                        "89195012c03ffff",
                                         "89195012c03ffff",
                                         "89195012c07ffff"
                                     ],
@@ -696,7 +687,6 @@ const wargame: Wargame =
                                     "route": [
                                         "89195012c07ffff",
                                         "89195012c3bffff",
-                                        "89195012c3bffff",
                                         "89195012c23ffff"
                                     ],
                                     "status": {
@@ -708,8 +698,6 @@ const wargame: Wargame =
                                     "turn": 5,
                                     "route": [
                                         "89195012c23ffff",
-                                        "89195012c23ffff",
-                                        "89195012c2fffff",
                                         "89195012c2fffff"
                                     ],
                                     "status": {
@@ -720,8 +708,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 6,
                                     "route": [
-                                        "89195012d5bffff",
-                                        "89195012d5bffff",
                                         "89195012d5bffff",
                                         "89195012d43ffff"
                                     ],
@@ -734,8 +720,6 @@ const wargame: Wargame =
                                     "turn": 7,
                                     "route": [
                                         "89195012d43ffff",
-                                        "89195012d4fffff",
-                                        "89195012d4fffff",
                                         "89195012d4fffff"
                                     ],
                                     "status": {
@@ -747,8 +731,6 @@ const wargame: Wargame =
                                     "turn": 8,
                                     "route": [
                                         "89195012d7bffff",
-                                        "89195012d7bffff",
-                                        "89195012d6bffff",
                                         "89195012d6bffff"
                                     ],
                                     "status": {
@@ -759,8 +741,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 9,
                                     "route": [
-                                        "89195012d6fffff",
-                                        "89195012d6fffff",
                                         "89195012d6fffff",
                                         "891950129d7ffff"
                                     ],
@@ -773,8 +753,6 @@ const wargame: Wargame =
                                     "turn": 10,
                                     "route": [
                                         "891950129d7ffff",
-                                        "8919501298bffff",
-                                        "8919501298bffff",
                                         "8919501298bffff"
                                     ],
                                     "status": {
@@ -786,8 +764,6 @@ const wargame: Wargame =
                                     "turn": 11,
                                     "route": [
                                         "8919501298fffff",
-                                        "8919501298fffff",
-                                        "89195012917ffff",
                                         "89195012917ffff"
                                     ],
                                     "status": {
@@ -799,7 +775,6 @@ const wargame: Wargame =
                                     "turn": 12,
                                     "route": [
                                         "89195012917ffff",
-                                        "891950129abffff",
                                         "891950129abffff",
                                         "89195012933ffff"
                                     ],
@@ -814,8 +789,6 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "89195012cc7ffff",
-                                        "89195012cc7ffff",
-                                        "89195012c13ffff",
                                         "89195012c13ffff"
                                     ],
                                     "status": {
@@ -853,46 +826,60 @@ const wargame: Wargame =
                             "uniqid": "al6509vwo",
                             "contactId": "C101",
                             "name": "B4",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
                                     "by": "force-b1",
                                     "force": "force-b4",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B4"
                                 },
                                 {
                                     "by": "force-b2",
                                     "force": "force-b4",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B4"
                                 },
                                 {
                                     "by": "force-b3",
                                     "force": "force-b4",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B4"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-b4",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B4"
                                 },
                                 {
                                     "by": "force-r2",
-                                    "force": "force-b4"
+                                    "force": "force-b4",
+                                    "name": "B4"
                                 },
                                 {
-                                    "by": "force-green"
+                                    "by": "force-green",
+                                    "name": "B4"
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-fr",
+                                    "value": 180,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-fr",
+                                    "value": 12,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ],
                             "position": "8919501280bffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195012873ffff",
-                                        "89195012873ffff",
                                         "89195012873ffff",
                                         "89195012877ffff"
                                     ],
@@ -906,7 +893,6 @@ const wargame: Wargame =
                                     "route": [
                                         "89195012877ffff",
                                         "89195012867ffff",
-                                        "89195012867ffff",
                                         "89195012b93ffff"
                                     ],
                                     "status": {
@@ -918,10 +904,7 @@ const wargame: Wargame =
                                     "turn": 5,
                                     "route": [
                                         "89195012b93ffff",
-                                        "89195012b93ffff",
                                         "89195012b97ffff",
-                                        "89195012b97ffff",
-                                        "89195012b87ffff",
                                         "89195012b87ffff"
                                     ],
                                     "status": {
@@ -933,9 +916,6 @@ const wargame: Wargame =
                                     "turn": 6,
                                     "route": [
                                         "89195012bb3ffff",
-                                        "89195012bb3ffff",
-                                        "89195012bb3ffff",
-                                        "89195012bb7ffff",
                                         "89195012bb7ffff",
                                         "89195012ba7ffff"
                                     ],
@@ -948,8 +928,6 @@ const wargame: Wargame =
                                     "turn": 7,
                                     "route": [
                                         "89195012ba7ffff",
-                                        "891950176d3ffff",
-                                        "891950176d3ffff",
                                         "891950176d3ffff"
                                     ],
                                     "status": {
@@ -961,8 +939,6 @@ const wargame: Wargame =
                                     "turn": 8,
                                     "route": [
                                         "891950176d7ffff",
-                                        "891950176d7ffff",
-                                        "891950176c7ffff",
                                         "891950176c7ffff"
                                     ],
                                     "status": {
@@ -976,8 +952,6 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "89195012857ffff",
-                                        "89195012857ffff",
-                                        "8919501280bffff",
                                         "8919501280bffff"
                                     ],
                                     "status": {
@@ -1015,43 +989,56 @@ const wargame: Wargame =
                             "uniqid": "al650arbp",
                             "contactId": "C955",
                             "name": "B5",
-                            "platformType": "Frigate",
                             "platformTypeId": "a1",
                             "perceptions": [
                                 {
                                     "by": "force-b1",
                                     "force": "force-b5",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B5"
                                 },
                                 {
                                     "by": "force-b2",
                                     "force": "force-b5",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B5"
                                 },
                                 {
                                     "by": "force-b3",
                                     "force": "force-b5",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B5"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-b5",
-                                    "typeId": "a1"
+                                    "typeId": "a1",
+                                    "name": "B5"
                                 },
                                 {
-                                    "by": "force-green"
+                                    "by": "force-green",
+                                    "name": "B5"
                                 }
                             ],
                             "condition": "Working",
-                            "attributeValues": [],
+                            "attributeValues": [
+                                {
+                                    "attrId": "asdic-dir-fr",
+                                    "value": 300,
+                                    "attrType": "AttributeValueNumber"
+                                },
+                                {
+                                    "attrId": "attr-dep-fr",
+                                    "value": 16,
+                                    "attrType": "AttributeValueNumber"
+                                }
+                            ],
                             "position": "89195010387ffff",
                             "plannedTurns": [
                                 {
                                     "turn": 3,
                                     "route": [
                                         "891950103b3ffff",
-                                        "891950103b3ffff",
-                                        "891950103a3ffff",
                                         "891950103a3ffff"
                                     ],
                                     "status": {
@@ -1062,8 +1049,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "891950103a7ffff",
-                                        "891950103a7ffff",
                                         "891950103a7ffff",
                                         "89195010ed3ffff"
                                     ],
@@ -1077,7 +1062,6 @@ const wargame: Wargame =
                                     "route": [
                                         "89195010ed3ffff",
                                         "89195010ec3ffff",
-                                        "89195010ec3ffff",
                                         "89195010ec7ffff"
                                     ],
                                     "status": {
@@ -1089,8 +1073,6 @@ const wargame: Wargame =
                                     "turn": 6,
                                     "route": [
                                         "89195010ec7ffff",
-                                        "89195010ec7ffff",
-                                        "89195010e1bffff",
                                         "89195010e1bffff"
                                     ],
                                     "status": {
@@ -1101,8 +1083,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "89195010e03ffff",
-                                        "89195010e03ffff",
                                         "89195010e03ffff",
                                         "89195010e07ffff"
                                     ],
@@ -1115,7 +1095,6 @@ const wargame: Wargame =
                                     "turn": 8,
                                     "route": [
                                         "89195010e07ffff",
-                                        "89195010e3bffff",
                                         "89195010e3bffff",
                                         "89195010e23ffff"
                                     ],
@@ -1130,8 +1109,6 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "89195010383ffff",
-                                        "89195010387ffff",
-                                        "89195010387ffff",
                                         "89195010387ffff"
                                     ],
                                     "status": {
@@ -1169,19 +1146,18 @@ const wargame: Wargame =
                             "uniqid": "al650d18r",
                             "contactId": "C347",
                             "name": "R1",
-                            "platformType": "SSK",
                             "platformTypeId": "a7",
                             "perceptions": [],
                             "condition": "Working",
                             "attributeValues": [
                                 {
-                                    "attrId": "ssk-depth",
-                                    "value": "Deep",
-                                    "attrType": "AttributeValueEnum"
+                                    "attrId": "attr-torp-ford",
+                                    "value": 3,
+                                    "attrType": "AttributeValueNumber"
                                 },
                                 {
-                                    "attrId": "attrl63lsyql",
-                                    "value": 12,
+                                    "attrId": "attr-torp-aft",
+                                    "value": 1,
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
@@ -1252,25 +1228,25 @@ const wargame: Wargame =
                             "uniqid": "al650dmnf",
                             "contactId": "C025",
                             "name": "R2",
-                            "platformType": "SSK",
                             "platformTypeId": "a7",
                             "perceptions": [
                                 {
                                     "by": "force-r1",
                                     "force": "force-r2",
-                                    "typeId": "a7"
+                                    "typeId": "a7",
+                                    "name": "R2"
                                 }
                             ],
                             "condition": "Working",
                             "attributeValues": [
                                 {
-                                    "attrId": "ssk-depth",
-                                    "value": "Deep",
-                                    "attrType": "AttributeValueEnum"
+                                    "attrId": "attr-torp-ford",
+                                    "value": 3,
+                                    "attrType": "AttributeValueNumber"
                                 },
                                 {
-                                    "attrId": "attrl63lsyql",
-                                    "value": 12,
+                                    "attrId": "attr-torp-aft",
+                                    "value": 1,
                                     "attrType": "AttributeValueNumber"
                                 }
                             ],
@@ -1319,30 +1295,34 @@ const wargame: Wargame =
                                 {
                                     "by": "force-b1",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G1"
                                 },
                                 {
                                     "by": "force-b2",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G1"
                                 },
                                 {
                                     "by": "force-b3",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G1"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G1"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G1"
                                 }
                             ],
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "uniqid": "al63ltw3g",
                             "position": "8919501214bffff",
@@ -1364,8 +1344,6 @@ const wargame: Wargame =
                                     "turn": 4,
                                     "route": [
                                         "891950123b7ffff",
-                                        "891950123b7ffff",
-                                        "8919501216bffff",
                                         "8919501216bffff"
                                     ],
                                     "status": {
@@ -1377,8 +1355,6 @@ const wargame: Wargame =
                                     "turn": 5,
                                     "route": [
                                         "89195012ed3ffff",
-                                        "89195012ed3ffff",
-                                        "89195012ed7ffff",
                                         "89195012ed7ffff"
                                     ],
                                     "status": {
@@ -1403,8 +1379,6 @@ const wargame: Wargame =
                                     "turn": 7,
                                     "route": [
                                         "89195012e13ffff",
-                                        "89195012e13ffff",
-                                        "89195012e17ffff",
                                         "89195012e17ffff"
                                     ],
                                     "status": {
@@ -1415,8 +1389,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "89195012e07ffff",
-                                        "89195012e07ffff",
                                         "89195012e07ffff",
                                         "89195012e33ffff"
                                     ],
@@ -1430,7 +1402,6 @@ const wargame: Wargame =
                                     "route": [
                                         "89195012e33ffff",
                                         "89195012e23ffff",
-                                        "89195012e23ffff",
                                         "89195012e27ffff"
                                     ],
                                     "status": {
@@ -1442,8 +1413,6 @@ const wargame: Wargame =
                                     "turn": 10,
                                     "route": [
                                         "89195012e27ffff",
-                                        "89195012e27ffff",
-                                        "89195012853ffff",
                                         "89195012853ffff"
                                     ],
                                     "status": {
@@ -1455,8 +1424,6 @@ const wargame: Wargame =
                                     "turn": 11,
                                     "route": [
                                         "89195012843ffff",
-                                        "89195012843ffff",
-                                        "89195012847ffff",
                                         "89195012847ffff"
                                     ],
                                     "status": {
@@ -1481,8 +1448,6 @@ const wargame: Wargame =
                                     "turn": 13,
                                     "route": [
                                         "89195012863ffff",
-                                        "89195012863ffff",
-                                        "89195012867ffff",
                                         "89195012867ffff"
                                     ],
                                     "status": {
@@ -1496,8 +1461,6 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "8919501215bffff",
-                                        "8919501215bffff",
-                                        "8919501214bffff",
                                         "8919501214bffff"
                                     ],
                                     "status": {
@@ -1520,30 +1483,34 @@ const wargame: Wargame =
                                 {
                                     "by": "force-b1",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G2"
                                 },
                                 {
                                     "by": "force-b2",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G2"
                                 },
                                 {
                                     "by": "force-b3",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G2"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G2"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G2"
                                 }
                             ],
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "uniqid": "al63ltwtw",
                             "position": "89195010583ffff",
@@ -1565,8 +1532,6 @@ const wargame: Wargame =
                                     "turn": 4,
                                     "route": [
                                         "891950105bbffff",
-                                        "891950105bbffff",
-                                        "891950105abffff",
                                         "891950105abffff"
                                     ],
                                     "status": {
@@ -1577,8 +1542,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "891950105afffff",
-                                        "891950105afffff",
                                         "891950105afffff",
                                         "89195010537ffff"
                                     ],
@@ -1591,8 +1554,6 @@ const wargame: Wargame =
                                     "turn": 6,
                                     "route": [
                                         "89195010537ffff",
-                                        "89195012acbffff",
-                                        "89195012acbffff",
                                         "89195012acbffff"
                                     ],
                                     "status": {
@@ -1604,8 +1565,6 @@ const wargame: Wargame =
                                     "turn": 7,
                                     "route": [
                                         "89195012acfffff",
-                                        "89195012acfffff",
-                                        "89195012a57ffff",
                                         "89195012a57ffff"
                                     ],
                                     "status": {
@@ -1616,8 +1575,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 8,
                                     "route": [
-                                        "89195012a0bffff",
-                                        "89195012a0bffff",
                                         "89195012a0bffff",
                                         "89195012a73ffff"
                                     ],
@@ -1630,8 +1587,6 @@ const wargame: Wargame =
                                     "turn": 9,
                                     "route": [
                                         "89195012a73ffff",
-                                        "89195012a77ffff",
-                                        "89195012a77ffff",
                                         "89195012a77ffff"
                                     ],
                                     "status": {
@@ -1643,8 +1598,6 @@ const wargame: Wargame =
                                     "turn": 10,
                                     "route": [
                                         "89195012a2bffff",
-                                        "89195012a2bffff",
-                                        "89195010c93ffff",
                                         "89195010c93ffff"
                                     ],
                                     "status": {
@@ -1658,8 +1611,6 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "8919501059bffff",
-                                        "8919501059bffff",
-                                        "89195010583ffff",
                                         "89195010583ffff"
                                     ],
                                     "status": {
@@ -1677,33 +1628,37 @@ const wargame: Wargame =
                             "uniqid": "al650ez1f",
                             "contactId": "C632",
                             "name": "G3",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
                                     "by": "force-b1",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G3"
                                 },
                                 {
                                     "by": "force-b2",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G3"
                                 },
                                 {
                                     "by": "force-b3",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G3"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G3"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G3"
                                 },
                                 {
                                     "by": "force-r2",
@@ -1719,8 +1674,6 @@ const wargame: Wargame =
                                     "turn": 3,
                                     "route": [
                                         "89195012e1bffff",
-                                        "89195012e1bffff",
-                                        "89195012e03ffff",
                                         "89195012e03ffff"
                                     ],
                                     "status": {
@@ -1732,8 +1685,6 @@ const wargame: Wargame =
                                     "turn": 4,
                                     "route": [
                                         "89195012e0fffff",
-                                        "89195012e0fffff",
-                                        "89195012e3bffff",
                                         "89195012e3bffff"
                                     ],
                                     "status": {
@@ -1758,8 +1709,6 @@ const wargame: Wargame =
                                     "turn": 6,
                                     "route": [
                                         "89195012e2fffff",
-                                        "89195012e2fffff",
-                                        "8919501285bffff",
                                         "8919501285bffff"
                                     ],
                                     "status": {
@@ -1770,8 +1719,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "8919501284bffff",
-                                        "8919501284bffff",
                                         "8919501284bffff",
                                         "8919501284fffff"
                                     ],
@@ -1785,7 +1732,6 @@ const wargame: Wargame =
                                     "route": [
                                         "8919501284fffff",
                                         "89195012ab7ffff",
-                                        "89195012ab7ffff",
                                         "8919501286bffff"
                                     ],
                                     "status": {
@@ -1797,8 +1743,6 @@ const wargame: Wargame =
                                     "turn": 9,
                                     "route": [
                                         "8919501286bffff",
-                                        "8919501286bffff",
-                                        "8919501286fffff",
                                         "8919501286fffff"
                                     ],
                                     "status": {
@@ -1809,8 +1753,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "89195012bd7ffff",
-                                        "89195012bd7ffff",
                                         "89195012bd7ffff",
                                         "89195012b8bffff"
                                     ],
@@ -1823,7 +1765,6 @@ const wargame: Wargame =
                                     "turn": 11,
                                     "route": [
                                         "89195012b8bffff",
-                                        "89195012b13ffff",
                                         "89195012b13ffff",
                                         "89195012b17ffff"
                                     ],
@@ -1838,7 +1779,6 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "89195012ec3ffff",
-                                        "89195012ecfffff",
                                         "89195012ecfffff",
                                         "89195012e1bffff"
                                     ],
@@ -1857,34 +1797,37 @@ const wargame: Wargame =
                             "uniqid": "al650f5k2",
                             "contactId": "C404",
                             "name": "G4",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
                                     "by": "force-b2",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G4"
                                 },
                                 {
                                     "by": "force-b3",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G4"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G4"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G4"
                                 },
                                 {
                                     "by": "force-b1",
                                     "force": "force-green",
                                     "typeId": "a13",
-                                    "name": "C404"
+                                    "name": "G4"
                                 }
                             ],
                             "condition": "Working",
@@ -1908,8 +1851,6 @@ const wargame: Wargame =
                                     "turn": 4,
                                     "route": [
                                         "89195010087ffff",
-                                        "89195010087ffff",
-                                        "891950100bbffff",
                                         "891950100bbffff"
                                     ],
                                     "status": {
@@ -1921,8 +1862,6 @@ const wargame: Wargame =
                                     "turn": 5,
                                     "route": [
                                         "891950100bbffff",
-                                        "891950100abffff",
-                                        "891950100abffff",
                                         "891950100abffff"
                                     ],
                                     "status": {
@@ -1934,8 +1873,6 @@ const wargame: Wargame =
                                     "turn": 6,
                                     "route": [
                                         "89195010033ffff",
-                                        "89195010033ffff",
-                                        "89195010037ffff",
                                         "89195010037ffff"
                                     ],
                                     "status": {
@@ -1948,7 +1885,6 @@ const wargame: Wargame =
                                     "route": [
                                         "89195010037ffff",
                                         "891950101cbffff",
-                                        "891950101cbffff",
                                         "89195010153ffff"
                                     ],
                                     "status": {
@@ -1960,8 +1896,6 @@ const wargame: Wargame =
                                     "turn": 8,
                                     "route": [
                                         "89195010153ffff",
-                                        "89195010157ffff",
-                                        "89195010157ffff",
                                         "89195010157ffff"
                                     ],
                                     "status": {
@@ -1973,8 +1907,6 @@ const wargame: Wargame =
                                     "turn": 9,
                                     "route": [
                                         "8919501010bffff",
-                                        "8919501010bffff",
-                                        "89195010173ffff",
                                         "89195010173ffff"
                                     ],
                                     "status": {
@@ -1985,8 +1917,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "89195010177ffff",
-                                        "89195010177ffff",
                                         "89195010177ffff",
                                         "8919501012bffff"
                                     ],
@@ -2001,8 +1931,6 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "8919501042bffff",
-                                        "8919501042bffff",
-                                        "89195010093ffff",
                                         "89195010093ffff"
                                     ],
                                     "status": {
@@ -2020,33 +1948,37 @@ const wargame: Wargame =
                             "uniqid": "al650f123",
                             "contactId": "C604",
                             "name": "G5",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
                                     "by": "force-b1",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G5"
                                 },
                                 {
                                     "by": "force-b2",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G5"
                                 },
                                 {
                                     "by": "force-b3",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G5"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G5"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G5"
                                 }
                             ],
                             "condition": "Working",
@@ -2057,8 +1989,6 @@ const wargame: Wargame =
                                     "turn": 3,
                                     "route": [
                                         "8919501231bffff",
-                                        "8919501231bffff",
-                                        "89195012303ffff",
                                         "89195012303ffff"
                                     ],
                                     "status": {
@@ -2069,8 +1999,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 4,
                                     "route": [
-                                        "8919501230fffff",
-                                        "8919501230fffff",
                                         "8919501230fffff",
                                         "8919501233bffff"
                                     ],
@@ -2084,7 +2012,6 @@ const wargame: Wargame =
                                     "route": [
                                         "8919501233bffff",
                                         "8919501232bffff",
-                                        "8919501232bffff",
                                         "8919501232fffff"
                                     ],
                                     "status": {
@@ -2096,8 +2023,6 @@ const wargame: Wargame =
                                     "turn": 6,
                                     "route": [
                                         "8919501232fffff",
-                                        "8919501232fffff",
-                                        "89195010597ffff",
                                         "89195010597ffff"
                                     ],
                                     "status": {
@@ -2108,8 +2033,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 7,
                                     "route": [
-                                        "89195012e4bffff",
-                                        "89195012e4bffff",
                                         "89195012e4bffff",
                                         "89195012e4fffff"
                                     ],
@@ -2123,7 +2046,6 @@ const wargame: Wargame =
                                     "route": [
                                         "89195012e4fffff",
                                         "891950105b7ffff",
-                                        "891950105b7ffff",
                                         "89195012e6bffff"
                                     ],
                                     "status": {
@@ -2135,8 +2057,6 @@ const wargame: Wargame =
                                     "turn": 9,
                                     "route": [
                                         "89195012e6bffff",
-                                        "89195012e6bffff",
-                                        "89195012e6fffff",
                                         "89195012e6fffff"
                                     ],
                                     "status": {
@@ -2148,8 +2068,6 @@ const wargame: Wargame =
                                     "turn": 10,
                                     "route": [
                                         "89195012ad7ffff",
-                                        "89195012ad7ffff",
-                                        "89195012a8bffff",
                                         "89195012a8bffff"
                                     ],
                                     "status": {
@@ -2174,8 +2092,6 @@ const wargame: Wargame =
                                     "turn": 12,
                                     "route": [
                                         "89195012a17ffff",
-                                        "89195012a17ffff",
-                                        "89195012aabffff",
                                         "89195012aabffff"
                                     ],
                                     "status": {
@@ -2187,8 +2103,6 @@ const wargame: Wargame =
                                     "turn": 13,
                                     "route": [
                                         "89195012a33ffff",
-                                        "89195012a33ffff",
-                                        "89195012a37ffff",
                                         "89195012a37ffff"
                                     ],
                                     "status": {
@@ -2200,7 +2114,6 @@ const wargame: Wargame =
                                     "turn": 14,
                                     "route": [
                                         "89195012a37ffff",
-                                        "89195012bcbffff",
                                         "89195012bcbffff",
                                         "89195012b53ffff"
                                     ],
@@ -2215,7 +2128,6 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "891950123c3ffff",
-                                        "891950123cfffff",
                                         "891950123cfffff",
                                         "8919501231bffff"
                                     ],
@@ -2234,41 +2146,37 @@ const wargame: Wargame =
                             "uniqid": "al650f456",
                             "contactId": "C914",
                             "name": "G6",
-                            "platformType": "Merchant vessel",
                             "platformTypeId": "a13",
                             "perceptions": [
                                 {
                                     "by": "force-b3",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G6"
                                 },
                                 {
                                     "by": "force-b4",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G6"
                                 },
                                 {
                                     "by": "force-b5",
                                     "force": "force-green",
-                                    "typeId": "a13"
+                                    "typeId": "a13",
+                                    "name": "G6"
                                 },
                                 {
                                     "by": "force-b1",
                                     "force": "force-green",
                                     "typeId": "a13",
-                                    "name": "C914"
-                                },
-                                {
-                                    "by": "fl6506vlo",
-                                    "force": "force-green",
-                                    "typeId": "a13",
-                                    "name": "C914"
+                                    "name": "G6"
                                 },
                                 {
                                     "by": "force-b2",
                                     "force": "force-green",
                                     "typeId": "a13",
-                                    "name": "C914"
+                                    "name": "G6"
                                 }
                             ],
                             "condition": "Working",
@@ -2278,8 +2186,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 3,
                                     "route": [
-                                        "89195010413ffff",
-                                        "89195010413ffff",
                                         "89195010413ffff",
                                         "89195010403ffff"
                                     ],
@@ -2292,8 +2198,6 @@ const wargame: Wargame =
                                     "turn": 4,
                                     "route": [
                                         "89195010403ffff",
-                                        "89195010407ffff",
-                                        "89195010407ffff",
                                         "89195010407ffff"
                                     ],
                                     "status": {
@@ -2304,8 +2208,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 5,
                                     "route": [
-                                        "8919501043bffff",
-                                        "8919501043bffff",
                                         "8919501043bffff",
                                         "89195010423ffff"
                                     ],
@@ -2318,8 +2220,6 @@ const wargame: Wargame =
                                     "turn": 6,
                                     "route": [
                                         "89195010423ffff",
-                                        "8919501042fffff",
-                                        "8919501042fffff",
                                         "8919501042fffff"
                                     ],
                                     "status": {
@@ -2331,8 +2231,6 @@ const wargame: Wargame =
                                     "turn": 7,
                                     "route": [
                                         "8919501055bffff",
-                                        "8919501055bffff",
-                                        "8919501054bffff",
                                         "8919501054bffff"
                                     ],
                                     "status": {
@@ -2357,8 +2255,6 @@ const wargame: Wargame =
                                     "turn": 9,
                                     "route": [
                                         "891950100b7ffff",
-                                        "891950100b7ffff",
-                                        "8919501056bffff",
                                         "8919501056bffff"
                                     ],
                                     "status": {
@@ -2369,8 +2265,6 @@ const wargame: Wargame =
                                 {
                                     "turn": 10,
                                     "route": [
-                                        "891950101d3ffff",
-                                        "891950101d3ffff",
                                         "891950101d3ffff",
                                         "891950101d7ffff"
                                     ],
@@ -2383,8 +2277,6 @@ const wargame: Wargame =
                                     "turn": 11,
                                     "route": [
                                         "891950101d7ffff",
-                                        "891950101c7ffff",
-                                        "891950101c7ffff",
                                         "891950101c7ffff"
                                     ],
                                     "status": {
@@ -2396,8 +2288,6 @@ const wargame: Wargame =
                                     "turn": 12,
                                     "route": [
                                         "89195010113ffff",
-                                        "89195010113ffff",
-                                        "89195010103ffff",
                                         "89195010103ffff"
                                     ],
                                     "status": {
@@ -2424,8 +2314,6 @@ const wargame: Wargame =
                                     "turn": 2,
                                     "route": [
                                         "891950104d7ffff",
-                                        "891950104d7ffff",
-                                        "891950104c7ffff",
                                         "891950104c7ffff"
                                     ],
                                     "status": {
@@ -2465,6 +2353,7 @@ const wargame: Wargame =
             "hideForcesInChannels": true,
             "realtimeTurnTime": 300000,
             "showAccessCodes": true,
+            "logPlayerActivity": true,
             "timeWarning": 60000
         },
         "platformTypes": {
@@ -2509,12 +2398,10 @@ const wargame: Wargame =
                     ],
                     "travelMode": "sea",
                     "uniqid": "a1",
-                    "turningCircle": 400
-                },
-                {
+                    "turningCircle": 400,
                     "attributeTypes": [
                         {
-                            "attrId": "asdic-dir",
+                            "attrId": "asdic-dir-fr",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 0,
                             "description": "ASDIC orientation (absolute)",
@@ -2522,12 +2409,36 @@ const wargame: Wargame =
                             "name": "ASDIC"
                         },
                         {
-                            "attrId": "att-torpedoes",
+                            "name": "Charges",
                             "attrType": "AttributeTypeNumber",
-                            "defaultValue": 20,
-                            "description": "Number of torpedoes remaining",
-                            "editableByPlayer": false,
-                            "name": "Torpedoes"
+                            "attrId": "attr-dep-fr",
+                            "description": "Depth charges remaining",
+                            "defaultValue": 16
+                        }
+                    ],
+                    "orientation": [
+                        {
+                            "attribute": "asdic-dir-fr",
+                            "origin": "absolute"
+                        },
+                        {}
+                    ]
+                },
+                {
+                    "attributeTypes": [
+                        {
+                            "attrId": "asdic-dir-de",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 0,
+                            "description": "ASDIC orientation (absolute)",
+                            "editableByPlayer": true,
+                            "name": "ASDIC"
+                        },
+                        {
+                            "name": "Charges",
+                            "attrType": "AttributeTypeNumber",
+                            "attrId": "attr-dep-de",
+                            "description": "# of Depth Charges remaining"
                         }
                     ],
                     "conditions": [
@@ -2539,7 +2450,7 @@ const wargame: Wargame =
                     "name": "Destroyer",
                     "orientation": [
                         {
-                            "attribute": "asdic-dir",
+                            "attribute": "asdic-dir-de",
                             "origin": "absolute"
                         },
                         {}
@@ -2572,24 +2483,18 @@ const wargame: Wargame =
                 {
                     "attributeTypes": [
                         {
-                            "attrId": "ssk-depth",
-                            "attrType": "AttributeTypeEnum",
-                            "defaultValue": "Deep",
-                            "description": "Depth",
-                            "editableByPlayer": true,
-                            "name": "Depth",
-                            "values": [
-                                "Deep",
-                                "PD",
-                                "Shallow"
-                            ]
+                            "attrId": "attr-torp-ford",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 4,
+                            "description": "# of Forward-facing Torpedoes remaining",
+                            "name": "For'd Torp"
                         },
                         {
-                            "attrId": "attrl63lsyql",
+                            "attrId": "attr-torp-aft",
                             "attrType": "AttributeTypeNumber",
-                            "defaultValue": 12,
-                            "description": "# of Torpedoes remaining",
-                            "name": "Torpedoes"
+                            "defaultValue": 4,
+                            "description": "# of Aft-facing Torpedoes remaining",
+                            "name": "Aft Torp"
                         }
                     ],
                     "conditions": [
@@ -2611,16 +2516,44 @@ const wargame: Wargame =
                     ],
                     "states": [
                         {
-                            "mobile": true,
-                            "name": "Transiting"
+                            "mobile": false,
+                            "name": "Deep stationary"
                         },
                         {
                             "mobile": true,
-                            "name": "Aggressove"
+                            "name": "Deep transit"
                         },
                         {
                             "mobile": true,
-                            "name": "Evasive"
+                            "name": "Deep evade"
+                        },
+                        {
+                            "mobile": false,
+                            "name": "PD stationary"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "PD search"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "PD evade"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "PD launch torpedoes"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Surface search"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Surface attack"
+                        },
+                        {
+                            "mobile": true,
+                            "name": "Surface evade"
                         }
                     ],
                     "travelMode": "sea",
@@ -2657,11 +2590,24 @@ const wargame: Wargame =
             "selectedType": ""
         },
         "annotations": {
-            "annotations": []
+            "annotations": [
+                {
+                    "uniqid": "al6ewkf68",
+                    "color": "#f00",
+                    "iconId": "flsh",
+                    "label": "Blue flash",
+                    "description": "Suspected explosive",
+                    "visibleTo": [
+                        "force-r1",
+                        "force-r2"
+                    ],
+                    "location": "89195010b47ffff"
+                }
+            ]
         }
     },
     "gameTurn": 2,
-    "name": "wargame-l28tfdz0",
+    "name": "wargame-l63jlces",
     "phase": "planning",
     "turnEndTime": "2022-08-02T12:08:59+01:00",
     "wargameInitiated": true,

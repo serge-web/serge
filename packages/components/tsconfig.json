@@ -20,6 +20,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "allowJs": false,
     "baseUrl": ".",
     "paths": {
       "@serge/*": ["../"]

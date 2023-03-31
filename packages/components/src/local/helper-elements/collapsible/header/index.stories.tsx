@@ -25,6 +25,7 @@ const onClick = (): void => {
 
 export const Default: React.FC = () => <CollapsibleHeader onClick={onClick}>Header</CollapsibleHeader>
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

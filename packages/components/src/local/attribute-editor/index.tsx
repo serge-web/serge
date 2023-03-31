@@ -1,20 +1,20 @@
-import Button from '@material-ui/core/Button'
-import { AttributeEditorData, AttributeType, AttributeTypes, AttributeValue, AttributeValues, EnumAttributeType, EnumAttributeValue, NumberAttributeValue } from '@serge/custom-types'
-import cloneDeep from 'lodash/cloneDeep'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Select } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER, ATTRIBUTE_VALUE_STRING } from '@serge/config'
+import { AttributeEditorData, AttributeType, AttributeTypes, AttributeValue, AttributeValues, EnumAttributeType, EnumAttributeValue, NumberAttributeValue, StringAttributeValue } from '@serge/custom-types'
+import cloneDeep from 'lodash/cloneDeep'
 import React, { useEffect, useRef, useState } from 'react'
 import Modal from 'react-modal'
 import MoreInfo from '../molecules/more-info'
 import styles from './styles.module.scss'
 import { Props } from './types/props'
-import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-import { MenuItem, Select } from '@material-ui/core'
 
 /* Render component */
 export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes: attributes, onClose, onSave, inAdjudication }) => {
   const [localData, setLocalData] = useState<AttributeEditorData[]>([])
-  const modalRef = useRef<ReactModal>(null)
+  const modalRef = useRef<Modal>(null)
 
   useEffect(() => {
     if (isOpen) {
@@ -58,6 +58,14 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes:
         }
         return res
       }
+      case ATTRIBUTE_VALUE_STRING: {
+        const res: StringAttributeValue = {
+          attrId: data.attrId,
+          attrType: ATTRIBUTE_VALUE_STRING,
+          value: data.valueWrite
+        }
+        return res
+      }
     }
   }
 
@@ -72,20 +80,27 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes:
 
   const editorFor = (item: AttributeEditorData, attributes: AttributeTypes, idx: number): any => {
     switch (item.valueType) {
-      case ATTRIBUTE_VALUE_NUMBER: {
+      case ATTRIBUTE_VALUE_STRING: {
         return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
+      }
+      case ATTRIBUTE_VALUE_NUMBER: {
+        return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(parseInt(e.target.value), idx)} />
       }
       case ATTRIBUTE_VALUE_ENUM: {
         const aType = attributes && attributes.find((value: AttributeType) => value.attrId === item.attrId) as EnumAttributeType
         if (aType === undefined) {
           throw new Error('Failed to find attribute type for:' + item.attrId)
         }
-        return <Select value={item.valueRead}
+        return <Select
+          value={item.valueRead}
           onChange={enumChangeHandler}
           name={item.attrId}
+          className={styles.select}
+          inputProps={{ style: { padding: '0 5px 0 5px' } }}
+          native
         >
           {aType.values.map((s: any, index: number) => (
-            <MenuItem key={index} value={s}>{s}</MenuItem>
+            <option key={index} value={s}>{s}</option>
           ))}
         </Select>
       }
@@ -115,7 +130,7 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes:
             <span>{elmName}</span>
             {locked
               ? <span><FontAwesomeIcon icon={faLock} title="Attribute locked" /><input disabled={true} title={tooltip} value={item.valueWrite} /></span>
-              : editorFor(item, attributes, idx)
+              : editorFor(item, attributes || [], idx)
             }
           </div>
         })}

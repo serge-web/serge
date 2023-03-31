@@ -1,20 +1,16 @@
-import { 
-  serverPath,
-  databasePath,
-  socketPath,
-  replicate,
-  deletePath,
-  wargameSettings
+import {
+  databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, MessageInfoType, Wargame } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame, TurnPeriod, MessagePlanning } from '@serge/custom-types'
 import { io } from 'socket.io-client'
 import {
-  ProviderDbInterface,
   DbProviderInterface,
   FetchData,
-  FetchDataArray
+  FetchDataArray,
+  FetchDataLogs,
+  FetchReferenc, ProviderDbInterface,
+  FetchTurnPeriod
 } from './types'
-
 export class DbProvider implements DbProviderInterface {
   private provider: ProviderDbInterface
   name: string
@@ -35,7 +31,7 @@ export class DbProvider implements DbProviderInterface {
       // we use a special name for the wargame document
       const specialFiles = [wargameSettings]
       // have we just received this message?
-      if (!specialFiles.includes(data._id) && (this.message_ID === data._id)) {
+      if (!specialFiles.includes(data._id) && (this.message_ID === data._id) && !Array.isArray(data)) {
         // yes. warn maintainer but don't propagate message
         console.warn('duplicate message, skipping', data._id)
         // yes - stop listening on this socket
@@ -83,7 +79,9 @@ export class DbProvider implements DbProviderInterface {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(doc)
-      }).then((res) => resolve(res.json()))
+      }).then((res) => {
+        resolve(res.json())
+      })
     })
   }
 
@@ -99,6 +97,32 @@ export class DbProvider implements DbProviderInterface {
         })
     })
   }
+  
+  getPlayerLogs = (wargame: string, query: string): Promise<PlayerLogEntries> => {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + wargame + '/' + this.getDbName() + '/' + query)
+        .then(res => res.json() as Promise<FetchDataLogs>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data)
+          else reject(msg)
+        })
+    })
+  }
+
+  bulkDocs = (doc: PlayerLogEntries | MessagePlanning[]): Promise<{msg: string}> => {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + 'bulkDocs' + '/' + this.getDbName(), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(doc)
+      }).then((res) => {
+        resolve(res.json())
+      })
+    })  
+  }
 
   lastWargame (): Promise<MessageInfoType> {
     return new Promise((resolve, reject) => {
@@ -112,6 +136,30 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
+  getTurnPeriods (): Promise<TurnPeriod[]> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName() + '/' + 'turns')
+        .then(res => res.json() as Promise<FetchTurnPeriod>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data)
+          else reject(msg)
+        })
+    })
+  }
+
+  lastCounter (roleId: string, id: string): Promise<number> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName() + '/' + roleId + '/' + id + '/' + 'counter')
+        .then(res => res.json() as Promise<FetchReferenc>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data)
+          else reject(msg)
+        })
+    })
+  }
+  
   replicate (newDbProvider: { name: string, db: ProviderDbInterface }): Promise<DbProvider> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + replicate + `${this.getDbNameFromUrl(newDbProvider.name)}/${this.getDbName()}`)

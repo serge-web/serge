@@ -16,7 +16,7 @@ import * as h3 from 'h3-js'
 import styles from './styles.module.scss'
 
 /* Render component */
-export const Assets: React.FC<{}> = () => {
+export const Assets: React.FC = () => {
   // pull in some context (with TS definitions)
   const { props } = useContext(MapContext)
   if (typeof props === 'undefined') return null
@@ -32,7 +32,8 @@ export const Assets: React.FC<{}> = () => {
     map,
     viewport,
     h3Resolution,
-    assetLaydown
+    assetLaydown,
+    viewAsUmpire
   } = props
 
   const [visibleAssets, setVisibleAssets] = useState<AssetInfo[]>([])
@@ -93,9 +94,10 @@ export const Assets: React.FC<{}> = () => {
             if (assetForce) {
               const isSelected: boolean = selectedAsset !== undefined ? uniqid === selectedAsset.uniqid : false
               const orientData: OrientationData[] = []
-              thisPlatformType && thisPlatformType.orientation && thisPlatformType.orientation.forEach((marker: OrientationMarker) => {
+              const canViewOrientation = route.underControlByThisForce || viewAsUmpire
+              canViewOrientation && thisPlatformType && thisPlatformType.orientation && thisPlatformType.orientation.forEach((marker: OrientationMarker) => {
                 const orientation = orientationFor(route.currentPosition, route.history, route.planned, route.attributes, marker)
-                if (orientation) {
+                if (orientation !== undefined) {
                   const shadeOrientation = marker.attribute !== undefined
                   const newItem: OrientationData = {
                     orientation: orientation,
@@ -225,30 +227,32 @@ export const Assets: React.FC<{}> = () => {
 
   return <>
     <LayerGroup>{positionedAssets && positionedAssets.map((asset: AssetInfo) => {
-      return <MapIcon
-        key={'a_for_' + asset.uniqid}
-        name={asset.name}
-        orientationData={asset.orientationData}
-        contactId={asset.contactId}
-        uniqid={asset.uniqid}
-        position={asset.position}
-        typeId={asset.typeId}
-        selected={asset.selected}
-        condition={asset.condition}
-        status={asset.status}
-        visibleTo={asset.visibleTo}
-        force={asset.force}
-        perceivedForceColor={asset.perceivedForceColor}
-        tooltip={asset.name}
-        imageSrc={asset.iconUrl}
-        attributes={asset.attributes}
-        map={map}
-        markerDropped={markerDropped}
-        locationPending={asset.selected && forLaydown(asset.laydownPhase)} />
+      return (
+        <MapIcon
+          key={'a_for_' + asset.uniqid}
+          name={asset.name}
+          orientationData={asset.orientationData}
+          contactId={asset.contactId}
+          uniqid={asset.uniqid}
+          position={asset.position}
+          typeId={asset.typeId}
+          selected={asset.selected}
+          condition={asset.condition}
+          status={asset.status}
+          visibleTo={asset.visibleTo}
+          force={asset.force}
+          perceivedForceColor={asset.perceivedForceColor}
+          tooltip={asset.name}
+          imageSrc={asset.iconUrl}
+          attributes={asset.attributes}
+          map={map}
+          markerDropped={markerDropped}
+          locationPending={asset.selected && forLaydown(asset.laydownPhase)}
+        />
+      )
     })}
     {
-      penCentre &&
-      <>
+      penCentre && <>
         <Polygon
           key={'pending_area'}
           positions={pendingArea}

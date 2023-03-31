@@ -24,7 +24,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({
       {
         !hideForcesInChannel &&
         <Box mb={2} ml={2} mr={3}>
-          <ForcesInChannel messages={messages} names={names} colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
+          <ForcesInChannel messages={messages as MessageCustom[]} names={names} colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
         </Box>
       }
       <Box ml={2} className={styles['messages-list']}>

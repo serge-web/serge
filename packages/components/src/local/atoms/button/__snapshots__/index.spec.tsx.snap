@@ -2,7 +2,7 @@
 
 exports[`Button component: renders correctly 1`] = `
 <button
-  className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4"
+  className="MuiButtonBase-root MuiButton-root MuiButton-contained"
   disabled={false}
   onBlur={[Function]}
   onDragLeave={[Function]}

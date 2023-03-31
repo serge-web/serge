@@ -115,6 +115,8 @@ const injectFeedback = (message: MessageCustom, verb: string, feedback: string, 
   return message
 }
 
+type ModalHandlerFn = (message: MessageCustom) => void
+
 /* Render component */
 export const CollabMessageDetail: React.FC<Props> = ({
   templates, message, state, onChange, isObserver, isUmpire,
@@ -146,7 +148,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
   const [placeHolder, setPlaceHolder] = useState<string>(dialogModalStatus.placeHolder || '')
   const [content, setModalContent] = useState<string>(dialogModalStatus.content || '')
 
-  const [modalHandler, setModalHandler] = useState<{(message: MessageCustom): void } | undefined>()
+  const [modalHandler, setModalHandler] = useState<ModalHandlerFn>()
 
   const [openModalStatus, setOpenModalStatus] = useState<DialogModalStatus | undefined>(undefined)
 
@@ -354,6 +356,23 @@ export const CollabMessageDetail: React.FC<Props> = ({
       })
     })
 
+    // sort out the template for the JSON editor
+    let templateId: string | undefined
+    if (isResponse) {
+      if (canSeeResponse) {
+        templateId = channelCollab.responseTemplate?._id
+      } else {
+        templateId = channelCollab.newMessageTemplate?._id
+      }
+    } else {
+      templateId = channelCollab.newMessageTemplate?._id
+    }
+    if (!templateId) {
+      return <></>
+    }
+
+    const template = templates[templateId]
+
     return (
       <>
         <div className={styles.main}>
@@ -377,20 +396,18 @@ export const CollabMessageDetail: React.FC<Props> = ({
             }
             {
               isResponse && <JsonEditor
-                messageTemplates={templates}
                 messageContent={message.message}
                 messageId={`${message._id}_${message.message.Reference}`}
-                template={channelCollab.newMessageTemplate?._id || ''}
+                template={template}
                 storeNewValue={notHappeningHandler}
                 disabled={true}
                 gameDate={gameDate}
               />
             }
             {isResponse && canSeeResponse && <JsonEditor
-              messageTemplates={templates}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={collaboration.response || {}}
-              template={channelCollab.responseTemplate?._id || ''}
+              template={template}
               storeNewValue={responseHandler}
               disabled={!formIsEditable}
               title={'Response'}
@@ -398,8 +415,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
             />
             }
             {!isResponse && <JsonEditor
-              messageTemplates={templates}
-              template={channelCollab.newMessageTemplate?._id || ''}
+              template={template}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={message.message}
               storeNewValue={newMessageHandler}

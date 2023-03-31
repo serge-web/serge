@@ -1,8 +1,13 @@
+import AreaData from './area-data'
+import { AttributeTypeData } from './attributes'
 import Channel from './channel'
 import Force from './force'
-import WargameOverview from './wargame-overview'
-import PlatformType from './platform-type'
+import ForceTemplateWrapper from './force-template-data'
 import { AnnotationMarkerData, MapAnnotationData } from './map-annotation'
+import { ActivityTypeData } from './planning-activity'
+import PlatformType from './platform-type'
+import { TemplateData } from './template'
+import WargameOverview from './wargame-overview'
 
 export default interface WargameData {
   overview: WargameOverview,
@@ -11,4 +16,9 @@ export default interface WargameData {
   platformTypes?: PlatformType
   annotations?: MapAnnotationData
   annotationIcons?: AnnotationMarkerData
+  attributeTypes?: AttributeTypeData
+  activities?: ActivityTypeData
+  templates?: TemplateData
+  areas?: AreaData
+  forceTemplateData?: ForceTemplateWrapper
 }

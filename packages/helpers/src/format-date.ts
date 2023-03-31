@@ -3,9 +3,8 @@ import moment from 'moment-timezone'
 /** function to create a date in UTC timezone
  */
 const formatDate = (timestamp: string, format: string): string => {
-  const m = moment(timestamp)
-  const t = m.tz('UTC')
-  return t.format(format)
+  const m = moment.utc(timestamp)
+  return m.format(format)
 }
 
 /** format date as 'HH:mm' */
@@ -21,6 +20,16 @@ export const formatFullDate = (timestamp: string): string => {
 /** format date as 'DD/MM/YY */
 export const formatShortDate = (timestamp: string): string => {
   return formatDate(timestamp, 'DD/MM/YY')
+}
+
+/** format date as 'DDHHmm */
+export const formatMilitaryDate = (timestamp: string): string => {
+  return formatDate(timestamp, 'DDHHmm[Z]')
+}
+
+/** format date as 'DDHHmm */
+export const formatLongMilitaryDate = (timestamp: string): string => {
+  return formatDate(timestamp, 'MMM DDHHmm[Z]')
 }
 
 export default formatDate

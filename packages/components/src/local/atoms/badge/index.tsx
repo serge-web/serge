@@ -6,7 +6,7 @@ import { isHexLight } from '@serge/helpers'
 import Props, { CustomSize } from './types/props'
 
 /* Render component */
-const customSizeStyle = (size: CustomSize): object => {
+const customSizeStyle = (size: CustomSize): any => {
   switch (size) {
     case 'large':
       return {
@@ -27,10 +27,10 @@ const useBadgeStyle = makeStyles((theme: Theme) =>
       borderRadius: '5px',
       paddingTop: theme.spacing(0.25),
       paddingBottom: theme.spacing(0.25),
-      ...type ? { backgroundColor: (theme.palette[type] || {}).main } : {},
-      ...allCaps ? { textTransform: 'uppercase' } : {},
-      ...customSize ? customSizeStyle(customSize) : {},
-      ...customBackgroundColor ? { backgroundColor: customBackgroundColor } : {}
+      backgroundColor: type ? (theme.palette[type] || {}).main : {},
+      textTransform: allCaps ? 'uppercase' : {},
+      ...customSizeStyle(customSize || 'large'),
+      background: customBackgroundColor || {}
     }),
     sizeSmall: {
       height: '15px',

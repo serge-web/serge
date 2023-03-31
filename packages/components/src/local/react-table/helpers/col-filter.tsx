@@ -8,18 +8,18 @@ export type CellFilter = {
   checked: boolean
 }
 
+export type HeaderFiltes = {
+  key: string
+  filters: CellFilter[]
+}
+
 export type ColFilterProps = {
   open: boolean
-  onClose: ((event: {}, reason: 'backdropClick' | 'escapeKeyDown') => void) | undefined
+  onClose: ((event: unknown, reason: 'backdropClick' | 'escapeKeyDown') => void) | undefined
   anchorEl: HTMLElement | null
   colName: string
   filters: HeaderFiltes[]
   onFilterChanged: (filters: HeaderFiltes[]) => void
-}
-
-export type HeaderFiltes = {
-  key: string
-  filters: CellFilter[]
 }
 
 const useStyles = makeStyles(() =>

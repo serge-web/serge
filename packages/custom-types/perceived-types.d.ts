@@ -1,6 +1,6 @@
+import { UNKNOWN_TYPE } from '@serge/config';
 import ForceData from "./force-data";
 import PlatformTypeData from "./platform-type-data";
-import { UNKNOWN_TYPE } from '@serge/config'
 
 /** set of CSS classes that represent perception */
 export default interface PerceivedTypes {
@@ -16,4 +16,8 @@ export default interface PerceivedTypes {
    * what this force thinks the asset is called 
    */
   name: string,
+  /** 
+   * the perceived condition of this asset
+   */
+  condition?: string
 }

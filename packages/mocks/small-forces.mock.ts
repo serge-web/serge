@@ -48,9 +48,9 @@ export const forces: ForceData[] = [
         hosting: [],
         perceptions: [{
           by: 'Red',
-          force: 'Blue',
+          force: 'F-Blue',
           name: 'Frigate Perceived Name',
-          type: 'frigate'
+          typeId: 'frigate'
         }],
         plannedTurns: [
           {
@@ -76,7 +76,6 @@ export const forces: ForceData[] = [
             turn: 5
           }
         ],
-        platformType: 'frigate',
         platformTypeId : 'a3',
         position: 'L04',
         status: {
@@ -102,9 +101,9 @@ export const forces: ForceData[] = [
         hosting: [],
         perceptions: [{
           by: 'Red',
-          force: 'Blue',
+          force: 'F-Blue',
           name: 'Frigate Perceived Name',
-          type: 'frigate'
+          typeId: 'frigate'
         }],
         plannedTurns: [
           {
@@ -130,7 +129,6 @@ export const forces: ForceData[] = [
             turn: 5
           }
         ],
-        platformType: 'frigate',
         platformTypeId : 'a3',
         position: 'L04',
         status: {
@@ -163,7 +161,7 @@ export const forces: ForceData[] = [
 
     ],
     umpire: false,
-    uniqid: 'Blue'
+    uniqid: 'F-Blue'
   },
   {
     assets: [
@@ -233,7 +231,6 @@ export const forces: ForceData[] = [
             turn: 5
           }
         ],
-        platformType: 'fishing-vessel',
         platformTypeId : 'a1',
         status: {
           speedKts: 10,
@@ -256,7 +253,7 @@ export const forces: ForceData[] = [
       }
     ],
     umpire: false,
-    uniqid: 'Red'
+    uniqid: 'F-Red'
   },
   {
     assets: [
@@ -276,9 +273,9 @@ export const forces: ForceData[] = [
         name: 'Tanker-1',
         perceptions: [{
           by: 'Blue',
-          force: 'Green',
+          force: 'F-Green',
           name: 'OSAKA',
-          type: 'merchant-vessel'
+          typeId: 'merchant-vessel'
         }],
         plannedTurns: [
           {
@@ -304,7 +301,6 @@ export const forces: ForceData[] = [
             turn: 4
           },
         ],
-        platformType: 'merchant-vessel',
         platformTypeId : 'a13',
         position: 'M04',
         status: {
@@ -329,7 +325,7 @@ export const forces: ForceData[] = [
       }
     ],
     umpire: false,
-    uniqid: 'Green'
+    uniqid: 'F-Green'
   }
 ]
 

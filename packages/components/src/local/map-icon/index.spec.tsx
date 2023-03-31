@@ -1,6 +1,4 @@
-/* global it expect */
 import { Phase } from '@serge/config'
-/* Import mock data */
 import { forces, localMappingConstraints, platformTypes } from '@serge/mocks'
 import { mount } from 'enzyme'
 import L from 'leaflet'
@@ -8,12 +6,25 @@ import React from 'react'
 import Mapping from '../mapping'
 import { MapIcon } from './index'
 
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+
+jest.mock('react-leaflet-v4', () => ({
+  useMap: (): jest.Mock => jest.fn()
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
+}))
+
 it('Mapping renders correctly with AssetIcon', () => {
   const div = document.createElement('div')
   document.body.appendChild(div)
 
-  // Using enzyme's 'mount' to solve issues with Leaflet requiring access to the DOM and other features not
-  // provided by react.render.
   const tree = mount(<Mapping
     mappingConstraints={localMappingConstraints}
     forces={forces}
@@ -24,6 +35,7 @@ it('Mapping renders correctly with AssetIcon', () => {
     playerForce='blue'
     markerIcons={[]}
     isGameControl={true}
+    isUmpire={true}
     phase={Phase.Planning}
     turnNumber={5}
   >

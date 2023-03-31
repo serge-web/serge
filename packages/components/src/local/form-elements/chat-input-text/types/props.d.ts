@@ -1,3 +1,4 @@
+import React from 'react'
 export default interface Props {
   /**
    * Placeholder text
@@ -6,13 +7,15 @@ export default interface Props {
   /**
    * The method for posting messages out of the component
    */
-   postBack?: {(value: string): void}
+  postBack?: { (): void }
   /**
    * The method for posting messages out of the component on text change
    */
-   onMessageChange?: {(value: string): void}
-   /**
-   * Container element ref
-   */
-   ref?: React.Ref<any>
+  onMessageChange?: (value: string) => void
+  /**
+  * Container element ref
+  */
+  ref?: React.Ref<any>
+
+  onCancel?: () => void
 }

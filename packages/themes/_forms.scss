@@ -48,6 +48,11 @@
     &::placeholder {
       color: rgba(255, 255, 255, 0.2);
     }
+
+    &:disabled,
+    &[readonly] {
+      background-color: rgb(128, 128, 128) !important;
+    }
   }
 
   .out-of-game-feed & {
@@ -68,4 +73,21 @@
 .ReactModalPortal {
   position: absolute;
   z-index: 10000;
+}
+
+.location-editor {
+  align-items: center;
+  display: flex;
+  div {
+    border: solid 1px #ced4da;
+    border-radius: 5px;
+    min-height: 50px;
+    padding: 5px;
+    width: 100%;
+  }
+  button {
+    height: 40px;
+    position: absolute;
+    right: 20px;
+  }
 }

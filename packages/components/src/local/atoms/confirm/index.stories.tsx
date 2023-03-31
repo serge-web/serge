@@ -1,4 +1,5 @@
-// Import component files
+import { noop } from 'lodash'
+import React from 'react'
 import Confirm from './index'
 import docs from './README.md'
 
@@ -13,3 +14,5 @@ export default {
     }
   }
 }
+
+export const Default: React.FC = () => <Confirm isOpen={false} message="" onCancel={noop} onConfirm={noop} />

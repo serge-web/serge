@@ -26,7 +26,6 @@ export const channelCollaborativeEditing2: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanSubmitForReview,
-      force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
       subscriptionId: 'oqoj'
@@ -36,7 +35,6 @@ export const channelCollaborativeEditing2: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanRelease,
-      force: 'Blue',
       forceUniqid: 'Blue',
       roles: [blueReleaseManager2.roleId],
       subscriptionId: 'oqoj2'
@@ -67,7 +65,6 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: false,
       permission: CollaborativePermission.CannotCollaborate,
-      force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
       subscriptionId: 'jvrn1'
@@ -77,7 +74,6 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanSubmitForReview,
-      force: 'EXCON',
       forceUniqid: 'Red',
       roles: [],
       subscriptionId: 'jvrn2'
@@ -87,7 +83,6 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanApprove,
-      force: 'White',
       forceUniqid: 'umpire',
       roles: [],
       subscriptionId: 'jvrn3'
@@ -97,7 +92,6 @@ export const channelCollaborativeResponding2: ChannelCollab = {
       canCreate: true,
       viewUnreleasedVersions: true,
       permission: CollaborativePermission.CanRelease,
-      force: 'White',
       forceUniqid: 'umpire',
       roles: [whiteReleaseMgr2.roleId],
       subscriptionId: 'jvrn4'

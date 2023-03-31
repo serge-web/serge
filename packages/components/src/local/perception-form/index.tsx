@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core'
 import { PERCEPTION_OF_CONTACT, UNKNOWN_TYPE } from '@serge/config'
-import { ForceOption, MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from '@serge/custom-types'
+import { ForceData, ForceOption, MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from '@serge/custom-types'
 import React, { useContext, useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'
 import TextInput from '../atoms/text-input'
@@ -64,9 +64,9 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
     )
   }
 
-  const forceHandler = (value: string[]): void => {
+  const forceHandler = (data: Array<ForceData['uniqid']>): void => {
     // ok. We need to find which is the new selection
-    const newItem = value.find((id: string) => id !== formState.perceivedForceId)
+    const newItem = data.find((id: string) => id !== formState.perceivedForceId)
     const force = perceivedForces.find((force: ForceOption) => force.id === newItem)
     setFormState(
       {
@@ -115,7 +115,7 @@ export const PerceptionForm: React.FC<PropTypes> = ({ formHeader, formData, chan
       <fieldset className={styles.fieldset}>
         <TextInput label="Perceived Name" name="perceivedName" value={perceivedNameVal} updateState={nameHandler} className={styles['input-container']} placeholder={'Enter name here'} />
         <Selector label="Percieved Type" name='perceivedType' options={typeStrings} selected={typeName} updateState={typeHandler} className={styles['input-container']} selectClassName={styles.select} />
-        <Forces label="Perceived Force" name={'perceivedForce'} options={perceivedForces} value={[perceivedForceId]} onChange={forceHandler} className={styles['input-container']} />
+        <Forces label="Perceived Force" name={'perceivedForce'} labelPlacement='top' options={perceivedForces} value={[perceivedForceId || '']} onChange={forceHandler} className={styles['input-container']} />
       </fieldset>
       <Button onClick={submitForm} className={styles.button}>Save</Button>
     </Form>

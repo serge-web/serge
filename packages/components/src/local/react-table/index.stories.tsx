@@ -16,4 +16,8 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <ReactTable columns={[]} rows={[]} customStyles={{}} />
+const tableActivity = (getRoleId: string, activityType: string): void => {
+  console.log(getRoleId, activityType)
+}
+
+export const Default: React.FC = () => <ReactTable tableActivity={tableActivity} columns={[]} rows={[]} customStyles={{}} />

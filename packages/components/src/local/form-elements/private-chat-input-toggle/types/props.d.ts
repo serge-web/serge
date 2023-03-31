@@ -11,7 +11,7 @@ export default interface Props {
   /**
    * Post messages when ctrl + enter key pressed
    */
-  sendMessage?: { (value: string): void }
+  sendMessage?: { (value?: string): void }
   /**
    * Container element ref
    */

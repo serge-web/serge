@@ -1,5 +1,5 @@
 /* Import Components */
-import { faAtom, faCogs, faList, faFileAlt, faRuler, faUserCog } from '@fortawesome/free-solid-svg-icons'
+import { faAtom, faCogs, faFileAlt, faList, faRuler, faUserCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MenuItem } from '@material-ui/core'
 import FormControl from '@material-ui/core/FormControl'
@@ -146,7 +146,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
   }
 
   const renderNumberAttributesSection = (item: SortableListItem, key: number): React.ReactNode => {
-    const attrype = item as NumberAttributeType
+    const attrType = item as NumberAttributeType
     const data: PlatformTypeData = localPlatformType.platformTypes[selectedItem]
 
     const onFieldChange = (field: 'units' | 'format' | 'description' | 'defaultValue', value: string): void => {
@@ -155,14 +155,13 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       myList[key][field] = value as any
       handleChangePlatformTypeData(data, selectedItem)
     }
-
     return (
       <div className={styles.mobile}>
-        <MobileSwitch size='medium' checked={attrype.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrype, key) }} />
-        <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrype.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
-        <TextField placeholder='units' className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
-        <TextField placeholder='value' className={defaultValue} InputProps={{ className: underline }} value={attrype.defaultValue || ''} onChange={(e): void => onFieldChange('defaultValue', e.target.value)} />
-        <TextField placeholder='format' className={format} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrype.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
+        <MobileSwitch size='medium' checked={attrType.editableByPlayer} onChange={(): void => { handleChangePlayerEditable(attrType, key) }} />
+        <TextField placeholder='description' className={description} InputProps={{ className: underline }} value={attrType.description || ''} onChange={(e): void => onFieldChange('description', e.target.value)} />
+        <TextField placeholder='units' className={units} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrType.units || ''} onChange={(e): void => onFieldChange('units', e.target.value)} />
+        <TextField placeholder='value' className={defaultValue} InputProps={{ className: underline }} value={attrType.defaultValue || '0'} onChange={(e): void => onFieldChange('defaultValue', e.target.value)} />
+        <TextField placeholder='format' className={format} inputProps={{ maxLength: 5 }} InputProps={{ className: underline }} value={attrType.format || ''} onChange={(e): void => onFieldChange('format', e.target.value)} />
       </div>
     )
   }
@@ -238,7 +237,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, name }, selectedItem)
     }
     const handleChangeTravelMode = (e: React.ChangeEvent<HTMLInputElement>): void => {
-      handleChangePlatformTypeData({ ...data, travelMode: e.target.value }, selectedItem)
+      handleChangePlatformTypeData({ ...data, travelMode: e.target.value as any }, selectedItem)
     }
     const handleChangeTurningCircle = (event: ChangeEvent<HTMLInputElement>): void => {
       handleChangePlatformTypeData({ ...data, turningCircle: parseInt(event.target.value) }, selectedItem)
@@ -496,7 +495,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
                   <div className={styles['enum-attribute-header-icon']}>
                     <span><MoreInfo description='If player can edit attribute'><FontAwesomeIcon size={'lg'} icon={faUserCog} /></MoreInfo></span>
                     <span><MoreInfo description='Description of attribute'><FontAwesomeIcon size={'lg'} icon={faFileAlt} /></MoreInfo></span>
-                    <span><MoreInfo description='Possible values for attribute'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
+                    <span><MoreInfo description='Possible values for attribute (comma separated)'><FontAwesomeIcon size={'lg'} icon={faList} /></MoreInfo></span>
                     <span><MoreInfo description='Default value of attribute'><FontAwesomeIcon size={'lg'} icon={faAtom} /></MoreInfo></span>
                   </div>
                 </div>

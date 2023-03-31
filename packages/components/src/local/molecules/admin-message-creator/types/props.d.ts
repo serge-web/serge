@@ -1,4 +1,4 @@
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel, Role } from '@serge/custom-types'
 
 export default interface Props {
   from: {
@@ -16,6 +16,6 @@ export default interface Props {
   /**
    * The method for posting messages out of the component
    */
-  postBack?: {(value: MessageChannel): void}
+  postBack?: { (value: MessageChannel): void }
   turnNumber: number
 }

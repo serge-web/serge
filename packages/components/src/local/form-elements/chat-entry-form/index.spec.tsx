@@ -1,5 +1,6 @@
 /* global it expect */
 
+import { MessageDetails } from '@serge/custom-types'
 import React from 'react'
 import renderer from 'react-test-renderer'
 
@@ -19,11 +20,23 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
   return null
 }
 
+const postBack = (details: MessageDetails, message: any): void => {
+  console.log('send message', details, message)
+}
+
 describe('ChatEntryForm component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <ChatEntryForm turnNumber={1} isUmpire={true} from={force} channel={'Game Admin'} role={'r345'} roleName={'Umpire'} />,
+        <ChatEntryForm
+          turnNumber={1}
+          isUmpire={true}
+          from={force}
+          channel={'Game Admin'}
+          role={'r345'}
+          roleName={'Umpire'}
+          postBack={postBack}
+        />,
         { createNodeMock }
       )
       .toJSON()

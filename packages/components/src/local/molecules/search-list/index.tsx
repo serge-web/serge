@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { MouseEvent, useState } from 'react'
 import TextInput from '../../atoms/text-input'
 import SearchListRow from '../../atoms/search-list-row'
 
@@ -45,9 +45,12 @@ const SearchList: React.FC<Props> = ({
                 onClick={(): void => setSelected(item)}
                 key={id}
                 onDuplicate={onDuplicate ? (): void => onDuplicate(item) : undefined}
-                onDelete={onDelete ? (): void => onDelete(item) : undefined}
+                onDelete={onDelete ? (e: MouseEvent<SVGSVGElement>): void => {
+                  e.stopPropagation()
+                  onDelete(item)
+                } : undefined}
               >
-                { rowLabel(item) }
+                {rowLabel(item)}
               </SearchListRow>
             )
           })

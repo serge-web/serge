@@ -12,7 +12,6 @@ const allForcesChannel: ChannelCustom = {
   channelType: CHANNEL_CUSTOM,
   participants: [
     {
-      force: 'White',
       forceUniqid: 'umpire',
       roles: [],
       subscriptionId: 'k63pjpfv',
@@ -20,7 +19,6 @@ const allForcesChannel: ChannelCustom = {
       templates: []
     },
     {
-      force: 'Red',
       forceUniqid: 'Red',
       roles: [redLogs.roleId],
       subscriptionId: 'k63pjsbv',
@@ -28,7 +26,6 @@ const allForcesChannel: ChannelCustom = {
       templates: []
     },
     {
-      force: 'Blue',
       forceUniqid: 'Blue',
       roles: [],
       subscriptionId: 'k63pju7l',

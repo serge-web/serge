@@ -1,3 +1,5 @@
+import { ForceData, ForceOption } from '@serge/custom-types'
+
 export default interface PropTypes {
   /**
    * The label to show on the form section
@@ -15,7 +17,7 @@ export default interface PropTypes {
   /**
    * The id's of selected items
    */
-  value: ForceData['uniqid']
+  value: Array<ForceData['uniqid']>
   /**
    * Sets the onChange state on a parent
    */

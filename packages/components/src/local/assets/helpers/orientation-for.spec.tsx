@@ -34,9 +34,9 @@ it('Calculates correct orientation for whole route', () => {
 
     // test permutations of orientation!
     const relAttr: OrientationMarker = { origin: 'relative', attribute: 'asdic-dir' }
-    expect(orientationFor(current, history, planned, attributes, relAttr)).toBeCloseTo(144.4, 0)
+    expect(orientationFor(current, history, planned, attributes, relAttr)).toBeCloseTo(129.4, 0)
     const absAttr: OrientationMarker = { origin: 'absolute', attribute: 'asdic-dir' }
-    expect(orientationFor(current, history, planned, attributes, absAttr)).toBeCloseTo(135, 0)
+    expect(orientationFor(current, history, planned, attributes, absAttr)).toBeCloseTo(120, 0)
   }
 })
 

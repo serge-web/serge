@@ -1,4 +1,6 @@
-import { AttributeValues, PlatformTypeData, RouteStatus } from '@serge/custom-types'
+import L from 'leaflet'
+import { Asset, AttributeValues, PlatformTypeData, RouteStatus } from '@serge/custom-types'
+import { OrientationData } from 'src/local/assets/types/asset_info'
 
 export default interface PropTypes {
   /**
@@ -13,9 +15,9 @@ export default interface PropTypes {
    * The contactId
    */
   contactId: string
-   /**
-   * the type of the asset
-   */
+  /**
+  * the type of the asset
+  */
   typeId: PlatformTypeData['uniqid']
   /**
    * The position to place the icon on the map
@@ -29,9 +31,9 @@ export default interface PropTypes {
    * The perceived color for this asset
    */
   perceivedForceColor: string
-   /**
-   * if this asset is selected
-   */
+  /**
+  * if this asset is selected
+  */
   selected: boolean
   /**
    * The tooltip label for the marker
@@ -56,7 +58,7 @@ export default interface PropTypes {
   /**
    *
    */
-  markerDropped?: {(cell: string, uniqid: Asset['uniqid']): void}
+  markerDropped?: { (cell: string, uniqid: Asset['uniqid']): void }
   /**
    * imageSrc custom icon for asset
    */

@@ -1,10 +1,11 @@
 import { HeartbeatChecker } from '@serge/components'
-import { ActivityLogsInterface } from '@serge/custom-types'
+import { ActivityLogsInterface, Wargame } from '@serge/custom-types'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
+import { expiredStorage } from '@serge/config'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
-import { pingServer as pingServerApi } from '../api/wargames_api'
+import { pingServer2 as pingServerApi } from '../api/wargames_api'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
 
 export type Notification = {
@@ -18,6 +19,7 @@ export type Notification = {
 type VersionProps = {
   notifications: Notification[]
   playerLog: ActivityLogsInterface
+  wargame: Wargame
 }
 
 const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
@@ -26,11 +28,13 @@ const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length - 3)
 
 const Version: React.FC<VersionProps> = () => {
   const dispatch = useDispatch()
-  const { notifications, playerLog }: { notifications: Notification[], playerLog: ActivityLogsInterface } = useSelector(({ notifications, playerLog }: any) => ({ notifications, playerLog }))
+  const { notifications, playerLog, wargame }: VersionProps = useSelector(({ notifications, playerLog, wargame }: VersionProps) => ({ notifications, playerLog, wargame }))
   const [toggleBeat, setToggleBeat] = useState(false)
   const [serverStatus, setServerStatus] = useState('')
   const [serverPingTime, setServerPingTime] = useState<number>(0)
   const isUmpire = (window as any).selectedChannel && (window as any).selectedChannel === UMPIRE_FORCE
+  
+  const logPlayerActivity = wargame && wargame.data.overview.logPlayerActivity
 
   useEffect(() => {
     // check for previous heartbeat notification
@@ -49,12 +53,14 @@ const Version: React.FC<VersionProps> = () => {
     if (serverPingTime) {
       setToggleBeat(true)
     }
-  }, [serverStatus, serverPingTime])
-
+    // server status commented out in next line, since ping time always updates
+  }, [/* serverStatus, */serverPingTime])
+  
   const pingServer = () => {
-    const wargame = playerLog.wargame
-    const role = playerLog.role
-    return pingServerApi({ wargame, role }).then(res => {
+    // send list of activities to server
+    return pingServerApi(playerLog, logPlayerActivity).then(res => {
+      // flush the log
+      playerLog.items = []
       setServerStatus(res)
       setServerPingTime(new Date().getTime())
       return res
@@ -63,7 +69,9 @@ const Version: React.FC<VersionProps> = () => {
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      pingServer()
+      // remove all expired items from localStorage
+      expiredStorage.clearExpired()
+      pingServer() 
     }, SERVER_PING_INTERVAL)
 
     return () => {

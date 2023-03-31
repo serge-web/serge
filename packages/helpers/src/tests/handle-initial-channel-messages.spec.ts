@@ -12,7 +12,7 @@ const chatChannel: PlayerUiChatChannel = { name: CHAT_CHANNEL_ID, template: chat
 const allForces: ForceData[] = forces
 const blueForce: ForceData = allForces[1]
 const allChannels: ChannelTypes[] = GameChannels2
-const selectedRole = allForces[1].roles[0].name
+const selectedRole = allForces[1].roles[0].roleId
 const isObserver = false
 const allTemplates = MessageTemplatesMockByKey
 const playerMessageLog: PlayerMessageLog = {}
@@ -41,7 +41,7 @@ describe('handle initial channel creation', () => {
     // get the blue RFI channel
     const rfiChan = res.channels['channel-BlueRFI']
     expect(rfiChan).toBeTruthy()
-    expect(rfiChan.messages?.length).toEqual(4) // 3 blue messages, 1 info-type
+    expect(rfiChan.messages?.length).toEqual(3) // 3 blue messages, 1 info-type
   })
 })
 
@@ -57,7 +57,7 @@ describe('handle new message into RFI channel', () => {
     expect(newBlue1).toBeTruthy()
     expect(newBlue1.messages).toBeTruthy()
     if (newBlue1.messages) {
-      expect(newBlue1.messages.length).toEqual(3) // 3 blue messages, 0 info-type
+      expect(newBlue1.messages.length).toEqual(4) // 3 blue messages, 1 info-type
     }
 
     const msg = GameMessagesMockRFI[4] as MessageCustom
@@ -79,13 +79,13 @@ describe('handle new message into RFI channel', () => {
       }
     }
 
-    const res2: SetWargameMessage = handleNewMessageData(payload2, res.channels, res.chatChannel, playerMessageLog)
+    const res2: SetWargameMessage = handleNewMessageData(payload2, res.channels, res.chatChannel, playerMessageLog, selectedRole)
 
     const newBlue = res2.channels['channel-BlueRFI']
     expect(newBlue).toBeTruthy()
     expect(newBlue.messages).toBeTruthy()
     if (newBlue.messages) {
-      expect(newBlue.messages.length).toEqual(3) // 3 messages, 0 infotype
+      expect(newBlue.messages.length).toEqual(4) // 3 messages, 1 infotype
       const first = newBlue.messages[0] as MessageCustom
       expect(first.details.collaboration).toBeTruthy()
       if (first.details.collaboration) {

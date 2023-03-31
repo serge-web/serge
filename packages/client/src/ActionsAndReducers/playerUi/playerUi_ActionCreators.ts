@@ -1,46 +1,15 @@
-import React from 'react'
 import {
-  SET_CURRENT_WARGAME_PLAYER,
-  SET_FORCE,
-  SET_ROLE,
-  SET_ALL_TEMPLATES_PLAYERUI,
-  SHOW_HIDE_OBJECTIVES,
-  UPDATE_MESSAGE_STATE,
-  SET_FEEDBACK_MESSAGES,
-  SET_LATEST_FEEDBACK_MESSAGE,
-  SET_LATEST_WARGAME_MESSAGE,
-  SET_ALL_MESSAGES,
-  OPEN_MESSAGE,
-  MARK_UNREAD,
-  CLOSE_MESSAGE,
-  MARK_ALL_AS_READ,
-  OPEN_TOUR,
-  OPEN_MODAL,
-  CLOSE_MODAL,
-  setActivityTime,
-  MARK_ALL_AS_UNREAD,
-  FEEDBACK_MESSAGE,
-  INFO_MESSAGE,
-  COUNTER_MESSAGE
+  CLOSE_MESSAGE, CLOSE_MODAL, FEEDBACK_MESSAGE, MARK_ALL_AS_READ, MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
+  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, UPDATE_MESSAGE_STATE
 } from '@serge/config'
+import React from 'react'
 import * as wargamesApi from '../../api/wargames_api'
-import { addNotification } from '../Notification/Notification_ActionCreators'
 import isError from '../../Helpers/isError'
+import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import {
-  Wargame,
-  Role,
-  Message,
-  MessageDetails,
-  MessageFeedback,
-  MessageChannel,
-  MessageCustom,
-  MessageInfoType,
-  MessageDetailsFrom,
-  MessageMap,
-  TemplateBodysByKey,
-  PlayerUiActionTypes,
-  ChatMessage
+  ChatMessage, Message, MessageChannel,
+  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessagePlanning, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
@@ -89,6 +58,12 @@ export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoTy
   type: SET_ALL_MESSAGES,
   payload: messages
 })
+
+export const seTAllTurnPeriod = (turnPeriod: Array<TurnPeriod>) : PlayerUiActionTypes => ({
+  type: SET_ALL_TURN_PERIOD,
+  payload: turnPeriod
+})
+
 export const openMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
   type: OPEN_MESSAGE,
   payload: { channel, message }
@@ -166,6 +141,7 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
     const address = await wargamesApi.getIpAddress()
     const from: MessageDetailsFrom = {
       force: address.ip,
+      forceId: 'n/a',
       iconURL: '',
       forceColor: '#970000',
       roleId: '',
@@ -176,8 +152,15 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
   }
 }
 
+/** get an updated list of turn start and end times */
+export const turnPeriods = (dbName: string): Function => {
+  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+    const turnPeriod = await wargamesApi.getTurnPeriodsList(dbName)
+    dispatch(seTAllTurnPeriod(turnPeriod))
+  }
+}
+
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
-  setActivityTime(details.from.roleId, 'send message ' + details.messageType)
   return async (): Promise<void> => {
     // the following block of commented out code was used in the past
     // to generate bulk volumes of test data, by repeatedly submitting
@@ -208,28 +191,20 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   }
 }
 
+export const saveBulkMessages = (dbName: string, archiveMark: MessagePlanning[]) => {
+  return wargamesApi.PostBulkMessages(dbName, archiveMark)
+}
+
 export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)
 }
 
-export const getAllWargameFeedback = (dbName: string): Function => {
-  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    const docs: Array<Message | Wargame> = await wargamesApi.getAllMessages(dbName)
-    const feedbackMessages: MessageFeedback[] = docs.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]
-    dispatch(setWargameFeedback(feedbackMessages))
-  }
-}
-
+/** get all messages (documents) from the database (except counter messages) */
 export const getAllWargameMessages = (dbName: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const allMessages: Array<Message | Wargame> = await wargamesApi.getAllMessages(dbName)
-    const nonMessages = [INFO_MESSAGE, COUNTER_MESSAGE]
-    const messages = allMessages.filter((doc: Message | Wargame) => {
-      const docAny = doc as any
-      return !nonMessages.includes(docAny.messageType)
-    })
-    dispatch(setWargameMessages(messages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
-    dispatch(setWargameFeedback(messages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
+    dispatch(setWargameMessages(allMessages.filter(({ messageType }) => messageType !== FEEDBACK_MESSAGE) as (MessageInfoType | MessageCustom)[]))
+    dispatch(setWargameFeedback(allMessages.filter(({ messageType }) => messageType === FEEDBACK_MESSAGE) as MessageFeedback[]))
   }
 }

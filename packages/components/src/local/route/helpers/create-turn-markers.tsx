@@ -45,13 +45,16 @@ const calculateTurnAngle = (thisStep: RouteMarker): number => {
   return (angle + 90)
 }
 
+export const PLANNED_MARKER = 'planned-marker'
+export const HISTORY_MARKER = 'history-marker'
+
 const createTurnMarkers = (routes: RouteData,
-  type: string,
+  type: typeof PLANNED_MARKER | typeof HISTORY_MARKER,
   color: string,
   selected: boolean,
-  removeLastTurn: {(turnNumber: number): void}): JSX.Element[] => {
+  removeLastTurn: { (turnNumber: number): void }): React.ReactElement[] => {
   return routes.turnEnds.map((step: RouteMarker, index: number) => {
-    const markers = (color: string, routeTurn: RouteMarker): JSX.Element => {
+    const markers = (color: string, routeTurn: RouteMarker): React.ReactElement => {
       // start from the current game turn, increment by 0-based offset
       const currentTurn: number = step.turn
       const turn: string = padInteger(currentTurn)
@@ -71,12 +74,15 @@ const createTurnMarkers = (routes: RouteData,
                 html: svgIcon(color, angle || 0),
                 iconSize: [20, 20]
               })}>
-                <Popup open={false}>
-                  <Button
-                  // Note: here we have available handlers to activate the removeLastTurn function
-                    onClick={(): void => removeLastTurn(currentTurn)}
-                  >{`Clear route from Turn ${turn}`}</Button>
-                </Popup>
+                {
+                  type === PLANNED_MARKER &&
+                  <Popup open={false} closeButton={false}>
+                    <Button
+                      // Note: here we have available handlers to activate the removeLastTurn function
+                      onClick={(): void => removeLastTurn(currentTurn)}
+                    >{`Clear route from Turn ${turn}`}</Button>
+                  </Popup>
+                }
               </Marker>
             </>
           )
@@ -87,7 +93,7 @@ const createTurnMarkers = (routes: RouteData,
               <Marker key={`${type}_text_turns_${index}`} position={step.current.pos} width="2" icon={L.divIcon({
                 html: `<text>T${turn}: ${step.status.state}</text>`,
                 iconSize: [labelLength(step.status), 20]
-              })}/>
+              })} />
               <Marker key={`${type}_turns_${index}_unselected`} position={step.current.pos} icon={L.divIcon({
                 html: simpleIcon(color),
                 iconSize: [10, 10]

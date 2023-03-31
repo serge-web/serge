@@ -55,7 +55,7 @@ exports[`AdminLogin component: renders correctly 1`] = `
     </section>
   </div>
   <button
-    className="MuiButtonBase-root MuiButton-root makeStyles-root-9 makeStyles-root-11 MuiButton-contained makeStyles-contained-10 makeStyles-contained-12 MuiButton-containedPrimary"
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}

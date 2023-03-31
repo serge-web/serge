@@ -1,4 +1,4 @@
-import { ChatMessage, Role } from '@serge/custom-types'
+import { MessageDetails, Role } from '@serge/custom-types'
 
 export default interface Props {
   from: {
@@ -17,6 +17,6 @@ export default interface Props {
   /**
    * The method for posting messages out of the component
    */
-  postBack?: { (post: ChatMessage): void }
+  postBack?: { (details: MessageDetails, message: any): void }
   turnNumber: number
 }

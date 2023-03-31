@@ -40,6 +40,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}
@@ -89,6 +90,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}
@@ -147,6 +149,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}
@@ -196,6 +199,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}
@@ -254,6 +258,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}
@@ -303,6 +308,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}
@@ -361,6 +367,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}
@@ -410,6 +417,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}
@@ -468,6 +476,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}
@@ -517,6 +526,7 @@ exports[`CheckboxType renders correctly 1`] = `
             name="visibleTo"
             onChange={[Function]}
             type="checkbox"
+            value=""
           />
           <svg
             aria-hidden={true}

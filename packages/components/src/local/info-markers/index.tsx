@@ -12,7 +12,7 @@ import { geoToH3, h3ToGeo } from 'h3-js'
 import { UPDATE_MARKER } from '@serge/config'
 
 /* Render component */
-export const InfoMarkers: React.FC<{}> = () => {
+export const InfoMarkers: React.FC = () => {
   // pull in some context (with TS definitions)
   const { props } = useContext(MapContext)
   if (typeof props === 'undefined') return null
@@ -44,8 +44,11 @@ export const InfoMarkers: React.FC<{}> = () => {
       console.error('could not find this marker', selectedMarker)
       return
     }
-    const newLocation = geoToH3(location.lat, location.lng, h3Resolution)
-    marker.location = newLocation
+    marker.location = geoToH3(location.lat, location.lng, h3Resolution)
+    // delete the position, so it get regenerated
+    delete marker.position
+
+    // fire update
     updateMarker && updateMarker(UPDATE_MARKER, marker)
   }
 
@@ -65,12 +68,13 @@ export const InfoMarkers: React.FC<{}> = () => {
       setVisibleMarkers([])
     }
   }, [infoMarkers, isUmpire])
-
   return <>
     <LayerGroup key='info-markers' >{visibleMarkers.map((marker: MapAnnotation) => {
-      const coords = h3ToGeo(marker.location)
-      const location = marker.position || L.latLng(coords[0], coords[1])
-      return <InfoMarker key={marker.uniqid} marker={marker} icons={markerIcons} locationHex={marker.location} location={location} dragged={dragHandler} />
+      if (!marker.position) {
+        const coords = h3ToGeo(marker.location)
+        marker.position = L.latLng(coords[0], coords[1])
+      }
+      return <InfoMarker key={marker.uniqid} marker={marker} icons={markerIcons} locationHex={marker.location} location={marker.position} dragged={dragHandler} />
     })}
     </LayerGroup>
   </>

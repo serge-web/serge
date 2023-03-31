@@ -1,34 +1,29 @@
-import React, { useState, useImperativeHandle } from 'react'
-import { IconButton, InputAdornment } from '@material-ui/core'
-import { SendOutlined } from '@material-ui/icons'
-
-/* Import Types */
+import { Divider, IconButton, InputAdornment } from '@material-ui/core'
+import { Delete, SendOutlined } from '@material-ui/icons'
+import React, { useImperativeHandle, useState } from 'react'
+import TextInput from './../../atoms/text-input'
+import styles from './styles.module.scss'
 import Props from './types/props'
 
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
-/* Import Component */
-import TextInput from './../../atoms/text-input'
-
 /* Render component */
-export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, postBack, onMessageChange }: Props, ref) => {
+export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, postBack, onMessageChange, onCancel }: Props, ref) => {
   const [formState, setFormState] = useState('')
 
   const changeHandler = (e: any): void => {
     setFormState(e.value)
     onMessageChange && onMessageChange(e.value)
   }
+
   const submitForm = (): void => {
-    postBack && postBack(formState)
+    postBack && postBack()
     setFormState('')
   }
 
   useImperativeHandle(ref, () => ({
-    setFormState (text: string): void {
+    setFormState: (text: string): void => {
       setFormState(text)
     },
-    clear (): void {
+    clear: (): void => {
       setFormState('')
     }
   }))
@@ -40,24 +35,30 @@ export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, p
   }
 
   return (
-    <TextInput
-      fullWidth
-      multiline
-      rows={2}
-      rowsMax={3}
-      variant="filled"
-      updateState={changeHandler}
-      value={formState}
-      placeholder={placeholder}
-      onKeyDown={keyDownHandler}
-      endAdornment={
-        <InputAdornment position="end">
-          <IconButton onClick={submitForm}>
-            <SendOutlined fontSize="small" className={styles['icon-send']} />
-          </IconButton>
-        </InputAdornment>
-      }
-    />
+    <div className={styles.main}>
+      <TextInput
+        fullWidth
+        multiline
+        minRows={2}
+        maxRows={3}
+        variant="filled"
+        updateState={changeHandler}
+        value={formState}
+        placeholder={placeholder}
+        onKeyDown={keyDownHandler}
+        endAdornment={
+          <InputAdornment position="end" className={styles.action}>
+            <IconButton onClick={submitForm}>
+              <SendOutlined fontSize="small" className={styles['icon-send']} />
+            </IconButton>
+            <Divider className={styles.divider} />
+            <IconButton onClick={onCancel}>
+              <Delete fontSize="medium" className={styles['icon-cancel']} />
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+    </div>
   )
 })
 

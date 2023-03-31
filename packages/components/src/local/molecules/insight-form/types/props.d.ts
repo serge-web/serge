@@ -2,11 +2,11 @@ export default interface Props {
   /**
    * Callback on cancel button click event
    */
-  onCancel: Function
+  onCancel: VoidFunction
   /**
    * Callback on send button click event
    */
-  onSend: Function
+  onSend: (message: any) => void
   /**
    * Whether to show form in dark mode
    */

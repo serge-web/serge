@@ -10,7 +10,6 @@ const namedWhite: ParticipantCollab[] = [
     canCreate: true,
     viewUnreleasedVersions: true,
     permission: CollaborativePermission.CanRelease,
-    force: 'White',
     forceUniqid: 'umpire',
     roles: ['rkrlw6f5f'],
     subscriptionId: 'jvrn'
@@ -23,7 +22,6 @@ const allWhiteCollaborate: ParticipantCollab[] = [
     canCreate: true,
     viewUnreleasedVersions: true,
     permission: CollaborativePermission.CanRelease,
-    force: 'White',
     forceUniqid: 'umpire',
     roles: [],
     subscriptionId: 'jvrn'
@@ -36,7 +34,6 @@ const allWhiteNonCollab: ParticipantCollab[] = [
     canCreate: true,
     viewUnreleasedVersions: false,
     permission: CollaborativePermission.CannotCollaborate,
-    force: 'White',
     forceUniqid: 'umpire',
     roles: [],
     subscriptionId: 'jvrn'
@@ -49,7 +46,6 @@ const multiPart: ParticipantCollab[] = [
     canCreate: true,
     viewUnreleasedVersions: true,
     permission: CollaborativePermission.CanRelease,
-    force: 'White',
     forceUniqid: 'umpire',
     roles: [],
     subscriptionId: 'jvrn'
@@ -59,7 +55,6 @@ const multiPart: ParticipantCollab[] = [
     canCreate: true,
     viewUnreleasedVersions: true,
     permission: CollaborativePermission.CanRelease,
-    force: 'Blue',
     forceUniqid: 'Blue',
     roles: [],
     subscriptionId: 'jvrn'

@@ -62,7 +62,7 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </div>
         <svg
-          className="svg-inline--fa fa-ellipsis-h"
+          className="svg-inline--fa fa-ellipsis"
         />
       </div>
       <div
@@ -91,7 +91,7 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </div>
         <svg
-          className="svg-inline--fa fa-ellipsis-h"
+          className="svg-inline--fa fa-ellipsis"
         />
       </div>
       <div
@@ -120,7 +120,7 @@ exports[`WargameList component: renders correctly 1`] = `
           </span>
         </div>
         <svg
-          className="svg-inline--fa fa-ellipsis-h"
+          className="svg-inline--fa fa-ellipsis"
         />
       </div>
     </div>

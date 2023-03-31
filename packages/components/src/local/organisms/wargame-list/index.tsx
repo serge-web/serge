@@ -1,20 +1,18 @@
+import {
+  faEye, faEyeSlash
+} from '@fortawesome/free-solid-svg-icons'
 import React, { useState } from 'react'
 import TextInput from '../../atoms/text-input'
 import { RenderContent } from './helpers/renderContent'
-import {
-  faEyeSlash,
-  faEye
-} from '@fortawesome/free-solid-svg-icons'
 
 /* Import Types */
 import Props from './types/props'
 
 /* Import Stylesheet */
-import styles from './styles.module.scss'
-import { MenuItem } from 'src/local/molecules/option-menu/types/props'
 import { hiddenPrefix } from '@serge/config'
-
-const ScrollArea = require('react-scrollbar').default
+import ScrollArea from 'react-scrollbar'
+import { MenuItem } from '../../molecules/option-menu/types/props'
+import styles from './styles.module.scss'
 
 /* Render component */
 export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick, toggleAction, useCustomScroll = false }: Props) => {
@@ -30,9 +28,6 @@ export const WargameList: React.FC<Props> = ({ wargames, menuConfig, onGameClick
       // note: diagnostics, to help understand which one is failing
       if (!title) {
         console.warn('WARNING: title field is missing in searchByQuery')
-      }
-      if (!wargameQuery) {
-        console.warn('WARNING: wargameQuery field is missing in searchByQuery')
       }
       // Note: workaround for runtime crash, whether either title or wargameQuery is undefined
       // If the query object is empty, then there isn't a query.

@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core'
 /* Import Types */
 import PropTypes from './types/props'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { ChatMessage as ChatMessageType, MessageInfoTypeClipped } from '@serge/custom-types'
+import { ChatMessage as ChatMessageType, CoreMessage, MessageInfoTypeClipped } from '@serge/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 /* Import Components */
@@ -16,19 +16,20 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
   playerRole, playerForce, chatContainerHeight, turnPresentation, observing, markUnread, hideForcesInChannel, hideAuthor
 }: PropTypes) => {
   // cast messages, for type-checking
-  const cMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
+  const rMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
+  const cMessages = [...rMessages].reverse() // note we have to clone it first, since reverse is destructive
   const height = chatContainerHeight || 280
   return (
     <div>
       {
         !hideForcesInChannel &&
         <Box mb={2} ml={2} mr={3}>
-          <ForcesInChannel messages={messages} colors={colors} icons={icons} names={names} onMarkAllAsRead={onMarkAllAsRead} />
+          <ForcesInChannel messages={messages as CoreMessage[]} colors={colors} icons={icons} names={names} onMarkAllAsRead={onMarkAllAsRead} />
         </Box>
       }
       <Box ml={2} className={styles['messages-list']} style={{ height: observing ? 'unset' : `calc(100vh - ${height}px)` }} flexDirection="column-reverse" display="flex">
         {
-          cMessages && cMessages.map((message, key) => {
+          cMessages.map((message, key) => {
             if (message.messageType === INFO_MESSAGE_CLIPPED) {
               return (
                 <Box mr={2} key={`${message.gameTurn}-turnmarker-${key}`}>

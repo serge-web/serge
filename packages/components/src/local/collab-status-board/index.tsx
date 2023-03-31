@@ -18,11 +18,11 @@ export interface ForceColor {
 /* Render component */
 export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
   templates, messages, channelColb, isObserver, isUmpire, onChange, role, forces,
-  gameDate, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame
+  gameDate, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame, collabActivity
 }) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
 
-  const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.force === role.forceName)
+  const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.forceUniqid === role.forceId)
   // participations relate to me if they contain no roles, or if they contain my role
   const myParticipations = participationsForMyForce.filter((p: ParticipantCollab) => (p.roles.length === 0 || p.roles.includes(role.roleId)))
 
@@ -66,11 +66,12 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
   const handleArchiveDoc = useCallback(() => {
     setShowArchived(!showArchived)
   }, [showArchived])
-
+  // (name, lastName) => console.log('name', name, 'lastName', lastName)
   return (
     <ReactTable
       columns={columns}
       rows={rows}
+      tableActivity={collabActivity}
       customStyles={customStyles}
       showArchived={showArchived}
       handleArchiveDoc={handleArchiveDoc}

@@ -52,8 +52,7 @@ export const MapIcon: React.FC<PropTypes> = ({
   const clickEvent = (): void => {
     if (selectedAsset && selectedAsset.uniqid === uniqid) {
       // clear selected asset, since it has been clicked again
-      // @ts-ignore
-      clearMapSelection(undefined)
+      clearMapSelection()
       setShowMapBar(false)
     } else {
       // select this asset

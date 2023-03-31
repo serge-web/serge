@@ -1,6 +1,6 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from '@serge/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from '@serge/config'
 import { ChannelCollab, ChannelTypes, ParticipantTemplate, Role, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
-import { CoreParticipant, ParticipantCustom } from '@serge/custom-types/participant'
+import { CoreParticipant, ParticipantCustom, ParticipantPlanning } from '@serge/custom-types/participant'
 import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
 import { matchedAllRolesFilter, matchedForceAndRoleFilter, matchedForceFilter, matchedV3AllRolesFilter, matchedV3ForceAndRoleFilter } from './participant-filters'
 
@@ -93,6 +93,13 @@ export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: s
         templateIDs.push(...roleCustom.templates)
       })
       break
+    case CHANNEL_PLANNING:
+      // find all the templates I'm allowed to use
+      participatingRoles.forEach(role => {
+        const roleCustom = role as ParticipantPlanning
+        templateIDs.push(...roleCustom.templates)
+      })
+      break
     default:
       console.warn('Encountered unexpected channel type:', channel)
   }
@@ -136,7 +143,13 @@ export const getParticipantStates = (
   }: CheckParticipantStates = isLegacyChannel ? checkLegacyParticipantStates(channel, forceId, role, isObserver) : checkV3ParticipantStates(channelAsV3, forceId, role, isObserver)
 
   const chatTemplate = getTemplateById(allTemplatesByKey, defaultMessageId)
-  if (typeof chatTemplate === 'undefined') console.warn('Warning, unable to find Chat template for channel with no templates defined')
+  if (typeof chatTemplate === 'undefined') {
+    // dont't throw error for unit tests, some use legacy data
+    const jestWorkerId = process.env.JEST_WORKER_ID
+    const inProduction = !jestWorkerId
+    inProduction && console.warn('Warning, unable to find Chat template for channel with no templates defined')
+    // end
+  }
 
   if (isParticipant) {
     if (templatesIDs && templatesIDs.length !== 0) {

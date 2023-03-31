@@ -16,7 +16,6 @@ export default {
   }
 }
 
-// @ts-ignore
-const showMessage = (message: string): void => window.alert(`Your message was: "${message}"`)
+const showMessage = (): void => window.alert('Your message was: "{}"')
 
 export const Default: React.FC = () => <PrivateChatInputToggle placeholder={'Enter your private message'} sendMessage={showMessage} />

@@ -1,7 +1,7 @@
+import { MapAnnotation, MapAnnotations, Route, RouteStore, RouteTurn } from '@serge/custom-types'
+import { h3IsValid, h3ToGeo } from 'h3-js'
 import L from 'leaflet'
-import { RouteStore, Route, RouteTurn, MapAnnotations, MapAnnotation } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
-import { h3ToGeo, h3IsValid } from 'h3-js'
 
 /** signature of method to update location */
 interface ClusterSetter {
@@ -55,7 +55,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
       const updateAssetLocation: ClusterSetter = (newLoc: L.LatLng): void => {
         route.currentLocation2 = newLoc
       }
-      storeInCluster(res, updateAssetLocation, route.currentPosition, route.name + '_pos')
+      storeInCluster(res, updateAssetLocation, route.currentPosition, route.name)
     }
 
     // we apply the same processing to planned and plannedTrimmed, so wrap
@@ -67,6 +67,7 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
         if (step.locations && step.route) {
           const len = step.locations.length
           for (let ctr = 0; ctr < len; ctr++) {
+            const firstStep = ctr === 0
             const thisPos: string = step.route[ctr]
             const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
               if (step.locations) {
@@ -77,7 +78,12 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
               // this is the selected track, and we're on the last step of the last turn
               // so don't declutter it
             } else {
-              storeInCluster(res, updateThisStep, thisPos, route.name + '_p_' + stepCtr)
+              // note: if this is the first step in the planned route, we give it the same id
+              // note: as the route - to join the planned route to the icon
+              const defaultName = route.name + '_p_' + stepCtr
+              const plannedName = firstStep && route.name
+              const id = plannedName || defaultName
+              storeInCluster(res, updateThisStep, thisPos, id)
             }
           }
         }
@@ -90,17 +96,23 @@ const findLocations = (routes: RouteStore, markers: MapAnnotations, selected: st
     // now planned routes
 
     // and historic tracks
-    route.history.forEach((step: RouteTurn) => {
+    route.history.forEach((step: RouteTurn, index: number) => {
       if (step.locations && step.route) {
         const len = step.locations.length
         for (let ctr = 0; ctr < len; ctr++) {
+          const lastStep = ctr === len - 1
           const thisPos: string = step.route[ctr]
           const updateThisStep: ClusterSetter = (newLoc: L.LatLng): void => {
             if (step.locations) {
               step.locations[ctr] = newLoc
             }
           }
-          storeInCluster(res, updateThisStep, thisPos, route.name + '_h_' + ctr)
+          // note: if this is the last step in the history route, we give it the same id
+          // note: as the route - to join the planned route to the icon
+          const defaultName = route.name + '_h_' + index
+          const historyName = lastStep && route.name
+          const id = historyName || defaultName
+          storeInCluster(res, updateThisStep, thisPos, id)
         }
       }
     })
@@ -137,7 +149,11 @@ const spreadClusters = (clusters: Array<Cluster>, tileDiameterMins: number): voi
   clusters.forEach((cluster: Cluster) => {
     const idLen = cluster.ids.length
     if (!h3IsValid(cluster.hex)) {
-      console.warn('WARNING - encountered invalid hex reference', cluster.hex)
+      // dont't throw error for unit tests, some use legacy data
+      const jestWorkerId = process.env.JEST_WORKER_ID
+      const inProduction = !jestWorkerId
+      inProduction && console.warn('WARNING - encountered invalid hex reference', cluster.hex)
+      // end
     }
     if (idLen > 1) {
       const centreArr = h3ToGeo(cluster.hex)

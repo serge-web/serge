@@ -1,34 +1,20 @@
 import {
-  CUSTOM_MESSAGE,
-  INFO_MESSAGE,
-  CHAT_MESSAGE,
-  FEEDBACK_MESSAGE,
-  FORCE_LAYDOWN,
-  VISIBILITY_CHANGES,
-  PERCEPTION_OF_CONTACT,
-  SUBMIT_PLANS,
-  STATE_OF_WORLD,
-  INFO_MESSAGE_CLIPPED,
-  CREATE_TASK_GROUP,
-  LEAVE_TASK_GROUP,
-  HOST_PLATFORM,
-  DELETE_PLATFORM,
-  UPDATE_MARKER,
-  CollaborativeMessageStates,
-  COUNTER_MESSAGE,
-  DELETE_MARKER
+  ADJUDICATION_OUTCOMES,
+  CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
+  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
+import { Geometry } from 'geojson'
+import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcomes, INTERACTION_SHORT_CIRCUIT, LocationOutcomes, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
-import Visibility from './visibility'
 import Role from './role'
-import { Force, ForceRole, StateOfWorld, ForceData, ChannelCore } from '.'
+import Visibility from './visibility'
 import Wargame from './wargame'
-import { MapAnnotation } from './map-annotation'
 
 export interface MessageDetailsFrom {
-  /** name
+  /** name of force - to be @deprecated
    */
   readonly force: ForceData['name'],
   /** id of sending force */
@@ -62,7 +48,12 @@ export interface MessageDetails {
    * extra data for when message being edited collaboratively
    */
   collaboration?: CollaborationDetails
-  messageType: string,
+  /** 
+   * extra detail for managing an interaction
+   */
+  interaction?: InteractionDetails
+  /** ID of template for this message */
+  messageType: TemplateBody['_id'],
   /** time message sent */
   timestamp: string,
   /** turn when this message was sent */
@@ -71,8 +62,16 @@ export interface MessageDetails {
    * explain source for answer, or assumptions made
    */
   privateMessage?: string,
+  /** 
+   * Incremental counter for messages from this force, in this game.
+   * Used server-side to generate `message.message.Reference`.
+   * Only present for messages with `message.message.Reference`
+   */
+  counter?: number
   /** if this message has been archived */
   archived?: boolean
+  /** if this message is to be excluded from adjudication */
+  excluded?: boolean
 }
 
 export interface MessageStructure {
@@ -82,7 +81,43 @@ export interface MessageStructure {
    */
   [property: string]: any
   title?: string
-  content?: string
+  /** the reference number for this force in this game */
+  Reference?: string
+}
+
+/** Core elements of planning messages. These are the fields
+ * we directly manipulate, or expect to be present. It is
+ * defined as a `core` type to avoid the [property: string]
+ * undefined elements that allow mis-named objects to fall
+ * through TypeScript checking.
+ */
+export interface PlanningMessageStructureCore {
+  /** unique id for this message thread 
+   * Note: we use upper case Reference since the send-message logic expects that 
+   * Note: in order to auto gen instances
+  */
+  Reference: string
+  /** title for this plan */
+  title: string
+  /** start-time of this plan */
+  startDate: string
+  /** end-time of this plan */
+  endDate: string
+  /** any location-related data */
+  location?: PlannedActivityGeometry[]
+  /** own assets involved in plan */
+  ownAssets?: Array<{ asset: Asset['uniqid'], number: number, missileType?: string }>
+  /** other assets involved in plan */
+  otherAssets?: Array<{ asset: Asset['uniqid'], number?: number, missileType?: string }>
+  /** id of the activity being conducted */
+  activity: PlanningActivity['uniqid']
+}
+
+/** extend planning message to allow template entries
+ */
+export interface PlanningMessageStructure extends PlanningMessageStructureCore {
+  /** allow template properties */
+  [property: string]: any
 }
 
 export interface CoreMessage {
@@ -92,7 +127,9 @@ export interface CoreMessage {
   /** PouchDB revision for this document */
   _rev?: string
   /** admin detail for message */
-  readonly details: MessageDetails,
+  readonly details: MessageDetails
+  /** whether this message has been read on the current client */
+  hasBeenRead?: boolean
 }
 
 /** 
@@ -117,9 +154,9 @@ export interface CollaborationDetails {
    * Message status
    */
   status: CollaborativeMessageStates
-   /** date-time when the last change 
-   * was made to this message
-   */
+  /** date-time when the last change 
+  * was made to this message
+  */
   lastUpdated: string
   /**
    * Current message owner
@@ -129,10 +166,40 @@ export interface CollaborationDetails {
    * structured response to message
    */
   response?: MessageStructure
-   /** 
-   * feedback on last version
-   */
+  /** 
+  * feedback on last version
+  */
   feedback?: Array<FeedbackItem>
+}
+
+/** extra details regarding details of interactions 
+ * NOTE: we use `From` details to denote who is adjudicating the interactions
+*/
+export interface InteractionDetails {
+  /** unique id for this interaction (includes orders and geometries) */
+  readonly id: string
+  /** whether adjudication of this interaction is complete */
+  complete?: boolean
+  /** whether this interaction has been slipped */
+  skipped?: boolean
+  /** if this is in response to an event, rather than interaction */
+  event?: INTERACTION_SHORT_CIRCUIT
+  /** first set of orders this relates to */
+  readonly orders1: string
+  /** id of activity in first set of orders (if known) */
+  readonly orders1Geometry?: PlannedActivityGeometry['uniqid']
+  /** second (optional) set of orders this relates to */
+  readonly orders2?: string
+  /** id of activity in first set of orders (if known) */
+  readonly orders2Geometry?: PlannedActivityGeometry['uniqid']
+  /** other assets associated with this interaction */
+  otherAssets?: Array<Asset['uniqid']>
+  /** interaction start time */
+  readonly startTime: string
+  /** interaction end time */
+  readonly endTime: string
+  /** geometry describing area of interaction */
+  readonly geometry?: Geometry
 }
 
 export interface MessageCustom extends CoreMessage {
@@ -141,8 +208,6 @@ export interface MessageCustom extends CoreMessage {
   message: MessageStructure,
   /** whether this message is open/expanded on the current client */
   isOpen: boolean
-  /** whether this message has been read on the current client */
-  hasBeenRead: boolean
   /** the game turn when this was sent */
   gameTurn?: number,
   /** whether this represents an item of insight/feedback */
@@ -171,13 +236,49 @@ export interface MessageCounter {
 export interface ChatMessage extends CoreMessage {
   readonly messageType: typeof CHAT_MESSAGE,
   message: MessageStructure
-  /** whether this message has been read on the current client */
-  hasBeenRead?: boolean
+}
+
+/** messages being used in support of planning */
+export interface MessagePlanning extends CoreMessage {
+  readonly messageType: typeof PLANNING_MESSAGE,
+  message: PlanningMessageStructure
+}
+
+/** messages being used in support of adjudicating an interaction */
+export interface MessageInteraction extends CoreMessage {
+  readonly messageType: typeof INTERACTION_MESSAGE,
+  message: MessageAdjudicationOutcomes
 }
 
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE,
   message: MessageStructure
+}
+
+/** an instance of feedback to a particular force
+ */  
+export interface PerForceNarrative {
+  force: ForceData['uniqid']
+  feedback: string
+}
+
+/** the outcome-related content of an adjudication */
+export interface MessageAdjudicationOutcomes {
+  readonly messageType: typeof ADJUDICATION_OUTCOMES,
+  /** ref of the adjudication this refers to */
+  readonly Reference: string
+  readonly healthOutcomes: HealthOutcomes
+  readonly locationOutcomes: LocationOutcomes
+  readonly perceptionOutcomes: PerceptionOutcomes
+  /** whether umpire considers this interaction as important */
+  important: boolean
+  /** other assets associated with this interaction,
+   * stored here temporarily, before being moved
+   * to InteractionDetails
+   */
+  otherAssets?: Array<Asset['uniqid']>
+  narrative?: string
+  perForceNarratives?: PerForceNarrative[]
 }
 
 /** message containing updated game status, could be one of:
@@ -248,7 +349,6 @@ export interface MessageVisibilityChanges {
   condition?: string
 }
 
-
 export interface MessageDeletePlatform {
   readonly messageType: typeof DELETE_PLATFORM,
   readonly assetId: string,
@@ -274,6 +374,11 @@ export interface MessageDeleteMarker {
   readonly marker: MapAnnotation['uniqid']
 }
 
+export interface MessageCloneMarker {
+  readonly messageType: typeof CLONE_MARKER,
+  readonly marker: MapAnnotation
+}
+
 export type MessageMap = MessageForceLaydown |
   MessagePerceptionOfContact |
   MessageVisibilityChanges |
@@ -284,12 +389,15 @@ export type MessageMap = MessageForceLaydown |
   MessageHostPlatform |
   MessageDeletePlatform |
   MessageUpdateMarker |
-  MessageDeleteMarker
+  MessageDeleteMarker |
+  MessageCloneMarker |
+  MessageAdjudicationOutcomes
 
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom
 
 type Message = MessageCustom |
+  MessagePlanning |
   ChatMessage |
   MessageFeedback |
   MessageInfoTypeClipped |

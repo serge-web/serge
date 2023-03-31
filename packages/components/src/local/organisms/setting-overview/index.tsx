@@ -130,6 +130,12 @@ export const SettingOverview: React.FC<PropTypes> = ({
     setDirty(updates)
   }
 
+  const updatePlayerForcesVisibility = (): void => {
+    const updates = { ...overview, logPlayerActivity: !overview.logPlayerActivity }
+    setOverview(updates)
+    setDirty(updates)
+  }
+
   const setDirty = (updates: WargameOverview): void => {
     onChange && onChange({
       ...updates,
@@ -165,7 +171,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
 
   return <div className={styles.main}>
     <div className={styles.row}>
-      <div className={styles.col}/>
+      <div className={styles.col} />
       <div className={styles.actions}>
         <Button
           color="secondary"
@@ -185,8 +191,8 @@ export const SettingOverview: React.FC<PropTypes> = ({
             fullWidth
             value={overview.gameDescription}
             variant="filled"
-            rows={8}
-            rowsMax={8}
+            minRows={8}
+            maxRows={8}
             updateState={updateGameDescription}
             className={styles.textarea}
           />
@@ -213,7 +219,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
           </div>
           <div className={styles.group}>
             <label className={styles.label} htmlFor='gameTurnTime'>
-              Wargame turn time<br/>(YY MM DD HH MM SS)
+              Wargame turn time<br />(YY MM DD HH MM SS)
             </label>
             <div className='MuiInputBase-root MuiInput-root MuiInput-underline'>
               {<MaskedInput
@@ -290,7 +296,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
             </div>
           </div>
 
-          <div className={styles.hidden}><Input/></div>
+          <div className={styles.hidden}><Input /></div>
           <div>
             <MoreInfo description='Show clickable lists of roles per force, allowing login without use of per-role passcodes'><FormControlLabel
               control={
@@ -314,6 +320,17 @@ export const SettingOverview: React.FC<PropTypes> = ({
               }
               label="Hide force icons in channels"
             /></MoreInfo>
+            <MoreInfo description='Alow forces with Umpire flag to see player logs in wargames, they can see lastest actions of players'><FormControlLabel
+              control={
+                <Checkbox
+                  checked={initialOverview.logPlayerActivity}
+                  onChange={updatePlayerForcesVisibility}
+                  value='1'
+                  color='primary'
+                />
+              }
+              label="Log player activity to database"
+            /></MoreInfo>
           </div>
           <div>
             <>{
@@ -323,7 +340,7 @@ export const SettingOverview: React.FC<PropTypes> = ({
               }}>Initiate Wargame</Button>
             }{
               wargameInitiated &&
-              <p><FontAwesomeIcon icon={faCheck} size="2x" />&nbsp;Wargame initiated</p>
+                <p><FontAwesomeIcon icon={faCheck} size="2x" />&nbsp;Wargame initiated</p>
             }
             </>
           </div>

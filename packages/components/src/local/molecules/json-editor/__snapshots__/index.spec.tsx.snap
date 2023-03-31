@@ -12,6 +12,5 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
   }
 >
   Schema not found for 
-  CustomMessage
 </span>
 `;

@@ -11,7 +11,6 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
   }
   return null
 }
-
 describe('PrivateChatInputToggle component:', () => {
   it('renders correctly', () => {
     const tree = renderer

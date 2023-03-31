@@ -20,10 +20,10 @@ export default interface Props {
    * Release for pending review RFIs
    * @param payload
    */
-  onSubmit?: (message: object, payload: ActionPayload) => void
+  onSubmit?: (message: any, payload: ActionPayload) => void
   /**
    * Reject action event handler on release for pending review RFIs
    * @param payload
    */
-  onReject?: (message: object, payload: ActionPayload) => void
+  onReject?: (message: any, payload: ActionPayload) => void
 }

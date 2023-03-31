@@ -1,3 +1,5 @@
+import { AttributeEditorData, AttributeTypes, AttributeValues } from '@serge/custom-types'
+
 export type Props = {
   /** whether to display dialog */
   isOpen: boolean

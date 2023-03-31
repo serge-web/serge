@@ -1,28 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react'
-import L, { DragEndEvent } from 'leaflet'
-import * as turf from '@turf/turf'
-import { Marker, LayerGroup, Polyline } from 'react-leaflet'
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
 import { CellLabelStyle } from '@serge/config'
-
-/* Import helpers */
-import { plannedRouteFor3 } from '@serge/helpers'
-import Polygon from './helpers/polygon'
-
-import { binCells3, PolyBin3 } from './helpers/bin-cells'
-import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from-geojson'
-
-/* Import mapping context */
-import { MapContext } from '../mapping'
-
-/* Import Types */
 import { Route, SergeGrid3, SergeHex3, TurningDetails } from '@serge/custom-types'
-
-import { h3SetToMultiPolygon, edgeLength, geoToH3, h3GetResolution, H3Index, kRing, h3ToGeo, hexRing } from 'h3-js'
-import getCellStyle3 from './helpers/get-cell-style-3'
+import { plannedRouteFor3 } from '@serge/helpers'
+import * as turf from '@turf/turf'
+import { edgeLength, geoToH3, h3GetResolution, H3Index, h3SetToMultiPolygon, h3ToGeo, hexRing, kRing } from 'h3-js'
+import L, { DragEndEvent } from 'leaflet'
+import React, { useContext, useEffect, useState } from 'react'
+import { LayerGroup, Marker, Polyline } from 'react-leaflet'
+import { MapContext } from '../mapping'
 import { brgBetweenTwoHex, cleanAngle, leafletBuffer, leafletContainsTurf, leafletUnion, toRadians, toTurf, toVector } from '../mapping/helpers/h3-helpers'
+import { binCells3, PolyBin3 } from './helpers/bin-cells'
+import getCellStyle3 from './helpers/get-cell-style-3'
+import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from-geojson'
+import Polygon from './helpers/polygon'
+import styles from './styles.module.scss'
 
 /**
  *  create hexagonal grid
@@ -41,7 +31,7 @@ const calcAllowableCells3 = (grid: SergeGrid3, originHex: H3Index, range: number
 }
 
 /* Render component */
-export const HexGrid: React.FC<{}> = () => {
+export const HexGrid: React.FC = () => {
   const props = useContext(MapContext).props
   if (typeof props === 'undefined') return null
   const {
@@ -81,7 +71,7 @@ export const HexGrid: React.FC<{}> = () => {
   const [turningPoly, setTurningPoly] = useState<L.LatLng[]>([])
   const [achievablePoly, setAchievablePoly] = useState<L.LatLng[]>([])
   const [mapBoundsPts, setMapBoundsPts] = useState<L.LatLng[]>([])
-  const [cameFrom, setCameFrom] = useState<{}>({})
+  const [cameFrom, setCameFrom] = useState({})
 
   // the binned polygons
   const [polyBins3, setPolyBins3] = useState<PolyBin3[]>([])
@@ -225,7 +215,8 @@ export const HexGrid: React.FC<{}> = () => {
   }, [dragDestination3, originHex3])
 
   const calcTurnData = (originCell: SergeHex3, details?: TurningDetails): { turnCircles: L.LatLng[], turnOverall: L.LatLng[], cellBehind: string, cellAhead: string } => {
-    if (details) {
+    // note: the heading value may be missing, if, for example there is currently no back-history
+    if (details && details.heading) {
       // coords of circle
       const turnRadiusKm: number = details.radius / 1000 // grow radius, to ensure circles slightly overlap
       const origin = turf.point([originCell.centreLatLng.lng, originCell.centreLatLng.lat])
@@ -333,6 +324,11 @@ export const HexGrid: React.FC<{}> = () => {
     if (selectedAsset && planningConstraints && planningConstraints.origin && h3gridCells && (planningRangeCells || rangeUnlimited)) {
       // if we're mid-way through a leg, we take the value from the origin hex, not the planning centre
       const originCell = plannedRoutePoly.length ? originHex3 : h3gridCells.find((cell: SergeHex3) => cell.index === planningConstraints.origin)
+      if (!originCell && !originHex3) {
+        const originRes = h3GetResolution(planningConstraints.origin)
+        const cellRes = h3GetResolution(h3gridCells[0].index)
+        console.warn('Warning - planning origin not found in hex grid', planningConstraints.origin, originRes, cellRes)
+      }
       // did we find cell?
       if (originCell) {
         if (turnNumber > 0) {
@@ -470,10 +466,9 @@ export const HexGrid: React.FC<{}> = () => {
   /** calculate routeing data using algorithm found here:
    * https://www.redblobgames.com/pathfinding/a-star/introduction.html
   */
-  const restrictTurn = (start: string, rangeCells: number, allowableCells: SergeHex3[]):
-    {cameFromDict: {[name: string]: string | undefined}, turnCells: SergeHex3[]} => {
-    const frontier: [{index: string, range: number}] = [{ index: start, range: 0 }]
-    const cameFromDict: {[name: string]: string | undefined} = {}
+  const restrictTurn = (start: string, rangeCells: number, allowableCells: SergeHex3[]): { cameFromDict: { [name: string]: string | undefined }, turnCells: SergeHex3[] } => {
+    const frontier: [{ index: string, range: number }] = [{ index: start, range: 0 }]
+    const cameFromDict: { [name: string]: string | undefined } = {}
     cameFromDict[start] = undefined
     while (frontier.length) {
       // get the nextitem
@@ -736,6 +731,8 @@ export const HexGrid: React.FC<{}> = () => {
         return cell.index
       case CellLabelStyle.X_Y_LABELS:
         return store.xy
+      case CellLabelStyle.BLANK:
+        return ''
       case CellLabelStyle.LAT_LON_LABELS:
       default:
         return store.latLon
@@ -806,23 +803,25 @@ export const HexGrid: React.FC<{}> = () => {
       ))}
     </LayerGroup>
 
-    <LayerGroup key={'hex_polygons4'} >{
-      /** too many cells visible to show outline, so just show planned route (or target for laydown) */
-      visibleAndAllowableCells3.length >= SHOW_HEXES_UNDER && planningRouteCells3.map((cell: SergeHex3, index: number) => (
-        <Polygon
-          // we may end up with other elements per hex,
-          // such as labels so include prefix in key
-          key={'hex_poly_' + cell.index + '_' + index}
-          fillColor={cell.fillColor || '#f00'}
-          fill={terrainPolys.length === 0} // only fill them if we don't have polys
-          positions={cell.poly}
-          stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f0f'}
-          className={styles[getCellStyle3(cell, planningRouteCells3, [], cellForSelected3)]}
-        />
-      ))}
-    { // special case - if we're in air travel mode the planning route may not be in the
-      // available cells listing
-      planningConstraints && planningConstraints.travelMode === 'air' &&
+    <LayerGroup key={'hex_polygons4'} >
+      {
+        /** too many cells visible to show outline, so just show planned route (or target for laydown) */
+        visibleAndAllowableCells3.length >= SHOW_HEXES_UNDER && planningRouteCells3.map((cell: SergeHex3, index: number) => (
+          <Polygon
+            // we may end up with other elements per hex,
+            // such as labels so include prefix in key
+            key={'hex_poly_' + cell.index + '_' + index}
+            fillColor={cell.fillColor || '#f00'}
+            fill={terrainPolys.length === 0} // only fill them if we don't have polys
+            positions={cell.poly}
+            stroke={cell.index === cellForSelected3 && assetColor ? assetColor : '#f0f'}
+            className={styles[getCellStyle3(cell, planningRouteCells3, [], cellForSelected3)]}
+          />
+        ))}
+      {
+        // special case - if we're in air travel mode the planning route may not be in the
+        // available cells listing
+        planningConstraints && planningConstraints.travelMode === 'air' &&
         allowableCells3.length === 0 &&
         planningRouteCells3.map((cell: SergeHex3, index: number) => (
           <Polygon
@@ -834,46 +833,47 @@ export const HexGrid: React.FC<{}> = () => {
             stroke={'#0ff' /* cell.index === cellForSelected3 && assetColor ? assetColor : '#fff' */}
             className={styles['planned-hex']}
           />
-        ))}
-    <Polyline
-      key={'turning_circles'}
-      color={'#0ff'}
-      positions={turningPoly}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key={'achievable_cells'}
-      color={'#f66'}
-      positions={achievablePoly}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key={'temp_map_bounds'}
-      color={'#22c'}
-      positions={mapBoundsPts}
-      className={styles['planned-line']}
-    />
+        ))
+      }
+      <Polyline
+        key={'turning_circles'}
+        color={'#0ff'}
+        positions={turningPoly}
+        className={styles['planned-line']}
+      />
+      <Polyline
+        key={'achievable_cells'}
+        color={'#f66'}
+        positions={achievablePoly}
+        className={styles['planned-line']}
+      />
+      <Polyline
+        key={'temp_map_bounds'}
+        color={'#22c'}
+        positions={mapBoundsPts}
+        className={styles['planned-line']}
+      />
 
-    <Polyline
-      key={'hex_planned_line'}
-      color={assetColor}
-      positions={plannedRoutePoly}
-      className={styles['planned-line']}
-    />
-    <Polyline
-      key={'hex_planning_line3'}
-      color={assetColor}
-      positions={planningRoutePoly3}
-      className={styles['planning-line']}
-    />
-    <Polygon
-      key={'allowableCells3_poly'}
-      color={assetColor}
-      fillColor={assetColor}
-      positions={allowablePoly3}
-      className={styles['allowable-poly']}
-    />
-    {origin &&
+      <Polyline
+        key={'hex_planned_line'}
+        color={assetColor}
+        positions={plannedRoutePoly}
+        className={styles['planned-line']}
+      />
+      <Polyline
+        key={'hex_planning_line3'}
+        color={assetColor}
+        positions={planningRoutePoly3}
+        className={styles['planning-line']}
+      />
+      <Polygon
+        key={'allowableCells3_poly'}
+        color={assetColor}
+        fillColor={assetColor}
+        positions={allowablePoly3}
+        className={styles['allowable-poly']}
+      />
+      {origin &&
         <Marker
           draggable={true}
           onDragend={dropped}
@@ -881,7 +881,7 @@ export const HexGrid: React.FC<{}> = () => {
           onClick={onMarkerClick}
           position={origin}
           key={'drag_marker_'} />
-    }
+      }
     </LayerGroup>
     {true && // don't plot the polys from legacy data
       <LayerGroup key='polygon_outlines'>

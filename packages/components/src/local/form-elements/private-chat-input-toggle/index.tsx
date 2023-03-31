@@ -1,18 +1,11 @@
-import React, { useState, useImperativeHandle } from 'react'
-import { Box } from '@material-ui/core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaperclip, faUserSecret } from '@fortawesome/free-solid-svg-icons'
-
-/* Import Types */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Box } from '@material-ui/core'
+import React, { useImperativeHandle, useState } from 'react'
+import TextInput from '../../atoms/text-input'
+import styles from './styles.module.scss'
 import Props from './types/props'
 
-/* Import Stylesheet */
-import styles from './styles.module.scss'
-
-/* Import Component */
-import TextInput from '../../atoms/text-input'
-
-/* Render component */
 export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ placeholder, postBack, sendMessage }: Props, ref) => {
   const [formState, setFormState] = useState('')
   const [collapsed, setCollapsed] = useState(false)
@@ -33,7 +26,7 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
 
   const keyDownHandler = (e: any): void => {
     if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
-      sendMessage && sendMessage(formState)
+      sendMessage && sendMessage()
     }
   }
 
@@ -66,8 +59,8 @@ export const PrivateChatInputToggle: React.FC<Props> = React.forwardRef(({ place
         <TextInput
           fullWidth
           multiline
-          rows={2}
-          rowsMax={3}
+          minRows={2}
+          maxRows={3}
           variant="filled"
           updateState={changeHandler}
           value={formState}

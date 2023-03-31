@@ -69,8 +69,8 @@ export const forces: ForceData[] = [
         "attributeValues": [
           {
             attrId: 'asdic-dir',
-            attrType: "AttributeValueNumber",
-            value: 135
+            attrType: "AttributeValueEnum",
+            value: '120'
           },
           {
             attrId: 'comm-battery',
@@ -78,9 +78,14 @@ export const forces: ForceData[] = [
             value: 90
           },
           {
-            attrId: 'comm-torpedoes',
+            attrId: 'comm-fwd-torpedoes',
             attrType: "AttributeValueNumber",
             value: 10
+          },
+          {
+            attrId: 'comm-aft-torpedoes',
+            attrType: "AttributeValueNumber",
+            value: 2
           },
           {
             attrId: 'ss-depth',
@@ -89,7 +94,6 @@ export const forces: ForceData[] = [
           }
         ],
         "perceptions": [],
-        "platformType": "ssn",
         "platformTypeId" : "a2",
         "plannedTurns": [
           {
@@ -141,7 +145,6 @@ export const forces: ForceData[] = [
             "force": "Blue-1"
           }
         ],
-        "platformType": "frigate",
         "platformTypeId" : "a3",
         "position": "8718aab6cffffff",
         "uniqid": "a0prbr1141"

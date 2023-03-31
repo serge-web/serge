@@ -6,18 +6,37 @@ import WorldState from './index'
 import WorldStatePropTypes from './types/props'
 import docs from './README.md'
 import { routeCreateStore } from '@serge/helpers'
-import { forces, platformTypes } from '@serge/mocks'
-import { Phase } from '@serge/config'
+import { cmdWkWargame } from '@serge/mocks'
+import { CHANNEL_MAPPING, Phase } from '@serge/config'
 
 import { WorldStatePanels } from './helpers/enums'
+import { ChannelMapping, ForceData, Role } from '@serge/custom-types'
+
+// console.clear()
+
+const forces = cmdWkWargame.data.forces.forces
+const platformTypes = cmdWkWargame.data.platformTypes ? cmdWkWargame.data.platformTypes.platformTypes : []
+const mappingChannel = cmdWkWargame.data.channels.channels[9] as ChannelMapping
+
+if (mappingChannel.channelType !== CHANNEL_MAPPING) {
+  console.error('No, this isnt a mapping channel', mappingChannel)
+}
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+
+const separator = ' ~ '
+
+const allRoles: string[] = []
+forces.forEach((force: ForceData) => {
+  force.roles.forEach((role: Role) => {
+    allRoles.push(force.uniqid + separator + role.roleId + separator + role.name)
+  })
+})
 
 export default {
   title: 'local/WorldState',
   component: WorldState,
   decorators: [wrapper],
-  isUmpire: false,
   parameters: {
     readme: {
       content: docs
@@ -49,43 +68,50 @@ export default {
         options: [
           WorldStatePanels.Control,
           WorldStatePanels.Visibility,
-          WorldStatePanels.ControlledBy
+          WorldStatePanels.ControlledBy,
+          WorldStatePanels.Markers
         ]
       }
     },
-    viewAs: {
-      name: 'View As',
-      defaultValue: 'Blue',
+    playerRole: {
+      name: 'View as',
+      defaultValue: allRoles[1],
       control: {
-        type: 'radio',
-        options: [
-          'White',
-          'Blue',
-          'Red'
-        ]
+        type: 'select',
+        options: allRoles
       }
     }
   }
 }
 
 const Template: Story<WorldStatePropTypes> = (args) => {
-  // @ts-ignore: Add custom property for storybook
-  const { viewAs, store, ...props } = args
-  const forceNames = {
-    White: 'umpire',
-    Blue: 'Blue',
-    Red: 'Red'
-  }
-  const forceName = forceNames[viewAs]
-  const storeProp = store || routeCreateStore(undefined, Phase.Adjudication, forces, forceName, 'role-id', false, platformTypes, false, false)
-  return <WorldState store={{ ...storeProp }} {...props} />
+  const {
+    // eslint-disable-next-line
+    playerRole,
+    // eslint-disable-next-line
+    store,
+    // eslint-disable-next-line
+    isUmpire,
+    ...props
+  } = args
+  const roleStr: string = playerRole || ''
+  // separate out the two elements of the combined rocale
+  const sep1 = roleStr.indexOf(separator)
+  const sep2 = roleStr.indexOf(separator, sep1 + separator.length)
+  const forceId = roleStr.substring(0, sep1)
+  const roleId = roleStr.substring(sep1 + separator.length, sep2)
+  const isGameControlRole = roleStr === allRoles[0]
+  const storeProp = routeCreateStore(undefined, Phase.Adjudication, forces, forceId, roleId, isGameControlRole, platformTypes, false, false,
+    true, undefined, mappingChannel, 3)
+  const isUmpireVal = forceId === forces[0].uniqid
+  return <WorldState isUmpire={isUmpireVal} store={{ ...storeProp }} {...props} />
 }
 
 export const WithPhases = Template
 WithPhases.args = {
   panel: WorldStatePanels.Control,
-  isUmpire: false,
   plansSubmitted: false,
+  platforms: platformTypes,
   turnNumber: 1,
   phase: Phase.Planning,
   submitTitle: 'Submit',

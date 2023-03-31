@@ -24,19 +24,19 @@ it('correctly updates perceptions for new forces', () => {
 })
 
 it('correctly updates perceptions for dropped forces', () => {
-  const res = updatePerceptions(['Green'], [{ by: 'Red' }, { by: 'Green', type: 'Big duck' }])
+  const res = updatePerceptions(['Green'], [{ by: 'Red' }, { by: 'Green', typeId: 'Big duck' }])
   expect(res.length).toEqual(1)
-  expect(res[0].type).toEqual('Big duck')
+  expect(res[0].typeId).toEqual('Big duck')
 })
 
 it('robustly handles zero existing', () => {
   const res = updatePerceptions(['Green'], [])
   expect(res.length).toEqual(1)
-  expect(res[0].type).toEqual(undefined)
+  expect(res[0].typeId).toEqual(undefined)
 })
 
 it('correctly handles zero new', () => {
-  const res = updatePerceptions([], [{ by: 'Red' }, { by: 'Green', type: 'Big duck' }])
+  const res = updatePerceptions([], [{ by: 'Red' }, { by: 'Green', typeId: 'Big duck' }])
   expect(res.length).toEqual(0)
 })
 

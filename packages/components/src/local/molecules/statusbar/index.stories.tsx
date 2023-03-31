@@ -31,6 +31,7 @@ const onSave = (update: string): void => {
 export const Default: React.FC = () => <StatusBar wargame={wargame} onChange={onChange} onSave={onSave} />
 export const Initiated: React.FC = () => <StatusBar wargame={{ ...wargame, wargameInitiated: true }} onChange={onChange} onSave={onSave} />
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

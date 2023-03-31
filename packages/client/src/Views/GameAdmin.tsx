@@ -1,6 +1,6 @@
 import { MessageChannel } from '@serge/custom-types'
 import { setMessageState } from '@serge/helpers'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { updateMessageState } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import MessageCreatorChatChannel from '../Components/MessageCreatorChatChannel/MessageCreatorChatChannel'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
@@ -18,6 +18,9 @@ const GameAdmin = (): React.ReactElement => {
     })
     dispatch(updateMessageState(true))
   }
+  const schema = useMemo(() => {
+    return chatChannel.template
+  }, [chatChannel.messages.length])
 
   return (
     <div className='contain-game-admin'>
@@ -29,7 +32,7 @@ const GameAdmin = (): React.ReactElement => {
       />
 
       <div className='new-message-creator wrap' data-tour='seventh-step'>
-        <MessageCreatorChatChannel schema={chatChannel.template} />
+        <MessageCreatorChatChannel schema={schema} />
       </div>
     </div>
   )

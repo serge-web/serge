@@ -9,44 +9,42 @@ exports[`TurnProgression component: renders correctly 1`] = `
     className="turn-info-phase"
   >
     <div
+      className="not-initiated"
+      title="Initiate wargame via Admin Panel"
+    >
+      WARGAME NOT INITIATED
+    </div>
+    <div
       className="turn-phase-group"
     >
       <div
-        className="turn"
+        className="turn-phase-item"
       >
         <h5>
-          Turn
+          Turn:
         </h5>
         <h5>
           1
         </h5>
       </div>
-      <hr
-        className="MuiDivider-root divider MuiDivider-vertical"
-      />
       <div
-        className="phase"
+        className="turn-phase-item"
       >
         <h5>
-          Phase
+          Phase:
         </h5>
-        <h5
-          className="highlight"
-        >
+        <h6>
           Adjudication
-        </h5>
-        <h5
-          className=""
-        >
-          Planning
-        </h5>
+        </h6>
       </div>
     </div>
     <time
       className="time"
-      dateTime="2019-10-01 01:02"
+      dateTime="2019-09-29 23:00"
     >
-      2019-10-01 01:02
+      2019-09-29 23:00
+       - 
+      Invalid date
     </time>
   </div>
 </div>

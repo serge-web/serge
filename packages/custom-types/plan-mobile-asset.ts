@@ -6,8 +6,11 @@
   radius: number
   /** distance in metres that asset can travel this turn */
   distance: number
-  /** heading for asset, degrees from North */
-  heading: number
+  /** heading for asset, degrees from North 
+   * leave as undefined if we don't know history (since we currently have no 
+   * back track)
+  */
+  heading?: number
 }
 
 /**

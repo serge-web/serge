@@ -1,8 +1,8 @@
-import { CustomDialog } from '../../atoms/custom-dialog'
 import { Asset, AttributeType, AttributeValue } from '@serge/custom-types'
 import { createAttributeValue, findPlatformTypeFor } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
+import { CustomDialog } from '../../atoms/custom-dialog'
 /* Import Components */
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
@@ -64,6 +64,7 @@ export const SettingForces: React.FC<PropTypes> = ({
     const handleChangeForce = (force: ForceData): void => {
       const nextForces: Array<ForceData> = [...initialForces]
       nextForces[selectedItem] = force
+      // TODO: strip out un-necessary UI related metadata (`type: "ASSET-ITEM"`)
       handleChangeForces(nextForces)
     }
 
@@ -141,13 +142,14 @@ export const SettingForces: React.FC<PropTypes> = ({
       }
     }
 
+    /** modal is complete, collapse it */
     const onClose = (): void => {
       toggleModal('')
     }
 
     return (
       <div key={selectedItem}>
-        <CustomDialog isOpen={!!content} cancelBtnText={'OK'} header='Error' onClose={onClose} content={content} />
+        <CustomDialog isOpen={!!content} cancelBtnText={'OK'} header='Error' onClose={onClose} >{content}</CustomDialog>
         <div className={cx(styles.row, styles['mb-20'])}>
           <div className={styles.col}>
             <TextInput

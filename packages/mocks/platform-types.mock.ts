@@ -90,13 +90,13 @@ export const platformTypes: PlatformTypeData[] = [
     travelMode: 'sea',
     attributeTypes: [
       {
-        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrType: ATTRIBUTE_TYPE_ENUM,
         attrId: 'asdic-dir',
         name: 'ASDIC',
         description: 'ASDIC orientation (absolute)',
-        units: '°',
+        values: ['0', '60', '120', '180', '240', '300'],
         editableByPlayer: true,
-        defaultValue: 0
+        defaultValue: '0'
       },
       {
         attrType: ATTRIBUTE_TYPE_NUMBER,
@@ -108,12 +108,21 @@ export const platformTypes: PlatformTypeData[] = [
       },
       {
         attrType: ATTRIBUTE_TYPE_NUMBER,
-        attrId: 'comm-torpedoes',
-        name: 'Torpedoes',
-        description: 'Number of torpedoes remaining',
+        attrId: 'comm-fwd-torpedoes',
+        name: 'Fwd Torpedoes',
+        description: 'Number of forward torpedoes remaining',
         editableByPlayer: true,
         format: '0',
-        defaultValue: 12
+        defaultValue: 4
+      },
+      {
+        attrType: ATTRIBUTE_TYPE_NUMBER,
+        attrId: 'comm-aft-torpedoes',
+        name: 'Aft Torpedoes',
+        description: 'Number of aft torpedoes remaining',
+        editableByPlayer: true,
+        format: '0',
+        defaultValue: 1
       },
       {
         attrType: ATTRIBUTE_TYPE_ENUM,

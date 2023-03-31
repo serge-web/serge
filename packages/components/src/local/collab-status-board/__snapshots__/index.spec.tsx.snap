@@ -92,7 +92,7 @@ Array [
           className="MuiButton-label"
         >
           <svg
-            className="svg-inline--fa fa-archive"
+            className="svg-inline--fa fa-box-archive"
           />
         </span>
         <span

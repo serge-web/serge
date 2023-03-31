@@ -1,11 +1,11 @@
+import { DATUM, LaydownPhases, LaydownTypes, Phase, PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, UNKNOWN_TYPE } from '@serge/config'
+import { Asset, ForceData, PerceivedTypes, Perception, PlatformTypeData, Route, RouteChild, RouteStatus, RouteTurn } from '@serge/custom-types'
+import { h3ToGeo } from 'h3-js'
 import L from 'leaflet'
-import { Route, RouteTurn, RouteChild, Asset, RouteStatus, PlatformTypeData, PerceivedTypes, Perception, ForceData } from '@serge/custom-types'
 import { cloneDeep } from 'lodash'
 import checkIfDestroyed from './check-if-destroyed'
 import findPerceivedAsTypes from './find-perceived-as-types'
-import { PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, LaydownPhases, LaydownTypes, Phase, DATUM, UNKNOWN_TYPE } from '@serge/config'
 import findPlatformTypeFor from './find-platform-type-for'
-import { h3ToGeo } from 'h3-js'
 
 const processStep = (step: RouteTurn): Array<RouteTurn> => {
   // dummy location, used if we don't have grid (such as in test)
@@ -104,8 +104,8 @@ const childrenFor = (list: Asset[] | undefined, platformTypes: PlatformTypeData[
             name: perceptions.name,
             platformTypeId: perceptions.typeId || UNKNOWN_TYPE,
             force: perceptions.forceId || UNKNOWN_TYPE,
-            destroyed: checkIfDestroyed(platformTypes, item.platformTypeId, item.condition),
-            condition: item.condition,
+            destroyed: checkIfDestroyed(platformTypes, item.platformTypeId, item.condition || ''),
+            condition: item.condition || '',
             asset: item,
             hosting: hosting,
             perceivedForceColor: color
@@ -278,7 +278,9 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   const futureSteps: Array<RouteTurn> = includePlanned ? createStepArray(plannedTurns || asset.plannedTurns, true, false) : []
   const numberOfPlannedTurns = plannedTurns ? plannedTurns.length : asset.plannedTurns ? asset.plannedTurns.length : 0
 
-  const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps) // we plot all history, so ignore whether in adjudication
+  const onlyOneStep = !underControlForce // if we can't control force, only ever allow one step of history.
+  // this is to prevent a player recognising a contact is the same as an earlier one.
+  const historySteps: Array<RouteTurn> = createStepArray(asset.history, false, filterHistorySteps || onlyOneStep) // we plot all history, so ignore whether in adjudication
 
   const destroyed: boolean = checkIfDestroyed(platformTypes, asset.platformTypeId, asset.condition)
 
@@ -288,8 +290,6 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
   const adjudicationState: PlanningStates | undefined = playerForce === UMPIRE_FORCE ? PlanningStates.Pending : undefined
 
   const visibleTo: Array<string> = determineVisibleTo(asset, playerForce)
-
-  const condition: string = asset.condition
 
   const laydownPhase = underControlRole
     ? laydownPhaseFor(phase, wargameInitiated, currentPosition, asset.locationPending, asset.position, existingRoute)
@@ -322,7 +322,7 @@ const routeCreateRoute = (asset: Asset, phase: Phase, color: string,
     original: cloneDeep(futureSteps),
     asset: asset,
     visibleTo: visibleTo,
-    condition: condition,
+    condition: asset.condition,
     adjudicationState: adjudicationState,
     attributes: asset.attributeValues || []
   }

@@ -7,7 +7,18 @@ export interface TemplateBody {
   title: string    
 }
 
+export interface TempletCreatorBody {
+  details: object,
+  _id: string
+}
+
 export default interface Template {
   label: string,
   value: TemplateBody
+}
+
+/** top level database object for storing activity definitions */
+/** collection of map annotations */
+export interface TemplateData {
+  templates: TemplateBody[]
 }

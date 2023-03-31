@@ -1,9 +1,9 @@
 import React from 'react'
 
 // Import component files
+import { withKnobs } from '@storybook/addon-knobs'
 import MapControl from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -19,8 +19,9 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <MapControl filterPlannedRoutes={true}>Title</MapControl>
+export const Default: React.FC = () => <MapControl></MapControl>
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

@@ -1,14 +1,22 @@
 import reducer from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
 
+import { PlayerUi } from '@serge/custom-types'
 import { actionSetWargameMessages } from '@serge/mocks'
 import { setWargameMessages } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import setAllMessagesData from './data/set_all_messages.json'
-import { PlayerUi } from '@serge/custom-types'
+import setAllMessagesData from './data/set_all_messages_mock'
 
 const playerUi: PlayerUi = {
   isGameControl: true,
+  isUmpire: true,
+  logPlayerActivity: false,
+  hideForcesInChannels: false,
+  attributeTypes: [],
+  perForceActivities: [],
+  infoMarkers: [],
+  markerIcons: [],
+  playerMessageLog: {},
+  updateMessageState: true,
   isRFIManager: false,
-  rfiMessages: [],
   selectedForce: {
     name: 'Blue',
     uniqid: 'force-k16fdykj',
@@ -75,7 +83,6 @@ const playerUi: PlayerUi = {
       channelType: 'ChannelCustom',
       participants: [
         {
-          force: 'Blue',
           forceUniqid: 'force-k16fdykj',
           pType: 'ParticipantCustom',
           roles: [],
@@ -96,7 +103,6 @@ const playerUi: PlayerUi = {
       uniqid: 'channel-k16fheej',
       participants: [
         {
-          force: 'Blue',
           forceUniqid: 'force-k16fdykj',
           pType: 'ParticipantCustom',
           roles: [],
@@ -110,7 +116,6 @@ const playerUi: PlayerUi = {
           subscriptionId: 'k16fhq4b'
         },
         {
-          force: 'White',
           forceUniqid: 'umpire',
           pType: 'ParticipantCustom',
           roles: [
@@ -133,7 +138,6 @@ const playerUi: PlayerUi = {
       channelType: 'ChannelCustom',
       participants: [
         {
-          force: 'White',
           pType: 'ParticipantCustom',
           forceUniqid: 'umpire',
           roles: [],
@@ -142,7 +146,6 @@ const playerUi: PlayerUi = {
           subscriptionId: 'k4cnwg1q'
         },
         {
-          force: 'Blue',
           pType: 'ParticipantCustom',
           forceUniqid: 'force-k16fdykj',
           roles: [],
@@ -734,9 +737,9 @@ describe('PlayerUi Message Reducers', () => {
         ...playerUi,
         chatChannel: {
           ...playerUi.chatChannel,
-          messages: setAllMessagesData.newState.chatChannel.messages
+          messages: setAllMessagesData.chatChannel.messages
         },
-        channels: setAllMessagesData.newState.channels
+        channels: setAllMessagesData.channels
       })
   })
 })

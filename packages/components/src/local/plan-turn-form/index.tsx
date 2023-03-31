@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { collateEditorData, isNumber } from '@serge/helpers'
-import { AttributeEditorData, AttributeType, AttributeValues, PlanTurnFormValues, Status } from '@serge/custom-types'
+import { AttributeEditorData, AttributeType, AttributeValue, AttributeValues, PlanTurnFormValues, Status } from '@serge/custom-types'
 import Badge from '../atoms/badge'
 import AttributeEditor from '../attribute-editor'
 
@@ -41,6 +41,15 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
 
   // initialise, from manager helper
   useEffect(() => {
+    // TODO: the following block is diagnostics, to handle intermittent issue
+    // where an attribute type is missing
+    attributeValues.forEach((value: AttributeValue) => {
+      const aType = formData.populate.attributes.find((item: AttributeType) => value.attrId === item.attrId)
+      if (!aType) {
+        console.error('missing attribute for ', formHeader, ' attribute ', value.attrId, value.attrType, formData.populate.attributes)
+      }
+    })
+
     setAttributes(collateEditorData(attributeValues, formData.populate.attributes))
   }, [attributeValues, formData.populate])
 
@@ -144,10 +153,10 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
       icon={icon.icon}
     >
       {formHeader}
-      { deleteEmptyTaskGroup &&
+      {deleteEmptyTaskGroup &&
         <Button onClick={deleteEmptyTaskGroup}>Group Empty - <b>Delete</b></Button>
       }
-      { plansSubmitted &&
+      {plansSubmitted &&
         <h5 className='sub-title'>(Form disabled, plans submitted)</h5>
       }
     </TitleWithIcon>
@@ -165,26 +174,26 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     </FormGroup>
     {statusVal.mobile
       ? speed.length > 0 &&
-        <FormGroup title="Speed (kts)" titlePosition="absolute">
-          <Speed
-            value = { validSpeedVal }
-            options = { speed }
-            onClick = { !formDisabled && speedHandler }
-          />
-        </FormGroup>
+      <FormGroup title="Speed (kts)" titlePosition="absolute">
+        <Speed
+          value={validSpeedVal}
+          options={speed}
+          onClick={!formDisabled && speedHandler}
+        />
+      </FormGroup>
       : <FormGroup title="For">
-        <Input className={clInput} disabled={formDisabled} name="turns" value={turnsVal} onChange={changeHandler}/>
+        <Input className={clInput} disabled={formDisabled} name="turns" value={turnsVal} onChange={changeHandler} />
         <span className={styles.text}>turns</span>
       </FormGroup>
     }
     {attributes && attributes.length > 0 &&
       <FormGroup title="Attributes" titlePosition="absolute">
         <div className={styles.attributelist}>
-          { attributes.map((item: AttributeEditorData): ReactElement => {
+          {attributes.map((item: AttributeEditorData): ReactElement => {
             const label = item.nameRead + item.valueRead
-            return <Badge title={item.description} key={item.attrId} allCaps={false} label={label}/>
+            return <Badge title={item.description} key={item.attrId} allCaps={false} label={label} />
           })}
-          { attributesAreEditable &&
+          {attributesAreEditable &&
             <span className={styles.editattributes}><Button onClick={openEditModal}>Edit</Button></span>
           }
         </div>
@@ -193,7 +202,7 @@ export const PlanTurnForm: React.FC<PropTypes> = ({
     <FormGroup title="Condition">
       <span className={styles.text}>{condition}</span>
     </FormGroup>
-    { !formDisabled &&
+    {!formDisabled &&
       <Button disabled={!saveEnabled} onClick={submitForm}>{statusVal.mobile ? 'Plan turn' : 'Next Turn'}</Button>
     }
   </div>

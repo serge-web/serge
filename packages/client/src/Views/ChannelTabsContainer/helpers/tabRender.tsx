@@ -2,6 +2,7 @@ import FlexLayout, { TabNode } from 'flexlayout-react'
 import { ChannelUI, PlayerUi } from '@serge/custom-types'
 import _ from 'lodash'
 import findChannelByID from './findChannelByID'
+import { CHANNEL_MAPPING, CHANNEL_PLANNING } from '@serge/config'
 
 const tabRender = (state: PlayerUi): (node: TabNode) => void => {
   return (node: TabNode): void => {
@@ -94,17 +95,29 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : undefined
 
       if (channel !== undefined) {
-        const unreadMessageCount: number | undefined = channel.unreadMessageCount
-        let className: string = ''
-
-        if (typeof unreadMessageCount === 'number' && unreadMessageCount > 0) {
-          className = unreadMessageCount < 9 ? `unread-${unreadMessageCount}` : 'unread-9plus'
+        // check it's not a channel type where we ignore unread (mapping)
+        // list of channel types where we don't show unread message count
+        const excludedChannels = [CHANNEL_MAPPING, CHANNEL_PLANNING]
+        if (excludedChannels.includes(channel.cData.channelType)) {
+          // clear the message counter
+          setTimeout(() => {
+            const className: string = ''
+            setUnreadClassName(className)
+            addMenuItemMsgCount(className)
+          })  
+        } else {
+          const unreadMessageCount: number | undefined = channel.unreadMessageCount
+          let className: string = ''
+  
+          if (typeof unreadMessageCount === 'number' && unreadMessageCount > 0) {
+            className = unreadMessageCount < 9 ? `unread-${unreadMessageCount}` : 'unread-9plus'
+          }
+  
+          setTimeout(() => {
+            setUnreadClassName(className)
+            addMenuItemMsgCount(className)
+          })  
         }
-
-        setTimeout(() => {
-          setUnreadClassName(className)
-          addMenuItemMsgCount(className)
-        })
       }
     }
   }

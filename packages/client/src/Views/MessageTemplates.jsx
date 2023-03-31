@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import {
@@ -7,20 +7,31 @@ import {
   MESSAGE_CREATOR_BASE_ROUTE,
   MESSAGE_TEMPLATE_ROUTE
 } from '../consts'
-import { SearchList, Button, ButtonList } from '@serge/components'
+import { SearchList, Button, ButtonList, JsonEditor } from '@serge/components'
 import SidebarAdmin from '../Components/SidebarAdmin'
-import JsonCreator from '../Components/JsonCreator'
 import { getAllMessageTypes, duplicateMessageType } from '../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setSelectedSchema } from '../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
+import { createMessage } from '../ActionsAndReducers/dbMessages/messages_ActionCreators'
 import { formatShortDate } from '@serge/helpers'
 import '@serge/themes/App.scss'
 
 const MessageTemplates = () => {
   const dispatch = useDispatch()
-  const messageTypes = useSelector(state => state.messageTypes)
-  const umpireMenu = useSelector(state => state.umpireMenu)
+  const { messageTypes, umpireMenu, gameDate } = useSelector(state => state)
+  const [jsonMessage, setJsonMessage] = useState([])
+
+  const schema = useMemo(() => {
+    const filter = messageTypes && messageTypes.messages.find((mes) => mes._id === umpireMenu.selectedSchemaID)
+    if (filter) return filter
+    return []
+  }, [umpireMenu.selectedSchemaID])
+  
+  const saveMessage = () => {
+    if (!umpireMenu.selectedSchemaID) return null
+    dispatch(createMessage(jsonMessage, { ...schema, _id: umpireMenu.selectedSchemaID }))
+  }
 
   const setView = route => {
     dispatch(setCurrentViewFromURI(route))
@@ -110,6 +121,10 @@ const MessageTemplates = () => {
     dispatch(setSelectedSchema(''))
   }, [])
 
+  const responseHandler = (val) => {
+    setJsonMessage(val)
+  }
+  
   return (
     <div className='view-wrapper' id='umpire'>
       <SidebarAdmin activeTab={MESSAGE_TEMPLATE_ROUTE}/>
@@ -121,10 +136,16 @@ const MessageTemplates = () => {
           </div>
           <div id='preview' className='flex-content flex-content--big'>
             <p className='heading--sml'>Preview</p>
-            <JsonCreator
+            <JsonEditor
               id='preview'
-              disabled={true}
-              previewForm={true}
+              formId='preview-editor'
+              viewSaveButton={true}
+              saveMessage={saveMessage}
+              messageId={schema._id}
+              template={schema}
+              storeNewValue={responseHandler}
+              disabled={false}
+              gameDate={gameDate}
             />
           </div>
           <div id='function' className='flex-content flex-content--sml'>

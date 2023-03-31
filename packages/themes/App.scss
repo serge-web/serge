@@ -133,3 +133,52 @@
     }
   }
 }
+
+iframe {
+  z-index: unset !important;
+}
+
+div[class*="card-body"] {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+td[data-schemapath*="root."] {
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+}
+
+.select-control-order-drawing {
+  margin-top: 50px !important;
+  position: absolute !important;
+}
+
+.select-control-order-editing {
+  margin-top: 75px !important;
+  position: absolute !important;
+}
+
+.custom-pulse {
+  border: 6px double #fff;
+  width: 40px;
+  height: 40px;
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+  animation: pulse 0.9s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 15px rgba(0, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+}

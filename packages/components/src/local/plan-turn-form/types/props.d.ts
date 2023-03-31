@@ -1,3 +1,4 @@
+import React from 'react'
 import { IconDefinition, PlanTurnFormData, PlanTurnFormValues } from '@serge/custom-types'
 
 export default interface PropTypes {
@@ -20,7 +21,7 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the mapping component
    */
-  turnPlanned?: {(turn: PlanTurnFormValues): void}
+  turnPlanned?: { (turn: PlanTurnFormValues): void }
   /**
    * whether this user can plan turns
    */
@@ -36,5 +37,5 @@ export default interface PropTypes {
   /**
    * handle for if an empty task group can be deleted
    */
-  deleteEmptyTaskGroup?: {(): void}
+  deleteEmptyTaskGroup?: { (): void }
 }

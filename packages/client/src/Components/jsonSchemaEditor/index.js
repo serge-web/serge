@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import jsonMetaSchema from './data.json'
-import JSONEditor from '@json-editor/json-editor'
+import * as JSONEditor from '@json-editor/json-editor'
 import Editor from './jsonEditor'
 import Preview from './editorPreview'
 import '@fortawesome/fontawesome-free/css/all.css'
@@ -11,8 +11,8 @@ class SchemaEditor extends Component {
   constructor (props, content) {
     super(props, content)
 
-    JSONEditor.defaults.options.iconlib = 'fontawesome5'
-    JSONEditor.defaults.options.theme = 'bootstrap4'
+    JSONEditor.JSONEditor.defaults.options.iconlib = 'fontawesome5'
+    JSONEditor.JSONEditor.defaults.options.theme = 'bootstrap4'
     this.updateMetaSchema = this.updateMetaSchema.bind(this)
     this.updatePreviewSchema = this.updatePreviewSchema.bind(this)
     this.updateOptions = this.updateOptions.bind(this)
@@ -55,7 +55,7 @@ class SchemaEditor extends Component {
       metaSchema: jsonMetaSchema,
       previewSchema: null,
       options: {
-        layout: JSONEditor.defaults.options.object_layout,
+        layout: JSONEditor.JSONEditor.defaults.options.object_layout,
         booleanOptions: {}
       }
     }
@@ -87,7 +87,7 @@ class SchemaEditor extends Component {
           />
         </div>
         <div className='flex-content flex-content--right50'>
-          <Preview schema={this.state.previewSchema}/>
+          <Preview schema={this.state.previewSchema} />
         </div>
       </>
     )

@@ -39,7 +39,7 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
         return (
           <span className={styles['custom-cell']}>
             <div className={cx({ [styles['role-icon']]: true, [styles.active]: row.active, [styles.inactive]: !row.active })} />
-            {row[col.field] ? moment(parseInt(row[col.field])).fromNow() : 'N/A'}
+            {row[col.field] ? moment(row[col.field]).fromNow() : 'N/A'}
           </span>
         )
       case 'lastMessage':
@@ -53,9 +53,9 @@ export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTabl
   const columnsList: ColumnListItem[] = [
     { label: 'Force', field: 'forceName' },
     { label: 'Role', field: 'roleName' },
-    { label: 'Last active', field: 'lastActive' },
     { label: 'Last activity', field: 'lastActivity' },
-    { label: 'Message', field: 'message' },
+    { label: 'Active at', field: 'lastActive' },
+    { label: 'Last Msg', field: 'message' },
     { label: 'Sent at', field: 'lastMessage' }
   ]
 

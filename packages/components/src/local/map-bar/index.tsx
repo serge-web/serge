@@ -22,9 +22,10 @@ import {
   MessageSubmitPlans,
   MessageForceLaydown,
   MessageDeletePlatform,
-  MapAnnotation
+  MapAnnotation,
+  PlatformTypeData
 } from '@serge/custom-types'
-import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER, DELETE_MARKER, LaydownTypes, UMPIRE_LAYDOWN } from '@serge/config'
+import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER, DELETE_MARKER, LaydownTypes, UMPIRE_LAYDOWN, TASK_GROUP, CLONE_MARKER } from '@serge/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
@@ -60,6 +61,7 @@ export const MapBar: React.FC = () => {
   const [canSubmitOrdersForThisAsset, setCanSubmitOrdersForThisAsset] = useState<boolean>(false)
 
   const [adjudicationManager, setAdjudicationManager] = useState<AdjudicationManager | undefined>(undefined)
+  const [taskGroupType, setTaskGroupType] = useState<PlatformTypeData | undefined>(undefined)
 
   /* Pull in the context from MappingContext */
   const props = useContext(MapContext).props
@@ -103,8 +105,17 @@ export const MapBar: React.FC = () => {
 
   // sort out the handler for State of World button
   useEffect(() => {
+    const tgType = platforms.find((pType: PlatformTypeData) => pType.name === TASK_GROUP)
+    if (tgType) {
+      setTaskGroupType(tgType)
+    }
+  }, [platforms])
+
+  // sort out the handler for State of World button
+  useEffect(() => {
     if (playerForce === UMPIRE_FORCE && phase === ADJUDICATION_PHASE && routeStore.selected && selectedAsset) {
       const closePlanningForm = (): void => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         setSelectedAsset(undefined)
       }
@@ -230,6 +241,7 @@ export const MapBar: React.FC = () => {
     // is it a new id?
     if (selectedAsset && selectedAsset.uniqid === id) {
       // current clicked on, clear it
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       setSelectedAsset(undefined)
     } else {
@@ -260,6 +272,7 @@ export const MapBar: React.FC = () => {
     // is it a new id?
     if (selectedMarker && selectedMarker === id) {
       // current clicked on, clear it
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       setSelectedMarker(undefined)
     } else {
@@ -292,6 +305,7 @@ export const MapBar: React.FC = () => {
       assetId: selectedAsset.uniqid
     }
     // clear the selected asset
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     setSelectedAsset(undefined)
     // now trigger the delete
@@ -303,13 +317,13 @@ export const MapBar: React.FC = () => {
   }
 
   const updateMarkerPostback = (messageType: string, marker: MapAnnotation): void => {
-    if (messageType === UPDATE_MARKER || messageType === DELETE_MARKER) {
+    if (messageType === UPDATE_MARKER || messageType === DELETE_MARKER || messageType === CLONE_MARKER) {
       // note: we're not immediately calling mapPostBack
       // because we only transmit the data "live" in planning phase.
       // this is handled in updateMarker callback
       updateMarker && updateMarker(messageType, marker)
     } else {
-      console.warn('Marker postback received wrong type of message')
+      console.warn('Marker postback received wrong type of message', messageType)
     }
     closeForm()
   }
@@ -374,11 +388,12 @@ export const MapBar: React.FC = () => {
       }
       case MapBarForms.Planning: {
         const canSubmit = canSubmitOrdersForThisAsset && phase === PLANNING_PHASE
-        const formData: PlanTurnFormData = collatePlanFormData(platforms, selectedAsset)
         const actualAsset = findAsset(forces, selectedAsset.uniqid)
+        const currentRoute = routeStore.selected
+        const formData: PlanTurnFormData = collatePlanFormData(platforms, currentRoute)
         // is this an empty task group?
         const emptyVessel = !actualAsset.comprising || actualAsset.comprising.length === 0
-        const deleteHandler = (actualAsset.platformType === 'task-group' && emptyVessel)
+        const deleteHandler = (taskGroupType && actualAsset.platformTypeId === taskGroupType.uniqid && emptyVessel)
           ? deleteEmptyTaskGroup : undefined
         return <PlanTurnForm
           icon={iconData}

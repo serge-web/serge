@@ -24,6 +24,7 @@ export const Default: React.FC = () => {
   return <SplitButton label="Test" options={['Opt one', 'Opt two']} onClick={clicked} />
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

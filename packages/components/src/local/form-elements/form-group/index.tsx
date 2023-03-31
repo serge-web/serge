@@ -1,5 +1,5 @@
 import React from 'react'
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles'
 
 import cx from 'classnames'
@@ -15,7 +15,7 @@ export const clSelect: string = styles.select
 
 /* Render component */
 export const FormGroup: React.FC<PropTypes> = ({ children, title, disableOffsets, align, titlePosition }) => {
-  const theme = createMuiTheme({
+  const theme = createTheme({
     palette: {
       type: 'dark',
       secondary: {

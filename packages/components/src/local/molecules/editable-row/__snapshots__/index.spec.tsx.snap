@@ -145,7 +145,7 @@ exports[`EditableRow renders correctly 1`] = `
         className="MuiIconButton-label"
       >
         <svg
-          className="svg-inline--fa fa-undo-alt"
+          className="svg-inline--fa fa-rotate-left"
         />
       </span>
     </span>

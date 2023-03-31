@@ -5,8 +5,9 @@ import { RouteStore, Route, ChannelMapping } from '@serge/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 import { plannedRoutesFor } from './planned-routes-for'
 import RouteData from '../types/route-data'
-import createTurnMarkers from './create-turn-markers'
+import createTurnMarkers, { PLANNED_MARKER } from './create-turn-markers'
 import { Phase } from '@serge/config'
+import React from 'react'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
@@ -27,7 +28,7 @@ it('Provides valid planned markers for multi-point planned route without filter'
     const clearTurn = (turnNumber: number): void => {
       turnToDelete = turnNumber
     }
-    const markers: JSX.Element[] = createTurnMarkers(data, 'planned', 'aaa', true, clearTurn)
+    const markers: React.ReactElement[] = createTurnMarkers(data, PLANNED_MARKER, 'aaa', true, clearTurn)
     expect(markers).toBeTruthy()
     expect(markers.length).toEqual(2)
 

@@ -46,13 +46,13 @@ const runServer = (
   // note: indicator that we're running on Heroku
   const io = new Server(process.env.PORT ? http : 4000, { cors: { origin: '*' } })
 
-  app.use(express.json())
-  app.use(bodyParser.urlencoded({ extended: true }))
+  // workaround to allow large documents to be saved
+  app.use(bodyParser.json({ limit: '200mb' }))
+  app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }))
 
   const clientBuildPath = '../client/build'
 
   // log of time of receipt of player heartbeat messages
-  const playerLog = []
 
   app.use(cors(corsOptions))
 
@@ -84,48 +84,6 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
-  app.get('/healthcheck/:wargame/:role/:activityTime/:activityType/:healthcheck', (req, res) => {
-    const { wargame, role } = req.params
-    const activityTime = decodeURIComponent(req.params.activityTime)
-    const activityType = decodeURIComponent(req.params.activityType)
-
-    if (wargame !== 'missing' && role !== 'missing') {
-      const existingPlayerIdx = playerLog.findIndex(
-        player => player.role === role && player.wargame === wargame
-      )
-      if (existingPlayerIdx !== -1) {
-        playerLog[existingPlayerIdx].activityTime = activityTime
-        playerLog[existingPlayerIdx].activityType = activityType
-      } else {
-        const newPlayer = {
-          wargame,
-          role,
-          activityType,
-          activityTime
-        }
-        playerLog.push(newPlayer)
-      }
-    }
-
-    return res.status(200).send({
-      status: 'OK',
-      activityType: activityType,
-      mostRecentActivity: activityTime,
-      wargame: wargame,
-      role: role
-    })
-  })
-
-  app.get('/playerlog', (_, res) => {
-    res.status(200).send(playerLog)
-  })
-
-  app.get('/playerlog/:wargame', (req, res) => {
-    const wargame = req.params.wargame
-    const selectedWargame = playerLog.find(log => log.wargame === wargame) || {}
-    res.status(200).send(selectedWargame)
-  })
-
   app.get('/cells/:filename', (req, res) => {
     if (dataDir) {
       return res.sendFile(
@@ -133,6 +91,17 @@ const runServer = (
       )
     }
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
+  })
+
+  app.get('/tiles/:folder/:z/:y/:x', (req, res) => {
+    const { folder, z, y, x } = req.params
+    if (dataDir) {
+      return res.sendFile(
+        path.join(process.cwd(), dataDir, folder, z, y, x)
+      )
+    }
+
+    res.sendFile(path.join(__dirname, '../', 'data', folder, z, y, x))
   })
 
   app.use(

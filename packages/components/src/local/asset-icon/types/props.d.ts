@@ -3,5 +3,7 @@ export default interface PropTypes {
   destroyed?: boolean
   isSelected?: boolean
   imageSrc?: string
+  health?: number
   onClick?: VoidFunction
+  className?: string
 }

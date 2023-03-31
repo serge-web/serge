@@ -45,7 +45,7 @@ it('can create route under control as umpire ', () => {
   // check inside a route
   const route: Route = store.routes[0]
   expect(route.uniqid).toEqual('nortID')
-  expect(route.history.length).toEqual(3)
+  expect(route.history.length).toEqual(1)
   expect(route.planned.length).toEqual(2)
   expect(route.original.length).toEqual(2)
   expect(route.underControlByThisForce).toBeFalsy()
@@ -67,11 +67,9 @@ it('can create route with static steps under control as umpire in playing phase'
 
   if (route) {
     expect(route.uniqid).toEqual('nortID')
-    expect(route.history.length).toEqual(3)
+    expect(route.history.length).toEqual(1)
     // check non-mobile points looks how we expect
     expect(route.history[0].route).toBeTruthy()
-    expect(route.history[1].route).toBeUndefined()
-    expect(route.history[2].route).toBeTruthy()
     expect(route.planned.length).toEqual(2)
     expect(route.planned[0].route).toBeTruthy()
     expect(route.planned[1].route).toBeUndefined()
@@ -87,7 +85,7 @@ it('can create route under control as umpire in playing phase', () => {
   // check inside a route
   const route: Route = store.routes[1]
   expect(route.uniqid).toEqual('talnID')
-  expect(route.history.length).toEqual(3)
+  expect(route.history.length).toEqual(1)
   expect(route.planned.length).toEqual(0)
   expect(route.original.length).toEqual(0)
   expect(route.selected).toBeFalsy()
@@ -130,7 +128,7 @@ it('create full history & planned for blue unit', () => {
 
   // check inside a route
   const mpa: Route = store.routes[5]
-  expect(mpa.history.length).toEqual(2)
+  expect(mpa.history.length).toEqual(1)
   // should not create planned steps for non-blue platform
   expect(mpa.planned.length).toEqual(0)
 
@@ -251,7 +249,7 @@ it('can create route as umpire in planning mode', () => {
   // check inside a route
   const route: Route = store.routes[0]
   expect(route.uniqid).toEqual('nortID')
-  expect(route.history.length).toEqual(3)
+  expect(route.history.length).toEqual(1)
   expect(route.planned.length).toEqual(2)
   expect(route.plannedTrimmed.length).toEqual(2)
   expect(route.original.length).toEqual(2)
@@ -308,8 +306,8 @@ it('support new way of storing past steps', () => {
     // check inside a route
     const route: Route = store.routes[4]
     expect(route.uniqid).toEqual(subjectId)
-    expect(route.history.length).toEqual(2)
-    expect(route.history[0].turn).toEqual(5)
+    expect(route.history.length).toEqual(1)
+    expect(route.history[0].turn).toEqual(6)
     expect(route.history[0].route).toBeDefined()
     if (route.history[0].route) {
       expect(route.history[0].route.length).toEqual(2)

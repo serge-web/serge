@@ -14,7 +14,7 @@ exports[`SettingOverview component: renders correctly 1`] = `
       className="actions"
     >
       <button
-        className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4 MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
+        className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
         data-qa-type="submit"
         disabled={false}
         onBlur={[Function]}
@@ -67,13 +67,13 @@ exports[`SettingOverview component: renders correctly 1`] = `
               className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
             >
               <div
-                className="MuiInputBase-root MuiFilledInput-root makeStyles-root-5 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-7"
+                className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-3"
                 onClick={[Function]}
               >
                 <textarea
                   aria-invalid={false}
                   autoFocus={false}
-                  className="MuiInputBase-input MuiFilledInput-input makeStyles-input-6 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                  className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                   disabled={false}
                   name=""
                   onAnimationStart={[Function]}
@@ -92,7 +92,7 @@ exports[`SettingOverview component: renders correctly 1`] = `
                 />
                 <textarea
                   aria-hidden={true}
-                  className="MuiInputBase-input MuiFilledInput-input makeStyles-input-6 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                  className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
                   readOnly={true}
                   style={
                     Object {
@@ -313,7 +313,7 @@ exports[`SettingOverview component: renders correctly 1`] = `
               >
                 <span
                   aria-disabled={false}
-                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-12 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-checked-13 Mui-checked MuiIconButton-colorPrimary"
+                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-checked-9 Mui-checked MuiIconButton-colorPrimary"
                   onBlur={[Function]}
                   onDragLeave={[Function]}
                   onFocus={[Function]}
@@ -332,7 +332,7 @@ exports[`SettingOverview component: renders correctly 1`] = `
                   >
                     <input
                       checked={true}
-                      className="PrivateSwitchBase-input-15"
+                      className="PrivateSwitchBase-input-11"
                       data-indeterminate={false}
                       onChange={[Function]}
                       type="checkbox"
@@ -384,7 +384,7 @@ exports[`SettingOverview component: renders correctly 1`] = `
               >
                 <span
                   aria-disabled={false}
-                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-12 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
+                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root MuiCheckbox-colorPrimary MuiIconButton-colorPrimary"
                   onBlur={[Function]}
                   onDragLeave={[Function]}
                   onFocus={[Function]}
@@ -403,7 +403,7 @@ exports[`SettingOverview component: renders correctly 1`] = `
                   >
                     <input
                       checked={false}
-                      className="PrivateSwitchBase-input-15"
+                      className="PrivateSwitchBase-input-11"
                       data-indeterminate={false}
                       onChange={[Function]}
                       type="checkbox"
@@ -447,10 +447,81 @@ exports[`SettingOverview component: renders correctly 1`] = `
                 </svg>
               </div>
             </div>
+            <div
+              className="childnode"
+            >
+              <label
+                className="MuiFormControlLabel-root"
+              >
+                <span
+                  aria-disabled={false}
+                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiCheckbox-root MuiCheckbox-colorPrimary PrivateSwitchBase-checked-9 Mui-checked MuiIconButton-colorPrimary"
+                  onBlur={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={null}
+                >
+                  <span
+                    className="MuiIconButton-label"
+                  >
+                    <input
+                      checked={true}
+                      className="PrivateSwitchBase-input-11"
+                      data-indeterminate={false}
+                      onChange={[Function]}
+                      type="checkbox"
+                      value="1"
+                    />
+                    <svg
+                      aria-hidden={true}
+                      className="MuiSvgIcon-root"
+                      focusable="false"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root"
+                  />
+                </span>
+                <span
+                  className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                >
+                  Log player activity to database
+                </span>
+              </label>
+              <div
+                className="icon"
+                onClick={[Function]}
+              >
+                <svg
+                  aria-hidden={true}
+                  className="MuiSvgIcon-root"
+                  color="#f00"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
           <div>
             <button
-              className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-16 MuiButton-contained makeStyles-contained-2 makeStyles-contained-17"
+              className="MuiButtonBase-root MuiButton-root MuiButton-contained"
               disabled={false}
               onBlur={[Function]}
               onClick={[Function]}

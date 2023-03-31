@@ -90,18 +90,18 @@ export const Dropzone: React.FC<PropTypes> = ({ children, group, item, type = 'e
     if (ref) { holderElement = ref }
   }
 
-  const renderEmpty = (): JSX.Element => (
-    <div> <DoubleArrowIcon fontSize='small'/><span>Move onto {item.name}</span> </div>
+  const renderEmpty = (): React.ReactElement => (
+    <div> <DoubleArrowIcon fontSize='small' /><span>Move onto {item.name}</span> </div>
   )
 
-  const renderGroup = (): JSX.Element => (
-    <div className={cx(styles.switchitem, commingDrop && styles.switch)}> <AddToPhotosIcon fontSize='small'/><span>Group with {item.name}</span> </div>
+  const renderGroup = (): React.ReactElement => (
+    <div className={cx(styles.switchitem, commingDrop && styles.switch)}> <AddToPhotosIcon fontSize='small' /><span>Group with {item.name}</span> </div>
   )
-  const renderGroupOut = (): JSX.Element => (
-    <div> <DoubleArrowIcon fontSize='small'/><span>Drop to root</span> </div>
+  const renderGroupOut = (): React.ReactElement => (
+    <div> <DoubleArrowIcon fontSize='small' /><span>Drop to root</span> </div>
   )
 
-  const renderDropzone = (): JSX.Element => (
+  const renderDropzone = (): React.ReactElement => (
     <div className={cx(styles.dropzone)}>
       <div className={cx(styles.content, styles[`content-${type}`], disable && styles['content-disable'])}>
         {typeEmpty && renderEmpty()}
@@ -120,12 +120,12 @@ export const Dropzone: React.FC<PropTypes> = ({ children, group, item, type = 'e
     )}>
       <div className={cx(styles.holder, loading && styles.loading)} ref={handleRef}>
         {disable || disableDrag ? <>
-          { renderDropzone() }
+          {renderDropzone()}
           <div className={cx(styles.item, typeOut && styles['item-hide'])}>
             {children}
           </div>
         </> : <>
-          { renderDropzone() }
+          {renderDropzone()}
           <ReactSortable
             group={group || 'groupName'}
             animation={0}

@@ -1,3 +1,5 @@
+import { Role } from '@serge/custom-types'
+
 export default interface PropTypes {
   wargameTitle: string
   selectedForce: {

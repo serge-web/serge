@@ -6,19 +6,19 @@ import ForceObjective from './index'
 import AdminPanelFooter from '../admin-panel-footer'
 import docs from './README.md'
 
-const WrapForceObjective = ({ story }: { story: Function }): React.ReactElement => (
+const WrapForceObjective = ({ story }: { story: void }): React.ReactElement => (
   <Box style={{
     height: '50vh',
     borderRadius: '2px',
     position: 'relative'
-  }}>{ story }</Box>
+  }}>{story}</Box>
 )
 WrapForceObjective.displayName = 'WrapForceObjective'
 
 export default {
   title: 'local/molecules/ForceObjective',
   component: ForceObjective,
-  decorators: [(story: Function): React.ReactElement => {
+  decorators: [(story: VoidFunction): React.ReactElement => {
     return <WrapForceObjective story={story()} />
   }],
   parameters: {

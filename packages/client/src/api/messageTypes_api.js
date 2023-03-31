@@ -1,19 +1,19 @@
-import uniqid from 'uniqid'
 import {
   databasePath,
   MSG_TYPE_STORE
 } from '@serge/config'
+import uniqid from 'uniqid'
 
-import machineryFailure from '../Schemas/machinery_failure.json'
-import weatherForecast from '../Schemas/weather_forecase.json'
 import chat from '../Schemas/chat.json'
+import dailyIntentions from '../Schemas/DailyIntentions.json'
+import link from '../Schemas/link.json'
+import machineryFailure from '../Schemas/machinery_failure.json'
 import message from '../Schemas/message.json'
+import pg19WeeklyOrders from '../Schemas/PG19_WeeklyOrders.json'
 import rfi from '../Schemas/rfi.json'
 import rfs from '../Schemas/rfs.json'
-import link from '../Schemas/link.json'
-import dailyIntentions from '../Schemas/DailyIntentions.json'
-import pg19WeeklyOrders from '../Schemas/PG19_WeeklyOrders.json'
 import stateofworld from '../Schemas/StateOfWorld.json'
+import weatherForecast from '../Schemas/weather_forecase.json'
 import DbProvider from './db'
 
 var db = new DbProvider(databasePath + MSG_TYPE_STORE)

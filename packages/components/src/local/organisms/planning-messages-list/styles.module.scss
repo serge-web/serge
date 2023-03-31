@@ -1,0 +1,12 @@
+@import "../../../../../themes/dependencies/variables";
+
+.messages-list {
+  max-height: calc(100vh - 165px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  flex-grow: 2;
+}
+
+.selected {
+  color: rgb(37, 37, 37);
+}

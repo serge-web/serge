@@ -16,7 +16,7 @@ exports[`SettingMarkers component: renders correctly 1`] = `
         <button
           aria-controls="channel-add-menu"
           aria-haspopup="true"
-          className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4 MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
+          className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
           data-qa-type="add"
           disabled={false}
           onBlur={[Function]}
@@ -51,7 +51,7 @@ exports[`SettingMarkers component: renders correctly 1`] = `
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <div
-              className="MuiInputBase-root MuiInput-root makeStyles-root-8 makeStyles-root-10 MuiInput-underline makeStyles-underline-9 makeStyles-underline-11 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
               onClick={[Function]}
             >
               <input

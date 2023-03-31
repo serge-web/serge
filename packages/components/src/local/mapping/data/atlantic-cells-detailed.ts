@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-useless-escape */
 export default {
   type: 'FeatureCollection',

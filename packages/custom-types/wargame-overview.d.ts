@@ -1,6 +1,5 @@
-import MappingConstraints from "./mapping-constraints";
+import { TurnFormats } from "@serge/config";
 import { GameTurnLength } from "./turn-length";
-import { TurnFormats } from "@serge/config"
 
 export default interface WargameOverview {
   /** title for this wargame */
@@ -23,6 +22,10 @@ export default interface WargameOverview {
   gameDate: string,
   /** allow easy login, during game development/test */
   showAccessCodes: boolean,
+  /** whether to log all player interactions to database, rather than
+   * just the most recent interaction
+   */
+  logPlayerActivity: boolean,
   /** whether this page has unsaved edits */
   dirty: boolean
 }

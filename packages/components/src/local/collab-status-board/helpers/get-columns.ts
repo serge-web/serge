@@ -1,5 +1,5 @@
 import { MessageCustom } from '@serge/custom-types'
-import { SpecialChannelColumns } from '@serge/config/build/enums'
+import { SpecialChannelColumns } from '@serge/config'
 
 const compressData = (message: any): string[] => {
   const listed = Object.keys(message).map((prop) => {

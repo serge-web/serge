@@ -71,10 +71,13 @@ export const canControlAsset = (channel: ChannelMapping, assetForce: ForceData['
     if (generalControlOfThisForce && generalControlOfThisForce.roles.length === 1) {
       return generalControlOfThisForce.roles[0] === role
     } else {
-      console.warn('Warning no named controller for un-claimed assets of force ', assetForce, controlAllString)
-      console.table(parts.map((value: ParticipantMapping) => {
-        return { name: value.subscriptionId, control: value.controls }
-      }))
+      const WARN_ABOUT_NO_CONTROL = false
+      if (WARN_ABOUT_NO_CONTROL) {
+        console.warn('Warning no named controller for un-claimed assets of force:', assetForce, asset, controlAllString, channel)
+        console.table(parts.map((value: ParticipantMapping) => {
+          return { name: value.subscriptionId, control: value.controls }
+        }))
+      }
       return false
     }
   }

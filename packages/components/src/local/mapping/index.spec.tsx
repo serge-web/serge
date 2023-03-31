@@ -1,34 +1,46 @@
 /* global it expect */
-import React from 'react'
-import { mount } from 'enzyme'
-
-import Mapping from './index'
 import { Phase } from '@serge/config'
+import { mount } from 'enzyme'
+import React from 'react'
+import Mapping from './index'
 
-/* Import mock data */
-import { watuWargame, smallScaleMappingConstraints } from '@serge/mocks'
+import { smallScaleMappingConstraints, watuWargame } from '@serge/mocks'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
+
+jest.mock('leaflet', () => ({
+  ...jest.requireActual('leaflet'),
+  Symbol: {
+    arrowHead: jest.fn()
+  }
+}))
+
+jest.mock('react-leaflet-v4', () => ({
+  useMap: (): jest.Mock => jest.fn()
+}))
+
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
+}))
 
 it('Mapping renders correctly', () => {
   const div = document.createElement('div')
   document.body.appendChild(div)
 
-  // Using enzyme's 'mount' to solve issues with Leaflet requiring access to the DOM and other features not
-  // provided by react.render.
   const tree = mount(<Mapping
-    mappingConstraints = {smallScaleMappingConstraints}
-    forces = {forces}
-    gameTurnTime = {{ unit: 'millis', millis: 72000 }}
-    wargameInitiated = {true}
+    mappingConstraints={smallScaleMappingConstraints}
+    forces={forces}
+    gameTurnTime={{ unit: 'millis', millis: 72000 }}
+    wargameInitiated={true}
     markerIcons={[]}
-    playerForce = 'Blue'
+    playerForce='Blue'
     infoMarkers={[]}
-    isGameControl = {true}
-    platforms = {platformTypes}
-    phase = {Phase.Planning}
-    turnNumber = {4}
+    isGameControl={true}
+    isUmpire={true}
+    platforms={platformTypes}
+    phase={Phase.Planning}
+    turnNumber={4}
   />, { attachTo: div })
 
   expect(tree).toMatchSnapshot()

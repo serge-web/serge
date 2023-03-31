@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { UMPIRE_FORCE } from '@serge/config'
 import L, { DragEndEvent } from 'leaflet'
 import get from 'lodash/get'

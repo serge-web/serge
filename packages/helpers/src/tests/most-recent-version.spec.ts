@@ -21,8 +21,8 @@ it('find new message across all channels', () => {
   expect(mostRecent.length).toEqual(11)
 
   const firstMessage = mostRecent[2] as unknown as MessageCustom
-  expect(firstMessage._id).toEqual('id_4c')
-  expect(firstMessage._rev).toEqual('4')
+  expect(firstMessage._id).toEqual('id_4')
+  expect(firstMessage._rev).toEqual('1')
 
   const lastMessage = mostRecent[8] as unknown as MessageCustom
   expect(lastMessage._id).toEqual('2020-03-25T15:08:47.525Z')

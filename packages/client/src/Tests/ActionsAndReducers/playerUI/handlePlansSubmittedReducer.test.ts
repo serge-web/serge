@@ -1,10 +1,11 @@
 import { it, expect } from '@jest/globals'
-import { ForceData, MessageSubmitPlans } from '@serge/custom-types'
+import { ForceData, MessageSubmitPlans, PlannedRoute, RouteTurn } from '@serge/custom-types'
 import {
   SUBMIT_PLANS
 } from '@serge/config'
 import handlePlansSubmittedChanges from '../../../ActionsAndReducers/playerUi/helpers/handlePlansSubmittedChanges'
 import findAsset from '../../../Helpers/findAsset'
+import L from 'leaflet'
 
 const allForces: ForceData[] = [
   {
@@ -28,7 +29,7 @@ const allForces: ForceData[] = [
         name: 'alpha',
         perceptions: [{
           force: 'Blue',
-          type: 'Frigate',
+          typeId: 'Frigate',
           by: 'Red'
         }]
       },
@@ -60,7 +61,7 @@ const allForces: ForceData[] = [
         uniqid: 'C03',
         perceptions: [{
           force: 'Green',
-          type: 'Frigate',
+          typeId: 'Frigate',
           by: 'Blue'
         }]
       },
@@ -93,7 +94,7 @@ const allForces: ForceData[] = [
         perceptions: [
           {
             force: 'Green',
-            type: 'Frigate',
+            typeId: 'Frigate',
             by: 'Blue'
           }
         ]
@@ -161,11 +162,28 @@ const payload: MessageSubmitPlans = {
     }]
 }
 
+// fill in some lat-longs
+const cluttered: PlannedRoute[] = payload.plannedRoutes.map((route: PlannedRoute): PlannedRoute => {
+  const withLngs = route.plannedTurns.map((turn: RouteTurn): RouteTurn => {
+    const lngs = turn.route?.map((value: string): L.LatLng => {
+      return L.latLng(22, 33)
+    })
+    turn.locations = lngs
+    return turn
+  })
+  route.plannedTurns = withLngs
+  return route
+}) 
+const clutteredPayload: MessageSubmitPlans = {
+  plannedRoutes: cluttered,
+  messageType: payload.messageType
+}
+
 it('correctly updates planned states', () => {
   const alpha = findAsset(allForces, 'C01')
   expect(alpha!.plannedTurns).toBeFalsy()
   // check it has no planned states
-  const updated = handlePlansSubmittedChanges(payload, allForces)
+  const updated = handlePlansSubmittedChanges(clutteredPayload, allForces)
   expect(updated).toBeTruthy()
   if (alpha.plannedTurns) {
     expect(alpha.name).toEqual('alpha')
@@ -174,6 +192,7 @@ it('correctly updates planned states', () => {
     if (alpha.plannedTurns[0].route) {
       expect(alpha.plannedTurns[0].route.length).toEqual(4)
     }
+    expect(alpha.plannedTurns[0].locations).toBeFalsy()
   } else {
     expect('cannot find platform alpha').toBeFalsy()
   }

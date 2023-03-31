@@ -91,7 +91,7 @@ export const Default: React.FC = (args) => {
     setWargameChanged(true)
   }
 
-  const onForcesChange = (updates: {forces: Array<ForceData>}): void => {
+  const onForcesChange = (updates: { forces: Array<ForceData> }): void => {
     console.log(updates.forces)
   }
 
@@ -115,8 +115,10 @@ export const Default: React.FC = (args) => {
     <AdminLayout wargame={wargame} activeTab={adminTabs[activeTab]} tabs={adminTabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
 
-        { // @ts-ignore we're using knobs to provide wargameInitiated, prevent compiler complaining about it
-          activeTab === 0 && <SettingOverview overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} initiateWargame={handleInitiateWargame} {...args}/>}
+        {
+          activeTab === 0 &&
+          <SettingOverview wargameInitiated overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} initiateWargame={handleInitiateWargame} {...args} />
+        }
         {activeTab === 1 && <SettingPlatformTypes platformType={changedPlatformType} onChange={onPlatformChange} onSave={handleSave} />}
         {activeTab === 2 && <SettingForces forces={wargame.data.forces.forces} platformTypes={platformTypesMock} onChange={onForcesChange} onSave={handleSave} />}
         {activeTab === 3 && <SettingChannels
@@ -132,6 +134,7 @@ export const Default: React.FC = (args) => {
   )
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

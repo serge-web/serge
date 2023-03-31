@@ -69,7 +69,7 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
   }
 
   return (
-    <div className={styles['message-list-wrapper']} style={{ borderColor: hexToRGBA(props.message.details.from.forceColor, props.message.hasBeenRead) }}>
+    <div className={styles['message-list-wrapper']} style={{ borderColor: hexToRGBA(props.message.details.from.forceColor, !!props.message.hasBeenRead) }}>
       <Collapsible
         header={<CollapsibleHeader />}
         content={<CollapsibleContent />}

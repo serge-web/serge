@@ -6,7 +6,10 @@ import {
   MessageInfoType,
   SetWargameMessage,
   Wargame,
-  ChatMessage
+  ChatMessage,
+  PlayerMessageLog,
+  MessagePlanning, 
+  PlayerUiChannels 
 } from '@serge/custom-types'
 import {
   handleChannelUpdates, handleAllInitialChannelMessages, setMessageState, 
@@ -15,6 +18,7 @@ import {
 import {
   INFO_MESSAGE_CLIPPED
 } from '@serge/config'
+import deepCopy from '../../../Helpers/copyStateHelper'
 
 /** a new document has been received, either add it to the correct channel,
  * or update the channels to reflect the new channel definitions
@@ -38,7 +42,7 @@ export const handleNewMessage = (payload: MessageChannel, newState: PlayerUi): S
   // TODO: only one of `payload` or `newState` will have been received. We should have 
   // two different handlers, one for each change.
   const res: SetWargameMessage = handleNewMessageData(payload, newState.channels, newState.chatChannel,
-    newState.playerMessageLog)
+    newState.playerMessageLog, newState.selectedRole)
   return res
 }
 
@@ -141,6 +145,19 @@ export const closeMessage = (channel: string, payloadMessage: MessageChannel, ne
   return channelMessages
 }
 
+export const MarkAllPlayerMessageRead = (newStates: PlayerUi, msgState: string): PlayerMessageLog => {
+  Object.values(newStates.playerMessageLog).map((value) => {
+    const selectedForce = newStates.selectedForce ? newStates.selectedForce.uniqid : ''
+    if (value._id) {
+      value.hasBeenRead = msgState === 'read'
+      const msgFnc = msgState === 'read' ? setMessageState : removeMessageState
+      msgFnc(newStates.currentWargame, selectedForce, newStates.selectedRole, value._id)
+    }  
+    return value  
+  })
+  return newStates.playerMessageLog
+}
+
 export const markAllMessageState = (channel: string, newState: PlayerUi, msgState: 'read' | 'unread'): ChannelUI => {
   const channelMessages: MessageChannel[] = (newState.channels[channel].messages || []).map((message) => {
     const selectedForce = newState.selectedForce ? newState.selectedForce.uniqid : ''
@@ -157,4 +174,24 @@ export const markAllMessageState = (channel: string, newState: PlayerUi, msgStat
     unreadMessageCount: msgState === 'read' ? 0 : channelMessages.length,
     messages: channelMessages
   }
+}
+
+export const HandleUpdateBulksData = (newState: PlayerUi, anyPayload: MessagePlanning[]): PlayerUiChannels => {
+  const channelMessageTypes: string = anyPayload[0].details.channel
+  const copyChanels: PlayerUiChannels = deepCopy(newState.channels)
+  const currentChannel = newState.channels[channelMessageTypes]
+  const channelMessage = currentChannel.messages 
+  if (channelMessage) {
+    anyPayload.forEach((data:any) => {
+      const findIndexs = channelMessage.findIndex(number => number._id !== data._id)
+      if (currentChannel && findIndexs !== -1) {
+        channelMessage.unshift(data) 
+      }
+    })
+
+    currentChannel.messages = channelMessage
+    copyChanels[channelMessageTypes] = currentChannel
+  }
+  
+  return copyChanels
 }

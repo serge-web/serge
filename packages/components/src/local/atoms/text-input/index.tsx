@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { kebabCase } from 'lodash'
-import { FilledInputProps, TextField, fade } from '@material-ui/core'
+import { FilledInputProps, TextField, alpha } from '@material-ui/core'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import InputContainer from '../input-container'
 
@@ -13,13 +13,13 @@ const useFilledStyle = makeStyles<Theme>((theme) =>
       backgroundColor: theme.palette.common.white,
       borderRadius: '8px',
       '&.Mui-focused': {
-        backgroundColor: fade(theme.palette.common.white, 0.75)
+        backgroundColor: alpha(theme.palette.common.white, 0.75)
       },
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.75)
+        backgroundColor: alpha(theme.palette.common.white, 0.75)
       },
       '&:focus': {
-        backgroundColor: fade(theme.palette.common.white, 0.95)
+        backgroundColor: alpha(theme.palette.common.white, 0.95)
       }
     },
     input: {
@@ -71,7 +71,7 @@ export const TextInput: React.FC<PropTypes> = ({
   value,
   multiline,
   rows,
-  rowsMax,
+  maxRows,
   updateState,
   className,
   placeholder,
@@ -122,7 +122,7 @@ export const TextInput: React.FC<PropTypes> = ({
         {...{
           multiline,
           rows,
-          rowsMax,
+          maxRows,
           name: inputName,
           value: inputValue,
           onChange: handleChange,

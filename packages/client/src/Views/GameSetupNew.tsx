@@ -68,7 +68,7 @@ const AdminGameSetup = () => {
     annotationIcons
   } = data
   const tabs = Object.keys(data)
- 
+
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }

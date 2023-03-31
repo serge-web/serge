@@ -3,17 +3,14 @@ import { Perception, PerceivedTypes, PlatformTypeData, ForceData } from '@serge/
 
 /** provide classnames for an asset, as perceived by current player
  * // TODO: switch from force name to force id, for both "my" and "their"
- * @param {string} myForce force of current player
  * @param {string} myForceId force id of current player
  * @param {string} theirName name of selected asset
  * @param {boolean} visibleToPlayerForce whether this asset is visible to player force
  * @param {string} theirContactID contactID of selected asset (used when no perceived name)
  * @param {string} theirForce force for selected asset
- * @param {string} theirType platform-type of selected asset
  * @param {string} theirTypeId platform-type of selected asset
  * @param {Perception[]} theirPerceptions list of force perceptions of selected asset
- * @param {boolean} playerIsUmpire whether the current player is an umpire
- * @returns {string, string, string} name-class, force-class, type-class
+ * @returns {PerceivedTypes | null } perceived types, if subject can see it, otherwise null
  */
 export default function findPerceivedAsTypes (
   myForceId: ForceData['uniqid'],
@@ -33,7 +30,8 @@ export default function findPerceivedAsTypes (
     tmpPerception = theirPerceptions.find(p => p.by === myForceId) || null
   }
   if (tmpPerception) {
-    const nameClass: string = tmpPerception.name ? tmpPerception.name : theirContactID
+    const nameClass: string = tmpPerception.name || theirContactID
+    // workaround. We have some test data that still stores typeId in type
     const typeId = tmpPerception.typeId || UNKNOWN_TYPE
     const forceId = tmpPerception.force || UNKNOWN_TYPE
     return { name: nameClass, typeId: typeId, forceId: forceId }

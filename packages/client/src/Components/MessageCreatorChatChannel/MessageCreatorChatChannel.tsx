@@ -1,52 +1,65 @@
-import React, { createRef, useEffect, useState } from 'react'
+import { MessageDetails } from '@serge/custom-types'
+import React, { ChangeEvent, CSSProperties, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { usePlayerUiState } from '../../Store/PlayerUi'
-import { Editor, MessageDetails } from '@serge/custom-types'
-import setupEditor from './helpers/setupEditor'
 import Props from './types'
 
-const MessageCreatorChatChannel = ({ schema }: Props): React.ReactElement => {
-  const editorPreviewRef = createRef<HTMLDivElement>()
-  const [editor, setEditor] = useState<Editor | null>(null)
+const styles: { [x: string]: CSSProperties | {} } = {
+  messageContainer: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  messageBox: {
+    marginRight: '2px',
+    padding: '5px'
+  }
+}
+
+const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactElement => {
+  const [message, setMessage] = useState<{ content: string }>({ content: '' })
   const state = usePlayerUiState()
+  const dispatch = useDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
-  useEffect(() => {
-    setEditor(setupEditor(editor, schema, editorPreviewRef))
-  }, [])
-
   const sendMessage = (): void => {
-    if (editor !== null) {
-      const messageDetails: MessageDetails = {
-        channel: state.chatChannel.name,
-        from: {
-          force: selectedForce.name,
-          forceColor: selectedForce.color,
-          roleId: state.selectedRole,
-          roleName: state.selectedRoleName,
-          iconURL: selectedForce.iconURL || (selectedForce.icon || '')
-        },
-        messageType: schema.title,
-        timestamp: new Date().toISOString(),
-        turnNumber: state.currentTurn
-      }
-
-      if (editor.getValue().content === '') return
-
-      saveMessage(state.currentWargame, messageDetails, editor.getValue())()
-      setEditor(setupEditor(editor, schema, editorPreviewRef))
+    if (!message.content) {
+      return
     }
+    const messageDetails: MessageDetails = {
+      channel: state.chatChannel.name,
+      from: {
+        force: selectedForce.name,
+        forceColor: selectedForce.color,
+        forceId: selectedForce.uniqid,
+        roleId: state.selectedRole,
+        roleName: state.selectedRoleName,
+        iconURL: selectedForce.iconURL || (selectedForce.icon || '')
+      },
+      messageType: schema.title,
+      timestamp: new Date().toISOString(),
+      turnNumber: state.currentTurn
+    }
+
+    saveMessage(state.currentWargame, messageDetails, message)()
+    saveNewActivityTimeMessage(state.selectedRole, { aType: 'send message' }, state.currentWargame)(dispatch)
+    setMessage({
+      content: ''
+    })
   }
 
-  return <div className='media'>
-    <div className='media-body message-creator' ref={editorPreviewRef}/>
-    <div className='align-self-center'>
-      <button name='send' className='btn btn-action btn-action--complimentary' onClick={sendMessage}>
-        <span className='sr-only'>Send test</span>
-      </button>
-    </div>
+  const getMessageValue = (e: ChangeEvent<HTMLTextAreaElement>): void => {
+    setMessage({
+      content: e.target.value
+    })
+  }
+
+  return <div style={styles.messageContainer}>
+    <textarea style={styles.messageBox} onChange={getMessageValue} value={message.content} />
+    <button className='btn btn-action btn-action--complimentary' onClick={sendMessage} />
   </div>
-}
+})
 
 export default MessageCreatorChatChannel

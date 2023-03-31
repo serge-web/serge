@@ -195,7 +195,7 @@ exports[`PlanTurnForm renders correctly 1`] = `
     </div>
   </div>
   <button
-    className="MuiButtonBase-root MuiButton-root makeStyles-root-2 makeStyles-root-4 MuiButton-contained makeStyles-contained-3 makeStyles-contained-5"
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained"
     disabled={false}
     onBlur={[Function]}
     onClick={[Function]}

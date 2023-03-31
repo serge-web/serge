@@ -1,5 +1,4 @@
 import { Asset, PlatformTypeData } from '@serge/custom-types'
-import { TASK_GROUP } from '@serge/config'
 
 const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[], isHosting = true, taskGroupType: PlatformTypeData): Asset[] => {
   return assets.map((assetItem: Asset) => {
@@ -8,7 +7,7 @@ const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[
         if (!assetItem.hosting) assetItem.hosting = []
         assetItem.hosting.push(asset)
       } else {
-        if (assetItem.platformType === TASK_GROUP) {
+        if (assetItem.platformTypeId === taskGroupType.uniqid) {
           if (!assetItem.comprising) assetItem.comprising = []
           assetItem.comprising.push(asset)
         } else {
@@ -21,7 +20,6 @@ const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[
             comprising: [asset, assetItem],
             name: groupId,
             perceptions: [],
-            platformType: taskGroupType.name,
             platformTypeId: taskGroupType.uniqid,
             position: assetItem.position,
             status: {

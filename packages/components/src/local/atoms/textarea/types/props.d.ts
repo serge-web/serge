@@ -1,3 +1,4 @@
+import React from 'react'
 import { TEXTAREA_DARK, TEXTAREA_LIGHT } from '../'
 
 export default interface PropTypes {

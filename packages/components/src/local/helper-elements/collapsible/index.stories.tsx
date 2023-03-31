@@ -42,8 +42,8 @@ const CustomHeader = ({ onExpand, collapsed }: any): React.ReactElement => {
     padding: '6px'
   })
   return (
-    <CustomHeaderInner onClick={(): Function => onExpand(!collapsed)}>
-      Custom Header { collapsed ? '+' : '-'}
+    <CustomHeaderInner onClick={(): void => onExpand(!collapsed)}>
+      Custom Header {collapsed ? '+' : '-'}
     </CustomHeaderInner>
   )
 }
@@ -61,6 +61,7 @@ export const CustomStructure: React.FC = () => (
   />
 )
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {

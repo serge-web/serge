@@ -104,39 +104,39 @@ CustomBackgroundColor.args = {
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
-export const customSize = Template.bind({})
-customSize.args = {
+export const CustomSize = Template.bind({})
+CustomSize.args = {
   label: 'Custom size',
   customSize: 'large'
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
-export const noCapital = Template.bind({})
-noCapital.args = {
+export const NoCapital = Template.bind({})
+NoCapital.args = {
   label: 'No Capital',
   allCaps: false,
   customBackgroundColor: '#666'
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
-export const tooltip = Template.bind({})
-tooltip.args = {
+export const Tooltip = Template.bind({})
+Tooltip.args = {
   label: 'Badge with tooltip',
   allCaps: false,
   title: 'The content of the tooltip'
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
-export const outlined = Template.bind({})
-outlined.args = {
+export const Outlined = Template.bind({})
+Outlined.args = {
   label: 'Outline badge',
   allCaps: false,
   outline: true
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
-export const outlinedCustomColor = Template.bind({})
-outlinedCustomColor.args = {
+export const OutlinedCustomColor = Template.bind({})
+OutlinedCustomColor.args = {
   label: 'Outline with custom color',
   allCaps: false,
   customColor: '#228',
@@ -144,8 +144,8 @@ outlinedCustomColor.args = {
 }
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
-export const filledCustomColor = Template.bind({})
-filledCustomColor.args = {
+export const FilledCustomColor = Template.bind({})
+FilledCustomColor.args = {
   label: 'Filled with custom color',
   allCaps: false,
   customColor: '#cfa'

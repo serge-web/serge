@@ -1,12 +1,12 @@
 import React from 'react'
-import { makeStyles, createStyles, Theme, fade } from '@material-ui/core/styles'
+import { makeStyles, createStyles, Theme, alpha } from '@material-ui/core/styles'
 import Chip, { ChipProps } from '@material-ui/core/Chip'
 
 /* Render component */
 const useMessageLabelStyle = makeStyles((theme: Theme) =>
   createStyles({
     root: () => ({
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
       borderRadius: 2
     }),
     sizeSmall: {

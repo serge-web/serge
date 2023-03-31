@@ -9,7 +9,7 @@ export default (message: MessageVisibilityChanges, allForces: ForceData[]): Forc
   const asset: Asset = findAsset(allForcesCopy, message.assetId)
   message.visibility.forEach((visChange: Visibility) => {
     if (visChange.newVis) {
-      asset.perceptions.push({ force: '', type: '', by: visChange.by })
+      asset.perceptions.push({ force: '', typeId: '', by: visChange.by })
     } else {
       // ok, we're removing something
       const index = asset.perceptions.findIndex(({ by }) => by === visChange.by)
