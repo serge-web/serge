@@ -48,11 +48,11 @@ class EditMessage extends Component {
       messageList: newState,
       searchInput: value.toLowerCase()
     })
-  };
+  }
 
   updateSchema = () => {
     this.props.dispatch(updateMessageType(this.props.umpireMenu.previewSchema, this.props.umpireMenu.selectedSchemaID))
-  };
+  }
 
   render () {
     const SaveMessageButton = () => (

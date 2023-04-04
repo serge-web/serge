@@ -1,8 +1,10 @@
 import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
-import L from 'leaflet'
+// import L from 'leaflet'
+import * as L from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
 import { Select, SelectItem } from '../typings'
+import 'leaflet-select'
 
 type PlanningActitivityMenuProps = {
   /**

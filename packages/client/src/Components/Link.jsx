@@ -16,7 +16,7 @@ class Link extends Component {
       e.preventDefault()
       this.props.dispatch(setCurrentViewFromURI(this.props.href))
     }
-  };
+  }
 
   render () {
     return (

@@ -176,7 +176,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
         className="MuiFormControl-root MuiTextField-root css-28z0on-MuiFormControl-root-MuiTextField-root"
       >
         <div
-          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedStart MuiInputBase-adornedEnd css-whebh7-MuiInputBase-root-MuiInput-root"
+          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedStart MuiInputBase-adornedEnd css-v4u5dn-MuiInputBase-root-MuiInput-root"
           onClick={[Function]}
           style={Object {}}
         >

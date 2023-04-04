@@ -17,6 +17,7 @@ const playerUi: PlayerUi = {
   playerMessageLog: {},
   updateMessageState: true,
   isRFIManager: false,
+  allPeriods: [],
   selectedForce: {
     name: 'Blue',
     uniqid: 'force-k16fdykj',

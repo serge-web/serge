@@ -16,7 +16,8 @@ const ExportForces = ({ wargame, savExportItem, loader, exportItems }) => {
         ? wargame.data.forces.forces.map(force => ({
           title: force.name,
           items: generateRoleItems(force)
-        })) : []
+        }))
+        : []
     })
   }
 

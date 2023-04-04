@@ -26,7 +26,7 @@ class EditMessage extends Component {
   componentWillMount () {
     this.props.dispatch(resetMessagePreview())
     this.props.dispatch(getAllMessageTypes())
-  };
+  }
 
   componentWillReceiveProps (nextProps, nextContext) {
     if (this.props.messageTypes.messages.length !== nextProps.messageTypes.messages.length) {
@@ -38,7 +38,7 @@ class EditMessage extends Component {
 
   saveSchema = () => {
     this.props.dispatch(createMessageType(this.props.umpireMenu.previewSchema))
-  };
+  }
 
   render () {
     const SaveMessageButton = () => (

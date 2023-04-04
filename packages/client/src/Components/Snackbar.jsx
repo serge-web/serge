@@ -15,7 +15,7 @@ class Snackbar extends Component {
       clearTimeout(this.timer)
     }
     this.props.onClickHandler(this.props.id)
-  };
+  }
 
   componentWillMount () {
     if (this.props.autoHide) {

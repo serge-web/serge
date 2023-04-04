@@ -1,7 +1,8 @@
-import L from 'leaflet'
+import * as L from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
 import { Ruler as RulerType, RulerOption } from '../typings'
+import 'leaflet-ruler'
 
 type RulerProps = {
   showControl: boolean

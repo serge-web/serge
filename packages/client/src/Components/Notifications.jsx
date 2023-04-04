@@ -9,7 +9,7 @@ import '@serge/themes/App.scss'
 class Notifications extends Component {
   onClickHandler = (id) => {
     this.props.dispatch(hideNotification(id))
-  };
+  }
 
   render () {
     if (this.props.notifications.length === 0) return false

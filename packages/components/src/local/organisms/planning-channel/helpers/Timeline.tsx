@@ -1,5 +1,5 @@
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import L, { Layer, PathOptions } from 'leaflet'
+import * as L from 'leaflet'
 import moment from 'moment-timezone'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
@@ -10,11 +10,11 @@ type TimelineProps = {
   showControl: boolean
   data?: FeatureCollection<Geometry, GeoJsonProperties>
   /** function to style features in GeoJSON layer */
-  style?: (data: Feature) => PathOptions
+  style?: (data: Feature) => L.PathOptions
   /** function that gets called on creation of each feature */
   onEachFeature?: (data: Feature, layer: L.Layer) => void
   /** provide a feature to use for point locations */
-  pointToLayer?: (data: Feature, latlng: L.LatLngExpression) => Layer
+  pointToLayer?: (data: Feature, latlng: L.LatLngExpression) => L.Layer
   setCurrentInteractions?: (ids: string[]) => void
 }
 
@@ -42,6 +42,7 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFea
           return moment.utc(date).format(DATE_FORMAT)
         }
       })
+
       setTimelineControl(timelineControl)
     }
     if (!timelineData && data) {
