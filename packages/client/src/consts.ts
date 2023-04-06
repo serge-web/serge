@@ -2,6 +2,7 @@ import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
 import * as Globals from '@serge/config'
+import { Wargame } from '@serge/custom-types'
 
 /** name of the document used to store the initial wargame definition */
 export const DEFAULT_SERVER = 'Nelson'
@@ -64,6 +65,7 @@ export const SERVER_PING_INTERVAL = 20000
 // were failing CORS test
 export const baseUrl = () => {
   const { hostname, protocol } = window.location
+  // @ts-ignore
   const host = (new URL(window.location)).searchParams.get('host')
 
   // NOTE: for all non-heroku deployments, we need to append the port number
@@ -75,6 +77,7 @@ export const baseUrl = () => {
 }
 
 export const serverPath = (
+  // @ts-ignore
   window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
 ).replace(/\/?$/, '/')
 
@@ -155,21 +158,26 @@ export const dbDefaultPlaylogSettings = {
   isOpen: false
 }
 
-export const dbDefaultSettings = {
+export const dbDefaultSettings: Wargame = {
   _id: Globals.wargameSettings,
   wargameTitle: '',
+  name: '',
   data: {
     overview: {
       name: 'Overview - settings',
       gameDescription: '',
       // spatialRepresentation: '',
-      gameTurnTime: 43200000,
+      gameTurnTime: {
+        unit: 'millis',
+        millis: 43200000
+      },
       realtimeTurnTime: 300000,
       timeWarning: 60000,
       // turnStrategy: '',
       gameDate: moment(new Date(), moment.ISO_8601).format(),
       showAccessCodes: true,
-      logPlayerActivity: true
+      logPlayerActivity: true,
+      dirty: false
     },
     forces: {
       name: 'Forces',
@@ -184,10 +192,10 @@ export const dbDefaultSettings = {
       dirty: false
     }
   },
+  wargameList: [],
   wargameInitiated: false,
   gameTurn: 0,
   phase: ADJUDICATION_PHASE,
-  turnEndTime: null,
   adjudicationStartTime: moment(new Date(), moment.ISO_8601).format()
 }
 

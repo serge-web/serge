@@ -287,7 +287,7 @@ export interface MessageAdjudicationOutcomes {
  */
 export interface MessageInfoType extends Wargame {
   readonly messageType: typeof INFO_MESSAGE,
-  infoType: boolean,
+  infoType?: boolean,
   gameTurn: number
 }
 
