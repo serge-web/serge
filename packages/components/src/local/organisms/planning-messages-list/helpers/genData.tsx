@@ -24,6 +24,10 @@ const trimActivity = (forceId: string, activity?: string): string => {
   }
 }
 
+const getAssetString = (plan: PlanningMessageStructureCore) => {
+  return (plan.ownAssets || []).map(a => a.asset).join(',') + (plan.otherAssets || []).map(a => a.asset).join(',')
+}
+
 export const toRow = (message: MessagePlanning): OrderRow => {
   const author = message.details.from.roleName
   if (!roles.includes(author)) {
@@ -40,6 +44,7 @@ export const toRow = (message: MessagePlanning): OrderRow => {
     rawRef: message.message.Reference,
     reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
     force: message.details.from.force,
+    assets: getAssetString(plan),
     excluded: !!message.details.excluded,
     title: plan.title,
     role: author,
@@ -58,6 +63,7 @@ export const toColumn = (message: MessagePlanning[], isUmpire: boolean): Column<
   const columnData: Column<OrderRow>[] = [
     { title: 'Reference', field: 'reference', width: fixedColWidth, minWidth: fixedColWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: !isUmpire, lookup: arrToDict(forces) },
+    { title: 'Assets', field: 'assets', width: 'auto', hidden: true },
     { title: 'Excluded', field: 'excluded', type: 'boolean', width: 'auto', hidden: true },
     { title: 'Author', field: 'role', width: 'auto', lookup: arrToDict(roles) },
     { title: 'Title', field: 'title', width: 'auto' },
