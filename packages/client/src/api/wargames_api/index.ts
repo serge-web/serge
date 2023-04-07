@@ -119,7 +119,7 @@ export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: bo
 
   // get the wargame to operate upon
   const { db } = getWargameDbByName(log.currentDbname)
-
+ 
   // In addition to pushing data to the server, we're also checking the server is still alive
   // So, even if the log is empty, we should push an empty list, since still we want to get a 
   // 'success' back from the server
@@ -172,6 +172,18 @@ export const clearWargames = (): void => {
 
 export const downloadAllWargames = (): void => {
   window.open(serverPath + 'downloadAll')
+}
+
+// This function downloads a wargame by sending a GET request to the server
+// with the wargame's name in the URL. The server will respond with the file's contents.
+// This function allows a user to download a wargame database in zip format using the given database path as input.
+export const downloadWargame = (dbPath: string): void => {
+  const dbName = getNameFromPath(dbPath)
+
+  // Construct the URL for downloading the file
+  // `serverPath` is a global variable that holds the base URL for the server
+  // The URL will look something like this: `http://example.com/download/wargame.db`
+  window.open(serverPath + 'download' + '/' + dbName)
 }
 
 export const getIpAddress = (): Promise<{ ip: string }> => {
@@ -723,6 +735,18 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
   return checkReference(customMessage, db, details).then(messageUpdated => {
     return db.put(messageUpdated).catch(rejectDefault)
   })
+}
+
+export const postPopulateWargame = (dbName: string, bulkData: any) => {
+  const wargameName = dbName.replace('.json', '')
+  const name: string = `${wargameName}-${uniqid.time()}`
+  const db = new DbProvider(databasePath + name)
+  addWargameDbStore({ name: name, db })
+  // const { db } = getWargameDbByName(dbName)
+  console.log('db', db)
+  console.log('bulkData', bulkData.data)
+  // const customBulkMessage: MessagePlanning[] = bulkData
+  // return db.bulkDocs(bulkData.data as any).catch(rejectDefault)
 }
 
 // Copied from postNewMessage cgange and add new logic for Mapping

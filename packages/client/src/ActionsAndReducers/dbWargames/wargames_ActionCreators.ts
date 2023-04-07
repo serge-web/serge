@@ -186,6 +186,23 @@ export const downloadAllWargames = () => {
   }
 }
 
+// This function populates a wargame database with the given data and database name
+export const populateWargame = (data: any, dbName: string) => {
+  return async (dispatch: WargameDispatch) => {
+    const wargame = wargamesApi.postPopulateWargame(dbName, data)
+    console.log('wargame', wargame)
+    const wargames = await wargamesApi.getAllWargames()
+    dispatch(saveAllWargameNames(wargames))
+  }
+}
+
+export const downloadWargame = (dbPath: string) => {
+  return async (dispatch: WargameDispatch) => {
+    // This function allows a user to download a wargame database in zip format using the given database path as input.
+    wargamesApi.downloadWargame(dbPath)
+  }
+}
+
 export const deleteWargame = (name: string) => {
   return async (dispatch: WargameDispatch) => {
     wargamesApi.deleteWargame(name)

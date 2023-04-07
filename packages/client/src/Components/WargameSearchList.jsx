@@ -5,10 +5,11 @@ import {
   cleanWargame,
   exportWargame,
   duplicateWargame,
-  updateWargameVisible
+  updateWargameVisible,
+  downloadWargame
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { faBath, faClone, faFileDownload, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faBath, faClone, faFileDownload, faTrash, faCalendar } from '@fortawesome/free-solid-svg-icons'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { EXPORT_ROUTE, GAME_SETUP_ROUTE } from '../consts'
 import { WargameList } from '@serge/components'
@@ -33,6 +34,10 @@ const WargameSearchList = ({ listData: wargames }) => {
   const onDeleteWargame = title => {
     dispatch(modalAction.open('deleteWargame', title))
   }
+  const onDownloadWargame = title => {
+    // dispatch the downloadWargame action to download the wargame with the given title
+    dispatch(downloadWargame(title))
+  }
   const onShowHideWargame = title => {
     dispatch(updateWargameVisible(title))
   }
@@ -55,6 +60,12 @@ const WargameSearchList = ({ listData: wargames }) => {
       icon: faFileDownload,
       title: 'Export wargame',
       label: 'Export'
+    },
+    {
+      onClick: onDownloadWargame,
+      icon: faCalendar,
+      title: 'Download wargame',
+      label: 'Download'
     },
     {
       onClick: onDeleteWargame,
