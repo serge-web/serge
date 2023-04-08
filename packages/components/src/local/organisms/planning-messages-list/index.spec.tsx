@@ -20,7 +20,6 @@ const overview = P9Mock.data.overview
 const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
 
 const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
-const planningMessages = nonInfoMessages.filter((msg) => !msg.details.interaction) as Array<MessagePlanning>
 const interactionMessages = nonInfoMessages.filter((msg) => msg.details.interaction) as Array<MessageInteraction>
 
 describe('ChannelMessagesList component: ', () => {
@@ -59,7 +58,7 @@ describe('ChannelMessagesList component: ', () => {
 
     const tree = renderer
       .create(<PlanningMessagesList selectedForce={blueForce} selectedRoleName={blueRole.name}
-        planningMessages={planningMessages} interactionMessages={interactionMessages} allForces={allForces}
+        planningMessages={messages} interactionMessages={interactionMessages} allForces={allForces}
         platformTypes={P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []}
         forceColors={forceColors(allForces)}
         currentTurn={P9Mock.gameTurn} gameTurnEndDate={turnEndDate} channel={planningChannel}
