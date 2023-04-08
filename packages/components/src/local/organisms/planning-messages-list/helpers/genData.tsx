@@ -1,11 +1,12 @@
 import { Column } from '@material-table/core'
-import { MessagePlanning, PlanningMessageStructureCore } from '@serge/custom-types'
+import { Asset, ForceData, MessagePlanning, PlanningMessageStructureCore } from '@serge/custom-types'
 import { isEqual } from 'lodash'
 import moment from 'moment'
 import { AdjudicationRow } from '../../adjudication-messages-list/types/props'
 import { arrToDict, collateActivities } from '../../planning-assets/helpers/collate-assets'
 
 import { OrderRow } from '../types/props'
+import { findAsset } from '@serge/helpers'
 export const roles: string[] = []
 export const forces: string[] = []
 
@@ -24,11 +25,15 @@ const trimActivity = (forceId: string, activity?: string): string => {
   }
 }
 
-const getAssetString = (plan: PlanningMessageStructureCore) => {
-  return (plan.ownAssets || []).map(a => a.asset).join(',') + (plan.otherAssets || []).map(a => a.asset).join(',')
+const getAssetString = (plan: PlanningMessageStructureCore, forces: ForceData[]) => {
+  const own: Array<{ asset: Asset['uniqid'] }> = plan.ownAssets || []
+  const other: Array<{ asset: Asset['uniqid'] }> | undefined = plan.otherAssets || []
+  const allAssets = own.concat(other)
+  const names = allAssets.map((item): string => findAsset(forces, item.asset).name)
+  return names.join(', ')
 }
 
-export const toRow = (message: MessagePlanning): OrderRow => {
+export const toRow = (message: MessagePlanning, allForces: ForceData[]): OrderRow => {
   const author = message.details.from.roleName
   if (!roles.includes(author)) {
     roles.push(author)
@@ -44,7 +49,7 @@ export const toRow = (message: MessagePlanning): OrderRow => {
     rawRef: message.message.Reference,
     reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
     force: message.details.from.force,
-    assets: getAssetString(plan),
+    assets: getAssetString(plan, allForces),
     excluded: !!message.details.excluded,
     title: plan.title,
     role: author,

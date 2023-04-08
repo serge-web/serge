@@ -292,7 +292,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   useLayoutEffect(() => {
     // console.log('PlanningMessageList update messages:', myPlanningMessages.length, myPlanningMessages.length && myPlanningMessages[0].message.title)
     const dataTable: OrderRow[] = myPlanningMessages.map((message) => {
-      return toRow(message)
+      return toRow(message, allForces)
     })
     setRows(dataTable)
 
