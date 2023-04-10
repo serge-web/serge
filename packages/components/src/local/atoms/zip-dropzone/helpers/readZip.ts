@@ -7,7 +7,7 @@ const readZip = async (file: File, onChange: (data: any, filename: string) => vo
   try {
     // Load the zip file contents asynchronously
     const result = await zip.loadAsync(file)
-    const wargame = [] 
+    const wargameData = [] 
     let fileName = ''
     // Iterate over each file in the zip file
     for (const filename in result.files) {
@@ -26,12 +26,12 @@ const readZip = async (file: File, onChange: (data: any, filename: string) => vo
          _rev: undefined,
          _id: new Date().toISOString()
         }
-        
-        wargame.push(markExcluded)
+
+        wargameData.push(markExcluded)
       }
     }
     // Call the provided 'onChange' function with the processed data and filename
-    onChange(wargame, fileName)
+    onChange(wargameData, fileName)
   } catch (error) {
     console.error(error)
   }
