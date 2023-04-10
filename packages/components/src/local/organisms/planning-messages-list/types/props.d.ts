@@ -12,6 +12,7 @@ export type OrderRow = {
   // the combined reference and turn number
   reference: string
   force: ForceData['name']
+  assets: string
   excluded: boolean
   title: string
   role: string

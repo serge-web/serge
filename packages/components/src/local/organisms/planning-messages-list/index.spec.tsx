@@ -7,19 +7,19 @@ import renderer from 'react-test-renderer'
 import PlanningMessagesList from './index'
 
 import { forceColors, incrementGameTime } from '@serge/helpers'
-import { P9Mock, planningMessages as planningChannelMessages, smallForces } from '@serge/mocks'
+import { P9Mock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const blueForce = P9Mock.data.forces.forces[1]
 const blueRole = blueForce.roles[0]
+const allForces = P9Mock.data.forces.forces
 
 const overview = P9Mock.data.overview
 
 const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
 
 const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
-const planningMessages = nonInfoMessages.filter((msg) => !msg.details.interaction) as Array<MessagePlanning>
 const interactionMessages = nonInfoMessages.filter((msg) => msg.details.interaction) as Array<MessageInteraction>
 
 describe('ChannelMessagesList component: ', () => {
@@ -58,9 +58,9 @@ describe('ChannelMessagesList component: ', () => {
 
     const tree = renderer
       .create(<PlanningMessagesList selectedForce={blueForce} selectedRoleName={blueRole.name}
-        planningMessages={planningMessages} interactionMessages={interactionMessages} allForces={smallForces}
+        planningMessages={messages} interactionMessages={interactionMessages} allForces={allForces}
         platformTypes={P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []}
-        forceColors={forceColors(smallForces)}
+        forceColors={forceColors(allForces)}
         currentTurn={P9Mock.gameTurn} gameTurnEndDate={turnEndDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
