@@ -745,7 +745,7 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
  * 
  * @returns Promise that resolves with the populated wargame
  */
-export const postPopulateWargame = (dbName: string, bulkData: any): Promise<Wargame> => {
+export const postPopulateWargame = (dbName: string, bulkData: Array<Message | Wargame>): Promise<Wargame> => {
   const wargameName = dbName.replace('.json', '')
 
   // Generate a unique name for the wargame by appending a timestamp to the end of the name
@@ -754,7 +754,7 @@ export const postPopulateWargame = (dbName: string, bulkData: any): Promise<Warg
   // Create a new database provider instance for the new wargame
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name: name, db })
-  const customBulkMessage: any = bulkData
+  const customBulkMessage = bulkData
 
   // Return a new promise that will resolve with the populated wargame
   return new Promise((resolve, reject) => {

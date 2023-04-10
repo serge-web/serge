@@ -23,14 +23,12 @@ export const Default: React.FC = () => {
     console.log(data)
     console.log(filename)
   }
-  return ( 
-    <ZipFileUploader onChange={handleChange} > 
+  return (
+    <ZipFileUploader onChange={handleChange} >
       <Button
         color='secondary'>
         Upload Zip
       </Button>
-    </ZipFileUploader> 
+    </ZipFileUploader>
   )
 }
-
-
