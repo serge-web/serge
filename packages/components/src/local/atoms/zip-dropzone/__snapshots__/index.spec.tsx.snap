@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Image Dropzone component: renders correctly 1`] = `
+exports[`Zip Dropzone component: renders correctly 1`] = `
 <div
   onBlur={[Function]}
   onClick={[Function]}

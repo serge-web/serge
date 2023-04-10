@@ -189,10 +189,15 @@ export const downloadAllWargames = () => {
 // This function populates a wargame database with the given data and database name
 export const populateWargame = (data: any, dbName: string) => {
   return async (dispatch: WargameDispatch) => {
-    const wargame = wargamesApi.postPopulateWargame(dbName, data)
-    console.log('wargame', wargame)
+    // Post the bulk data to the specified wargame database.
+    const wargame = await wargamesApi.postPopulateWargame(dbName, data)
+
+    // Get all wargames from the API and store it in 'wargames' variable.
     const wargames = await wargamesApi.getAllWargames()
+
+    // Dispatch actions to update the Redux store with the populated wargame and all wargames.
     dispatch(saveAllWargameNames(wargames))
+    dispatch(setCurrentWargame(_.omit(wargame, ['_id', '_rev'])))
   }
 }
 

@@ -26,8 +26,23 @@ const readZip = async (file: File, onChange: (data: any, filename: string) => vo
       } else if (fileExt === 'json') {
         // Extract the contents of the JSON file
         const jsonContents = await result.files[filename].async('text')
-        const data = JSON.parse(jsonContents)
-        onChange(data, filename)
+
+        // The data variable is typed as an array of any type using the Array<any> syntax. 
+        // The contents of the array are parsed from the 'jsonContents' string using the JSON.parse() method, and then only the 'data' property is extracted.
+        const data: Array<any> = JSON.parse(jsonContents).data
+
+        // Mark the '_rev' property of each object as undefined to exclude it from future bulk insertions
+        const markExcluded = data.map((msg) => {
+          const currentMessage = {
+            ...msg,
+            _rev: undefined
+          }
+
+          return currentMessage
+        })
+
+        // Call the provided 'onChange' function with the processed data and filename
+        onChange(markExcluded, filename)
       } else {
         // Handle other file types as needed
       }

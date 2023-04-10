@@ -737,16 +737,41 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
   })
 }
 
-export const postPopulateWargame = (dbName: string, bulkData: any) => {
+/**
+ * Populate a new wargame with bulk data
+ * 
+ * @param dbName The name of the database to create the wargame in
+ * @param bulkData The bulk data to populate the wargame with
+ * 
+ * @returns Promise that resolves with the populated wargame
+ */
+export const postPopulateWargame = (dbName: string, bulkData: any): Promise<Wargame> => {
   const wargameName = dbName.replace('.json', '')
+
+  // Generate a unique name for the wargame by appending a timestamp to the end of the name
   const name: string = `${wargameName}-${uniqid.time()}`
+
+  // Create a new database provider instance for the new wargame
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name: name, db })
-  // const { db } = getWargameDbByName(dbName)
-  console.log('db', db)
-  console.log('bulkData', bulkData.data)
-  // const customBulkMessage: MessagePlanning[] = bulkData
-  // return db.bulkDocs(bulkData.data as any).catch(rejectDefault)
+  const customBulkMessage: any = bulkData
+
+  // Return a new promise that will resolve with the populated wargame
+  return new Promise((resolve, reject) => {
+    // Call the bulkDocs() function of the new database instance, passing in the bulk data
+    db.bulkDocs(customBulkMessage).then(() => {
+      // Call getLatestWargameRevision() to retrieve the latest revision of the new wargame
+      getLatestWargameRevision(name).then((res) => {
+        // @ts-ignore
+        resolve(res)
+      }).catch((err) => {
+        reject(err)
+      }).catch((err) => {
+        console.log(err)
+        reject(err)
+      })
+    })
+  })
 }
 
 // Copied from postNewMessage cgange and add new logic for Mapping
