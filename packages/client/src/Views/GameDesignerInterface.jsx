@@ -94,14 +94,14 @@ class GameDesignerInterface extends Component {
             >
               Download all data
             </Button>
+            <ZipFileUploader onChange={ this.onPopulateWargame } >
+              <Button
+                color='secondary'
+              >
+              Populate wargame
+              </Button>
+            </ZipFileUploader>
           </div>
-          <ZipFileUploader onChange={ this.onPopulateWargame } >
-            <Button
-              color='secondary'
-            >
-            Populate wargame
-            </Button>
-          </ZipFileUploader>
           <WargameSearchList key='searchlist'
             listData={this.props.wargame.wargameList}
           />
