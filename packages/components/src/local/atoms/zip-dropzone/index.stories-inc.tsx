@@ -3,6 +3,7 @@ import ZipFileUploader from './index'
 import docs from './README.md'
 import Button from '../button'
 import { withKnobs } from '@storybook/addon-knobs'
+import { Wargame, Message } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
@@ -19,9 +20,9 @@ export default {
 }
 
 export const Default: React.FC = () => {
-  const handleChange = (data: any, filename: string): void => {
-    console.log(data)
-    console.log(filename)
+  const handleChange = (data: Array<Wargame | Message>, filename: string): void => {
+    console.log('data:', data)
+    console.log('filename:', filename)
   }
   return (
     <ZipFileUploader onChange={handleChange} >
