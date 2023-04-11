@@ -746,7 +746,7 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
  * Populate a new wargame with bulk data
  * @returns Promise that resolves with the populated wargame
  */
-export const postPopulateWargame = (dbName: string, bulkData: Array<Message | Wargame>): Promise<Wargame> => {
+export const populateWargame = (dbName: string, bulkData: Array<Message | Wargame>): Promise<Wargame> => {
   const wargameName = dbName.replace('.json', '')
 
   // Generate a unique name for the wargame by appending a timestamp to the end of the name

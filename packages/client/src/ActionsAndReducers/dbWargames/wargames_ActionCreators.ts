@@ -190,7 +190,7 @@ export const downloadAllWargames = () => {
 export const populateWargame = (data: any, dbName: string) => {
   return async (dispatch: WargameDispatch) => {
     // Post the bulk data to the specified wargame database.
-    const wargame = await wargamesApi.postPopulateWargame(dbName, data)
+    const wargame = await wargamesApi.populateWargame(dbName, data)
 
     // Get all wargames from the API and store it in 'wargames' variable.
     const wargames = await wargamesApi.getAllWargames()
