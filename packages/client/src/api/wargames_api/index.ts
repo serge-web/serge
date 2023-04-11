@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   ADJUDICATION_OUTCOMES,
   ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE,
@@ -62,6 +63,7 @@ const getWargameDbByName = (name: string): ApiWargameDbObject => {
 
 // add a new wargame database
 export const addWargameDbStore = (wargameDbObject: ApiWargameDbObject) => {
+  console.log('wargameDbStore', wargameDbObject)
   wargameDbStore.unshift(wargameDbObject)
 }
 
@@ -201,10 +203,12 @@ export const saveIcon = (file: string) => {
     body: file
   }).then((res) => res.json())
 }
-
+// @ts-ignore
 export const createWargame = (): Promise<Wargame> => {
   const name: string = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
+  console.log('createDbName', name)
+  console.log('db', db)
   addWargameDbStore({ name: name, db })
 
   const settings: Wargame = { 
@@ -746,7 +750,7 @@ export const postPopulateWargame = (dbName: string, bulkData: Array<Message | Wa
   const wargameName = dbName.replace('.json', '')
 
   // Generate a unique name for the wargame by appending a timestamp to the end of the name
-  const name: string = `${wargameName}-${uniqid.time()}`
+  const name: string = `${'wargame'}-${wargameName}-${uniqid.time()}`
 
   // Create a new database provider instance for the new wargame
   const db = new DbProvider(databasePath + name)

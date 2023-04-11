@@ -115,6 +115,10 @@ const couchDb = (app, io, pouchOptions) => {
     // Get the array of documents from the request body
     const docs = req.body
 
+    if (!listeners[databaseName]) {
+      addListenersQueue.push(databaseName)
+    }
+
     // Check if there are any documents to update
     if (docs.length === 0) {
       // nothing to do
