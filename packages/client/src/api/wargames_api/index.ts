@@ -763,11 +763,10 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
       }).catch((err) => {
         reject(err)
       })
+    }).catch((err) => {
+      console.log(err)
+      reject(err)
     })
-      .catch((err) => {
-        console.log(err)
-        reject(err)
-      })
   })
 }
 
