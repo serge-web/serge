@@ -1,6 +1,6 @@
-# Planned Route documentation
+# Zip Dropzone Documentation
 
-This is an example readme file for the 'zip-dropzone' component.
+The 'Zip Dropzone' component is a React component for uploading zip files.
 
 ## UI Example
 
@@ -18,10 +18,10 @@ This is an example readme file for the 'zip-dropzone' component.
 
 ### ES6 Import
 ```js
-import ImageDropzone from './zip-dropzone'
+import ZipDropzone from './zip-dropzone'
 ```
 
 ### CommonJS
 
 ```js
-const ImageDropzone = require('./zip-dropzone')
+const ZipDropzone = require('./zip-dropzone')
