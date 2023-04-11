@@ -174,17 +174,18 @@ export const downloadAllWargames = (): void => {
   window.open(serverPath + 'downloadAll')
 }
 
+// Note: when the download button is cicked, the SQLITE database be downloaded in a zip format
 // This function downloads a wargame by sending a GET request to the server
 // with the wargame's name in the URL. The server will respond with the file's contents.
 // This function allows a user to download a wargame database in zip format using the given database path as input.
-export const downloadWargame = (dbPath: string): void => {
-  const dbName = getNameFromPath(dbPath)
+// export const downloadWargame = (dbPath: string): void => {
+//   const dbName = getNameFromPath(dbPath)
 
-  // Construct the URL for downloading the file
-  // `serverPath` is a global variable that holds the base URL for the server
-  // The URL will look something like this: `http://example.com/download/wargame.db`
-  window.open(serverPath + 'download' + '/' + dbName)
-}
+//   // Construct the URL for downloading the file
+//   // `serverPath` is a global variable that holds the base URL for the server
+//   // The URL will look something like this: `http://example.com/download/wargame.db`
+//   window.open(serverPath + 'download' + '/' + dbName)
+// }
 
 export const getIpAddress = (): Promise<{ ip: string }> => {
   return fetch(serverPath + 'getIp').then<{ ip: string }>((res) => res.json())

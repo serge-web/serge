@@ -19,7 +19,7 @@ const readZip = async (file: File, onChange: (data: Array<Wargame | Message>, fi
 
         // The data variable is typed as an array of any type using the Array<any> syntax.
         // The contents of the array are parsed from the 'jsonContents' string using the JSON.parse() method, and then only the 'data' property is extracted.
-        const jsonData  = JSON.parse(jsonContents)
+        const jsonData = JSON.parse(jsonContents)
         fileName = filename
         // Mark the '_rev' property of each object as undefined to exclude it from future bulk insertions
         const markExcluded = {

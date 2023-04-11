@@ -201,12 +201,14 @@ export const populateWargame = (data: any, dbName: string) => {
   }
 }
 
-export const downloadWargame = (dbPath: string) => {
-  return async (dispatch: WargameDispatch) => {
-    // This function allows a user to download a wargame database in zip format using the given database path as input.
-    wargamesApi.downloadWargame(dbPath)
-  }
-}
+// Note: when the download button is cicked, the SQLITE database be downloaded in a zip format
+// // This function downloads a wargame database in zip format using the provided database path.
+// export const downloadWargame = (dbPath: string) => {
+//   return async (dispatch: WargameDispatch) => {
+//     // This function allows a user to download a wargame database in zip format using the given database path as input.
+//     wargamesApi.downloadWargame(dbPath)
+//   }
+// }
 
 export const deleteWargame = (name: string) => {
   return async (dispatch: WargameDispatch) => {
