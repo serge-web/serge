@@ -63,7 +63,6 @@ const getWargameDbByName = (name: string): ApiWargameDbObject => {
 
 // add a new wargame database
 export const addWargameDbStore = (wargameDbObject: ApiWargameDbObject) => {
-  console.log('wargameDbStore', wargameDbObject)
   wargameDbStore.unshift(wargameDbObject)
 }
 
@@ -203,12 +202,10 @@ export const saveIcon = (file: string) => {
     body: file
   }).then((res) => res.json())
 }
-// @ts-ignore
+
 export const createWargame = (): Promise<Wargame> => {
   const name: string = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
-  console.log('createDbName', name)
-  console.log('db', db)
   addWargameDbStore({ name: name, db })
 
   const settings: Wargame = { 
