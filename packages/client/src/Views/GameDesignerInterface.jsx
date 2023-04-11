@@ -10,7 +10,7 @@ import {
 import { Button, AdminLogin, ZipFileUploader } from '@serge/components'
 import {
   createNewWargameDB,
-  populateWargameStore,
+  populateWargameList,
   checkAdminAccess,
   downloadAllWargames,
   populateWargame
@@ -23,7 +23,7 @@ import '@serge/themes/App.scss'
 class GameDesignerInterface extends Component {
   componentWillMount () {
     this.props.dispatch(populateMessageTypesDb())
-    this.props.dispatch(populateWargameStore())
+    this.props.dispatch(populateWargameList())
   }
 
   createWargame = () => {

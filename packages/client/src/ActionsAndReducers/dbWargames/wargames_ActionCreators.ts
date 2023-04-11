@@ -147,12 +147,12 @@ export const saveIcon = (file: string) => {
   }
 }
 
-export const populateWargameStore = () => {
+export const populateWargameList = () => {
   return async (dispatch: WargameDispatch) => {
     dispatch(populatingDb(true))
 
     // @ts-ignore
-    const wargameNames = await wargamesApi.populateWargame(dispatch)
+    const wargameNames = await wargamesApi.populateWargameList(dispatch)
 
     dispatch(saveAllWargameNames(wargameNames))
 
