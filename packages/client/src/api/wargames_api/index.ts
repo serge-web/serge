@@ -759,7 +759,7 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
       // Call getLatestWargameRevision() to retrieve the latest revision of the new wargame
       getLatestWargameRevision(name).then((res) => {
         // @ts-ignore
-        resolve(res)
+        return resolve(res)
       }).catch((err) => {
         reject(err)
       })
