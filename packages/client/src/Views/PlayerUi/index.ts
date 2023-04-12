@@ -2,7 +2,7 @@ import { Dispatch } from 'react'
 import PlayerUi from './PlayerUi'
 import { connect } from 'react-redux'
 import { addNotification } from '../../ActionsAndReducers/Notification/Notification_ActionCreators'
-import { populateWargameStore } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
+import { populateWargameList } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { getSergeGameInformation } from '../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators'
 import { populateMessageTypesDb } from '../../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import { StateProps } from './types'
@@ -24,7 +24,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   },
   loadData: (): void => {
     dispatch(populateMessageTypesDb())
-    dispatch(populateWargameStore())
+    dispatch(populateWargameList())
     dispatch(getSergeGameInformation())
   }
 })

@@ -5,7 +5,8 @@ import {
   cleanWargame,
   exportWargame,
   duplicateWargame,
-  updateWargameVisible
+  updateWargameVisible,
+  downloadWargame
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { faBath, faClone, faFileDownload, faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -33,6 +34,13 @@ const WargameSearchList = ({ listData: wargames }) => {
   const onDeleteWargame = title => {
     dispatch(modalAction.open('deleteWargame', title))
   }
+
+  // Note: when the download button is cicked, the SQLITE database be downloaded in a zip format
+  // Handle what happens when the "Download" option is clicked on
+  const onDownloadWargame = title => {
+    // dispatch the downloadWargame action to download the wargame with the given title
+    dispatch(downloadWargame(title))
+  }
   const onShowHideWargame = title => {
     dispatch(updateWargameVisible(title))
   }
@@ -55,6 +63,12 @@ const WargameSearchList = ({ listData: wargames }) => {
       icon: faFileDownload,
       title: 'Export wargame',
       label: 'Export'
+    },
+    {
+      onClick: onDownloadWargame,
+      icon: faFileDownload,
+      title: 'Download wargame',
+      label: 'Download'
     },
     {
       onClick: onDeleteWargame,
