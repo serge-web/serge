@@ -9,7 +9,8 @@ const readZip = async (file: File, onChange: (data: Array<Wargame | Message>, fi
     // Load the zip file contents asynchronously
     const result = await zip.loadAsync(file)
     const wargameData: Array<Wargame | Message> = []
-    const filePath = file['path'].replace('.zip', '')
+
+    const fileName = file.name.replace('.zip', '')
     // Iterate over each file in the zip file
     for (const filename in result.files) {
       const fileExt = filename.split('.').pop()
@@ -34,7 +35,7 @@ const readZip = async (file: File, onChange: (data: Array<Wargame | Message>, fi
       }
     }
     // Call the provided 'onChange' function with the processed data and filename
-    onChange(wargameData, filePath)
+    onChange(wargameData, fileName)
   } catch (error) {
     console.error(error)
   }
