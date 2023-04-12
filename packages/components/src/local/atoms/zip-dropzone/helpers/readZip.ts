@@ -9,7 +9,7 @@ const readZip = async (file: File, onChange: (data: Array<Wargame | Message>, fi
     // Load the zip file contents asynchronously
     const result = await zip.loadAsync(file)
     const wargameData: Array<Wargame | Message> = []
-    let fileName = ''
+    const filePath = file['path'].replace('.zip', '')
     // Iterate over each file in the zip file
     for (const filename in result.files) {
       const fileExt = filename.split('.').pop()
@@ -22,9 +22,6 @@ const readZip = async (file: File, onChange: (data: Array<Wargame | Message>, fi
         const jsonData = JSON.parse(jsonContents)
         const id = filename.replace('.json', '').replace(/_/g, ':')
 
-        if (!fileName) {
-          fileName = filename.replace('.json', '')
-        }
 
         // Mark the '_rev' property of each object as undefined to exclude it from future bulk insertions
         const markExcluded = {
@@ -37,7 +34,7 @@ const readZip = async (file: File, onChange: (data: Array<Wargame | Message>, fi
       }
     }
     // Call the provided 'onChange' function with the processed data and filename
-    onChange(wargameData, fileName)
+    onChange(wargameData, filePath)
   } catch (error) {
     console.error(error)
   }
