@@ -40,6 +40,7 @@
     "node-windows": "^0.1.14"
   },
   "scripts": {
+    "pouchdb-sqllite": "cd db && pouchdb-server --sqlite",
     "dev": "nodemon main.js",
     "start": "node main.js",
     "lint": "eslint --fix **/*.js"
