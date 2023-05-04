@@ -4,5 +4,6 @@ module.exports = {
   COUNTER_MESSAGE: 'CounterMessage',
   INFO_MESSAGE: 'InfoMessage',
   CUSTOM_MESSAGE: 'CustomMessage',
+  databaseUrlPrefix: '/db',
   dbSuffix: '.sqlite'
 }

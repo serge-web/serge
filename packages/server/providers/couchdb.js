@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, CUSTOM_MESSAGE } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, databaseUrlPrefix, CUSTOM_MESSAGE } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
 
@@ -15,7 +15,7 @@ const couchDb = (app, io, pouchOptions) => {
     .defaults(pouchOptions)
   require('pouchdb-all-dbs')(PouchDB)
 
-  app.use('/db', require('express-pouchdb')(PouchDB))
+  app.use(databaseUrlPrefix, require('express-pouchdb')(PouchDB))
 
   const couchDbURL = (databaseName = '') => {
     const dbWithoutSqlite = databaseName.replace(dbSuffix, '')
