@@ -11,39 +11,37 @@ const pouchDb = (app, io, pouchOptions) => {
     .plugin(require('pouchdb-replication'))
     .defaults(pouchOptions)
   require('pouchdb-all-dbs')(PouchDB)
-  
+
   const pouchHandle = require('express-pouchdb')(PouchDB, {
     overrideMode: {
-        include: ['routes/fauxton']
+      include: ['routes/fauxton']
     }
   })
-  
+
   const fauxtonIntercept = (req, res, next) => {
-    
-    if (req.url.endsWith("_utils/dashboard.assets/js/bundle-34997e32896293a1fa5d71f79eb1b4f7.js")) {
-    const bundlePath = require('path').join(__dirname, "../../../node_modules/pouchdb-fauxton/www/dashboard.assets/js/bundle-34997e32896293a1fa5d71f79eb1b4f7.js")
-    let jsFile
-    try {
-      jsFile = require('fs').readFileSync(bundlePath).toString()
-    } catch (err) {
-      console.error(`Could not read Fauxton bundle file at ${bundlePath}: ${err.message}`)
-      bundlePath = /* new URL or bundle name */
-      
-      jsFile = require('fs').readFileSync(bundlePath).toString()
-    }
-        res.send(jsFile
-            .replace("host:\"../..\"", "host:\"..\"")
-            .replace("root:\"/_utils\"", `root:"${databaseUrlPrefix}/_utils"`)
-            .replace(/url:\"\/_session/g, `url:"${databaseUrlPrefix}/_session`)
-            .replace(/url:\"\/_replicator/g, `url:"${databaseUrlPrefix}/_replicator`)
-            .replace(/window\.location\.origin\+\"\/_replicator/g, `window.location.origin+"${databaseUrlPrefix}/_replicator`)
-            .replace(/url:\"\/_users/g, `url:"${databaseUrlPrefix}/_users`)
-            .replace("window.location.origin+\"/\"+o.default.utils.safeURLName", `window.location.origin+"${databaseUrlPrefix}/"+o.default.utils.safeURLName`))
-        return
+    if (req.url.endsWith('_utils/dashboard.assets/js/bundle-34997e32896293a1fa5d71f79eb1b4f7.js')) {
+      const bundlePath = require('path').join(__dirname, '../../../node_modules/pouchdb-fauxton/www/dashboard.assets/js/bundle-34997e32896293a1fa5d71f79eb1b4f7.js')
+      let jsFile
+      try {
+        jsFile = require('fs').readFileSync(bundlePath).toString()
+      } catch (err) {
+        console.error(`Could not read Fauxton bundle file at ${bundlePath}: ${err.message}`)
+
+        jsFile = ''
+      }
+      res.send(jsFile
+        .replace('host:"../.."', 'host:".."')
+        .replace('root:"/_utils"', `root:"${databaseUrlPrefix}/_utils"`)
+        .replace(/url:\"\/_session/g, `url:"${databaseUrlPrefix}/_session`)
+        .replace(/url:\"\/_replicator/g, `url:"${databaseUrlPrefix}/_replicator`)
+        .replace(/window\.location\.origin\+\"\/_replicator/g, `window.location.origin+"${databaseUrlPrefix}/_replicator`)
+        .replace(/url:\"\/_users/g, `url:"${databaseUrlPrefix}/_users`)
+        .replace('window.location.origin+"/"+o.default.utils.safeURLName', `window.location.origin+"${databaseUrlPrefix}/"+o.default.utils.safeURLName`))
+      return
     }
     return pouchHandle(req, res, next)
   }
-  
+
   app.use(databaseUrlPrefix, fauxtonIntercept)
 
   // changesListener
