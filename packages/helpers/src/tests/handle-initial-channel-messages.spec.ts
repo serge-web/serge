@@ -24,7 +24,7 @@ describe('handle initial channel creation', () => {
     const payload: Array<MessageInfoType | MessageCustom> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageInfoType | MessageCustom>
     const revPayload = payload.reverse()
     const res: SetWargameMessage = handleAllInitialChannelMessages(revPayload, 'wargame-name', blueForce, selectedRole, allChannels,
-      allForces, chatChannel, isObserver, allTemplates)
+      allForces, chatChannel, isObserver, allTemplates, true)
 
     expect(res).toBeTruthy()
     expect(res.chatChannel.messages.length).toEqual(2) // turn marker
@@ -51,7 +51,7 @@ describe('handle new message into RFI channel', () => {
 
     // initialise wargame
     const res: SetWargameMessage = handleAllInitialChannelMessages(payload, 'wargame-name', blueForce, selectedRole, allChannels,
-      allForces, chatChannel, isObserver, allTemplates)
+      allForces, chatChannel, isObserver, allTemplates, true)
 
     const newBlue1 = res.channels['channel-BlueRFI']
     expect(newBlue1).toBeTruthy()

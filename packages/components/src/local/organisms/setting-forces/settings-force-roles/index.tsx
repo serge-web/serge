@@ -7,20 +7,20 @@ import PropTypes from './types/props'
 import styles from './styles.module.scss'
 
 /* Import Components */
-import cx from 'classnames'
-import Switch from '@material-ui/core/Switch'
-import { withStyles } from '@material-ui/core/styles'
+import { faBookReader, faCaretDown, faChessKing, faComments, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCaretDown, faEye, faComments, faBookReader, faChessKing } from '@fortawesome/free-solid-svg-icons'
-import SortableList, { Item as SortableListItem } from '../../../molecules/sortable-list'
-import FormGroup from '../../../atoms/form-group-shadow'
 import Accordion from '@material-ui/core/Accordion'
 import AccordionDetails from '@material-ui/core/AccordionDetails'
 import AccordionSummary from '@material-ui/core/AccordionSummary'
+import Switch from '@material-ui/core/Switch'
 import Typography from '@material-ui/core/Typography'
-import PasswordView from '../../../molecules/password-view'
-import { getUniquePasscode } from '@serge/helpers'
+import { withStyles } from '@material-ui/core/styles'
 import { NEW_ROLE } from '@serge/config'
+import { getUniquePasscode } from '@serge/helpers'
+import cx from 'classnames'
+import FormGroup from '../../../atoms/form-group-shadow'
+import PasswordView from '../../../molecules/password-view'
+import SortableList, { Item as SortableListItem } from '../../../molecules/sortable-list'
 
 const MobileSwitch = withStyles({
   switchBase: {
@@ -36,7 +36,7 @@ const MobileSwitch = withStyles({
   track: {}
 })(Switch)
 
-export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces, customDeleteHandler }) => {
+export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces, customDeleteHandler, onNewRoleAdded }) => {
   const renderRoleFields = (item: SortableListItem, key: number): React.ReactNode => {
     const roleItem = item as Role
     const handleChangeRole = (nextRole: Role, submitPlans = false): void => {
@@ -98,15 +98,16 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
   }
 
   const handleCreateRole = (): void => {
-    const roles: Array<Role> = [...data.roles, {
+    const newRole = {
       roleId: getUniquePasscode(forces, 'r'),
       name: NEW_ROLE,
       isGameControl: false,
       isInsightViewer: false,
       isRFIManager: false,
       isObserver: false
-    }]
-
+    }
+    const roles: Array<Role> = [...data.roles, newRole]
+    onNewRoleAdded(newRole)
     handleChangeForce({ ...data, roles: roles })
   }
 
