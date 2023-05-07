@@ -41,6 +41,10 @@
   flex-direction: row;
   align-items: center;
   min-width: 25%;
+  div {
+    min-width: 100%;
+    min-height: 25px;
+  }
 }
 
 .main li {
