@@ -533,9 +533,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     <div
                       aria-describedby="rfd-hidden-text-0-hidden-text-0"
                       data-rfd-drag-handle-context-id="0"
-                      data-rfd-drag-handle-draggable-id="3"
+                      data-rfd-drag-handle-draggable-id="2"
                       data-rfd-draggable-context-id="0"
-                      data-rfd-draggable-id="3"
+                      data-rfd-draggable-id="2"
                       draggable={false}
                       onDragStart={[Function]}
                       role="button"
@@ -569,7 +569,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         role="columnheader"
                         tabIndex={0}
                       >
-                        Author
+                        Assets
                         <svg
                           aria-hidden={true}
                           className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
@@ -643,7 +643,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         role="columnheader"
                         tabIndex={0}
                       >
-                        Title
+                        Author
                         <svg
                           aria-hidden={true}
                           className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
@@ -717,7 +717,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         role="columnheader"
                         tabIndex={0}
                       >
-                        Activity
+                        Title
                         <svg
                           aria-hidden={true}
                           className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
@@ -748,8 +748,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     style={
                       Object {
                         "boxSizing": "border-box",
-                        "minWidth": 140,
-                        "width": "140px",
+                        "width": "auto",
                       }
                     }
                   >
@@ -792,7 +791,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         role="columnheader"
                         tabIndex={0}
                       >
-                        Start Date
+                        Activity
                         <svg
                           aria-hidden={true}
                           className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
@@ -867,7 +866,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         role="columnheader"
                         tabIndex={0}
                       >
-                        Finish Date
+                        Start Date
                         <svg
                           aria-hidden={true}
                           className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
@@ -891,27 +890,10 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                       </span>
                     </div>
                   </th>
-                </tr>
-              </thead>
-              <tbody
-                className="MuiTableBody-root css-apqrd9-MuiTableBody-root"
-                role={null}
-              >
-                <tr
-                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={0}
-                  level={0}
-                  onClick={[Function]}
-                  role={null}
-                  style={
-                    Object {
-                      "fontSize": "80%",
-                    }
-                  }
-                >
-                  <td
+                  <th
                     aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
                     style={
                       Object {
                         "textAlign": "center",
@@ -996,7 +978,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-blue_2"
                       />
@@ -1023,198 +1004,30 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     style={
                       Object {
                         "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": 150,
-                        "width": "150px",
-                      }
-                    }
-                    value="Blue-2 (Turn 3)"
-                  >
-                    Blue-2 (Turn 3)
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": undefined,
-                        "width": "auto",
-                      }
-                    }
-                    value="Blue"
-                  >
-                    Blue
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": undefined,
-                        "width": "auto",
-                      }
-                    }
-                    value="MTG 3"
-                  >
-                    MTG 3
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": undefined,
-                        "width": "auto",
-                      }
-                    }
-                    value="Order item 6"
-                  >
-                    Order item 6
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": undefined,
-                        "width": "auto",
-                      }
-                    }
-                    value="Air-Defensive Counter Air"
-                  >
-                    Air-Defensive Counter Air
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
                         "minWidth": 140,
                         "width": "140px",
                       }
                     }
-                    value="MAY 010005Z"
                   >
-                    MAY 010005Z
-                  </td>
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    onClick={[Function]}
-                    style={
-                      Object {
-                        "boxSizing": "border-box",
-                        "color": "inherit",
-                        "fontFamily": "inherit",
-                        "fontSize": "inherit",
-                        "fontWeight": "inherit",
-                        "maxWidth": undefined,
-                        "minWidth": 140,
-                        "width": "140px",
-                      }
-                    }
-                    value="MAY 010435Z"
-                  >
-                    MAY 010435Z
-                  </td>
-                </tr>
-                <tr
-                  className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={1}
-                  level={0}
-                  onClick={[Function]}
-                  role={null}
-                  style={
-                    Object {
-                      "fontSize": "80%",
-                    }
-                  }
-                >
-                  <td
-                    aria-sort={null}
-                    className="MuiTableCell-root MuiTableCell-body MuiTableCell-paddingNone MuiTableCell-sizeMedium css-11w94w9-MuiTableCell-root"
-                    style={
-                      Object {
-                        "textAlign": "center",
-                        "width": 42,
-                      }
-                    }
-                  >
-                    <button
-                      aria-label="Detail panel visibility toggle"
-                      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
-                      disabled={false}
-                      onBlur={[Function]}
-                      onClick={[Function]}
-                      onContextMenu={[Function]}
-                      onDragLeave={[Function]}
-                      onFocus={[Function]}
-                      onKeyDown={[Function]}
-                      onKeyUp={[Function]}
-                      onMouseDown={[Function]}
-                      onMouseLeave={[Function]}
-                      onMouseUp={[Function]}
-                      onTouchEnd={[Function]}
-                      onTouchMove={[Function]}
-                      onTouchStart={[Function]}
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="8"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="8"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
                       style={
                         Object {
-                          "transform": "none",
-                          "transition": "all ease 200ms",
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
                         }
                       }
                       tabIndex={0}
-                      type="button"
                     >
-                      <svg
-                        aria-hidden={true}
-                        className="MuiSvgIcon-root"
-                        focusable="false"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
-                        />
-                      </svg>
                       <span
                         className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
                       />
@@ -1256,7 +1069,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-green_5"
                       />
@@ -1516,7 +1328,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-blue_8"
                       />
@@ -1776,7 +1587,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-red_11"
                       />
@@ -2036,7 +1846,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-blue_14"
                       />
@@ -2199,7 +2008,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </tr>
                 <tr
                   className="MuiTableRow-root css-1q1u3t4-MuiTableRow-root"
-                  index={5}
+                  index={0}
                   level={0}
                   onClick={[Function]}
                   role={null}
@@ -2298,7 +2107,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         onChange={[Function]}
                         required={false}
                         type="checkbox"
-                        value="m_f-blue_17"
+                        value="2020-03-25T15:08:47.520Z"
                       />
                       <svg
                         aria-hidden={true}
@@ -2332,9 +2141,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "150px",
                       }
                     }
-                    value="Blue-17 (Turn 3)"
+                    value="Message-1 (Turn 1)"
                   >
-                    Blue-17 (Turn 3)
+                    Message-1 (Turn 1)
                   </td>
                   <td
                     aria-sort={null}
@@ -2556,7 +2365,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-red_20"
                       />
@@ -2632,9 +2440,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
-                    value="MAR"
+                    value=""
                   >
-                    MAR
+                    
                   </td>
                   <td
                     aria-sort={null}
@@ -2816,7 +2624,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-green_23"
                       />
@@ -2912,9 +2719,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
-                    value="Order item 32"
+                    value="Message Title"
                   >
-                    Order item 32
+                    Message Title
                   </td>
                   <td
                     aria-sort={null}
@@ -2932,9 +2739,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "auto",
                       }
                     }
-                    value="Maritime-Strike"
+                    value="rike"
                   >
-                    Maritime-Strike
+                    rike
                   </td>
                   <td
                     aria-sort={null}
@@ -2952,9 +2759,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "140px",
                       }
                     }
-                    value="MAY 010005Z"
+                    value="OCT 130852Z"
                   >
-                    MAY 010005Z
+                    OCT 130852Z
                   </td>
                   <td
                     aria-sort={null}
@@ -2972,9 +2779,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "140px",
                       }
                     }
-                    value="MAY 010205Z"
+                    value="OCT 150852Z"
                   >
-                    MAY 010205Z
+                    OCT 150852Z
                   </td>
                 </tr>
                 <tr
@@ -3076,7 +2883,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-green_26"
                       />
@@ -3336,7 +3142,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-green_29"
                       />
@@ -3596,7 +3401,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-blue_32"
                       />
@@ -3856,7 +3660,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-green_35"
                       />
@@ -4116,7 +3919,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-green_38"
                       />
@@ -4376,7 +4178,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-blue_41"
                       />
@@ -4636,7 +4437,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-red_44"
                       />
@@ -4896,7 +4696,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-red_47"
                       />
@@ -5156,7 +4955,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-red_50"
                       />
@@ -5416,7 +5214,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-green_53"
                       />
@@ -5676,7 +5473,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-red_56"
                       />
@@ -5936,7 +5732,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
-                        required={false}
                         type="checkbox"
                         value="m_f-red_59"
                       />
@@ -6188,7 +5983,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
               <p
                 className="MuiTablePagination-displayedRows css-levciy-MuiTablePagination-displayedRows"
               >
-                1–20 of 30
+                1–1 of 1
               </p>
               <div
                 className="MuiBox-root css-lm78jv"
@@ -6294,7 +6089,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     }
                   }
                 >
-                  1-20 of 30
+                  1-1 of 1
                 </span>
                 <span
                   aria-label="Next Page"
@@ -6310,8 +6105,8 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 >
                   <button
                     aria-label="Next Page"
-                    className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
-                    disabled={false}
+                    className="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                    disabled={true}
                     onBlur={[Function]}
                     onClick={[Function]}
                     onContextMenu={[Function]}
@@ -6325,7 +6120,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     onTouchEnd={[Function]}
                     onTouchMove={[Function]}
                     onTouchStart={[Function]}
-                    tabIndex={0}
+                    tabIndex={-1}
                     type="button"
                   >
                     <svg
@@ -6339,9 +6134,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
                       />
                     </svg>
-                    <span
-                      className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                    />
                   </button>
                 </span>
                 <span
@@ -6358,8 +6150,8 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 >
                   <button
                     aria-label="Last Page"
-                    className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
-                    disabled={false}
+                    className="MuiButtonBase-root Mui-disabled MuiIconButton-root Mui-disabled MuiIconButton-sizeLarge css-mf1cb5-MuiButtonBase-root-MuiIconButton-root"
+                    disabled={true}
                     onBlur={[Function]}
                     onClick={[Function]}
                     onContextMenu={[Function]}
@@ -6373,7 +6165,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     onTouchEnd={[Function]}
                     onTouchMove={[Function]}
                     onTouchStart={[Function]}
-                    tabIndex={0}
+                    tabIndex={-1}
                     type="button"
                   >
                     <svg
@@ -6387,9 +6179,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         d="M5.59 7.41 10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"
                       />
                     </svg>
-                    <span
-                      className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                    />
                   </button>
                 </span>
               </div>

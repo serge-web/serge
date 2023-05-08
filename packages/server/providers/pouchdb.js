@@ -86,19 +86,32 @@ const pouchDb = (app, io, pouchOptions) => {
     retryUntilWritten(db, putData)
   })
 
+  // Define a route to handle bulk document updates in a specified database
   app.put('/bulkDocs/:dbname', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
     const db = new PouchDB(databaseName, pouchOptions)
+    // Get the array of documents from the request body
     const docs = req.body
+
+    if (!listeners[databaseName]) {
+      addListenersQueue.push(databaseName)
+    }
+
+    // Check if there are any documents to update
     if (docs.length === 0) {
       // nothing to do
       res.send({ msg: 'OK' })
     } else {
+      // If there are documents, update them in bulk
       return db.bulkDocs(docs).then(async () => {
+        // If the bulk update succeeds, emit an event to notify clients of the update
         io.emit(req.params.dbname, docs)
+
+        // Compact the database to free up disk space
         await db.compact()
         res.send({ msg: 'OK' })
       }).catch(err => {
+        // If there is an error with the bulk update, send a response with an error message and data
         res.send({ msg: 'err', data: err })
       })
     }

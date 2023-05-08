@@ -96,7 +96,7 @@ describe('wargames actions', () => {
 
     const store = mockStore({})
 
-    return store.dispatch(wargames.populateWargameStore()).then(() => {
+    return store.dispatch(wargames.populateWargameList()).then(() => {
       // return of async actions
       expect(store.getActions().payload).toEqual(expectedActions.payload)
     })

@@ -50,6 +50,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [countOfSelectedPlans, setCountOfSelectedPlans] = useState<number>(0)
   const [dialogMessage, setDialogMessage] = useState<React.ReactElement | undefined>()
   const [showTurnSummaryTable, setShowTurnSummaryTable] = useState<boolean>(false)
+  const [hiddenColumnChanges, setHiddenColumnChanges] = useState<boolean>(false)
 
   const currentColumnsData = useRef<Column<OrderRow>[]>([])
 
@@ -291,7 +292,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   useLayoutEffect(() => {
     // console.log('PlanningMessageList update messages:', myPlanningMessages.length, myPlanningMessages.length && myPlanningMessages[0].message.title)
     const dataTable: OrderRow[] = myPlanningMessages.map((message) => {
-      return toRow(message)
+      return toRow(message, allForces)
     })
     setRows(dataTable)
 
@@ -644,6 +645,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         rowStyle: { fontSize: '80%' }
       }}
       onSelectionChange={onSelectionChange}
+      onChangeColumnHidden={() => setHiddenColumnChanges(!hiddenColumnChanges)}
       detailPanel={detailPanel}
       components={{
         Body: (props): React.ReactElement => {
@@ -664,7 +666,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         />
       }}
     />
-  }, [rows, filter, toolbarActions, onlyShowMyOrders, columns])
+  }, [rows, filter, toolbarActions, onlyShowMyOrders, columns, hiddenColumnChanges])
 
   // linter warned that this object was being created on each render, so use a useMemo
   const eventList = useMemo(() => {

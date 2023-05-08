@@ -35,6 +35,7 @@
     "jest": "^26.0.1",
     "jest-mock-console": "^1.0.0",
     "json-metaschema": "^1.2.0",
+    "jszip": "^3.10.1",
     "lodash": "^4.17.15",
     "lorem-ipsum": "^2.0.3",
     "moment": "^2.24.0",
