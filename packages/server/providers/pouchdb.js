@@ -19,7 +19,7 @@ const pouchDb = (app, io, pouchOptions) => {
   })
 
   const fauxtonIntercept = (req, res, next) => {
-  const FauxtonBundlePath = 'js/bundle-34997e32896293a1fa5d71f79eb1b4f7.js'
+    const FauxtonBundlePath = 'js/bundle-34997e32896293a1fa5d71f79eb1b4f7.js'
 
     if (req.url.endsWith(`_utils/dashboard.assets/${FauxtonBundlePath}`)) {
       const bundlePath = require('path').join(__dirname, '../../../node_modules/pouchdb-fauxton/www/dashboard.assets/', FauxtonBundlePath)
