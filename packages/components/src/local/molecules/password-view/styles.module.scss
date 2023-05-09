@@ -34,25 +34,9 @@
     font-size: inherit;
     line-height: inherit;
     display: block;
-    opacity: 0;
     font-weight: bold;
     padding: 4px;
   }
-}
-
-.main:hover input {
-  opacity: 1;
-}
-.main:hover .password-mask {
-  display: none;
-}
-
-.main input:focus {
-  opacity: 1;
-}
-
-.main [class*="input-container--focused"] + .password-mask {
-  display: none;
 }
 
 .dots {
@@ -77,4 +61,5 @@
   align-items: center;
   justify-content: center;
   width: 30px;
+  z-index: 1111;
 }
