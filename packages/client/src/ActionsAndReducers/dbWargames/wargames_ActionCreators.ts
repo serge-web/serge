@@ -186,6 +186,9 @@ export const downloadAllWargames = () => {
   }
 }
 
+export const openFauxtonUI = () => {
+  wargamesApi.openFauxtonUI()
+}
 // This function populates a wargame database with the given data and database name
 export const populateWargame = (data: any, dbName: string) => {
   return async (dispatch: WargameDispatch) => {
