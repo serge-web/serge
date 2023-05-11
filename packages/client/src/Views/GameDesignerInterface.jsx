@@ -13,6 +13,7 @@ import {
   populateWargameList,
   checkAdminAccess,
   downloadAllWargames,
+  openFauxtonUI,
   populateWargame
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { populateMessageTypesDb } from '../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
@@ -38,6 +39,10 @@ class GameDesignerInterface extends Component {
 
   downloadAllData = () => {
     this.props.dispatch(downloadAllWargames())
+  }
+
+  openWargamesApiFuxion = () => {
+    this.props.dispatch(openFauxtonUI)
   }
 
   checkPassword = password => {
@@ -93,6 +98,12 @@ class GameDesignerInterface extends Component {
               color='secondary'
             >
               Download all data
+            </Button>
+            <Button
+              onClick={() => this.onButtonClick(this.openWargamesApiFuxion())}
+              color='secondary'
+            >
+              Open Fauxton UI
             </Button>
             <ZipFileUploader onChange={ this.onPopulateWargame } >
               <Button
