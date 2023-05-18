@@ -175,6 +175,10 @@ export const downloadAllWargames = (): void => {
   window.open(serverPath + 'downloadAll')
 }
 
+export const openFauxtonUI = ():void => {
+  window.open(serverPath + 'db/_utils/')
+}
+
 // Note: when the download button is cicked, the SQLITE database be downloaded in a zip format
 // This function downloads a wargame by sending a GET request to the server
 // with the wargame's name in the URL. The server will respond with the file's contents.
