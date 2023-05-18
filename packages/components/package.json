@@ -65,7 +65,7 @@
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
     "copyfiles": "^2.2.0",
-    "css-loader": "^3.4.2",
+    "css-loader": "^6.7.3",
     "css-modules-typescript-loader": "^4.0.0",
     "dayjs": "^1.11.7",
     "enzyme": "^3.11.0",
@@ -137,14 +137,17 @@
     "@storybook/addon-interactions": "^6.5.12",
     "@storybook/addon-knobs": "^6.1.14",
     "@storybook/addon-links": "^6.5.12",
-    "@storybook/builder-webpack5": "^7.0.2",
+    "@storybook/builder-webpack4": "^6.5.12",
+    "@storybook/builder-webpack5": "^6.5.16",
     "@storybook/codemod": "^6.5.12",
+    "@storybook/manager-webpack4": "^6.5.12",
     "@storybook/manager-webpack5": "^6.5.16",
     "@storybook/node-logger": "^6.5.12",
     "@storybook/react": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
     "@types/react-scrollbar": "^0.5.3",
     "eslint-plugin-storybook": "^0.6.4",
-    "jscodeshift": "^0.11.0"
+    "jscodeshift": "^0.11.0",
+    "webpack": "^5.82.1"
   }
 }
