@@ -5,7 +5,7 @@ import {
 } from '../consts'
 import DbProvider from './db'
 
-var db = new DbProvider(databasePath + MSG_STORE)
+const db = new DbProvider(databasePath + MSG_STORE)
 
 export const addMessage = (messageDetail, schema) => {
   return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ export const addMessage = (messageDetail, schema) => {
         _id: time,
         lastUpdated: time,
         details: messageDetail,
-        schema: schema,
+        schema,
         completed: false
       }
 
@@ -46,7 +46,7 @@ export const duplicateMessageInDb = (id) => {
   return new Promise((resolve, reject) => {
     db.get(id)
       .then(function (doc) {
-        var updatedMessage = doc.details
+        const updatedMessage = doc.details
 
         updatedMessage.title = `${updatedMessage.title} Copy-${uniqid.time()}`
 

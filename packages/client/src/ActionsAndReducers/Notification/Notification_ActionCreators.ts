@@ -17,11 +17,11 @@ export interface AddNotificationInterface {
 export const addNotification = (message: string, type: string, autoHide = true, subType = 'alert'): AddNotificationInterface => ({
   type: ActionConstant.ADD_NOTIFICATION,
   payload: {
-    message: message,
-    type: type,
+    message,
+    type,
     id: uniqid.time(),
-    autoHide: autoHide,
-    subType: subType
+    autoHide,
+    subType
   }
 })
 

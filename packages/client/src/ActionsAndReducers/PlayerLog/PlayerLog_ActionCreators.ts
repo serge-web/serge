@@ -16,7 +16,7 @@ export const addPlayerLog = (data: PlayerLogEntry): PlayerLogActionType => ({
  */
 export const saveNewActivityTimeMessage = (role: string, activity: PlainInteraction, dbName: string): Function => {
   const activitydata: PlayerLogEntry = {
-    role: role,
+    role,
     activityType: activity,
     activityTime: `${new Date().toISOString()}`,
     wargame: dbName,

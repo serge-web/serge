@@ -23,7 +23,6 @@ const readZip = async (file: File, onChange: (data: Array<Wargame | Message>, fi
         const jsonData = JSON.parse(jsonContents)
         const id = filename.replace('.json', '').replace(/_/g, ':')
 
-
         // Mark the '_rev' property of each object as undefined to exclude it from future bulk insertions
         const markExcluded = {
           ...jsonData,

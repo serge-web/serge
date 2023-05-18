@@ -210,7 +210,7 @@ export const saveIcon = (file: string) => {
 export const createWargame = (): Promise<Wargame> => {
   const name: string = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
-  addWargameDbStore({ name: name, db })
+  addWargameDbStore({ name, db })
 
   const settings: Wargame = { 
     ...dbDefaultSettings, 
@@ -691,7 +691,7 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
       from: fromDetails,
       messageType: 'Chat',
       timestamp: new Date().toISOString(),
-      turnNumber: turnNumber
+      turnNumber
     },
     message: {
       content: message
@@ -753,7 +753,7 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
 
   // Create a new database provider instance for the new wargame
   const db = new DbProvider(databasePath + name)
-  addWargameDbStore({ name: name, db })
+  addWargameDbStore({ name, db })
   const customBulkMessage = bulkData
 
   // Return a new promise that will resolve with the populated wargame

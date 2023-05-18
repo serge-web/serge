@@ -26,7 +26,7 @@ const ExcelExport = ({ exp, index }) => {
     return excellentExport.convert({
       anchor: ids[format],
       filename: exp.title,
-      format: format
+      format
     }, data)
   }
 
