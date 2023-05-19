@@ -3,35 +3,8 @@
 exports[`password-view renders correctly 1`] = `
 <div
   className="main"
-  title="Click to Copy or Edit"
+  title="Click to Edit"
 >
-  <section
-    className="input-container disable-offset"
-  >
-    <div
-      className="MuiFormControl-root MuiTextField-root"
-    >
-      <div
-        className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-formControl MuiInput-formControl"
-        onClick={[Function]}
-      >
-        <input
-          aria-invalid={false}
-          autoFocus={false}
-          className="MuiInputBase-input MuiInput-input"
-          disabled={false}
-          name=""
-          onAnimationStart={[Function]}
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          required={false}
-          type="text"
-          value=""
-        />
-      </div>
-    </div>
-  </section>
   <section
     className="password-mask"
   >
@@ -41,6 +14,7 @@ exports[`password-view renders correctly 1`] = `
   </section>
   <div
     className="key"
+    onClick={[Function]}
   >
     <svg
       className="svg-inline--fa fa-key"

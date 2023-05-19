@@ -1,7 +1,8 @@
+import { ForceData } from '@serge/custom-types'
+import { forces } from '@serge/mocks'
+import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { forces } from '@serge/mocks'
-import { ForceData } from '@serge/custom-types'
 import RolesAccordion from './index'
 
 const handleChange = (obj: ForceData): void => {
@@ -16,6 +17,7 @@ describe('RolesAccordion component:', () => {
           data={forces[0]}
           handleChangeForce={handleChange}
           forces={forces}
+          onNewRoleAdded={noop}
         />,
         { createNodeMock: () => document.createElement('textarea') }
       )

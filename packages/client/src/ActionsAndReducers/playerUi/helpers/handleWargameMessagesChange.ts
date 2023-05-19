@@ -52,7 +52,7 @@ export const handleNewMessage = (payload: MessageChannel, newState: PlayerUi): S
 export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoType>, newState: PlayerUi): SetWargameMessage => {
   const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce,
     newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
-    newState.isObserver, newState.allTemplatesByKey)
+    newState.isObserver, newState.allTemplatesByKey, newState.isUmpire)
   return res
 }
 
