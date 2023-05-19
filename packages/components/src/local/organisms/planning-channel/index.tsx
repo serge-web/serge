@@ -1044,14 +1044,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
     return null
   }
-  const hello = true
-  console.log('LayerGroup', LayerGroup)
+
   const mapChildren = useMemo(() => {
     return (
       <>
         <RightClickGenerator />
         <Ruler showControl={true} />
-        { hello && <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
+        { <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} /> }
         <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showStandardAreas && <AreaPlotter areas={myAreas} />}
