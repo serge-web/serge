@@ -1279,7 +1279,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
         >
           <td
             aria-sort={null}
-            className="MuiTableCell-root MuiTableCell-footer MuiTableCell-sizeMedium MuiTablePagination-root css-29rnav-MuiTableCell-root-MuiTablePagination-root"
+            className="MuiTableCell-root MuiTableCell-footer MuiTableCell-sizeMedium MuiTablePagination-root css-d63lsq-MuiTableCell-root-MuiTablePagination-root"
             colSpan={3}
           >
             <div
