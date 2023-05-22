@@ -21,6 +21,6 @@ class ModalWrapper extends Component<{ children?: any, onBackgroundClick?: () =>
       </div>
     )
   }
-};
+}
 
 export default connect()(ModalWrapper)

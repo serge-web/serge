@@ -27,7 +27,7 @@ class EditMessage extends Component {
   componentWillMount () {
     this.props.dispatch(resetMessagePreview())
     this.props.dispatch(getAllMessageTypes())
-  };
+  }
 
   componentWillReceiveProps (nextProps, nextContext) {
     if (this.props.messageTypes.messages.length !== nextProps.messageTypes.messages.length) {

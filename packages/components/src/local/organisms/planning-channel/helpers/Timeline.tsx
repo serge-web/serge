@@ -20,6 +20,9 @@ type TimelineProps = {
 
 const DATE_FORMAT = 'YY MMM DD HH:MM'
 
+// leaflet.timeline is currently experiencing a compatibility issue with Node 18,
+// resulting in the inability to locate functions obtained from the leaflet.timeline.js file
+// note: it only works in storybook
 const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFeature, pointToLayer, setCurrentInteractions }) => {
   const map = useMap()
 
@@ -34,9 +37,11 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFea
     })
     setCurrentInteractions && setCurrentInteractions(currentOrders)
   }
-  console.log('L', L)
+
   useEffect(() => {
     if (!timelineControl) {
+      // Note: TypeError - l.timelineSliderControl is not a function
+      // Create a timelineSliderControl instance
       const timelineControl = L.timelineSliderControl({
         formatOutput: function (date: string | number | Date) {
           return moment.utc(date).format(DATE_FORMAT)
