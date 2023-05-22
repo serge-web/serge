@@ -1,5 +1,5 @@
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import * as L from 'leaflet'
+import L from 'leaflet'
 import moment from 'moment-timezone'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
@@ -34,7 +34,7 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFea
     })
     setCurrentInteractions && setCurrentInteractions(currentOrders)
   }
-
+  console.log('L', L)
   useEffect(() => {
     if (!timelineControl) {
       const timelineControl = L.timelineSliderControl({

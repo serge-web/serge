@@ -136,7 +136,8 @@ export const handleAllInitialChannelMessages = (
   allForces: ForceData[],
   chatChannel: PlayerUiChatChannel,
   isObserver: boolean,
-  allTemplatesByKey: TemplateBodysByKey
+  allTemplatesByKey: TemplateBodysByKey,
+  isUmpire: boolean
 ): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
@@ -171,7 +172,7 @@ export const handleAllInitialChannelMessages = (
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
-    if (isObserver || isParticipant) {
+    if ((isUmpire && isObserver) || isParticipant) {
       // TODO: define type for force Icons
       const forceIcons: any[] = []
       const forceColors: string[] = []

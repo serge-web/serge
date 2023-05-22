@@ -138,35 +138,8 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                 >
                                   <div
                                     className="main"
-                                    title="Click to Copy or Edit"
+                                    title="Click to Edit"
                                   >
-                                    <section
-                                      className="input-container disable-offset"
-                                    >
-                                      <div
-                                        className="MuiFormControl-root MuiTextField-root"
-                                      >
-                                        <div
-                                          className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-formControl MuiInput-formControl"
-                                          onClick={[Function]}
-                                        >
-                                          <input
-                                            aria-invalid={false}
-                                            autoFocus={false}
-                                            className="MuiInputBase-input MuiInput-input"
-                                            disabled={false}
-                                            name=""
-                                            onAnimationStart={[Function]}
-                                            onBlur={[Function]}
-                                            onChange={[Function]}
-                                            onFocus={[Function]}
-                                            required={false}
-                                            type="text"
-                                            value="rkrlw6f5f"
-                                          />
-                                        </div>
-                                      </div>
-                                    </section>
                                     <section
                                       className="password-mask"
                                     >
@@ -204,6 +177,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                     </section>
                                     <div
                                       className="key"
+                                      onClick={[Function]}
                                     >
                                       <svg
                                         className="svg-inline--fa fa-key"
@@ -224,7 +198,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   >
                                     <span
                                       aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
                                       onBlur={[Function]}
                                       onDragLeave={[Function]}
                                       onFocus={[Function]}
@@ -243,7 +217,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       >
                                         <input
                                           checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
                                           disabled={false}
                                           onChange={[Function]}
                                           type="checkbox"
@@ -254,7 +228,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       </span>
                                     </span>
                                     <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
                                     />
                                   </span>
                                   <div
@@ -274,7 +248,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   >
                                     <span
                                       aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
                                       onBlur={[Function]}
                                       onDragLeave={[Function]}
                                       onFocus={[Function]}
@@ -293,7 +267,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       >
                                         <input
                                           checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
                                           disabled={false}
                                           onChange={[Function]}
                                           type="checkbox"
@@ -304,7 +278,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       </span>
                                     </span>
                                     <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
                                     />
                                   </span>
                                   <div
@@ -324,7 +298,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   >
                                     <span
                                       aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
                                       onBlur={[Function]}
                                       onDragLeave={[Function]}
                                       onFocus={[Function]}
@@ -343,7 +317,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       >
                                         <input
                                           checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
                                           disabled={false}
                                           onChange={[Function]}
                                           type="checkbox"
@@ -354,7 +328,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       </span>
                                     </span>
                                     <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
                                     />
                                   </span>
                                   <div
@@ -374,7 +348,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   >
                                     <span
                                       aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
                                       onBlur={[Function]}
                                       onDragLeave={[Function]}
                                       onFocus={[Function]}
@@ -393,7 +367,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       >
                                         <input
                                           checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
                                           disabled={false}
                                           onChange={[Function]}
                                           type="checkbox"
@@ -404,7 +378,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       </span>
                                     </span>
                                     <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
                                     />
                                   </span>
                                   <div
@@ -457,35 +431,8 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                 >
                                   <div
                                     className="main"
-                                    title="Click to Copy or Edit"
+                                    title="Click to Edit"
                                   >
-                                    <section
-                                      className="input-container disable-offset"
-                                    >
-                                      <div
-                                        className="MuiFormControl-root MuiTextField-root"
-                                      >
-                                        <div
-                                          className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-15 MuiInput-underline makeStyles-underline-5 makeStyles-underline-16 MuiInputBase-formControl MuiInput-formControl"
-                                          onClick={[Function]}
-                                        >
-                                          <input
-                                            aria-invalid={false}
-                                            autoFocus={false}
-                                            className="MuiInputBase-input MuiInput-input"
-                                            disabled={false}
-                                            name=""
-                                            onAnimationStart={[Function]}
-                                            onBlur={[Function]}
-                                            onChange={[Function]}
-                                            onFocus={[Function]}
-                                            required={false}
-                                            type="text"
-                                            value="rkrlasdd5f"
-                                          />
-                                        </div>
-                                      </div>
-                                    </section>
                                     <section
                                       className="password-mask"
                                     >
@@ -526,6 +473,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                     </section>
                                     <div
                                       className="key"
+                                      onClick={[Function]}
                                     >
                                       <svg
                                         className="svg-inline--fa fa-key"
@@ -541,7 +489,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   >
                                     <span
                                       aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
                                       onBlur={[Function]}
                                       onDragLeave={[Function]}
                                       onFocus={[Function]}
@@ -560,7 +508,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       >
                                         <input
                                           checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
                                           disabled={false}
                                           onChange={[Function]}
                                           type="checkbox"
@@ -571,7 +519,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       </span>
                                     </span>
                                     <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
                                     />
                                   </span>
                                 </div>
@@ -583,7 +531,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   >
                                     <span
                                       aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
                                       onBlur={[Function]}
                                       onDragLeave={[Function]}
                                       onFocus={[Function]}
@@ -602,7 +550,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       >
                                         <input
                                           checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
                                           disabled={false}
                                           onChange={[Function]}
                                           type="checkbox"
@@ -613,7 +561,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       </span>
                                     </span>
                                     <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
                                     />
                                   </span>
                                 </div>
@@ -625,7 +573,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   >
                                     <span
                                       aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
                                       onBlur={[Function]}
                                       onDragLeave={[Function]}
                                       onFocus={[Function]}
@@ -644,7 +592,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       >
                                         <input
                                           checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
                                           disabled={false}
                                           onChange={[Function]}
                                           type="checkbox"
@@ -655,7 +603,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       </span>
                                     </span>
                                     <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
                                     />
                                   </span>
                                 </div>
@@ -667,7 +615,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                   >
                                     <span
                                       aria-disabled={false}
-                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
                                       onBlur={[Function]}
                                       onDragLeave={[Function]}
                                       onFocus={[Function]}
@@ -686,7 +634,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       >
                                         <input
                                           checked={true}
-                                          className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
                                           disabled={false}
                                           onChange={[Function]}
                                           type="checkbox"
@@ -697,7 +645,7 @@ exports[`RolesAccordion component: renders correctly 1`] = `
                                       </span>
                                     </span>
                                     <span
-                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
                                     />
                                   </span>
                                 </div>

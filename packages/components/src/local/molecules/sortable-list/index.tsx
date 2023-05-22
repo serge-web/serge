@@ -116,7 +116,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
       const newValueFilled: boolean = `${newValue}`.length > 0
       if (required) {
         if (!newValueFilled) {
-          if (valueOnEmpty) {
+          if (valueOnEmpty !== null && valueOnEmpty !== undefined) {
             newValue = valueOnEmpty
           } else {
             newValue = getValue(items[key])
@@ -127,7 +127,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
 
       const newItems: Array<Item> = [...items]
       if (typeof item === 'object') {
-        if (newItems[key] && item.name) {
+        if (newItems[key]) {
           newItems[key] = { ...item as ItemObject, name: newValue } as ItemObject
         }
       } else {
