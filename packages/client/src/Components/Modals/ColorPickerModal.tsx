@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import ModalWrapper from './ModalWrapper'
 import { connect } from 'react-redux'
 import { modalAction, ModalActionInterface } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'

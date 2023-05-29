@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import SidebarAdmin from '../Components/SidebarAdmin'
 import WargameSearchList from '../Components/WargameSearchList'

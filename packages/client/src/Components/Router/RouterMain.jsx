@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import RouterDashboard from './RouterDashboard'
 import PlayerUiWrapper from '../../Views/PlayerUiWrapper'
 import DemoScreen from '../../Views/DemoScreen'

@@ -6,7 +6,7 @@ import '@serge/themes/App.scss'
 class DropdownInput extends Component {
   onChange = (e) => {
     this.props.updateStore(e.target.value)
-  };
+  }
 
   render () {
     return (

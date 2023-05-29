@@ -1,4 +1,3 @@
-import React from 'react'
 import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { ImageDropzone } from '@serge/components'

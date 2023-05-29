@@ -1,4 +1,3 @@
-import React from 'react'
 import excellentExport from 'excellentexport'
 import { faFileDownload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

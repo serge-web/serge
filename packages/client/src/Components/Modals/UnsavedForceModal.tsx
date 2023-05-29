@@ -1,4 +1,3 @@
-import React from 'react'
 import uniqid from 'uniqid'
 import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'

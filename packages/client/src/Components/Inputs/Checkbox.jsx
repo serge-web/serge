@@ -6,7 +6,7 @@ import '@serge/themes/App.scss'
 class Checkbox extends Component {
   onChange = (e) => {
     this.props.updateStore(e.target.checked)
-  };
+  }
 
   render () {
     return (
