@@ -108,8 +108,6 @@ class EditWelcomeScreen extends Component {
   }
 
   render () {
-    console.log('inch ka')
-
     return (
       <div className='flex-content-wrapper flex-transparent'>
         <SidebarAdmin activeTab={WELCOME_SCREEN_EDIT_ROUTE}/>

@@ -161,7 +161,7 @@ $md-checkbox-label-padding: 0.5em;
       border: $md-checkmark-width solid $md-checkmark-color;
       border-right-style: none;
       border-top-style: none;
-      height:calc( $md-checkmark-size / 2);
+      height: calc($md-checkmark-size / 2);
       transform: translate(
           $md-checkbox-padding,
           calc($md-checkbox-size / 2) - calc($md-checkmark-size / 2.6)

@@ -24,15 +24,15 @@ class EditMessage extends Component {
     }
   }
 
-  UNSAFE_componentDidMount () {
+  componentDidMount () {
     this.props.dispatch(resetMessagePreview())
     this.props.dispatch(getAllMessageTypes())
   }
 
-  UNSAFE_componentWillReceiveProps (nextProps, nextContext) {
-    if (this.props.messageTypes.messages.length !== nextProps.messageTypes.messages.length) {
+  componentDidUpdate (prevProps) {
+    if (this.props.messageTypes.messages.length !== prevProps.messageTypes.messages.length) {
       this.setState({
-        messageList: nextProps.messageTypes.messages
+        messageList: this.props.messageTypes.messages
       })
     }
   }
@@ -55,6 +55,7 @@ class EditMessage extends Component {
   }
 
   render () {
+    console.log('barev')
     const SaveMessageButton = () => (
       <div className='button-wrap'>
         <Button color='secondary' onClick={this.updateSchema} icon='save'>Save Message</Button>

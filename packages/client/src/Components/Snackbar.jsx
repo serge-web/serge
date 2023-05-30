@@ -17,7 +17,7 @@ class Snackbar extends Component {
     this.props.onClickHandler(this.props.id)
   }
 
-  UNSAFE_componentWillMount () {
+  componentDidMount () {
     if (this.props.autoHide) {
       this.timer = setTimeout(() => {
         this.props.onClickHandler(this.props.id)
