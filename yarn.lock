@@ -23687,10 +23687,9 @@ react-dom@^16.12.0, react-dom@^16.8.3:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-double-scrollbar@0.0.15:
+react-double-scrollbar@0.0.15, react-double-scrollbar@IniterWorker/react-double-scrollbar:
   version "0.0.15"
-  resolved "https://registry.yarnpkg.com/react-double-scrollbar/-/react-double-scrollbar-0.0.15.tgz#e915ab8cb3b959877075f49436debfdb04288fe4"
-  integrity sha512-dLz3/WBIpgFnzFY0Kb4aIYBMT2BWomHuW2DH6/9jXfS6/zxRRBUFQ04My4HIB7Ma7QoRBpcy8NtkPeFgcGBpgg==
+  resolved "https://codeload.github.com/IniterWorker/react-double-scrollbar/tar.gz/b8f23324c8a564a734c2c35e8c0d01b8f89766a3"
 
 react-draggable@4.4.4:
   version "4.4.4"

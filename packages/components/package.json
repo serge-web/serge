@@ -127,6 +127,7 @@
     "whatwg-fetch": "^3.6.1"
   },
   "resolutions": {
+    "react-double-scrollbar": "IniterWorker/react-double-scrollbar",
     "@types/react": "^16.14.5",
     "node-sass": "^9.0.0"
   },
