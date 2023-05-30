@@ -14,7 +14,7 @@ $channel-icon-size: 20px;
   width: $size;
   height: $size;
   line-height: $size;
-  margin-top: -1 * $size/2;
+  margin-top: calc(-1 * $size / 2);
   cursor: pointer;
   box-sizing: border-box;
   border: 1px solid #000;
