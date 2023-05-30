@@ -24,12 +24,12 @@ class EditMessage extends Component {
     }
   }
 
-  componentWillMount () {
+  UNSAFE_componentDidMount () {
     this.props.dispatch(resetMessagePreview())
     this.props.dispatch(getAllMessageTypes())
   }
 
-  componentWillReceiveProps (nextProps, nextContext) {
+  UNSAFE_componentWillReceiveProps (nextProps, nextContext) {
     if (this.props.messageTypes.messages.length !== nextProps.messageTypes.messages.length) {
       this.setState({
         messageList: nextProps.messageTypes.messages

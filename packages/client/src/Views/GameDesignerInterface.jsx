@@ -22,7 +22,7 @@ import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import '@serge/themes/App.scss'
 
 class GameDesignerInterface extends Component {
-  componentWillMount () {
+  componentDidMount () {
     this.props.dispatch(populateMessageTypesDb())
     this.props.dispatch(populateWargameList())
   }
