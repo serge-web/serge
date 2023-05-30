@@ -8,7 +8,6 @@ import {
   Wargame,
   ChatMessage,
   PlayerMessageLog,
-  MessagePlanning, 
   PlayerUiChannels 
 } from '@serge/custom-types'
 import {
@@ -176,13 +175,13 @@ export const markAllMessageState = (channel: string, newState: PlayerUi, msgStat
   }
 }
 
-export const HandleUpdateBulksData = (newState: PlayerUi, anyPayload: MessagePlanning[]): PlayerUiChannels => {
+export const HandleUpdateBulksData = (newState: PlayerUi, anyPayload: MessageChannel[]): PlayerUiChannels => {
   const channelMessageTypes: string = anyPayload[0].details.channel
   const copyChanels: PlayerUiChannels = deepCopy(newState.channels)
   const currentChannel = newState.channels[channelMessageTypes]
   const channelMessage = currentChannel.messages 
   if (channelMessage) {
-    anyPayload.forEach((data:any) => {
+    anyPayload.forEach((data: MessageChannel) => {
       const findIndexs = channelMessage.findIndex(number => number._id !== data._id)
       if (currentChannel && findIndexs !== -1) {
         channelMessage.unshift(data) 
