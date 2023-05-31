@@ -344,10 +344,10 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       <>
         <LayerGroup key={'features'}>
           <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
-            filter={(feature: any): boolean => filterPendingFeatures(false, feature)}
+            filter={(feature): boolean => filterPendingFeatures(false, feature)}
             data={geometries} key={'feature_no_contact' + Math.random()} />
           <GeoJSON pointToLayer={pointToLayer} style={styleForFeatures} onEachFeature={onEachFeature}
-            filter={(feature: any): boolean => filterPendingFeatures(true, feature)}
+            filter={(feature): boolean => filterPendingFeatures(true, feature)}
             data={geometries} key={'feature_contact' + Math.random()} />
         </LayerGroup >
       </>

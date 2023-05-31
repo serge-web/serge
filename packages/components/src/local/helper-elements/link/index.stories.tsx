@@ -19,8 +19,8 @@ export default {
   }
 }
 
-const onClick = (): void => {
-  console.log('clicked')
+const onClick = (e: React.MouseEvent<HTMLAnchorElement> ): void => {
+  console.log('clicked', e)
 }
 
 export const Default: React.FC = () => <Link
