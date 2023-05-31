@@ -241,6 +241,8 @@ export interface ChatMessage extends CoreMessage {
 /** messages being used in support of planning */
 export interface MessagePlanning extends CoreMessage {
   readonly messageType: typeof PLANNING_MESSAGE,
+  isOpen?: boolean,
+  infoType?: boolean,
   message: PlanningMessageStructure
 }
 
@@ -394,7 +396,7 @@ export type MessageMap = MessageForceLaydown |
   MessageAdjudicationOutcomes
 
 export type MessageChannel = MessageInfoTypeClipped |
-  MessageCustom
+  MessageCustom | MessagePlanning
 
 type Message = MessageCustom |
   MessagePlanning |
