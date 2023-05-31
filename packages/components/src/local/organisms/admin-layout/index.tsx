@@ -19,7 +19,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 /* Render component */
 export const AdminLayout: React.FC<PropTypes> = ({ children, onTabChange, wargame, tabs = [], wargameChanged, activeTab = '', onPressBack, ...statusBarProps }) => {
-  const handleTabChange = (changedTab: string, key: number, e: any): void => {
+  const handleTabChange = (changedTab: string, key: number, e?: React.MouseEvent<HTMLDivElement>): void => {
     if (typeof onTabChange === 'function') {
       onTabChange(changedTab, key, e)
     }

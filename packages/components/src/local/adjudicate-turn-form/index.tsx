@@ -230,7 +230,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       </fieldset>
       <fieldset>
         <FormGroup title="Adjudication" align="right">
-          {!formDisabled && lowerPlanningActions && lowerPlanningActions.map((item: any) =>
+          {!formDisabled && lowerPlanningActions && lowerPlanningActions.map((item) =>
             <Button key={item.label} onClick={(): void => handleCommandLocal(item.action)}>{item.label}</Button>
           )}
         </FormGroup>
