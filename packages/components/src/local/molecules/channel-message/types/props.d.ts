@@ -6,10 +6,10 @@ export default interface Props extends MessageListHeaderProps, MessageListDetail
   /**
    * Handle on reading detail
    */
-  onRead?: { (detail: MessageCustom): void }
+  onRead?: { (detail: MessageCustom | MessagePlanning): void }
 
   /**
    * handle unread message
    */
-  onUnread?: { (detail: MessageCustom): void }
+  onUnread?: { (detail: MessageCustom | MessagePlanning): void }
 }

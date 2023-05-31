@@ -11,7 +11,7 @@ import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 // import collateMessages from './helpers/collate-messages'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { MessageChannel, MessageCustom, MessagePlanning } from '@serge/custom-types'
 import { formatTurn } from '@serge/helpers'
 
 /* Render component */
@@ -37,7 +37,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({
                 </Box>
               )
             }
-            const msg: MessageCustom = props
+            const msg: MessageCustom | MessagePlanning = props
             return (
               <Box mb={2} mr={2} key={key}>
                 <ChannelMessage isUmpire={isUmpire} forceColor={msg.details.from.forceColor}

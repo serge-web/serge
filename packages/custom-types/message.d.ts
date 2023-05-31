@@ -243,6 +243,7 @@ export interface MessagePlanning extends CoreMessage {
   readonly messageType: typeof PLANNING_MESSAGE,
   isOpen?: boolean,
   infoType?: boolean,
+  gameTurn?: number,
   message: PlanningMessageStructure
 }
 
@@ -395,8 +396,8 @@ export type MessageMap = MessageForceLaydown |
   MessageCloneMarker |
   MessageAdjudicationOutcomes
 
-export type MessageChannel = MessageInfoTypeClipped |
-  MessageCustom | MessagePlanning
+export type MessageChannel = MessageInfoTypeClipped | MessagePlanning |
+  MessageCustom
 
 type Message = MessageCustom |
   MessagePlanning |
