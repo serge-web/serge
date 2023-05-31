@@ -47,7 +47,7 @@ export const Collapsible: React.FC<PropTypes> = ({
   ) || customStructure
   if (!shouldRender) return null
 
-  const handleClick = (e: any): void => {
+  const handleClick = (e: React.MouseEvent<HTMLImageElement>): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }

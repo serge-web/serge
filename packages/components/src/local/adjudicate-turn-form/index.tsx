@@ -173,7 +173,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
       </TitleWithIcon>
       {conditionVal.toLowerCase() !== 'destroyed' && <fieldset>
         <FormGroup title="Player Route" align="right">
-          {!formDisabled && upperPlanningActions && upperPlanningActions.map((item: any) =>
+          {!formDisabled && upperPlanningActions && upperPlanningActions.map((item) =>
             <Button key={item.label} onClick={(): void => handleCommandLocal(item.action)}>{item.label}</Button>
           )}
         </FormGroup>
@@ -184,7 +184,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
             disabled={!canChangeState}
             onChange={statusHandler}
           >
-            {statusValues.map((s: any) => (
+            {statusValues.map((s) => (
               <MenuItem key={s.name} value={s.name}>{s.name}</MenuItem>
             ))}
           </Select>
@@ -222,7 +222,7 @@ export const AdjudicateTurnForm: React.FC<PropTypes> = ({
             value={conditionVal}
             onChange={conditionHandler}
           >
-            {conditionValues.map((s: any) => (
+            {conditionValues.map((s) => (
               <MenuItem key={s} value={s}>{s}</MenuItem>
             ))}
           </Select>

@@ -15,7 +15,7 @@ export const CollapsibleContent: React.FC<PropTypes> = (props) => {
   const useIndent: boolean | number = typeof props.useIndent === 'undefined' ? true : props.useIndent
   const collapsed: boolean = typeof props.collapsed === 'undefined' ? true : props.collapsed
 
-  const handleClick = (e: any): void => {
+  const handleClick = (e: React.MouseEvent<HTMLImageElement>): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }
