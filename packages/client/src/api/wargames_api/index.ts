@@ -540,7 +540,7 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
   })
 }
 
-export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): any => {
+export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res): any => {
     const processedData = deleteRoleAndParts(res.data, roles, key)
     if (_.isArray(processedData)) {
