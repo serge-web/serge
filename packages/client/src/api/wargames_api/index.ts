@@ -534,7 +534,7 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
     const duplicate = duplicateThisForce(forces[forceIndex])
     forces.splice(forceIndex, 0, duplicate)
     updatedData.forces.forces = forces
-    updatedData.forces.selectedForce = duplicate as any
+    updatedData.forces.selectedForce = duplicate
 
     return updateWargame({ ...res, data: updatedData }, dbName)
   })

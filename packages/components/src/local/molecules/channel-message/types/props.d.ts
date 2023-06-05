@@ -1,6 +1,6 @@
 import MessageListHeaderProps from '../../channel-message-header/types/props'
 import MessageListDetailProps from '../../channel-message-detail/types/props'
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom, MessagePlanning } from '@serge/custom-types'
 
 export default interface Props extends MessageListHeaderProps, MessageListDetailProps {
   /**

@@ -19,7 +19,7 @@ export default {
   }
 }
 
-const onClick = (e: React.MouseEvent<HTMLAnchorElement> ): void => {
+const onClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
   console.log('clicked', e)
 }
 
