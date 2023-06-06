@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Setup repo
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
 
       - name: Use Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -45,21 +45,21 @@ jobs:
         run: yarn pkg-build
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: linux_executable
           path: /home/runner/work/serge/serge/packages/executable/builds/*_linux.zip
           if-no-files-found: error
       
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: macos_executable
           path: /home/runner/work/serge/serge/packages/executable/builds/*_macos.zip
           if-no-files-found: error
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: win64_executable
           path: /home/runner/work/serge/serge/packages/executable/builds/*_win64.zip
