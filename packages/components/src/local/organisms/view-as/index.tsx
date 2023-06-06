@@ -3,7 +3,7 @@ import React from 'react'
 
 import PublicIcon from '@material-ui/icons/Public'
 import { UMPIRE_FORCE } from '@serge/config'
-import Item from '../../map-control/helpers/item'
+import Item from '../../p9legacy/map-control/helpers/item'
 import PropTypes from './types/props'
 
 export const ViewAs: React.FC<PropTypes> = ({

@@ -1,7 +1,7 @@
 import { CellLabelStyle } from '@serge/config'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
-import Item from '../../map-control/helpers/item'
+import Item from '../../p9legacy/map-control/helpers/item'
 
 export interface LabelSelectorProps {
   // update the cell label style in use

@@ -15,7 +15,7 @@ const forces = P9Mock.data.forces.forces
 const forceCols = forceColors(forces, true)
 
 export default {
-  title: 'local/organisms/PlanningOrders',
+  title: 'local/p9legacy/PlanningOrders',
   component: MapPlanningOrders,
   decorators: [withKnobs, wrapper],
   parameters: {

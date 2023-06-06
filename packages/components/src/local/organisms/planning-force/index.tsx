@@ -10,10 +10,10 @@ import * as ReactDOMServer from 'react-dom/server'
 import { Circle, LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import SymbolAssetIcon from '../../symbol-asset-icon'
-import { AssetRow } from '../planning-assets/types/props'
+import { AssetRow } from '../../p9legacy/planning-assets/types/props'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-import { SupportPanelContext } from '../support-panel'
+import { SupportPanelContext } from '../../p9legacy/support-panel'
 import { isEqual } from 'lodash'
 
 /**

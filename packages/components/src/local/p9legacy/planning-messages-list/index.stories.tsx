@@ -32,7 +32,7 @@ forces.forEach((force: ForceData) => {
 })
 
 export default {
-  title: 'local/organisms/PlanningMessagesList',
+  title: 'local/p9legacy/PlanningMessagesList',
   component: PlanningMessagesList,
   decorators: [withKnobs, wrapper],
   parameters: {
