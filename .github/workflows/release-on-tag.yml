@@ -6,18 +6,16 @@
 name: Release-on-tag
 
 on:
-
   push:
     branches:
       - master
       - develop
     tags:
-      - '*'     
+      - "*"
 
 jobs:
   test:
-  
-    name: Build/Test validation
+    name: Build/Test validation on release
     runs-on: ubuntu-latest
 
     strategy:
@@ -32,17 +30,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          
-      - name : Running dependency installation
+
+      - name: Running dependency installation
         run: yarn install
-        
-      - name : Running project building
+
+      - name: Running project building
         run: yarn build
-        
-      - name : Running unit testing
+
+      - name: Running unit testing
         run: yarn test-unit
 
-      - name : Build executable files
+      - name: Build executable files
         run: yarn pkg-build
 
       - name: Release
