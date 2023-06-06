@@ -3,7 +3,7 @@ import {
   Asset, ForceData, GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
-import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Position } from '@turf/turf'

@@ -29,17 +29,20 @@ export { default as MarkerPerception } from './marker-perception.d'
 export * from './message-types-actions.d'
 export { default as MessageTypes, TemplateBodysByKey } from './message-types.d'
 export {
-  ChatMessage, CollaborationDetails, CoreMessage, default as Message, FeedbackItem, InteractionDetails,
+  PlanningMessageStructureCore, PlanningMessageStructure, InteractionDetails, MessagePlanning, MessageAdjudicationOutcomes, HealthOutcome, HealthOutcomes, LocationOutcome, LocationOutcomes, PerceptionOutcome, PerceptionOutcomes 
+} from './p9legacy.d'
+export {
+  ChatMessage, CollaborationDetails, CoreMessage, default as Message, FeedbackItem,
   // All template based messages
-  MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCounter, MessageCreateTaskGroup,
+  MessageChannel, MessageCloneMarker, MessageCounter, MessageCreateTaskGroup,
   // All template based messages
   MessageCustom, MessageDeleteMarker, MessageDeletePlatform, MessageDetails, MessageDetailsFrom,
   // System Messages
   MessageFeedback,
   // Map Types
   MessageForceLaydown, MessageHostPlatform, MessageInfoType,
-  MessageInfoTypeClipped, MessageInteraction, MessageLeaveTaskGroup, MessageMap, MessagePerceptionOfContact, MessagePlanning,
-  MessageStateOfWorld, MessageStructure, MessageSubmitPlans, MessageUpdateMarker, MessageVisibilityChanges, PlanningMessageStructure, PlanningMessageStructureCore
+  MessageInfoTypeClipped, MessageInteraction, MessageLeaveTaskGroup, MessageMap, MessagePerceptionOfContact,
+  MessageStateOfWorld, MessageStructure, MessageSubmitPlans, MessageUpdateMarker, MessageVisibilityChanges,
 } from './message.d'
 export { MessagesActionTypes, MessagesDispatch, SetCurrentViewFromURI } from './messages-action'
 export * from './participant.d'
