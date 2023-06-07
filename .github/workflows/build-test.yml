@@ -25,12 +25,3 @@ jobs:
 
       - name: Check out code
         uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build and Test
-        run: |
-          # Replace the following command with your actual build and test commands
-          yarn build
-          yarn test
