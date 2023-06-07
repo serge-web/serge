@@ -16,7 +16,7 @@ on:
 jobs:
   test:
   
-    name: Build/Test validation test
+    name: Build/Test validation
     runs-on: ubuntu-latest
     
     strategy:
