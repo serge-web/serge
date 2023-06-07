@@ -16,7 +16,8 @@ import {
   WargameOverview,
   WargameRevision,
   IconOption,
-  AnnotationMarkerData
+  AnnotationMarkerData,
+  Message
 } from '@serge/custom-types'
 
 export const setCurrentTab = (tab: Notification): WargameActionTypes => ({
@@ -190,7 +191,7 @@ export const openFauxtonUI = () => {
   wargamesApi.openFauxtonUI()
 }
 // This function populates a wargame database with the given data and database name
-export const populateWargame = (data: any, dbName: string) => {
+export const populateWargame = (data: Array<Message | Wargame>, dbName: string) => {
   return async (dispatch: WargameDispatch) => {
     // Post the bulk data to the specified wargame database.
     const wargame = await wargamesApi.populateWargame(dbName, data)
@@ -463,7 +464,7 @@ export const deleteSelectedForce = (dbName: string, forceId: string) => {
 
 export const cleanWargame = (dbName: string) => {
   return async (dispatch: WargameDispatch) => {
-    var games = await wargamesApi.cleanWargame(dbName)
+    const games = await wargamesApi.cleanWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }
@@ -471,7 +472,7 @@ export const cleanWargame = (dbName: string) => {
 
 export const duplicateWargame = (dbName: string) => {
   return async (dispatch: WargameDispatch) => {
-    var games = await wargamesApi.duplicateWargame(dbName)
+    const games = await wargamesApi.duplicateWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }

@@ -2,7 +2,7 @@ import { ForceData, Asset } from '@serge/custom-types'
 
 /** find the asset with the provided id */
 export default (allForces: ForceData[], assetId: string): Asset => {
-  let res: Asset | undefined = undefined
+  let res: Asset | undefined
   allForces.find((force) => {
     const assets: Asset[] | undefined = force.assets
     if (Array.isArray(assets)) {
@@ -15,5 +15,5 @@ export default (allForces: ForceData[], assetId: string): Asset => {
     return false
   })
   if (res !== undefined) return res
-  throw new Error('Something bad happened');
-};
+  throw new Error('Something bad happened')
+}

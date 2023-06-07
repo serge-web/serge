@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 
 /* Render component */
 export const Link: React.FC<PropTypes> = ({ children, onClick, disabled, className = '', href = '#' }) => {
-  const handleClick = (e: any): void => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }

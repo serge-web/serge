@@ -37,7 +37,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({
                 </Box>
               )
             }
-            const msg: MessageCustom = props
+            const msg = props
             return (
               <Box mb={2} mr={2} key={key}>
                 <ChannelMessage isUmpire={isUmpire} forceColor={msg.details.from.forceColor}

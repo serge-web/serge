@@ -111,14 +111,14 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
       layerToEdit.addTo(map)
 
       layerToEdit.on('pm:edit', e => {
-        const pointsOnLine = get(e, 'layer._rings[0]') as Point[]
+        const pointsOnLine = get(e, 'layer._rings[0]') as unknown as Point[]
         const preventRemove = !!(
           (e.shape.toLowerCase() === 'line' && pointsOnLine.length <= 2) ||
           (e.shape.toLowerCase() === 'polygon' && pointsOnLine.length <= 3)
         )
         const options = get(e, 'layer.pm.options')
         const newOptions = {
-          ...options,
+          ...(typeof options === 'object' ? options : {}),
           preventMarkerRemoval: preventRemove
         };
         (e.layer as any).pm.disable();

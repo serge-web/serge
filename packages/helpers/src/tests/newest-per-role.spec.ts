@@ -1,6 +1,6 @@
 import newestPerRole, { logTable } from '../newest-per-role'
 import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock, forces } from '@serge/mocks'
-import { MessageChannel, MessageCustom, MessageInfoType } from '@serge/custom-types'
+import { MessageChannel, MessageCustom } from '@serge/custom-types'
 import { PlayerMessageLog, PlayerLogUI } from '@serge/custom-types/player-log'
 
 it('find newest message across all roles', () => {
@@ -29,7 +29,7 @@ it('find newest message across all roles', () => {
   // console.table(lister)
 
   // use uniqby with our uniqueness operator
-  const mostRecent: PlayerMessageLog = newestPerRole(messages as (MessageCustom | MessageInfoType)[])
+  const mostRecent: PlayerMessageLog = newestPerRole(messages as (MessageCustom)[])
 
   // check we get reduced set of messages
   expect(mostRecent).toBeTruthy()
@@ -58,7 +58,7 @@ it('neatly collate player log data', () => {
   const messages = payload.reverse()
 
   // use uniqby with our uniqueness operator
-  const mostRecent: PlayerMessageLog = newestPerRole(messages as (MessageCustom | MessageInfoType)[])
+  const mostRecent: PlayerMessageLog = newestPerRole(messages as (MessageCustom)[])
 
   const logRes: Array<PlayerLogUI> = logTable(mostRecent, forces)
   expect(logRes).toBeTruthy()

@@ -16,7 +16,7 @@ import stateofworld from '../Schemas/StateOfWorld.json'
 import weatherForecast from '../Schemas/weather_forecase.json'
 import DbProvider from './db'
 
-var db = new DbProvider(databasePath + MSG_TYPE_STORE)
+const db = new DbProvider(databasePath + MSG_TYPE_STORE)
 
 export const populateDb = () => {
   const promises = []
@@ -24,7 +24,7 @@ export const populateDb = () => {
   return new Promise((resolve, reject) => {
     db.allDocs().then(entries => {
       if (entries.length === 0) {
-        var machine = {
+        const machine = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'Machinery failure',
@@ -34,7 +34,7 @@ export const populateDb = () => {
 
         promises.push(db.put(machine))
 
-        var weather = {
+        const weather = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'Weather forecast',
@@ -44,7 +44,7 @@ export const populateDb = () => {
 
         promises.push(db.put(weather))
 
-        var messageInput = {
+        const messageInput = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'Message',
@@ -53,7 +53,7 @@ export const populateDb = () => {
         }
         promises.push(db.put(messageInput))
 
-        var rfiInput = {
+        const rfiInput = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'Request for Information',
@@ -62,7 +62,7 @@ export const populateDb = () => {
         }
         promises.push(db.put(rfiInput))
 
-        var rfsInput = {
+        const rfsInput = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'Request for Support',
@@ -71,7 +71,7 @@ export const populateDb = () => {
         }
         promises.push(db.put(rfsInput))
 
-        var chatInput = {
+        const chatInput = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'Chat',
@@ -81,7 +81,7 @@ export const populateDb = () => {
 
         promises.push(db.put(chatInput))
 
-        var linkInput = {
+        const linkInput = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'Link',
@@ -91,7 +91,7 @@ export const populateDb = () => {
 
         promises.push(db.put(linkInput))
 
-        var dailyInput = {
+        const dailyInput = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'Daily intentions',
@@ -101,7 +101,7 @@ export const populateDb = () => {
 
         promises.push(db.put(dailyInput))
 
-        var pg19WeeklyInput = {
+        const pg19WeeklyInput = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'PG19 Weekly Orders',
@@ -111,7 +111,7 @@ export const populateDb = () => {
 
         promises.push(db.put(pg19WeeklyInput))
 
-        var sowInput = {
+        const sowInput = {
           _id: uniqid.time(),
           lastUpdated: new Date().toISOString(),
           title: 'State of World',
@@ -144,7 +144,7 @@ export const postNewMessage = (schema) => {
 
       const time = new Date().toISOString()
 
-      var schemaObj = {
+      const schemaObj = {
         _id: time,
         lastUpdated: time,
         title: schema.title,

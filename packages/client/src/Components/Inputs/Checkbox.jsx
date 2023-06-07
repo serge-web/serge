@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import '@serge/themes/App.scss'
@@ -6,7 +6,7 @@ import '@serge/themes/App.scss'
 class Checkbox extends Component {
   onChange = (e) => {
     this.props.updateStore(e.target.checked)
-  };
+  }
 
   render () {
     return (

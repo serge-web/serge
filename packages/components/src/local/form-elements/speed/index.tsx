@@ -19,7 +19,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options, 
     maxValue = maxOptionsValue + (colCount - options.length) * step
   }
 
-  const handleClick = (e: any): void => {
+  const handleClick = (e: React.MouseEvent<HTMLImageElement>): void => {
     if (typeof onClick === 'function' && !disabled) {
       onClick(e)
     }
@@ -52,7 +52,7 @@ export const Speed: React.FC<PropTypes> = ({ onClick, value, colCount, options, 
 
     const style = { height: `${itemSize}%`, left: `${left}%`, width: `${width}%` }
 
-    const handleStickClick = (e: any): void => {
+    const handleStickClick = (e: React.MouseEvent<HTMLImageElement>): void => {
       if (typeof onClick === 'function' && !disabled) {
         onClick(options[key], e)
       }

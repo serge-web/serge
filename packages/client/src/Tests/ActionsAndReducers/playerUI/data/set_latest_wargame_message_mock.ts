@@ -877,7 +877,7 @@ const testState: any = {
       _rev: '1-aa5428939cd0e0dd1a5ec9106316aa08'
     }
   },
-  state: state,
+  state,
   newState: {
     selectedForce: 'force-k16fdykj',
     forceColor: '#3dd0ff',

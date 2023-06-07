@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   ADMIN_ROUTE,
   MESSAGE_TEMPLATE_ROUTE,

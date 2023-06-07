@@ -1,6 +1,6 @@
-import FlexLayout, { Model } from 'flexlayout-react'
+import * as FlexLayout from 'flexlayout-react'
 
-export default (model: Model, tabId: string, tabName: string): void => {
+export default (model: FlexLayout.Model, tabId: string, tabName: string): void => {
   model.doAction(
     FlexLayout.Actions.addNode({
       type: 'tab',

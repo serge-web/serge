@@ -37,7 +37,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   const [forcesData, setForcesData] = useState(initialForces)
   const [content, toggleModal] = useState<any>('')
   const [removeRoleId, setRemoveRoleId] = useState<string>('')
-  const localRoles = useRef<Role[]>([]);
+  const localRoles = useRef<Role[]>([])
 
   const handleSwitch = (_item: Item): void => {
     const selectedForce = forcesData.findIndex(force => force.uniqid === _item.uniqid)
@@ -82,7 +82,7 @@ export const SettingForces: React.FC<PropTypes> = ({
 
     const removeAddingRole = () => {
       const nextForce = [...initialForces][selectedItem]
-      nextForce.roles = nextForce.roles.filter(r => r.roleId != removeRoleId)
+      nextForce.roles = nextForce.roles.filter(r => r.roleId !== removeRoleId)
       localRoles.current = localRoles.current.filter(r => r.roleId !== removeRoleId)
       handleChangeForce(nextForce)
       setRemoveRoleId('')

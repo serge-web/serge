@@ -1,7 +1,6 @@
 import { Confirm } from '@serge/components'
 import { RootState } from '@serge/custom-types'
 import '@serge/themes/App.scss'
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteMessage } from '../../ActionsAndReducers/dbMessages/messages_ActionCreators'
 import { deleteMessageType } from '../../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'

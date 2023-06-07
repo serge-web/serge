@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import ModalWrapper from './ModalWrapper'
 import { connect } from 'react-redux'
 import { modalAction, ModalActionInterface } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
@@ -13,12 +13,12 @@ import { Dispatch } from 'redux'
 class ColorPickerModal extends Component<{ dispatch: Dispatch, currentModal: ModalActionInterface, wargame: Wargame }> {
   hideModal = () => {
     this.props.dispatch(modalAction.close())
-  };
+  }
 
   handleChange = (color: { hex: string }) => {
     this.props.dispatch(setForceColor(color.hex))
     this.props.dispatch(setTabUnsaved())
-  };
+  }
 
   render () {
     if (!this.props.currentModal.open) return false

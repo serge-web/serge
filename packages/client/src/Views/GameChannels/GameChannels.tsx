@@ -165,14 +165,15 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
       console.error('Trouble exporting to excel', err)
     }
   }
- 
+  const hello = false
   return <div className='flex-content flex-content--row-wrap'>
     <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerlogModal} handlePlayerlogsMarkAllAsRead={handlePlayerlogsMarkAllAsRead} handlePlayerlogsMarkAllAsUnread={handlePlayerlogsMarkAllAsUnread} playerLogsActivity={openPlayerlogModal} />
     <div className='message-feed in-game-feed' data-tour='fourth-step'>
-      <ChannelTabsContainer rootRef={el => {
-        // @ts-ignore
-        if (el) window.channelTabsContainer[selectedForce.uniqid] = el
-      }} onTabChange={handleChangeTab} />
+     { true && <ChannelTabsContainer rootRef={el => {
+     // @ts-ignore
+       if (el) window.channelTabsContainer[selectedForce.uniqid] = el
+     }} onTabChange={handleChangeTab} />
+    }
     </div>
     <div className={classNames({ 'message-feed': true, 'out-of-game-feed': true, 'umpire-feed': isGameControl })} data-tour='fifth-step'>
 
@@ -217,7 +218,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         >
           <FontAwesomeIcon icon={faFileExcel}/></a> }
       </div>
-      <AdminAndInsightsTabsContainer />
+     {hello && <AdminAndInsightsTabsContainer /> }
       {showObjective && <ForceObjective
         force={selectedForce}
         selectedRole={selectedRoleName}

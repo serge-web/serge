@@ -241,6 +241,9 @@ export interface ChatMessage extends CoreMessage {
 /** messages being used in support of planning */
 export interface MessagePlanning extends CoreMessage {
   readonly messageType: typeof PLANNING_MESSAGE,
+  isOpen?: boolean,
+  infoType?: boolean,
+  gameTurn?: number,
   message: PlanningMessageStructure
 }
 
@@ -393,7 +396,7 @@ export type MessageMap = MessageForceLaydown |
   MessageCloneMarker |
   MessageAdjudicationOutcomes
 
-export type MessageChannel = MessageInfoTypeClipped |
+export type MessageChannel = MessageInfoTypeClipped | MessagePlanning |
   MessageCustom
 
 type Message = MessageCustom |

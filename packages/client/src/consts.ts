@@ -199,7 +199,7 @@ export const dbDefaultSettings: Wargame = {
   adjudicationStartTime: moment(new Date(), moment.ISO_8601).format()
 }
 
-export const FLEX_LAYOUT_MODEL_DEFAULT = {
+export const FLEX_LAYOUT_MODEL_DEFAULT: any = {
   global: {
     tabSetTabStripHeight: 45,
     tabEnableClose: false,
@@ -207,7 +207,7 @@ export const FLEX_LAYOUT_MODEL_DEFAULT = {
   },
   borders: [],
   layout: {
-    type: 'row',
+    type: 'row' as string,
     weight: 100,
     children: [
     ]

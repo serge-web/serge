@@ -1,4 +1,3 @@
-import React from 'react'
 import excellentExport from 'excellentexport'
 import { faFileDownload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -26,7 +25,7 @@ const ExcelExport = ({ exp, index }) => {
     return excellentExport.convert({
       anchor: ids[format],
       filename: exp.title,
-      format: format
+      format
     }, data)
   }
 

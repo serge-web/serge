@@ -25,6 +25,7 @@
     "dot-notation": "off",
     "no-case-declarations": "off",
     "react/display-name": "off",
+    "react/react-in-jsx-scope": "off",
     "react/no-deprecated": "off",
     "prefer-promise-reject-errors": "off",
     "camelcase": "off",

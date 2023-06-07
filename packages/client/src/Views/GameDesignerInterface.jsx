@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import SidebarAdmin from '../Components/SidebarAdmin'
 import WargameSearchList from '../Components/WargameSearchList'
@@ -22,7 +22,7 @@ import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import '@serge/themes/App.scss'
 
 class GameDesignerInterface extends Component {
-  componentWillMount () {
+  componentDidMount () {
     this.props.dispatch(populateMessageTypesDb())
     this.props.dispatch(populateWargameList())
   }

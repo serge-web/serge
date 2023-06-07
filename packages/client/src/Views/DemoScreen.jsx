@@ -119,9 +119,9 @@ class DemoScreen extends Component {
         { sources[component] }
       </div>
     )
-  };
+  }
 
-  classNameMapper = (defaultClassName) => `${defaultClassName} ${defaultClassName}--undo-transparent`;
+  classNameMapper = (defaultClassName) => `${defaultClassName} ${defaultClassName}--undo-transparent`
 
   render () {
     return (

@@ -68,7 +68,7 @@ class SchemaEditor extends Component {
   }
 
   updateOptions (options) {
-    this.setState({ options: options })
+    this.setState({ options })
   }
 
   updateMetaSchema (schema) {

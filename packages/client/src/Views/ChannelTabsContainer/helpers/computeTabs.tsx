@@ -1,9 +1,9 @@
 import { PlayerUi } from '@serge/custom-types'
-import FlexLayout, { Model, TabNode, TabSetNode } from 'flexlayout-react'
+import * as FlexLayout from 'flexlayout-react'
 import _ from 'lodash'
 
-interface ModelLoc extends Model {
-  _idMap: {[property: string]: TabNode | TabSetNode}
+interface ModelLoc extends FlexLayout.Model {
+  _idMap: {[property: string]: FlexLayout.TabNode | FlexLayout.TabSetNode}
 }
 
 interface TabMapped {
@@ -17,10 +17,10 @@ const getModelTabs = (model: ModelLoc): TabMapped[] => {
   const tabsets = modelValues.filter((node) => node.getType() === 'tabset')
   // @ts-ignore
   const contents = tabs.length ? tabs : tabsets.length && tabsets.children && tabsets.children.length ? tabsets.children : []
-  return contents.map((node: TabNode) => ({ id: node.getId(), name: node.getName() }))
+  return contents.map((node: FlexLayout.TabNode) => ({ id: node.getId(), name: node.getName() }))
 }
 
-const computeTabs = (state: PlayerUi, modelOrig: Model): void => {
+const computeTabs = (state: PlayerUi, modelOrig: FlexLayout.Model): void => {
   const { channels } = state
   const channelNames = []
   const model = modelOrig as ModelLoc
@@ -78,6 +78,7 @@ const addToTabs = (newChannels: TabMapped[], model: ModelLoc) => {
 }
 
 const removeFromTabs = (channelsToRemove: TabMapped[], model: ModelLoc) => {
+  console.log('FlexLayout', FlexLayout)
   channelsToRemove.forEach(channel => {
     if (model.getNodeById(channel.id)) { model.doAction(FlexLayout.Actions.deleteTab(channel.id)) }
   })

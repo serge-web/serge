@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 
@@ -16,7 +16,7 @@ class Link extends Component {
       e.preventDefault()
       this.props.dispatch(setCurrentViewFromURI(this.props.href))
     }
-  };
+  }
 
   render () {
     return (

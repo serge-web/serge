@@ -48,7 +48,7 @@ export const Default: React.FC = () => {
   const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
   const [activeTab, setActiveTab] = useState<number>(0)
 
-  const onTabChange = (_tab: string, key: number, _e: any): void => {
+  const onTabChange = (_tab: string, key: number, _e?: React.MouseEvent<HTMLDivElement>): void => {
     setActiveTab(key)
     setChangedPlatformType(wargame.data.platformTypes)
     setChangedOverview(wargame.data.overview)
