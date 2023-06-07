@@ -1,4 +1,4 @@
-name: Build/Test validation (16.x)
+name: PR
 
 on:
   pull_request:
@@ -8,7 +8,9 @@ on:
       - develop
 
 jobs:
-  build-test:
+  test:
+  
+    name: Build/Test validation
     runs-on: ubuntu-latest
 
     strategy:
