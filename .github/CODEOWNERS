@@ -1,4 +1,0 @@
-# Specifies the overall codeowner for the repository.
-# In order to be able to merge to master, an approval from the
-# codeowner is required.
-*       @IanMayo
