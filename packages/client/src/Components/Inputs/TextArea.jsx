@@ -13,6 +13,7 @@ class TextArea extends Component {
         { this.props.label && <label className='material-label' htmlFor={this.props.id}>{this.props.label}</label> }
         <textarea
           className={this.props.className}
+          id={this.props.id}
           value={this.props.data}
           onChange={this.onChange}
           style={{ resize: 'none' }}
