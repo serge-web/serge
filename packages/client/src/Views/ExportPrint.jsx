@@ -5,6 +5,7 @@ import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromU
 const ExportPrint = ({ exportItem, notFound }) => {
   if (!exportItem) {
     notFound()
+    return null
   }
 
   return (
