@@ -116,8 +116,11 @@ export interface InteractionDetails {
 
 /** messages being used in support of planning */
 export interface MessagePlanning extends CoreMessage {
-    readonly messageType: typeof PLANNING_MESSAGE,
-    message: PlanningMessageStructure
+  readonly messageType: typeof PLANNING_MESSAGE,
+  isOpen?: boolean,
+  infoType?: boolean,
+  gameTurn?: number,
+  message: PlanningMessageStructure
 }
 
 /** an instance of feedback to a particular force

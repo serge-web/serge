@@ -175,15 +175,6 @@ export interface ChatMessage extends CoreMessage {
   message: MessageStructure
 }
 
-/** messages being used in support of planning */
-export interface MessagePlanning extends CoreMessage {
-  readonly messageType: typeof PLANNING_MESSAGE,
-  isOpen?: boolean,
-  infoType?: boolean,
-  gameTurn?: number,
-  message: PlanningMessageStructure
-}
-
 /** messages being used in support of adjudicating an interaction */
 export interface MessageInteraction extends CoreMessage {
   readonly messageType: typeof INTERACTION_MESSAGE,
