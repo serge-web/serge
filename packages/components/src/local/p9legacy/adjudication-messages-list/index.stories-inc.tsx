@@ -21,7 +21,7 @@ const forces = P9BMock.data.forces.forces
 // console.clear()
 
 export default {
-  title: 'local/organisms/AdjudicationMessagesList',
+  title: 'local/p9legacy/AdjudicationMessagesList',
   component: AdjudicationMessagesList,
   decorators: [withKnobs, wrapper],
   parameters: {

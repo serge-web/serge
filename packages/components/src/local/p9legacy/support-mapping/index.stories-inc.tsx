@@ -9,7 +9,7 @@ import SupportMappingProps from './types/props'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
-  title: 'local/organisms/SupportMapping',
+  title: 'local/p9legacy/SupportMapping',
   component: SupportMapping,
   decorators: [withKnobs, wrapper],
   parameters: {

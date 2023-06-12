@@ -87,7 +87,7 @@ forces.forEach((force: ForceData) => {
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 export default {
-  title: 'local/organisms/PlanningChannel',
+  title: 'local/p9legacy/PlanningChannel',
   component: PlanningChannel,
   decorators: [withKnobs, wrapper],
   parameters: {

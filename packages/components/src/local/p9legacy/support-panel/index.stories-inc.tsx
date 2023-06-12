@@ -38,7 +38,7 @@ const handler = (contact: any): void => {
 }
 
 export default {
-  title: 'local/organisms/SupportPanel',
+  title: 'local/p9legacy/SupportPanel',
   component: SupportPanel,
   decorators: [withKnobs, wrapper],
   parameters: {

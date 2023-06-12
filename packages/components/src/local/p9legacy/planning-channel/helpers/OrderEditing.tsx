@@ -10,7 +10,7 @@ import ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../../asset-icon'
-import Item from '../../../map-control/helpers/item'
+import Item from '../../../p9legacy/map-control/helpers/item'
 import styles from '../styles.module.scss'
 
 interface OrderEditingProps {

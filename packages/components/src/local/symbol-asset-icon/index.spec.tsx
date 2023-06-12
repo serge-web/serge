@@ -2,7 +2,7 @@
 import LRU from 'lru-cache'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { LRU_CACHE_OPTION } from '../organisms/support-panel/constants'
+import { LRU_CACHE_OPTION } from '../p9legacy/support-panel/constants'
 import SymbolAssetIcon from './index'
 
 it('renders correctly SymbolAssetIcon', () => {

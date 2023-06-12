@@ -1,7 +1,7 @@
 import cx from 'classnames'
 import unfetch from 'node-fetch'
 import React, { useEffect, useState } from 'react'
-import { lightOrDark } from '../map-control/helpers/lightOrDark'
+import { lightOrDark } from '../p9legacy/map-control/helpers/lightOrDark'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 import AssetIconProps from './types/props'

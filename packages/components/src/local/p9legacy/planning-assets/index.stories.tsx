@@ -30,7 +30,7 @@ const planningChannelTmp = channels.find((channel) => channel.channelType === 'C
 const planningChannel = deepCopy(planningChannelTmp) as ChannelPlanning
 
 export default {
-  title: 'local/organisms/PlanningAssets',
+  title: 'local/p9legacy/PlanningAssets',
   component: PlanningAssets,
   decorators: [withKnobs, wrapper],
   parameters: {
