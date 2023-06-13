@@ -13,6 +13,7 @@ const runServer = (
   const path = require('path')
   const uniqid = require('uniqid')
   const archiver = require('archiver')
+  const { dbSuffix } = require('./consts')
 
   /*
   // replicate database
@@ -55,6 +56,38 @@ const runServer = (
   // log of time of receipt of player heartbeat messages
 
   app.use(cors(corsOptions))
+
+  // Note: This API call will help you download the wargame SQLite database.
+  // Note: This route handles the download of a wargame database in zip format.
+  // Note: It expects a URL parameter 'wargame', which is the name of the SQLite file to download.
+  app.get('/download/:wargame', function (req, res) {
+    const checkSqliteExists = (dbName) => {
+      return dbName.indexOf('wargame') !== -1 && dbName.indexOf(dbSuffix) === -1 ? dbName + dbSuffix : dbName
+    }
+
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    const zipName = databaseName + '.zip' // name of the zip file
+    const dbPath = path.join(__dirname, 'db/' + databaseName) // path to the SQLite file
+
+    // create a new zip archive
+    const archive = archiver('zip', {
+      zlib: { level: 9 } // set compression level
+    })
+
+    // add the SQLite file to the archive
+    archive.file(dbPath, { name: databaseName })
+
+    // set the response headers
+    res.attachment(zipName)
+    res.setHeader('Content-Type', 'application/zip')
+
+    // stream the archive as the response
+    archive.pipe(res)
+
+    // finalize the archive
+    archive.finalize()
+  })
 
   app.get('/downloadAll', (req, res) => {
     const output = fs.createWriteStream('all_dbs.zip')

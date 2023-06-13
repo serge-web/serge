@@ -2,7 +2,7 @@ import React from 'react'
 import Collapsible from '../../helper-elements/collapsible'
 import MessageListHeader from '../channel-message-header'
 import MessageListDetail from '../channel-message-detail'
-
+import { MessageCustom } from '@serge/custom-types'
 /* Import Types */
 import Props from './types/props'
 
@@ -18,13 +18,13 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
     const title = messageTitleFor(message)
     const handleOnExpand = (): void => {
       onExpand(!collapsed)
-      onRead && onRead(message)
+      onRead && onRead(message as MessageCustom)
     }
     const markUnread = (): void => {
       if (!collapsed) {
         onExpand(!collapsed)
       }
-      onUnread && onUnread(message)
+      onUnread && onUnread(message as MessageCustom)
     }
 
     return (

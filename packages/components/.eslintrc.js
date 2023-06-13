@@ -15,6 +15,7 @@ module.exports = {
   "ignorePatterns": ["*.scss.d.ts", '*.snap'],
   'rules': {
     "semi": [2, "never"],
+    "no-use-before-define": "off",
     "@typescript-eslint/ban-ts-ignore": "off",
     '@typescript-eslint/no-use-before-define': 'off',
     // Allows us to hoist variables and functions which I am a fan of, functions not variables that is.

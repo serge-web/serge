@@ -8,6 +8,10 @@ module.exports = {
     '../src/**/*.stories-inc.mdx',
     '../src/**/*.stories-inc.@(tsx)'
   ],
+  core: {
+    builder: "webpack5",
+  },
+
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -106,12 +110,13 @@ module.exports = {
       use: [
         {
           loader: 'file-loader',
-          query: {
+          options: {
             name: '[name].[ext]'
           }
         }
       ]
-    });
+    }
+    );
     config.resolve.extensions.push('.ts', '.tsx', '.md');
     return config;
   },

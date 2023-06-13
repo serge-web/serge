@@ -65,7 +65,7 @@ const keysSimplify = (row: FlatMessage): FlatMessage => {
 
 const keysSimplifyGetNewKey = (subkeys: string[]): string[] => {
   const newKey = []
-  for (var i = 0; i < subkeys.length; i++) {
+  for (let i = 0; i < subkeys.length; i++) {
     if (subkeys[i].replace(/\s/g, '') !== '') {
       // note: this used to be the format string, but the keys were being duplicated
       // we also dropped the leading EXPORT_ITEM_MESSAGES key
@@ -91,7 +91,8 @@ const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): E
       const title = message.messageType === CUSTOM_MESSAGE ? 'CM ' + message.details.messageType : msgType
       // The max length of the sheet name is 31
       data.push({
-        title: title.length > 31 ? title.substring(0, 26) + '@' + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 4)
+        title: title.length > 31
+          ? title.substring(0, 26) + '@' + Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 4)
           : title,
         items: [
           rowsAndFields.fields.map(field => (field.toUpperCase())),

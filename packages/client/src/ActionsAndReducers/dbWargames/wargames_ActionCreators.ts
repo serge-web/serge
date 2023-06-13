@@ -16,7 +16,8 @@ import {
   WargameOverview,
   WargameRevision,
   IconOption,
-  AnnotationMarkerData
+  AnnotationMarkerData,
+  Message
 } from '@serge/custom-types'
 
 export const setCurrentTab = (tab: Notification): WargameActionTypes => ({
@@ -147,12 +148,12 @@ export const saveIcon = (file: string) => {
   }
 }
 
-export const populateWargameStore = () => {
+export const populateWargameList = () => {
   return async (dispatch: WargameDispatch) => {
     dispatch(populatingDb(true))
 
     // @ts-ignore
-    const wargameNames = await wargamesApi.populateWargame(dispatch)
+    const wargameNames = await wargamesApi.populateWargameList(dispatch)
 
     dispatch(saveAllWargameNames(wargameNames))
 
@@ -180,6 +181,36 @@ export const clearWargames = () => {
 export const downloadAllWargames = () => {
   return async (dispatch: WargameDispatch) => {
     wargamesApi.downloadAllWargames()
+
+    const wargames = await wargamesApi.getAllWargames()
+    dispatch(saveAllWargameNames(wargames))
+  }
+}
+
+export const openFauxtonUI = () => {
+  wargamesApi.openFauxtonUI()
+}
+// This function populates a wargame database with the given data and database name
+export const populateWargame = (data: Array<Message | Wargame>, dbName: string) => {
+  return async (dispatch: WargameDispatch) => {
+    // Post the bulk data to the specified wargame database.
+    const wargame = await wargamesApi.populateWargame(dbName, data)
+
+    // Get all wargames from the API and store it in 'wargames' variable.
+    const wargames = await wargamesApi.getAllWargames()
+
+    // Dispatch actions to update the Redux store with the populated wargame and all wargames.
+    dispatch(saveAllWargameNames(wargames))
+    dispatch(setCurrentWargame(_.omit(wargame, ['_id', '_rev'])))
+  }
+}
+
+// Note: when the download button is cicked, the SQLITE database be downloaded in a zip format
+// // This function downloads a wargame database in zip format using the provided database path.
+export const downloadWargame = (dbPath: string) => {
+  return async (dispatch: WargameDispatch) => {
+    // This function allows a user to download a wargame database in zip format using the given database path as input.
+    wargamesApi.downloadWargame(dbPath)
 
     const wargames = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(wargames))
@@ -381,7 +412,7 @@ export const deleteSelectedRole = (
 ) => {
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)
-    _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))
+    _.isArray(wargame) ? data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Role deleted.', 'warning'))
   }
 }
@@ -433,7 +464,7 @@ export const deleteSelectedForce = (dbName: string, forceId: string) => {
 
 export const cleanWargame = (dbName: string) => {
   return async (dispatch: WargameDispatch) => {
-    var games = await wargamesApi.cleanWargame(dbName)
+    const games = await wargamesApi.cleanWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }
@@ -441,7 +472,7 @@ export const cleanWargame = (dbName: string) => {
 
 export const duplicateWargame = (dbName: string) => {
   return async (dispatch: WargameDispatch) => {
-    var games = await wargamesApi.duplicateWargame(dbName)
+    const games = await wargamesApi.duplicateWargame(dbName)
 
     dispatch(saveAllWargameNames(games))
   }

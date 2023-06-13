@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import SidebarAdmin from '../Components/SidebarAdmin'
 import WargameSearchList from '../Components/WargameSearchList'
@@ -7,12 +7,14 @@ import {
   ADMIN_ROUTE,
   GAME_SETUP_ROUTE
 } from '../consts'
-import { Button, AdminLogin } from '@serge/components'
+import { Button, AdminLogin, ZipFileUploader } from '@serge/components'
 import {
   createNewWargameDB,
-  populateWargameStore,
+  populateWargameList,
   checkAdminAccess,
-  downloadAllWargames
+  downloadAllWargames,
+  openFauxtonUI,
+  populateWargame
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { populateMessageTypesDb } from '../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
@@ -20,9 +22,9 @@ import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import '@serge/themes/App.scss'
 
 class GameDesignerInterface extends Component {
-  componentWillMount () {
+  componentDidMount () {
     this.props.dispatch(populateMessageTypesDb())
-    this.props.dispatch(populateWargameStore())
+    this.props.dispatch(populateWargameList())
   }
 
   createWargame = () => {
@@ -39,6 +41,10 @@ class GameDesignerInterface extends Component {
     this.props.dispatch(downloadAllWargames())
   }
 
+  openWargamesApiFuxion = () => {
+    this.props.dispatch(openFauxtonUI)
+  }
+
   checkPassword = password => {
     this.props.dispatch(checkAdminAccess(password))
   }
@@ -47,10 +53,15 @@ class GameDesignerInterface extends Component {
     onClick && onClick()
     route && this.props.dispatch(setCurrentViewFromURI(route))
   }
+  
+  // Method to populate a wargame with data
+  onPopulateWargame = (data, dbName) => {
+    this.props.dispatch(populateWargame(data, dbName))
+  }
 
   render () {
     const loading = this.props.dbLoading.loadingWargames
-
+ 
     if (loading) {
       return <Loader />
     }
@@ -88,6 +99,19 @@ class GameDesignerInterface extends Component {
             >
               Download all data
             </Button>
+            <Button
+              onClick={() => this.onButtonClick(this.openWargamesApiFuxion())}
+              color='secondary'
+            >
+              Open Fauxton UI
+            </Button>
+            <ZipFileUploader onChange={ this.onPopulateWargame } >
+              <Button
+                color='secondary'
+              >
+              Populate wargame
+              </Button>
+            </ZipFileUploader>
           </div>
           <WargameSearchList key='searchlist'
             listData={this.props.wargame.wargameList}

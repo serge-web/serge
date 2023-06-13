@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 
 // Import component files
-import RolesAccordion from './index'
-import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 import { watuWargame } from '@serge/mocks'
+import { withKnobs } from '@storybook/addon-knobs'
+import { noop } from 'lodash'
+import docs from './README.md'
+import RolesAccordion from './index'
 
 const forcesMock = watuWargame.data.forces.forces
 
@@ -27,6 +28,7 @@ export const Default: React.FC = () => {
     data={data}
     handleChangeForce={(nextData): void => setData(nextData)}
     forces={forcesMock}
+    onNewRoleAdded={noop}
   />
 }
 

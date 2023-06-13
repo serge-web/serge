@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatShortDate } from '@serge/helpers'
 import classNames from 'classnames'
@@ -9,10 +9,10 @@ import '@serge/themes/App.scss'
 class SearchList extends Component {
   setSelected = (item) => {
     this.props.setSelected(item)
-  };
+  }
 
   render () {
-    var that = this
+    const that = this
 
     return (
       <div className='searchlist'>

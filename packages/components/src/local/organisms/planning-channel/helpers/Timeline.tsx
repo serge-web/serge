@@ -1,5 +1,5 @@
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import L, { Layer, PathOptions } from 'leaflet'
+import L from 'leaflet'
 import moment from 'moment-timezone'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
@@ -10,16 +10,19 @@ type TimelineProps = {
   showControl: boolean
   data?: FeatureCollection<Geometry, GeoJsonProperties>
   /** function to style features in GeoJSON layer */
-  style?: (data: Feature) => PathOptions
+  style?: (data: Feature) => L.PathOptions
   /** function that gets called on creation of each feature */
   onEachFeature?: (data: Feature, layer: L.Layer) => void
   /** provide a feature to use for point locations */
-  pointToLayer?: (data: Feature, latlng: L.LatLngExpression) => Layer
+  pointToLayer?: (data: Feature, latlng: L.LatLngExpression) => L.Layer
   setCurrentInteractions?: (ids: string[]) => void
 }
 
 const DATE_FORMAT = 'YY MMM DD HH:MM'
 
+// leaflet.timeline is currently experiencing a compatibility issue with Node 18,
+// resulting in the inability to locate functions obtained from the leaflet.timeline.js file
+// note: it only works in storybook
 const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFeature, pointToLayer, setCurrentInteractions }) => {
   const map = useMap()
 
@@ -37,11 +40,14 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFea
 
   useEffect(() => {
     if (!timelineControl) {
+      // Note: TypeError - l.timelineSliderControl is not a function
+      // Create a timelineSliderControl instance
       const timelineControl = L.timelineSliderControl({
         formatOutput: function (date: string | number | Date) {
           return moment.utc(date).format(DATE_FORMAT)
         }
       })
+
       setTimelineControl(timelineControl)
     }
     if (!timelineData && data) {

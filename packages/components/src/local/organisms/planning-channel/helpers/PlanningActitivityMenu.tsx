@@ -1,8 +1,10 @@
 import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
-import L from 'leaflet'
+// import L from 'leaflet'
+import * as L from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
 import { Select, SelectItem } from '../typings'
+import 'leaflet-select'
 
 type PlanningActitivityMenuProps = {
   /**
@@ -23,6 +25,9 @@ type PlanningActitivityMenuProps = {
   showControl: boolean
 }
 
+// leaflet.select is currently experiencing a compatibility issue with Node 18,
+// resulting in the inability to locate functions obtained from the leaflet.select.js file
+// note: it only works in storybook
 const PlanningActitivityMenu: React.FC<PlanningActitivityMenuProps> = ({ planningActivities, handler, showControl }) => {
   const map = useMap()
 

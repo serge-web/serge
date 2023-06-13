@@ -1,13 +1,13 @@
 import * as ActionConstant from '@serge/config'
 import copyState from '../Helpers/copyStateHelper'
 
-var initialState = {
+const initialState = {
   loadingMessageTypes: true,
   loadingWargames: true
 }
 
 export const loadingDbReducer = (state = initialState, action) => {
-  var newState = copyState(state)
+  const newState = copyState(state)
 
   switch (action.type) {
     case ActionConstant.POPULATE_MESSAGE_TYPES_DB:

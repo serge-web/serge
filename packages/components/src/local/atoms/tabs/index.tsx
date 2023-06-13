@@ -19,7 +19,7 @@ export const Tabs: React.FC<PropTypes> = ({ onChange, tabs, activeTab = '', chan
   const useAsDefault = activeTab || tabs[0]
   const [active, setActive] = useState(useAsDefault || '')
 
-  const handleClick = (tab: string, key: number, e: any): void => {
+  const handleClick = (tab: string, key: number, e: React.MouseEvent<HTMLDivElement>): void => {
     if (active !== tab) {
       setActive(tab)
       if (typeof onChange === 'function') {
@@ -42,7 +42,7 @@ export const Tabs: React.FC<PropTypes> = ({ onChange, tabs, activeTab = '', chan
     <div className={styles.main}>
       {
         tabs.map((tab, key) => (
-          <div key={key} className={cx(styles.item, tab === active && styles.active)} onClick={(e): void => { handleClick(tab, key, e) }}>
+          <div key={key} className={cx(styles.item, tab === active && styles.active)} onClick={(e: React.MouseEvent<HTMLDivElement>): void => { handleClick(tab, key, e) }}>
             {tidyTabName(tab)}
             {tab === active && changed && <div className={styles.asterisk}><FontAwesomeIcon icon={faAsterisk} size="xs"/></div>}
           </div>

@@ -34,7 +34,7 @@ class JsonSchemaEditor extends Component {
     this.updateEditor(this.props.schema, this.props.options)
   }
 
-  componentWillReceiveProps ({ schema, options }) {
+  UNSAFE_componentWillReceiveProps ({ schema, options }) {
     this.updateEditor(schema, options)
   }
 

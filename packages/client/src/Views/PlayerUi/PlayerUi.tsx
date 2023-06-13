@@ -2,7 +2,7 @@
 import { hiddenPrefix } from '@serge/config'
 import { WargameList } from '@serge/custom-types'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import {
   getWargame
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'

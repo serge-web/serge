@@ -1045,14 +1045,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return null
   }
 
+  // Flag to disable the timeline and PlanningActitivityMenu temporarily
+  const isDisabled = false
   const mapChildren = useMemo(() => {
     return (
       <>
         <RightClickGenerator />
         <Ruler showControl={true} />
-        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
-          showControl={showTimeControl} data={timeControlEvents} />
-        <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
+        { isDisabled && <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
+          showControl={showTimeControl} data={timeControlEvents} /> }
+        {isDisabled && <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} /> }
         {showStandardAreas && <AreaPlotter areas={myAreas} />}
         {showTimeControl ? <Fragment>
           <MapPlanningOrders forceColors={forceColors} features={timelineFeatures} orders={planningMessages} selectedOrders={timelineOrders} activities={flattenedPlanningActivities} interactions={timelineInteractions} setSelectedOrders={noop} />
@@ -1100,8 +1102,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
     return (
       <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
+        {/* { hello && */}
         <SupportPanelContext.Provider value={supportPanelContext}>
-          <SupportPanel
+          { <SupportPanel
             channel={channel}
             platformTypes={platformTypes}
             planningMessages={planningMessages}
@@ -1147,6 +1150,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             handleAdjudication={handleAdjudication}
             forceTemplateData={forceTemplateData}
           />
+          }
           <div className={styles['map-container']}>
             <div style={{ width: mapWidth }}>
               <MapContainer
@@ -1161,7 +1165,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 maxZoom={maxZoom}
                 zoomSnap={0.5}
               >
-                <SupportMapping
+                { <SupportMapping
                   bounds={bounds}
                   position={position}
                   actionCallback={mapActionCallback}
@@ -1226,9 +1230,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                     </>
                   }>
                   <>
-                    {mapChildren}
+                    { mapChildren}
                   </>
                 </SupportMapping>
+                }
               </MapContainer>
             </div>
           </div>

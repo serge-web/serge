@@ -81,7 +81,7 @@ const PlanningForces: React.FC<PropTypes> = ({
         })
         if (!existingCluster) {
           // no existing cluster found, generate one
-          existingCluster = L.markerClusterGroup(createClusterIcon())
+          existingCluster = new L.MarkerClusterGroup(createClusterIcon())
           const anyLayer = existingCluster as any
           // store the force color in the cluster id
           anyLayer.clusterId = forceColor
@@ -152,7 +152,7 @@ const PlanningForces: React.FC<PropTypes> = ({
 
       clusterGroup.clearLayers()
 
-      const existingCluster = L.markerClusterGroup(createClusterIcon())
+      const existingCluster = new L.MarkerClusterGroup(createClusterIcon())
       setClusterGroup(existingCluster)
       map.addLayer(existingCluster)
     }

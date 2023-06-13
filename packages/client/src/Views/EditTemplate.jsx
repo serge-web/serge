@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -24,15 +24,15 @@ class EditMessage extends Component {
     }
   }
 
-  componentWillMount () {
+  componentDidMount () {
     this.props.dispatch(resetMessagePreview())
     this.props.dispatch(getAllMessageTypes())
-  };
+  }
 
-  componentWillReceiveProps (nextProps, nextContext) {
-    if (this.props.messageTypes.messages.length !== nextProps.messageTypes.messages.length) {
+  componentDidUpdate (prevProps) {
+    if (this.props.messageTypes.messages.length !== prevProps.messageTypes.messages.length) {
       this.setState({
-        messageList: nextProps.messageTypes.messages
+        messageList: this.props.messageTypes.messages
       })
     }
   }
@@ -48,13 +48,14 @@ class EditMessage extends Component {
       messageList: newState,
       searchInput: value.toLowerCase()
     })
-  };
+  }
 
   updateSchema = () => {
     this.props.dispatch(updateMessageType(this.props.umpireMenu.previewSchema, this.props.umpireMenu.selectedSchemaID))
-  };
+  }
 
   render () {
+    console.log('barev')
     const SaveMessageButton = () => (
       <div className='button-wrap'>
         <Button color='secondary' onClick={this.updateSchema} icon='save'>Save Message</Button>

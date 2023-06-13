@@ -31,15 +31,15 @@ class EditWelcomeScreen extends Component {
     this.props.dispatch(getSergeGameInformation())
   }
 
-  componentWillReceiveProps (nextProps, nextContext) {
-    if (this.props.gameInfo.title !== nextProps.gameInfo.title) {
+  componentDidUpdate (prevProps) {
+    if (this.props.gameInfo.title !== prevProps.gameInfo.title) {
       this.setState({
-        title: nextProps.gameInfo.title
+        title: this.props.gameInfo.title
       })
     }
-    if (this.props.gameInfo.description !== nextProps.gameInfo.description) {
+    if (this.props.gameInfo.description !== prevProps.gameInfo.description) {
       this.setState({
-        description: nextProps.gameInfo.description
+        description: this.props.gameInfo.description
       })
     }
   }
@@ -48,55 +48,55 @@ class EditWelcomeScreen extends Component {
     this.setState({
       title
     })
-  };
+  }
 
   updateDescription = (description) => {
     this.setState({
       description
     })
-  };
+  }
 
   mouseOverTitle = () => {
     this.setState({
       showTitleEditIcon: true
     })
-  };
+  }
 
   mouseOutTitle = () => {
     this.setState({
       showTitleEditIcon: false
     })
-  };
+  }
 
   editDescription = (e) => {
     e.stopPropagation()
     this.setState({
       editDescriptionMode: true
     })
-  };
+  }
 
   hideEditDescription = (e) => {
     e.stopPropagation()
     this.setState({
       editDescriptionMode: false
     })
-  };
+  }
 
   mouseOverDescription = () => {
     this.setState({
       showDescriptionEditIcon: true
     })
-  };
+  }
 
   mouseOutDescription = () => {
     this.setState({
       showDescriptionEditIcon: false
     })
-  };
+  }
 
   uploadImage = () => {
     this.props.dispatch(modalAction.open('uploadLogo'))
-  };
+  }
 
   saveWelcomeScreen = () => {
     const info = {
@@ -105,7 +105,7 @@ class EditWelcomeScreen extends Component {
       imageUrl: this.props.gameInfo.imageUrl
     }
     this.props.dispatch(saveSergeGameInformation(info))
-  };
+  }
 
   render () {
     return (

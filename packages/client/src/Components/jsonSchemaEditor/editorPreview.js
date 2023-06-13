@@ -14,7 +14,7 @@ class EditorPreview extends Component {
     this.editorPreview = new PreviewEditor(this.previewBox)
   }
 
-  componentWillReceiveProps ({ schema }) {
+  UNSAFE_componentWillReceiveProps ({ schema }) {
     this.editorPreview.destroy()
     if (schema !== null) this.editorPreview.updateSchema(schema)
   }

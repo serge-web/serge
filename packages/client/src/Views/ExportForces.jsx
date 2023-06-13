@@ -1,4 +1,3 @@
-import React from 'react'
 import { connect } from 'react-redux'
 import { createExportItem, showLoading } from '../ActionsAndReducers/ExportItems/ExportItems_ActionsCreators'
 import ExportView from './ExportView'
@@ -16,7 +15,8 @@ const ExportForces = ({ wargame, savExportItem, loader, exportItems }) => {
         ? wargame.data.forces.forces.map(force => ({
           title: force.name,
           items: generateRoleItems(force)
-        })) : []
+        }))
+        : []
     })
   }
 

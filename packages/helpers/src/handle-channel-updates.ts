@@ -1,7 +1,7 @@
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import {
   ChannelTypes, ChannelUI, ForceData, MessageChannel,
-  MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
+  MessageCustom, MessageInfoType, MessageInfoTypeClipped, MessagePlanning, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from '@serge/custom-types'
 import { CoreParticipant } from '@serge/custom-types/participant'
 import uniqId from 'uniqid'
@@ -15,7 +15,7 @@ import { getParticipantStates } from './participant-states'
  * @param { string } channel id of the cahnnel
  * @param { MessageCustom } message the new message
  */
-const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message: MessageCustom, playerId: string) => {
+const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message: MessageCustom | MessagePlanning, playerId: string) => {
   const sourceRole: string = message.details.from.roleId
   const logger: PlayerMessage = {
     roleId: message.details.from.roleId,
@@ -136,7 +136,8 @@ export const handleAllInitialChannelMessages = (
   allForces: ForceData[],
   chatChannel: PlayerUiChatChannel,
   isObserver: boolean,
-  allTemplatesByKey: TemplateBodysByKey
+  allTemplatesByKey: TemplateBodysByKey,
+  isUmpire: boolean
 ): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
   const messagesReduced: Array<MessageChannel> = payload.map((message) => {
@@ -171,7 +172,7 @@ export const handleAllInitialChannelMessages = (
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
 
-    if (isObserver || isParticipant) {
+    if ((isUmpire && isObserver) || isParticipant) {
       // TODO: define type for force Icons
       const forceIcons: any[] = []
       const forceColors: string[] = []

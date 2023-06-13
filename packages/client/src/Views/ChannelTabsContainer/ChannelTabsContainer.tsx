@@ -1,4 +1,8 @@
-import FlexLayout, { Model, TabNode } from 'flexlayout-react'
+/* eslint-disable no-unused-vars */
+/* eslint-disable quotes */
+/* eslint-disable indent */
+// import { Model, TabNode } from 'flexlayout-react'
+import * as FlexLayout from 'flexlayout-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { getAllWargameMessages } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import Loader from '../../Components/Loader'
@@ -14,7 +18,7 @@ import Props from './types'
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.ReactElement => {
   const [allowTabChangeEvent, setAllowTabChangeEvent] = useState<boolean>(false)
   const [wargamesLoaded, setWargamesLoaded] = useState(false)
-  const selectedNode = useRef<TabNode>()
+  const selectedNode = useRef<FlexLayout.TabNode>()
 
   const state = usePlayerUiState()
   const playerUiDispatch = usePlayerUiDispatch()
@@ -25,7 +29,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
   
   const [modelName] = useState(`FlexLayout-model-${state.currentWargame}-${selectedForce.uniqid}-${state.selectedRole}`)
 
-  const [modelData] = useState<Model>(() => {
+  const [modelData] = useState<FlexLayout.Model>(() => {
     const model = expiredStorage.getItem(modelName)
     if (model) { 
       return FlexLayout.Model.fromJson(JSON.parse(model))
@@ -58,7 +62,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
     }
   }, [allowTabChangeEvent])
 
-  const onRenderTab = (node: TabNode) => {
+  const onRenderTab = (node: FlexLayout.TabNode) => {
     tabRender(state)(node)
     if (node.isVisible()) {
       selectedNode.current = node
@@ -79,7 +83,7 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
                 expiredStorage.setItem(modelName, JSON.stringify(modelData.toJson()), LOCAL_STORAGE_TIMEOUT)
               }}
             />
-          )
+            )
           : <Loader />
       }
     </div>

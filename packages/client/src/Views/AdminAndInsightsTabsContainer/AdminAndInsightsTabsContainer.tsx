@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useMemo, useState } from 'react'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { AdminPanelFooter } from '@serge/components'
@@ -5,7 +6,7 @@ import getByPassUrl from './helpers/getByPassUrl'
 import addTabs from './helpers/addTabs'
 import factory from './helpers/factory'
 import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
-import FlexLayout, { Model } from 'flexlayout-react'
+import * as FlexLayout from 'flexlayout-react'
 import { useDispatch } from 'react-redux'
 import { showHideObjectives } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
@@ -21,7 +22,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const adminInsightsModel = FLEX_LAYOUT_MODEL_DEFAULT
   adminInsightsModel.global['tabSetEnableMaximize'] = false
   adminInsightsModel.global['tabSetTabStripHeight'] = 35
-  const [model] = useState<Model>(FlexLayout.Model.fromJson(adminInsightsModel))
+  const [model] = useState<FlexLayout.Model>(FlexLayout.Model.fromJson(adminInsightsModel))
   const [tabLoadedStatus, setTabLoadedStatus] = useState<boolean>(false)
   const gameAdminTabId = 'Game Admin'
   const gameAdminTab = 'Game Admin'
@@ -38,7 +39,10 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
     return [feedbackMsgUnreadCount, adminMsgUnreadCount]
   }, [state.feedbackMessages, state.chatChannel.messages])
 
+  console.log('model', model)
+
   useEffect(() => {
+    console.log('model', model)
     if (!tabLoadedStatus) {
       if (state.isInsightViewer) {
         addTabs(model, insightsTabId, insightsTab)
@@ -53,20 +57,23 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
       addUnreadMsgCount(model, gameAdminTabId, adminMsgCount)
     }
   }, [feedbackMsgCount, adminMsgCount])
-
+  const hello = false
   return (
     <>
-      <FlexLayout.Layout
+      { hello && <FlexLayout.Layout
         model={model}
         factory={factory(gameAdminTab, insightsTab)}
         classNameMapper={defaultClassName => `${defaultClassName} ${defaultClassName}--undo-transparent ${defaultClassName}--fullWidth ${defaultClassName}--admin-insights-tab-btn`}
       />
-      <AdminPanelFooter
+      }
+      {
+      hello && <AdminPanelFooter
         force={selectedForce}
         selectedRoleName={selectedRoleName}
         byPassUrl={byPassUrl}
         onIconClick={(): void => playerUiDispatch(showHideObjectives())}
       />
+     }
     </>
   )
 }

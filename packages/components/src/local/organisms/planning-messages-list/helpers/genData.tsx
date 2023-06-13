@@ -1,11 +1,11 @@
 import { Column } from '@material-table/core'
-import { MessagePlanning, PlanningMessageStructureCore } from '@serge/custom-types'
+import { Asset, ForceData, MessagePlanning, PlanningMessageStructureCore } from '@serge/custom-types'
 import { isEqual } from 'lodash'
 import moment from 'moment'
-import { AdjudicationRow } from '../../adjudication-messages-list/types/props'
 import { arrToDict, collateActivities } from '../../planning-assets/helpers/collate-assets'
 
 import { OrderRow } from '../types/props'
+import { findAsset } from '@serge/helpers'
 export const roles: string[] = []
 export const forces: string[] = []
 
@@ -24,7 +24,15 @@ const trimActivity = (forceId: string, activity?: string): string => {
   }
 }
 
-export const toRow = (message: MessagePlanning): OrderRow => {
+const getAssetString = (plan: PlanningMessageStructureCore, forces: ForceData[]) => {
+  const own: Array<{ asset: Asset['uniqid'] }> = plan.ownAssets || []
+  const other: Array<{ asset: Asset['uniqid'] }> | undefined = plan.otherAssets || []
+  const allAssets = own.concat(other)
+  const names = allAssets.map((item): string => findAsset(forces, item.asset).name)
+  return names.join(', ')
+}
+
+export const toRow = (message: MessagePlanning, allForces: ForceData[]): OrderRow => {
   const author = message.details.from.roleName
   if (!roles.includes(author)) {
     roles.push(author)
@@ -40,6 +48,7 @@ export const toRow = (message: MessagePlanning): OrderRow => {
     rawRef: message.message.Reference,
     reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
     force: message.details.from.force,
+    assets: getAssetString(plan, allForces),
     excluded: !!message.details.excluded,
     title: plan.title,
     role: author,
@@ -58,6 +67,7 @@ export const toColumn = (message: MessagePlanning[], isUmpire: boolean): Column<
   const columnData: Column<OrderRow>[] = [
     { title: 'Reference', field: 'reference', width: fixedColWidth, minWidth: fixedColWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: !isUmpire, lookup: arrToDict(forces) },
+    { title: 'Assets', field: 'assets', width: 'auto', hidden: false },
     { title: 'Excluded', field: 'excluded', type: 'boolean', width: 'auto', hidden: true },
     { title: 'Author', field: 'role', width: 'auto', lookup: arrToDict(roles) },
     { title: 'Title', field: 'title', width: 'auto' },
@@ -69,7 +79,8 @@ export const toColumn = (message: MessagePlanning[], isUmpire: boolean): Column<
   return columnData
 }
 
-export const needToUpdate = (oldColumnsData: (Column<OrderRow> | Column<AdjudicationRow>)[], newColumnData: (Column<OrderRow> | Column<AdjudicationRow>)[]): boolean => {
+// eslint-disable-next-line no-unused-vars
+export const needToUpdate = (oldColumnsData: (Column<OrderRow>)[], newColumnData: (Column<OrderRow>)[]): boolean => {
   const oldLookup = oldColumnsData.filter(col => col.lookup)
   const newLookup = newColumnData.filter(col => col.lookup)
   if (oldLookup.length !== newLookup.length) {

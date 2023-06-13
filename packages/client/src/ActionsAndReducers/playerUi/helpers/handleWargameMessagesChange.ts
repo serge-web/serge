@@ -6,9 +6,9 @@ import {
   MessageInfoType,
   SetWargameMessage,
   Wargame,
+  MessagePlanning,
   ChatMessage,
   PlayerMessageLog,
-  MessagePlanning, 
   PlayerUiChannels 
 } from '@serge/custom-types'
 import {
@@ -52,7 +52,7 @@ export const handleNewMessage = (payload: MessageChannel, newState: PlayerUi): S
 export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoType>, newState: PlayerUi): SetWargameMessage => {
   const res: SetWargameMessage = handleAllInitialChannelMessages(payload, newState.currentWargame, newState.selectedForce,
     newState.selectedRole, newState.allChannels, newState.allForces, newState.chatChannel,
-    newState.isObserver, newState.allTemplatesByKey)
+    newState.isObserver, newState.allTemplatesByKey, newState.isUmpire)
   return res
 }
 
@@ -182,7 +182,7 @@ export const HandleUpdateBulksData = (newState: PlayerUi, anyPayload: MessagePla
   const currentChannel = newState.channels[channelMessageTypes]
   const channelMessage = currentChannel.messages 
   if (channelMessage) {
-    anyPayload.forEach((data:any) => {
+    anyPayload.forEach((data: MessagePlanning) => {
       const findIndexs = channelMessage.findIndex(number => number._id !== data._id)
       if (currentChannel && findIndexs !== -1) {
         channelMessage.unshift(data) 

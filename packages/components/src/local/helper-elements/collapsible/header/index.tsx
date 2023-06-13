@@ -21,7 +21,7 @@ export const CollapsibleHeader: React.FC<PropTypes> = (props) => {
   const hasContent: boolean = typeof props.hasContent === 'undefined' ? false : props.hasContent
   const collapseOnDragHover: boolean = typeof props.collapseOnDragHover === 'undefined' ? false : props.collapseOnDragHover
 
-  const handleClick = (e: any): void => {
+  const handleClick = (e: React.MouseEvent<HTMLImageElement>): void => {
     if (typeof onClick === 'function') {
       onClick(e)
     }

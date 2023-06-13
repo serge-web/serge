@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   ADJUDICATION_OUTCOMES,
   ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE,
@@ -119,7 +120,7 @@ export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: bo
 
   // get the wargame to operate upon
   const { db } = getWargameDbByName(log.currentDbname)
-
+ 
   // In addition to pushing data to the server, we're also checking the server is still alive
   // So, even if the log is empty, we should push an empty list, since still we want to get a 
   // 'success' back from the server
@@ -134,7 +135,7 @@ export const getPlayerActivityLogs = async (wargame: string, dbName: string, que
     .catch(err => err)
 }
 
-export const populateWargame = (): Promise<string | Wargame[]> => {
+export const populateWargameList = (): Promise<string | Wargame[]> => {
   return fetch(serverPath + allDbs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)
     const toCreateDiff: string[] = _.difference(dbs, wargameNames)
@@ -174,6 +175,23 @@ export const downloadAllWargames = (): void => {
   window.open(serverPath + 'downloadAll')
 }
 
+export const openFauxtonUI = ():void => {
+  window.open(serverPath + 'db/_utils/')
+}
+
+// Note: when the download button is cicked, the SQLITE database be downloaded in a zip format
+// This function downloads a wargame by sending a GET request to the server
+// with the wargame's name in the URL. The server will respond with the file's contents.
+// This function allows a user to download a wargame database in zip format using the given database path as input.
+export const downloadWargame = (dbPath: string): void => {
+  const dbName = getNameFromPath(dbPath)
+
+  // Construct the URL for downloading the file
+  // `serverPath` is a global variable that holds the base URL for the server
+  // The URL will look something like this: `http://example.com/download/wargame.db`
+  window.open(serverPath + 'download' + '/' + dbName)
+}
+
 export const getIpAddress = (): Promise<{ ip: string }> => {
   return fetch(serverPath + 'getIp').then<{ ip: string }>((res) => res.json())
 }
@@ -192,7 +210,7 @@ export const saveIcon = (file: string) => {
 export const createWargame = (): Promise<Wargame> => {
   const name: string = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
-  addWargameDbStore({ name: name, db })
+  addWargameDbStore({ name, db })
 
   const settings: Wargame = { 
     ...dbDefaultSettings, 
@@ -516,13 +534,13 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
     const duplicate = duplicateThisForce(forces[forceIndex])
     forces.splice(forceIndex, 0, duplicate)
     updatedData.forces.forces = forces
-    updatedData.forces.selectedForce = duplicate as any
+    updatedData.forces.selectedForce = duplicate
 
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
 
-export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): any => {
+export const deleteRolesParticipations = (dbName: string, roles: Role[], key: number): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res): any => {
     const processedData = deleteRoleAndParts(res.data, roles, key)
     if (_.isArray(processedData)) {
@@ -673,7 +691,7 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
       from: fromDetails,
       messageType: 'Chat',
       timestamp: new Date().toISOString(),
-      turnNumber: turnNumber
+      turnNumber
     },
     message: {
       content: message
@@ -722,6 +740,37 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
 
   return checkReference(customMessage, db, details).then(messageUpdated => {
     return db.put(messageUpdated).catch(rejectDefault)
+  })
+}
+
+/**
+ * Populate a new wargame with bulk data
+ * @returns Promise that resolves with the populated wargame
+ */
+export const populateWargame = (dbName: string, bulkData: Array<Message | Wargame>): Promise<Wargame> => {
+  // Generate a unique name for the wargame by appending a timestamp to the end of the name
+  const name: string = `${'wargame'}-${dbName}-${uniqid.time()}`
+
+  // Create a new database provider instance for the new wargame
+  const db = new DbProvider(databasePath + name)
+  addWargameDbStore({ name, db })
+  const customBulkMessage = bulkData
+
+  // Return a new promise that will resolve with the populated wargame
+  return new Promise((resolve, reject) => {
+    // Call the bulkDocs() function of the new database instance, passing in the bulk data
+    db.bulkDocs(customBulkMessage).then(() => {
+      // Call getLatestWargameRevision() to retrieve the latest revision of the new wargame
+      getLatestWargameRevision(name).then((res) => {
+        // @ts-ignore
+        return resolve(res)
+      }).catch((err) => {
+        reject(err)
+      })
+    }).catch((err) => {
+      console.log(err)
+      reject(err)
+    })
   })
 }
 

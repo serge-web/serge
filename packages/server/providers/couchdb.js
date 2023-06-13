@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, CUSTOM_MESSAGE } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, databaseUrlPrefix, CUSTOM_MESSAGE } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
 
@@ -15,7 +15,7 @@ const couchDb = (app, io, pouchOptions) => {
     .defaults(pouchOptions)
   require('pouchdb-all-dbs')(PouchDB)
 
-  app.use('/db', require('express-pouchdb')(PouchDB))
+  app.use(databaseUrlPrefix, require('express-pouchdb')(PouchDB))
 
   const couchDbURL = (databaseName = '') => {
     const dbWithoutSqlite = databaseName.replace(dbSuffix, '')
@@ -108,19 +108,32 @@ const couchDb = (app, io, pouchOptions) => {
     retryUntilWritten(db, putData)
   })
 
+  // Define a route to handle bulk document updates in a specified database
   app.put('/bulkDocs/:dbname', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
     const db = new CouchDB(couchDbURL(databaseName))
+    // Get the array of documents from the request body
     const docs = req.body
+
+    if (!listeners[databaseName]) {
+      addListenersQueue.push(databaseName)
+    }
+
+    // Check if there are any documents to update
     if (docs.length === 0) {
       // nothing to do
       res.send({ msg: 'OK' })
     } else {
+      // If there are documents, update them in bulk
       return db.bulkDocs(docs).then(async () => {
+        // Compact the database to free up disk space
         await db.compact()
+
+        // If the bulk update succeeds, emit an event to notify clients of the update
         io.emit(req.params.dbname, docs)
         res.send({ msg: 'OK', data: docs })
       }).catch(err => {
+        // If there is an error with the bulk update, send a response with an error message and data
         res.send({ msg: 'err', data: err })
       })
     }

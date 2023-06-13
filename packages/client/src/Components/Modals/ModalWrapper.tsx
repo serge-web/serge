@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent } from 'react'
+import { Component, MouseEvent } from 'react'
 import { connect } from 'react-redux'
 
 class ModalWrapper extends Component<{ children?: any, onBackgroundClick?: () => void, editable?: boolean }> {
@@ -21,6 +21,6 @@ class ModalWrapper extends Component<{ children?: any, onBackgroundClick?: () =>
       </div>
     )
   }
-};
+}
 
 export default connect()(ModalWrapper)

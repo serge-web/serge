@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
 
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,9 +15,9 @@ class Snackbar extends Component {
       clearTimeout(this.timer)
     }
     this.props.onClickHandler(this.props.id)
-  };
+  }
 
-  componentWillMount () {
+  componentDidMount () {
     if (this.props.autoHide) {
       this.timer = setTimeout(() => {
         this.props.onClickHandler(this.props.id)
