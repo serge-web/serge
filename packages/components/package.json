@@ -7,7 +7,7 @@
   "scripts": {
     "storybook": "start-storybook -s ./static -p 6611",
     "build": "rimraf build && yarn copy && yarn copy-assets && yarn copy-assets-storybook && tsc && yarn cleanup",
-    "watch": "run-p watch:*",
+    "watch": "yarn clean && run-p watch:*",
     "watch:ts": "tsc --watch",
     "watch:style": "node-sass-chokidar ./src -o ./build --watch --ext scss",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
@@ -15,6 +15,7 @@
     "copy-assets-storybook": "copyfiles -u 4 src/local/asset-icon/counters/*.svg static/assets/counters",
     "cleanup": "rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*",
     "test": "run-p test:*",
+    "clean": "rm -rf build",
     "test:ts": "tsc --pretty",
     "test:unit": "jest --passWithNoTests",
     "lint": "run-p lint:*",

@@ -161,12 +161,12 @@ const GameChannelsWithTour: React.FC = () => {
   const onTabChange = (node: TabNode): void => {
     setShowMappingTour(node.getComponent() === 'mapping')
   }
-  const hello = true
+
   return (
     <>
       <div className="flex-content-wrapper" data-tour="first-step">
         <div className="flex-content flex-content--fill">
-        {hello && <GameChannels onTabChange={onTabChange} /> }
+          <GameChannels onTabChange={onTabChange} /> 
         </div>
       </div>
       {/* GUIDED TOUR */}

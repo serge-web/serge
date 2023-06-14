@@ -84,7 +84,6 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
         console.log('Handler not created for', form)
     }
   }
-  const hellos = true
 
   return (node: TabNode): React.ReactNode => {
     /** helper to determine if the specified channel should be rendered */
@@ -180,7 +179,7 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
               })
             }
           }
-          return hellos && <PlanningChannel
+          return <PlanningChannel
             allTemplates={allTemplates}
             adjudicationTemplate={state.allTemplatesByKey[adjudicationTemplateId]}
             channelId={channel.uniqid}

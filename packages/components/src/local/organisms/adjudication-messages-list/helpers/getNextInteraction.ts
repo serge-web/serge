@@ -191,7 +191,7 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: As
           // generate
           const mezPoint = turf.point([oppAsset.location[1], oppAsset.location[0]])
           const distanceApart = turf.distance(tgtPoint, mezPoint, { units: 'kilometers' })
-          if (distanceApart < attrs.a_MEZ_range && tgtForce && tgtAsset) {
+          if (distanceApart < +attrs.a_MEZ_range && tgtForce && tgtAsset) {
             // ok, it's covered.
             let protTarget = protectedTargets.find((target: ProtectedTarget) => tgtAsset && target.target.uniqid === tgtAsset.uniqid)
             if (!protTarget) {

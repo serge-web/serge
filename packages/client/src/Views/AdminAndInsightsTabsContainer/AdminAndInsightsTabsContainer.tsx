@@ -57,17 +57,17 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
       addUnreadMsgCount(model, gameAdminTabId, adminMsgCount)
     }
   }, [feedbackMsgCount, adminMsgCount])
-  const hello = false
+
   return (
     <>
-      { hello && <FlexLayout.Layout
+      { <FlexLayout.Layout
         model={model}
         factory={factory(gameAdminTab, insightsTab)}
         classNameMapper={defaultClassName => `${defaultClassName} ${defaultClassName}--undo-transparent ${defaultClassName}--fullWidth ${defaultClassName}--admin-insights-tab-btn`}
       />
       }
       {
-      hello && <AdminPanelFooter
+      <AdminPanelFooter
         force={selectedForce}
         selectedRoleName={selectedRoleName}
         byPassUrl={byPassUrl}

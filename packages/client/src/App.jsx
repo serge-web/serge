@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles'
 import theme from '@serge/components/themes/serge'
