@@ -6,6 +6,7 @@
     "module": "commonjs",
     "lib": ["es5", "es6", "es7", "es2017", "ES2019", "dom"],
     "jsx": "react",
+    "ignoreDeprecations": "5.0",
     "downlevelIteration": true,
     "strict": true,
     "removeComments": false,
