@@ -1,0 +1,36 @@
+@import "../../../../../themes/dependencies/variables";
+
+.force-objectives {
+  @include typo-primary;
+  background: $admin-color;
+  border: 1px solid $force-default-color;
+  border-radius: 4px 0 0;
+  border-right: 0;
+  width: 750px;
+  height: 550px;
+  overflow: hidden;
+  padding: 14px;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 10000;
+  color: #fff;
+
+  .objective-text {
+    margin-top: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  .role-info {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+    font-weight: normal;
+  }
+}

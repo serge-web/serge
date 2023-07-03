@@ -1,0 +1,222 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlanTurnForm renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="main"
+  >
+    <div
+      className="title"
+    >
+      <div>
+        Planning header
+      </div>
+    </div>
+    <div
+      className="icon"
+    >
+      <div
+        className="asset-icon-background"
+        style={
+          Object {
+            "backgroundColor": "blue",
+          }
+        }
+      >
+        <div
+          className="asset-icon-with-image"
+        >
+          <img
+            alt="frigate"
+            className="img"
+            src="/assets/counters/frigate.svg"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container title"
+    >
+      State
+    </div>
+    <div
+      className="container main-container align-right"
+    >
+      <div
+        className="MuiInputBase-root MuiInput-root MuiInput-underline select"
+        onClick={[Function]}
+      >
+        <div
+          aria-haspopup="listbox"
+          className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onMouseDown={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          Transiting
+        </div>
+        <input
+          aria-hidden={true}
+          className="MuiSelect-nativeInput"
+          onAnimationStart={[Function]}
+          onChange={[Function]}
+          tabIndex={-1}
+          value="Transiting"
+        />
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSelect-icon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container title title-absolute"
+    >
+      Speed (kts)
+    </div>
+    <div
+      className="container main-container"
+    >
+      <div
+        className="main"
+        onClick={[Function]}
+      >
+        <div
+          className="speed"
+        >
+          <div
+            className="speed-inner"
+          >
+            <div
+              className="speed-items"
+            >
+              <div
+                className="speed-item speed-enabled speed-active speed-selected"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "0%",
+                    "left": "0%",
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <div
+                  className="speed-item__label"
+                >
+                  10
+                </div>
+              </div>
+              <div
+                className="speed-item speed-enabled speed-active"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "50%",
+                    "left": "33.333333333333336%",
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <div
+                  className="speed-item__label"
+                >
+                  20
+                </div>
+              </div>
+              <div
+                className="speed-item speed-enabled speed-active"
+                onClick={[Function]}
+                style={
+                  Object {
+                    "height": "100%",
+                    "left": "66.66666666666667%",
+                    "width": "33.333333333333336%",
+                  }
+                }
+              >
+                <div
+                  className="speed-item__label"
+                >
+                  30
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="result"
+        >
+          <h2>
+            10
+          </h2>
+          <p>
+            KTS
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="group"
+  >
+    <div
+      className="container title"
+    >
+      Condition
+    </div>
+    <div
+      className="container main-container"
+    >
+      <span
+        className="text"
+      >
+        Working
+      </span>
+    </div>
+  </div>
+  <button
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <span
+      className="MuiButton-label"
+    >
+      Plan turn
+    </span>
+  </button>
+</div>
+`;

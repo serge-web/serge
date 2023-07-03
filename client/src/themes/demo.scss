@@ -1,0 +1,188 @@
+@import "dependencies/variables";
+
+.demo-content-wrapper {
+  #umpire {
+    height: auto;
+    padding: 5vh 0;
+    width: 48vw;
+
+    &.flex-landing-screen,
+    &.flex-jc-center {
+      justify-content: center;
+    }
+
+    &.flex-landing-screen {
+      height: 45vh;
+    }
+  }
+
+  #sidebar_admin,
+  #sidebar {
+    height: 100%;
+    position: absolute;
+    width: 10vw;
+
+    .link,
+    .link--active {
+      font-size: 1.25em;
+      margin-bottom: 1px;
+    }
+  }
+
+  #sidebar {
+    width: 5vw;
+  }
+
+  #home-btn {
+    width: 100%;
+  }
+
+  .view-wrapper-gamesetup {
+    min-height: 45vh;
+    padding: 0 0 6vh 5vw;
+  }
+
+  .welcome-page {
+    padding-left: 12vw;
+  }
+
+  .welcome-action-primary {
+    display: flex;
+  }
+
+  .serge-custom-logo {
+    margin-bottom: 30px;
+    max-width: 150px;
+  }
+
+  #editable-title {
+    max-width: 220px;
+  }
+
+  .force-color-icon {
+    margin-left: -20px;
+    margin-top: 10px;
+  }
+
+  .force-input-wrap {
+    flex-direction: column;
+  }
+
+  .searchlist-list {
+    .searchlist-title {
+      display: block;
+    }
+  }
+
+  #preview-editor {
+    /* stylelint-disable */
+    /* overrides js rendered style */
+    h3 {
+      > span {
+        display: block;
+      }
+    }
+    /* stylelint-enable */
+
+    .btn-group {
+      margin-left: 0 !important;
+      margin-right: 10px;
+    }
+  }
+
+  .contain-welcome-screen {
+    align-items: center;
+    display: flex;
+    width: 75%;
+  }
+
+  .flex-content-wrapper--welcome,
+  .flex-content--welcome,
+  .message-feed {
+    height: 45vh;
+  }
+
+  .message-feed.out-of-game-feed .message-list {
+    max-height: calc(45vh - 372px);
+  }
+
+  .flex-content--welcome {
+    .has-demo-passwords {
+      align-self: flex-start;
+      padding-left: 22vw;
+      position: relative;
+      width: 75%;
+    }
+
+    .demo-passwords {
+      width: 18vw;
+    }
+  }
+
+  .serge-logo {
+    margin-right: 50px;
+    width: 150px;
+  }
+
+  .game-designer-action {
+    .link {
+      margin-right: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .flex-content--welcome {
+    .contain-welcome-screen {
+      width: 90%;
+    }
+
+    .welcome-desc {
+      text-align: center;
+
+      p {
+        width: 100%;
+
+        &:nth-child(1) {
+          font-size: 30px;
+          font-weight: 700;
+          margin: 15px 0;
+          text-transform: uppercase;
+        }
+        &:nth-child(2) {
+          font-size: 20px;
+          font-weight: 550;
+          text-transform: capitalize;
+        }
+      }
+
+      .paragraph {
+        font-size: 17px;
+
+        &:last-child {
+          font-style: italic;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+
+  .demo-content-wrapper {
+    #umpire {
+      &.flex-landing-screen {
+        height: 40vh;
+      }
+    }
+  }
+}
+
+.demo-list-forces {
+  margin-top: 25px;
+  max-height: 45vh;
+  overflow: auto;
+}
+
+.contain-message-templates {
+  align-self: flex-end;
+  width: 78vw;
+}

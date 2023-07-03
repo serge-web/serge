@@ -1,0 +1,19 @@
+{
+  "name": "@serge/themes",
+  "version": "0.3.0",
+  "main": "App.scss",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "sass": "^1.62.1",
+    "stylelint-config-sass-guidelines": "^8.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-prettier": "^1.2.0"
+  },
+  "scripts": {
+    "lint": "stylelint *.scss --fix"
+  }
+}

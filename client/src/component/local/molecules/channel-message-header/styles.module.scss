@@ -1,0 +1,60 @@
+@import "../../../../../themes/dependencies/variables";
+
+@mixin panel-item-wrap($radius) {
+  background-color: $background-alpha-primary;
+  border-radius: $radius;
+}
+
+.message-title-wrap {
+  @include panel-item-wrap(0 4px 4px 0);
+  @include typo-primary;
+  display: block;
+  cursor: pointer;
+  padding: 6px 12px 12px;
+  position: relative;
+
+  &.message-title-opened {
+    @include panel-item-wrap(0 4px 0 0);
+  }
+
+  &.message-item-unread {
+    background-color: $background-alpha-bold;
+  }
+}
+
+.marker {
+  top: 22px;
+  right: 10px;
+  position: absolute;
+}
+
+.message-title {
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  .message-item-unread & {
+    color: $action-secondary-color;
+    font-weight: 600;
+  }
+}
+
+.info-body {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1;
+  margin-right: 6px;
+  opacity: 0.5;
+  color: #fff;
+}
+
+.info-badge {
+  font-size: 11px;
+  margin-left: 6px;
+}

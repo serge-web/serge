@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Planning Force component:  renders component correctly 1`] = `
+<div
+  className="leaflet-control"
+  data-tour="filter-applied"
+>
+  <button
+    className="main light-content"
+    onClick={[Function]}
+    title="Match table filters"
+    type="button"
+  >
+    <svg
+      className="svg-inline--fa fa-filter"
+    />
+  </button>
+</div>
+`;

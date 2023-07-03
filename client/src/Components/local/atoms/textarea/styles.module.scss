@@ -1,0 +1,41 @@
+$dark-textarea-bg: #1a3d5d;
+$dark-textarea-bg-disabled: #54667c;
+
+.main {
+  label {
+    font-weight: bold;
+    display: block;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 7px;
+  }
+  textarea {
+    border-width: 0;
+    resize: none;
+    font-weight: 300;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: inherit;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    outline: none;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.theme-dark {
+  color: #fff;
+
+  textarea {
+    background: $dark-textarea-bg;
+  }
+}
+
+.disabled textarea {
+  background-color: $dark-textarea-bg-disabled;
+}

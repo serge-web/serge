@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Speed renders correctly 1`] = `
+<div
+  className="main"
+  onClick={[Function]}
+>
+  <div
+    className="speed"
+  >
+    <div
+      className="speed-inner"
+    >
+      <div
+        className="speed-items"
+      >
+        <div
+          className="speed-item speed-enabled speed-active"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "0%",
+              "left": "0%",
+              "width": "16.666666666666668%",
+            }
+          }
+        >
+          <div
+            className="speed-item__label"
+          >
+            0
+          </div>
+        </div>
+        <div
+          className="speed-item speed-enabled speed-active speed-selected"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "14%",
+              "left": "16.666666666666668%",
+              "width": "16.666666666666668%",
+            }
+          }
+        >
+          <div
+            className="speed-item__label"
+          >
+            10
+          </div>
+        </div>
+        <div
+          className="speed-item speed-enabled speed-active"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "28%",
+              "left": "33.333333333333336%",
+              "width": "16.666666666666668%",
+            }
+          }
+        >
+          <div
+            className="speed-item__label"
+          >
+            20
+          </div>
+        </div>
+        <div
+          className="speed-item speed-enabled speed-active"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "42%",
+              "left": "50%",
+              "width": "16.666666666666668%",
+            }
+          }
+        >
+          <div
+            className="speed-item__label"
+          >
+            30
+          </div>
+        </div>
+        <div
+          className="speed-item speed-enabled"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "42%",
+              "left": "66.66666666666667%",
+              "width": "16.666666666666668%",
+            }
+          }
+        >
+          <div
+            className="speed-item__label"
+          />
+        </div>
+        <div
+          className="speed-item speed-enabled"
+          onClick={[Function]}
+          style={
+            Object {
+              "height": "71%",
+              "left": "83.33333333333334%",
+              "width": "16.666666666666668%",
+            }
+          }
+        >
+          <div
+            className="speed-item__label"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="result"
+  >
+    <h2>
+      10
+    </h2>
+    <p>
+      KTS
+    </p>
+  </div>
+</div>
+`;

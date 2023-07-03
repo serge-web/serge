@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports['FormHeader renders correctly 1'] = `
+<h2
+  className="form-header"
+>
+  Test
+</h2>
+`

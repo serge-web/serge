@@ -1,0 +1,35 @@
+@import "../../../../themes/dependencies/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+}
+
+.logo {
+  text-align: center;
+
+  p {
+    color: #fff;
+    font-weight: 700;
+    font-size: 24px;
+    text-transform: uppercase;
+
+    &:last-child {
+      font-size: 16px;
+      text-transform: capitalize;
+      font-weight: 500;
+      margin-top: -20px;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.password {
+  margin-bottom: 16px;
+}

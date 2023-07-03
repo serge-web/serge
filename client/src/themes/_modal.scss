@@ -1,0 +1,146 @@
+@import "./dependencies/variables";
+
+.modal-bg {
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1024;
+}
+
+.modal {
+  background: $admin-color;
+  border-radius: 2px;
+  color: #fff;
+  display: flex !important;
+  flex-direction: column;
+  height: auto !important;
+  margin: auto;
+  max-width: 60%;
+  position: relative !important;
+  width: auto !important;
+
+  .sketch-picker {
+    box-shadow: none !important;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  .display-text-wrapper {
+    order: 2;
+    padding: 20px;
+
+    #role-name,
+    #role-password {
+      width: 300px !important;
+    }
+
+    .input-label {
+      display: block;
+    }
+
+    .modal-input {
+      margin-bottom: 30px;
+      width: 100%;
+    }
+
+    .notification {
+      color: #ff0;
+      font-size: 12px;
+      position: absolute;
+      right: -15px;
+      top: 100px;
+    }
+
+    h3 {
+      text-align: center;
+      width: 100%;
+    }
+  }
+
+  h3 {
+    line-height: 1.5em;
+    margin: 0;
+    width: fit-content;
+  }
+  p {
+    font-size: 18px;
+    line-height: 1.35em;
+    margin-top: 18px;
+    overflow-wrap: break-word;
+    padding-right: 36px;
+  }
+  .price {
+    line-height: 2em;
+  }
+
+  .display-image-wrapper {
+    font-size: 0;
+    height: 75px;
+    order: 1;
+    width: 100%;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+}
+
+.lessons-modal-button {
+  margin-left: auto;
+  margin-right: 26px;
+}
+
+.lessons-modal {
+  max-width: 500px;
+
+  .title {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+  }
+
+  svg {
+    color: $primary-color;
+  }
+  h3 {
+    background-color: transparent;
+    display: inline;
+    font-weight: bold;
+    line-height: 1em;
+    margin-left: 0.5em;
+    width: fit-content;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  .buttons {
+    margin-top: 12px;
+  }
+}
+
+.text-input-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.reactour__helper {
+  max-width: min-content !important;
+  min-width: 350px !important;
+}

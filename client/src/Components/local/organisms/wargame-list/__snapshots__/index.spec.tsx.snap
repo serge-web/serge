@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WargameList component: renders correctly 1`] = `
+<div
+  className="wargame-searchlist"
+>
+  <section
+    className="input-container disable-offset fullwidth"
+  >
+    <div
+      className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+    >
+      <div
+        className="MuiInputBase-root MuiFilledInput-root makeStyles-root-1 MuiInputBase-fullWidth MuiInputBase-formControl"
+        onClick={[Function]}
+      >
+        <input
+          aria-invalid={false}
+          autoFocus={false}
+          className="MuiInputBase-input MuiFilledInput-input makeStyles-input-2"
+          disabled={false}
+          name=""
+          onAnimationStart={[Function]}
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          placeholder="Search games"
+          required={false}
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </section>
+  <div
+    className="searchlist-list"
+  >
+    <div>
+      <div
+        className="searchlist-title"
+      >
+        <div
+          className="wargame-row"
+        >
+          <svg
+            className="svg-inline--fa fa-eye"
+          />
+          <span
+            className="wargame-title"
+            onClick={[Function]}
+          >
+            <span
+              className="wargame-started-highlight"
+            >
+               
+            </span>
+            <span
+              title="http://localhost/wargame-a"
+            >
+              Wargame A
+            </span>
+          </span>
+        </div>
+        <svg
+          className="svg-inline--fa fa-ellipsis"
+        />
+      </div>
+      <div
+        className="searchlist-title"
+      >
+        <div
+          className="wargame-row"
+        >
+          <svg
+            className="svg-inline--fa fa-eye"
+          />
+          <span
+            className="wargame-title"
+            onClick={[Function]}
+          >
+            <span
+              className="wargame-unstarted-highlight"
+            >
+               
+            </span>
+            <span
+              title="http://localhost/wargame-b"
+            >
+              Wargame B
+            </span>
+          </span>
+        </div>
+        <svg
+          className="svg-inline--fa fa-ellipsis"
+        />
+      </div>
+      <div
+        className="searchlist-title"
+      >
+        <div
+          className="wargame-row"
+        >
+          <svg
+            className="svg-inline--fa fa-eye"
+          />
+          <span
+            className="wargame-title"
+            onClick={[Function]}
+          >
+            <span
+              className="wargame-started-highlight"
+            >
+               
+            </span>
+            <span
+              title="http://localhost/wargame-c"
+            >
+              Wargame C
+            </span>
+          </span>
+        </div>
+        <svg
+          className="svg-inline--fa fa-ellipsis"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

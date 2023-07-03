@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChannelMessage component: renders correctly 1`] = `
+<div
+  className="message-list-wrapper"
+  style={
+    Object {
+      "borderColor": "rgba(255, 0, 0, 1)",
+    }
+  }
+>
+  <div
+    className="main"
+    onClick={[Function]}
+  >
+    <div
+      className="message-title-wrap 
+      message-item-unread 
+      "
+    >
+      <svg
+        className="svg-inline--fa fa-envelope"
+      />
+      <div
+        onClick={[Function]}
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+          focusable="false"
+          style={
+            Object {
+              "color": "#18ffff",
+            }
+          }
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+          />
+        </svg>
+        <div
+          className="message-title"
+        >
+          k16eedkl
+        </div>
+        <div
+          className="MuiBox-root MuiBox-root-1"
+        >
+          <span
+            className="info-body"
+          >
+            08:52
+          </span>
+          <div
+            className="MuiChip-root makeStyles-root-2 makeStyles-root-5 MuiChip-sizeSmall makeStyles-sizeSmall-3"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-4 makeStyles-label-6 MuiChip-labelSmall"
+            >
+              CO
+            </span>
+          </div>
+          <div
+            className="MuiChip-root makeStyles-root-2 makeStyles-root-7 MuiChip-sizeSmall makeStyles-sizeSmall-3"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-4 makeStyles-label-8 MuiChip-labelSmall"
+            >
+              k16eedkl
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="wrap-detail "
+    />
+  </div>
+</div>
+`;

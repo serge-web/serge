@@ -1,0 +1,679 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RolesAccordion component: renders correctly 1`] = `
+<div
+  className="MuiPaper-root MuiAccordion-root accordion MuiAccordion-rounded MuiPaper-elevation1 MuiPaper-rounded"
+>
+  <div
+    aria-disabled={false}
+    aria-expanded={false}
+    className="MuiButtonBase-root MuiAccordionSummary-root accordion-header"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    role="button"
+    tabIndex={0}
+  >
+    <div
+      className="MuiAccordionSummary-content"
+    >
+      <p
+        className="MuiTypography-root accordion-title MuiTypography-body1"
+      >
+        Roles
+      </p>
+    </div>
+    <div
+      aria-disabled={false}
+      aria-hidden={true}
+      className="MuiButtonBase-root MuiIconButton-root MuiAccordionSummary-expandIcon MuiIconButton-edgeEnd"
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role={null}
+      tabIndex={null}
+    >
+      <span
+        className="MuiIconButton-label"
+      >
+        <svg
+          className="svg-inline--fa fa-caret-down"
+        />
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiCollapse-root MuiCollapse-hidden"
+    style={
+      Object {
+        "minHeight": "0px",
+      }
+    }
+  >
+    <div
+      className="MuiCollapse-wrapper"
+    >
+      <div
+        className="MuiCollapse-wrapperInner"
+      >
+        <div
+          role="region"
+        >
+          <div
+            className="MuiAccordionDetails-root"
+          >
+            <div
+              className="row"
+            >
+              <div
+                className="col section"
+              >
+                <div
+                  className="main"
+                >
+                  <div
+                    className="placeholder"
+                  >
+                    Roles
+                  </div>
+                  <div
+                    className="content"
+                  >
+                    <div
+                      className="main"
+                    >
+                      <ul
+                        className="main"
+                      >
+                        <li
+                          className="li"
+                        >
+                          <div
+                            className="presection"
+                          >
+                            <section
+                              className="section"
+                            >
+                              <div
+                                className="value-label"
+                              >
+                                <div
+                                  onClick={[Function]}
+                                >
+                                  Game Control
+                                </div>
+                              </div>
+                              <span>
+                                <div
+                                  className="trash-icon"
+                                  onClick={[Function]}
+                                >
+                                  <svg
+                                    className="svg-inline--fa fa-trash"
+                                  />
+                                </div>
+                              </span>
+                              <div
+                                className="role"
+                              >
+                                <div
+                                  className="role-item"
+                                >
+                                  <div
+                                    className="main"
+                                    title="Click to Edit"
+                                  >
+                                    <section
+                                      className="password-mask"
+                                    >
+                                      <div
+                                        className="dots"
+                                      >
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                      </div>
+                                    </section>
+                                    <div
+                                      className="key"
+                                      onClick={[Function]}
+                                    >
+                                      <svg
+                                        className="svg-inline--fa fa-key"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div
+                                    className="role-title"
+                                  >
+                                    Password
+                                  </div>
+                                </div>
+                                <div
+                                  className="role-item"
+                                >
+                                  <span
+                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                  >
+                                    <span
+                                      aria-disabled={false}
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                      onBlur={[Function]}
+                                      onDragLeave={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onKeyUp={[Function]}
+                                      onMouseDown={[Function]}
+                                      onMouseLeave={[Function]}
+                                      onMouseUp={[Function]}
+                                      onTouchEnd={[Function]}
+                                      onTouchMove={[Function]}
+                                      onTouchStart={[Function]}
+                                      tabIndex={null}
+                                    >
+                                      <span
+                                        className="MuiIconButton-label"
+                                      >
+                                        <input
+                                          checked={true}
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                          disabled={false}
+                                          onChange={[Function]}
+                                          type="checkbox"
+                                        />
+                                        <span
+                                          className="MuiSwitch-thumb"
+                                        />
+                                      </span>
+                                    </span>
+                                    <span
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                    />
+                                  </span>
+                                  <div
+                                    className="role-title title-center"
+                                    title="Game Control"
+                                  >
+                                    <svg
+                                      className="svg-inline--fa fa-chess-king"
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  className="role-item"
+                                >
+                                  <span
+                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                  >
+                                    <span
+                                      aria-disabled={false}
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                      onBlur={[Function]}
+                                      onDragLeave={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onKeyUp={[Function]}
+                                      onMouseDown={[Function]}
+                                      onMouseLeave={[Function]}
+                                      onMouseUp={[Function]}
+                                      onTouchEnd={[Function]}
+                                      onTouchMove={[Function]}
+                                      onTouchStart={[Function]}
+                                      tabIndex={null}
+                                    >
+                                      <span
+                                        className="MuiIconButton-label"
+                                      >
+                                        <input
+                                          checked={true}
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                          disabled={false}
+                                          onChange={[Function]}
+                                          type="checkbox"
+                                        />
+                                        <span
+                                          className="MuiSwitch-thumb"
+                                        />
+                                      </span>
+                                    </span>
+                                    <span
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                    />
+                                  </span>
+                                  <div
+                                    className="role-title title-center"
+                                    title="Can view all channels"
+                                  >
+                                    <svg
+                                      className="svg-inline--fa fa-eye"
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  className="role-item"
+                                >
+                                  <span
+                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                  >
+                                    <span
+                                      aria-disabled={false}
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                      onBlur={[Function]}
+                                      onDragLeave={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onKeyUp={[Function]}
+                                      onMouseDown={[Function]}
+                                      onMouseLeave={[Function]}
+                                      onMouseUp={[Function]}
+                                      onTouchEnd={[Function]}
+                                      onTouchMove={[Function]}
+                                      onTouchStart={[Function]}
+                                      tabIndex={null}
+                                    >
+                                      <span
+                                        className="MuiIconButton-label"
+                                      >
+                                        <input
+                                          checked={true}
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                          disabled={false}
+                                          onChange={[Function]}
+                                          type="checkbox"
+                                        />
+                                        <span
+                                          className="MuiSwitch-thumb"
+                                        />
+                                      </span>
+                                    </span>
+                                    <span
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                    />
+                                  </span>
+                                  <div
+                                    className="role-title title-center"
+                                    title="Can view feedback/insights"
+                                  >
+                                    <svg
+                                      className="svg-inline--fa fa-comments"
+                                    />
+                                  </div>
+                                </div>
+                                <div
+                                  className="role-item"
+                                >
+                                  <span
+                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                  >
+                                    <span
+                                      aria-disabled={false}
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                      onBlur={[Function]}
+                                      onDragLeave={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onKeyUp={[Function]}
+                                      onMouseDown={[Function]}
+                                      onMouseLeave={[Function]}
+                                      onMouseUp={[Function]}
+                                      onTouchEnd={[Function]}
+                                      onTouchMove={[Function]}
+                                      onTouchStart={[Function]}
+                                      tabIndex={null}
+                                    >
+                                      <span
+                                        className="MuiIconButton-label"
+                                      >
+                                        <input
+                                          checked={true}
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                          disabled={false}
+                                          onChange={[Function]}
+                                          type="checkbox"
+                                        />
+                                        <span
+                                          className="MuiSwitch-thumb"
+                                        />
+                                      </span>
+                                    </span>
+                                    <span
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                    />
+                                  </span>
+                                  <div
+                                    className="role-title title-center"
+                                    title="Can release RFI responses"
+                                  >
+                                    <svg
+                                      className="svg-inline--fa fa-book-open-reader"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                              <span />
+                            </section>
+                          </div>
+                        </li>
+                        <li
+                          className="li"
+                        >
+                          <div
+                            className="presection"
+                          >
+                            <section
+                              className="section"
+                            >
+                              <div
+                                className="value-label"
+                              >
+                                <div
+                                  onClick={[Function]}
+                                >
+                                  RFI Manager
+                                </div>
+                              </div>
+                              <span>
+                                <div
+                                  className="trash-icon"
+                                  onClick={[Function]}
+                                >
+                                  <svg
+                                    className="svg-inline--fa fa-trash"
+                                  />
+                                </div>
+                              </span>
+                              <div
+                                className="role"
+                              >
+                                <div
+                                  className="role-item"
+                                >
+                                  <div
+                                    className="main"
+                                    title="Click to Edit"
+                                  >
+                                    <section
+                                      className="password-mask"
+                                    >
+                                      <div
+                                        className="dots"
+                                      >
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                        <svg
+                                          className="svg-inline--fa fa-circle"
+                                        />
+                                      </div>
+                                    </section>
+                                    <div
+                                      className="key"
+                                      onClick={[Function]}
+                                    >
+                                      <svg
+                                        className="svg-inline--fa fa-key"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  className="role-item"
+                                >
+                                  <span
+                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                  >
+                                    <span
+                                      aria-disabled={false}
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                      onBlur={[Function]}
+                                      onDragLeave={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onKeyUp={[Function]}
+                                      onMouseDown={[Function]}
+                                      onMouseLeave={[Function]}
+                                      onMouseUp={[Function]}
+                                      onTouchEnd={[Function]}
+                                      onTouchMove={[Function]}
+                                      onTouchStart={[Function]}
+                                      tabIndex={null}
+                                    >
+                                      <span
+                                        className="MuiIconButton-label"
+                                      >
+                                        <input
+                                          checked={true}
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                          disabled={false}
+                                          onChange={[Function]}
+                                          type="checkbox"
+                                        />
+                                        <span
+                                          className="MuiSwitch-thumb"
+                                        />
+                                      </span>
+                                    </span>
+                                    <span
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                    />
+                                  </span>
+                                </div>
+                                <div
+                                  className="role-item"
+                                >
+                                  <span
+                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                  >
+                                    <span
+                                      aria-disabled={false}
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                      onBlur={[Function]}
+                                      onDragLeave={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onKeyUp={[Function]}
+                                      onMouseDown={[Function]}
+                                      onMouseLeave={[Function]}
+                                      onMouseUp={[Function]}
+                                      onTouchEnd={[Function]}
+                                      onTouchMove={[Function]}
+                                      onTouchStart={[Function]}
+                                      tabIndex={null}
+                                    >
+                                      <span
+                                        className="MuiIconButton-label"
+                                      >
+                                        <input
+                                          checked={true}
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                          disabled={false}
+                                          onChange={[Function]}
+                                          type="checkbox"
+                                        />
+                                        <span
+                                          className="MuiSwitch-thumb"
+                                        />
+                                      </span>
+                                    </span>
+                                    <span
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                    />
+                                  </span>
+                                </div>
+                                <div
+                                  className="role-item"
+                                >
+                                  <span
+                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                  >
+                                    <span
+                                      aria-disabled={false}
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                      onBlur={[Function]}
+                                      onDragLeave={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onKeyUp={[Function]}
+                                      onMouseDown={[Function]}
+                                      onMouseLeave={[Function]}
+                                      onMouseUp={[Function]}
+                                      onTouchEnd={[Function]}
+                                      onTouchMove={[Function]}
+                                      onTouchStart={[Function]}
+                                      tabIndex={null}
+                                    >
+                                      <span
+                                        className="MuiIconButton-label"
+                                      >
+                                        <input
+                                          checked={true}
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                          disabled={false}
+                                          onChange={[Function]}
+                                          type="checkbox"
+                                        />
+                                        <span
+                                          className="MuiSwitch-thumb"
+                                        />
+                                      </span>
+                                    </span>
+                                    <span
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                    />
+                                  </span>
+                                </div>
+                                <div
+                                  className="role-item"
+                                >
+                                  <span
+                                    className="MuiSwitch-root MuiSwitch-sizeSmall"
+                                  >
+                                    <span
+                                      aria-disabled={false}
+                                      className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-4 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-1 MuiSwitch-colorSecondary PrivateSwitchBase-checked-5 Mui-checked WithStyles(ForwardRef(Switch))-checked-2"
+                                      onBlur={[Function]}
+                                      onDragLeave={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onKeyUp={[Function]}
+                                      onMouseDown={[Function]}
+                                      onMouseLeave={[Function]}
+                                      onMouseUp={[Function]}
+                                      onTouchEnd={[Function]}
+                                      onTouchMove={[Function]}
+                                      onTouchStart={[Function]}
+                                      tabIndex={null}
+                                    >
+                                      <span
+                                        className="MuiIconButton-label"
+                                      >
+                                        <input
+                                          checked={true}
+                                          className="PrivateSwitchBase-input-7 MuiSwitch-input"
+                                          disabled={false}
+                                          onChange={[Function]}
+                                          type="checkbox"
+                                        />
+                                        <span
+                                          className="MuiSwitch-thumb"
+                                        />
+                                      </span>
+                                    </span>
+                                    <span
+                                      className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-3"
+                                    />
+                                  </span>
+                                </div>
+                              </div>
+                              <span />
+                            </section>
+                          </div>
+                        </li>
+                      </ul>
+                      <div
+                        className="add-section"
+                      >
+                        <button
+                          className="button"
+                          onClick={[Function]}
+                        >
+                          Add Role
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

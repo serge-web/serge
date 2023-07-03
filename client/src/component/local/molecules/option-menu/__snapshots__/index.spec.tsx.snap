@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionMenu component: renders correctly 1`] = `
+<div
+  className="wargame-option-menu"
+>
+  <span
+    onClick={[Function]}
+  >
+    <svg
+      className="svg-inline--fa fa-bath"
+    />
+    Clean copy
+  </span>
+  <span
+    onClick={[Function]}
+  >
+    <svg
+      className="svg-inline--fa fa-clone"
+    />
+    Duplicate
+  </span>
+  <span
+    onClick={[Function]}
+  >
+    <svg
+      className="svg-inline--fa fa-file-arrow-down"
+    />
+    Export
+  </span>
+  <span
+    onClick={[Function]}
+  >
+    <svg
+      className="svg-inline--fa fa-trash"
+    />
+    Delete
+  </span>
+</div>
+`;

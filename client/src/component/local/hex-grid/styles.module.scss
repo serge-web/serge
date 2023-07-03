@@ -1,0 +1,64 @@
+.default-hex {
+  // Note: we specify fill inside the code, depending if the are polygons present
+  //fill-opacity: 0.2;
+  fill: transparent;
+  stroke: #aaa;
+  opacity: 0.6;
+  stroke-width: 1;
+}
+
+.allowable-hex {
+  // Note: we specify fill inside the code, depending if the are polygons present
+  // fill: transparent;
+  fill-opacity: 0.2;
+  stroke: #444;
+  opacity: 1;
+  stroke-width: 1.2;
+}
+
+.planned-hex {
+  fill-opacity: 0.4;
+  stroke: #111;
+  opacity: 1;
+  stroke-width: 2;
+}
+
+.selected-hex {
+  opacity: 1;
+  fill-opacity: 0.6;
+  stroke-width: 4;
+}
+
+.terrain-outline {
+  fill-opacity: 0.4;
+  stroke-width: 0;
+}
+
+.planned-line {
+  stroke-width: 4;
+}
+
+.planning-line {
+  stroke-width: 4;
+}
+
+.allowable-poly {
+  fill-opacity: 0.1;
+  stroke-width: 4;
+}
+
+.default-coords {
+  color: #555;
+  line-height: 12px;
+  font-size: 12px;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.num-cells {
+  color: rgb(18, 17, 89);
+  line-height: 16px;
+  font-size: 16px;
+  opacity: 0.8;
+  text-align: center;
+}

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatusBar renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="input-box item"
+  >
+    <section
+      className="input-container disable-offset underline"
+    >
+      <div
+        className="MuiFormControl-root MuiTextField-root"
+      >
+        <div
+          className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-formControl MuiInput-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiInput-input"
+            disabled={false}
+            name=""
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="text"
+            value="Task-Group"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+`;

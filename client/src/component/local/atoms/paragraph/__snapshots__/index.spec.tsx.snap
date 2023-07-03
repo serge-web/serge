@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Paragraph renders correctly 1`] = `
+<div
+  className="paragraph"
+>
+  Lorem ipsum
+Do lor sit amet
+</div>
+`;

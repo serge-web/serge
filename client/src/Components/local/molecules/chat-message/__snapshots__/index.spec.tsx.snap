@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChatMessage renders correctly 1`] = `
+<div
+  className="chat-message-wrapper 
+      chat-message-wrapper__other"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <span
+    className="message-bar"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "#FCFBEE",
+        "borderRadius": "8px 0 0 8px",
+        "left": "0%",
+      }
+    }
+  />
+  <div
+    className="message-text"
+  >
+    Content of message
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-1"
+  >
+    <span>
+      <span
+        className="icon-private"
+      >
+        <svg
+          className="svg-inline--fa fa-user-secret"
+        />
+      </span>
+      <span
+        className="label-private"
+      >
+        Private message:
+      </span>
+    </span>
+    <div
+      className="MuiBox-root MuiBox-root-2"
+    >
+      <div
+        className="MuiChip-root makeStyles-root-3 makeStyles-root-6 MuiChip-sizeSmall makeStyles-sizeSmall-4"
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+      >
+        <span
+          className="MuiChip-label makeStyles-label-5 makeStyles-label-7 MuiChip-labelSmall"
+        >
+          Game Control
+        </span>
+      </div>
+      <span
+        className="info-body info-body__other"
+      >
+        05:41
+      </span>
+    </div>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-8 private"
+  >
+    <div
+      className="paragraph"
+    >
+      Private weather message
+    </div>
+  </div>
+</div>
+`;

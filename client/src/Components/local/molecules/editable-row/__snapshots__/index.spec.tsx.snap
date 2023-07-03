@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditableRow renders correctly 1`] = `
+<tr>
+  <td
+    className="td"
+  >
+    <div
+      className="input-box cells"
+    >
+      <div
+        className="MuiFormControl-root"
+      >
+        <label
+          className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
+          data-shrink={true}
+          id="col1"
+        >
+          Column 1
+        </label>
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+          onClick={[Function]}
+        >
+          <div
+            aria-haspopup="listbox"
+            aria-labelledby="mui-component-select-col1"
+            className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+            id="mui-component-select-col1"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            Option 1
+          </div>
+          <input
+            aria-hidden={true}
+            className="MuiSelect-nativeInput"
+            name="col1"
+            onAnimationStart={[Function]}
+            onChange={[Function]}
+            required={false}
+            tabIndex={-1}
+            value="0"
+          />
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiSelect-icon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </td>
+  <td
+    className="td"
+  >
+    <div
+      className="input-box cells"
+    >
+      <div
+        className="MuiFormControl-root"
+      >
+        <label
+          className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
+          data-shrink={false}
+          id="col2"
+        >
+          Column 2
+        </label>
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
+          onClick={[Function]}
+        >
+          <div
+            aria-haspopup="listbox"
+            aria-labelledby="mui-component-select-col2"
+            className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+            id="mui-component-select-col2"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            role="button"
+            tabIndex={0}
+          >
+            <div />
+          </div>
+          <input
+            aria-hidden={true}
+            className="MuiSelect-nativeInput"
+            name="col2"
+            onAnimationStart={[Function]}
+            onChange={[Function]}
+            required={false}
+            tabIndex={-1}
+            value=""
+          />
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root MuiSelect-icon"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M7 10l5 5 5-5z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </td>
+  <td
+    align="right"
+    className="td"
+  >
+    <span
+      aria-disabled={false}
+      aria-label="upload picture"
+      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiIconButton-label"
+      >
+        <svg
+          className="svg-inline--fa fa-rotate-left"
+        />
+      </span>
+    </span>
+    <span
+      aria-disabled={false}
+      aria-label="upload picture"
+      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeSmall"
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      <span
+        className="MuiIconButton-label"
+      >
+        <svg
+          className="svg-inline--fa fa-check"
+        />
+      </span>
+    </span>
+  </td>
+</tr>
+`;

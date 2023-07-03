@@ -1,0 +1,18 @@
+@import "../../../../../themes/dependencies/variables";
+
+.searchlist {
+  @include typo-primary;
+  height: 100%;
+  margin-top: 1.2em;
+
+  &-list {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    height: calc(100vh / 1.6);
+    min-height: 400px;
+    max-height: calc(59vh - 153px);
+    overflow-y: auto;
+    box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+  }
+}

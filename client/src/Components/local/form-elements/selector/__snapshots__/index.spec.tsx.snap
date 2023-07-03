@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Selector renders correctly 1`] = `
+<section
+  className="input-container"
+>
+  <div
+    className="MuiBox-root MuiBox-root-1 input-label"
+  >
+    test
+  </div>
+  <div
+    className="MuiInputBase-root MuiInput-root MuiInput-underline"
+    onClick={[Function]}
+  >
+    <div
+      aria-haspopup="listbox"
+      aria-labelledby="test test"
+      className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+      id="test"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onMouseDown={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      item2
+    </div>
+    <input
+      aria-hidden={true}
+      className="MuiSelect-nativeInput"
+      onAnimationStart={[Function]}
+      onChange={[Function]}
+      tabIndex={-1}
+      value="item2"
+    />
+    <svg
+      aria-hidden={true}
+      className="MuiSvgIcon-root MuiSelect-icon"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M7 10l5 5 5-5z"
+      />
+    </svg>
+  </div>
+</section>
+`;

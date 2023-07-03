@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInput renders correctly 1`] = `
+<section
+  className="input-container disable-offset"
+>
+  <div
+    className="MuiBox-root MuiBox-root-8 input-label"
+  >
+    Turns
+  </div>
+  <div
+    className="MuiFormControl-root MuiTextField-root"
+  >
+    <div
+      className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-formControl MuiInput-formControl"
+      onClick={[Function]}
+    >
+      <input
+        aria-invalid={false}
+        autoFocus={false}
+        className="MuiInputBase-input MuiInput-input"
+        disabled={false}
+        name="turns"
+        onAnimationStart={[Function]}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        required={false}
+        type="text"
+        value={5}
+      />
+    </div>
+  </div>
+</section>
+`;

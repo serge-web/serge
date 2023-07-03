@@ -1,0 +1,25 @@
+.main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 100%;
+  width: 100%;
+}
+.left {
+  width: 25%;
+  min-width: 333px;
+  height: 100%;
+  overflow-y: auto;
+  border-right: 2px solid #bebebe;
+  padding: 20px;
+
+  :global(.searchlist-list) {
+    max-height: none;
+  }
+}
+.right {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px;
+}

@@ -1,0 +1,62 @@
+{
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "title": "Title"
+    },
+    "Location": {
+      "type": "object",
+      "properties": {
+        "Lat": {
+          "type": "number"
+        },
+        "Lat Hemi": {
+          "type": "string",
+          "enum": [
+            "N",
+            "S"
+          ]
+        },
+        "Long": {
+          "type": "number"
+        },
+        "Long Hemi": {
+          "type": "string",
+          "enum": [
+            "E",
+            "W"
+          ]
+        }
+      },
+      "format": "grid"
+    },
+    "Valid from": {
+      "type": "string",
+      "format": "datetime-local",
+      "options": {
+        "flatpickr": {
+          "wrap": true,
+          "time_24hr": true,
+          "allowInput": true
+        }
+      }
+    },
+    "Valid until": {
+      "type": "string",
+      "format": "datetime-local",
+      "options": {
+        "flatpickr": {
+          "wrap": true,
+          "time_24hr": true,
+          "allowInput": true
+        }
+      }
+    },
+    "Forecast": {
+      "type": "string",
+      "format": "textarea"
+    }
+  },
+  "title": "Weather Forecast"
+}

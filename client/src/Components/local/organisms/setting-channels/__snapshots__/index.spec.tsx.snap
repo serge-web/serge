@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingChannels component: renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="left"
+  >
+    <div
+      className="actions"
+    >
+      <div
+        aria-label="split button"
+        className="MuiButtonGroup-root MuiButtonGroup-contained"
+        role="group"
+      >
+        <button
+          className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedSecondary MuiButton-containedSecondary"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            ADD CHANNEL
+          </span>
+        </button>
+        <button
+          aria-haspopup="menu"
+          aria-label="select merge strategy"
+          className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButtonGroup-grouped MuiButtonGroup-groupedHorizontal MuiButtonGroup-groupedContained MuiButtonGroup-groupedContainedHorizontal MuiButtonGroup-groupedContainedSecondary MuiButton-containedSecondary MuiButton-containedSizeSmall MuiButton-sizeSmall"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={0}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            <svg
+              aria-hidden={true}
+              className="MuiSvgIcon-root"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M7 10l5 5 5-5z"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      className="main"
+    >
+      <div
+        className="searchlist"
+      >
+        <section
+          className="input-container disable-offset fullwidth"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          >
+            <div
+              className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              onClick={[Function]}
+            >
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiInput-input"
+                disabled={false}
+                name=""
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Search"
+                required={false}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </section>
+        <div
+          className="searchlist-list searchlist-list"
+        >
+          <span
+            className="searchlist-row active"
+            onClick={[Function]}
+          >
+            <span>
+              Channel 16
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+            onClick={[Function]}
+          >
+            <span>
+              Blue Net
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+          <span
+            className="searchlist-row "
+            onClick={[Function]}
+          >
+            <span>
+              Mapping
+            </span>
+            <div
+              className="searchlist-menu"
+            />
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="right"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col"
+      />
+      <div
+        className="actions"
+      >
+        <button
+          className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary Mui-disabled Mui-disabled"
+          data-qa-type="save"
+          disabled={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={-1}
+          type="button"
+        >
+          <span
+            className="MuiButton-label"
+          >
+            Save Channel
+          </span>
+        </button>
+      </div>
+    </div>
+    <div>
+      Channels empty. Please create a channel.
+    </div>
+  </div>
+</div>
+`;

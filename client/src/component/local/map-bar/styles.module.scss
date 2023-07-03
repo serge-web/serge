@@ -1,0 +1,108 @@
+.map-bar {
+  position: absolute;
+  left: -400px;
+  top: 0;
+  width: 400px;
+  height: 100%;
+  transition: left 0.5s ease-in-out;
+}
+
+.inner {
+  z-index: 1020;
+  position: relative;
+  overflow-y: auto;
+  max-height: calc(100% - 350px);
+  border-top: 1px solid #54667c;
+  border-left: 1px solid #54667c;
+  border-right: 2px solid #54667c;
+  border-bottom: 2px solid #54667c;
+  box-sizing: border-box;
+  // this block was used to size the world-state panel, but it also caught
+  // the first section within the perception panel, so it has been
+  // commented out:
+  // section:first-of-type {
+  //   height: 400px;
+  // }
+}
+
+.form-inner {
+  width: 100%;
+  z-index: 1020;
+  position: absolute;
+  box-sizing: border-box;
+  bottom: 0;
+  left: 0;
+  max-height: 545px;
+  overflow-y: auto;
+  border-top: 2px solid #3dd0ff;
+  border-left: 1px solid #3dd0ff;
+  border-right: 2px solid #3dd0ff;
+  border-bottom: 1px solid #3dd0ff;
+}
+
+.open {
+  left: 0;
+  .toggle {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.toggle {
+  z-index: 1010;
+  cursor: pointer;
+  color: #fff;
+  width: 21px;
+  height: 80px;
+  position: absolute;
+  right: -20px;
+  border-radius: 0 8px 8px 0;
+
+  svg {
+    display: none;
+    margin-top: 0;
+    height: 20px;
+    width: 30px;
+    margin-left: -5px;
+    transition: transform 0.5s ease-in-out;
+  }
+}
+
+.toggle-active .rotated {
+  margin-top: 0;
+}
+
+.rotated {
+  margin-top: 20px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 12px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.control {
+  top: 0;
+  background-color: #54667c;
+}
+.visibility {
+  top: 80px;
+  background-color: #1a394d;
+}
+.markers {
+  top: 160px;
+  background-color: #54667c;
+}
+.controlled {
+  top: 240px;
+  background-color: #1a394d;
+  color: #fff;
+}
+
+.toggle-active {
+  z-index: 1030;
+  margin-left: -1px;
+  svg {
+    display: block;
+  }
+}

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image Dropzone component: renders correctly 1`] = `
+<div
+  className="image-dropzone"
+>
+  <h2>
+    Add an icon
+  </h2>
+  <div
+    className="dropzone-content"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragEnter={[Function]}
+    onDragLeave={[Function]}
+    onDragOver={[Function]}
+    onDrop={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    tabIndex={0}
+  >
+    <input
+      accept="image/png, image/svg+xml"
+      autoComplete="off"
+      multiple={false}
+      onChange={[Function]}
+      onClick={[Function]}
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+      tabIndex={-1}
+      type="file"
+    />
+    <svg
+      className="svg-inline--fa fa-file-arrow-up"
+    />
+    <p>
+      Drag and drop a png/svg icon, or click to select. 
+      20
+      kb limit.
+    </p>
+  </div>
+</div>
+`;

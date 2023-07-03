@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`icon-uploader renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="icon"
+    onClick={[Function]}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+      }
+    }
+  />
+  <div
+    onClick={[Function]}
+  >
+    Text
+  </div>
+</div>
+`;

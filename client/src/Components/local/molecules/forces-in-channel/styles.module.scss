@@ -1,0 +1,43 @@
+@import "../../../../../themes/dependencies/variables";
+
+.forces-in-channel {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+
+  button {
+    font-size: 12px;
+    margin-left: auto;
+    span {
+      color: #6d8faf;
+    }
+  }
+}
+
+.force-indicator {
+  height: 24px;
+  width: 24px;
+
+  + .force-indicator {
+    margin-left: 10px;
+  }
+}
+
+.role-icon {
+  border: 1px solid $force-default-color;
+  border-radius: 100%;
+  height: 24px;
+  width: 24px;
+}
+
+.mark-all-read {
+  min-width: unset !important;
+  padding: 0 !important;
+
+  svg {
+    width: 20px !important;
+    height: 20px;
+    color: #fff;
+    box-shadow: 0 0 5px #fff;
+  }
+}

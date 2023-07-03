@@ -1,0 +1,47 @@
+.card.card-body {
+  .message-creator &,
+  #preview-editor & {
+    & > div > div {
+      .row + .row {
+        margin-top: 16px;
+      }
+    }
+  }
+}
+
+.table-bordered {
+  .message-creator &,
+  #preview-editor & {
+    margin-bottom: 16px;
+
+    thead {
+      td,
+      th {
+        border-bottom-width: 1px;
+        background: #dee2e6;
+        font-size: 12px;
+        vertical-align: middle;
+      }
+    }
+
+    tbody {
+      td {
+        vertical-align: top;
+        padding: 4px;
+      }
+    }
+  }
+}
+
+.btn-group {
+  .message-creator &,
+  #preview-editor & {
+    & > .btn {
+      border-radius: 0!important;
+
+      + .btn {
+        margin-left: 1px;
+      }
+    }
+  }
+}

@@ -1,0 +1,601 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataTable component: renders correctly 1`] = `
+<div
+  className="MuiTableContainer-root"
+>
+  <table
+    className="MuiTable-root makeStyles-table-1"
+    role={null}
+  >
+    <thead
+      className="MuiTableHead-root makeStyles-tableHead-2"
+      role={null}
+    >
+      <tr
+        className="MuiTableRow-root MuiTableRow-head"
+        role={null}
+      >
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-head"
+          scope="col"
+        >
+          <span
+            className="makeStyles-headerSort-11"
+          >
+            ID
+          </span>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-head"
+          scope="col"
+        >
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-7 MuiButton-textSizeSmall MuiButton-sizeSmall"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Channel
+              <span
+                className="MuiButton-endIcon MuiButton-iconSizeSmall"
+              >
+                <svg
+                  fill="none"
+                  height="30"
+                  viewBox="0 0 28 30"
+                  width="28"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M26.2096 0H1.29056C0.145551 0 -0.432218 1.51559 0.379086 2.40064L10.3125 13.2387V25.3125C10.3125 25.7713 10.5177 26.2014 10.8623 26.4646L15.1592 29.7446C16.0069 30.392 17.1875 29.7359 17.1875 28.5926V13.2387L27.1212 2.40064C27.9308 1.51734 27.357 0 26.2096 0Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </span>
+          </button>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-head"
+          scope="col"
+        >
+          <span>
+            From
+          </span>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-head"
+          scope="col"
+        >
+          <span
+            className="makeStyles-headerSort-11"
+          >
+            Title
+          </span>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-head"
+          scope="col"
+        >
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-7 MuiButton-textSizeSmall MuiButton-sizeSmall"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Status
+              <span
+                className="MuiButton-endIcon MuiButton-iconSizeSmall"
+              >
+                <svg
+                  fill="none"
+                  height="30"
+                  viewBox="0 0 28 30"
+                  width="28"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M26.2096 0H1.29056C0.145551 0 -0.432218 1.51559 0.379086 2.40064L10.3125 13.2387V25.3125C10.3125 25.7713 10.5177 26.2014 10.8623 26.4646L15.1592 29.7446C16.0069 30.392 17.1875 29.7359 17.1875 28.5926V13.2387L27.1212 2.40064C27.9308 1.51734 27.357 0 26.2096 0Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </span>
+          </button>
+        </th>
+        <th
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-head"
+          scope="col"
+        >
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-text makeStyles-button-7 MuiButton-textSizeSmall MuiButton-sizeSmall"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Owner
+              <span
+                className="MuiButton-endIcon MuiButton-iconSizeSmall"
+              >
+                <svg
+                  fill="none"
+                  height="30"
+                  viewBox="0 0 28 30"
+                  width="28"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M26.2096 0H1.29056C0.145551 0 -0.432218 1.51559 0.379086 2.40064L10.3125 13.2387V25.3125C10.3125 25.7713 10.5177 26.2014 10.8623 26.4646L15.1592 29.7446C16.0069 30.392 17.1875 29.7359 17.1875 28.5926V13.2387L27.1212 2.40064C27.9308 1.51734 27.357 0 26.2096 0Z"
+                    fill="white"
+                  />
+                </svg>
+              </span>
+            </span>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      className="MuiTableBody-root makeStyles-tableBody-3"
+      role={null}
+    >
+      <tr
+        className="MuiTableRow-root makeStyles-tableRow-4 makeStyles-tableRowCollapsibleTrigger-6"
+        onClick={[Function]}
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
+          id_1
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          channel-BlueRFI
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-15"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-16"
+            >
+              CO
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-17"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-18"
+            >
+              RFI 1 from Blue
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-19"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-20"
+            >
+              Released
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRowCollapsible-5"
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+          colSpan={6}
+        >
+          <div
+            className="MuiCollapse-root MuiCollapse-hidden"
+            style={
+              Object {
+                "minHeight": "0px",
+              }
+            }
+          >
+            <div
+              className="MuiCollapse-wrapper"
+            >
+              <div
+                className="MuiCollapse-wrapperInner"
+              />
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRow-4 makeStyles-tableRowCollapsibleTrigger-6"
+        onClick={[Function]}
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
+          id_2a
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          channel-BlueRFI
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-21"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-22"
+            >
+              CO
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-23"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-24"
+            >
+              RFI 2 from Blue
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-25"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-26"
+            >
+              In progress
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRowCollapsible-5"
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+          colSpan={6}
+        >
+          <div
+            className="MuiCollapse-root MuiCollapse-hidden"
+            style={
+              Object {
+                "minHeight": "0px",
+              }
+            }
+          >
+            <div
+              className="MuiCollapse-wrapper"
+            >
+              <div
+                className="MuiCollapse-wrapperInner"
+              />
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRow-4 makeStyles-tableRowCollapsibleTrigger-6"
+        onClick={[Function]}
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
+          id_3b
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          channel-BlueRFI
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-27"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-28"
+            >
+              CO
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-29"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-30"
+            >
+              RFI 3 from Blue
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-31"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-32"
+            >
+              Pending review
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRowCollapsible-5"
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+          colSpan={6}
+        >
+          <div
+            className="MuiCollapse-root MuiCollapse-hidden"
+            style={
+              Object {
+                "minHeight": "0px",
+              }
+            }
+          >
+            <div
+              className="MuiCollapse-wrapper"
+            >
+              <div
+                className="MuiCollapse-wrapperInner"
+              />
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRow-4 makeStyles-tableRowCollapsibleTrigger-6"
+        onClick={[Function]}
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <svg
+            className="svg-inline--fa fa-plus"
+          />
+           
+          id_4c
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          Red RFI
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-33"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-34"
+            >
+              CO
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        />
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-35"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-36"
+            >
+              RFI 1 from RED
+            </span>
+          </div>
+        </td>
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+        >
+          <div
+            className="MuiChip-root makeStyles-root-12 makeStyles-root-37"
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+          >
+            <span
+              className="MuiChip-label makeStyles-label-14 makeStyles-label-38"
+            >
+              Released
+            </span>
+          </div>
+        </td>
+      </tr>
+      <tr
+        className="MuiTableRow-root makeStyles-tableRowCollapsible-5"
+        role={null}
+      >
+        <td
+          aria-sort={null}
+          className="MuiTableCell-root MuiTableCell-body"
+          colSpan={6}
+        >
+          <div
+            className="MuiCollapse-root MuiCollapse-hidden"
+            style={
+              Object {
+                "minHeight": "0px",
+              }
+            }
+          >
+            <div
+              className="MuiCollapse-wrapper"
+            >
+              <div
+                className="MuiCollapse-wrapperInner"
+              />
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

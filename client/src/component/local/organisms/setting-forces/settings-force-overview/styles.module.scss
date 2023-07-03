@@ -1,0 +1,45 @@
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+}
+
+.col {
+  flex: 1;
+}
+
+.umprire {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-top: -40px;
+}
+
+.section {
+  padding: 12px 0;
+}
+
+.textarea {
+  resize: none;
+  margin-top: 6px;
+  padding: 8px 12px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  margin-bottom: -15px;
+}
+
+// Accordion styles
+.accordion {
+  margin-bottom: 20px;
+}
+.accordion-header {
+  background-color: #8595a5 !important;
+}
+.accordion-title {
+  color: #fff;
+}
+.arrow-icon {
+  color: #fff;
+}

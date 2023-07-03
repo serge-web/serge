@@ -1,0 +1,35 @@
+.export-container {
+  padding: 15vh 12vw;
+
+  h2 {
+    padding-bottom: 1rem;
+  }
+
+  h5 {
+    padding-top: 0.4rem;
+  }
+
+  ul {
+    display: block;
+    padding-top: 1rem;
+
+    li {
+      padding: 0.2rem;
+    }
+  }
+
+  p {
+    margin: 0;
+
+    span {
+      border: 1px solid #555;
+      border-radius: 2px;
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+      margin-right: 5px;
+      padding: 0.2rem;
+    }
+  }
+}

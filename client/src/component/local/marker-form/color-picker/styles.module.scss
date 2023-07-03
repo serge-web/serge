@@ -1,0 +1,66 @@
+.color-picker {
+  width: 250px;
+  word-break: break-all;
+}
+
+.picker-header {
+  background-color: #1c4587;
+  text-align: center;
+
+  span {
+    font-size: 16px;
+    color: #fff;
+  }
+
+  div {
+    &:nth-child(2) {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
+}
+
+.c-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 25%;
+}
+
+.c-preset {
+  display: flex;
+  justify-content: center;
+  min-width: 20%;
+  margin-bottom: 10px;
+}
+
+.c-color {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(94, 94, 94);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.c-label {
+  font-weight: 550;
+}
+
+.c-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.groups {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.content {
+  padding-bottom: 0 !important;
+}

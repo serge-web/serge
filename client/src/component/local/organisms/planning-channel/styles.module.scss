@@ -1,0 +1,39 @@
+@import "../../../../../themes/dependencies/variables";
+
+.root {
+  height: 100%;
+}
+
+.map-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.map {
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
+
+.polygon-name {
+  background: transparent;
+  color: #000;
+  border: 0;
+  z-index: 1000 !important;
+}
+
+.area-name {
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 1;
+  text-align: center;
+  color: #222;
+  border: 0;
+  z-index: 1000 !important;
+}
+
+.marker-icon {
+  background-color: transparent;
+}

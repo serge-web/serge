@@ -1,0 +1,27 @@
+@import "../../../../../themes/dependencies/variables";
+
+.image-dropzone {
+  @include typo-primary;
+
+  h2 {
+    margin-top: 0;
+    font-weight: inherit;
+  }
+}
+
+.dropzone-content {
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 18px;
+  line-height: 1.35em;
+  font-weight: 400;
+
+  p {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+  }
+}

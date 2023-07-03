@@ -1,0 +1,178 @@
+.row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+}
+
+.col {
+  flex: 1;
+  max-width: 100%;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section {
+  margin-top: 20px;
+  padding: 0;
+}
+
+.table {
+  th {
+    font-weight: bold;
+  }
+
+  tfoot tr {
+    border-top: 1px solid #e0e0e0;
+  }
+}
+
+.actions {
+  position: relative;
+  z-index: 2;
+}
+
+.control-groups {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.mapping-item-constraints {
+  min-width: 300px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+
+  div {
+    margin: 5px;
+    padding: 0;
+    font-size: 16px;
+  }
+}
+
+.input {
+  background-color: #fff;
+  border-radius: 5px;
+  width: 90%;
+
+  div {
+    padding: 0 5px;
+    color: #000;
+  }
+}
+
+.channel-name {
+  input {
+    border-bottom: 1px solid;
+  }
+}
+
+.constraints-icon {
+  width: 60px;
+  text-align: center;
+}
+
+.constraints-cell {
+  text-align: center !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+
+.cell-lbl {
+  min-width: 120px;
+}
+
+.message-group {
+  display: flex;
+  max-width: 30%;
+  min-width: 30%;
+}
+
+.message-title {
+  max-width: 40%;
+  min-width: 40%;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.message-content {
+  max-width: 60%;
+  min-width: 60%;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.title {
+  font-weight: 800;
+}
+
+.pager {
+  padding: 20px;
+}
+
+.status-item {
+  margin-bottom: -10px;
+}
+
+.accordion {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.accordion-header {
+  background-color: #8595a5 !important;
+}
+
+.accordion-title-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-right: 20px;
+}
+
+.accordion-title {
+  color: #fff;
+}
+
+.accordion-sub-title {
+  color: #fff;
+  font-size: small;
+}
+
+.arrow-icon {
+  color: #fff;
+}
+
+.accordion-details {
+  padding: 10px;
+}
+
+.col-2 {
+  width: 60%;
+}
+
+.chat-configuration {
+  margin-bottom: 10px;
+}
+
+.configuration {
+  padding-left: 20px;
+  margin-bottom: 0 !important;
+  margin-right: 0 !important;
+}
+
+.paper-container {
+  padding-top: 12px;
+}

@@ -1,0 +1,124 @@
+@import "dependencies/variables";
+
+.wargame-title {
+  align-items: center;
+  flex-direction: row !important;
+  flex-grow: 0;
+  justify-content: space-between !important;
+  padding: $umpire-menu-margin $umpire-menu-margin 0 $umpire-menu-margin;
+
+  h3 {
+    @include typo-primary;
+    color: $admin-color;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: unset;
+    margin-right: 5px;
+    text-transform: uppercase;
+    width: fit-content;
+  }
+
+  div {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+  }
+
+  span {
+    color: $primary-triad-color;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+}
+
+.wargame-title-icon {
+  background-image: url("dependencies/images/chat-blue@2x.png");
+  background-position: center;
+  background-size: 20px 20px;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+}
+
+.turn-info-phase {
+  @include typo-primary;
+
+  &.adjudication-phase {
+    background: $grey;
+  }
+
+  h5 {
+    color: $action-secondary-color;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  time {
+    display: inline-block;
+    font-family: "Open Sans", "sans-serif";
+    font-size: 12px;
+    font-weight: 600;
+    padding-top: 8px;
+  }
+}
+
+.turn-info-remaining {
+  .time-left {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .info-helper {
+    color: rgba(255, 255, 255, 0.4);
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .info-phase-label {
+    display: block;
+    font-size: 14px;
+  }
+}
+
+.turn-progression-ui {
+  background: $background-progression;
+  border-radius: 4px;
+  color: #fff;
+  flex-grow: 0;
+  justify-content: space-between;
+  margin: $umpire-menu-margin;
+  margin-top: 0;
+  padding: $umpire-menu-margin;
+
+  &.adjunction-phase {
+    background: $grey;
+  }
+
+  .ended {
+    &::before {
+      content: "-";
+    }
+  }
+
+  .warning {
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    49% {
+      color: $light-blue;
+    }
+    50% {
+      color: $primary-triad-color;
+    }
+    99% {
+      color: $primary-triad-color;
+    }
+    100% {
+      color: $light-blue;
+    }
+  }
+}

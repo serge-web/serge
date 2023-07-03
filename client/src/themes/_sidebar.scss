@@ -1,0 +1,42 @@
+@import "dependencies/variables";
+
+#sidebar {
+  background-color: $primary-color;
+  height: 100vh;
+  left: 0;
+  padding-top: 6vh;
+  position: fixed;
+  top: 0;
+  width: 6vw;
+}
+
+#sidebar_admin {
+  background-color: $primary-color;
+  height: 100vh;
+  left: 0;
+  padding-top: 6vh;
+  position: fixed;
+  top: 0;
+  width: 20vw;
+
+  a,
+  span {
+    margin-bottom: 1.15em;
+  }
+
+  .link {
+    display: block;
+    line-height: 1.5;
+    margin-bottom: 1.15em;
+    width: 100%;
+
+    &:hover,
+    &--active {
+      background-color: $link-color;
+    }
+
+    &--active {
+      font-weight: 600;
+    }
+  }
+}

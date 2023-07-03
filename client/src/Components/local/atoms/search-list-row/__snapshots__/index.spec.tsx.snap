@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchListRow component: renders correctly 1`] = `
+<span
+  className="searchlist-row "
+  onClick={[Function]}
+>
+  <span>
+    List item title
+  </span>
+  <div
+    className="searchlist-menu"
+  />
+</span>
+`;

@@ -1,0 +1,34 @@
+.main {
+  margin-bottom: 0.625rem;
+  display: flex;
+  align-items: center;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  justify-content: space-between;
+}
+
+.title {
+  div {
+    color: #fff;
+  }
+}
+
+.main h2 {
+  font-size: 1.125rem;
+  margin: 0;
+  flex: 1;
+  display: block;
+}
+
+.icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  position: relative;
+  padding-right: 5px;
+}
+
+.icon div {
+  width: 2.25rem;
+  height: 100%;
+  box-sizing: border-box;
+  box-shadow: none;
+}

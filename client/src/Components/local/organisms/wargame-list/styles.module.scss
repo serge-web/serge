@@ -1,0 +1,58 @@
+@import "../../../../../themes/dependencies/variables";
+
+.wargame-searchlist {
+  height: 100%;
+  margin-top: 1.2em;
+}
+
+.contain-option-menu {
+  position: absolute;
+  top: 1.5em;
+  z-index: 3;
+}
+
+.wargame-option-menu-bg {
+  display: flex;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.wargame-option-menu-btn {
+  cursor: pointer;
+  margin: 0 8px 0 auto;
+  opacity: 0;
+  position: relative;
+  z-index: -1;
+}
+
+.searchlist-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+  height: 100%;
+  max-height: calc(59vh - 153px);
+  overflow-y: auto;
+  padding-bottom: 100px;
+}
+
+.searchlist-title {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 0 !important;
+  padding: 1em 0;
+  position: relative;
+  width: 100%;
+
+  &:hover {
+    .wargame-option-menu-btn {
+      opacity: 1;
+      z-index: 1;
+      margin-left: 1em;
+    }
+  }
+}

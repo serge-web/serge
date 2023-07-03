@@ -1,0 +1,1086 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CoaStatusBoard renders correctly 1`] = `
+Array [
+  <div
+    className="actions"
+  >
+    <div
+      className="filter-section"
+    >
+      <button
+        aria-describedby={null}
+        className="MuiButtonBase-root MuiButton-root MuiButton-text"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        title="Filter Data"
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          <svg
+            className="svg-inline--fa fa-filter"
+          />
+        </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
+      </button>
+      <div
+        className="MuiFormControl-root MuiTextField-root"
+      >
+        <div
+          className="MuiInputBase-root MuiInput-root MuiInputBase-formControl MuiInput-formControl"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiInputBase-input MuiInput-input"
+            disabled={false}
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Filter data"
+            required={false}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="archive-section"
+    >
+      <button
+        aria-describedby={null}
+        className="MuiButtonBase-root MuiButton-root MuiButton-text"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        title="Show Archive"
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          <svg
+            className="svg-inline--fa fa-box-archive"
+          />
+        </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+    <div
+      className="mark-all-as-read-section"
+    >
+      <button
+        aria-describedby={null}
+        className="MuiButtonBase-root MuiButton-root MuiButton-text"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        title="Mark All as Read"
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          <svg
+            className="svg-inline--fa fa-envelope"
+          />
+        </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </div>,
+  <div
+    className="sc-ckVGcZ boOxDU"
+  >
+    <div
+      className="sc-eNQAEJ kUevjB"
+    >
+      <div
+        className="sc-bdVaJa QqzfF rdt_Table"
+        disabled={false}
+        role="table"
+      >
+        <div
+          className="sc-bwzfXH gZOhQP rdt_TableHead"
+          role="rowgroup"
+        >
+          <div
+            className="sc-htpNat evnGOm rdt_TableHeadRow"
+            role="row"
+          >
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={1}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={1}
+                data-sort-id={1}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={1}
+                >
+                  ID
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={2}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={2}
+                data-sort-id={2}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={2}
+                >
+                  From
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={3}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={3}
+                data-sort-id={3}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={3}
+                >
+                  Title
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU bXBEFh rdt_TableCol"
+              data-column-id={4}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={4}
+                data-sort-id={4}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={4}
+                >
+                  Status
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={5}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={5}
+                data-sort-id={5}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={5}
+                >
+                  Updated
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              data-column-id={6}
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+            >
+              <div
+                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                data-column-id={6}
+                data-sort-id={6}
+                disabled={false}
+                onClick={[Function]}
+                onKeyPress={[Function]}
+                role="columnheader"
+                tabIndex={0}
+              >
+                <div
+                  className="sc-jTzLTM dnsAhI"
+                  data-column-id={6}
+                >
+                  Owner
+                </div>
+                <span
+                  className="sc-gZMcBi kfheHq"
+                >
+                  ▲
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="sc-dxgOiQ kriIxi rdt_TableBody"
+          role="rowgroup"
+        >
+          <div
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            id="row-Blue-3"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-Blue-3"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <svg
+                  className="svg-inline--fa fa-envelope"
+                />
+                 
+                Blue-3
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-Blue-3"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-6"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-7"
+                  >
+                    CO
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-Blue-3"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                RFI 3 from Blue
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-Blue-3"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-8"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-9"
+                  >
+                    Unallocated
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-Blue-3"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                a few seconds ago
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-Blue-3"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+          </div>
+          <div
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            id="row-RED-1"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-RED-1"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <svg
+                  className="svg-inline--fa fa-envelope"
+                />
+                 
+                RED-1
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-RED-1"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-10"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-11"
+                  >
+                    CO
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-RED-1"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                RFI 1 from RED
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-RED-1"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-12"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-13"
+                  >
+                    In progress
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-RED-1"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                a few seconds ago
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-RED-1"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+          </div>
+          <div
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            id="row-2020-03-25T15:08:47.540Z"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <svg
+                  className="svg-inline--fa fa-envelope"
+                />
+                 
+                2020-03-25T15:08:47.540Z
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-14"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-15"
+                  >
+                    Game Control
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-16"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-17"
+                  >
+                    Closed
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                a few seconds ago
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-2020-03-25T15:08:47.540Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+          </div>
+          <div
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            id="row-2020-03-25T15:08:47.525Z"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <svg
+                  className="svg-inline--fa fa-envelope"
+                />
+                 
+                2020-03-25T15:08:47.525Z
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-18"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-19"
+                  >
+                    CO
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-20"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-21"
+                  >
+                    Pending review
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                a few seconds ago
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-2020-03-25T15:08:47.525Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+          </div>
+          <div
+            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            id="row-2020-03-25T15:08:47.530Z"
+            onClick={[Function]}
+            onDoubleClick={[Function]}
+            role="row"
+            selected={false}
+            style={Object {}}
+          >
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={1}
+              data-tag="allowRowEvents"
+              id="cell-1-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <svg
+                  className="svg-inline--fa fa-envelope"
+                />
+                 
+                2020-03-25T15:08:47.530Z
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={2}
+              data-tag="allowRowEvents"
+              id="cell-2-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-22"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-23"
+                  >
+                    CO
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={3}
+              data-tag="allowRowEvents"
+              id="cell-3-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              data-column-id={4}
+              data-tag="allowRowEvents"
+              id="cell-4-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                <div
+                  className="MuiChip-root makeStyles-root-3 makeStyles-root-24"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-5 makeStyles-label-25"
+                  >
+                    Released
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={5}
+              data-tag="allowRowEvents"
+              id="cell-5-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              >
+                a few seconds ago
+              </div>
+            </div>
+            <div
+              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              data-column-id={6}
+              data-tag="allowRowEvents"
+              id="cell-6-2020-03-25T15:08:47.530Z"
+              onDragEnd={[Function]}
+              onDragEnter={[Function]}
+              onDragLeave={[Function]}
+              onDragOver={[Function]}
+              onDragStart={[Function]}
+              role="gridcell"
+              style={Object {}}
+            >
+              <div
+                data-tag="allowRowEvents"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+]
+`;

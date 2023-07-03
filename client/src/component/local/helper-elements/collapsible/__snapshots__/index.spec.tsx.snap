@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Collapsible renders correctly 1`] = `
+<div
+  className="main"
+  onClick={[Function]}
+>
+  <div
+    className="main"
+  >
+    <div
+      className="control"
+      onClick={[Function]}
+    >
+      <svg
+        aria-hidden={true}
+        className="MuiSvgIcon-root"
+        focusable="false"
+        style={
+          Object {
+            "color": "#000000",
+            "fontSize": 14,
+          }
+        }
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+        />
+      </svg>
+    </div>
+    <div
+      className="content"
+      onClick={[Function]}
+    >
+      Header
+    </div>
+  </div>
+  <div
+    className="main use-indent"
+    onClick={[Function]}
+    style={Object {}}
+  >
+    Content
+  </div>
+</div>
+`;

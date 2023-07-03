@@ -1,0 +1,65 @@
+@import "dependencies/variables";
+
+#notification {
+  @include snackbar-shadow();
+  background: #333;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 16px;
+  opacity: 0;
+  padding: 10px 15px 12px;
+  position: absolute;
+  right: 2%;
+  top: 5%;
+  transform: translateY(-50%);
+  z-index: 3;
+
+  &.active {
+    animation: 2.5s down ease 1; // same timeout as client/src/Components/Snackbar.jsx
+    display: block;
+    opacity: 1;
+  }
+
+  &.warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+  }
+
+  &.error {
+    background-color: #b6261a;
+    border-color: #9b0a05;
+    color: #d9d9d9;
+  }
+
+  &.success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+  }
+
+  svg {
+    cursor: pointer;
+    margin-left: 10px;
+    padding-top: 1px;
+  }
+}
+
+@keyframes down {
+  0% {
+    opacity: 0;
+    top: -10%;
+  }
+  10% {
+    opacity: 1;
+    top: 5%;
+  }
+  90% {
+    opacity: 1;
+    top: 5%;
+  }
+  100% {
+    opacity: 0;
+  }
+}

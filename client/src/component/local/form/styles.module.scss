@@ -1,0 +1,31 @@
+.form {
+  background-color: rgba(255, 255, 255, 0.65);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.default {
+  font-weight: bold;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.planning {
+  background-color: #54667c;
+}
+.adjudication {
+  background-color: #fafad2;
+}
+.visibility {
+  background-color: #54667c;
+}
+
+.perceived-as {
+  background-color: #1a394d;
+  color: #fff;
+  bottom: 0;
+  z-index: 1010;
+}

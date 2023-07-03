@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly AssetIcon 1`] = `
+<div
+  className="asset-icon-background"
+  style={
+    Object {
+      "backgroundColor": "",
+    }
+  }
+/>
+`;

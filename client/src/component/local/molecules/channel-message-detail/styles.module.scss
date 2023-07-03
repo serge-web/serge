@@ -1,0 +1,71 @@
+@import "../../../../../themes/dependencies/variables";
+
+@mixin panel-item-wrap($radius) {
+  background-color: $background-alpha-primary;
+  border-radius: $radius;
+}
+
+.data {
+  @include typo-primary;
+  display: inline-block;
+  word-break: break-word;
+  font-size: 14px;
+  opacity: 0.8;
+
+  + .detail {
+    margin-left: 16px;
+  }
+
+  a,
+  a:visited {
+    color: $primary-triad-color;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: $action-secondary-color;
+  }
+}
+
+.detail {
+  margin-right: 4px;
+}
+
+.detail-row {
+  font-size: 14px;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+.detail-rows {
+  padding-left: 14px;
+}
+
+.wrap-private {
+  margin-top: 1rem;
+}
+
+.icon-private {
+  display: inline-block;
+  margin-right: 5px;
+  margin-top: -3px;
+  vertical-align: middle;
+}
+
+.private {
+  display: inline-block;
+  font-style: italic;
+}
+
+.wrap-detail {
+  @include panel-item-wrap(0 0 4px 0);
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s;
+  padding: 0 12px;
+
+  &.wrap-detail-opened {
+    height: auto;
+    padding: 6px 12px 12px;
+  }
+}

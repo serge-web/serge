@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RFIForm component: renders correctly 1`] = `
+<div
+  className="makeStyles-rfiForm-1"
+>
+  <div
+    className="MuiBox-root MuiBox-root-9 makeStyles-formContainer-2"
+  >
+    <div
+      className="MuiBox-root MuiBox-root-10 makeStyles-formColumn-3"
+    >
+      <div
+        className="MuiBox-root MuiBox-root-11 makeStyles-formWrapper-4"
+      >
+        <section
+          className="input-container disable-offset fullwidth makeStyles-mainInput-6 makeStyles-formInput-7"
+        >
+          <div
+            className="MuiBox-root MuiBox-root-19 input-label"
+          >
+            RFI 2 from Blue
+          </div>
+          <div
+            className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          >
+            <div
+              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-12 Mui-disabled Mui-disabled MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-14"
+              onClick={[Function]}
+            >
+              <textarea
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-13 Mui-disabled Mui-disabled MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                disabled={true}
+                name="rfi-2-from-blue"
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={false}
+                rows={2}
+                value="RFI 2 request goes in here"
+              />
+            </div>
+          </div>
+        </section>
+        <section
+          className="input-container disable-offset fullwidth makeStyles-mainInput-6 makeStyles-formInput-7"
+        >
+          <div
+            className="MuiBox-root MuiBox-root-22 input-label"
+          >
+            <div
+              className="MuiBox-root MuiBox-root-23 private-input__label"
+            >
+              <svg
+                className="svg-inline--fa fa-user-secret"
+              />
+              <span>
+                Private message
+              </span>
+            </div>
+          </div>
+          <div
+            className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          >
+            <div
+              className="MuiInputBase-root MuiFilledInput-root makeStyles-root-12 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-14"
+              onClick={[Function]}
+            >
+              <textarea
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiFilledInput-input makeStyles-input-13 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+                disabled={false}
+                name="private-message"
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={false}
+                rows={2}
+              />
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div
+      className="MuiBox-root MuiBox-root-24 makeStyles-formColumn-3"
+    >
+      <section
+        className="input-container disable-offset fullwidth makeStyles-fullHeightInput-5 makeStyles-formInput-7"
+      >
+        <div
+          className="MuiBox-root MuiBox-root-27 input-label"
+        >
+          Answer
+        </div>
+        <div
+          className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+        >
+          <div
+            className="MuiInputBase-root MuiFilledInput-root makeStyles-root-12 MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-multiline MuiFilledInput-multiline makeStyles-multiline-14"
+            onClick={[Function]}
+          >
+            <textarea
+              aria-invalid={false}
+              autoFocus={false}
+              className="MuiInputBase-input MuiFilledInput-input makeStyles-input-13 MuiInputBase-inputMultiline MuiFilledInput-inputMultiline"
+              disabled={false}
+              name="answer"
+              onAnimationStart={[Function]}
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              required={false}
+              rows={2}
+              value=""
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+`;

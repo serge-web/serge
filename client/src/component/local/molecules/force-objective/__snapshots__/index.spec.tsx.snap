@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ForceObjective renders correctly 1`] = `
+<div
+  className="force-objectives"
+  style={
+    Object {
+      "borderColor": "#3dd0ff",
+    }
+  }
+>
+  <h3>
+    Objectives
+  </h3>
+  <div
+    className="objective-text"
+  >
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est, praesentium sed! Animi atque incidunt maiores nisi vel voluptate? Adipisci architecto aspernatur earum error incidunt laborum magni neque odio repellendus, voluptate!
+  </div>
+  <div
+    className="role-info"
+  >
+    <div
+      className="role-info"
+      data-tour="role-info-step"
+      style={
+        Object {
+          "backgroundColor": "#3dd0ff",
+        }
+      }
+    >
+      <div
+        className="force-role"
+        data-tour="objectives-step"
+      >
+        <div
+          className="role-type"
+        >
+          Comms
+        </div>
+        <div
+          className="force-type"
+        >
+          Blue
+        </div>
+      </div>
+      <img
+        alt=""
+        className="role-icon"
+        data-tour="second-step"
+        onClick={[Function]}
+        src="http://localhost:8080/default_img/forceDefault.png"
+        style={
+          Object {
+            "backgroundColor": "#3dd0ff",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
