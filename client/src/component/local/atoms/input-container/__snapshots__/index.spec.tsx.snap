@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports['InputContainer renders correctly 1'] = `
-<section
-  className="input-container"
->
-  Child goes here
-</section>
-`
