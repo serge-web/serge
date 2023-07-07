@@ -1,4 +1,4 @@
-import MapAnnotation, { AnnotationIcons } from '@serge/custom-types'
+import MapAnnotation, { AnnotationIcons } from 'src/custom-types'
 import L from 'leaflet'
 
 export default interface PropTypes {

@@ -1,5 +1,5 @@
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { MessageChannel, MessageCustom } from 'src/custom-types'
 import { TurnFormats } from '@serge/config'
 
 export default interface PropTypes extends ForcesInChannelProps {

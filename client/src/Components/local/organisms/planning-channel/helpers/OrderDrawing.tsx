@@ -1,7 +1,7 @@
 import { faPlaneSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
-import { Area, AreaCategory, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { Area, AreaCategory, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from 'src/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { Geometry, Position } from 'geojson'
 import L, { LatLng, Layer, PM } from 'leaflet'

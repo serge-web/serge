@@ -1,5 +1,5 @@
 import { Terrain } from '@serge/config'
-import { LabelStore, SergeGrid3, SergeHex3 } from '@serge/custom-types'
+import { LabelStore, SergeGrid3, SergeHex3 } from 'src/custom-types'
 import * as turf from '@turf/turf'
 import { lineString } from '@turf/turf'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'

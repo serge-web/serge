@@ -25,7 +25,7 @@ import {
   Asset, ForceData, MapAnnotation,
   MapAnnotations, MappingConstraints, MappingContext, MessageCloneMarker, MessageCreateTaskGroup, MessageDeleteMarker, MessageHostPlatform, MessageLeaveTaskGroup, MessageMap, MessageUpdateMarker, NewTurnValues,
   PlanMobileAsset, PlanTurnFormValues, Route, RouteStore, RouteTurn, SelectedAsset, SergeGrid3, SergeHex3, Status, TurningDetails
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import PropTypes from './types/props'
 
 import ContextInterface from './types/context'

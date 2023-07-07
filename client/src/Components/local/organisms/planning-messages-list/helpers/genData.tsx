@@ -1,5 +1,5 @@
 import { Column } from '@material-table/core'
-import { Asset, ForceData, MessagePlanning, PlanningMessageStructureCore } from '@serge/custom-types'
+import { Asset, ForceData, MessagePlanning, PlanningMessageStructureCore } from 'src/custom-types'
 import { isEqual } from 'lodash'
 import moment from 'moment'
 import { arrToDict, collateActivities } from '../../planning-assets/helpers/collate-assets'

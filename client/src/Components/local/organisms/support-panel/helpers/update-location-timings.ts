@@ -1,4 +1,4 @@
-import { Asset, ForceData, PlannedActivityGeometry } from '@serge/custom-types'
+import { Asset, ForceData, PlannedActivityGeometry } from 'src/custom-types'
 import { findAsset, updateGeometryTimings } from '@serge/helpers'
 import { sum } from 'lodash'
 

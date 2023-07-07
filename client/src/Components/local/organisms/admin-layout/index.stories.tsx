@@ -11,7 +11,7 @@ import SettingChannels, { ChannelTypes } from '../setting-channels'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { ForceData, PlatformType, Wargame, AnnotationMarkerData } from '@serge/custom-types'
+import { ForceData, PlatformType, Wargame, AnnotationMarkerData } from 'src/custom-types'
 import { AdminContent } from '../../atoms/admin-content'
 
 const wrapper: React.FC = (storyFn: any) => <div>{storyFn()}</div>

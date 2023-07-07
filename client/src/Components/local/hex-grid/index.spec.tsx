@@ -8,12 +8,16 @@ import Mapping from '../mapping'
 const forces = deepCopy(watuWargame.data.forces.forces)
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
-jest.mock('leaflet', () => ({
-  ...jest.requireActual('leaflet'),
-  Symbol: {
-    arrowHead: jest.fn()
+jest.mock('leaflet', () => {
+  const leafletModule = jest.requireActual('leaflet')
+  const mockLeafletModule = {
+    ...leafletModule,
+    Symbol: {
+      arrowHead: jest.fn()
+    }
   }
-}))
+  return mockLeafletModule
+})
 
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()

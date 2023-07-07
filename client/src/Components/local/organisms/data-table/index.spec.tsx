@@ -2,7 +2,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import Badge from '../../atoms/badge'
-import { MessageCustom } from '@serge/custom-types/message'
+import { MessageCustom } from 'src/custom-types/message'
 import { GameMessagesMockRFI } from '@serge/mocks'
 import { mostRecentOnly } from '@serge/helpers'
 

@@ -1,4 +1,4 @@
-import { ForceData, Role } from '@serge/custom-types'
+import { ForceData, Role } from 'src/custom-types'
 import { Item } from '../../molecules/sortable-list'
 
 export default interface PropTypes {

@@ -1,6 +1,6 @@
 import { faPlaneSlash, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { PlannedActivityGeometry } from '@serge/custom-types'
+import { PlannedActivityGeometry } from 'src/custom-types'
 import { Feature } from 'geojson'
 import L, { LatLng, Layer, PM, Point } from 'leaflet'
 import 'leaflet-notifications'

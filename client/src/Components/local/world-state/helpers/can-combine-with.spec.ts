@@ -5,7 +5,7 @@ import { Phase } from '@serge/config'
 
 import canCombineWith from './can-combine-with'
 import { deepCopy, findAsset, routeCreateStore } from '@serge/helpers'
-import { ChannelMapping, ChannelTypes, ForceData, RouteStore } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, ForceData, RouteStore } from 'src/custom-types'
 
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
 const forces = deepCopy(watuWargame.data.forces.forces)

@@ -1,4 +1,4 @@
-import { PlatformType } from '@serge/custom-types'
+import { PlatformType } from 'src/custom-types'
 
 export default interface PropTypes {
   platformType?: PlatformType

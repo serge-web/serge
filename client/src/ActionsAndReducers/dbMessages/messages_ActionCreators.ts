@@ -6,7 +6,8 @@ import check from 'check-types'
 import * as messagesApi from '../../api/messages_api'
 
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { MessageFeedback, MessagesActionTypes, MessagesDispatch, RequestForInformation } from '@serge/custom-types'
+// import { MessageFeedback, MessagesActionTypes, MessagesDispatch, RequestForInformation } from 'src/custom-types'
+import { MessageFeedback, MessagesActionTypes, MessagesDispatch, RequestForInformation } from 'src/custom-types'
 
 const DBMessageSaveStatus = (status: string): MessagesActionTypes => ({
   type: ActionConstant.DB_MESSAGE_STATUS,

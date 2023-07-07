@@ -14,12 +14,16 @@ const platformStyles = (P9BMock.data.platformTypes && platformIcons(P9BMock.data
 const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
 const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes : []
 
-jest.mock('leaflet', () => ({
-  ...jest.requireActual('leaflet'),
-  Symbol: {
-    arrowHead: jest.fn()
+jest.mock('leaflet', () => {
+  const leaflet = jest.requireActual('leaflet')
+  return {
+    ...leaflet,
+    Symbol: {
+      ...leaflet.Symbol,
+      arrowHead: jest.fn()
+    }
   }
-}))
+})
 
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()

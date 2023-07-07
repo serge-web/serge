@@ -1,7 +1,7 @@
 import { CellLabelStyle, CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from '@serge/config'
-import { ChannelCollab, ChannelTypes, ForceData, MappingConstraints } from '@serge/custom-types'
-import { ChannelChat, ChannelCustom, ChannelMapping } from '@serge/custom-types/channel-data'
-import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
+import { ChannelCollab, ChannelTypes, ForceData, MappingConstraints } from 'src/custom-types'
+import { ChannelChat, ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
+import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from 'src/custom-types/participant'
 import uniqid from 'uniqid'
 
 // Create uniq chanel name

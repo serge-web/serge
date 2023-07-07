@@ -1,5 +1,5 @@
 
-import { MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from 'src/custom-types'
 import { ForceStyle } from '@serge/helpers'
 import { Feature } from 'geojson'
 import { Layer } from 'leaflet'

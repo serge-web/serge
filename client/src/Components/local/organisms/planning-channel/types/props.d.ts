@@ -2,7 +2,7 @@ import { Phase } from '@serge/config'
 import {
   AreaCategory, AttributeTypes, ChannelPlanning, ChatMessage, ForceData, ForceTemplateData, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped,
   MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody, TurnPeriods
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import React, { Dispatch } from 'react'
 
 /** fire an adjudication message */

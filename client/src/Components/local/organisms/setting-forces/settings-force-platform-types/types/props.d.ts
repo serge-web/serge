@@ -1,4 +1,4 @@
-import { ForceData, Route, PlatformTypeData, Asset } from '@serge/custom-types'
+import { ForceData, Route, PlatformTypeData, Asset } from 'src/custom-types'
 
 export default interface PropTypes {
   selectedForce: ForceData

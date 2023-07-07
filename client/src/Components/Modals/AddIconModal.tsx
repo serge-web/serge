@@ -1,10 +1,11 @@
+import React from 'react'
 import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { ImageDropzone } from '@serge/components'
 import { saveIcon } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import '@serge/themes/App.scss'
-import { RootState } from '@serge/custom-types'
+import { RootState } from 'src/custom-types'
 
 const AddIconModal = () => {
   const dispatch = useDispatch()

@@ -1,4 +1,4 @@
-import { ForceOption, MarkerFormData, ForceData, MapAnnotation, AnnotationIcons, IconOption } from '@serge/custom-types'
+import { ForceOption, MarkerFormData, ForceData, MapAnnotation, AnnotationIcons, IconOption } from 'src/custom-types'
 import availableForces from './available-forces'
 
 /** determine which form to show on this click

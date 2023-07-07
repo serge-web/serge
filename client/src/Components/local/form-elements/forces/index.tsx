@@ -1,5 +1,5 @@
 import { Checkbox, FormControlLabel } from '@material-ui/core'
-import { ForceOption } from '@serge/custom-types'
+import { ForceOption } from 'src/custom-types'
 import cx from 'classnames'
 import { camelCase } from 'lodash'
 import React, { ChangeEvent, useEffect, useState } from 'react'

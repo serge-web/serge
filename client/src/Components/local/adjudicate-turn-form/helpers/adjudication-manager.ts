@@ -1,5 +1,5 @@
 import { PlanningCommands, PlanningStates } from '@serge/config'
-import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData, AttributeValues } from '@serge/custom-types'
+import { PlanTurnFormValues, Route, RouteStatus, RouteTurn, RouteStore, Status, State, AdjudicateTurnFormPopulate, PlatformTypeData, AttributeValues } from 'src/custom-types'
 import { deepCompare, findPlatformTypeFor } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 

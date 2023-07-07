@@ -1,5 +1,5 @@
 import React from 'react'
-import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab } from '@serge/custom-types'
+import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab } from 'src/custom-types'
 import { ForceColor } from '..'
 import CollabMessageDetail from '../../molecules/collab-message-detail'
 import { Badge } from '../../atoms/badge'

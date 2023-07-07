@@ -1,4 +1,4 @@
-import { RootState } from '@serge/custom-types'
+import { RootState } from 'src/custom-types'
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
 import thunk from 'redux-thunk'
 import { messageTypesReducer } from '../ActionsAndReducers/dbMessageTypes/messageTypes_Reducer'

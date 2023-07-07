@@ -1,4 +1,4 @@
-import { Asset, ForceData, MessagePerceptionOfContact } from '@serge/custom-types'
+import { Asset, ForceData, MessagePerceptionOfContact } from 'src/custom-types'
 import { findAsset } from '@serge/helpers'
 
 /** convert the legacy dictionary structure to an array, to allow

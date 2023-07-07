@@ -1,4 +1,4 @@
-import { MessageStructure } from '@serge/custom-types'
+import { MessageStructure } from 'src/custom-types'
 
 export const customiseLocation = (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
   const res = { ...schema }

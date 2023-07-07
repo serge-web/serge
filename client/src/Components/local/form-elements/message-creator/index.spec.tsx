@@ -1,15 +1,19 @@
-import { ChannelUI, MessageDetails } from '@serge/custom-types'
+import { ChannelUI, MessageDetails } from 'src/custom-types'
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import MessageCreator from './index'
 
-jest.mock('leaflet', () => ({
-  ...jest.requireActual('leaflet'),
-  Symbol: {
-    arrowHead: jest.fn()
-  }
-}))
+jest.mock('leaflet', () => {
+  const leafletModule = jest.requireActual('leaflet')
+  const mockLeafletModule = {
+    ...leafletModule,
+    Symbol: {
+      arrowHead: jest.fn()
+    }
+  };
+  return mockLeafletModule
+})
 
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()

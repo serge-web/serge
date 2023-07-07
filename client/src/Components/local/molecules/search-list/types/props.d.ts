@@ -1,4 +1,4 @@
-import { Template, Channel, PlatformTypeData, MapAnnotation } from '@serge/custom-types'
+import { Template, Channel, PlatformTypeData, MapAnnotation } from 'src/custom-types'
 
 type TemplateValue = Template['value']
 

@@ -1,6 +1,6 @@
-import { OrientationMarker } from '@serge/custom-types/platform-type-data'
+import { OrientationMarker } from 'src/custom-types/platform-type-data'
 import { brgBetweenTwoHex } from '../../mapping/helpers/h3-helpers'
-import { AttributeValue, AttributeValues, EnumAttributeValue, NumberAttributeValue, RouteTurn } from '@serge/custom-types'
+import { AttributeValue, AttributeValues, EnumAttributeValue, NumberAttributeValue, RouteTurn } from 'src/custom-types'
 import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
 
 /** Determine the orientation direction for this aset

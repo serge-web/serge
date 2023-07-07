@@ -1,4 +1,4 @@
-import { CurrentModal, DBLoadingState, ExportItems, GameInfo, Messages, UmpireMenu } from '@serge/custom-types'
+import { CurrentModal, DBLoadingState, ExportItems, GameInfo, Messages, UmpireMenu } from 'src/custom-types'
 import { messagesReducer } from '../ActionsAndReducers/dbMessages/messages_Reducer'
 import { exportItems } from '../ActionsAndReducers/ExportItems/ExportItems_Reducer'
 import { loadingDbReducer } from '../ActionsAndReducers/loadingDb_Reducer'

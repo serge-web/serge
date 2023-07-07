@@ -1,5 +1,5 @@
 import * as ActionConstant from '@serge/config'
-import { PlayerLogActionType, ActivityLogsInterface } from '@serge/custom-types'
+import { PlayerLogActionType, ActivityLogsInterface } from 'src/custom-types'
 import copyState from '../../Helpers/copyStateHelper'
 
 const initialState: ActivityLogsInterface = {

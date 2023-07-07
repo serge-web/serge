@@ -1,5 +1,5 @@
 import { UNKNOWN_TYPE } from '@serge/config'
-import { Asset } from '@serge/custom-types'
+import { Asset } from 'src/custom-types'
 import { deepCopy, forceColors, platformIcons } from '@serge/helpers'
 import { P9Mock } from '@serge/mocks'
 import LRUCache from 'lru-cache'

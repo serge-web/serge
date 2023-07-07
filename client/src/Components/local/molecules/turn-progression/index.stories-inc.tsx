@@ -6,7 +6,7 @@ import { Story } from '@storybook/react/types-6-0'
 import TurnProgression from './index'
 import TurnPropTypes from './types/props'
 
-import { GameTurnLength } from '@serge/custom-types'
+import { GameTurnLength } from 'src/custom-types'
 import { incrementGameTime } from '@serge/helpers'
 import moment from 'moment-timezone'
 import docs from './README.md'

@@ -1,5 +1,5 @@
 import { UNSENT_SELECT_BY_DEFAULT_VALUE } from '@serge/config'
-import { CoreMessage, TemplateBody } from '@serge/custom-types'
+import { CoreMessage, TemplateBody } from 'src/custom-types'
 import { usePrevious } from '@serge/helpers'
 import React, { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
 import Collapsible from 'react-collapsible'

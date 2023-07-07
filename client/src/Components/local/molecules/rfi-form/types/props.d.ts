@@ -1,4 +1,4 @@
-import { MessageCustom } from '@serge/custom-types/message'
+import { MessageCustom } from 'src/custom-types/message'
 
 export type ActionPayload = {
   answer: string | null

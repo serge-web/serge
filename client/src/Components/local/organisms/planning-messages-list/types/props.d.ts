@@ -1,7 +1,7 @@
 import { Phase } from '@serge/config'
 import {
   ChannelPlanning, ForceData, ForceStyle, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlatformTypeData, Role, TemplateBody
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 

@@ -1,4 +1,4 @@
-import { Route as RouteType } from '@serge/custom-types'
+import { Route as RouteType } from 'src/custom-types'
 
 export default interface PropTypes {
   /**

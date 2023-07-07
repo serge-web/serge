@@ -20,7 +20,7 @@ import {
 
 import {
   ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, MessagePlanning, TurnPeriod, Wargame, WargameOverview, WargameRevision
-} from '@serge/custom-types'
+} from 'src/custom-types'
 
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
@@ -305,6 +305,7 @@ const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck: bool
 }
 
 const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true, db: ApiWargameDb): Promise<Wargame> => {
+  console.log('revisionCheck', revisionCheck)
   if (nextWargame.wargameInitiated) {
     // store with new id
     return createLatestWargameRevision(dbName, nextWargame)

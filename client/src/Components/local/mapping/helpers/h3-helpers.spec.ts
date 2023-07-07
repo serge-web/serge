@@ -2,7 +2,7 @@ import data from '../data/atlantic-cells-short'
 import L from 'leaflet'
 import { leafletUnion, checkIfIJWorks, createGridH3, createIndex, h3polyFromBounds, updateXy } from './h3-helpers'
 import { geoToH3, polyfill } from 'h3-js'
-import { SergeGrid3, SergeHex3 } from '@serge/custom-types'
+import { SergeGrid3, SergeHex3 } from 'src/custom-types'
 
 const smallBounds = L.latLngBounds(L.latLng(40, -40), L.latLng(65, 0))
 const largeBounds = L.latLngBounds(L.latLng(40, -90), L.latLng(65, 10))

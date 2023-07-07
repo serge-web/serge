@@ -1,4 +1,4 @@
-import { TemplateBody } from '@serge/custom-types'
+import { TemplateBody } from 'src/custom-types'
 
 export default interface PropTypes {
   updateStore: (update: TemplateBody) => void

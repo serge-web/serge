@@ -1,7 +1,7 @@
 /* global it expect */
 import { forces, platformTypes, selectedAsset } from '@serge/mocks'
 import AdjudicationManager from './/adjudication-manager'
-import { Asset, PlanTurnFormValues, Route, RouteStore } from '@serge/custom-types'
+import { Asset, PlanTurnFormValues, Route, RouteStore } from 'src/custom-types'
 import { deepCopy, findAsset, routeCreateStore, routeSetCurrent } from '@serge/helpers'
 import collateAdjudicationFormData from '../..//map-bar/helpers/collate-adjudication-form-data'
 import { Phase } from '@serge/config'

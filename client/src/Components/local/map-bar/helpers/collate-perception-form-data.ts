@@ -1,4 +1,4 @@
-import { SelectedAsset, ForceOption, PerceptionFormData, ForceData, Asset, PlatformTypeData, PerceivedTypes, PerceivedType } from '@serge/custom-types'
+import { SelectedAsset, ForceOption, PerceptionFormData, ForceData, Asset, PlatformTypeData, PerceivedTypes, PerceivedType } from 'src/custom-types'
 import availableForces from './available-forces'
 import { findPerceivedAsTypes, findAsset, findPlatformTypeFor } from '@serge/helpers'
 import { UNKNOWN_TYPE } from '@serge/config'

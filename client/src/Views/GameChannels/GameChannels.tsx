@@ -2,7 +2,7 @@ import { faAddressBook, faBookOpen, faFileExcel, faSignOutAlt } from '@fortaweso
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ForceObjective, TurnProgression } from '@serge/components'
 import { CHANGE_TAB_INTERACTION } from '@serge/config'
-import { ChangeTabInteraction } from '@serge/custom-types'
+import { ChangeTabInteraction } from 'src/custom-types'
 import classNames from 'classnames'
 import excellentExport, { SheetOptions } from 'excellentexport'
 import { TabNode } from 'flexlayout-react'
@@ -151,7 +151,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     return data
   }
 
-  const generateFile = () => {
+  const generateFile = (): any => {
     try {
       const res = handleExport(gameDate, gameTurnTime, allPlatformTypes, allForces, currentTurn, channels)
       // todo - convert the data to expected arrays
@@ -212,7 +212,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
           href={hreflink}
           className='playerlog'
           title='Export game data to Excel'
-          onClick={e => generateFile()}
+          onClick={() => generateFile()}
           id={'export_button_xlsx'}
         >
           <FontAwesomeIcon icon={faFileExcel}/></a> }

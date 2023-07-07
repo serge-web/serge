@@ -3,7 +3,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { platformType } from '@serge/mocks'
-import { PlatformType } from '@serge/custom-types'
+import { PlatformType } from 'src/custom-types'
 import SettingPlatformTypes from './index'
 
 const onChange = (platformType: PlatformType): void => {

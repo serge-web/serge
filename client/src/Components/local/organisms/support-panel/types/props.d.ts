@@ -1,8 +1,8 @@
 import {
   AttributeTypes, ChannelPlanning, ForceData, ForceTemplateData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
-} from '@serge/custom-types'
-import { MessageInteraction } from '@serge/custom-types/message'
+} from 'src/custom-types'
+import { MessageInteraction } from 'src/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
 import LRUCache from 'lru-cache'
 import React, { Dispatch } from 'react'

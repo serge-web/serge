@@ -1,5 +1,5 @@
 import { FORCE_LAYDOWN, LaydownPhases } from '@serge/config'
-import { Route, MessageForceLaydown } from '@serge/custom-types'
+import { Route, MessageForceLaydown } from 'src/custom-types'
 
 const collateForceLaydown = (routes: Array<Route>): MessageForceLaydown => {
   const moved: Array<Route> = routes.filter((route: Route) => route.laydownPhase && route.laydownPhase === LaydownPhases.Moved)

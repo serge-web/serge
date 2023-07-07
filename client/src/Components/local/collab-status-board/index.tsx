@@ -1,5 +1,5 @@
 import { CollaborativePermission } from '@serge/config'
-import { ParticipantCollab } from '@serge/custom-types'
+import { ParticipantCollab } from 'src/custom-types'
 import { setMessageState } from '@serge/helpers'
 import React, { useCallback, useMemo, useState } from 'react'
 import ReactTable from '../react-table'

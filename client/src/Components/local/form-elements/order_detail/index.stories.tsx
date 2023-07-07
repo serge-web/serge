@@ -1,4 +1,4 @@
-import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
+import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from 'src/custom-types'
 import { P9BMock, planningMessages } from '@serge/mocks'
 import _ from 'lodash'
 import React from 'react'

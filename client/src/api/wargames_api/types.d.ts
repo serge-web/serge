@@ -1,5 +1,5 @@
 import { PlayerUiDispatch } from './player-ui-actions'
-import { Message, Wargame } from '@serge/custom-types'
+import { Message, Wargame } from 'src/custom-types'
 import { DbProviderInterface } from '../db/types'
 import { Socket } from 'socket.io-client'
 

@@ -1,5 +1,5 @@
 import { DELETE_MARKER, UPDATE_MARKER, CLONE_MARKER } from '@serge/config'
-import { MapAnnotation, MarkerFormData } from '@serge/custom-types'
+import { MapAnnotation, MarkerFormData } from 'src/custom-types'
 
 export default interface PropTypes {
   /**

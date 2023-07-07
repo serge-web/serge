@@ -1,4 +1,4 @@
-import { PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from 'src/custom-types'
 import { deepCopy } from '@serge/helpers'
 import _ from 'lodash'
 

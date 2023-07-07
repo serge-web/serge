@@ -1,6 +1,6 @@
 import { Box } from '@material-ui/core'
 import { PLANNING_MESSAGE, UNSENT_CHAT_MESSAGE_TYPE } from '@serge/config'
-import { MessageDetails, MessagePlanning } from '@serge/custom-types'
+import { MessageDetails, MessagePlanning } from 'src/custom-types'
 import React, { useRef, useState } from 'react'
 import { dummyMessages } from '../../organisms/support-panel/helpers/dummy_messages'
 import ChatInputText from '../chat-input-text'

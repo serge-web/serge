@@ -1,4 +1,4 @@
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom } from 'src/custom-types'
 import filteredMessages from './filteredMessages'
 
 import { messageDataCollaborativeEditing, GameMessagesMockRFI } from '@serge/mocks'

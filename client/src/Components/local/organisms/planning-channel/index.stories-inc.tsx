@@ -1,6 +1,6 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from 'src/custom-types'
 import { deepCopy, incrementGameTime } from '@serge/helpers'
 import { P9BMock, planningMessages as mockMessages, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'

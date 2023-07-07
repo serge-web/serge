@@ -2,7 +2,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { forces as forcesMock } from '@serge/mocks'
 import SettingsForceOverview from './index'
-import { ForceData } from '@serge/custom-types'
+import { ForceData } from 'src/custom-types'
 
 const handleChange = (obj: ForceData): void => {
   console.log(obj)

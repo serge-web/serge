@@ -1,4 +1,4 @@
-import { SergeGrid3 } from '@serge/custom-types'
+import { SergeGrid3 } from 'src/custom-types'
 import * as turf from '@turf/turf'
 import L from 'leaflet'
 

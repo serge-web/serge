@@ -1,4 +1,4 @@
-import { SelectOption } from '@serge/custom-types'
+import { SelectOption } from 'src/custom-types'
 import _ from 'lodash'
 import React from 'react'
 

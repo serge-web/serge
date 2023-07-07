@@ -1,5 +1,5 @@
 import { CellLabelStyle } from '@serge/config'
-import { Route, SergeGrid3, SergeHex3, TurningDetails } from '@serge/custom-types'
+import { Route, SergeGrid3, SergeHex3, TurningDetails } from 'src/custom-types'
 import { plannedRouteFor3 } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { edgeLength, geoToH3, h3GetResolution, H3Index, h3SetToMultiPolygon, h3ToGeo, hexRing, kRing } from 'h3-js'

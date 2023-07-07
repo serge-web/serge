@@ -1,4 +1,4 @@
-import { ForceData, GroupedActivitySet, MessageStructure, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
+import { ForceData, GroupedActivitySet, MessageStructure, PerForcePlanningActivitySet, PlanningActivity } from 'src/custom-types'
 
 export const customiseActivities = (_document: MessageStructure | undefined, schema: Record<string, any>,
   activities: PerForcePlanningActivitySet[], force?: ForceData): Record<string, any> => {

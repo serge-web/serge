@@ -1,4 +1,4 @@
-import { ChannelTypes } from '@serge/custom-types'
+import { ChannelTypes } from 'src/custom-types'
 import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../../consts'
 
 export const setDefaultModel = (allChannels: ChannelTypes[]) => {

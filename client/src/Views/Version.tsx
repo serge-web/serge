@@ -1,5 +1,5 @@
 import { HeartbeatChecker } from '@serge/components'
-import { ActivityLogsInterface, Wargame } from '@serge/custom-types'
+import { ActivityLogsInterface, Wargame } from 'src/custom-types'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
 import { expiredStorage } from '@serge/config'

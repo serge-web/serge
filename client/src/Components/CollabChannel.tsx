@@ -1,8 +1,8 @@
 import { CollabStatusBoard, NewMessage } from '@serge/components'
 import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from '@serge/config'
-import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
+import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from 'src/custom-types'
 import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from '@serge/helpers'
-import { MessageSentInteraction, PlainInteraction } from '@serge/custom-types/player-log'
+import { MessageSentInteraction, PlainInteraction } from 'src/custom-types/player-log'
 import '@serge/themes/App.scss'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -60,7 +60,8 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     }
     saveNewActivityTimeMessage(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
   }
-  const collabActivityMessage = (getRoleId: string, activityType: string) => {
+  
+  const collabActivityMessage = (getRoleId: string, _activityType: string) => {
     const collab: PlainInteraction = {
       aType: PLAIN_INTERACTION
     }

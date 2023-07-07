@@ -2,7 +2,7 @@ import {
   ForceData, InteractionDetails, MessageAdjudicationOutcomes, MessageCreateTaskGroup, MessageDeletePlatform, MessageDetails,
   MessageForceLaydown, MessageHostPlatform, MessageLeaveTaskGroup, MessageMap, MessagePerceptionOfContact,
   MessageSubmitPlans, MessageVisibilityChanges, PlatformTypeData
-} from '@serge/custom-types'
+} from 'src/custom-types'
 
 import {
   ADJUDICATION_OUTCOMES, CREATE_TASK_GROUP, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, VISIBILITY_CHANGES

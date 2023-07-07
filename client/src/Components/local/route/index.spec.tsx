@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { Route as RouteType, RouteStore } from '@serge/custom-types'
+import { Route as RouteType, RouteStore } from 'src/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 import { localMappingConstraints, watuWargame } from '@serge/mocks'
 import { mount } from 'enzyme'
@@ -13,12 +13,16 @@ const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platform
 const store: RouteStore = routeCreateStore(undefined, Phase.Adjudication, forces, 'Blue', 'role-id', false, platformTypes, false, false)
 const route: RouteType = store.routes[0] as RouteType
 
-jest.mock('leaflet', () => ({
-  ...jest.requireActual('leaflet'),
-  Symbol: {
-    arrowHead: jest.fn()
+jest.mock('leaflet', () => {
+  const leaflet = jest.requireActual('leaflet')
+  return {
+    ...leaflet,
+    Symbol: {
+      ...leaflet.Symbol,
+      arrowHead: jest.fn()
+    }
   }
-}))
+})
 
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()

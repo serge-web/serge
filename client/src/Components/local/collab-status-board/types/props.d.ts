@@ -4,7 +4,7 @@ import {
   ForceRole,
   MessageCustom,
   TemplateBodysByKey
-} from '@serge/custom-types'
+} from 'src/custom-types'
 
 export type CollabStatusBoardProps = {
   currentWargame: string

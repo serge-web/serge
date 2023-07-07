@@ -3,7 +3,7 @@ import {
   CHANNEL_CHAT, CHANNEL_COLLAB,
   CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
-import { ChannelMapping, PlayerUiActionTypes, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from '@serge/custom-types'
+import { ChannelMapping, PlayerUiActionTypes, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from 'src/custom-types'
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
@@ -84,8 +84,7 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
         console.log('Handler not created for', form)
     }
   }
-  const hellos = true
-
+ 
   return (node: TabNode): React.ReactNode => {
     /** helper to determine if the specified channel should be rendered */
     const renderThisChannel = (channelData?: ChannelUI): boolean => {
@@ -180,7 +179,7 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
               })
             }
           }
-          return hellos && <PlanningChannel
+          return <PlanningChannel
             allTemplates={allTemplates}
             adjudicationTemplate={state.allTemplatesByKey[adjudicationTemplateId]}
             channelId={channel.uniqid}
@@ -216,6 +215,7 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
           />
         default:
           console.log('not yet handling', channelData)
+          return null
       }
     } else {
       return <>This is a legacy channel. It is not being rendered.</>

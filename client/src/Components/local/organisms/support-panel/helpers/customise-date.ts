@@ -1,4 +1,4 @@
-import { MessageStructure, MilliTurns, MonthTurns, TurnLengthType } from '@serge/custom-types'
+import { MessageStructure, MilliTurns, MonthTurns, TurnLengthType } from 'src/custom-types'
 import moment from 'moment'
 
 export type TimeSlot = {

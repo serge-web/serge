@@ -1,4 +1,4 @@
-import { SergeHex3 } from '@serge/custom-types'
+import { SergeHex3 } from 'src/custom-types'
 
 /** uility function, to provide a style name for a cell, according to if it's in
  * either array

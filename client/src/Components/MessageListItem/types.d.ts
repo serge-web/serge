@@ -1,4 +1,4 @@
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { MessageChannel, MessageCustom } from 'src/custom-types'
 
 interface Props {
   open: (message: MessageChannel) => void,

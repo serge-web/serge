@@ -1,6 +1,6 @@
 /* global it expect */
 import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, MessageInteraction, MessagePlanning } from 'src/custom-types'
 import { forceColors } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 import { noop } from 'lodash'

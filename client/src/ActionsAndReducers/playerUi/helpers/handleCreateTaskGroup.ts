@@ -1,5 +1,5 @@
 import { TASK_GROUP } from '@serge/config'
-import { ForceData, MessageCreateTaskGroup, PlatformTypeData } from '@serge/custom-types'
+import { ForceData, MessageCreateTaskGroup, PlatformTypeData } from 'src/custom-types'
 import { groupCreateNewGroup } from '@serge/helpers'
 
 export default (payload: MessageCreateTaskGroup, allForces: ForceData[], platformTypes: PlatformTypeData[]): ForceData[] => {

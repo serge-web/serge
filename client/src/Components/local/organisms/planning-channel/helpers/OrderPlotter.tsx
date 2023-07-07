@@ -1,4 +1,4 @@
-import { InteractionDetails, MessageAdjudicationOutcomes, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from 'src/custom-types'
 import { deepCopy, ForceStyle } from '@serge/helpers'
 import { Feature, GeoJsonObject } from 'geojson'
 import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'

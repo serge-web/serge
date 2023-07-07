@@ -1,5 +1,5 @@
 import React from 'react'
-import { WargameList } from '@serge/custom-types'
+import { WargameList } from 'src/custom-types'
 
 export default interface Props extends WargameList {
   /**

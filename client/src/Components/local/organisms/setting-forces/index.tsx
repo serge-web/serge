@@ -1,4 +1,4 @@
-import { Asset, AttributeType, AttributeValue, Role } from '@serge/custom-types'
+import { Asset, AttributeType, AttributeValue, Role } from 'src/custom-types'
 import { createAttributeValue, findPlatformTypeFor } from '@serge/helpers'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'

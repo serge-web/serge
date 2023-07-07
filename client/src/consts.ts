@@ -2,7 +2,8 @@ import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
 import * as Globals from '@serge/config'
-import { Wargame } from '@serge/custom-types'
+// import { Wargame } from 'src/custom-types'
+import { Wargame } from './custom-types'
 
 /** name of the document used to store the initial wargame definition */
 export const DEFAULT_SERVER = 'Nelson'

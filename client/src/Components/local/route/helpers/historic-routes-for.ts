@@ -1,7 +1,7 @@
 import L, { LatLng } from 'leaflet'
 
 /* Impot types */
-import { RouteMarker, RouteMarkerDuo, RouteMarkerStatus, RouteTurn as RouteTurnType } from '@serge/custom-types'
+import { RouteMarker, RouteMarkerDuo, RouteMarkerStatus, RouteTurn as RouteTurnType } from 'src/custom-types'
 import RouteData from '../types/route-data'
 
 /** the number of legs to display if the user wants trimmed data */

@@ -1,6 +1,6 @@
 import L from 'leaflet'
-import { Asset, AttributeValues, PlatformTypeData, RouteStatus } from '@serge/custom-types'
-import { OrientationData } from 'src/local/assets/types/asset_info'
+import { Asset, AttributeValues, PlatformTypeData, RouteStatus } from 'src/custom-types'
+import { OrientationData } from '../../../local/assets/types/asset_info'
 
 export default interface PropTypes {
   /**

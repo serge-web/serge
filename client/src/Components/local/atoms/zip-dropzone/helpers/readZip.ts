@@ -1,6 +1,6 @@
 // Import JSZip library for working with ZIP files
 import JSZip from 'jszip'
-import { Wargame, Message } from '@serge/custom-types'
+import { Wargame, Message } from 'src/custom-types'
 
 const readZip = async (file: File, onChange: (data: Array<Wargame | Message>, filename: string) => void): Promise<void> => {
   // Create a new instance of JSZip

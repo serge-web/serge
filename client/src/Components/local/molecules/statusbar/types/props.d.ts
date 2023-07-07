@@ -1,4 +1,4 @@
-import { Wargame } from '@serge/custom-types'
+import { Wargame } from 'src/custom-types'
 
 export default interface PropTypes {
   /* half section title */

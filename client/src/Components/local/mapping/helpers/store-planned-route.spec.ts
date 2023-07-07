@@ -2,7 +2,7 @@
 
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
-import { RouteStore, Route, ForceData, ChannelTypes, ChannelMapping } from '@serge/custom-types'
+import { RouteStore, Route, ForceData, ChannelTypes, ChannelMapping } from 'src/custom-types'
 
 import storePlannedRoute from './store-planned-route'
 import { Phase } from '@serge/config'

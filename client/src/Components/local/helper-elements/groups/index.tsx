@@ -9,7 +9,7 @@ import Dropzone from '../dropzone'
 
 /* Import proptypes */
 import PropTypes, { NodeType } from './types/props'
-import { GroupItem } from '@serge/custom-types'
+import { GroupItem } from 'src/custom-types'
 import { DropItem } from '../dropzone/types/props'
 
 /* Import Styles */

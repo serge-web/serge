@@ -1,3 +1,4 @@
+import React from 'react'
 import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
 import { ImageDropzone } from '@serge/components'
@@ -5,7 +6,7 @@ import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators
 import { saveSergeLogo } from '../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators'
 import { addNotification } from '../../ActionsAndReducers/Notification/Notification_ActionCreators'
 import '@serge/themes/App.scss'
-import { RootState } from '@serge/custom-types'
+import { RootState } from 'src/custom-types'
 
 const AddLogoModal = () => {
   const dispatch = useDispatch()

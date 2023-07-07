@@ -1,6 +1,6 @@
 import React from 'react'
 // Import component files
-import { AttributeTypes, AttributeValues, ForceData, PlatformTypeData } from '@serge/custom-types'
+import { AttributeTypes, AttributeValues, ForceData, PlatformTypeData } from 'src/custom-types'
 import AttributeEditor from './index'
 import docs from './README.md'
 import { platformTypes, smallScaleForces } from '@serge/mocks'

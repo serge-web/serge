@@ -1,4 +1,4 @@
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom } from 'src/custom-types'
 import { SpecialChannelColumns } from '@serge/config'
 
 const compressData = (message: any): string[] => {

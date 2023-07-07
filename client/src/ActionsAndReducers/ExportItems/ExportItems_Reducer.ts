@@ -1,6 +1,6 @@
 import { CREATE_EXPORT_ITEM, LOADER } from '@serge/config'
 import copyState from '../../Helpers/copyStateHelper'
-import { ExportItemsUiActionTypes } from '@serge/custom-types' 
+import { ExportItemsUiActionTypes } from 'src/custom-types' 
 
 const initialState = {
   data: [],

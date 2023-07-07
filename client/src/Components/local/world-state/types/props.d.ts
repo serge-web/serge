@@ -1,5 +1,5 @@
 import React from 'react'
-import { AnnotationIcons, ForceData, MapAnnotation, MapAnnotations, PlatformTypeData, RouteStore } from '@serge/custom-types'
+import { AnnotationIcons, ForceData, MapAnnotation, MapAnnotations, PlatformTypeData, RouteStore } from 'src/custom-types'
 import { WorldStatePanels } from '../helpers/enums'
 
 export default interface PropTypes {

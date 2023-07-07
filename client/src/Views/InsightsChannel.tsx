@@ -1,4 +1,4 @@
-import { MessageFeedback } from '@serge/custom-types'
+import { MessageFeedback } from 'src/custom-types'
 import { setMessageState } from '@serge/helpers'
 import React from 'react'
 import { updateMessageState } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'

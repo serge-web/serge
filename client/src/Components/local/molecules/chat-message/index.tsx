@@ -11,7 +11,7 @@ import styles from './styles.module.scss'
 import Badge from '../../atoms/badge'
 import Paragraph from '../../atoms/paragraph'
 
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel } from 'src/custom-types'
 import { formatTime } from '@serge/helpers'
 
 /* Render component */

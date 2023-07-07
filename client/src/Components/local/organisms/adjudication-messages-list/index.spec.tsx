@@ -1,5 +1,5 @@
 /* global it expect */
-import { ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, MessageInteraction, MessagePlanning } from 'src/custom-types'
 import moment from 'moment-timezone'
 import React from 'react'
 import renderer from 'react-test-renderer'

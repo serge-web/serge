@@ -1,4 +1,4 @@
-import { TemplateBody } from '@serge/custom-types'
+import { TemplateBody } from 'src/custom-types'
 
 const p9StockTemplates: TemplateBody[] = [
   {

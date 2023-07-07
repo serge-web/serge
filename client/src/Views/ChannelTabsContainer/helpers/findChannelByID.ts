@@ -1,4 +1,4 @@
-import { PlayerUiChannels } from '@serge/custom-types'
+import { PlayerUiChannels } from 'src/custom-types'
 
 const findChannelByID = (channels: PlayerUiChannels, id: string) => {
   return Object.entries(channels).find(entry => {

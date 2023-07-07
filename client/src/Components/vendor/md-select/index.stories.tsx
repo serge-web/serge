@@ -2,7 +2,7 @@ import React from 'react'
 
 // Import component files
 import { Select, MenuItem, InputLabel } from '@material-ui/core'
-import { InputContainer } from '../../index'
+import InputContainer from '../../local/atoms/input-container'
 
 import docs from './README.md'
 

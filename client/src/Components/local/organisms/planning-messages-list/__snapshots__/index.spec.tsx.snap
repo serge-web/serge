@@ -43,7 +43,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
         className="MuiFormControl-root MuiTextField-root css-28z0on-MuiFormControl-root-MuiTextField-root"
       >
         <div
-          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedStart MuiInputBase-adornedEnd css-whebh7-MuiInputBase-root-MuiInput-root"
+          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedStart MuiInputBase-adornedEnd css-v4u5dn-MuiInputBase-root-MuiInput-root"
           onClick={[Function]}
           style={Object {}}
         >
@@ -351,6 +351,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
+                        required={false}
                         type="checkbox"
                       />
                       <svg
@@ -1069,6 +1070,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         className="PrivateSwitchBase-input css-1m9pwf3"
                         data-indeterminate={false}
                         onChange={[Function]}
+                        required={false}
                         type="checkbox"
                         value="2020-03-25T15:08:47.520Z"
                       />
@@ -1319,6 +1321,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 </div>
                 <input
                   aria-hidden={true}
+                  aria-invalid={false}
                   className="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
                   onAnimationStart={[Function]}
                   onChange={[Function]}
@@ -1340,7 +1343,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
               <p
                 className="MuiTablePagination-displayedRows css-levciy-MuiTablePagination-displayedRows"
               >
-                1–1 of 1
+                1-1 of 1
               </p>
               <div
                 className="MuiBox-root css-lm78jv"
@@ -1434,19 +1437,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                       />
                     </svg>
                   </button>
-                </span>
-                <span
-                  className="MuiTypography-root MuiTypography-caption css-1sn4lm3-MuiTypography-root"
-                  style={
-                    Object {
-                      "alignSelf": "center",
-                      "flex": 1,
-                      "flexBasis": "inherit",
-                      "textAlign": "center",
-                    }
-                  }
-                >
-                  1-1 of 1
                 </span>
                 <span
                   aria-label="Next Page"

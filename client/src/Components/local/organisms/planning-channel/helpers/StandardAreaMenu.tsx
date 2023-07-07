@@ -1,4 +1,4 @@
-import { Area, AreaCategory } from '@serge/custom-types'
+import { Area, AreaCategory } from 'src/custom-types'
 import L from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'

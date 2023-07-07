@@ -2,7 +2,7 @@ import React from 'react'
 import Collapsible from '../../helper-elements/collapsible'
 import MessageListHeader from '../channel-message-header'
 import MessageListDetail from '../channel-message-detail'
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom } from 'src/custom-types'
 /* Import Types */
 import Props from './types/props'
 

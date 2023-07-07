@@ -1,4 +1,4 @@
-import { MessageCustom, MessagePlanning } from '@serge/custom-types'
+import { MessageCustom, MessagePlanning } from 'src/custom-types'
 
 export default interface Props {
   /**

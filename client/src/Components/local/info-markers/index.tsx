@@ -5,8 +5,8 @@ import L from 'leaflet'
 import { MapContext } from '../mapping'
 
 /* Import Types */
-import { ForceData } from '@serge/custom-types'
-import { MapAnnotations, MapAnnotation } from '@serge/custom-types/map-annotation'
+import { ForceData } from 'src/custom-types'
+import { MapAnnotations, MapAnnotation } from 'src/custom-types/map-annotation'
 import InfoMarker from '../info-marker'
 import { geoToH3, h3ToGeo } from 'h3-js'
 import { UPDATE_MARKER } from '@serge/config'

@@ -1,4 +1,4 @@
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom } from 'src/custom-types'
 
 /** filter messages according to if they are archived or not
  * @param messages the raw list of messages

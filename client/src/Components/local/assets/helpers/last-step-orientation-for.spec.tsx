@@ -1,4 +1,4 @@
-import { Asset, ForceData, RouteTurn } from '@serge/custom-types'
+import { Asset, ForceData, RouteTurn } from 'src/custom-types'
 import lastStepOrientationFor from './last-step-orientation-for'
 import { smallScaleForces } from '@serge/mocks'
 

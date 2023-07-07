@@ -9,12 +9,16 @@ import { smallScaleMappingConstraints, watuWargame } from '@serge/mocks'
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
-jest.mock('leaflet', () => ({
-  ...jest.requireActual('leaflet'),
-  Symbol: {
-    arrowHead: jest.fn()
+jest.mock('leaflet', () => {
+  const leaflet = jest.requireActual('leaflet')
+  return {
+    ...leaflet,
+    Symbol: {
+      ...leaflet.Symbol,
+      arrowHead: jest.fn()
+    }
   }
-}))
+})
 
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()

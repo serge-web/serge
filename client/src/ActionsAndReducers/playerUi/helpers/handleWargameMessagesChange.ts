@@ -10,7 +10,7 @@ import {
   ChatMessage,
   PlayerMessageLog,
   PlayerUiChannels 
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import {
   handleChannelUpdates, handleAllInitialChannelMessages, setMessageState, 
   getMessageState, removeMessageState, handleNewMessageData 

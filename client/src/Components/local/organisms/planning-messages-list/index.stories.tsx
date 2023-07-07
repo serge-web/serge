@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 // Import component files
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
-import { Asset, ChannelPlanning, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, Role, TemplateBody } from '@serge/custom-types'
+import { Asset, ChannelPlanning, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, Role, TemplateBody } from 'src/custom-types'
 import { forceColors, incrementGameTime, mostRecentPlanningOnly } from '@serge/helpers'
 import { P9BMock, P9Mock, planningMessages as planningChannelMessages, smallForces } from '@serge/mocks'
 import { noop } from 'lodash'

@@ -3,7 +3,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import CollabMessageDetail from './index'
 
-import { ChannelCollab } from '@serge/custom-types'
+import { ChannelCollab } from 'src/custom-types'
 import { InitialStates, CHANNEL_COLLAB, CollaborativePermission, CollaborativeMessageStates, PARTICIPANT_COLLAB } from '@serge/config'
 
 import { GameMessagesMockRFI, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'

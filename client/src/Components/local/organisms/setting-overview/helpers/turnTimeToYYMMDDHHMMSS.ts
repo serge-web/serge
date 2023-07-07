@@ -1,4 +1,4 @@
-import { GameTurnLength } from '@serge/custom-types'
+import { GameTurnLength } from 'src/custom-types'
 import { isInteger } from 'lodash'
 
 export const fromMasked = (turnTime: string): GameTurnLength | undefined => {

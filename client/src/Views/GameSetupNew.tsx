@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import _ from 'lodash'
 import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
@@ -28,7 +28,7 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
-import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from '@serge/custom-types'
+import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from 'src/custom-types'
 
 /**
  * TODOS:
@@ -268,7 +268,7 @@ const AdminGameSetup = () => {
     if (currentWargame) dispatch(duplicateForce(currentWargame, data))
   }
 
-  const onCreateChannel = (id: string, createdChannel: ChannelTypes) => {
+  const onCreateChannel = (_id: string, createdChannel: ChannelTypes) => {
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
@@ -335,7 +335,7 @@ const AdminGameSetup = () => {
     }
   }, [currentTab])
 
-  const getSelectedChannel = () => {
+  const getSelectedChannel = (): any => {
     if (channels.selectedChannel) {
       const { uniqid } = channels.selectedChannel as { uniqid: string }
       return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)

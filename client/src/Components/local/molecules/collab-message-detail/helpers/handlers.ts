@@ -1,5 +1,5 @@
 import { CollaborativeMessageStates } from '@serge/config'
-import { ForceRole, MessageCustom } from '@serge/custom-types'
+import { ForceRole, MessageCustom } from 'src/custom-types'
 import newDate from '@serge/helpers/build/new-date'
 
 export const CORE_HANDLER = 'CORE_HANDLER'

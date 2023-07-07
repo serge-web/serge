@@ -1,4 +1,4 @@
-import { MilliTurns, MonthTurns } from '@serge/custom-types'
+import { MilliTurns, MonthTurns } from 'src/custom-types'
 import moment from 'moment'
 import { customiseDate, getDateSlots } from './customise-date'
 

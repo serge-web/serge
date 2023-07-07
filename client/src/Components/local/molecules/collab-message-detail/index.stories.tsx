@@ -14,7 +14,7 @@ import {
 } from '@serge/mocks'
 import docs from './README.md'
 
-import { MessageCustom, ForceRole, ChannelCollab } from '@serge/custom-types'
+import { MessageCustom, ForceRole, ChannelCollab } from 'src/custom-types'
 import { CollaborativeMessageStates, CollaborativePermission } from '@serge/config'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: 'auto' }}>{storyFn()}</div>
 

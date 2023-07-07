@@ -1,5 +1,5 @@
 import { CHANNEL_PLANNING, INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, ChannelUI, ForceData, GameTurnLength, MessageChannel, MessageCustom, MessageInteraction, MessagePlanning, PlatformTypeData, PlayerUiChannels } from '@serge/custom-types'
+import { Asset, ChannelUI, ForceData, GameTurnLength, MessageChannel, MessageCustom, MessageInteraction, MessagePlanning, PlatformTypeData, PlayerUiChannels } from 'src/custom-types'
 import { incrementGameTime } from '@serge/helpers'
 import { cloneDeep } from 'lodash'
 

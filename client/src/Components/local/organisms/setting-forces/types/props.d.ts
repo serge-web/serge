@@ -1,4 +1,4 @@
-import { Asset, ForceData, PlatformTypeData, Route } from '@serge/custom-types'
+import { Asset, ForceData, PlatformTypeData, Route } from 'src/custom-types'
 import { Item } from '../../molecules/sortable-list'
 
 type Forces = Array<ForceData>
@@ -22,4 +22,4 @@ export default interface PropTypes {
   selectedAssetItem?: Asset
 }
 
-export { ForceData, Role } from '@serge/custom-types'
+export { ForceData, Role } from 'src/custom-types'

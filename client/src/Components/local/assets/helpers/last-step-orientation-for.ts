@@ -1,5 +1,5 @@
 import { brgBetweenTwoHex, cleanAngle } from '../../mapping/helpers/h3-helpers'
-import { RouteTurn } from '@serge/custom-types'
+import { RouteTurn } from 'src/custom-types'
 import * as h3 from 'h3-js'
 
 /** retrive the cell at the supplied human-readable coords ("A01")

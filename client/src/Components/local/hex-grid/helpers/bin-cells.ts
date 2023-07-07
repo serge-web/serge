@@ -1,5 +1,5 @@
 import L from 'leaflet'
-import { SergeGrid3, SergeHex3 } from '@serge/custom-types'
+import { SergeGrid3, SergeHex3 } from 'src/custom-types'
 
 export interface PolyBin3 {
   bounds: L.LatLngBounds

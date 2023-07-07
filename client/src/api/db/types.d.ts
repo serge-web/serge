@@ -1,4 +1,4 @@
-import { Message, MessageInfoType, Wargame, PlayerLogEntries, TurnPeriod, MessagePlanning } from '@serge/custom-types'
+import { Message, MessageInfoType, Wargame, PlayerLogEntries, TurnPeriod, MessagePlanning } from 'src/custom-types'
 import DbProvider from '.'
 
 export interface DbProviderInterface {

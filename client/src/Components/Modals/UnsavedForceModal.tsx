@@ -1,3 +1,4 @@
+import React from 'react'
 import uniqid from 'uniqid'
 import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,7 +13,7 @@ import {
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { forceTemplate } from '../../consts'
 import '@serge/themes/App.scss'
-import { RootState } from '@serge/custom-types'
+import { RootState } from 'src/custom-types'
 
 const UnsavedForceModal = () => {
   const dispatch = useDispatch()

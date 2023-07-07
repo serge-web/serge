@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconDefinition, PlanTurnFormData, PlanTurnFormValues } from '@serge/custom-types'
+import { IconDefinition, PlanTurnFormData, PlanTurnFormValues } from 'src/custom-types'
 
 export default interface PropTypes {
   /**

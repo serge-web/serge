@@ -1,4 +1,4 @@
-import { AnnotationMarkerData, ForceData, IconOption, PlatformType, PlatformTypeData } from '@serge/custom-types'
+import { AnnotationMarkerData, ForceData, IconOption, PlatformType, PlatformTypeData } from 'src/custom-types'
 import { Item } from '../../molecules/sortable-list'
 import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
 import { ChannelTypes } from '../../../organisms/setting-channels'

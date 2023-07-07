@@ -2,7 +2,7 @@ import React from 'react'
 
 /* Import proptypes */
 import PropTypes from './types/props'
-import { Wargame } from '@serge/custom-types'
+import { Wargame } from 'src/custom-types'
 import { AdminTabs } from '@serge/config'
 
 /* Import Styles */

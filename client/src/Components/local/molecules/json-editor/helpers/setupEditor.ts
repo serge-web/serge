@@ -1,5 +1,5 @@
 import { JSONEditor } from '@json-editor/json-editor'
-import { Editor, PlannedActivityGeometry } from '@serge/custom-types'
+import { Editor, PlannedActivityGeometry } from 'src/custom-types'
 import { RefObject } from 'react'
 import { initLocationEditor } from '../custom-editors/location-editor'
 import { configDateTimeCustomValidation } from './jsonValidation'

@@ -9,7 +9,7 @@ import { forces, selectedAsset, platformTypes } from '@serge/mocks'
 
 // import data types
 import collateVisibilityFormData from '../map-bar/helpers/collate-visibility-form-data'
-import { ForceData } from '@serge/custom-types'
+import { ForceData } from 'src/custom-types'
 
 export default {
   title: 'local/VisibilityAndConditionForm',

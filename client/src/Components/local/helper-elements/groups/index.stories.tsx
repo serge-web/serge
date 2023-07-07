@@ -2,7 +2,7 @@ import React from 'react'
 
 // Import component files
 import Groups from './index'
-import { GroupItem } from '@serge/custom-types'
+import { GroupItem } from 'src/custom-types'
 import docs from './README.md'
 import { withKnobs, boolean } from '@storybook/addon-knobs'
 

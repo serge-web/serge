@@ -1,4 +1,4 @@
-import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
+import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from 'src/custom-types'
 // import L from 'leaflet'
 import * as L from 'leaflet'
 import React, { useEffect, useState } from 'react'

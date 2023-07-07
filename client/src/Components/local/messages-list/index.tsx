@@ -3,7 +3,7 @@ import { expiredStorage } from '@serge/config'
 
 /* Import Types */
 import PropTypes from './types/props'
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel } from 'src/custom-types'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'

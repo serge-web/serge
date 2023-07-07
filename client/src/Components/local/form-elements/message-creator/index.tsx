@@ -10,7 +10,7 @@ import {
 import {
   ChannelCollab,
   MessageDetails
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import React, { createRef, MouseEvent, useEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 

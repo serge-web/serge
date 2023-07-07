@@ -1,4 +1,4 @@
-import { PlanTurnFormData, PlatformTypeData, State, RouteStatus, AttributeValues, AttributeTypes, Route } from '@serge/custom-types'
+import { PlanTurnFormData, PlatformTypeData, State, RouteStatus, AttributeValues, AttributeTypes, Route } from 'src/custom-types'
 
 /** either provide the status of the latest planned turn, or the current asset status
  * @param Asset the current planned route for this asset

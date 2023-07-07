@@ -10,7 +10,7 @@ import { cmdWkWargame } from '@serge/mocks'
 import { CHANNEL_MAPPING, Phase } from '@serge/config'
 
 import { WorldStatePanels } from './helpers/enums'
-import { ChannelMapping, ForceData, Role } from '@serge/custom-types'
+import { ChannelMapping, ForceData, Role } from 'src/custom-types'
 
 // console.clear()
 

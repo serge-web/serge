@@ -1,4 +1,4 @@
-import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
+import { TileLayerDefinition } from 'src/custom-types/mapping-constraints'
 import { LatLngBounds, LatLngExpression } from 'leaflet'
 import React from 'react'
 

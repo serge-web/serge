@@ -1,6 +1,6 @@
 
 import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure, PlatformTypeData } from 'src/custom-types'
 import { findAsset, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 

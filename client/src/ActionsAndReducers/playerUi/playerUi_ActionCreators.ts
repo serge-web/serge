@@ -10,7 +10,7 @@ import { addNotification } from '../Notification/Notification_ActionCreators'
 import {
   ChatMessage, Message, MessageChannel,
   MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessagePlanning, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
-} from '@serge/custom-types'
+} from 'src/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,

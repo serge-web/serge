@@ -1,4 +1,4 @@
-import { AnnotationMarkerData, IconOption } from '@serge/custom-types'
+import { AnnotationMarkerData, IconOption } from 'src/custom-types'
 
 export default interface PropTypes {
   annotation?: AnnotationMarkerData

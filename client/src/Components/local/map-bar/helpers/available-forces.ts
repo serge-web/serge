@@ -1,5 +1,5 @@
 import { UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
-import { ForceOption, ForceData } from '@serge/custom-types'
+import { ForceOption, ForceData } from 'src/custom-types'
 
 /** Loops through all available forces and creates an entry for each one to be used as form data
  * @param {any} forces list of forces in wargame

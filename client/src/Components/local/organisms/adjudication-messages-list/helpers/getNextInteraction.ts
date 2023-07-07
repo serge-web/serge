@@ -3,7 +3,7 @@ import {
   Asset, AssetWithForce, CoreOutcome, ForceData, HealthOutcome, InteractionDetails,
   INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction,
   MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import { findAsset, findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Feature, Geometry, LineString, Polygon } from 'geojson'

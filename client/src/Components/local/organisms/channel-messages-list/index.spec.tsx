@@ -3,7 +3,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import ChannelMessagesList from './index'
 import { CUSTOM_MESSAGE } from '@serge/config'
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom } from 'src/custom-types'
 import moment from 'moment-timezone'
 
 describe('ChannelMessagesList component: ', () => {

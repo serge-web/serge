@@ -2,7 +2,7 @@ import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, ATTR
 import {
   Asset, AttributeType, AttributeTypes, AttributeValue, AttributeValues, AttributeValues2, EnumAttributeType, EnumAttributeValue,
   ForceData, MappingConstraints, NumberAttributeType, NumberAttributeValue, Perception, PlatformTypeData, StringAttributeType, StringAttributeValue
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'

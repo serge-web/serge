@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash'
 
-import { Route, RouteStore } from '@serge/custom-types'
+import { Route, RouteStore } from 'src/custom-types'
 import { PlanningCommands, PlanningStates } from '@serge/config'
 
 /**

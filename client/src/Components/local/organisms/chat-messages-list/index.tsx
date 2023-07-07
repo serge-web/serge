@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core'
 /* Import Types */
 import PropTypes from './types/props'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { ChatMessage as ChatMessageType, CoreMessage, MessageInfoTypeClipped } from '@serge/custom-types'
+import { ChatMessage as ChatMessageType, CoreMessage, MessageInfoTypeClipped } from 'src/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 /* Import Components */

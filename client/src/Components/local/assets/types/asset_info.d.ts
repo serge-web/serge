@@ -1,5 +1,5 @@
 import { LaydownPhases } from '@serge/config'
-import { AttributeValues, PlatformTypeData, RouteStatus } from '@serge/custom-types'
+import { AttributeValues, PlatformTypeData, RouteStatus } from 'src/custom-types'
 import L from 'leaflet'
 
 export interface OrientationData {

@@ -1,7 +1,7 @@
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import { PlanningCommands } from '@serge/config'
-import { AttributeEditorData, AttributeValues, ForceData, ForceOption, RouteStatus, Status } from '@serge/custom-types'
+import { AttributeEditorData, AttributeValues, ForceData, ForceOption, RouteStatus, Status } from 'src/custom-types'
 /* Import helpers */
 import { collateEditorData, deepCompare, isNumber } from '@serge/helpers'
 import React, { ReactElement, useEffect, useState } from 'react'

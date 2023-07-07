@@ -4,7 +4,7 @@ import { TurnFormats } from '@serge/config'
 import React from 'react'
 import renderer from 'react-test-renderer'
 
-import { GameTurnLength } from '@serge/custom-types'
+import { GameTurnLength } from 'src/custom-types'
 import TurnProgression from './index'
 
 const turnMillis: GameTurnLength = { unit: 'millis', millis: 172800000 }

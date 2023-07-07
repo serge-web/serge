@@ -2,7 +2,7 @@ import { expiredStorage, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MES
 import {
   AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet,
   PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import { clearUnsentMessage, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
 import L, { circleMarker, LatLngBounds, LatLngExpression, Layer, LeafletMouseEvent, PathOptions } from 'leaflet'
@@ -11,8 +11,8 @@ import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
 import { faHistory, faObjectUngroup, faShapes, faTag, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
-import { InteractionDetails, MessageAdjudicationOutcomes, MessageCustom, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { TileLayerDefinition } from 'src/custom-types/mapping-constraints'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessageCustom, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from 'src/custom-types/message'
 import { Feature, FeatureCollection, Point } from 'geojson'
 import LRU from 'lru-cache'
 import moment from 'moment-timezone'

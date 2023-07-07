@@ -1,4 +1,4 @@
-import { ForceData } from '@serge/custom-types'
+import { ForceData } from 'src/custom-types'
 import { forces } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'

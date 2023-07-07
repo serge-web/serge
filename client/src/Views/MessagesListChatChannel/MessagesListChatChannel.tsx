@@ -1,7 +1,7 @@
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AdminMessage } from '@serge/components'
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel } from 'src/custom-types'
 import { isMessageReaded } from '@serge/helpers'
 import '@serge/themes/App.scss'
 import sortBy from 'lodash/sortBy'

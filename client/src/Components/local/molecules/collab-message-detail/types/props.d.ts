@@ -4,7 +4,7 @@ import {
   ForceRole,
   ChannelCollab,
   TemplateBodysByKey
-} from '@serge/custom-types'
+} from 'src/custom-types'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void

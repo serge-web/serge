@@ -1,4 +1,4 @@
-import { CoreMessage } from '@serge/custom-types'
+import { CoreMessage } from 'src/custom-types'
 
 export default interface Props {
   /**

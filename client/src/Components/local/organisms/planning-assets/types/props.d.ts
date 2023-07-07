@@ -1,4 +1,4 @@
-import { AttributeTypes, ForceData, PlatformTypeData } from '@serge/custom-types'
+import { AttributeTypes, ForceData, PlatformTypeData } from 'src/custom-types'
 import { ForceStyle, PlatformStyle } from '@serge/helpers'
 import { Column } from '@material-table/core'
 import { LatLng } from 'leaflet'

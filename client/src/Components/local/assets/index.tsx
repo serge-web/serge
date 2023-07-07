@@ -1,6 +1,6 @@
 import { ADJUDICATION_PHASE, LaydownPhases, UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
-import { ForceData, PerceivedTypes, Route as RouteType } from '@serge/custom-types'
-import { OrientationMarker } from '@serge/custom-types/platform-type-data'
+import { ForceData, PerceivedTypes, Route as RouteType } from 'src/custom-types'
+import { OrientationMarker } from 'src/custom-types/platform-type-data'
 import { findPerceivedAsTypes, findPlatformTypeFor, visibleTo } from '@serge/helpers'
 import L from 'leaflet'
 import React, { useContext, useEffect, useState } from 'react'

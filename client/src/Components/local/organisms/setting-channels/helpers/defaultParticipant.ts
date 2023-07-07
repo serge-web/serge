@@ -1,6 +1,6 @@
 import { CollaborativePermission, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING } from '@serge/config'
-import { ParticipantCollab } from '@serge/custom-types'
-import { ParticipantChat, ParticipantCustom, ParticipantMapping } from '@serge/custom-types/participant'
+import { ParticipantCollab } from 'src/custom-types'
+import { ParticipantChat, ParticipantCustom, ParticipantMapping } from 'src/custom-types/participant'
 
 export const defaultCoreParticipant = {
   force: '',

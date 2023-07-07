@@ -17,7 +17,7 @@ import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
 import { CollaborativeMessageStates, CollaborativePermission, expiredStorage } from '@serge/config'
 import JsonEditor from '../json-editor'
-import { ChannelCollab, ChannelTypes, ChannelUI, FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
+import { ChannelCollab, ChannelTypes, ChannelUI, FeedbackItem, ForceRole, MessageCustom } from 'src/custom-types'
 import Collapsible from '../../helper-elements/collapsible'
 import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, createActionTable } from './helpers/actions-for'
 import { ClaimFunc, CLAIM_HANDLER, CoreFunc, CORE_HANDLER, SubmitFunc, SUBMIT_HANDLER } from './helpers/handlers'

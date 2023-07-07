@@ -5,7 +5,7 @@ import ExcelExport from '../../Components/ExcelExport'
 import ExportView from '../ExportView'
 import ExportItem from '../../Components/ExportItem'
 import Props from './types'
-import { ExportItem as ExportedItemType, ExportItemsDispatch, Wargame, ExportItemMessages } from '@serge/custom-types'
+import { ExportItem as ExportedItemType, ExportItemsDispatch, Wargame, ExportItemMessages } from 'src/custom-types'
 import { EXPORT_ITEM_MESSAGES } from '@serge/config'
 
 const ExportMessages = ({ wargame, exportItems, loader, exportWargameMessages }: Props): React.ReactElement => {

@@ -1,5 +1,5 @@
 import * as ActionConstant from '@serge/config'
-import { MessagesActionTypes } from '@serge/custom-types'
+import { MessagesActionTypes } from 'src/custom-types'
 import copyState from '../../Helpers/copyStateHelper.js'
 
 const initialState = {

@@ -3,7 +3,7 @@ import collateStateOfWorld, { updatePerceptions } from './collate-state-of-world
 
 import { watuWargame } from '@serge/mocks'
 import { routeCreateStore, deepCopy } from '@serge/helpers'
-import { MessageStateOfWorld, RouteStore, StateOfWorld, Route, ForceData, Asset, MapAnnotations, ChannelMapping } from '@serge/custom-types'
+import { MessageStateOfWorld, RouteStore, StateOfWorld, Route, ForceData, Asset, MapAnnotations, ChannelMapping } from 'src/custom-types'
 import { Phase } from '@serge/config'
 
 const markers: MapAnnotations = watuWargame.data.annotations ? watuWargame.data.annotations.annotations : []

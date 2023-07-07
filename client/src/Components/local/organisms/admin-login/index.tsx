@@ -1,5 +1,5 @@
 import { DEFAULT_SERVER, serverPath } from '@serge/config'
-import { RootState } from '@serge/custom-types'
+import { RootState } from 'src/custom-types'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Button from '../../atoms/button'

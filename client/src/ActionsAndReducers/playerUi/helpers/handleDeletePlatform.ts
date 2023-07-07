@@ -1,4 +1,4 @@
-import { ForceData, MessageDeletePlatform } from '@serge/custom-types'
+import { ForceData, MessageDeletePlatform } from 'src/custom-types'
 import { deletePlatform } from '@serge/helpers'
 
 export default (payload: MessageDeletePlatform, allForces: ForceData[]): ForceData[] => {

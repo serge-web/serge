@@ -1,4 +1,4 @@
-import { ForceData, ForceTemplateData, MessageStructure } from '@serge/custom-types'
+import { ForceData, ForceTemplateData, MessageStructure } from 'src/custom-types'
 import _ from 'lodash'
 
 const umpireCards = (forceTemplateData: ForceTemplateData[]): ForceTemplateData => {

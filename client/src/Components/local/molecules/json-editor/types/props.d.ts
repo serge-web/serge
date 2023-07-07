@@ -1,4 +1,4 @@
-import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from '@serge/custom-types'
+import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from 'src/custom-types'
 import { EditCallback } from '../helpers/setupEditor'
 
 export default interface Props {

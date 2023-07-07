@@ -1,4 +1,4 @@
-import { ForceData, PlanningActivity, PlanningMessage, PlatformTypeData } from '@serge/custom-types'
+import { ForceData, PlanningActivity, PlanningMessage, PlatformTypeData } from 'src/custom-types'
 
 export default interface PropTypes {
   /**

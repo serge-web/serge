@@ -1,4 +1,4 @@
-import { AreaCategory } from '@serge/custom-types'
+import { AreaCategory } from 'src/custom-types'
 import { Position } from 'geojson'
 import { divIcon, latLng, LatLng, PathOptions, polygon } from 'leaflet'
 import React from 'react'

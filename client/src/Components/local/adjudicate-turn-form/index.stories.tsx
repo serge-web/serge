@@ -4,7 +4,7 @@ import React from 'react'
 import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
-import { AdjudicateTurnFormPopulate, IconDefinition, PlanTurnFormValues, RouteStore } from '@serge/custom-types'
+import { AdjudicateTurnFormPopulate, IconDefinition, PlanTurnFormValues, RouteStore } from 'src/custom-types'
 import { deepCopy, routeCreateStore, routeSetCurrent } from '@serge/helpers'
 
 /* Import mock data */

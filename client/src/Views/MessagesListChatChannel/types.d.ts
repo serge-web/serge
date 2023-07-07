@@ -1,4 +1,4 @@
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel } from 'src/custom-types'
 interface Props {
   messages: MessageChannel[],
   markAllAsRead: () => void

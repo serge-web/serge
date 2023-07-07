@@ -4,7 +4,7 @@ import React from 'react'
 import AdminMessageCreator from './index'
 import docs from './README.md'
 
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel } from 'src/custom-types'
 
 export default {
   title: 'local/molecules/AdminMessageCreator',

@@ -1,4 +1,4 @@
-import { Asset, ForceData, MessageForceLaydown } from '@serge/custom-types'
+import { Asset, ForceData, MessageForceLaydown } from 'src/custom-types'
 import { findAsset } from '@serge/helpers'
 
 export default (payload: MessageForceLaydown, allForces: ForceData[]): ForceData[] => {

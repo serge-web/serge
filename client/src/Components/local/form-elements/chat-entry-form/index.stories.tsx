@@ -5,7 +5,7 @@ import { Story } from '@storybook/react/types-6-0'
 import ChatEntryForm from './index'
 import docs from './README.md'
 import ChatPropTypes from './types/props'
-import { MessageDetails } from '@serge/custom-types'
+import { MessageDetails } from 'src/custom-types'
 
 export default {
   title: 'local/form-elements/ChatEntryForm',

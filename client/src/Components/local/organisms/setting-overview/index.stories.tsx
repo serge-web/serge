@@ -7,7 +7,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { WargameExportedMock } from '@serge/mocks'
 import { WargameOverview } from './types/props'
-import { GameTurnLength, MilliTurns, MonthTurns } from '@serge/custom-types'
+import { GameTurnLength, MilliTurns, MonthTurns } from 'src/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 

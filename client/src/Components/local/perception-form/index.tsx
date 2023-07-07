@@ -1,6 +1,6 @@
 import { Button } from '@material-ui/core'
 import { PERCEPTION_OF_CONTACT, UNKNOWN_TYPE } from '@serge/config'
-import { ForceData, ForceOption, MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from '@serge/custom-types'
+import { ForceData, ForceOption, MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from 'src/custom-types'
 import React, { useContext, useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'
 import TextInput from '../atoms/text-input'

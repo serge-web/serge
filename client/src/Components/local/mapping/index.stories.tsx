@@ -1,6 +1,6 @@
 // import data types
 import { Phase } from '@serge/config'
-import { MappingConstraints, MessageMap } from '@serge/custom-types'
+import { MappingConstraints, MessageMap } from 'src/custom-types'
 /* Import mock data */
 import { forces, localMappingConstraints, platformTypes, smallForces } from '@serge/mocks'
 import { boolean } from '@storybook/addon-knobs'

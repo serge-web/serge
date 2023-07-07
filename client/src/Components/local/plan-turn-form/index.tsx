@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 
 /* Import helpers */
 import { collateEditorData, isNumber } from '@serge/helpers'
-import { AttributeEditorData, AttributeType, AttributeValue, AttributeValues, PlanTurnFormValues, Status } from '@serge/custom-types'
+import { AttributeEditorData, AttributeType, AttributeValue, AttributeValues, PlanTurnFormValues, Status } from 'src/custom-types'
 import Badge from '../atoms/badge'
 import AttributeEditor from '../attribute-editor'
 

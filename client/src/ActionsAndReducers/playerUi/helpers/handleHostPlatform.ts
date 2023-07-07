@@ -1,5 +1,5 @@
 import { TASK_GROUP } from '@serge/config'
-import { ForceData, MessageHostPlatform, PlatformTypeData } from '@serge/custom-types'
+import { ForceData, MessageHostPlatform, PlatformTypeData } from 'src/custom-types'
 import { groupHostPlatform } from '@serge/helpers'
 
 export default (payload: MessageHostPlatform, allForces: ForceData[], platformTypes: PlatformTypeData[]): ForceData[] => {

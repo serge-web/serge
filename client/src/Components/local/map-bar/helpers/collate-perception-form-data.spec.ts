@@ -4,7 +4,7 @@ import collatePerceptionFormData from './collate-perception-form-data'
 import platformTypes from '@serge/mocks/platform-types.mock'
 import selectedAsset from '@serge/mocks/selected-asset.mock'
 import forces from '@serge/mocks/forces.mock'
-import { PerceptionFormData, PerceptionFormPopulate, PerceptionFormValues } from '@serge/custom-types'
+import { PerceptionFormData, PerceptionFormPopulate, PerceptionFormValues } from 'src/custom-types'
 import { UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
 
 const redId = forces[2].uniqid

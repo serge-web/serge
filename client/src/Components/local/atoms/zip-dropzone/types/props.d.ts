@@ -1,5 +1,5 @@
 import React from 'react'
-import { Wargame, Message } from '@serge/custom-types'
+import { Wargame, Message } from 'src/custom-types'
 
 // Defining an interface called PropTypes
 export default interface PropTypes {

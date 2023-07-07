@@ -1,6 +1,6 @@
 import { InitialStates } from '@serge/config'
-import { ChannelCollab, ChannelTypes, ParticipantTemplate } from '@serge/custom-types'
-import { Option } from 'src/local/molecules/editable-row'
+import { ChannelCollab, ChannelTypes, ParticipantTemplate } from 'src/custom-types'
+import { Option } from '../../../molecules/editable-row'
 import { Action, MessageGroupType, MessagesValues } from './genMessageCollabEdit'
 import uniqBy from 'lodash/uniqBy'
 

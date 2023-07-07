@@ -1,5 +1,5 @@
 import { LatLng } from 'leaflet'
-import { RouteMarker } from '@serge/custom-types'
+import { RouteMarker } from 'src/custom-types'
 
 /** composite return tuple */
 export default interface RouteData {

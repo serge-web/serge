@@ -1,4 +1,4 @@
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom } from 'src/custom-types'
 
 /** produce a key for this message
  * @param message the new message

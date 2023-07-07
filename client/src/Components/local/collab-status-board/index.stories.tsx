@@ -5,7 +5,7 @@ import { Story } from '@storybook/react/types-6-0'
 import CollabStatusBoard from './index'
 import docs from './README.md'
 
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom } from 'src/custom-types'
 import { CollabStatusBoardProps } from './types/props'
 import { mostRecentOnly } from '@serge/helpers'
 import {

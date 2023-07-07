@@ -1,4 +1,4 @@
-import { PlatformTypeData, Asset } from '@serge/custom-types'
+import { PlatformTypeData, Asset } from 'src/custom-types'
 import { PLATFORM_ITEM, ASSET_ITEM } from '../constants'
 
 export interface PlatformItemType extends PlatformTypeData {

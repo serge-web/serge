@@ -9,7 +9,7 @@ import {
   serverPath
 } from '../../consts'
 
-import { ChannelTypes, ForceData, ParticipantTypes, Role, WargameActionTypes } from '@serge/custom-types'
+import { ChannelTypes, ForceData, ParticipantTypes, Role, WargameActionTypes } from 'src/custom-types'
 
 const initialState = {
   isLoading: false,

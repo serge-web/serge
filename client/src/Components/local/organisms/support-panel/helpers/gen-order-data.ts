@@ -2,8 +2,8 @@ import { ADJUDICATION_OUTCOMES, GeometryType, INTERACTION_MESSAGE, PLANNING_MESS
 import {
   Asset, ForceData, GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
-} from '@serge/custom-types'
-import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
+} from 'src/custom-types'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore } from 'src/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Position } from '@turf/turf'

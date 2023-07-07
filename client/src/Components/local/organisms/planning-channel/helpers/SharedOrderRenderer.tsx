@@ -1,4 +1,4 @@
-import { PerForcePlanningActivitySet } from '@serge/custom-types'
+import { PerForcePlanningActivitySet } from 'src/custom-types'
 import { ForceStyle } from '@serge/helpers'
 import { Position } from '@turf/turf'
 import { Feature, LineString, Point, Polygon } from 'geojson'

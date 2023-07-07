@@ -1,4 +1,4 @@
-import { MessageDetails } from '@serge/custom-types'
+import { MessageDetails } from 'src/custom-types'
 import React, { ChangeEvent, CSSProperties, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'

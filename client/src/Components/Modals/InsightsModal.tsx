@@ -1,5 +1,5 @@
 import { InsightForm } from '@serge/components'
-import { MessageDetailsFrom } from '@serge/custom-types'
+import { MessageDetailsFrom } from 'src/custom-types'
 import React from 'react'
 import {
   closeModal, sendFeedbackMessage

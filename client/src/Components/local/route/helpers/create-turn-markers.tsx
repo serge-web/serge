@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Marker, Popup } from 'react-leaflet'
 import RouteData from '../types/route-data'
-import { RouteMarker, RouteMarkerStatus } from '@serge/custom-types'
+import { RouteMarker, RouteMarkerStatus } from 'src/custom-types'
 import L from 'leaflet'
 import { simpleIcon, svgIcon } from './create-marker'
 import calculatePolylineAngle from './calculate-polyline-angle'

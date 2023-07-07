@@ -176,7 +176,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
         className="MuiFormControl-root MuiTextField-root css-28z0on-MuiFormControl-root-MuiTextField-root"
       >
         <div
-          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedStart MuiInputBase-adornedEnd css-whebh7-MuiInputBase-root-MuiInput-root"
+          className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-colorPrimary MuiInputBase-formControl MuiInputBase-adornedStart MuiInputBase-adornedEnd css-v4u5dn-MuiInputBase-root-MuiInput-root"
           onClick={[Function]}
           style={Object {}}
         >
@@ -553,6 +553,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                 </div>
                 <input
                   aria-hidden={true}
+                  aria-invalid={false}
                   className="MuiSelect-nativeInput css-yf8vq0-MuiSelect-nativeInput"
                   onAnimationStart={[Function]}
                   onChange={[Function]}
@@ -574,7 +575,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
               <p
                 className="MuiTablePagination-displayedRows css-levciy-MuiTablePagination-displayedRows"
               >
-                0–0 of 0
+                0-0 of 0
               </p>
               <div
                 className="MuiBox-root css-lm78jv"
@@ -668,19 +669,6 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                       />
                     </svg>
                   </button>
-                </span>
-                <span
-                  className="MuiTypography-root MuiTypography-caption css-1sn4lm3-MuiTypography-root"
-                  style={
-                    Object {
-                      "alignSelf": "center",
-                      "flex": 1,
-                      "flexBasis": "inherit",
-                      "textAlign": "center",
-                    }
-                  }
-                >
-                  0-0 of 0
                 </span>
                 <span
                   aria-label="Next Page"

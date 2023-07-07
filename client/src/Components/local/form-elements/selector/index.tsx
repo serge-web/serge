@@ -1,5 +1,5 @@
 import { MenuItem, Select } from '@material-ui/core'
-import { IconOption } from '@serge/custom-types'
+import { IconOption } from 'src/custom-types'
 import React, { ChangeEvent, ReactElement } from 'react'
 import AssetIcon from '../../asset-icon'
 import InputContainer from '../../atoms/input-container'

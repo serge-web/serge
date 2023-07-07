@@ -1,4 +1,4 @@
-import { PlayerUi } from '@serge/custom-types'
+import { PlayerUi } from 'src/custom-types'
 import * as FlexLayout from 'flexlayout-react'
 import _ from 'lodash'
 

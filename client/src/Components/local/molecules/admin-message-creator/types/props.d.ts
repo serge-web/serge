@@ -1,4 +1,4 @@
-import { MessageChannel, Role } from '@serge/custom-types'
+import { MessageChannel, Role } from 'src/custom-types'
 
 export default interface Props {
   from: {

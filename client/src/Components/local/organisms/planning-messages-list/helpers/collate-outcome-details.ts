@@ -1,5 +1,5 @@
 import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
-import { CoreOutcome, ForceData, MessageInteraction, MessagePlanning, PlatformTypeData } from '@serge/custom-types'
+import { CoreOutcome, ForceData, MessageInteraction, MessagePlanning, PlatformTypeData } from 'src/custom-types'
 import { findForceAndAsset, ForceStyle, formatLongMilitaryDate } from '@serge/helpers'
 import { uniq } from 'lodash'
 

@@ -1,4 +1,4 @@
-import { AttributeEditorData, AttributeTypes, AttributeValues } from '@serge/custom-types'
+import { AttributeEditorData, AttributeTypes, AttributeValues } from 'src/custom-types'
 
 export type Props = {
   /** whether to display dialog */

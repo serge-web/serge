@@ -2,7 +2,7 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { ForceRole, MessageCustom, Role, ChannelCollab } from '@serge/custom-types'
+import { ForceRole, MessageCustom, Role, ChannelCollab } from 'src/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, PARTICIPANT_COLLAB } from '@serge/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import CollabStatusBoard from './index'

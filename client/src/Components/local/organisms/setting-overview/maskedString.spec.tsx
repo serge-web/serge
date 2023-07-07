@@ -1,5 +1,5 @@
 /* global it expect */
-import { GameTurnLength } from '@serge/custom-types'
+import { GameTurnLength } from 'src/custom-types'
 import { toMasked, fromMasked } from './helpers/turnTimeToYYMMDDHHMMSS'
 
 describe('turn time to masked string:', () => {

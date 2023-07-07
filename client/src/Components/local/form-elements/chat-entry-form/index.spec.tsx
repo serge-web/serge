@@ -1,6 +1,6 @@
 /* global it expect */
 
-import { MessageDetails } from '@serge/custom-types'
+import { MessageDetails } from 'src/custom-types'
 import React from 'react'
 import renderer from 'react-test-renderer'
 

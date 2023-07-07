@@ -2,7 +2,7 @@
 import collatePlanFormData from './collate-plan-form-data'
 
 import { cmdWkWargame } from '@serge/mocks'
-import { PlanTurnFormPopulate, PlanTurnFormValues } from '@serge/custom-types'
+import { PlanTurnFormPopulate, PlanTurnFormValues } from 'src/custom-types'
 import { deepCopy, routeCreateStore } from '@serge/helpers'
 import { Phase } from '@serge/config'
 

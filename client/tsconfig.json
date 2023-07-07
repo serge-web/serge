@@ -1,4 +1,5 @@
-{
+{ 
+  "exclude": ["node_modules", "dist", "build", "lib", "__tests__", "**/*.test*", "**/*.scss.d.ts"],
   "compilerOptions": {
     "target": "ES2019",
     "lib": [
@@ -22,9 +23,8 @@
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "composite": false,
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
@@ -34,8 +34,15 @@
     "noImplicitReturns": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
+    "baseUrl": ".",
+    "declarationMap": true,
+    "sourceMap": true,
   },
+  "files": [
+    "./typings.d.ts",
+    "../packages/config/typings.d.ts"
+  ],
   "include": [
-    // "src"
+    "src"
   ]
 }

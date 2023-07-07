@@ -1,5 +1,5 @@
 import FlexLayout, { TabNode } from 'flexlayout-react'
-import { ChannelUI, PlayerUi } from '@serge/custom-types'
+import { ChannelUI, PlayerUi } from 'src/custom-types'
 import _ from 'lodash'
 import findChannelByID from './findChannelByID'
 import { CHANNEL_MAPPING, CHANNEL_PLANNING } from '@serge/config'

@@ -18,7 +18,7 @@ import {
   IconOption,
   AnnotationMarkerData,
   Message
-} from '@serge/custom-types'
+} from 'src/custom-types'
 
 export const setCurrentTab = (tab: Notification): WargameActionTypes => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,

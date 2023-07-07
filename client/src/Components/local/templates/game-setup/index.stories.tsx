@@ -12,7 +12,7 @@ import {
   Wargame,
   WargameOverview,
   AnnotationMarkerData
-} from '@serge/custom-types'
+} from 'src/custom-types'
 
 // Import component files
 import GameSetup from './index'

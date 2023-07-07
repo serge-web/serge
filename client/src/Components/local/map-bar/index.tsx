@@ -24,7 +24,7 @@ import {
   MessageDeletePlatform,
   MapAnnotation,
   PlatformTypeData
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import { Phase, ADJUDICATION_PHASE, UMPIRE_FORCE, PLANNING_PHASE, DELETE_PLATFORM, SUBMIT_PLANS, STATE_OF_WORLD, FORCE_LAYDOWN, PlanningStates, UNKNOWN_TYPE, UPDATE_MARKER, DELETE_MARKER, LaydownTypes, UMPIRE_LAYDOWN, TASK_GROUP, CLONE_MARKER } from '@serge/config'
 
 /* Import Stylesheet */

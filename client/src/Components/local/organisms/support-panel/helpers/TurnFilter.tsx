@@ -1,5 +1,5 @@
 import { Chip, MenuItem, Select } from '@material-ui/core'
-import { TurnPeriods } from '@serge/custom-types'
+import { TurnPeriods } from 'src/custom-types'
 import { incrementGameTime } from '@serge/helpers'
 import React, { ChangeEvent, CSSProperties, useEffect, useState } from 'react'
 import { shortDate } from '../../planning-messages-list/helpers/genData'

@@ -1,4 +1,4 @@
-import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
+import { Editor, PlannedActivityGeometry, TemplateBody } from 'src/custom-types'
 import { configDateTimeLocal, deepCopy, usePrevious } from '@serge/helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { isEqual } from 'lodash'

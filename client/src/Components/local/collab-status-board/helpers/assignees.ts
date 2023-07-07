@@ -1,5 +1,5 @@
 import { CollaborativePermission } from '@serge/config'
-import { ForceData, ForceRole, ParticipantCollab, Role } from '@serge/custom-types'
+import { ForceData, ForceRole, ParticipantCollab, Role } from 'src/custom-types'
 import { uniqBy } from 'lodash'
 
 /** find this force */

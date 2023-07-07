@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import { Phase } from '@serge/config'
-import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations, ChannelMapping, AnnotationIcons, Role, GameTurnLength } from '@serge/custom-types'
+import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations, ChannelMapping, AnnotationIcons, Role, GameTurnLength } from 'src/custom-types'
 import React from 'react'
 import { DeclutterData } from '@serge/helpers'
 

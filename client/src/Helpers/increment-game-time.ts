@@ -1,6 +1,6 @@
 import moment, { Moment } from 'moment'
 
-import { GameTurnLength, MonthTurns, TurnLengthType, MilliTurns } from '@serge/custom-types'
+import { GameTurnLength, MonthTurns, TurnLengthType, MilliTurns } from 'src/custom-types'
 
 /** move the game time forward
  * @param gameTime the current game time

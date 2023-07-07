@@ -1,4 +1,4 @@
-import { Asset, GroupItem } from '@serge/custom-types'
+import { Asset, GroupItem } from 'src/custom-types'
 import React from 'react'
 
 export type NodeType = 'empty' | 'group' | 'group-out'

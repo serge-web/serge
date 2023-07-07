@@ -1,6 +1,6 @@
 // import data types
 import { Phase } from '@serge/config'
-import { Asset, ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role, RouteTurn, Wargame } from '@serge/custom-types'
+import { Asset, ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role, RouteTurn, Wargame } from 'src/custom-types'
 import { deepCopy } from '@serge/helpers'
 /* Import mock data */
 import { watuPlaytest } from '@serge/mocks'

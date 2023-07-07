@@ -1,4 +1,4 @@
-import { ChannelMapping, ChannelTypes, MappingConstraints } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, MappingConstraints } from 'src/custom-types'
 import { DeclutterData, deepCopy, dummyDeclutter2, routeDeclutter2 } from '@serge/helpers'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'

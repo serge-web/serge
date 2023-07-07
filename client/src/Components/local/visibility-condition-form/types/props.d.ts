@@ -1,4 +1,4 @@
-import { VisibilityFormData, MapPostBack, IconDefinition } from '@serge/custom-types'
+import { VisibilityFormData, MapPostBack, IconDefinition } from 'src/custom-types'
 
 export default interface PropTypes {
   /**

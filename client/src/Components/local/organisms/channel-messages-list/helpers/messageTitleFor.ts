@@ -1,4 +1,4 @@
-import { MessageCustom, MessagePlanning } from '@serge/custom-types'
+import { MessageCustom, MessagePlanning } from 'src/custom-types'
 export default function messageTitleFor (message: MessageCustom | MessagePlanning): string {
   if (message.message.title || message.message.Title || message.details.messageType) {
     return message.message.title || message.message.Title || message.details.messageType

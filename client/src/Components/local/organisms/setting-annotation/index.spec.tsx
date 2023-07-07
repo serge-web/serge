@@ -2,7 +2,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { annotationMarkerData } from '@serge/mocks'
-import { AnnotationMarkerData } from '@serge/custom-types'
+import { AnnotationMarkerData } from 'src/custom-types'
 import SettingAnnotation from './index'
 
 const onChange = (platformType: AnnotationMarkerData): void => {

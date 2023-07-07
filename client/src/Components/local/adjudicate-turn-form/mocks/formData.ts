@@ -1,4 +1,4 @@
-import { AdjudicateTurnFormPopulate, AttributeTypes } from '@serge/custom-types'
+import { AdjudicateTurnFormPopulate, AttributeTypes } from 'src/custom-types'
 
 const attributes: AttributeTypes = []
 

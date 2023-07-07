@@ -1,4 +1,4 @@
-import { PlayerUi } from '@serge/custom-types'
+import { PlayerUi } from 'src/custom-types'
 
 export default ({ currentWargame, selectedForce, selectedRole }: PlayerUi): URL => {
   const currentUrl = new URL(document.location!.href)

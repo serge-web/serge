@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from 'src/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
@@ -12,12 +12,16 @@ export const mockFn = (): PlayerUiActionTypes => ({
   payload: {}
 })
 
-jest.mock('leaflet', () => ({
-  ...jest.requireActual('leaflet'),
-  Symbol: {
-    arrowHead: jest.fn()
+jest.mock('leaflet', () => {
+  const leaflet = jest.requireActual('leaflet')
+  return {
+    ...leaflet,
+    Symbol: {
+      ...leaflet.Symbol,
+      arrowHead: jest.fn()
+    }
   }
-}))
+})
 jest.mock('leaflet-polylinedecorator', () => jest.fn())
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn(),

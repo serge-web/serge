@@ -1,6 +1,6 @@
 /* global it expect */
 import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, MessageInteraction, MessagePlanning } from 'src/custom-types'
 import moment from 'moment-timezone'
 import React from 'react'
 import renderer from 'react-test-renderer'

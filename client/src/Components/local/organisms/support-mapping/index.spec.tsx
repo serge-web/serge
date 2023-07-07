@@ -3,15 +3,18 @@ import React from 'react'
 import { MapConstants } from './helper/MapConstants'
 import SupportMapping from './index'
 
-jest.mock('leaflet', () => ({
-  ...jest.requireActual('leaflet'),
-  Symbol: {
-    arrowHead: jest.fn()
-  },
-  polylineDecorator: (): any => ({
-    addTo: jest.fn()
-  })
-}))
+jest.mock('leaflet', () => {
+  const leaflet = jest.requireActual('leaflet')
+  return {
+    ...leaflet,
+    Symbol: {
+      arrowHead: jest.fn()
+    },
+    polylineDecorator: jest.fn().mockReturnValue({
+      addTo: jest.fn()
+    })
+  }
+})
 
 jest.mock('leaflet-polylinedecorator', () => jest.fn())
 jest.mock('react-leaflet-v4', () => ({

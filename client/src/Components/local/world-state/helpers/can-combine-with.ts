@@ -1,6 +1,6 @@
 
 import { NodeType } from '../../helper-elements/groups/types/props'
-import { RouteStore, Route, GroupItem } from '@serge/custom-types'
+import { RouteStore, Route, GroupItem } from 'src/custom-types'
 import { h3Distance } from 'h3-js'
 /**
  *  indicate if two assets can be combined

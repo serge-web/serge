@@ -2,7 +2,7 @@
 import collateMarkerFormData from './collate-marker-form-data'
 
 import { watuWargame } from '@serge/mocks'
-import { MarkerFormData, MarkerFormPopulate, MapAnnotation } from '@serge/custom-types'
+import { MarkerFormData, MarkerFormPopulate, MapAnnotation } from 'src/custom-types'
 
 it('contains relevant population results', () => {
   const marker = watuWargame.data.annotations && watuWargame.data.annotations.annotations[0]

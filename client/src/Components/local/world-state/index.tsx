@@ -1,7 +1,7 @@
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
 import { Confirm } from '@serge/components'
 import { ADJUDICATION_PHASE, LaydownPhases, Phase, PlanningStates, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { GroupItem, PlatformTypeData, Route, MapAnnotation, MapAnnotations, IconOption } from '@serge/custom-types'
+import { GroupItem, PlatformTypeData, Route, MapAnnotation, MapAnnotations, IconOption } from 'src/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import React, { useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'

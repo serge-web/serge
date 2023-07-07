@@ -1,4 +1,4 @@
-import { Asset, ForceData, InteractionDetails, MessageAdjudicationOutcomes, PerceptionOutcome, PerceptionOutcomes, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { Asset, ForceData, InteractionDetails, MessageAdjudicationOutcomes, PerceptionOutcome, PerceptionOutcomes, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from 'src/custom-types'
 import { findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { booleanPointInPolygon, buffer } from '@turf/turf'

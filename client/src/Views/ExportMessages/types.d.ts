@@ -1,4 +1,4 @@
-import { Wargame, ExportItemMessages } from '@serge/custom-types'
+import { Wargame, ExportItemMessages } from 'src/custom-types'
 
 interface Props {
   wargame: Wargame,

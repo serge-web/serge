@@ -6,7 +6,7 @@ import { CUSTOM_MESSAGE } from '@serge/config'
 
 /* Import Types */
 import Props from './types/props'
-import { MessageCustom } from '@serge/custom-types'
+import { MessageCustom } from 'src/custom-types'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'

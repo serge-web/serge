@@ -7,7 +7,7 @@ import MessageListPropTypes from './types/props'
 import ChannelMessagesList from './index'
 import docs from './README.md'
 import { GameMessagesMockRFI } from '@serge/mocks'
-import { MessageCustom, MessageChannel } from '@serge/custom-types'
+import { MessageCustom, MessageChannel } from 'src/custom-types'
 import { mostRecentOnly } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>

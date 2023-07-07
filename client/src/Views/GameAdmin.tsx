@@ -1,4 +1,4 @@
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel } from 'src/custom-types'
 import { setMessageState } from '@serge/helpers'
 import React, { useMemo } from 'react'
 import { updateMessageState } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'

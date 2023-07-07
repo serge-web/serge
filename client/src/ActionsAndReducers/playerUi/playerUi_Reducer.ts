@@ -3,7 +3,7 @@ import {
   MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE
 } from '@serge/config'
-import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData, MessagePlanning } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData, MessagePlanning } from 'src/custom-types'
 import _ from 'lodash'
 import copyState from '../../Helpers/copyStateHelper'
 import chat from '../../Schemas/chat.json'

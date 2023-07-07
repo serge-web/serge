@@ -1,4 +1,4 @@
-import { WargameOverview } from '@serge/custom-types'
+import { WargameOverview } from 'src/custom-types'
 
 export default interface PropTypes {
   overview: WargameOverview
@@ -15,4 +15,4 @@ export default interface PropTypes {
    ignoreFlatpickrSnapshot?: boolean
 }
 
-export { WargameOverview } from '@serge/custom-types'
+export { WargameOverview } from 'src/custom-types'

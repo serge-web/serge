@@ -1,4 +1,4 @@
-import { ForceData, PlayerUi, Role } from '@serge/custom-types'
+import { ForceData, PlayerUi, Role } from 'src/custom-types'
 
 const getRoleParamsForPlayerUI = (role: Role, newState: PlayerUi): void => {
   newState.selectedRole = role.roleId

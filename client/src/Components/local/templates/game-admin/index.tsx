@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 // /* Import Constants */
 import { CHAT_CHANNEL_ID, expiredStorage } from '@serge/config'
-import { MessageChannel } from '@serge/custom-types'
+import { MessageChannel } from 'src/custom-types'
 
 // /* Import Stylesheet */
 // import styles from './styles.module.scss'

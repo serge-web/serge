@@ -10,7 +10,7 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { ChannelMapping, ChannelTypes, MappingConstraints } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, MappingConstraints } from 'src/custom-types'
 import { watuWargame } from '@serge/mocks'
 
 const forces = watuWargame.data.forces.forces

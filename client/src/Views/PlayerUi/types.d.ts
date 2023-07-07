@@ -1,4 +1,4 @@
-import { Wargame, MessageTypes } from '@serge/custom-types'
+import { Wargame, MessageTypes } from 'src/custom-types'
 
 export interface GameInfo {
   description: string,

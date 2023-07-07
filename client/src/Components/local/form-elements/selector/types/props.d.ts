@@ -1,4 +1,4 @@
-import { IconOption } from '@serge/custom-types'
+import { IconOption } from 'src/custom-types'
 
 export default interface PropTypes {
   /**

@@ -1,4 +1,4 @@
-import { SelectedAsset, AdjudicateTurnFormPopulate, ForceOption, ForceData, PlatformTypeData, State } from '@serge/custom-types'
+import { SelectedAsset, AdjudicateTurnFormPopulate, ForceOption, ForceData, PlatformTypeData, State } from 'src/custom-types'
 import { findPlatformTypeFor } from '@serge/helpers'
 import availableForces from './available-forces'
 

@@ -1,6 +1,6 @@
 /* global it expect */
 
-import { IconDefinition } from '@serge/custom-types'
+import { IconDefinition } from 'src/custom-types'
 import React from 'react'
 import renderer from 'react-test-renderer'
 

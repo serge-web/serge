@@ -1,4 +1,5 @@
-import { MappingContext } from '@serge/custom-types'
+// import { MappingContext } from 'src/custom-types'
+import { MappingContext } from '../../../../custom-types'
 
 export default interface ContextInterface {
   props?: MappingContext

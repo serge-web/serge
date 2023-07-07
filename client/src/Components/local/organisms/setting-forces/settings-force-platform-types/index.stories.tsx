@@ -5,7 +5,7 @@ import AssetsAccordion from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 import { smallScaleForces as forcesMock, platformTypes as platformTypesMock } from '@serge/mocks'
-import { ForceData } from '@serge/custom-types'
+import { ForceData } from 'src/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { LaydownTypes } from '@serge/config'
 

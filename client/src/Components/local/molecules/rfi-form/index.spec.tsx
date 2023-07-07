@@ -2,7 +2,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import gameMessagesWithRFI from '@serge/mocks/game-messages-rfi.mock'
-import { MessageCustom } from '@serge/custom-types/message'
+import { MessageCustom } from 'src/custom-types/message'
 import RfiForm from './index'
 
 describe('RFIForm component:', () => {

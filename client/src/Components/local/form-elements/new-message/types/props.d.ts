@@ -1,4 +1,4 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody } from '@serge/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody } from 'src/custom-types'
 import { EditCallback } from 'src/local/molecules/json-editor/helpers/setupEditor'
 
 export default interface PropTypes {

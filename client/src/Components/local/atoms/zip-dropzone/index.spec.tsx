@@ -2,7 +2,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import ZipFileUploader from './index'
-import { Wargame, Message } from '@serge/custom-types'
+import { Wargame, Message } from 'src/custom-types'
 
 describe('Zip Dropzone component:', () => {
   // Defining a function to be passed as a prop to the ZipFileUploader component

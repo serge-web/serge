@@ -17,7 +17,7 @@ import { PLANNING_MESSAGE } from '@serge/config'
 import {
   Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction,
   MessagePlanning, MessageStructure, PlanningActivity
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { AssetRow } from '../../organisms/planning-assets/types/props'
 import { collapseLocation } from '../../organisms/planning-messages-list/helpers/collapse-location'

@@ -1,5 +1,5 @@
 import { CUSTOM_MESSAGE } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageCustom, MessageDetails, MessageStructure, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageCustom, MessageDetails, MessageStructure, PlanningMessageStructure, TemplateBody } from 'src/custom-types'
 import { } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import moment from 'moment'

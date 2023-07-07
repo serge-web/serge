@@ -1,4 +1,4 @@
-import { ForceData } from '@serge/custom-types'
+import { ForceData } from 'src/custom-types'
 
 export default interface PropTypes {
   // current set of forces

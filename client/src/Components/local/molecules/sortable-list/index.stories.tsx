@@ -7,7 +7,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 
 // import types
 import { Item } from './types/props'
-import { PlatformTypeData } from '@serge/custom-types'
+import { PlatformTypeData } from 'src/custom-types'
 
 import { platformTypes } from '@serge/mocks'
 

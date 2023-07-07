@@ -2,7 +2,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 
-import { ChannelPlanning, ForceData } from '@serge/custom-types'
+import { ChannelPlanning, ForceData } from 'src/custom-types'
 import { deepCopy, forceColors, platformIcons } from '@serge/helpers'
 import { P9BMock } from '@serge/mocks'
 import { noop } from 'lodash'

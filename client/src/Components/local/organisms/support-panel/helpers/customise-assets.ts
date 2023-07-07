@@ -1,4 +1,4 @@
-import { MessageStructure } from '@serge/custom-types'
+import { MessageStructure } from 'src/custom-types'
 import { AssetRow } from '../../planning-assets/types/props'
 
 export const customiseAssets = (_document: MessageStructure | undefined, schema: Record<string, any>,

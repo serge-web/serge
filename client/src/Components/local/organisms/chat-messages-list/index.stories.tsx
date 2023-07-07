@@ -4,7 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 
 import { ChatMessagesMock, InfoMessagesMock } from '@serge/mocks'
 import Props from './types/props'
-import { ChatMessage, MessageInfoTypeClipped } from '@serge/custom-types'
+import { ChatMessage, MessageInfoTypeClipped } from 'src/custom-types'
 
 // Import component files
 import ChatMessagesList from './index'

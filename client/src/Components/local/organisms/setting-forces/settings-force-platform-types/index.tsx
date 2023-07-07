@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import NativeSelect from '@material-ui/core/NativeSelect'
 import Typography from '@material-ui/core/Typography'
 import { LaydownTypes, TASK_GROUP } from '@serge/config'
-import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValue, AttributeValues, ForceData, GroupItem, PlatformTypeData } from '@serge/custom-types'
+import { Asset, AttributeEditorData, AttributeType, AttributeTypes, AttributeValue, AttributeValues, ForceData, GroupItem, PlatformTypeData } from 'src/custom-types'
 /* Import Components */
 import { collateEditorData, createAssetBasedOnPlatformType, createAttributeValue, findPlatformTypeFor, groupCreateNewGroup, groupHostPlatform, groupMoveToRoot } from '@serge/helpers'
 import cx from 'classnames'

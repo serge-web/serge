@@ -1,4 +1,4 @@
-import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
+import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from 'src/custom-types'
 import { deepCopy } from '@serge/helpers'
 
 /** as a "time-saver" in generating activities, it's possible to record per force activity

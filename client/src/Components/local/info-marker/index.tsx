@@ -15,7 +15,7 @@ import { MapContext } from '../mapping'
 import styles from './styles.module.scss'
 /* Import Types */
 import PropTypes from './types/props'
-import { IconOption } from '@serge/custom-types'
+import { IconOption } from 'src/custom-types'
 
 const fetch = unfetch.bind(window)
 

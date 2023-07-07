@@ -1,7 +1,7 @@
-import { Asset, AttributeValues, ForceData, RouteTurn } from '@serge/custom-types'
+import { Asset, AttributeValues, ForceData, RouteTurn } from 'src/custom-types'
 import orientationFor from './orientation-for'
 import { smallScaleForces } from '@serge/mocks'
-import { OrientationMarker } from '@serge/custom-types/platform-type-data'
+import { OrientationMarker } from 'src/custom-types/platform-type-data'
 import { brgBetweenTwoHex } from '../../mapping/helpers/h3-helpers'
 
 const getAsset = (forces: ForceData[]): Asset | undefined => {

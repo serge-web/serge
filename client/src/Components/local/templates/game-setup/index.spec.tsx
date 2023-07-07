@@ -15,7 +15,7 @@ import {
   Wargame,
   WargameOverview,
   AnnotationMarkerData
-} from '@serge/custom-types'
+} from 'src/custom-types'
 
 const Component = (): React.ReactElement => {
   const initialWargame: Wargame = {

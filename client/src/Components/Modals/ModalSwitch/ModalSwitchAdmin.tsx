@@ -1,4 +1,4 @@
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import DeleteModal from '../DeleteModal'
 import DeleteWargameModal from '../DeleteWargameModal'
@@ -9,7 +9,7 @@ import ColorPickerModal from '../ColorPickerModal'
 import AddLogoModal from '../AddLogoModal'
 import DeleteConfirmation from '../DeleteConfirmation'
 import '@serge/themes/App.scss'
-import { CurrentModal } from '@serge/custom-types'
+import { CurrentModal } from 'src/custom-types'
 
 class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {
   render () {

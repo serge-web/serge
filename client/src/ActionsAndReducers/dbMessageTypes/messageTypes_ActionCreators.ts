@@ -8,7 +8,7 @@ import * as messageTypesApi from '../../api/messageTypes_api'
 import { setCurrentViewFromURI } from '../setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 import { MESSAGE_TEMPLATE_ROUTE } from '../../consts'
-import { MessageTypesActionTypes, MessageTypesDispatch, TemplateBody } from '@serge/custom-types'
+import { MessageTypesActionTypes, MessageTypesDispatch, TemplateBody } from 'src/custom-types'
 
 const DBMessageSaveStatus = (status: boolean): MessageTypesActionTypes => ({
   type: ActionConstant.DB_MESSAGE_STATUS,

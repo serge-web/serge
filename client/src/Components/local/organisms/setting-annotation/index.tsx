@@ -1,5 +1,5 @@
 /* Import Components */
-import { AnnotationMarkerData, IconOption, AnnotationIcons } from '@serge/custom-types'
+import { AnnotationMarkerData, IconOption, AnnotationIcons } from 'src/custom-types'
 import React, { useEffect, useState } from 'react'
 import uniqid from 'uniqid'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'

@@ -1,4 +1,5 @@
-import { ReactNode } from 'react'
+// import React from 'react'
+import React, { ReactNode } from 'react'
 import { TabNode } from 'flexlayout-react'
 import GameAdmin from '../../GameAdmin'
 import InsightsChannel from '../../InsightsChannel'

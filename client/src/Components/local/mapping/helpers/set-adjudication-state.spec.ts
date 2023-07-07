@@ -2,7 +2,7 @@
 
 /* Import mock data */
 import { forces, platformTypes } from '@serge/mocks'
-import { RouteStore } from '@serge/custom-types'
+import { RouteStore } from 'src/custom-types'
 
 import setAdjudicationState from './set-adjudication-state'
 import { Phase, PlanningStates, PlanningCommands, UMPIRE_FORCE } from '@serge/config'

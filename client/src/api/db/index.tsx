@@ -1,7 +1,7 @@
 import {
   databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame, TurnPeriod, MessagePlanning } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame, TurnPeriod, MessagePlanning } from 'src/custom-types'
 import { io } from 'socket.io-client'
 import {
   DbProviderInterface,
@@ -53,7 +53,7 @@ export class DbProvider implements DbProviderInterface {
   }
 
   get (query: string): Promise<Wargame | Message | { status: number }> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       fetch(serverPath + 'get/' + this.getDbName() + '/' + query)
         .then(res => res.json() as Promise<FetchData>)
         .then(({ msg, data }) => {
@@ -72,7 +72,7 @@ export class DbProvider implements DbProviderInterface {
   }
 
   put (doc: Wargame | Message): Promise<Wargame | Message> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       fetch(serverPath + this.getDbName(), {
         method: 'PUT',
         headers: {
@@ -111,7 +111,7 @@ export class DbProvider implements DbProviderInterface {
   }
 
   bulkDocs = (doc: PlayerLogEntries | MessagePlanning[] | Array<Message | Wargame>): Promise<{msg: string}> => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       fetch(serverPath + 'bulkDocs' + '/' + this.getDbName(), {
         method: 'PUT',
         headers: {

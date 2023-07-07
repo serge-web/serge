@@ -1,5 +1,5 @@
 import { UNKNOWN_TYPE } from '@serge/config'
-import { SelectedAsset } from '@serge/custom-types'
+import { SelectedAsset } from 'src/custom-types'
 import L, { DragEndEvent } from 'leaflet'
 import { capitalize } from 'lodash'
 import React, { useContext, useMemo } from 'react'

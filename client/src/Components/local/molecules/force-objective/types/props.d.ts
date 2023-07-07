@@ -1,4 +1,4 @@
-import { Role } from '@serge/custom-types'
+import { Role } from 'src/custom-types'
 import React from 'react'
 
 export default interface Props {

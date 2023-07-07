@@ -1,5 +1,5 @@
 import { Dispatch } from 'react'
-import { ForceData, MessageTypes, PlayerUiActionTypes, Role } from '@serge/custom-types'
+import { ForceData, MessageTypes, PlayerUiActionTypes, Role } from 'src/custom-types'
 
 import {
   setForce,

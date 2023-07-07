@@ -3,7 +3,7 @@ import Select from 'react-select'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { serverPath } from '../consts'
-import { ForceData, Role, WargameList } from '@serge/custom-types'
+import { ForceData, Role, WargameList } from 'src/custom-types'
 import { TextInput } from '@serge/components'
 import { hiddenPrefix } from '@serge/config'
 

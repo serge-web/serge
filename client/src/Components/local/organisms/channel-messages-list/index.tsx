@@ -11,7 +11,7 @@ import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 // import collateMessages from './helpers/collate-messages'
 import { INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
+import { MessageChannel, MessageCustom } from 'src/custom-types'
 import { formatTurn } from '@serge/helpers'
 
 /* Render component */

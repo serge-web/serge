@@ -1,7 +1,7 @@
 /* global it expect */
 
 import { watuWargame } from '@serge/mocks'
-import { RouteStore, Route, ChannelTypes, ChannelMapping } from '@serge/custom-types'
+import { RouteStore, Route, ChannelTypes, ChannelMapping } from 'src/custom-types'
 import { routeCreateStore } from '@serge/helpers'
 import { historicRoutesFor } from './historic-routes-for'
 import RouteData from '../types/route-data'

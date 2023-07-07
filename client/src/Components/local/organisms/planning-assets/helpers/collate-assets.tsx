@@ -1,6 +1,6 @@
 import { Column } from '@material-table/core'
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, UNKNOWN_TYPE } from '@serge/config'
-import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
+import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from 'src/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle, sortDictionaryByValue } from '@serge/helpers'
 import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'

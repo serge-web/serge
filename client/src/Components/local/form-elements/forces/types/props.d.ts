@@ -1,4 +1,4 @@
-import { ForceData, ForceOption } from '@serge/custom-types'
+import { ForceData, ForceOption } from 'src/custom-types'
 
 export default interface PropTypes {
   /**

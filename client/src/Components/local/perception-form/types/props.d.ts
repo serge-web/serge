@@ -1,4 +1,4 @@
-import { PerceptionFormData, MapPostBack } from '@serge/custom-types'
+import { PerceptionFormData, MapPostBack } from 'src/custom-types'
 
 export default interface PropTypes {
   /**

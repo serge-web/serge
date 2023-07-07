@@ -1,4 +1,4 @@
-import { IconDefinition } from '@serge/custom-types'
+import { IconDefinition } from 'src/custom-types'
 import AdjudicationManager from '../helpers/adjudication-manager'
 
 export default interface PropTypes {

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 /* Import Types */
 import { Button, MenuItem, Select } from '@material-ui/core'
-import { ForceData, ForceOption, MessageVisibilityChanges, Visibility } from '@serge/custom-types'
+import { ForceData, ForceOption, MessageVisibilityChanges, Visibility } from 'src/custom-types'
 import { clSelect, FormGroup } from '../form-elements/form-group'
 import TitleWithIcon from '../form-elements/title-with-icon'
 import PropTypes from './types/props'
