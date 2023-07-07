@@ -9,20 +9,12 @@ import Store from './Store/Store'
 // import '@serge/themes/App.scss'
 import './themes/App.scss'
 
+
 class App extends Component {
   componentDidMount () {
-    const dataFetch = async () => {
-      const data = await (
-        await fetch(
-          'http://localhost:8080/wargame-l6nngxlk'
-        )
-      ).json()
-      console.log(data)
-    }
-    dataFetch()
     document.title = 'Serge'
   }
-
+  
   render () {
     return (
       <Provider store={Store}>

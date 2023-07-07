@@ -5,6 +5,9 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "project": "./tsconfig.json",
+    "extraFileExtensions": [".snap"],
+    "include": ["./src"],
     "ecmaFeatures": {
       "jsx": true
     },
@@ -13,7 +16,9 @@
   },
   "extends": [
     "standard",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended"
   ],
   "plugins": [
     "prettier"
@@ -29,6 +34,42 @@
     "react/no-deprecated": "off",
     "prefer-promise-reject-errors": "off",
     "camelcase": "off",
-    "eqeqeq": "off"
+    "eqeqeq": "off",
+    "semi": ["error", "never"],
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "comma",
+          "requireLast": false
+        }
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "args": "none"
+      }
+    ],
+    "@typescript-eslint/indent": "off",
+    "node/no-unsupported-features/es-syntax": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "no-useless-constructor": "off"
+  },
+  "ignorePatterns": [
+    "*.scss.d.ts",
+    "*.snap"
+  ],
+  "globals": {
+    "FileReader": "readonly",
+    "Event": "readonly"
   }
 }
