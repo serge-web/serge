@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "prettier": "^1.18.2",
-    "stylelint": "^13.13.1",
+    "stylelint": "^15.10.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-prettier": "^1.2.0"
   },
