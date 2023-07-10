@@ -1,5 +1,5 @@
 import { forces } from '@serge/mocks'
-import { ForceData } from '@serge/custom-types'
+import { ForceData } from 'src/custom-types'
 import { getUniquePasscode } from '../'
 
 const allForces: ForceData[] = forces

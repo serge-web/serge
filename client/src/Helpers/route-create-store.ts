@@ -1,6 +1,6 @@
 
 import L from 'leaflet'
-import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping, Role } from '@serge/custom-types'
+import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping, Role } from 'src/custom-types'
 import routeCreateRoute from './route-create-route'
 import { ADJUDICATION_PHASE, LaydownTypes, Phase, UMPIRE_FORCE } from '@serge/config'
 import findPerceivedAsTypes from './find-perceived-as-types'

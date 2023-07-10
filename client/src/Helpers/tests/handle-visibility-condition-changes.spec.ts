@@ -1,4 +1,4 @@
-import { ForceData, MessageVisibilityChanges } from '@serge/custom-types'
+import { ForceData, MessageVisibilityChanges } from 'src/custom-types'
 import { VISIBILITY_CHANGES } from '@serge/config'
 /* global it expect */
 import handleVisibilityAndConditionChanges from '../handle-visibility-condition-changes'

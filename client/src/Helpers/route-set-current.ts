@@ -1,4 +1,4 @@
-import { RouteStore, Route } from '@serge/custom-types'
+import { RouteStore, Route } from 'src/custom-types'
 import { cloneDeep } from 'lodash'
 
 /** set the new selected route, clear others

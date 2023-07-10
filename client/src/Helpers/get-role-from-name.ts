@@ -1,4 +1,4 @@
-import { ForceData, Role } from '@serge/custom-types'
+import { ForceData, Role } from 'src/custom-types'
 
 /** from force and name, get the role id */
 const getRoleFromName = (forces: ForceData[], forceId: string, name: string): Role | undefined => {

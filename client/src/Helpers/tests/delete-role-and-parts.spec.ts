@@ -2,7 +2,7 @@ import deleteRoleAndParts from '../delete-role-and-parts'
 import deepCopy from '../deep-copy'
 
 import { watuWargame } from '@serge/mocks'
-import { ParticipantChat, Wargame } from '@serge/custom-types'
+import { ParticipantChat, Wargame } from 'src/custom-types'
 import _ from 'lodash'
 
 const blueForce = deepCopy(watuWargame.data.forces.forces[1])

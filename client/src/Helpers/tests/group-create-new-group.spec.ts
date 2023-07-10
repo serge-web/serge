@@ -2,7 +2,7 @@
 
 /* Import mock data */
 import { TASK_GROUP } from '@serge/config'
-import { Asset, ForceData } from '@serge/custom-types'
+import { Asset, ForceData } from 'src/custom-types'
 import { forces, platformTypes } from '@serge/mocks'
 import findPlatformTypeFor from '../find-platform-type-for'
 

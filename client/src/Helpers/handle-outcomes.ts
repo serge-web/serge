@@ -1,4 +1,4 @@
-import { Asset, AssetWithForce, ForceData, HealthOutcome, HealthOutcomes, InteractionDetails, MessageAdjudicationOutcomes } from '@serge/custom-types'
+import { Asset, AssetWithForce, ForceData, HealthOutcome, HealthOutcomes, InteractionDetails, MessageAdjudicationOutcomes } from 'src/custom-types'
 import moment from 'moment'
 import { findForceAndAsset } from './find-asset'
 import { cloneDeep } from 'lodash'

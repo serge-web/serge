@@ -1,4 +1,4 @@
-import { ForceData, MessageVisibilityChanges, Asset, Visibility } from '@serge/custom-types'
+import { ForceData, MessageVisibilityChanges, Asset, Visibility } from 'src/custom-types'
 import findAsset from './find-asset'
 import deepCopy from './deep-copy'
 

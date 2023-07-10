@@ -5,7 +5,7 @@ import { watuWargame } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
 
-import { ChannelMapping, Route, RouteStore } from '@serge/custom-types'
+import { ChannelMapping, Route, RouteStore } from 'src/custom-types'
 import { LaydownPhases, LaydownTypes, Phase } from '@serge/config'
 import { laydownPhaseFor } from '../route-create-route'
 import deepCopy from '../deep-copy'

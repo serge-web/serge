@@ -1,4 +1,4 @@
-import { ForceData, Perception } from '@serge/custom-types'
+import { ForceData, Perception } from 'src/custom-types'
 
 /** set of descriptors for how a force is styled */
 export interface ForceStyle {

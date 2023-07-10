@@ -1,4 +1,4 @@
-import { Asset } from '@serge/custom-types'
+import { Asset } from 'src/custom-types'
 
 const removeAssetById = (uniqid: string, assets: Asset[]): Asset[] => {
   return assets.filter((assetItem) => {

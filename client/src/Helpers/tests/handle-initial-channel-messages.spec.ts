@@ -2,7 +2,7 @@ import { handleAllInitialChannelMessages, handleNewMessageData } from '../handle
 import {
   ForceData, PlayerUiChatChannel, SetWargameMessage,
   ChannelTypes, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails, PlayerMessageLog
-} from '@serge/custom-types'
+} from 'src/custom-types'
 import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels2, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
 import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
 

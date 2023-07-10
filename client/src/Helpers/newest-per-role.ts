@@ -1,5 +1,5 @@
 import { CUSTOM_MESSAGE } from '@serge/config'
-import { ForceData, MessageCustom, MessageInfoType, PlayerMessageLog, PlayerMessage, PlayerLogUI, Role } from '@serge/custom-types'
+import { ForceData, MessageCustom, MessageInfoType, PlayerMessageLog, PlayerMessage, PlayerLogUI, Role } from 'src/custom-types'
 
 export const logTable = (playerLog: PlayerMessageLog, forces: ForceData[]): Array<PlayerLogUI> => {
   const res: Array<PlayerLogUI> = []

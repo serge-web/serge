@@ -2,7 +2,7 @@ import handleChannelUpdates, { handleNewMessageData } from '../handle-channel-up
 import { forces, InfoMessagesMock, GameMessagesMock, MessageTemplatesMock, GameChannels2, MessageTemplatesMockByKey } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 import { INFO_MESSAGE_CLIPPED, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, PARTICIPANT_CUSTOM, CHANNEL_CUSTOM } from '@serge/config'
-import { Role, MessageChannel, PlayerUiChatChannel, ForceData, ChannelTypes, PlayerMessageLog, PlayerUiChannels, ChannelUI, MessageInfoTypeClipped, SetWargameMessage, ChannelCustom, MessageCustom } from '@serge/custom-types'
+import { Role, MessageChannel, PlayerUiChatChannel, ForceData, ChannelTypes, PlayerMessageLog, PlayerUiChannels, ChannelUI, MessageInfoTypeClipped, SetWargameMessage, ChannelCustom, MessageCustom } from 'src/custom-types'
 import { getParticipantStates } from '../participant-states'
 
 const whiteGC: Role = forces[0].roles[0]

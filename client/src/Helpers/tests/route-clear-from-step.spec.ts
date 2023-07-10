@@ -7,7 +7,7 @@ import routeCreateStore from '../route-create-store'
 import routeClearFromStep from '../route-clear-from-step'
 import { Phase } from '@serge/config'
 
-import { ChannelMapping, RouteStore } from '@serge/custom-types'
+import { ChannelMapping, RouteStore } from 'src/custom-types'
 import deepCopy from '../deep-copy'
 
 const forces = deepCopy(watuWargame.data.forces.forces)

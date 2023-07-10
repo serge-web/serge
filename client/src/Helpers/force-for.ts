@@ -1,4 +1,4 @@
-import { Asset, ForceData } from '@serge/custom-types'
+import { Asset, ForceData } from 'src/custom-types'
 import { isAsset } from './find-asset'
 
 export default function forceFor (allForces: ForceData[], assetId: string): ForceData {

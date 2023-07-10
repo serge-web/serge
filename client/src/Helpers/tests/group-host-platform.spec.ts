@@ -6,7 +6,7 @@ import deepCopy from '../deep-copy'
 
 import groupMoveToRoot from '../group-move-to-root'
 import groupHostPlatform from '../group-host-platform'
-import { Asset, ForceData } from '@serge/custom-types'
+import { Asset, ForceData } from 'src/custom-types'
 import { TASK_GROUP } from '@serge/config'
 import findPlatformTypeFor from '../find-platform-type-for'
 

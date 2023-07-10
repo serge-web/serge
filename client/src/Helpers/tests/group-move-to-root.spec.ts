@@ -1,7 +1,7 @@
 /* global it expect */
 
 /* Import mock data */
-import { Asset, ForceData } from '@serge/custom-types'
+import { Asset, ForceData } from 'src/custom-types'
 import { forces as mockForces } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 import groupMoveToRoot from '../group-move-to-root'

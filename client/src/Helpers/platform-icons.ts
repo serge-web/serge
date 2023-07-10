@@ -1,4 +1,4 @@
-import { PlatformTypeData } from '@serge/custom-types'
+import { PlatformTypeData } from 'src/custom-types'
 
 export interface PlatformStyle {
   name: PlatformTypeData['name']

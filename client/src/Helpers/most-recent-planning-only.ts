@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { MessagePlanning } from '@serge/custom-types'
+import { MessagePlanning } from 'src/custom-types'
 
 /** helper function to produce unique ids for channel messages
  */

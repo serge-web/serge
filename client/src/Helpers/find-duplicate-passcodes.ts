@@ -1,4 +1,4 @@
-import { ForceData } from '@serge/custom-types'
+import { ForceData } from 'src/custom-types'
 import _ from 'lodash'
 
 /** check if any pass-codes in the new force being saved are duplicates

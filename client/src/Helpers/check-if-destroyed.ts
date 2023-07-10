@@ -1,4 +1,4 @@
-import { PlatformTypeData } from '@serge/custom-types'
+import { PlatformTypeData } from 'src/custom-types'
 import findPlatformTypeFor from './find-platform-type-for'
 
 const checkIfDestroyed = (typesList: PlatformTypeData[], platformTypeId: PlatformTypeData['uniqid'], condition: string): boolean => {

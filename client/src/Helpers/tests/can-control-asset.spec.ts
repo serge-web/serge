@@ -1,7 +1,7 @@
 import { watuWargame } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 import canControlAsset, { canControlAnyAsset, underControlByThisForce, canControlAssetExtended } from '../can-control-asset'
-import { Asset, ChannelMapping, ChannelTypes, ForceData, Role, Wargame } from '@serge/custom-types'
+import { Asset, ChannelMapping, ChannelTypes, ForceData, Role, Wargame } from 'src/custom-types'
 import { LaydownTypes, Phase } from '@serge/config'
 
 const game: Wargame = deepCopy(watuWargame)

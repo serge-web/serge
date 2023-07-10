@@ -1,4 +1,4 @@
-import { RouteTurn } from '@serge/custom-types'
+import { RouteTurn } from 'src/custom-types'
 
 /** set the new selected route, clear others
  * @param {string} currentLocation uniqid route to be selected (use '' empty string to clear selection)

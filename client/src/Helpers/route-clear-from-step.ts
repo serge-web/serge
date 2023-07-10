@@ -1,4 +1,4 @@
-import { RouteStore, Route, RouteTurn } from '@serge/custom-types'
+import { RouteStore, Route, RouteTurn } from 'src/custom-types'
 import { cloneDeep } from 'lodash'
 
 /** clear planned steps, from the indicated turn

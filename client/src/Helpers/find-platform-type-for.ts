@@ -1,4 +1,4 @@
-import { PlatformTypeData } from '@serge/custom-types'
+import { PlatformTypeData } from 'src/custom-types'
 import _ from 'lodash'
 
 export default function findPlatformTypeFor (typesList: PlatformTypeData[], platformType: string, platformTypeId: PlatformTypeData['uniqid']): PlatformTypeData {

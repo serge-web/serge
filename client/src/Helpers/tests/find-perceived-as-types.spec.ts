@@ -1,7 +1,7 @@
 /* global it expect */
 
 import { UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
-import { Perception } from '@serge/custom-types'
+import { Perception } from 'src/custom-types'
 import findPerceivedAsTypes from '../find-perceived-as-types'
 
 // perceptions element

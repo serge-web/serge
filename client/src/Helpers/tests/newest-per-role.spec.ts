@@ -1,7 +1,7 @@
 import newestPerRole, { logTable } from '../newest-per-role'
 import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock, forces } from '@serge/mocks'
-import { MessageChannel, MessageCustom } from '@serge/custom-types'
-import { PlayerMessageLog, PlayerLogUI } from '@serge/custom-types/player-log'
+import { MessageChannel, MessageCustom } from 'src/custom-types'
+import { PlayerMessageLog, PlayerLogUI } from 'src/custom-types/player-log'
 
 it('find newest message across all roles', () => {
   const payload: Array<MessageChannel> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageChannel>

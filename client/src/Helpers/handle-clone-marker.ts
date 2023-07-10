@@ -1,5 +1,5 @@
-import { MapAnnotations } from '@serge/custom-types'
-import { MessageCloneMarker } from '@serge/custom-types/message'
+import { MapAnnotations } from 'src/custom-types'
+import { MessageCloneMarker } from 'src/custom-types/message'
 import deepCopy from './deep-copy'
 import uniqid from 'uniqid'
 

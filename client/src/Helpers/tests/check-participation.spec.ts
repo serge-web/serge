@@ -1,6 +1,6 @@
 import { CHANNEL_CUSTOM, PARTICIPANT_CUSTOM } from '@serge/config'
-import { ChannelCustom, Role, TemplateBodysByKey } from '@serge/custom-types'
-import { CoreParticipant } from '@serge/custom-types/participant'
+import { ChannelCustom, Role, TemplateBodysByKey } from 'src/custom-types'
+import { CoreParticipant } from 'src/custom-types/participant'
 import { forces } from '@serge/mocks'
 import { checkLegacyParticipantStates, deepCopy, getParticipantStates } from '../'
 

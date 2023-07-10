@@ -1,6 +1,6 @@
 import mostRecentOnly from '../most-recent-only'
 import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock } from '@serge/mocks'
-import { MessageCustom, MessageChannel } from '@serge/custom-types'
+import { MessageCustom, MessageChannel } from 'src/custom-types'
 
 it('find new message across all channels', () => {
   const payload: Array<MessageChannel> = AdminMessagesMock.concat(GameMessagesMockRFI).concat(InfoMessagesMock) as Array<MessageChannel>

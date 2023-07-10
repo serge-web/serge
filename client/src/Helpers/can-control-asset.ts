@@ -1,4 +1,4 @@
-import { Asset, ChannelMapping, ForceData, ParticipantMapping, Role } from '@serge/custom-types'
+import { Asset, ChannelMapping, ForceData, ParticipantMapping, Role } from 'src/custom-types'
 import { CONTROL_ALL, LaydownTypes, Phase } from '@serge/config'
 
 export const canControlAnyAsset = (channel: ChannelMapping, role: Role['roleId']): boolean => {

@@ -1,4 +1,4 @@
-import { Asset, AttributeType, AttributeTypes, AttributeValue, PlatformTypeData } from '@serge/custom-types'
+import { Asset, AttributeType, AttributeTypes, AttributeValue, PlatformTypeData } from 'src/custom-types'
 import uniqid from 'uniqid'
 import generateHashCode from './generate-hash-code'
 import { LaydownTypes } from '@serge/config'

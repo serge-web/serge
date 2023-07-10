@@ -1,4 +1,4 @@
-import { ForceData, Role } from '@serge/custom-types'
+import { ForceData, Role } from 'src/custom-types'
 
 const getRoleFromId = (forces: ForceData[], forceId: string, roleId: string): Role | undefined => {
   const force = forces.find((force: ForceData) => force.uniqid === forceId)

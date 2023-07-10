@@ -1,4 +1,4 @@
-import { SergeHex3, SergeGrid3 } from '@serge/custom-types'
+import { SergeHex3, SergeGrid3 } from 'src/custom-types'
 import { h3Line } from 'h3-js'
 
 /**

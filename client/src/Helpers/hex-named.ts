@@ -1,4 +1,4 @@
-import { SergeHex3, SergeGrid3 } from '@serge/custom-types'
+import { SergeHex3, SergeGrid3 } from 'src/custom-types'
 
 /** convert this point in cell coordinates to lat/long
  * @param {string} name location in 2d Hex coordinate system

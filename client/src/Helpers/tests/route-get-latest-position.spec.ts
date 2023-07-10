@@ -1,5 +1,5 @@
 /* global it expect */
-import { RouteTurn } from '@serge/custom-types'
+import { RouteTurn } from 'src/custom-types'
 
 import routeGetLatestPosition from '../route-get-latest-position'
 

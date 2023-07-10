@@ -1,4 +1,4 @@
-import { Asset, AssetWithForce, ForceData } from '@serge/custom-types'
+import { Asset, AssetWithForce, ForceData } from 'src/custom-types'
 
 /** recursive helper function - checks inside
  * comprising and hosting lists

@@ -1,4 +1,4 @@
-import { ChannelTypes, ForceData, ParticipantChat, ParticipantTypes, Role, WargameData } from '@serge/custom-types'
+import { ChannelTypes, ForceData, ParticipantChat, ParticipantTypes, Role, WargameData } from 'src/custom-types'
 import deepCopy from './deep-copy'
 
 /** delete the specified role, but also remove any channel

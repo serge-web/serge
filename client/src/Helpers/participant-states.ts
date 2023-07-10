@@ -1,6 +1,6 @@
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from '@serge/config'
-import { ChannelCollab, ChannelTypes, ParticipantTemplate, Role, TemplateBody, TemplateBodysByKey } from '@serge/custom-types'
-import { CoreParticipant, ParticipantCustom, ParticipantPlanning } from '@serge/custom-types/participant'
+import { ChannelCollab, ChannelTypes, ParticipantTemplate, Role, TemplateBody, TemplateBodysByKey } from 'src/custom-types'
+import { CoreParticipant, ParticipantCustom, ParticipantPlanning } from 'src/custom-types/participant'
 import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
 import { matchedAllRolesFilter, matchedForceAndRoleFilter, matchedForceFilter, matchedV3AllRolesFilter, matchedV3ForceAndRoleFilter } from './participant-filters'
 

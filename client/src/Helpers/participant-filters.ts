@@ -1,5 +1,5 @@
-import { Role } from '@serge/custom-types'
-import { CoreParticipant } from '@serge/custom-types/participant'
+import { Role } from 'src/custom-types'
+import { CoreParticipant } from 'src/custom-types/participant'
 
 /** determine if the participant force matches the supplied force */
 export const matchedForceFilter = (

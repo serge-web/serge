@@ -1,4 +1,4 @@
-import { ForceData } from '@serge/custom-types'
+import { ForceData } from 'src/custom-types'
 import { ForceStyle } from './is-perceived-by'
 
 /** produce an array of force ids & colors

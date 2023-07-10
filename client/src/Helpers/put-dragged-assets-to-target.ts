@@ -1,4 +1,4 @@
-import { Asset, PlatformTypeData } from '@serge/custom-types'
+import { Asset, PlatformTypeData } from 'src/custom-types'
 
 const putDraggedAssetsToTarget = (targetId: string, asset: Asset, assets: Asset[], isHosting = true, taskGroupType: PlatformTypeData): Asset[] => {
   return assets.map((assetItem: Asset) => {

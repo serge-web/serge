@@ -1,7 +1,7 @@
 import handleUpdateMarker from '../handle-update-marker'
 import { watuWargame } from '@serge/mocks'
 import deepCopy from '../deep-copy'
-import { MapAnnotation, MapAnnotations, MessageUpdateMarker } from '@serge/custom-types'
+import { MapAnnotation, MapAnnotations, MessageUpdateMarker } from 'src/custom-types'
 import { UPDATE_MARKER } from '@serge/config'
 
 const wMarkers = (watuWargame.data.annotations && watuWargame.data.annotations.annotations) || []

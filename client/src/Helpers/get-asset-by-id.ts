@@ -1,4 +1,4 @@
-import { Asset } from '@serge/custom-types'
+import { Asset } from 'src/custom-types'
 
 const getAssetById = (uniqid: string, assets: Asset[]): Asset | undefined => {
   let asset: Asset | undefined

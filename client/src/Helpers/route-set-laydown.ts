@@ -1,5 +1,5 @@
 import { LaydownPhases } from '@serge/config'
-import { RouteStore, Route, SergeGrid3 } from '@serge/custom-types'
+import { RouteStore, Route, SergeGrid3 } from 'src/custom-types'
 import hexNamed from './hex-named'
 import { cloneDeep } from 'lodash'
 

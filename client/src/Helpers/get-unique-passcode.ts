@@ -1,4 +1,4 @@
-import { ForceData } from '@serge/custom-types'
+import { ForceData } from 'src/custom-types'
 import _ from 'lodash'
 import uniqid from 'uniqid'
 

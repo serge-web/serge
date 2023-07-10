@@ -1,5 +1,5 @@
-import { MapAnnotations, MapAnnotation } from '@serge/custom-types'
-import { MessageDeleteMarker } from '@serge/custom-types/message'
+import { MapAnnotations, MapAnnotation } from 'src/custom-types'
+import { MessageDeleteMarker } from 'src/custom-types/message'
 import deepCopy from './deep-copy'
 
 /** delete the indicated marker */

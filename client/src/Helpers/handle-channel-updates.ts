@@ -2,8 +2,8 @@ import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredS
 import {
   ChannelTypes, ChannelUI, ForceData, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, MessagePlanning, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
-} from '@serge/custom-types'
-import { CoreParticipant } from '@serge/custom-types/participant'
+} from 'src/custom-types'
+import { CoreParticipant } from 'src/custom-types/participant'
 import uniqId from 'uniqid'
 import deepCopy from './deep-copy'
 import mostRecentOnly from './most-recent-only'

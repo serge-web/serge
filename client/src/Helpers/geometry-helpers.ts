@@ -1,4 +1,4 @@
-import { PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivityGeometry } from '@serge/custom-types'
+import { PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivityGeometry } from 'src/custom-types'
 import * as turf from '@turf/turf'
 import { Feature, LineString } from 'geojson'
 import moment from 'moment'

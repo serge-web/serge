@@ -1,4 +1,4 @@
-import { MessageUpdateMarker, MapAnnotations, MapAnnotation } from '@serge/custom-types'
+import { MessageUpdateMarker, MapAnnotations, MapAnnotation } from 'src/custom-types'
 import deepCopy from './deep-copy'
 
 /** create/remove perceptions for assets */

@@ -1,4 +1,4 @@
-import { Role, ForceRole } from '@serge/custom-types'
+import { Role, ForceRole } from 'src/custom-types'
 
 export default function forceRole (forceName: string, forceId: string, role: Role): ForceRole {
   const res: ForceRole = {

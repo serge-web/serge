@@ -1,4 +1,4 @@
-import { GameTurnLength, MilliTurns, TurnLengthType } from '@serge/custom-types'
+import { GameTurnLength, MilliTurns, TurnLengthType } from 'src/custom-types'
 
 /** retrieve turn length as millis */
 export const turnTimeAsMillis = (turnLength: GameTurnLength): number => {

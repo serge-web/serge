@@ -1,5 +1,5 @@
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-import { AttributeType, AttributeTypes, AttributeValues, EnumAttributeType, NumberAttributeType } from '@serge/custom-types'
+import { AttributeType, AttributeTypes, AttributeValues, EnumAttributeType, NumberAttributeType } from 'src/custom-types'
 import { collateEditorData, createAttributeValue, createDefaultFor, formatEnum, formatNumber } from '../attribute-helpers'
 
 const attrId1 = 'comm1111'

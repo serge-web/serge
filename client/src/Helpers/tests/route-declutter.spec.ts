@@ -6,7 +6,7 @@ import { forces, platformTypes } from '@serge/mocks'
 import routeCreateStore from '../route-create-store'
 import { routeDeclutter, DeclutterData } from '../route-declutter'
 
-import { RouteStore, Route, RouteTurn, MapAnnotations } from '@serge/custom-types'
+import { RouteStore, Route, RouteTurn, MapAnnotations } from 'src/custom-types'
 import { Phase } from '@serge/config'
 
 const umpireId = forces[0].uniqid

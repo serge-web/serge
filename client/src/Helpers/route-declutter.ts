@@ -1,4 +1,4 @@
-import { MapAnnotation, MapAnnotations, Route, RouteStore, RouteTurn } from '@serge/custom-types'
+import { MapAnnotation, MapAnnotations, Route, RouteStore, RouteTurn } from 'src/custom-types'
 import { h3IsValid, h3ToGeo } from 'h3-js'
 import L from 'leaflet'
 import { cloneDeep } from 'lodash'
