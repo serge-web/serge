@@ -2,7 +2,7 @@
 import { cloneDeep } from 'lodash'
 
 /* Import mock data */
-import { watuWargame, preInitialisedForces } from '@serge/mocks'
+import { watuWargame, preInitialisedForces } from 'src/mocks'
 
 import routeCreateStore from '../route-create-store'
 

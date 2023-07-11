@@ -1,7 +1,7 @@
 /* global it expect */
 import collatePlanFormData from './collate-plan-form-data'
 
-import { cmdWkWargame } from '@serge/mocks'
+import { cmdWkWargame } from 'src/mocks'
 import { PlanTurnFormPopulate, PlanTurnFormValues } from 'src/custom-types'
 import { deepCopy, routeCreateStore } from 'src/Helpers'
 import { Phase } from 'src/config'

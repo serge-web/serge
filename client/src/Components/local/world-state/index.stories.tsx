@@ -6,7 +6,7 @@ import WorldState from './index'
 import WorldStatePropTypes from './types/props'
 import docs from './README.md'
 import { routeCreateStore } from 'src/Helpers'
-import { cmdWkWargame } from '@serge/mocks'
+import { cmdWkWargame } from 'src/mocks'
 import { CHANNEL_MAPPING, Phase } from 'src/config'
 
 import { WorldStatePanels } from './helpers/enums'

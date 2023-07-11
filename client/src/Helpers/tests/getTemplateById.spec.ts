@@ -1,5 +1,5 @@
 import getTemplateById from '../getTemplateById'
-import { MessageTemplatesMock, MessageTemplatesMockByKey } from '@serge/mocks'
+import { MessageTemplatesMock, MessageTemplatesMockByKey } from 'src/mocks'
 
 describe('getTemplateById:', () => {
   it('find template by template._id from templates array or from templates object[_id]', () => {

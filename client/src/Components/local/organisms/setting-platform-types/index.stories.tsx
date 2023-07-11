@@ -4,7 +4,7 @@ import React from 'react'
 import SettingPlatformTypes from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { platformType as platformTypeMock } from '@serge/mocks'
+import { platformType as platformTypeMock } from 'src/mocks'
 import { PlatformType } from 'src/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { forces, platformTypes as platformTypesMock } from '@serge/mocks'
+import { forces, platformTypes as platformTypesMock } from 'src/mocks'
 import SettingForces from './index'
 import { ForceData } from './types/props'
 

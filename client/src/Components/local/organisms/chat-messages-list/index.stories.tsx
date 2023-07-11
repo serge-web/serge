@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 import { withKnobs } from '@storybook/addon-knobs'
 
-import { ChatMessagesMock, InfoMessagesMock } from '@serge/mocks'
+import { ChatMessagesMock, InfoMessagesMock } from 'src/mocks'
 import Props from './types/props'
 import { ChatMessage, MessageInfoTypeClipped } from 'src/custom-types'
 

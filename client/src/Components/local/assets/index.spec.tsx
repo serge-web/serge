@@ -3,7 +3,7 @@ import { mount } from 'enzyme'
 import Mapping from '../mapping'
 import { Phase } from 'src/config'
 
-import { localMappingConstraints, watuWargame } from '@serge/mocks'
+import { localMappingConstraints, watuWargame } from 'src/mocks'
 import { deepCopy } from 'src/Helpers'
 
 const forces = deepCopy(watuWargame.data.forces.forces)

@@ -1,5 +1,5 @@
 import { Phase } from 'src/config'
-import { forces, localMappingConstraints, platformTypes } from '@serge/mocks'
+import { forces, localMappingConstraints, platformTypes } from 'src/mocks'
 import { mount } from 'enzyme'
 import L from 'leaflet'
 import React from 'react'

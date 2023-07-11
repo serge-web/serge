@@ -25,7 +25,7 @@ export enum CollaborativePermission {
 /** 
  * the type of geometry that can represent planning activities
  */
- export enum GeometryType {
+export enum GeometryType {
   point = 'Point',
   polyline = 'Polyline',
   polygon = 'Polygon'
@@ -190,7 +190,7 @@ export enum AdminTabs {
   Forces = 'forces',
   Channels = 'channels',
   Annotations = 'annotationIcons'
-};
+}
 
 export enum SymbolForces {
   Friend = 'F',

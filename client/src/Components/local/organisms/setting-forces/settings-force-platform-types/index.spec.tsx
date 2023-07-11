@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { forces, platformTypes } from '@serge/mocks'
+import { forces, platformTypes } from 'src/mocks'
 import AssetsAccordion from './index'
 
 describe('SettingForces component:', () => {

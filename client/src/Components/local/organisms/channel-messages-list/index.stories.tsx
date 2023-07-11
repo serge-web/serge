@@ -6,7 +6,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import MessageListPropTypes from './types/props'
 import ChannelMessagesList from './index'
 import docs from './README.md'
-import { GameMessagesMockRFI } from '@serge/mocks'
+import { GameMessagesMockRFI } from 'src/mocks'
 import { MessageCustom, MessageChannel } from 'src/custom-types'
 import { mostRecentOnly } from 'src/Helpers'
 

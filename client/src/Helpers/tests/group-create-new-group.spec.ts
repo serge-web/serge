@@ -3,7 +3,7 @@
 /* Import mock data */
 import { TASK_GROUP } from 'src/config'
 import { Asset, ForceData } from 'src/custom-types'
-import { forces, platformTypes } from '@serge/mocks'
+import { forces, platformTypes } from 'src/mocks'
 import findPlatformTypeFor from '../find-platform-type-for'
 
 import groupCreateNewGroup from '../group-create-new-group'

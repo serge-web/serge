@@ -1,6 +1,6 @@
 /* global it expect */
 /* Import mock data */
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 import { Phase } from 'src/config'
 
 import canCombineWith from './can-combine-with'

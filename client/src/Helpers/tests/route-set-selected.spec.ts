@@ -1,7 +1,7 @@
 /* global it expect */
 
 /* Import mock data */
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 
 import routeCreateStore from '../route-create-store'
 import routeSetCurrent from '../route-set-current'

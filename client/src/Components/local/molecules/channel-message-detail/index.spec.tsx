@@ -2,7 +2,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import ChannelMessageDetail from './index'
-import { GameMessagesMockRFI } from '@serge/mocks'
+import { GameMessagesMockRFI } from 'src/mocks'
 
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {

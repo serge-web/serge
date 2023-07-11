@@ -7,7 +7,7 @@ import {
   MessageTemplatesMock,
   adminTabs,
   platformType as platformTypeMock
-} from '@serge/mocks'
+} from 'src/mocks'
 import {
   ChannelTypes,
   ForceData,

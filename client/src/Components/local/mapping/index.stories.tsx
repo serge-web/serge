@@ -2,7 +2,7 @@
 import { Phase } from 'src/config'
 import { MappingConstraints, MessageMap } from 'src/custom-types'
 /* Import mock data */
-import { forces, localMappingConstraints, platformTypes, smallForces } from '@serge/mocks'
+import { forces, localMappingConstraints, platformTypes, smallForces } from 'src/mocks'
 import { boolean } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import L from 'leaflet'

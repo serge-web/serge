@@ -1,7 +1,7 @@
 import isPerceivedBy, { ForceStyle } from '../is-perceived-by'
 import forceColors from '../force-colors'
 
-import { forces } from '@serge/mocks'
+import { forces } from 'src/mocks'
 
 const blueForce = forces[1]
 const redForce = forces[2]

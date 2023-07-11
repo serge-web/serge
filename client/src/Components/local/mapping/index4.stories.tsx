@@ -3,7 +3,7 @@ import { Phase, serverPath } from 'src/config'
 import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, Role } from 'src/custom-types'
 import { deepCopy } from 'src/Helpers'
 /* Import mock data */
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import Assets from '../assets'

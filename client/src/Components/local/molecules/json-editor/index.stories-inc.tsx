@@ -10,7 +10,7 @@ import docs from './README.md'
 import {
   messageDataCollaborativeEditing, messageDataCollaborativeResponding,
   MessageTemplatesMoskByTitle, P9BMock, planningMessages as planningChannelMessages, WargameMock
-} from '@serge/mocks'
+} from 'src/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import { PLANNING_MESSAGE } from 'src/config'

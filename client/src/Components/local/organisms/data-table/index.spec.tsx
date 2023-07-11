@@ -3,7 +3,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import Badge from '../../atoms/badge'
 import { MessageCustom } from 'src/custom-types/message'
-import { GameMessagesMockRFI } from '@serge/mocks'
+import { GameMessagesMockRFI } from 'src/mocks'
 import { mostRecentOnly } from 'src/Helpers'
 
 import DataTable, { ROW_WITH_COLLAPSIBLE_TYPE } from './index'

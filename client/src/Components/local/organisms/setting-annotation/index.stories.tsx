@@ -3,7 +3,7 @@ import React from 'react'
 import SettingAnnotation from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { annotationMarkerData } from '@serge/mocks'
+import { annotationMarkerData } from 'src/mocks'
 import { AnnotationMarkerData } from 'src/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>

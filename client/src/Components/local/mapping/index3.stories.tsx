@@ -3,7 +3,7 @@ import { CellLabelStyle, Phase, serverPath } from 'src/config'
 import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, Role } from 'src/custom-types'
 import { deepCopy } from 'src/Helpers'
 /* Import mock data */
-import { cmdWkWargame } from '@serge/mocks'
+import { cmdWkWargame } from 'src/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import Assets from '../assets'

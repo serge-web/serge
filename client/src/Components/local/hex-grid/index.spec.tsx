@@ -1,6 +1,6 @@
 import { Phase } from 'src/config'
 import { deepCopy } from 'src/Helpers'
-import { localMappingConstraints, watuWargame } from '@serge/mocks'
+import { localMappingConstraints, watuWargame } from 'src/mocks'
 import { mount } from 'enzyme'
 import React from 'react'
 import Mapping from '../mapping'

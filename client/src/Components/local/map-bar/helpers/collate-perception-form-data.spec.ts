@@ -1,9 +1,9 @@
 /* global it expect */
 import collatePerceptionFormData from './collate-perception-form-data'
 
-import platformTypes from '@serge/mocks/platform-types.mock'
-import selectedAsset from '@serge/mocks/selected-asset.mock'
-import forces from '@serge/mocks/forces.mock'
+import platformTypes from 'src/mocks/platform-types.mock'
+import selectedAsset from 'src/mocks/selected-asset.mock'
+import forces from 'src/mocks/forces.mock'
 import { PerceptionFormData, PerceptionFormPopulate, PerceptionFormValues } from 'src/custom-types'
 import { UMPIRE_FORCE, UNKNOWN_TYPE } from 'src/config'
 

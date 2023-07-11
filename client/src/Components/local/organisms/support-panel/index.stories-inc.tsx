@@ -1,7 +1,7 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from 'src/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, Role } from 'src/custom-types'
 import { forceColors, incrementGameTime, platformIcons } from 'src/Helpers'
-import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
+import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from 'src/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { cloneDeep, noop } from 'lodash'

@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer'
 
 import GameAdmin from './index'
 
-import { AdminMessagesMock } from '@serge/mocks'
+import { AdminMessagesMock } from 'src/mocks'
 import moment from 'moment-timezone'
 
 const force = {

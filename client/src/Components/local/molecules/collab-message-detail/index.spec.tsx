@@ -6,7 +6,7 @@ import CollabMessageDetail from './index'
 import { ChannelCollab } from 'src/custom-types'
 import { InitialStates, CHANNEL_COLLAB, CollaborativePermission, CollaborativeMessageStates, PARTICIPANT_COLLAB } from 'src/config'
 
-import { GameMessagesMockRFI, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
+import { GameMessagesMockRFI, MessageTemplatesMockByKey, WargameMock } from 'src/mocks'
 
 const [defMessage] = GameMessagesMockRFI
 

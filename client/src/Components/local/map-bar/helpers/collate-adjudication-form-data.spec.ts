@@ -1,8 +1,8 @@
 /* global it expect */
 import collateAdjudicationFormData from './collate-adjudication-form-data'
-import platformTypes from '@serge/mocks/platform-types.mock'
-import selectedAsset from '@serge/mocks/selected-asset.mock'
-import forces from '@serge/mocks/forces.mock'
+import platformTypes from 'src/mocks/platform-types.mock'
+import selectedAsset from 'src/mocks/selected-asset.mock'
+import forces from 'src/mocks/forces.mock'
 import { ForceOption, Status } from 'src/custom-types'
 
 it('contains relevant population results', () => {

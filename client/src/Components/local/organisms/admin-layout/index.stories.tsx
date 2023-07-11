@@ -6,7 +6,7 @@ import SettingOverview, { WargameOverview } from '../setting-overview'
 import SettingPlatformTypes from '../setting-platform-types'
 import SettingForces from '../setting-forces'
 import SettingAnnotations from '../setting-annotation'
-import { platformTypes as platformTypesMock, WargameExportedMock, MessageTemplatesMock, adminTabs, platformType as platformTypeMock, annotationMarkerData } from '@serge/mocks'
+import { platformTypes as platformTypesMock, WargameExportedMock, MessageTemplatesMock, adminTabs, platformType as platformTypeMock, annotationMarkerData } from 'src/mocks'
 import SettingChannels, { ChannelTypes } from '../setting-channels'
 
 import docs from './README.md'

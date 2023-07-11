@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import SettingsForceOverview from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '300px' }}>{storyFn()}</div>
 

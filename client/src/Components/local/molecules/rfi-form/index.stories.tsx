@@ -1,5 +1,5 @@
 import React from 'react'
-import gameMessagesWithRFI from '@serge/mocks/game-messages-rfi.mock'
+import gameMessagesWithRFI from 'src/mocks/game-messages-rfi.mock'
 import { MessageCustom } from 'src/custom-types/message'
 
 // Import component files

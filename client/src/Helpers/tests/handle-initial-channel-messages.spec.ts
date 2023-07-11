@@ -3,7 +3,7 @@ import {
   ForceData, PlayerUiChatChannel, SetWargameMessage,
   ChannelTypes, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails, PlayerMessageLog
 } from 'src/custom-types'
-import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels2, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
+import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels2, InfoMessagesMock, MessageTemplatesMockByKey } from 'src/mocks'
 import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from 'src/config'
 
 const adminMessages: MessageChannel[] = GameMessagesMockRFI

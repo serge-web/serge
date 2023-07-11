@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 // Import component files
 import ChannelMessage from './index'
 import docs from './README.md'
-import { GameMessagesMockRFI } from '@serge/mocks'
+import { GameMessagesMockRFI } from 'src/mocks'
 
 export default {
   title: 'local/molecules/ChannelMessage',

@@ -4,7 +4,7 @@ import React from 'react'
 import AdminMessagesList from './index'
 import docs from './README.md'
 
-import { AdminMessagesMock, forces } from '@serge/mocks'
+import { AdminMessagesMock, forces } from 'src/mocks'
 
 export default {
   title: 'local/organisms/AdminMessagesList',

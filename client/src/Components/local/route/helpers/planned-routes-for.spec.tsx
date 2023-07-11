@@ -1,6 +1,6 @@
 /* global it expect */
 
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 import { RouteStore, Route, ChannelTypes, ChannelMapping } from 'src/custom-types'
 import { routeCreateStore } from 'src/Helpers'
 import { plannedRoutesFor } from './planned-routes-for'

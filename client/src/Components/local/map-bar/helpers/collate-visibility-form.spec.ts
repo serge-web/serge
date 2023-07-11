@@ -1,7 +1,7 @@
 /* global it expect */
 
 import collateVisibilityFormData from './collate-visibility-form-data'
-import { forces, platformTypes, selectedAsset } from '@serge/mocks'
+import { forces, platformTypes, selectedAsset } from 'src/mocks'
 import { deepCopy } from 'src/Helpers'
 
 it('produces visibility data', () => {

@@ -4,7 +4,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 
 import SettingOverview from './index'
-import { WargameExportedMock } from '@serge/mocks'
+import { WargameExportedMock } from 'src/mocks'
 import { WargameOverview } from './types/props'
 
 const handleSave = (overview: WargameOverview): void => {

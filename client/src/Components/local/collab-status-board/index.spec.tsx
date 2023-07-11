@@ -4,12 +4,12 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelCollab } from 'src/custom-types'
 import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, PARTICIPANT_COLLAB } from 'src/config'
-import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
+import { forces, MessageTemplatesMockByKey, WargameMock } from 'src/mocks'
 import CollabStatusBoard from './index'
 import newDate from 'src/Helpers/new-date'
 
 /* Import mock data */
-// import { GameChannels } from '@serge/mocks'
+// import { GameChannels } from 'src/mocks'
 
 const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]

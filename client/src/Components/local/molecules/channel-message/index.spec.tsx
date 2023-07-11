@@ -2,7 +2,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import ChannelMessage from './index'
-import { GameMessagesMockRFI } from '@serge/mocks'
+import { GameMessagesMockRFI } from 'src/mocks'
 import moment from 'moment-timezone'
 
 describe('ChannelMessage component:', () => {

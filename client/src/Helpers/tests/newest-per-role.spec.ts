@@ -1,5 +1,5 @@
 import newestPerRole, { logTable } from '../newest-per-role'
-import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock, forces } from '@serge/mocks'
+import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock, forces } from 'src/mocks'
 import { MessageChannel, MessageCustom } from 'src/custom-types'
 import { PlayerMessageLog, PlayerLogUI } from 'src/custom-types/player-log'
 

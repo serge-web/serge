@@ -1,7 +1,7 @@
 /* global it expect */
 import collateStateOfWorld, { updatePerceptions } from './collate-state-of-world'
 
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 import { routeCreateStore, deepCopy } from 'src/Helpers'
 import { MessageStateOfWorld, RouteStore, StateOfWorld, Route, ForceData, Asset, MapAnnotations, ChannelMapping } from 'src/custom-types'
 import { Phase } from 'src/config'

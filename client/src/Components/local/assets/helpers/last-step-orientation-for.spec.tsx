@@ -1,6 +1,6 @@
 import { Asset, ForceData, RouteTurn } from 'src/custom-types'
 import lastStepOrientationFor from './last-step-orientation-for'
-import { smallScaleForces } from '@serge/mocks'
+import { smallScaleForces } from 'src/mocks'
 
 const getAsset = (forces: ForceData[]): Asset | undefined => {
   if (forces && forces[1] && forces[1].assets) {

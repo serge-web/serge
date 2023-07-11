@@ -3,7 +3,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import moment from 'moment-timezone'
 import AdminMessage from './index'
-import { AdminMessagesMock, forces } from '@serge/mocks'
+import { AdminMessagesMock, forces } from 'src/mocks'
 
 const [whiteForce] = forces
 

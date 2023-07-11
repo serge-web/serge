@@ -1,4 +1,4 @@
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 import deepCopy from '../deep-copy'
 import canControlAsset, { canControlAnyAsset, underControlByThisForce, canControlAssetExtended } from '../can-control-asset'
 import { Asset, ChannelMapping, ChannelTypes, ForceData, Role, Wargame } from 'src/custom-types'

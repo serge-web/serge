@@ -5,7 +5,6 @@ module.exports = {
   testMatch: [
     '**/tests/*.(ts|tsx|js)',
     '**/src/**/*.spec.(ts|tsx|js)',
-    '**/src/Components/local/**/*.spec.(ts|tsx|js)',
     '**/src/**/*.test.(ts|tsx|js)'
   ],
   moduleNameMapper: {

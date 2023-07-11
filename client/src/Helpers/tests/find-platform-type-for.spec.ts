@@ -1,5 +1,5 @@
 /* Import mock data */
-import { platformTypes } from '@serge/mocks'
+import { platformTypes } from 'src/mocks'
 import findPlatformTypeFor from '../find-platform-type-for'
 
 it('find type using id', () => {

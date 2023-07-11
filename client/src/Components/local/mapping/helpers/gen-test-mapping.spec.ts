@@ -1,4 +1,4 @@
-import { P9Mock } from '@serge/mocks'
+import { P9Mock } from 'src/mocks'
 import { createPerceptions } from './gen-test-mapping-data'
 
 const forces = P9Mock.data.forces.forces

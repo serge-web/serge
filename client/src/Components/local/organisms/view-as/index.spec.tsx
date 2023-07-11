@@ -1,4 +1,4 @@
-import { P9Mock } from '@serge/mocks'
+import { P9Mock } from 'src/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'

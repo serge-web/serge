@@ -3,7 +3,7 @@ import React from 'react'
 // Import component files
 import Message from './index'
 import docs from './README.md'
-import { AdminMessagesMock } from '@serge/mocks'
+import { AdminMessagesMock } from 'src/mocks'
 
 export default {
   title: 'local/Message',

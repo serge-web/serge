@@ -1,5 +1,5 @@
 import { ForceData } from 'src/custom-types'
-import { forces } from '@serge/mocks'
+import { forces } from 'src/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'

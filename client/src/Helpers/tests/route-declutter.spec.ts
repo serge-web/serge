@@ -1,7 +1,7 @@
 /* global it expect */
 
 /* Import mock data */
-import { forces, platformTypes } from '@serge/mocks'
+import { forces, platformTypes } from 'src/mocks'
 
 import routeCreateStore from '../route-create-store'
 import { routeDeclutter, DeclutterData } from '../route-declutter'

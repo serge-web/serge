@@ -1,6 +1,6 @@
 
 /* Import mock data */
-import { atlanticForces } from '@serge/mocks'
+import { atlanticForces } from 'src/mocks'
 
 import duplicateForce from '../duplicate-force'
 

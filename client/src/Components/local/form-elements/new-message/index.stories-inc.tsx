@@ -1,5 +1,5 @@
 import { MessageDetails, TemplateBody } from 'src/custom-types'
-import { P9BMock, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9BMock, planningMessageTemplatesMock } from 'src/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import NewMessage from './index'

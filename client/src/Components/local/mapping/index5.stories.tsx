@@ -14,7 +14,7 @@ import MappingPropTypes from './types/props'
 import { Phase } from 'src/config'
 
 /* Import mock data */
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 import InfoMarkers from '../info-markers'
 import data from './data/atlantic-cells'
 

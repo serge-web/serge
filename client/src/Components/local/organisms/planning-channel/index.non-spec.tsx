@@ -1,6 +1,6 @@
 import { Phase } from 'src/config'
 import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from 'src/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock, turnPeriod } from 'src/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
 import React from 'react'

@@ -8,7 +8,7 @@ import { AdjudicateTurnFormPopulate, IconDefinition, PlanTurnFormValues, RouteSt
 import { deepCopy, routeCreateStore, routeSetCurrent } from 'src/Helpers'
 
 /* Import mock data */
-import { forces, platformTypes } from '@serge/mocks'
+import { forces, platformTypes } from 'src/mocks'
 import AdjudicationManager from './helpers/adjudication-manager'
 import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER, Phase } from 'src/config'
 

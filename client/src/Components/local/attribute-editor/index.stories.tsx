@@ -3,7 +3,7 @@ import React from 'react'
 import { AttributeTypes, AttributeValues, ForceData, PlatformTypeData } from 'src/custom-types'
 import AttributeEditor from './index'
 import docs from './README.md'
-import { platformTypes, smallScaleForces } from '@serge/mocks'
+import { platformTypes, smallScaleForces } from 'src/mocks'
 import { collateEditorData } from 'src/Helpers'
 
 export default {

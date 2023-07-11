@@ -11,7 +11,7 @@ import {
   GameChannels2,
   WargameMock,
   messageDataCollaborativeResponding
-} from '@serge/mocks'
+} from 'src/mocks'
 import docs from './README.md'
 
 import { MessageCustom, ForceRole, ChannelCollab } from 'src/custom-types'

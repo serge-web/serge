@@ -2,7 +2,7 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { WargameMock as wargame } from '@serge/mocks'
+import { WargameMock as wargame } from 'src/mocks'
 
 import StatusBar from './index'
 

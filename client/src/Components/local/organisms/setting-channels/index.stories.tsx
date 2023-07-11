@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 // Import component files
 import { ChannelPlanning } from 'src/custom-types'
-import { MessageTemplatesMock, watuWargame } from '@serge/mocks'
+import { MessageTemplatesMock, watuWargame } from 'src/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import SettingChannels from './index'

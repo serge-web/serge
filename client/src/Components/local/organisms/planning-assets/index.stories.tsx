@@ -4,7 +4,7 @@ import React from 'react'
 
 import { ChannelPlanning, ForceData } from 'src/custom-types'
 import { deepCopy, forceColors, platformIcons } from 'src/Helpers'
-import { P9BMock } from '@serge/mocks'
+import { P9BMock } from 'src/mocks'
 import { noop } from 'lodash'
 import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import { getOppAssets, getOwnAssets } from './helpers/collate-assets'

@@ -1,7 +1,7 @@
 import { UNKNOWN_TYPE } from 'src/config'
 import { Asset } from 'src/custom-types'
 import { deepCopy, forceColors, platformIcons } from 'src/Helpers'
-import { P9Mock } from '@serge/mocks'
+import { P9Mock } from 'src/mocks'
 import LRUCache from 'lru-cache'
 import moment from 'moment'
 import { LRU_CACHE_OPTION } from '../../support-panel/constants'

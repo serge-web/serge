@@ -1,4 +1,4 @@
-import { forces } from '@serge/mocks'
+import { forces } from 'src/mocks'
 import { ForceData } from 'src/custom-types'
 import { getUniquePasscode } from '../'
 

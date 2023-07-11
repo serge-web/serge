@@ -1,6 +1,6 @@
 
 /* Import mock data */
-import { forces } from '@serge/mocks'
+import { forces } from 'src/mocks'
 
 import findAsset from '../find-asset'
 

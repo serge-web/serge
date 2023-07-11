@@ -3,7 +3,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import SettingChannels from './index'
 import { ChannelTypes } from './types/props'
-import { WargameExportedMock, MessageTemplatesMock } from '@serge/mocks'
+import { WargameExportedMock, MessageTemplatesMock } from 'src/mocks'
 
 const onChange = (updates: { channels: Array<ChannelTypes> }): void => { console.log(updates.channels) }
 

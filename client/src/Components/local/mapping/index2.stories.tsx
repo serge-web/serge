@@ -2,7 +2,7 @@ import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
 
 /* Import mock data */
-import { platformTypes, preInitialisedForces, localMappingConstraints } from '@serge/mocks'
+import { platformTypes, preInitialisedForces, localMappingConstraints } from 'src/mocks'
 
 import { deepCopy } from 'src/Helpers'
 

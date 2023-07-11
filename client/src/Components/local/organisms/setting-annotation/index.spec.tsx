@@ -1,7 +1,7 @@
 /* global it expect */
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { annotationMarkerData } from '@serge/mocks'
+import { annotationMarkerData } from 'src/mocks'
 import { AnnotationMarkerData } from 'src/custom-types'
 import SettingAnnotation from './index'
 

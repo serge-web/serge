@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer'
 import PlanningMessagesList from './index'
 
 import { forceColors, incrementGameTime } from 'src/Helpers'
-import { P9Mock, planningMessages as planningChannelMessages } from '@serge/mocks'
+import { P9Mock, planningMessages as planningChannelMessages } from 'src/mocks'
 import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning

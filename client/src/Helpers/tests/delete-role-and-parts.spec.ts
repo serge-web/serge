@@ -1,7 +1,7 @@
 import deleteRoleAndParts from '../delete-role-and-parts'
 import deepCopy from '../deep-copy'
 
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 import { ParticipantChat, Wargame } from 'src/custom-types'
 import _ from 'lodash'
 

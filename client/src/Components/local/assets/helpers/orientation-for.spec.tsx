@@ -1,6 +1,6 @@
 import { Asset, AttributeValues, ForceData, RouteTurn } from 'src/custom-types'
 import orientationFor from './orientation-for'
-import { smallScaleForces } from '@serge/mocks'
+import { smallScaleForces } from 'src/mocks'
 import { OrientationMarker } from 'src/custom-types/platform-type-data'
 import { brgBetweenTwoHex } from '../../mapping/helpers/h3-helpers'
 

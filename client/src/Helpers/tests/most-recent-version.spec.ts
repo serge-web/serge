@@ -1,5 +1,5 @@
 import mostRecentOnly from '../most-recent-only'
-import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock } from '@serge/mocks'
+import { GameMessagesMockRFI, AdminMessagesMock, InfoMessagesMock } from 'src/mocks'
 import { MessageCustom, MessageChannel } from 'src/custom-types'
 
 it('find new message across all channels', () => {

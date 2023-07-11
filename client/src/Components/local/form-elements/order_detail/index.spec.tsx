@@ -1,7 +1,7 @@
 /* global it expect */
 
 import { GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity } from 'src/custom-types'
-import { MockPerForceActivities, P9Mock } from '@serge/mocks'
+import { MockPerForceActivities, P9Mock } from 'src/mocks'
 import _, { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'

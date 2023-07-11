@@ -4,7 +4,7 @@ import React from 'react'
 import Tabs from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { adminTabs } from '@serge/mocks'
+import { adminTabs } from 'src/mocks'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {

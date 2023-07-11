@@ -5,7 +5,7 @@ import React from 'react'
 import MapBar from '.'
 import Mapping from '../mapping'
 
-import { forces, localMappingConstraints, platformTypes } from '@serge/mocks'
+import { forces, localMappingConstraints, platformTypes } from 'src/mocks'
 
 jest.mock('leaflet', () => {
   const leafletModule = jest.requireActual('leaflet')

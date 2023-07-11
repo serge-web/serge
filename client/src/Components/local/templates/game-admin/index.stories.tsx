@@ -4,7 +4,7 @@ import React from 'react'
 import GameAdmin from './index'
 import docs from './README.md'
 
-import { AdminMessagesMock } from '@serge/mocks'
+import { AdminMessagesMock } from 'src/mocks'
 
 export default {
   title: 'local/templates/GameAdmin',

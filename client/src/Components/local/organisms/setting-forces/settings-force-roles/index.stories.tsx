@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 // Import component files
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { noop } from 'lodash'
 import docs from './README.md'

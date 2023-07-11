@@ -1,5 +1,5 @@
 import { ChannelUI, MessageDetails } from 'src/custom-types'
-import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9Mock, planningMessageTemplatesMock } from 'src/mocks'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import MessageCreator from './index'

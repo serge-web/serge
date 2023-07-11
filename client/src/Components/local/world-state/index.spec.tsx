@@ -1,6 +1,6 @@
 import { ADJUDICATION_PHASE } from 'src/config'
 import { RouteStore } from 'src/custom-types'
-import { platformTypes, watuWargame } from '@serge/mocks'
+import { platformTypes, watuWargame } from 'src/mocks'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { WorldStatePanels } from './helpers/enums'

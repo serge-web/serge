@@ -9,7 +9,7 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { Item } from './types/props'
 import { PlatformTypeData } from 'src/custom-types'
 
-import { platformTypes } from '@serge/mocks'
+import { platformTypes } from 'src/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 

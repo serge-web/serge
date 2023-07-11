@@ -3,7 +3,7 @@ import { Phase } from 'src/config'
 import { Asset, ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role, RouteTurn, Wargame } from 'src/custom-types'
 import { deepCopy } from 'src/Helpers'
 /* Import mock data */
-import { watuPlaytest } from '@serge/mocks'
+import { watuPlaytest } from 'src/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import { h3ToParent } from 'h3-js'
 import React from 'react'

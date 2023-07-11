@@ -21,7 +21,7 @@ import {
   blueAuthor2,
   messageDataCollaborativeResponding,
   messageDataCollaborativeEditing
-} from '@serge/mocks'
+} from 'src/mocks'
 import { CollaborativeMessageStates } from 'src/config'
 export default {
   title: 'local/CollabStatusBoard',

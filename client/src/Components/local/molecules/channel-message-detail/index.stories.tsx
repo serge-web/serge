@@ -5,7 +5,7 @@ import { Story } from '@storybook/react/types-6-0'
 import ChannelMessageDetail from './index'
 import DetailPropTypes from './types/props'
 import docs from './README.md'
-import { GameMessagesMockRFI } from '@serge/mocks'
+import { GameMessagesMockRFI } from 'src/mocks'
 
 export default {
   title: 'local/molecules/ChannelMessageDetail',

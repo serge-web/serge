@@ -1,5 +1,5 @@
 /* Import mock data */
-import { forces } from '@serge/mocks'
+import { forces } from 'src/mocks'
 import forceFor from '../force-for'
 
 it('find asset at top level', () => {

@@ -3,7 +3,7 @@ import React from 'react'
 // Import component files
 import AdminMessage from './index'
 import docs from './README.md'
-import { AdminMessagesMock, forces } from '@serge/mocks'
+import { AdminMessagesMock, forces } from 'src/mocks'
 
 export default {
   title: 'local/molecules/AdminMessage',

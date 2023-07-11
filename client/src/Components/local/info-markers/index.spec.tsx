@@ -3,7 +3,7 @@ import { mount } from 'enzyme'
 import React from 'react'
 import Mapping from '../mapping'
 
-import { localMappingConstraints, platformTypes, watuWargame } from '@serge/mocks'
+import { localMappingConstraints, platformTypes, watuWargame } from 'src/mocks'
 import InfoMarkers from '.'
 
 const forces = watuWargame.data.forces.forces

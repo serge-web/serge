@@ -5,7 +5,7 @@ import VisibilityAndConditionForm from './index'
 import docs from './README.md'
 
 /* Import mock data */
-import { forces, selectedAsset, platformTypes } from '@serge/mocks'
+import { forces, selectedAsset, platformTypes } from 'src/mocks'
 
 // import data types
 import collateVisibilityFormData from '../map-bar/helpers/collate-visibility-form-data'

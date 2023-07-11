@@ -1,5 +1,5 @@
 import { forceColors } from 'src/Helpers'
-import { P9Mock } from '@serge/mocks'
+import { P9Mock } from 'src/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'

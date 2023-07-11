@@ -1,5 +1,5 @@
 /* global it expect */
-import { forces, platformTypes, selectedAsset } from '@serge/mocks'
+import { forces, platformTypes, selectedAsset } from 'src/mocks'
 import AdjudicationManager from './/adjudication-manager'
 import { Asset, PlanTurnFormValues, Route, RouteStore } from 'src/custom-types'
 import { deepCopy, findAsset, routeCreateStore, routeSetCurrent } from 'src/Helpers'

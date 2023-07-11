@@ -1,7 +1,7 @@
 /* global it expect */
 
 /* Import mock data */
-import { forces, platformTypes } from '@serge/mocks'
+import { forces, platformTypes } from 'src/mocks'
 import { RouteStore } from 'src/custom-types'
 
 import setAdjudicationState from './set-adjudication-state'

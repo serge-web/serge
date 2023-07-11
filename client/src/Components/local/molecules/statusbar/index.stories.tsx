@@ -4,7 +4,7 @@ import React from 'react'
 import StatusBar from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
-import { WargameMock as wargame } from '@serge/mocks'
+import { WargameMock as wargame } from 'src/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 

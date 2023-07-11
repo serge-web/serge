@@ -1,6 +1,6 @@
 import { Phase } from 'src/config'
 import { MapAnnotation } from 'src/custom-types'
-import { forces, localMappingConstraints, platformTypes, watuWargame } from '@serge/mocks'
+import { forces, localMappingConstraints, platformTypes, watuWargame } from 'src/mocks'
 import { mount } from 'enzyme'
 import { h3ToGeo } from 'h3-js'
 import L from 'leaflet'

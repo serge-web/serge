@@ -2,7 +2,7 @@
 
 /* Import mock data */
 import { Asset, ForceData } from 'src/custom-types'
-import { forces as mockForces } from '@serge/mocks'
+import { forces as mockForces } from 'src/mocks'
 import deepCopy from '../deep-copy'
 
 import deletePlatform from '../delete-platform'

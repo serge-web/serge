@@ -1,6 +1,6 @@
 /* global it expect */
 import { forceColors, platformIcons } from 'src/Helpers'
-import { P9BMock } from '@serge/mocks'
+import { P9BMock } from 'src/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'

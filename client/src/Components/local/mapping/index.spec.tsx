@@ -4,7 +4,7 @@ import { mount } from 'enzyme'
 import React from 'react'
 import Mapping from './index'
 
-import { smallScaleMappingConstraints, watuWargame } from '@serge/mocks'
+import { smallScaleMappingConstraints, watuWargame } from 'src/mocks'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []

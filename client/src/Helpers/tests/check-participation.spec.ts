@@ -1,7 +1,7 @@
 import { CHANNEL_CUSTOM, PARTICIPANT_CUSTOM } from 'src/config'
 import { ChannelCustom, Role, TemplateBodysByKey } from 'src/custom-types'
 import { CoreParticipant } from 'src/custom-types/participant'
-import { forces } from '@serge/mocks'
+import { forces } from 'src/mocks'
 import { checkLegacyParticipantStates, deepCopy, getParticipantStates } from '../'
 
 const gameControl: Role = forces[0].roles[0]

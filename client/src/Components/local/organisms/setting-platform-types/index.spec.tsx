@@ -2,7 +2,7 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { platformType } from '@serge/mocks'
+import { platformType } from 'src/mocks'
 import { PlatformType } from 'src/custom-types'
 import SettingPlatformTypes from './index'
 

@@ -1,7 +1,7 @@
 /* global it expect */
 import collateMarkerFormData from './collate-marker-form-data'
 
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 import { MarkerFormData, MarkerFormPopulate, MapAnnotation } from 'src/custom-types'
 
 it('contains relevant population results', () => {

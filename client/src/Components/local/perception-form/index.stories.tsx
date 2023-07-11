@@ -11,7 +11,7 @@ import { Phase } from 'src/config'
 
 /* Import mock data */
 import { ChannelMapping, ChannelTypes, MappingConstraints } from 'src/custom-types'
-import { watuWargame } from '@serge/mocks'
+import { watuWargame } from 'src/mocks'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes

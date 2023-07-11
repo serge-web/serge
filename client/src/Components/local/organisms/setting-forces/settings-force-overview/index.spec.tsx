@@ -1,6 +1,6 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { forces as forcesMock } from '@serge/mocks'
+import { forces as forcesMock } from 'src/mocks'
 import SettingsForceOverview from './index'
 import { ForceData } from 'src/custom-types'
 

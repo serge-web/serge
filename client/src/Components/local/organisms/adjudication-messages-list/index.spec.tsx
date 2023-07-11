@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer'
 import { AdjudicationMessagesList } from './index'
 
 import { forceColors } from 'src/Helpers'
-import { P9Mock, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
+import { P9Mock, planningMessageTemplatesMock, turnPeriod } from 'src/mocks'
 import { Phase } from 'src/config'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning

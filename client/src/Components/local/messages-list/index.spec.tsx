@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer'
 
 import MessagesList from './index'
 
-import { AdminMessagesMock } from '@serge/mocks'
+import { AdminMessagesMock } from 'src/mocks'
 
 it('MessagesList renders correctly', () => {
   const tree = renderer

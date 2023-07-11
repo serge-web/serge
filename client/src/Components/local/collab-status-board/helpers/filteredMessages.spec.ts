@@ -1,7 +1,7 @@
 import { MessageCustom } from 'src/custom-types'
 import filteredMessages from './filteredMessages'
 
-import { messageDataCollaborativeEditing, GameMessagesMockRFI } from '@serge/mocks'
+import { messageDataCollaborativeEditing, GameMessagesMockRFI } from 'src/mocks'
 
 describe('Correctly handles showArchived', () => {
   it('correctly filters COA messages according to archived status', () => {
