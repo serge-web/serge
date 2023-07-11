@@ -1,8 +1,8 @@
 import Chip from '@material-ui/core/Chip'
-import { CUSTOM_MESSAGE } from '@serge/config'
-import { formatTime } from '@serge/helpers'
+import { CUSTOM_MESSAGE } from 'src/config'
+import { formatTime } from 'src/Helpers'
 import classNames from 'classnames'
-// TODO: change it to @serge/config
+// TODO: change it to src/config
 import React, { useRef } from 'react'
 /* Import Stylesheet */
 import styles from './styles.module.scss'

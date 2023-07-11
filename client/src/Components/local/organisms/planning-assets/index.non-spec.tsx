@@ -1,5 +1,5 @@
 /* global it expect */
-import { forceColors, platformIcons } from '@serge/helpers'
+import { forceColors, platformIcons } from 'src/Helpers'
 import { P9BMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'

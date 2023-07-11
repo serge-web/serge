@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { hiddenPrefix } from '@serge/config'
+import { hiddenPrefix } from 'src/config'
 import { WargameList } from 'src/custom-types'
 import React, { useEffect, useState } from 'react'
 // import { useDispatch } from 'react-redux'

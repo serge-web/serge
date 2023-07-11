@@ -1,6 +1,6 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from 'src/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, Role } from 'src/custom-types'
-import { forceColors, incrementGameTime, platformIcons } from '@serge/helpers'
+import { forceColors, incrementGameTime, platformIcons } from 'src/Helpers'
 import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'

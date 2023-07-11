@@ -1,4 +1,4 @@
-import { TurnFormats } from '@serge/config'
+import { TurnFormats } from 'src/config'
 import { AreaCategory, ForceTemplateData } from '.'
 import { AttributeTypes } from './attributes'
 import { ChannelTypes } from './channel-data'

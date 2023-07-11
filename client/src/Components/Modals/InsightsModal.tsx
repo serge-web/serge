@@ -7,7 +7,7 @@ import {
 import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import ModalWrapper from './ModalWrapper'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 const InsightsModal: React.FC = () => {
   const state = usePlayerUiState()

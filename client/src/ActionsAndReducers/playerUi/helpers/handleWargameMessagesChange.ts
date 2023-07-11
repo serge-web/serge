@@ -14,10 +14,10 @@ import {
 import {
   handleChannelUpdates, handleAllInitialChannelMessages, setMessageState, 
   getMessageState, removeMessageState, handleNewMessageData 
-} from '@serge/helpers'
+} from 'src/Helpers'
 import {
   INFO_MESSAGE_CLIPPED
-} from '@serge/config'
+} from 'src/config'
 import deepCopy from '../../../Helpers/copyStateHelper'
 
 /** a new document has been received, either add it to the correct channel,

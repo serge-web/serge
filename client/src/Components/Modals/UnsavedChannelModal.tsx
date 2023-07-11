@@ -10,7 +10,7 @@ import {
   addNewChannel,
   setSelectedChannel
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 import { RootState } from 'src/custom-types'
 
 const UnsavedChannelModal = () => {

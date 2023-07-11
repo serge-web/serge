@@ -3,7 +3,7 @@ import { withKnobs, radios, boolean } from '@storybook/addon-knobs'
 // Import component files
 import PlannedRoute from './index'
 import docs from './README.md'
-import { PlanningStates } from '@serge/config'
+import { PlanningStates } from 'src/config'
 
 export default {
   title: 'local/form-elements/PlannedRoute',

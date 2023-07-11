@@ -2,14 +2,14 @@ import React from 'react'
 import Chip from '@material-ui/core/Chip'
 import DoneAllIcon from '@material-ui/icons/DoneAll'
 
-import { CUSTOM_MESSAGE } from '@serge/config'
+import { CUSTOM_MESSAGE } from 'src/config'
 
 /* Import Types */
 import PropTypes from './types/props'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'
-import { formatFullDate } from '@serge/helpers'
+import { formatFullDate } from 'src/Helpers'
 
 /* Render component */
 export const Message: React.FC<PropTypes> = ({ message }: PropTypes) => {

@@ -1,4 +1,4 @@
-import * as ActionConstant from '@serge/config'
+import * as ActionConstant from 'src/config'
 import copyState from '../../Helpers/copyStateHelper'
 import { defaultGameInfo, serverPath } from '../../consts'
 import _ from 'lodash'

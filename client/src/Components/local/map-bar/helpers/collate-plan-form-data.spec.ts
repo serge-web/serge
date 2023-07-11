@@ -3,8 +3,8 @@ import collatePlanFormData from './collate-plan-form-data'
 
 import { cmdWkWargame } from '@serge/mocks'
 import { PlanTurnFormPopulate, PlanTurnFormValues } from 'src/custom-types'
-import { deepCopy, routeCreateStore } from '@serge/helpers'
-import { Phase } from '@serge/config'
+import { deepCopy, routeCreateStore } from 'src/Helpers'
+import { Phase } from 'src/config'
 
 const forces = cmdWkWargame.data.forces.forces
 const blueForce = forces[1]

@@ -1,4 +1,4 @@
-import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER } from 'src/config'
 import { PlanTurnFormData } from 'src/custom-types'
 
 const formData: PlanTurnFormData = {

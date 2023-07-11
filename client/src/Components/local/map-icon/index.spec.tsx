@@ -1,4 +1,4 @@
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import { forces, localMappingConstraints, platformTypes } from '@serge/mocks'
 import { mount } from 'enzyme'
 import L from 'leaflet'

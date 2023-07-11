@@ -3,7 +3,7 @@ import { Component } from 'react'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 class Snackbar extends Component {
   shouldComponentUpdate (nextProps, nextState, nextContext) {

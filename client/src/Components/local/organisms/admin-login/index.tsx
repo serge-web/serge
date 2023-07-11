@@ -1,4 +1,4 @@
-import { DEFAULT_SERVER, serverPath } from '@serge/config'
+import { DEFAULT_SERVER, serverPath } from 'src/config'
 import { RootState } from 'src/custom-types'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useSelector } from 'react-redux'

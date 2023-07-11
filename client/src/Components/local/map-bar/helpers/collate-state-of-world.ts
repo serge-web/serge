@@ -1,6 +1,6 @@
-import { STATE_OF_WORLD } from '@serge/config'
+import { STATE_OF_WORLD } from 'src/config'
 import { AssetState, ForceState, MessageStateOfWorld, Route, RouteTurn, Perception, StateOfWorld, MapAnnotations, MapAnnotation } from 'src/custom-types'
-import { padInteger, deepCopy } from '@serge/helpers'
+import { padInteger, deepCopy } from 'src/Helpers'
 
 export const updatePerceptions = (visibleTo: Array<string>, current: Perception[]): Perception[] => {
   // start by removing those not present

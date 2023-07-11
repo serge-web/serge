@@ -1,7 +1,7 @@
 import {
   databasePath,
   MSG_TYPE_STORE
-} from '@serge/config'
+} from 'src/config'
 import uniqid from 'uniqid'
 
 import chat from '../Schemas/chat.json'

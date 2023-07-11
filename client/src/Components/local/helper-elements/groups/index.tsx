@@ -14,7 +14,7 @@ import { DropItem } from '../dropzone/types/props'
 
 /* Import Styles */
 import styles from './styles.module.scss'
-import { TASK_GROUP } from '@serge/config'
+import { TASK_GROUP } from 'src/config'
 
 const defaulRender = (item: GroupItem, depth: Array<GroupItem>): React.ReactElement => <>name: {item.name}<br />depth: {depth.length}</>
 

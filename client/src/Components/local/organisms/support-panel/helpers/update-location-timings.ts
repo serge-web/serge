@@ -1,5 +1,5 @@
 import { Asset, ForceData, PlannedActivityGeometry } from 'src/custom-types'
-import { findAsset, updateGeometryTimings } from '@serge/helpers'
+import { findAsset, updateGeometryTimings } from 'src/Helpers'
 import { sum } from 'lodash'
 
 export const updateLocationTimings = (planId: string, plans: PlannedActivityGeometry[],

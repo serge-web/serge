@@ -1,6 +1,6 @@
-import { TASK_GROUP } from '@serge/config'
+import { TASK_GROUP } from 'src/config'
 import { ForceData, MessageCreateTaskGroup, PlatformTypeData } from 'src/custom-types'
-import { groupCreateNewGroup } from '@serge/helpers'
+import { groupCreateNewGroup } from 'src/Helpers'
 
 export default (payload: MessageCreateTaskGroup, allForces: ForceData[], platformTypes: PlatformTypeData[]): ForceData[] => {
   const taskGroupType = platformTypes.find((pType: PlatformTypeData) => pType.name === TASK_GROUP)

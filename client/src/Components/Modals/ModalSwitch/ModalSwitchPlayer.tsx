@@ -2,7 +2,7 @@ import React from 'react'
 import InsightsModal from '../InsightsModal'
 import { usePlayerUiState } from '../../../Store/PlayerUi'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 const ModalSwitchPlayer: React.FC = () => {
   const { modalOpened } = usePlayerUiState()

@@ -1,7 +1,7 @@
 import { Asset, AttributeType, AttributeTypes, AttributeValue, PlatformTypeData } from 'src/custom-types'
 import uniqid from 'uniqid'
 import generateHashCode from './generate-hash-code'
-import { LaydownTypes } from '@serge/config'
+import { LaydownTypes } from 'src/config'
 import { createAttributeValue } from './attribute-helpers'
 
 export const generateAssetId = (): string => {

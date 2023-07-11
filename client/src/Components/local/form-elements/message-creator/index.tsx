@@ -6,7 +6,7 @@ import {
   CollaborativeMessageStates,
   InitialStates,
   UNSENT_SELECT_BY_DEFAULT_VALUE
-} from '@serge/config'
+} from 'src/config'
 import {
   ChannelCollab,
   MessageDetails

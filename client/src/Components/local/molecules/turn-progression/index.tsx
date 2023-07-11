@@ -1,6 +1,6 @@
 import { Box, Button, styled } from '@material-ui/core'
-import { ADJUDICATION_PHASE, PLANNING_PHASE } from '@serge/config'
-import { formatFullDate, formatTurn, incrementGameTime } from '@serge/helpers'
+import { ADJUDICATION_PHASE, PLANNING_PHASE } from 'src/config'
+import { formatFullDate, formatTurn, incrementGameTime } from 'src/Helpers'
 import classNames from 'classnames'
 import { capitalize } from 'lodash'
 import moment from 'moment'

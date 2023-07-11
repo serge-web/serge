@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Chip from '@material-ui/core/Chip'
-import { isHexLight } from '@serge/helpers'
+import { isHexLight } from 'src/Helpers'
 /* Import Types */
 import Props, { CustomSize } from './types/props'
 

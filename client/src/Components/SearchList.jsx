@@ -1,10 +1,10 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { formatShortDate } from '@serge/helpers'
+import { formatShortDate } from 'src/Helpers'
 import classNames from 'classnames'
 import { PropTypes } from 'prop-types'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 class SearchList extends Component {
   setSelected = (item) => {

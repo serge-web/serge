@@ -5,12 +5,12 @@ import AdjudicateTurnForm from './index'
 import docs from './README.md'
 import formData from './mocks/formData'
 import { AdjudicateTurnFormPopulate, IconDefinition, PlanTurnFormValues, RouteStore } from 'src/custom-types'
-import { deepCopy, routeCreateStore, routeSetCurrent } from '@serge/helpers'
+import { deepCopy, routeCreateStore, routeSetCurrent } from 'src/Helpers'
 
 /* Import mock data */
 import { forces, platformTypes } from '@serge/mocks'
 import AdjudicationManager from './helpers/adjudication-manager'
-import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER, Phase } from '@serge/config'
+import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER, Phase } from 'src/config'
 
 export default {
   title: 'local/organisms/AdjudicateTurnForm',

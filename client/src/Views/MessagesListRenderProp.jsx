@@ -1,4 +1,4 @@
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 const MessagesListRenderProp = ({ messages, render }) => {
   return (

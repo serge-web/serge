@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+// import '../themes/App.scss'
+import 'src/themes/App.scss'
 
-import '@serge/themes/App.scss'
 class TextArea extends Component {
   onChange = (e) => {
     this.props.updateStore(e.target.value)

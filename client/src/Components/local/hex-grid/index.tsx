@@ -1,6 +1,6 @@
-import { CellLabelStyle } from '@serge/config'
+import { CellLabelStyle } from 'src/config'
 import { Route, SergeGrid3, SergeHex3, TurningDetails } from 'src/custom-types'
-import { plannedRouteFor3 } from '@serge/helpers'
+import { plannedRouteFor3 } from 'src/Helpers'
 import * as turf from '@turf/turf'
 import { edgeLength, geoToH3, h3GetResolution, H3Index, h3SetToMultiPolygon, h3ToGeo, hexRing, kRing } from 'h3-js'
 import L, { DragEndEvent } from 'leaflet'

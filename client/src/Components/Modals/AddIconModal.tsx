@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ImageDropzone } from '@serge/components'
 import { saveIcon } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 import { RootState } from 'src/custom-types'
 
 const AddIconModal = () => {

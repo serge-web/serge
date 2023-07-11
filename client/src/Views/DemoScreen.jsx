@@ -4,7 +4,7 @@ import RouterDashboard from '../Components/Router/RouterDashboard'
 import PlayerUiWrapper from './PlayerUiWrapper'
 
 import '@serge/themes/dependencies/flexlayout-react.scss'
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 import '@serge/themes/demo.scss'
 
 const json = {

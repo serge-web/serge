@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash'
 
 import { Route, RouteStore } from 'src/custom-types'
-import { PlanningCommands, PlanningStates } from '@serge/config'
+import { PlanningCommands, PlanningStates } from 'src/config'
 
 /**
  * Store the planned route in the forces object

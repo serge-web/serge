@@ -1,6 +1,6 @@
 import { Confirm } from '@serge/components'
 import { Asset, ForceData, IconOption, ModalData, PlatformType, PlatformTypeData, RoleType, RootState } from 'src/custom-types'
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {

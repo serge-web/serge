@@ -3,7 +3,7 @@ import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab 
 import { ForceColor } from '..'
 import CollabMessageDetail from '../../molecules/collab-message-detail'
 import { Badge } from '../../atoms/badge'
-import { CollaborativeMessageStates, CollaborativePermission, SpecialChannelColumns } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativePermission, SpecialChannelColumns } from 'src/config'
 import getAssignees from './assignees'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

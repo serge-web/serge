@@ -1,5 +1,5 @@
 import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from 'src/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 
 /** as a "time-saver" in generating activities, it's possible to record per force activity
  * sets using the id's of activities instead of the whole activity.

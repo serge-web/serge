@@ -1,4 +1,4 @@
-import { CollaborativePermission } from '@serge/config'
+import { CollaborativePermission } from 'src/config'
 import { ForceData, ForceRole, ParticipantCollab, Role } from 'src/custom-types'
 import { uniqBy } from 'lodash'
 

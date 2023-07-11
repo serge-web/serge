@@ -1,5 +1,5 @@
 import formatTurn from '../format-turn'
-import { TurnFormats } from '@serge/config'
+import { TurnFormats } from 'src/config'
 
 describe('format turn:', () => {
   it('formats natural', () => {

@@ -18,7 +18,7 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   MARK_ALL_AS_UNREAD
-} from '@serge/config'
+} from 'src/config'
 
 import {
   Wargame,

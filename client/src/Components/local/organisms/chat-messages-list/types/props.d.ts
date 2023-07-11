@@ -1,5 +1,5 @@
 import { ChatMessage, MessageInfoTypeClipped } from 'src/custom-types'
-import { TurnFormats } from '@serge/config'
+import { TurnFormats } from 'src/config'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
 export default interface PropTypes extends ForcesInChannelProps {

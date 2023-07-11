@@ -9,7 +9,7 @@ import { ForceData } from 'src/custom-types'
 import { MapAnnotations, MapAnnotation } from 'src/custom-types/map-annotation'
 import InfoMarker from '../info-marker'
 import { geoToH3, h3ToGeo } from 'h3-js'
-import { UPDATE_MARKER } from '@serge/config'
+import { UPDATE_MARKER } from 'src/config'
 
 /* Render component */
 export const InfoMarkers: React.FC = () => {

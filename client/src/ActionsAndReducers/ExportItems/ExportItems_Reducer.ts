@@ -1,4 +1,4 @@
-import { CREATE_EXPORT_ITEM, LOADER } from '@serge/config'
+import { CREATE_EXPORT_ITEM, LOADER } from 'src/config'
 import copyState from '../../Helpers/copyStateHelper'
 import { ExportItemsUiActionTypes } from 'src/custom-types' 
 

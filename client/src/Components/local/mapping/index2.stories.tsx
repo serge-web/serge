@@ -4,7 +4,7 @@ import { Story } from '@storybook/react/types-6-0'
 /* Import mock data */
 import { platformTypes, preInitialisedForces, localMappingConstraints } from '@serge/mocks'
 
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 
 // Import component files
 import Mapping from './index'
@@ -12,7 +12,7 @@ import MappingPropTypes from './types/props'
 import docs from './README.md'
 
 // import data types
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 

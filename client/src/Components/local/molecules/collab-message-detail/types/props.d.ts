@@ -1,4 +1,4 @@
-import { CollaborativeMessageStates, CollaborativePermission } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativePermission } from 'src/config'
 import {
   MessageCustom,
   ForceRole,

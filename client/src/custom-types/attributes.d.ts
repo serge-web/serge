@@ -5,7 +5,7 @@ import {
   ATTRIBUTE_VALUE_ENUM,
   ATTRIBUTE_VALUE_NUMBER,
   ATTRIBUTE_VALUE_STRING
-} from '@serge/config'
+} from 'src/config'
 
 /** Types to support the storage of attributes within the game */
 

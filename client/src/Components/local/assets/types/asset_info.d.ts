@@ -1,4 +1,4 @@
-import { LaydownPhases } from '@serge/config'
+import { LaydownPhases } from 'src/config'
 import { AttributeValues, PlatformTypeData, RouteStatus } from 'src/custom-types'
 import L from 'leaflet'
 

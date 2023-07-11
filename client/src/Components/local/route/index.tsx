@@ -11,7 +11,7 @@ import RouteData from './types/route-data'
 import createTurnMarkers, { HISTORY_MARKER, PLANNED_MARKER } from './helpers/create-turn-markers'
 import { historicRoutesFor } from './helpers/historic-routes-for'
 import { plannedRoutesFor } from './helpers/planned-routes-for'
-import { LaydownPhases } from '@serge/config'
+import { LaydownPhases } from 'src/config'
 
 /* Render component */
 export const Route: React.FC<PropTypes> = ({ name, route, trimmed, color, selected, clearRouteHandler }: PropTypes) => {

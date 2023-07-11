@@ -1,5 +1,5 @@
 import { Asset, ChannelMapping, ForceData, ParticipantMapping, Role } from 'src/custom-types'
-import { CONTROL_ALL, LaydownTypes, Phase } from '@serge/config'
+import { CONTROL_ALL, LaydownTypes, Phase } from 'src/config'
 
 export const canControlAnyAsset = (channel: ChannelMapping, role: Role['roleId']): boolean => {
   const singleRoleParticipations = channel.participants.filter((part: ParticipantMapping) => part.roles && part.roles.length === 1)

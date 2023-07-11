@@ -4,7 +4,7 @@ import React from 'react'
 import Props from './types/props'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import { hiddenPrefix } from '@serge/config'
+import { hiddenPrefix } from 'src/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'

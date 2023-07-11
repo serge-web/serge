@@ -1,5 +1,5 @@
-import { Phase } from '@serge/config'
-import { deepCopy } from '@serge/helpers'
+import { Phase } from 'src/config'
+import { deepCopy } from 'src/Helpers'
 import { localMappingConstraints, watuWargame } from '@serge/mocks'
 import { mount } from 'enzyme'
 import React from 'react'

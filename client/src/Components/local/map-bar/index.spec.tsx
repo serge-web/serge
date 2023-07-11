@@ -1,5 +1,5 @@
 /* global it expect */
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import { mount } from 'enzyme'
 import React from 'react'
 import MapBar from '.'

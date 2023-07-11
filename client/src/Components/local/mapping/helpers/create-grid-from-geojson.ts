@@ -1,4 +1,4 @@
-import { Terrain } from '@serge/config'
+import { Terrain } from 'src/config'
 
 export interface TerrainType {
   terrain: Terrain

@@ -1,7 +1,7 @@
 import uniqId from 'uniqid'
 import moment from 'moment'
 import ExpiredStorage from 'expired-storage'
-import * as Globals from '@serge/config'
+import * as Globals from 'src/config'
 // import { Wargame } from 'src/custom-types'
 import { Wargame } from './custom-types'
 

@@ -2,7 +2,7 @@ import { ExportItem } from './export-items'
 
 import {
   CREATE_EXPORT_ITEM, LOADER
-} from '@serge/config'
+} from 'src/config'
 
 import { Dispatch } from 'react'
 

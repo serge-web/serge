@@ -1,4 +1,4 @@
-import { FORCE_LAYDOWN, LaydownPhases } from '@serge/config'
+import { FORCE_LAYDOWN, LaydownPhases } from 'src/config'
 import { Route, MessageForceLaydown } from 'src/custom-types'
 
 const collateForceLaydown = (routes: Array<Route>): MessageForceLaydown => {

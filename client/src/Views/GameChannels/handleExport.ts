@@ -1,6 +1,6 @@
-import { CHANNEL_PLANNING, INFO_MESSAGE_CLIPPED } from '@serge/config'
+import { CHANNEL_PLANNING, INFO_MESSAGE_CLIPPED } from 'src/config'
 import { Asset, ChannelUI, ForceData, GameTurnLength, MessageChannel, MessageCustom, MessageInteraction, MessagePlanning, PlatformTypeData, PlayerUiChannels } from 'src/custom-types'
-import { incrementGameTime } from '@serge/helpers'
+import { incrementGameTime } from 'src/Helpers'
 import { cloneDeep } from 'lodash'
 
 export const FORCES = 'forces'
@@ -12,7 +12,7 @@ const storeAsset = (asset: Asset, assets: Record<string, any>[], forceName: stri
   const pType = platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
   const attrs = asset.attributes ? asset.attributes : {}
   const doneTypes = ['a_Type', 'a_C4_Status']
-  let attrList: string = ''
+  let attrList = ''
   Object.keys(attrs).forEach(key => {
     const value = attrs[key]
     if (!doneTypes.includes(key)) {

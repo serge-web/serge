@@ -3,9 +3,9 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useEffect, useState } from 'react'
 
 // Import component files
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from 'src/config'
 import { Asset, ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from 'src/custom-types'
-import { forceColors } from '@serge/helpers'
+import { forceColors } from 'src/Helpers'
 import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
 import uniqBy from 'lodash/uniqBy'
 import moment from 'moment-timezone'

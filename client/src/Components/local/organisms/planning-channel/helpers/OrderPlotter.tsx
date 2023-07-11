@@ -1,5 +1,5 @@
 import { InteractionDetails, MessageAdjudicationOutcomes, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from 'src/custom-types'
-import { deepCopy, ForceStyle } from '@serge/helpers'
+import { deepCopy, ForceStyle } from 'src/Helpers'
 import { Feature, GeoJsonObject } from 'geojson'
 import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
 import _ from 'lodash'

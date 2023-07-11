@@ -11,7 +11,7 @@ import { resetMessagePreview } from '../ActionsAndReducers/dbMessages/messages_A
 import Link from '../Components/Link'
 import SchemaEditor from '../Components/jsonSchemaEditor/index'
 import { ADMIN_ROUTE } from '../consts'
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 class EditMessage extends Component {
   constructor (props) {

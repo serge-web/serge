@@ -11,8 +11,8 @@ import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromU
 import { faBath, faClone, faFileDownload, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { EXPORT_ROUTE, GAME_SETUP_ROUTE } from '../consts'
-import { WargameList } from '@serge/components'
-import '@serge/themes/App.scss'
+import WargameList from './local/organisms/wargame-list'
+import 'src/themes/App.scss'
 
 const WargameSearchList = ({ listData: wargames }) => {
   const dispatch = useDispatch()

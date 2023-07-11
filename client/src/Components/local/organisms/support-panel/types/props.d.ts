@@ -3,7 +3,7 @@ import {
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from 'src/custom-types'
 import { MessageInteraction } from 'src/custom-types/message'
-import { ForceStyle } from '@serge/helpers'
+import { ForceStyle } from 'src/Helpers'
 import LRUCache from 'lru-cache'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'

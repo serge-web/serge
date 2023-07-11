@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/styles'
-import { UMPIRE_FORCE } from '@serge/config'
+import { UMPIRE_FORCE } from 'src/config'
 import { TabNode } from 'flexlayout-react'
 import React, { useState } from 'react'
 import Tour from 'reactour'

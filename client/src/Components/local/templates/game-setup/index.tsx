@@ -1,4 +1,4 @@
-import { AdminTabs } from '@serge/config'
+import { AdminTabs } from 'src/config'
 import React from 'react'
 import AdminContent from '../../atoms/admin-content'
 import AdminLayout from '../../organisms/admin-layout'

@@ -1,7 +1,7 @@
 import HistoryIcon from '@material-ui/icons/History'
 import InfoIcon from '@material-ui/icons/Info'
 import PlannedIcon from '@material-ui/icons/Update'
-import { ADJUDICATION_PHASE, CellLabelStyle, CHANNEL_MAPPING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, FLAG_MARKER, HOST_PLATFORM, LaydownPhases, LEAVE_TASK_GROUP, Phase, PlanningStates, serverPath, UMPIRE_FORCE, UPDATE_MARKER } from '@serge/config'
+import { ADJUDICATION_PHASE, CellLabelStyle, CHANNEL_MAPPING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, FLAG_MARKER, HOST_PLATFORM, LaydownPhases, LEAVE_TASK_GROUP, Phase, PlanningStates, serverPath, UMPIRE_FORCE, UPDATE_MARKER } from 'src/config'
 import cx from 'classnames'
 import * as h3 from 'h3-js'
 import L from 'leaflet'
@@ -18,7 +18,7 @@ import { createGridH3 } from './helpers/h3-helpers'
 import {
   DeclutterData,
   deepCopy, enumFromString, findPlatformTypeFor, roundToNearest, routeAddSteps, routeClearFromStep, routeCreateStore, routeDeclutter2, routeGetLatestPosition, routeSetCurrent, routeSetLaydown, turnTimeAsMillis
-} from '@serge/helpers'
+} from 'src/Helpers'
 
 /* Import Types */
 import {

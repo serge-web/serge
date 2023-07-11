@@ -1,6 +1,6 @@
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import { Route as RouteType, RouteStore } from 'src/custom-types'
-import { routeCreateStore } from '@serge/helpers'
+import { routeCreateStore } from 'src/Helpers'
 import { localMappingConstraints, watuWargame } from '@serge/mocks'
 import { mount } from 'enzyme'
 import React from 'react'

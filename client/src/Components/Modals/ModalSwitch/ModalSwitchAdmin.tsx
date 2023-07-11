@@ -8,7 +8,7 @@ import AddIconModal from '../AddIconModal'
 import ColorPickerModal from '../ColorPickerModal'
 import AddLogoModal from '../AddLogoModal'
 import DeleteConfirmation from '../DeleteConfirmation'
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 import { CurrentModal } from 'src/custom-types'
 
 class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {

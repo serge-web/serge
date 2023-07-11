@@ -15,7 +15,7 @@ import {
 import docs from './README.md'
 
 import { MessageCustom, ForceRole, ChannelCollab } from 'src/custom-types'
-import { CollaborativeMessageStates, CollaborativePermission } from '@serge/config'
+import { CollaborativeMessageStates, CollaborativePermission } from 'src/config'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: 'auto' }}>{storyFn()}</div>
 
 const roles: ForceRole[] = [

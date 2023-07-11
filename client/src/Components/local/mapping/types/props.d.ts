@@ -1,8 +1,8 @@
 import L from 'leaflet'
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import { ForceData, PlanMobileAsset, PlatformTypeData, MapPostBack, MappingConstraints, MapAnnotations, ChannelMapping, AnnotationIcons, Role, GameTurnLength } from 'src/custom-types'
 import React from 'react'
-import { DeclutterData } from '@serge/helpers'
+import { DeclutterData } from 'src/Helpers'
 
 export default interface PropTypes {
   /**

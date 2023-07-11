@@ -1,4 +1,4 @@
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import { MapAnnotation } from 'src/custom-types'
 import { forces, localMappingConstraints, platformTypes, watuWargame } from '@serge/mocks'
 import { mount } from 'enzyme'

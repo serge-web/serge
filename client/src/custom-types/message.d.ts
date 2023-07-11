@@ -2,7 +2,7 @@ import {
   ADJUDICATION_OUTCOMES,
   CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
   COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
-} from '@serge/config'
+} from 'src/config'
 
 import { Geometry } from 'geojson'
 import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcomes, INTERACTION_SHORT_CIRCUIT, LocationOutcomes, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'

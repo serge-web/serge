@@ -15,7 +15,7 @@ import moment from 'moment'
 
 /* Import Types */
 import Props, { RowDataType, RowType, RowWithCollapsibleType } from './types/props'
-import { EMPTY_CELL } from '@serge/config'
+import { EMPTY_CELL } from 'src/config'
 
 export const ROW_DATA_TYPE = 'RowDataType'
 export const ROW_WITH_COLLAPSIBLE_TYPE = 'RowWithCollapsibleType'

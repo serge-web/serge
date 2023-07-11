@@ -1,7 +1,7 @@
 // import data types
-import { CellLabelStyle, Phase, serverPath } from '@serge/config'
+import { CellLabelStyle, Phase, serverPath } from 'src/config'
 import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, Role } from 'src/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 /* Import mock data */
 import { cmdWkWargame } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'

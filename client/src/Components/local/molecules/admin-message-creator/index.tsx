@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Box, IconButton, Button } from '@material-ui/core'
 import { SendOutlined } from '@material-ui/icons'
 
-import { CUSTOM_MESSAGE } from '@serge/config'
+import { CUSTOM_MESSAGE } from 'src/config'
 
 /* Import Types */
 import Props from './types/props'

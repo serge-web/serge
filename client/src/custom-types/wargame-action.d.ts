@@ -23,7 +23,7 @@ import {
     SET_TAB_UNSAVED,
     UPDATE_RECIPIENT,
     UPDATE_ROLE_NAME
- } from '@serge/config'
+ } from 'src/config'
 import Wargame from './wargame'
 import { ChannelTypes } from './channel-data'
 import WargameOverview from './wargame-overview'

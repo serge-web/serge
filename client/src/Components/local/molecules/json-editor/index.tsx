@@ -1,5 +1,5 @@
 import { Editor, PlannedActivityGeometry, TemplateBody } from 'src/custom-types'
-import { configDateTimeLocal, deepCopy, usePrevious } from '@serge/helpers'
+import { configDateTimeLocal, deepCopy, usePrevious } from 'src/Helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { isEqual } from 'lodash'
 import moment from 'moment'

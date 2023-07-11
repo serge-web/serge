@@ -2,7 +2,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import ChannelMessagesList from './index'
-import { CUSTOM_MESSAGE } from '@serge/config'
+import { CUSTOM_MESSAGE } from 'src/config'
 import { MessageCustom } from 'src/custom-types'
 import moment from 'moment-timezone'
 

@@ -1,4 +1,4 @@
-import * as ActionConstant from '@serge/config'
+import * as ActionConstant from 'src/config'
 import { SetCurrentViewFromURI } from 'src/custom-types'
 
 export const currentViewURIReducer = (state = '/', action: SetCurrentViewFromURI) => {

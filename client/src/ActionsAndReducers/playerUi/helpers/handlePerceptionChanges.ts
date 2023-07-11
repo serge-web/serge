@@ -1,5 +1,5 @@
 import { Asset, ForceData, MessagePerceptionOfContact } from 'src/custom-types'
-import { findAsset } from '@serge/helpers'
+import { findAsset } from 'src/Helpers'
 
 /** convert the legacy dictionary structure to an array, to allow
  * for optimised array processing

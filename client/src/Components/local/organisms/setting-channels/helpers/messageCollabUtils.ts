@@ -1,4 +1,4 @@
-import { InitialStates } from '@serge/config'
+import { InitialStates } from 'src/config'
 import { ChannelCollab, ChannelTypes, ParticipantTemplate } from 'src/custom-types'
 import { Option } from '../../../molecules/editable-row'
 import { Action, MessageGroupType, MessagesValues } from './genMessageCollabEdit'

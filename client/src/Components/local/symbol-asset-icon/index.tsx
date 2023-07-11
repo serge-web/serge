@@ -1,4 +1,4 @@
-import { SymbolForces } from '@serge/config'
+import { SymbolForces } from 'src/config'
 import cx from 'classnames'
 import ms from 'milsymbol'
 import React from 'react'

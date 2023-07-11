@@ -4,7 +4,7 @@ import { AttributeTypes, AttributeValues, ForceData, PlatformTypeData } from 'sr
 import AttributeEditor from './index'
 import docs from './README.md'
 import { platformTypes, smallScaleForces } from '@serge/mocks'
-import { collateEditorData } from '@serge/helpers'
+import { collateEditorData } from 'src/Helpers'
 
 export default {
   title: 'local/attribute-editor',

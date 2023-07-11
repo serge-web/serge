@@ -1,5 +1,8 @@
-import * as ActionConstant from '@serge/config'
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import * as ActionConstant from 'src/config'
 import 'whatwg-fetch'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import check from 'check-types'
 

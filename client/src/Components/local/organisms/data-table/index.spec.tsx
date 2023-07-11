@@ -4,7 +4,7 @@ import renderer from 'react-test-renderer'
 import Badge from '../../atoms/badge'
 import { MessageCustom } from 'src/custom-types/message'
 import { GameMessagesMockRFI } from '@serge/mocks'
-import { mostRecentOnly } from '@serge/helpers'
+import { mostRecentOnly } from 'src/Helpers'
 
 import DataTable, { ROW_WITH_COLLAPSIBLE_TYPE } from './index'
 import { RowWithCollapsibleType } from './types/props'

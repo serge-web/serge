@@ -1,7 +1,7 @@
 /* global it expect */
 
 /* Import mock data */
-import { TASK_GROUP } from '@serge/config'
+import { TASK_GROUP } from 'src/config'
 import { Asset, ForceData } from 'src/custom-types'
 import { forces, platformTypes } from '@serge/mocks'
 import findPlatformTypeFor from '../find-platform-type-for'

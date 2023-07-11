@@ -1,4 +1,4 @@
-import { MAP_ANNOTATION_READ_INTERACTION, CHANGE_TAB_INTERACTION, MESSAGE_READ_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_UNREAD_INTERACTION, PLAIN_INTERACTION } from "@serge/config"
+import { MAP_ANNOTATION_READ_INTERACTION, CHANGE_TAB_INTERACTION, MESSAGE_READ_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_UNREAD_INTERACTION, PLAIN_INTERACTION } from 'src/config'
 
 /** an entry in the player log */
 export interface PlayerMessage {
@@ -16,7 +16,7 @@ export interface PlayerMessage {
 export interface PlayerLogUI {
   force: string
   forceColor: string
-  iconURL?: string,
+  iconURL?: string
   role: string
   // title of last message sent (or undefined if no message sent)
   title?: string
@@ -34,7 +34,6 @@ export interface ChangeTabInteraction extends PlainInteraction {
   aType: typeof CHANGE_TAB_INTERACTION
   tab: string
 }
-
 
 /** a player has sent a message */
 export interface MessageSentInteraction extends PlainInteraction {

@@ -10,7 +10,7 @@ import * as FlexLayout from 'flexlayout-react'
 import { useDispatch } from 'react-redux'
 import { showHideObjectives } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
-import { isMessageReaded } from '@serge/helpers'
+import { isMessageReaded } from 'src/Helpers'
 import addUnreadMsgCount from './helpers/renameTab'
 
 const AdminAndInsightsTabsContainer = (): React.ReactElement => {

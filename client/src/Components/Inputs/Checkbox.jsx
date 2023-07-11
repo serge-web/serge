@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 class Checkbox extends Component {
   onChange = (e) => {

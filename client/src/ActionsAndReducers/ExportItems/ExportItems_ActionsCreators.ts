@@ -1,4 +1,4 @@
-import { CHAT_MESSAGE, CREATE_EXPORT_ITEM, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, EXPORT_ITEM_MESSAGES, LOADER } from '@serge/config'
+import { CHAT_MESSAGE, CREATE_EXPORT_ITEM, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, EXPORT_ITEM_MESSAGES, LOADER } from 'src/config'
 import flatten from 'flat'
 import { ExportItemsUiActionTypes, ExportItem, Wargame, Message, MessageInfoType, ExportItemData } from 'src/custom-types'
 

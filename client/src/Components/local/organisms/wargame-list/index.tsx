@@ -9,7 +9,7 @@ import { RenderContent } from './helpers/renderContent'
 import Props from './types/props'
 
 /* Import Stylesheet */
-import { hiddenPrefix } from '@serge/config'
+import { hiddenPrefix } from 'src/config'
 import ScrollArea from 'react-scrollbar'
 import { MenuItem } from '../../molecules/option-menu/types/props'
 import styles from './styles.module.scss'

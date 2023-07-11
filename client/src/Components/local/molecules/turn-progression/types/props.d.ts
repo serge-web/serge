@@ -1,4 +1,4 @@
-import { TurnFormats } from '@serge/config'
+import { TurnFormats } from 'src/config'
 import { GameTurnLength } from 'src/custom-types'
 import React from 'react'
 

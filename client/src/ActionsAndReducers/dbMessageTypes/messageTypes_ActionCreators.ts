@@ -1,4 +1,4 @@
-import * as ActionConstant from '@serge/config'
+import * as ActionConstant from 'src/config'
 import 'whatwg-fetch'
 // @ts-ignore
 import check from 'check-types'

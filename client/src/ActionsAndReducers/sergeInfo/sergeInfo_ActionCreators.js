@@ -1,4 +1,4 @@
-import * as ActionConstant from '@serge/config'
+import * as ActionConstant from 'src/config'
 import * as sergeInfoApi from '../../api/sergeInfo_api'
 import * as Notification from '../Notification/Notification_ActionCreators'
 

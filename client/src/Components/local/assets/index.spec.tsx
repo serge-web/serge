@@ -1,10 +1,10 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import Mapping from '../mapping'
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 
 import { localMappingConstraints, watuWargame } from '@serge/mocks'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 
 const forces = deepCopy(watuWargame.data.forces.forces)
 const platformTypes = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []

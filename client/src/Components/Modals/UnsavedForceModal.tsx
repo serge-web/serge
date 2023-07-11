@@ -12,7 +12,7 @@ import {
   refreshForce
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { forceTemplate } from '../../consts'
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 import { RootState } from 'src/custom-types'
 
 const UnsavedForceModal = () => {

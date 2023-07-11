@@ -1,4 +1,4 @@
-import { UMPIRE_FORCE, UNKNOWN_TYPE } from '@serge/config'
+import { UMPIRE_FORCE, UNKNOWN_TYPE } from 'src/config'
 import { ForceOption, ForceData } from 'src/custom-types'
 
 /** Loops through all available forces and creates an entry for each one to be used as form data

@@ -2,7 +2,7 @@
 import L from 'leaflet'
 import { RouteStore, Route, ForceData, Asset, PlatformTypeData, ChannelMapping, Role } from 'src/custom-types'
 import routeCreateRoute from './route-create-route'
-import { ADJUDICATION_PHASE, LaydownTypes, Phase, UMPIRE_FORCE } from '@serge/config'
+import { ADJUDICATION_PHASE, LaydownTypes, Phase, UMPIRE_FORCE } from 'src/config'
 import findPerceivedAsTypes from './find-perceived-as-types'
 import isPerceivedBy, { ForceStyle } from './is-perceived-by'
 import forceColors from './force-colors'

@@ -1,10 +1,10 @@
-import { ADJUDICATION_OUTCOMES, GeometryType, infoOpsGroup, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, GeometryType, infoOpsGroup, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from 'src/config'
 import {
   Asset, AssetWithForce, CoreOutcome, ForceData, HealthOutcome, InteractionDetails,
   INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction,
   MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry
 } from 'src/custom-types'
-import { findAsset, findForceAndAsset } from '@serge/helpers'
+import { findAsset, findForceAndAsset } from 'src/Helpers'
 import * as turf from '@turf/turf'
 import { Feature, Geometry, LineString, Polygon } from 'geojson'
 import { LatLngBounds } from 'leaflet'

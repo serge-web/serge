@@ -15,7 +15,7 @@ import {
   isValidUrl,
   capitalize,
   formatFullDate
-} from '@serge/helpers'
+} from 'src/Helpers'
 import Paragraph from '../../atoms/paragraph'
 import MessageLabel from '../../atoms/message-label'
 

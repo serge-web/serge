@@ -1,4 +1,4 @@
-import { CollaborativeMessageStates as States, CollaborativePermission as Permission } from '@serge/config'
+import { CollaborativeMessageStates as States, CollaborativePermission as Permission } from 'src/config'
 import * as handlers from './handlers'
 
 export interface Action {

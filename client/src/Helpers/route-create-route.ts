@@ -1,4 +1,4 @@
-import { DATUM, LaydownPhases, LaydownTypes, Phase, PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, UNKNOWN_TYPE } from '@serge/config'
+import { DATUM, LaydownPhases, LaydownTypes, Phase, PlanningStates, UMPIRE_FORCE, UMPIRE_FORCE_NAME, UNKNOWN_TYPE } from 'src/config'
 import { Asset, ForceData, PerceivedTypes, Perception, PlatformTypeData, Route, RouteChild, RouteStatus, RouteTurn } from 'src/custom-types'
 import { h3ToGeo } from 'h3-js'
 import L from 'leaflet'

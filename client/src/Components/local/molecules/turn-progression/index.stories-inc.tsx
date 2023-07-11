@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
-import { Phase, TurnFormats } from '@serge/config'
+import { Phase, TurnFormats } from 'src/config'
 import { Story } from '@storybook/react/types-6-0'
 // Import component files
 import TurnProgression from './index'
 import TurnPropTypes from './types/props'
 
 import { GameTurnLength } from 'src/custom-types'
-import { incrementGameTime } from '@serge/helpers'
+import { incrementGameTime } from 'src/Helpers'
 import moment from 'moment-timezone'
 import docs from './README.md'
 

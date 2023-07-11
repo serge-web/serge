@@ -1,4 +1,4 @@
-import { CollaborativePermission, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING } from '@serge/config'
+import { CollaborativePermission, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING } from 'src/config'
 import { ParticipantCollab } from 'src/custom-types'
 import { ParticipantChat, ParticipantCustom, ParticipantMapping } from 'src/custom-types/participant'
 

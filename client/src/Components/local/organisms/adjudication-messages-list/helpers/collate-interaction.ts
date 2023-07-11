@@ -1,7 +1,7 @@
 
-import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
+import { UNCHANGED, UNKNOWN_TYPE } from 'src/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure, PlatformTypeData } from 'src/custom-types'
-import { findAsset, ForceStyle } from '@serge/helpers'
+import { findAsset, ForceStyle } from 'src/Helpers'
 import _ from 'lodash'
 
 export type InteractionData = {

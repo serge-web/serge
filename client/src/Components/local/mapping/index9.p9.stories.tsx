@@ -1,7 +1,7 @@
 // import data types
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import { Asset, ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, MilliTurns, Role, RouteTurn, Wargame } from 'src/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 /* Import mock data */
 import { P9Mock } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'

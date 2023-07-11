@@ -2,7 +2,7 @@ import cx from 'classnames'
 import React from 'react'
 
 import PublicIcon from '@material-ui/icons/Public'
-import { UMPIRE_FORCE } from '@serge/config'
+import { UMPIRE_FORCE } from 'src/config'
 import Item from '../../map-control/helpers/item'
 import PropTypes from './types/props'
 

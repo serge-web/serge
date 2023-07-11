@@ -1,5 +1,5 @@
 import { ChannelMapping, ChannelTypes, MappingConstraints } from 'src/custom-types'
-import { DeclutterData, deepCopy, dummyDeclutter2, routeDeclutter2 } from '@serge/helpers'
+import { DeclutterData, deepCopy, dummyDeclutter2, routeDeclutter2 } from 'src/Helpers'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 
@@ -11,7 +11,7 @@ import docs from './README.md'
 import MappingPropTypes from './types/props'
 
 // import data types
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'

@@ -1,5 +1,5 @@
 import ForceData from "./force-data"
-import { UNKNOWN_TYPE } from "@serge/config"
+import { UNKNOWN_TYPE } from "src/config"
 /** presenting forces as a series of drop-down options */
 export default interface ForceOption {
   name: ForceData['name']

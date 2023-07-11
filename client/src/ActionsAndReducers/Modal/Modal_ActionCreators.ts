@@ -1,11 +1,13 @@
-import * as ActionConstant from '@serge/config'
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+import * as ActionConstant from 'src/config'
 
 export interface ModalActionInterface {
   open: (openModal: string, data: {}) => ({
       open: boolean,
       modal: string,
       data: {}
-  }),
+  })
 
   close: () => ({
     payload: {

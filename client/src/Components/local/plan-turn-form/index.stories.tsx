@@ -5,7 +5,7 @@ import PlanTurnForm from './index'
 import docs from './README.md'
 import { withKnobs, radios } from '@storybook/addon-knobs'
 import { PlanTurnFormValues } from 'src/custom-types'
-import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_NUMBER } from 'src/config'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 

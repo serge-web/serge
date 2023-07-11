@@ -1,4 +1,4 @@
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import {
   ChannelPlanning, ForceData, ForceStyle, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlatformTypeData, Role, TemplateBody
 } from 'src/custom-types'

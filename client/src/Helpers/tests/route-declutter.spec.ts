@@ -7,7 +7,7 @@ import routeCreateStore from '../route-create-store'
 import { routeDeclutter, DeclutterData } from '../route-declutter'
 
 import { RouteStore, Route, RouteTurn, MapAnnotations } from 'src/custom-types'
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 
 const umpireId = forces[0].uniqid
 

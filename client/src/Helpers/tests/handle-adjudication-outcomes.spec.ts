@@ -1,5 +1,5 @@
 import { expect, it } from '@jest/globals'
-import { ADJUDICATION_OUTCOMES } from '@serge/config'
+import { ADJUDICATION_OUTCOMES } from 'src/config'
 import { ForceData, InteractionDetails, MessageAdjudicationOutcomes } from 'src/custom-types'
 import moment from 'moment'
 import deepCopy from '../deep-copy'

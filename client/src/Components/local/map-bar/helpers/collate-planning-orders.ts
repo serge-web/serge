@@ -1,4 +1,4 @@
-import { SUBMIT_PLANS } from '@serge/config'
+import { SUBMIT_PLANS } from 'src/config'
 import { MessageSubmitPlans, PlannedRoute, RouteStatus, Route, RouteTurn } from 'src/custom-types'
 
 const collatePlanningOrders = (routes: Array<Route>): MessageSubmitPlans => {

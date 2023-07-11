@@ -1,5 +1,5 @@
 import { Column, MTableFilterRow } from '@material-table/core'
-import { SUPPORT_PANEL_LAYOUT } from '@serge/config'
+import { SUPPORT_PANEL_LAYOUT } from 'src/config'
 import { cloneDeep } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 import { FilterObject, getFilterApplied } from '../../support-panel/helpers/caching-utils'

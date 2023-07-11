@@ -3,7 +3,7 @@ import React from 'react'
 /* Import proptypes */
 import PropTypes from './types/props'
 import { Wargame } from 'src/custom-types'
-import { AdminTabs } from '@serge/config'
+import { AdminTabs } from 'src/config'
 
 /* Import Styles */
 import styles from './styles.module.scss'

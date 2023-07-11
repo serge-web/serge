@@ -21,35 +21,35 @@ export interface ProviderDbInterface {
 }
 
 export interface ChangesResponseChange {
-  id: string;
-  seq: number | string;
-  changes: Array<{ rev: string }>;
-  deleted?: boolean;
-  wargame?: Wargame | Message;
+  id: string
+  seq: number | string
+  changes: Array<{ rev: string }>
+  deleted?: boolean
+  wargame?: Wargame | Message
 }
 
 export interface FetchReferenc {
-  msg: string,
+  msg: string
   data: number
 }
 
 export interface FetchData {
-  msg: string,
-  data: Wargame | Message,
+  msg: string
+  data: Wargame | Message
   status: number
 }
 export interface FetchDataArray {
-  msg: string,
+  msg: string
   data: (Wargame | Message)[]
 }
 
 export interface FetchDataLogs {
-  msg: string,
+  msg: string
   data: PlayerLogEntries
 }
 
 export interface FetchTurnPeriod {
-  msg: string,
+  msg: string
   data: TurnPeriod[]
 }
 

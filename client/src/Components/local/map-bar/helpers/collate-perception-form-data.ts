@@ -1,7 +1,7 @@
 import { SelectedAsset, ForceOption, PerceptionFormData, ForceData, Asset, PlatformTypeData, PerceivedTypes, PerceivedType } from 'src/custom-types'
 import availableForces from './available-forces'
-import { findPerceivedAsTypes, findAsset, findPlatformTypeFor } from '@serge/helpers'
-import { UNKNOWN_TYPE } from '@serge/config'
+import { findPerceivedAsTypes, findAsset, findPlatformTypeFor } from 'src/Helpers'
+import { UNKNOWN_TYPE } from 'src/config'
 
 /** determine which form to show on this click
  * @param {PlatformTypeData[]} platforms list of platform types in the wargame

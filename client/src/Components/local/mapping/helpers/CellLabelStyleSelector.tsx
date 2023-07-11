@@ -1,4 +1,4 @@
-import { CellLabelStyle } from '@serge/config'
+import { CellLabelStyle } from 'src/config'
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import Item from '../../map-control/helpers/item'

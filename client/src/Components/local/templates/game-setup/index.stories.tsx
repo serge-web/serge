@@ -17,7 +17,7 @@ import {
 // Import component files
 import GameSetup from './index'
 import docs from './README.md'
-import { iconUploaderPath } from '@serge/config'
+import { iconUploaderPath } from 'src/config'
 
 export default {
   title: 'local/templates/GameSetup',

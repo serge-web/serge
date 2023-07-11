@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import Snackbar from './Snackbar'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 class Notifications extends Component {
   onClickHandler = (id) => {

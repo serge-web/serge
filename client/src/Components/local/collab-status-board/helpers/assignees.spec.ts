@@ -1,6 +1,6 @@
 
 import { ParticipantCollab } from 'src/custom-types'
-import { CollaborativePermission, PARTICIPANT_COLLAB } from '@serge/config'
+import { CollaborativePermission, PARTICIPANT_COLLAB } from 'src/config'
 import getAssignees from './assignees'
 import { forces } from '@serge/mocks'
 

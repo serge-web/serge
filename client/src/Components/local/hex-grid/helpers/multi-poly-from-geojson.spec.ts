@@ -1,7 +1,7 @@
 import multiPolyFromGeoJSON from './multi-poly-from-geojson'
 import atlanticCells from './geojson-data'
 import { FeatureCollection } from 'geojson'
-import { Terrain } from '@serge/config'
+import { Terrain } from 'src/config'
 
 it('Correctly convert GeoJSON to LeafletCoords', () => {
   const res = multiPolyFromGeoJSON(atlanticCells as FeatureCollection)

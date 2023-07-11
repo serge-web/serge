@@ -7,15 +7,18 @@ import {
   MESSAGE_CREATOR_BASE_ROUTE,
   MESSAGE_TEMPLATE_ROUTE
 } from '../consts'
-import { SearchList, Button, ButtonList, JsonEditor } from '@serge/components'
+import SearchList from 'src/Components/local/molecules/search-list'
+import Button from 'src/Components/local/atoms/button'
+import ButtonList from 'src/Components/local/molecules/button-list'
+import JsonEditor from 'src/Components/local/molecules/json-editor'
 import SidebarAdmin from '../Components/SidebarAdmin'
 import { getAllMessageTypes, duplicateMessageType } from '../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setSelectedSchema } from '../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { createMessage } from '../ActionsAndReducers/dbMessages/messages_ActionCreators'
-import { formatShortDate } from '@serge/helpers'
-import '@serge/themes/App.scss'
+import { formatShortDate } from 'src/Helpers'
+import '../themes/App.scss'
 
 const MessageTemplates = () => {
   const dispatch = useDispatch()

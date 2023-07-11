@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import check from 'check-types'
 import moment from 'moment'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 const Fragment = React.Fragment
 

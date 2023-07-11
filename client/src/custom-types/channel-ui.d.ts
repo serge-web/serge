@@ -1,7 +1,7 @@
 import { CoreParticipant } from './participant'
 import { MessageChannel } from './message'
 import { TemplateBody } from './template'
-import { SpecialChannelTypes } from '@serge/config'
+import { SpecialChannelTypes } from 'src/config'
 import { ChannelTypes } from '.'
 
 /** description of channel, as used in game UI */

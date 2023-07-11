@@ -1,4 +1,4 @@
-import * as ActionConstant from '@serge/config'
+import * as ActionConstant from 'src/config'
 import { MessageTypes, MessageTypesActionTypes } from 'src/custom-types'
 import copyState from '../../Helpers/copyStateHelper'
 

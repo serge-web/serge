@@ -2,14 +2,14 @@ import React from 'react'
 import { Box } from '@material-ui/core'
 /* Import Types */
 import PropTypes from './types/props'
-import { INFO_MESSAGE_CLIPPED } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED } from 'src/config'
 import { ChatMessage as ChatMessageType, CoreMessage, MessageInfoTypeClipped } from 'src/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 /* Import Components */
 import ChatMessage from '../../molecules/chat-message'
 import ForcesInChannel from '../../molecules/forces-in-channel'
-import { formatTurn } from '@serge/helpers'
+import { formatTurn } from 'src/Helpers'
 /* Render component */
 export const ChatMessagesList: React.FC<PropTypes> = ({
   messages, icons, colors, names, onMarkAllAsRead, isUmpire,

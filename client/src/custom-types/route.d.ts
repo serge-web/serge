@@ -1,4 +1,4 @@
-import { PlanningStates, LaydownPhases } from '@serge/config'
+import { PlanningStates, LaydownPhases } from 'src/config'
 import { Asset, AttributeValues, ForceData } from '.'
 import PlatformTypeData from './platform-type-data'
 import RouteStatus from './route-status'

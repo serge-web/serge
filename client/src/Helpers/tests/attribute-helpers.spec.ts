@@ -1,4 +1,4 @@
-import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
+import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from 'src/config'
 import { AttributeType, AttributeTypes, AttributeValues, EnumAttributeType, NumberAttributeType } from 'src/custom-types'
 import { collateEditorData, createAttributeValue, createDefaultFor, formatEnum, formatNumber } from '../attribute-helpers'
 

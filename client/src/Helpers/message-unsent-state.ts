@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_TIMEOUT, expiredStorage } from '@serge/config'
+import { LOCAL_STORAGE_TIMEOUT, expiredStorage } from 'src/config'
 
 export const getUnsentMessageKey = (currentWargame: string, selectedForce: string, selectedRole: string, channel: string, type: string): string => {
   return `${type}-${currentWargame}-${selectedForce}-${selectedRole}-${channel}`

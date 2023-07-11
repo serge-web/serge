@@ -1,7 +1,7 @@
 // import data types
-import { LaydownTypes, Phase } from '@serge/config'
+import { LaydownTypes, Phase } from 'src/config'
 import { Asset, ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, Role } from 'src/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'

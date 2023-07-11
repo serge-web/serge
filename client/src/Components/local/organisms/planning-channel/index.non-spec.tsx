@@ -1,4 +1,4 @@
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from 'src/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 import { mount } from 'enzyme'

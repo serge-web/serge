@@ -5,9 +5,9 @@ import { watuWargame } from '@serge/mocks'
 import { RouteStore, Route, ForceData, ChannelTypes, ChannelMapping } from 'src/custom-types'
 
 import storePlannedRoute from './store-planned-route'
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 
-import { routeCreateStore, routeSetCurrent, findAsset, routeAddSteps, routeClearFromStep } from '@serge/helpers'
+import { routeCreateStore, routeSetCurrent, findAsset, routeAddSteps, routeClearFromStep } from 'src/Helpers'
 
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping
 const forces = watuWargame.data.forces.forces

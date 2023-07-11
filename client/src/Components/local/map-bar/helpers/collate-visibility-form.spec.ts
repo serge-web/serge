@@ -2,7 +2,7 @@
 
 import collateVisibilityFormData from './collate-visibility-form-data'
 import { forces, platformTypes, selectedAsset } from '@serge/mocks'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 
 it('produces visibility data', () => {
   // remove a visible to entry, so we don't just select all forces

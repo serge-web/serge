@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { modalAction, ModalActionInterface } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { SketchPicker } from 'react-color'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 import { setForceColor, setTabUnsaved } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { ForceData, Wargame } from 'src/custom-types'

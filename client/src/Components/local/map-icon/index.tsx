@@ -1,4 +1,4 @@
-import { UNKNOWN_TYPE } from '@serge/config'
+import { UNKNOWN_TYPE } from 'src/config'
 import { SelectedAsset } from 'src/custom-types'
 import L, { DragEndEvent } from 'leaflet'
 import { capitalize } from 'lodash'

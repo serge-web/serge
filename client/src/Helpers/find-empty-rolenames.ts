@@ -1,4 +1,4 @@
-import { NEW_ROLE } from '@serge/config'
+import { NEW_ROLE } from 'src/config'
 import { ForceData } from 'src/custom-types'
 import _ from 'lodash'
 

@@ -1,4 +1,4 @@
-import { Terrain } from '@serge/config'
+import { Terrain } from 'src/config'
 import { FeatureCollection, Feature, MultiPolygon } from 'geojson'
 import L from 'leaflet'
 import { isArray } from 'lodash'

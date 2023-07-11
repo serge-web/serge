@@ -3,10 +3,10 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelCollab } from 'src/custom-types'
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, PARTICIPANT_COLLAB } from '@serge/config'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, PARTICIPANT_COLLAB } from 'src/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import CollabStatusBoard from './index'
-import newDate from '@serge/helpers/build/new-date'
+import newDate from 'src/Helpers/new-date'
 
 /* Import mock data */
 // import { GameChannels } from '@serge/mocks'

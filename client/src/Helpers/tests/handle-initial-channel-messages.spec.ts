@@ -4,7 +4,7 @@ import {
   ChannelTypes, MessageChannel, MessageInfoType, MessageCustom, CollaborationDetails, PlayerMessageLog
 } from 'src/custom-types'
 import { AdminMessagesMock, GameMessagesMockRFI, MessageTemplatesMock, forces, GameChannels2, InfoMessagesMock, MessageTemplatesMockByKey } from '@serge/mocks'
-import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from '@serge/config'
+import { CHAT_CHANNEL_ID, CollaborativeMessageStates } from 'src/config'
 
 const adminMessages: MessageChannel[] = GameMessagesMockRFI
 const chatTemplate = MessageTemplatesMock.find((template: any) => template.name === 'Chat') || { a: 'chat' }

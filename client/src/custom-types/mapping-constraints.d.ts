@@ -1,4 +1,4 @@
-import { CellLabelStyle } from '@serge/config'
+import { CellLabelStyle } from 'src/config'
 
 export interface TileLayerDefinition {
   url: string,

@@ -1,4 +1,4 @@
-import { Terrain } from '@serge/config'
+import { Terrain } from 'src/config'
 import { H3Index } from 'h3-js'
 import L from 'leaflet'
 

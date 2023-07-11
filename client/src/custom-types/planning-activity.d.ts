@@ -1,4 +1,4 @@
-import { GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from "@serge/config"
+import { GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from "src/config"
 import { Asset, PlatformTypeData } from "."
 import ForceData from "./force-data"
 import { TemplateBody } from "./template"

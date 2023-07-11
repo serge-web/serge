@@ -1,5 +1,5 @@
 import { ForceData, MessageVisibilityChanges } from 'src/custom-types'
-import { VISIBILITY_CHANGES } from '@serge/config'
+import { VISIBILITY_CHANGES } from 'src/config'
 /* global it expect */
 import handleVisibilityAndConditionChanges from '../handle-visibility-condition-changes'
 import findAsset from '../find-asset'

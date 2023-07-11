@@ -1,6 +1,6 @@
 /* global it expect */
 
-import { TurnFormats } from '@serge/config'
+import { TurnFormats } from 'src/config'
 import React from 'react'
 import renderer from 'react-test-renderer'
 

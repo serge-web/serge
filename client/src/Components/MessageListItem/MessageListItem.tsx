@@ -1,7 +1,7 @@
 import React, { memo } from 'react'
 import moment from 'moment'
 import { ChannelMessage } from '@serge/components'
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import Props from './types'
 

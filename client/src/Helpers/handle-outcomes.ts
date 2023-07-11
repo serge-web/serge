@@ -3,7 +3,7 @@ import moment from 'moment'
 import { findForceAndAsset } from './find-asset'
 import { cloneDeep } from 'lodash'
 import * as turf from '@turf/turf'
-import { UNCHANGED, UNKNOWN_TYPE } from '@serge/config'
+import { UNCHANGED, UNKNOWN_TYPE } from 'src/config'
 
 export const injectRepairs = (interaction: InteractionDetails, payload: MessageAdjudicationOutcomes, allForces: ForceData[]): MessageAdjudicationOutcomes => {
   // collate list of assets that have new health outcomes

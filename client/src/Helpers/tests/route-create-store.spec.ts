@@ -6,7 +6,7 @@ import { watuWargame, preInitialisedForces } from '@serge/mocks'
 
 import routeCreateStore from '../route-create-store'
 
-import { Phase, LaydownPhases, UNKNOWN_TYPE, LaydownTypes } from '@serge/config'
+import { Phase, LaydownPhases, UNKNOWN_TYPE, LaydownTypes } from 'src/config'
 
 import { RouteStore, RouteChild, Route, ForceData, Asset, ChannelMapping } from 'src/custom-types'
 import deepCopy from '../deep-copy'

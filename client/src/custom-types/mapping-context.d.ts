@@ -1,4 +1,4 @@
-import { CellLabelStyle, Phase } from '@serge/config'
+import { CellLabelStyle, Phase } from 'src/config'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import { Asset, ForceData, MapPostBack, NewTurnValues, PlanTurnFormValues, PlatformTypeData, Role, RouteStore, SergeGrid3 } from '.'
 import { AnnotationIcons, MapAnnotation, MapAnnotations } from './map-annotation'

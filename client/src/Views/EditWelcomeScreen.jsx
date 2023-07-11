@@ -1,20 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { WELCOME_SCREEN_EDIT_ROUTE } from '../consts'
-import { Button } from '@serge/components'
+import Button from 'src/Components/local/atoms/button'
 import splitNewLineBreak from '../Helpers/splitNewLineBreak'
 import TextArea from '../Components/Inputs/TextArea'
 import TextInput from '../Components/Inputs/TextInput'
 import SidebarAdmin from '../Components/SidebarAdmin'
-import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
+import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'  
 import {
   saveSergeGameInformation,
   getSergeGameInformation
 } from '../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators'
-
-import '@serge/themes/App.scss'
+import '../themes/App.scss'
 
 class EditWelcomeScreen extends Component {
   constructor (props) {
@@ -45,66 +45,66 @@ class EditWelcomeScreen extends Component {
   }
 
   updateSergeTitle = (title) => {
-    this.setState({
-      title
+  this.setState({
+    title
     })
   }
 
   updateDescription = (description) => {
-    this.setState({
-      description
+  this.setState({
+    description
     })
   }
 
   mouseOverTitle = () => {
-    this.setState({
-      showTitleEditIcon: true
+  this.setState({
+    showTitleEditIcon: true
     })
   }
 
   mouseOutTitle = () => {
-    this.setState({
-      showTitleEditIcon: false
+  this.setState({
+    showTitleEditIcon: false
     })
   }
 
   editDescription = (e) => {
-    e.stopPropagation()
-    this.setState({
-      editDescriptionMode: true
+  e.stopPropagation()
+  this.setState({
+    editDescriptionMode: true
     })
   }
 
   hideEditDescription = (e) => {
-    e.stopPropagation()
-    this.setState({
-      editDescriptionMode: false
+  e.stopPropagation()
+  this.setState({
+    editDescriptionMode: false
     })
   }
 
   mouseOverDescription = () => {
-    this.setState({
-      showDescriptionEditIcon: true
+  this.setState({
+    showDescriptionEditIcon: true
     })
   }
 
   mouseOutDescription = () => {
-    this.setState({
-      showDescriptionEditIcon: false
+  this.setState({
+    showDescriptionEditIcon: false
     })
   }
 
   uploadImage = () => {
-    this.props.dispatch(modalAction.open('uploadLogo'))
+  this.props.dispatch(modalAction.open('uploadLogo'))
   }
 
   saveWelcomeScreen = () => {
-    const info = {
-      title: this.state.title,
-      description: this.state.description,
-      imageUrl: this.props.gameInfo.imageUrl
-    }
-    this.props.dispatch(saveSergeGameInformation(info))
+  const info = {
+  title: this.state.title,
+  description: this.state.description,
+  imageUrl: this.props.gameInfo.imageUrl
+  }
+  this.props.dispatch(saveSergeGameInformation(info))
   }
 
   render () {

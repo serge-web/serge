@@ -3,7 +3,7 @@ import { Button } from '../../atoms/button'
 
 /* Import proptypes */
 import PropTypes from './types/props'
-import { PlanningStates, PlanningCommands } from '@serge/config'
+import { PlanningStates, PlanningCommands } from 'src/config'
 
 /* Import Stylesheet */
 import styles from './styles.module.scss'

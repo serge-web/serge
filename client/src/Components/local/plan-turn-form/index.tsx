@@ -14,7 +14,7 @@ import Input from '@material-ui/core/Input'
 import styles from './styles.module.scss'
 
 /* Import helpers */
-import { collateEditorData, isNumber } from '@serge/helpers'
+import { collateEditorData, isNumber } from 'src/Helpers'
 import { AttributeEditorData, AttributeType, AttributeValue, AttributeValues, PlanTurnFormValues, Status } from 'src/custom-types'
 import Badge from '../atoms/badge'
 import AttributeEditor from '../attribute-editor'

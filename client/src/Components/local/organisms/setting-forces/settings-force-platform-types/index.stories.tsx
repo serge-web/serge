@@ -6,8 +6,8 @@ import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
 import { smallScaleForces as forcesMock, platformTypes as platformTypesMock } from '@serge/mocks'
 import { ForceData } from 'src/custom-types'
-import { deepCopy } from '@serge/helpers'
-import { LaydownTypes } from '@serge/config'
+import { deepCopy } from 'src/Helpers'
+import { LaydownTypes } from 'src/config'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 

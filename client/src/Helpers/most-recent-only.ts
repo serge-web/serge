@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED } from 'src/config'
 import { MessageChannel } from 'src/custom-types'
 
 /** helper function to produce unique ids for channel messages

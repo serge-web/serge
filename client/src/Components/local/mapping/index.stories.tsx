@@ -1,5 +1,5 @@
 // import data types
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import { MappingConstraints, MessageMap } from 'src/custom-types'
 /* Import mock data */
 import { forces, localMappingConstraints, platformTypes, smallForces } from '@serge/mocks'

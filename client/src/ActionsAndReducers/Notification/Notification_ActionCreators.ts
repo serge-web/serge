@@ -1,4 +1,4 @@
-import * as ActionConstant from '@serge/config'
+import * as ActionConstant from 'src/config'
 import { Dispatch } from 'redux'
 import uniqid from 'uniqid'
 import { Notification } from '../../Views/Version'

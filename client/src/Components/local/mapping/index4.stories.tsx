@@ -1,7 +1,7 @@
 // import data types
-import { Phase, serverPath } from '@serge/config'
+import { Phase, serverPath } from 'src/config'
 import { ChannelMapping, ChannelTypes, ForceData, MappingConstraints, MessageMap, Role } from 'src/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'

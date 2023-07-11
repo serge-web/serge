@@ -7,7 +7,6 @@ import {
   ADMIN_ROUTE,
   GAME_SETUP_ROUTE
 } from '../consts'
-// import { Button } from '../Components/local/atoms/button'
 import Button from '../Components/local/atoms/button'
 import AdminLogin from '../Components/local/organisms/admin-login'
 import ZipFileUploader from '../Components/local/atoms/zip-dropzone'
@@ -22,7 +21,7 @@ import {
 import { populateMessageTypesDb } from '../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
-import '@serge/themes/App.scss'
+import '../themes/App.scss'
 
 class GameDesignerInterface extends Component {
   componentDidMount () {

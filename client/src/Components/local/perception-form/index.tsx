@@ -1,5 +1,5 @@
 import { Button } from '@material-ui/core'
-import { PERCEPTION_OF_CONTACT, UNKNOWN_TYPE } from '@serge/config'
+import { PERCEPTION_OF_CONTACT, UNKNOWN_TYPE } from 'src/config'
 import { ForceData, ForceOption, MessagePerceptionOfContact, PerceivedType, PerceptionFormValues } from 'src/custom-types'
 import React, { useContext, useEffect, useState } from 'react'
 import AssetIcon from '../asset-icon'

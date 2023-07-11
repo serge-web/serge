@@ -13,12 +13,12 @@ import {
 } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
-import { PLANNING_MESSAGE } from '@serge/config'
+import { PLANNING_MESSAGE } from 'src/config'
 import {
   Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction,
   MessagePlanning, MessageStructure, PlanningActivity
 } from 'src/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 import { AssetRow } from '../../organisms/planning-assets/types/props'
 import { collapseLocation } from '../../organisms/planning-messages-list/helpers/collapse-location'
 import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'

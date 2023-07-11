@@ -8,8 +8,8 @@ import { Story } from '@storybook/react/types-6-0'
 import Badge from '../../atoms/badge'
 import { MessageCustom } from 'src/custom-types/message'
 import { GameMessagesMockRFI } from '@serge/mocks'
-import { mostRecentOnly } from '@serge/helpers'
-import { CollaborativeMessageStates } from '@serge/config'
+import { mostRecentOnly } from 'src/Helpers'
+import { CollaborativeMessageStates } from 'src/config'
 import { RfiForm } from '../../molecules/rfi-form'
 
 export default {

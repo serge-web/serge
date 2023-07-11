@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { expiredStorage } from '@serge/config'
+import { expiredStorage } from 'src/config'
 
 /* Import Types */
 import PropTypes from './types/props'

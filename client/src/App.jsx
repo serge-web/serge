@@ -6,9 +6,7 @@ import theme from './themes/serge'
 // import Version from './Views/Version'
 import RouterMain from './Components/Router/RouterMain'
 import Store from './Store/Store'
-// import '@serge/themes/App.scss'
-import './themes/App.scss'
-
+import 'src/themes/App.scss'
 
 class App extends Component {
   componentDidMount () {

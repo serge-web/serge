@@ -6,8 +6,8 @@ import {
 
 import {
   ADJUDICATION_OUTCOMES, CREATE_TASK_GROUP, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, VISIBILITY_CHANGES
-} from '@serge/config'
-import { handleVisibilityAndConditionChanges } from '@serge/helpers'
+} from 'src/config'
+import { handleVisibilityAndConditionChanges } from 'src/Helpers'
 import handleAdjudicationOutcomes from './handleAdjudicationOutcomes'
 import handleCreateTaskGroup from './handleCreateTaskGroup'
 import handleDeletePlatform from './handleDeletePlatform'
@@ -16,7 +16,7 @@ import handleHostPlatform from './handleHostPlatform'
 import handleLeaveTaskGroup from './handleLeaveTaskGroup'
 import handlePerceptionChange from './handlePerceptionChanges'
 import handlePlansSubmittedChanges from './handlePlansSubmittedChanges'
-// TODO: change it to @serge/config
+// TODO: change it to src/config
 
 /** create a marker for the supplied set of details */
 export default (message: MessageMap, details: MessageDetails, allForces: ForceData[], 

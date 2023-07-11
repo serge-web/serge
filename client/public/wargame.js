@@ -1,4 +1,4 @@
-import { wargameSettings } from '@serge/config'
+import { wargameSettings } from 'src/config'
 
 const assetConditions = [
   'Working',

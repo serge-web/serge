@@ -1,5 +1,5 @@
-import * as ActionConstant from '@serge/config'
-import { ADD_NOTIFICATION } from '@serge/config'
+import * as ActionConstant from 'src/config'
+import { ADD_NOTIFICATION } from 'src/config'
 import copyState from '../../Helpers/copyStateHelper.js'
 import { AddNotificationInterface } from './Notification_ActionCreators.js'
 

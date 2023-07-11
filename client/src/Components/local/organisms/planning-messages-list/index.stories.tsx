@@ -3,9 +3,9 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useState } from 'react'
 
 // Import component files
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from 'src/config'
 import { Asset, ChannelPlanning, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, Role, TemplateBody } from 'src/custom-types'
-import { forceColors, incrementGameTime, mostRecentPlanningOnly } from '@serge/helpers'
+import { forceColors, incrementGameTime, mostRecentPlanningOnly } from 'src/Helpers'
 import { P9BMock, P9Mock, planningMessages as planningChannelMessages, smallForces } from '@serge/mocks'
 import { noop } from 'lodash'
 import { AssetRow } from '../planning-assets/types/props'

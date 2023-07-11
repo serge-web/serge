@@ -8,7 +8,7 @@ import {
     DB_RETURNED_MESSAGE,
     RESET_MESSAGE_PREVIEW,
     SET_CURRENT_VIEW_FROM_URI
- } from "@serge/config"
+ } from "src/config"
 import { MessageFeedback } from './message'
 
 interface DBMessageSaveStatus {

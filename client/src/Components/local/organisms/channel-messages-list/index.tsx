@@ -10,9 +10,9 @@ import ChannelMessage from '../../molecules/channel-message'
 import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 // import collateMessages from './helpers/collate-messages'
-import { INFO_MESSAGE_CLIPPED } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED } from 'src/config'
 import { MessageChannel, MessageCustom } from 'src/custom-types'
-import { formatTurn } from '@serge/helpers'
+import { formatTurn } from 'src/Helpers'
 
 /* Render component */
 export const ChannelMessagesList: React.FC<PropTypes> = ({

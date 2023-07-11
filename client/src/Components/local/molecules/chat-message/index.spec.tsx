@@ -3,7 +3,7 @@
 import { ChatMessage as ChatMessageType } from 'src/custom-types'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { CHAT_MESSAGE } from '@serge/config'
+import { CHAT_MESSAGE } from 'src/config'
 import ChatMessage from './index'
 import moment from 'moment-timezone'
 

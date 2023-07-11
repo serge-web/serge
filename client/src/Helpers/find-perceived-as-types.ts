@@ -1,4 +1,4 @@
-import { UMPIRE_FORCE, UMPIRE_FORCE_NAME, UNKNOWN_TYPE } from '@serge/config'
+import { UMPIRE_FORCE, UMPIRE_FORCE_NAME, UNKNOWN_TYPE } from 'src/config'
 import { Perception, PerceivedTypes, PlatformTypeData, ForceData } from 'src/custom-types'
 
 /** provide classnames for an asset, as perceived by current player

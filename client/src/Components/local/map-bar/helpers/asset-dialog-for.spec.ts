@@ -1,6 +1,6 @@
 /* global it expect */
 import assetDialogFor from './asset-dialog-for'
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import { WorldStatePanels } from '../../world-state/helpers/enums'
 import { MapBarForms } from './enums'
 

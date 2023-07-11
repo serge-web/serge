@@ -1,4 +1,4 @@
-import { TurnFormats } from '@serge/config'
+import { TurnFormats } from 'src/config'
 
 /** format the turn number, according to the specified turn format */
 const formatTurn = (turn: number, format?: TurnFormats): string => {

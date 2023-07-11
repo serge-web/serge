@@ -1,7 +1,7 @@
 import { forces } from '@serge/mocks'
 import { ForceData } from 'src/custom-types'
 import { findEmptyRolenames } from '..'
-import { NEW_ROLE } from '@serge/config'
+import { NEW_ROLE } from 'src/config'
 
 const selectedForceRevised: ForceData = {
   ...forces[1],

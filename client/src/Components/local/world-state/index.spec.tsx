@@ -1,4 +1,4 @@
-import { ADJUDICATION_PHASE } from '@serge/config'
+import { ADJUDICATION_PHASE } from 'src/config'
 import { RouteStore } from 'src/custom-types'
 import { platformTypes, watuWargame } from '@serge/mocks'
 import React from 'react'

@@ -3,7 +3,7 @@ import { faAddressBook, faEnvelopeOpen, faEnvelope } from '@fortawesome/free-sol
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 import { ReactTable, Row, MoreInfo } from '@serge/components'
-import { setMessageState } from '@serge/helpers'
+import { setMessageState } from 'src/Helpers'
 import { ForceData, PlayerLogEntry, PlayerMessage, PlayerMessageLog, Role, RootState } from 'src/custom-types'
 import { uniq } from 'lodash'
 import moment from 'moment'

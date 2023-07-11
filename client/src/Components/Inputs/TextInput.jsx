@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 class TextInput extends Component {
   constructor (props) {

@@ -12,7 +12,7 @@ import cyan from '@material-ui/core/colors/cyan'
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Badge from '../../atoms/badge'
-import { formatTime } from '@serge/helpers'
+import { formatTime } from 'src/Helpers'
 
 /* Render component */
 export const ChannelMessageHeader: React.FC<Props> = ({

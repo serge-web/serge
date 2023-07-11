@@ -8,7 +8,7 @@ import TitleWithIcon from '../form-elements/title-with-icon'
 import PropTypes from './types/props'
 
 /* Import Stylesheet */
-import { VISIBILITY_CHANGES } from '@serge/config'
+import { VISIBILITY_CHANGES } from 'src/config'
 import Forces from '../form-elements/forces'
 import styles from './styles.module.scss'
 

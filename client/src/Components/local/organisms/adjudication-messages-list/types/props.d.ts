@@ -1,10 +1,10 @@
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 import {
   ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
   PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from 'src/custom-types'
 import { MessageInteraction } from 'src/custom-types/message'
-import { ForceStyle } from '@serge/helpers'
+import { ForceStyle } from 'src/Helpers'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 import { AdjudicationPostBack } from '../../planning-channel/types/props'
 

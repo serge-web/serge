@@ -1,12 +1,12 @@
 /* global it expect */
-import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from 'src/config'
 import { ChannelPlanning, MessageInteraction, MessagePlanning } from 'src/custom-types'
 import moment from 'moment-timezone'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import PlanningMessagesList from './index'
 
-import { forceColors, incrementGameTime } from '@serge/helpers'
+import { forceColors, incrementGameTime } from 'src/Helpers'
 import { P9Mock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import { noop } from 'lodash'
 

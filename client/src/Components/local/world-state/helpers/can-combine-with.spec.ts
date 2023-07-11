@@ -1,10 +1,10 @@
 /* global it expect */
 /* Import mock data */
 import { watuWargame } from '@serge/mocks'
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 
 import canCombineWith from './can-combine-with'
-import { deepCopy, findAsset, routeCreateStore } from '@serge/helpers'
+import { deepCopy, findAsset, routeCreateStore } from 'src/Helpers'
 import { ChannelMapping, ChannelTypes, ForceData, RouteStore } from 'src/custom-types'
 
 const mapChannel = watuWargame.data.channels.channels.find((channel: ChannelTypes) => channel.name === 'mapping') as ChannelMapping

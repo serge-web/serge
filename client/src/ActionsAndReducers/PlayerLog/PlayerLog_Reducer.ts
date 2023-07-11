@@ -1,4 +1,4 @@
-import * as ActionConstant from '@serge/config'
+import * as ActionConstant from 'src/config'
 import { PlayerLogActionType, ActivityLogsInterface } from 'src/custom-types'
 import copyState from '../../Helpers/copyStateHelper'
 

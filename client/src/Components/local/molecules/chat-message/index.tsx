@@ -12,7 +12,7 @@ import Badge from '../../atoms/badge'
 import Paragraph from '../../atoms/paragraph'
 
 import { MessageChannel } from 'src/custom-types'
-import { formatTime } from '@serge/helpers'
+import { formatTime } from 'src/Helpers'
 
 /* Render component */
 export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markUnread, hideAuthor }: Props) => {

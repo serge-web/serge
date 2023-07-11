@@ -1,4 +1,4 @@
-import { TurnFormats } from "@serge/config";
+import { TurnFormats } from "src/config";
 import { GameTurnLength } from "./turn-length";
 
 export default interface WargameOverview {

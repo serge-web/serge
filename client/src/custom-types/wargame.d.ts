@@ -1,4 +1,4 @@
-import { ADJUDICATION_PHASE, PLANNING_PHASE, TurnFormats } from '@serge/config'
+import { ADJUDICATION_PHASE, PLANNING_PHASE, TurnFormats } from 'src/config'
 import Message from './message'
 import WargameData from './wargame-data'
 import WargameList from './wargame-list'

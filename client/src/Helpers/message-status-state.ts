@@ -1,4 +1,4 @@
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '@serge/config'
+import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from 'src/config'
 
 export const getMessageStateKey = (currentWargame: string, selectedForce: string, selectedRole: string, uniqKey: string): string => {
   return `${currentWargame}-${selectedForce}-${selectedRole}-${uniqKey}`

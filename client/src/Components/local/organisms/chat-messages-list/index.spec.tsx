@@ -1,6 +1,6 @@
 /* global it expect */
 
-import { CHAT_MESSAGE } from '@serge/config'
+import { CHAT_MESSAGE } from 'src/config'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { ChatMessage } from 'src/custom-types'

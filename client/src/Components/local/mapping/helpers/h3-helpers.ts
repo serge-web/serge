@@ -1,4 +1,4 @@
-import { Terrain } from '@serge/config'
+import { Terrain } from 'src/config'
 import { LabelStore, SergeGrid3, SergeHex3 } from 'src/custom-types'
 import * as turf from '@turf/turf'
 import { lineString } from '@turf/turf'

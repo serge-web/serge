@@ -2,7 +2,7 @@ import { watuWargame } from '@serge/mocks'
 import deepCopy from '../deep-copy'
 import canControlAsset, { canControlAnyAsset, underControlByThisForce, canControlAssetExtended } from '../can-control-asset'
 import { Asset, ChannelMapping, ChannelTypes, ForceData, Role, Wargame } from 'src/custom-types'
-import { LaydownTypes, Phase } from '@serge/config'
+import { LaydownTypes, Phase } from 'src/config'
 
 const game: Wargame = deepCopy(watuWargame)
 const blueForce: ForceData | undefined = game.data.forces.forces.find((force: ForceData) => force.uniqid === 'Blue-1')

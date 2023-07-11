@@ -6,7 +6,7 @@ import {
   DB_MESSAGE_CREATION_LOADING,
   DB_MESSAGE_TYPES_GET,
   POPULATE_MESSAGE_TYPES_DB,
-} from '@serge/config'
+} from 'src/config'
 
 import { Dispatch } from 'react'
 import { TemplateBody } from './template'

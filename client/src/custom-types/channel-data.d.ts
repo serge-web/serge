@@ -1,4 +1,4 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, InitialStates, SpecialChannelColumns } from '@serge/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, InitialStates, SpecialChannelColumns } from 'src/config'
 import MappingConstraints from './mapping-constraints'
 import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping, ParticipantPlanning, ParticipantTemplate } from './participant'
 

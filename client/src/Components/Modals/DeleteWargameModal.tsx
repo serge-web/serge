@@ -1,7 +1,7 @@
 import React from 'react'
 import { Confirm } from '@serge/components'
 import { RootState, CurrentModal } from 'src/custom-types'
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteWargame } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'

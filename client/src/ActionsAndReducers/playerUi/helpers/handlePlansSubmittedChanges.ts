@@ -1,5 +1,5 @@
 import { Asset, ForceData, MessageSubmitPlans } from 'src/custom-types'
-import { findAsset } from '@serge/helpers'
+import { findAsset } from 'src/Helpers'
 
 /** create a marker for the supplied set of details */
 export default (payload: MessageSubmitPlans, allForces: ForceData[]) => {

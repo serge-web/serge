@@ -1,4 +1,4 @@
-import { EXPORT_ITEM_MESSAGES, EXPORT_ITEM_FORCES } from '@serge/config'
+import { EXPORT_ITEM_MESSAGES, EXPORT_ITEM_FORCES } from 'src/config'
 
 export interface ExportItemData {
   title: string,

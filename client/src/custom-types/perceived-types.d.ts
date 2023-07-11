@@ -1,4 +1,4 @@
-import { UNKNOWN_TYPE } from '@serge/config';
+import { UNKNOWN_TYPE } from 'src/config';
 import ForceData from "./force-data";
 import PlatformTypeData from "./platform-type-data";
 

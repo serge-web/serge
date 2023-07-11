@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect } from 'react'
 import _ from 'lodash'
 import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import { GameSetup } from '@serge/components'
-import { checkUnique, getUniquePasscode, findDuplicatePasscodes, findEmptyRolenames } from '@serge/helpers'
+import { checkUnique, getUniquePasscode, findDuplicatePasscodes, findEmptyRolenames } from 'src/Helpers'
 import { forceTemplate } from '../consts'
 import {
   addNewForce,
@@ -27,7 +28,7 @@ import {
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from '@serge/config'
+import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from 'src/config'
 import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from 'src/custom-types'
 
 /**
@@ -41,9 +42,9 @@ import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootS
  */
 
  type UniqueNameInterface = {
-  newName: string,
-  list: any[],
-  label: string,
+  newName: string
+  list: any[]
+  label: string
   oldName: string
  }
 

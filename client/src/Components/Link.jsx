@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { connect } from 'react-redux'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 
 class Link extends Component {
   onClickHandler = (e) => {

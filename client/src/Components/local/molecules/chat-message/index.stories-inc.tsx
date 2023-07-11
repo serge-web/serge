@@ -1,6 +1,6 @@
 import React from 'react'
 import { Story } from '@storybook/react/types-6-0'
-import { CHAT_MESSAGE } from '@serge/config'
+import { CHAT_MESSAGE } from 'src/config'
 
 // Import component files
 import ChatMessage from './index'

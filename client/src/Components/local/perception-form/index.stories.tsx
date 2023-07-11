@@ -7,7 +7,7 @@ import docs from './README.md'
 import Mapping from '../mapping'
 
 // import data types
-import { Phase } from '@serge/config'
+import { Phase } from 'src/config'
 
 /* Import mock data */
 import { ChannelMapping, ChannelTypes, MappingConstraints } from 'src/custom-types'

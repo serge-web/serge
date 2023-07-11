@@ -1,6 +1,6 @@
-import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from 'src/config'
 import { Asset, GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps } from 'src/custom-types'
-import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
+import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from 'src/Helpers'
 import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'

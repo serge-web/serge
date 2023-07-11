@@ -1,6 +1,6 @@
 import {
   databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
-} from '@serge/config'
+} from 'src/config'
 import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame, TurnPeriod, MessagePlanning } from 'src/custom-types'
 import { io } from 'socket.io-client'
 import {

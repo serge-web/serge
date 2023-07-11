@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { SUPPORT_PANEL_LAYOUT } from '@serge/config'
+import { SUPPORT_PANEL_LAYOUT } from 'src/config'
 
 export type FilterStateByKey = { [x: string]: boolean }
 export type FilterObject = { [x: string]: { id: number, filterValue: string[] }[] }

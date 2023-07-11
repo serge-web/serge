@@ -1,5 +1,5 @@
 import React from 'react'
-import * as ActionConstant from '@serge/config'
+import * as ActionConstant from 'src/config'
 import { PlayerLogActionType, PlainInteraction, PlayerLogEntry } from 'src/custom-types'
 
 export const addPlayerLog = (data: PlayerLogEntry): PlayerLogActionType => ({

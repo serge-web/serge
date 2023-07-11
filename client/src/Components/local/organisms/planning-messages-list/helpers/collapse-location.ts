@@ -1,5 +1,5 @@
 import { PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from 'src/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy } from 'src/Helpers'
 import _ from 'lodash'
 
 export const collapseLocation = (document: Record<string, any>, activities?: PerForcePlanningActivitySet): Record<string, any> => {

@@ -1,6 +1,6 @@
 import { ChannelMessagesList, ChatEntryForm, ChatMessagesList, NewMessage } from '@serge/components'
 import { ChannelChat, ChatMessage, CoreMessage, MessageChannel, MessageCustom, MessageDetails, MessageInfoTypeClipped } from 'src/custom-types'
-import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from '@serge/helpers'
+import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from 'src/Helpers'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ResizeObserver from 'resize-observer-polyfill'
@@ -9,11 +9,11 @@ import {
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { saveNewActivityTimeMessage } from '../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 
-import '@serge/themes/App.scss'
+import 'src/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
 import { MessageReadInteraction, MessageSentInteraction, MessageUnReadInteraction } from 'src/custom-types/player-log'
-import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION } from '@serge/config'
+import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION } from 'src/config'
 
 const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
   const state = usePlayerUiState()

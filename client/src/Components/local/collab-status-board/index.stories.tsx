@@ -7,7 +7,7 @@ import docs from './README.md'
 
 import { MessageCustom } from 'src/custom-types'
 import { CollabStatusBoardProps } from './types/props'
-import { mostRecentOnly } from '@serge/helpers'
+import { mostRecentOnly } from 'src/Helpers'
 import {
   channelCollaborativeEditing2,
   channelCollaborativeResponding2,
@@ -22,7 +22,7 @@ import {
   messageDataCollaborativeResponding,
   messageDataCollaborativeEditing
 } from '@serge/mocks'
-import { CollaborativeMessageStates } from '@serge/config'
+import { CollaborativeMessageStates } from 'src/config'
 export default {
   title: 'local/CollabStatusBoard',
   component: CollabStatusBoard,

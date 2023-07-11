@@ -1,5 +1,5 @@
 import { AttributeTypes, ForceData, PlatformTypeData } from 'src/custom-types'
-import { ForceStyle, PlatformStyle } from '@serge/helpers'
+import { ForceStyle, PlatformStyle } from 'src/Helpers'
 import { Column } from '@material-table/core'
 import { LatLng } from 'leaflet'
 

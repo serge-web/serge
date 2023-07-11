@@ -1,7 +1,7 @@
 import { faBan, faSearchMinus, faSearchPlus, faSkull } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Action, Column, EditCellColumnDef, MTableBody, MTableBodyRow } from '@material-table/core'
-import { SUPPORT_PANEL_LAYOUT } from '@serge/config'
+import { SUPPORT_PANEL_LAYOUT } from 'src/config'
 import cx from 'classnames'
 import { isEqual, uniq } from 'lodash'
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
