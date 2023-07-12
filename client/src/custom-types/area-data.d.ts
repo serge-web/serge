@@ -1,10 +1,9 @@
-import ForceData from "./force-data"
-
+import ForceData from './force-data'
 
 /** a user-defined area, used for organising activities */
 export interface Area {
   // user name for this area
-  name: string,
+  name: string
   // the bounds of the area. Note that GeoJSON stores them in lng/lat order
   polygon: GeoJSON.Polygon
 }
