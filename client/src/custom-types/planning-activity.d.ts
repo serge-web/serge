@@ -20,7 +20,6 @@ export interface GroupedActivitySet {
   activities: Array<PlanningActivity>
 }
 
-
 /** 
  * a geometry that can be planned (drawn) in the PlanningChannel
  */

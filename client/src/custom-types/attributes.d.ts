@@ -50,7 +50,7 @@ export interface EnumAttributeType extends BaseAttributeType {
   defaultValue?: string
 }
 
-//////////////////////////////////////
+/// ///////////////////////////////////
 // a more versatile style of attributes,
 // where we define them as generic, and not per-platform-type
 

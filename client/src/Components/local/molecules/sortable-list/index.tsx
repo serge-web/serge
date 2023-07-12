@@ -205,6 +205,6 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
   )
 })
 
-export { Item } from './types/props'
+export type { Item } from './types/props'
 
 export default SortableList

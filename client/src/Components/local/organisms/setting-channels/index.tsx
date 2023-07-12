@@ -218,4 +218,4 @@ export const SettingChannels: React.FC<PropTypes> = ({
 
 export default SettingChannels
 
-export { ChannelTypes } from './types/props'
+export type { ChannelTypes } from './types/props'

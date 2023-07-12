@@ -38,7 +38,7 @@ export const Groups: React.FC<PropTypes> = (props) => {
   }
 
   const { canCombineWith = canCombineWithDefault } = props
-
+  
   const canHostDefault = (_dragItem: GroupItem, _item: GroupItem, _parents: Array<GroupItem>, _type: NodeType): boolean => {
     // first do the general checks (same force, same cell)
     const suitable = canCombineWith(_dragItem, _item, _parents, _type)

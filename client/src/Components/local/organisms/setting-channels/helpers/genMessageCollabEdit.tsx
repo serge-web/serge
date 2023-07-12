@@ -145,7 +145,8 @@ export const MessageGroup: React.FC<MessageGroupProps> = (props): React.ReactEle
           freeSolo
           renderTags={(vals: any, getTagProps): any =>
             vals.map((val: string, index: number) => (
-              <Chip
+              <Chip 
+                key={index}
                 label={<Tooltip title={val} placement="top"><span>{val}</span></Tooltip>}
                 size="small"
                 {...getTagProps({ index })}

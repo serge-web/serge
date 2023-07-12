@@ -80,6 +80,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
     }
     const check = checkPassword(pass, messageTypes, currentWargame, allForces, currentTurn, playerUiDispatch)
     if (check) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const currentUrl = new URL(document.location!.href)
       const byPassParams = {
         wargame: currentWargame,

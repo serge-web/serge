@@ -87,6 +87,6 @@ export const EditableList: React.FC<PropTypes> = ({
   )
 }
 
-export { Item } from './types/props'
+export type { Item } from './types/props'
 
 export default EditableList

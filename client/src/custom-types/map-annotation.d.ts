@@ -1,5 +1,5 @@
-import ForceData from "./force-data"
-import IconOption from "./icon-option"
+import ForceData from './force-data'
+import IconOption from './icon-option'
 
 export interface MapAnnotation {
   /** unique id for this marker 

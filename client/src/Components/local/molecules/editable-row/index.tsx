@@ -205,4 +205,4 @@ export const EditableRow: React.FC<PropTypes> = ({
 
 export default EditableRow
 
-export { Item, Option } from './types/props'
+export type { Item, Option } from './types/props'

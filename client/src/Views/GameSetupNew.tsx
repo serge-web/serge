@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import _ from 'lodash'
 import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
-import { GameSetup } from '@serge/components'
+import GameSetup from '../Components/local/templates/game-setup'
 import { checkUnique, getUniquePasscode, findDuplicatePasscodes, findEmptyRolenames } from 'src/Helpers'
 import { forceTemplate } from '../consts'
 import {

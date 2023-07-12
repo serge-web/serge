@@ -5,9 +5,8 @@ import { ADD_PLAYER_LOG } from 'src/config'
 
 export type PlayerLogUiDispatch = Dispatch<PlayerLogActionType>
 
-
 export type PlayerLogAction = {
-  type: typeof ADD_PLAYER_LOG,
+  type: typeof ADD_PLAYER_LOG
   payload: PlayerLogEntry
 }
 
