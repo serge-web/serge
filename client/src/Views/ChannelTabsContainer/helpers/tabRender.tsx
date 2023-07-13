@@ -101,13 +101,13 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
         if (excludedChannels.includes(channel.cData.channelType)) {
           // clear the message counter
           setTimeout(() => {
-            const className: string = ''
+            const className = ''
             setUnreadClassName(className)
             addMenuItemMsgCount(className)
           })  
         } else {
           const unreadMessageCount: number | undefined = channel.unreadMessageCount
-          let className: string = ''
+          let className = ''
   
           if (typeof unreadMessageCount === 'number' && unreadMessageCount > 0) {
             className = unreadMessageCount < 9 ? `unread-${unreadMessageCount}` : 'unread-9plus'

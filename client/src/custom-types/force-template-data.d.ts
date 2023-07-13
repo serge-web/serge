@@ -1,4 +1,4 @@
-import ForceData from "./force-data"
+import ForceData from './force-data'
 
 export interface ForceTemplateData {
   // the force 

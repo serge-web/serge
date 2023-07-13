@@ -38,11 +38,11 @@ export const InputContainer: React.FunctionComponent<PropTypes> = React.forwardR
           {
             isPrivate
               ? (
-                  <Box className={styles['private-input__label']}>
-                    <FontAwesomeIcon icon={faUserSecret} />
-                    <span>{ label }</span>
-                  </Box>
-                )
+                <Box className={styles['private-input__label']}>
+                  <FontAwesomeIcon icon={faUserSecret} />
+                  <span>{ label }</span>
+                </Box>
+              )
               : label
           }
         </Box>

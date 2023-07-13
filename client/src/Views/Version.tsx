@@ -1,4 +1,4 @@
-import { HeartbeatChecker } from '@serge/components'
+import HeartbeatChecker from '../Components/local/atoms/heartbeat-checker'
 import { ActivityLogsInterface, Wargame } from 'src/custom-types'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
@@ -9,10 +9,10 @@ import { pingServer2 as pingServerApi } from '../api/wargames_api'
 import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
 
 export type Notification = {
-  message: string,
-  type: string,
-  id: number,
-  autoHide: boolean,
+  message: string
+  type: string
+  id: number
+  autoHide: boolean
   subType: string
 }
 

@@ -7,11 +7,11 @@ import {
 import { Dispatch } from 'react'
 
 interface CreateExportItemAction {
-  type: typeof CREATE_EXPORT_ITEM,
+  type: typeof CREATE_EXPORT_ITEM
   payload: ExportItem
 }
 interface CreateExportItemLoading {
-  type: typeof LOADER,
+  type: typeof LOADER
 }
 
 export type ExportItemsUiActionTypes = CreateExportItemAction | CreateExportItemLoading

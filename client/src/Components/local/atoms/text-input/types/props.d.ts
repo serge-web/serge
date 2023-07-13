@@ -79,4 +79,6 @@ export type PropTypes = TextFieldProps & {
    * Is isPrivate input?
    */
   isPrivate?: boolean
+
+  options?: any
 }

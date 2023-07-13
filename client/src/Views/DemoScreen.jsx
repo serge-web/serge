@@ -108,17 +108,17 @@ class DemoScreen extends Component {
   }
 
   factory = (node) => {
-    const component = node.getComponent()
-    const { id } = node._attributes
-    const sources = {
-      'game-designer': <RouterDashboard/>,
-      player: <PlayerUiWrapper/>
-    }
-    return (
-      <div id={id.replace('#', '')}>
-        { sources[component] }
-      </div>
-    )
+  const component = node.getComponent()
+  const { id } = node._attributes
+  const sources = {
+  'game-designer': <RouterDashboard/>,
+  player: <PlayerUiWrapper/>
+  }
+  return (
+    <div id={id.replace('#', '')}>
+    { sources[component] }
+    </div>
+  )
   }
 
   classNameMapper = (defaultClassName) => `${defaultClassName} ${defaultClassName}--undo-transparent`

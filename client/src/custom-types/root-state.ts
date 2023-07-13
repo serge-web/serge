@@ -1,46 +1,48 @@
-import { MessageTypes, PlayerLogEntries, Wargame } from '.';
-import PlatformType from './platform-type';
-import IconOption from "./icon-option";
-import Role from './role';
+import { MessageTypes, PlayerLogEntries, Wargame } from '.'
+import PlatformType from './platform-type'
+import IconOption from './icon-option'
+import Role from './role'
 
 export type GameInfo = {
-  imageUrlSet: boolean;
-  imageUrl: string;
-  title: string;
-  description: string;
-  showAccessCodes: boolean;
+  imageUrlSet: boolean
+  imageUrl: string
+  title: string
+  description: string
+  showAccessCodes: boolean
 }
 
 export type Messages = {
-  isLoading: boolean;
-  messages: never[];
-  messagePreviewId: string;
-  messagePreview: {};
+  isLoading: boolean
+  messages: never[]
+  messagePreviewId: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  messagePreview: {}
 }
 
 export type UmpireMenu = {
-  selectedSchemaID: string;
-  previewSchema: {};
+  selectedSchemaID: string
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  previewSchema: {}
 }
 
 export type ExportItems = {
-  data: never[];
-  loader: boolean;
+  data: never[]
+  loader: boolean
 }
 
 export interface ActivityLogsInterface {
-  items: PlayerLogEntries,
+  items: PlayerLogEntries
   currentDbname: string
 }
 
 export type DBLoadingState = {
-  loadingMessageTypes: boolean;
-  loadingWargames: boolean;
+  loadingMessageTypes: boolean
+  loadingWargames: boolean
 }
 
 export type RoleType = {
-  roles: Role[],
-  key: number,
+  roles: Role[]
+  key: number
   handleChange: (changedItems: Array<Role>) => void
 }
 
@@ -48,10 +50,10 @@ export type RoleType = {
  * modal dialog
  */
 export type ModalData = {
-  type: string,
-  data: string | RoleType | PlatformType | IconOption,
+  type: string
+  data: string | RoleType | PlatformType | IconOption
   customMessages: {
-    title: string,
+    title: string
     message: string
   }
 }
@@ -62,11 +64,11 @@ export type CurrentModal = {
   /**
    * whether this modal is open
    */
-  open: boolean;
+  open: boolean
   /**
    * type of modal in use
    */
-  modal: ModalTypes;
+  modal: ModalTypes
   /**
    * the data that is being deleted
    */

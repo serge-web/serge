@@ -178,6 +178,7 @@ SchemaEditor.prototype.updateSchema = function (schema) {
     buttonHolder.appendChild(button)
     this.root.header.parentNode.insertBefore(buttonHolder, this.root.header.nextSibling)
 
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const jsonEditor = this
     button.addEventListener('click', function (e) {
       e.preventDefault()

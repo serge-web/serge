@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
 } from 'src/config'
@@ -99,27 +100,27 @@ export class DbProvider implements DbProviderInterface {
   }
   
   getPlayerLogs = (wargame: string, query: string): Promise<PlayerLogEntries> => {
-    return new Promise((resolve, reject) => {
-      fetch(serverPath + wargame + '/' + this.getDbName() + '/' + query)
-        .then(res => res.json() as Promise<FetchDataLogs>)
-        .then((res) => {
-          const { msg, data } = res
-          if (msg === 'ok') resolve(data)
-          else reject(msg)
-        })
+  return new Promise((resolve, reject) => {
+    fetch(serverPath + wargame + '/' + this.getDbName() + '/' + query)
+    .then(res => res.json() as Promise<FetchDataLogs>)
+    .then((res) => {
+      const { msg, data } = res
+      if (msg === 'ok') resolve(data)
+      else reject(msg)
+      })
     })
   }
 
   bulkDocs = (doc: PlayerLogEntries | MessagePlanning[] | Array<Message | Wargame>): Promise<{msg: string}> => {
-    return new Promise((resolve) => {
-      fetch(serverPath + 'bulkDocs' + '/' + this.getDbName(), {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(doc)
+  return new Promise((resolve) => {
+    fetch(serverPath + 'bulkDocs' + '/' + this.getDbName(), {
+      method: 'PUT',
+      headers: {
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(doc)
       }).then((res) => {
-        resolve(res.json())
+      resolve(res.json())
       })
     })  
   }

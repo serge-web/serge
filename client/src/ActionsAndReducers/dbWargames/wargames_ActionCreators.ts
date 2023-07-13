@@ -405,8 +405,8 @@ export const deleteSelectedAsset = (data: any) => {
 export const deleteSelectedRole = (
   dbName: string,
   data: {
-    roles: Role[],
-    key: number,
+    roles: Role[]
+    key: number
     handleChange: (changedItems: Array<Role>) => void
   }
 ) => {

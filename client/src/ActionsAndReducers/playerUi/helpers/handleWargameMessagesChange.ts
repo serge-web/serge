@@ -57,7 +57,7 @@ export const handleSetAllMessages = (payload: Array<MessageCustom | MessageInfoT
 }
 
 const openMessageChange = (message: MessageChannel, id: string): { message: MessageChannel, changed: boolean } => {
-  let changed: boolean = false
+  let changed = false
   if (message._id === id) {
     changed = true
     message.isOpen = true
@@ -96,7 +96,7 @@ export const openMessage = (channel: string, payloadMessage: MessageChannel, new
 }
 
 const closeMessageChange = (message: MessageChannel, id: string): { message: MessageChannel, changed: boolean } => {
-  const changed: boolean = false
+  const changed = false
   if (message.messageType === INFO_MESSAGE_CLIPPED /* InfoType have no id */ && message._id === id) {
     message.isOpen = false
   }

@@ -6,10 +6,10 @@ import { Notification } from '../../Views/Version'
 export interface AddNotificationInterface {
   type: typeof ActionConstant.ADD_NOTIFICATION
   payload: {
-    message: string,
-    type: string,
-    id: string,
-    autoHide: boolean,
+    message: string
+    type: string
+    id: string
+    autoHide: boolean
     subType: string
   }
 }

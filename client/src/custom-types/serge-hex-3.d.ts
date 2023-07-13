@@ -4,14 +4,13 @@ import L from 'leaflet'
 
 type H3pos = number[]
 
-
 /** temporary structure used to cache the assorted label styles, while we develop
  * cell labelling
  */
 export interface LabelStore {
-  xy: string,
-  xyVals: number[],
-  ctr: string,
+  xy: string
+  xyVals: number[]
+  ctr: string
   latLon: string
 }
 

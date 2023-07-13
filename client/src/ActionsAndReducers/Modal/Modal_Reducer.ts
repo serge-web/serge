@@ -8,18 +8,19 @@ const initialState = {
 }
 
 interface ModalOpenInterface {
-  type: typeof ActionConstant.OPEN_MODAL,
+  type: typeof ActionConstant.OPEN_MODAL
   payload: {
-    open: boolean,
-    modal: string,
+    open: boolean
+    modal: string
+    // eslint-disable-next-line @typescript-eslint/ban-types
     data: {}
   }
 }
 
 interface ModalCloseInterface {
-  type: typeof ActionConstant.CLOSE_MODAL,
+  type: typeof ActionConstant.CLOSE_MODAL
   payload: {
-    open: boolean,
+    open: boolean
     modal: string
   }
 }

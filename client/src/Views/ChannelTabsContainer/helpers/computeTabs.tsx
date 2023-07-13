@@ -7,7 +7,7 @@ interface ModelLoc extends FlexLayout.Model {
 }
 
 interface TabMapped {
-  id: string,
+  id: string
   name: string
 }
 

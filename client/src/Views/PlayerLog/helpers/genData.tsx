@@ -7,13 +7,13 @@ import styles from '../styles.module.scss'
 import { PlayerLogModal } from '../types/props'
 
 type PlayerLogDataTable = {
-  columns: Column[];
-  rows: Row[];
-  customStyles: any;
+  columns: Column[]
+  rows: Row[]
+  customStyles: any
 }
 type ColumnListItem = {
-  label: string;
-  field: string;
+  label: string
+  field: string
 }
 export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTable => {
   const sortCol = (str1: string, str2: string): number => {

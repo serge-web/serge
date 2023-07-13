@@ -1,6 +1,7 @@
 import { ChannelTypes } from 'src/custom-types'
 import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../../consts'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const setDefaultModel = (allChannels: ChannelTypes[]) => {
   const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
   const setTabContent = (channel: ChannelTypes) => ({
@@ -29,7 +30,7 @@ export const setDefaultModel = (allChannels: ChannelTypes[]) => {
   // note: which is useful with lots of channels
   const chunkSize = allChannels.length > 6 ? 2 : 1
   const firstSet = chunks.splice(0, Math.round(chunks.length / chunkSize))
-  const tabChildren = (id: Number) => {
+  const tabChildren = (id: number) => {
     const collections = id === 0 ? firstSet : chunks
     return collections.map(setTabContent)
   }

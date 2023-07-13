@@ -25,11 +25,11 @@ class ExportView extends Component {
   }
 
   checkTab = tab => {
-    const { currentViewURI } = this.props
-    const { url, urlalt } = tab
-    return classNames({
-      'active-tab': url === currentViewURI || urlalt === currentViewURI,
-      'tab-nav-item': true
+  const { currentViewURI } = this.props
+  const { url, urlalt } = tab
+  return classNames({
+    'active-tab': url === currentViewURI || urlalt === currentViewURI,
+    'tab-nav-item': true
     })
   }
 

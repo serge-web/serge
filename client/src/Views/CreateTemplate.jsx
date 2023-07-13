@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { Button } from '@serge/components'
+import Button from '../Components/local/atoms/button'
 import {
   getAllMessageTypes,
   createMessageType
@@ -37,7 +37,7 @@ class EditMessage extends Component {
   }
 
   saveSchema = () => {
-    this.props.dispatch(createMessageType(this.props.umpireMenu.previewSchema))
+  this.props.dispatch(createMessageType(this.props.umpireMenu.previewSchema))
   }
 
   render () {

@@ -8,7 +8,7 @@ export default interface Props {
    * Animate heart icon when flag enabled
    */
   animate?: boolean
-
+  className?: string
   /**
    * Trigger when animation is finished
    */

@@ -48,7 +48,7 @@ import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootS
   oldName: string
  }
 
-const AdminGameSetup = () => {
+const AdminGameSetup: React.FC = () => {
   const dispatch = useDispatch()
   const { wargame, messageTypes }: { wargame: Wargame, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
 
@@ -364,26 +364,36 @@ const AdminGameSetup = () => {
       tabs={tabs}
       wargame={wargame}
       wargameChanged={isWargameChanged()}
+      // @ts-ignore
       onTabChange={onTabChange}
       onPressBack={onPressBack}
       overview={overview}
       platformTypes={platformTypes || platform_types}
       forces={forces.forces}
+      // @ts-ignore
       selectedForce={forces.selectedForce}
       channels={channels.channels}
       onOverviewChange={handleFormChange}
+      // @ts-ignore
       onPlatformTypesChange={handleFormChange}
       onDeletePlatformType={onDeletePlatformType}
       onDuplicatePlatformType={onDuplicatePlatformType}
+      // @ts-ignore
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
+      // @ts-ignore
       onDeleteForce={onDeleteForce}
+      // @ts-ignore
       onDuplicateForce={onDuplicateForce}
       onSidebarForcesClick={handleSidebarForcesClick}
       onSidebarChannelsClick={handleSidebarChannelsClick}
+      // @ts-ignore
       onChannelsChange={handleFormChange}
+      // @ts-ignore
       onCreateChannel={onCreateChannel}
+      // @ts-ignore
       onDeleteChannel={onDeleteChannel}
+      // @ts-ignore
       onDuplicateChannel={onDuplicateChannel}
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
@@ -391,10 +401,13 @@ const AdminGameSetup = () => {
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
+      // @ts-ignore
       customDeleteHandler={handleDeleteGameControl}
+      // @ts-ignore
       onDeleteAsset={onDeleteAsset}
       onDeleteAnnotation={onDeleteAnnotation}
       onDuplicateAnnotation={onDuplicateAnnotation}
+      // @ts-ignore
       onAnnotationChange={handleFormChange}
       annotation={annotationIcons}
     />

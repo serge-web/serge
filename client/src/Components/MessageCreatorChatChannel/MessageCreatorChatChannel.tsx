@@ -6,6 +6,7 @@ import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCr
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import Props from './types'
 
+// eslint-disable-next-line @typescript-eslint/ban-types
 const styles: { [x: string]: CSSProperties | {} } = {
   messageContainer: {
     display: 'flex',

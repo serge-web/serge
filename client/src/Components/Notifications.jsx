@@ -8,7 +8,7 @@ import 'src/themes/App.scss'
 
 class Notifications extends Component {
   onClickHandler = (id) => {
-    this.props.dispatch(hideNotification(id))
+  this.props.dispatch(hideNotification(id))
   }
 
   render () {

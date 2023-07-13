@@ -2,8 +2,8 @@ import { Component } from 'react'
 import { Provider } from 'react-redux'
 import { MuiThemeProvider as ThemeProvider } from '@material-ui/core/styles'
 import theme from './themes/serge'
-// import Notifications from './Components/Notifications'
-// import Version from './Views/Version'
+import Notifications from './Components/Notifications'
+import Version from './Views/Version'
 import RouterMain from './Components/Router/RouterMain'
 import Store from './Store/Store'
 import 'src/themes/App.scss'
@@ -18,8 +18,8 @@ class App extends Component {
       <Provider store={Store}>
         <ThemeProvider theme={theme}>
           <RouterMain />
-          {/* <Notifications /> */}
-          {/* <Version /> */}
+          <Notifications />
+          <Version />
         </ThemeProvider>
       </Provider>
     )

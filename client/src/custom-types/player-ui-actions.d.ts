@@ -35,86 +35,86 @@ import { TemplateBodysByKey } from './message-types'
 export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
 
 interface SetCurrentWargameAction {
-  type: typeof SET_CURRENT_WARGAME_PLAYER,
+  type: typeof SET_CURRENT_WARGAME_PLAYER
   payload: Wargame
 }
 
 interface SetCurrentTurnPeriodAction {
-  type: typeof SET_ALL_TURN_PERIOD,
+  type: typeof SET_ALL_TURN_PERIOD
   payload: Array<TurnPeriod>
 }
 
 interface SetForceAction {
-  type: typeof SET_FORCE,
+  type: typeof SET_FORCE
   payload: string
 }
 interface SetRoleAction {
-  type: typeof SET_ROLE,
+  type: typeof SET_ROLE
   payload: Role
 }
 interface SetAllTemplatesAction {
-  type: typeof SET_ALL_TEMPLATES_PLAYERUI,
+  type: typeof SET_ALL_TEMPLATES_PLAYERUI
   payload: TemplateBodysByKey
 }
 interface ShowHideObjectivesAction {
   type: typeof SHOW_HIDE_OBJECTIVES
 }
 interface UpdateMessageStateAction {
-  type: typeof UPDATE_MESSAGE_STATE,
+  type: typeof UPDATE_MESSAGE_STATE
   payload: boolean
 }
 export interface SetWargameFeedbackAction {
-  type: typeof SET_FEEDBACK_MESSAGES,
+  type: typeof SET_FEEDBACK_MESSAGES
   payload: Array<MessageFeedback>
 }
 export interface SetLatestFeedbackMessageAction {
-  type: typeof SET_LATEST_FEEDBACK_MESSAGE,
+  type: typeof SET_LATEST_FEEDBACK_MESSAGE
   payload: MessageFeedback
 }
 export interface SetLatestWargameMessageAction {
-  type: typeof SET_LATEST_WARGAME_MESSAGE,
+  type: typeof SET_LATEST_WARGAME_MESSAGE
   payload: MessageChannel
 }
 interface SetWargameMessagesAction {
-  type: typeof SET_ALL_MESSAGES,
+  type: typeof SET_ALL_MESSAGES
   payload: Array<MessageCustom | MessageInfoType>
 }
 export interface OpenMessageAction {
-  type: typeof OPEN_MESSAGE,
+  type: typeof OPEN_MESSAGE
   payload: {
-    channel: string,
+    channel: string
     message: MessageChannel
   }
 }
 export interface MarkUnreacAction {
-  type: typeof MARK_UNREAD,
+  type: typeof MARK_UNREAD
   payload: {
-    channel: string,
+    channel: string
     message: MessageChannel | ChatMessage
   }
 }
 export interface CloseMessageAction {
-  type: typeof CLOSE_MESSAGE,
+  type: typeof CLOSE_MESSAGE
   payload: {
-    channel: string,
+    channel: string
     message: MessageChannel
   }
 }
 export interface MarkAllAsReadAction {
-  type: typeof MARK_ALL_AS_READ,
+  type: typeof MARK_ALL_AS_READ
   payload: string
 }
 
 export interface MarkAllASUnReadAction {
-  type: typeof MARK_ALL_AS_UNREAD,
+  type: typeof MARK_ALL_AS_UNREAD
   payload: string
 }
 interface OpenTourAction {
-  type: typeof OPEN_TOUR,
+  type: typeof OPEN_TOUR
   payload: boolean
 }
 interface OpenModalAction {
-  type: typeof OPEN_MODAL,
+  type: typeof OPEN_MODAL
   payload: string
 }
 interface CloseModalAction {

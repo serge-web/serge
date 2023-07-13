@@ -4,16 +4,16 @@ import { CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_PLANNING, PART
 import Asset from './asset'
 
 export interface ParticipantTemplate {
-  _id: string,
+  _id: string
   title: string
 }
 
 /** core properties for a participant */
 export interface CoreParticipant {
-  readonly forceUniqid: ForceData['uniqid'],
+  readonly forceUniqid: ForceData['uniqid']
   // specific set of roles that participate in this channel (or empty for all roles)
-  roles: Array<Role['roleId']>,
-  readonly subscriptionId: string,
+  roles: Array<Role['roleId']>
+  readonly subscriptionId: string
   icon?: any
   readonly pType: string
 }
@@ -22,14 +22,14 @@ export interface CoreParticipant {
 export interface ParticipantCustom extends CoreParticipant {
   readonly pType: typeof PARTICIPANT_CUSTOM
   // the templates this participant can create
-  templates: ParticipantTemplate[],
+  templates: ParticipantTemplate[]
 }
 
 /** participation in planning channels */
 export interface ParticipantPlanning extends CoreParticipant {
   readonly pType: typeof PARTICIPANT_PLANNING
   // the templates this participant can create
-  templates: ParticipantTemplate[],
+  templates: ParticipantTemplate[]
 }
 
 /** participation in chat channels */
@@ -54,7 +54,7 @@ export interface ParticipantMapping extends CoreParticipant {
 export interface ParticipantCollab extends CoreParticipant {
   readonly pType: typeof PARTICIPANT_COLLAB
   // partipant can create new documents in this channel
-  canCreate: boolean,
+  canCreate: boolean
   // participant views un-released documents
   viewUnreleasedVersions: boolean
   // level of access for the participant

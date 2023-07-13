@@ -7,14 +7,14 @@ import IconOption from './icon-option'
 import { MapAnnotation } from './map-annotation'
 
 interface Status {
-  name: string,
+  name: string
   mobile: boolean
 }
 
-interface Force {
-  name: string,
-  colour: string
-}
+// interface Force {
+//   name: string
+//   colour: string
+// }
 
 export interface PerceivedType {
   name: PlatformTypeData['name']

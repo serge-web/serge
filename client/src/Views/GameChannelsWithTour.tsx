@@ -9,8 +9,8 @@ import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 import GameChannels from './GameChannels/GameChannels'
 
 type GameTour = {
-  selector: string;
-  content: string | (() => React.ReactElement);
+  selector: string
+  content: string | (() => React.ReactElement)
 }
 
 const useStyles = makeStyles({

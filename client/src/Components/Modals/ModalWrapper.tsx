@@ -1,4 +1,4 @@
-import React, { Component, MouseEvent } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 class ModalWrapper extends Component<{ children?: any, onBackgroundClick?: () => void, editable?: boolean }> {
@@ -6,8 +6,8 @@ class ModalWrapper extends Component<{ children?: any, onBackgroundClick?: () =>
   //   super(props);
   // }
 
-  handleBackgroundClick = (e: MouseEvent) => {
-    if (e.target === e.currentTarget) this.props.onBackgroundClick && this.props.onBackgroundClick()
+  handleBackgroundClick = (e: React.MouseEvent<HTMLElement>) => {
+  if (e.target === e.currentTarget) this.props.onBackgroundClick && this.props.onBackgroundClick()
   }
 
   render () {

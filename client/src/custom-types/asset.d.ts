@@ -10,16 +10,16 @@ export interface Asset {
   /**
    * the name of this asset
    */
-  name: string,
+  name: string
   /** when an asset is first identified, only the
    * contact id is shown.  Something like `C023`.
    */
-  readonly contactId: string,
+  readonly contactId: string
   /** the uniq id of this asset, present to allow
    * assets to be renamed, or multiple assets of same
    * name present in game
    */
-  readonly uniqid: string,
+  readonly uniqid: string
   /** the owner of this asset. This is used to give 
    * control of the asset to a specific player
    */
@@ -27,24 +27,24 @@ export interface Asset {
   /** the current position of an asset. It's optional,
    * since an asset may be carried by another
    */
-  position?: string,
+  position?: string
   /** the geographic position of an asset.
    * If it's not present, but a `position` is, then
    * the location will be generated. Sequence is `Lat, Long`
    */
-  location?: [number, number],
+  location?: [number, number]
   /** how other forces perceive this asset
    */
-  perceptions: Array<Perception>,
+  perceptions: Array<Perception>
   /** where this platform has already been
    */
-  history?: Array<RouteTurn>,
+  history?: Array<RouteTurn>
   /** the set of planned turns for this asset
    */
-  plannedTurns?: Array<RouteTurn>,
+  plannedTurns?: Array<RouteTurn>
   /** the current condition of this asset
    */
-  condition: string,
+  condition: string
   /** 
    * the type-id of this platform 
    */

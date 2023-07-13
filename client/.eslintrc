@@ -24,11 +24,22 @@
   "plugins": [
     "prettier"
   ],
+  "overrides": [
+    {
+      "files": ["*.jsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        // "@typescript-eslint/no-non-null-assertion": "off"
+      }
+    }
+  ],
     // Defines ESLint rules and their configurations
   "rules": {
     "react/prop-types": 0,
     "no-trailing-spaces": "off",
     "no-use-before-define": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "dot-notation": "off",
     "no-case-declarations": "off",
     "react/display-name": "off",
@@ -38,7 +49,8 @@
     "camelcase": "off",
     "eqeqeq": "off",
     "semi": ["error", "never"],
-    // "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-use-before-define": "off",
     // Allows us to hoist variables and functions which I am a fan of, functions not variables that is.
     "@typescript-eslint/no-explicit-any": "off",

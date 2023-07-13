@@ -1,6 +1,7 @@
 import { faAddressBook, faBookOpen, faFileExcel, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { ForceObjective, TurnProgression } from '@serge/components'
+import ForceObjective from '../../Components/local/molecules/force-objective'
+import TurnProgression from '../../Components/local/molecules/turn-progression'
 import { CHANGE_TAB_INTERACTION } from 'src/config'
 import { ChangeTabInteraction } from 'src/custom-types'
 import classNames from 'classnames'

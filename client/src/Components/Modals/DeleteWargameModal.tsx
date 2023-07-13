@@ -1,12 +1,13 @@
 import React from 'react'
-import { Confirm } from '@serge/components'
+// import { Confirm } from '@serge/components'
+import Confirm from '../local/atoms/confirm'
 import { RootState, CurrentModal } from 'src/custom-types'
 import 'src/themes/App.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteWargame } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 
-const DeleteWargameModal = () => {
+const DeleteWargameModal: React.FC = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
 

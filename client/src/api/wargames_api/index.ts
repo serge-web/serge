@@ -208,7 +208,7 @@ export const saveIcon = (file: string) => {
 }
 
 export const createWargame = (): Promise<Wargame> => {
-  const name: string = `wargame-${uniqid.time()}`
+  const name = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name, db })
 
@@ -299,12 +299,12 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {
   })
 }
 
-const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true): Promise<Wargame> => {
+const updateWargame = (nextWargame: Wargame, dbName: string, revisionCheck = true): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
   return updateWargameByDb(nextWargame, dbName, revisionCheck, db)
 }
 
-const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck: boolean = true, db: ApiWargameDb): Promise<Wargame> => {
+const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck = true, db: ApiWargameDb): Promise<Wargame> => {
   console.log('revisionCheck', revisionCheck)
   if (nextWargame.wargameInitiated) {
     // store with new id
@@ -750,7 +750,7 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
  */
 export const populateWargame = (dbName: string, bulkData: Array<Message | Wargame>): Promise<Wargame> => {
   // Generate a unique name for the wargame by appending a timestamp to the end of the name
-  const name: string = `${'wargame'}-${dbName}-${uniqid.time()}`
+  const name = `${'wargame'}-${dbName}-${uniqid.time()}`
 
   // Create a new database provider instance for the new wargame
   const db = new DbProvider(databasePath + name)

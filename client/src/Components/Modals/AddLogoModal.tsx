@@ -1,7 +1,7 @@
 import React from 'react'
 import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
-import { ImageDropzone } from '@serge/components'
+import ImageDropzone from '../local/atoms/image-dropzone'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { saveSergeLogo } from '../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators'
 import { addNotification } from '../../ActionsAndReducers/Notification/Notification_ActionCreators'

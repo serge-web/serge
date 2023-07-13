@@ -80,16 +80,15 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
     }
     const check = checkPassword(pass, messageTypes, currentWargame, allForces, currentTurn, playerUiDispatch)
     if (check) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const currentUrl = new URL(document.location!.href)
       const byPassParams = {
         wargame: currentWargame,
         access: pass
       }
-
+  
       const byPassParamsArr = Object.keys(byPassParams)
       const [wargameParam, accessParam] = byPassParamsArr.map(key => currentUrl.searchParams.get(key))
-
+  
       if (!wargameParam && wargameParam !== currentWargame && !accessParam && accessParam !== pass) {
         byPassParamsArr.forEach(key => {
           currentUrl.searchParams.set(key, byPassParams[key])
@@ -97,9 +96,11 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
         history.pushState({}, 'null', currentUrl.href)
       }
       setScreen(Room.player)
-    } else checkPasswordFail()
+    } else {
+      checkPasswordFail()
+    }
   }
-
+  
   // show the relevant screen
   switch (screen) {
     case Room.landing:

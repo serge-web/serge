@@ -1,23 +1,25 @@
 import React, { Component } from 'react'
 import ModalWrapper from './ModalWrapper'
 import { connect } from 'react-redux'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { modalAction, ModalActionInterface } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { SketchPicker } from 'react-color'
 
 import 'src/themes/App.scss'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { setForceColor, setTabUnsaved } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { ForceData, Wargame } from 'src/custom-types'
 import { Dispatch } from 'redux'
 
 class ColorPickerModal extends Component<{ dispatch: Dispatch, currentModal: ModalActionInterface, wargame: Wargame }> {
   hideModal = () => {
-    this.props.dispatch(modalAction.close())
+  this.props.dispatch(modalAction.close())
   }
 
   handleChange = (color: { hex: string }) => {
-    this.props.dispatch(setForceColor(color.hex))
-    this.props.dispatch(setTabUnsaved())
+  this.props.dispatch(setForceColor(color.hex))
+  this.props.dispatch(setTabUnsaved())
   }
 
   render () {

@@ -154,7 +154,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
               <ClickAwayListener onClickAway={closeChannelsMenu}>
                 <MenuList id="split-button-menu">
                   <MenuItem disabled>Special channels</MenuItem>
-                  <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_COLLAB)} >Collab' Edit</MenuItem>
+                  <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_COLLAB)} >Collab Edit</MenuItem>
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_MAPPING)} >Mapping</MenuItem>
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_CHAT)} >Chat</MenuItem>
                 </MenuList>

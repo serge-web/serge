@@ -9,7 +9,7 @@ interface FlatMessage {
   [property: string]: any
 }
 interface FlatMessages { 
-  flatMsg: FlatMessage,
+  flatMsg: FlatMessage
   objectKeys: string[] 
 }
 

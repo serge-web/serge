@@ -7,14 +7,15 @@ export default interface Props {
   turnEndTime: string
   timeWarning: number
   currentTurn: number
-  turnPresentation: TurnFormats
+  turnPresentation?: TurnFormats 
   phase: string
   gameDate: string
   /** the current turn length */
   gameTurnLength: GameTurnLength
   /** is current player acting as game control (with ability to step forward) */
   isGameControl: boolean
-  onNextTurn?: React.ReactEventHandler<any>
+  onNextTurn?: any | React.ReactEventHandler<any> 
+
   /** whether the wragame has been initiated or not */
   wargameInitiated: boolean
   /** whether to display the countdown timer */

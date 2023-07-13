@@ -14,6 +14,7 @@ export const addPlayerLog = (data: PlayerLogEntry): PlayerLogActionType => ({
  * @param dbName the name of the wargame
  * @returns a promist to perform the action
  */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const saveNewActivityTimeMessage = (role: string, activity: PlainInteraction, dbName: string): Function => {
   const activitydata: PlayerLogEntry = {
     role,
