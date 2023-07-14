@@ -334,6 +334,7 @@ const PlanningForces: React.FC<PropTypes> = ({
                 // that won't let us start/end a route on a flashing icon
                 interactive={interactive}
                 {...markerOption}
+                key={asset.id}
               >
                 <Tooltip>{labelFor(asset)}</Tooltip>
               </Marker>

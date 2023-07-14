@@ -1,4 +1,4 @@
-import { Column, Row } from '@serge/components'
+import { Row, Column } from '../../../Components/local/react-table/types/props'
 import cx from 'classnames'
 import orderBy from 'lodash/orderBy'
 import moment from 'moment'

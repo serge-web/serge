@@ -1,17 +1,21 @@
-import { Assets, HexGrid, InfoMarkers, Mapping, PlanningChannel } from '@serge/components'
+import Assets from '../../../Components/local/asset-icon'
+import HexGrid from '../../../Components/local/hex-grid'
+import InfoMarkers from '../../../Components/local/info-markers'
+import Mapping from '../../../Components/local/mapping'
+// import PlanningChannel from 'src/Components/local/organisms/planning-channel'
 import {
   CHANNEL_CHAT, CHANNEL_COLLAB,
   CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
 } from 'src/config'
-import { ChannelMapping, PlayerUiActionTypes, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from 'src/custom-types'
+import { ChannelMapping, PlayerUiActionTypes, ChannelTypes, ChannelUI, MappingConstraints, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from 'src/custom-types'
 import { sendMapMessage } from 'src/Helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
 import React from 'react'
-import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveBulkMessages, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { saveMapMessage, saveMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
 
-import { saveNewActivityTimeMessage } from '../../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+// import { saveNewActivityTimeMessage } from '../../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import CollabChannel from '../../../Components/CollabChannel'
 import { mockPlanningMessages } from './mock-message-data'
 
@@ -27,14 +31,14 @@ const phaseFor = (phase: string): Phase => {
 }
 
 const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>, reduxDisplatch: React.Dispatch<any>): Factory => {  
-  const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
-    saveMapMessage(state.currentWargame, details, outcomes)
-  }
+  // const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
+  //   saveMapMessage(state.currentWargame, details, outcomes)
+  // }
 
-  const ArchivePostBack = (archiveMark: MessagePlanning[]): void => {
-    saveBulkMessages(state.currentWargame, archiveMark)
-  }
-
+  // const ArchivePostBack = (archiveMark: MessagePlanning[]): void => {
+  //   saveBulkMessages(state.currentWargame, archiveMark)
+  // }
+  console.log(dispatch, reduxDisplatch)
   const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
     if (channelID === '') return
     if (typeof channelID === 'number') channelID = channelID.toString()
@@ -143,7 +147,7 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
     if (!channel || !renderThisChannel(channel)) {
       return null
     }
-    const allTemplates = Object.values(state.allTemplatesByKey)
+    // const allTemplates = Object.values(state.allTemplatesByKey)
     const channelData: ChannelTypes = channel.cData
     const isV3 = !!channelData.channelType
     if (isV3) {
@@ -161,7 +165,7 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
           return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
         case CHANNEL_PLANNING:
           // TODO: take this template id from the channel definition
-          const adjudicationTemplateId = 'p9adjudicate'
+          // const adjudicationTemplateId = 'p9adjudicate'
           // NOTE: block of code to force mock messages into database
           const writeData = false
           if (writeData) {
@@ -179,40 +183,41 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
               })
             }
           }
-          return <PlanningChannel
-            allTemplates={allTemplates}
-            adjudicationTemplate={state.allTemplatesByKey[adjudicationTemplateId]}
-            channelId={channel.uniqid}
-            messages={channel.messages}
-            channel={channel.cData as ChannelPlanning}
-            selectedRoleId={state.selectedRole}
-            selectedRoleName={state.selectedRoleName}
-            currentWargame={state.currentWargame}
-            selectedForce={state.selectedForce}
-            attributeTypes={state.attributeTypes}
-            isUmpire={state.isUmpire}
-            phase={state.phase}
-            allForces={state.allForces}
-            allPeriods={state.allPeriods}
-            platformTypes={state.allPlatformTypes}
-            gameDate={state.gameDate}
-            currentTurn={state.currentTurn}
-            gameTurnLength={state.gameTurnTime}
-            onTurnPeriods={turnPeriods}
-            dispatch={dispatch}
-            mapPostBack={adjudicatePostBack}
-            getAllWargameMessages={getAllWargameMessages}
-            markAllAsRead={markAllAsRead}
-            markUnread={markUnread}
-            openMessage={openMessage}
-            saveArchiveMessage={ArchivePostBack}
-            saveMessage={saveMessage}
-            reduxDispatch={reduxDisplatch}
-            saveNewActivityTimeMessage={saveNewActivityTimeMessage}
-            forcePlanningActivities={state.perForceActivities}
-            areas={state.areas}
-            forceTemplateData={state.forceTemplateData}
-          />
+          return <>PlanningChannel</>
+          // <PlanningChannel
+          //   allTemplates={allTemplates}
+          //   adjudicationTemplate={state.allTemplatesByKey[adjudicationTemplateId]}
+          //   channelId={channel.uniqid}
+          //   messages={channel.messages}
+          //   channel={channel.cData as ChannelPlanning}
+          //   selectedRoleId={state.selectedRole}
+          //   selectedRoleName={state.selectedRoleName}
+          //   currentWargame={state.currentWargame}
+          //   selectedForce={state.selectedForce}
+          //   attributeTypes={state.attributeTypes}
+          //   isUmpire={state.isUmpire}
+          //   phase={state.phase}
+          //   allForces={state.allForces}
+          //   allPeriods={state.allPeriods}
+          //   platformTypes={state.allPlatformTypes}
+          //   gameDate={state.gameDate}
+          //   currentTurn={state.currentTurn}
+          //   gameTurnLength={state.gameTurnTime}
+          //   onTurnPeriods={turnPeriods}
+          //   dispatch={dispatch}
+          //   mapPostBack={adjudicatePostBack}
+          //   getAllWargameMessages={getAllWargameMessages}
+          //   markAllAsRead={markAllAsRead}
+          //   markUnread={markUnread}
+          //   openMessage={openMessage}
+          //   saveArchiveMessage={ArchivePostBack}
+          //   saveMessage={saveMessage}
+          //   reduxDispatch={reduxDisplatch}
+          //   saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+          //   forcePlanningActivities={state.perForceActivities}
+          //   areas={state.areas}
+          //   forceTemplateData={state.forceTemplateData}
+          // />
         default:
           console.log('not yet handling', channelData)
           return null

@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Confirm } from '@serge/components'
 import Confirm from '../local/atoms/confirm'
 import { RootState, CurrentModal } from 'src/custom-types'
 import 'src/themes/App.scss'

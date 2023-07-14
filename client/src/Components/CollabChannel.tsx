@@ -1,4 +1,5 @@
-import { CollabStatusBoard, NewMessage } from '@serge/components'
+import CollabStatusBoard from './local/collab-status-board'
+import NewMessage from './local/form-elements/new-message'
 import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from 'src/config'
 import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from 'src/custom-types'
 import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from 'src/Helpers'

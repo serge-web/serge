@@ -1,4 +1,7 @@
-import { ChannelMessagesList, ChatEntryForm, ChatMessagesList, NewMessage } from '@serge/components'
+import ChannelMessagesList from './local/organisms/channel-messages-list'
+import ChatEntryForm from './local/form-elements/chat-entry-form'
+import ChatMessagesList from './local/organisms/chat-messages-list'
+import NewMessage from './local/form-elements/new-message'
 import { ChannelChat, ChatMessage, CoreMessage, MessageChannel, MessageCustom, MessageDetails, MessageInfoTypeClipped } from 'src/custom-types'
 import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from 'src/Helpers'
 import React, { useEffect, useRef, useState } from 'react'
@@ -39,7 +42,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const messageHandler = (details: MessageDetails, message: Object): void => {
+  const messageHandler = (details: MessageDetails, message: any): void => {
     console.log('message', message)
     const sendMessage: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
