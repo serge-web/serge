@@ -9,9 +9,6 @@
   "engines": {
     "node": "18.x"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "dependencies": {
     "@types/react-flatpickr": "^3.8.4",
     "lerna": "^6.6.2", 

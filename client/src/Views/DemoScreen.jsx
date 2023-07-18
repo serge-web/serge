@@ -3,9 +3,9 @@ import FlexLayout from 'flexlayout-react'
 import RouterDashboard from '../Components/Router/RouterDashboard'
 import PlayerUiWrapper from './PlayerUiWrapper'
 
-import '@serge/themes/dependencies/flexlayout-react.scss'
+import 'src/themes/dependencies/flexlayout-react.scss'
 import 'src/themes/App.scss'
-import '@serge/themes/demo.scss'
+import 'src/themes/demo.scss'
 
 const json = {
   global: {
