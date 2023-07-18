@@ -11,7 +11,7 @@ export const MapConstants = {
 export const ArrowHeadPattern: Pattern = {
   offset: '100',
   repeat: '100',
-  symbol: Symbol.arrowHead({
+  symbol: Symbol?.arrowHead({
     pixelSize: 15,
     polygon: false,
     pathOptions: { stroke: true }
