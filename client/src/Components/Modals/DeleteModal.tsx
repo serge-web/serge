@@ -1,5 +1,5 @@
 import React from 'react'
-import { Confirm } from '@serge/components'
+import Confirm from '../local/atoms/confirm'
 import { RootState } from 'src/custom-types'
 import 'src/themes/App.scss'
 import { useDispatch, useSelector } from 'react-redux'

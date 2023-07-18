@@ -1,4 +1,4 @@
-import { InsightForm } from '@serge/components'
+import InsightForm from '../local/molecules/insight-form'
 import { MessageDetailsFrom } from 'src/custom-types'
 import React from 'react'
 import {
@@ -16,7 +16,7 @@ const InsightsModal: React.FC = () => {
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   if (!state.modalOpened) return <></>
 
-  // TODO: Non defined types in @serge/components/InsightForm
+  // TODO: Non defined types in @serge/Components/InsightForm
   // @ts-ignore
   const handleSend = ({ name, message }) => {
     const from: MessageDetailsFrom = {

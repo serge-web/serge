@@ -11,7 +11,7 @@ export const AdminPanelFooter: React.FC<Props> = ({ force, selectedRoleName, byP
     <div data-tour='objectives-step' className={styles['force-role']}>
       {
         byPassUrl
-          ? <a href={byPassUrl} className={styles['role-type']}>{selectedRoleName}</a>
+          ? <a href={byPassUrl as string} className={styles['role-type']}>{selectedRoleName}</a>
           : <div className={styles['role-type']}>{selectedRoleName}</div>
       }
       <div className={styles['force-type']}>{force.name}</div>

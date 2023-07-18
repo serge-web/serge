@@ -1,7 +1,7 @@
 import React from 'react'
 import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
-import { ImageDropzone } from '@serge/components'
+import ImageDropzone from '../local/atoms/image-dropzone'
 import { saveIcon } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import 'src/themes/App.scss'

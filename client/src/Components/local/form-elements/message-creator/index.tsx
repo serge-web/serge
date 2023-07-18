@@ -1,6 +1,6 @@
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Confirm } from '@serge/components'
+import Confirm from '../../atoms/confirm'
 import {
   CHANNEL_COLLAB,
   CollaborativeMessageStates,

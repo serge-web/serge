@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useMemo, useState } from 'react'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
-import { AdminPanelFooter } from '@serge/components'
+import AdminPanelFooter from '../../Components/local/molecules/admin-panel-footer'
 import getByPassUrl from './helpers/getByPassUrl'
 import addTabs from './helpers/addTabs'
 import factory from './helpers/factory'

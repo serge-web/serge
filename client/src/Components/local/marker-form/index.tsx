@@ -2,7 +2,7 @@ import { faFill, faTrash, faClone } from '@fortawesome/free-solid-svg-icons'
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, TextField } from '@material-ui/core'
-import { Confirm } from '@serge/components'
+import Confirm from '../atoms/confirm'
 import { CLONE_MARKER, DELETE_MARKER, FLAG_MARKER, UPDATE_MARKER } from 'src/config'
 import { ForceData, IconOption, MapAnnotation } from 'src/custom-types'
 import { deepCopy } from 'src/Helpers'

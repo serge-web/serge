@@ -39,7 +39,7 @@
     "@types/react-maskedinput": "^4.0.4",
     "@types/react-modal": "^3.12.0",
     "@types/react-redux": "^7.1.12",
-    "@types/react-select": "^5.0.1",
+    "@types/react-select": "^3.1.2",
     "@types/react-test-renderer": "^16.9.2",
     "@types/reactour": "^1.17.1",
     "@types/sass": "^1.43.1",
@@ -106,7 +106,7 @@
     "react-dom": "^16.12.0",
     "react-double-scrollbar": "^0.0.15",
     "react-dropzone": "^10.1.5",
-    "react-flatpickr": "^3.10.7",
+    "react-flatpickr": "^3.9.0",
     "react-font-awesome": "^1.0.3",
     "react-fontawesome": "^1.7.1",
     "react-jsonschema-form": "^1.3.0",
@@ -151,7 +151,8 @@
     "typescript": "^4.8.4",
     "uniqid": "^5.0.3",
     "universal-router": "^8.1.0",
-    "whatwg-fetch": "^3.6.1"
+    "whatwg-fetch": "^3.6.1",
+    "xml-js": "^1.6.11"
   },
   "resolutions": {
     "@types/react": "^16.14.5",

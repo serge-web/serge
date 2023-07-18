@@ -2,7 +2,8 @@ import React from 'react'
 import uniqid from 'uniqid'
 import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
-import { ButtonList } from '@serge/components'
+import ButtonList from '../local/molecules/button-list'
+import { Props } from '../../Components/local/atoms/button/types/props'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import {
   setSelectedForce,
@@ -44,7 +45,7 @@ const UnsavedForceModal = () => {
 
   if (!currentModal.open) return <></>
 
-  const buttons = [{
+  const buttons: Props[] = [{
     name: 'cancel',
     color: 'secondary',
     onClick: onHideModal,
@@ -55,6 +56,26 @@ const UnsavedForceModal = () => {
     onClick: dontSave,
     children: 'Don\'t save'
   }]
+
+  // const actions = [{
+  //   onClick: () => setView(`${MESSAGE_CREATOR_BASE_ROUTE}${EDIT_TEMPLATE_ROUTE}`),
+  //   color: 'secondary',
+  //   fullWidth: true,
+  //   icon: 'edit',
+  //   children: 'Edit'
+  // }, {
+  //   onClick: duplicateTemplate,
+  //   color: 'secondary',
+  //   fullWidth: true,
+  //   icon: 'copy',
+  //   children: 'Duplicate'
+  // }, {
+  //   onClick: deleteTemplate,
+  //   color: 'secondary',
+  //   fullWidth: true,
+  //   icon: 'delete',
+  //   children: 'Delete'
+  // }]
 
   return (
     <ModalWrapper>

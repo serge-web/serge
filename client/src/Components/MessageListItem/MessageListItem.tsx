@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import moment from 'moment'
-import { ChannelMessage } from '@serge/components'
+import ChannelMessage from '../local/molecules/channel-message'
 import 'src/themes/App.scss'
 import { usePlayerUiState } from '../../Store/PlayerUi'
 import Props from './types'
@@ -33,6 +33,7 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
           messageType={details.messageType}
           hasBeenRead={hasBeenRead}
           privateMessage={details.privateMessage}
+          // @ts-ignore
           isUmpire={selectedForce.umpire}
           detail={message}
           onRead={(): void => { open(detail) }}

@@ -1,4 +1,4 @@
-import { Confirm } from '@serge/components'
+import Confirm from '../local/atoms/confirm'
 import { Asset, ForceData, IconOption, ModalData, PlatformType, PlatformTypeData, RoleType, RootState } from 'src/custom-types'
 import 'src/themes/App.scss'
 import React, { useEffect, useState } from 'react'

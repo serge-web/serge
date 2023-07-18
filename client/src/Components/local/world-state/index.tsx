@@ -1,5 +1,5 @@
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
-import { Confirm } from '@serge/components'
+import Confirm from '../atoms/confirm'
 import { ADJUDICATION_PHASE, LaydownPhases, Phase, PlanningStates, PLANNING_PHASE, UNKNOWN_TYPE } from 'src/config'
 import { GroupItem, PlatformTypeData, Route, MapAnnotation, MapAnnotations, IconOption } from 'src/custom-types'
 import { findPlatformTypeFor } from 'src/Helpers'

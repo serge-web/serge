@@ -151,6 +151,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
           confirmCancel={isCollabEdit}
           privateMessage={!!selectedForce.umpire}
           templates={trimmedTemplates}
+          // @ts-ignore
           selectedRole={role}
           channels={state.channels}
           currentTurn={state.currentTurn}

@@ -1,6 +1,6 @@
 import { faEnvelope, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { AdminMessage } from '@serge/components'
+import AdminMessage from '../../Components/local/molecules/admin-message'
 import { MessageChannel } from 'src/custom-types'
 import { isMessageReaded } from 'src/Helpers'
 import 'src/themes/App.scss'

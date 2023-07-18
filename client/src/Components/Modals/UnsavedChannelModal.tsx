@@ -2,7 +2,8 @@ import React from 'react'
 import uniqid from 'uniqid'
 import ModalWrapper from './ModalWrapper'
 import { useDispatch, useSelector } from 'react-redux'
-import { ButtonList } from '@serge/components'
+import ButtonList from '../local/molecules/button-list'
+import { Props } from '../../Components/local/atoms/button/types/props'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import {
   refreshChannel,
@@ -37,7 +38,7 @@ const UnsavedChannelModal = () => {
 
   if (!currentModal.open) return <></>
 
-  const buttons = [{
+  const buttons: Props[] = [{
     name: 'cancel',
     color: 'secondary',
     onClick: onHideModal,

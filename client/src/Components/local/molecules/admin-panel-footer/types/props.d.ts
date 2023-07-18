@@ -12,6 +12,6 @@ export default interface Props {
     iconURL: string
   }
   selectedRoleName: Role['name']
-  byPassUrl?: string
+  byPassUrl?: string | URL
   onIconClick: React.ReactEventHandler
 }
