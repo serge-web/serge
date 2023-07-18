@@ -30,35 +30,35 @@ class GameDesignerInterface extends Component {
   }
 
   createWargame = () => {
-  this.props.dispatch(createNewWargameDB())
+    this.props.dispatch(createNewWargameDB())
   }
 
   clearWargames = () => {
-  this.props.dispatch(modalAction.open('confirmDelete', {
-    type: 'games'
+    this.props.dispatch(modalAction.open('confirmDelete', {
+      type: 'games'
     }))
   }
 
   downloadAllData = () => {
-  this.props.dispatch(downloadAllWargames())
+    this.props.dispatch(downloadAllWargames())
   }
 
   openWargamesApiFuxion = () => {
-  this.props.dispatch(openFauxtonUI)
+    this.props.dispatch(openFauxtonUI)
   }
 
   checkPassword = password => {
-  this.props.dispatch(checkAdminAccess(password))
+    this.props.dispatch(checkAdminAccess(password))
   }
 
   onButtonClick = onClick => route => {
-  onClick && onClick()
-  route && this.props.dispatch(setCurrentViewFromURI(route))
+    onClick && onClick()
+    route && this.props.dispatch(setCurrentViewFromURI(route))
   }
   
   // Method to populate a wargame with data
   onPopulateWargame = (data, dbName) => {
-  this.props.dispatch(populateWargame(data, dbName))
+    this.props.dispatch(populateWargame(data, dbName))
   }
 
   render () {

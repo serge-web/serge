@@ -14,12 +14,12 @@ import { Dispatch } from 'redux'
 
 class ColorPickerModal extends Component<{ dispatch: Dispatch, currentModal: ModalActionInterface, wargame: Wargame }> {
   hideModal = () => {
-  this.props.dispatch(modalAction.close())
+    this.props.dispatch(modalAction.close())
   }
 
   handleChange = (color: { hex: string }) => {
-  this.props.dispatch(setForceColor(color.hex))
-  this.props.dispatch(setTabUnsaved())
+    this.props.dispatch(setForceColor(color.hex))
+    this.props.dispatch(setTabUnsaved())
   }
 
   render () {

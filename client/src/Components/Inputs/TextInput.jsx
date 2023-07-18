@@ -27,7 +27,7 @@ class TextInput extends Component {
   }
 
   onChange = (e) => {
-  this.props.updateStore(e.target.value)
+    this.props.updateStore(e.target.value)
   }
 
   render () {

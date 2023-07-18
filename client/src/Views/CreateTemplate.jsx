@@ -37,7 +37,7 @@ class EditMessage extends Component {
   }
 
   saveSchema = () => {
-  this.props.dispatch(createMessageType(this.props.umpireMenu.previewSchema))
+    this.props.dispatch(createMessageType(this.props.umpireMenu.previewSchema))
   }
 
   render () {

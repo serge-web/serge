@@ -7,7 +7,7 @@ class ModalWrapper extends Component<{ children?: any, onBackgroundClick?: () =>
   // }
 
   handleBackgroundClick = (e: React.MouseEvent<HTMLElement>) => {
-  if (e.target === e.currentTarget) this.props.onBackgroundClick && this.props.onBackgroundClick()
+    if (e.target === e.currentTarget) this.props.onBackgroundClick && this.props.onBackgroundClick()
   }
 
   render () {

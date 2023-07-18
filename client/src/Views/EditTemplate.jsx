@@ -38,20 +38,20 @@ class EditMessage extends Component {
   }
 
   filterMessages = (input) => {
-  const value = input.target.value
+    const value = input.target.value
 
-  const newState = this.props.messageTypes.messages.filter(function (mes) {
-    return mes.details.title.toLowerCase().indexOf(value.toLowerCase()) > -1
+    const newState = this.props.messageTypes.messages.filter(function (mes) {
+      return mes.details.title.toLowerCase().indexOf(value.toLowerCase()) > -1
     })
 
-  this.setState({
-    messageList: newState,
-    searchInput: value.toLowerCase()
+    this.setState({
+      messageList: newState,
+      searchInput: value.toLowerCase()
     })
   }
 
   updateSchema = () => {
-  this.props.dispatch(updateMessageType(this.props.umpireMenu.previewSchema, this.props.umpireMenu.selectedSchemaID))
+    this.props.dispatch(updateMessageType(this.props.umpireMenu.previewSchema, this.props.umpireMenu.selectedSchemaID))
   }
 
   render () {

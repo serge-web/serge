@@ -4,14 +4,14 @@ import * as ActionConstant from 'src/config'
 
 export interface ModalActionInterface {
   open: (openModal: string, data: {}) => ({
-      open: boolean,
-      modal: string,
+      open: boolean
+      modal: string
       data: {}
   })
 
   close: () => ({
     payload: {
-      open: boolean,
+      open: boolean
       modal: ''
     }
   })
