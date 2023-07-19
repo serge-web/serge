@@ -36,7 +36,8 @@
     "noImplicitThis": true,
     "baseUrl": ".",
     "declarationMap": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "outDir": "./build"
   },
   "files": [
     "./typings.d.ts",

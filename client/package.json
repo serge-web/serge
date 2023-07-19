@@ -199,16 +199,19 @@
     "storybook": "start-storybook -s ./static -p 6611",
     "build": "react-scripts --max_old_space_size=3000 build",
     "test:unit": "jest --passWithNoTests",
-    "test": "react-scripts test",
+    "test:ts": "tsc --pretty",
     "eject": "react-scripts eject",
+    "watch": "run-p watch:*",
+    "component-dev": "yarn build & yarn watch",
+    "watch:ts": "tsc --watch",
+    "watch:style": "node-sass-chokidar ./src -o ./build --watch --ext scss",
     "lint": "run-p lint:*",
-    "lint:styles": "stylelint --fix src/Components/**/*.scss",
+    "lint:styles": "stylelint --fix src/**/*.scss",
     "lint:ts": "eslint --fix src/**/*.ts*",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
     "copy-assets": "copyfiles -u 4 src/local/local/asset-icon/counters/*.svg ../client/public/assets/counters",
     "copy-assets-storybook": "copyfiles -u 4 src/Components/local/asset-icon/counters/*.svg static/assets/counters",
-    "develop": "nodemon --exec yarn start",
-    "test:ts": "tsc --pretty"
+    "develop": "nodemon --exec yarn start"
   },
   "browserslist": [
     ">0.2%",
