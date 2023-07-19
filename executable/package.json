@@ -1,0 +1,43 @@
+{
+  "name": "@serge/executable",
+  "version": "0.3.0",
+  "author": "IanMayo <ian@planetmayo.com>",
+  "description": "Build Serge as executable",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "archiver": "^5.3.0",
+    "find": "^0.3.0",
+    "pkg": "^5.8.1"
+  },
+  "bin": "../server/bin.js",
+  "pkg": {
+    "assets": [
+      "../client/build/**/*",
+      "../server/**/*",
+      "../data/*"
+    ],
+    "scripts": [
+      "../server/addons/**/*"
+    ],
+    "targets": [
+      "node18"
+    ],
+    "outputPath": "build-temp"
+  },
+  "scripts": {
+    "start": "node helpers/pkgResolveErrors.js && pkg --targets=linux,win,macos . && node helpers/pkhCopyCrossPlatforms.js"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.21.8",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "prettier": "^1.18.2"
+  }
+}

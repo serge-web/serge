@@ -1,0 +1,51 @@
+{
+  "password": "Nelson",
+  "adminUrl": "http://localhost:8080/serge/admin",
+  "roomName": "Cypress_test_",
+  "color": {
+    "red": "#ff4141",
+    "blue": "#3dd0ff",
+    "white": "#fcfbed"
+  },
+  "playerUrl": "http://localhost:8080/serge/player",
+  "blueMessage": {
+    "message1": {
+      "turnNumber" : "1",
+      "overallInstruction":"Travel West until you encounter the enemy.  Then deliver violence on behalf of Her Majesty The Queen",
+      "unit": "VICTORY",
+      "tasking" : "Draw fire",
+      "policy": "All lookouts on duty",
+      "action": "Ignore",
+      "comments": "Nil"
+    },
+    "message2": {
+        "turnNumber" : "1",
+        "overallInstruction":"Travel West until you encounter the enemy.  Then deliver violence on behalf of Her Majesty The Queen",
+        "unit": "COLLINGWOOD",
+        "tasking" : "Harass Outliers",
+        "policy": "All lookouts on duty",
+        "action": "Covert Trail",
+        "comments": "Standby Flagship in case of damage to VICTORY"
+    }
+  },
+  
+  "role" : {
+    "white": {
+      "name": "White",
+      "gc": "Game Control",
+      "media": "Media"
+    },
+    "red": {
+      "name": "Red",
+      "co": "CO" ,
+      "media": "Media",
+      "logs": "Logs"
+    },
+    "blue": {
+      "name": "Blue",
+      "co": "CO",
+      "media": "Media",
+      "logs": "Logs"
+    }
+  }
+}

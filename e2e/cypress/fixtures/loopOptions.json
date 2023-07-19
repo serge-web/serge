@@ -1,0 +1,5 @@
+{
+    "intentionsLoop": 5,
+    "chatLoop": 20,
+    "waitingTimeBetweenLoop": 1
+}

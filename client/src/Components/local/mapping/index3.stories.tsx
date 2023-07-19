@@ -16,7 +16,7 @@ import MappingPropTypes from './types/props'
 
 // TODO: here is the 'master' version of the cells,
 // in the @serge/data package
-// import * as data from '../../../../data/atlantic-cells.json'
+// import * as data from '../../../../../data/atlantic-cells.json'
 
 const atlanticForces = cmdWkWargame.data.forces.forces
 const platformTypes = cmdWkWargame.data.platformTypes ? cmdWkWargame.data.platformTypes.platformTypes : []
