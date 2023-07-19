@@ -1,0 +1,95 @@
+[{
+    "name": "Fishing vessel",
+    "conditions": [
+        "Working",
+        "Disabled",
+        "Immobile",
+        "Destroyed"
+    ],
+    "icon": "fishing-vessel.svg",
+    "speedKts": [
+        10
+    ],
+    "states": [
+        { "name": "Fishing", "mobile": false },
+        { "name": "Moored", "mobile": false },
+        { "name": "Transiting", "mobile": true }
+    ],
+    "travelMode": "sea"
+},
+{
+    "name": "Frigate",
+    "conditions": [
+        "Working",
+        "Disabled",
+        "Immobile",
+        "Destroyed"
+    ],
+    "icon": "frigate.svg",
+    "speedKts": [
+        10,
+        20,
+        30
+    ],
+    "states": [
+        { "name": "Escorting", "mobile": true },
+        { "name": "Pursuing", "mobile": true },
+        { "name": "Transiting", "mobile": true }
+    ],
+    "travelMode": "sea"
+},
+{
+    "name": "Fixed wing aircraft",
+    "conditions": [
+        "Working",
+        "Disabled",
+        "Immobile",
+        "Destroyed"
+    ],
+    "icon": "fixed-wing-aircraft.svg",
+    "speedKts": [],
+    "states": [
+        { "name": "Landed", "mobile": false },
+        { "name": "Patrolling", "mobile": true },
+        { "name": "Prosecuting", "mobile": true },
+        { "name": "Searching", "mobile": true },
+        { "name": "Transiting", "mobile": true }
+    ],
+    "travelMode": "air"
+},
+{
+    "name": "Coastal radar site",
+    "conditions": [
+        "Working",
+        "Disabled",
+        "Immobile",
+        "Destroyed"
+    ],
+    "icon": "coastal-radar-site.svg",
+    "states": [
+        { "name": "Active", "mobile": false },
+        { "name": "LocationPending", "mobile": true },
+        { "name": "Prosecuting", "mobile": false }
+    ],
+    "travelMode": "land"
+},
+{
+    "name": "Merchant vessel",
+    "conditions": [
+        "Working",
+        "Disabled",
+        "Immobile",
+        "Destroyed"
+    ],
+    "icon": "merchant-vessel.svg",
+    "speedKts": [
+        10,
+        20
+    ],
+    "states": [
+        { "name": "Moored", "mobile": false },
+        { "name": "Transiting", "mobile": true }
+    ],
+    "travelMode": "sea"
+}
+]

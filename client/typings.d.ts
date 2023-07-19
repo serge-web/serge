@@ -7,7 +7,7 @@ declare module '*.md' {
 
 declare global {
   interface Window {
-    G_CONFIG: any;
+    G_CONFIG: any
   }
 }
 
@@ -16,5 +16,3 @@ declare module '@json-editor/json-editor'
 // TODO: Remove the line below when the store package has been converted
 declare module '@serge/store'
 declare module 'whatwg-fetch'
-
-
