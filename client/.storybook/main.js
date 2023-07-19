@@ -90,6 +90,7 @@ module.exports = {
       ]
     }
     );
+    config.resolve.alias['src'] = path.resolve(__dirname, '../src');
     config.resolve.extensions.push('.ts', '.tsx', '.md');
     return config;
   },
