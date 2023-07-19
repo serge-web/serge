@@ -11,7 +11,7 @@ jest.mock('leaflet', () => {
     Symbol: {
       arrowHead: jest.fn()
     }
-  };
+  }
   return mockLeafletModule
 })
 

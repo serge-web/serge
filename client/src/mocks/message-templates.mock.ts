@@ -1,4 +1,4 @@
-import { TemplateBody } from "src/custom-types"
+import { TemplateBody } from 'src/custom-types'
 
 const messageTemplatesMock: TemplateBody[] = [
   {
@@ -36,7 +36,7 @@ const messageTemplatesMock: TemplateBody[] = [
                       items: {
                         properties: {
                           Force: {
-                            'enum': [
+                            enum: [
                               'Blue',
                               'Red',
                               'Green'
@@ -53,7 +53,7 @@ const messageTemplatesMock: TemplateBody[] = [
                 type: 'array'
               },
               force: {
-                'enum': [
+                enum: [
                   'Blue',
                   'Red',
                   'Green'
@@ -112,7 +112,7 @@ const messageTemplatesMock: TemplateBody[] = [
               ActionOnContact: {
                 title: 'Action on Contact',
                 type: 'string',
-                'enum': [
+                enum: [
                   'Ignore',
                   'Evade',
                   'Covert Trail',
@@ -192,267 +192,267 @@ const messageTemplatesMock: TemplateBody[] = [
   {
     completed: false,
     details: {
-      title: "COA",
-      type: "object",
-      format: "grid",
+      title: 'COA',
+      type: 'object',
+      format: 'grid',
       required: [
-        "Reference",
-        "Title",
-        "LOCATION",
-        "PRESCRIPTED",
-        "VISIBILITY",
-        "COA_SUPPORTS_AS",
-        "TARGET",
-        "STRAT_COMMS",
-        "OBJECTIVES_TURN",
-        "OBJECTIVES_OVERALL",
-        "TARGET_CENTRE_OF_GRAVITY",
-        "DESIRED_ENDSTATE_TURN",
-        "DESIRED_ENDSTATE_OVERALL",
-        "EFFECTS_AND_ACTIONS",
-        "SEQUENCING_AND_PHASES",
-        "ADVERSARY_UNDERSTANDING",
-        "ADVERSARY_REACTION_COUNTER_ACTION",
-        "ORBAT",
-        "TIMINGS",
-        "DEPENDENCIES",
-        "AdjudicationSupport",
-        "PEER_REVIEW",
-        "INSIGHT"
+        'Reference',
+        'Title',
+        'LOCATION',
+        'PRESCRIPTED',
+        'VISIBILITY',
+        'COA_SUPPORTS_AS',
+        'TARGET',
+        'STRAT_COMMS',
+        'OBJECTIVES_TURN',
+        'OBJECTIVES_OVERALL',
+        'TARGET_CENTRE_OF_GRAVITY',
+        'DESIRED_ENDSTATE_TURN',
+        'DESIRED_ENDSTATE_OVERALL',
+        'EFFECTS_AND_ACTIONS',
+        'SEQUENCING_AND_PHASES',
+        'ADVERSARY_UNDERSTANDING',
+        'ADVERSARY_REACTION_COUNTER_ACTION',
+        'ORBAT',
+        'TIMINGS',
+        'DEPENDENCIES',
+        'AdjudicationSupport',
+        'PEER_REVIEW',
+        'INSIGHT'
       ],
       properties: {
         Reference: {
-          type: "string",
-          title: "Reference (sys generated)",
-          readonly: "readonly"
+          type: 'string',
+          title: 'Reference (sys generated)',
+          readonly: 'readonly'
         },
         Title: {
-          type: "string",
-          title: "*COA / Op Name",
-          format: "textarea"
+          type: 'string',
+          title: '*COA / Op Name',
+          format: 'textarea'
         },
         LOCATION: {
-          title: "*Location of activities in this turn",
-          type: "object",
+          title: '*Location of activities in this turn',
+          type: 'object',
           properties: {
             region: {
-              title: "Region",
-              type: "string",
+              title: 'Region',
+              type: 'string',
               enum: [
-                "Asia Pacific",
-                "Europe",
-                "Americas"
+                'Asia Pacific',
+                'Europe',
+                'Americas'
               ],
-              default: "Europe"
+              default: 'Europe'
             },
             Europe: {
-              title: "Country",
-              type: "string",
+              title: 'Country',
+              type: 'string',
               enum: [
-                "United Kingdom",
-                "Germany"
+                'United Kingdom',
+                'Germany'
               ],
               options: {
                 dependencies: {
-                  region: "Europe"
+                  region: 'Europe'
                 }
               }
             },
             Americas: {
-              title: "Country",
-              type: "string",
+              title: 'Country',
+              type: 'string',
               enum: [
-                "United State of America",
-                "Brazil"
+                'United State of America',
+                'Brazil'
               ],
               options: {
                 dependencies: {
-                  region: "Americas"
+                  region: 'Americas'
                 }
               }
             },
             AsiaPacific: {
-              title: "Country",
-              type: "string",
+              title: 'Country',
+              type: 'string',
               enum: [
-                "India",
-                "China"
+                'India',
+                'China'
               ],
               options: {
                 dependencies: {
-                  region: "Asia Pacific"
+                  region: 'Asia Pacific'
                 }
               }
             }
           }
         },
         PRESCRIPTED: {
-          type: "boolean",
-          format: "checkbox",
-          title: "*Is this a pre-scripted activity? E.g. DXP",
-          default: "Yes",
+          type: 'boolean',
+          format: 'checkbox',
+          title: '*Is this a pre-scripted activity? E.g. DXP',
+          default: 'Yes',
           items: {
-            type: "string",
+            type: 'string',
             enum: [
-              "Yes",
-              "No"
+              'Yes',
+              'No'
             ]
           }
         },
         VISIBILITY: {
-          type: "string",
-          title: "*Intended visibility to adversary",
+          type: 'string',
+          title: '*Intended visibility to adversary',
           enum: [
-            "Overt",
-            "Covert",
-            "Clandestine",
-            "Complex"
+            'Overt',
+            'Covert',
+            'Clandestine',
+            'Complex'
           ]
         },
         COA_SUPPORTS_AS: {
-          type: "boolean",
-          format: "checkbox",
-          title: "*This COA supports / uses an AS plan / effect",
-          default: "Yes",
+          type: 'boolean',
+          format: 'checkbox',
+          title: '*This COA supports / uses an AS plan / effect',
+          default: 'Yes',
           items: {
-            type: "string",
+            type: 'string',
             enum: [
-              "Yes",
-              "No"
+              'Yes',
+              'No'
             ]
           }
         },
         TARGET: {
-          type: "string",
-          title: "*Target(s) – Adversary, Ally, specific audience within Adversary or allied polity etc",
-          format: "textarea",
+          type: 'string',
+          title: '*Target(s) – Adversary, Ally, specific audience within Adversary or allied polity etc',
+          format: 'textarea',
           notEmpty: true
         },
         STRAT_COMMS: {
-          type: "string",
-          title: "Outline of associated Strategic Communications",
-          format: "textarea"
+          type: 'string',
+          title: 'Outline of associated Strategic Communications',
+          format: 'textarea'
         },
         OBJECTIVES_TURN: {
-          type: "string",
-          title: "Objectives in this turn",
-          format: "textarea"
+          type: 'string',
+          title: 'Objectives in this turn',
+          format: 'textarea'
         },
         OBJECTIVES_OVERALL: {
-          type: "string",
-          title: "Overall Objectives",
-          format: "textarea"
+          type: 'string',
+          title: 'Overall Objectives',
+          format: 'textarea'
         },
         TARGET_CENTRE_OF_GRAVITY: {
-          type: "string",
-          title: "Target’s Centre of Gravity",
-          format: "textarea"
+          type: 'string',
+          title: 'Target’s Centre of Gravity',
+          format: 'textarea'
         },
         DESIRED_ENDSTATE_TURN: {
-          type: "string",
-          title: "*Desired Endstate in this turn",
-          format: "textarea"
+          type: 'string',
+          title: '*Desired Endstate in this turn',
+          format: 'textarea'
         },
         DESIRED_ENDSTATE_OVERALL: {
-          type: "string",
-          title: "Desired Endstate Overall, if NOT in this turn",
-          format: "textarea"
+          type: 'string',
+          title: 'Desired Endstate Overall, if NOT in this turn',
+          format: 'textarea'
         },
         EFFECTS_AND_ACTIONS: {
-          type: "string",
-          title: "*Effects and actions",
-          format: "textarea"
+          type: 'string',
+          title: '*Effects and actions',
+          format: 'textarea'
         },
         SEQUENCING_AND_PHASES: {
-          type: "string",
-          title: "Sequencing and phases",
-          format: "textarea"
+          type: 'string',
+          title: 'Sequencing and phases',
+          format: 'textarea'
         },
         ADVERSARY_UNDERSTANDING: {
-          type: "string",
-          title: "What would my adversary see / understand of this activity / messaging?",
-          format: "textarea"
+          type: 'string',
+          title: 'What would my adversary see / understand of this activity / messaging?',
+          format: 'textarea'
         },
         ADVERSARY_REACTION_COUNTER_ACTION: {
           properties: {
             ADVERSARY_MLCOA: {
-              title: "Adversary MLCOA",
-              type: "string",
-              format: "textarea"
+              title: 'Adversary MLCOA',
+              type: 'string',
+              format: 'textarea'
             },
             MLCOA_RESPONSE: {
-              title: "Own Response",
-              type: "string",
-              format: "textarea"
+              title: 'Own Response',
+              type: 'string',
+              format: 'textarea'
             },
             ADVERSARY_MDCOA: {
-              title: "Adversary MDCOA",
-              type: "string",
-              format: "textarea"
+              title: 'Adversary MDCOA',
+              type: 'string',
+              format: 'textarea'
             },
             MDCOA_RESPONSE: {
-              title: "Own Response",
-              type: "string",
-              format: "textarea"
+              title: 'Own Response',
+              type: 'string',
+              format: 'textarea'
             }
           },
-          title: "Adversary reaction & counter-action",
-          type: "object"
+          title: 'Adversary reaction & counter-action',
+          type: 'object'
         },
         ORBAT: {
-          type: "array",
-          format: "table",
+          type: 'array',
+          format: 'table',
           minItems: 1,
-          title: "*ORBAT – FEs used (Inc logistics and enablers)",
+          title: '*ORBAT – FEs used (Inc logistics and enablers)',
           items: {
-            type: "object",
-            title: "FE",
+            type: 'object',
+            title: 'FE',
             properties: {
               FEName: {
-                type: "string",
-                title: "FE Name",
+                type: 'string',
+                title: 'FE Name',
                 enum: [
-                  "Tank",
-                  "Infantry",
-                  "Plane",
-                  "Submarine",
-                  "other"
+                  'Tank',
+                  'Infantry',
+                  'Plane',
+                  'Submarine',
+                  'other'
                 ]
               },
               Readiness: {
-                type: "string",
+                type: 'string',
                 enum: [
-                  "Level-1",
-                  "Level-2",
-                  "Level-3",
-                  "Level-4",
-                  "Level-5"
+                  'Level-1',
+                  'Level-2',
+                  'Level-3',
+                  'Level-4',
+                  'Level-5'
                 ]
               },
               Number: {
-                type: "number"
+                type: 'number'
               },
               StartDate: {
-                type: "string",
-                title: "Start date",
-                format: "date",
+                type: 'string',
+                title: 'Start date',
+                format: 'date',
                 options: {
                   flatpickr: {
                     wrap: false,
                     time_24hr: true,
-                    dateFormat: "d/m/Y"
+                    dateFormat: 'd/m/Y'
                   }
                 }
               },
               EndDate: {
-                type: "string",
-                title: "End date",
-                format: "date",
+                type: 'string',
+                title: 'End date',
+                format: 'date',
                 options: {
                   flatpickr: {
                     wrap: false,
                     time_24hr: true,
-                    dateFormat: "d/m/Y"
+                    dateFormat: 'd/m/Y'
                   }
                 }
               }
@@ -462,100 +462,100 @@ const messageTemplatesMock: TemplateBody[] = [
         TIMINGS: {
           properties: {
             START_PLANNING: {
-              title: "Start planning",
-              type: "string",
-              format: "date",
+              title: 'Start planning',
+              type: 'string',
+              format: 'date',
               options: {
                 flatpickr: {
                   wrap: false,
                   time_24hr: true,
-                  dateFormat: "d/m/Y"
+                  dateFormat: 'd/m/Y'
                 }
               }
             },
             START_DEPLOYMENT: {
-              title: "Start deployment",
-              type: "string",
-              format: "date",
+              title: 'Start deployment',
+              type: 'string',
+              format: 'date',
               options: {
                 flatpickr: {
                   wrap: false,
                   time_24hr: true,
-                  dateFormat: "d/m/Y"
+                  dateFormat: 'd/m/Y'
                 }
               }
             },
             START_OPERATION: {
-              title: "Start Operation",
-              type: "string",
-              format: "date",
+              title: 'Start Operation',
+              type: 'string',
+              format: 'date',
               options: {
                 flatpickr: {
                   wrap: false,
                   time_24hr: true,
-                  dateFormat: "d/m/Y"
+                  dateFormat: 'd/m/Y'
                 }
               }
             },
             END_OPERATION: {
-              title: "End Operation",
-              type: "string",
-              format: "date",
+              title: 'End Operation',
+              type: 'string',
+              format: 'date',
               options: {
                 flatpickr: {
                   wrap: false,
                   time_24hr: true,
-                  dateFormat: "d/m/Y"
+                  dateFormat: 'd/m/Y'
                 }
               }
             },
             END_RECOVERY: {
-              title: "End recovery",
-              type: "string",
-              format: "date",
+              title: 'End recovery',
+              type: 'string',
+              format: 'date',
               options: {
                 flatpickr: {
                   wrap: false,
                   time_24hr: true,
-                  dateFormat: "d/m/Y"
+                  dateFormat: 'd/m/Y'
                 }
               }
             }
           },
-          title: "Timings",
-          type: "object",
-          format: "grid"
+          title: 'Timings',
+          type: 'object',
+          format: 'grid'
         },
         CONTINUES_INTO_NEXT_TURN: {
-          type: "boolean",
-          format: "checkbox",
-          title: "*Will this activity continue into next turn?",
-          default: "Yes",
+          type: 'boolean',
+          format: 'checkbox',
+          title: '*Will this activity continue into next turn?',
+          default: 'Yes',
           items: {
-            type: "string",
+            type: 'string',
             enum: [
-              "Yes",
-              "No"
+              'Yes',
+              'No'
             ]
           }
         },
         DEPENDENCIES: {
-          type: "string",
-          title: "Dependencies on Allied capability: Please indicate which allies (if any) and which of their capabilities you are dependent on. E.g. US Space capabilities, Allied ABO",
-          format: "textarea"
+          type: 'string',
+          title: 'Dependencies on Allied capability: Please indicate which allies (if any) and which of their capabilities you are dependent on. E.g. US Space capabilities, Allied ABO',
+          format: 'textarea'
         },
         AdjudicationSupport: {
-          type: "array",
-          format: "checkbox",
-          title: "Adjudication support",
+          type: 'array',
+          format: 'checkbox',
+          title: 'Adjudication support',
           uniqueItems: true,
           items: {
-            type: "string",
+            type: 'string',
             enum: [
-              "Space",
-              "CEMA",
-              "Influence",
-              "Logistics"
+              'Space',
+              'CEMA',
+              'Influence',
+              'Logistics'
             ]
           },
           options: {
@@ -563,14 +563,14 @@ const messageTemplatesMock: TemplateBody[] = [
           }
         },
         PEER_REVIEW: {
-          type: "string",
-          title: "Peer Review by",
-          format: "textarea"
+          type: 'string',
+          title: 'Peer Review by',
+          format: 'textarea'
         },
         INSIGHT: {
-          type: "string",
-          title: "Insight – What would you have done differently with other policies / permissions / risk appetite?",
-          format: "textarea"
+          type: 'string',
+          title: 'Insight – What would you have done differently with other policies / permissions / risk appetite?',
+          format: 'textarea'
         }
       }
     },
@@ -583,77 +583,77 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'RFI',
     details: {
-      format: "grid",
+      format: 'grid',
       properties: {
         Reference: {
-          readonly: "readonly",
-          title: "Reference (sys generated)",
+          readonly: 'readonly',
+          title: 'Reference (sys generated)',
           options: {
             grid_columns: 4
           },
-          type: "string"
+          type: 'string'
         },
         Title: {
-          format: "text",
+          format: 'text',
           options: {
             grid_columns: 8
           },
-          title: "Title",
-          type: "string"
+          title: 'Title',
+          type: 'string'
         },
         RFI: {
-          format: "textarea",
+          format: 'textarea',
           options: {
             grid_columns: 12
           },
-          title: "RFI",
-          type: "string"
+          title: 'RFI',
+          type: 'string'
         },
         Priority: {
           enum: [
-            "High",
-            "Medium",
-            "Low"
+            'High',
+            'Medium',
+            'Low'
           ],
-          title: "Priority",
-          type: "string"
+          title: 'Priority',
+          type: 'string'
         },
         FAO: {
           enum: [
-            "J2",
-            "SME – CEMA",
-            "SME – Space",
-            "SME – Logs & Med",
-            "SME – IO",
-            "SME – White",
-            "Actor – White",
-            "Actor – Red",
-            "Other"
+            'J2',
+            'SME – CEMA',
+            'SME – Space',
+            'SME – Logs & Med',
+            'SME – IO',
+            'SME – White',
+            'Actor – White',
+            'Actor – Red',
+            'Other'
           ],
-          title: "FAO",
-          type: "string"
+          title: 'FAO',
+          type: 'string'
         },
         ResponseRequiredBy: {
           enum: [
-            "Within an hour",
-            "NLT 1300",
-            "NLT 1600",
-            "Not urgent"
+            'Within an hour',
+            'NLT 1300',
+            'NLT 1600',
+            'Not urgent'
           ],
-          title: "Response required by",
-          type: "string"
+          title: 'Response required by',
+          type: 'string'
         }
       },
       required: [
-        "Reference",
-        "Title",
-        "FAO",
-        "RFI",
-        "Priority",
-        "ResponseRequiredBy"
+        'Reference',
+        'Title',
+        'FAO',
+        'RFI',
+        'Priority',
+        'ResponseRequiredBy'
       ],
-      title: "RFI",
-      type: "object"
+      title: 'RFI',
+      type: 'object'
     },
     completed: false,
     _id: 'k16eedkj',
@@ -698,7 +698,7 @@ const messageTemplatesMock: TemplateBody[] = [
             },
             'Lat Hemi': {
               type: 'string',
-              'enum': [
+              enum: [
                 'N',
                 'S'
               ]
@@ -708,7 +708,7 @@ const messageTemplatesMock: TemplateBody[] = [
             },
             'Long Hemi': {
               type: 'string',
-              'enum': [
+              enum: [
                 'E',
                 'W'
               ]
@@ -772,7 +772,7 @@ const messageTemplatesMock: TemplateBody[] = [
         },
         Status: {
           type: 'string',
-          'enum': [
+          enum: [
             'Minor',
             'Major',
             'Critical'
@@ -882,7 +882,7 @@ const messageTemplatesMock: TemplateBody[] = [
                       items: {
                         properties: {
                           Force: {
-                            'enum': [
+                            enum: [
                               'Blue',
                               'Red',
                               'Green'
@@ -900,7 +900,7 @@ const messageTemplatesMock: TemplateBody[] = [
                 type: 'array'
               },
               force: {
-                'enum': [
+                enum: [
                   'Blue',
                   'Red',
                   'Green'

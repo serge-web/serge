@@ -1,20 +1,20 @@
-import { CoreParticipant } from './participant'
+// import { CoreParticipant } from './participant'
 import { MessageChannel } from './message'
 import { TemplateBody } from './template'
-import { SpecialChannelTypes } from 'src/config'
+// import { SpecialChannelTypes } from 'src/config'
 import { ChannelTypes } from '.'
 
 /** description of channel, as used in game UI */
 export default interface ChannelUI {
-  readonly uniqid: string,
+  readonly uniqid: string
   /** channel data object */
   readonly cData: ChannelTypes
   /** is the current player just observing this channel? */
-  observing?: boolean,
+  observing?: boolean
   /** templates available to current user */
-  templates?: TemplateBody[],
-  messages?: Array<MessageChannel>,
-  name: string,
+  templates?: TemplateBody[]
+  messages?: Array<MessageChannel>
+  name: string
   unreadMessageCount?: number
   forceIcons?: Array<any>
   forceColors?: Array<string>

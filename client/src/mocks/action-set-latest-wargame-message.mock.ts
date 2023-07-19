@@ -9,24 +9,24 @@ const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
     messageType: CUSTOM_MESSAGE,
     isOpen: false,
     hasBeenRead: false,
-    "details": {
-      "channel": "channel-k16fgs63",
-      "from": {
-        "force": "Blue",
-        "forceColor": "#3dd0ff",
-        "roleId": blueCO.roleId,
-        "roleName": blueCO.name,
-        "iconURL": "http://localhost:8080/default_img/forceDefault.png"
+    details: {
+      channel: 'channel-k16fgs63',
+      from: {
+        force: 'Blue',
+        forceColor: '#3dd0ff',
+        roleId: blueCO.roleId,
+        roleName: blueCO.name,
+        iconURL: 'http://localhost:8080/default_img/forceDefault.png'
       },
-      "messageType": "Chat",
-      "timestamp": "2020-12-07T06:38:43.642Z",
+      messageType: 'Chat',
+      timestamp: '2020-12-07T06:38:43.642Z',
       turnNumber: 1
     },
-    "message": {
-      "content": "My test message"
+    message: {
+      content: 'My test message'
     },
-    "_id": "2020-12-07T06:38:43.643Z",
-    "_rev": "1-aa5428939cd0e0dd1a5ec9106316aa08"
+    _id: '2020-12-07T06:38:43.643Z',
+    _rev: '1-aa5428939cd0e0dd1a5ec9106316aa08'
   }
 }
 

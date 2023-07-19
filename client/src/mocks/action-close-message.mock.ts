@@ -5,8 +5,8 @@ import { GameMessagesMock } from '.'
 const actionCloseMessage: CloseMessageAction = {
   type: CLOSE_MESSAGE,
   payload: {
-    "channel": GameMessagesMock[0].details.channel,
-    "message": GameMessagesMock[0]
+    channel: GameMessagesMock[0].details.channel,
+    message: GameMessagesMock[0]
   }
 }
 

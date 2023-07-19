@@ -2,7 +2,7 @@ import React from 'react'
 /** handlers passed to the player log modal popup */
 export type PlayerLogProps = {
   isOpen: boolean
-  onClose: () => void,
+  onClose: () => void
   handlePlayerlogsMarkAllAsRead: () => void
   handlePlayerlogsMarkAllAsUnread: () => void
   playerLogsActivity: () => void

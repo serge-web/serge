@@ -1,5 +1,5 @@
 {
-  "name": "@serge/client",
+  "name": "client",
   "dependencies": {
     "@babel/core": "^7.8.4",
     "@babel/helper-string-parser": "^7.18.10",
@@ -201,9 +201,12 @@
     "test:unit": "jest --passWithNoTests",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "run-p lint:*",
+    "lint:styles": "stylelint --fix src/Components/**/*.scss",
+    "lint:ts": "eslint --fix src/**/*.ts*",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
     "copy-assets": "copyfiles -u 4 src/local/local/asset-icon/counters/*.svg ../client/public/assets/counters",
-    "copy-assets-storybook": "copyfiles -u 4 src/components/local/asset-icon/counters/*.svg static/assets/counters",
+    "copy-assets-storybook": "copyfiles -u 4 src/Components/local/asset-icon/counters/*.svg static/assets/counters",
     "develop": "nodemon --exec yarn start",
     "test:ts": "tsc --pretty"
   },

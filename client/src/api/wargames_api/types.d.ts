@@ -6,9 +6,9 @@ import { Socket } from 'socket.io-client'
 export type ApiWargameDb = DbProviderInterface
 
 export interface ListenNewMessageType {
-  db: ApiWargameDb,
-  name: string,
-  dispatch: PlayerUiDispatch,
+  db: ApiWargameDb
+  name: string
+  dispatch: PlayerUiDispatch
   changes?: Socket.Core.Changes<Wargame | Message>
 }
 

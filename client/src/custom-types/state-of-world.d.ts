@@ -1,5 +1,5 @@
-import { ForceData, Perception, RouteStatus, RouteTurn } from ".";
-import { MapAnnotations } from "./map-annotation";
+import { ForceData, Perception, RouteStatus, RouteTurn } from '.'
+import { MapAnnotations } from './map-annotation'
 
 /** state of world for an asset */
 export interface AssetState {

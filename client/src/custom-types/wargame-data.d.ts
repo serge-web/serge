@@ -10,9 +10,9 @@ import { TemplateData } from './template'
 import WargameOverview from './wargame-overview'
 
 export default interface WargameData {
-  overview: WargameOverview,
-  forces: Force,
-  channels: Channel,
+  overview: WargameOverview
+  forces: Force
+  channels: Channel
   platformTypes?: PlatformType
   annotations?: MapAnnotationData
   annotationIcons?: AnnotationMarkerData

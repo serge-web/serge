@@ -4,8 +4,8 @@
  * data for screen rendering
  */
 export default interface ForceRole {
-  readonly forceId: string,
-  readonly forceName: string,
-  readonly roleId: string,
+  readonly forceId: string
+  readonly forceName: string
+  readonly roleId: string
   readonly roleName: string
 }

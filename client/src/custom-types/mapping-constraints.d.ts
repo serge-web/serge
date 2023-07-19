@@ -1,7 +1,7 @@
 import { CellLabelStyle } from 'src/config'
 
 export interface TileLayerDefinition {
-  url: string,
+  url: string
   attribution: string
   /** highest zoom level present in the data 
    * this is optional, since legacy
@@ -18,11 +18,11 @@ export default interface MappingConstraints {
   /** 
    * bounding rectangle for the tile data [lat, lng]
    */
-  bounds: [[number, number], [number, number]],
+  bounds: [[number, number], [number, number]]
   /** 
    * h3 resolution to use
    */
-  h3res?: number,
+  h3res?: number
   /** 
    * the strategy to use for the cell labels 
    * Note: we allow string so that we can read

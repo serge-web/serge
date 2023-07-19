@@ -11,15 +11,17 @@ interface EditorOptions {
 }
 
 interface Editor {
-  [property: string]: any,
-  destroy: Function,
+  [property: string]: any
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  destroy: Function
   /** used to put a document into the editor */
-  setValue: Function,
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  setValue: Function
   /** function called when focus leaves the editor. Contains the form elements */
   getValue: ()=> {
-    [property: string]: any,
+    [property: string]: any
     content: string
-  },
+  }
   on: (event: 'change', cb: (val: string) => void) => void
   off: (event: 'change', cb: (val: string) => void) => void
   /** whether the editor is disabled or not */

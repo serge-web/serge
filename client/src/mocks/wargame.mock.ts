@@ -9,85 +9,85 @@ const wargame: Wargame = {
   isLoading: false,
   wargameList: [
     {
-      name: "http://localhost:8080/db/wargame-k5xyxas9",
-      shortName: "wargame-k5xyxas9",
-      title: "IMWARC-T2 Playing",
+      name: 'http://localhost:8080/db/wargame-k5xyxas9',
+      shortName: 'wargame-k5xyxas9',
+      title: 'IMWARC-T2 Playing',
       initiated: true
     },
     {
-      name: "http://localhost:8080/db/wargame-k5xxsr4b",
-      shortName: "wargame-k5xxsr4b",
-      title: "IMWARC-T1 Adjudication",
+      name: 'http://localhost:8080/db/wargame-k5xxsr4b',
+      shortName: 'wargame-k5xxsr4b',
+      title: 'IMWARC-T1 Adjudication',
       initiated: true
     },
     {
-      name: "http://localhost:8080/db/wargame-k5pap52f",
-      shortName: "wargame-k5pap52f",
-      title: "IMWARC-Initialised",
+      name: 'http://localhost:8080/db/wargame-k5pap52f',
+      shortName: 'wargame-k5pap52f',
+      title: 'IMWARC-Initialised',
       initiated: true
     },
     {
-      name: "http://localhost:8080/db/wargame-k5pafxci",
-      shortName: "wargame-k5pafxci",
-      title: "IMWARC",
+      name: 'http://localhost:8080/db/wargame-k5pafxci',
+      shortName: 'wargame-k5pafxci',
+      title: 'IMWARC',
       initiated: false
     },
     {
-      name: "http://localhost:8080/db/wargame-k16fadm4",
-      shortName: "wargame-k16fadm4",
-      title: "Monday",
+      name: 'http://localhost:8080/db/wargame-k16fadm4',
+      shortName: 'wargame-k16fadm4',
+      title: 'Monday',
       initiated: true
     }
   ],
-  currentWargame: "",
+  currentWargame: '',
   exportMessagelist: [],
-  wargameTitle: "Task-Group",
+  wargameTitle: 'Task-Group',
   data: {
     overview: {
-      name: "Overview - settings",
-      gameDescription: "",
-      gameTurnTime: { "unit": "millis", "millis": 43200000 },
+      name: 'Overview - settings',
+      gameDescription: '',
+      gameTurnTime: { unit: 'millis', millis: 43200000 },
       realtimeTurnTime: 300000,
       timeWarning: 60000,
-      gameDate: "2020-02-21T12:41:20+00:00",
+      gameDate: '2020-02-21T12:41:20+00:00',
       showAccessCodes: false,
       logPlayerActivity: false,
       dirty: false
     },
     forces: {
-      name: "Forces",
+      name: 'Forces',
       forces: [
         {
-          name: "White",
-          uniqid: "umpire",
-          overview: "Umpire force.",
+          name: 'White',
+          uniqid: 'umpire',
+          overview: 'Umpire force.',
           roles: [
             {
-              roleId: "rkrlggf5e",
-              name: "Game Control",
+              roleId: 'rkrlggf5e',
+              name: 'Game Control',
               isGameControl: true,
               isObserver: true,
               isInsightViewer: true,
               isRFIManager: true
             }
           ],
-          iconURL: "http://localhost:8080/default_img/umpireDefault.png",
-          color: "#FCFBEE",
+          iconURL: 'http://localhost:8080/default_img/umpireDefault.png',
+          color: '#FCFBEE',
           umpire: true,
           dirty: false
         }
       ],
-      selectedForce: "",
+      selectedForce: '',
       dirty: false
     },
     channels: {
-      name: "Channels",
+      name: 'Channels',
       channels: [],
-      selectedChannel: "", 
+      selectedChannel: '', 
       dirty: false
     }
   },
-  currentTab: "overview",
+  currentTab: 'overview',
   wargameInitiated: false,
   adminNotLoggedIn: false
 }

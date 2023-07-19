@@ -9,8 +9,8 @@ jest.mock('react-redux', () => {
   return {
     ...reactRedux, 
     useSelector: jest.fn(() => [])
-  };
-});
+  }
+})
 
 describe('AdminLogin component:', () => {
   it('renders correctly', () => {

@@ -87,7 +87,7 @@ export default interface PropTypes {
    * Enable zoom controls
    * @default false
    */
-  children?: React.ReactElement<any, string | JSXElementConstructor<any>>[] | React.ReactNode;
+  children?: React.ReactElement<any, string | JSXElementConstructor<any>>[] | React.ReactNode
   zoomControl?: boolean
   /**
    * Allow attribution controls

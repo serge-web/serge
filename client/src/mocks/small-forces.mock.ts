@@ -1,5 +1,5 @@
-import { LaydownTypes } from "src/config"
-import { ForceData } from "src/custom-types"
+import { LaydownTypes } from 'src/config'
+import { ForceData } from 'src/custom-types'
 
 export const forces: ForceData[] = [
   {
@@ -15,7 +15,7 @@ export const forces: ForceData[] = [
         isInsightViewer: true,
         isRFIManager: false,
         isObserver: true,
-        name: 'Game Control',
+        name: 'Game Control'
       }, 
       {
         roleId: 'rkasdbw6f5e',
@@ -23,7 +23,7 @@ export const forces: ForceData[] = [
         isInsightViewer: true,
         isRFIManager: true,
         isObserver: true,
-        name: 'RFI Manager',
+        name: 'RFI Manager'
       }
     ],
     umpire: true,
@@ -76,7 +76,7 @@ export const forces: ForceData[] = [
             turn: 5
           }
         ],
-        platformTypeId : 'a3',
+        platformTypeId: 'a3',
         position: 'L04',
         status: {
           speedKts: 20,
@@ -129,7 +129,7 @@ export const forces: ForceData[] = [
             turn: 5
           }
         ],
-        platformTypeId : 'a3',
+        platformTypeId: 'a3',
         position: 'L04',
         status: {
           speedKts: 20,
@@ -149,14 +149,14 @@ export const forces: ForceData[] = [
         isGameControl: false,
         isInsightViewer: false,
         isObserver: false,
-        name: 'CO',
+        name: 'CO'
       },
       {
         roleId: 'rkrlwetf5e',
         isGameControl: false,
         isInsightViewer: false,
         isObserver: false,
-        name: 'Logs',
+        name: 'Logs'
       }
 
     ],
@@ -178,7 +178,7 @@ export const forces: ForceData[] = [
             turn: 0
           },
           {
-            route: [ 'N06', 'M06' ],
+            route: ['N06', 'M06'],
             status: {
               speedKts: 10,
               state: 'Transiting'
@@ -197,7 +197,7 @@ export const forces: ForceData[] = [
         locationPending: LaydownTypes.ForceLaydown,
         name: 'Dhow-A',
         perceptions: [{
-          by: 'Blue',
+          by: 'Blue'
         }],
         plannedTurns: [
           {
@@ -231,7 +231,7 @@ export const forces: ForceData[] = [
             turn: 5
           }
         ],
-        platformTypeId : 'a1',
+        platformTypeId: 'a1',
         status: {
           speedKts: 10,
           state: 'Transiting'
@@ -292,16 +292,16 @@ export const forces: ForceData[] = [
           {
             route: [
               'M08',
-              'M09',
+              'M09'
             ],
             status: {
               speedKts: 20,
               state: 'Transiting'
             },
             turn: 4
-          },
+          }
         ],
-        platformTypeId : 'a13',
+        platformTypeId: 'a13',
         position: 'M04',
         status: {
           speedKts: 20,

@@ -1,6 +1,6 @@
 import { MessageChannel } from 'src/custom-types'
 interface Props {
-  messages: MessageChannel[],
+  messages: MessageChannel[]
   markAllAsRead: () => void
 }
 

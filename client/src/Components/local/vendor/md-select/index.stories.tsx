@@ -4,7 +4,6 @@ import React from 'react'
 import { Select, MenuItem, InputLabel } from '@material-ui/core'
 import InputContainer from '../../../local/atoms/input-container'
 
-
 import docs from './README.md'
 
 export default {

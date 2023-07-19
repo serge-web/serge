@@ -1,7 +1,7 @@
-import { GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from "src/config"
-import { Asset, PlatformTypeData } from "."
-import ForceData from "./force-data"
-import { TemplateBody } from "./template"
+import { GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from 'src/config'
+import { Asset, PlatformTypeData } from '.'
+import ForceData from './force-data'
+import { TemplateBody } from './template'
 
 /**
  * collection of activities for a force
@@ -161,12 +161,12 @@ export interface PerceptionOutcome extends CoreOutcome {
   perceivedLocation?: string
 }
 
-export interface LocationOutcome extends CoreOutcome  {
+export interface LocationOutcome extends CoreOutcome {
   /** new location (lat, long) */
   location: [number, number]
 }
 
-export interface HealthOutcome extends CoreOutcome  {
+export interface HealthOutcome extends CoreOutcome {
   /** new health */
   health: number
   /** c4 ability */

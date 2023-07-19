@@ -1,19 +1,19 @@
-import { AreaCategory } from "src/custom-types";
+import { AreaCategory } from 'src/custom-types'
 
 export const cAreas: AreaCategory[] = [
   {
-    "name": "Category-1",
-    "color": "aaf",
-    "usedBy":[
-      "f-blue",
-      "f-red"
+    name: 'Category-1',
+    color: 'aaf',
+    usedBy: [
+      'f-blue',
+      'f-red'
     ],
-    "areas": [
+    areas: [
       {
-        "name":"area-1",
-        "polygon":{
-          "type":"Polygon",
-          "coordinates":[
+        name: 'area-1',
+        polygon: {
+          type: 'Polygon',
+          coordinates: [
             [
               [
                 42.3586,
@@ -40,10 +40,10 @@ export const cAreas: AreaCategory[] = [
         }
       },
       {
-        "name":"area-2",
-        "polygon":{
-          "type":"Polygon",
-          "coordinates":[
+        name: 'area-2',
+        polygon: {
+          type: 'Polygon',
+          coordinates: [
             [
               [
                 32.3586,
@@ -70,18 +70,18 @@ export const cAreas: AreaCategory[] = [
         }
       }
     ]
-  },  {
-    "name": "Category-2",
-    "color": "afa",
-    "usedBy":[
-      "f-blue"
+  }, {
+    name: 'Category-2',
+    color: 'afa',
+    usedBy: [
+      'f-blue'
     ],
-    "areas": [
+    areas: [
       {
-        "name":"area-3",
-        "polygon":{
-          "type":"Polygon",
-          "coordinates":[
+        name: 'area-3',
+        polygon: {
+          type: 'Polygon',
+          coordinates: [
             [
               [
                 32.3586,
@@ -108,10 +108,10 @@ export const cAreas: AreaCategory[] = [
         }
       },
       {
-        "name":"area-4",
-        "polygon":{
-          "type":"Polygon",
-          "coordinates":[
+        name: 'area-4',
+        polygon: {
+          type: 'Polygon',
+          coordinates: [
             [
               [
                 22.3586,
@@ -138,10 +138,10 @@ export const cAreas: AreaCategory[] = [
         }
       },
       {
-        "name":"area-5",
-        "polygon":{
-          "type":"Polygon",
-          "coordinates":[
+        name: 'area-5',
+        polygon: {
+          type: 'Polygon',
+          coordinates: [
             [
               [
                 44.342709,

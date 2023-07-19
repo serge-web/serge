@@ -43,7 +43,6 @@ export const channelCollaborativeEditing2: ChannelCollab = {
   uniqid: 'ks8soryj'
 }
 
-
 export const blueAuthor2: ForceRole = { forceId: 'Blue', forceName: 'Blue', roleId: 'rkrlw6f5emms', roleName: 'Comms' }
 export const whiteCollaborator2: ForceRole = { forceId: 'umpire', forceName: 'White', roleId: 'rkrlasdd5f', roleName: 'Manager' }
 export const exconCollaborator2: ForceRole = { forceId: 'red', forceName: 'EXCON', roleId: 'rkrlss55f5e', roleName: 'Logs' }

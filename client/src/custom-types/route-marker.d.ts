@@ -1,6 +1,6 @@
 /** details necessary to determine the orientation of a turn marker */
 interface RouteMarkerDuo {
-  pos: L.LatLng,
+  pos: L.LatLng
   name: string
 }
 
@@ -13,9 +13,9 @@ export interface RouteMarkerStatus {
  * generate the rotated turn marker lines
  */
 export default interface RouteMarker {
-  turn: number,
-  previous?: RouteMarkerDuo,
-  current: RouteMarkerDuo,
+  turn: number
+  previous?: RouteMarkerDuo
+  current: RouteMarkerDuo
   next?: RouteMarkerDuo
   status: RouteMarkerStatus
 }

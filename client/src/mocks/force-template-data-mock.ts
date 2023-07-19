@@ -1,4 +1,4 @@
-import { ForceTemplateData } from "src/custom-types";
+import { ForceTemplateData } from 'src/custom-types'
 
 export const fTempData: ForceTemplateData[] = [
   { 

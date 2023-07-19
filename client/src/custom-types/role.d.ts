@@ -1,18 +1,18 @@
 export default interface Role {
-  readonly roleId: string,
-  name: string,
+  readonly roleId: string
+  name: string
   /**
    * If this role is `Game Control` - a role which cannot be deleted
    */
-  isGameControl: boolean,
+  isGameControl: boolean
   /**
    * whether this role can monitor all channels (umpire force only)
    */
-  isObserver: boolean,
+  isObserver: boolean
   /**
    * whether this role can view user insights/feedback (umpire force only)
    */
-  isInsightViewer: boolean,
+  isInsightViewer: boolean
   /** 
    * whether this role can manage (release) RFIs 
    */

@@ -16,9 +16,9 @@ jest.mock('leaflet', () => {
     Symbol: {
       arrowHead: jest.fn()
     }
-  };
-  return mockLeafletModule;
-});
+  }
+  return mockLeafletModule
+})
 
 jest.mock('react-leaflet-v4', () => ({
   useMap: (): jest.Mock => jest.fn()

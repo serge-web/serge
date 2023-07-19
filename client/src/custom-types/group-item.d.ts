@@ -1,4 +1,4 @@
-import ForceData from './force-data'
+// import ForceData from './force-data'
 
 /**
  * items that are manipulated via drag/drop in the WorldState panel

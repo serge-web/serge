@@ -16,15 +16,15 @@ import Wargame from './wargame'
 export interface MessageDetailsFrom {
   /** name of force - to be @deprecated
    */
-  readonly force: ForceData['name'],
+  readonly force: ForceData['name']
   /** id of sending force */
-  readonly forceId?: ForceData['uniqid'],
+  readonly forceId?: ForceData['uniqid']
   /** CSS color shade for this force */
-  readonly forceColor: ForceData['color'],
+  readonly forceColor: ForceData['color']
   /** role of the individual that wrote message */
-  readonly roleId: Role['roleId'],
+  readonly roleId: Role['roleId']
   /** name of the role that send messsage */
-  readonly roleName: Role['name'],
+  readonly roleName: Role['name']
   /** URL of icon to display for this force
    * TODO: once all code under TypeScript try making it non-optional,
    * and fix cases where it's not assigned
@@ -32,18 +32,18 @@ export interface MessageDetailsFrom {
   /**
    * @deprecated use iconURL instead
    */
-  icon?: string,
-  iconURL: ForceData['iconURL'],
+  icon?: string
+  iconURL: ForceData['iconURL']
   /** user-name, as typed into Feedback/insights form */
   name?: string
 }
 
 export interface MessageDetails {
   /** id of channel message sent from */
-  channel: string,
+  channel: string
   /** details of author */
   /** enumerated types for message (see typeof entries in child interfaces) */
-  from: MessageDetailsFrom,
+  from: MessageDetailsFrom
   /**
    * extra data for when message being edited collaboratively
    */
@@ -53,15 +53,15 @@ export interface MessageDetails {
    */
   interaction?: InteractionDetails
   /** ID of template for this message */
-  messageType: TemplateBody['_id'],
+  messageType: TemplateBody['_id']
   /** time message sent */
-  timestamp: string,
+  timestamp: string
   /** turn when this message was sent */
   turnNumber: number
   /** private (umpire-only) component of message, potentially to
    * explain source for answer, or assumptions made
    */
-  privateMessage?: string,
+  privateMessage?: string
   /** 
    * Incremental counter for messages from this force, in this game.
    * Used server-side to generate `message.message.Reference`.
@@ -121,7 +121,7 @@ export interface PlanningMessageStructure extends PlanningMessageStructureCore {
 }
 
 export interface CoreMessage {
-  readonly messageType: string,
+  readonly messageType: string
   /** unique id (PouchDB for this document) */
   readonly _id: string
   /** PouchDB revision for this document */
@@ -203,26 +203,26 @@ export interface InteractionDetails {
 }
 
 export interface MessageCustom extends CoreMessage {
-  readonly messageType: typeof CUSTOM_MESSAGE,
+  readonly messageType: typeof CUSTOM_MESSAGE
   /** the strutured message */
-  message: MessageStructure,
+  message: MessageStructure
   /** whether this message is open/expanded on the current client */
   isOpen: boolean
   /** the game turn when this was sent */
-  gameTurn?: number,
+  gameTurn?: number
   /** whether this represents an item of insight/feedback */
-  feedback?: boolean,
+  feedback?: boolean
   /** whether this is a change in game state (rather than a new message),
    * normally `false` for messages like this
    */
-  infoType?: boolean,
+  infoType?: boolean
 }
 
 /** 
  * instance of CounterMEssage for COA and RFI
  */
 export interface MessageCounter {
-  readonly messageType: typeof COUNTER_MESSAGE,
+  readonly messageType: typeof COUNTER_MESSAGE
   /** unique id (PouchDB for this document) */
   readonly _id: string
   /** PouchDB revision for this document */
@@ -234,27 +234,27 @@ export interface MessageCounter {
 }
 
 export interface ChatMessage extends CoreMessage {
-  readonly messageType: typeof CHAT_MESSAGE,
+  readonly messageType: typeof CHAT_MESSAGE
   message: MessageStructure
 }
 
 /** messages being used in support of planning */
 export interface MessagePlanning extends CoreMessage {
-  readonly messageType: typeof PLANNING_MESSAGE,
-  isOpen?: boolean,
-  infoType?: boolean,
-  gameTurn?: number,
+  readonly messageType: typeof PLANNING_MESSAGE
+  isOpen?: boolean
+  infoType?: boolean
+  gameTurn?: number
   message: PlanningMessageStructure
 }
 
 /** messages being used in support of adjudicating an interaction */
 export interface MessageInteraction extends CoreMessage {
-  readonly messageType: typeof INTERACTION_MESSAGE,
+  readonly messageType: typeof INTERACTION_MESSAGE
   message: MessageAdjudicationOutcomes
 }
 
 export interface MessageFeedback extends CoreMessage {
-  readonly messageType: typeof FEEDBACK_MESSAGE,
+  readonly messageType: typeof FEEDBACK_MESSAGE
   message: MessageStructure
 }
 
@@ -267,7 +267,7 @@ export interface PerForceNarrative {
 
 /** the outcome-related content of an adjudication */
 export interface MessageAdjudicationOutcomes {
-  readonly messageType: typeof ADJUDICATION_OUTCOMES,
+  readonly messageType: typeof ADJUDICATION_OUTCOMES
   /** ref of the adjudication this refers to */
   readonly Reference: string
   readonly healthOutcomes: HealthOutcomes
@@ -289,8 +289,8 @@ export interface MessageAdjudicationOutcomes {
  * updated wargame
  */
 export interface MessageInfoType extends Wargame {
-  readonly messageType: typeof INFO_MESSAGE,
-  infoType?: boolean,
+  readonly messageType: typeof INFO_MESSAGE
+  infoType?: boolean
   gameTurn: number
 }
 
@@ -298,87 +298,87 @@ export interface MessageInfoType extends Wargame {
   * Mapped/Clipped version of MessageInfoType for channel
   */
 export interface MessageInfoTypeClipped {
-  readonly messageType: typeof INFO_MESSAGE_CLIPPED,
+  readonly messageType: typeof INFO_MESSAGE_CLIPPED
   details: {
     /** id of channel `infoTypeChannelMarker${uniqId.time()}` */
     channel: ChannelCore['uniqid']
-  },
-  infoType: boolean,
-  gameTurn: number,
-  isOpen: boolean,
+  }
+  infoType: boolean
+  gameTurn: number
+  isOpen: boolean
   hasBeenRead: boolean
   _id?: string
 }
 
 export interface MessageForceLaydown {
-  readonly messageType: typeof FORCE_LAYDOWN,
+  readonly messageType: typeof FORCE_LAYDOWN
   readonly updates: Array<{ uniqid: string, position: string }>
 }
 export interface MessagePerceptionOfContact {
-  readonly messageType: typeof PERCEPTION_OF_CONTACT,
-  readonly assetId: string,
+  readonly messageType: typeof PERCEPTION_OF_CONTACT
+  readonly assetId: string
   readonly perception: Perception
 }
 
 /** two assets are going to join, to form a task group */
 export interface MessageCreateTaskGroup {
-  readonly messageType: typeof CREATE_TASK_GROUP,
+  readonly messageType: typeof CREATE_TASK_GROUP
   /** id of the platform that was dragged onto another */
-  readonly dragged: string,
+  readonly dragged: string
   /** id of the target platform that other was dropped onto */
   readonly target: string
 }
 
 /** an asset is going to host another platform */
 export interface MessageHostPlatform {
-  readonly messageType: typeof HOST_PLATFORM,
+  readonly messageType: typeof HOST_PLATFORM
   /** id of the platform that was dragged onto another */
-  readonly dragged: string,
+  readonly dragged: string
   /** id of the target platform that other was dropped onto */
   readonly target: string
 }
 
 /** an asset is leaving a task group, navigating to top level */
 export interface MessageLeaveTaskGroup {
-  readonly messageType: typeof LEAVE_TASK_GROUP,
+  readonly messageType: typeof LEAVE_TASK_GROUP
   /** id of the platform that was dragged to the top level */
-  readonly dragged: string,
+  readonly dragged: string
 }
 
 export interface MessageVisibilityChanges {
-  readonly messageType: typeof VISIBILITY_CHANGES,
-  readonly visibility: Visibility[],
-  readonly assetId: string,
+  readonly messageType: typeof VISIBILITY_CHANGES
+  readonly visibility: Visibility[]
+  readonly assetId: string
   condition?: string
 }
 
 export interface MessageDeletePlatform {
-  readonly messageType: typeof DELETE_PLATFORM,
-  readonly assetId: string,
+  readonly messageType: typeof DELETE_PLATFORM
+  readonly assetId: string
 }
 
 export interface MessageSubmitPlans {
-  readonly messageType: typeof SUBMIT_PLANS,
+  readonly messageType: typeof SUBMIT_PLANS
   readonly plannedRoutes: PlannedRoute[]
 }
 
 export interface MessageStateOfWorld {
-  readonly messageType: typeof STATE_OF_WORLD,
+  readonly messageType: typeof STATE_OF_WORLD
   readonly state: StateOfWorld
 }
 
 export interface MessageUpdateMarker {
-  readonly messageType: typeof UPDATE_MARKER,
+  readonly messageType: typeof UPDATE_MARKER
   readonly marker: MapAnnotation
 }
 
 export interface MessageDeleteMarker {
-  readonly messageType: typeof DELETE_MARKER,
+  readonly messageType: typeof DELETE_MARKER
   readonly marker: MapAnnotation['uniqid']
 }
 
 export interface MessageCloneMarker {
-  readonly messageType: typeof CLONE_MARKER,
+  readonly messageType: typeof CLONE_MARKER
   readonly marker: MapAnnotation
 }
 

@@ -1,7 +1,6 @@
-import { Wargame } from "src/custom-types"
-import { LaydownTypes, Phase } from "src/config"
-import { ParticipantCustom } from "src/custom-types/participant"
-import { PARTICIPANT_CUSTOM } from 'src/config'
+import { Wargame } from 'src/custom-types'
+import { LaydownTypes, Phase, PARTICIPANT_CUSTOM } from 'src/config'
+import { ParticipantCustom } from 'src/custom-types/participant'
 
 const game: Wargame = {
   _id: 'some_id',
@@ -245,7 +244,7 @@ const game: Wargame = {
                         by: 'Red',
                         force: 'Blue',
                         name: 'Unknown UAV',
-                        typeId: 'Unmanned-Airborne-Vehicle',
+                        typeId: 'Unmanned-Airborne-Vehicle'
                       }],
                       plannedTurns: [],
                       platformTypeId: 'dummy-val',
@@ -549,7 +548,7 @@ const game: Wargame = {
               locationPending: LaydownTypes.ForceLaydown,
               name: 'Dhow-A',
               perceptions: [{
-                by: 'Blue',
+                by: 'Blue'
               }],
               plannedTurns: [
                 {
@@ -1430,7 +1429,7 @@ const game: Wargame = {
       dirty: false,
       gameDate: '2020-01-07T13:18',
       gameDescription: 'Sample MWARC Wargame',
-      gameTurnTime: { "unit": "millis", "millis": 5400000 },
+      gameTurnTime: { unit: 'millis', millis: 5400000 },
       name: 'Overview - settings',
       realtimeTurnTime: 600000,
       showAccessCodes: true,
@@ -1471,7 +1470,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'sea',
-          "uniqid": "a1"
+          uniqid: 'a1'
         },
         {
           conditions: [
@@ -1503,7 +1502,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'sea',
-          "uniqid": "a2"
+          uniqid: 'a2'
         },
         {
           conditions: [
@@ -1536,7 +1535,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'sea',
-          "uniqid": "a3"
+          uniqid: 'a3'
         },
         {
           conditions: [
@@ -1565,7 +1564,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'sea',
-          "uniqid": "a4"
+          uniqid: 'a4'
         },
         {
           conditions: [
@@ -1599,7 +1598,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'sea',
-          "uniqid": "a5"
+          uniqid: 'a5'
         },
         {
           conditions: [
@@ -1629,7 +1628,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'sea',
-          "uniqid": "a6"
+          uniqid: 'a6'
         },
         {
           conditions: [
@@ -1656,7 +1655,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'air',
-          "uniqid": "a7"
+          uniqid: 'a7'
         },
         {
           conditions: [
@@ -1683,7 +1682,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'air',
-          "uniqid": "a8"
+          uniqid: 'a8'
         },
         {
           conditions: [
@@ -1708,7 +1707,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'land',
-          "uniqid": "a9"
+          uniqid: 'a9'
         },
         {
           conditions: [
@@ -1740,7 +1739,7 @@ const game: Wargame = {
             }
           ],
           travelMode: 'sea',
-          "uniqid": "a10"
+          uniqid: 'a10'
         }
       ],
       selectedType: ''

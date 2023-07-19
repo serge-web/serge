@@ -1,5 +1,5 @@
-import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER } from "src/config"
-import { PlatformTypeData } from "src/custom-types"
+import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER } from 'src/config'
+import { PlatformTypeData } from 'src/custom-types'
 
 export const platformTypes: PlatformTypeData[] = [
   {
@@ -32,7 +32,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
-    "uniqid": "a1",
+    uniqid: 'a1',
     attributeTypes: [
       {
         attrType: ATTRIBUTE_TYPE_NUMBER,
@@ -126,15 +126,15 @@ export const platformTypes: PlatformTypeData[] = [
       },
       {
         attrType: ATTRIBUTE_TYPE_ENUM,
-        name: "Depth",
-        attrId: "ss-depth",
-        description: "Depth of this asset",
-        defaultValue: "Deep",
-        values: ["Deep","PD","Shallow"],
+        name: 'Depth',
+        attrId: 'ss-depth',
+        description: 'Depth of this asset',
+        defaultValue: 'Deep',
+        values: ['Deep', 'PD', 'Shallow'],
         editableByPlayer: true
       }
     ],
-    "uniqid": "a2"
+    uniqid: 'a2'
   },
   {
     name: 'Frigate',
@@ -152,7 +152,7 @@ export const platformTypes: PlatformTypeData[] = [
         description: 'ASDIC orientation (absolute)',
         defaultValue: 0,
         editableByPlayer: true,
-        attrType: "AttributeTypeNumber"
+        attrType: 'AttributeTypeNumber'
       },
       {
         name: 'Battery Level',
@@ -160,7 +160,7 @@ export const platformTypes: PlatformTypeData[] = [
         attrId: 'fuelComm',
         defaultValue: 100,
         editableByPlayer: false,
-        attrType: "AttributeTypeNumber"
+        attrType: 'AttributeTypeNumber'
       }
     ],
     icon: 'frigate.svg',
@@ -185,7 +185,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
-    "uniqid": "a3"
+    uniqid: 'a3'
   },
   {
     name: 'Boghammer',
@@ -218,7 +218,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
-    "uniqid": "a4"
+    uniqid: 'a4'
   },
   {
     name: 'torpedo',
@@ -247,7 +247,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
-    "uniqid": "a5"
+    uniqid: 'a5'
   },
   {
     name: 'Fast attack craft',
@@ -281,7 +281,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
-    "uniqid": "a6"
+    uniqid: 'a6'
   },
   {
     name: 'MCMV',
@@ -311,7 +311,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
-    "uniqid": "a7"
+    uniqid: 'a7'
   },
   {
     name: 'Helicopter',
@@ -338,7 +338,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'air',
-    "uniqid": "a8"
+    uniqid: 'a8'
   },
   {
     name: 'Fixed wing aircraft',
@@ -365,7 +365,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'air',
-    "uniqid": "a9"
+    uniqid: 'a9'
   },
   {
     name: 'Unmanned Airborne Vehicle',
@@ -392,7 +392,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'air',
-    "uniqid": "a10"
+    uniqid: 'a10'
   },
   {
     name: 'Task Group',
@@ -422,7 +422,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
-    "uniqid": "a11"
+    uniqid: 'a11'
   },
   {
     name: 'Coastal radar site',
@@ -449,7 +449,7 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'land',
-    "uniqid": "a12"
+    uniqid: 'a12'
   },
   {
     name: 'Merchant vessel',
@@ -481,22 +481,22 @@ export const platformTypes: PlatformTypeData[] = [
       }
     ],
     travelMode: 'sea',
-    "uniqid": "a13"
+    uniqid: 'a13'
   }, {
-    "conditions": [
-        "Working",
-        "Inactive"
+    conditions: [
+      'Working',
+      'Inactive'
     ],
-    "icon": "datum.svg",
-    "name": "datum",
-    "states": [
-        {
-            "mobile": true,
-            "name": "Active"
-        }
+    icon: 'datum.svg',
+    name: 'datum',
+    states: [
+      {
+        mobile: true,
+        name: 'Active'
+      }
     ],
-    "travelMode": "air",
-    "uniqid": "a14"
+    travelMode: 'air',
+    uniqid: 'a14'
   }
 ]
 

@@ -17,8 +17,8 @@
     thead {
       td,
       th {
-        border-bottom-width: 1px;
         background: #dee2e6;
+        border-bottom-width: 1px;
         font-size: 12px;
         vertical-align: middle;
       }
@@ -26,8 +26,8 @@
 
     tbody {
       td {
-        vertical-align: top;
         padding: 4px;
+        vertical-align: top;
       }
     }
   }
@@ -37,7 +37,7 @@
   .message-creator &,
   #preview-editor & {
     & > .btn {
-      border-radius: 0!important;
+      border-radius: 0 !important;
 
       + .btn {
         margin-left: 1px;

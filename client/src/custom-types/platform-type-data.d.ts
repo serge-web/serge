@@ -1,5 +1,5 @@
-import { AttributeTypes, GenericAttributes } from '.';
-import State from './state';
+import { AttributeTypes, GenericAttributes } from '.'
+import State from './state'
 
 /** description of if/how to display 
  * the orientation of instances of this platform type
@@ -22,10 +22,10 @@ export default interface PlatformTypeData {
    * this identifier means the p-type name can be 
    * edited
    */
-  readonly uniqid: string,
-  name: string,
-  conditions: Array<string>,
-  icon: string,
+  readonly uniqid: string
+  name: string
+  conditions: Array<string>
+  icon: string
   /** if the icon for this platform type can come from the milsymbol library */
   sidc?: string
   /** list of potential speeds for this platform,
@@ -33,10 +33,10 @@ export default interface PlatformTypeData {
    * platform is effectively capable of infinite speed
    * (within current turn time)
    */
-  speedKts?: Array<number>,
-  states: Array<State>,
+  speedKts?: Array<number>
+  states: Array<State>
   /** what this platform type can travel on */
-  travelMode: 'sea' | 'air' | 'land',
+  travelMode: 'sea' | 'air' | 'land'
   /** list of attribute types for this platform type */
   attributeTypes?: AttributeTypes
   /** list of attribute ids for this platofrm type - allows

@@ -1,7 +1,7 @@
 /** extra detail for close-in route planning,
  * where turning circles are an issue
  */
- export interface TurningDetails {
+export interface TurningDetails {
   /** radius of turning circle */
   radius: number
   /** distance in metres that asset can travel this turn */
