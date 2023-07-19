@@ -198,6 +198,7 @@
     "start": "react-scripts start",
     "storybook": "start-storybook -s ./static -p 6611",
     "build": "react-scripts --max_old_space_size=3000 build",
+    "test": "run-p test:*",
     "test:unit": "jest --passWithNoTests",
     "test:ts": "tsc --pretty",
     "eject": "react-scripts eject",
@@ -211,7 +212,11 @@
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
     "copy-assets": "copyfiles -u 4 src/local/local/asset-icon/counters/*.svg ../client/public/assets/counters",
     "copy-assets-storybook": "copyfiles -u 4 src/Components/local/asset-icon/counters/*.svg static/assets/counters",
-    "develop": "nodemon --exec yarn start"
+    "heroku-postbuild": "yarn build && yarn build-storybook",
+    "rebuild": "yarn build && yarn start",
+    "develop": "nodemon --exec yarn start",
+    "build-storybook": "build-storybook -s ./static -c .storybook -o ../client/build/storybook",
+    "add-component": "npx buildcom -sjt -c 'scss' -m"
   },
   "browserslist": [
     ">0.2%",
