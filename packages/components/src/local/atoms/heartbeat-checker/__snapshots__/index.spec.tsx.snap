@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`HeartbeatChecker renders correctly 1`] = `
-<svg
-  className="svg-inline--fa fa-heart"
-/>
-`;

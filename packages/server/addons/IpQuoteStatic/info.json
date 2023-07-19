@@ -1,5 +1,0 @@
-{
-  "id": "IpQuoteStatic",
-  "description": "This message includes the IP address that the server is responding to.",
-  "on": "app-start-listening"
-}
