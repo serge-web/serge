@@ -31,29 +31,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Move to client folder
-        run: cd client
-
-      - name: Install client dependencies
+      - name: Running dependency installation
         run: yarn install
 
       - name: Running project building
         run: yarn build
 
-      - name: Running client unit testing
-        run: yarn test:unit
+      - name: Running unit testing
+        run: yarn test-unit
 
-      - name: Move to executable folder
-        run: cd ../executable
-
-      - name: Install executable dependencies
-        run: yarn install
-
-      - name: Running executable building
-        run: yarn start
-
-      - name: Move back to project root
-        run: cd ..
+      - name: Build executable files
+        run: yarn pkg-build
 
       - name: Release
         uses: softprops/action-gh-release@v1

@@ -1,8 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-name: PR
+name: PR and Push
 
 on:
   pull_request:
@@ -29,26 +25,21 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Change working directory to client folder
-        run: cd client/
+      - name: Running dependency installation for client
+        run: cd client && yarn install
 
-      - name: Running dependency installation
-        run: yarn install
+      - name: Running project building for client
+        run: cd client && yarn build
 
-      - name: Running project building
-        run: yarn build
+      - name: Running unit testing for client
+        run: cd client && yarn test:unit
 
-      - name: Running unit testing
-        run: yarn test:unit
+      - name: Running dependency installation for executable
+        run: cd executable && yarn install
 
-      - name: Change working directory to executable folder
-        run: cd ../executable/
+      - name: Running project building for executable
+        run: cd executable && yarn start
 
-      - name: Running dependency installation
-        run: yarn install
-
-      - name: Build executable files
-        run: yarn start
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
