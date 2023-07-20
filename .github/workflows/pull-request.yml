@@ -31,6 +31,12 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Move project to client folder
+        run: mv ./* client/
+
+     - name: Change working directory to client folder
+        run: cd client
           
       - name : Running dependency installation
         run: yarn install
@@ -39,28 +45,34 @@ jobs:
         run: yarn build
         
       - name : Running unit testing
-        run: yarn test-unit
+        run: yarn test:unit
+      
+      - name: Change working directory to executable folder
+        run: cd ../executable
 
+      - name: Running dependency installation
+        run: yarn install
+        
       - name : Build executable files
-        run: yarn pkg-build
+        run: yarn start
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: linux_executable
-          path: /home/runner/work/serge/serge/packages/executable/builds/*_linux.zip
+          path: /home/runner/work/serge/serge/executable/builds/*_linux.zip
           if-no-files-found: error
       
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: macos_executable
-          path: /home/runner/work/serge/serge/packages/executable/builds/*_macos.zip
+          path: /home/runner/work/serge/serge/executable/builds/*_macos.zip
           if-no-files-found: error
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: win64_executable
-          path: /home/runner/work/serge/serge/packages/executable/builds/*_win64.zip
+          path: /home/runner/work/serge/serge/executable/builds/*_win64.zip
           if-no-files-found: error
