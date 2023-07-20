@@ -30,7 +30,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Change working directory to client folder
-        run: cd client
+        run: cd client/
 
       - name: Running dependency installation
         run: yarn install
@@ -42,7 +42,7 @@ jobs:
         run: yarn test:unit
 
       - name: Change working directory to executable folder
-        run: cd ../executable
+        run: cd ../executable/
 
       - name: Running dependency installation
         run: yarn install
