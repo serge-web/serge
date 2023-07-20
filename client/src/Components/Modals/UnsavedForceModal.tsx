@@ -16,7 +16,7 @@ import { forceTemplate } from '../../consts'
 import 'src/themes/App.scss'
 import { RootState } from 'src/custom-types'
 
-const UnsavedForceModal = () => {
+const UnsavedForceModal: React.FC = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
   const wargame = useSelector((state: RootState) => state.wargame)

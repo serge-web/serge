@@ -20,7 +20,7 @@ type ForcePlusAsset = {
   readonly asset: Asset
 }
 
-const DeleteModal = () => {
+const DeleteModal: React.FC = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
   const wargame = useSelector((state: RootState) => state.wargame)
@@ -39,7 +39,7 @@ const DeleteModal = () => {
    */
   const findAssetsOfSelectedPlatformType = (forces: ForceData[], platformTypeId: PlatformTypeData['uniqid']): ForcePlusAsset[] => {
     return forces.reduce((result: ForcePlusAsset[], force: ForceData) => {
-      force.assets?.forEach(asset => {
+      force.assets?.forEach((asset: Asset) => {
         if (asset.platformTypeId === platformTypeId) {
           result.push({ force, asset })
         }
@@ -131,4 +131,5 @@ const DeleteModal = () => {
     />
   )
 }
+
 export default DeleteModal

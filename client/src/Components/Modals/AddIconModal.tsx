@@ -7,11 +7,11 @@ import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators
 import 'src/themes/App.scss'
 import { RootState } from 'src/custom-types'
 
-const AddIconModal = () => {
+const AddIconModal: React.FC = (): JSX.Element => { 
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
 
-  const onSaveIcon = (file: string) => {
+  const onSaveIcon = (file: string): void => {
     dispatch(saveIcon(file))
     dispatch(modalAction.close())
   }
@@ -29,4 +29,5 @@ const AddIconModal = () => {
     </ModalWrapper>
   )
 }
+
 export default AddIconModal

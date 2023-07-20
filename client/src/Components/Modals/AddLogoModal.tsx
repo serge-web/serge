@@ -8,7 +8,7 @@ import { addNotification } from '../../ActionsAndReducers/Notification/Notificat
 import 'src/themes/App.scss'
 import { RootState } from 'src/custom-types'
 
-const AddLogoModal = () => {
+const AddLogoModal: React.FC = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
 

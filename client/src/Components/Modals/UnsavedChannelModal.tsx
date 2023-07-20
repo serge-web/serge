@@ -14,7 +14,7 @@ import {
 import 'src/themes/App.scss'
 import { RootState } from 'src/custom-types'
 
-const UnsavedChannelModal = () => {
+const UnsavedChannelModal: React.FC = () => {
   const dispatch = useDispatch()
   const wargame = useSelector((state: RootState) => state.wargame)
   const currentModal = useSelector((state: RootState) => state.currentModal)

@@ -9,7 +9,7 @@ import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators
 import { setPreviewSchema, setSelectedSchema } from '../../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators'
 import { MESSAGE_TEMPLATE_ROUTE } from '../../consts'
 
-const DeleteModal = () => {
+const DeleteModal: React.FC = (): JSX.Element => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
   const messages = useSelector((state: RootState) => state.messages)

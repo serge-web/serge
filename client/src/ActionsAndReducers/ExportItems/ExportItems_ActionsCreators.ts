@@ -41,7 +41,7 @@ const getChannelTitlesFromInfoTypeMessages = (messages: MessageInfoType[]): Chan
   return channelTitles
 }
 
-export const createMessageExportItem = ({ currentWargame, exportMessagelist = [] }: Wargame) => {
+export const createMessageExportItem = ({ currentWargame, exportMessagelist = [] }: Wargame): ExportItemsUiActionTypes => {
   const infoTypeMessages: MessageInfoType[] = getInfoTypeMessagesFromWargameExportMessageList(exportMessagelist) as MessageInfoType[]
   
   const channelTitles: ChannelTitles = getChannelTitlesFromInfoTypeMessages(infoTypeMessages)

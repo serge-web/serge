@@ -28,9 +28,13 @@
     {
       "files": ["*.jsx"],
       "rules": {
-        "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/explicit-module-boundary-types": "off"
-        // "@typescript-eslint/no-non-null-assertion": "off"
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    },
+    {
+      "files": ["**/Components/**/*.jsx", "**/Components/**/*.ts", "**/Components/**/*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "error"
       }
     }
   ],
@@ -38,6 +42,7 @@
   "rules": {
     "react/prop-types": 0,
     "no-trailing-spaces": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "dot-notation": "off",
