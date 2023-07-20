@@ -40,8 +40,7 @@
     "outDir": "./build"
   },
   "files": [
-    "./typings.d.ts",
-    "../packages/config/typings.d.ts"
+    "./typings.d.ts"
   ],
   "include": [
     "src"
