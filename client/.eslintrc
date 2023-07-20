@@ -32,7 +32,7 @@
       }
     },
     {
-      "files": ["**/Components/**/*.jsx", "**/Components/**/*.ts", "**/Components/**/*.tsx"],
+      "files": [ "**/Components/**/*.ts", "**/Components/**/*.tsx"],
       "rules": {
         "@typescript-eslint/explicit-module-boundary-types": "error"
       }
