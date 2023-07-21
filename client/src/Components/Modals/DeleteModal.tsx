@@ -7,7 +7,7 @@ import { deleteMessage } from '../../ActionsAndReducers/dbMessages/messages_Acti
 import { deleteMessageType } from '../../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setPreviewSchema, setSelectedSchema } from '../../ActionsAndReducers/UmpireMenu/umpireMenu_ActionCreators'
-import { MESSAGE_TEMPLATE_ROUTE } from '../../consts'
+import { MESSAGE_TEMPLATE_ROUTE } from 'src/config'
 
 const DeleteModal: React.FC = (): JSX.Element => {
   const dispatch = useDispatch()

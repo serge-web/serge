@@ -7,7 +7,6 @@ import * as messageTypesApi from '../../api/messageTypes_api'
 
 import { setCurrentViewFromURI } from '../setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { MESSAGE_TEMPLATE_ROUTE } from '../../consts'
 import { MessageTypesActionTypes, MessageTypesDispatch, TemplateBody } from 'src/custom-types'
 
 const DBMessageSaveStatus = (status: boolean): MessageTypesActionTypes => ({
@@ -72,7 +71,7 @@ export const createMessageType = (schema) => {
 
         dispatch(loadingDBMessageCreate(false))
         // @ts-ignore
-        dispatch(setCurrentViewFromURI(MESSAGE_TEMPLATE_ROUTE))
+        dispatch(setCurrentViewFromURI(ActionConstant.MESSAGE_TEMPLATE_ROUTE))
       }
     } catch (err) {
       console.error(err)
@@ -121,7 +120,7 @@ export const updateMessageType = (schema, id: string) => {
         dispatch(DBSaveMessageArray(allMessages))
         dispatch(loadingDBMessageCreate(false))
         // @ts-ignore
-        dispatch(setCurrentViewFromURI(MESSAGE_TEMPLATE_ROUTE))
+        dispatch(setCurrentViewFromURI(ActionConstant.MESSAGE_TEMPLATE_ROUTE))
       }
     } catch (e) {
       // CREATE ERROR WARNING MESSAGE

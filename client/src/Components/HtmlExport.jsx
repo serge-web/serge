@@ -5,7 +5,7 @@ import { faPrint } from '@fortawesome/free-solid-svg-icons'
 import {
   EXPORT_ROUTE,
   EXPORT_PRINT_SUBROUTE
-} from '../consts'
+} from 'src/config'
 
 const HtmlExport = ({ id }) => (
   <Link href={(EXPORT_ROUTE + EXPORT_PRINT_SUBROUTE).replace(':id', id)}>

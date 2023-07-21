@@ -10,7 +10,7 @@ import {
 import { resetMessagePreview } from '../ActionsAndReducers/dbMessages/messages_ActionCreators'
 import Link from '../Components/Link'
 import SchemaEditor from '../Components/jsonSchemaEditor/index'
-import { ADMIN_ROUTE } from '../consts'
+import { ADMIN_ROUTE } from 'src/config'
 
 import 'src/themes/App.scss'
 

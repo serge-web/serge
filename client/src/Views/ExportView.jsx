@@ -6,7 +6,7 @@ import {
   EXPORT_ROUTE,
   EXPORT_MESSAGES_SUBROUTE,
   EXPORT_FORCES_SUBROUTE
-} from '../consts'
+} from 'src/config'
 import Link from '../Components/Link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'

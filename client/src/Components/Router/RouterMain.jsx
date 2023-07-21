@@ -7,7 +7,7 @@ import {
   PLAYERUI_ROUTE,
   DEMO_ROUTE,
   GAME_SETUP_ROUTE
-} from '../../consts'
+} from 'src/config'
 
 const components = {
   [ADMIN_ROUTE]: <RouterDashboard/>,

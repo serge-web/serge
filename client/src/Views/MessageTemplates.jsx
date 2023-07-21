@@ -6,7 +6,7 @@ import {
   EDIT_TEMPLATE_ROUTE,
   MESSAGE_CREATOR_BASE_ROUTE,
   MESSAGE_TEMPLATE_ROUTE
-} from '../consts'
+} from 'src/config'
 import SearchList from 'src/Components/local/molecules/search-list'
 import Button from 'src/Components/local/atoms/button'
 import ButtonList from 'src/Components/local/molecules/button-list'

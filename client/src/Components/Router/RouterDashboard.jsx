@@ -7,7 +7,7 @@ import {
   CREATE_TEMPLATE_ROUTE,
   EDIT_TEMPLATE_ROUTE, EXPORT_ROUTE, EXPORT_MESSAGES_SUBROUTE, EXPORT_FORCES_SUBROUTE, EXPORT_PRINT_SUBROUTE, GAME_SETUP_ROUTE,
   MESSAGE_CREATOR_BASE_ROUTE, MESSAGE_TEMPLATE_ROUTE, WELCOME_SCREEN_EDIT_ROUTE
-} from '../../consts'
+} from 'src/config'
 import GameDesignerInterface from '../../Views/GameDesignerInterface'
 import MessageTemplates from '../../Views/MessageTemplates'
 import EditTemplate from '../../Views/EditTemplate'

@@ -10,7 +10,7 @@ import {
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { faBath, faClone, faFileDownload, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
-import { EXPORT_ROUTE, GAME_SETUP_ROUTE } from '../consts'
+import { EXPORT_ROUTE, GAME_SETUP_ROUTE } from 'src/config'
 import WargameList from './local/organisms/wargame-list'
 import 'src/themes/App.scss'
 

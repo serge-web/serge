@@ -89,7 +89,7 @@ describe('messageTypes actions', () => {
       { type: ActionConstant.DB_MESSAGE_STATUS, payload: true },
       { type: ActionConstant.DB_MESSAGE_TYPES_SAVED, payload: [{ message: 'message' }] },
       { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false },
-      { type: ActionConstant.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_TEMPLATE_ROUTE }
+      { type: ActionConstant.SET_CURRENT_VIEW_FROM_URI, payload: ActionConstant.MESSAGE_TEMPLATE_ROUTE }
     ]
 
     const store = mockStore({})

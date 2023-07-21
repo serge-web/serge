@@ -2,7 +2,7 @@ import {
   ADMIN_ROUTE,
   MESSAGE_TEMPLATE_ROUTE,
   WELCOME_SCREEN_EDIT_ROUTE
-} from '../consts'
+} from 'src/config'
 import Link from './Link'
 
 export default (props) => {

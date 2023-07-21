@@ -6,7 +6,7 @@ import Loader from '../Components/Loader'
 import {
   ADMIN_ROUTE,
   GAME_SETUP_ROUTE
-} from '../consts'
+} from 'src/config'
 import Button from '../Components/local/atoms/button'
 import AdminLogin from '../Components/local/organisms/admin-login'
 import ZipFileUploader from '../Components/local/atoms/zip-dropzone'
