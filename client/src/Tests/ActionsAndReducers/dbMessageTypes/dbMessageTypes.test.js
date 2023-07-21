@@ -6,7 +6,6 @@ import * as messageTypesApi from '../../../api/messageTypes_api'
 import { messageTypesReducer } from '../../../ActionsAndReducers/dbMessageTypes/messageTypes_Reducer'
 import machineryFailure from '../../../Schemas/machinery_failure.json'
 import * as ActionConstant from 'src/config'
-import { MESSAGE_TEMPLATE_ROUTE } from '../../../config'
 
 const mockStore = configureStore([thunk])
 
@@ -57,7 +56,7 @@ describe('messageTypes actions', () => {
       },
       { type: ActionConstant.DB_MESSAGE_TYPES_SAVED, payload: [{ message: 'message' }] },
       { type: ActionConstant.DB_MESSAGE_CREATION_LOADING, isLoading: false },
-      { type: ActionConstant.SET_CURRENT_VIEW_FROM_URI, payload: MESSAGE_TEMPLATE_ROUTE }
+      { type: ActionConstant.SET_CURRENT_VIEW_FROM_URI, payload: ActionConstant.MESSAGE_TEMPLATE_ROUTE }
     ]
 
     const store = mockStore({})
