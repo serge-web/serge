@@ -48,16 +48,16 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     playerUiDispatch(openMessage(channelId, message))
   }
   
-  // note: Define a memoized function using useCallback.
-  // note: By using useCallback, the function is only created once during the initial render
-  // note: and retains the same reference on subsequent renders as long as its dependencies (if any) remain unchanged.
-  // note: It helps to avoid unnecessary re-creation of the function and optimizes the performance.
-  // deepscan-disable-next-line <error-code>
+  // deepScan: This prop requires a new object on every render for some reason,
+  // so we cannot use useCallback or useMemo without breaking functionality.
+  // The prop should be optimized in the future.
   const markAllMsgAsRead = (): void => {
     playerUiDispatch(markAllAsRead(channelId))
   }
   
-  // @ts-ignore deepScan
+  // deepScan: This prop requires a new object on every render for some reason,
+  // so we cannot use useCallback or useMemo without breaking functionality.
+  // The prop should be optimized in the future.
   const handleUnreadAllMessage = (): void => {
     playerUiDispatch(markAllAsUnread(channelId))
   }
@@ -74,11 +74,9 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     saveNewActivityTimeMessage(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
   }
 
-  // note: Define a memoized function using useCallback.
-  // note: By using useCallback, the function is only created once during the initial render
-  // note: and retains the same reference on subsequent renders as long as its dependencies (if any) remain unchanged.
-  // note: It helps to avoid unnecessary re-creation of the function and optimizes the performance.
-  // deepscan-disable-next-line <error-code>
+  // deepScan: This prop requires a new object on every render for some reason,
+  // so we cannot use useCallback or useMemo without breaking functionality.
+  // The prop should be optimized in the future.
   const collabActivityMessage = (getRoleId: string, _activityType: string) => {
     const collab: PlainInteraction = {
       aType: PLAIN_INTERACTION
@@ -138,10 +136,14 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
         {isCollabEdit && (
           <CollabStatusBoard
+          /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             collabActivity={collabActivityMessage}
             currentWargame={state.currentWargame}
+            /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             onMessageRead={handleOpenMessage}
+            /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             onMarkAllAsRead={markAllMsgAsRead}
+            /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             onMarkAllAsUnRead={handleUnreadAllMessage}
             templates={state.allTemplatesByKey}
             messages={messages as MessageCustom[]}
@@ -150,6 +152,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
             isUmpire={!!isUmpire}
             isObserver={observing}
             channelColb={channel as ChannelCollab}
+            /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             onChange={handleChange}
             gameDate={gameDate}
           />
