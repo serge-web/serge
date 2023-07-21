@@ -151,7 +151,7 @@ SchemaEditor.prototype.updateSchema = function (schema) {
   const minMaxConsistenceValidator = function (schema, value, path) {
     const errors = []
     if (value !== null && (value.type === 'integer' || value.type === 'number')) {
-      if (typeof value.minimum !== 'undefined' && typeof value.minimum !== 'undefined' && value.minimum > value.maximum) {
+      if (typeof value.minimum !== 'undefined' && value.minimum > value.maximum) {
         errors.push({
           path,
           property: 'maximum',

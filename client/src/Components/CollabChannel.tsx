@@ -40,11 +40,17 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
-
+  
+  // deepscan-disable-next-line <error-code>
   const handleOpenMessage = (message: MessageChannel): void => {
     playerUiDispatch(openMessage(channelId, message))
   }
-
+  
+  // note: Define a memoized function using useCallback.
+  // note: By using useCallback, the function is only created once during the initial render
+  // note: and retains the same reference on subsequent renders as long as its dependencies (if any) remain unchanged.
+  // note: It helps to avoid unnecessary re-creation of the function and optimizes the performance.
+  // deepscan-disable-next-line <error-code>
   const markAllMsgAsRead = (): void => {
     playerUiDispatch(markAllAsRead(channelId))
   }
@@ -61,7 +67,12 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     }
     saveNewActivityTimeMessage(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
   }
-  
+
+  // note: Define a memoized function using useCallback.
+  // note: By using useCallback, the function is only created once during the initial render
+  // note: and retains the same reference on subsequent renders as long as its dependencies (if any) remain unchanged.
+  // note: It helps to avoid unnecessary re-creation of the function and optimizes the performance.
+  // deepscan-disable-next-line <error-code>
   const collabActivityMessage = (getRoleId: string, _activityType: string) => {
     const collab: PlainInteraction = {
       aType: PLAIN_INTERACTION

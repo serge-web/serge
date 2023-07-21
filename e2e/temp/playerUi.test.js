@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer'
-import { DEFAULT_SERVER } from '../consts'
+// import { DEFAULT_SERVER } from '../consts'
 
 let browser
 let page
