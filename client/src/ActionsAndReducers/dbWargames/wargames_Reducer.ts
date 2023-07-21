@@ -7,7 +7,7 @@ import {
   channelTemplate,
   dbDefaultSettings,
   serverPath
-} from '../../consts'
+} from 'src/config'
 
 import { ChannelTypes, ForceData, ParticipantTypes, Role, WargameActionTypes } from 'src/custom-types'
 

@@ -12,7 +12,7 @@ import {
   saveForce,
   refreshForce
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
-import { forceTemplate } from '../../consts'
+import { forceTemplate } from 'src/config'
 import 'src/themes/App.scss'
 import { RootState } from 'src/custom-types'
 

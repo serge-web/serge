@@ -1,5 +1,9 @@
 import ExpiredStorage from 'expired-storage'
+import { Wargame } from 'src/custom-types'
 import { LaydownTypes } from './enums'
+// import { wargameSettings } from 'src/config'
+import uniqId from 'uniqid'
+import moment from 'moment'
 
 export const DEFAULT_SERVER = 'Nelson'
 export const DEFAULT_PORT = '8080'
@@ -201,4 +205,140 @@ export const SUPPORT_PANEL_LAYOUT = {
   IS_FILTER: 'serge.planning.isFilter',
   SORT_COLUMNS: 'serge.planning.sortColumns',
   FILTER_APPLIED: 'serge.planning.filterApplied'
+}
+
+export const STORYBOOK_ROUTE = './storybook'
+
+// Interval for check server heartbeats
+export const SERVER_PING_INTERVAL = 20000
+
+export const headers = { // +
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST',
+  'Access-Control-Allow-Headers': 'Authorization, Lang'
+}
+
+export const defaultGameInfo = { // +
+  imageUrlSet: false,
+  imageUrl: '/default_img/sergeDefault.png',
+  title: 'Serge',
+  description: `You have arrived at the Development Centre Gaming Facility.\n
+  You will use this web-based application to interact with players from other forces, together with the umpires in the White Cell.\n
+  At any point during your time here you can submit insights via the Insights button at the top-right of the gaming page.\n
+  These insights could relate to the current doctrine being explored, the performance of your force, or how the game is being organised / facilitated.\n
+  Thanks in advance for your participation.\n
+  Maj Duncan Dare, PO1 Gaming`,
+  showAccessCodes: true
+}
+
+export const forceTemplate = { // +
+  name: '',
+  uniqid: '',
+  overview: 'An overview written here..',
+  roles: [
+    {
+      name: 'CO',
+      roleId: `p${uniqId.time()}`,
+      isGameControl: false,
+      isObserver: false,
+      isInsightViewer: false
+    }
+  ],
+  iconURL: serverPath + 'default_img/forceDefault.png',
+  color: '#3dd0ff',
+  umpire: false,
+  dirty: false
+}
+
+export const umpireForceTemplate = { // +-
+  name: 'White',
+  uniqid: 'umpire',
+  overview: 'Umpire force.',
+  roles: [
+    {
+      name: 'Game Control',
+      roleId: `p${uniqId.time()}`,
+      isGameControl: true,
+      isObserver: true,
+      isInsightViewer: true
+    }
+  ],
+  iconURL: serverPath + 'default_img/umpireDefault.png',
+  color: '#FCFBEE',
+  umpire: true,
+  dirty: false
+}
+
+export const channelTemplate = { // +
+  name: '',
+  uniqid: '',
+  participants: []
+}
+
+export const dbDefaultPlaylogSettings = { // +-
+  wargame: 'missing',
+  role: 'missing',
+  activityType: {
+    aType: 'pending'
+  },
+  activityTime: '',
+  _id: new Date().toISOString(), 
+  isOpen: false
+}
+
+export const dbDefaultSettings: Wargame = { // +
+  _id: wargameSettings,
+  wargameTitle: '',
+  name: '',
+  data: {
+    overview: {
+      name: 'Overview - settings',
+      gameDescription: '',
+      // spatialRepresentation: '',
+      gameTurnTime: {
+        unit: 'millis',
+        millis: 43200000
+      },
+      realtimeTurnTime: 300000,
+      timeWarning: 60000,
+      // turnStrategy: '',
+      gameDate: moment(new Date(), moment.ISO_8601).format(),
+      showAccessCodes: true,
+      logPlayerActivity: true,
+      dirty: false
+    },
+    forces: {
+      name: 'Forces',
+      forces: [umpireForceTemplate],
+      selectedForce: umpireForceTemplate,
+      dirty: false
+    },
+    channels: {
+      name: 'Channels',
+      channels: [],
+      selectedChannel: '',
+      dirty: false
+    }
+  },
+  wargameList: [],
+  wargameInitiated: false,
+  gameTurn: 0,
+  phase: ADJUDICATION_PHASE,
+  adjudicationStartTime: moment(new Date(), moment.ISO_8601).format()
+}
+
+export const FLEX_LAYOUT_MODEL_DEFAULT: any = {
+  global: {
+    tabSetTabStripHeight: 45,
+    tabEnableClose: false,
+    tabEnableRenderOnDemand: false
+  },
+  borders: [],
+  layout: {
+    type: 'row' as string,
+    weight: 100,
+    children: [
+    ]
+  }
 }

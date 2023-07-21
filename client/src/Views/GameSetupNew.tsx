@@ -5,7 +5,6 @@ import uniqid from 'uniqid'
 import { useSelector, useDispatch } from 'react-redux'
 import GameSetup from '../Components/local/templates/game-setup'
 import { checkUnique, getUniquePasscode, findDuplicatePasscodes, findEmptyRolenames } from 'src/Helpers'
-import { forceTemplate } from '../consts'
 import {
   addNewForce,
   setCurrentTab,
@@ -28,7 +27,7 @@ import {
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE, iconUploaderPath, AdminTabs } from 'src/config'
+import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
 import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from 'src/custom-types'
 
 /**

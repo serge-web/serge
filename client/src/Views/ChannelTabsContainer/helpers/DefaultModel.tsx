@@ -1,5 +1,5 @@
 import { ChannelTypes } from 'src/custom-types'
-import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../../consts'
+import { FLEX_LAYOUT_MODEL_DEFAULT } from 'src/config'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const setDefaultModel = (allChannels: ChannelTypes[]) => {

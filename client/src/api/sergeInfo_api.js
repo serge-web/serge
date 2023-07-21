@@ -3,7 +3,7 @@ import {
   SERGE_INFO,
   defaultGameInfo,
   serverPath
-} from '../consts'
+} from 'src/config'
 import fetch from 'node-fetch'
 import DbProvider from './db'
 

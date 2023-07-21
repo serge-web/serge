@@ -1,6 +1,6 @@
 import * as ActionConstant from 'src/config'
 import copyState from '../../Helpers/copyStateHelper'
-import { defaultGameInfo, serverPath } from '../../consts'
+import { defaultGameInfo, serverPath } from 'src/config'
 import _ from 'lodash'
 
 const initialState = defaultGameInfo

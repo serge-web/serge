@@ -2,11 +2,10 @@ import HeartbeatChecker from '../Components/local/atoms/heartbeat-checker'
 import { ActivityLogsInterface, Wargame } from 'src/custom-types'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
-import { expiredStorage } from 'src/config'
+import { expiredStorage, SERVER_PING_INTERVAL, UMPIRE_FORCE } from 'src/config'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { pingServer2 as pingServerApi } from '../api/wargames_api'
-import { SERVER_PING_INTERVAL, UMPIRE_FORCE } from '../consts'
 
 export type Notification = {
   message: string

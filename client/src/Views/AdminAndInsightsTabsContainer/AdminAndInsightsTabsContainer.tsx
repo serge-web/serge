@@ -5,7 +5,7 @@ import AdminPanelFooter from '../../Components/local/molecules/admin-panel-foote
 import getByPassUrl from './helpers/getByPassUrl'
 import addTabs from './helpers/addTabs'
 import factory from './helpers/factory'
-import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../consts'
+import { FLEX_LAYOUT_MODEL_DEFAULT } from 'src/config'
 import * as FlexLayout from 'flexlayout-react'
 import { useDispatch } from 'react-redux'
 import { showHideObjectives } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'

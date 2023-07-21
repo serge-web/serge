@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import lineBreak from '../Helpers/splitNewLineBreak'
-import { ADMIN_ROUTE, STORYBOOK_ROUTE } from '../consts'
+import { ADMIN_ROUTE, STORYBOOK_ROUTE } from 'src/config'
 import { faUserCog, faPencilRuler } from '@fortawesome/free-solid-svg-icons'
 import { GameInfo } from './PlayerUi/types'
 

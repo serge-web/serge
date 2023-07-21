@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { DEFAULT_SERVER, forceTemplate } from '../../consts'
+import { DEFAULT_SERVER, forceTemplate } from 'src/config'
 import {
   ChannelTypes,
   ForceData,
