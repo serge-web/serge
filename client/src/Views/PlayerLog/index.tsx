@@ -91,7 +91,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
     })
   }
  
-  const handleMessagesState = (): void | undefined => {
+  const handleMessagesState = (): void => {
     Object.values(playerMessageLog).map(async (value: PlayerMessage) => { 
       setMessageState(currentWargame, selectedForceId, selectedRole, value._id || '')
     })

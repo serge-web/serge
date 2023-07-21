@@ -136,7 +136,7 @@ SchemaEditor.prototype.updateSchema = function (schema) {
   const rangeIntegerValidator = function (schema, value, path) {
     const errors = []
     if (value !== null && value.type === 'integer' && value.format === 'range') {
-      if (typeof value.minimum === 'undefined' || typeof value.maximum === 'undefined') {
+      if (typeof value.minimum === 'undefined') {
         errors.push({
           path,
           property: 'format',

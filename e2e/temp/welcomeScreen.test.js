@@ -4,11 +4,11 @@ import { DEFAULT_SERVER } from '../consts'
 let browser
 let page
 
-const backspace = async (qty) => {
-  for (let i = 0; i < qty; i++) {
-    await page.keyboard.press('Backspace')
-  }
-}
+// const backspace = async (qty) => {
+//   for (let i = 0; i < qty; i++) {
+//     await page.keyboard.press('Backspace')
+//   }
+// }
 
 beforeAll(async () => {
   // launch browser
