@@ -38,7 +38,7 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
   switch (action.type) {
     case ActionConstant.ALL_WARGAME_NAMES_SAVED:
       const originalList = action.payload || []
-      const anyList = originalList as any[] || []
+      const anyList = originalList as any
       // NOTE: we don't know why, but some SQLite files 
       // can get corrupted, and are empty. Filter them
       // out, since they're of no values

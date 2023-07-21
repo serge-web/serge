@@ -90,7 +90,13 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
       setPlayerLogData(logData)
     })
   }
- 
+  
+  // NOTE: deepScan error
+  // The handleMessagesState function asynchronously maps over the values of the playerMessageLog object.
+  // However, the map function returns an array of promises, and there's no awaiting of these promises.
+  // This might lead to unexpected behavior, as the subsequent code (handlePlayerlogsMarkAllAsRead) could execute
+  // before all the setMessageState calls have completed. Consider using Promise.all() to await all the asynchronous
+  // operations inside the map function, ensuring all setMessageState calls finish before proceeding.
   const handleMessagesState = (): void => {
     Object.values(playerMessageLog).map(async (value: PlayerMessage) => { 
       setMessageState(currentWargame, selectedForceId, selectedRole, value._id || '')
@@ -134,6 +140,7 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
       </div>
       <div className={styles.content}>
         <ReactTable
+        /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
           handleMarkAllAsRead={handleMessagesState}
           handleMarkAllAsUnread={handlePlayerlogsMarkAllAsUnread}
           tableActivity={playerLogsActivity}

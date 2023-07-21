@@ -6,7 +6,7 @@ import * as messageTypesApi from '../../../api/messageTypes_api'
 import { messageTypesReducer } from '../../../ActionsAndReducers/dbMessageTypes/messageTypes_Reducer'
 import machineryFailure from '../../../Schemas/machinery_failure.json'
 import * as ActionConstant from 'src/config'
-import { MESSAGE_TEMPLATE_ROUTE } from '../../../consts'
+import { MESSAGE_TEMPLATE_ROUTE } from '../../../config'
 
 const mockStore = configureStore([thunk])
 
