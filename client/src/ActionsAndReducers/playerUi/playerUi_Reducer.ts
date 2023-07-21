@@ -1,5 +1,5 @@
 import {
-  CHANNEL_MAPPING, CLOSE_MESSAGE, CLOSE_MODAL, MARK_ALL_AS_READ,
+  CHANNEL_MAPPING, CLOSE_MESSAGE, CLOSE_MODAL, MARK_ALL_AS_READ, CHAT_CHANNEL_ID,
   MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE
 } from 'src/config'
@@ -12,9 +12,6 @@ import {
   MarkAllPlayerMessageRead, markUnread, openMessage, HandleUpdateBulksData
 } from './helpers/handleWargameMessagesChange'
 
-import {
-  CHAT_CHANNEL_ID
-} from '../../consts'
 import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI'
 
 export const initialState: PlayerUi = {

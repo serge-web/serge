@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import Select from 'react-select'
 import { usePlayerUiState, usePlayerUiDispatch } from '../Store/PlayerUi'
 import { getWargame } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { serverPath } from '../consts'
 import { ForceData, Role, WargameList } from 'src/custom-types'
 import TextInput from '../Components/local/atoms/text-input'
-import { hiddenPrefix } from 'src/config'
+import { hiddenPrefix, serverPath } from 'src/config'
 
 interface Props {
   wargameList: WargameList[]

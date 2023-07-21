@@ -2,7 +2,7 @@ import uniqid from 'uniqid'
 import {
   databasePath,
   MSG_STORE
-} from '../consts'
+} from 'src/config'
 import DbProvider from './db'
 
 const db = new DbProvider(databasePath + MSG_STORE)

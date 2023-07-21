@@ -8,7 +8,7 @@ import {
   forceTemplate,
   umpireForceTemplate,
   channelTemplate
-} from '../../../consts'
+} from 'src/config'
 
 // import * as ActionConstant from 'src/config'
 import * as Globals from 'src/config'

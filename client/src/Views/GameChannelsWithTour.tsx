@@ -1,10 +1,9 @@
 import { makeStyles } from '@material-ui/styles'
-import { UMPIRE_FORCE } from 'src/config'
+import { UMPIRE_FORCE, expiredStorage, LOCAL_STORAGE_TIMEOUT } from 'src/config'
 import { TabNode } from 'flexlayout-react'
 import React, { useState } from 'react'
 import Tour from 'reactour'
 import { openTour } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../consts'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 import GameChannels from './GameChannels/GameChannels'
 

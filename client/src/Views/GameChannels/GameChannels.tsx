@@ -2,7 +2,7 @@ import { faAddressBook, faBookOpen, faFileExcel, faSignOutAlt } from '@fortaweso
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ForceObjective from '../../Components/local/molecules/force-objective'
 import TurnProgression from '../../Components/local/molecules/turn-progression'
-import { CHANGE_TAB_INTERACTION } from 'src/config'
+import { CHANGE_TAB_INTERACTION, expiredStorage } from 'src/config'
 import { ChangeTabInteraction } from 'src/custom-types'
 import classNames from 'classnames'
 import excellentExport, { SheetOptions } from 'excellentexport'
@@ -18,7 +18,6 @@ import {
   openTour,
   showHideObjectives
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { expiredStorage } from '../../consts'
 import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
 import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
