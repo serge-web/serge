@@ -34,6 +34,9 @@ jobs:
       - name: Running unit testing for client
         run: cd client && yarn test:unit
 
+      - name: Running dependency installation for server
+        run: cd server && yarn install
+
       - name: Running dependency installation for executable
         run: cd executable && yarn install
 

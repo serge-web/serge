@@ -39,10 +39,7 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
     return [feedbackMsgUnreadCount, adminMsgUnreadCount]
   }, [state.feedbackMessages, state.chatChannel.messages])
 
-  console.log('model', model)
-
   useEffect(() => {
-    console.log('model', model)
     if (!tabLoadedStatus) {
       if (state.isInsightViewer) {
         addTabs(model, insightsTabId, insightsTab)
