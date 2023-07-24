@@ -47,4 +47,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: /home/runner/work/serge/serge/packages/executable/builds/*.zip
+          files: /home/runner/work/serge/serge/executable/builds/*.zip

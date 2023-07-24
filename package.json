@@ -39,7 +39,8 @@
   },
   "snyk": true,
   "devDependencies": {
-    "husky": "^7.0.0"
+    "husky": "^7.0.0",
+    "snyk": "^1.298.1"
   },
   "eslintConfig": {
     "overrides": [
