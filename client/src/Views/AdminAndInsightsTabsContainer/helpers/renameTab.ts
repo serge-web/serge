@@ -8,5 +8,11 @@ export default (model: FlexLayout.Model, nodeId: string, count: number): void =>
   } else if (count > 8) {
     className = 'unread-9plus'
   }
-  model.doAction(FlexLayout.Actions.updateNodeAttributes(nodeId, { className }))
+  try {
+    model.doAction(FlexLayout.Actions.updateNodeAttributes(nodeId, { className }))
+    // Expected output: ReferenceError: nonExistentFunction is not defined
+    // (Note: the exact output may be browser-dependent)
+  } catch (error) {
+    console.error(error)
+  }
 }

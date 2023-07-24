@@ -1,10 +1,7 @@
 {
-  "name": "@serge/executable",
-  "version": "0.3.0",
+  "name": "executable",
   "author": "IanMayo <ian@planetmayo.com>",
   "description": "Build Serge as executable",
-  "main": "index.js",
-  "license": "Apache-2.0",
   "dependencies": {
     "archiver": "^5.3.0",
     "find": "^0.3.0",
