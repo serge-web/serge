@@ -2,7 +2,7 @@
 import * as FlexLayout from 'flexlayout-react'
 
 export default (model: FlexLayout.Model, nodeId: string, count: number): void => {
-  let className = ''
+  let className = 'unread-9plus'
   if (count > 0 && count <= 8) {
     className = `unread-${count}`
   } else if (count > 8) {

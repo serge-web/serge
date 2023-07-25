@@ -201,6 +201,7 @@
     "build": "react-scripts --max_old_space_size=3000 build && yarn copy-assets && yarn copy-assets-storybook && tsc && yarn cleanup",
     "test": "run-p test:*",
     "test:unit": "jest --passWithNoTests",
+    "dev": "yarn component-dev && yarn start",
     "test:ts": "tsc --pretty",
     "eject": "react-scripts eject",
     "watch": "run-p watch:*",
@@ -215,7 +216,7 @@
     "copy-assets-storybook": "copyfiles -u 4 src/Components/local/asset-icon/counters/*.svg static/assets/counters",
     "cleanup": "rimraf build/Components/vendor && rimraf build/Components/local/**/mocks && rimraf build/Components/local/**/*.stories.* && rimraf build/Components/local/**/*.spec.*",
     "heroku-postbuild": "yarn build && yarn build-storybook",
-    "rebuild": "yarn build && yarn start",
+    "rebuild-client": "yarn build && yarn start",
     "develop": "nodemon --exec yarn start",
     "build-storybook": "build-storybook -s ./static -c .storybook -o ./build/storybook",
     "add-component": "npx buildcom -sjt -c 'scss' -m"
