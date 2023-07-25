@@ -60,7 +60,7 @@ export const InfoMarker: React.FC<PropTypes> = ({
           const attributes = get(svgJson, 'svg.g.path._attributes')
           attributes.style = `fill: ${marker.color}`
           set(svgJson, 'svg.g.path._attributes', attributes)
-          const svgXml = xmljs.json2xml(svgJson, option)
+          const svgXml = xmljs.js2xml(svgJson, option)
           setSvgContent(svgXml)
         })
     }

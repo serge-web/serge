@@ -1,10 +1,8 @@
 {
   "name": "serge",
-  "version": "0.3.0",
   "main": "index.js",
   "repository": "git@github.com:serge-web/serge.git",
   "author": "IanMayo <ian@planetmayo.com>",
-  "license": "Apache-2.0",
   "private": true,
   "engines": {
     "node": "18.x"
