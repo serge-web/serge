@@ -1101,7 +1101,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
     return (
       <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
-        {/* { hello && */}
         <SupportPanelContext.Provider value={supportPanelContext}>
           { <SupportPanel
             channel={channel}
