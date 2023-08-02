@@ -5,6 +5,7 @@ import { messageTypesReducer } from '../ActionsAndReducers/dbMessageTypes/messag
 import { wargamesReducer } from '../ActionsAndReducers/dbWargames/wargames_Reducer'
 import { addPlayerLogReducer } from '../ActionsAndReducers/PlayerLog/PlayerLog_Reducer'
 import { currentViewURIReducer } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_Reducer'
+import { logger } from 'redux-logger'
 import {
   currentModalWithType,
   exportItemsReducerWithType,
@@ -19,7 +20,7 @@ const middlewares = [thunk]
 
 if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { logger } = require('redux-logger')
+  // const { logger } = require('redux-logger')
   middlewares.push(logger)
 }
 

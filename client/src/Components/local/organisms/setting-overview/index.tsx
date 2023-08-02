@@ -352,4 +352,4 @@ export const SettingOverview: React.FC<PropTypes> = ({
 
 export default SettingOverview
 
-export { WargameOverview } from 'src/custom-types'
+export type { WargameOverview } from 'src/custom-types'

@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <Provider store={Store}>
         <ThemeProvider theme={theme}>
-          <RouterMain />
+          <RouterMain /> 
           <Notifications />
           <Version />
         </ThemeProvider>

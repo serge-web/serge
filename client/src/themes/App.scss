@@ -3,8 +3,8 @@
 @import "dependencies/variables";
 @import "dependencies/reset";
 @import "dependencies/bootstrap";
-@import "~bootstrap/scss/bootstrap";
-@import "~flatpickr/dist/themes/light.css";
+@import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/flatpickr/dist/themes/light.css";
 @import "base";
 @import "flex-layout";
 @import "typography";

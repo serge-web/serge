@@ -1,6 +1,6 @@
 import HeartbeatChecker from '../Components/local/atoms/heartbeat-checker'
 import { ActivityLogsInterface, Wargame } from 'src/custom-types'
-import preval from 'preval.macro'
+// import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
 import { expiredStorage, SERVER_PING_INTERVAL, UMPIRE_FORCE } from 'src/config'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,9 +21,9 @@ type VersionProps = {
   wargame: Wargame
 }
 
-const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
+// const appBuildDate = preval`module.exports = new Date().toISOString().slice(0, 19).replace('T', ' ')`
 // trim off the seconds
-const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length - 3)
+// const trimmedAppBuildDate = appBuildDate.substring(0, appBuildDate.length - 3)
 
 const Version: React.FC<VersionProps> = () => {
   const dispatch = useDispatch()
@@ -89,7 +89,7 @@ const Version: React.FC<VersionProps> = () => {
         />
       </li>
       <li>V:<span>{process.env.REACT_APP_VERSION}</span></li>
-      <li><span>{trimmedAppBuildDate}</span></li>
+      {/* <li><span>{trimmedAppBuildDate}</span></li> */}
     </ul>
   )
 }

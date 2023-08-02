@@ -43,7 +43,6 @@ import PropTypes from './types/props'
 import { ReplayFeature } from '../map-planning-orders/types/props'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
-
 /** helper object, to allow clustering of assets by force */
 type PerForceAssets = {
   force: ForceData['uniqid']
@@ -179,7 +178,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
    */
   const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
   const [assetsCache] = useState<LRU<string, string>>(new LRU(LRU_CACHE_OPTION))
-
+  console.log('process.env.VITE_REACT_APP_SERVER_PATH', process.env.VITE_REACT_APP_SERVER_PATH)
+   
   const genData = (): void => {
     const doGenny = 7
     if (!doGenny) {

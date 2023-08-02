@@ -1,7 +1,7 @@
 {
   "exclude": ["node_modules", "dist", "build", "lib", "__tests__", "**/*.test*", "**/*.scss.d.ts"],
   "compilerOptions": {
-    "target": "ES2019",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -12,13 +12,15 @@
       "es2017",
       "ES2019"
     ],
+    "types": ["vite/client", "@types/react-leaflet-markercluster", "vite-plugin-svgr/client", "jest", "@types/jest"],
     "allowJs": true,
+    
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
+    "module": "es2020",
     "moduleResolution": "node",
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true,
@@ -42,6 +44,7 @@
   "files": [
     "./typings.d.ts"
   ],
+  "src/*": ["src/*"],
   "include": [
     "src"
   ]

@@ -15,4 +15,4 @@ export default interface PropTypes {
    ignoreFlatpickrSnapshot?: boolean
 }
 
-export { WargameOverview } from 'src/custom-types'
+export type { WargameOverview } from 'src/custom-types'

@@ -165,7 +165,7 @@ export const baseUrl = () => {
 export const serverPath = (
   // Removed G_CONFIG tempoararily.
   // window.G_CONFIG.REACT_APP_SERVER_PATH || process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
-  process.env.REACT_APP_SERVER_PATH || baseUrl() + '/'
+  import.meta.env.VITE_REACT_APP_SERVER_PATH || baseUrl() + '/'
 ).replace(/\/?$/, '/')
 
 export const databasePath = `${serverPath}db/`

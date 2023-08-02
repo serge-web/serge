@@ -72,7 +72,7 @@ class EditMessage extends Component {
           <SchemaEditor
             schemaId={this.props.umpireMenu.selectedSchemaID}
             messageTypes={this.props.messageTypes}
-          />
+          /> 
         </div>
         <SaveMessageButton />
       </div>
