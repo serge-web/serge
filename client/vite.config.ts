@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 import svgrPlugin from 'vite-plugin-svgr'
@@ -9,8 +9,11 @@ import checker from 'vite-plugin-checker'
 import sass from 'sass'
 
 // https://vitejs.dev/config/
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+
   return {
+    envPrefix: 'REACT_APP',
     plugins: [react(), checker({
       overlay: { initialIsOpen: false },
       typescript: true,
@@ -35,7 +38,6 @@ export default defineConfig(() => {
       },
       outDir: 'build'
     },
-    // envPrefix: 'REACT_APP',
     resolve: {
       alias: {
         'node-fetch': 'just-use-native-fetch',
@@ -43,8 +45,13 @@ export default defineConfig(() => {
         '/^src\/(.*)/': path.resolve(__dirname, 'src/$1')
       }
     },
+    define: {
+      // 'process.env.REACT_APP_VERSION': JSON.stringify(env.REACT_APP_VERSION),
+      'process.env.REACT_APP_SERVER_PATH': JSON.stringify(env.REACT_APP_SERVER_PATH)
+    },
     server: {
       open: true,
+      host: true,
       port: 3000
     }
   }

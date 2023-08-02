@@ -88,7 +88,7 @@ const Version: React.FC<VersionProps> = () => {
           className='heartbeat-checker'
         />
       </li>
-      <li>V:<span>{process.env.REACT_APP_VERSION}</span></li>
+      <li>V:<span>{import.meta.env.REACT_APP_VERSION}</span></li>
       {/* <li><span>{trimmedAppBuildDate}</span></li> */}
     </ul>
   )
