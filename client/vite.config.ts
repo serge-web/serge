@@ -49,7 +49,8 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       // 'process.env.REACT_APP_VERSION': JSON.stringify(env.REACT_APP_VERSION),
-      'process.env.REACT_APP_SERVER_PATH': JSON.stringify(env.REACT_APP_SERVER_PATH)
+      'process.env.REACT_APP_SERVER_PATH': JSON.stringify(env.REACT_APP_SERVER_PATH),
+      'process.env.JEST_WORKER_ID': env.JEST_WORKER_ID
     },
     server: {
       open: true,

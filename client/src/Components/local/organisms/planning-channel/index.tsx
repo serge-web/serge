@@ -178,7 +178,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
    */
   const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
   const [assetsCache] = useState<LRU<string, string>>(new LRU(LRU_CACHE_OPTION))
-  console.log('process.env.VITE_REACT_APP_SERVER_PATH', process.env.VITE_REACT_APP_SERVER_PATH)
    
   const genData = (): void => {
     const doGenny = 7
