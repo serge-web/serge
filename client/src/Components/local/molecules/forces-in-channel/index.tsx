@@ -7,6 +7,7 @@ import React from 'react'
 import styles from './styles.module.scss'
 /* Import Types */
 import Props from './types/props'
+import { serverPath } from 'src/config'
 
 /* Render component */
 export const ForcesInChannel: React.FC<Props> = ({ icons, colors, names, onMarkAllAsRead, messages = [] }: Props) => {
@@ -22,7 +23,7 @@ export const ForcesInChannel: React.FC<Props> = ({ icons, colors, names, onMarkA
             style={{
               ...(colors[i] && { borderColor: colors[i], backgroundColor: colors[i] })
             }}
-            src={url} alt=""
+            src={serverPath + url} alt=""
           />
         })
       }
