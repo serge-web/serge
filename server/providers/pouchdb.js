@@ -44,7 +44,7 @@ const pouchDb = (app, io, pouchOptions) => {
     }
     return pouchHandle(req, res, next)
   }
-  
+
   app.use(databaseUrlPrefix, fauxtonIntercept)
 
   // changesListener
