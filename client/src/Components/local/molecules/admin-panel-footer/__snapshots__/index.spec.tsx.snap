@@ -31,7 +31,7 @@ exports[`AdminPanelFooter component: renders correctly 1`] = `
     className="role-icon"
     data-tour="second-step"
     onClick={[Function]}
-    src="http://localhost:8080/http://localhost:8080/default_img/forceDefault.png"
+    src="http://localhost:8080/default_img/forceDefault.png"
     style={
       Object {
         "backgroundColor": "#3dd0ff",

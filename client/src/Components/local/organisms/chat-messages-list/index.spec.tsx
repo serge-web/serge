@@ -12,7 +12,7 @@ describe('ChatMessagesList renders correctly', () => {
   it('renders component correctly', () => {
     moment.tz.setDefault('Etc/UTC')
     const icons = [
-      './images/default_img/forceDefault.png'
+      'default_img/forceDefault.png'
     ]
     const colors = [
       '#F00'
