@@ -11,15 +11,6 @@ declare global {
   }
 }
 
-declare module '*.svg' {
-  import * as React from 'react'
-
-  const ReactComponent: React.FunctionComponent<
-    React.ComponentProps<'svg'> & { title?: string }
-  >
-  export default ReactComponent
-}
-
 declare module 'react-leaflet-vectorgrid'
 declare module '@json-editor/json-editor'
 declare module 'redux-logger'
