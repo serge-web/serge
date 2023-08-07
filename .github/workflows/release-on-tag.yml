@@ -32,16 +32,16 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Running dependency installation
-        run: cd client && yarn install
+        run: yarn install
 
       - name: Running project building
-        run: cd client && yarn build
+        run: yarn build
 
       - name: Running unit testing
-        run: cd client && yarn test:unit
+        run: yarn test-unit
 
       - name: Build executable files
-        run: cd executable && yarn start
+        run: yarn pkg-build
 
       - name: Release
         uses: softprops/action-gh-release@v1

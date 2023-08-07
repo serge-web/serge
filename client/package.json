@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "3.0.0",
+  "license": "Apache-2.0",
   "dependencies": {
     "@babel/core": "^7.8.4",
     "@babel/helper-string-parser": "^7.18.10",

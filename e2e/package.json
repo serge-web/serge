@@ -1,6 +1,8 @@
 {
   "name": "e2e-tests",
   "main": "index.js",
+  "version": "3.0.0",
+  "license": "Apache-2.0",
   "devDependencies": {
     "cypress": "^3.8.2"
   },

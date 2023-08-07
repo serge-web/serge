@@ -1,6 +1,12 @@
-name: PR and Push
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: PR
 
 on:
+
   pull_request:
   push:
     branches:
@@ -9,9 +15,10 @@ on:
 
 jobs:
   test:
+  
     name: Build/Test [18.x] validation
     runs-on: ubuntu-latest
-
+    
     strategy:
       matrix:
         node-version: [18.x]
@@ -24,25 +31,18 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          
+      - name : Running dependency installation
+        run: yarn install
+        
+      - name : Running project building
+        run: yarn build
+        
+      - name : Running unit testing
+        run: yarn test-unit
 
-      - name: Running dependency installation for client
-        run: cd client && yarn install
-
-      - name: Running project building for client
-        run: cd client && yarn build
-
-      - name: Running unit testing for client
-        run: cd client && yarn test:unit
-
-      - name: Running dependency installation for server
-        run: cd server && yarn install
-
-      - name: Running dependency installation for executable
-        run: cd executable && yarn install
-
-      - name: Running project building for executable
-        run: cd executable && yarn start
-
+      - name : Build executable files
+        run: yarn pkg-build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
@@ -50,7 +50,7 @@ jobs:
           name: linux_executable
           path: /home/runner/work/serge/serge/executable/builds/*_linux.zip
           if-no-files-found: error
-
+      
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:

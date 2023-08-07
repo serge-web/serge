@@ -2,6 +2,8 @@
   "name": "executable",
   "author": "IanMayo <ian@planetmayo.com>",
   "description": "Build Serge as executable",
+  "version": "3.0.0",
+  "license": "Apache-2.0",
   "dependencies": {
     "archiver": "^5.3.0",
     "find": "^0.3.0",
