@@ -210,7 +210,7 @@
     "start": "vite",
     "serve": "vite preview",
     "storybook": "start-storybook -s ./static -p 6611",
-    "build": "rimraf build && tsc && vite build && yarn copy-assets && yarn copy-assets-storybook && tsc && yarn cleanup",
+    "build": "rimraf build && vite build && yarn copy-assets && yarn copy-assets-storybook && tsc && yarn cleanup",
     "test": "run-p test:*",
     "test:unit": "jest --passWithNoTests",
     "dev": "yarn component-dev && yarn start",
