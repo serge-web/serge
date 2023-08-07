@@ -155,7 +155,16 @@
     "uniqid": "^5.0.3",
     "universal-router": "^8.1.0",
     "whatwg-fetch": "^3.6.1",
-    "xml-js": "^1.6.11"
+    "xml-js": "^1.6.11",
+    "vite": "^4.4.7",
+    "vite-plugin-babel-macros": "^1.0.6",
+    "vite-plugin-checker": "^0.6.1",
+    "vite-plugin-env-compatible": "^1.1.1",
+    "vite-plugin-react-svg": "^0.2.0",
+    "vite-plugin-sass": "^0.1.0",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.0",
+    "@vitejs/plugin-react": "^4.0.3"
   },
   "resolutions": {
     "@types/react": "^16.14.5",
@@ -180,7 +189,6 @@
     "@storybook/testing-library": "^0.0.13",
     "@types/preval.macro": "^3.0.0",
     "@types/react-scrollbar": "^0.5.3",
-    "@vitejs/plugin-react": "^4.0.3",
     "eslint-config-prettier": "^8.8.0",
     "eslint-config-react-app": "6.0.0",
     "eslint-plugin-n": "^15.7.0",
@@ -196,19 +204,13 @@
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-prettier": "^1.2.0",
-    "vite": "^4.4.7",
-    "vite-plugin-babel-macros": "^1.0.6",
-    "vite-plugin-checker": "^0.6.1",
-    "vite-plugin-env-compatible": "^1.1.1",
-    "vite-plugin-react-svg": "^0.2.0",
-    "vite-plugin-sass": "^0.1.0",
-    "vite-plugin-svgr": "^3.2.0",
-    "vite-tsconfig-paths": "^4.2.0",
     "webpack": "^5.82.1"
   },
   "scripts": {
     "start": "vite",
-    "serve": "vite preview",
+    "deploy": "gh-pages -d dist",
+
+    "preview": "vite preview --port 8080",
     "storybook": "start-storybook -s ./static -p 6611",
     "build": "rimraf build && vite build && yarn copy-assets && yarn copy-assets-storybook && tsc && yarn cleanup",
     "test": "run-p test:*",
