@@ -14,6 +14,7 @@ declare global {
 declare module 'react-leaflet-vectorgrid'
 declare module '@json-editor/json-editor'
 declare module 'redux-logger'
+declare module 'node-fetch'
 // TODO: Remove the line below when the store package has been converted
 declare module '@serge/store'
 declare module 'whatwg-fetch'
