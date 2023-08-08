@@ -164,7 +164,10 @@
     "vite-plugin-sass": "^0.1.0",
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0",
-    "@vitejs/plugin-react": "^4.0.3"
+    "@vitejs/plugin-react": "^4.0.3",
+
+    "@storybook/addon-knobs": "^6.1.14",
+    "@storybook/react": "^6.5.12"
   },
   "resolutions": {
     "@types/react": "^16.14.5",
@@ -177,7 +180,6 @@
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
     "@storybook/addon-interactions": "^6.5.12",
-    "@storybook/addon-knobs": "^6.1.14",
     "@storybook/addon-links": "^6.5.12",
     "@storybook/builder-webpack4": "^6.5.12",
     "@storybook/builder-webpack5": "^6.5.16",
@@ -185,7 +187,6 @@
     "@storybook/manager-webpack4": "^6.5.12",
     "@storybook/manager-webpack5": "^6.5.16",
     "@storybook/node-logger": "^6.5.12",
-    "@storybook/react": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
     "eslint-config-prettier": "^8.8.0",
     "eslint-config-react-app": "6.0.0",

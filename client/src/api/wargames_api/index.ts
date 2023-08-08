@@ -135,7 +135,7 @@ export const getPlayerActivityLogs = async (wargame: string, dbName: string, que
 }
 
 export const populateWargameList = (): Promise<string | Wargame[]> => {
-  return fetch(serverPath + allDbs).then((res: Response) => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
+  return fetch(serverPath + allDbs).then((res: Response) => res.json()).then((res: { data: string[] }) => (res.data || []) as string[]).then((dbs: string[]) => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)
     const toCreateDiff: string[] = _.difference(dbs, wargameNames)
     const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
