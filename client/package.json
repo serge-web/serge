@@ -165,7 +165,8 @@
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0",
     "@vitejs/plugin-react": "^4.0.3",
-
+     
+    "eslint-plugin-react": "^7.32.2",
     "@storybook/addon-knobs": "^6.1.14",
     "@storybook/react": "^6.5.12"
   },
@@ -194,7 +195,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-standard": "^5.0.0",
     "eslint-plugin-storybook": "^0.6.4",
     "eslint": "^7.1.0",
