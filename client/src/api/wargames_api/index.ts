@@ -8,7 +8,7 @@ import {
 import { deleteRoleAndParts, duplicateThisForce, handleCloneMarker, handleDeleteMarker, handleUpdateMarker } from 'src/Helpers'
 import _ from 'lodash'
 import moment from 'moment'
-import fetch from 'node-fetch'
+import fetch, { Response } from 'node-fetch'
 import uniqid from 'uniqid'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
 import deepCopy from '../../Helpers/copyStateHelper'
@@ -135,7 +135,7 @@ export const getPlayerActivityLogs = async (wargame: string, dbName: string, que
 }
 
 export const populateWargameList = (): Promise<string | Wargame[]> => {
-  return fetch(serverPath + allDbs).then(res => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
+  return fetch(serverPath + allDbs).then((res: Response) => res.json()).then(res => (res.data || []) as string[]).then((dbs: string[]) => {
     const wargameNames: string[] = wargameDbStore.map((db) => db.name)
     const toCreateDiff: string[] = _.difference(dbs, wargameNames)
     const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
@@ -192,7 +192,7 @@ export const downloadWargame = (dbPath: string): void => {
 }
 
 export const getIpAddress = (): Promise<{ ip: string }> => {
-  return fetch(serverPath + 'getIp').then<{ ip: string }>((res) => res.json())
+  return fetch(serverPath + 'getIp').then<{ ip: string }>((res: Response) => res.json())
 }
 
 // TODO: Need to check component 'ImageDropzone' it returns file with Any type
@@ -203,7 +203,7 @@ export const saveIcon = (file: string) => {
       'Content-Type': 'image/png'
     },
     body: file
-  }).then((res) => res.json())
+  }).then((res: Response) => res.json())
 }
 
 export const createWargame = (): Promise<Wargame> => {
