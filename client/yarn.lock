@@ -3135,7 +3135,7 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
-"@storybook/builder-webpack4@6.5.16", "@storybook/builder-webpack4@^6.5.12":
+"@storybook/builder-webpack4@6.5.16":
   version "6.5.16"
   resolved "https://registry.yarnpkg.com/@storybook/builder-webpack4/-/builder-webpack4-6.5.16.tgz#ac468d244835a7f3bd01936398fee47244da35c1"
   integrity sha512-YqDIrVNsUo8r9xc6AxsYDLxVYtMgl5Bxk+8/h1adsOko+jAFhdg6hOcAVxEmoSI0TMASOOVMFlT2hr23ppN2rQ==
@@ -3579,7 +3579,7 @@
     core-js "^3.8.2"
     global "^4.4.0"
 
-"@storybook/manager-webpack4@6.5.16", "@storybook/manager-webpack4@^6.5.12":
+"@storybook/manager-webpack4@6.5.16":
   version "6.5.16"
   resolved "https://registry.yarnpkg.com/@storybook/manager-webpack4/-/manager-webpack4-6.5.16.tgz#7033228d38f048ceff3d403ba918d7f206b926a5"
   integrity sha512-5VJZwmQU6AgdsBPsYdu886UKBHQ9SJEnFMaeUxKEclXk+iRsmbzlL4GHKyVd6oGX/ZaecZtcHPR6xrzmA4Ziew==
