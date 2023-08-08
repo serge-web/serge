@@ -171,7 +171,9 @@
     "eslint-plugin-storybook": "^0.6.4",
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@storybook/addon-knobs": "^6.1.14",
-    "@storybook/react": "^6.5.12"
+    "@storybook/react": "^6.5.12",
+    "@storybook/builder-webpack5": "^6.5.16",
+    "@storybook/manager-webpack5": "^6.5.16"
   },
   "resolutions": {
     "@types/react": "^16.14.5",
@@ -186,10 +188,9 @@
     "@storybook/addon-interactions": "^6.5.12",
     "@storybook/addon-links": "^6.5.12",
     "@storybook/builder-webpack4": "^6.5.12",
-    "@storybook/builder-webpack5": "^6.5.16",
+   
     "@storybook/codemod": "^6.5.12",
     "@storybook/manager-webpack4": "^6.5.12",
-    "@storybook/manager-webpack5": "^6.5.16",
     "@storybook/node-logger": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
     "eslint-config-prettier": "^8.8.0",
