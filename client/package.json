@@ -167,6 +167,7 @@
     "@vitejs/plugin-react": "^4.0.3",
      
     "eslint-plugin-react": "^7.32.2",
+    "@typescript-eslint/eslint-plugin": "4.0.1",
     "@storybook/addon-knobs": "^6.1.14",
     "@storybook/react": "^6.5.12"
   },
@@ -200,7 +201,6 @@
     "eslint": "^7.1.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.1",
-    "@typescript-eslint/eslint-plugin": "4.0.1",
     "jscodeshift": "^0.11.0",
     "prettier": "^2.8.7",
     "stylelint": "^13.13.1",
