@@ -15,6 +15,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
+  // Extends ESLint configurations
   "extends": [
     "standard",
     "plugin:react/recommended",
@@ -24,15 +25,19 @@
   "plugins": [
     "prettier"
   ],
+
+    // Overrides for specific file types
   "overrides": [
     {
       "files": ["*.jsx"],
+      // Disable a TypeScript rule for JSX files
       "rules": {
         "@typescript-eslint/no-unused-vars": "off"
       }
     },
     {
       "files": [ "**/Components/**/*.ts", "**/Components/**/*.tsx"],
+      // Enforce explicit module boundary types for Components
       "rules": {
         "@typescript-eslint/explicit-module-boundary-types": "error"
       }
@@ -40,7 +45,7 @@
   ],
     // Defines ESLint rules and their configurations
   "rules": {
-    "react/prop-types": 0,
+    "react/prop-types": 0, 
     "no-trailing-spaces": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-use-before-define": "off",
@@ -89,6 +94,7 @@
     "react/jsx-uses-vars": 1, // Treats component names as used variables in JSX/TSX files
     "no-useless-constructor": "off"
   },
+  // Ignore patterns for file matching
   "ignorePatterns": [
     "*.scss.d.ts",
     "*.snap"
