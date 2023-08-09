@@ -179,7 +179,6 @@ const runServer = (
   }
 
   const file404Error = (req, res) => res.send(404, '404: File not found')
-  console.log('path.join(__dirname, clientBuildPath)', path.join(__dirname, clientBuildPath))
   app.use(express.static(path.join(__dirname, clientBuildPath)))
   app.use('/static/*', file404Error)
   app.use('/img', express.static(path.join(__dirname, './img')))
