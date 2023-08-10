@@ -49,7 +49,6 @@
     "@types/sortablejs": "^1.10.6",
     "@types/uniqid": "^5.2.0",
     "@types/vfile-message": "^2.0.0",
-
     "babel-loader": "^9.1.2",
     "bootstrap": "^4.3.1",
     "buildcom": "^0.4.5",
@@ -149,7 +148,7 @@
     "stylelint-css-modules": "^0.9.0",
     "ts-jest": "^26.2.0",
     "ts-loader": "^9.4.3",
-    "typescript": "^4.8.4",
+    "typescript": "^4.8.0",
     "uniqid": "^5.0.3",
     "universal-router": "^8.1.0",
     "whatwg-fetch": "^3.6.1",
@@ -165,7 +164,6 @@
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0",
     "@vitejs/plugin-react": "^4.0.3",
-     
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-storybook": "^0.6.4",
@@ -182,6 +180,7 @@
     "@types/react": "^16.14.5",
     "node-sass": "^9.0.0",
     "react-double-scrollbar": "IniterWorker/react-double-scrollbar",
+    "@storybook/react-docgen-typescript-plugin": "npm:react-docgen-typescript-plugin@1.0.2",
     "@types/react-flatpickr": "^3.8.4"
   },
 
