@@ -4,7 +4,6 @@ import * as L from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
 import { Select, SelectItem } from '../typings'
-import 'leaflet-select'
 
 type PlanningActitivityMenuProps = {
   /**

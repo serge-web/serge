@@ -1053,7 +1053,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <Ruler showControl={true} />
         { isDisabled && <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} /> }
-        {isDisabled && <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} /> }
+        { <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} /> }
         {showStandardAreas && <AreaPlotter areas={myAreas} />}
         {showTimeControl ? <Fragment>
           <MapPlanningOrders forceColors={forceColors} features={timelineFeatures} orders={planningMessages} selectedOrders={timelineOrders} activities={flattenedPlanningActivities} interactions={timelineInteractions} setSelectedOrders={noop} />
