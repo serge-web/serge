@@ -13662,11 +13662,6 @@ leaflet-ruler@^1.0.0:
   resolved "https://registry.yarnpkg.com/leaflet-ruler/-/leaflet-ruler-1.0.0.tgz#3a5d202469484955a106388cee668d9c94baefba"
   integrity sha512-5Ti99czL+hhcd5rMmT5JBkDvzErPUM+ogJbP6NDzJEMK5vCGqS9/1BrMpVeCcCaxViSWLPf9qcXRGcGO85UCZA==
 
-leaflet-select@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/leaflet-select/-/leaflet-select-1.0.5.tgz#c4dfc16006c56981104bf45a9d793fa9d26c68fb"
-  integrity sha512-qFTXuM+t7r2Z2TMnh4LcORqXzUWOxkD5eEscpeapkDeGN2MeAsmSAgJWww1PA2mlOi5TzcyqUjQFcin6oCvjFA==
-
 leaflet-textpath@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/leaflet-textpath/-/leaflet-textpath-1.2.3.tgz#0adef3a2d438c1c781f4e1154b8fa2f963cfd8a7"

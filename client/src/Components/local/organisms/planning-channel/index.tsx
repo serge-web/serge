@@ -1044,14 +1044,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return null
   }
 
-  // Flag to disable the timeline and PlanningActitivityMenu temporarily
-  const isDisabled = false
   const mapChildren = useMemo(() => {
     return (
       <>
         <RightClickGenerator />
         <Ruler showControl={true} />
-        { isDisabled && <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
+        { <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} setCurrentInteractions={setTimelineLiveEntities}
           showControl={showTimeControl} data={timeControlEvents} /> }
         { <PlanningActitivityMenu showControl={playerInPlanning && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} /> }
         {showStandardAreas && <AreaPlotter areas={myAreas} />}
