@@ -2,7 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 import svgrPlugin from 'vite-plugin-svgr'
-import path from 'path'
+import path, { resolve } from 'path'
 import envCompatible from 'vite-plugin-env-compatible'
 import checker from 'vite-plugin-checker'
 import macrosPlugin from 'vite-plugin-babel-macros'
@@ -51,6 +51,12 @@ export default defineConfig(({ mode }) => {
     // Build configuration
     build: {
       rollupOptions: {
+        input: {
+          main: resolve(__dirname, 'index.html'),
+          clock: resolve(__dirname, 'clock.html'),
+          twin_panel: resolve(__dirname, 'twin_pane.html'),
+          twin_player: resolve(__dirname, 'twin_player.html')
+        },
         external: ['jss-plugin-{}', 'jss-plugin-window'] 
       },
       outDir: 'build'
