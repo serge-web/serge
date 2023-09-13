@@ -10,7 +10,7 @@
     "node": "18.x"
   },
   "scripts": {
-    "start": "yarn start-client && yarn start-server",
+    "start": "concurrently \"yarn start-server\" \"yarn start-client\"",
     "start-client": "cd client && yarn start",
     "start-server": "cd server && yarn start",
     "install": "cd client && yarn install && cd ../executable && yarn install && cd ../e2e && yarn install && cd ../server && yarn install",
@@ -35,6 +35,7 @@
   },
   "snyk": true,
   "devDependencies": {
+    "concurrently": "^8.2.1",
     "husky": "^7.0.0",
     "snyk": "^1.298.1"
   },
