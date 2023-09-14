@@ -25,7 +25,11 @@
   "plugins": [
     "prettier"
   ],
-
+  "settings": {
+    "react": {
+      "version": "16.12.0"
+    }
+  },
     // Overrides for specific file types
   "overrides": [
     {
