@@ -52,10 +52,7 @@ export default defineConfig(({ mode }) => {
     build: {
       rollupOptions: {
         input: {
-          main: resolve(__dirname, 'index.html'),
-          clock: resolve(__dirname, 'clock.html'),
-          twin_panel: resolve(__dirname, 'twin_pane.html'),
-          twin_player: resolve(__dirname, 'twin_player.html')
+          main: resolve(__dirname, 'index.html')
         },
         external: ['jss-plugin-{}', 'jss-plugin-window'] 
       },
