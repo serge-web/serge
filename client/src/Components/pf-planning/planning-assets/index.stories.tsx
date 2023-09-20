@@ -4,18 +4,18 @@ import React from 'react'
 
 import { ChannelPlanning, ForceData } from 'src/custom-types'
 import { deepCopy, forceColors, platformIcons } from 'src/Helpers'
-import { P9BShort } from 'src/mocks'
+import { P9BMock } from 'src/mocks'
 import { noop } from 'lodash'
-import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
+import { generateTestData2 } from '../../local/mapping/helpers/gen-test-mapping-data'
 import { getOppAssets, getOwnAssets } from './helpers/collate-assets'
 import PlanningAssets from './index'
 import docs from './README.md'
-import MessageListPropTypes, { AssetRow } from './types/props'
+import MessageListPropTypes from './types/props'
 import moment from 'moment'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
-const game = P9BShort.data
+const game = P9BMock.data
 const gameDate = game.overview.gameDate
 const gameTime = moment(gameDate).valueOf()
 const forces = game.forces.forces
@@ -23,14 +23,14 @@ const forces = game.forces.forces
 const forceIds = forces.map((force: ForceData): string => force.uniqid)
 
 const platformTypes = game.platformTypes ? game.platformTypes.platformTypes : []
-const attributeTypes = P9BShort.data.attributeTypes ? P9BShort.data.attributeTypes.attributes : []
+const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes : []
 
 const channels = game.channels.channels
 const planningChannelTmp = channels.find((channel) => channel.channelType === 'ChannelPlanning') as ChannelPlanning
 const planningChannel = deepCopy(planningChannelTmp) as ChannelPlanning
 
 export default {
-  title: 'local/organisms/PlanningAssetsShort',
+  title: 'local/organisms/PlanningAssets',
   component: PlanningAssets,
   decorators: [withKnobs, wrapper],
   parameters: {
@@ -62,10 +62,6 @@ const forceCols = forceColors(forces)
 const platformStyles = (game.platformTypes && platformIcons(game.platformTypes.platformTypes)) || []
 const platIcons = platformIcons(platformTypes)
 
-const onVisibleRowsChange = (rows: AssetRow[]) => {
-  console.log('Story - vis rows updated', rows.length)
-}
-
 const Template: Story<MessageListPropTypes> = (args) => {
   const { forces, playerForce, render, opFor, assets } = args
 
@@ -90,7 +86,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
     platformTypes={platformTypes}
     render={render}
     attributeTypes={attributeTypes}
-    onVisibleRowsChange={onVisibleRowsChange}
     opFor={opFor}
   />
 }
@@ -110,4 +105,14 @@ OpFor.args = {
   playerForce: forces[0],
   render: noop,
   opFor: true
+}
+
+export const Bulk = Template.bind({})
+Bulk.args = {
+  forces: forces,
+  // supplying empty array is trigger to generate mock data
+  assets: [],
+  playerForce: forces[1],
+  render: noop,
+  opFor: false
 }

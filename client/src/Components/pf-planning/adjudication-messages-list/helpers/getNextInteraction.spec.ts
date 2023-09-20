@@ -4,7 +4,7 @@ import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from 's
 import { P9BMock, planningMessages, planningMessagesBulk } from 'src/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
-import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
+import { generateAllTemplates } from '../../../local/molecules/json-editor/helpers/generate-p9-templates'
 import { invertMessages, injectTimes, overlapsInTime, interactsWith } from '../../support-panel/helpers/gen-order-data'
 import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, findActivityFromCompositeString, getEventList, getNextInteraction2, InteractionResults, istarSearchRate, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
 

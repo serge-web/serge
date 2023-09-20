@@ -19,17 +19,17 @@ import {
   MessagePlanning, MessageStructure, PlanningActivity
 } from 'src/custom-types'
 import { deepCopy } from 'src/Helpers'
-import { AssetRow } from '../../organisms/planning-assets/types/props'
-import { collapseLocation } from '../../organisms/planning-messages-list/helpers/collapse-location'
-import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'
-import { customiseAssets } from '../../organisms/support-panel/helpers/customise-assets'
-import { customiseLiveOrders } from '../../organisms/support-panel/helpers/customise-live-orders'
-import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
+import { AssetRow } from '../../../pf-planning/planning-assets/types/props'
+import { collapseLocation } from '../../../pf-planning/planning-messages-list/helpers/collapse-location'
+import { customiseActivities } from '../../../pf-planning/support-panel/helpers/customise-activities'
+import { customiseAssets } from '../../../pf-planning/support-panel/helpers/customise-assets'
+import { customiseLiveOrders } from '../../../pf-planning/support-panel/helpers/customise-live-orders'
+import { customiseLocation } from '../../../pf-planning/support-panel/helpers/customise-location'
 import { generateAllTemplates, generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
 import { otherTemplate } from './helpers/p9-other'
 import Props from './types/props'
-import { interactsWith } from '../../organisms/support-panel/helpers/gen-order-data'
+import { interactsWith } from '../../../pf-planning/support-panel/helpers/gen-order-data'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 

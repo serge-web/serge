@@ -3,7 +3,7 @@ import React from 'react'
 
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Item from '../../map-control/helpers/item'
+import Item from '../../local/map-control/helpers/item'
 import PropTypes from './types/props'
 
 export const ApplyFilter: React.FC<PropTypes> = ({

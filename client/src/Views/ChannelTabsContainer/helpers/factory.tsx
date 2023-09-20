@@ -2,7 +2,7 @@ import Assets from '../../../Components/local/asset-icon'
 import HexGrid from '../../../Components/local/hex-grid'
 import InfoMarkers from '../../../Components/local/info-markers'
 import Mapping from '../../../Components/local/mapping'
-import PlanningChannel from '../../../Components/local/organisms/planning-channel'
+import PlanningChannel from '../../../Components/pf-planning/planning-channel'
 import {
   CHANNEL_CHAT, CHANNEL_COLLAB,
   CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
