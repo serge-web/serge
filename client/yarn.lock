@@ -10868,10 +10868,10 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.7.tgz#609f39207cb614b89d0765b477cb2d437fbf9787"
   integrity sha512-5nqDSxl8nn5BSNxyR3n4I6eDmbolI6WT+QqR547RwxQapgjQBmtktdP+HTBb/a/zLsbzERTONyUB5pefh5TtjQ==
 
-flexlayout-react@^0.7.7:
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/flexlayout-react/-/flexlayout-react-0.7.7.tgz#4f2fcb39e4d8e042c507e809c89cff8ab7171bde"
-  integrity sha512-BOS+lueEBdLVsrB2Jekr/z4WIuerMhkDhYcT+3E56o/ZHz6xkmv8YEkB9qimrGxRt2uAnozzH5VPUnxXMQCu0Q==
+flexlayout-react@^0.3.4:
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/flexlayout-react/-/flexlayout-react-0.3.11.tgz#fc2246f2b0bfa36b54d5294ac5dc7461ef3c2759"
+  integrity sha512-V+rEfyYJBqNk9oBgotPoXg8rmom4/ji9Mvr6f7T8sIJs83RuyK1D3oOrya2ydZIUCP2T6BIvj7rFTmRRkzpU8w==
 
 flow-parser@0.*:
   version "0.211.0"
@@ -16908,10 +16908,10 @@ react-leaflet-geoman-v2@0.2.2:
   dependencies:
     use-deep-compare-effect "^1.8.1"
 
-"react-leaflet-v4@npm:react-leaflet@4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-4.2.1.tgz#c300e9eccaf15cb40757552e181200aa10b94780"
-  integrity sha512-p9chkvhcKrWn/H/1FFeVSqLdReGwn2qmiobOQGO3BifX+/vV/39qhY8dGqbdcPh1e6jxh/QHriLXr7a4eLFK4Q==
+"react-leaflet-v4@npm:react-leaflet@4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-4.1.0.tgz#b53bce23af3bd932c189d7a80bcc7102db85edee"
+  integrity sha512-i+V9pX5lywJ48O2+K3USeeTdYLIhxnLMweH+YLd/UPqVIj3uKzE3Q29bzt83PBtViyZmxDlulzC6uoR3JLiE9A==
   dependencies:
     "@react-leaflet/core" "^2.1.0"
 
