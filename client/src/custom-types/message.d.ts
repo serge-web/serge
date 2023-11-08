@@ -1,11 +1,9 @@
 import {
-  ADJUDICATION_OUTCOMES,
   CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
-  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
+  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from 'src/config'
 
-import { Geometry } from 'geojson'
-import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcomes, INTERACTION_SHORT_CIRCUIT, LocationOutcomes, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { ChannelCore, ForceData, ForceRole, StateOfWorld, TemplateBody, MessagePlanning, InteractionDetails, MessageAdjudicationOutcomes } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -85,41 +83,6 @@ export interface MessageStructure {
   Reference?: string
 }
 
-/** Core elements of planning messages. These are the fields
- * we directly manipulate, or expect to be present. It is
- * defined as a `core` type to avoid the [property: string]
- * undefined elements that allow mis-named objects to fall
- * through TypeScript checking.
- */
-export interface PlanningMessageStructureCore {
-  /** unique id for this message thread 
-   * Note: we use upper case Reference since the send-message logic expects that 
-   * Note: in order to auto gen instances
-  */
-  Reference: string
-  /** title for this plan */
-  title: string
-  /** start-time of this plan */
-  startDate: string
-  /** end-time of this plan */
-  endDate: string
-  /** any location-related data */
-  location?: PlannedActivityGeometry[]
-  /** own assets involved in plan */
-  ownAssets?: Array<{ asset: Asset['uniqid'], number: number, missileType?: string }>
-  /** other assets involved in plan */
-  otherAssets?: Array<{ asset: Asset['uniqid'], number?: number, missileType?: string }>
-  /** id of the activity being conducted */
-  activity: PlanningActivity['uniqid']
-}
-
-/** extend planning message to allow template entries
- */
-export interface PlanningMessageStructure extends PlanningMessageStructureCore {
-  /** allow template properties */
-  [property: string]: any
-}
-
 export interface CoreMessage {
   readonly messageType: string
   /** unique id (PouchDB for this document) */
@@ -172,36 +135,6 @@ export interface CollaborationDetails {
   feedback?: Array<FeedbackItem>
 }
 
-/** extra details regarding details of interactions 
- * NOTE: we use `From` details to denote who is adjudicating the interactions
-*/
-export interface InteractionDetails {
-  /** unique id for this interaction (includes orders and geometries) */
-  readonly id: string
-  /** whether adjudication of this interaction is complete */
-  complete?: boolean
-  /** whether this interaction has been slipped */
-  skipped?: boolean
-  /** if this is in response to an event, rather than interaction */
-  event?: INTERACTION_SHORT_CIRCUIT
-  /** first set of orders this relates to */
-  readonly orders1: string
-  /** id of activity in first set of orders (if known) */
-  readonly orders1Geometry?: PlannedActivityGeometry['uniqid']
-  /** second (optional) set of orders this relates to */
-  readonly orders2?: string
-  /** id of activity in first set of orders (if known) */
-  readonly orders2Geometry?: PlannedActivityGeometry['uniqid']
-  /** other assets associated with this interaction */
-  otherAssets?: Array<Asset['uniqid']>
-  /** interaction start time */
-  readonly startTime: string
-  /** interaction end time */
-  readonly endTime: string
-  /** geometry describing area of interaction */
-  readonly geometry?: Geometry
-}
-
 export interface MessageCustom extends CoreMessage {
   readonly messageType: typeof CUSTOM_MESSAGE
   /** the strutured message */
@@ -238,15 +171,6 @@ export interface ChatMessage extends CoreMessage {
   message: MessageStructure
 }
 
-/** messages being used in support of planning */
-export interface MessagePlanning extends CoreMessage {
-  readonly messageType: typeof PLANNING_MESSAGE
-  isOpen?: boolean
-  infoType?: boolean
-  gameTurn?: number
-  message: PlanningMessageStructure
-}
-
 /** messages being used in support of adjudicating an interaction */
 export interface MessageInteraction extends CoreMessage {
   readonly messageType: typeof INTERACTION_MESSAGE
@@ -256,32 +180,6 @@ export interface MessageInteraction extends CoreMessage {
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE
   message: MessageStructure
-}
-
-/** an instance of feedback to a particular force
- */  
-export interface PerForceNarrative {
-  force: ForceData['uniqid']
-  feedback: string
-}
-
-/** the outcome-related content of an adjudication */
-export interface MessageAdjudicationOutcomes {
-  readonly messageType: typeof ADJUDICATION_OUTCOMES
-  /** ref of the adjudication this refers to */
-  readonly Reference: string
-  readonly healthOutcomes: HealthOutcomes
-  readonly locationOutcomes: LocationOutcomes
-  readonly perceptionOutcomes: PerceptionOutcomes
-  /** whether umpire considers this interaction as important */
-  important: boolean
-  /** other assets associated with this interaction,
-   * stored here temporarily, before being moved
-   * to InteractionDetails
-   */
-  otherAssets?: Array<Asset['uniqid']>
-  narrative?: string
-  perForceNarratives?: PerForceNarrative[]
 }
 
 /** message containing updated game status, could be one of:

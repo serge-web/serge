@@ -1,5 +1,5 @@
 import { GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from 'src/config'
-import { Asset, PlatformTypeData } from '.'
+import { Asset } from '.'
 import ForceData from './force-data'
 import { TemplateBody } from './template'
 
@@ -140,44 +140,6 @@ export interface CoreOutcome {
   /** private record of outcome */
   private?: string
 }
-
-export interface PerceptionOutcome extends CoreOutcome {
-  /** force with new perception */
-  force: ForceData['uniqid']
-  /** new perceived force or undefined for unknown */
-  perceivedForce?: ForceData['uniqid']
-  /** new perceived platform type or undefined for unknown */
-  perceivedType?: PlatformTypeData['uniqid']
-  /** new perceived health type or undefined for unknown */
-  perceivedHealth?: Asset['health']
-  /** new perceived name or undefined for unknown */
-  perceivedName?: ForceData['uniqid']
-  /** 
-   * perceivedLocation: The string will be parsed to JSON.
-   * We'll use special values `t` to pull in the current location,
-   * `x` to clear the location, and [number, number] to
-   * specify a location
-   */
-  perceivedLocation?: string
-}
-
-export interface LocationOutcome extends CoreOutcome {
-  /** new location (lat, long) */
-  location: [number, number]
-}
-
-export interface HealthOutcome extends CoreOutcome {
-  /** new health */
-  health: number
-  /** c4 ability */
-  c4: 'Unchanged' | 'None' | 'Degraded' | 'Operational'
-  /** when repair will be complete by */
-  repairComplete?: 'I/R' | '1' | '2' | '3'
-}
-
-export type LocationOutcomes = LocationOutcome[]
-export type HealthOutcomes = HealthOutcome[]
-export type PerceptionOutcomes = PerceptionOutcome[]
 
 /** top level database object for storing activity definitions */
 /** collection of map annotations */
