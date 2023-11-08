@@ -1,0 +1,13 @@
+{
+  "name": "e2e-tests",
+  "main": "index.js",
+  "version": "3.0.0",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "cypress": "^3.8.2"
+  },
+  "scripts": {
+    "test-disabled" : "yarn run cypress run --headless --record --key 8aac5e66-e2e6-4cbc-a45c-f63f1cfd6bc7",
+    "test-local" : "yarn run cypress open"
+  }
+}

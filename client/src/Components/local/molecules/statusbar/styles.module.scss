@@ -1,0 +1,47 @@
+@import "../../../../themes/dependencies/variables";
+
+.main {
+  display: flex;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+
+.item {
+  flex: 1;
+}
+
+.status {
+  color: $secondary-color;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.input {
+  background: transparent;
+  border: 0;
+  color: hsla(0, 0%, 100%, 0.7);
+  display: inline-block;
+  font-family: inherit;
+  font-size: 1.85em;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  color: #415b76;
+  width: 100%;
+
+  :focus {
+    color: #000;
+  }
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+}
+
+.save-icon {
+  cursor: pointer;
+  color: #415b76;
+}

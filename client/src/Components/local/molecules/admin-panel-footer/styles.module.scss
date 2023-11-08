@@ -1,0 +1,61 @@
+@import "../../../../themes/dependencies/variables";
+
+.role-info {
+  @include typo-primary;
+  align-items: center;
+  background: $force-default-color;
+  display: block;
+  position: relative;
+  width: 100%;
+
+  .force-role {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #455161;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    .force-type {
+      font-size: 12px;
+      font-weight: lighter;
+      color: #fff;
+      margin-top: -5px;
+    }
+
+    a {
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+
+  .role-type {
+    color: $admin-color;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .contain-force-skin {
+    border-bottom: 48px solid $force-default-color;
+    border-left: 26px solid transparent;
+    position: absolute;
+    right: 0;
+    bottom: 1px;
+    width: 50%;
+  }
+
+  .role-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 16px;
+    top: 26px;
+    transform: translate3d(0, -50%, 0);
+    border: 1px solid $force-default-color;
+    background-color: #fff;
+    border-radius: 100%;
+    height: 24px;
+    width: 24px;
+  }
+}

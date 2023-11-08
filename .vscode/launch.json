@@ -12,11 +12,11 @@
       "type": "node",
       "request": "launch",
       "name": "Jest All",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "program": "${workspaceFolder}/client/node_modules/.bin/jest",
       "args": [
         "--runInBand", 
         "--config",
-        "packages/components/jest.config.js"
+        "client/jest.config.js"
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
@@ -25,12 +25,12 @@
       "type": "node",
       "request": "launch",
       "name": "Jest Current File",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "program": "${workspaceFolder}/client/node_modules/.bin/jest",
       "args": [
         "--runTestsByPath",
         "${relativeFileDirname}/${fileBasename}",
         "--config",
-        "packages/components/jest.config.js"
+        "client/jest.config.js"
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"

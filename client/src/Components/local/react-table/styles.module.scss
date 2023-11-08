@@ -1,0 +1,104 @@
+@import "../../../themes/dependencies/variables";
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  max-height: 40px;
+}
+
+.filter-section {
+  cursor: pointer;
+  margin-bottom: 10px;
+  button {
+    margin-top: 5px;
+    min-width: unset;
+  }
+  svg {
+    color: rgb(160, 160, 160);
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.filter-active {
+  svg {
+    color: #fff;
+  }
+
+  input {
+    display: inline-block;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+  }
+}
+
+.archive-section {
+  cursor: pointer;
+  margin-bottom: 10px;
+  button {
+    margin-top: 5px;
+    min-width: unset;
+  }
+  svg {
+    color: rgb(160, 160, 160);
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+.archive-active {
+  svg {
+    color: #fff;
+    box-shadow: 0 0 5px #fff;
+  }
+}
+
+.mark-all-as-read-section {
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  button {
+    margin-top: 5px;
+    min-width: unset;
+  }
+  svg {
+    color: #8d8d8d;
+    box-shadow: 0 0 5px #fff;
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+.mark-all-as-read-open {
+  svg {
+    color: rgb(160, 160, 160);
+    box-shadow: unset;
+  }
+}
+
+.light {
+  color: #fff !important;
+}
+
+.dark {
+  color: #000 !important;
+}
+
+.btn {
+  span {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  button {
+    color: #3ef1ea;
+    &:hover {
+      color: #fff;
+    }
+  }
+}

@@ -1,0 +1,122 @@
+@import "../../../../themes/dependencies/variables";
+
+.info-wrap {
+  overflow: hidden;
+  display: block;
+  margin-top: 2px;
+
+  time {
+    color: rgba(7, 89, 134, 0.5);
+    display: inline-block;
+    font-size: 11px;
+    margin-right: 12px;
+    vertical-align: middle;
+  }
+
+  time,
+  small {
+    margin-top: 2px;
+  }
+
+  span {
+    font-size: 9px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.info-wrap--own-message {
+  time,
+  small {
+    float: right;
+  }
+
+  time {
+    margin-left: 12px;
+    margin-top: 6px;
+    margin-right: 0;
+  }
+}
+
+.link {
+  @include primary-shadow;
+  @include transition();
+  background-color: $background-alpha-primary;
+  border-radius: 2px;
+  color: $primary-triad-color;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 14px;
+  text-transform: uppercase;
+  width: fit-content;
+
+  &:hover {
+    background-color: $primary-triad-color-transparent;
+  }
+}
+
+.bold {
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  min-height: 60px;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.message-bullet {
+  display: block;
+  min-height: 60px;
+  left: 0;
+  top: 10px;
+  width: 8px;
+  border: 1px solid #00274b60;
+  border-right: 0;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.role {
+  border: 1px solid #00274b60 !important;
+}
+
+.message-preview-player {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: "Open Sans", "sans-serif";
+  font-size: 13px;
+  margin-left: 0;
+  padding: 0 0 2px 5px;
+  width: 180px;
+  border: 1px solid #00274b60;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #fafcff;
+  min-height: 60px;
+}
+
+.own-message {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #d9d9d9ff;
+  border-radius: 10px;
+  width: 180px;
+  text-align: right;
+  padding-right: 10px;
+}

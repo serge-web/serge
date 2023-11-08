@@ -1,7 +1,0 @@
-{
-  "name": "@serge/data",
-  "version": "0.0.1",
-  "license": "Apache-2.0",
-  "author": "IanMayo <ian@planetmayo.com>",
-  "description": "Data resources for use in other components. These elements are replaceable at runtime"
-}

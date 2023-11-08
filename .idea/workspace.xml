@@ -29,8 +29,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8a1fce70-954d-4566-bbb2-e0586bdc2e11" name="Default Changelist" comment="Sets default timezone for momentJS in tests.">
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/organisms/setting-overview/index.stories.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/packages/components/src/local/perception-form/index.stories-inc.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/components/src/local/perception-form/index.stories-inc.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Components/local/organisms/setting-overview/index.stories.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Components/local/perception-form/index.stories-inc.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Components/local/perception-form/index.stories-inc.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +60,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/packages/e2e/package.json" />
+    <dismissed value="$PROJECT_DIR$/e2e/package.json" />
   </component>
   <component name="ProjectId" id="1SDgajvSU2VAb9oaK5k8aaUzWRF" />
   <component name="ProjectViewState">
@@ -78,18 +78,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/packages/helpers" />
-      <recent name="$PROJECT_DIR$/packages/components/src/local/atoms" />
-      <recent name="$PROJECT_DIR$/packages/components/src/local/organisms" />
-      <recent name="$PROJECT_DIR$/packages/components/static/images" />
-      <recent name="$PROJECT_DIR$/packages/components/src/local" />
+      <recent name="$PROJECT_DIR$/helpers" />
+      <recent name="$PROJECT_DIR$/client/src/Components/local/atoms" />
+      <recent name="$PROJECT_DIR$/client/src/Components/local/organisms" />
+      <recent name="$PROJECT_DIR$/client/static/images" />
+      <recent name="$PROJECT_DIR$/client/src/Components/local" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/packages/components" />
-      <recent name="$PROJECT_DIR$/packages/components/src/local/molecules/option-menu/mocks" />
-      <recent name="$PROJECT_DIR$/packages/components/src/local/molecules/option-menu" />
+      <recent name="$PROJECT_DIR$/client/src/Components" />
+      <recent name="$PROJECT_DIR$/client/src/Components/local/molecules/option-menu/mocks" />
+      <recent name="$PROJECT_DIR$/client/src/Components/local/molecules/option-menu" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/packages/components/src/local/organisms" />
+      <recent name="$PROJECT_DIR$/client/src/Components/local/organisms" />
     </key>
   </component>
   <component name="RunManager">

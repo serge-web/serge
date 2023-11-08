@@ -1,0 +1,144 @@
+@import "../../../themes/dependencies/variables";
+
+.root {
+  min-width: 350px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.content {
+  min-width: 330px;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  border-right: 2px solid #000;
+}
+
+.action-tab {
+  width: 30px;
+  height: fit-content;
+  writing-mode: vertical-lr;
+  display: flex;
+
+  p {
+    cursor: pointer;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    margin-bottom: 1px;
+    border-left: 0;
+    background-color: #fff;
+    color: #000;
+    font-size: smaller;
+    font-weight: 550;
+    pointer-events: all;
+  }
+}
+
+.active {
+  background-color: #00274b !important;
+  color: #fff !important;
+}
+
+.tab-panel {
+  width: 100%;
+  color: #000;
+  overflow-y: auto;
+  /* stylelint-disable selector-max-compound-selectors */
+  div {
+    &:nth-child(2) {
+      div > div > div {
+        overflow-y: hidden;
+      }
+    }
+  }
+  /* stylelint-enable selector-max-compound-selectors */
+}
+
+.panel {
+  display: flex;
+  width: inherit;
+  z-index: 2;
+
+  div {
+    pointer-events: all;
+  }
+}
+
+.secondary-action-tab {
+  position: absolute;
+  z-index: 1;
+}
+
+.resize-indicator-container {
+  width: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  :nth-child(1) {
+    margin-left: -4px;
+  }
+}
+
+.resize-indicator-icon {
+  position: absolute;
+  width: 10px;
+  height: 45px;
+  border: 1px solid #000;
+  border-radius: 3px;
+  background: rgb(233, 233, 233);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-group {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  flex-direction: column;
+  overflow: hidden;
+  height: calc(100% - 20px);
+  overflow-y: auto;
+}
+
+.new-order-input {
+  background-color: #fff;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.select-template-title {
+  margin: 0 !important;
+}
+
+.turn-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    font-size: 14px;
+    margin-bottom: 0 !important;
+    margin-right: 10px;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+th {
+  color: #999;
+  font-weight: normal;
+}

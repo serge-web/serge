@@ -48,19 +48,19 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: linux_executable
-          path: /home/runner/work/serge/serge/packages/executable/builds/*_linux.zip
+          path: /home/runner/work/serge/serge/executable/builds/*_linux.zip
           if-no-files-found: error
       
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: macos_executable
-          path: /home/runner/work/serge/serge/packages/executable/builds/*_macos.zip
+          path: /home/runner/work/serge/serge/executable/builds/*_macos.zip
           if-no-files-found: error
 
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
           name: win64_executable
-          path: /home/runner/work/serge/serge/packages/executable/builds/*_win64.zip
+          path: /home/runner/work/serge/serge/executable/builds/*_win64.zip
           if-no-files-found: error

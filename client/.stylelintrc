@@ -1,0 +1,35 @@
+{
+  "extends": [
+    "stylelint-config-sass-guidelines",
+    "stylelint-config-css-modules",
+    "stylelint-config-prettier"
+  ],
+  "plugins": [
+    "stylelint-css-modules",
+    "stylelint-prettier"
+  ],
+  "rules": {
+    "prettier/prettier": true,
+    "max-nesting-depth": 3,
+    "selector-max-id": 1,
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    "css-modules/composed-class-names": true,
+    "css-modules/css-variables": true,
+    "order/properties-alphabetical-order": null,
+    "selector-class-pattern": [
+      "^(?:(?:o|c|u|t|s|is|has|_|js|qa)-)?[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:--[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:\\[.+\\])?$",
+      {
+        "message": "Class names should match the SUIT CSS naming convention"
+      }
+    ],
+    "selector-no-qualifying-type": [
+      true,
+      {
+        "ignore": [
+          "attribute"
+        ]
+      }
+    ]
+  }
+}

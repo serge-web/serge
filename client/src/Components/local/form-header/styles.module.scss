@@ -1,0 +1,10 @@
+@import "../../../themes/dependencies/variables";
+
+.form-header {
+  @include typo-primary;
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 1rem;
+  color: $text-field-admin;
+}

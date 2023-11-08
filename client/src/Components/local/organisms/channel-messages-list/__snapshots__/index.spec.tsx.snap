@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChannelMessagesList component:  renders component correctly 1`] = `
+<div>
+  <div
+    className="MuiBox-root MuiBox-root-1"
+  >
+    <div
+      className="forces-in-channel"
+    >
+      <img
+        alt=""
+        className="force-indicator role-icon"
+        src="http://localhost:8080/default_img/forceDefault.png"
+        style={
+          Object {
+            "backgroundColor": "#F00",
+            "borderColor": "#F00",
+          }
+        }
+        title="Blue"
+      />
+      <button
+        aria-describedby={null}
+        className="MuiButtonBase-root MuiButton-root MuiButton-text mark-all-read"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        title="Mark All as Read"
+        type="button"
+      >
+        <span
+          className="MuiButton-label"
+        >
+          <svg
+            className="svg-inline--fa fa-envelope"
+          />
+        </span>
+        <span
+          className="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-2 messages-list"
+  >
+    <div
+      className="MuiBox-root MuiBox-root-3"
+    >
+      <div
+        className="message-list-wrapper"
+        style={
+          Object {
+            "borderColor": "rgba(255, 0, 0, 1)",
+          }
+        }
+      >
+        <div
+          className="main"
+          onClick={[Function]}
+        >
+          <div
+            className="message-title-wrap 
+      message-item-unread 
+      "
+          >
+            <svg
+              className="svg-inline--fa fa-envelope"
+            />
+            <div
+              onClick={[Function]}
+            >
+              <svg
+                aria-hidden={true}
+                className="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+                focusable="false"
+                style={
+                  Object {
+                    "color": "#18ffff",
+                  }
+                }
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+                />
+              </svg>
+              <div
+                className="message-title"
+              >
+                Chat
+              </div>
+              <div
+                className="MuiBox-root MuiBox-root-4"
+              >
+                <span
+                  className="info-body"
+                >
+                  08:52
+                </span>
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-8 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-9 MuiChip-labelSmall"
+                  >
+                    CO
+                  </span>
+                </div>
+                <div
+                  className="MuiChip-root makeStyles-root-5 makeStyles-root-10 MuiChip-sizeSmall makeStyles-sizeSmall-6"
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                >
+                  <span
+                    className="MuiChip-label makeStyles-label-7 makeStyles-label-11 MuiChip-labelSmall"
+                  >
+                    Chat
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="wrap-detail "
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

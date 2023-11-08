@@ -1,1 +1,1 @@
-web: yarn workspace @serge/server start
+web: cd server && yarn start

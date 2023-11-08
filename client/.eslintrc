@@ -1,0 +1,110 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+   // Specifies the parser for TypeScript files
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    // "project": "./tsconfig.json",
+    "extraFileExtensions": [".snap"],
+    "include": ["./src"],
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  // Extends ESLint configurations
+  "extends": [
+    "standard",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended"
+  ],
+  "plugins": [
+    "prettier"
+  ],
+  "settings": {
+    "react": {
+      "version": "16.12.0"
+    }
+  },
+    // Overrides for specific file types
+  "overrides": [
+    {
+      "files": ["*.jsx"],
+      // Disable a TypeScript rule for JSX files
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off"
+      }
+    },
+    {
+      "files": [ "**/Components/**/*.ts", "**/Components/**/*.tsx"],
+      // Enforce explicit module boundary types for Components
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "error"
+      }
+    }
+  ],
+    // Defines ESLint rules and their configurations
+  "rules": {
+    "react/prop-types": 0, 
+    "no-trailing-spaces": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "dot-notation": "off",
+    "no-case-declarations": "off",
+    "react/display-name": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/no-deprecated": "off",
+    "prefer-promise-reject-errors": "off",
+    "camelcase": "off",
+    "eqeqeq": "off",
+    "semi": ["error", "never"],
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    // Allows us to hoist variables and functions which I am a fan of, functions not variables that is.
+    "@typescript-eslint/no-explicit-any": "off",
+     // Too strict for my case, sometimes I need an any type
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+      // Prevents us from using any delimiter for interface properties.
+        "multiline": {
+          "delimiter": "none",
+          "requireLast": false
+        },
+        "singleline": {
+          "delimiter": "comma",
+          "requireLast": false
+        }
+      }
+    ],
+    // This is the job of StandardJS, they are competing rules so we turn off the Typescript one.
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "args": "none"
+      }
+    ],
+    "@typescript-eslint/indent": "off",
+    // On the fence about using this one, sometimes we import a package that is never used directly.
+    "node/no-unsupported-features/es-syntax": "off",
+    // Allows us to use Import and Export keywords.
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": 1, // Treats component names as used variables in JSX/TSX files
+    "no-useless-constructor": "off"
+  },
+  // Ignore patterns for file matching
+  "ignorePatterns": [
+    "*.scss.d.ts",
+    "*.snap"
+  ],
+  "globals": {
+    "FileReader": "readonly",
+    "Event": "readonly"
+  }
+}
