@@ -16,7 +16,7 @@
     "install": "cd client && yarn install && cd ../executable && yarn install && cd ../e2e && yarn install && cd ../server && yarn install",
     "watch": "cd client && yarn watch",
     "rebuild": "cd client && yarn rebuild-client",
-    "dev": "yarn component-dev & yarn start",
+    "dev": "concurrently \"yarn component-dev\" \"yarn start\" ",
     "develop": "yarn watch && cd client && yarn develop && yarn start-server",
     "test": "cd client && yarn test",
     "test-local": "cd e2e && yarn test-local",
@@ -37,7 +37,7 @@
   "devDependencies": {
     "concurrently": "^8.2.1",
     "husky": "^7.0.0",
-    "snyk": "^1.298.1"
+        "snyk": "^1.298.1"
   },
   "eslintConfig": {
     "overrides": [
@@ -50,5 +50,5 @@
         }
       }
     ]
-  }
+    }
 }
