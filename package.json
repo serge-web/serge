@@ -37,7 +37,7 @@
   "devDependencies": {
     "concurrently": "^8.2.1",
     "husky": "^7.0.0",
-        "snyk": "^1.298.1"
+      "snyk": "^1.298.1"
   },
   "eslintConfig": {
     "overrides": [
