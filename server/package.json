@@ -11,7 +11,7 @@
     "express-pouchdb": "^4.1.0",
     "find": "^0.3.0",
     "ip": "^1.1.8",
-    "nodemon": "^1.18.11",
+    "nodemon": "^3.0.1",
     "opn": "^6.0.0",
     "path": "^0.12.7",
     "pkg": "^5.8.1",
@@ -26,10 +26,10 @@
     "walk": "^2.3.14"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
+    "eslint": "^8.53.0",
     "eslint-config-prettier": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-promise": "^4.2.1",
@@ -37,7 +37,7 @@
     "prettier": "^1.18.2"
   },
   "optionalDependencies": {
-    "node-windows": "^0.1.14"
+    "node-windows": "^1.0.0-beta.8"
   },
   "scripts": {
     "dev": "nodemon main.js",
