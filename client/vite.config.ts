@@ -6,7 +6,6 @@ import path, { resolve } from 'path'
 import envCompatible from 'vite-plugin-env-compatible'
 import checker from 'vite-plugin-checker'
 import macrosPlugin from 'vite-plugin-babel-macros'
-// import sassPlugin from 'vite-plugin-sass'
 import sass from 'sass'
 
 // https://vitejs.dev/config/
