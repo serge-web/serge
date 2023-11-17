@@ -1,11 +1,14 @@
-import { Terrain } from 'src/config'
+// import { Terrain } from 'src/config'
 import { LabelStore, SergeGrid3, SergeHex3 } from 'src/custom-types'
 import * as turf from '@turf/turf'
 import { lineString } from '@turf/turf'
-import { Feature, GeoJsonProperties, Geometry } from 'geojson'
-import { CoordIJ, experimentalH3ToLocalIj, geoToH3, H3Index, h3ToGeo, h3ToGeoBoundary, hexArea, polyfill } from 'h3-js'
+// import { Feature, GeoJsonProperties, Geometry } from 'geojson'
+import {
+  CoordIJ, experimentalH3ToLocalIj, H3Index, h3ToGeo, hexArea
+  // polyfill, h3ToGeoBoundary, geoToH3 
+} from 'h3-js'
 import L, { latLngBounds, LatLngBounds } from 'leaflet'
-import { orderBy } from 'lodash'
+// import { orderBy } from 'lodash'
 
 /** create a formatted lat/long label */
 const latLngLabel = (location: number[]): string => {
@@ -89,23 +92,23 @@ export const leafletContainsTurf = (poly: number[][], point: L.LatLng): boolean 
   return turf.booleanContains(t1, t2)
 }
 
-export const leafletBuffer = (poly1: L.LatLng[], distanceKm: number): L.LatLng[] => {
-  const t1 = turf.polygon([toTurf(poly1)])
-  const t2 = turf.buffer(t1, distanceKm, { units: 'kilometers' })
-  const coords: turf.Position[][] = t2.geometry.coordinates as turf.Position[][]
-  return coords[0].map((value: turf.Position) => {
-    return L.latLng(value[1], value[0])
-  })
-}
+// export const leafletBuffer = (poly1: L.LatLng[], distanceKm: number): L.LatLng[] => {
+//   const t1 = turf.polygon([toTurf(poly1)])
+//   const t2 = turf.buffer(t1, distanceKm, { units: 'kilometers' })
+//   const coords: turf.Position[][] = t2.geometry.coordinates as turf.Position[][]
+//   return coords[0].map((value: turf.Position) => {
+//     return L.latLng(value[1], value[0])
+//   })
+// }
 
-export const leafletBufferLine = (poly1: L.LatLng[], distanceKm: number): L.LatLng[] => {
-  const t1 = turf.lineString(toTurf(poly1))
-  const t2 = turf.buffer(t1, distanceKm, { units: 'kilometers' })
-  const coords: turf.Position[][] = t2.geometry.coordinates as turf.Position[][]
-  return coords[0].map((value: turf.Position) => {
-    return L.latLng(value[1], value[0])
-  })
-}
+// export const leafletBufferLine = (poly1: L.LatLng[], distanceKm: number): L.LatLng[] => {
+//   const t1 = turf.lineString(toTurf(poly1))
+//   const t2 = turf.buffer(t1, distanceKm, { units: 'kilometers' })
+//   const coords: turf.Position[][] = t2.geometry.coordinates as turf.Position[][]
+//   return coords[0].map((value: turf.Position) => {
+//     return L.latLng(value[1], value[0])
+//   })
+// }
 
 export const hexCellsInArea = (h3Res: number, bounds: [[number, number], [number, number]]): number => {
   const avgAreaM2 = hexArea(h3Res, 'm2')
@@ -234,87 +237,87 @@ export const updateXy = (grid: SergeGrid3): SergeGrid3 => {
   * @returns {SergeGrid3} h hex grid
   */
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any): SergeGrid3 => {
-  // outer boundary
-  const boundsNum = h3polyFromBounds(bounds)
+// export const createGridH3 = (bounds: L.LatLngBounds, res: number, cellDefs: any): SergeGrid3 => {
+//   // outer boundary
+//   const boundsNum = h3polyFromBounds(bounds)
 
-  // set of cells in this area
-  const cells = polyfill(boundsNum, res)
+//   // set of cells in this area
+//   const cells = polyfill(boundsNum, res)
 
-  // maximum number of cells we allo
-  const MAX_CELLS = 100000
+//   // maximum number of cells we allo
+//   const MAX_CELLS = 100000
 
-  if (cells.length > MAX_CELLS) {
-    window.alert('Cannot generate grid. Too many cells:' + cells.length)
-    return []
-  }
+//   if (cells.length > MAX_CELLS) {
+//     window.alert('Cannot generate grid. Too many cells:' + cells.length)
+//     return []
+//   }
 
-  // sort out the centre index
-  const centreLoc = bounds.getCenter()
-  const centreIndex = geoToH3(centreLoc.lat, centreLoc.lng, res)
+//   // sort out the centre index
+//   const centreLoc = bounds.getCenter()
+//   const centreIndex = geoToH3(centreLoc.lat, centreLoc.lng, res)
 
-  // eslint-disable-next-line no-undef
-  const typedDefs = cellDefs as unknown as GeoJSON.FeatureCollection
+//   // eslint-disable-next-line no-undef
+//   const typedDefs = cellDefs as unknown as GeoJSON.FeatureCollection
 
-  // flatten the definitions array
-  const cellStyles: Array<{ index: string, style: number }> = typedDefs && typedDefs.features.map((value: Feature<Geometry, GeoJsonProperties>) => {
-    return {
-      index: (value.properties && value.properties.hexname) || '',
-      style: (value.properties && value.properties.type) || ''
-    }
-  })
+//   // flatten the definitions array
+//   const cellStyles: Array<{ index: string, style: number }> = typedDefs && typedDefs.features.map((value: Feature<Geometry, GeoJsonProperties>) => {
+//     return {
+//       index: (value.properties && value.properties.hexname) || '',
+//       style: (value.properties && value.properties.type) || ''
+//     }
+//   })
 
-  // create the grid
-  let styleMissing = 0
-  const grid = cells.map((cell: H3Index): SergeHex3 => {
-    // see if we have definition for this index
-    const match = cellStyles && cellStyles.find((value: { index: string, style: number }) => {
-      return value.index === cell
-    })
-    const cellStyle = (match && match.style) || 0
-    if (!match) {
-      styleMissing++
-    }
-    // convert style to power of 2, so we can have multiple styles
-    const powerCell = Math.pow(2, cellStyle)
-    const centre = h3ToGeo(cell)
-    const labels = createLabels(cell, centreIndex, centre)
-    const edge = h3ToGeoBoundary(cell)
-    return {
-      centreLatLng: L.latLng(centre[0], centre[1]),
-      labelStore: labels,
-      index: cell,
-      styles: powerCell,
-      terrain: Terrain.SEA, // sea by default, until we read the values in TODO:
-      poly: edge
-    }
-  })
+//   // create the grid
+//   let styleMissing = 0
+//   const grid = cells.map((cell: H3Index): SergeHex3 => {
+//     // see if we have definition for this index
+//     const match = cellStyles && cellStyles.find((value: { index: string, style: number }) => {
+//       return value.index === cell
+//     })
+//     const cellStyle = (match && match.style) || 0
+//     if (!match) {
+//       styleMissing++
+//     }
+//     // convert style to power of 2, so we can have multiple styles
+//     const powerCell = Math.pow(2, cellStyle)
+//     const centre = h3ToGeo(cell)
+//     const labels = createLabels(cell, centreIndex, centre)
+//     const edge = h3ToGeoBoundary(cell)
+//     return {
+//       centreLatLng: L.latLng(centre[0], centre[1]),
+//       labelStore: labels,
+//       index: cell,
+//       styles: powerCell,
+//       terrain: Terrain.SEA, // sea by default, until we read the values in TODO:
+//       poly: edge
+//     }
+//   })
 
-  /** method to sort the cells from top-left to bottom right, to try to make
-   * human-friendly coordinate system.
-   */
-  const sortAndLabel = (grid: SergeGrid3): SergeGrid3 => {
-    const calcValue = (a: SergeHex3): number => {
-      // return a.centreLatLng.lng
-      return (1 - a.centreLatLng.lat) * a.centreLatLng.lng
-    }
-    const sorted = orderBy(grid, (a: SergeHex3) => calcValue(a), ['desc'])
-    const labelled = sorted.map((cell: SergeHex3, index: number): SergeHex3 => {
-      cell.labelStore.ctr = '' + (index + 1)
-      return cell
-    })
-    return labelled
-  }
+//   /** method to sort the cells from top-left to bottom right, to try to make
+//    * human-friendly coordinate system.
+//    */
+//   const sortAndLabel = (grid: SergeGrid3): SergeGrid3 => {
+//     const calcValue = (a: SergeHex3): number => {
+//       // return a.centreLatLng.lng
+//       return (1 - a.centreLatLng.lat) * a.centreLatLng.lng
+//     }
+//     const sorted = orderBy(grid, (a: SergeHex3) => calcValue(a), ['desc'])
+//     const labelled = sorted.map((cell: SergeHex3, index: number): SergeHex3 => {
+//       cell.labelStore.ctr = '' + (index + 1)
+//       return cell
+//     })
+//     return labelled
+//   }
 
-  // arrange the counters from top-left to bottom-right
-  const sorted = sortAndLabel(grid)
+//   // arrange the counters from top-left to bottom-right
+//   const sorted = sortAndLabel(grid)
 
-  // and sort out the xy indices
-  const result = updateXy(sorted)
+//   // and sort out the xy indices
+//   const result = updateXy(sorted)
 
-  if (styleMissing) {
-    console.log('Didn\'t find style definition for ' + styleMissing + '/' + cells.length + ' cells')
-  }
+//   if (styleMissing) {
+//     console.log('Didn\'t find style definition for ' + styleMissing + '/' + cells.length + ' cells')
+//   }
 
-  return result
-}
+//   return result
+// }

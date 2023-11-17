@@ -8,7 +8,7 @@ import { Story } from '@storybook/react/types-6-0'
 import L from 'leaflet'
 import React from 'react'
 import Assets from '../assets'
-import { HexGrid } from '../hex-grid'
+// import { HexGrid } from '../hex-grid'
 import MapIcon from '../map-icon'
 // Import component files
 import Mapping from './index'
@@ -244,7 +244,7 @@ WithAssets.args = {
   children: (
     <>
       <Assets />
-      <HexGrid />
+      {/* <HexGrid /> */}
     </>
   )
 }
@@ -262,7 +262,7 @@ WithLimitedAssets.args = {
   children: (
     <>
       <Assets />
-      <HexGrid />
+      {/* <HexGrid /> */}
     </>
   )
 }
@@ -280,8 +280,8 @@ WithGrid.args = {
   turnNumber: 5,
   playerForce: 'Blue',
   isGameControl: false,
-  mapBar: false,
-  children: <HexGrid />
+  mapBar: false
+  // children: <HexGrid />
 }
 
 /**
@@ -299,8 +299,8 @@ WithAllowableRange.args = {
   mapBar: false,
   planningRangeProp: 3,
   showAllowableCells: true,
-  allowableOrigin: 'F10',
-  children: <HexGrid />
+  allowableOrigin: 'F10'
+  // children: <HexGrid />
 }
 
 /**

@@ -1,8 +1,8 @@
-import HistoryIcon from '@material-ui/icons/History'
-import InfoIcon from '@material-ui/icons/Info'
-import PlannedIcon from '@material-ui/icons/Update'
+// import HistoryIcon from '@material-ui/icons/History'
+// import InfoIcon from '@material-ui/icons/Info'
+// import PlannedIcon from '@material-ui/icons/Update'
 import { ADJUDICATION_PHASE, CellLabelStyle, CHANNEL_MAPPING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, FLAG_MARKER, HOST_PLATFORM, LaydownPhases, LEAVE_TASK_GROUP, Phase, PlanningStates, serverPath, UMPIRE_FORCE, UPDATE_MARKER } from 'src/config'
-import cx from 'classnames'
+// import cx from 'classnames'
 import * as h3 from 'h3-js'
 import L from 'leaflet'
 import { cloneDeep, isEqual } from 'lodash'
@@ -10,10 +10,10 @@ import React, { createContext, useEffect, useState } from 'react'
 import { Map, ScaleControl, TileLayer } from 'react-leaflet'
 import { fetch as whatFetch } from 'whatwg-fetch'
 import MapBar from '../map-bar'
-import MapControl from '../map-control'
+// import MapControl from '../map-control'
 
 /* helper functions */
-import { createGridH3 } from './helpers/h3-helpers'
+// import { createGridH3 } from './helpers/h3-helpers'
 
 import {
   DeclutterData,
@@ -34,10 +34,10 @@ import ContextInterface from './types/context'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
-import Item from '../map-control/helpers/item'
-import ViewAs from '../organisms/view-as'
-import CellLabelStyleSelector from './helpers/CellLabelStyleSelector'
-import generateTestData from './helpers/gen-test-mapping-data'
+// import Item from '../map-control/helpers/item'
+// import ViewAs from '../organisms/view-as'
+// import CellLabelStyleSelector from './helpers/CellLabelStyleSelector'
+// import generateTestData from './helpers/gen-test-mapping-data'
 import './leaflet.css'
 import styles from './styles.module.scss'
 
@@ -130,13 +130,13 @@ export const Mapping: React.FC<PropTypes> = ({
         setLastAtlanticCells(atlanticCells)
         // bounds has changed, or atlantic cells are present
         setMapBounds(newBounds)
-        const resolution = mappingConstraintState.h3res || 3
-        const cells = createGridH3(newBounds, resolution, atlanticCells)
+        // const resolution = mappingConstraintState.h3res || 3
+        // const cells = createGridH3(newBounds, resolution, atlanticCells)
         // check if we need to update, to reduce re-renders
-        if ((cells.length !== h3gridCells.length || atlanticUpdate)) {
-          setH3Resolution(resolution)
-          setH3gridCells(cells)
-        }
+        // if ((cells.length !== h3gridCells.length || atlanticUpdate)) {
+        //   setH3Resolution(resolution)
+        //   setH3gridCells(cells)
+        // }
       }
     }
   }, [mappingConstraintState, atlanticCells])
@@ -696,47 +696,47 @@ export const Mapping: React.FC<PropTypes> = ({
     }
   }
 
-  const localAddInfoMarker = (): void => {
-    const runTest = false
-    if (runTest) {
-      generateTestData(mappingConstraintState, forces, platforms, setForcesState)
-    } else {
-      // get the centre of the map
-      if (leafletElement) {
-        const center: L.LatLng = leafletElement.getBounds().getCenter()
-        const cell = h3.geoToH3(center.lat, center.lng, h3Resolution)
-        // create new marker
-        const marker: MapAnnotation = {
-          uniqid: uniqid('a'),
-          color: '#f00',
-          iconId: 'unk',
-          label: 'pending label',
-          description: 'pending description',
-          visibleTo: [],
-          location: cell
-        }
+  // const localAddInfoMarker = (): void => {
+  //   const runTest = false
+  //   if (runTest) {
+  //     // generateTestData(mappingConstraintState, forces, platforms, setForcesState)
+  //   } else {
+  //     // get the centre of the map
+  //     if (leafletElement) {
+  //       const center: L.LatLng = leafletElement.getBounds().getCenter()
+  //       const cell = h3.geoToH3(center.lat, center.lng, h3Resolution)
+  //       // create new marker
+  //       const marker: MapAnnotation = {
+  //         uniqid: uniqid('a'),
+  //         color: '#f00',
+  //         iconId: 'unk',
+  //         label: 'pending label',
+  //         description: 'pending description',
+  //         visibleTo: [],
+  //         location: cell
+  //       }
 
-        // just add new marker to current set of annotations
-        infoMarkersState.push(marker)
-        setInfoMarkersState(infoMarkersState)
+  //       // just add new marker to current set of annotations
+  //       infoMarkersState.push(marker)
+  //       setInfoMarkersState(infoMarkersState)
 
-        // finally, select the new marker
-        setSelectedMarker(marker.uniqid)
+  //       // finally, select the new marker
+  //       setSelectedMarker(marker.uniqid)
 
-        // now the marker is selected, its form
-        // should be displayed.
-        // the new marker will get "stored"
-        // when the user clicks on "Save"
-      }
-    }
-  }
+  //       // now the marker is selected, its form
+  //       // should be displayed.
+  //       // the new marker will get "stored"
+  //       // when the user clicks on "Save"
+  //     }
+  //   }
+  // }
 
-  const viewAsCallback = (force: ForceData['uniqid']): void => {
-    setViewAsForce(force)
-    // see if this is player viewing as an umpire force
-    const theForce = forcesState.find((forceD: ForceData) => forceD.uniqid === force)
-    setViewAsUmpire(!!(theForce && theForce.umpire))
-  }
+  // const viewAsCallback = (force: ForceData['uniqid']): void => {
+  //   setViewAsForce(force)
+  //   // see if this is player viewing as an umpire force
+  //   const theForce = forcesState.find((forceD: ForceData) => forceD.uniqid === force)
+  //   setViewAsUmpire(!!(theForce && theForce.umpire))
+  // }
 
   const groupMoveToRootLocal = (uniqid: string): void => {
     if (mapPostBack !== undefined) {
@@ -866,14 +866,14 @@ export const Mapping: React.FC<PropTypes> = ({
   }
 
   /* utilty method for whether we're filtering planned routes  */
-  const isFilterAsPlannedRoutes = (): 'light' | 'dark' => {
-    return filterPlannedRoutes ? 'dark' : 'light'
-  }
+  // const isFilterAsPlannedRoutes = (): 'light' | 'dark' => {
+  //   return filterPlannedRoutes ? 'dark' : 'light'
+  // }
 
   /* utilty method for whether we're filtering planned routes  */
-  const isFilterAsHistoryRoutes = (): 'light' | 'dark' => {
-    return filterHistoryRoutes ? 'dark' : 'light'
-  }
+  // const isFilterAsHistoryRoutes = (): 'light' | 'dark' => {
+  //   return filterHistoryRoutes ? 'dark' : 'light'
+  // }
 
   /**
    * this callback is called when the user clicks on a blank part of the map.
@@ -882,7 +882,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const mapClick = (): void => {
     clearMapSelection()
   }
-
+  // console.log('hellos')
   return (
     <MapContext.Provider value={{ props: contextProps }}>
       <section className={styles['map-container']}>
@@ -903,7 +903,7 @@ export const Mapping: React.FC<PropTypes> = ({
           zoomAnimation={zoomAnimation}
           attributionControl={attributionControl}
         >
-          <MapControl
+          {/* <MapControl
             map={leafletElement}
             home={mapCentre}
             bounds={mapBounds}
@@ -928,7 +928,7 @@ export const Mapping: React.FC<PropTypes> = ({
               <CellLabelStyleSelector cellLabelStyle={cellLabelStyle} setCellLabelStyle={setCellLabelStyle} />
               <ViewAs isUmpire={isUmpire} viewAsForce={viewAsForce} viewAsCallback={viewAsCallback} forces={playerForce === UMPIRE_FORCE ? forcesState : []} />
             </>
-          </MapControl>
+          </MapControl> */}
           {mappingConstraintState && mappingConstraintState.tileLayer &&
             <TileLayer
               url={mappingConstraintState.tileLayer.url}

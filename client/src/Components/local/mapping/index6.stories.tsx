@@ -7,7 +7,7 @@ import { watuWargame } from 'src/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import Assets from '../assets'
-import { HexGrid } from '../hex-grid'
+// import { HexGrid } from '../hex-grid'
 import InfoMarkers from '../info-markers'
 import data from './data/atlantic-cells'
 // Import component files
@@ -188,7 +188,7 @@ NaturalEarth.args = {
   mappingConstraints: localConstraints,
   children: (
     <>
-      <HexGrid />
+      {/* <HexGrid /> */}
       <Assets />
       <InfoMarkers />
     </>

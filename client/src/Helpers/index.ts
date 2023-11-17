@@ -67,7 +67,7 @@ export {
   checkV3ParticipantStates,
   getParticipantStates
 } from './participant-states'
-export { default as plannedRouteFor3 } from './planned-route-for-3'
+// export { default as plannedRouteFor3 } from './planned-route-for-3'
 export { default as platformIcons, type PlatformStyle } from './platform-icons'
 export { default as roundToNearest } from './roundToNearest'
 export { default as routeAddSteps } from './route-add-steps'

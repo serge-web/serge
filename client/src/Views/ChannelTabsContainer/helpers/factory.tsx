@@ -1,5 +1,5 @@
 import Assets from '../../../Components/local/asset-icon'
-import HexGrid from '../../../Components/local/hex-grid'
+// import HexGrid from '../../../Components/local/hex-grid'
 import InfoMarkers from '../../../Components/local/info-markers'
 import Mapping from '../../../Components/local/mapping'
 import PlanningChannel from '../../../Components/pf-planning/planning-channel'
@@ -137,7 +137,7 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
       gameTurnTime={state.gameTurnTime}
       wargameInitiated={state.wargameInitiated}
     >
-      <HexGrid />
+      {/* <HexGrid /> */}
       <InfoMarkers />
       <Assets />
     </Mapping>

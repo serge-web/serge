@@ -12,7 +12,7 @@ import styles from './styles.module.scss'
 import { Props } from './types/props'
 
 /* Render component */
-export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes: attributes, onClose, onSave, inAdjudication }) => {
+export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes: attributes, onClose, onSave, inAdjudication }) => {       
   const [localData, setLocalData] = useState<AttributeEditorData[]>([])
   const modalRef = useRef<Modal>(null)
 

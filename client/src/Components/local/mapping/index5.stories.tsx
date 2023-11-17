@@ -5,7 +5,7 @@ import React from 'react'
 
 // Import component files
 import Assets from '../assets'
-import { HexGrid } from '../hex-grid'
+// import { HexGrid } from '../hex-grid'
 import Mapping from './index'
 import docs from './README.md'
 import MappingPropTypes from './types/props'
@@ -126,7 +126,7 @@ NaturalEarth.args = {
   children: (
     <>
       <InfoMarkers />
-      <HexGrid />
+      {/* <HexGrid /> */}
       <Assets />
     </>
   )

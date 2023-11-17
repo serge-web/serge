@@ -7,7 +7,7 @@ import { cmdWkWargame } from 'src/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import Assets from '../assets'
-import { HexGrid } from '../hex-grid'
+// import { HexGrid } from '../hex-grid'
 import data from './data/atlantic-cells'
 // Import component files
 import Mapping from './index'
@@ -184,7 +184,7 @@ NaturalEarth.args = {
   mappingConstraints: localConstraints,
   children: (
     <>
-      <HexGrid />
+      {/* <HexGrid /> */}
       <Assets />
     </>
   )
@@ -208,7 +208,7 @@ OpenStreetMap.args = {
   children: (
     <>
       <Assets />
-      <HexGrid />
+      {/* <HexGrid /> */}
     </>
   )
 }
@@ -230,7 +230,7 @@ DetailedCells.args = {
   mappingConstraints: detailedConstraints,
   children: (
     <>
-      <HexGrid />
+      {/* <HexGrid /> */}
       <Assets />
     </>
   )

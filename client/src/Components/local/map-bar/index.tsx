@@ -9,6 +9,7 @@ import collatePerceptionFormData from './helpers/collate-perception-form-data'
 import collatePlanningOrders from './helpers/collate-planning-orders'
 import collateStateOfWorld from './helpers/collate-state-of-world'
 
+// +-
 import { findAsset, forceFor, visibleTo, deepCopy, findPlatformTypeFor } from 'src/Helpers'
 
 /* import types */
@@ -420,7 +421,6 @@ export const MapBar: React.FC = () => {
         return <></>
     }
   }
-
   return (
     <div className={cx(styles['map-bar'], showMapBar && styles.open)}>
       <div

@@ -8,7 +8,7 @@ import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
 import L, { Polygon } from 'leaflet'
 import { randomArrayItem } from '../../../pf-planning/support-panel/helpers/gen-order-data'
-import { leafletBuffer, leafletBufferLine } from './h3-helpers'
+// import { leafletBuffer, leafletBufferLine } from './h3-helpers'
 
 const randomPointInPoly = (polygon: L.Polygon): any => {
   const bounds = polygon.getBounds()
@@ -447,29 +447,29 @@ export const generateTestData2 = (count: number, constraints: MappingConstraints
   return newForces
 }
 
-const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
-  platformTypes: PlatformTypeData[], setForcesState: { (forces: ForceData[]): void }): void => {
-  const maritimePlatformNames = ['id-frigate-ta', 'id-mcm', 'id-missile', 'id-carrier', 'id-auxiliary', 'id-destroyer']
-  const maritimePlatforms = platformTypes.filter((plat: PlatformTypeData) => maritimePlatformNames.includes(plat.uniqid))
-  // regions
-  const aus = [L.latLng(-22, 150), L.latLng(-12, 131), L.latLng(-22, 115), L.latLng(-22, 150)]
-  const ausCoast = aus.slice(0, aus.length - 1)
-  const nGuinea = [L.latLng(-1.62575, 137.5048), L.latLng(-3.9080, 135.3955), L.latLng(-8.2767, 138.4277),
-    L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.62575, 137.5048)]
-  const nGuineaCoast = nGuinea.slice(0, nGuinea.length - 1)
-  const ausCoastBuffer = L.polygon(leafletBufferLine(ausCoast, 30))
-  const ausBuffer = L.polygon(aus)
-  const guinBuffer = L.polygon(leafletBuffer(nGuinea, 10))
-  const guinCoastBuffer = L.polygon(leafletBufferLine(nGuineaCoast, 30))
-  const h3Res = constraints.h3res
-  const newForces: ForceData[] = deepCopy(forces)
-  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res || 5, platformTypes, forces, [], true)
-  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res || 5, maritimePlatforms, forces, [], true))
-  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res || 5, platformTypes, forces, [], true)
-  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res || 5, maritimePlatforms, forces, [], true))
-  console.log('blue', newForces[1].assets)
-  console.log('res', newForces[2].assets)
-  setForcesState(newForces)
-}
+// const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
+//   platformTypes: PlatformTypeData[], setForcesState: { (forces: ForceData[]): void }): void => {
+//   const maritimePlatformNames = ['id-frigate-ta', 'id-mcm', 'id-missile', 'id-carrier', 'id-auxiliary', 'id-destroyer']
+//   const maritimePlatforms = platformTypes.filter((plat: PlatformTypeData) => maritimePlatformNames.includes(plat.uniqid))
+//   // regions
+//   const aus = [L.latLng(-22, 150), L.latLng(-12, 131), L.latLng(-22, 115), L.latLng(-22, 150)]
+//   const ausCoast = aus.slice(0, aus.length - 1)
+//   const nGuinea = [L.latLng(-1.62575, 137.5048), L.latLng(-3.9080, 135.3955), L.latLng(-8.2767, 138.4277),
+//     L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.62575, 137.5048)]
+//   const nGuineaCoast = nGuinea.slice(0, nGuinea.length - 1)
+//   const ausCoastBuffer = L.polygon(leafletBufferLine(ausCoast, 30))
+//   const ausBuffer = L.polygon(aus)
+//   const guinBuffer = L.polygon(leafletBuffer(nGuinea, 10))
+//   const guinCoastBuffer = L.polygon(leafletBufferLine(nGuineaCoast, 30))
+//   const h3Res = constraints.h3res
+//   const newForces: ForceData[] = deepCopy(forces)
+//   newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res || 5, platformTypes, forces, [], true)
+//   newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res || 5, maritimePlatforms, forces, [], true))
+//   newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res || 5, platformTypes, forces, [], true)
+//   newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res || 5, maritimePlatforms, forces, [], true))
+//   console.log('blue', newForces[1].assets)
+//   console.log('res', newForces[2].assets)
+//   setForcesState(newForces)
+// }
 
-export default generateTestData
+// export default generateTestData

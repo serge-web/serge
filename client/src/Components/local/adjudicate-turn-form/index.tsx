@@ -1,17 +1,34 @@
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
+// +
 import { PlanningCommands } from 'src/config'
+// +
 import { AttributeEditorData, AttributeValues, ForceData, ForceOption, RouteStatus, Status } from 'src/custom-types'
 /* Import helpers */
+// +
 import { collateEditorData, deepCompare, isNumber } from 'src/Helpers'
 import React, { ReactElement, useEffect, useState } from 'react'
+
+// +
 import Badge from '../atoms/badge'
+
+// +
 import { Button } from '../atoms/button'
+
+// +
 import { AttributeEditor } from '../attribute-editor'
+
+// +
 import Forces from '../form-elements/forces'
+
+// +
 import { clSelect, FormGroup } from '../form-elements/form-group'
 /* Import components */
+
+// +
 import Speed from '../form-elements/speed'
+
+// +
 import TitleWithIcon from '../form-elements/title-with-icon'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
