@@ -11,7 +11,7 @@ const coreProps: CoreProperties = {
   id: 'id-1',
   color: '#f00',
   phase: Phase.Planning,
-  label: 'core label',
+  label: 'START LINE',
   turn: 1,
   force: 'f-red'
 }
@@ -19,7 +19,7 @@ const coreProps: CoreProperties = {
 const milSymProps: MilSymProperties = {
   id: 'id-1',
   phase: Phase.Planning,
-  label: 'core label',
+  label: 'Headquarters Building',
   turn: 1,
   force: 'f-red',
   sidc: 'ASDF-0-340'
@@ -29,12 +29,14 @@ const coreFeature: Feature = {
   type: 'Feature',
   properties: coreProps,
   geometry: {
-    coordinates: [[
-      [-2.519250407617534, 51.91732658109052],
-      [-2.519250407617534, 51.36084289848887],
-      [-1.2313772261967983, 51.36084289848887],
-      [-1.2313772261967983, 51.91732658109052],
-      [-2.519250407617534, 51.91732658109052]]
+    coordinates: [
+      [
+        [-2.519250407617534, 51.91732658109052],
+        [-2.519250407617534, 51.36084289848887],
+        [-1.2313772261967983, 51.36084289848887],
+        [-1.2313772261967983, 51.91732658109052],
+        [-2.519250407617534, 51.91732658109052]
+      ]
     ],
     type: 'Polygon'
   }
@@ -44,8 +46,7 @@ const milFeature: Feature = {
   type: 'Feature',
   properties: milSymProps,
   geometry: {
-    coordinates: 
-      [-2.519250407617534, 51.91732658109052],
+    coordinates: [-2.519250407617534, 51.91732658109052],
     type: 'Point'
   }
 }
@@ -53,10 +54,7 @@ const milFeature: Feature = {
 /** note: this will extend `CoreMessage` */
 const features: FeatureCollection = {
   type: 'FeatureCollection',
-  features: [
-    coreFeature,
-    milFeature
-  ]
+  features: [coreFeature, milFeature]
 }
 
 const coreMessage: CoreMappingMessage = {
