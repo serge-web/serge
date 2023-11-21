@@ -66,21 +66,18 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-dmlpXa iyINlX"
-    fixedHeader={false}
-    fixedHeaderScrollHeight="100vh"
-    responsive={true}
+    className="sc-ckVGcZ ebjDzu"
   >
     <div
-      className="sc-fKFygU jTPWeN"
+      className="sc-eNQAEJ kUevjB"
     >
       <div
-        className="sc-bdfCDU mYSul rdt_Table"
+        className="sc-bdVaJa QqzfF rdt_Table"
         disabled={false}
         role="table"
       >
         <div
-          className="sc-iwyWfK nCTcL"
+          className="sc-kEYyzF bEDbun"
         >
           <div
             style={
