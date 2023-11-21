@@ -9,7 +9,7 @@ import { cloneDeep, isEqual } from 'lodash'
 import React, { createContext, useEffect, useState } from 'react'
 import { Map, ScaleControl, TileLayer } from 'react-leaflet'
 import { fetch as whatFetch } from 'whatwg-fetch'
-import MapBar from '../map-bar'
+// import MapBar from '../map-bar'
 // import MapControl from '../map-control'
 
 /* helper functions */
@@ -33,6 +33,8 @@ import ContextInterface from './types/context'
 /* Import Stylesheet */
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import uniqid from 'uniqid'
+
+// +
 import lastStepOrientationFor from '../assets/helpers/last-step-orientation-for'
 // import Item from '../map-control/helpers/item'
 // import ViewAs from '../organisms/view-as'
@@ -886,7 +888,7 @@ export const Mapping: React.FC<PropTypes> = ({
   return (
     <MapContext.Provider value={{ props: contextProps }}>
       <section className={styles['map-container']}>
-        <MapBar />
+        {/* <MapBar /> */}
         <Map
           className={styles.map}
           center={mapCentre}

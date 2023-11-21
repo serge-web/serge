@@ -1,10 +1,10 @@
-import { AttributeTypes, ForceData } from '.'
-import ForceOption from './force-option'
+// import { ForceData } from '.'
+// import ForceOption from './force-option'
 import { AttributeValues } from './attributes'
 import { SergeHex3 } from './serge-hex-3'
 import PlatformTypeData from './platform-type-data'
-import IconOption from './icon-option'
-import { MapAnnotation } from './map-annotation'
+// import IconOption from './icon-option'
+// import { MapAnnotation } from './map-annotation'
 
 interface Status {
   name: string
@@ -21,35 +21,35 @@ export interface PerceivedType {
   uniqid : PlatformTypeData['uniqid']
 }
 
-export interface PerceptionFormPopulate {
-  perceivedForces: Array<ForceOption>
-  perceivedTypes: Array<PerceivedType>
-}
+// export interface PerceptionFormPopulate {
+//   perceivedForces: Array<ForceOption>
+//   perceivedTypes: Array<PerceivedType>
+// }
 
-export interface PerceptionFormValues {
-  perceivedNameVal: string
-  perceivedForceColor: ForceData['color'] | undefined
-  perceivedForceId: ForceData['uniqid'] | undefined
-  perceivedTypeId: PlatformTypeData['name'] | undefined
-  assetId: string
-  iconURL: PlatformTypeData['icon']
-}
+// export interface PerceptionFormValues {
+//   perceivedNameVal: string
+//   perceivedForceColor: ForceData['color'] | undefined
+//   perceivedForceId: ForceData['uniqid'] | undefined
+//   perceivedTypeId: PlatformTypeData['name'] | undefined
+//   assetId: string
+//   iconURL: PlatformTypeData['icon']
+// }
 
-export interface PerceptionFormData {
-  populate: PerceptionFormPopulate
-  values: PerceptionFormValues
-}
+// export interface PerceptionFormData {
+//   populate: PerceptionFormPopulate
+//   values: PerceptionFormValues
+// }
 
-export interface MarkerFormPopulate {
-  forces: Array<ForceOption>
-  icons: Array<IconOption>
-  iconURL: string
-}
+// export interface MarkerFormPopulate {
+//   forces: Array<ForceOption>
+//   icons: Array<IconOption>
+//   iconURL: string
+// }
 
-export interface MarkerFormData {
-  populate: MarkerFormPopulate
-  value: MapAnnotation
-}
+// export interface MarkerFormData {
+//   populate: MarkerFormPopulate
+//   value: MapAnnotation
+// }
 
 /** message for when player has planned new turn of data */
 export interface NewTurnValues {
@@ -58,11 +58,11 @@ export interface NewTurnValues {
   route: Array<SergeHex3>
 }
 
-export interface PlanTurnFormPopulate {
-  status: Array<Status>
-  speed: Array<number>
-  attributes: AttributeTypes
-}
+// export interface PlanTurnFormPopulate {
+//   status: Array<Status>
+//   speed: Array<number>
+//   attributes: AttributeTypes
+// }
 
 export interface PlanTurnFormValues {
   statusVal: Status
@@ -72,29 +72,29 @@ export interface PlanTurnFormValues {
   attributes: AttributeValues
 }
 
-export interface PlanTurnFormData {
-  populate: PlanTurnFormPopulate
-  values: PlanTurnFormValues
-}
+// export interface PlanTurnFormData {
+//   populate: PlanTurnFormPopulate
+//   values: PlanTurnFormValues
+// }
 
-export interface AdjudicateTurnFormPopulate {
-  contactId: string
-  status: Array<Status>
-  speed: Array<number>
-  visibleTo: Array<ForceOption>
-  condition: Array<string>
-  attributes: AttributeTypes
-}
+// export interface AdjudicateTurnFormPopulate {
+//   contactId: string
+//   status: Array<Status>
+//   speed: Array<number>
+//   visibleTo: Array<ForceOption>
+//   condition: Array<string>
+//   attributes: AttributeTypes
+// }
 
-export interface VisibilityFormData {
-  assetId: string
-  name: string
-  contactId: string
-  availableForces: Array<ForceOption>
-  visibleToForces: Array<ForceData['uniqid']>
-  condition: Array<string>
-  selectedCondition: string
-}
+// export interface VisibilityFormData {
+//   assetId: string
+//   name: string
+//   contactId: string
+//   availableForces: Array<ForceOption>
+//   visibleToForces: Array<ForceData['uniqid']>
+//   condition: Array<string>
+//   selectedCondition: string
+// }
 
 /**
  * Data for icon generation

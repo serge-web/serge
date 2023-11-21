@@ -36,6 +36,7 @@ const doesIt = (): boolean => {
   return probDetect > 40
 }
 
+// +
 export const randomForce = (myForce: ForceData['uniqid'], forces: ForceData[]): string => {
   const nonUmpires = forces.filter((force: ForceData) => !force.umpire)
   const notMine = nonUmpires.filter((force: ForceData) => myForce !== force.uniqid)
@@ -47,6 +48,7 @@ export const randomForce = (myForce: ForceData['uniqid'], forces: ForceData[]): 
   return randomForce.uniqid
 }
 
+// --
 export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   forces: ForceData[], localTest?: { (): boolean }): Perception[] => {
   const perceptions: Perception[] = []
