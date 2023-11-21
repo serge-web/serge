@@ -14,18 +14,21 @@ export interface BaseProperties {
     force?: ForceData['id']
     turn: number
     phase: Phase
-    visibleTo?: [ForceData['id']]    
+    visibleTo?: [ForceData['id']]
 }
 
 /** custom properties for the core renderer */
 export interface CoreProperties extends BaseProperties {
     color: string
+    [other: string]: unknown
 }
 
 /** custom properties for a MilSym renderer */
 export interface MilSymProperties extends BaseProperties {
     sidc: string
+    [other: string]: unknown
 }
+
 // TODO: move this const to the central consts file
 export const CORE_MAPPING = 'CoreMappingMessage'
 

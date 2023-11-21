@@ -13,7 +13,9 @@ const coreProps: CoreProperties = {
   phase: Phase.Planning,
   label: 'START LINE',
   turn: 1,
-  force: 'f-red'
+  force: 'f-red',
+  // additional props for core renderer
+  important: 'Yes'
 }
 
 const milSymProps: MilSymProperties = {
@@ -22,7 +24,10 @@ const milSymProps: MilSymProperties = {
   label: 'Headquarters Building',
   turn: 1,
   force: 'f-red',
-  sidc: 'ASDF-0-340'
+  sidc: 'ASDF-0-340',
+  // additional props for mil symbol
+  category: 'Civilian',
+  size: 'M'
 }
 
 const coreFeature: Feature = {
