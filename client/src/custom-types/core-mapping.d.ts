@@ -6,6 +6,7 @@ import { ForceData } from './force-data'
 import { FeatureCollection } from 'geojson'
 import { CoreMessage } from './message'
 import MappingConstraints from './mapping-constraints'
+import { ForceStyle } from 'src/Helpers'
 
 /** properties common to all renderers */
 export interface BaseProperties {
@@ -112,4 +113,15 @@ export interface CoreMappingChannel extends ChannelCore {
     participants: Array<CoreMappingParticipant>
     /** list of renderers for this channel */
     renderers: Array<BaseRenderer>
+}
+
+/** props to be passed into the new Core Mapping component */
+export interface CoreMappingPropTypes {
+  playerForce: ForceData['id']
+  playerRole: Role['id']
+  currentTurn: number
+  currentPhase: Phase
+  forces: ForceStyle[]
+  channel: CoreMappingChannel 
+  messages: CoreMappingMessage[]
 }
