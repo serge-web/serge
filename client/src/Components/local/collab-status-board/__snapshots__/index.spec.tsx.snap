@@ -138,27 +138,35 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-ckVGcZ boOxDU"
+    className="sc-dmlpXa MBFhO"
+    fixedHeader={true}
+    fixedHeaderScrollHeight="100vh"
+    responsive={true}
   >
     <div
-      className="sc-eNQAEJ kUevjB"
+      className="sc-fKFygU jTPWeN"
     >
       <div
-        className="sc-bdVaJa QqzfF rdt_Table"
+        className="sc-bdfCDU mYSul rdt_Table"
         disabled={false}
         role="table"
       >
         <div
-          className="sc-bwzfXH gZOhQP rdt_TableHead"
+          className="sc-gsTDqH crEPFC rdt_TableHead"
+          fixedHeader={true}
           role="rowgroup"
         >
           <div
-            className="sc-htpNat evnGOm rdt_TableHeadRow"
+            className="sc-dlfmHC jGQJRR rdt_TableHeadRow"
+            dense={false}
             role="row"
           >
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-iqHXzD dKBnbb hUWJMo deCIMy rdt_TableCol"
               data-column-id={1}
+              headCell={true}
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -166,31 +174,37 @@ Array [
               onDragStart={[Function]}
             >
               <div
-                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                className="sc-crrtmM WubHI rdt_TableCol_Sortable"
                 data-column-id={1}
                 data-sort-id={1}
                 disabled={false}
                 onClick={[Function]}
                 onKeyPress={[Function]}
                 role="columnheader"
+                sortActive={false}
                 tabIndex={0}
               >
                 <div
-                  className="sc-jTzLTM dnsAhI"
+                  className="sc-dQpIV ofEne"
                   data-column-id={1}
                 >
                   ID
                 </div>
                 <span
-                  className="sc-gZMcBi kfheHq"
+                  className="sc-kEjbdu RFyfv"
+                  sortActive={false}
+                  sortDirection="asc"
                 >
                   ▲
                 </span>
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-iqHXzD dKBnbb hUWJMo deCIMy rdt_TableCol"
               data-column-id={2}
+              headCell={true}
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -198,31 +212,37 @@ Array [
               onDragStart={[Function]}
             >
               <div
-                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                className="sc-crrtmM WubHI rdt_TableCol_Sortable"
                 data-column-id={2}
                 data-sort-id={2}
                 disabled={false}
                 onClick={[Function]}
                 onKeyPress={[Function]}
                 role="columnheader"
+                sortActive={false}
                 tabIndex={0}
               >
                 <div
-                  className="sc-jTzLTM dnsAhI"
+                  className="sc-dQpIV ofEne"
                   data-column-id={2}
                 >
                   From
                 </div>
                 <span
-                  className="sc-gZMcBi kfheHq"
+                  className="sc-kEjbdu RFyfv"
+                  sortActive={false}
+                  sortDirection="asc"
                 >
                   ▲
                 </span>
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-iqHXzD dKBnbb hUWJMo deCIMy rdt_TableCol"
               data-column-id={3}
+              headCell={true}
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -230,31 +250,38 @@ Array [
               onDragStart={[Function]}
             >
               <div
-                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                className="sc-crrtmM WubHI rdt_TableCol_Sortable"
                 data-column-id={3}
                 data-sort-id={3}
                 disabled={false}
                 onClick={[Function]}
                 onKeyPress={[Function]}
                 role="columnheader"
+                sortActive={false}
                 tabIndex={0}
               >
                 <div
-                  className="sc-jTzLTM dnsAhI"
+                  className="sc-dQpIV ofEne"
                   data-column-id={3}
                 >
                   Title
                 </div>
                 <span
-                  className="sc-gZMcBi kfheHq"
+                  className="sc-kEjbdu RFyfv"
+                  sortActive={false}
+                  sortDirection="asc"
                 >
                   ▲
                 </span>
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU bXBEFh rdt_TableCol"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-iqHXzD dKBnbb sIwWk deCIMy rdt_TableCol"
               data-column-id={4}
+              grow={1.2}
+              headCell={true}
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -262,31 +289,37 @@ Array [
               onDragStart={[Function]}
             >
               <div
-                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                className="sc-crrtmM WubHI rdt_TableCol_Sortable"
                 data-column-id={4}
                 data-sort-id={4}
                 disabled={false}
                 onClick={[Function]}
                 onKeyPress={[Function]}
                 role="columnheader"
+                sortActive={false}
                 tabIndex={0}
               >
                 <div
-                  className="sc-jTzLTM dnsAhI"
+                  className="sc-dQpIV ofEne"
                   data-column-id={4}
                 >
                   Status
                 </div>
                 <span
-                  className="sc-gZMcBi kfheHq"
+                  className="sc-kEjbdu RFyfv"
+                  sortActive={false}
+                  sortDirection="asc"
                 >
                   ▲
                 </span>
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-iqHXzD dKBnbb hUWJMo deCIMy rdt_TableCol"
               data-column-id={5}
+              headCell={true}
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -294,31 +327,37 @@ Array [
               onDragStart={[Function]}
             >
               <div
-                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                className="sc-crrtmM WubHI rdt_TableCol_Sortable"
                 data-column-id={5}
                 data-sort-id={5}
                 disabled={false}
                 onClick={[Function]}
                 onKeyPress={[Function]}
                 role="columnheader"
+                sortActive={false}
                 tabIndex={0}
               >
                 <div
-                  className="sc-jTzLTM dnsAhI"
+                  className="sc-dQpIV ofEne"
                   data-column-id={5}
                 >
                   Updated
                 </div>
                 <span
-                  className="sc-gZMcBi kfheHq"
+                  className="sc-kEjbdu RFyfv"
+                  sortActive={false}
+                  sortDirection="asc"
                 >
                   ▲
                 </span>
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-gqjmRU cSOuox rdt_TableCol"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-iqHXzD dKBnbb hUWJMo deCIMy rdt_TableCol"
               data-column-id={6}
+              headCell={true}
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
@@ -326,23 +365,26 @@ Array [
               onDragStart={[Function]}
             >
               <div
-                className="sc-VigVT GUduX rdt_TableCol_Sortable"
+                className="sc-crrtmM WubHI rdt_TableCol_Sortable"
                 data-column-id={6}
                 data-sort-id={6}
                 disabled={false}
                 onClick={[Function]}
                 onKeyPress={[Function]}
                 role="columnheader"
+                sortActive={false}
                 tabIndex={0}
               >
                 <div
-                  className="sc-jTzLTM dnsAhI"
+                  className="sc-dQpIV ofEne"
                   data-column-id={6}
                 >
                   Owner
                 </div>
                 <span
-                  className="sc-gZMcBi kfheHq"
+                  className="sc-kEjbdu RFyfv"
+                  sortActive={false}
+                  sortDirection="asc"
                 >
                   ▲
                 </span>
@@ -351,28 +393,35 @@ Array [
           </div>
         </div>
         <div
-          className="sc-dxgOiQ kriIxi rdt_TableBody"
+          className="sc-hHftZz gBmxlM rdt_TableBody"
           role="rowgroup"
         >
           <div
-            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            className="sc-jrAGKZ fjKvll rdt_TableRow"
+            dense={false}
+            highlightOnHover={true}
             id="row-Blue-3"
             onClick={[Function]}
             onDoubleClick={[Function]}
+            pointerOnHover={true}
             role="row"
             selected={false}
+            striped={false}
             style={Object {}}
           >
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-Blue-3"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -387,15 +436,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-Blue-3"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -416,15 +468,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-Blue-3"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -435,15 +490,19 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU sIwWk jJhCqB rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
+              grow={1.2}
               id="cell-4-Blue-3"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -464,15 +523,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-Blue-3"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -483,15 +545,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-Blue-3"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -501,24 +566,31 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            className="sc-jrAGKZ fjKvll rdt_TableRow"
+            dense={false}
+            highlightOnHover={true}
             id="row-RED-1"
             onClick={[Function]}
             onDoubleClick={[Function]}
+            pointerOnHover={true}
             role="row"
             selected={false}
+            striped={false}
             style={Object {}}
           >
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-RED-1"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -533,15 +605,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-RED-1"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -562,15 +637,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-RED-1"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -581,15 +659,19 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU sIwWk jJhCqB rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
+              grow={1.2}
               id="cell-4-RED-1"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -610,15 +692,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-RED-1"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -629,15 +714,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-RED-1"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -647,24 +735,31 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            className="sc-jrAGKZ fjKvll rdt_TableRow"
+            dense={false}
+            highlightOnHover={true}
             id="row-2020-03-25T15:08:47.540Z"
             onClick={[Function]}
             onDoubleClick={[Function]}
+            pointerOnHover={true}
             role="row"
             selected={false}
+            striped={false}
             style={Object {}}
           >
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-2020-03-25T15:08:47.540Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -679,15 +774,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-2020-03-25T15:08:47.540Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -708,15 +806,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-2020-03-25T15:08:47.540Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -725,15 +826,19 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU sIwWk jJhCqB rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
+              grow={1.2}
               id="cell-4-2020-03-25T15:08:47.540Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -754,15 +859,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-2020-03-25T15:08:47.540Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -773,15 +881,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-2020-03-25T15:08:47.540Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -791,24 +902,31 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            className="sc-jrAGKZ fjKvll rdt_TableRow"
+            dense={false}
+            highlightOnHover={true}
             id="row-2020-03-25T15:08:47.525Z"
             onClick={[Function]}
             onDoubleClick={[Function]}
+            pointerOnHover={true}
             role="row"
             selected={false}
+            striped={false}
             style={Object {}}
           >
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-2020-03-25T15:08:47.525Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -823,15 +941,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-2020-03-25T15:08:47.525Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -852,15 +973,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-2020-03-25T15:08:47.525Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -869,15 +993,19 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU sIwWk jJhCqB rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
+              grow={1.2}
               id="cell-4-2020-03-25T15:08:47.525Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -898,15 +1026,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-2020-03-25T15:08:47.525Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -917,15 +1048,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-2020-03-25T15:08:47.525Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -935,24 +1069,31 @@ Array [
             </div>
           </div>
           <div
-            className="sc-iwsKbI ftNEpz rdt_TableRow"
+            className="sc-jrAGKZ fjKvll rdt_TableRow"
+            dense={false}
+            highlightOnHover={true}
             id="row-2020-03-25T15:08:47.530Z"
             onClick={[Function]}
             onDoubleClick={[Function]}
+            pointerOnHover={true}
             role="row"
             selected={false}
+            striped={false}
             style={Object {}}
           >
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={1}
               data-tag="allowRowEvents"
               id="cell-1-2020-03-25T15:08:47.530Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -967,15 +1108,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={2}
               data-tag="allowRowEvents"
               id="cell-2-2020-03-25T15:08:47.530Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -996,15 +1140,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={3}
               data-tag="allowRowEvents"
               id="cell-3-2020-03-25T15:08:47.530Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -1013,15 +1160,19 @@ Array [
               />
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje EsLZI rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU sIwWk jJhCqB rdt_TableCell"
               data-column-id={4}
               data-tag="allowRowEvents"
+              grow={1.2}
               id="cell-4-2020-03-25T15:08:47.530Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -1042,15 +1193,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={5}
               data-tag="allowRowEvents"
               id="cell-5-2020-03-25T15:08:47.530Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
@@ -1061,15 +1215,18 @@ Array [
               </div>
             </div>
             <div
-              className="sc-bxivhb sc-ifAKCX sc-EHOje ldAXVh rdt_TableCell"
+              center={true}
+              className="sc-hKgKIp sc-eCstZk sc-jSguLX ePLeEU hUWJMo jJhCqB rdt_TableCell"
               data-column-id={6}
               data-tag="allowRowEvents"
               id="cell-6-2020-03-25T15:08:47.530Z"
+              isDragging={false}
               onDragEnd={[Function]}
               onDragEnter={[Function]}
               onDragLeave={[Function]}
               onDragOver={[Function]}
               onDragStart={[Function]}
+              renderAsCell={false}
               role="gridcell"
               style={Object {}}
             >
