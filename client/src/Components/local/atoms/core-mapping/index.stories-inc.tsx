@@ -3,7 +3,7 @@ import React from 'react'
 import CoreMapping from './index'
 import docs from './README.md'
 import { Phase } from 'src/config'
-import { CHANNEL_CORE_MAPPING, CORE_MAPPING, CoreMappingChannel, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, PARTICIPANT_CORE_MAPPING } from 'src/custom-types/core-mapping'
+import { CHANNEL_CORE_MAPPING, CORE_MAPPING, CoreMappingChannel, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, PARTICIPANT_CORE_MAPPING } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
