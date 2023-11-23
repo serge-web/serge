@@ -3,7 +3,7 @@ import React from 'react'
 import CoreMapping from './index'
 import docs from './README.md'
 import { Phase } from 'src/config'
-import { CHANNEL_CORE_MAPPING, CORE_MAPPING, CoreMappingChannel, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, PARTICIPANT_CORE_MAPPING } from 'src/custom-types'
+import { CHANNEL_CORE_MAPPING, CORE_MAPPING, CoreMappingChannel, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, PARTICIPANT_CORE_MAPPING, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
@@ -22,6 +22,7 @@ export default {
 
 const coreProps: CoreProperties = {
   id: 'id-1',
+  _type: RENDERER_CORE,
   color: '#f00',
   phase: Phase.Planning,
   label: 'START LINE',
@@ -33,6 +34,7 @@ const coreProps: CoreProperties = {
 
 const milSymProps: MilSymProperties = {
   id: 'id-1',
+  _type: RENDERER_MILSYM,
   phase: Phase.Planning,
   label: 'Headquarters Building',
   turn: 1,
