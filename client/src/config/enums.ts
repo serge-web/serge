@@ -49,14 +49,14 @@ export enum SpecialChannelColumns {
   LOCATION = 'location'
 }
 
-/** General terrain type. More relaxed than
- * cell.terrain.  Used for determining 
- * achievable cells
- */
-export enum Terrain {
-  LAND = 'land',
-  SEA = 'sea'
-}
+// /** General terrain type. More relaxed than
+//  * cell.terrain.  Used for determining 
+//  * achievable cells
+//  */
+// export enum Terrain {
+//   LAND = 'land',
+//   SEA = 'sea'
+// }
 
 /** style of label for hexes
  */

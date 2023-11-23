@@ -1,7 +1,7 @@
 import Assets from '../../../Components/local/asset-icon'
 // import HexGrid from '../../../Components/local/hex-grid'
-import InfoMarkers from '../../../Components/local/info-markers'
-import Mapping from '../../../Components/local/mapping'
+// import InfoMarkers from '../../../Components/local/info-markers'
+// import Mapping from '../../../Components/local/mapping'
 import PlanningChannel from '../../../Components/pf-planning/planning-channel'
 import {
   CHANNEL_CHAT, CHANNEL_COLLAB,
@@ -118,29 +118,10 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
     // re-usable map render function. Note: mapping constraints isn't optional.  So
     // we use the param to keep the compiler happy, but we
     // don't expect to use it.
-    const renderMap = (channelid: string, mappingConstraints: MappingConstraints, channel?: ChannelMapping) => <Mapping
-      mappingConstraints={state.mappingConstraints || mappingConstraints}
-      forces={state.allForces}
-      mapBar={true}
-      platforms={state.allPlatformTypes}
-      phase={phaseFor(state.phase)}
-      turnNumber={state.currentTurn}
-      infoMarkers={state.infoMarkers}
-      markerIcons={state.markerIcons}
-      playerForce={state.selectedForce ? state.selectedForce.uniqid : ''}
-      playerRole={state.selectedRole}
-      isGameControl={state.isGameControl}
-      isUmpire={state.isUmpire}
-      channelID={channelid}
-      channel={channel}
-      mapPostBack={mapPostBack}
-      gameTurnTime={state.gameTurnTime}
-      wargameInitiated={state.wargameInitiated}
-    >
-      {/* <HexGrid /> */}
-      <InfoMarkers />
+    const renderMap = (channelid: string, mappingConstraints: MappingConstraints, channel?: ChannelMapping) => <>
+      {/* <InfoMarkers /> */}
       <Assets />
-    </Mapping>
+    </>
     
     if (_.isEmpty(state.channels)) return
     const channel = state.channels[node.getId()]

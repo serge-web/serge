@@ -1,7 +1,23 @@
-import { CellLabelStyle, CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from 'src/config'
-import { ChannelCollab, ChannelTypes, ForceData, MappingConstraints } from 'src/custom-types'
-import { ChannelChat, ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
-import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from 'src/custom-types/participant'
+import { 
+  // CellLabelStyle, 
+  CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, 
+  // CHANNEL_MAPPING, 
+  CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, 
+  // PARTICIPANT_MAPPING, 
+  SpecialChannelTypes 
+} from 'src/config'
+import { 
+  ChannelCollab, ChannelTypes, ForceData
+  // MappingConstraints 
+} from 'src/custom-types'
+import { 
+  ChannelChat, ChannelCustom 
+  // ChannelMapping 
+} from 'src/custom-types/channel-data'
+import { 
+  ParticipantChat, ParticipantCollab, ParticipantCustom
+  // ParticipantMapping 
+} from 'src/custom-types/participant'
 import uniqid from 'uniqid'
 
 // Create uniq chanel name
@@ -53,29 +69,29 @@ const createChannel = (
         }
         return res
       }
-      case SpecialChannelTypes.CHANNEL_MAPPING: {
-        const participant: ParticipantMapping = {
-          forceUniqid: defaultForce.uniqid,
-          roles: [],
-          subscriptionId: Math.random().toString(36).substring(8),
-          pType: PARTICIPANT_MAPPING
-        }
-        const defaultMapConstraints: MappingConstraints = {
-          bounds: [[60, -10], [50, 0]],
-          h3res: 6,
-          cellLabelsStyle: CellLabelStyle.X_Y_LABELS,
-          minZoom: 3,
-          maxZoom: 10
-        }
-        const res: ChannelMapping = {
-          uniqid: uniqid.time(),
-          name: generateChannelName(channels),
-          channelType: CHANNEL_MAPPING,
-          participants: [participant],
-          constraints: defaultMapConstraints
-        }
-        return res
-      }
+      // case SpecialChannelTypes.CHANNEL_MAPPING: {
+      //   const participant: ParticipantMapping = {
+      //     forceUniqid: defaultForce.uniqid,
+      //     roles: [],
+      //     subscriptionId: Math.random().toString(36).substring(8),
+      //     pType: PARTICIPANT_MAPPING
+      //   }
+      //   const defaultMapConstraints: MappingConstraints = {
+      //     bounds: [[60, -10], [50, 0]],
+      //     h3res: 6,
+      //     cellLabelsStyle: CellLabelStyle.X_Y_LABELS,
+      //     minZoom: 3,
+      //     maxZoom: 10
+      //   }
+      //   const res: ChannelMapping = {
+      //     uniqid: uniqid.time(),
+      //     name: generateChannelName(channels),
+      //     channelType: CHANNEL_MAPPING,
+      //     participants: [participant],
+      //     constraints: defaultMapConstraints
+      //   }
+      //   return res
+      // }
       case SpecialChannelTypes.CHANNEL_CHAT:
       default: {
         const participant: ParticipantChat = {

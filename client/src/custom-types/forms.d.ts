@@ -1,25 +1,25 @@
 // import { ForceData } from '.'
 // import ForceOption from './force-option'
-import { AttributeValues } from './attributes'
-import { SergeHex3 } from './serge-hex-3'
-import PlatformTypeData from './platform-type-data'
+// import { AttributeValues } from './attributes'
+// import { SergeHex3 } from './serge-hex-3'
+// import PlatformTypeData from './platform-type-data'
 // import IconOption from './icon-option'
 // import { MapAnnotation } from './map-annotation'
 
-interface Status {
-  name: string
-  mobile: boolean
-}
+// interface Status {
+//   name: string
+//   mobile: boolean
+// }
 
 // interface Force {
 //   name: string
 //   colour: string
 // }
 
-export interface PerceivedType {
-  name: PlatformTypeData['name']
-  uniqid : PlatformTypeData['uniqid']
-}
+// export interface PerceivedType {
+//   name: PlatformTypeData['name']
+//   uniqid : PlatformTypeData['uniqid']
+// }
 
 // export interface PerceptionFormPopulate {
 //   perceivedForces: Array<ForceOption>
@@ -52,11 +52,11 @@ export interface PerceivedType {
 // }
 
 /** message for when player has planned new turn of data */
-export interface NewTurnValues {
-  state: string
-  speed?: number
-  route: Array<SergeHex3>
-}
+// export interface NewTurnValues {
+//   state: string
+//   speed?: number
+//   route: Array<SergeHex3>
+// }
 
 // export interface PlanTurnFormPopulate {
 //   status: Array<Status>
@@ -64,13 +64,13 @@ export interface NewTurnValues {
 //   attributes: AttributeTypes
 // }
 
-export interface PlanTurnFormValues {
-  statusVal: Status
-  speedVal: number
-  turnsVal: number
-  condition: string
-  attributes: AttributeValues
-}
+// export interface PlanTurnFormValues {
+//   statusVal: Status
+//   speedVal: number
+//   turnsVal: number
+//   condition: string
+//   attributes: AttributeValues
+// }
 
 // export interface PlanTurnFormData {
 //   populate: PlanTurnFormPopulate
@@ -99,20 +99,20 @@ export interface PlanTurnFormValues {
 /**
  * Data for icon generation
  */
-export interface IconDefinition {
-  forceColor: string
-  platformType: string
-  icon: string
-}
+// export interface IconDefinition {
+//   forceColor: string
+//   platformType: string
+//   icon: string
+// }
 
 /**
  *  data for selection items for RCB
  */
-export interface SelectOption {
-  /** value displayed */
-  name: string
-  /** fill-shade for marker */
-  colour: string
-  /** id of the option */
-  id: string
-}
+// export interface SelectOption {
+//   /** value displayed */
+//   name: string
+//   /** fill-shade for marker */
+//   colour: string
+//   /** id of the option */
+//   id: string
+// }

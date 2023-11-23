@@ -7,8 +7,15 @@ import MenuList from '@material-ui/core/MenuList'
 import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, SpecialChannelTypes } from 'src/config'
-import { ChannelChat, ChannelCollab, ChannelCore, ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
+import { 
+  CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, 
+  // CHANNEL_MAPPING, 
+  CHANNEL_PLANNING, SpecialChannelTypes 
+} from 'src/config'
+import { 
+  ChannelChat, ChannelCollab, ChannelCore, ChannelCustom
+  //  ChannelMapping 
+} from 'src/custom-types/channel-data'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
@@ -17,7 +24,7 @@ import EditableList, { Item } from '../../molecules/editable-list'
 import ChatChannel from './channels/chat'
 import CollabChannel from './channels/collab'
 import CustomChannel from './channels/custom'
-import MappingChannel from './channels/mapping'
+// import MappingChannel from './channels/mapping'
 import createChannel from './helpers/createChannel'
 import styles from './styles.module.scss'
 import PropTypes, { ChannelTypes } from './types/props'
@@ -80,12 +87,12 @@ export const SettingChannels: React.FC<PropTypes> = ({
           messageTemplates={messageTemplates}
           onChange={onChannelDataChange}
         />
-      case CHANNEL_MAPPING:
-        return <MappingChannel
-          channel={selectedChannelState as ChannelMapping}
-          forces={forces}
-          onChange={onChannelDataChange}
-        />
+      // case CHANNEL_MAPPING:
+      //   return <MappingChannel
+      //     channel={selectedChannelState as ChannelMapping}
+      //     forces={forces}
+      //     onChange={onChannelDataChange}
+      //   />
       case CHANNEL_CHAT:
         return <ChatChannel
           channel={selectedChannelState as ChannelChat}
@@ -155,7 +162,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                 <MenuList id="split-button-menu">
                   <MenuItem disabled>Special channels</MenuItem>
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_COLLAB)} >Collab Edit</MenuItem>
-                  <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_MAPPING)} >Mapping</MenuItem>
+                  {/* <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_MAPPING)} >Mapping</MenuItem> */}
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_CHAT)} >Chat</MenuItem>
                 </MenuList>
               </ClickAwayListener>
