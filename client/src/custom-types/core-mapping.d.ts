@@ -8,9 +8,17 @@ import { CoreMessage } from './message'
 import { ChannelCore } from './channel-data'
 import MappingConstraints from './mapping-constraints'
 
-/** properties common to all renderers */
+export const RENDERER_CORE = 'CoreRenderer'
+export const RENDERER_MILSYM = 'MilSymRenderer'
+
+/** properties common to all renderers
+ * Note: we're introducing practice of leading underscore for
+ * properties that are not shown to players
+ */
 export interface BaseProperties {
     id: string
+    // which renderer to use for this feature
+    _type: typeof RENDERER_CORE | typeof RENDERER_MILSYM
     label: string
     force?: ForceData['id']
     turn: number
@@ -81,9 +89,6 @@ export interface BaseRenderer {
     type: string // one of the renderer type strings
     additionalProps: PropertyTypes[] // any additional properties that are used for this renderer
 }
-
-export const RENDERER_CORE = 'CoreRenderer'
-export const RENDERER_MILSYM = 'MilSymRenderer'
 
 export interface CoreRenderer extends BaseRenderer {
    type: typeof RENDERER_CORE
