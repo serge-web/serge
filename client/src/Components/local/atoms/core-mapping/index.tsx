@@ -1,16 +1,23 @@
+import { FeatureCollection } from 'geojson'
 import { LatLngExpression } from 'leaflet'
-import React, { useState, useEffect, ReactElement } from 'react'
-import { MapContainer, TileLayer, GeoJSON, LayerGroup } from 'react-leaflet-v4'
+import { flatMap } from 'lodash'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
+import { BaseRenderer, CoreMappingMessage } from 'src/custom-types'
+import { CoreRendererHelper } from './helper/core-renderer-helper'
+import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-import { FeatureCollection, GeoJsonObject } from 'geojson'
-import { BaseRenderer, CoreMappingMessage, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel }) => {
   const [features, setFeatures] = useState<FeatureCollection | undefined>(undefined)
   const [renderers, setRenderers] = useState<Array<ReactElement>>([])
 
   const position: LatLngExpression = [51.505, -0.09]
+
+  useEffect(() => {
+    loadDefaultMarker()
+  }, [])
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -24,22 +31,11 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel }) => {
   useEffect(() => {
     if (channel && features) {
       const rendererObjects: Array<BaseRenderer> = channel.renderers
-      const renList: ReactElement[] = []
-      rendererObjects.forEach((obj: BaseRenderer) => {
-        switch (obj.type) {
-          case RENDERER_CORE: {
-            renList.push(<GeoJSON filter={(feature): boolean => feature.properties._type === RENDERER_CORE}
-              data={features as GeoJsonObject} key={'core'} />)
-            break
-          }
-          case RENDERER_MILSYM: {
-            renList.push(<GeoJSON filter={(feature): boolean => feature.properties._type === RENDERER_MILSYM}
-              data={features as GeoJsonObject} key={'mil'} />)
-            break
-          }
-        }
+      const renList: ReactElement[][] = rendererObjects.map((obj: BaseRenderer) => {
+        const renderer = CoreRendererHelper.from(obj.type, features)
+        return renderer.render()
       })
-      setRenderers(renList)
+      setRenderers(flatMap(renList))
     } else {
       setRenderers([])
     }
