@@ -22,24 +22,27 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel }) => {
   }, [messages])
 
   useEffect(() => {
-    const rendererObjects: Array<BaseRenderer> = channel.renderers
-    const renList: ReactElement[] = []
-    rendererObjects.forEach((obj: BaseRenderer) => {
-      switch (obj.type) {
-        case RENDERER_CORE: {
-          const coreR = <GeoJSON filter={(feature): boolean => feature.properties._type === RENDERER_CORE}
-            data={features as GeoJsonObject} key={'feature_no_contact' + Math.random()} />
-          renList.push(coreR)
-          break
+    if (channel && features) {
+      const rendererObjects: Array<BaseRenderer> = channel.renderers
+      const renList: ReactElement[] = []
+      rendererObjects.forEach((obj: BaseRenderer) => {
+        switch (obj.type) {
+          case RENDERER_CORE: {
+            renList.push(<GeoJSON filter={(feature): boolean => feature.properties._type === RENDERER_CORE}
+              data={features as GeoJsonObject} key={'core'} />)
+            break
+          }
+          case RENDERER_MILSYM: {
+            renList.push(<GeoJSON filter={(feature): boolean => feature.properties._type === RENDERER_MILSYM}
+              data={features as GeoJsonObject} key={'mil'} />)
+            break
+          }
         }
-        case RENDERER_MILSYM: {
-          const coreR = <GeoJSON filter={(feature): boolean => feature.properties._type === RENDERER_MILSYM}
-            data={features as GeoJsonObject} key={'feature_no_contact' + Math.random()} />
-          renList.push(coreR)
-        }
-      }
-    })
-    setRenderers(renList)
+      })
+      setRenderers(renList)
+    } else {
+      setRenderers([])
+    }
   }, [channel, features])
 
   return <MapContainer center={position} zoom={13} scrollWheelZoom={false} className={styles.container}>
