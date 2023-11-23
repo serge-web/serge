@@ -3,7 +3,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import CoreMapping from './index'
 import { Phase } from 'src/config'
-import { CHANNEL_CORE_MAPPING, CoreMappingChannel } from 'src/custom-types/core-mapping'
+import { CHANNEL_CORE_MAPPING, CoreMappingChannel } from 'src/custom-types'
 
 jest.mock('react-leaflet-v4', () => ({
   MapContainer: (): React.ReactElement => <></>,
