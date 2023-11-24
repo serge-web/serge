@@ -1,9 +1,9 @@
 import {
-  CHANNEL_MAPPING, CLOSE_MESSAGE, CLOSE_MODAL, MARK_ALL_AS_READ, CHAT_CHANNEL_ID,
+  CLOSE_MESSAGE, CLOSE_MODAL, MARK_ALL_AS_READ, CHAT_CHANNEL_ID,
   MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE
 } from 'src/config'
-import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData, MessagePlanning } from 'src/custom-types'
+import { PlayerUi, PlayerUiActionTypes, Wargame, WargameData, MessagePlanning } from 'src/custom-types'
 import _ from 'lodash'
 import copyState from '../../Helpers/copyStateHelper'
 import chat from '../../Schemas/chat.json'
@@ -119,10 +119,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
         console.warn('Applied workaround to remove duplicate channel defs')
       }
       newState.allChannels = cleanChannels
-
-      // see if there are any mapping constraints
-      const mapChannel = allChannels.find((channel: ChannelTypes) => channel.channelType === CHANNEL_MAPPING) as ChannelMapping
-      newState.mappingConstraints = mapChannel ? mapChannel.constraints : undefined
 
       newState.allForces = action.payload.data.forces.forces
       newState.infoMarkers = (data.annotations && data.annotations.annotations) || []

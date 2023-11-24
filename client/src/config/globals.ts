@@ -35,11 +35,6 @@ export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
 // special platform-type name, used for task group. Must match `platform-types` definition
 export const TASK_GROUP = 'task-group'
 
-/*
- * type for DATUM. @deprecated - since replaced with information-markers
- */
-export const DATUM = 'datum'
-
 // series of constants used for `messageType` when sending map events
 export const FORCE_LAYDOWN = 'ForceLaydown'
 export const VISIBILITY_CHANGES = 'VisibilityChanges'
@@ -97,7 +92,6 @@ export const EXPORT_ITEM_FORCES = 'forces'
 
 // names of special channels
 export const CHANNEL_RFI_STATUS = 'rfis'
-export const CHANNEL_MAPPING = 'mapping'
 
 // types of channel
 export const CHANNEL_CHAT = 'ChannelChat'
@@ -109,7 +103,6 @@ export const CHANNEL_PLANNING = 'ChannelPlanning'
 export const PARTICIPANT_CHAT = 'ParticipantChat'
 export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
 export const PARTICIPANT_COLLAB = 'ParticipantCollab'
-export const PARTICIPANT_MAPPING = 'ParticipantMapping'
 export const PARTICIPANT_PLANNING = 'ParticipantPlanning'
 
 // types of attribute
@@ -185,7 +178,6 @@ export const wargameSettings = 'initial_wargame'
 export const NEW_ROLE = 'New Role'
 
 /** flag to indicate a role can control all assets */
-export const CONTROL_ALL = 'control-all:'
 
 // 
 /** there has been some user interaction, so log the current time

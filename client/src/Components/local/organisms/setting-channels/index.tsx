@@ -87,12 +87,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
           messageTemplates={messageTemplates}
           onChange={onChannelDataChange}
         />
-      // case CHANNEL_MAPPING:
-      //   return <MappingChannel
-      //     channel={selectedChannelState as ChannelMapping}
-      //     forces={forces}
-      //     onChange={onChannelDataChange}
-      //   />
       case CHANNEL_CHAT:
         return <ChatChannel
           channel={selectedChannelState as ChannelChat}
@@ -162,7 +156,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
                 <MenuList id="split-button-menu">
                   <MenuItem disabled>Special channels</MenuItem>
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_COLLAB)} >Collab Edit</MenuItem>
-                  {/* <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_MAPPING)} >Mapping</MenuItem> */}
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_CHAT)} >Chat</MenuItem>
                 </MenuList>
               </ClickAwayListener>

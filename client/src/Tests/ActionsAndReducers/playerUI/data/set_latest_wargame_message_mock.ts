@@ -1,4 +1,4 @@
-import { CHANNEL_CHAT, CHANNEL_CUSTOM, CHANNEL_MAPPING, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, PARTICIPANT_CHAT, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_CUSTOM, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, PARTICIPANT_CHAT, PARTICIPANT_CUSTOM } from 'src/config'
 import { PlayerUi } from 'src/custom-types'
 
 const state: PlayerUi = {
@@ -375,36 +375,6 @@ const state: PlayerUi = {
       ],
       unreadMessageCount: 1,
       observing: false
-    },
-    'channel-k4cnw3nr': {
-      uniqid: 'k4cnw3nr',
-      cData: {
-        channelType: CHANNEL_MAPPING,
-        constraints: {
-          bounds: [[2, 3], [2, 4]],
-          h3res: 3,
-          minZoom: 4          
-        },
-        name: 'mapping',
-        participants: [
-          { forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', pType: PARTICIPANT_MAPPING },
-          { forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', pType: PARTICIPANT_MAPPING },
-          { forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', pType: PARTICIPANT_MAPPING }
-        ],
-        uniqid: 'channel-k63pjit0'
-      },
-      name: 'Mapping',
-      forceIcons: [
-        'http://localhost:8080/default_img/umpireDefault.png',
-        'http://localhost:8080/default_img/forceDefault.png'
-      ],
-      forceColors: [
-        '#FCFBEE',
-        '#3dd0ff'
-      ],
-      messages: [],
-      unreadMessageCount: 0,
-      observing: false
     }
   },
   allChannels: [
@@ -454,32 +424,6 @@ const state: PlayerUi = {
           ],
           icon: 'http://localhost:8080/default_img/umpireDefault.png',
           subscriptionId: 'k16fhy24'
-        }
-      ]
-    },
-    {
-      name: 'Mapping',
-      uniqid: 'channel-k4cnw3nr',
-      constraints: {
-        bounds: [[2, 3], [3, 2]],
-        h3res: 3,
-        minZoom: 4
-      },
-      channelType: CHANNEL_MAPPING,
-      participants: [
-        {
-          pType: PARTICIPANT_MAPPING,
-          forceUniqid: 'umpire',
-          roles: [],
-          icon: 'http://localhost:8080/default_img/umpireDefault.png',
-          subscriptionId: 'k4cnwg1q'
-        },
-        {
-          pType: PARTICIPANT_MAPPING,
-          forceUniqid: 'force-k16fdykj',
-          roles: [],
-          icon: 'http://localhost:8080/default_img/forceDefault.png',
-          subscriptionId: 'k4cnwjfx'
         }
       ]
     }

@@ -3,9 +3,7 @@
  * To generate an updated version, please run `yarn genreg`
  ***/
 export * from './attribute-helpers'
-export { default as canControlAsset, canControlAnyAsset } from './can-control-asset'
 export { default as capitalize } from './capitalize'
-export { default as checkIfDestroyed } from './check-if-destroyed'
 export { default as checkUnique } from './check-unique'
 export { default as convertMilliseconds } from './convert-milliseconds'
 export { default as deepCompare } from './deep-compare'
@@ -55,7 +53,6 @@ export { default as isPerceivedBy, type ForceStyle } from './is-perceived-by'
 export { default as isValidUrl } from './is-valid-url'
 export { default as mostRecentOnly } from './most-recent-only'
 export { default as mostRecentPlanningOnly } from './most-recent-planning-only'
-// export { default as padInteger } from './padInteger'
 export { default as newestPerRole, logTable } from './newest-per-role'
 export {
   matchedForceAndRoleFilter,
@@ -67,18 +64,8 @@ export {
   checkV3ParticipantStates,
   getParticipantStates
 } from './participant-states'
-// export { default as plannedRouteFor3 } from './planned-route-for-3'
 export { default as platformIcons, type PlatformStyle } from './platform-icons'
-// export { default as roundToNearest } from './roundToNearest'
-// export { default as routeAddSteps } from './route-add-steps'
-// export { default as routeClearFromStep } from './route-clear-from-step'
-export { default as routeCreateStore } from './route-create-store'
-// export { routeDeclutter as routeDeclutter2, dummyDeclutter as dummyDeclutter2, type DeclutterData } from './route-declutter'
-// export { default as routeSetCurrent } from './route-set-current'
-// export { default as routeSetLaydown } from './route-set-laydown'
-// export { default as routeGetLatestPosition } from './route-get-latest-position'
 export { default as routeGetPenultimatePosition } from './route-get-penultimate-position'
-export { default as sendMapMessage } from './send-map-message'
 export { default as shortPoll } from './short-poll'
 export { default as sortDictionaryByValue } from './sort-dictionary-by-value'
 export { updateGeometryTimings } from './geometry-helpers'
@@ -91,8 +78,6 @@ export {
 export { default as generateClassName } from './generate-class-name'
 export * from './message-status-state'
 export * from './message-unsent-state'
-// export { default as enumFromString } from './enum-from-string'
-// export * from './turn-time-as-millis'
 export * from './new-date'
 export * from './format-date'
 export { default as deleteRoleAndParts } from './delete-role-and-parts'

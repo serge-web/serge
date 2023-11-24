@@ -39,7 +39,6 @@ export enum InitialStates {
 
 /** types of special channel */
 export enum SpecialChannelTypes {
-  CHANNEL_MAPPING = 'mapping',
   CHANNEL_COLLAB = 'collab',
   CHANNEL_CHAT = 'chat'
 }
@@ -48,15 +47,6 @@ export enum SpecialChannelTypes {
 export enum SpecialChannelColumns {
   LOCATION = 'location'
 }
-
-// /** General terrain type. More relaxed than
-//  * cell.terrain.  Used for determining 
-//  * achievable cells
-//  */
-// export enum Terrain {
-//   LAND = 'land',
-//   SEA = 'sea'
-// }
 
 /** style of label for hexes
  */

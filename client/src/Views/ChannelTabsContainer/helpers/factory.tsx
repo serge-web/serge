@@ -1,23 +1,15 @@
-import Assets from '../../../Components/local/asset-icon'
-// import HexGrid from '../../../Components/local/hex-grid'
-// import InfoMarkers from '../../../Components/local/info-markers'
-// import Mapping from '../../../Components/local/mapping'
-import PlanningChannel from '../../../Components/pf-planning/planning-channel'
-import {
-  CHANNEL_CHAT, CHANNEL_COLLAB,
-  CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
-} from 'src/config'
-import { ChannelMapping, PlayerUiActionTypes, ChannelPlanning, ForceData, ChannelTypes, ChannelUI, MappingConstraints, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from 'src/custom-types'
-import { sendMapMessage } from 'src/Helpers'
+import React from 'react'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
-import React from 'react'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_PLANNING, Phase } from 'src/config'
+import { PlayerUiActionTypes, ChannelPlanning, ForceData, ChannelTypes, ChannelUI, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PlayerUi } from 'src/custom-types'
+import { mockPlanningMessages } from './mock-message-data'
 import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveBulkMessages, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
+import CollabChannel from '../../../Components/CollabChannel'
+import PlanningChannel from '../../../Components/pf-planning/planning-channel'
 
 import { saveNewActivityTimeMessage } from '../../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
-import CollabChannel from '../../../Components/CollabChannel'
-import { mockPlanningMessages } from './mock-message-data'
 
 type Factory = (node: TabNode) => React.ReactNode
 
@@ -26,9 +18,6 @@ type Factory = (node: TabNode) => React.ReactNode
  * accepted the capitalised value. That's why this 
  * convenience function was created.
  */
-const phaseFor = (phase: string): Phase => {
-  return phase === 'planning' ? Phase.Planning : Phase.Adjudication
-}
 
 const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>, reduxDisplatch: React.Dispatch<any>): Factory => {  
   const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
@@ -37,56 +26,6 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
 
   const ArchivePostBack = (archiveMark: MessagePlanning[]): void => {
     saveBulkMessages(state.currentWargame, archiveMark)
-  }
-
-  const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
-    if (channelID === '') return
-    if (typeof channelID === 'number') channelID = channelID.toString()
-    const turnNumber = state.currentTurn
-
-    switch (form) {
-      case UPDATE_MARKER:
-        sendMapMessage(UPDATE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case DELETE_MARKER:
-        sendMapMessage(DELETE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case CLONE_MARKER:
-        sendMapMessage(CLONE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case UMPIRE_LAYDOWN:
-        sendMapMessage(UMPIRE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case FORCE_LAYDOWN:
-        sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case VISIBILITY_CHANGES:
-        sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case PERCEPTION_OF_CONTACT:
-        sendMapMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case SUBMIT_PLANS:
-        sendMapMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case STATE_OF_WORLD:
-        sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case CREATE_TASK_GROUP:
-        sendMapMessage(CREATE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case LEAVE_TASK_GROUP:
-        sendMapMessage(LEAVE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case HOST_PLATFORM:
-        sendMapMessage(HOST_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      case DELETE_PLATFORM:
-        sendMapMessage(DELETE_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
-        break
-      default:
-        console.log('Handler not created for', form)
-    }
   }
  
   return (node: TabNode): React.ReactNode => {
@@ -98,7 +37,7 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
         // lose that content.  Note: there _Shouldn't_ be a performance
         // hit, since the content in those channels won't be changing
         const cType = channelData.cData.channelType
-        if (cType === CHANNEL_COLLAB || cType === CHANNEL_MAPPING || cType === CHANNEL_CUSTOM || cType === CHANNEL_CHAT || cType === CHANNEL_PLANNING) {
+        if (cType === CHANNEL_COLLAB || cType === CHANNEL_CUSTOM || cType === CHANNEL_CHAT || cType === CHANNEL_PLANNING) {
           return true
         }
       }
@@ -114,14 +53,6 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
     if (hasMaximizeTab && !tabSetNode.isMaximized()) {
       return
     }
-
-    // re-usable map render function. Note: mapping constraints isn't optional.  So
-    // we use the param to keep the compiler happy, but we
-    // don't expect to use it.
-    const renderMap = (channelid: string, mappingConstraints: MappingConstraints, channel?: ChannelMapping) => <>
-      {/* <InfoMarkers /> */}
-      <Assets />
-    </>
     
     if (_.isEmpty(state.channels)) return
     const channel = state.channels[node.getId()]
@@ -137,11 +68,6 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
           return <CollabChannel channelId={channel.uniqid} />
         case CHANNEL_CHAT:
           return <ChatChannel channelId={channel.uniqid} />
-        case CHANNEL_MAPPING: {
-          const channelD = channel.cData as ChannelMapping
-          const constraints = channelD.constraints
-          return renderMap(node.getId(), constraints, channel.cData as ChannelMapping)
-        }
         case CHANNEL_CUSTOM:
           return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
         case CHANNEL_PLANNING:

@@ -23,7 +23,7 @@ import TextInput from '../../../atoms/text-input'
 import AttributeEditor from '../../../attribute-editor'
 import Groups from '../../../helper-elements/groups'
 import { NodeType } from '../../../helper-elements/groups/types/props'
-import canCombineWith from '../../../world-state/helpers/can-combine-with'
+import canCombineWith from '../helpers/can-combine-with'
 /* Import proptypes */
 import { ASSET_ITEM, PLATFORM_ITEM } from '../constants'
 import { ForceItemType, ListItemType, PlatformItemType } from '../types/sortableItems'

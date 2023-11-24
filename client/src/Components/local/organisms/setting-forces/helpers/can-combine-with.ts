@@ -1,5 +1,5 @@
 
-import { NodeType } from '../../helper-elements/groups/types/props'
+import { NodeType } from '../../../helper-elements/groups/types/props'
 import { RouteStore, Route, GroupItem } from 'src/custom-types'
 import { h3Distance } from 'h3-js'
 /**
