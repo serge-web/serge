@@ -8,9 +8,9 @@ export class CoreRendererHelper {
   static from (type: string): React.ComponentClass<CoreRendererProps> {
     switch (type) {
       case RENDERER_CORE:
-        return CoreRenderer as React.ComponentClass<CoreRendererProps>
+        return CoreRenderer
       case RENDERER_MILSYM:
-        return MilSymbolRenderer as React.ComponentClass<CoreRendererProps>
+        return MilSymbolRenderer
       default:
         throw Error('Invalid type of renderer')
     }
