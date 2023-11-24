@@ -20,12 +20,9 @@ export { default as Force } from './force.d'
 export * from './global.d'
 export { default as GroupItem } from './group-item.d'
 export { default as IconOption } from './icon-option.d'
-<<<<<<< HEAD
-export * from './map-annotation'
-=======
+
 export * from './map-annotation.d'
-export { default as MapPostBack } from './map-postback-data.d'
->>>>>>> 3569785408f996e81169b04db5e58b9845f7ea41
+// export { default as MapPostBack } from './map-postback-data.d'
 export { default as MappingConstraints } from './mapping-constraints.d'
 export { default as MarkerPerception } from './marker-perception.d'
 export * from './message-types-actions.d'
@@ -62,10 +59,7 @@ export { default as PlayerUi, PlayerUiChannels, PlayerUiChatChannel } from './pl
 export { default as RequestForInformation } from './request-for-information.d'
 export { default as Role } from './role.d'
 export * from './root-state'
-<<<<<<< HEAD
-=======
-export { default as RouteMarker, RouteMarkerDuo, RouteMarkerStatus } from './route-marker.d'
->>>>>>> 3569785408f996e81169b04db5e58b9845f7ea41
+// export { default as RouteMarker, RouteMarkerDuo, RouteMarkerStatus } from './route-marker.d'
 export { default as RouteStatus } from './route-status.d'
 export { default as RouteStore } from './route-store.d'
 export { default as RouteTurn } from './route-turn.d'
