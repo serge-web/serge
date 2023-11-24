@@ -39,7 +39,7 @@ const milSymProps: MilSymProperties = {
   label: 'Headquarters Building',
   turn: 1,
   force: 'f-red',
-  sidc: 'ASDF-0-340',
+  sidc: 'SFG-UCI----D',
   // additional props for mil symbol
   category: 'Civilian',
   size: 'M'
@@ -51,11 +51,26 @@ const coreFeature: Feature = {
   geometry: {
     coordinates: [
       [
-        [-2.519250407617534, 51.91732658109052],
-        [-2.519250407617534, 51.36084289848887],
-        [-1.2313772261967983, 51.36084289848887],
-        [-1.2313772261967983, 51.91732658109052],
-        [-2.519250407617534, 51.91732658109052]
+        [
+          -0.03167616558306463,
+          51.50940207305993
+        ],
+        [
+          -0.03167616558306463,
+          51.49266769548318
+        ],
+        [
+          0.03011008273324478,
+          51.49266769548318
+        ],
+        [
+          0.03011008273324478,
+          51.50940207305993
+        ],
+        [
+          -0.03167616558306463,
+          51.50940207305993
+        ]
       ]
     ],
     type: 'Polygon'
@@ -66,7 +81,8 @@ const milFeature: Feature = {
   type: 'Feature',
   properties: milSymProps,
   geometry: {
-    coordinates: [-2.519250407617534, 51.91732658109052],
+    coordinates: [-0.07929841834678086,
+      51.497669733260125],
     type: 'Point'
   }
 }
