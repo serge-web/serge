@@ -1,3 +1,5 @@
+import { FeatureCollection } from 'geojson'
+
 export default interface PropTypes {
   playerForce: ForceData['id']
   playerRole: Role['id']
@@ -7,3 +9,7 @@ export default interface PropTypes {
   channel: CoreMappingChannel 
   messages: CoreMappingMessage[]
 }
+
+export type CoreRendererProps = {
+  features: FeatureCollection<Geometry, GeoJsonProperties>
+};

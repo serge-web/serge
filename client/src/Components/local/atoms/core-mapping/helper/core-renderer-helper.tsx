@@ -1,16 +1,16 @@
-import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
+import React from 'react'
 import { RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { CoreRenderer } from '../renderers/core-renderer'
 import { MilSymbolRenderer } from '../renderers/milsymbol-renderer'
-import { ICoreRenderer } from '../renderers/I-core-renderer'
+import { CoreRendererProps } from '../types/props'
 
 export class CoreRendererHelper {  
-  static from (type: string, features: FeatureCollection<Geometry, GeoJsonProperties>): ICoreRenderer {
+  static from (type: string): React.ComponentClass<CoreRendererProps> {
     switch (type) {
       case RENDERER_CORE:
-        return new CoreRenderer().from(features)
+        return CoreRenderer as React.ComponentClass<CoreRendererProps>
       case RENDERER_MILSYM:
-        return new MilSymbolRenderer().from(features)
+        return MilSymbolRenderer as React.ComponentClass<CoreRendererProps>
       default:
         throw Error('Invalid type of renderer')
     }
