@@ -30,7 +30,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel }) => {
   useEffect(() => {
     if (channel) {
       const rendererObjects: Array<BaseRenderer> = channel.renderers
-      const renList: React.ComponentClass<CoreRendererProps>[] = rendererObjects.map((obj: BaseRenderer) => CoreRendererHelper.from(obj.type))
+      const renList = rendererObjects.map((obj: BaseRenderer) => CoreRendererHelper.from(obj.type))
       setRenderers(renList)
     } else {
       setRenderers([])
