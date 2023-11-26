@@ -2116,7 +2116,7 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@geoman-io/leaflet-geoman-free@^2.13.0":
+"@geoman-io/leaflet-geoman-free@^2.14.2":
   version "2.14.2"
   resolved "https://registry.yarnpkg.com/@geoman-io/leaflet-geoman-free/-/leaflet-geoman-free-2.14.2.tgz#c84c2115c263f34d11dc0b43859551639fe3d56b"
   integrity sha512-6lIyG8RvSVdFjVjiQgBPyNASjymSyqzsiUeBW0pA+q41lB5fAg4SDC6SfJvWdEyDHa81Jb5FWjUkCc9O+u0gbg==
@@ -16174,12 +16174,10 @@ react-leaflet-cluster@1.0.3:
   dependencies:
     leaflet.markercluster "^1.4.1"
 
-react-leaflet-geoman-v2@0.2.2:
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/react-leaflet-geoman-v2/-/react-leaflet-geoman-v2-0.2.2.tgz#d20258311fcde8d45a5ec11290840ba92c3d180b"
-  integrity sha512-BLcf3kd3enzo14By9Y0b4tbM2KfL0zRbZls32Gl3eXlhoNblBjcxiszY1OklF2ktI3QZggZvjSmGp00zC1QCFQ==
-  dependencies:
-    use-deep-compare-effect "^1.8.1"
+react-leaflet-geoman-v2@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-leaflet-geoman-v2/-/react-leaflet-geoman-v2-1.0.1.tgz#2aaaebb4edbf430010a761d3823efa3b7c0a6616"
+  integrity sha512-qA+Es7lgy8OyqvN2pQ6qNA99papKY29ld+LGU8eY2hQHnCf3l9uWb20dpWdDELfxoyrOwKrXvpF5sdGxW9oflg==
 
 "react-leaflet-v4@npm:react-leaflet@4.1.0":
   version "4.1.0"
@@ -16195,15 +16193,12 @@ react-leaflet-vectorgrid@^2.2.1:
   dependencies:
     leaflet.vectorgrid "^1.3.0"
 
-react-leaflet@2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-2.8.0.tgz#14bfc77b6ae8263d3a62e0ba7a39539c05973c6f"
-  integrity sha512-Y7oHtNrrlRH8muDttXf+jZ2Ga/X7jneSGi1GN8uEdeCfLProTqgG2Zoa5TfloS3ZnY20v7w+DIenMG59beFsQw==
+react-leaflet@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-4.2.1.tgz#c300e9eccaf15cb40757552e181200aa10b94780"
+  integrity sha512-p9chkvhcKrWn/H/1FFeVSqLdReGwn2qmiobOQGO3BifX+/vV/39qhY8dGqbdcPh1e6jxh/QHriLXr7a4eLFK4Q==
   dependencies:
-    "@babel/runtime" "^7.12.1"
-    fast-deep-equal "^3.1.3"
-    hoist-non-react-statics "^3.3.2"
-    warning "^4.0.3"
+    "@react-leaflet/core" "^2.1.0"
 
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
@@ -19365,14 +19360,6 @@ use-callback-ref@^1.2.5, use-callback-ref@^1.3.0:
   integrity sha512-3FT9PRuRdbB9HfXhEq35u4oZkvpJ5kuYbpqhCfmiZyReuRgpnhDlbr2ZEnnuS0RrJAPn6l23xjFg9kpDM+Ms7w==
   dependencies:
     tslib "^2.0.0"
-
-use-deep-compare-effect@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/use-deep-compare-effect/-/use-deep-compare-effect-1.8.1.tgz#ef0ce3b3271edb801da1ec23bf0754ef4189d0c6"
-  integrity sha512-kbeNVZ9Zkc0RFGpfMN3MNfaKNvcLNyxOAAd9O4CBZ+kCBXXscn9s/4I+8ytUER4RDpEYs5+O6Rs4PqiZ+rHr5Q==
-  dependencies:
-    "@babel/runtime" "^7.12.5"
-    dequal "^2.0.2"
 
 use-memo-one@^1.1.3:
   version "1.1.3"
