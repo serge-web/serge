@@ -43,7 +43,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel }) => {
   }
 
   const onChange = (e: PM.ChangeEventHandler) => {
-    console.log('onCreate Event Fired', e)
+    console.log('onChange Event Fired', e)
   }
   
   return <MapContainer center={position} zoom={13} scrollWheelZoom={false} className={styles.container}>
