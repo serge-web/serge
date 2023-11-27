@@ -1,14 +1,10 @@
 import {
-  CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
-  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
+  CHAT_MESSAGE, CollaborativeMessageStates,
+  COUNTER_MESSAGE, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE
 } from 'src/config'
 
-import { ChannelCore, ForceData, ForceRole, StateOfWorld, TemplateBody, MessagePlanning, InteractionDetails, MessageAdjudicationOutcomes } from '.'
-import { MapAnnotation } from './map-annotation'
-import Perception from './perception'
-import PlannedRoute from './planned-route'
+import { ChannelCore, ForceData, ForceRole, TemplateBody, MessagePlanning, InteractionDetails, MessageAdjudicationOutcomes } from '.'
 import Role from './role'
-import Visibility from './visibility'
 import Wargame from './wargame'
 
 export interface MessageDetailsFrom {
@@ -208,91 +204,7 @@ export interface MessageInfoTypeClipped {
   _id?: string
 }
 
-export interface MessageForceLaydown {
-  readonly messageType: typeof FORCE_LAYDOWN
-  readonly updates: Array<{ uniqid: string, position: string }>
-}
-export interface MessagePerceptionOfContact {
-  readonly messageType: typeof PERCEPTION_OF_CONTACT
-  readonly assetId: string
-  readonly perception: Perception
-}
-
-/** two assets are going to join, to form a task group */
-export interface MessageCreateTaskGroup {
-  readonly messageType: typeof CREATE_TASK_GROUP
-  /** id of the platform that was dragged onto another */
-  readonly dragged: string
-  /** id of the target platform that other was dropped onto */
-  readonly target: string
-}
-
-/** an asset is going to host another platform */
-export interface MessageHostPlatform {
-  readonly messageType: typeof HOST_PLATFORM
-  /** id of the platform that was dragged onto another */
-  readonly dragged: string
-  /** id of the target platform that other was dropped onto */
-  readonly target: string
-}
-
-/** an asset is leaving a task group, navigating to top level */
-export interface MessageLeaveTaskGroup {
-  readonly messageType: typeof LEAVE_TASK_GROUP
-  /** id of the platform that was dragged to the top level */
-  readonly dragged: string
-}
-
-export interface MessageVisibilityChanges {
-  readonly messageType: typeof VISIBILITY_CHANGES
-  readonly visibility: Visibility[]
-  readonly assetId: string
-  condition?: string
-}
-
-export interface MessageDeletePlatform {
-  readonly messageType: typeof DELETE_PLATFORM
-  readonly assetId: string
-}
-
-export interface MessageSubmitPlans {
-  readonly messageType: typeof SUBMIT_PLANS
-  readonly plannedRoutes: PlannedRoute[]
-}
-
-export interface MessageStateOfWorld {
-  readonly messageType: typeof STATE_OF_WORLD
-  readonly state: StateOfWorld
-}
-
-export interface MessageUpdateMarker {
-  readonly messageType: typeof UPDATE_MARKER
-  readonly marker: MapAnnotation
-}
-
-export interface MessageDeleteMarker {
-  readonly messageType: typeof DELETE_MARKER
-  readonly marker: MapAnnotation['uniqid']
-}
-
-export interface MessageCloneMarker {
-  readonly messageType: typeof CLONE_MARKER
-  readonly marker: MapAnnotation
-}
-
-export type MessageMap = MessageForceLaydown |
-  MessagePerceptionOfContact |
-  MessageVisibilityChanges |
-  MessageSubmitPlans |
-  MessageStateOfWorld |
-  MessageCreateTaskGroup |
-  MessageLeaveTaskGroup |
-  MessageHostPlatform |
-  MessageDeletePlatform |
-  MessageUpdateMarker |
-  MessageDeleteMarker |
-  MessageCloneMarker |
-  MessageAdjudicationOutcomes
+export type MessageMap = MessageAdjudicationOutcomes
 
 export type MessageChannel = MessageInfoTypeClipped | MessagePlanning |
   MessageCustom

@@ -1,6 +1,5 @@
 import ExpiredStorage from 'expired-storage'
 import { Wargame } from 'src/custom-types'
-import { LaydownTypes } from './enums'
 // import { wargameSettings } from 'src/config'
 import uniqId from 'uniqid'
 import moment from 'moment'
@@ -29,25 +28,10 @@ export const UNCHANGED = 'Unchanged' // type use when force or platform-type not
 
 export const infoOpsGroup = 'Info Ops' // type of activity in planning message
 
-// TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
-export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
-
 // special platform-type name, used for task group. Must match `platform-types` definition
 export const TASK_GROUP = 'task-group'
 
 // series of constants used for `messageType` when sending map events
-export const FORCE_LAYDOWN = 'ForceLaydown'
-export const VISIBILITY_CHANGES = 'VisibilityChanges'
-export const DELETE_PLATFORM = 'DeletePlatform'
-export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
-export const SUBMIT_PLANS = 'SubmitPlans'
-export const STATE_OF_WORLD = 'StateOfWorld'
-export const UPDATE_MARKER = 'UpdateMarker'
-export const DELETE_MARKER = 'DeleteMarker'
-export const CLONE_MARKER = 'CloneMarker'
-export const CREATE_TASK_GROUP = 'CreateTaskGroup'
-export const LEAVE_TASK_GROUP = 'LeaveTaskGroup'
-export const HOST_PLATFORM = 'HostPlatform'
 
 export const ADJUDICATION_OUTCOMES = 'AdjudicationOutcomes'
 

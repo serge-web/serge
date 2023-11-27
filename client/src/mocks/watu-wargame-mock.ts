@@ -1215,36 +1215,7 @@ const wargame: Wargame = {
       ],
       selectedType: ''
     },
-    annotations: {
-      annotations: [{
-        uniqid: 'marker-one',
-        color: '#f00',
-        description: 'description for the annotation',
-        iconId: 'unk',
-        label: 'first marker',
-        shadeRadius: 2,
-        location: '8918aab76abffff',
-        visibleTo: ['Blue-1']
-      }, {
-        uniqid: 'marker-two',
-        color: '#099',
-        description: 'description for the second annotation',
-        iconId: 'gen',
-        shadeRadius: 5,
-        label: 'second marker',
-        location: '8918a84db3bffff',
-        visibleTo: ['Blue-1', 'Red-1']
-      }, {
-        uniqid: 'marker-three',
-        color: '#909',
-        description: 'description for the third annotation',
-        iconId: 'aud',
-        shadeRadius: 0,
-        label: 'third marker',
-        location: '8918aab2b0bffff',
-        visibleTo: ['Red-1']
-      }]
-    },
+
     annotationIcons: {
       markers: [{ uniqid: 'unk', name: 'Unknown', icon: 'marker_unknown.svg' },
         { uniqid: 'a/v', name: 'Audio-Visual', icon: 'marker_audio_visual.svg' },

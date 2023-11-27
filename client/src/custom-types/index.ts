@@ -33,21 +33,18 @@ export {
 export {
   ChatMessage, CollaborationDetails, CoreMessage, default as Message, FeedbackItem,
   // All template based messages
-  MessageChannel, MessageCloneMarker, MessageCounter, MessageCreateTaskGroup,
+  MessageChannel, MessageCounter,
   // All template based messages
-  MessageCustom, MessageDeleteMarker, MessageDeletePlatform, MessageDetails, MessageDetailsFrom,
+  MessageCustom, MessageDetails, MessageDetailsFrom,
   // System Messages
   MessageFeedback,
   // Map Types
-  MessageForceLaydown, MessageHostPlatform, MessageInfoType,
-  MessageInfoTypeClipped, MessageInteraction, MessageLeaveTaskGroup, MessageMap, MessagePerceptionOfContact,
-  MessageStateOfWorld, MessageStructure, MessageSubmitPlans, MessageUpdateMarker, MessageVisibilityChanges
+  MessageInfoType, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessageStructure
 } from './message.d'
 export { MessagesActionTypes, MessagesDispatch, SetCurrentViewFromURI } from './messages-action.d'
 export * from './participant.d'
 export { default as PerceivedTypes } from './perceived-types.d'
 export { default as Perception } from './perception.d'
-export { default as PlannedRoute } from './planned-route.d'
 export * from './planning-activity.d'
 export { default as PlatformTypeData } from './platform-type-data.d'
 export { default as PlatformType } from './platform-type.d'
@@ -66,11 +63,9 @@ export { default as RouteTurn } from './route-turn.d'
 export { default as Route, RouteChild } from './route.d'
 export { default as SelectedAsset } from './selected-asset.d'
 export { default as SetWargameMessage } from './set-wargame-message.d'
-export { AssetState, ForceState, StateOfWorld } from './state-of-world.d'
 export { default as State } from './state.d'
 export { default as Template, TemplateBody } from './template.d'
 export * from './turn-length.d'
-export { default as Visibility } from './visibility.d'
 export { WargameActionTypes, WargameDispatch, WargameRevision } from './wargame-action.d'
 export { default as WargameData } from './wargame-data.d'
 export { default as WargameList } from './wargame-list.d'

@@ -9,7 +9,6 @@ const testState: PlayerUi = {
   playerMessageLog: {
   },
   isRFIManager: false,
-  infoMarkers: [],
   attributeTypes: [],
   perForceActivities: [],
   markerIcons: [],

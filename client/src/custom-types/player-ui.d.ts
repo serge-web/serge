@@ -4,7 +4,7 @@ import { AttributeTypes } from './attributes'
 import { ChannelTypes } from './channel-data'
 import ChannelUI from './channel-ui'
 import ForceData from './force-data'
-import { AnnotationIcons, MapAnnotations } from './map-annotation'
+import { AnnotationIcons } from './map-annotation'
 import MappingConstraints from './mapping-constraints'
 import { MessageChannel, MessageFeedback } from './message'
 import { TemplateBodysByKey } from './message-types'
@@ -54,8 +54,6 @@ export default interface PlayerUi {
   channels: PlayerUiChannels
   /** all channels in this wargame */
   allChannels: Array<ChannelTypes>
-  /** the information markers */
-  infoMarkers: MapAnnotations
   /** icons used for markers */
   allPeriods: TurnPeriods
   markerIcons: AnnotationIcons

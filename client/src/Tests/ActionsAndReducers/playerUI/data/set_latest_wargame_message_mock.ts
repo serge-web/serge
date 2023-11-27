@@ -14,7 +14,6 @@ const state: PlayerUi = {
   isRFIManager: false,
   markerIcons: [],
   isGameControl: true,
-  infoMarkers: [],
   isObserver: false,
   currentTurn: 57,
   phase: 'adjudication',

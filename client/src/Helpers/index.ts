@@ -7,7 +7,6 @@ export { default as capitalize } from './capitalize'
 export { default as checkUnique } from './check-unique'
 export { default as convertMilliseconds } from './convert-milliseconds'
 export { default as deepCompare } from './deep-compare'
-export { default as deletePlatform } from './delete-platform'
 export { default as deepCopy } from './deep-copy'
 export { default as duplicateThisForce } from './duplicate-force'
 export { default as findAsset, findForceAndAsset } from './find-asset'
@@ -31,12 +30,7 @@ export {
   handleNewMessageData,
   clipInfoMEssage
 } from './handle-channel-updates'
-export { default as handleVisibilityAndConditionChanges } from './handle-visibility-condition-changes'
 export { default as handleOutcomes } from './handle-outcomes'
-export { default as handleUpdateMarker } from './handle-update-marker'
-export { default as handleDeleteMarker } from './handle-delete-marker'
-export { default as handleCloneMarker } from './handle-clone-marker'
-// export { default as hexNamed } from './hex-named'
 export { default as hexToRGBA } from './hex-to-rgba'
 export { default as findEmptyRolenames } from './find-empty-rolenames'
 export { default as findDuplicatePasscodes } from './find-duplicate-passcodes'
@@ -70,7 +64,6 @@ export { default as shortPoll } from './short-poll'
 export { default as sortDictionaryByValue } from './sort-dictionary-by-value'
 export { updateGeometryTimings } from './geometry-helpers'
 export { default as usePrevious } from './use-previous'
-// export { default as visibleTo } from './visible-to'
 export { default as generateHashCode } from './generate-hash-code'
 export {
   createAssetBasedOnPlatformType

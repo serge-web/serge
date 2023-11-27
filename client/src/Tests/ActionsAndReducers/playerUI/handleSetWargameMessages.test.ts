@@ -12,7 +12,6 @@ const playerUi: PlayerUi = {
   hideForcesInChannels: false,
   attributeTypes: [],
   perForceActivities: [],
-  infoMarkers: [],
   markerIcons: [],
   playerMessageLog: {},
   updateMessageState: true,

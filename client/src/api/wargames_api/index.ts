@@ -1,25 +1,22 @@
 /* eslint-disable no-unused-vars */
-import { ADJUDICATION_OUTCOMES, ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, STATE_OF_WORLD, UPDATE_MARKER, wargameSettings, dbDefaultSettings } from 'src/config'
-import { deleteRoleAndParts, duplicateThisForce, handleCloneMarker, handleDeleteMarker, handleUpdateMarker } from 'src/Helpers'
+import { ADJUDICATION_OUTCOMES, ADJUDICATION_PHASE, allDbs, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
+import { deleteRoleAndParts, duplicateThisForce } from 'src/Helpers'
 import _ from 'lodash'
 import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import uniqid from 'uniqid'
-import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
 import deepCopy from '../../Helpers/copyStateHelper'
 
 import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import { ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, MessagePlanning, TurnPeriod, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
-
+import { ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStructure, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, MessagePlanning, TurnPeriod, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
 
 import handleAdjudicationOutcomes from '../../ActionsAndReducers/playerUi/helpers/handleAdjudicationOutcomes'
-import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
 
@@ -797,20 +794,6 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
     } 
   }
 
-  /**
-   * annotations are optional. So, if they're unset, initialise them
-   */
-  const checkAnnotations = (annoData: MapAnnotationData | undefined): MapAnnotationData => {
-    if (typeof annoData === 'undefined') {
-      const newAnns: MapAnnotationData = {
-        annotations: []
-      }
-      return newAnns
-    } else {
-      return annoData
-    }
-  }
-
   // also make the modification to the wargame
   return new Promise((resolve, reject) => {
     getLatestWargameRevision(dbName)
@@ -820,36 +803,13 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
         }
 
         // special handling for marker message
-        if (message.messageType === UPDATE_MARKER) {
-          // ok - marker update - not force. If admin changes markers during planning phase,
-          // they get updated immediately, so we do that here.
-          // initialise annotations, if necessary
-          res.data.annotations = checkAnnotations(res.data.annotations)
-          const validMessage: MessageUpdateMarker = message
-          res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
-        } else if (message.messageType === CLONE_MARKER) {
-          res.data.annotations = checkAnnotations(res.data.annotations)
-          const validMessage: MessageCloneMarker = message
-          res.data.annotations.annotations = handleCloneMarker(validMessage, res.data.annotations.annotations)
-        } else if (message.messageType === DELETE_MARKER) {
-          res.data.annotations = checkAnnotations(res.data.annotations)
-          const validMessage: MessageDeleteMarker = message
-          res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
-        } else if (message.messageType === ADJUDICATION_OUTCOMES) {
+        if (message.messageType === ADJUDICATION_OUTCOMES) {
           const validMessage: MessageAdjudicationOutcomes = message
           const interaction = details.interaction as InteractionDetails
           res.data.forces.forces = handleAdjudicationOutcomes(interaction, validMessage, res.data.forces.forces)
-        } else if (message.messageType === STATE_OF_WORLD) {
-          // ok, this needs to work on force AND info markers
-          const validMessage: MessageStateOfWorld = message
-          res.data.forces.forces = handleStateOfWorldChanges(validMessage, res.data.forces.forces)
-          // initialise annotations, if necessary
-          res.data.annotations = checkAnnotations(res.data.annotations)
-          // we can just copy in the new markers
-          res.data.annotations.annotations = validMessage.state.mapAnnotations
         } else {
-          // apply the reducer to this wargame
-          res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
+          console.error(`failed to create player reducer handler for: ${message!.messageType}`)
+          return res.data.forces.forces
         }
 
         const copiedData = deepCopy(res)

@@ -1,4 +1,4 @@
-import { Template, Channel, PlatformTypeData, MapAnnotation } from 'src/custom-types'
+import { Template, Channel, PlatformTypeData } from 'src/custom-types'
 
 type TemplateValue = Template['value']
 
@@ -11,7 +11,7 @@ export interface Item {
   name?: string
   [property: string]: any
 }
-export type ListItem = Channel | TemplateListItem | PlatformTypeData | Item | MapAnnotation
+export type ListItem = Channel | TemplateListItem | PlatformTypeData | Item 
 
 export default interface Props {
   /**
