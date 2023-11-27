@@ -10,6 +10,10 @@ jest.mock('react-leaflet-v4', () => ({
   TileLayer: (): React.ReactElement => <></>
 }))
 
+jest.mock('react-leaflet-geoman-v2', () => ({
+  GeomanControls: (): React.ReactElement => <></>
+}))
+
 const channel: CoreMappingChannel = {
   uniqid: 'core',
   name: 'core-mapping',
