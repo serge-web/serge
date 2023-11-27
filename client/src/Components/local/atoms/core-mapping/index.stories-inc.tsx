@@ -77,6 +77,30 @@ const coreFeature: Feature = {
   }
 }
 
+const anotherCoreFeature: Feature = {
+  type: 'Feature',
+  properties: coreProps,
+  geometry: {
+    coordinates: [
+      [
+        [
+          -0.1316761655830646,
+          51.52940207305993
+        ],
+        [
+          -0.2316761655830646,
+          51.49266769548318
+        ],
+        [
+          0.03011008273324478,
+          51.53266769548318
+        ]
+      ]
+    ],
+    type: 'Polygon'
+  }
+}
+
 const milFeature: Feature = {
   type: 'Feature',
   properties: milSymProps,
@@ -87,10 +111,19 @@ const milFeature: Feature = {
   }
 }
 
+const anotherMilFeature: Feature = {
+  type: 'Feature',
+  properties: milSymProps,
+  geometry: {
+    coordinates: [-0.07929841834678096, 51.50966973326012],
+    type: 'Point'
+  }
+}
+
 /** note: this will extend `CoreMessage` */
 const features: FeatureCollection = {
   type: 'FeatureCollection',
-  features: [coreFeature, milFeature]
+  features: [coreFeature, anotherCoreFeature, milFeature, anotherMilFeature]
 }
 
 const coreMessage: CoreMappingMessage = {
