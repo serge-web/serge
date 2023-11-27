@@ -24,7 +24,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange }) => {
 
   return <GeomanControls
     options={{
-      position: 'topleft',
+      position: 'topright',
       rotateMode: true,
       pinningOption: true,
       snappingOption: true
