@@ -13,6 +13,7 @@ export const generateFeatures = (bounds: L.LatLngBounds, numPoints: number, numS
     return items[Math.floor(Math.random() * items.length)]
   }
   const forces = ['f-red', 'f-blue', 'f-green']
+  const sizes = ['S', 'M', 'L']
   for (let i = 0; i < numPoints; i++) {
     const lat = y_min + (Math.random() * (y_max - y_min))
     const lng = x_min + (Math.random() * (x_max - x_min))
@@ -26,7 +27,7 @@ export const generateFeatures = (bounds: L.LatLngBounds, numPoints: number, numS
         _type: RENDERER_MILSYM,
         sidc: 'SFG-UCI----D',
         category: 'Civilian',
-        size: 'M'
+        size: randString(sizes)
       },
       geometry: {
         type: 'Point',
