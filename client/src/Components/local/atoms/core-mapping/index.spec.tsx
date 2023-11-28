@@ -1,5 +1,6 @@
 /* global it expect */
 import React from 'react'
+import L from 'leaflet'
 import renderer from 'react-test-renderer'
 import CoreMapping from './index'
 import { Phase } from 'src/config'
