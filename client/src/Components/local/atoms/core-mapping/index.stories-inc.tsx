@@ -3,7 +3,7 @@ import React from 'react'
 import CoreMapping from './index'
 import docs from './README.md'
 import { Phase } from 'src/config'
-import { CHANNEL_CORE_MAPPING, CORE_MAPPING, CoreMappingChannel, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, PARTICIPANT_CORE_MAPPING, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { CHANNEL_CORE_MAPPING, CORE_MAPPING, CoreMappingChannel, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, PARTICIPANT_CORE_MAPPING, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
@@ -19,6 +19,61 @@ export default {
     }
   }
 }
+
+/** PROPERTY DEFINITIONS */
+
+const importantProp: EnumProperty = {
+  id: 'important',
+  label: 'Important',
+  type: 'EnumProperty', 
+  description: 'Whether this relates to an important operation or interaction',
+  choices: ['Yes', 'No'],
+  editable: true
+}
+
+const forceProp: EnumProperty = {
+  id: 'force',
+  label: 'Force',
+  type: 'EnumProperty', 
+  choices: ['f-red', 'f-blue', 'f-green'],
+  editable: false
+}
+
+const phaseProp: EnumProperty = {
+  id: 'phase',
+  label: 'Phase',
+  description: 'The phase when this item was generated',
+  type: 'EnumProperty', 
+  choices: [Phase.Adjudication, Phase.Planning],
+  editable: false
+}
+
+const turnProp: NumberProperty = {
+  id: 'turn',
+  label: 'Turn',
+  description: 'The turn when this item was generated',
+  type: 'NumberProperty',
+  editable: false,
+  format: '0'
+}
+
+const categoryProp: EnumProperty = {
+  id: 'category',
+  label: 'Category',
+  type: 'EnumProperty', 
+  choices: ['Infrastructure', 'Military', 'Civilian'],
+  editable: false
+}
+
+const sizeProp: EnumProperty = {
+  id: 'size',
+  label: 'Size',
+  type: 'EnumProperty', 
+  choices: ['S', 'M', 'L'],
+  editable: false
+}
+
+/** Feature Properties definitions */
 
 const coreProps: CoreProperties = {
   id: 'id-1',
@@ -145,39 +200,19 @@ const coreMessage: CoreMappingMessage = {
   features: features
 }
 
-const importantProp: EnumProperty = {
-  id: 'important',
-  label: 'Important',
-  type: 'EnumProperty', 
-  choices: ['Yes', 'No'],
-  editable: true
-}
+const baseProps = [forceProp, phaseProp, turnProp]
 
 const coreRenderer: CoreRenderer = {
   id: 'core',
   type: 'CoreRenderer',
+  baseProps,
   additionalProps: [importantProp]
-}
-
-const categoryProp: EnumProperty = {
-  id: 'category',
-  label: 'Category',
-  type: 'EnumProperty', 
-  choices: ['Infrastructure', 'Military', 'Civilian'],
-  editable: false
-}
-
-const sizeProp: EnumProperty = {
-  id: 'size',
-  label: 'Size',
-  type: 'EnumProperty', 
-  choices: ['S', 'M', 'L'],
-  editable: false
 }
 
 const milSymRenderer: MilSymRenderer = {
   id: 'milSym',
   type: 'MilSymRenderer',
+  baseProps,
   additionalProps: [categoryProp, sizeProp]
 }
 

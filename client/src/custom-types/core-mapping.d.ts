@@ -87,6 +87,7 @@ export type PropertyTypes = StringProperty | NumberProperty | EnumProperty
 export interface BaseRenderer {
     id: string 
     type: string // one of the renderer type strings
+    baseProps: PropertyTypes[] // general properties, applicable to all renderers
     additionalProps: PropertyTypes[] // any additional properties that are used for this renderer
 }
 
