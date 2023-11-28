@@ -1,9 +1,10 @@
 import { FeatureCollection } from 'geojson'
-import { LatLngExpression } from 'leaflet'
+import { LatLngExpression, PM } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { BaseRenderer, CoreMappingMessage } from 'src/custom-types'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
+import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
@@ -36,12 +37,21 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel }) => {
       setRenderers([])
     }
   }, [channel])
+  
+  const onCreate = (e: PM.ChangeEventHandler) => {
+    console.log('onCreate Event Fired', e)
+  }
 
+  const onChange = (e: PM.ChangeEventHandler) => {
+    console.log('onChange Event Fired', e)
+  }
+  
   return <MapContainer center={position} zoom={13} scrollWheelZoom={false} className={styles.container}>
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     /> 
+    <MapControls onCreate={onCreate} onChange={onChange}/>
     <LayerGroup>
       {features && renderers.map((Component, idx) => <Component key={idx} features={features} />) }
     </LayerGroup>
