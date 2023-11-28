@@ -1,10 +1,12 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import React from 'react'
+import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
 import { Phase } from 'src/config'
 import { CHANNEL_CORE_MAPPING, CORE_MAPPING, CoreMappingChannel, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, PARTICIPANT_CORE_MAPPING, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
+import { generateFeatures } from './helper/feature-generator'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
@@ -19,6 +21,9 @@ export default {
     }
   }
 }
+
+const largeBounds = L.latLngBounds(L.latLng(45, -30), L.latLng(60, 30))
+const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
 /** PROPERTY DEFINITIONS */
 
@@ -239,8 +244,33 @@ const coreMapChannel: CoreMappingChannel = {
   renderers: [coreRenderer, milSymRenderer]
 }
 
+const bulkMessage: CoreMappingMessage = {
+  _id: 'timestamp-23',
+  details: {
+    channel: 'core-mapping',
+    from: {
+      force: 'f-red',
+      forceColor: '#f00',
+      roleId: 'mar-23',
+      roleName: 'MARITIME CTRL',
+      iconURL: 'f-red.svg'
+    },
+    messageType: 'custom',
+    timestamp: '2023-11-23T23:32:00',
+    turnNumber: 1
+  },
+  messageType: CORE_MAPPING,
+  features: generateFeatures(largeBounds, 300, 30)
+}
+
 export const Default: React.FC = () => {
   return (
-    <CoreMapping playerForce={'f-red'} messages={[coreMessage]} channel={coreMapChannel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>
+    <CoreMapping bounds={bounds} playerForce={'f-red'} messages={[coreMessage]} channel={coreMapChannel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>
+  )
+}
+
+export const Bulk: React.FC = () => {
+  return (
+    <CoreMapping bounds={largeBounds} playerForce={'f-red'} messages={[bulkMessage]} channel={coreMapChannel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>
   )
 }

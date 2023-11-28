@@ -9,6 +9,7 @@ export default interface PropTypes {
   forces: ForceStyle[]
   channel: CoreMappingChannel 
   messages: CoreMappingMessage[]
+  bounds: L.LatLngBounds
 }
 
 export type CoreRendererProps = {
