@@ -1,5 +1,6 @@
 /* global it expect */
 import React from 'react'
+import L from 'leaflet'
 import renderer from 'react-test-renderer'
 import CoreMapping from './index'
 import { Phase } from 'src/config'
@@ -26,10 +27,12 @@ const channel: CoreMappingChannel = {
   }
 }
 
+const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
+
 describe('Core Mapping component:', () => {
   it('renders correctly', () => {
     const tree = renderer
-      .create(<CoreMapping playerForce={'f-red'} messages={[]} channel={channel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>)
+      .create(<CoreMapping bounds={bounds} playerForce={'f-red'} messages={[]} channel={channel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
