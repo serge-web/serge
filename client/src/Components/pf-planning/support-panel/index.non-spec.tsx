@@ -2,7 +2,7 @@
 import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from 'src/config'
 import { ChannelPlanning, MessageInteraction, MessagePlanning } from 'src/custom-types'
 import { forceColors } from 'src/Helpers'
-import { P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, turnPeriod } from 'src/mocks'
+import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from 'src/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -18,10 +18,6 @@ const platformTypes = (P9BMock.data.platformTypes && P9BMock.data.platformTypes.
 const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = nonInfoMessages.filter((msg) => msg.details.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 
-const handler = (contact: any): void => {
-  console.log('handling', contact)
-}
-
 describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
@@ -33,7 +29,6 @@ describe('Support Panel component: ', () => {
         gameTurnLength={P9BMock.data.overview.gameTurnTime}
         currentWargame={P9BMock.currentWargame || ''}
         attributeTypes={[]}
-        handleAdjudication={handler}
         forceColors={forceColors(forces)}
         setSelectedAssets={noop}
         phase={Phase.Adjudication}
@@ -47,7 +42,6 @@ describe('Support Panel component: ', () => {
         onReadAll={noop}
         onRead={noop}
         allTemplates={allTemplates}
-        adjudicationTemplate={planningMessageTemplatesMock[0]}
         activityTimeChanel={noop}
         dispatch={noop}
         saveMessage={(): any => noop}

@@ -42,8 +42,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onReadAll,
   channel,
   allTemplates,
-  adjudicationTemplate,
-  mapPostBack,
   saveMessage,
   postBackArchive,
   saveNewActivityTimeMessage,
@@ -74,7 +72,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   forcePlanningActivities,
   editLocation,
   attributeTypes,
-  handleAdjudication,
   initialTab,
   forceTemplateData
 }) => {
@@ -92,7 +89,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [sortedOppAssets, setSortedOppAssets] = useState<AssetRow[]>([])
 
   const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
-  const [allPlanningMessages, setAllPlanningMessages] = useState<MessagePlanning[]>([])
   const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
   const [turnFilter, setTurnFilter] = useState<number>(-1)
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
@@ -182,7 +178,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
       filteredMessages = planningMessages
     }
     setFilteredPlanningMessages(filteredMessages)
-    setAllPlanningMessages(planningMessages)
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
@@ -486,10 +481,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // }
   }
 
-  const onLocationEditorLoaded = (editorElm: HTMLDivElement) => {
-    console.log('editorElm: ', editorElm)
-  }
-
   const summariseLocations = (title: string, plans: PlannedActivityGeometry[]): void => {
     console.log('== ' + title + ' ==')
     console.table(plans.map((plan: PlannedActivityGeometry) => {
@@ -640,33 +631,22 @@ export const SupportPanel: React.FC<PropTypes> = ({
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>
                 <TurnFilter label='Show interactions for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
-                  interactionMessages={filteredInteractionMessages}
-                  allPlanningMessages={allPlanningMessages}
-                  turnPlanningMessages={filteredPlanningMessages}
-                  forces={allForces}
-                  currentTurn={currentTurn}
-                  periods={allPeriods}
                   gameDate={gameDate}
+                  playerRoleId={selectedRoleId}
+                  forcePlanningActivities={forcePlanningActivities}
+                  currentTurn={currentTurn}
+                  forces={allForces}
+                  periods={allPeriods}
                   gameTurnLength={gameTurnTime}
                   phase={phase}
-                  playerRoleId={selectedRoleId}
                   forceColors={forceColors}
-                  onRead={onRead}
-                  onUnread={onUnread}
                   onMarkAllAsRead={onReadAll}
-                  mapPostBack={mapPostBack}
                   channel={channel}
                   currentWargame={currentWargame}
-                  template={adjudicationTemplate}
-                  customiseTemplate={localCustomiseTemplate}
-                  forcePlanningActivities={forcePlanningActivities}
                   turnFilter={turnFilter}
-                  platformTypes={platformTypes}
                   onDetailPanelOpen={onDetailPanelOpen}
                   onDetailPanelClose={onDetailPanelClose}
-                  handleAdjudication={handleAdjudication}
                   postBack={postBack}
-                  onLocationEditorLoaded={onLocationEditorLoaded}
                 />
               </div>
               <div className={styles['resize-indicator-container']} >

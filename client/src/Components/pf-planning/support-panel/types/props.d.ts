@@ -1,5 +1,5 @@
 import {
-  AttributeTypes, ChannelPlanning, ForceData, ForceTemplateData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
+  AttributeTypes, ChannelPlanning, ForceData, ForceTemplateData, GameTurnLength, MessageDetails, MessagePlanning,
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from 'src/custom-types'
 import { MessageInteraction } from 'src/custom-types/message'
@@ -7,7 +7,6 @@ import { ForceStyle } from 'src/Helpers'
 import LRUCache from 'lru-cache'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
-import { AdjudicationPostBack } from '../../planning-channel/types/props'
 import { LocationEditCallbackHandler } from '../../planning-messages-list/types/props'
 export default interface PropTypes {
   planningMessages: MessagePlanning[]
@@ -25,7 +24,6 @@ export default interface PropTypes {
    */
   allTemplates: TemplateBody[]
   /** adjudication template */
-  adjudicationTemplate: TemplateBody
   /** descriptions of platform types (used to generate icons) */
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
@@ -63,16 +61,6 @@ export default interface PropTypes {
   /** user wishes to edit location data */
   editLocation?: LocationEditCallbackHandler
   attributeTypes: AttributeTypes
-  /**
-   * there is a new interaction to adjudicate
-   */
-  handleAdjudication: { (details: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void }
-  /**
-   * The method for posting messages out of the mapping components. They have
-   * special handlers since the message may involve making changes to the forces
-   * in the wargame
-   */
-  mapPostBack?: AdjudicationPostBack
   /**
    * the initial tab to show (useful for story testing)
    */

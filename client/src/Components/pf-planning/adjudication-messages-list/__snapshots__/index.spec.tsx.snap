@@ -7,129 +7,6 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
   <div
     className="button-wrap"
   >
-    <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={0}
-      type="button"
-    >
-      <span
-        className="MuiButton-label"
-      >
-        <span
-          className="MuiButton-startIcon MuiButton-iconSizeMedium"
-        >
-          <svg
-            aria-hidden={true}
-            className="MuiSvgIcon-root"
-            focusable="false"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"
-            />
-          </svg>
-        </span>
-        Get Next
-      </span>
-      <span
-        className="MuiTouchRipple-root"
-      />
-    </button>
-    <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={0}
-      type="button"
-    >
-      <span
-        className="MuiButton-label"
-      >
-        <span
-          className="MuiButton-startIcon MuiButton-iconSizeMedium"
-        >
-          <svg
-            aria-hidden={true}
-            className="MuiSvgIcon-root"
-            focusable="false"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
-            />
-          </svg>
-        </span>
-        Create manual
-      </span>
-      <span
-        className="MuiTouchRipple-root"
-      />
-    </button>
-    <button
-      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onDragLeave={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onKeyUp={[Function]}
-      onMouseDown={[Function]}
-      onMouseLeave={[Function]}
-      onMouseUp={[Function]}
-      onTouchEnd={[Function]}
-      onTouchMove={[Function]}
-      onTouchStart={[Function]}
-      tabIndex={0}
-      type="button"
-    >
-      <span
-        className="MuiButton-label"
-      >
-        <span
-          className="MuiButton-startIcon MuiButton-iconSizeMedium"
-        >
-          <svg
-            aria-hidden={true}
-            className="MuiSvgIcon-root"
-            focusable="false"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M18 4H6v2l6.5 6L6 18v2h12v-3h-7l5-5-5-5h7z"
-            />
-          </svg>
-        </span>
-        # Remaining
-      </span>
-      <span
-        className="MuiTouchRipple-root"
-      />
-    </button>
     <div
       className="MuiChip-root"
       onKeyDown={[Function]}
@@ -453,6 +330,450 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                     className="MuiTableCell-root MuiTableCell-head MuiTableCell-paddingNone MuiTableCell-sizeMedium css-2ug12u-MuiTableCell-root"
                     scope="col"
                   />
+                  <th
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "width": "calc((100% - 0px) / 6)",
+                      }
+                    }
+                  >
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="0"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="0"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        aria-sort="none"
+                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
+                        data-testid="mtableheader-sortlabel"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        role="columnheader"
+                        tabIndex={0}
+                      >
+                        Reference
+                        <svg
+                          aria-hidden={true}
+                          className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        data-testid="material-table-column-sort-order-indicator"
+                        style={
+                          Object {
+                            "width": "1em",
+                          }
+                        }
+                      >
+                        
+                      </span>
+                    </div>
+                  </th>
+                  <th
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "width": "calc((100% - 0px) / 6)",
+                      }
+                    }
+                  >
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="2"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="2"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        aria-sort="none"
+                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
+                        data-testid="mtableheader-sortlabel"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        role="columnheader"
+                        tabIndex={0}
+                      >
+                        Complete
+                        <svg
+                          aria-hidden={true}
+                          className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        data-testid="material-table-column-sort-order-indicator"
+                        style={
+                          Object {
+                            "width": "1em",
+                          }
+                        }
+                      >
+                        
+                      </span>
+                    </div>
+                  </th>
+                  <th
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "width": "calc((100% - 0px) / 6)",
+                      }
+                    }
+                  >
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="3"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="3"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        aria-sort="none"
+                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
+                        data-testid="mtableheader-sortlabel"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        role="columnheader"
+                        tabIndex={0}
+                      >
+                        Important
+                        <svg
+                          aria-hidden={true}
+                          className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        data-testid="material-table-column-sort-order-indicator"
+                        style={
+                          Object {
+                            "width": "1em",
+                          }
+                        }
+                      >
+                        
+                      </span>
+                    </div>
+                  </th>
+                  <th
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "width": "calc((100% - 0px) / 6)",
+                      }
+                    }
+                  >
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="4"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="4"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        aria-sort="none"
+                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
+                        data-testid="mtableheader-sortlabel"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        role="columnheader"
+                        tabIndex={0}
+                      >
+                        Owner
+                        <svg
+                          aria-hidden={true}
+                          className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        data-testid="material-table-column-sort-order-indicator"
+                        style={
+                          Object {
+                            "width": "1em",
+                          }
+                        }
+                      >
+                        
+                      </span>
+                    </div>
+                  </th>
+                  <th
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "width": "calc((100% - 0px) / 6)",
+                      }
+                    }
+                  >
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="5"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="5"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        aria-sort="none"
+                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
+                        data-testid="mtableheader-sortlabel"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        role="columnheader"
+                        tabIndex={0}
+                      >
+                        Activity
+                        <svg
+                          aria-hidden={true}
+                          className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        data-testid="material-table-column-sort-order-indicator"
+                        style={
+                          Object {
+                            "width": "1em",
+                          }
+                        }
+                      >
+                        
+                      </span>
+                    </div>
+                  </th>
+                  <th
+                    aria-sort={null}
+                    className="MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeSmall css-d5sp9s-MuiTableCell-root"
+                    scope="col"
+                    style={
+                      Object {
+                        "boxSizing": "border-box",
+                        "width": "calc((100% - 0px) / 6)",
+                      }
+                    }
+                  >
+                    <div
+                      aria-describedby="rfd-hidden-text-0-hidden-text-0"
+                      data-rfd-drag-handle-context-id="0"
+                      data-rfd-drag-handle-draggable-id="6"
+                      data-rfd-draggable-context-id="0"
+                      data-rfd-draggable-id="6"
+                      draggable={false}
+                      onDragStart={[Function]}
+                      role="button"
+                      style={
+                        Object {
+                          "display": "flex",
+                          "flexDirection": undefined,
+                          "minWidth": 0,
+                          "position": "relative",
+                        }
+                      }
+                      tabIndex={0}
+                    >
+                      <span
+                        aria-sort="none"
+                        className="MuiButtonBase-root MuiTableSortLabel-root css-1qgma8u-MuiButtonBase-root-MuiTableSortLabel-root"
+                        data-testid="mtableheader-sortlabel"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onContextMenu={[Function]}
+                        onDragLeave={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        onKeyUp={[Function]}
+                        onMouseDown={[Function]}
+                        onMouseLeave={[Function]}
+                        onMouseUp={[Function]}
+                        onTouchEnd={[Function]}
+                        onTouchMove={[Function]}
+                        onTouchStart={[Function]}
+                        role="columnheader"
+                        tabIndex={0}
+                      >
+                        Duration
+                        <svg
+                          aria-hidden={true}
+                          className="MuiSvgIcon-root MuiTableSortLabel-icon MuiTableSortLabel-iconDirectionAsc css-1hi7cb7-MuiTableSortLabel-icon"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        data-testid="material-table-column-sort-order-indicator"
+                        style={
+                          Object {
+                            "width": "1em",
+                          }
+                        }
+                      >
+                        
+                      </span>
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody
@@ -471,7 +792,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                   <td
                     aria-sort={null}
                     className="MuiTableCell-root MuiTableCell-body MuiTableCell-sizeMedium css-1ex1afd-MuiTableCell-root"
-                    colSpan={1}
+                    colSpan={7}
                     style={
                       Object {
                         "paddingBottom": 0,

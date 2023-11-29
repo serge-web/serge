@@ -12,7 +12,7 @@ import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 import { faHistory, faObjectUngroup, faShapes, faTag, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from 'src/custom-types/mapping-constraints'
-import { InteractionDetails, MessageAdjudicationOutcomes, MessageCustom, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from 'src/custom-types/'
+import {  MessageCustom, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from 'src/custom-types/'
 import { Feature, FeatureCollection, Point } from 'geojson'
 import LRU from 'lru-cache'
 import moment from 'moment-timezone'
@@ -70,7 +70,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   saveArchiveMessage,
   openMessage,
   saveMessage,
-  mapPostBack,
+  // mapPostBack,
   onTurnPeriods,
   allTemplates,
   messages,
@@ -778,27 +778,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache, onSupportPanelLayoutChange, getSupportPanelState }
   ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
 
-  const handleAdjudication = (interDetails: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void => {
-    const from: MessageDetailsFrom = {
-      force: selectedForce.uniqid,
-      forceId: selectedForce.uniqid,
-      forceColor: selectedForce.color,
-      iconURL: selectedForce.iconURL,
-      roleId: selectedRoleId,
-      roleName: selectedRoleName
-    }
-    const details: MessageDetails = {
-      channel: channel.uniqid,
-      from: from,
-      interaction: interDetails,
-      messageType: adjudicationTemplate._id,
-      timestamp: moment().toISOString(),
-      turnNumber: currentTurn
-    }
-    // store the new adjudication
-    saveMessage(currentWargame, details, outcomes)()
-  }
-
   const activityBounds = (plans: PlannedActivityGeometry[]): [string, string] | undefined => {
     if (plans.length) {
       const firstGeom = plans[0].geometry
@@ -1111,11 +1090,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             onUnread={onUnread}
             onRead={onRead}
             allTemplates={allTemplates}
-            adjudicationTemplate={adjudicationTemplate}
             activityTimeChanel={newActiveMessage}
             saveMessage={saveMessageLocal}
             postBackArchive={saveArchiveMessage}
-            mapPostBack={mapPostBack}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}
             currentWargame={currentWargame}
@@ -1144,7 +1121,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             onCancelDraftMessage={cancelDraftMessage}
             forcePlanningActivities={forcePlanningActivities}
             editLocation={editOrderGeometries}
-            handleAdjudication={handleAdjudication}
             forceTemplateData={forceTemplateData}
           />
           }

@@ -192,7 +192,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
-    mapPostBack={(details, outcomes) => saveMessage('a', details, outcomes)()}
     markAllAsRead={mockFn}
     markUnread={mockFn}
     openMessage={mockFn}

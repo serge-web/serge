@@ -2,9 +2,17 @@ import React from 'react'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_PLANNING, Phase } from 'src/config'
-import { PlayerUiActionTypes, ChannelPlanning, ForceData, ChannelTypes, ChannelUI, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PlayerUi } from 'src/custom-types'
+import { 
+  PlayerUiActionTypes, ChannelPlanning, ForceData, ChannelTypes, ChannelUI, 
+  // MessageAdjudicationOutcomes, MessageDetails, 
+  MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PlayerUi
+} from 'src/custom-types'
 import { mockPlanningMessages } from './mock-message-data'
-import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveBulkMessages, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { 
+  getAllWargameMessages, markAllAsRead, markUnread, openMessage,
+  // saveMapMessage, 
+  saveBulkMessages, saveMessage, turnPeriods 
+} from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
 import CollabChannel from '../../../Components/CollabChannel'
 import PlanningChannel from '../../../Components/pf-planning/planning-channel'
@@ -20,14 +28,14 @@ type Factory = (node: TabNode) => React.ReactNode
  */
 
 const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>, reduxDisplatch: React.Dispatch<any>): Factory => {  
-  const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
-    saveMapMessage(state.currentWargame, details, outcomes)
-  }
+  // const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
+  //   saveMapMessage(state.currentWargame, details, outcomes)
+  // }
 
   const ArchivePostBack = (archiveMark: MessagePlanning[]): void => {
     saveBulkMessages(state.currentWargame, archiveMark)
   }
- 
+  
   return (node: TabNode): React.ReactNode => {
     /** helper to determine if the specified channel should be rendered */
     const renderThisChannel = (channelData?: ChannelUI): boolean => {
@@ -112,7 +120,6 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
             // @ts-ignore
             onTurnPeriods={turnPeriods}
             dispatch={dispatch}
-            mapPostBack={adjudicatePostBack}
             // @ts-ignore
             getAllWargameMessages={getAllWargameMessages}
             markAllAsRead={markAllAsRead}

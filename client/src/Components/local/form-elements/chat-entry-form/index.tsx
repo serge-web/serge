@@ -1,8 +1,7 @@
 import { Box } from '@material-ui/core'
-import { PLANNING_MESSAGE, UNSENT_CHAT_MESSAGE_TYPE } from 'src/config'
-import { MessageDetails, MessagePlanning } from 'src/custom-types'
+import { UNSENT_CHAT_MESSAGE_TYPE } from 'src/config'
+import { MessageDetails } from 'src/custom-types'
 import React, { useRef, useState } from 'react'
-import { dummyMessages } from '../../../pf-planning/support-panel/helpers/dummy_messages'
 import ChatInputText from '../chat-input-text'
 import PrivateChatInputToggle from '../private-chat-input-toggle'
 import styles from './styles.module.scss'
@@ -42,18 +41,6 @@ export const ChatEntryForm: React.FC<Props> = ({
     }
     const contents = {
       content: message
-    }
-
-    // NOTE: utility to send bulk messages into backend
-    const sendBulk = false
-    if (sendBulk) {
-      const messages: MessagePlanning[] = dummyMessages.filter((message) => message.messageType === PLANNING_MESSAGE) as MessagePlanning[]
-      messages.forEach((msg: MessagePlanning) => {
-        console.log('sending', msg._id)
-        postBack && postBack(msg.details, msg.message)
-      })
-    } else {
-      postBack && postBack(details, contents)
     }
 
     postBack && postBack(details, contents)
