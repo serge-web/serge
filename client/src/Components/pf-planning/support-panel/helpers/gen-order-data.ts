@@ -1,6 +1,6 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from 'src/config'
 import {
-  Asset, ForceData, GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageDetails, MessageDetailsFrom, MessagePlanning,
+  Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role,
   InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore
 } from 'src/custom-types'
@@ -78,22 +78,6 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
   id: string
 }
 
-/** an event created from just one set of plans */
-export interface ShortCircuitEvent {
-  id: string
-  message: MessagePlanning
-  activity: PlanningActivity
-  // the type of event that triggered this
-  event: INTERACTION_SHORT_CIRCUIT
-  /** the specific geometry that relates to, if known */
-  geomId: PlannedActivityGeometry['uniqid'] | undefined
-  timeStart: number // unix millis
-  timeEnd: number // unix millis
-  intersection?: Geometry
-  /** optional set of default adjud outcomes for this contact (typically
-   * used when we short-circuit interaction generation) */
-  outcomes?: MessageAdjudicationOutcomes
-}
 
 /** an instance of one geometry interacting with another */
 export interface PlanningContact {
@@ -452,7 +436,7 @@ export const findActivityInGroup = (activityId: string, group: GroupedActivitySe
     return activity as PlanningActivity
   }
 }
-
+ 
 /**
  * Decide if an interaction should be generated between two activities
  * @param first the first activity

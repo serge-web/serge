@@ -62,11 +62,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
   // const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = gameDate || P9BMock.data.overview.gameDate
 
-  // const turnLength = P9BMock.data.overview.gameTurnTime
-  // const turnEnd = incrementGameTime(gameStartTimeLocal, turnLength)
-  // const results: InteractionResults | false = !7 && planningMessages.length && getNextInteraction2(planningMessages, planningActivities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
-  // console.log('next interaction', results)
-
   const templates = wargame.templates ? wargame.templates.templates : []
   return <AdjudicationMessagesList
     currentWargame={P9BMock.name}
