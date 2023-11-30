@@ -78,7 +78,6 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
   id: string
 }
 
-
 /** an instance of one geometry interacting with another */
 export interface PlanningContact {
   id: string
