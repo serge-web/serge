@@ -764,6 +764,7 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
   })
 }
 
+// NOTE: This function is currently not in use. It may be intended for future use.
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
 // @ts-ignore

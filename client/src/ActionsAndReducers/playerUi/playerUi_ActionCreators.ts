@@ -196,6 +196,7 @@ export const saveBulkMessages = (dbName: string, archiveMark: MessagePlanning[])
   return wargamesApi.PostBulkMessages(dbName, archiveMark)
 }
 
+// NOTE: This function is currently not in use. It may be intended for future use.
 export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)
