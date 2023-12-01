@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Phase } from 'src/config'
-import { BaseRenderer, CoreMappingMessage, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, CoreMappingMessage, CoreProperties, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
 import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
@@ -43,33 +43,71 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     }
   }, [channel])
   
-  const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature => {
-    return {
-      type: 'Feature',
-      properties: {
-        id: (e as any).layer._leaflet_id,
-        _type: RENDERER_MILSYM,
-        phase: Phase.Planning,
-        label: 'Headquarters Building',
-        turn: 1,
-        force: 'f-red',
-        sidc: 'SFG-UCI----D',
-        category: 'Civilian',
-        size: 'M'
-      },
-      geometry: {
-        coordinates: [(e as any).layer._latlng.lng, (e as any).layer._latlng.lat],
-        type: 'Point'
+  const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
+    const shapeType = (e as any).shape
+    switch (shapeType) {
+      case 'Line': {
+        console.log(e)
+        const locs = (e as any).layer._latlngs as L.LatLng[]
+        const reverseLocs = locs.map((item: L.LatLng) => {
+          return [item.lng, item.lat]
+        })
+        const props: CoreProperties = {
+          id: (e as any).layer._leaflet_id,
+          _type: RENDERER_CORE,
+          phase: Phase.Planning,
+          label: 'Headquarters Building',
+          turn: 1,
+          force: 'f-red',
+          category: 'Civilian',
+          color: '#CCF'
+        }
+        return {
+          type: 'Feature',
+          properties: props,
+          geometry: {
+            coordinates: reverseLocs,
+            type: 'LineString'
+          }
+        }
+        return null
+      }
+      case 'Marker': {
+        const loc = (e as any).layer._latlng as L.LatLng
+        return {
+          type: 'Feature',
+          properties: {
+            id: (e as any).layer._leaflet_id,
+            _type: RENDERER_MILSYM,
+            phase: Phase.Planning,
+            label: 'Headquarters Building',
+            turn: 1,
+            force: 'f-red',
+            sidc: 'SFG-UCI----D',
+            category: 'Civilian',
+            size: 'M'
+          },
+          geometry: {
+            coordinates: [loc.lng, loc.lat],
+            type: 'Point'
+          }
+        }
+      }
+      default: {
+        console.warn('Feature creator not present for ' + shapeType)
+        return null
       }
     }
   }
 
   const onCreate = (e: PM.ChangeEventHandler) => {
     const feature = mapEventToFeatures(e)
-    const cloneFeatures = cloneDeep(features)
-    cloneFeatures?.features.push(feature)
-    setFeatures(cloneFeatures)
-    console.log('xx> cloneFeatures: ', cloneFeatures)
+    if (feature) {
+      const cloneFeatures = cloneDeep(features)
+      cloneFeatures?.features.push(feature)
+      setFeatures(cloneFeatures)
+      console.log('xx> cloneFeatures: ', cloneFeatures)
+    }  
     // only add new feature
     // if (!featuresRef.current?.features.find(f => f.properties?.id === feature.properties?.id)) {
     //   featuresRef.current?.features.push(feature)
