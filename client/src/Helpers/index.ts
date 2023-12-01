@@ -46,7 +46,6 @@ export { default as isPlainObject } from './is-plain-object'
 export { default as isPerceivedBy, type ForceStyle } from './is-perceived-by'
 export { default as isValidUrl } from './is-valid-url'
 export { default as mostRecentOnly } from './most-recent-only'
-export { default as mostRecentPlanningOnly } from './most-recent-planning-only'
 export { default as newestPerRole, logTable } from './newest-per-role'
 export {
   matchedForceAndRoleFilter,

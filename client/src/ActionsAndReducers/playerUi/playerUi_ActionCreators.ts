@@ -10,7 +10,7 @@ import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import {
   ChatMessage, Message, MessageChannel,
-  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessagePlanning, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
+  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
 } from 'src/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
@@ -190,10 +190,6 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
     // actually post the message
     await wargamesApi.postNewMessage(dbName, details, message)
   }
-}
-
-export const saveBulkMessages = (dbName: string, archiveMark: MessagePlanning[]): Promise<any> => {
-  return wargamesApi.PostBulkMessages(dbName, archiveMark)
 }
 
 // NOTE: This function is currently not in use. It may be intended for future use.

@@ -2,7 +2,7 @@ import { Column } from '@material-table/core'
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION, SUPPORT_PANEL_LAYOUT } from 'src/config'
-import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructure, PlanningMessageStructureCore } from 'src/custom-types'
+import { MessageDetails, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructure, PlanningMessageStructureCore } from 'src/custom-types'
 import { incrementGameTime, platformIcons, PlatformStyle } from 'src/Helpers'
 import { updateLocationNames } from 'src/Helpers/geometry-helpers'
 import cx from 'classnames'
@@ -43,7 +43,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   channel,
   allTemplates,
   saveMessage,
-  postBackArchive,
   saveNewActivityTimeMessage,
   saveCachedNewMessageValue,
   getCachedNewMessagevalue,
@@ -88,8 +87,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [sortedOwnAssets, setSortedOwnAssets] = useState<AssetRow[]>([])
   const [sortedOppAssets, setSortedOppAssets] = useState<AssetRow[]>([])
 
-  const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
-  const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
   const [turnFilter, setTurnFilter] = useState<number>(-1)
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
@@ -104,6 +101,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
     setActiveTab(tab)
+    console.log('tab', tab)
     onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.OPENING_TAB, tab)
   }
 
@@ -158,34 +156,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
       setActivitiesForThisForce(thisForce)
     }
   }, [forcePlanningActivities, selectedForce])
-
-  useEffect(() => {
-    let filteredMessages: MessagePlanning[] | undefined
-    if (turnFilter) {
-      const thisTurn = allPeriods.find((turn) => turn.gameTurn === turnFilter)
-      if (thisTurn) {
-        const turnEnd = incrementGameTime(thisTurn.gameDate, gameTurnTime)
-        const turnStartTime = moment.utc(thisTurn.gameDate).valueOf()
-        const turnEndTime = moment.utc(turnEnd).valueOf()
-        filteredMessages = planningMessages.filter((msg) => {
-          const pStart = moment.utc(msg.message.startDate).valueOf()
-          const pEnd = moment.utc(msg.message.endDate).valueOf()
-          return pEnd >= turnStartTime && pStart < turnEndTime
-        })
-      }
-    }
-    if (filteredMessages === undefined) {
-      filteredMessages = planningMessages
-    }
-    setFilteredPlanningMessages(filteredMessages)
-  }, [planningMessages, turnFilter])
-
-  useEffect(() => {
-    const filteredMessages: MessageInteraction[] = interactionMessages.filter((inter) => {
-      return (turnFilter === -1) || (inter.details.turnNumber === turnFilter)
-    })
-    setFilteredInteractionMessages(filteredMessages)
-  }, [interactionMessages, turnFilter])
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
     if (selectedForce.umpire) {
@@ -549,35 +519,24 @@ export const SupportPanel: React.FC<PropTypes> = ({
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
                 <TurnFilter label='Show orders for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
-                  planningMessages={filteredPlanningMessages}
-                  interactionMessages={filteredInteractionMessages}
-                  platformTypes={platformTypes}
+                  forceColors={forceColors}
+                  allForces={allForces}
+                  channel={channel}
+                  selectedRoleName={selectedRoleName}
                   phase={phase}
                   gameTurnEndDate={gameTurnEndDate}
                   playerRoleId={selectedRoleId}
                   isUmpire={!!selectedForce.umpire}
                   selectedForce={selectedForce}
-                  selectedRoleName={selectedRoleName}
                   currentTurn={currentTurn}
                   hideForcesInChannel={false}
-                  allForces={allForces}
-                  forceColors={forceColors}
                   onRead={onRead}
                   onUnread={onUnread}
                   onMarkAllAsRead={onReadAll}
-                  channel={channel}
-                  allTemplates={allTemplates}
-                  confirmCancel={true}
                   copyMessage={copyMessage}
-                  customiseTemplate={localCustomiseTemplate}
                   selectedOrders={selectedOrders}
                   setSelectedOrders={setSelectedOrders}
-                  postBackArchive={postBackArchive}
-                  postBack={postBack}
                   turnFilter={turnFilter}
-                  editLocation={editLocation}
-                  modifyForSave={localModifyForSave}
-                  forcePlanningActivities={forcePlanningActivities}
                   onDetailPanelOpen={onDetailPanelOpen}
                   onDetailPanelClose={onDetailPanelClose}
                   editThisMessage={editThisMessage}

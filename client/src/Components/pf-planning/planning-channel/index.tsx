@@ -67,10 +67,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   markUnread,
   markAllAsRead,
   saveNewActivityTimeMessage,
-  saveArchiveMessage,
   openMessage,
   saveMessage,
-  // mapPostBack,
   onTurnPeriods,
   allTemplates,
   messages,
@@ -1092,7 +1090,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             allTemplates={allTemplates}
             activityTimeChanel={newActiveMessage}
             saveMessage={saveMessageLocal}
-            postBackArchive={saveArchiveMessage}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}
             currentWargame={currentWargame}

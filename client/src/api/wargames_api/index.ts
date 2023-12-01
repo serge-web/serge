@@ -11,7 +11,7 @@ import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import { ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStructure, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, MessagePlanning, TurnPeriod, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
+import { ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStructure, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
@@ -705,13 +705,6 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
       resolve(message)
     }
   })
-}
-
-export const PostBulkMessages = (dbName: string, bulkData: MessagePlanning[]) => {
-  const { db } = getWargameDbByName(dbName)
-
-  const customBulkMessage: MessagePlanning[] = bulkData
-  return db.bulkDocs(customBulkMessage).catch(rejectDefault)
 }
 
 export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {

@@ -1,6 +1,6 @@
 import { Column } from '@material-table/core'
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, UNKNOWN_TYPE } from 'src/config'
-import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from 'src/custom-types'
+import { Asset, AttributeTypes, ForceData, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from 'src/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle, sortDictionaryByValue } from 'src/Helpers'
 import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'
@@ -215,18 +215,6 @@ export const renderOwner = (row: AssetRow, roles: Record<string, string>): React
   } else {
     return <></>
   }
-}
-
-export const collateActivities = (rows: MessagePlanning[]): string[] => {
-  const activities: string[] = []
-  rows.forEach((row: MessagePlanning) => {
-    const force = row.details.from.forceId || ''
-    const activity = row.message.activity.slice(force.length + 1)
-    if (!activities.includes(activity)) {
-      activities.push(activity)
-    }
-  })
-  return activities
 }
 
 export const renderAttributes = (row: AssetRow): React.ReactElement => {
