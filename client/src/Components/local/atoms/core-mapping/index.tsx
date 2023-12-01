@@ -70,7 +70,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
             type: 'LineString'
           }
         }
-        return null
       }
       case 'Polygon':
       case 'Rectangle': {
@@ -96,7 +95,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
             type: 'Polygon'
           }
         }
-        return null
       }
       case 'Marker': {
         const loc = (e as any).layer._latlng as L.LatLng
