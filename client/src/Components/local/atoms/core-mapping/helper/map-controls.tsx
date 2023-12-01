@@ -8,7 +8,7 @@ import AssetIcon from 'src/Components/local/asset-icon'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
 
-const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange }) => {
+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange, onRemoved }) => {
   const map = useMap()
 
   useEffect(() => {
@@ -30,9 +30,13 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange }) => {
       snappingOption: true
     }}
     globalOptions={{}}
-    onCreate={e => onCreate(e as unknown as PM.ChangeEventHandler)}
+    onCreate={e => {
+      onCreate(e as unknown as PM.ChangeEventHandler)
+      map.removeLayer(e.layer)
+    }}
     onChange={e => onChange(e as unknown as PM.ChangeEventHandler)}
-
+    onMapRemove={e => onRemoved(e as unknown as PM.ChangeEventHandler)}
+    onLayerRemove={e => onRemoved(e as unknown as PM.ChangeEventHandler)}
   />
 }
 

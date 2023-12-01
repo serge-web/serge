@@ -19,4 +19,5 @@ export type CoreRendererProps = {
 export type GeomanControlProps = {
   onCreate: (e: PM.ChangeEventHandler) => void
   onChange: (e: PM.ChangeEventHandler) => void
+  onRemoved: (e: PM.ChangeEventHandler) => void
 }
