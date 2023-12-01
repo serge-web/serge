@@ -45,9 +45,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   
   const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
     const shapeType = (e as any).shape
+    // console.log(e)
     switch (shapeType) {
       case 'Line': {
-        console.log(e)
         const locs = (e as any).layer._latlngs as L.LatLng[]
         const reverseLocs = locs.map((item: L.LatLng) => {
           return [item.lng, item.lat]
@@ -68,6 +68,32 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
           geometry: {
             coordinates: reverseLocs,
             type: 'LineString'
+          }
+        }
+        return null
+      }
+      case 'Polygon':
+      case 'Rectangle': {
+        const locs = (e as any).layer._latlngs as L.LatLng[][]
+        const reverseLocs = locs[0].map((item: L.LatLng) => {
+          return [item.lng, item.lat]
+        })
+        const props: CoreProperties = {
+          id: (e as any).layer._leaflet_id,
+          _type: RENDERER_CORE,
+          phase: Phase.Planning,
+          label: 'Headquarters Building',
+          turn: 1,
+          force: 'f-red',
+          category: 'Civilian',
+          color: '#CCF'
+        }
+        return {
+          type: 'Feature',
+          properties: props,
+          geometry: {
+            coordinates: [reverseLocs],
+            type: 'Polygon'
           }
         }
         return null
@@ -106,7 +132,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
       const cloneFeatures = cloneDeep(features)
       cloneFeatures?.features.push(feature)
       setFeatures(cloneFeatures)
-      console.log('xx> cloneFeatures: ', cloneFeatures)
+      console.log('xx> cloneFeatures: ', cloneFeatures?.features.length)
     }  
     // only add new feature
     // if (!featuresRef.current?.features.find(f => f.properties?.id === feature.properties?.id)) {
