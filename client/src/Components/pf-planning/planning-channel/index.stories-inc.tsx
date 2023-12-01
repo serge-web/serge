@@ -1,6 +1,6 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from 'src/config'
-import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from 'src/custom-types'
+import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, Role, TemplateBody } from 'src/custom-types'
 import { deepCopy, incrementGameTime } from 'src/Helpers'
 import { P9BMock, planningMessages as mockMessages, turnPeriod } from 'src/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
@@ -154,11 +154,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
   const localForces = forces1.length !== 0 ? forces1 : generateTestData2(800, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
 
-  const mockFn = (): PlayerUiActionTypes => ({
-    type: 'mock' as any,
-    payload: {}
-  })
-
   const selectedRoleStr: string = selectedRoleId
   // separate out the two elements of the combined role
   const ind = selectedRoleStr.indexOf(' ~ ')
@@ -205,9 +200,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
-    markAllAsRead={mockFn}
-    markUnread={mockFn}
-    openMessage={mockFn}
     saveMessage={saveMessage}
     reduxDispatch={noop}
     saveNewActivityTimeMessage={(): any => noop}

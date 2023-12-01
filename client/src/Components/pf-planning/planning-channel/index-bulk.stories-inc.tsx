@@ -1,6 +1,6 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from 'src/config'
-import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from 'src/custom-types'
+import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, Role, TemplateBody } from 'src/custom-types'
 import { deepCopy } from 'src/Helpers'
 import { P9BMock, planningMessagesBulk, turnPeriod } from 'src/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
@@ -141,11 +141,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
     phase
   } = args
 
-  const mockFn = (): PlayerUiActionTypes => ({
-    type: 'mock' as any,
-    payload: {}
-  })
-
   const selectedRoleStr: string = selectedRoleId
   // separate out the two elements of the combined role
   const ind = selectedRoleStr.indexOf(' ~ ')
@@ -192,9 +187,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
-    markAllAsRead={mockFn}
-    markUnread={mockFn}
-    openMessage={mockFn}
     saveMessage={saveMessage}
     reduxDispatch={noop}
     saveNewActivityTimeMessage={(): any => noop}

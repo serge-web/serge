@@ -22,7 +22,6 @@ const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
 describe('ChannelMessagesList component: ', () => {
   it('renders component correctly', () => {
     moment.tz.setDefault('Etc/UTC')
-    const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     console.log('blueRole.name', blueRole.name)
     console.log('blueRole.name', blueRole)
 
@@ -38,12 +37,9 @@ describe('ChannelMessagesList component: ', () => {
         hideForcesInChannel={false} 
         selectedOrders={[]} 
         setSelectedOrders={(): any => noop}
-        onRead={undefined} 
-        onUnread={undefined} 
         isUmpire={true}
         playerRoleId={blueRole.roleId}
-        phase={Phase.Planning}
-        onMarkAllAsRead={markAllAsRead} 
+        phase={Phase.Planning} 
         onSupportPanelLayoutChange={noop}
         getSupportPanelState={() => ({})} />, {
         createNodeMock: node => {

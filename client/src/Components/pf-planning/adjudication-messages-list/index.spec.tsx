@@ -17,7 +17,6 @@ const blueRole = blueForce.roles[0]
 describe('AdjudicationMessagesList component: ', () => {
   it('renders component correctly', () => {
     moment.tz.setDefault('Etc/UTC')
-    const markAllAsRead = (): void => window.alert('Callback on mark all as read')
 
     const tree = renderer
       .create(<AdjudicationMessagesList 
@@ -33,7 +32,6 @@ describe('AdjudicationMessagesList component: ', () => {
         forceColors={forceColors(forces)}
         onUnread={undefined} 
         playerRoleId={blueRole.roleId}
-        onMarkAllAsRead={markAllAsRead} 
       />, {
         createNodeMock: node => {
           return document.createElement(node.type as string)

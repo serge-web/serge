@@ -1,5 +1,5 @@
 import { Phase } from 'src/config'
-import { ChannelPlanning, ForceData, ForceStyle, MessagePlanning, PlannedActivityGeometry, Role } from 'src/custom-types'
+import { ChannelPlanning, ForceData, ForceStyle, PlannedActivityGeometry, Role } from 'src/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
@@ -42,15 +42,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   channel: ChannelPlanning
   /**
-  /**
-   * Callback on expanding message item
-   */
-  onRead?: { (message: MessagePlanning, count?: number): void }
-
-  /**
-   * handle unread message
-   */
-  onUnread?: (message: MessagePlanning) => void
 
   /**
    * role of current player
@@ -59,10 +50,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
 
-  copyMessage?: { (id: MessagePlanning['_id']): void }
-
   selectedForce: ForceData
-selectedRoleName: string
+  selectedRoleName: string
   currentTurn: number
 
   /** current game phase */

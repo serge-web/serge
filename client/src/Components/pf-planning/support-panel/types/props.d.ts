@@ -11,9 +11,6 @@ import { LocationEditCallbackHandler } from '../../planning-messages-list/types/
 export default interface PropTypes {
   planningMessages: MessagePlanning[]
   interactionMessages: MessageInteraction[]
-  onRead: (message: MessagePlanning) => void
-  onUnread: (message: MessagePlanning) => void
-  onReadAll: () => void
   /**
    * definition of this channel
    */

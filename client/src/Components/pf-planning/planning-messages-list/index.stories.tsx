@@ -1,6 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import React, { useState } from 'react'
+import React from 'react'
 
 // Import component files
 import { Phase } from 'src/config'
@@ -66,7 +66,6 @@ const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
 
 const Template: Story<MessageListPropTypes> = (args) => {
   const { phase, currentTurn, hideForcesInChannel, turnFilter, selectedRoleName } = args
-  const [isRead, setIsRead] = useState([true, false])
 
   const selectedRoleStr: string = selectedRoleName
   // separate out the two elements of the combined role
@@ -76,10 +75,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const force = forces.find((f: ForceData) => f.uniqid === forceStr)
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
   const isUmpire = force && force.umpire
-
-  const markAllAsRead = (): void => {
-    setIsRead(isRead.map(() => true))
-  }
 
   if (!force || !role) {
     return <></>
@@ -96,7 +91,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
     gameTurnEndDate={turnEndDate}
     allTemplates={templates}
     playerRoleId={role.roleId}
-    onMarkAllAsRead={markAllAsRead}
     isUmpire={!!isUmpire}
     phase={phase}
     hideForcesInChannel={hideForcesInChannel}

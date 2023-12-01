@@ -104,12 +104,10 @@ const Template: Story<SupportPanelProps> = (args) => {
     planningMessages={planningMessages}
     interactionMessages={interactionMessages}
     forcePlanningActivities={activities}
-    onReadAll={noop}
     setSelectedAssets={noop}
     selectedOrders={[]}
     attributeTypes={attributeTypes}
-    setSelectedOrders={noop} onUnread={noop}
-    onRead={noop}
+    setSelectedOrders={noop}
     forceColors={forceColors(forces)}
     phase={Phase.Planning}
     channel={planningChannel}

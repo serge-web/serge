@@ -1,5 +1,5 @@
 import { Phase } from 'src/config'
-import { ChannelPlanning, ForceData, GameTurnLength, MessageDetails, PerForcePlanningActivitySet, Role, TurnPeriods } from 'src/custom-types'
+import { ChannelPlanning, ForceData, GameTurnLength, PerForcePlanningActivitySet, Role, TurnPeriods } from 'src/custom-types'
 import { ForceStyle } from 'src/Helpers'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
@@ -70,8 +70,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onDetailPanelOpen?: (rowData: AdjudicationRow) => void
 
   onDetailPanelClose?: (rowData: AdjudicationRow) => void
-
-  postBack?: { (details: MessageDetails, message: any): void }
 
   /** the current turn for the game */
   currentTurn: number

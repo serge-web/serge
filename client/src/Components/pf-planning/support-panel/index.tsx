@@ -6,7 +6,7 @@ import { MessageDetails, MessagePlanning, MessageSentInteraction, MessageStructu
 import { incrementGameTime, platformIcons, PlatformStyle } from 'src/Helpers'
 import { updateLocationNames } from 'src/Helpers/geometry-helpers'
 import cx from 'classnames'
-import { cloneDeep, noop, sortBy } from 'lodash'
+import { noop, sortBy } from 'lodash'
 import LRU from 'lru-cache' 
 import moment from 'moment'
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
@@ -37,9 +37,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
   planningMessages,
   interactionMessages,
-  onRead,
-  onUnread,
-  onReadAll,
   channel,
   allTemplates,
   saveMessage,
@@ -339,28 +336,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setLocalDraftMessage(order)
   }
 
-  const copyMessage = (docId: string): void => {
-    const order = planningMessages.find((doc) => doc._id === docId)
-
-    if (order) {
-      // make duplicate
-      const dupe = cloneDeep(order)
-
-      // strip out some bits
-      const dupeAny = dupe as any
-      console.log('Making duplicate of', dupe._id, dupe._rev, dupe.message.Reference, dupe.message.title)
-      dupeAny._id = ''
-      delete dupeAny._rev
-      delete dupeAny.message.Reference
-      dupe.message.title = dupe.message.title + ' Copy'
-      dupe.details.timestamp = moment.utc().toISOString()
-      console.log('copying order', docId, order, dupe)
-
-      // clear out some bits
-      setLocalDraftMessage(dupe)
-    }
-  }
-
   const assetsForOrders = (id?: string): string[] => {
     let res: string[] = []
     const plan = planningMessages.find((msg) => msg._id === id)
@@ -530,10 +505,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   selectedForce={selectedForce}
                   currentTurn={currentTurn}
                   hideForcesInChannel={false}
-                  onRead={onRead}
-                  onUnread={onUnread}
-                  onMarkAllAsRead={onReadAll}
-                  copyMessage={copyMessage}
                   selectedOrders={selectedOrders}
                   setSelectedOrders={setSelectedOrders}
                   turnFilter={turnFilter}
@@ -599,13 +570,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   gameTurnLength={gameTurnTime}
                   phase={phase}
                   forceColors={forceColors}
-                  onMarkAllAsRead={onReadAll}
                   channel={channel}
                   currentWargame={currentWargame}
                   turnFilter={turnFilter}
                   onDetailPanelOpen={onDetailPanelOpen}
                   onDetailPanelClose={onDetailPanelClose}
-                  postBack={postBack}
                 />
               </div>
               <div className={styles['resize-indicator-container']} >

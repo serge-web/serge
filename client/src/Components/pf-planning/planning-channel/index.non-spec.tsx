@@ -1,16 +1,11 @@
 import { Phase } from 'src/config'
-import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from 'src/custom-types'
+import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, TemplateBody } from 'src/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock, turnPeriod } from 'src/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
 import React from 'react'
 import { fixPerForcePlanningActivities } from './helpers/collate-plans-helper'
 import PlanningChannel from './index'
-
-export const mockFn = (): PlayerUiActionTypes => ({
-  type: 'mock' as any,
-  payload: {}
-})
 
 jest.mock('leaflet', () => {
   const leaflet = jest.requireActual('leaflet')
@@ -70,9 +65,6 @@ describe('Planning Channel component: ', () => {
       adjudicationTemplate={planningMessageTemplatesMock[0]}
       dispatch={noop}
       getAllWargameMessages={(): any => noop}
-      markAllAsRead={mockFn}
-      markUnread={mockFn}
-      openMessage={mockFn}
       saveMessage={saveMessage}
       reduxDispatch={noop}
       saveNewActivityTimeMessage={(): any => noop}

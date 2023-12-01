@@ -64,10 +64,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
   reduxDispatch,
   getAllWargameMessages,
-  markUnread,
-  markAllAsRead,
   saveNewActivityTimeMessage,
-  openMessage,
   saveMessage,
   onTurnPeriods,
   allTemplates,
@@ -710,10 +707,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }, [])
 
-  const onReadAll = (): void => {
-    dispatch(markAllAsRead(channel.uniqid))
-  }
-
   useEffect(() => {
     // drop the turn markers
     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
@@ -735,17 +728,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setPlanningMessages(myPlanningMessages)
     setInteractionMessages(myInteractionMessages)
   }, [messages])
-
-  const onRead = (detail: MessagePlanning): void => {
-    dispatch(openMessage(channel.uniqid, detail as any as MessageChannel))
-  }
-
-  const onUnread = (message: MessagePlanning): void => {
-    if (message._id) {
-      message.hasBeenRead = false
-    }
-    dispatch(markUnread(channel.uniqid, message as any))
-  }
 
   const newActiveMessage = (roleId: string, activityMessage: string): void => {
     // we don't have a message id at this point, player has only opened empty template
@@ -1084,9 +1066,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             planningMessages={planningMessages}
             interactionMessages={interactionMessages}
             attributeTypes={attributeTypes || []}
-            onReadAll={onReadAll}
-            onUnread={onUnread}
-            onRead={onRead}
             allTemplates={allTemplates}
             activityTimeChanel={newActiveMessage}
             saveMessage={saveMessageLocal}

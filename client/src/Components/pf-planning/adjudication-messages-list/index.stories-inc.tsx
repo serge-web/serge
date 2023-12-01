@@ -1,6 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import React, { useState } from 'react'
+import React from 'react'
 
 // Import component files
 import { Phase } from 'src/config'
@@ -48,11 +48,6 @@ const planningActivities = wargame.activities ? wargame.activities.activities : 
 
 const Template: Story<MessageListPropTypes> = (args) => {
   const { playerRoleId, gameDate } = args
-  const [isRead, setIsRead] = useState([true, false])
-
-  const markAllAsRead = (): void => {
-    setIsRead(isRead.map(() => true))
-  }
 
   // remove later versions
   const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
@@ -76,7 +71,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
     gameTurnLength={P9BMock.data.overview.gameTurnTime}
     template={templates[0]}
     playerRoleId={playerRoleId}
-    onMarkAllAsRead={markAllAsRead}
     turnFilter={-1}
     forcePlanningActivities={planningActivities}
   />

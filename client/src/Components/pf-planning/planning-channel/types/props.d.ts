@@ -1,8 +1,5 @@
 import { Phase } from 'src/config'
-import {
-  AreaCategory, AttributeTypes, ChannelPlanning, ChatMessage, ForceData, ForceTemplateData, GameTurnLength, MessageDetails, MessageInfoTypeClipped,
-  MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody, TurnPeriods
-} from 'src/custom-types'
+import { AreaCategory, AttributeTypes, ChannelPlanning, ForceData, ForceTemplateData, GameTurnLength, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody, TurnPeriods } from 'src/custom-types'
 import React, { Dispatch } from 'react'
 
 export default interface PropTypes {
@@ -27,10 +24,7 @@ export default interface PropTypes {
   dispatch: React.Dispatch<PlayerUiActionTypes>
   reduxDispatch: Dispatch<any>
   getAllWargameMessages: (dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
-  markUnread: (channel: string, message: MessageChannel | ChatMessage) => PlayerUiActionTypes
-  markAllAsRead: (channel: string) => PlayerUiActionTypes
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
-  openMessage: (channel: string, message: MessageChannel) => PlayerUiActionTypes
   saveMessage: (dbName: string, details: MessageDetails, message: any) => {(): void}
   onTurnPeriods?: (currentWargame: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
 

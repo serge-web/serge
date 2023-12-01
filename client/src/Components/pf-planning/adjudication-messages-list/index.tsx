@@ -16,21 +16,18 @@ import PropTypes, { AdjudicationRow } from './types/props'
 export const DEFAULT_SEARCH_RATE = 2000
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
-  // forces, 
-  // gameDate,
-  turnFilter,
-  // customiseTemplate,
-  // playerRoleId, 
-  // forcePlanningActivities, 
-  // handleAdjudication,
-  // platformTypes, 
+  forces, 
+  gameDate,
+  customiseTemplate,
+  playerRoleId, 
+  forcePlanningActivities, 
+  platformTypes,
+  currentTurn,
   onDetailPanelOpen,
-  onDetailPanelClose, 
-  // mapPostBack, 
+  onDetailPanelClose,
+  turnFilter,
   phase,
   gameTurnLength
-  // onLocationEditorLoaded, 
-  // currentTurn
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
@@ -45,6 +42,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [inPlanning, setInPlanning] = useState<boolean>(true)
 
   const currentColumnsData = useRef<Column<AdjudicationRow>[]>([])
+  
+  // NOTE: The following debugging information is logged for potential troubleshooting purposes,
+  // but it is currently not utilized in the code. Consider removing or updating as needed.
+  !7 && console.log('Debugging info:', { forces, gameDate, playerRoleId, phase, customiseTemplate, forcePlanningActivities, platformTypes, currentTurn })
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)

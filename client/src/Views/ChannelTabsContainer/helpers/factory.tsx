@@ -6,7 +6,7 @@ import {
   PlayerUiActionTypes, ChannelPlanning, ForceData, ChannelTypes, ChannelUI, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PlayerUi
 } from 'src/custom-types'
 import { mockPlanningMessages } from './mock-message-data'
-import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { getAllWargameMessages, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
 import CollabChannel from '../../../Components/CollabChannel'
 import PlanningChannel from '../../../Components/pf-planning/planning-channel'
@@ -108,11 +108,6 @@ const factory = (state: PlayerUi, dispatch: React.Dispatch<PlayerUiActionTypes>,
             dispatch={dispatch}
             // @ts-ignore
             getAllWargameMessages={getAllWargameMessages}
-            markAllAsRead={markAllAsRead}
-            // @ts-ignore
-            markUnread={markUnread}
-            // @ts-ignore
-            openMessage={openMessage}
             // @ts-ignore
             // saveArchiveMessage={ArchivePostBack}
             // @ts-ignore
