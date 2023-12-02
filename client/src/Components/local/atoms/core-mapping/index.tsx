@@ -1,6 +1,5 @@
 import { Feature, FeatureCollection } from 'geojson'
 import { PM } from 'leaflet'
-import { cloneDeep } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Phase } from 'src/config'
@@ -13,16 +12,11 @@ import PropTypes, { CoreRendererProps } from './types/props'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   const [features, setFeatures] = useState<FeatureCollection>()
-  const [renderers, setRenderers] = useState<React.ComponentClass<CoreRendererProps>[]>([])
-  // const featuresRef = useRef<FeatureCollection | undefined>()
+  const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
 
   useEffect(() => {
     loadDefaultMarker()
   }, [])
-
-  // useEffect(() => {
-  //   featuresRef.current = features
-  // }, [features])
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -126,18 +120,14 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
 
   const onCreate = (e: PM.ChangeEventHandler) => {
     const feature = mapEventToFeatures(e)
-    if (feature) {
-      const cloneFeatures = cloneDeep(features)
-      cloneFeatures?.features.push(feature)
-      setFeatures(cloneFeatures)
-      console.log('xx> cloneFeatures: ', cloneFeatures?.features.length)
+    if (feature && features && features.features) {
+      const found = features.features.find(f => f.properties?.id === feature.properties?.id)
+      if (!found) {
+        features.features.push(feature)
+        setFeatures({ ...features })
+        console.log('features: ', features.features)
+      }
     }  
-    // only add new feature
-    // if (!featuresRef.current?.features.find(f => f.properties?.id === feature.properties?.id)) {
-    //   featuresRef.current?.features.push(feature)
-    //   const cloneFeatures = cloneDeep(featuresRef.current)
-    //   setFeatures(cloneFeatures)
-    // }
   }
 
   const onChange = (e: PM.ChangeEventHandler) => {
@@ -145,10 +135,13 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   }
 
   const onRemoved = (e: PM.ChangeEventHandler) => {
+    // TODO: should update features.features when remove item on map
     console.log('onRemoved Event Fired', e)
-    // if (featuresRef.current) {
-    // remove feature from the list
-    // featuresRef.current.features = featuresRef.current?.features.filter(f => f.properties?.id !== (e as any).layer._leaflet_id)
+    // if (features && features.features) {
+    //   const filterFeatures = features.features.filter(f => validIds.includes(f.properties?.id))
+    //   features.features = filterFeatures
+    //   setFeatures({ ...features })
+    //   console.log('features: ', features.features)
     // }
   }
   
