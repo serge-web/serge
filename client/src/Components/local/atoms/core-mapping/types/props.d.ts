@@ -1,5 +1,5 @@
 import { FeatureCollection } from 'geojson'
-import { PM } from 'leaflet'
+import { LatLng, PM } from 'leaflet'
 
 export default interface PropTypes {
   playerForce: ForceData['id']
@@ -18,6 +18,6 @@ export type CoreRendererProps = {
 
 export type GeomanControlProps = {
   onCreate: (e: PM.ChangeEventHandler) => void
-  onChange: (e: PM.ChangeEventHandler) => void
-  onRemoved: (e: PM.ChangeEventHandler) => void
+  onChange: (id: number, lnglat: LatLng[]) => void
+  onRemoved: (id: number) => void
 }

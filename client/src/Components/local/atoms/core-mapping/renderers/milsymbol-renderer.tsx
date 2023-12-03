@@ -9,7 +9,7 @@ import { CoreRendererProps } from '../types/props'
 
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features }): any => {
   const filterFeatures = features.features.filter(f => f.properties._type === RENDERER_MILSYM)
-    
+
   return filterFeatures.map((feature, idx) => {
     const icon = new ms.Symbol(feature.properties.sidc)
     const position = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]) 
@@ -17,10 +17,12 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features }): any => {
     return <Marker
       key={idx}
       position={position}
+      attribution={feature.properties?.id}
       icon={L.divIcon({
         html: icon.asDOM().outerHTML,
         className: styles['asset-icon']
-      })} />
+      })}
+    />
   })
 }
 

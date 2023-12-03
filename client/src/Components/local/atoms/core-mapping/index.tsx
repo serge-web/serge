@@ -1,5 +1,6 @@
 import { Feature, FeatureCollection } from 'geojson'
-import { PM } from 'leaflet'
+import { LatLng, PM } from 'leaflet'
+import { cloneDeep } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Phase } from 'src/config'
@@ -124,25 +125,23 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
       const found = features.features.find(f => f.properties?.id === feature.properties?.id)
       if (!found) {
         features.features.push(feature)
-        setFeatures({ ...features })
+        setFeatures(cloneDeep(features))
         console.log('features: ', features.features)
       }
     }  
   }
 
-  const onChange = (e: PM.ChangeEventHandler) => {
-    console.log('onChange Event Fired', e)
+  const onChange = (id: number, latlng: LatLng[]) => {
+    console.log('onChange Event Fired', id, latlng)
   }
 
-  const onRemoved = (e: PM.ChangeEventHandler) => {
-    // TODO: should update features.features when remove item on map
-    console.log('onRemoved Event Fired', e)
-    // if (features && features.features) {
-    //   const filterFeatures = features.features.filter(f => validIds.includes(f.properties?.id))
-    //   features.features = filterFeatures
-    //   setFeatures({ ...features })
-    //   console.log('features: ', features.features)
-    // }
+  const onRemoved = (id: number) => {
+    if (features && features.features) {
+      const filterFeatures = features.features.filter(f => f.properties?.id !== id)
+      features.features = filterFeatures
+      setFeatures(cloneDeep(features))
+      console.log('features: ', features.features)
+    }
   }
   
   return <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={false} className={styles.container}>
@@ -152,7 +151,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     /> 
     <MapControls onCreate={onCreate} onChange={onChange} onRemoved={onRemoved}/>
     <LayerGroup>
-      {features && renderers.map((Component, idx) => <Component key={idx} features={features} />) }
+      {features && renderers.map((Component, idx) => <Component key={idx + features.features.length} features={features} />) }
     </LayerGroup>
   </MapContainer>
 }
