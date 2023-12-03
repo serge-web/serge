@@ -53,6 +53,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange, onRemov
 
     map.on('pm:markerdragend', (e: LeafletEvent) => {
       console.log('xx> markerdragend', e)
+      onChange(1, [])
       // switch (e['shape']) {
       //   case 'Marker':
       //   case 'Polygon':

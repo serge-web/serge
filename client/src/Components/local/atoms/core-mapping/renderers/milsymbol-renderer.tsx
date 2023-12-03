@@ -17,7 +17,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features }): any => {
     return <Marker
       key={idx}
       position={position}
-      attribution={feature.properties?.id}
+      attribution={feature?.properties?.id}
       icon={L.divIcon({
         html: icon.asDOM().outerHTML,
         className: styles['asset-icon']
