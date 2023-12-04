@@ -107,7 +107,7 @@ const milSymProps: MilSymProperties = {
 
 const coreFeature: Feature = {
   type: 'Feature',
-  properties: coreProps,
+  properties: { ...coreProps, id: 'bb' },
   geometry: {
     coordinates: [
       [
@@ -139,7 +139,7 @@ const coreFeature: Feature = {
 
 const anotherCoreFeature: Feature = {
   type: 'Feature',
-  properties: coreProps,
+  properties: { ...coreProps, id: 'ba' },
   geometry: {
     coordinates: [
       [
@@ -163,7 +163,7 @@ const anotherCoreFeature: Feature = {
 
 const milFeature: Feature = {
   type: 'Feature',
-  properties: milSymProps,
+  properties: { ...milSymProps, id: 'aa' },
   geometry: {
     coordinates: [-0.07929841834678086,
       51.497669733260125],
@@ -173,7 +173,7 @@ const milFeature: Feature = {
 
 const anotherMilFeature: Feature = {
   type: 'Feature',
-  properties: milSymProps,
+  properties: { ...milSymProps, id: 'ab' },
   geometry: {
     coordinates: [-0.07929841834678096, 51.50966973326012],
     type: 'Point'
