@@ -30,8 +30,6 @@ export {
   handleNewMessageData,
   clipInfoMEssage
 } from './handle-channel-updates'
-// +
-// export { default as handleOutcomes } from './handle-outcomes'
 export { default as hexToRGBA } from './hex-to-rgba'
 export { default as findEmptyRolenames } from './find-empty-rolenames'
 export { default as findDuplicatePasscodes } from './find-duplicate-passcodes'

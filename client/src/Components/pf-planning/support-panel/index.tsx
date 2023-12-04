@@ -16,7 +16,6 @@ import AdjudicationMessagesList from '../adjudication-messages-list'
 import { AdjudicationRow } from '../adjudication-messages-list/types/props'
 import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
-import PlanningMessagesList from '../planning-messages-list'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import { OrderRow } from '../planning-messages-list/types/props'
 import { DEFAULT_SIZE, LRU_CACHE_OPTION, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TAB_ADJUDICATE, TAB_MY_FORCE, TAB_MY_ORDERS, TAB_OPP_FOR } from './constants'
@@ -56,8 +55,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   phase,
   currentWargame,
   setSelectedAssets,
-  selectedOrders,
-  setSelectedOrders,
   setOpForcesForParent,
   setOwnForcesForParent,
   allOppAssets,
@@ -331,11 +328,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return planDoc
   }
 
-  const editThisMessage = (docId: string): void => {
-    const order = planningMessages.find((doc) => doc._id === docId)
-    setLocalDraftMessage(order)
-  }
-
   const assetsForOrders = (id?: string): string[] => {
     let res: string[] = []
     const plan = planningMessages.find((msg) => msg._id === id)
@@ -493,27 +485,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
                 <TurnFilter label='Show orders for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
-                <PlanningMessagesList
-                  forceColors={forceColors}
-                  allForces={allForces}
-                  channel={channel}
-                  selectedRoleName={selectedRoleName}
-                  phase={phase}
-                  gameTurnEndDate={gameTurnEndDate}
-                  playerRoleId={selectedRoleId}
-                  isUmpire={!!selectedForce.umpire}
-                  selectedForce={selectedForce}
-                  currentTurn={currentTurn}
-                  hideForcesInChannel={false}
-                  selectedOrders={selectedOrders}
-                  setSelectedOrders={setSelectedOrders}
-                  turnFilter={turnFilter}
-                  onDetailPanelOpen={onDetailPanelOpen}
-                  onDetailPanelClose={onDetailPanelClose}
-                  editThisMessage={editThisMessage}
-                  onSupportPanelLayoutChange={onSupportPanelLayoutChange}
-                  getSupportPanelState={getSupportPanelState}
-                />
                 {localDraftMessage && <NewMessage
                   orderableChannel={true}
                   privateMessage={!!selectedForce.umpire}

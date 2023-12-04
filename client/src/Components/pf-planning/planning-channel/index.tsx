@@ -115,7 +115,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   // have `local` selected assets handler, since we don't always want to
   // propagate changes to selected assets
   const localSelectedAssets = useRef<string[]>([])
-  const [selectedOrders, setSelectedOrders] = useState<string[]>([])
+  // const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
   // we need to break down assets by force, so they can be plotted (clustered) by color
   // will show current assets (if present), then filtered or all, according to show all filter
@@ -1018,7 +1018,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         </Fragment>
           : <Fragment>
             <Fragment key='selectedObjects'>
-              <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} interactions={interactionMessages} selectedInteraction={currentInteraction} />
+              <MapPlanningOrders forceColors={forceColors} orders={planningMessages} activities={flattenedPlanningActivities} setSelectedOrders={noop} interactions={interactionMessages} selectedInteraction={currentInteraction} />
               <MapPlanningOrders forceColors={forceColors} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 {perForceAssets.map((force) => {
@@ -1036,7 +1036,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         }
       </>
     )
-  }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
+  }, [selectedAssets, planningMessages, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
     currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings, showTimeControl,
     timelineInteractions, timelineFeatures])
 
@@ -1083,11 +1083,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             phase={phase}
             forceColors={forceColors}
             setSelectedAssets={onSetSelectedAssets}
-            selectedOrders={selectedOrders}
+            // selectedOrders={selectedOrders}
             saveCachedNewMessageValue={cacheMessage}
             getCachedNewMessagevalue={getCachedMessage}
             clearCachedNewMessage={clearCachedMessage}
-            setSelectedOrders={setSelectedOrders}
+            // setSelectedOrders={setSelectedOrders}
             setOpForcesForParent={setOpAssetsFiltered}
             setOwnForcesForParent={setOwnAssetsFiltered}
             allOwnAssets={allOwnAssets}

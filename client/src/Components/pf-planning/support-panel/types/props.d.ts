@@ -42,8 +42,6 @@ export default interface PropTypes {
   gameTurnLength: GameTurnLength
   currentWargame: string
   setSelectedAssets: (assets: string[]) => void
-  selectedOrders: string[]
-  setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
   setOpForcesForParent: (assetRows: AssetRow[]) => void
   setOwnForcesForParent: (assetRows: AssetRow[]) => void
   allOwnAssets: AssetRow[]
