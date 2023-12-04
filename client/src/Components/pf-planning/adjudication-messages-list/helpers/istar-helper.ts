@@ -5,10 +5,11 @@ import { booleanPointInPolygon, buffer } from '@turf/turf'
 import { Feature, Geometry, Polygon } from 'geojson'
 import { shuffle } from 'lodash'
 import moment from 'moment'
-import { DEFAULT_SEARCH_RATE } from '..'
 import { shortDate } from '../../planning-messages-list/helpers/genData'
 import { GeomWithOrders } from '../../support-panel/helpers/gen-order-data'
 import { istarSearchRate } from './getNextInteraction'
+
+export const DEFAULT_SEARCH_RATE = 2000
 
 /** check if the point provided is in the polygon provided */
 export const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {

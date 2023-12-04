@@ -12,7 +12,6 @@ import moment from 'moment'
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../local/form-elements/new-message'
-import AdjudicationMessagesList from '../adjudication-messages-list'
 import { AdjudicationRow } from '../adjudication-messages-list/types/props'
 import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
@@ -390,15 +389,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     }
   }, [pendingDetailClose, activeTab])
 
-  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
-    // we need the page state to handle this, so push into state
-    setPendingDetailOpen(rowData)
-  }
-
-  const onDetailPanelClose = () => {
-    setPendingDetailClose(true)
-  }
-
   const storeNewLocation = (geoms: PlannedActivityGeometry[]): void => {
     console.log('storing new geometries', geoms)
     setPendingLocationData(geoms)
@@ -531,22 +521,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>
                 <TurnFilter label='Show interactions for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
-                <AdjudicationMessagesList
-                  gameDate={gameDate}
-                  playerRoleId={selectedRoleId}
-                  forcePlanningActivities={forcePlanningActivities}
-                  currentTurn={currentTurn}
-                  forces={allForces}
-                  periods={allPeriods}
-                  gameTurnLength={gameTurnTime}
-                  phase={phase}
-                  forceColors={forceColors}
-                  channel={channel}
-                  currentWargame={currentWargame}
-                  turnFilter={turnFilter}
-                  onDetailPanelOpen={onDetailPanelOpen}
-                  onDetailPanelClose={onDetailPanelClose}
-                />
               </div>
               <div className={styles['resize-indicator-container']} >
                 <div className={styles['resize-indicator-icon']} >
