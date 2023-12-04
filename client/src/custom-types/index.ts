@@ -28,7 +28,8 @@ export { default as MarkerPerception } from './marker-perception.d'
 export * from './message-types-actions.d'
 export { default as MessageTypes, TemplateBodysByKey } from './message-types.d'
 export {
-  PlanningMessageStructureCore, PlanningMessageStructure, InteractionDetails, MessagePlanning, MessageAdjudicationOutcomes, HealthOutcome, HealthOutcomes, LocationOutcome, PerceptionOutcome, PerceptionOutcomes 
+  PlanningMessageStructureCore, PlanningMessageStructure, InteractionDetails, MessagePlanning, MessageAdjudicationOutcomes, 
+  LocationOutcome, PerceptionOutcome, PerceptionOutcomes 
 } from './pf-planning.d'
 export {
   ChatMessage, CollaborationDetails, CoreMessage, default as Message, FeedbackItem,
@@ -39,7 +40,7 @@ export {
   // System Messages
   MessageFeedback,
   // Map Types
-  MessageInfoType, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessageStructure
+  MessageInfoType, MessageInfoTypeClipped, MessageInteraction, MessageStructure
 } from './message.d'
 export { MessagesActionTypes, MessagesDispatch, SetCurrentViewFromURI } from './messages-action.d'
 export * from './participant.d'

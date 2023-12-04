@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ADJUDICATION_OUTCOMES, ADJUDICATION_PHASE, allDbs, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
+import { ADJUDICATION_PHASE, allDbs, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
 import { deleteRoleAndParts, duplicateThisForce } from 'src/Helpers'
 import _ from 'lodash'
 import moment from 'moment'
@@ -11,12 +11,11 @@ import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import { ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStructure, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
+import { ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
 
-import handleAdjudicationOutcomes from '../../ActionsAndReducers/playerUi/helpers/handleAdjudicationOutcomes'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
 
@@ -754,77 +753,6 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
       console.log(err)
       reject(err)
     })
-  })
-}
-
-// NOTE: This function is currently not in use. It may be intended for future use.
-// Copied from postNewMessage cgange and add new logic for Mapping
-// console logs will not works there
-// @ts-ignore
-export const postNewMapMessage = (dbName, details, message: MessageMap) => {
-  // first, send the message
-  const { db } = getWargameDbByName(dbName)
-
-  const customMessage: MessageCustom = {
-    _id: new Date().toISOString(),
-    // defined constat for messages, it's not same as message.details.messageType,
-    // ex for all template based messages will be used CUSTOM_MESSAGE Type
-    messageType: CUSTOM_MESSAGE,
-    details,
-    message,
-    isOpen: false,
-    hasBeenRead: false
-  }
-  db.put(customMessage).catch((err) => {
-    console.log(err)
-    return err
-  })
-
-  // special case. If this is adjudication, and we skip, do not to handle force delta
-  if (message.messageType === ADJUDICATION_OUTCOMES) {
-    const interaction = details.interaction as InteractionDetails
-    if (interaction && interaction.skipped) {
-      return
-    } 
-  }
-
-  // also make the modification to the wargame
-  return new Promise((resolve, reject) => {
-    getLatestWargameRevision(dbName)
-      .then((res) => {
-        if (!res.data.platformTypes) {
-          throw new Error('Cannot handle force delta without platform types')
-        }
-
-        // special handling for marker message
-        if (message.messageType === ADJUDICATION_OUTCOMES) {
-          const validMessage: MessageAdjudicationOutcomes = message
-          const interaction = details.interaction as InteractionDetails
-          res.data.forces.forces = handleAdjudicationOutcomes(interaction, validMessage, res.data.forces.forces)
-        } else {
-          console.error(`failed to create player reducer handler for: ${message!.messageType}`)
-          return res.data.forces.forces
-        }
-
-        const copiedData = deepCopy(res)
-        const newId = res.wargameInitiated ? new Date().toISOString() : res._id
-        const rev = res.wargameInitiated ? undefined : res._rev
-        // TODO: this method returns the inserted wargame.  I believe we could
-        // return that, instead of `getLatestWargameRevisiion`
-        return db.put({
-          ...copiedData,
-          _rev: rev,
-          _id: newId,
-          messageType: INFO_MESSAGE
-        }).then(() => {
-          return getLatestWargameRevision(dbName)
-        }).catch(rejectDefault)
-      }).then((res) => {
-        resolve(res)
-      }).catch((err) => {
-        console.log(err)
-        reject(err)
-      })
   })
 }
 

@@ -204,8 +204,6 @@ export interface MessageInfoTypeClipped {
   _id?: string
 }
 
-export type MessageMap = MessageAdjudicationOutcomes
-
 export type MessageChannel = MessageInfoTypeClipped | MessagePlanning |
   MessageCustom
 
@@ -214,7 +212,6 @@ type Message = MessageCustom |
   ChatMessage |
   MessageFeedback |
   MessageInfoTypeClipped |
-  MessageMap |
   MessageInfoType |
   MessageCounter
 

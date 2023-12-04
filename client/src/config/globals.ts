@@ -24,7 +24,6 @@ export const UMPIRE_FORCE_NAME = 'white'
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
 export const UNKNOWN_TYPE = 'Unknown' // type use when force or platform-type not known for mapping asset
-export const UNCHANGED = 'Unchanged' // type use when force or platform-type not known for mapping asset
 
 export const infoOpsGroup = 'Info Ops' // type of activity in planning message
 

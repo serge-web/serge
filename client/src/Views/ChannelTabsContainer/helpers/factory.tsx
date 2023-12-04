@@ -2,9 +2,7 @@ import React from 'react'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_PLANNING, Phase } from 'src/config'
-import { 
-  PlayerUiActionTypes, ChannelPlanning, ForceData, ChannelTypes, ChannelUI, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PlayerUi
-} from 'src/custom-types'
+import { PlayerUiActionTypes, ChannelPlanning, ForceData, ChannelTypes, ChannelUI, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PlayerUi } from 'src/custom-types'
 import { mockPlanningMessages } from './mock-message-data'
 import { getAllWargameMessages, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'

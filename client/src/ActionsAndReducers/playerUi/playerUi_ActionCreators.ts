@@ -8,10 +8,7 @@ import * as wargamesApi from '../../api/wargames_api'
 import isError from '../../Helpers/isError'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 
-import {
-  ChatMessage, Message, MessageChannel,
-  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
-} from 'src/custom-types'
+import { ChatMessage, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame } from 'src/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -190,12 +187,6 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
     // actually post the message
     await wargamesApi.postNewMessage(dbName, details, message)
   }
-}
-
-// NOTE: This function is currently not in use. It may be intended for future use.
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
-  // @ts-ignore
-  return wargamesApi.postNewMapMessage(dbName, details, message)
 }
 
 /** get all messages (documents) from the database (except counter messages) */
