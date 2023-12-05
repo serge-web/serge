@@ -4,7 +4,7 @@ import { GeoJSON } from 'react-leaflet-v4'
 import { CoreProperties, RENDERER_CORE } from 'src/custom-types'
 import { CoreRendererProps } from '../types/props'
 import { Feature, Geometry } from 'geojson'
-import L, { PathOptions, StyleFunction } from 'leaflet'
+import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 
 const colorFor = (force: string) => {
   switch (force) {
@@ -19,7 +19,7 @@ const colorFor = (force: string) => {
   }
 }
 
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged }) => {
+const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved }) => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
@@ -37,10 +37,13 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged }) => {
     }
   }
   return <GeoJSON onEachFeature={(f, l) => {
-    // handle listenr for GeoJSON layer
-    l.addEventListener('pm:dragend', e => {
+    l.addEventListener('pm:remove', e => {
+      onRemoved(f.properties.id)
+    })
+
+    const dragHandler = (e: LeafletEvent) => {
       const g = e as any
-      const le = e as L.LeafletEvent
+      const le = g as L.LeafletEvent
       switch (g.shape) {
         case 'Polygon': {
           const coords: L.LatLng[][] = le.layer._latlngs
@@ -52,12 +55,16 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged }) => {
           onDragged(f.properties.id, coords)
           break
         } 
+
         default: {
           console.warn('Drag handler not created for ', g.shape)
         }
       }
-    })
-  }} data={features} style={style} filter={filter} key={'feature_no_contact' + Math.random()} />
+    }
+
+    l.addEventListener('pm:markerdragend', dragHandler)
+    l.addEventListener('pm:dragend', dragHandler)
+  }} data={features} style={style} filter={filter} key={'core_renderer_' + Math.random()} />
 }
 
 export default CoreRenderer

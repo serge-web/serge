@@ -14,6 +14,7 @@ import PropTypes, { CoreRendererProps } from './types/props'
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   const [features, setFeatures] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
+  const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
 
   useEffect(() => {
     loadDefaultMarker()
@@ -37,6 +38,23 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
       setRenderers([])
     }
   }, [channel])
+
+  const onCreate = (e: PM.ChangeEventHandler) => {
+    setPendingCreate(e)
+  }
+
+  useEffect(() => {
+    if (pendingCreate) {
+      const feature = mapEventToFeatures(pendingCreate)
+      if (feature && features && features.features) {
+        const found = features.features.find(f => f.properties?.id === feature.properties?.id)
+        if (!found) {
+          features.features.push(feature)
+          setFeatures(cloneDeep(features))
+        }
+      }    
+    }
+  }, [pendingCreate])
   
   const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
     const shapeType = (e as any).shape
@@ -119,17 +137,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     }
   }
 
-  const onCreate = (e: PM.ChangeEventHandler) => {
-    const feature = mapEventToFeatures(e)
-    if (feature && features && features.features) {
-      const found = features.features.find(f => f.properties?.id === feature.properties?.id)
-      if (!found) {
-        features.features.push(feature)
-        setFeatures(cloneDeep(features))
-      }
-    }  
-  }
-
   const onChange = (id: number, latlng: LatLng) => {
     console.log('onChange Event Fired', id, latlng)
     if (features && features.features) {
@@ -195,9 +202,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     /> 
-    <MapControls onCreate={onCreate} onChange={onChange} onRemoved={onRemoved}/>
+    <MapControls onCreate={onCreate} onChange={onChange}/>
     <LayerGroup>
-      {features && renderers.map((Component, idx) => <Component key={idx + features.features.length} features={features} onDragged={onDragged} />) }
+      {features && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + features.features.length} features={features} onDragged={onDragged} />) }
     </LayerGroup>
   </MapContainer>
 }
