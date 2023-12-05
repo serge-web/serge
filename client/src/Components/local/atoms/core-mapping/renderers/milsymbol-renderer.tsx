@@ -23,7 +23,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
           })
         }
       )
-      marker.addEventListener('pm:remove', e => {
+      marker.addEventListener('pm:remove', () => {
         onRemoved(feature.properties.id)
       })
       marker.addEventListener('pm:dragend', e => {
