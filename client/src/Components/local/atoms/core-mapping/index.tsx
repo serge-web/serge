@@ -126,13 +126,19 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
       if (!found) {
         features.features.push(feature)
         setFeatures(cloneDeep(features))
-        console.log('features: ', features.features)
       }
     }  
   }
 
-  const onChange = (id: number, latlng: LatLng[]) => {
+  const onChange = (id: number, latlng: LatLng) => {
     console.log('onChange Event Fired', id, latlng)
+    if (features && features.features) {
+      const idx = features.features.findIndex(f => f.properties?.id === id)
+      if (idx !== -1 && latlng) {
+        (features.features[idx].geometry as any).coordinates = [latlng.lng, latlng.lat]
+        setFeatures(cloneDeep(features))
+      }
+    }  
   }
 
   const onRemoved = (id: number) => {
@@ -140,9 +146,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
       const filterFeatures = features.features.filter(f => f.properties?.id !== id)
       features.features = filterFeatures
       setFeatures(cloneDeep(features))
-      console.log('features: ', features.features)
     }
   }
+
+  useEffect(() => {
+    console.log('xx> features: ', features)
+  }, [features])
   
   return <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={false} className={styles.container}>
     <TileLayer
@@ -151,7 +160,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     /> 
     <MapControls onCreate={onCreate} onChange={onChange} onRemoved={onRemoved}/>
     <LayerGroup>
-      {features && renderers.map((Component, idx) => <Component key={idx + features.features.length} features={features} />) }
+      {features && renderers.map((Component, idx) => <Component key={idx + features.features.length} features={features} onChange={onChange}/>) }
     </LayerGroup>
   </MapContainer>
 }

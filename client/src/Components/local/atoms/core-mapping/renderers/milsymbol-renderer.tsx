@@ -7,7 +7,7 @@ import { RENDERER_MILSYM } from 'src/custom-types'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 
-const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features }): any => {
+const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onChange }): any => {
   const filterFeatures = features.features.filter(f => f.properties._type === RENDERER_MILSYM)
 
   return filterFeatures.map((feature, idx) => {
@@ -15,6 +15,13 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features }): any => {
     const position = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]) 
 
     return <Marker
+      eventHandlers={{
+        mouseup: (e) => {
+          // handle listener for react leaflet marker
+          onChange(e.target.pm._layer.options.attribution, e.latlng)
+        }
+        
+      }} 
       key={idx}
       position={position}
       attribution={feature.properties.id}

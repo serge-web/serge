@@ -19,7 +19,7 @@ const colorFor = (force: string) => {
   }
 }
 
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features }) => {
+const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onChange }) => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
@@ -36,7 +36,12 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features }) => {
       return {}
     }
   }
-  return <GeoJSON data={features} style={style} filter={filter} key={'feature_no_contact' + Math.random()} />
+  return <GeoJSON onEachFeature={(f, l) => {
+    // handle listenr for GeoJSON layer
+    l.addEventListener('mouseup', e => {
+      onChange(f.properties?.id, e.latlng)
+    })
+  }} data={features} style={style} filter={filter} key={'feature_no_contact' + Math.random()} />
 }
 
 export default CoreRenderer

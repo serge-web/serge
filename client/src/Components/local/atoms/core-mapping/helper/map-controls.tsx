@@ -13,6 +13,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange, onRemov
   const map = useMap()
 
   const initMapListener = () => {
+    // handle remove listener for geoman items
     map.on('pm:remove', (e: LeafletEvent) => {
       switch (e['shape']) {
         case 'Marker':
@@ -26,17 +27,12 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange, onRemov
       }
     })
 
+    // handle onCreate listener for geoman items
     map.on('pm:create', (e: LeafletEvent) => {
+      // handle edit/dragend listener for geoman items
       e.layer.on('pm:edit', (e: any) => {
-        console.log('xx> Geoman edit action: edit: ', e)
-      })
-  
-      e.layer.on('pm:cut', (e: any) => {
-        console.log('xx> Geoman edit action: cut: ', e)
-      })
-    
-      e.layer.on('pm:dragend', (e: any) => {
-        console.log('xx> Geoman edit action: dragend: ', e)
+        console.log('Geoman edit action: edit: ', e)
+        onChange(e.layer._leaflet_id, (e as any).latlngs)
       })
 
       switch (e['shape']) {
@@ -49,19 +45,6 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange, onRemov
         default:
           console.log('Unimplemented !!!')
       }
-    })
-
-    map.on('pm:markerdragend', (e: LeafletEvent) => {
-      console.log('xx> markerdragend', e)
-      onChange(1, [])
-      // switch (e['shape']) {
-      //   case 'Marker':
-      //   case 'Polygon':
-      //     onChange((e as any).latlngs as LatLng[])
-      //     break
-      //   default:
-      //     console.log('Unimplemented !!!')
-      // }
     })
   }
 
@@ -85,7 +68,6 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange, onRemov
       snappingOption: true
     }}
     globalOptions={{}}
-    onCreate={e => map.removeLayer(e.layer)}
   />
 }
 
