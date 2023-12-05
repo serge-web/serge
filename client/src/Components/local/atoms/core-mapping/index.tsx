@@ -12,7 +12,7 @@ import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
-  const [features, setFeatures] = useState<FeatureCollection>()
+  const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
 
@@ -23,9 +23,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   useEffect(() => {
     if (messages.length > 0) {
       const lastMessage: CoreMappingMessage = messages[messages.length - 1]
-      setFeatures(lastMessage.features)
+      setFeatureCollection(lastMessage.features)
     } else {
-      setFeatures(undefined)
+      setFeatureCollection(undefined)
     }
   }, [messages])
 
@@ -46,11 +46,11 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   useEffect(() => {
     if (pendingCreate) {
       const feature = mapEventToFeatures(pendingCreate)
-      if (feature && features && features.features) {
-        const found = features.features.find(f => f.properties?.id === feature.properties?.id)
+      if (feature && featureCollection && featureCollection.features) {
+        const found = featureCollection.features.find(f => f.properties?.id === feature.properties?.id)
         if (!found) {
-          features.features.push(feature)
-          setFeatures(cloneDeep(features))
+          featureCollection.features.push(feature)
+          setFeatureCollection(cloneDeep(featureCollection))
         }
       }    
     }
@@ -139,28 +139,28 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
 
   const onChange = (id: number, latlng: LatLng) => {
     console.log('onChange Event Fired', id, latlng)
-    if (features && features.features) {
-      const idx = features.features.findIndex(f => f.properties?.id === id)
+    if (featureCollection && featureCollection.features) {
+      const idx = featureCollection.features.findIndex(f => f.properties?.id === id)
       if (idx !== -1 && latlng) {
-        (features.features[idx].geometry as any).coordinates = [latlng.lng, latlng.lat]
-        setFeatures(cloneDeep(features))
+        (featureCollection.features[idx].geometry as any).coordinates = [latlng.lng, latlng.lat]
+        setFeatureCollection(cloneDeep(featureCollection))
       }
     }  
   }
 
   const onRemoved = (id: number) => {
-    if (features && features.features) {
-      const filterFeatures = features.features.filter(f => f.properties?.id !== id)
-      features.features = filterFeatures
-      setFeatures(cloneDeep(features))
+    if (featureCollection && featureCollection.features) {
+      const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
+      featureCollection.features = filterFeatures
+      setFeatureCollection(cloneDeep(featureCollection))
     }
   }
 
   const onDragged = (id: number | string, latLngs: LatLng | LatLng[] | LatLng[][]) => {
-    if (features && features.features) {
-      const idx = features.features.findIndex(f => f.properties?.id === id)
+    if (featureCollection && featureCollection.features) {
+      const idx = featureCollection.features.findIndex(f => f.properties?.id === id)
       if (idx !== -1 && latLngs) {
-        const feature = features.features[idx]
+        const feature = featureCollection.features[idx]
         switch (feature.geometry.type) {
           case 'Polygon': {
             const coords = latLngs as LatLng[][]
@@ -188,14 +188,20 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
           }
         }
         // (features.features[idx].geometry as any).coordinates = [latlng.lng, latlng.lat]
-        setFeatures(cloneDeep(features))
+        setFeatureCollection(cloneDeep(featureCollection))
       }
     }
   }
 
   useEffect(() => {
-    console.log('xx> features: ', features)
-  }, [features])
+    console.log('xx> features: ', featureCollection)
+    // console.table(featureCollection?.features.map((feature) => {
+    //   return {
+    //     id: feature.properties?.id,
+    //     type: feature.geometry.type
+    //   }
+    // }))
+  }, [featureCollection])
   
   return <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={false} className={styles.container}>
     <TileLayer
@@ -204,7 +210,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     /> 
     <MapControls onCreate={onCreate} onChange={onChange}/>
     <LayerGroup>
-      {features && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + features.features.length} features={features} onDragged={onDragged} />) }
+      {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} />) }
     </LayerGroup>
   </MapContainer>
 }
