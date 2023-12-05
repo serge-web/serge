@@ -52,7 +52,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
           featureCollection.features.push(feature)
           setFeatureCollection(cloneDeep(featureCollection))
         }
-      }    
+      }
+      setPendingCreate(null) 
     }
   }, [pendingCreate])
   
