@@ -14,7 +14,7 @@ export default interface PropTypes {
 
 export type CoreRendererProps = {
   features: FeatureCollection<Geometry, GeoJsonProperties>
-  onChange: (id: number, latlng: LatLng) => void
+  onDragged: (id: number | string, latLngs: L.LatLng | L.LatLng[] | L.LatLng[][]) => void
 };
 
 export type GeomanControlProps = {

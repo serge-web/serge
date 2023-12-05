@@ -149,6 +149,43 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     }
   }
 
+  const onDragged = (id: number | string, latLngs: LatLng | LatLng[] | LatLng[][]) => {
+    if (features && features.features) {
+      const idx = features.features.findIndex(f => f.properties?.id === id)
+      if (idx !== -1 && latLngs) {
+        const feature = features.features[idx]
+        switch (feature.geometry.type) {
+          case 'Polygon': {
+            const coords = latLngs as LatLng[][]
+            const newCoords = coords[0].map((pos: LatLng) => {
+              return [pos.lng, pos.lat]
+            })
+            feature.geometry.coordinates = [newCoords]
+            break
+          }
+          case 'LineString': {
+            const coords = latLngs as LatLng[]
+            const newCoords = coords.map((pos: LatLng) => {
+              return [pos.lng, pos.lat]
+            })
+            feature.geometry.coordinates = newCoords
+            break
+          }
+          case 'Point': {
+            const coord = latLngs as LatLng
+            feature.geometry.coordinates = [coord.lng, coord.lat]
+            break
+          }
+          default: {
+            console.warn('Drag handler not implemented for ' + feature.geometry.type)
+          }
+        }
+        // (features.features[idx].geometry as any).coordinates = [latlng.lng, latlng.lat]
+        setFeatures(cloneDeep(features))
+      }
+    }
+  }
+
   useEffect(() => {
     console.log('xx> features: ', features)
   }, [features])
@@ -160,7 +197,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     /> 
     <MapControls onCreate={onCreate} onChange={onChange} onRemoved={onRemoved}/>
     <LayerGroup>
-      {features && renderers.map((Component, idx) => <Component key={idx + features.features.length} features={features} onChange={onChange}/>) }
+      {features && renderers.map((Component, idx) => <Component key={idx + features.features.length} features={features} onDragged={onDragged} />) }
     </LayerGroup>
   </MapContainer>
 }

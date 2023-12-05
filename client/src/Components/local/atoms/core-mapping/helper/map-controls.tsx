@@ -22,11 +22,31 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange, onRemov
         case 'Polygon':
           onRemoved(get(e, 'layer.feature.properties.id', ''))
           break
+        case 'Line':
+          onRemoved(get(e, 'layer.feature.properties.id', ''))
+          break
         default:
-          console.log('Unimplemented !!!')
+          console.log('OnRemove Unimplemented for ' + e['shape'] + ' !!!')
       }
     })
 
+    // handle edit listener for geoman items
+    map.on('pm:edit', (e: LeafletEvent) => {
+      // handle edit/dragend listener for geoman items
+      console.log('edit event', e)
+    })
+
+    // handle drag end listener for geoman items
+    map.on('pm:dragend', (e: LeafletEvent) => {
+      // handle edit/dragend listener for geoman items
+      console.log('dragend event', e)
+    })
+
+    map.on('pm:change', (e: LeafletEvent) => {
+      // handle edit/dragend listener for geoman items
+      console.log('change event', e)
+    })
+    
     // handle onCreate listener for geoman items
     map.on('pm:create', (e: LeafletEvent) => {
       // handle edit/dragend listener for geoman items
@@ -42,8 +62,11 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange, onRemov
         case 'Polygon':
           onCreate(e as unknown as PM.ChangeEventHandler)
           break
+        case 'Line':
+          onCreate(e as unknown as PM.ChangeEventHandler)
+          break
         default:
-          console.log('Unimplemented !!!')
+          console.log('OnCreate Unimplemented !!!', e['shape'])
       }
     })
   }
@@ -68,6 +91,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange, onRemov
       snappingOption: true
     }}
     globalOptions={{}}
+    onCreate={e => map.removeLayer(e.layer)}
   />
 }
 
