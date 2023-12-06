@@ -37,7 +37,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     }
   }
   return <GeoJSON onEachFeature={(f, l) => {
-    l.addEventListener('pm:remove', e => {
+    l.addEventListener('pm:remove', () => {
       onRemoved(f.properties.id)
     })
 
