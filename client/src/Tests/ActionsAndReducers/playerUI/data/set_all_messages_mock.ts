@@ -10,7 +10,6 @@ const testState: PlayerUi = {
   },
   isRFIManager: false,
   attributeTypes: [],
-  perForceActivities: [],
   markerIcons: [],
   isGameControl: true,
   isUmpire: true,
@@ -247,7 +246,6 @@ const testState: PlayerUi = {
       dirty: false
     }
   ],
-  allPlatformTypes: [],
   showObjective: false,
   wargameInitiated: true,
   feedbackMessages: [],

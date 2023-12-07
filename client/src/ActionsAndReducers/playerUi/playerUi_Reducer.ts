@@ -3,15 +3,11 @@ import {
   MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE
 } from 'src/config'
-import { PlayerUi, PlayerUiActionTypes, Wargame, WargameData, MessagePlanning } from 'src/custom-types'
+import { PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from 'src/custom-types'
 import _ from 'lodash'
 import copyState from '../../Helpers/copyStateHelper'
 import chat from '../../Schemas/chat.json'
-import {
-  closeMessage, handleNewMessage, handleSetAllMessages, handleWargameUpdate, markAllMessageState,
-  MarkAllPlayerMessageRead, markUnread, openMessage, HandleUpdateBulksData
-} from './helpers/handleWargameMessagesChange'
-
+import { closeMessage, handleNewMessage, handleSetAllMessages, handleWargameUpdate, markAllMessageState, MarkAllPlayerMessageRead, markUnread, openMessage } from './helpers/handleWargameMessagesChange'
 import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI'
 
 export const initialState: PlayerUi = {
@@ -22,7 +18,6 @@ export const initialState: PlayerUi = {
   isUmpire: false,
   isGameControl: false,
   attributeTypes: [],
-  perForceActivities: [],
   currentTurn: 0,
   turnPresentation: TurnFormats.Natural,
   phase: '',
@@ -45,7 +40,6 @@ export const initialState: PlayerUi = {
   allForces: [],
   markerIcons: [],
   allTemplatesByKey: {},
-  allPlatformTypes: [],
   showObjective: false,
   updateMessageState: false,
   wargameInitiated: false,
@@ -94,8 +88,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.hideForcesInChannels = !!action.payload.data.overview.hideForcesInChannels
       const attributeTypes = action.payload.data.attributeTypes
       newState.attributeTypes = attributeTypes ? attributeTypes.attributes : []
-      const perForceActivities = action.payload.data.activities
-      newState.perForceActivities = perForceActivities ? perForceActivities.activities : []
       const areas = action.payload.data.areas
       newState.areas = areas ? areas.areas : []
       const forceTemplateData = action.payload.data.forceTemplateData
@@ -123,15 +115,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       // legacy versions of the wargame used platform_types instead of
       // platformTypes, don't trip over when encountering legacy version
       // @ts-ignore
-      if (data.platform_types) {
-        // @ts-ignore
-        newState.allPlatformTypes = data.platform_types.platformTypes
-      }
-      // TODO: remove this ^^
-
-      if (data.platformTypes) {
-        newState.allPlatformTypes = data.platformTypes.platformTypes
-      }
       getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
       break
 
@@ -169,11 +152,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       const anyPayload = action.payload as any
       if (anyPayload.activityTime) { 
         return newState
-      } else if (Array.isArray(anyPayload)) {
-        const planningMessage = anyPayload as MessagePlanning[]
-        const updateChannel = HandleUpdateBulksData(newState, planningMessage)
-        console.log('updateChannel:', updateChannel)
-        newState.channels = updateChannel
       } else if (anyPayload.data) {
         // wargame change
         const wargame = anyPayload as Wargame

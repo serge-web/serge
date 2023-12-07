@@ -35,7 +35,5 @@ export { default as actionSetWargameMessages } from './action-set-wargame-messag
 export { default as actionOpenMessage } from './action-open-message.mock'
 export { default as actionCloseMessage } from './action-close-message.mock'
 export * from './coa-channel-data-2.mock'
-export * from './planning-messages.mock'
 export { default as planningMessageTemplatesMock } from './planning-message-templates.mock'
 export * from './coa-messages.mock'
-export * from './planning-activities.mock'

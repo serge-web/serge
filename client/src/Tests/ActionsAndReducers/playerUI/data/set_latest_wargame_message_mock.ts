@@ -9,7 +9,6 @@ const state: PlayerUi = {
   isUmpire: true,
   playerMessageLog: {},
   attributeTypes: [],
-  perForceActivities: [],
   updateMessageState: false,
   isRFIManager: false,
   markerIcons: [],
@@ -690,7 +689,6 @@ const state: PlayerUi = {
       _rev: '1-f332e0104a371b590346b66dc8e9fa2b'
     }
   },
-  allPlatformTypes: [],
   showObjective: false,
   wargameInitiated: true,
   feedbackMessages: [
@@ -1932,7 +1930,6 @@ const testState: any = {
         _rev: '1-4bd7b0b5488182f39f10d5203bb1fad8'
       }
     ],
-    allPlatformTypes: [],
     showObjective: false,
     wargameInitiated: true,
     feedbackMessages: [

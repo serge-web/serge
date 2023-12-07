@@ -1,9 +1,10 @@
 import {
   CHAT_MESSAGE, CollaborativeMessageStates,
-  COUNTER_MESSAGE, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE
+  COUNTER_MESSAGE, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED
+  // INTERACTION_MESSAGE
 } from 'src/config'
 
-import { ChannelCore, ForceData, ForceRole, TemplateBody, MessagePlanning, InteractionDetails, MessageAdjudicationOutcomes } from '.'
+import { ChannelCore, ForceData, ForceRole, TemplateBody } from '.'
 import Role from './role'
 import Wargame from './wargame'
 
@@ -42,10 +43,10 @@ export interface MessageDetails {
    * extra data for when message being edited collaboratively
    */
   collaboration?: CollaborationDetails
-  /** 
-   * extra detail for managing an interaction
-   */
-  interaction?: InteractionDetails
+  // /** 
+  //  * extra detail for managing an interaction
+  //  */
+  // interaction?: InteractionDetails
   /** ID of template for this message */
   messageType: TemplateBody['_id']
   /** time message sent */
@@ -167,12 +168,6 @@ export interface ChatMessage extends CoreMessage {
   message: MessageStructure
 }
 
-/** messages being used in support of adjudicating an interaction */
-export interface MessageInteraction extends CoreMessage {
-  readonly messageType: typeof INTERACTION_MESSAGE
-  message: MessageAdjudicationOutcomes
-}
-
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE
   message: MessageStructure
@@ -204,11 +199,10 @@ export interface MessageInfoTypeClipped {
   _id?: string
 }
 
-export type MessageChannel = MessageInfoTypeClipped | MessagePlanning |
+export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom
 
 type Message = MessageCustom |
-  MessagePlanning |
   ChatMessage |
   MessageFeedback |
   MessageInfoTypeClipped |

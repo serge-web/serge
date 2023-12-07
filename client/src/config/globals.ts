@@ -22,26 +22,16 @@ export const UMPIRE_FORCE = 'umpire'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
-export const infoOpsGroup = 'Info Ops' // type of activity in planning message
-
 // special platform-type name, used for task group. Must match `platform-types` definition
 export const TASK_GROUP = 'task-group'
 
 // series of constants used for `messageType` when sending map events
-
-export const ADJUDICATION_OUTCOMES = 'AdjudicationOutcomes'
 
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'
 
 // series of constants used for `messageType` when sending chat messages
 export const CHAT_MESSAGE = 'ChatMessage'
-
-// capture a set of plans / orders / COA
-export const PLANNING_MESSAGE = 'PlanningMessage'
-
-// capture the results of an interaction
-export const INTERACTION_MESSAGE = 'InteractionMessage'
 
 // series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
@@ -92,11 +82,6 @@ export const ATTRIBUTE_TYPE_STRING = 'AttributeTypeString'
 export const ATTRIBUTE_VALUE_STRING = 'AttributeValueString'
 export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
 export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
-
-/** when to generate interaction events for an activity */
-export const INTER_AT_START = 'i-start'
-export const INTER_AT_END = 'i-end'
-export const INTER_AT_RANDOM = 'i-random'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'

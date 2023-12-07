@@ -11,7 +11,6 @@ const playerUi: PlayerUi = {
   logPlayerActivity: false,
   hideForcesInChannels: false,
   attributeTypes: [],
-  perForceActivities: [],
   markerIcons: [],
   playerMessageLog: {},
   updateMessageState: true,
@@ -713,7 +712,6 @@ const playerUi: PlayerUi = {
       _rev: '1-4bd7b0b5488182f39f10d5203bb1fad8'
     }
   },
-  allPlatformTypes: [],
   showObjective: false,
   wargameInitiated: true,
   feedbackMessages: [],

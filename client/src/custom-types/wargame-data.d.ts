@@ -4,7 +4,6 @@ import Channel from './channel'
 import Force from './force'
 import ForceTemplateWrapper from './force-template-data'
 import { AnnotationMarkerData } from './map-annotation'
-import { ActivityTypeData } from './planning-activity'
 import PlatformType from './platform-type'
 import { TemplateData } from './template'
 import WargameOverview from './wargame-overview'
@@ -17,7 +16,7 @@ export default interface WargameData {
   // annotations?: MapAnnotationData
   annotationIcons?: AnnotationMarkerData
   attributeTypes?: AttributeTypeData
-  activities?: ActivityTypeData
+  // activities?: ActivityTypeData
   templates?: TemplateData
   areas?: AreaData
   forceTemplateData?: ForceTemplateWrapper

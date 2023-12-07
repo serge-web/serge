@@ -27,11 +27,6 @@ export { default as MarkerPerception } from './marker-perception.d'
 export * from './message-types-actions.d'
 export { default as MessageTypes, TemplateBodysByKey } from './message-types.d'
 export {
-  PlanningMessageStructureCore, PlanningMessageStructure,
-  MessagePlanning, MessageAdjudicationOutcomes, 
-  LocationOutcome, PerceptionOutcome, PerceptionOutcomes 
-} from './pf-planning.d'
-export {
   ChatMessage, CollaborationDetails, CoreMessage, default as Message, FeedbackItem,
   // All template based messages
   MessageChannel, MessageCounter,
@@ -40,7 +35,7 @@ export {
   // System Messages
   MessageFeedback,
   // Map Types
-  MessageInfoType, MessageInfoTypeClipped, MessageInteraction, MessageStructure
+  MessageInfoType, MessageInfoTypeClipped, MessageStructure
 } from './message.d'
 export { MessagesActionTypes, MessagesDispatch, SetCurrentViewFromURI } from './messages-action.d'
 export * from './participant.d'

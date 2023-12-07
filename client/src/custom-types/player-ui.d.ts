@@ -7,8 +7,8 @@ import ForceData from './force-data'
 import { AnnotationIcons } from './map-annotation'
 import { MessageChannel, MessageFeedback } from './message'
 import { TemplateBodysByKey } from './message-types'
-import { PerForcePlanningActivitySet } from './planning-activity'
-import PlatformTypeData from './platform-type-data'
+// import { PerForcePlanningActivitySet } from './planning-activity'
+// import PlatformTypeData from './platform-type-data'
 import { PlayerMessageLog } from './player-log'
 import Role from './role'
 import { GameTurnLength } from './turn-length'
@@ -64,8 +64,8 @@ export default interface PlayerUi {
   allTemplatesByKey: TemplateBodysByKey
   /** descriptions of platforms available in current wargame */
   /*
-   */
-  allPlatformTypes: Array<PlatformTypeData>
+  //  */
+  // allPlatformTypes: Array<PlatformTypeData>
   showObjective: boolean
   updateMessageState: boolean
   /** whether wargame changes stored as new documents (true) or whether
@@ -88,8 +88,6 @@ export default interface PlayerUi {
   playerMessageLog: PlayerMessageLog
   /** whether to hide force memberships in channels */
   hideForcesInChannels?: boolean
-  /** definitions of activities for forces */
-  perForceActivities: PerForcePlanningActivitySet[]
   /** set of standard areas */
   areas?: AreaCategory[]
   /** force specific template data */
