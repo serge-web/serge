@@ -181,10 +181,3 @@ export enum AdminTabs {
   Channels = 'channels',
   Annotations = 'annotationIcons'
 }
-
-export enum SymbolForces {
-  Friend = 'F',
-  Hostile = 'H',
-  Neutral = 'N',
-  Unknown = 'U'
-}

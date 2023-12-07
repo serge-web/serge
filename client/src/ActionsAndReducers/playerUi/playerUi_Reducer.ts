@@ -1,6 +1,6 @@
 import {
   CLOSE_MESSAGE, CLOSE_MODAL, MARK_ALL_AS_READ, CHAT_CHANNEL_ID,
-  MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
+  MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE
 } from 'src/config'
 import { PlayerUi, PlayerUiActionTypes, Wargame, WargameData, MessagePlanning } from 'src/custom-types'
@@ -44,7 +44,6 @@ export const initialState: PlayerUi = {
   allChannels: [],
   allForces: [],
   markerIcons: [],
-  allPeriods: [],
   allTemplatesByKey: {},
   allPlatformTypes: [],
   showObjective: false,
@@ -199,10 +198,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.playerMessageLog = changedAllMesagesState.playerMessageLog
       break
     
-    case SET_ALL_TURN_PERIOD:
-      newState.allPeriods = action.payload
-      break
-
     case OPEN_MESSAGE:
       newState.channels[action.payload.channel] = openMessage(action.payload.channel, action.payload.message, newState)
       break

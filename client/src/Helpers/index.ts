@@ -9,9 +9,8 @@ export { default as convertMilliseconds } from './convert-milliseconds'
 export { default as deepCompare } from './deep-compare'
 export { default as deepCopy } from './deep-copy'
 export { default as duplicateThisForce } from './duplicate-force'
-export { default as findAsset, findForceAndAsset } from './find-asset'
+export { default as findAsset } from './find-asset'
 export { default as configDateTimeLocal } from './config-date-time-local'
-export { default as findPerceivedAsTypes } from './find-perceived-as-types'
 export { default as findPlatformTypeFor } from './find-platform-type-for'
 export { default as forceFor } from './force-for'
 export { default as forceColors } from './force-colors'
@@ -56,11 +55,8 @@ export {
   checkV3ParticipantStates,
   getParticipantStates
 } from './participant-states'
-export { default as platformIcons, type PlatformStyle } from './platform-icons'
 export { default as routeGetPenultimatePosition } from './route-get-penultimate-position'
 export { default as shortPoll } from './short-poll'
-export { default as sortDictionaryByValue } from './sort-dictionary-by-value'
-export { updateGeometryTimings } from './geometry-helpers'
 export { default as usePrevious } from './use-previous'
 export { default as generateHashCode } from './generate-hash-code'
 export {

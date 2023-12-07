@@ -19,11 +19,8 @@ export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
 
 export const UMPIRE_FORCE = 'umpire'
-export const UMPIRE_FORCE_NAME = 'white'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
-
-export const UNKNOWN_TYPE = 'Unknown' // type use when force or platform-type not known for mapping asset
 
 export const infoOpsGroup = 'Info Ops' // type of activity in planning message
 
@@ -172,15 +169,6 @@ export const NEW_ROLE = 'New Role'
  */
 export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'
 export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'
-
-export const SUPPORT_PANEL_LAYOUT = {
-  OPENING_TAB: 'serge.planning.openingTab',
-  SUPPORT_PANEL_WIDTH: 'serge.planning.supportPanelWidth',
-  VISIBLE_COLUMNS: 'serge.planning.visibleColumns2',
-  IS_FILTER: 'serge.planning.isFilter',
-  SORT_COLUMNS: 'serge.planning.sortColumns',
-  FILTER_APPLIED: 'serge.planning.filterApplied'
-}
 
 export const STORYBOOK_ROUTE = './storybook'
 

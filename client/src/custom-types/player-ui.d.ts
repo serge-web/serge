@@ -5,7 +5,6 @@ import { ChannelTypes } from './channel-data'
 import ChannelUI from './channel-ui'
 import ForceData from './force-data'
 import { AnnotationIcons } from './map-annotation'
-import MappingConstraints from './mapping-constraints'
 import { MessageChannel, MessageFeedback } from './message'
 import { TemplateBodysByKey } from './message-types'
 import { PerForcePlanningActivitySet } from './planning-activity'
@@ -13,7 +12,6 @@ import PlatformTypeData from './platform-type-data'
 import { PlayerMessageLog } from './player-log'
 import Role from './role'
 import { GameTurnLength } from './turn-length'
-import { TurnPeriods } from './turn-period'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -55,7 +53,6 @@ export default interface PlayerUi {
   /** all channels in this wargame */
   allChannels: Array<ChannelTypes>
   /** icons used for markers */
-  allPeriods: TurnPeriods
   markerIcons: AnnotationIcons
   /** set of forces for ths current wargame */
   allForces: Array<ForceData>
@@ -89,8 +86,6 @@ export default interface PlayerUi {
   isRFIManager: boolean
   /** log of recent player messages */
   playerMessageLog: PlayerMessageLog
-  /** mapping constraints */
-  mappingConstraints?: MappingConstraints
   /** whether to hide force memberships in channels */
   hideForcesInChannels?: boolean
   /** definitions of activities for forces */

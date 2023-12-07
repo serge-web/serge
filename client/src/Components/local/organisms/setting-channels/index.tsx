@@ -7,11 +7,7 @@ import MenuList from '@material-ui/core/MenuList'
 import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { 
-  CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, 
-  // CHANNEL_MAPPING, 
-  CHANNEL_PLANNING, SpecialChannelTypes 
-} from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, SpecialChannelTypes } from 'src/config'
 import { 
   ChannelChat, ChannelCollab, ChannelCore, ChannelCustom
   //  ChannelMapping 
@@ -93,8 +89,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
           forces={forces}
           onChange={onChannelDataChange}
         />
-      case CHANNEL_PLANNING:
-        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel:<br />{JSON.stringify(selectedChannelState)}</div>
       case undefined:
         return <div>Channels empty. Please create a channel.</div>
       default:

@@ -23,12 +23,12 @@ export { default as IconOption } from './icon-option.d'
 
 export * from './map-annotation.d'
 // export { default as MapPostBack } from './map-postback-data.d'
-export { default as MappingConstraints } from './mapping-constraints.d'
 export { default as MarkerPerception } from './marker-perception.d'
 export * from './message-types-actions.d'
 export { default as MessageTypes, TemplateBodysByKey } from './message-types.d'
 export {
-  PlanningMessageStructureCore, PlanningMessageStructure, InteractionDetails, MessagePlanning, MessageAdjudicationOutcomes, 
+  PlanningMessageStructureCore, PlanningMessageStructure,
+  MessagePlanning, MessageAdjudicationOutcomes, 
   LocationOutcome, PerceptionOutcome, PerceptionOutcomes 
 } from './pf-planning.d'
 export {
@@ -44,7 +44,6 @@ export {
 } from './message.d'
 export { MessagesActionTypes, MessagesDispatch, SetCurrentViewFromURI } from './messages-action.d'
 export * from './participant.d'
-export { default as PerceivedTypes } from './perceived-types.d'
 export { default as Perception } from './perception.d'
 export * from './planning-activity.d'
 export { default as PlatformTypeData } from './platform-type-data.d'
@@ -52,7 +51,6 @@ export { default as PlatformType } from './platform-type.d'
 export * from './player-log-actions.d'
 export * from './player-log.d'
 export * from './player-ui-actions.d'
-export * from './turn-period.d'
 export { default as PlayerUi, PlayerUiChannels, PlayerUiChatChannel } from './player-ui.d'
 export { default as RequestForInformation } from './request-for-information.d'
 export { default as Role } from './role.d'

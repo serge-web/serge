@@ -1,6 +1,6 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_PLANNING, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from 'src/config'
 import { ChannelCollab, ChannelTypes, ParticipantTemplate, Role, TemplateBody, TemplateBodysByKey } from 'src/custom-types'
-import { CoreParticipant, ParticipantCustom, ParticipantPlanning } from 'src/custom-types/participant'
+import { CoreParticipant, ParticipantCustom } from 'src/custom-types/participant'
 import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
 import { matchedAllRolesFilter, matchedForceAndRoleFilter, matchedForceFilter, matchedV3AllRolesFilter, matchedV3ForceAndRoleFilter } from './participant-filters'
 
@@ -87,13 +87,6 @@ export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: s
       // find all the templates I'm allowed to use
       participatingRoles.forEach(role => {
         const roleCustom = role as ParticipantCustom
-        templateIDs.push(...roleCustom.templates)
-      })
-      break
-    case CHANNEL_PLANNING:
-      // find all the templates I'm allowed to use
-      participatingRoles.forEach(role => {
-        const roleCustom = role as ParticipantPlanning
         templateIDs.push(...roleCustom.templates)
       })
       break
