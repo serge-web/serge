@@ -1,0 +1,55 @@
+.panelGroup {
+  border: 1px solid lightgray;
+  background-color: white;
+  width: 100%;
+}
+
+.resize-handle-outer {
+  flex: 0 0 2px;
+  position: relative;
+  outline: none;
+  background-color: lightgray;
+}
+
+.resize-handle-inner {
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  right: 4px;
+  border-radius: 4px;
+}
+
+.resize-handle-horizontal {
+  transform: rotate(90deg);
+  cursor: ew-resize;
+}
+
+
+.icon {
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  left: calc(50% - 7px);
+  top: calc(50% - 7px);
+}
+
+.filterPanel {
+  background-color: rgb(255, 242, 204);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.itemsPanel {
+  background-color: rgb(207, 226, 243);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.propertiesPanel {
+  background-color: rgb(234, 209, 230);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

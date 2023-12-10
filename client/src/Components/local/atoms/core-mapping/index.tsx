@@ -1,10 +1,15 @@
+import { Box, Button } from '@material-ui/core'
+import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection } from 'geojson'
 import { LatLng, PM } from 'leaflet'
 import { cloneDeep } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
+import { Panel, PanelGroup } from 'react-resizable-panels'
 import { Phase } from 'src/config'
 import { BaseRenderer, CoreMappingMessage, CoreProperties, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import MappingPanel from '../mapping-panel'
+import ResizeHandle from '../mapping-panel/helpers/ResizeHandle'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
 import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
@@ -15,6 +20,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
+  const [checked, setChecked] = useState<boolean>(false)
 
   useEffect(() => {
     loadDefaultMarker()
@@ -188,32 +194,46 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
             console.warn('Drag handler not implemented for ' + feature.geometry.type)
           }
         }
-        // (features.features[idx].geometry as any).coordinates = [latlng.lng, latlng.lat]
         setFeatureCollection(cloneDeep(featureCollection))
       }
     }
   }
 
-  useEffect(() => {
-    console.log('xx> features: ', featureCollection)
-    // console.table(featureCollection?.features.map((feature) => {
-    //   return {
-    //     id: feature.properties?.id,
-    //     type: feature.geometry.type
-    //   }
-    // }))
-  }, [featureCollection])
-  
-  return <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={false} className={styles.container}>
-    <TileLayer
-      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-    /> 
-    <MapControls onCreate={onCreate} onChange={onChange}/>
-    <LayerGroup>
-      {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} />) }
-    </LayerGroup>
-  </MapContainer>
+  return <Box className={styles.container}>
+    <Button variant='contained' onClick={() => setChecked(!checked)}>{checked ? '<' : '>'}</Button>
+    <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
+      <Box className={styles['slide-container']}>
+        <PanelGroup direction="horizontal">
+          <Panel
+            collapsible={true}
+            defaultSizePercentage={30}
+            minSizePercentage={30}
+            style={{ pointerEvents: 'all' }}
+          >
+            <MappingPanel />
+          </Panel>
+          <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
+          <Panel
+            collapsible={true}
+            defaultSizePercentage={70}
+            style={{ pointerEvents: 'none' }}
+          >
+          </Panel>
+        </PanelGroup>
+      </Box>
+    </Slide>
+    <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={false} className={styles['map-container']}>
+      
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      /> 
+      <MapControls onCreate={onCreate} onChange={onChange}/>
+      <LayerGroup>
+        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} />) }
+      </LayerGroup>
+    </MapContainer>
+  </Box>
 }
 
 export default CoreMapping

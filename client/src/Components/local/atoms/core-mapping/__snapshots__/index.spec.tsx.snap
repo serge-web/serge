@@ -1,3 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Core Mapping component: renders correctly 1`] = `null`;
+exports[`Core Mapping component: renders correctly 1`] = `
+<div
+  className="MuiBox-root MuiBox-root-1 container"
+>
+  <button
+    className="MuiButtonBase-root MuiButton-root MuiButton-contained"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onDragLeave={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    tabIndex={0}
+    type="button"
+  >
+    <span
+      className="MuiButton-label"
+    >
+      &gt;
+    </span>
+  </button>
+</div>
+`;
