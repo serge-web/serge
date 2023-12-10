@@ -15,6 +15,11 @@ jest.mock('react-leaflet-geoman-v2', () => ({
   GeomanControls: (): React.ReactElement => <></>
 }))
 
+jest.mock('react-resizable-panels', () => ({
+  Panel: (): React.ReactElement => <></>,
+  PanelGroup: (): React.ReactElement => <></>
+}))
+
 const channel: CoreMappingChannel = {
   uniqid: 'core',
   name: 'core-mapping',
