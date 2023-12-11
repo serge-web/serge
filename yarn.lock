@@ -300,6 +300,11 @@ object-keys@^1.1.1:
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
+react-resizable-panels@^0.0.63:
+  version "0.0.63"
+  resolved "https://registry.yarnpkg.com/react-resizable-panels/-/react-resizable-panels-0.0.63.tgz#d364d84ee5927bfb0e56c7ea75eb6504e9041a21"
+  integrity sha512-AfA8b6kouhL4rBvgUGs17uzWVlYPaJIwwTCVeWRxNpUHJlCG1h9RIMlzA1849AZGsaNJO3j/SNdI5SS4GZDE3g==
+
 regenerator-runtime@^0.14.0:
   version "0.14.0"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.14.0.tgz#5e19d68eb12d486f797e15a3c6a918f7cec5eb45"
