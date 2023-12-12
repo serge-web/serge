@@ -3,6 +3,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 
+import { noop } from 'lodash'
 import MappingPanel from './index'
 
 jest.mock('react-resizable-panels', () => ({
@@ -14,7 +15,7 @@ describe('Mapping Panel component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <MappingPanel />
+        <MappingPanel onClose={noop} />
       )
       .toJSON()
     expect(tree).toMatchSnapshot()
