@@ -47,6 +47,15 @@
   height: 35px;
   box-shadow: 1px 1px 1px;
   font-weight: 600;
+
+  svg {
+    position: absolute;
+    left: 10px;
+    cursor: pointer;
+  }
+  p {
+    margin: 0;
+  }
 }
 
 .itemsBox {

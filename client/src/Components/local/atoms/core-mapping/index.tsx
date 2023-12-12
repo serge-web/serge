@@ -1,3 +1,5 @@
+import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@material-ui/core'
 import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection } from 'geojson'
@@ -200,7 +202,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   }
 
   return <Box className={styles.container}>
-    <Button variant='contained' onClick={() => setChecked(!checked)}>{checked ? '<' : '>'}</Button>
+    {!checked && <Button variant='contained' onClick={() => setChecked(true)}>
+      <FontAwesomeIcon icon={faCircleArrowRight} />
+    </Button>}
     <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
       <Box className={styles['slide-container']}>
         <PanelGroup direction="horizontal">
@@ -210,7 +214,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
             minSizePercentage={30}
             style={{ pointerEvents: 'all' }}
           >
-            <MappingPanel />
+            <MappingPanel onClose={() => setChecked(false)} />
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel

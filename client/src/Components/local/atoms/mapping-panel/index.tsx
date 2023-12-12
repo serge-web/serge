@@ -1,4 +1,4 @@
-import { faMinusCircle } from '@fortawesome/free-solid-svg-icons'
+import { faArrowAltCircleLeft, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Theme, makeStyles } from '@material-ui/core'
 import React, { ChangeEvent } from 'react'
@@ -13,7 +13,11 @@ const useStyles = makeStyles((_: Theme) => ({
   
 }))
 
-export const MappingPanel = (): React.ReactElement => {
+type MappingPanelProps = {
+  onClose: () => void
+}
+
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose }): React.ReactElement => {
   const classes = useStyles()
   
   const onFilter = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +34,10 @@ export const MappingPanel = (): React.ReactElement => {
         order={1}
         className={styles.filterPanel}
       >
-        <div className={styles.header}>Filters</div>
+        <div className={styles.header}>
+          <FontAwesomeIcon icon={faArrowAltCircleLeft} onClick={onClose} />
+          <p>Filters</p>
+        </div>
         <div className={styles.itemsBox}>
           <p>Name:</p>
           <div>
