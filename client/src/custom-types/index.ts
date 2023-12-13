@@ -31,7 +31,6 @@ export {
 } from './message.d'
 export { MessagesActionTypes, MessagesDispatch, SetCurrentViewFromURI } from './messages-action.d'
 export * from './participant.d'
-export * from './planning-activity.d'
 export * from './player-log-actions.d'
 export * from './player-log.d'
 export * from './player-ui-actions.d'
