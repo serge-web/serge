@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import SortableList from './index'
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'
+import { watuWargame } from 'src/mocks'
 
 // import types
 import { Item } from './types/props'
@@ -24,7 +25,9 @@ export default {
 
 export const Default: React.FC = () => {
   const Wrapper = (): React.ReactElement => {
-    const initialState = { types: [{ name: 'list item 1' }, { name: 'list item 2' }] }
+    const forcesMock = watuWargame.data.forces.forces[0]
+    const initialState = { types: forcesMock.roles }
+
     const [items, setItems] = useState<{ types: Array<Item> }>(initialState)
 
     const handleClick = (item: Item): void => {
@@ -37,13 +40,11 @@ export const Default: React.FC = () => {
       setItems({
         types: [
           {
-            name: 'New Item',
-            conditions: [],
-            icon: '',
-            speedKts: [],
-            states: [],
-            travelMode: 'sea',
-            uniqid: 'a1'
+            isGameControl: false,
+            isInsightViewer: false,
+            isObserver: false,
+            name: 'New role',
+            roleId: 'blueCO'
           },
           ...items.types
         ]
@@ -52,12 +53,15 @@ export const Default: React.FC = () => {
 
     return (
       <SortableList
-        title='Add new platform type'
+        title='Add Role'
         remove={true}
+        sortable='auto'
+        required
         items={items.types}
         onClick={handleClick}
         onChange={handleChange}
         onCreate={handleCreate}
+        valueOnEmpty=''
       />
     )
   }

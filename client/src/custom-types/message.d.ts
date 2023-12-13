@@ -1,8 +1,4 @@
-import {
-  CHAT_MESSAGE, CollaborativeMessageStates,
-  COUNTER_MESSAGE, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED
-  // INTERACTION_MESSAGE
-} from 'src/config'
+import { CHAT_MESSAGE, CollaborativeMessageStates, COUNTER_MESSAGE, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
 
 import { ChannelCore, ForceData, ForceRole, TemplateBody } from '.'
 import Role from './role'

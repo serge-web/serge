@@ -110,7 +110,8 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
     onNewRoleAdded(newRole)
     handleChangeForce({ ...data, roles: roles })
   }
-
+  
+  console.log('data.roles', data.roles)
   return (
     <Accordion className={styles.accordion}>
       <AccordionSummary
