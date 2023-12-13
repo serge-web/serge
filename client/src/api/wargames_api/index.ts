@@ -11,7 +11,7 @@ import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import { ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
+import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
@@ -326,55 +326,6 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
     const wargame: Wargame = deepCopy(res)
     wargame.data.overview = data
     return updateWargame(wargame, dbName)
-  })
-}
-
-export const deletePlatformType = (dbName: string, platformType: PlatformType): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    if (newDoc.data.platformTypes) {
-      newDoc.data.platformTypes.platformTypes = newDoc.data.platformTypes.platformTypes.filter((platform: PlatformTypeData) => platform.name !== platformType.name)
-    } else {
-      console.warn('Trying to delete platform types, but structure is empty')
-    }
-    return updateWargame(newDoc, dbName)
-  })
-}
-
-export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    const updatedData = newDoc.data
-    if (updatedData.platformTypes) {
-      const platformTypes = updatedData.platformTypes.platformTypes || []
-      const platformTypeIndex = platformTypes.findIndex((platformType) => platformType.name === currentPlatformType.name)
-      const duplicatedPlatformType = deepCopy(platformTypes[platformTypeIndex])
-      const uniq = uniqid.time()
-
-      duplicatedPlatformType.name = `${duplicatedPlatformType.name}-${uniq}`
-
-      platformTypes.splice(platformTypeIndex, 0, duplicatedPlatformType)
-      updatedData.platformTypes.platformTypes = platformTypes
-      updatedData.platformTypes.selectedType = duplicatedPlatformType
-    }
-
-    return updateWargame({ ...res, data: updatedData }, dbName)
-  })
-}
-
-export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    newDoc.data.platformTypes = data
-    return updateWargame(newDoc, dbName)
-  })
-}
-
-export const saveAnnotation = (dbName: string, data: AnnotationMarkerData): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    newDoc.data.annotationIcons = data
-    return updateWargame(newDoc, dbName)
   })
 }
 
@@ -794,37 +745,4 @@ export const getAllWargames = (): Promise<WargameRevision[]> => {
       }).catch(rejectDefault)
   })
   return Promise.all<WargameRevision>(promises)
-}
-
-export const deleteAnnotation = (dbName: string, annotation: IconOption): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-
-    if (newDoc.data.annotationIcons) {
-      newDoc.data.annotationIcons.markers = newDoc.data.annotationIcons.markers.filter((annotationDelete) => annotationDelete.name !== annotation.name)
-    } else {
-      console.warn('Trying to delete platform types, but structure is empty')
-    }
-    return updateWargame(newDoc, dbName)
-  })
-}
-
-export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption) => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc = deepCopy(res)
-    const updatedData = newDoc.data
-    if (updatedData.annotations || updatedData.annotationIcons) {
-      const annotation = updatedData.annotationIcons.markers || []
-      const annotationIndex = annotation.findIndex((annotation: IconOption) => annotation.name === currentAnnation.name)
-      const duplicatedAnnation = deepCopy(currentAnnation)
-      const uniq = uniqid.time()
-
-      duplicatedAnnation.name = `${duplicatedAnnation.name}-${uniq}`
-      
-      annotation.splice(annotationIndex, 0, duplicatedAnnation)
-      updatedData.annotationIcons.markers = annotation
-    }
-  
-    return updateWargame({ ...res, data: updatedData }, dbName)
-  })
 }

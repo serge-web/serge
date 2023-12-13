@@ -1,14 +1,9 @@
 import { TurnFormats } from 'src/config'
-import { AreaCategory, ForceTemplateData } from '.'
-import { AttributeTypes } from './attributes'
 import { ChannelTypes } from './channel-data'
 import ChannelUI from './channel-ui'
 import ForceData from './force-data'
-import { AnnotationIcons } from './map-annotation'
 import { MessageChannel, MessageFeedback } from './message'
 import { TemplateBodysByKey } from './message-types'
-// import { PerForcePlanningActivitySet } from './planning-activity'
-// import PlatformTypeData from './platform-type-data'
 import { PlayerMessageLog } from './player-log'
 import Role from './role'
 import { GameTurnLength } from './turn-length'
@@ -52,12 +47,8 @@ export default interface PlayerUi {
   channels: PlayerUiChannels
   /** all channels in this wargame */
   allChannels: Array<ChannelTypes>
-  /** icons used for markers */
-  markerIcons: AnnotationIcons
   /** set of forces for ths current wargame */
   allForces: Array<ForceData>
-  /** generic attribute types */
-  attributeTypes: AttributeTypes
   /** templates, indexed by Id 
    * to be @deprecated
    */
@@ -88,8 +79,4 @@ export default interface PlayerUi {
   playerMessageLog: PlayerMessageLog
   /** whether to hide force memberships in channels */
   hideForcesInChannels?: boolean
-  /** set of standard areas */
-  areas?: AreaCategory[]
-  /** force specific template data */
-  forceTemplateData?: ForceTemplateData[]
 }

@@ -17,7 +17,6 @@ export const initialState: PlayerUi = {
   isObserver: false,
   isUmpire: false,
   isGameControl: false,
-  attributeTypes: [],
   currentTurn: 0,
   turnPresentation: TurnFormats.Natural,
   phase: '',
@@ -38,7 +37,6 @@ export const initialState: PlayerUi = {
   channels: {},
   allChannels: [],
   allForces: [],
-  markerIcons: [],
   allTemplatesByKey: {},
   showObjective: false,
   updateMessageState: false,
@@ -51,9 +49,7 @@ export const initialState: PlayerUi = {
   logPlayerActivity: true,
   isInsightViewer: false,
   isRFIManager: false,
-  playerMessageLog: {},
-  areas: [],
-  forceTemplateData: []
+  playerMessageLog: {}
 }
 
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
@@ -86,12 +82,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.hideForcesInChannels = !!action.payload.data.overview.hideForcesInChannels
-      const attributeTypes = action.payload.data.attributeTypes
-      newState.attributeTypes = attributeTypes ? attributeTypes.attributes : []
-      const areas = action.payload.data.areas
-      newState.areas = areas ? areas.areas : []
-      const forceTemplateData = action.payload.data.forceTemplateData
-      newState.forceTemplateData = forceTemplateData ? forceTemplateData.forceMetadata : []
 
       // temporary workaround to get templates from warga
       const allTemplates = action.payload.data.templates ? action.payload.data.templates.templates : []
@@ -111,9 +101,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.allChannels = cleanChannels
 
       newState.allForces = action.payload.data.forces.forces
-      newState.markerIcons = (data.annotationIcons && data.annotationIcons.markers) || []
-      // legacy versions of the wargame used platform_types instead of
-      // platformTypes, don't trip over when encountering legacy version
       // @ts-ignore
       getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
       break

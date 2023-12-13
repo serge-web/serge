@@ -21,13 +21,6 @@
   @include main();
 }
 
-.annotation {
-  @include main();
-  color: #808080;
-  cursor: pointer;
-  font-size: 22px;
-  flex-direction: column;
-}
 
 .icon {
   @include icon();
@@ -35,10 +28,6 @@
   height: 40px;
 }
 
-.annotationicon {
-  @include icon();
-  margin-bottom: 10px;
-}
 
 .modal {
   position: absolute;

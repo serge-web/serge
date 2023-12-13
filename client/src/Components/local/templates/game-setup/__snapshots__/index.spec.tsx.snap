@@ -79,12 +79,6 @@ exports[`GameSetup component: renders correctly 1`] = `
           className="item"
           onClick={[Function]}
         >
-          platform types
-        </div>
-        <div
-          className="item"
-          onClick={[Function]}
-        >
           forces
         </div>
         <div
@@ -92,12 +86,6 @@ exports[`GameSetup component: renders correctly 1`] = `
           onClick={[Function]}
         >
           channels
-        </div>
-        <div
-          className="item"
-          onClick={[Function]}
-        >
-          annotation icons
         </div>
       </div>
     </div>

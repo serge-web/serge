@@ -9,8 +9,6 @@ const testState: PlayerUi = {
   playerMessageLog: {
   },
   isRFIManager: false,
-  attributeTypes: [],
-  markerIcons: [],
   isGameControl: true,
   isUmpire: true,
   isObserver: false,

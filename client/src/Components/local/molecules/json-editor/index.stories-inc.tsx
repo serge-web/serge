@@ -7,7 +7,7 @@ import JsonEditor from './index'
 import docs from './README.md'
 
 // Import mock
-import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMoskByTitle, P9BMock, WargameMock } from 'src/mocks'
+import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMoskByTitle, WargameMock, watuWargame } from 'src/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import Props from './types/props'
 
@@ -33,7 +33,7 @@ export default {
 }
 
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
-const channel = P9BMock.data.channels.channels[1]
+const channel = watuWargame.data.channels.channels[1]
 const templateMessageCreator = {
   details: MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType].details,
   _id: channel.uniqid
@@ -42,7 +42,6 @@ const templateMessageCreator = {
 const Template: Story<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit, customiseTemplate }) => {
   return (
     <JsonEditor
-      // storeNewValue={storeNewValue}
       template={template}
       messageId={messageId}
       disabled={disabled}

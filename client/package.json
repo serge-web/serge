@@ -173,7 +173,8 @@
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0",
     "whatwg-fetch": "^3.6.1",
-    "xml-js": "^1.6.11"
+    "xml-js": "^1.6.11",
+    "react-resizable-panels": "^0.0.63"
   },
   "resolutions": {
     "@types/react": "^16.14.5",

@@ -10,8 +10,6 @@ const playerUi: PlayerUi = {
   isUmpire: true,
   logPlayerActivity: false,
   hideForcesInChannels: false,
-  attributeTypes: [],
-  markerIcons: [],
   playerMessageLog: {},
   updateMessageState: true,
   isRFIManager: false,

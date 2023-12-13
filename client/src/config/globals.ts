@@ -22,9 +22,6 @@ export const UMPIRE_FORCE = 'umpire'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
-// special platform-type name, used for task group. Must match `platform-types` definition
-export const TASK_GROUP = 'task-group'
-
 // series of constants used for `messageType` when sending map events
 
 // series of constants used for `messageType` when sending custom messages
@@ -74,14 +71,6 @@ export const PARTICIPANT_CHAT = 'ParticipantChat'
 export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
 export const PARTICIPANT_COLLAB = 'ParticipantCollab'
 export const PARTICIPANT_PLANNING = 'ParticipantPlanning'
-
-// types of attribute
-export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
-export const ATTRIBUTE_VALUE_NUMBER = 'AttributeValueNumber'
-export const ATTRIBUTE_TYPE_STRING = 'AttributeTypeString'
-export const ATTRIBUTE_VALUE_STRING = 'AttributeValueString'
-export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
-export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'

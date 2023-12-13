@@ -2,10 +2,8 @@ import { AdminTabs } from 'src/config'
 
 export const adminTabs = [
   AdminTabs.Overview,
-  AdminTabs.PlatformTypes,
   AdminTabs.Forces,
-  AdminTabs.Channels,
-  AdminTabs.Annotations
+  AdminTabs.Channels
 ]
 
 export default adminTabs
