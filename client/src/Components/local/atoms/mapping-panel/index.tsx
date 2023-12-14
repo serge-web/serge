@@ -1,10 +1,12 @@
 import { faArrowAltCircleLeft, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Theme, makeStyles } from '@material-ui/core'
+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import React, { ChangeEvent } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
-import ResizeHandle from './helpers/ResizeHandle'
+import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
+import IconRenderer from './helpers/icon-renderer'
 
 const useStyles = makeStyles((_: Theme) => ({
   removeIcon: {
@@ -15,9 +17,10 @@ const useStyles = makeStyles((_: Theme) => ({
 
 type MappingPanelProps = {
   onClose: () => void
+  features?: FeatureCollection<Geometry, GeoJsonProperties>
 }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features }): React.ReactElement => {
   const classes = useStyles()
   
   const onFilter = (e: ChangeEvent<HTMLInputElement>) => {
@@ -62,7 +65,16 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose }): React.Re
       <ResizeHandle />
       
       <Panel collapsible={true} order={2} className={styles.itemsPanel}>
-        <div className={styles.header}>Items</div>
+        <div className={styles.header}>
+          Items
+        </div>
+        <div style={{ overflow: 'auto', height: 'calc(100% - 20px)' }}>
+          <div>
+            {features?.features.map((feature, idx) => {
+              return <IconRenderer key={idx} feature={feature} />
+            })}
+          </div>
+        </div>
       </Panel>
       <ResizeHandle />
       

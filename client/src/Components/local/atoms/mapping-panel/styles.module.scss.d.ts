@@ -7,6 +7,7 @@ interface CssExports {
   'icon': string;
   'itemsBox': string;
   'itemsPanel': string;
+  'listItem': string;
   'panelGroup': string;
   'propertiesPanel': string;
   'resize-handle-horizontal': string;

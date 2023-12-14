@@ -11,7 +11,7 @@ import { Panel, PanelGroup } from 'react-resizable-panels'
 import { Phase } from 'src/config'
 import { BaseRenderer, CoreMappingMessage, CoreProperties, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
-import ResizeHandle from '../mapping-panel/helpers/ResizeHandle'
+import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
 import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
@@ -207,14 +207,14 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     </Button>}
     <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
       <Box className={styles['slide-container']}>
-        <PanelGroup direction="horizontal">
+        <PanelGroup direction="horizontal" >
           <Panel
             collapsible={true}
             defaultSizePercentage={30}
             minSizePercentage={30}
             style={{ pointerEvents: 'all' }}
           >
-            <MappingPanel onClose={() => setChecked(false)} />
+            <MappingPanel onClose={() => setChecked(false)} features={featureCollection}/>
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel
