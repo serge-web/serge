@@ -23,9 +23,6 @@ export default interface Props extends AdminLayoutProps {
    */
   onOverviewChange: (overview: WargameOverview) => void
   /**
-   * Callback on platform types setting change events
-   */
-  /**
    * Callback on forces setting change events
    */
   onForcesChange: (updates: { forces: ForceData[] }) => void

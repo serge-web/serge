@@ -43,25 +43,7 @@ export const messages = [
     detail: {
       type: 'Orders',
       data: {
-        name: 'Blue2',
-        assets: [
-          {
-            name: 'Frigate',
-            plannedTurns: {
-              T01: { state: 'Transitting', speed: 20, route: ['P12', 'O21', 'O20', 'N19'] },
-              T02: { state: 'Transitting', speed: 20, route: ['019', '018', '017', 'N17'] },
-              T03: { state: 'Transitting', speed: 20, route: ['M17', 'L16', 'L15', 'L14'] }
-            }
-          },
-          {
-            name: 'Tanker',
-            plannedTurns: {
-              T01: { state: 'Transitting', speed: 10, route: ['S23', 'R22'] },
-              T02: { state: 'Transitting', speed: 10, route: ['Q22', 'P21'] },
-              T03: { state: 'Transitting', speed: 10, route: ['O21', 'O20'] }
-            }
-          }
-        ]
+        name: 'Blue2'
       }
     }
   },
@@ -71,33 +53,7 @@ export const messages = [
     detail: {
       type: 'Orders',
       data: {
-        name: 'Red2',
-        assets: [
-          {
-            name: 'Dhow-A',
-            plannedTurns: {
-              T01: { state: 'Transitting', speed: 10, route: ['M10', 'L10'] },
-              T02: { state: 'Transitting', speed: 10, route: ['K11', 'J11'] },
-              T03: { state: 'Transitting', speed: 10, route: ['J12', 'K13'] }
-            }
-          },
-          {
-            name: 'Dhow-B',
-            plannedTurns: {
-              T01: { state: 'Transitting', speed: 10, route: ['N13', 'N14'] },
-              T02: { state: 'Transitting', speed: 10, route: ['N15', 'N16'] },
-              T03: { state: 'Transitting', speed: 10, route: ['N17', 'N18'] }
-            }
-          },
-          {
-            name: 'Dhow-C',
-            plannedTurns: {
-              T01: { state: 'Transitting', speed: 10, route: ['N06', 'M06'] },
-              T02: { state: 'Transitting', speed: 10, route: ['L05', 'K05'] },
-              T03: { state: 'Transitting', speed: 10, route: ['J05', 'IO5'] }
-            }
-          }
-        ]
+        name: 'Red2'
       }
     }
   },
@@ -237,21 +193,7 @@ export const messages = [
     detail: {
       type: 'Orders',
       data: {
-        name: 'Blue2',
-        assets: [
-          {
-            name: 'Frigate',
-            plannedTurns: {
-              T04: { state: 'Transitting', speed: 20, route: ['K15', 'L14', 'L14', 'L12'] }
-            }
-          },
-          {
-            name: 'Tanker',
-            plannedTurns: {
-              T04: { state: 'Transitting', speed: 10, route: ['019', '018'] }
-            }
-          }
-        ]
+        name: 'Blue2'
       }
     }
   },
@@ -261,27 +203,7 @@ export const messages = [
     detail: {
       type: 'Orders',
       data: {
-        name: 'Red2',
-        assets: [
-          {
-            name: 'Dhow-A',
-            plannedTurns: {
-              T04: { state: 'Transitting', speed: 10, route: ['L13', 'L14'] }
-            }
-          },
-          {
-            name: 'Dhow-B',
-            plannedTurns: {
-              T04: { state: 'Transitting', speed: 10, route: ['N19', 'N20'] }
-            }
-          },
-          {
-            name: 'Dhow-C',
-            plannedTurns: {
-              T04: { state: 'Transitting', speed: 10, route: ['H04', 'G04'] }
-            }
-          }
-        ]
+        name: 'Red2'
       }
     }
   },

@@ -261,38 +261,6 @@ const testState: PlayerUi = {
             items: {
               minItems: 1,
               properties: {
-                assets: {
-                  format: 'table',
-                  items: {
-                    properties: {
-                      location: {
-                        maxLength: 3,
-                        type: 'string'
-                      },
-                      name: {
-                        type: 'string'
-                      },
-                      visibleTo: {
-                        format: 'table',
-                        items: {
-                          properties: {
-                            Force: {
-                              enum: [
-                                'Blue',
-                                'Red',
-                                'Green'
-                              ],
-                              type: 'string'
-                            }
-                          }
-                        },
-                        type: 'array'
-                      }
-                    }
-                  },
-                  minItems: 1,
-                  type: 'array'
-                },
                 force: {
                   enum: [
                     'Blue',

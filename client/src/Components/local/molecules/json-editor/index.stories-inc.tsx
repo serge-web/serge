@@ -1,4 +1,3 @@
-// import * as turf from '@turf/turf'
 import React from 'react'
 
 // Import component files

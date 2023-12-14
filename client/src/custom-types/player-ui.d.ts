@@ -53,10 +53,6 @@ export default interface PlayerUi {
    * to be @deprecated
    */
   allTemplatesByKey: TemplateBodysByKey
-  /** descriptions of platforms available in current wargame */
-  /*
-  //  */
-  // allPlatformTypes: Array<PlatformTypeData>
   showObjective: boolean
   updateMessageState: boolean
   /** whether wargame changes stored as new documents (true) or whether

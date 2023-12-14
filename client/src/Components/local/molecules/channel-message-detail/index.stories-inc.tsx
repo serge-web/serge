@@ -81,35 +81,6 @@ DailyIntention.args = {
   isUmpire: false
 }
 
-export const StateOfTheWorld = Template.bind({})
-StateOfTheWorld.args = {
-  message: {
-    ...GameMessagesMockRFI[0],
-    message: {
-      Forces: [{
-        assets: [{
-          location: 'loc',
-          name: 'name',
-          visibleTo: [{ Force: 'Blue' }]
-        }, {
-          location: 'lo2',
-          name: 'name2',
-          visibleTo: [{ Force: 'Red' }]
-        }],
-        force: 'Blue'
-      }, {
-        assets: [{
-          location: 'loc',
-          name: 'name3',
-          visibleTo: []
-        }],
-        force: 'Red'
-      }]
-    }
-  },
-  isUmpire: false
-}
-
 export const PrivateMessage = Template.bind({})
 PrivateMessage.args = {
   message: {

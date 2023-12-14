@@ -317,8 +317,6 @@ const AdminGameSetup: React.FC = () => {
       channels={channels.channels}
       onOverviewChange={handleFormChange}
       // @ts-ignore
-      onPlatformTypesChange={handleFormChange}
-      // @ts-ignore
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
       // @ts-ignore

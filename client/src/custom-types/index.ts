@@ -4,9 +4,9 @@
 ***/
 
 export * from './channel-data.d'
-export { default as ChannelUI } from './channel-ui.d'
+export type { default as ChannelUI } from './channel-ui.d'
 export { default as Channel } from './channel.d'
-export { default as Editor } from './editor.d'
+export type { default as Editor } from './editor.d'
 export * from './export-items-actions.d'
 export * from './export-items.d'
 export { default as ForceData } from './force-data.d'
@@ -48,3 +48,4 @@ export { default as WargameList } from './wargame-list.d'
 export { default as WargameOverview } from './wargame-overview.d'
 export { default as Wargame } from './wargame.d'
 export * from './core-mapping.d'
+export * from './turn-period.d'

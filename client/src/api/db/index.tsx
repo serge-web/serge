@@ -2,7 +2,7 @@
 import {
   databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
 } from 'src/config'
-import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame } from 'src/custom-types'
+import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame, TurnPeriod } from 'src/custom-types'
 import { io } from 'socket.io-client'
 import {
   DbProviderInterface,
@@ -10,7 +10,8 @@ import {
   FetchDataArray,
   FetchDataLogs,
   FetchReferenc, 
-  ProviderDbInterface
+  ProviderDbInterface,
+  FetchTurnPeriod
 } from './types'
 export class DbProvider implements DbProviderInterface {
   private provider: ProviderDbInterface
@@ -132,6 +133,18 @@ export class DbProvider implements DbProviderInterface {
         .then((res) => {
           const { msg, data } = res
           if (msg === 'ok') resolve(data[0])
+          else reject(msg)
+        })
+    })
+  }
+
+  getTurnPeriods (): Promise<TurnPeriod[]> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName() + '/' + 'turns')
+        .then(res => res.json() as Promise<FetchTurnPeriod>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data)
           else reject(msg)
         })
     })

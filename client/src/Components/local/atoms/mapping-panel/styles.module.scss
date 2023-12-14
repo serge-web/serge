@@ -1,6 +1,6 @@
 .panelGroup {
-  border: 1px solid lightgray;
-  background-color: white;
+  border: 1px solid #d3d3d3;
+  background-color: #fff;
   width: 100%;
 }
 
@@ -8,7 +8,7 @@
   flex: 0 0 2px;
   position: relative;
   outline: none;
-  background-color: lightgray;
+  background-color: #d3d3d3;
 }
 
 .resize-handle-inner {
@@ -23,7 +23,6 @@
   transform: rotate(90deg);
   cursor: ew-resize;
 }
-
 
 .icon {
   width: 14px;

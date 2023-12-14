@@ -40,22 +40,22 @@ export const StateOfTheWorld: React.FC = () => {
         ...GameMessagesMockRFI[0],
         message: {
           Forces: [{
-            assets: [{
-              location: 'loc',
-              name: 'name',
-              visibleTo: [{ Force: 'Blue' }]
-            }, {
-              location: 'lo2',
-              name: 'name2',
-              visibleTo: [{ Force: 'Red' }]
-            }],
+            // assets: [{
+            //   location: 'loc',
+            //   name: 'name',
+            //   visibleTo: [{ Force: 'Blue' }]
+            // }, {
+            //   location: 'lo2',
+            //   name: 'name2',
+            //   visibleTo: [{ Force: 'Red' }]
+            // }],
             force: 'Blue'
           }, {
-            assets: [{
-              location: 'loc',
-              name: 'name3',
-              visibleTo: []
-            }],
+            // assets: [{
+            //   location: 'loc',
+            //   name: 'name3',
+            //   visibleTo: []
+            // }],
             force: 'Red'
           }]
         }

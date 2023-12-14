@@ -12,7 +12,7 @@
       "es2017",
       "ES2019"
     ],
-    "types": ["vite/client", "@types/react-leaflet-markercluster", "vite-plugin-svgr/client", "jest", "@types/jest"],
+    "types": ["vite/client", "vite-plugin-svgr/client", "jest", "@types/jest"],
     "allowJs": true,
     "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],
     "skipLibCheck": true,
