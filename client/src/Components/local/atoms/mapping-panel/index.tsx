@@ -21,7 +21,7 @@ type MappingPanelProps = {
   features?: FeatureCollection<Geometry, GeoJsonProperties>
 }
 
-const modalStyle = { content: { width: '450px', zIndex: 1111 } }
+const modalStyle = { content: { width: '450px' } }
 const bodyStyle = { padding: '5px' }
 
 export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features }): React.ReactElement => {
