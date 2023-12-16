@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'button': string;
+  'filterList': string;
   'filterPanel': string;
   'header': string;
   'icon': string;

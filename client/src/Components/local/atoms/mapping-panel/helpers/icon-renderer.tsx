@@ -7,7 +7,8 @@ type IconRendererProps = {
 }
 
 const IconRenderer: React.FC<IconRendererProps> = ({ feature }) => {
-  return <div className={styles.listItem}>{feature.geometry.type}</div>
+  // render feature here
+  return <div className={styles.listItem}>{feature.properties?.label}</div>
 }
 
 export default IconRenderer

@@ -17,7 +17,7 @@
   left: 4px;
   right: 4px;
   border-radius: 4px;
-  transform: translateX(-5px);
+  transform: translateX(-2px);
 }
 
 .resize-handle-horizontal {
@@ -114,4 +114,23 @@
 .listItem {
   padding: 5px 10px;
   border-bottom: 1px solid gray;
+}
+
+.filterList {
+  height: 300px;
+  overflow-y: auto;
+
+  div {
+    height: 35px;
+    border-bottom: 1px solid lightgray;
+    padding-left: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background-color: rgb(227, 227, 227);
+      transition: background-color 500ms linear;
+    }
+  }
 }

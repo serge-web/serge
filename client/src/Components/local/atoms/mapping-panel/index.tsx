@@ -1,18 +1,19 @@
 import { faArrowAltCircleLeft, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Theme, makeStyles } from '@material-ui/core'
+import { Checkbox, FormControlLabel, Theme, makeStyles } from '@material-ui/core'
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import React, { ChangeEvent } from 'react'
+import { cloneDeep, debounce, uniq } from 'lodash'
+import React, { ChangeEvent, useState } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
+import CustomDialog from '../custom-dialog'
+import IconRenderer from './helpers/icon-renderer'
 import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
-import IconRenderer from './helpers/icon-renderer'
 
 const useStyles = makeStyles((_: Theme) => ({
   removeIcon: {
     color: 'red'
   }
-  
 }))
 
 type MappingPanelProps = {
@@ -20,22 +21,86 @@ type MappingPanelProps = {
   features?: FeatureCollection<Geometry, GeoJsonProperties>
 }
 
+const modalStyle = { content: { width: '450px', zIndex: 1111 } }
+const bodyStyle = { padding: '5px' }
+
 export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features }): React.ReactElement => {
   const classes = useStyles()
+  const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
+  const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
+  const [propertyFilters, setPropertyFilters] = useState<string[]>([])
   
-  const onFilter = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log('filter: ', e.target.value)
+  const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || [])]), [] as string[])
+
+  const debounceFilter = debounce((term: string) => {
+    if (!features) {
+      return
+    }
+    const cloneFeature = cloneDeep(features)
+    cloneFeature.features = cloneFeature?.features.filter(f => f.properties?.label.toLowerCase().includes(term))
+    setFilterredFeatures(cloneFeature)
+  }, 500)
+
+  const onInputFilterChange = (e: ChangeEvent<HTMLInputElement>) => debounceFilter(e.target.value)
+  
+  const onAddNewFilter = () => setOpenAddFilter(true)
+
+  const handleCheck = (filter: string, checked: boolean) => {
+    const cloneFilters = cloneDeep(propertyFilters)
+    if (checked) {
+      cloneFilters.push(filter)
+      setPropertyFilters(cloneFilters)
+    } else {
+      setPropertyFilters(cloneFilters.filter(f => f !== filter))
+    }
+  }
+
+  const applyFilter = () => {
+    // what should we do next with these filter properties
+    console.log('Selected Filter: ', propertyFilters)
   }
 
   return (
     <PanelGroup className={styles.panelGroup} direction="vertical">
-      
+      <CustomDialog
+        modalStyle={modalStyle}
+        bodyStyle={bodyStyle}
+        isOpen={openAddFilter}
+        header={'Add new Filter'}
+        cancelBtnText='Cancel'
+        saveBtnText='OK'
+        onClose={() => setOpenAddFilter(false)}
+        onSave={applyFilter}
+      >
+        <div className={styles.filterList}>
+          {filterProperties?.map((filter, idx) => (
+            <div key={idx}>
+              <FormControlLabel
+                key={idx}
+                title={filter}
+                control={
+                  <Checkbox
+                    name={filter}
+                    value={filter}
+                    checked={propertyFilters.includes(filter)}
+                    onChange={(_: ChangeEvent<HTMLInputElement>, checked: boolean) => handleCheck(filter, checked)}
+                    size="small"
+                  />
+                }
+                label={filter}
+                value={filter}
+              />
+            </div>
+          ))}
+        </div>
+      </CustomDialog>
       <Panel
         collapsible={true}
         defaultSizePixels={150}
         minSizePixels={150}
         order={1}
         className={styles.filterPanel}
+        id='filter-panel'
       >
         <div className={styles.header}>
           <FontAwesomeIcon icon={faArrowAltCircleLeft} onClick={onClose} />
@@ -44,7 +109,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
         <div className={styles.itemsBox}>
           <p>Name:</p>
           <div>
-            <input onChange={onFilter} placeholder='Headquarters' />
+            <input onChange={onInputFilterChange} placeholder='Headquarters' />
           </div>
           <FontAwesomeIcon icon={faMinusCircle} className={classes.removeIcon} />
         </div>
@@ -59,7 +124,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
           <FontAwesomeIcon icon={faMinusCircle} className={classes.removeIcon} />
         </div>
         <div className={styles.button}>
-          <button>Add</button>
+          <button onClick={onAddNewFilter}>Add</button>
         </div>
       </Panel>
       <ResizeHandle />
@@ -69,11 +134,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
           Items
         </div>
         <div style={{ overflow: 'auto', height: 'calc(100% - 20px)' }}>
-          <div>
-            {features?.features.map((feature, idx) => {
-              return <IconRenderer key={idx} feature={feature} />
-            })}
-          </div>
+          {filterredFeatures?.features.map((feature, idx) => {
+            return <IconRenderer key={idx} feature={feature} />
+          })}
         </div>
       </Panel>
       <ResizeHandle />
@@ -89,7 +152,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
         <div className={styles.itemsBox}>
           <p>Name:</p>
           <div>
-            <input onChange={onFilter} placeholder='Headquarters' />
+            <input placeholder='Headquarters' />
           </div>
         </div>
         <div className={styles.itemsBox}>
