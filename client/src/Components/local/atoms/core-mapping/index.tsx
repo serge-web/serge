@@ -210,8 +210,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
         <PanelGroup direction="horizontal" >
           <Panel
             collapsible={true}
-            defaultSizePercentage={30}
-            minSizePercentage={30}
+            defaultSizePercentage={35}
+            minSizePercentage={35}
             style={{ pointerEvents: 'all' }}
           >
             <MappingPanel onClose={() => setChecked(false)} features={featureCollection}/>
@@ -219,7 +219,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel
             collapsible={true}
-            defaultSizePercentage={70}
+            defaultSizePercentage={65}
             style={{ pointerEvents: 'none' }}
           >
           </Panel>

@@ -112,8 +112,14 @@
 }
 
 .listItem {
-  padding: 5px 10px;
+  padding: 0 0 0 10px;
   border-bottom: 1px solid gray;
+  display: flex;
+  align-items: center;
+
+  label {
+    margin: 0;
+  }
 }
 
 .filterList {

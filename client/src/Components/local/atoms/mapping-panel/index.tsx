@@ -1,8 +1,8 @@
 import { faArrowAltCircleLeft, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel, Theme, makeStyles } from '@material-ui/core'
-import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import { cloneDeep, debounce, uniq } from 'lodash'
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
+import { cloneDeep, debounce, get, uniq } from 'lodash'
 import React, { ChangeEvent, useState } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import CustomDialog from '../custom-dialog'
@@ -29,8 +29,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
   const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
   const [propertyFilters, setPropertyFilters] = useState<string[]>([])
+  const [selectedFeatures, setSelectedFeatures] = useState<Feature<Geometry, GeoJsonProperties>[]>([])
   
-  const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || [])]), [] as string[])
+  const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
   const debounceFilter = debounce((term: string) => {
     if (!features) {
@@ -58,6 +59,20 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
   const applyFilter = () => {
     // what should we do next with these filter properties
     console.log('Selected Filter: ', propertyFilters)
+  }
+
+  const selectItem = (id: string, checked: boolean) => {
+    // const cloneItems = cloneDeep(selectedItems)
+    // if (checked) {
+    //   cloneItems.push(id)
+    //   setSelectedItems(cloneItems)
+    // } else {
+    //   setSelectedItems(cloneItems.filter(i => i !== id))
+    // }
+
+    // should we only allow selected 1 item at the same time because the Properties panel can not show multiple items ?
+    const featrure = features?.features.filter(f => f.properties?.id === id) || []
+    setSelectedFeatures(checked ? featrure : [])
   }
 
   return (
@@ -135,7 +150,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
         </div>
         <div style={{ overflow: 'auto', height: 'calc(100% - 20px)' }}>
           {filterredFeatures?.features.map((feature, idx) => {
-            return <IconRenderer key={idx} feature={feature} />
+            return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} />
           })}
         </div>
       </Panel>
@@ -152,25 +167,25 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
         <div className={styles.itemsBox}>
           <p>Name:</p>
           <div>
-            <input placeholder='Headquarters' />
+            <input placeholder='Headquarters' value={get(selectedFeatures, '0.properties.label', '')} />
           </div>
         </div>
         <div className={styles.itemsBox}>
           <p>Important:</p>
           <div>
-            <select>
-              <option value='yes'>Yes</option>
-              <option value='no'>No</option>
+            <select value={get(selectedFeatures, '0.properties.important', 'No')}>
+              <option value='Yes'>Yes</option>
+              <option value='No'>No</option>
             </select>
           </div>
         </div>
         <div className={styles.itemsBox}>
           <p>Size:</p>
           <div>
-            <select>
-              <option value='small'>Small</option>
-              <option value='medium'>Medium</option>
-              <option value='large'>Large</option>
+            <select value={get(selectedFeatures, '0.properties.size', 'S')}>
+              <option value='S'>Small</option>
+              <option value='M'>Medium</option>
+              <option value='L'>Large</option>
             </select>
           </div>
         </div>
