@@ -1,7 +1,8 @@
-import { Feature, GeoJsonProperties, Geometry } from 'geojson'
-import React, { ChangeEvent } from 'react'
-import styles from '../styles.module.scss'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
+import { Feature, GeoJsonProperties, Geometry } from 'geojson'
+import ms from 'milsymbol'
+import React, { ChangeEvent, useEffect, useRef } from 'react'
+import styles from '../styles.module.scss'
 
 type IconRendererProps = {
   feature: Feature<Geometry, GeoJsonProperties>
@@ -10,7 +11,16 @@ type IconRendererProps = {
 }
 
 const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }) => {
-  // TODO: render feature icon instead of label
+  const iconRef = useRef<HTMLDivElement>(null)
+ 
+  useEffect(() => {
+    // TODO: reserch how to render shape in this line
+    const icon = new ms.Symbol(feature.properties?.sidc, { size: 20 })
+    if (iconRef.current && icon) {
+      iconRef.current.innerHTML = icon.asSVG()
+    }
+  }, [feature])
+
   return <div className={styles.listItem}>
     <FormControlLabel
       control={
@@ -23,6 +33,8 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }
       label={feature.properties?.label}
       value={feature.properties?.id}
     />
+    <div ref={iconRef}>
+    </div>
   </div>
 }
 
