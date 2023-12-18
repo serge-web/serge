@@ -37,7 +37,6 @@ export const Default: React.FC = (args) => {
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e: any): void => {
-    console.log('key', key)
     setActiveTab(key)
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
@@ -83,7 +82,6 @@ export const Default: React.FC = (args) => {
 
   const handleInitiateWargame = (): void => {
     // TODO: handler for this event
-    console.log('wargame initiated')
     setWargameChanged(true)
   }
   console.log(activeTab)
