@@ -37,6 +37,7 @@ export const Default: React.FC = (args) => {
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e: any): void => {
+    console.log('key', key)
     setActiveTab(key)
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
@@ -85,7 +86,7 @@ export const Default: React.FC = (args) => {
     console.log('wargame initiated')
     setWargameChanged(true)
   }
-
+  console.log(activeTab)
   return (
     <AdminLayout wargame={wargame} activeTab={adminTabs[activeTab]} tabs={adminTabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
@@ -93,9 +94,9 @@ export const Default: React.FC = (args) => {
           activeTab === 0 &&
           <SettingOverview wargameInitiated overview={changedOverview} onChange={onOverviewChange} onSave={handleSave} initiateWargame={handleInitiateWargame} {...args} />
         }
-        {activeTab === 2 && <SettingForces forces={wargame.data.forces.forces} 
+        {activeTab === 1 && <SettingForces forces={wargame.data.forces.forces} 
           onChange={onForcesChange} onSave={handleSave} />}
-        {activeTab === 3 && <SettingChannels
+        {activeTab === 2 && <SettingChannels
           channels={changedChannels}
           onChange={onChannelsChange}
           onSave={handleSave}
