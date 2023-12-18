@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import { cloneDeep, get, set, uniq } from 'lodash'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { CoreProperties } from 'src/custom-types'
 import CustomDialog from '../custom-dialog'
@@ -75,9 +75,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
     }
   }
 
-  const closeApplyFilterModal = () => setOpenAddFilter(false)
+  const closeApplyFilterModal = useCallback(() => setOpenAddFilter(false), [])
   
-  const applyFilter = () => {
+  const applyFilter = useCallback(() => {
     const selectedFilterOpts = propertyFiltersListPanel.reduce((res, key): SelectedProps => {
       const options = features?.features.reduce((result, f) => {
         const opt = get(f.properties, key, '')
@@ -91,7 +91,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
     }, {})
     setSelectedFiltersProps(selectedFilterOpts)
     closeApplyFilterModal()
-  }
+  }, [])
 
   const onRemoveFilter = (key: string) => {
     delete selectedFiltersProps[key]
