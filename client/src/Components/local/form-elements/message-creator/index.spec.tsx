@@ -1,5 +1,5 @@
 import { ChannelUI, MessageDetails } from 'src/custom-types'
-import { P9Mock, planningMessageTemplatesMock } from 'src/mocks'
+import { watuWargame, MessageTemplatesMock } from 'src/mocks'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import MessageCreator from './index'
@@ -24,9 +24,9 @@ jest.mock('react-leaflet-geoman-v2', () => ({
 }))
 
 it('MessageCreator renders correctly', () => {
-  const channel = P9Mock.data.channels.channels[0]
+  const channel = watuWargame.data.channels.channels[0]
   const channels = {}
-  P9Mock.data.channels.channels.forEach(c => {
+  watuWargame.data.channels.channels.forEach(c => {
     channels[c.name] = {
       cData: c,
       name: c.name,
@@ -45,10 +45,10 @@ it('MessageCreator renders correctly', () => {
       currentTurn={0}
       gameDate=''
       privateMessage={true}
-      schema={planningMessageTemplatesMock[0].details}
-      selectedForce={P9Mock.data.forces.forces[0]}
-      selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
-      selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
+      schema={MessageTemplatesMock[0].details}
+      selectedForce={watuWargame.data.forces.forces[0]}
+      selectedRole={watuWargame.data.forces.forces[0].roles[0].roleId}
+      selectedRoleName={watuWargame.data.forces.forces[0].roles[0].name}
       postBack={postBack}
     />)
     .toJSON()

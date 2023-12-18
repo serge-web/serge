@@ -1,6 +1,5 @@
 import ExpiredStorage from 'expired-storage'
 import { Wargame } from 'src/custom-types'
-import { LaydownTypes } from './enums'
 // import { wargameSettings } from 'src/config'
 import uniqId from 'uniqid'
 import moment from 'moment'
@@ -20,53 +19,16 @@ export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
 
 export const UMPIRE_FORCE = 'umpire'
-export const UMPIRE_FORCE_NAME = 'white'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
-export const UNKNOWN_TYPE = 'Unknown' // type use when force or platform-type not known for mapping asset
-export const UNCHANGED = 'Unchanged' // type use when force or platform-type not known for mapping asset
-
-export const infoOpsGroup = 'Info Ops' // type of activity in planning message
-
-// TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
-export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
-
-// special platform-type name, used for task group. Must match `platform-types` definition
-export const TASK_GROUP = 'task-group'
-
-/*
- * type for DATUM. @deprecated - since replaced with information-markers
- */
-export const DATUM = 'datum'
-
 // series of constants used for `messageType` when sending map events
-export const FORCE_LAYDOWN = 'ForceLaydown'
-export const VISIBILITY_CHANGES = 'VisibilityChanges'
-export const DELETE_PLATFORM = 'DeletePlatform'
-export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
-export const SUBMIT_PLANS = 'SubmitPlans'
-export const STATE_OF_WORLD = 'StateOfWorld'
-export const UPDATE_MARKER = 'UpdateMarker'
-export const DELETE_MARKER = 'DeleteMarker'
-export const CLONE_MARKER = 'CloneMarker'
-export const CREATE_TASK_GROUP = 'CreateTaskGroup'
-export const LEAVE_TASK_GROUP = 'LeaveTaskGroup'
-export const HOST_PLATFORM = 'HostPlatform'
-
-export const ADJUDICATION_OUTCOMES = 'AdjudicationOutcomes'
 
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'
 
 // series of constants used for `messageType` when sending chat messages
 export const CHAT_MESSAGE = 'ChatMessage'
-
-// capture a set of plans / orders / COA
-export const PLANNING_MESSAGE = 'PlanningMessage'
-
-// capture the results of an interaction
-export const INTERACTION_MESSAGE = 'InteractionMessage'
 
 // series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
@@ -97,7 +59,6 @@ export const EXPORT_ITEM_FORCES = 'forces'
 
 // names of special channels
 export const CHANNEL_RFI_STATUS = 'rfis'
-export const CHANNEL_MAPPING = 'mapping'
 
 // types of channel
 export const CHANNEL_CHAT = 'ChannelChat'
@@ -109,21 +70,7 @@ export const CHANNEL_PLANNING = 'ChannelPlanning'
 export const PARTICIPANT_CHAT = 'ParticipantChat'
 export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
 export const PARTICIPANT_COLLAB = 'ParticipantCollab'
-export const PARTICIPANT_MAPPING = 'ParticipantMapping'
 export const PARTICIPANT_PLANNING = 'ParticipantPlanning'
-
-// types of attribute
-export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
-export const ATTRIBUTE_VALUE_NUMBER = 'AttributeValueNumber'
-export const ATTRIBUTE_TYPE_STRING = 'AttributeTypeString'
-export const ATTRIBUTE_VALUE_STRING = 'AttributeValueString'
-export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
-export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
-
-/** when to generate interaction events for an activity */
-export const INTER_AT_START = 'i-start'
-export const INTER_AT_END = 'i-end'
-export const INTER_AT_RANDOM = 'i-random'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
@@ -185,7 +132,6 @@ export const wargameSettings = 'initial_wargame'
 export const NEW_ROLE = 'New Role'
 
 /** flag to indicate a role can control all assets */
-export const CONTROL_ALL = 'control-all:'
 
 // 
 /** there has been some user interaction, so log the current time
@@ -197,15 +143,6 @@ export const CONTROL_ALL = 'control-all:'
  */
 export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'
 export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'
-
-export const SUPPORT_PANEL_LAYOUT = {
-  OPENING_TAB: 'serge.planning.openingTab',
-  SUPPORT_PANEL_WIDTH: 'serge.planning.supportPanelWidth',
-  VISIBLE_COLUMNS: 'serge.planning.visibleColumns2',
-  IS_FILTER: 'serge.planning.isFilter',
-  SORT_COLUMNS: 'serge.planning.sortColumns',
-  FILTER_APPLIED: 'serge.planning.filterApplied'
-}
 
 export const STORYBOOK_ROUTE = './storybook'
 

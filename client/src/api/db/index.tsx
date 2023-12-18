@@ -2,14 +2,15 @@
 import {
   databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
 } from 'src/config'
-import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame, TurnPeriod, MessagePlanning } from 'src/custom-types'
+import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame, TurnPeriod } from 'src/custom-types'
 import { io } from 'socket.io-client'
 import {
   DbProviderInterface,
   FetchData,
   FetchDataArray,
   FetchDataLogs,
-  FetchReferenc, ProviderDbInterface,
+  FetchReferenc, 
+  ProviderDbInterface,
   FetchTurnPeriod
 } from './types'
 export class DbProvider implements DbProviderInterface {
@@ -111,7 +112,7 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  bulkDocs = (doc: PlayerLogEntries | MessagePlanning[] | Array<Message | Wargame>): Promise<{msg: string}> => {
+  bulkDocs = (doc: PlayerLogEntries | Array<Message | Wargame>): Promise<{msg: string}> => {
     return new Promise((resolve) => {
       fetch(serverPath + 'bulkDocs' + '/' + this.getDbName(), {
         method: 'PUT',

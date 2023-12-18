@@ -1,5 +1,4 @@
 import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from 'src/custom-types'
-import { EditCallback } from '../helpers/setupEditor'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
@@ -73,10 +72,4 @@ export default interface Props {
    */
   modifyForSave?: { (document: Record<string, any>): Record<string, any> }
 
-  /**
-   *  user has clicked on custom edit button
-   */
-  editCallback?: EditCallback
-
-  onLocationEditorLoaded?: (editorElm: HTMLDivElement) => void
 }

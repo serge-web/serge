@@ -10,7 +10,6 @@ import { ForceData } from './types/props'
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 const forcesMock = watuWargame.data.forces.forces
-const platformTypesMock = watuWargame.data.platformTypes ? watuWargame.data.platformTypes.platformTypes : []
 
 export default {
   title: 'local/organisms/SettingForces',
@@ -43,5 +42,5 @@ export const Default: React.FC = () => {
     console.log(rejected)
   }
 
-  return <SettingForces forces={data} onChange={onChange} onSave={onSave} platformTypes={platformTypesMock} onRejectedIcon={onRejectedIcon} />
+  return <SettingForces forces={data} onChange={onChange} onSave={onSave} onRejectedIcon={onRejectedIcon} />
 }

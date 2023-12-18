@@ -10,14 +10,9 @@ const playerUi: PlayerUi = {
   isUmpire: true,
   logPlayerActivity: false,
   hideForcesInChannels: false,
-  attributeTypes: [],
-  perForceActivities: [],
-  infoMarkers: [],
-  markerIcons: [],
   playerMessageLog: {},
   updateMessageState: true,
   isRFIManager: false,
-  allPeriods: [],
   selectedForce: {
     name: 'Blue',
     uniqid: 'force-k16fdykj',
@@ -213,38 +208,6 @@ const playerUi: PlayerUi = {
             items: {
               minItems: 1,
               properties: {
-                assets: {
-                  format: 'table',
-                  items: {
-                    properties: {
-                      location: {
-                        maxLength: 3,
-                        type: 'string'
-                      },
-                      name: {
-                        type: 'string'
-                      },
-                      visibleTo: {
-                        format: 'table',
-                        items: {
-                          properties: {
-                            Force: {
-                              enum: [
-                                'Blue',
-                                'Red',
-                                'Green'
-                              ],
-                              type: 'string'
-                            }
-                          }
-                        },
-                        type: 'array'
-                      }
-                    }
-                  },
-                  minItems: 1,
-                  type: 'array'
-                },
                 force: {
                   enum: [
                     'Blue',
@@ -385,43 +348,6 @@ const playerUi: PlayerUi = {
     'Orders (M2)': {
       completed: false,
       details: {
-        properties: {
-          Assets: {
-            format: 'table',
-            items: {
-              properties: {
-                Name: {
-                  propertyOrder: 100,
-                  type: 'string'
-                },
-                Route: {
-                  format: 'table',
-                  items: {
-                    properties: {
-                      Location: {
-                        maxLength: 3,
-                        type: 'string'
-                      }
-                    }
-                  },
-                  minItems: 1,
-                  propertyOrder: 400,
-                  type: 'array'
-                },
-                Speed: {
-                  propertyOrder: 300,
-                  type: 'number'
-                },
-                State: {
-                  propertyOrder: 200,
-                  type: 'string'
-                }
-              }
-            },
-            minItems: 1,
-            type: 'array'
-          }
-        },
         title: 'Orders (m2c)',
         type: 'object'
       },
@@ -590,107 +516,6 @@ const playerUi: PlayerUi = {
             items: {
               minItems: 1,
               properties: {
-                assets: {
-                  format: 'table',
-                  items: {
-                    properties: {
-                      history: {
-                        format: 'table',
-                        items: {
-                          properties: {
-                            Route: {
-                              format: 'table',
-                              items: {
-                                properties: {
-                                  Location: {
-                                    maxLength: 3,
-                                    type: 'string'
-                                  }
-                                }
-                              },
-                              minItems: 1,
-                              propertyOrder: 400,
-                              type: 'array'
-                            },
-                            Speed: {
-                              propertyOrder: 300,
-                              type: 'number'
-                            },
-                            State: {
-                              propertyOrder: 200,
-                              type: 'string'
-                            },
-                            Turn: {
-                              propertyOrder: 100,
-                              type: 'string'
-                            }
-                          }
-                        },
-                        minItems: 1,
-                        type: 'array'
-                      },
-                      name: {
-                        propertyOrder: 100,
-                        type: 'string'
-                      },
-                      planned: {
-                        format: 'table',
-                        items: {
-                          properties: {
-                            Route: {
-                              format: 'table',
-                              items: {
-                                properties: {
-                                  Location: {
-                                    maxLength: 3,
-                                    type: 'string'
-                                  }
-                                }
-                              },
-                              minItems: 1,
-                              propertyOrder: 400,
-                              type: 'array'
-                            },
-                            Speed: {
-                              propertyOrder: 300,
-                              type: 'number'
-                            },
-                            State: {
-                              propertyOrder: 200,
-                              type: 'string'
-                            },
-                            Turn: {
-                              propertyOrder: 100,
-                              type: 'string'
-                            }
-                          }
-                        },
-                        minItems: 1,
-                        propertyOrder: 2000,
-                        type: 'array'
-                      },
-                      visibleTo: {
-                        format: 'table',
-                        items: {
-                          properties: {
-                            Force: {
-                              enum: [
-                                'Blue',
-                                'Red',
-                                'Green'
-                              ],
-                              type: 'string'
-                            }
-                          }
-                        },
-                        propertyOrder: 300,
-                        type: 'array'
-                      }
-                    }
-                  },
-                  minItems: 1,
-                  type: 'array'
-                },
                 force: {
                   enum: [
                     'Blue',
@@ -715,7 +540,6 @@ const playerUi: PlayerUi = {
       _rev: '1-4bd7b0b5488182f39f10d5203bb1fad8'
     }
   },
-  allPlatformTypes: [],
   showObjective: false,
   wargameInitiated: true,
   feedbackMessages: [],

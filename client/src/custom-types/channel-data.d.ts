@@ -1,6 +1,6 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, InitialStates, SpecialChannelColumns } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_PLANNING, InitialStates, SpecialChannelColumns } from 'src/config'
 import MappingConstraints from './mapping-constraints'
-import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping, ParticipantPlanning, ParticipantTemplate } from './participant'
+import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantPlanning, ParticipantTemplate } from './participant'
 
 /** description of channel, as stored in database */
 export interface ChannelCore {
@@ -19,15 +19,6 @@ export interface ChannelChat extends ChannelCore {
   participants: Array<ParticipantChat>
   /** whether to hide the Force and Role of the message author */
   hideMessageAuthor?: boolean
-}
-
-/** description of mapping channel */
-export interface ChannelMapping extends ChannelCore {
-  channelType: typeof CHANNEL_MAPPING
-  /** list of participants for this channel */
-  participants: Array<ParticipantMapping>
-  /** the constraints (bounds) for the mapping */
-  constraints: MappingConstraints
 }
 
 /** description of planning channel */

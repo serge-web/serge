@@ -8,15 +8,12 @@ import { DEFAULT_SERVER, forceTemplate } from 'src/config'
 import {
   ChannelTypes,
   ForceData,
-  PlatformType,
   Role,
   Wargame,
   WargameActionTypes,
   WargameDispatch,
   WargameOverview,
   WargameRevision,
-  IconOption,
-  AnnotationMarkerData,
   Message
 } from 'src/custom-types'
 
@@ -300,56 +297,11 @@ export const saveSettings = (dbName: string, data: WargameOverview) => {
   }
 }
 
-export const deletePlatformType = (dbName: string, platformType: PlatformType) => {
-  return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.deletePlatformType(dbName, platformType)
-
-    dispatch(setCurrentWargame(wargame))
-
-    dispatch(setTabSaved())
-
-    dispatch(addNotification(`Platform type '${platformType.name}' deleted.`, 'success'))
-  }
-}
-
-export const savePlatformTypes = (dbName: string, data: PlatformType) => {
-  return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.savePlatformTypes(dbName, data)
-
-    dispatch(setCurrentWargame(wargame))
-
-    dispatch(setTabSaved())
-
-    dispatch(addNotification('Platform types saved.', 'success'))
-  }
-}
-
-export const saveAnnotation = (dbName: string, data: AnnotationMarkerData) => {
-  return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.saveAnnotation(dbName, data)
-
-    dispatch(setCurrentWargame(wargame))
-
-    dispatch(setTabSaved())
-
-    dispatch(addNotification('Annotation types saved.', 'success'))
-  }
-}
-
 export const updateForces = (dbName: string, newData: ForceData[]) => {
   return async (dispatch: WargameDispatch) => {
     await wargamesApi.saveForces(dbName, newData)
     const games = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(games))
-  }
-}
-
-export const updateForcesAndDeletePlatformType = (dbName: string, newData: ForceData[], platformType: PlatformType) => {
-  return async (dispatch: WargameDispatch) => {
-    if (newData.length) {
-      await updateForces(dbName, newData)(dispatch)
-    }
-    await deletePlatformType(dbName, platformType)(dispatch)
   }
 }
 
@@ -395,13 +347,6 @@ export const deleteSelectedChannel = (dbName: string, channel: string) => {
   }
 }
 
-export const deleteSelectedAsset = (data: any) => {
-  return async (dispatch: WargameDispatch) => {
-    data.setList(data.item)
-    dispatch(addNotification('Asset deleted.', 'warning'))
-  }
-}
-
 export const deleteSelectedRole = (
   dbName: string,
   data: {
@@ -431,15 +376,6 @@ export const duplicateChannel = (dbName: string, channel: string) => {
 
     dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Channel duplicated.', 'success'))
-  }
-}
-
-export const duplicatePlatformType = (dbName: string, platformType: PlatformType) => {
-  return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.duplicatePlatformType(dbName, platformType)
-
-    dispatch(setCurrentWargame(wargame))
-    dispatch(addNotification('Platform type duplicated.', 'success'))
   }
 }
 
@@ -483,25 +419,5 @@ export const updateWargameVisible = (dbName: string) => {
     await wargamesApi.updateWargameVisible(dbName)
     const games = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(games))
-  }
-}
-
-export const deleteAnnotation = (dbName: string, annotation: IconOption) => {
-  return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.deleteAnnotation(dbName, annotation)
-
-    dispatch(setCurrentWargame(wargame))
-
-    dispatch(setTabSaved())
-
-    dispatch(addNotification(`Annotation type '${annotation.name}' deleted.`, 'success'))
-  }
-}
-
-export const duplicateAnnotation = (dbName: string, annotation: IconOption) => {
-  return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.duplicateAnnotation(dbName, annotation)
-    dispatch(setCurrentWargame(wargame))
-    dispatch(addNotification('Annotation type duplicated.', 'success'))
   }
 }

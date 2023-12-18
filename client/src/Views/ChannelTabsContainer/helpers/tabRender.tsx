@@ -2,7 +2,7 @@ import FlexLayout, { TabNode } from 'flexlayout-react'
 import { ChannelUI, PlayerUi } from 'src/custom-types'
 import _ from 'lodash'
 import findChannelByID from './findChannelByID'
-import { CHANNEL_MAPPING, CHANNEL_PLANNING } from 'src/config'
+import { CHANNEL_PLANNING } from 'src/config'
 
 const tabRender = (state: PlayerUi): (node: TabNode) => void => {
   return (node: TabNode): void => {
@@ -97,7 +97,7 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void => {
       if (channel !== undefined) {
         // check it's not a channel type where we ignore unread (mapping)
         // list of channel types where we don't show unread message count
-        const excludedChannels = [CHANNEL_MAPPING, CHANNEL_PLANNING]
+        const excludedChannels = [CHANNEL_PLANNING]
         if (excludedChannels.includes(channel.cData.channelType)) {
           // clear the message counter
           setTimeout(() => {

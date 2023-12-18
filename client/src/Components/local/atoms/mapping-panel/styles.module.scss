@@ -1,5 +1,6 @@
 .panelGroup {
-  background-color: white;
+  border: 1px solid #d3d3d3;
+  background-color: #fff;
   width: 100%;
   border-right: 2px solid gray;
 }
@@ -8,7 +9,7 @@
   flex: 0 0 2px;
   position: relative;
   outline: none;
-  background-color: lightgray;
+  background-color: #d3d3d3;
 }
 
 .resize-handle-inner {
@@ -24,7 +25,6 @@
   transform: rotate(90deg) translateX(2px);
   cursor: ns-resize;
 }
-
 
 .icon {
   width: 18px;
@@ -104,12 +104,12 @@
 }
 
 .itemsPanel {
-  background-color: lightgray;
+  background-color: rgb(207, 226, 243);
   padding: 0px 0px 20px 0px;
 }
 
 .propertiesPanel {
-  background-color: lightgray;
+  background-color: rgb(234, 209, 230);
   padding: 0px 0px 20px 0px;
 }
 
@@ -158,4 +158,3 @@
 .removeIcon {
   color: red;
   cursor: pointer;
-}

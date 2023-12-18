@@ -1,4 +1,4 @@
-import { Editor, PlannedActivityGeometry, TemplateBody } from 'src/custom-types'
+import { Editor, TemplateBody } from 'src/custom-types'
 import { configDateTimeLocal, deepCopy, usePrevious } from 'src/Helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { isEqual } from 'lodash'
@@ -32,9 +32,7 @@ export const JsonEditor: React.FC<Props> = ({
   onCancelEdit,
   modifyForSave,
   confirmCancel = false,
-  viewSaveButton = false,
-  editCallback,
-  onLocationEditorLoaded
+  viewSaveButton = false
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -56,7 +54,6 @@ export const JsonEditor: React.FC<Props> = ({
   const destroyEditor = (editorObject: Editor | null): void => {
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
-
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {
       if (!date.includes('Z')) {
@@ -134,17 +131,6 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
-  const localEditCallback = (locations: PlannedActivityGeometry[]): void => {
-    // TODO: we should only call the `editCallback` if this document
-    // is being edited.  The `beingEdited` flag should specify this,
-    // but it is always false
-    editCallback && editCallback(locations)
-  }
-
-  const onEditorLoaded = (editorElm: HTMLDivElement) => {
-    onLocationEditorLoaded && onLocationEditorLoaded(editorElm)
-  }
-
   const initEditor = (): () => void => {
     const hideArrayButtons = disabled
     const jsonEditorConfig = hideArrayButtons
@@ -160,7 +146,7 @@ export const JsonEditor: React.FC<Props> = ({
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded, alwaysShowEditorErrors)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, alwaysShowEditorErrors)
 
     const changeListenter = (): void => {
       if (nextEditor) {

@@ -1,5 +1,5 @@
 import { ChannelUI, MessageDetails } from 'src/custom-types'
-import { P9Mock, planningMessageTemplatesMock } from 'src/mocks'
+import { watuWargame, MessageTemplatesMock } from 'src/mocks'
 import React from 'react'
 import MessageCreator from './index'
 import { Story } from '@storybook/react/types-6-0'
@@ -44,9 +44,9 @@ interface StoryPropTypes {
 
 const Template: Story<StoryPropTypes> = (args) => {
   const { privateMessage, confirmCancel } = args
-  const channel = P9Mock.data.channels.channels[0]
+  const channel = watuWargame.data.channels.channels[0]
   const channels = {}
-  P9Mock.data.channels.channels.forEach(c => {
+  watuWargame.data.channels.channels.forEach(c => {
     channels[c.name] = {
       cData: c,
       name: c.name,
@@ -64,10 +64,10 @@ const Template: Story<StoryPropTypes> = (args) => {
     confirmCancel={confirmCancel}
     gameDate=''
     privateMessage={privateMessage}
-    schema={planningMessageTemplatesMock[0].details}
-    selectedForce={P9Mock.data.forces.forces[0]}
-    selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
-    selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
+    schema={MessageTemplatesMock[0].details}
+    selectedForce={watuWargame.data.forces.forces[0]}
+    selectedRole={watuWargame.data.forces.forces[0].roles[0].roleId}
+    selectedRoleName={watuWargame.data.forces.forces[0].roles[0].name}
     postBack={postBack}
   />)
 }
