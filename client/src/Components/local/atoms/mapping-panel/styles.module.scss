@@ -69,11 +69,13 @@
   p {
     min-width: 80px;
     width: 80px;
-    margin: 0
+    margin: 0;
+    text-transform: capitalize;
   }
 
   div {
     width: calc(100% - 80px);
+    
 
     input,
     select {
@@ -141,4 +143,19 @@
       transition: background-color 500ms linear;
     }
   }
+}
+
+.itemsResponsive {
+  overflow: auto;
+  height: calc(100% - 20px) ;
+}
+
+.propertiesResponsive { 
+  overflow: auto;
+  height: calc(100% - 60px) ;
+}
+
+.removeIcon {
+  color: red;
+  cursor: pointer;
 }

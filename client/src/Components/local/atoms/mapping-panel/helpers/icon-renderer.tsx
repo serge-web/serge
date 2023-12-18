@@ -1,4 +1,4 @@
-import { Checkbox, FormControlLabel } from '@material-ui/core'
+import { FormControlLabel, Radio } from '@material-ui/core'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import ms from 'milsymbol'
 import React, { ChangeEvent, useEffect, useRef } from 'react'
@@ -16,7 +16,7 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }
   useEffect(() => {
     // TODO: reserch how to render shape in this line
     const icon = new ms.Symbol(feature.properties?.sidc, { size: 20 })
-    if (iconRef.current && icon) {
+    if (iconRef.current) {
       iconRef.current.innerHTML = icon.asSVG()
     }
   }, [feature])
@@ -24,7 +24,7 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }
   return <div className={styles.listItem}>
     <FormControlLabel
       control={
-        <Checkbox
+        <Radio
           checked={checked}
           onChange={(_: ChangeEvent<HTMLInputElement>, checked: boolean) => onClick(feature.properties?.id, checked)}
           size="small"

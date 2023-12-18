@@ -8,9 +8,12 @@ interface CssExports {
   'icon': string;
   'itemsBox': string;
   'itemsPanel': string;
+  'itemsResponsive': string;
   'listItem': string;
   'panelGroup': string;
   'propertiesPanel': string;
+  'propertiesResponsive': string;
+  'removeIcon': string;
   'resize-handle-horizontal': string;
   'resize-handle-inner': string;
   'resize-handle-outer': string;
