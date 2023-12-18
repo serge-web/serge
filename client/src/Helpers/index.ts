@@ -47,7 +47,7 @@ export {
   checkV3ParticipantStates,
   getParticipantStates
 } from './participant-states'
-export { default as shortPoll } from './short-poll'
+// export { default as shortPoll } from './short-poll'
 export { default as usePrevious } from './use-previous'
 export { default as generateClassName } from './generate-class-name'
 export * from './message-status-state'
