@@ -1,4 +1,4 @@
-import { CHANNEL_CUSTOM, CHANNEL_MAPPING, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING } from 'src/config'
+import { CHANNEL_CUSTOM, PARTICIPANT_CUSTOM } from 'src/config'
 import { PlayerUi } from 'src/custom-types'
 
 const testState: PlayerUi = {
@@ -9,10 +9,6 @@ const testState: PlayerUi = {
   playerMessageLog: {
   },
   isRFIManager: false,
-  infoMarkers: [],
-  attributeTypes: [],
-  perForceActivities: [],
-  markerIcons: [],
   isGameControl: true,
   isUmpire: true,
   isObserver: false,
@@ -148,24 +144,6 @@ const testState: PlayerUi = {
         channelType: CHANNEL_CUSTOM,
         uniqid: 'channel-k16fgs123'  
       }
-    },
-    'channel-k4cnw3nr': {
-      name: 'Mapping',
-      messages: [],
-      unreadMessageCount: 0,
-      observing: false,
-      uniqid: 'channel-k4cnw3nr',
-      cData: {
-        channelType: CHANNEL_MAPPING,
-        name: 'Mapping',
-        uniqid: 'channel-k4cnw3nr',
-        participants: [],
-        constraints: {
-          bounds: [[1, 2], [3, 4]],
-          minZoom: 3,
-          h3res: 3
-        }
-      }
     }
   },
   allChannels: [
@@ -218,64 +196,6 @@ const testState: PlayerUi = {
           subscriptionId: 'k16fhy24'
         }
       ]
-    },
-    {
-      name: 'Mapping',
-      uniqid: 'channel-k4cnw3nr',
-      constraints: {
-        bounds: [[2, 3], [4, 5]],
-        h3res: 3,
-        minZoom: 5
-      },
-      channelType: CHANNEL_MAPPING,
-      participants: [
-        {
-          forceUniqid: 'umpire',
-          pType: PARTICIPANT_MAPPING,
-          roles: [],
-          subscriptionId: 'k4cnwg1q'
-        },
-        {
-          pType: PARTICIPANT_MAPPING,
-          forceUniqid: 'force-k16fdykj',
-          roles: [],
-          subscriptionId: 'k4cnwjfx'
-        }
-      ]
-    }
-  ],
-  allPeriods: [
-    {
-      gameDate: '2022-05-25T04:00',
-      gameTurnTime: {
-        millis: 259200000,
-        unit: 'millis'
-      },
-      gameTurn: 1
-    },
-    {
-      gameDate: '2022-05-28T04:00',
-      gameTurnTime: {
-        millis: 259200000,
-        unit: 'millis'
-      },
-      gameTurn: 1
-    },
-    {
-      gameDate: '2022-05-04T04:00',
-      gameTurnTime: {
-        millis: 259200000,
-        unit: 'millis'
-      },
-      gameTurn: 2
-    },
-    {
-      gameDate: '2022-05-04T04:00',
-      gameTurnTime: {
-        millis: 259200000,
-        unit: 'millis'
-      },
-      gameTurn: 2
     }
   ],
   allForces: [
@@ -324,7 +244,6 @@ const testState: PlayerUi = {
       dirty: false
     }
   ],
-  allPlatformTypes: [],
   showObjective: false,
   wargameInitiated: true,
   feedbackMessages: [],
@@ -342,38 +261,6 @@ const testState: PlayerUi = {
             items: {
               minItems: 1,
               properties: {
-                assets: {
-                  format: 'table',
-                  items: {
-                    properties: {
-                      location: {
-                        maxLength: 3,
-                        type: 'string'
-                      },
-                      name: {
-                        type: 'string'
-                      },
-                      visibleTo: {
-                        format: 'table',
-                        items: {
-                          properties: {
-                            Force: {
-                              enum: [
-                                'Blue',
-                                'Red',
-                                'Green'
-                              ],
-                              type: 'string'
-                            }
-                          }
-                        },
-                        type: 'array'
-                      }
-                    }
-                  },
-                  minItems: 1,
-                  type: 'array'
-                },
                 force: {
                   enum: [
                     'Blue',

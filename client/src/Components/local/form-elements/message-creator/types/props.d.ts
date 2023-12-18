@@ -1,6 +1,5 @@
 import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure } from 'src/custom-types'
 import { MouseEvent } from 'react'
-import { EditCallback } from 'src/local/molecules/json-editor/helpers/setupEditor'
 
 export default interface PropTypes {
   schema: any
@@ -41,8 +40,4 @@ export default interface PropTypes {
    */
   modifyForSave?: { (document: Record<string, any>): Record<string, any> }
 
-  /**
-   *  user has clicked on custom edit button
-   */
-  editCallback?: EditCallback
 }

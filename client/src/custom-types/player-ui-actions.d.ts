@@ -1,6 +1,5 @@
 import {
   SET_CURRENT_WARGAME_PLAYER,
-  SET_ALL_TURN_PERIOD,
   SET_FORCE,
   SET_ROLE,
   SET_ALL_TEMPLATES_PLAYERUI,
@@ -22,7 +21,6 @@ import {
 
 import {
   Wargame,
-  TurnPeriod,
   Role,
   MessageFeedback,
   MessageChannel,
@@ -37,11 +35,6 @@ export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
 interface SetCurrentWargameAction {
   type: typeof SET_CURRENT_WARGAME_PLAYER
   payload: Wargame
-}
-
-interface SetCurrentTurnPeriodAction {
-  type: typeof SET_ALL_TURN_PERIOD
-  payload: Array<TurnPeriod>
 }
 
 interface SetForceAction {
@@ -122,7 +115,6 @@ interface CloseModalAction {
 }
 
 export type PlayerUiActionTypes = SetCurrentWargameAction |
-  SetCurrentTurnPeriodAction |
   SetForceAction |
   SetRoleAction |
   SetAllTemplatesAction |

@@ -9,8 +9,6 @@ import {
   addNewForce,
   setCurrentTab,
   saveSettings,
-  savePlatformTypes,
-  saveAnnotation,
   saveForce,
   saveChannel,
   setTabSaved,
@@ -20,15 +18,13 @@ import {
   duplicateChannel,
   saveWargameTitle,
   initiateWargame,
-  duplicatePlatformType,
-  duplicateAnnotation,
   duplicateForce
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
-import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from 'src/custom-types'
+import { ChannelTypes, ForceData, MessageTypes, Role, RootState, Wargame, WargameOverview } from 'src/custom-types'
 
 /**
  * TODOS:
@@ -60,12 +56,8 @@ const AdminGameSetup: React.FC = () => {
   } = wargame
   const {
     overview,
-    platformTypes,
-    // @ts-ignore
-    platform_types, // TODO: legacy name. To be deleted.
     forces,
-    channels,
-    annotationIcons
+    channels
   } = data
   const tabs = Object.keys(data)
 
@@ -134,29 +126,6 @@ const AdminGameSetup: React.FC = () => {
     if (currentWargame) dispatch(saveSettings(currentWargame, overview))
   }
 
-  const onDeletePlatformType = (data: PlatformType) => {
-    dispatch(modalAction.open('confirmDelete', {
-      type: 'platformType',
-      data,
-      customMessages: {
-        title: `Delete '${data.name}'`,
-        message: 'Are you sure you want to permanently delete this Platform Type?'
-      }
-    }))
-  }
-   
-  const onDuplicatePlatformType = (data: PlatformType) => {
-    if (currentWargame) dispatch(duplicatePlatformType(currentWargame, data))
-  }
-
-  const handleSavePlatformTypes = (platformTypes: PlatformType) => {
-    if (currentWargame) dispatch(savePlatformTypes(currentWargame, platformTypes))
-  }
-
-  const handleSaveAnnotation = (annotation: AnnotationMarkerData) => {
-    if (currentWargame) dispatch(saveAnnotation(currentWargame, annotation))
-  }
-
   const handleSaveForce = (newForces: ForceData[]) => {
     const { selectedForce } = forces
     const { uniqid } = selectedForce as ForceData
@@ -213,14 +182,11 @@ const AdminGameSetup: React.FC = () => {
     }
   }
 
-  const onSave = (updates: WargameOverview | PlatformType | ForceData | ChannelTypes | AnnotationIcons) => {
+  const onSave = (updates: WargameOverview | ForceData | ChannelTypes) => {
     let saveAction
     switch (currentTab) {
       case AdminTabs.Overview:
         saveAction = handleSaveOverview
-        break
-      case AdminTabs.PlatformTypes:
-        saveAction = handleSavePlatformTypes
         break
       case AdminTabs.Forces:
         saveAction = handleSaveForce
@@ -228,9 +194,6 @@ const AdminGameSetup: React.FC = () => {
       case AdminTabs.Channels:
         saveAction = handleSaveChannel
         break
-      case AdminTabs.Annotations:
-        saveAction = handleSaveAnnotation
-        break  
       default:
         saveAction = console.error
         break
@@ -278,10 +241,6 @@ const AdminGameSetup: React.FC = () => {
 
   const onDeleteChannel = ({ uniqid }: { uniqid: string }) => {
     dispatch(modalAction.open('confirmDelete', { type: 'channel', data: uniqid }))
-  }
-
-  const onDeleteAsset = (setList: (newList: Array<Asset>) => void, item: Asset) => {
-    dispatch(modalAction.open('confirmDelete', { type: 'asset', data: { setList, item } }))
   }
 
   const onDuplicateChannel = ({ uniqid }: { uniqid: string }) => {
@@ -342,21 +301,6 @@ const AdminGameSetup: React.FC = () => {
     }
   }
 
-  const onDeleteAnnotation = (data: IconOption) => {
-    dispatch(modalAction.open('confirmDelete', {
-      type: 'annotation',
-      data,
-      customMessages: {
-        title: `Delete '${data.name}'`,
-        message: 'Are you sure you want to permanently delete this annotation Type?'
-      }
-    }))
-  }
-
-  const onDuplicateAnnotation = (data: IconOption) => {
-    if (currentWargame) dispatch(duplicateAnnotation(currentWargame, data))
-  }
-
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}
@@ -367,16 +311,11 @@ const AdminGameSetup: React.FC = () => {
       onTabChange={onTabChange}
       onPressBack={onPressBack}
       overview={overview}
-      platformTypes={platformTypes || platform_types}
       forces={forces.forces}
       // @ts-ignore
       selectedForce={forces.selectedForce}
       channels={channels.channels}
       onOverviewChange={handleFormChange}
-      // @ts-ignore
-      onPlatformTypesChange={handleFormChange}
-      onDeletePlatformType={onDeletePlatformType}
-      onDuplicatePlatformType={onDuplicatePlatformType}
       // @ts-ignore
       onForcesChange={handleFormChange}
       onCreateForce={onCreateForce}
@@ -402,13 +341,6 @@ const AdminGameSetup: React.FC = () => {
       iconUploadUrl={iconUploaderPath}
       // @ts-ignore
       customDeleteHandler={handleDeleteGameControl}
-      // @ts-ignore
-      onDeleteAsset={onDeleteAsset}
-      onDeleteAnnotation={onDeleteAnnotation}
-      onDuplicateAnnotation={onDuplicateAnnotation}
-      // @ts-ignore
-      onAnnotationChange={handleFormChange}
-      annotation={annotationIcons}
     />
   )
 }

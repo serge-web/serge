@@ -1,4 +1,4 @@
-import { AnnotationMarkerData, ForceData, IconOption, PlatformType, PlatformTypeData } from 'src/custom-types'
+import { ForceData } from 'src/custom-types'
 import { Item } from '../../molecules/sortable-list'
 import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
 import { ChannelTypes } from '../../../organisms/setting-channels'
@@ -11,10 +11,6 @@ export default interface Props extends AdminLayoutProps {
    */
   overview: WargameOverview
   /**
-   * Platform types, retrieved from database
-   */
-  platformTypes?: PlatformType
-  /**
    * Forces, retrieved from database
    */
   forces: Array<ForceData>
@@ -23,25 +19,9 @@ export default interface Props extends AdminLayoutProps {
    */
   channels: Array<ChannelTypes>
   /**
-  * annotation types, retrieved from database
-  */
-  annotation?: AnnotationMarkerData
-  /**
    * Callback on overview setting change events
    */
   onOverviewChange: (overview: WargameOverview) => void
-  /**
-   * Callback on platform types setting change events
-   */
-  onPlatformTypesChange: (platformType: PlatformType) => void
-  /**
-   * Callback on platform type delete button click events
-   */
-  onDeletePlatformType?: (item: PlatformType) => void
-  /**
-   * Callback on platform type duplicate button click events
-   */
-  onDuplicatePlatformType?: (item: PlatformType) => void
   /**
    * Callback on forces setting change events
    */
@@ -109,8 +89,6 @@ export default interface Props extends AdminLayoutProps {
    */
   onWargameInitiate: () => void
 
-  availablePlatformTypes?: PlatformTypeData[]
-
   /**
    * Handle back button event
    */
@@ -120,18 +98,5 @@ export default interface Props extends AdminLayoutProps {
    * Handler for when user tries to delete role with Game Control privileges
    */
   customDeleteHandler?: (NewItems: Item[], key: number, handleChange: (changedItems: Item[]) => void) => void
-  onDeleteAsset?: () => void
-  /**
-  * Callback on annotation types setting change events
-  */
-  onAnnotationChange: (annotation: AnnotationMarkerData) => void
-  /**
-  * Callback on annotation type delete button click events
-  */
-  onDeleteAnnotation?: (annotation: IconOption) => void
-  /**
-  * Callback on annotation type duplicate button click events
-  */
-  onDuplicateAnnotation?: (annotation: IconOption) => void
 
 }

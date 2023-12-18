@@ -1,5 +1,4 @@
 import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody } from 'src/custom-types'
-import { EditCallback } from 'src/local/molecules/json-editor/helpers/setupEditor'
 
 export default interface PropTypes {
   orderableChannel: boolean
@@ -45,8 +44,4 @@ export default interface PropTypes {
    *  modify document prior to being stored
    */
   modifyForSave?: { (document: Record<string, any>): Record<string, any> }
-  /**
-   *  user has clicked on custom edit button
-   */
-  editCallback?: EditCallback
 }

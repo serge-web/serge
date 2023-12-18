@@ -5,40 +5,32 @@ import GameSetup from './index'
 import {
   WargameExportedMock,
   MessageTemplatesMock,
-  adminTabs,
-  platformType as platformTypeMock
+  adminTabs
 } from 'src/mocks'
 import {
   ChannelTypes,
   ForceData,
-  PlatformType,
   Wargame,
-  WargameOverview,
-  AnnotationMarkerData
+  WargameOverview
 } from 'src/custom-types'
 
 const Component = (): React.ReactElement => {
   const initialWargame: Wargame = {
     ...WargameExportedMock,
     data: {
-      ...WargameExportedMock.data,
-      platformTypes: platformTypeMock
+      ...WargameExportedMock.data
     }
   }
 
   const [wargame, setWargame] = useState<Wargame>(initialWargame)
   const [isWargameChanged, setWargameChanged] = useState<boolean>(false)
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
-  const [changedPlatformType, setChangedPlatformType] = useState<PlatformType | undefined>(wargame.data.platformTypes)
-  const [changedAnnotationType, setChangedAnnotationType] = useState<AnnotationMarkerData | undefined>(wargame.data.annotationIcons)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e: any): void => {
     setActiveTab(key)
-    setChangedPlatformType(wargame.data.platformTypes)
-    setChangedAnnotationType(wargame.data.annotationIcons)
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
     setChangedChannels(wargame.data.channels.channels || [])
@@ -55,11 +47,6 @@ const Component = (): React.ReactElement => {
 
   const onOverviewChange = (nextOverview: WargameOverview): void => {
     setChangedOverview(nextOverview)
-    setWargameChanged(true)
-  }
-
-  const onPlatformTypesChange = (nextPlatformType: PlatformType): void => {
-    setChangedPlatformType(nextPlatformType)
     setWargameChanged(true)
   }
 
@@ -81,11 +68,6 @@ const Component = (): React.ReactElement => {
     setWargameChanged(true)
   }
 
-  const onAnnotationChange = (nextAnnotationType: AnnotationMarkerData): void => {
-    setChangedAnnotationType(nextAnnotationType)
-    setWargameChanged(true)
-  }
-
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}
@@ -94,18 +76,14 @@ const Component = (): React.ReactElement => {
       wargameChanged={isWargameChanged}
       onTabChange={onTabChange}
       overview={changedOverview}
-      platformTypes={changedPlatformType}
       forces={changedForces}
       channels={changedChannels}
       onOverviewChange={onOverviewChange}
-      onPlatformTypesChange={onPlatformTypesChange}
       onForcesChange={onForcesChange}
       onChannelsChange={onChannelsChange}
       onSave={onSave}
       messageTemplates={MessageTemplatesMock}
       onWargameInitiate={onWargameInitiated}
-      onAnnotationChange={onAnnotationChange}
-      annotation={changedAnnotationType}
     />
   )
 }

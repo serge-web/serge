@@ -1,7 +1,7 @@
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
 import {
   ChannelTypes, ChannelUI, ForceData, MessageChannel,
-  MessageCustom, MessageInfoType, MessageInfoTypeClipped, MessagePlanning, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
+  MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from 'src/custom-types'
 import { CoreParticipant } from 'src/custom-types/participant'
 import uniqId from 'uniqid'
@@ -15,7 +15,7 @@ import { getParticipantStates } from './participant-states'
  * @param { string } channel id of the cahnnel
  * @param { MessageCustom } message the new message
  */
-const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message: MessageCustom | MessagePlanning, playerId: string) => {
+const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message: MessageCustom, playerId: string) => {
   const sourceRole: string = message.details.from.roleId
   const logger: PlayerMessage = {
     roleId: message.details.from.roleId,

@@ -34,8 +34,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   clearCachedCreatorMessage,
   draftMessage,
   modifyForEdit,
-  modifyForSave,
-  editCallback
+  modifyForSave
 }) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [formMessage, setFormMessage] = useState<any>()
@@ -167,7 +166,6 @@ const MessageCreator: React.FC<PropTypes> = ({
         messageContent={messageContent}
         modifyForEdit={modifyForEdit}
         modifyForSave={modifyForSave}
-        editCallback={editCallback}
       />
       {privateMessage && (
         <div className="flex-content form-group">

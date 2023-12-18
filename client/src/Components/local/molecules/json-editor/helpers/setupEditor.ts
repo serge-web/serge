@@ -1,22 +1,19 @@
 import { JSONEditor } from '@json-editor/json-editor'
-import { Editor, PlannedActivityGeometry } from 'src/custom-types'
+import { Editor } from 'src/custom-types'
 import { RefObject } from 'react'
-import { initLocationEditor } from '../custom-editors/location-editor'
 import { configDateTimeCustomValidation } from './jsonValidation'
 
-export type EditCallback = (locations: PlannedActivityGeometry[]) => void
 export type OnLocationEditorLoaded = (editorElm: HTMLDivElement) => void
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>,
-  jsonEditorConfig: Record<string, any>, editCallback: EditCallback, onLocationEditorLoaded: OnLocationEditorLoaded,
+  jsonEditorConfig: Record<string, any>, 
   showErrorsMode?: string): Editor | null => {
   if (editor !== null) {
     editor.destroy()
     editor = null
   }
 
-  initLocationEditor(editCallback, onLocationEditorLoaded)
   configDateTimeCustomValidation()
 
   const disableCollapse = 'disable_collapse'

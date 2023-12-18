@@ -1,32 +1,21 @@
 /* eslint-disable no-unused-vars */
-import {
-  ADJUDICATION_OUTCOMES,
-  ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE,
-  MSG_TYPE_STORE,
-  PLANNING_PHASE, SERGE_INFO, serverPath, STATE_OF_WORLD, UPDATE_MARKER, wargameSettings, dbDefaultSettings
-} from 'src/config'
-import { deleteRoleAndParts, duplicateThisForce, handleCloneMarker, handleDeleteMarker, handleUpdateMarker } from 'src/Helpers'
+import { ADJUDICATION_PHASE, allDbs, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
+import { deleteRoleAndParts, duplicateThisForce } from 'src/Helpers'
 import _ from 'lodash'
 import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import uniqid from 'uniqid'
-import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
 import deepCopy from '../../Helpers/copyStateHelper'
 
 import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import {
-  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, MessagePlanning, TurnPeriod, Wargame, WargameOverview, WargameRevision
-} from 'src/custom-types'
-
+import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
 
-import handleAdjudicationOutcomes from '../../ActionsAndReducers/playerUi/helpers/handleAdjudicationOutcomes'
-import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
 
@@ -337,55 +326,6 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
     const wargame: Wargame = deepCopy(res)
     wargame.data.overview = data
     return updateWargame(wargame, dbName)
-  })
-}
-
-export const deletePlatformType = (dbName: string, platformType: PlatformType): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    if (newDoc.data.platformTypes) {
-      newDoc.data.platformTypes.platformTypes = newDoc.data.platformTypes.platformTypes.filter((platform: PlatformTypeData) => platform.name !== platformType.name)
-    } else {
-      console.warn('Trying to delete platform types, but structure is empty')
-    }
-    return updateWargame(newDoc, dbName)
-  })
-}
-
-export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    const updatedData = newDoc.data
-    if (updatedData.platformTypes) {
-      const platformTypes = updatedData.platformTypes.platformTypes || []
-      const platformTypeIndex = platformTypes.findIndex((platformType) => platformType.name === currentPlatformType.name)
-      const duplicatedPlatformType = deepCopy(platformTypes[platformTypeIndex])
-      const uniq = uniqid.time()
-
-      duplicatedPlatformType.name = `${duplicatedPlatformType.name}-${uniq}`
-
-      platformTypes.splice(platformTypeIndex, 0, duplicatedPlatformType)
-      updatedData.platformTypes.platformTypes = platformTypes
-      updatedData.platformTypes.selectedType = duplicatedPlatformType
-    }
-
-    return updateWargame({ ...res, data: updatedData }, dbName)
-  })
-}
-
-export const savePlatformTypes = (dbName: string, data: PlatformType): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    newDoc.data.platformTypes = data
-    return updateWargame(newDoc, dbName)
-  })
-}
-
-export const saveAnnotation = (dbName: string, data: AnnotationMarkerData): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    newDoc.data.annotationIcons = data
-    return updateWargame(newDoc, dbName)
   })
 }
 
@@ -717,13 +657,6 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
   })
 }
 
-export const PostBulkMessages = (dbName: string, bulkData: MessagePlanning[]) => {
-  const { db } = getWargameDbByName(dbName)
-
-  const customBulkMessage: MessagePlanning[] = bulkData
-  return db.bulkDocs(customBulkMessage).catch(rejectDefault)
-}
-
 export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
   const { db } = getWargameDbByName(dbName)
   const id = details.timestamp ? details.timestamp : new Date().toISOString()
@@ -774,113 +707,6 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
   })
 }
 
-// Copied from postNewMessage cgange and add new logic for Mapping
-// console logs will not works there
-// @ts-ignore
-export const postNewMapMessage = (dbName, details, message: MessageMap) => {
-  // first, send the message
-  const { db } = getWargameDbByName(dbName)
-
-  const customMessage: MessageCustom = {
-    _id: new Date().toISOString(),
-    // defined constat for messages, it's not same as message.details.messageType,
-    // ex for all template based messages will be used CUSTOM_MESSAGE Type
-    messageType: CUSTOM_MESSAGE,
-    details,
-    message,
-    isOpen: false,
-    hasBeenRead: false
-  }
-  db.put(customMessage).catch((err) => {
-    console.log(err)
-    return err
-  })
-
-  // special case. If this is adjudication, and we skip, do not to handle force delta
-  if (message.messageType === ADJUDICATION_OUTCOMES) {
-    const interaction = details.interaction as InteractionDetails
-    if (interaction && interaction.skipped) {
-      return
-    } 
-  }
-
-  /**
-   * annotations are optional. So, if they're unset, initialise them
-   */
-  const checkAnnotations = (annoData: MapAnnotationData | undefined): MapAnnotationData => {
-    if (typeof annoData === 'undefined') {
-      const newAnns: MapAnnotationData = {
-        annotations: []
-      }
-      return newAnns
-    } else {
-      return annoData
-    }
-  }
-
-  // also make the modification to the wargame
-  return new Promise((resolve, reject) => {
-    getLatestWargameRevision(dbName)
-      .then((res) => {
-        if (!res.data.platformTypes) {
-          throw new Error('Cannot handle force delta without platform types')
-        }
-
-        // special handling for marker message
-        if (message.messageType === UPDATE_MARKER) {
-          // ok - marker update - not force. If admin changes markers during planning phase,
-          // they get updated immediately, so we do that here.
-          // initialise annotations, if necessary
-          res.data.annotations = checkAnnotations(res.data.annotations)
-          const validMessage: MessageUpdateMarker = message
-          res.data.annotations.annotations = handleUpdateMarker(validMessage, res.data.annotations.annotations)
-        } else if (message.messageType === CLONE_MARKER) {
-          res.data.annotations = checkAnnotations(res.data.annotations)
-          const validMessage: MessageCloneMarker = message
-          res.data.annotations.annotations = handleCloneMarker(validMessage, res.data.annotations.annotations)
-        } else if (message.messageType === DELETE_MARKER) {
-          res.data.annotations = checkAnnotations(res.data.annotations)
-          const validMessage: MessageDeleteMarker = message
-          res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
-        } else if (message.messageType === ADJUDICATION_OUTCOMES) {
-          const validMessage: MessageAdjudicationOutcomes = message
-          const interaction = details.interaction as InteractionDetails
-          res.data.forces.forces = handleAdjudicationOutcomes(interaction, validMessage, res.data.forces.forces)
-        } else if (message.messageType === STATE_OF_WORLD) {
-          // ok, this needs to work on force AND info markers
-          const validMessage: MessageStateOfWorld = message
-          res.data.forces.forces = handleStateOfWorldChanges(validMessage, res.data.forces.forces)
-          // initialise annotations, if necessary
-          res.data.annotations = checkAnnotations(res.data.annotations)
-          // we can just copy in the new markers
-          res.data.annotations.annotations = validMessage.state.mapAnnotations
-        } else {
-          // apply the reducer to this wargame
-          res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
-        }
-
-        const copiedData = deepCopy(res)
-        const newId = res.wargameInitiated ? new Date().toISOString() : res._id
-        const rev = res.wargameInitiated ? undefined : res._rev
-        // TODO: this method returns the inserted wargame.  I believe we could
-        // return that, instead of `getLatestWargameRevisiion`
-        return db.put({
-          ...copiedData,
-          _rev: rev,
-          _id: newId,
-          messageType: INFO_MESSAGE
-        }).then(() => {
-          return getLatestWargameRevision(dbName)
-        }).catch(rejectDefault)
-      }).then((res) => {
-        resolve(res)
-      }).catch((err) => {
-        console.log(err)
-        reject(err)
-      })
-  })
-}
-
 export const getAllMessages = (dbName: string): Promise<Message[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
@@ -919,45 +745,4 @@ export const getAllWargames = (): Promise<WargameRevision[]> => {
       }).catch(rejectDefault)
   })
   return Promise.all<WargameRevision>(promises)
-}
-
-export const deleteAnnotation = (dbName: string, annotation: IconOption): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-
-    if (newDoc.data.annotationIcons) {
-      newDoc.data.annotationIcons.markers = newDoc.data.annotationIcons.markers.filter((annotationDelete) => annotationDelete.name !== annotation.name)
-    } else {
-      console.warn('Trying to delete platform types, but structure is empty')
-    }
-    return updateWargame(newDoc, dbName)
-  })
-}
-
-export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption) => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc = deepCopy(res)
-    const updatedData = newDoc.data
-    if (updatedData.annotations || updatedData.annotationIcons) {
-      const annotation = updatedData.annotationIcons.markers || []
-      const annotationIndex = annotation.findIndex((annotation: IconOption) => annotation.name === currentAnnation.name)
-      const duplicatedAnnation = deepCopy(currentAnnation)
-      const uniq = uniqid.time()
-
-      duplicatedAnnation.name = `${duplicatedAnnation.name}-${uniq}`
-      
-      annotation.splice(annotationIndex, 0, duplicatedAnnation)
-      updatedData.annotationIcons.markers = annotation
-    }
-  
-    return updateWargame({ ...res, data: updatedData }, dbName)
-  })
-}
-
-export const getTurnPeriodsList = (dbName: string): Promise<TurnPeriod[]> => {
-  const { db } = getWargameDbByName(dbName)
-
-  return db.getTurnPeriods()
-    .then((res) => res)
-    .catch(rejectDefault)
 }
