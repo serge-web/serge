@@ -26,7 +26,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
   const [propertyFiltersListPanel, setPropertyFiltersListPanel] = useState<string[]>([])
   const [selectedFeatures, setSelectedFeatures] = useState<Feature<Geometry, GeoJsonProperties>[]>([])
-  const [selectedProps, setSelectedProps] = useState<SelectedProps[]>([])
+  const [selectedProps, setSelectedProps] = useState<SelectedProps>({})
   const [selectedFiltersProps, setSelectedFiltersProps] = useState<SelectedProps>({})
   
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
@@ -48,20 +48,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
         result[propKey] = properties[propKey] as any
         return result
       }, {})
-      setSelectedProps([propsList])
+      setSelectedProps(propsList)
     }
   }, [selectedFeatures])
-
-  // const debounceFilter = debounce((term: string) => {
-  //   if (!features) {
-  //     return
-  //   }
-  //   const cloneFeature = cloneDeep(features)
-  //   cloneFeature.features = cloneFeature?.features.filter(f => f.properties?.label.toLowerCase().includes(term))
-  //   setFilterredFeatures(cloneFeature)
-  // }, 500)
-
-  // const onInputFilterChange = (e: ChangeEvent<HTMLInputElement>) => debounceFilter(e.target.value)
   
   const onAddNewFilter = () => setOpenAddFilter(true)
 
@@ -79,19 +68,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
   
   const applyFilter = useCallback(() => {
     const selectedFilterOpts = propertyFiltersListPanel.reduce((res, key): SelectedProps => {
-      const options = features?.features.reduce((result, f) => {
-        const opt = get(f.properties, key, '')
-        if (opt && !result.includes(opt)) {
-          result.push(opt)
-        }
-        return result
-      }, [] as string[]) || []
-      res[key] = options
+      res[key] = ''
       return res
     }, {})
     setSelectedFiltersProps(selectedFilterOpts)
     closeApplyFilterModal()
-  }, [])
+  }, [features, propertyFiltersListPanel])
 
   const onRemoveFilter = (key: string) => {
     delete selectedFiltersProps[key]
@@ -111,9 +93,25 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
 
   const onFilterPropertiesChange = (key: string, value: string) => {
     set(selectedFiltersProps, key, value)
-    console.log('Filter Items By: ', selectedFiltersProps)
-    // update list item in Items panel
+    setSelectedFiltersProps(cloneDeep(selectedFiltersProps))
   }
+
+  useEffect(() => {
+    if (!features) {
+      return
+    }
+    const cloneFeature = cloneDeep(features)
+    cloneFeature.features = cloneFeature.features.filter((f) => {
+      let found = true
+      Object.keys(selectedFiltersProps).map((filterKey) => {
+        if (!get(f.properties, filterKey, '').toLowerCase().includes(selectedFiltersProps[filterKey].toLowerCase())) {
+          found = false
+        }
+      })
+      return found
+    })
+    setFilterredFeatures(cloneFeature)
+  }, [features, selectedFiltersProps])
 
   useEffect(() => {
     console.log('Changed Properties: ', selectedProps)
@@ -196,9 +194,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
       >
         <div className={styles.header}>Properties</div>
         <div className={styles.propertiesResponsive}>
-          {selectedProps.map((selectedProp, idx) => {
-            return <PropertiesPanel key={idx} selectedProp={selectedProp} onPropertiesChange={onPropertiesChange}/>
-          })}
+          <PropertiesPanel selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
         </div>
         <div className={styles.button}>
           <button onClick={onClose}>Cancel</button>
