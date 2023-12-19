@@ -187,7 +187,7 @@
     "copy-assets-storybook": "copyfiles -u 4 src/Components/local/asset-icon/counters/*.svg static/assets/counters",
     "cleanup": "rimraf build/Components/vendor && rimraf build/Components/local/**/mocks && rimraf build/Components/local/**/*.stories.* && rimraf build/Components/local/**/*.spec.*",
     "rebuild-client": "yarn build && yarn start",
-    "develop": "nodemon --exec yarn start"
+    "dev": "nodemon --exec yarn start"
   },
   "browserslist": [
     ">0.2%",
