@@ -55,14 +55,19 @@ This repository has shifted from a monorepo utilizing Lerna [Lerna](https://gith
 
 >Managing a monolith provides simplicity and ease of development, especially when splitting codebases into separate repositories introduces unnecessary complexity.
 
->A monolith, in this context, refers to a single codebase that encompasses all the code for the application. This approach simplifies code organization and development workflows.
+> A monolith, in this context, refers to a single codebase that encompasses all the code for the application. This approach simplifies code organization and development workflows.
 
-> in the monoluth, depencdencies are managed from their respective root `package.json ` file, such as 
-`/server/`, `/client`, `/executable/`, `/e2e/`
-To add or update dependencies, navigate to the specific directory and use the following commant `yarn add <pachkage-name`
-feel free to replace `package-name` with the actual name of the package you intend to add or update
+In the monolith, dependencies are managed from their respective root `package.json` file, such as 
 
-> Manage dependencies for packages like normal, but remember to use `yarn add` instead of `npm install`.
+`/server/`, `/client`, `/executable/`, `/e2e/`   
+
+To add or update dependencies, navigate to the specific directory and use the following command: `yarn add <package-name>`
+
+Feel free to replace `package-name` with the actual name of the package you intend to add or update.
+
+>Manage dependencies for packages like normal, but remember to use `yarn add` instead of `npm install`.
+
+
 
 ## Run locally
 
