@@ -102,7 +102,7 @@ The top level project contains scripts that are then executed for all packages.
 - `start` Runs the complete application in demo mode.
 - `start-client` Only starts the client application.
 - `start-server` Only starts the server application.
-- `dev`   Runs the client and server applications as well as the Storybook application and watches for typescript errors.
+  - `dev` Runs the client and server applications as well as the Storybook application and watches for typescript errors.
 - `serge` A friendly alias for `start-server`
 
 ## Database commands
