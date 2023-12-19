@@ -57,7 +57,7 @@ This repository has shifted from a monorepo utilizing Lerna [Lerna](https://gith
 
 >A monolith, in this context, refers to a single codebase that encompasses all the code for the application. This approach simplifies code organization and development workflows.
 
-> in the monoluth, depencdencies are managed from their respective root `pacage.json ` file, such as 
+> in the monoluth, depencdencies are managed from their respective root `package.json ` file, such as 
 `/server/`, `/client`, `/executable/`, `/e2e/`
 To add or update dependencies, navigate to the specific directory and use the following commant `yarn add <pachkage-name`
 feel free to replace `package-name` with the actual name of the package you intend to add or update
