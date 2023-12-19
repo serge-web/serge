@@ -96,13 +96,13 @@ To enable this we use [nvm (Node Version Manager)](https://github.com/creationix
 
 The top level project contains scripts that are then executed for all packages.
 
+- `dev` Runs the client and server applications as well as the Storybook application and watches for typescript errors.
 - `lint`  Checks syntax and simple errors in javascript and stylesheet files.
 - `test`  Runs tests in all the packages.
 - `build` Runs the build script in all packages which require building.
 - `start` Runs the complete application in demo mode.
 - `start-client` Only starts the client application.
 - `start-server` Only starts the server application.
-  - `dev` Runs the client and server applications as well as the Storybook application and watches for typescript errors.
 - `serge` A friendly alias for `start-server`
 
 ## Database commands
