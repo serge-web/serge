@@ -67,8 +67,6 @@ Feel free to replace `package-name` with the actual name of the package you inte
 
 >Manage dependencies for packages like normal, but remember to use `yarn add` instead of `npm install`.
 
-
-
 ## Run locally
 
 You'll need [Git](https://help.github.com/articles/set-up-git/) and [Node.js](https://nodejs.org/en/) installed to get this project running.
