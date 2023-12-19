@@ -55,7 +55,7 @@ This repository has shifted from a monorepo utilizing Lerna [Lerna](https://gith
 
 >Managing a monolith provides simplicity and ease of development, especially when splitting codebases into separate repositories introduces unnecessary complexity.
 
-> A monolith, in this context, refers to a single codebase that encompasses all the code for the application. This approach simplifies code organization and development workflows.
+>A monolith, in this context, refers to a single codebase that encompasses all the code for the application. This approach simplifies code organization and development workflows.
 
 In the monolith, dependencies are managed from their respective root `package.json` file, such as 
 

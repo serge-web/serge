@@ -159,8 +159,6 @@ If a third party component is used, it should also be documented in Storybook. F
 
 For an example of documenting a third-party component, please take a look at the `md-button` component in `./src/vendor`
 
-
 ## Contributing
-
 
 If you want to contribute components to the library, please review our [Development Standards Guidelines](https://github.com/serge-web/serge/blob/develop/docs/index.md) first.
