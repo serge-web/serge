@@ -17,7 +17,6 @@
     "watch": "cd client && yarn watch",
     "rebuild": "cd client && yarn rebuild-client",
     "dev": "concurrently \"yarn component-dev\" \"yarn start\" ",
-    "develop": "yarn watch && cd client && yarn develop && yarn start-server",
     "test": "cd client && yarn test",
     "test-local": "cd e2e && yarn test-local",
     "test-unit": "cd client && yarn test:unit",

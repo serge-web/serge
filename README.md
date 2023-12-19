@@ -29,7 +29,7 @@ For front-end developers relying on live rebuilds, can simply run the following
 ```bash
   yarn install
   yarn build
-  yarn develop
+  yarn dev
 ```
 
 This will do all of the building for you and then start the front-end server. The development environment will start up, and after a few seconds the browser page will open at something like `localhost:3000`.  The IP address for the backend server should be appended to this, so the URL looks like: `http://localhost:3000/?host=http://192.168.1.115:8080`. 
@@ -104,7 +104,7 @@ The top level project contains scripts that are then executed for all packages.
 - `start` Runs the complete application in demo mode.
 - `start-client` Only starts the client application.
 - `start-server` Only starts the server application.
-- `develop` Runs the client and server applications as well as the Storybook application and watches for typescript errors.
+- `dev` Runs the client and server applications as well as the Storybook application and watches for typescript errors.
 - `serge` A friendly alias for `start-server`
 
 ## Database commands
