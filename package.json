@@ -20,6 +20,7 @@
     "test": "cd client && yarn test",
     "test-local": "cd e2e && yarn test-local",
     "test-unit": "cd client && yarn test:unit",
+    "test-playwright": "cd e2e/playwright_test && yarn test",
     "lint": "cd client && yarn lint",
     "storybook": "cd client && yarn storybook",
     "build-storybook": "cd client && yarn build-storybook",

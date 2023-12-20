@@ -1,0 +1,24 @@
+{
+  "name": "playwrightcicd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "report": "playwright show-report",
+    "test-json-report": "PLAYWRIGHT_JSON_OUTPUT_NAME=results.json playwright test --browser=chromium --reporter=json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.31.2"
+  },
+  "dependencies": {
+    "fetch": "^1.1.0",
+    "form-data": "^4.0.0",
+    "formdata": "^0.10.4",
+    "node-fetch": "^3.3.2",
+    "@faker-js/faker": "^8.0.2"
+  }
+}
