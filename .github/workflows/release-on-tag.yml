@@ -39,6 +39,12 @@ jobs:
 
       - name: Running unit testing
         run: yarn test-unit
+      
+      - name: Install Playwright
+        run: yarn create playwright
+
+      - name : Running playwright testing
+        run: yarn test-playwright
 
       - name: Build executable files
         run: yarn pkg-build
