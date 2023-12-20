@@ -16,7 +16,7 @@
     "install": "cd client && yarn install && cd ../executable && yarn install && cd ../server && yarn install",
     "watch": "cd client && yarn watch",
     "rebuild": "cd client && yarn rebuild-client",
-    "develop": "concurrently \"yarn component-dev\" \"yarn start\" ",
+    "develop": "concurrently \"yarn component-dev\" \"yarn start\" \"yarn storybook\"",
     "test": "cd client && yarn test",
     "test-local": "cd e2e && yarn test-local",
     "test-unit": "cd client && yarn test:unit",
