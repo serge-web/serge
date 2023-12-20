@@ -1,4 +1,5 @@
 import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
+import 'leaflet/dist/leaflet.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@material-ui/core'
 import Slide from '@mui/material/Slide'

@@ -87,7 +87,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
   }
 
   const onPropertiesChange = (key: string, value: any) => {
-    set(selectedProps, `0.${key}`, value)
+    set(selectedProps, key, value)
     setSelectedProps(cloneDeep(selectedProps))
   }
 
@@ -104,7 +104,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
     cloneFeature.features = cloneFeature.features.filter((f) => {
       let found = true
       Object.keys(selectedFiltersProps).forEach((filterKey) => {
-        if (!get(f.properties, filterKey, '').toLowerCase().includes(selectedFiltersProps[filterKey].toLowerCase())) {
+        if (!get(f.properties, filterKey, '').toString().toLowerCase().includes(selectedFiltersProps[filterKey].toLowerCase())) {
           found = false
         }
       })
