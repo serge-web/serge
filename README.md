@@ -37,7 +37,7 @@ This will do all of the building for you and then start the front-end server. Th
 Note: to get into the backend in admin mode, you may need to use a URL like: 
 `http://localhost:3000/serge/admin?host=http://localhost:8080`
 
-This will also start our Storybook implementation for more information about that, please see the [readme in the components package](packages/components/README.md). If you'd rather not run storybook as part of this process, then simply run `yarn dev` instead of `yarn develop`
+This will also start our Storybook implementation for more information about that, please see the [readme in the components package](client/src/Components/local/README.md). If you'd rather not run storybook as part of this process, then simply run `yarn dev` instead of `yarn develop`
 
 ## Quick access to games & roles
 
@@ -47,17 +47,25 @@ Again for developers, there are convenient ways of going directly into a particu
 http://localhost:3000/?wargame=wargame-k5kw38gf&access=p5543
 ```
 
-## Monorepo & package management
+## Monolith & Package Management
 
-This repo is a monorepo using [Lerna](https://github.com/lerna/lerna). 
+This repo has transitioned from a monorepo structure to a monolith.
 
->Splitting up large codebases into separate independently versioned packages is extremely useful for code sharing. However, making changes across many repositories is messy and difficult to track, and testing across repositories gets complicated really fast.
->
->To solve these (and many other) problems, some projects will organize their codebases into multi-package repositories (sometimes called monorepos).
+This repository has shifted from a monorepo utilizing Lerna [Lerna](https://github.com/lerna/lerna) to a monolith architecture built with Vite [Vite](https://vitejs.dev/)..
 
-Each package folder has it's own npm package.json and is automatically linked together with lerna. Just remember to add the package to the `dependencies` section of package.json (don't forget to prefix with the `@serge` scope!) and then run `yarn install` in the root of the repo.
+>Managing a monolith provides simplicity and ease of development, especially when splitting codebases into separate repositories introduces unnecessary complexity.
 
-Manage dependencies for packages like normal, but remember to use `yarn add` instead of `npm install`.
+>A monolith, in this context, refers to a single codebase that encompasses all the code for the application. This approach simplifies code organization and development workflows.
+
+In the monolith, dependencies are managed from their respective root `package.json` file, such as 
+
+`/server/`, `/client`, `/executable/`, `/e2e/`   
+
+To add or update dependencies, navigate to the specific directory and use the following command: `yarn add <package-name>`
+
+Feel free to replace `package-name` with the actual name of the package you intend to add or update.
+
+>Manage dependencies for packages like normal, but remember to use `yarn add` instead of `npm install`.
 
 ## Run locally
 
