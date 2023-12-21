@@ -48,7 +48,7 @@ jobs:
         run: |
           echo "yarn develop" >> myscript.sh
           chmod +x myscript.sh
-          setsid myscript.sh >/dev/null 2>&1 < /dev/null & npm run test-playwright
+          setsid myscript.sh >/dev/null 2>&1 < /dev/null & sleep 1m & npm run test-playwright
         
       - name : Build executable files
         run: yarn pkg-build
