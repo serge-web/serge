@@ -55,6 +55,17 @@ jobs:
           path: /home/runner/work/serge/serge/e2e/playwright_test/playwright-report/
           retention-days: 30
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          # Upload entire repository
+          path: e2e/playwright_test/playwright-report
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1
+
       - name : Build executable files
         run: yarn pkg-build
 
