@@ -3,5 +3,5 @@ export const config = {
   };
 
   export const Constants = {
-    defaultPassword: 'Nelson'
+    defaultPassword: 'Nelson123'
   };
