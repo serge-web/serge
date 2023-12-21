@@ -4,7 +4,6 @@
     }
 
     export function generateText(length: number) {
-        const now = new Date().getTime();
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const charactersLength = characters.length;
@@ -17,7 +16,6 @@
     }
 
     export function generateCode(length: number) {
-        const now = new Date().getTime();
         let result = '';
         const characters = '0123456789';
         const charactersLength = characters.length;

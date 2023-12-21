@@ -1,4 +1,4 @@
-import { Page, expect, test } from '@playwright/test';
+import { test } from '@playwright/test';
 import { Constants, config } from '../helpers/constants';
 import { LoginPage} from '../page/login.po';
 
