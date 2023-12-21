@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from './basePage.po';
 
 export class LoginPage extends BasePage{
@@ -22,12 +22,12 @@ async inputLoginForm(pass :string) {
   await this.enterButton.click();
 }
 
-async verifyLoginFailed() {
-  await this.errorMsg.isVisible();
+async verifyLoginFail() {
+  await expect(this.errorMsg).toBeVisible();
 }
 
-async verifyLoginPassed() {
-  await this.navBar.first().isVisible();
+async verifyLoginPass() {
+  await expect(this.navBar.first()).toBeVisible();
 }
 
 }
