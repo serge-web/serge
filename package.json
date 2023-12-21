@@ -13,7 +13,7 @@
     "start": "concurrently \"yarn start-server\" \"yarn start-client\"",
     "start-client": "cd client && yarn start",
     "start-server": "cd server && yarn start",
-    "install": "cd client && yarn install && cd ../executable && yarn install && cd ../server && yarn install",
+    "install": "cd client && yarn install && cd ../executable && yarn install && cd ../server && yarn install && cd e2e/playwright_test && yarn install",
     "watch": "cd client && yarn watch",
     "rebuild": "cd client && yarn rebuild-client",
     "develop": "concurrently \"yarn watch\" \"cd client && yarn develop\" \"yarn start-server\" \"yarn storybook\"",

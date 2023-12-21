@@ -42,10 +42,10 @@ jobs:
         run: yarn test-unit
       
       - name: Install Playwright
-        run: yarn create playwright
+        run: npx playwright install --with-deps
 
       - name : Running playwright testing
-        run: yarn test-playwright
+        run: npm run test-playwright
         
       - name : Build executable files
         run: yarn pkg-build
