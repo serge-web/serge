@@ -41,7 +41,7 @@ jobs:
         run: yarn test-unit
       
       - name: Install Playwright
-        run: yarn create playwright
+        run: npx playwright install --with-deps
 
       - name : Running playwright testing
         run: setsid yarn develop >/dev/null 2>&1 < /dev/null & sleep 1m & yarn test-playwright
