@@ -22,11 +22,11 @@ async inputLoginForm(pass :string) {
   await this.enterButton.click();
 }
 
-async verifyLoginFail() {
+async verifyLoginFailed() {
   await expect(this.errorMsg).toBeVisible();
 }
 
-async verifyLoginPass() {
+async verifyLoginPassed() {
   await expect(this.navBar.first()).toBeVisible();
 }
 
