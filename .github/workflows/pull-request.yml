@@ -47,6 +47,14 @@ jobs:
       - name : Running playwright testing
         run: setsid yarn develop >/dev/null 2>&1 < /dev/null & sleep 1m & yarn test-playwright
         
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: /home/runner/work/serge/serge/e2e/playwright_test/playwright-report/
+          retention-days: 30
+
       - name : Build executable files
         run: yarn pkg-build
 
@@ -70,11 +78,3 @@ jobs:
           name: win64_executable
           path: /home/runner/work/serge/serge/executable/builds/*_win64.zip
           if-no-files-found: error
-      
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: /home/runner/work/serge/serge/e2e/playwright_test/playwright-report/
-          retention-days: 30
