@@ -16,6 +16,16 @@ const matchedRole = (role: Role['roleId'], selectedRole: string): boolean => (
   role === selectedRole
 )
 
+// Finds the first participant in the given array of channel participants
+export const findParticipatingForce = (channelParts: CoreParticipant[], selectedForce: string): CoreParticipant | undefined => {
+  return channelParts && channelParts.find((p: CoreParticipant) => matchedForceFilter(p.forceUniqid, selectedForce))
+}
+
+// Filters the array of channel participants based on selectedForce and selectedRole
+export const filterParticipatingRoles = (channelParts: CoreParticipant[], selectedForce: string, selectedRole: Role['roleId']): CoreParticipant[] => {
+  return channelParts.filter(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
+}
+
 /** check if the current player role is named for the channel, or if no roles are named */
 export const matchedForceAndRoleFilter = (participant: CoreParticipant, selectedForce: string | undefined, selectedRole: Role['roleId']): boolean => (
   selectedForce !== undefined &&
