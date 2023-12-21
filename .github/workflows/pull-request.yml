@@ -45,10 +45,7 @@ jobs:
         run: npx playwright install --with-deps
 
       - name : Running playwright testing
-        run: |
-          echo "yarn develop" >> myscript.sh
-          chmod +x myscript.sh
-          setsid yarn develop >/dev/null 2>&1 < /dev/null & sleep 1m & yarn test-playwright
+        run: setsid yarn develop >/dev/null 2>&1 < /dev/null & sleep 1m & yarn test-playwright
         
       - name : Build executable files
         run: yarn pkg-build

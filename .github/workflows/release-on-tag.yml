@@ -47,7 +47,7 @@ jobs:
         run: yarn create playwright
 
       - name : Running playwright testing
-        run: yarn test-playwright
+        run: setsid yarn develop >/dev/null 2>&1 < /dev/null & sleep 1m & yarn test-playwright
 
       - name: Build executable files
         run: yarn pkg-build
