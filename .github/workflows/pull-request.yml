@@ -41,6 +41,9 @@ jobs:
       - name : Running unit testing
         run: yarn test-unit
       
+      - name: Running the app
+        run: yarn develop
+
       - name: Install Playwright
         run: npx playwright install --with-deps
 

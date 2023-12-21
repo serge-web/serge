@@ -36,12 +36,13 @@ For front-end developers relying on live rebuilds, can simply run the following
 
 For front-end developers relying on live rebuilds, can simply run the following
 
-
 ```bash
   yarn install
   yarn build
+  yarn develop
   yarn test-playwright
 ```
+
 This will do all of the building for you and then start the front-end server. The development environment will start up, and after a few seconds the browser page will open at something like `localhost:3000`.  The IP address for the backend server should be appended to this, so the URL looks like: `http://localhost:3000/?host=http://192.168.1.115:8080`. 
 
 Note: to get into the backend in admin mode, you may need to use a URL like: 
