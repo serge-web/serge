@@ -30,8 +30,3 @@ export const matchedForceAndRoleFilter = (participant: CoreParticipant, selected
 export const matchedV3AllRolesFilter = (participant: CoreParticipant, selectedForce: string): boolean => (
   participant.roles.length === 0 && matchedForceFilter(participant.forceUniqid, selectedForce)
 )
-
-// Filters the array of channel participants based on selectedForce and selectedRole
-export const filterParticipatingRoles = (channelParts: CoreParticipant[], selectedForce: string, selectedRole: Role['roleId']): CoreParticipant[] => {
-  return channelParts.filter(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
-}
