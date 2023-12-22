@@ -2,7 +2,7 @@ import { CHANNEL_CUSTOM, PARTICIPANT_CUSTOM } from 'src/config'
 import { ChannelCustom, Role, TemplateBodysByKey, TemplateBody } from 'src/custom-types'
 import { CoreParticipant } from 'src/custom-types/participant'
 import { forces } from 'src/mocks'
-import { checkLegacyParticipantStates, deepCopy, getParticipantStates, checkV3ParticipantStates } from '../'
+import { deepCopy, getParticipantStates, checkV3ParticipantStates } from '../'
 import { addTemplate, addTemplatesToChosen } from '../participant-states'
 import { getTemplateById, getTemplateByIdNoUndefined } from '../getTemplateById'
 const gameControl: Role = forces[0].roles[0]
@@ -72,78 +72,6 @@ const allTemplates: TemplateBodysByKey = {
   ...allTemplatesNoChat
 }
 
-describe('checkLegacyParticipantStates', () => {
-  it('Check umpire in channel', () => {
-    const selForce = 'umpire'
-    const selRole = gameControl.name
-    const isObserver = false
-    const res = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, isObserver)
-    expect(res).toBeTruthy()
-    expect(res.isParticipant).toBeTruthy()
-    expect(res.templatesIDs).toBeTruthy()
-    expect(res.templatesIDs.length).toEqual(1)
-    expect(res.allRolesIncluded).toBeTruthy()
-  })
-
-  it('Check member force in named role in channel', () => {
-    const selForce = 'Red'
-    const selRole = redLogs.roleId
-    const res = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, false)
-    expect(res).toBeTruthy()
-    expect(res.isParticipant).toBeTruthy()
-    expect(res.templatesIDs).toBeTruthy()
-    expect(res.templatesIDs.length).toEqual(0)
-    expect(res.allRolesIncluded).toBeFalsy()
-  })
-
-  it('Check non-member force in named role in channel', () => {
-    const selForce = 'Red'
-    const selRole = 'rkrlw6f5m'
-    const res = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, false)
-    expect(res).toBeTruthy()
-    expect(res.templatesIDs).toBeTruthy()
-    expect(res.isParticipant).toBeFalsy()
-    expect(res.templatesIDs.length).toEqual(0)
-    expect(res.allRolesIncluded).toBeFalsy()
-  })
-
-  it('Check non-member force in named role in channel where no roles named', () => {
-    const selForce = 'Blue'
-    const selRole = 'rkrlw6f5n'
-    const res = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, false)
-    expect(res).toBeTruthy()
-    expect(res.isParticipant).toBeTruthy()
-    expect(res.templatesIDs).toBeTruthy()
-    expect(res.templatesIDs.length).toEqual(0)
-    expect(res.allRolesIncluded).toBeTruthy()
-  })
-
-  it('Check missing force not in channel', () => {
-  // get rid of the white force mmembership
-    const newChannel: ChannelCustom = deepCopy(allForcesChannel)
-    newChannel.participants = newChannel.participants.filter((part: CoreParticipant) => part.forceUniqid !== 'Blue')
-    const selForce = 'Blue'
-    const selRole = gameControl.roleId
-    const res = checkLegacyParticipantStates(newChannel, selForce, selRole, false)
-    expect(res).toBeTruthy()
-    expect(res.templatesIDs).toBeTruthy()
-    expect(res.isParticipant).toBeFalsy()
-  })
-
-  it('Check missing force in channel if observer', () => {
-  // get rid of the white force mmembership
-    const newChannel: ChannelCustom = deepCopy(allForcesChannel)
-    newChannel.participants = newChannel.participants.filter((part: CoreParticipant) => part.forceUniqid !== 'umpire')
-    const selForce = 'umpire'
-    const selRole = gameControl.roleId
-    const res = checkLegacyParticipantStates(newChannel, selForce, selRole, true)
-    expect(res).toBeTruthy()
-    expect(res.isParticipant).toBeFalsy()
-    expect(res.templatesIDs).toBeTruthy()
-    expect(res.allRolesIncluded).toBeFalsy()
-  })
-})
-
 describe('checkV3ParticipantStates', () => {
   it('Check umpire in channel with V3', () => {
     const selForce = 'umpire'
@@ -206,7 +134,7 @@ describe('addTemplatesToChosen', () => {
     const chosenTemplates: TemplateBody[] = []
     const templatesUniqFilter: { [property: string]: boolean } = {}
 
-    const { templatesIDs } = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, isObserver)
+    const { templatesIDs } = checkV3ParticipantStates(allForcesChannel, selForce, selRole, isObserver)
 
     addTemplatesToChosen(templatesIDs, allTemplates, chosenTemplates, templatesUniqFilter)
 
@@ -223,7 +151,7 @@ describe('addTemplatesToChosen', () => {
     const chosenTemplates: TemplateBody[] = []
     const templatesUniqFilter: { [property: string]: boolean } = {}
 
-    const { templatesIDs } = checkLegacyParticipantStates(allForcesChannel, selForce, selRole, isObserver)
+    const { templatesIDs } = checkV3ParticipantStates(allForcesChannel, selForce, selRole, isObserver)
 
     addTemplatesToChosen(templatesIDs, allTemplates, chosenTemplates, templatesUniqFilter)
     

@@ -2,7 +2,7 @@ import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHAT_MESSAGE_TEMPLATE_ID,
 import { ChannelCollab, ChannelTypes, ParticipantTemplate, Role, TemplateBody, TemplateBodysByKey } from 'src/custom-types'
 import { CoreParticipant, ParticipantCustom } from 'src/custom-types/participant'
 import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
-import { matchedAllRolesFilter, matchedForceFilter, matchedV3AllRolesFilter, matchedV3ForceAndRoleFilter, findParticipatingForce, filterParticipatingRoles } from './participant-filters'
+import { matchedForceFilter, matchedV3AllRolesFilter, matchedForceAndRoleFilter } from './participant-filters'
 
 export interface CheckParticipantStates {
   /** whether role is participant in channel */
@@ -35,33 +35,6 @@ const extractTemplatesFromCustomRoles = (participatingRoles: CoreParticipant[]):
 /** find out if the role is active in the supplied channel
  * Always returns a structure, use isParticipant to determine if role is in channel (registered or as observer)
 */
-export const checkLegacyParticipantStates = (channel: ChannelTypes, selectedForce: string | undefined, selectedRole: Role['roleId'], isObserver: boolean): CheckParticipantStates => {
-  if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-  const channelParts: CoreParticipant[] = channel.participants
-  const participatingForce = findParticipatingForce(channelParts, selectedForce)
-
-  // not a member of this channel, return false answer
-  if (!participatingForce && !isObserver) {
-    return {
-      isParticipant: false,
-      templatesIDs: [],
-      allRolesIncluded: false
-    }
-  }
-
-  // is a member of this channel, find out if they're named, or a where all roles for this force are in channel
-  const participatingRoles = filterParticipatingRoles(channelParts, selectedForce, selectedRole)
-  const templates: ParticipantTemplate[] = extractTemplatesFromCustomRoles(participatingRoles)
-  return {
-    isParticipant: participatingRoles.length > 0,
-    templatesIDs: templates,
-    allRolesIncluded: !!channelParts.find(p => matchedAllRolesFilter(p, selectedForce))
-  }
-}
-
-/** find out if the role is active in the supplied channel
- * Always returns a structure, use isParticipant to determine if role is in channel (registered or as observer)
-*/
 export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: string | undefined, selectedRole: Role['roleId'], isObserver: boolean): CheckParticipantStates => {
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   const channelParts: CoreParticipant[] = channel.participants
@@ -76,7 +49,7 @@ export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: s
   }
 
   const templateIDs: ParticipantTemplate[] = []
-  const participatingRoles: CoreParticipant[] = channelParts.filter((p: CoreParticipant) => matchedV3ForceAndRoleFilter(p, selectedForce, selectedRole))
+  const participatingRoles: CoreParticipant[] = channelParts.filter((p: CoreParticipant) => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
   switch (channel.channelType) {
     case CHANNEL_COLLAB: {
       const collab = channel as ChannelCollab
@@ -96,7 +69,6 @@ export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: s
   }
 
   // is a member of this channel, find out if they're named, or a where all roles for this force are in channel
-  // const participatingRole: Participant | undefined = channel.participants.find(p => matchedForceAndRoleFilter(p, selectedForce, selectedRole))
   return {
     isParticipant: participatingRoles.length > 0,
     templatesIDs: templateIDs,
@@ -181,14 +153,11 @@ export const getParticipantStates = (
   let templates: TemplateBody[] = []
   const templatesUniqFilter: { [property: string]: boolean } = {}
 
-  const channelAsV3 = channel as ChannelTypes
-  const isLegacyChannel = !channelAsV3.channelType
-
   const {
     isParticipant,
     templatesIDs,
     allRolesIncluded
-  }: CheckParticipantStates = isLegacyChannel ? checkLegacyParticipantStates(channel, forceId, role, isObserver) : checkV3ParticipantStates(channelAsV3, forceId, role, isObserver)
+  }: CheckParticipantStates = checkV3ParticipantStates(channel, forceId, role, isObserver)
 
   const chatTemplate = getTemplateById(allTemplatesByKey, defaultMessageId)
   if (typeof chatTemplate === 'undefined') {
