@@ -1,4 +1,4 @@
-import { Locator, Page, expect } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 import { BasePage } from './basePage.po';
 
 export class ForcePage extends BasePage{
@@ -124,12 +124,11 @@ export class ForcePage extends BasePage{
 
   async selectLogo(logoPath : string) {
      await this.changeIconBtn.click();
-    // await this.dragDropLogoText.first().click();
     const fileInput = await this.page.$('input[type=file]');
     if(fileInput != null)
     // Set the value of the file input to the path of the file you want to upload
       await fileInput.setInputFiles(logoPath);
-      await this.changeIconBtn.click();
+    await this.changeIconBtn.click();
   }
 
   async clickUmpireSelection() {
