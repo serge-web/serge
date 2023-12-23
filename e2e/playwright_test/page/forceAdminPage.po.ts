@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './basePage.po';
 
-export class ForcePage extends BasePage{
+export class ForceAdminPage extends BasePage{
   readonly page: Page;
   readonly addANewForceBtn: Locator;
   readonly gameNameInput: Locator;

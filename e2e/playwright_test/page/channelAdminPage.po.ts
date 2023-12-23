@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './basePage.po';
 
-export class ChannelPage extends BasePage{
+export class ChannelAdminPage extends BasePage{
   readonly page: Page;
   readonly addAChannelBtn: Locator;
   readonly gameNameInput: Locator;

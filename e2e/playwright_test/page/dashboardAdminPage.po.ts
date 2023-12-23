@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './basePage.po';
 
-export class DashboardPage extends BasePage{
+export class DashboardAdminPage extends BasePage{
   readonly page: Page;
   readonly customNav: any;
   readonly messageTemplatesNav: Locator;

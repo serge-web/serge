@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
 import { BasePage } from './basePage.po';
 
-export class OverViewPage extends BasePage{
+export class OverViewAdminPage extends BasePage{
   readonly page: Page;
   readonly gameNameInput: any;
   readonly overviewMenu: Locator;
