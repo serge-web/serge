@@ -92,7 +92,7 @@ export class ForceAdminPage extends BasePage{
 
   async inputNameForce(name : string) {
     await this.waitForLoadStateWithDomcontentloaded();
-    await this.page.waitForTimeout(2000);
+    //await this.page.waitForTimeout(2000);
     await this.nameForceInput.fill(name);
   }
 
@@ -109,7 +109,7 @@ export class ForceAdminPage extends BasePage{
   }
 
   async addRole(roleName:string) {
-    await this.page.waitForTimeout(2000);
+    //await this.page.waitForTimeout(2000);
     if(await this.addRoleBtn.isHidden())
       await this.clickRoleSection();
     await this.addRoleBtn.click();

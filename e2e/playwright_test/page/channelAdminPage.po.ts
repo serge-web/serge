@@ -73,7 +73,7 @@ export class ChannelAdminPage extends BasePage{
   }
 
   async clickSaveChannelButton() {
-    await this.page.waitForTimeout(2000);
+    //await this.page.waitForTimeout(2000);
     await this.saveChannelBtn.click();
   }
 
@@ -107,22 +107,22 @@ export class ChannelAdminPage extends BasePage{
   }
 
   async clickSaveRowChannelIcon(force:string , role : String) {
-    await this.page.waitForTimeout(2000);
+    //await this.page.waitForTimeout(2000);
     await this.saveRowChannel(force, role).click();
   }
 
   async clickEditRowChannelIcon(force:string , role : String) {
-    await this.page.waitForTimeout(2000);
+    //await this.page.waitForTimeout(2000);
     await this.editRowChannel(force, role).click();
   }
 
   async ClickDeleteRowChannelIcon(force:string , role : String) {
-    await this.page.waitForTimeout(2000);
+    //await this.page.waitForTimeout(2000);
     await this.delRowChannel(force, role).click();
   }
 
   async ClickResetRowChannelIcon(force:string , role : String) {
-    await this.page.waitForTimeout(2000);
+    //await this.page.waitForTimeout(2000);
     await this.resetRowChannel(force, role).click();
   }
 
