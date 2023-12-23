@@ -168,15 +168,15 @@ const runServer = (
     res.status(200).send({ path: imagePath })
   })
 
-  if (remoteServer) {
-    app.get(clientBuildPath + '/gconfig.js', (req, res) => {
-      res.type('.js').send(`
-        window.G_CONFIG = {
-          REACT_APP_SERVER_PATH: "${remoteServer}"
-        }
-      `)
-    })
-  }
+  // if (remoteServer) {
+  //   app.get(clientBuildPath + '/gconfig.js', (req, res) => {
+  //     res.type('.js').send(`
+  //       window.G_CONFIG = {
+  //         REACT_APP_SERVER_PATH: "${remoteServer}"
+  //       }
+  //     `)
+  //   })
+  // }
 
   const file404Error = (req, res) => res.send(404, '404: File not found')
   app.use(express.static(path.join(__dirname, clientBuildPath)))

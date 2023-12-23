@@ -22,8 +22,8 @@ async clickOut(): Promise<void> {
 }
 
 async verifyTextIsvisible(locator : Locator) {
-  // await locator.first().waitFor({state: "visible"})
-  // await expect(locator.first()).toBeVisible();
+  await locator.first().waitFor({state: "visible"})
+  await expect(locator.first()).toBeVisible();
 }
 
 }
