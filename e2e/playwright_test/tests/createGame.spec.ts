@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import { Constants, config } from '../helpers/constants';
 import { DashboardAdminPage} from '../page/dashboardAdminPage.po';
 import { LoginAdminPage} from '../page/loginAdminPage.po';
+import { LoginGamePage} from '../page/loginGamePage.po';
 import { OverViewAdminPage} from '../page/overViewAdminPage.po';
 import { ForceAdminPage} from '../page/forceAdminPage.po';
 import { ChannelAdminPage} from '../page/channelAdminPage.po';
@@ -11,6 +12,7 @@ test('Create a simple flow game successfully', async ({ page }) => {
   page.setViewportSize({ width: 1500, height: 1000 });
   const dashboardPage = new DashboardAdminPage(page)
   const loginAdminPage = new LoginAdminPage(page)
+  const loginGamePage = new LoginGamePage(page)
   const overViewAdminPage = new OverViewAdminPage(page)
   const forceAdminPage = new ForceAdminPage(page)
   const channelAdminPage = new ChannelAdminPage(page)
@@ -18,7 +20,8 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await loginAdminPage.inputLoginForm(Constants.defaultPassword);
   await loginAdminPage.verifyLoginPassed();
   dashboardPage.clickMenuBar('Create');
-  await overViewAdminPage.inputGameName('Tutorial ' + generateCode(5));
+  const gameName = 'Tutorial ' + generateCode(5);
+  await overViewAdminPage.inputGameName(gameName);
   await overViewAdminPage.verifyNameOfGameIsSaved();
   await overViewAdminPage.inputDescriptionGame('This is the tutorial for basic flow game');
   await overViewAdminPage.saveOverView();
@@ -100,6 +103,13 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await channelAdminPage.clickSaveRowChannelIcon('Red', 'Media');
   await channelAdminPage.clickSaveChannelButton();
   await channelAdminPage.verifySaveChannelSuccess();
+
+  await loginGamePage.openUrl(config.BASE_URL);
+  await loginGamePage.clickPlayGameBtn();
+  await loginGamePage.selectGame(gameName);
+  await loginGamePage.verifyRoleOfForceIsVisible("Red","CO");
+
+
 });
 
 

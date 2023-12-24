@@ -28,8 +28,8 @@ export class OverViewAdminPage extends BasePage{
 
   async inputGameName(name :string) {
     await this.overviewMenu.waitFor();
-    await this.gameNameInput.fill(name);
     await this.page.waitForTimeout(2000);
+    await this.gameNameInput.fill(name);
     await this.saveNameGame.click();
   }
 
