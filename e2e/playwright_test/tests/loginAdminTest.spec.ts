@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
 import { Constants, config } from '../helpers/constants';
-import { LoginAdminPage} from '../page/loginAdminPage.po';
+import { LoginAdminPage} from '../page/admin/loginAdminPage.po';
 
 test('Print Hello world from test console', async ({ page }) => {
   console.log("Hello world");

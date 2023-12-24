@@ -1,11 +1,11 @@
 import { test } from '@playwright/test';
 import { Constants, config } from '../helpers/constants';
-import { DashboardAdminPage} from '../page/dashboardAdminPage.po';
-import { LoginAdminPage} from '../page/loginAdminPage.po';
+import { DashboardAdminPage} from '../page/admin/dashboardAdminPage.po';
+import { LoginAdminPage} from '../page/admin/loginAdminPage.po';
 import { LoginGamePage} from '../page/loginGamePage.po';
-import { OverViewAdminPage} from '../page/overViewAdminPage.po';
-import { ForceAdminPage} from '../page/forceAdminPage.po';
-import { ChannelAdminPage} from '../page/channelAdminPage.po';
+import { OverViewAdminPage} from '../page/admin/overViewAdminPage.po';
+import { ForceAdminPage} from '../page/admin/forceAdminPage.po';
+import { ChannelAdminPage} from '../page/admin/channelAdminPage.po';
 import { generateCode } from '../helpers/uniqueStr';
 
 test('Create a simple flow game successfully', async ({ page }) => {

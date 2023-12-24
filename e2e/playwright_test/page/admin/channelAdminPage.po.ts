@@ -1,5 +1,5 @@
 import { Locator, Page } from '@playwright/test';
-import { BasePage } from './basePage.po';
+import { BasePage } from '../basePage.po';
 
 export class ChannelAdminPage extends BasePage{
   readonly page: Page;
