@@ -39,11 +39,9 @@ export { default as mostRecentOnly } from './most-recent-only'
 export { default as newestPerRole, logTable } from './newest-per-role'
 export {
   matchedForceAndRoleFilter,
-  matchedAllRolesFilter,
   matchedForceFilter
 } from './participant-filters'
 export {
-  checkLegacyParticipantStates,
   checkV3ParticipantStates,
   getParticipantStates
 } from './participant-states'

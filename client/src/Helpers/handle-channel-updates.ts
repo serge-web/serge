@@ -171,7 +171,7 @@ export const handleAllInitialChannelMessages = (
       observing,
       templates
     } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
-
+    
     if ((isUmpire && isObserver) || isParticipant) {
       // TODO: define type for force Icons
       const forceIcons: any[] = []
@@ -204,7 +204,7 @@ export const handleAllInitialChannelMessages = (
       channels[channel.uniqid] = newChannel
     }
   })
-
+  
   return {
     channels,
     chatChannel: {
