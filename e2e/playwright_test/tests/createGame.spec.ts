@@ -108,6 +108,13 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await loginGamePage.clickPlayGameBtn();
   await loginGamePage.selectGame(gameName);
   await loginGamePage.verifyRoleOfForceIsVisible("Red","CO");
+  await loginGamePage.verifyRoleOfForceIsVisible("Red","Logs");
+  await loginGamePage.verifyRoleOfForceIsVisible("Red","Media");
+  await loginGamePage.verifyRoleOfForceIsVisible("Blue","Media");
+  await loginGamePage.verifyRoleOfForceIsVisible("Blue","Logs");
+  await loginGamePage.verifyRoleOfForceIsVisible("Blue","CO");
+  await loginGamePage.verifyRoleOfForceIsVisible("White","Game Control");
+  await loginGamePage.verifyRoleOfForceIsVisible("White","Media");
 
 
 });
