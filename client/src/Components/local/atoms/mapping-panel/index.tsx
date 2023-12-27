@@ -5,7 +5,7 @@ import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson
 import { cloneDeep, get, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
-import { CoreProperties } from 'src/custom-types'
+import { CoreProperties, PropertyTypes } from 'src/custom-types'
 import CustomDialog from '../custom-dialog'
 import IconRenderer from './helpers/icon-renderer'
 import PropertiesPanel from './helpers/properties-panel'
@@ -16,12 +16,13 @@ import { SelectedProps } from './types/props'
 type MappingPanelProps = {
   onClose: () => void
   features?: FeatureCollection<Geometry, GeoJsonProperties>
+  extraFilterProps: PropertyTypes[]
 }
 
 const modalStyle = { content: { width: '450px' } }
 const bodyStyle = { padding: '5px' }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps }): React.ReactElement => {
   const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
   const [propertyFiltersListPanel, setPropertyFiltersListPanel] = useState<string[]>([])
@@ -45,7 +46,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
         if (propKey.startsWith('_')) {
           return result
         }
-        result[propKey] = properties[propKey] as any
+        const extraProps = extraFilterProps.find(prop => prop.id === propKey)
+        result[propKey] = {
+          value: properties[propKey] as any,
+          choices: get(extraProps, 'choices', [])
+        }
         return result
       }, {})
       setSelectedProps(propsList)
@@ -68,7 +73,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
   
   const applyFilter = useCallback(() => {
     const selectedFilterOpts = propertyFiltersListPanel.reduce((res, key): SelectedProps => {
-      res[key] = ''
+      const extraProps = extraFilterProps.find(prop => prop.id === key)
+      res[key] = {
+        value: '',
+        choices: get(extraProps, 'choices', [])
+      }
       return res
     }, {})
     setSelectedFiltersProps(selectedFilterOpts)
@@ -87,12 +96,14 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
   }
 
   const onPropertiesChange = (key: string, value: any) => {
-    set(selectedProps, key, value)
+    const prevValue = get(selectedProps, key)
+    set(prevValue, 'value', value)
     setSelectedProps(cloneDeep(selectedProps))
   }
 
   const onFilterPropertiesChange = (key: string, value: string) => {
-    set(selectedFiltersProps, key, value)
+    const prevValue = get(selectedFiltersProps, key)
+    set(prevValue, 'value', value)
     setSelectedFiltersProps(cloneDeep(selectedFiltersProps))
   }
 
@@ -104,7 +115,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features })
     cloneFeature.features = cloneFeature.features.filter((f) => {
       let found = true
       Object.keys(selectedFiltersProps).forEach((filterKey) => {
-        if (!get(f.properties, filterKey, '').toString().toLowerCase().includes(selectedFiltersProps[filterKey].toLowerCase())) {
+        if (!get(f.properties, filterKey, '').toString().toLowerCase().includes(selectedFiltersProps[filterKey].value.toLowerCase())) {
           found = false
         }
       })

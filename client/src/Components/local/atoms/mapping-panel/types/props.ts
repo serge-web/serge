@@ -1,5 +1,5 @@
 export type SelectedProps = {
-  [key: string]: string
+  [key: string]: any
 }
 
 export type ProppertiesPanelProps = {

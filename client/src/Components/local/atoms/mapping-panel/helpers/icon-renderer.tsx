@@ -30,7 +30,7 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }
           size="small"
         />
       }
-      label={feature.properties?.label}
+      label={feature.properties?.label || feature.properties?.id}
       value={feature.properties?.id}
     />
     <div ref={iconRef}>
