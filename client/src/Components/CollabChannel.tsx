@@ -130,7 +130,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
     })
   }
-
+  
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>

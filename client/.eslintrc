@@ -61,6 +61,7 @@
     "react/no-deprecated": "off",
     "prefer-promise-reject-errors": "off",
     "camelcase": "off",
+    "complexity": ["error", 12],
     "eqeqeq": "off",
     "semi": ["error", "never"],
     "@typescript-eslint/ban-ts-ignore": "off",
