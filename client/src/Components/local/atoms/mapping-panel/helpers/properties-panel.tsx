@@ -12,9 +12,10 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
         return <div key={kIdx} className={styles.itemsBox}>
           <p>{key}:</p>
           <div>
-            {choices.length > 0 ? <select value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
-              {choices.map((o: string) => (<option key={o} value={o}>{o}</option>))}
-            </select>
+            {choices.length > 0
+              ? <select value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
+                {choices.map((o: string) => (<option key={o} value={o}>{o}</option>))}
+              </select>
               : <input value={value} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
             }
                
