@@ -15,4 +15,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <MappingPanel onClose={noop}/>
+export const Default: React.FC = () => <MappingPanel onClose={noop} extraFilterProps={[]}/>
