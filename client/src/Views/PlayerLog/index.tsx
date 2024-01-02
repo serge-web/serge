@@ -1,14 +1,12 @@
 /* eslint-disable no-mixed-operators */
-import { faAddressBook, faEnvelopeOpen, faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faAddressBook } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 import ReactTable from '../../Components/local/react-table'
 import { Row } from '../../Components/local/react-table/types/props'
 import MoreInfo from '../../Components/local/molecules/more-info'
 import { setMessageState } from 'src/Helpers'
-import { ForceData, PlayerLogEntry, PlayerMessage, PlayerMessageLog, Role, RootState } from 'src/custom-types'
-import { uniq } from 'lodash'
-import moment from 'moment'
+import { PlayerLogEntry, PlayerMessage, PlayerMessageLog, RootState } from 'src/custom-types'
 import React, { useEffect, useMemo, useState } from 'react'
 import Modal from 'react-modal'
 import { getPlayerActivityLogs } from '../../api/wargames_api'
@@ -18,12 +16,10 @@ import { useSelector } from 'react-redux'
 import styles from './styles.module.scss'
 import { PlayerLogModal, PlayerLogProps } from './types/props'
 import deepCopy from '../../Helpers/copyStateHelper'
+import buildLogData, { getUniqueRoles } from './helpers/playerLogUtils'
 // interval between UI refreshes
 const REFRESH_PLAYER_LOG_INTERVAL = 5000
 const PLAYER_LOG_QUERY = 'logs-latest'
-
-// the player must have been active within this threshold to be treated as `ACTIVE`
-const AGE_FOR_ACTIVE_MILLIS = 60000
 
 const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handlePlayerlogsMarkAllAsRead, handlePlayerlogsMarkAllAsUnread, playerLogsActivity }): React.ReactElement => {
   const { allForces, playerMessageLog, currentWargame, selectedRole, selectedForce } = usePlayerUiState()
@@ -52,43 +48,19 @@ const PlayerLogComponent: React.FC<PlayerLogProps> = ({ isOpen, onClose, handleP
   }, [isOpen, playerMessageLog, onlyActivePlayers])
 
   const selectedForceId = selectedForce ? selectedForce.uniqid : ''
-  
+
   const collatePlayerLogData = (messageLog: PlayerMessageLog): void => {
-    getPlayerActivityLogs(currentWargame, currentDbname, PLAYER_LOG_QUERY).then((activityLog) => {  
-      setPlayerLogData([])
-      const activityLogsForThisWargame: PlayerLogEntry[] = deepCopy(activityLog)
-      const allActivityRoles = activityLogsForThisWargame.map((value: PlayerLogEntry) => value.role)
-      const activityRoles = uniq(allActivityRoles)
-      const messageRoles = Object.values(messageLog).map((value: PlayerMessage) => value.roleId)
-      const knownRoles = activityRoles.concat(messageRoles)
-      const uniqueRoles = uniq(knownRoles)
-      const logData: PlayerLogModal[] = []
-      allForces.forEach((force: ForceData) => {
-        force.roles.forEach((role: Role) => {
-          if (!onlyActivePlayers || uniqueRoles.includes(role.roleId)) {
-            const thisRoleActivities = activityLogsForThisWargame.filter((value: PlayerLogEntry) => value.role === role.roleId)
-            const lastActivity = thisRoleActivities && thisRoleActivities[thisRoleActivities.length - 1]
-            const lastMessage = messageLog[role.roleId]
-            const activatyhasBennRead = (lastMessage && lastMessage.hasBeenRead) || undefined
-            const readIcon = <FontAwesomeIcon color={activatyhasBennRead ? '#838585' : '#69c'} icon={activatyhasBennRead ? faEnvelopeOpen : faEnvelope} />
-            const message = (lastMessage && <>{lastMessage.lastMessageTitle} {readIcon}</>) || <>N/A</>
-            const messageTime = lastMessage && lastMessage.lastMessageTime
-            const activityTime = (lastActivity && lastActivity.activityTime) || ''
-            logData.push({
-              forceName: force.name,
-              forceColor: force.color,
-              roleName: role.name,
-              message,
-              lastMessage: messageTime,
-              lastActive: activityTime,
-              lastActivity: lastActivity ? lastActivity.activityType.aType : 'N/A',
-              active: activityTime && (moment().diff(moment(activityTime))) < AGE_FOR_ACTIVE_MILLIS || false
-            })
-          }
-        })
+    getPlayerActivityLogs(currentWargame, currentDbname, PLAYER_LOG_QUERY)
+      .then((activityLog) => {
+        setPlayerLogData(processLogData(activityLog, messageLog))
       })
-      setPlayerLogData(logData)
-    })
+  }
+  
+  const processLogData = (activityLog: PlayerLogEntry[], messageLog: PlayerMessageLog): PlayerLogModal[] => {
+    const activityLogsForThisWargame = deepCopy(activityLog)
+    const uniqueRoles = getUniqueRoles(activityLogsForThisWargame, messageLog)
+    const logData = buildLogData(allForces, onlyActivePlayers, activityLogsForThisWargame, messageLog, uniqueRoles)
+    return logData
   }
   
   // NOTE: deepScan error

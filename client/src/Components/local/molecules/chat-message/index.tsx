@@ -26,7 +26,7 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
       </span>
     </span>
   )
-
+  
   // TODO: use turn marker as we found when we load existing messages. This workaround
   // presents the game turn as a chat message
   const channelMessage = message as unknown as MessageChannel
@@ -35,6 +35,29 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
   // reverse the flag, to make it easier to read. Show the author if this a player form an umpire force,
   // or if hideAuthor is false
   const showAuthor = isUmpire || !hideAuthor
+  // New functional component for the author info section
+  const AuthorInfoSection: React.FC<{ isOwner: boolean, isUmpire: boolean, showAuthor: boolean, message: any }> = ({ isOwner, isUmpire, showAuthor, message }) => (
+    <Box
+      display="flex"
+      alignItems="center"
+      justifyContent={isUmpire && message.details.privateMessage ? 'space-between' : 'flex-end'}
+      flexDirection={!isOwner ? 'row-reverse' : ''}
+      mt={1}>
+      {isUmpire && message.details.privateMessage && <PrivateBadge />}
+      <Box
+        display="flex"
+        flexDirection={!isOwner ? 'row-reverse' : ''}
+        alignItems="flex-end"
+      >
+        {
+          showAuthor && <Badge size="small" label={message.details.from.roleName} customBackgroundColor={message.details.from.forceColor} />
+        }
+        <span className={`${styles['info-body']} ${isOwner ? styles['info-body__owner'] : styles['info-body__other']}`}>
+          {formatTime(message.details.timestamp)}
+        </span>
+      </Box>
+    </Box>
+  )
 
   return (
     <div className={
@@ -49,26 +72,8 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
         }}
         onClick={(): void => markUnread && markUnread(message)}></span>
       <div className={styles['message-text']}>{messageContent}</div>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent={isUmpire && message.details.privateMessage ? 'space-between' : 'flex-end'}
-        flexDirection={!isOwner ? 'row-reverse' : ''}
-        mt={1}>
-        {isUmpire && message.details.privateMessage && <PrivateBadge />}
-        <Box
-          display="flex"
-          flexDirection={!isOwner ? 'row-reverse' : ''}
-          alignItems="flex-end"
-        >
-          {
-            showAuthor && <Badge size="small" label={message.details.from.roleName} customBackgroundColor={message.details.from.forceColor} />
-          }
-          <span className={`${styles['info-body']} ${isOwner ? styles['info-body__owner'] : styles['info-body__other']}`}>
-            {formatTime(message.details.timestamp)}
-          </span>
-        </Box>
-      </Box>
+      <AuthorInfoSection isOwner={isOwner} isUmpire={isUmpire} showAuthor={showAuthor} message={message} />
+
       {isUmpire && message.details.privateMessage &&
         (<Box mt={1} className={styles.private} textAlign="left">
           <Paragraph content={message.details.privateMessage} />

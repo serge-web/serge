@@ -3,13 +3,15 @@ import {
   MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE
 } from 'src/config'
-import { PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from 'src/custom-types'
-import _ from 'lodash'
+import { 
+  PlayerUi, PlayerUiActionTypes, SetCurrentWargameAction, SetForceAction, SetRoleAction, UpdateMessageStateAction, SetWargameFeedbackAction, SetLatestFeedbackMessageAction, SetLatestWargameMessageAction, 
+  SetWargameMessagesAction, OpenMessageAction, MarkUnreacAction, CloseMessageAction, MarkAllAsReadAction, MarkAllASUnReadAction, OpenTourAction, OpenModalAction
+} from 'src/custom-types'
 import copyState from '../../Helpers/copyStateHelper'
 import chat from '../../Schemas/chat.json'
-import { closeMessage, handleNewMessage, handleSetAllMessages, handleWargameUpdate, markAllMessageState, MarkAllPlayerMessageRead, markUnread, openMessage } from './helpers/handleWargameMessagesChange'
-import getRoleParamsForPlayerUI, { getRoleParamsByForceAndRole } from './helpers/getRoleParamsForPlayerUI'
-
+import { closeMessage, markUnread, handleLatestWargameMessage, handleSetAllMessagesAction, openMessageAction, markAllMessagesAsRead, markAllMessagesAsUnread } from './helpers/handleWargameMessagesChange'
+import getRoleParamsForPlayerUI from './helpers/getRoleParamsForPlayerUI'
+import * as playerUIReducerHelpers from './helpers/wargamePlayerHandlers.ts'
 export const initialState: PlayerUi = {
   selectedForce: undefined,
   selectedRole: '',
@@ -52,163 +54,76 @@ export const initialState: PlayerUi = {
   playerMessageLog: {}
 }
 
+type ActionHandler = (newState: PlayerUi, action: PlayerUiActionTypes, state: PlayerUi) => void;
+
+const actionHandlers: Record<string, ActionHandler> = {
+  [SET_CURRENT_WARGAME_PLAYER]: (newState, action, state) => playerUIReducerHelpers.handleCurrentWargamePlayer(
+    newState,
+    (action as SetCurrentWargameAction).payload, 
+    state
+  ),
+  [SET_FORCE]: (newState, action) =>
+    playerUIReducerHelpers.handleSetForce(
+      newState,
+      (action as SetForceAction).payload
+    ),
+  [SET_ROLE]: (newState, action) => getRoleParamsForPlayerUI((action as SetRoleAction).payload, newState),
+  [SET_ALL_TEMPLATES_PLAYERUI]: (action) => {
+    console.warn('ignoring templates from message types database', action)
+    // newState.allTemplatesByKey = action.payload
+  },
+  [SHOW_HIDE_OBJECTIVES]: newState => {
+    newState.showObjective = !newState.showObjective
+  },
+  [UPDATE_MESSAGE_STATE]: (newState, action) => {
+    newState.updateMessageState = (action as UpdateMessageStateAction).payload
+  },
+  [SET_FEEDBACK_MESSAGES]: (newState, action) => {
+    newState.feedbackMessages = (action as SetWargameFeedbackAction).payload
+  },
+  [SET_LATEST_FEEDBACK_MESSAGE]: (newState, action) => {
+    newState.feedbackMessages.unshift(
+      (action as SetLatestFeedbackMessageAction).payload
+    )
+  },
+  [SET_LATEST_WARGAME_MESSAGE]: (newState, action) =>
+    handleLatestWargameMessage(
+      (action as SetLatestWargameMessageAction).payload,
+      newState
+    ),
+  [SET_ALL_MESSAGES]: (newState, action) => handleSetAllMessagesAction((action as SetWargameMessagesAction).payload, newState),
+  [OPEN_MESSAGE]: (newState, action) => openMessageAction((action as OpenMessageAction).payload, newState),
+  [MARK_UNREAD]: (newState, action) => {
+    const payload = (action as MarkUnreacAction).payload 
+    newState.channels[payload.channel] = markUnread(payload.channel, payload.message, newState)
+  },
+  [CLOSE_MESSAGE]: (newState, action) => {
+    const payload = (action as CloseMessageAction).payload 
+    newState.channels[payload.channel].messages = closeMessage(payload.channel, payload.message, newState)
+  },
+  [MARK_ALL_AS_READ]: (newState, action) => markAllMessagesAsRead((action as MarkAllAsReadAction).payload, newState),
+  [MARK_ALL_AS_UNREAD]: (newState, action) => markAllMessagesAsUnread((action as MarkAllASUnReadAction).payload, newState),
+  [OPEN_TOUR]: (newState, action) => {
+    newState.tourIsOpen = (action as OpenTourAction).payload
+  },
+  [OPEN_MODAL]: (newState, action) => {
+    newState.modalOpened = (action as OpenModalAction).payload
+  },
+  [CLOSE_MODAL]: newState => {
+    newState.modalOpened = undefined
+  }
+}
+
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
   const newState: PlayerUi = copyState(state)
 
-  function enumFromString<T> (enm: { [s: string]: T }, value: string): T | undefined {
-    return (Object.values(enm) as unknown as string[]).includes(value)
-      ? value as unknown as T
-      : undefined
+  const handler = actionHandlers[action.type]
+
+  if (handler) {
+    handler(newState, action, state)
   }
 
-  switch (action.type) {
-    case SET_CURRENT_WARGAME_PLAYER:
-      const data: WargameData = action.payload.data
-      const turnFormat = data.overview.turnPresentation || TurnFormats.Natural
-      newState.currentWargame = action.payload.name
-      newState.wargameTitle = action.payload.wargameTitle
-      newState.wargameInitiated = action.payload.wargameInitiated || false
-      newState.currentTurn = action.payload.gameTurn
-      newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
-      newState.phase = action.payload.phase
-      newState.showAccessCodes = data.overview.showAccessCodes
-      newState.logPlayerActivity = data.overview.logPlayerActivity || true
-      newState.wargameInitiated = action.payload.wargameInitiated || false
-      newState.gameDate = data.overview.gameDate
-      newState.gameTurnTime = data.overview.gameTurnTime
-      newState.adjudicationStartTime = action.payload.adjudicationStartTime || ''
-      newState.realtimeTurnTime = data.overview.realtimeTurnTime
-      newState.timeWarning = data.overview.timeWarning
-      newState.turnEndTime = action.payload.turnEndTime || ''
-      newState.gameDescription = action.payload.data.overview.gameDescription
-      newState.hideForcesInChannels = !!action.payload.data.overview.hideForcesInChannels
-
-      // temporary workaround to get templates from warga
-      const allTemplates = action.payload.data.templates ? action.payload.data.templates.templates : []
-      const templatesByKey = {}
-      allTemplates.forEach((template) => {
-        templatesByKey[template._id] = template
-      })
-      newState.allTemplatesByKey = templatesByKey
-
-      // temporary workaround to remove duplicate channel definitions
-      // TODO: delete workaround once fix in place
-      const allChannels = action.payload.data.channels.channels || []
-      const cleanChannels = _.uniqBy(allChannels, channel => channel.uniqid)
-      if (allChannels.length !== cleanChannels.length) {
-        console.warn('Applied workaround to remove duplicate channel defs')
-      }
-      newState.allChannels = cleanChannels
-
-      newState.allForces = action.payload.data.forces.forces
-      // @ts-ignore
-      getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
-      break
-
-    case SET_FORCE:
-      newState.selectedForce = newState.allForces.find((force) => force.uniqid === action.payload)
-      newState.isUmpire = !!(newState.selectedForce && newState.selectedForce.umpire)
-      break
-
-    case SET_ROLE:
-      getRoleParamsForPlayerUI(action.payload, newState)
-      break
-
-    case SET_ALL_TEMPLATES_PLAYERUI:
-      console.warn('ignoring templates from message types database')
-      // newState.allTemplatesByKey = action.payload
-      break
-
-    case SHOW_HIDE_OBJECTIVES:
-      newState.showObjective = !newState.showObjective
-      break
-
-    case UPDATE_MESSAGE_STATE:
-      newState.updateMessageState = action.payload
-      break
-
-    case SET_FEEDBACK_MESSAGES:
-      newState.feedbackMessages = action.payload
-      break
-
-    case SET_LATEST_FEEDBACK_MESSAGE:
-      newState.feedbackMessages.unshift(action.payload)
-      break
-    
-    case SET_LATEST_WARGAME_MESSAGE:
-      const anyPayload = action.payload as any
-      if (anyPayload.activityTime) { 
-        return newState
-      } else if (anyPayload.data) {
-        // wargame change
-        const wargame = anyPayload as Wargame
-        newState.allChannels = wargame.data.channels.channels
-        const changedLatestState = handleWargameUpdate(wargame, newState)
-        newState.channels = changedLatestState.channels
-        newState.chatChannel = changedLatestState.chatChannel
-        newState.playerMessageLog = changedLatestState.playerMessageLog
-      } else {
-        // process new message
-        const changedLatestState = handleNewMessage(action.payload, newState)
-        newState.channels = changedLatestState.channels
-        newState.chatChannel = changedLatestState.chatChannel
-        newState.playerMessageLog = changedLatestState.playerMessageLog
-      }
-      break
-
-    case SET_ALL_MESSAGES:
-      const changedAllMesagesState = handleSetAllMessages(action.payload, newState)
-      newState.channels = changedAllMesagesState.channels
-      newState.chatChannel = changedAllMesagesState.chatChannel
-      newState.playerMessageLog = changedAllMesagesState.playerMessageLog
-      break
-    
-    case OPEN_MESSAGE:
-      newState.channels[action.payload.channel] = openMessage(action.payload.channel, action.payload.message, newState)
-      break
-
-    case MARK_UNREAD:
-      newState.channels[action.payload.channel] = markUnread(action.payload.channel, action.payload.message, newState)
-      break
-
-    case CLOSE_MESSAGE:
-      newState.channels[action.payload.channel].messages = closeMessage(action.payload.channel, action.payload.message, newState)
-      break
-
-    case MARK_ALL_AS_READ:
-      if (!action.payload) {
-        newState.playerMessageLog = MarkAllPlayerMessageRead(newState, 'read')
-      } else {
-        newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'read')
-      }
-      break
-
-    case MARK_ALL_AS_UNREAD:
-      if (!action.payload) {
-        newState.playerMessageLog = MarkAllPlayerMessageRead(newState, 'unread')
-      } else {
-        newState.channels[action.payload] = markAllMessageState(action.payload, newState, 'unread')
-      }
-      break
-
-    case OPEN_TOUR:
-      newState.tourIsOpen = action.payload
-      break
-
-    case OPEN_MODAL:
-      newState.modalOpened = action.payload
-      break
-
-    case CLOSE_MODAL:
-      newState.modalOpened = undefined
-      break
-
-    default:
-      return newState
-  }
-  if (import.meta.env.NODE_ENV === 'development') {
-    console.log('PlayerUI update: ', action.type, state, newState)
-  }
+  playerUIReducerHelpers.logUpdate(newState, action.type, state)
 
   return newState
 }

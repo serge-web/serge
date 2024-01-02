@@ -68,7 +68,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   
   const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
     const shapeType = (e as any).shape
-    // console.log(e)
     switch (shapeType) {
       case 'Line': {
         const locs = (e as any).layer._latlngs as L.LatLng[]
