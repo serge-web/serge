@@ -23,8 +23,7 @@ const FeedbackBlock: React.FC<FeedbackBlockProps> = ({ permission, isObserver, f
             content={<ExpandedFeedbackList feedback={feedback} />}
           />
         </div>
-      </div>
-    ) 
+      </div>) 
     : null
 )
 
