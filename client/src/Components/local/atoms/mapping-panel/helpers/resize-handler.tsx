@@ -11,11 +11,8 @@ type ResizeHandleProps = {
 const ResizeHandle: React.FC<ResizeHandleProps> = ({ direction = 'vertical', className }): React.ReactElement => {
   return <PanelResizeHandle className={styles['resize-handle-outer']}>
     <div className={cx(styles['resize-handle-inner'], className)}>
-      <svg className={cx({ [styles['icon']]: true, [styles['resize-handle-horizontal']]: direction === 'horizontal' })} viewBox="0 0 24 24">
-        <path
-          fill="currentColor"
-          d="M8,18H11V15H2V13H22V15H13V18H16L12,22L8,18M12,2L8,6H11V9H2V11H22V9H13V6H16L12,2Z"
-        />
+      <svg className={cx({ [styles['icon']]: true, [styles['resize-handle-horizontal']]: direction !== 'horizontal' })} viewBox="0 0 24 24">
+        <path d="M15 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM15 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM15 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM9 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM9 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z" fill="#000000"/>
       </svg>
     </div>
   </PanelResizeHandle>
