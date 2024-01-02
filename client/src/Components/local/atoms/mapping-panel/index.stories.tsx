@@ -1,6 +1,7 @@
 import React from 'react'
 import { MappingPanel } from './index'
 import docs from './README.md'
+import { noop } from 'lodash'
 
 export default {
   title: 'local/atoms/MappingPanel',
@@ -14,4 +15,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <MappingPanel />
+export const Default: React.FC = () => <MappingPanel onClose={noop} extraFilterProps={[]}/>
