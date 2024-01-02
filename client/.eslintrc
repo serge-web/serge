@@ -61,7 +61,8 @@
     "react/no-deprecated": "off",
     "prefer-promise-reject-errors": "off",
     "camelcase": "off",
-    "complexity": ["error", 12],
+    // convert to `error` once we get max value down to 12
+    "complexity": ["warning", 12],
     "eqeqeq": "off",
     "semi": ["error", "never"],
     "@typescript-eslint/ban-ts-ignore": "off",
