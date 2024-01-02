@@ -20,6 +20,7 @@ class TextArea extends Component {
           style={{ resize: 'none' }}
           title={this.props.title}
           name={this.props.name}
+          rows={this.props.rows}
         ></textarea>
       </>
     )
@@ -27,7 +28,8 @@ class TextArea extends Component {
 }
 
 TextArea.propTypes = {
-  updateStore: PropTypes.func.isRequired
+  updateStore: PropTypes.func.isRequired,
+  rows: PropTypes.number
 }
 
 export default TextArea

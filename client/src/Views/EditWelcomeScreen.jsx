@@ -159,6 +159,7 @@ class EditWelcomeScreen extends Component {
               <>
                 <h5>Text</h5>
                 <TextArea
+                  rows={7}
                   className='description-edit'
                   updateStore={this.updateDescription}
                   data={this.state.description}
