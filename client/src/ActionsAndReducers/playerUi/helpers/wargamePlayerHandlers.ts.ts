@@ -13,23 +13,23 @@ export const handleCurrentWargamePlayer = (newState: PlayerUi, payload: Wargame,
       ? value as unknown as T
       : undefined
   }
-  const turnFormat = overview?.turnPresentation || TurnFormats.Natural
+  const turnFormat = overview.turnPresentation || TurnFormats.Natural
   newState.currentWargame = name
   newState.wargameTitle = wargameTitle
   newState.wargameInitiated = wargameInitiated || false
   newState.currentTurn = gameTurn
   newState.turnPresentation = enumFromString(TurnFormats, turnFormat)
   newState.phase = phase
-  newState.showAccessCodes = overview?.showAccessCodes
-  newState.logPlayerActivity = overview?.logPlayerActivity || true
-  newState.gameDate = overview?.gameDate
-  newState.gameTurnTime = overview?.gameTurnTime
+  newState.showAccessCodes = overview.showAccessCodes
+  newState.logPlayerActivity = overview.logPlayerActivity || true
+  newState.gameDate = overview.gameDate
+  newState.gameTurnTime = overview.gameTurnTime
   newState.adjudicationStartTime = adjudicationStartTime || ''
-  newState.realtimeTurnTime = overview?.realtimeTurnTime
-  newState.timeWarning = overview?.timeWarning
+  newState.realtimeTurnTime = overview.realtimeTurnTime
+  newState.timeWarning = overview.timeWarning
   newState.turnEndTime = turnEndTime || ''
-  newState.gameDescription = data?.overview?.gameDescription
-  newState.hideForcesInChannels = !!data?.overview?.hideForcesInChannels
+  newState.gameDescription = overview.gameDescription
+  newState.hideForcesInChannels = !!data.overview?.hideForcesInChannels
     
   // // temporary workaround to get templates from warga
   const allTemplates = data?.templates?.templates || []
@@ -42,14 +42,14 @@ export const handleCurrentWargamePlayer = (newState: PlayerUi, payload: Wargame,
   })
   newState.allTemplatesByKey = templatesByKey
   
-  const allChannels = data?.channels?.channels || []
+  const allChannels = data.channels?.channels || []
   const cleanChannels = _.uniqBy(allChannels, (channel) => channel.uniqid)
   if (allChannels.length !== cleanChannels.length) {
     console.warn('Applied workaround to remove duplicate channel defs')
   }
   newState.allChannels = cleanChannels
   
-  newState.allForces = data?.forces?.forces
+  newState.allForces = data.forces?.forces
   // @ts-ignore
   getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
 }
