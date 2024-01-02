@@ -13,17 +13,19 @@ interface FeedbackBlockProps {
 }
 
 const FeedbackBlock: React.FC<FeedbackBlockProps> = ({ permission, isObserver, feedback }) => (
-  (permission > CollaborativePermission.CannotCollaborate || isObserver) && feedback && feedback.length > 0 ? (
-    <div>
-      <div className={styles['feedback-title']}>Feedback</div>
-      <div className={styles['feedback-item']}>
-        <Collapsible
-          header={<CollapsedFeedbackList feedback={feedback} />}
-          content={<ExpandedFeedbackList feedback={feedback} />}
-        />
+  (permission > CollaborativePermission.CannotCollaborate || isObserver) && feedback && feedback.length > 0 
+    ? (
+      <div>
+        <div className={styles['feedback-title']}>Feedback</div>
+        <div className={styles['feedback-item']}>
+          <Collapsible
+            header={<CollapsedFeedbackList feedback={feedback} />}
+            content={<ExpandedFeedbackList feedback={feedback} />}
+          />
+        </div>
       </div>
-    </div>
-  ) : null
+    ) 
+    : null
 )
 
 export default FeedbackBlock
