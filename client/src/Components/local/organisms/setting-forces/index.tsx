@@ -175,12 +175,12 @@ export const SettingForces: React.FC<PropTypes> = ({
         <EditableList
           items={initialForces}
           selectedItem={forcesData[selectedItem]?.uniqid}
-          filterKey="uniqid"
+          filterKey="name"
           onClick={handleSwitch}
           onCreate={onCreate}
           onDelete={onDelete}
           onDuplicate={onDuplicate}
-          withSearch={false}
+          withSearch={true}
           title="Add a New Force"
         />
       </LeftSide>
