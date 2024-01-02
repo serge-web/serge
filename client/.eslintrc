@@ -62,7 +62,7 @@
     "prefer-promise-reject-errors": "off",
     "camelcase": "off",
     // convert to `error` once we get max value down to 12
-    "complexity": ["warning", 12],
+    "complexity": ["warn", 12],
     "eqeqeq": "off",
     "semi": ["error", "never"],
     "@typescript-eslint/ban-ts-ignore": "off",
