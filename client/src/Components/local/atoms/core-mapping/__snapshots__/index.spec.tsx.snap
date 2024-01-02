@@ -25,7 +25,9 @@ exports[`Core Mapping component: renders correctly 1`] = `
     <span
       className="MuiButton-label"
     >
-      &gt;
+      <svg
+        className="svg-inline--fa fa-circle-arrow-right"
+      />
     </span>
   </button>
 </div>
