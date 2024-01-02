@@ -53,7 +53,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
     )
     return { ...data, filteredDoc }
   }, [messages])
-
+  
   const handleMarkAllAsRead = useCallback(() => {
     for (const message of filteredDoc) {
       // flag for if we tell original sender of RFI that it has been responded to
@@ -62,7 +62,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
     }
     onMarkAllAsRead && onMarkAllAsRead()
   }, [filteredDoc])
-
+  
   const handleArchiveDoc = useCallback(() => {
     setShowArchived(!showArchived)
   }, [showArchived])

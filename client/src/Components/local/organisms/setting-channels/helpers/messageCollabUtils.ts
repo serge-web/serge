@@ -122,54 +122,44 @@ export const integrateWithLocalChanges = (options: Option[], channelData: Channe
   return nextChannel
 }
 
+const handleDeleteAction = (nextMessageLocal: MessagesValues, value: string[], action: Action, property: MessageKey): any => {
+  return action === 'delete' ? filterOutByUniqId(nextMessageLocal, value, property) : value
+}
 export const onMessageValuesChanged = (messageLocal: MessagesValues, value: string[], action: Action, type: string): MessagesValues => {
   const nextMessageLocal: MessagesValues = { ...messageLocal }
-
+  
   switch (type) {
     case MessageGroupType.MESSAGE_TEMPLATE:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'messageTemplate')
-      }
-      nextMessageLocal.messageTemplate = value
-      return nextMessageLocal
+      nextMessageLocal.messageTemplate = handleDeleteAction(nextMessageLocal, value, action, 'messageTemplate')
+      break
 
     case MessageGroupType.RESPONSE_TEMPLATE:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'responseTemplate')
-      }
-      nextMessageLocal.responseTemplate = value
-      return nextMessageLocal
+      nextMessageLocal.responseTemplate = handleDeleteAction(nextMessageLocal, value, action, 'responseTemplate')
+      break
 
     case MessageGroupType.DOCUMENT_STATUS:
       nextMessageLocal.documentStatus = value
-      return nextMessageLocal
+      break
 
     case MessageGroupType.REQUEST_CHANGES:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'requestChanges')
-      }
-      nextMessageLocal.requestChanges = value
-      return nextMessageLocal
+      nextMessageLocal.requestChanges = handleDeleteAction(nextMessageLocal, value, action, 'requestChanges')
+      break
 
     case MessageGroupType.APPROVE:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'approve')
-      }
-      nextMessageLocal.approve = value
-      return nextMessageLocal
+      nextMessageLocal.approve = handleDeleteAction(nextMessageLocal, value, action, 'approve')
+      break
 
     case MessageGroupType.RELEASE:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'release')
-      }
-      nextMessageLocal.release = value
-      return nextMessageLocal
+      nextMessageLocal.release = handleDeleteAction(nextMessageLocal, value, action, 'release')
+      break
 
     case MessageGroupType.ADDITIONAL_DATA:
       nextMessageLocal.additionalData = value
-      return nextMessageLocal
+      break
 
     default:
       return nextMessageLocal
   }
+
+  return nextMessageLocal
 }

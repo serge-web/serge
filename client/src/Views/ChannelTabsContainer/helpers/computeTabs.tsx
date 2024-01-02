@@ -78,7 +78,6 @@ const addToTabs = (newChannels: TabMapped[], model: ModelLoc) => {
 }
 
 const removeFromTabs = (channelsToRemove: TabMapped[], model: ModelLoc) => {
-  console.log('FlexLayout', FlexLayout)
   channelsToRemove.forEach(channel => {
     if (model.getNodeById(channel.id)) { model.doAction(FlexLayout.Actions.deleteTab(channel.id)) }
   })

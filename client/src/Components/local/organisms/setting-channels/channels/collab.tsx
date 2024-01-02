@@ -44,7 +44,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
 
   const messagesValues = getMessagesValues(localChannelUpdates)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
-
+  
   useEffect(() => {
     setLocalChannelUpdates(channel)
   }, [channel])

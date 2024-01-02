@@ -43,7 +43,6 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
   }, [])
 
   const messageHandler = (details: MessageDetails, message: any): void => {
-    console.log('message', message)
     const sendMessage: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
@@ -98,7 +97,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       _id: detail._id || 'na'
     }
     saveNewActivityTimeMessage(coreMessage.details.from.roleId, readMessage, state.currentWargame)(dispatch)
-
+    
     playerUiDispatch(openMessage(channelId, detail))
   }
 
@@ -130,7 +129,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
     })
   }
-
+  
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       {

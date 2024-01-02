@@ -55,7 +55,6 @@ class EditMessage extends Component {
   }
 
   render () {
-    console.log('barev')
     const SaveMessageButton = () => (
       <div className='button-wrap'>
         <Button color='secondary' onClick={this.updateSchema} icon='save'>Save Message</Button>
