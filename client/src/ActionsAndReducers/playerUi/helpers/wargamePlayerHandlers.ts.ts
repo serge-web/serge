@@ -29,10 +29,10 @@ export const handleCurrentWargamePlayer = (newState: PlayerUi, payload: Wargame,
   newState.timeWarning = overview.timeWarning
   newState.turnEndTime = turnEndTime || ''
   newState.gameDescription = overview.gameDescription
-  newState.hideForcesInChannels = !!data.overview?.hideForcesInChannels
+  newState.hideForcesInChannels = !!overview.hideForcesInChannels
     
   // // temporary workaround to get templates from warga
-  const allTemplates = data?.templates?.templates || []
+  const allTemplates = data.templates?.templates || []
   const templatesByKey = {}
   
   // // temporary workaround to remove duplicate channel definitions
