@@ -24,7 +24,7 @@ const ExportPrint = ({ exportItem, notFound }) => {
           <table>
             <tbody>
               {data.items.map((row, key) => (
-                <tr key={key}>
+                <tr key={`p-${key}`}>
                   {row.map((col, colKey) => (key ? (<td key={colKey}>{col}</td>) : (<th key={colKey}>{col}</th>)))}
                 </tr>
               ))}

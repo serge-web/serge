@@ -1,15 +1,18 @@
+import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@material-ui/core'
 import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection } from 'geojson'
 import { LatLng, PM } from 'leaflet'
-import { cloneDeep } from 'lodash'
+import 'leaflet/dist/leaflet.css'
+import { cloneDeep, flatten, unionBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { Phase } from 'src/config'
-import { BaseRenderer, CoreMappingMessage, CoreProperties, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, CoreMappingMessage, CoreProperties, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
-import ResizeHandle from '../mapping-panel/helpers/ResizeHandle'
+import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
 import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
@@ -198,23 +201,31 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     }
   }
 
+  const getExtraFilterProps = (): PropertyTypes[] => {
+    const rendererObjects: BaseRenderer[] = channel.renderers
+    const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
+    return unionBy(flatMap, 'id')
+  }
+
   return <Box className={styles.container}>
-    <Button variant='contained' onClick={() => setChecked(!checked)}>{checked ? '<' : '>'}</Button>
-    <Slide direction="right" in={checked} mountOnEnter unmountOnExit>
+    {!checked && <Button variant='contained' onClick={() => setChecked(true)}>
+      <FontAwesomeIcon icon={faCircleArrowRight} />
+    </Button>}
+    <Slide direction='right' in={checked} mountOnEnter timeout={500}>
       <Box className={styles['slide-container']}>
-        <PanelGroup direction="horizontal">
+        <PanelGroup direction="horizontal" >
           <Panel
             collapsible={true}
-            defaultSizePercentage={30}
-            minSizePercentage={30}
+            defaultSizePercentage={35}
+            minSizePercentage={35}
             style={{ pointerEvents: 'all' }}
           >
-            <MappingPanel />
+            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} />
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel
             collapsible={true}
-            defaultSizePercentage={70}
+            defaultSizePercentage={65}
             style={{ pointerEvents: 'none' }}
           >
           </Panel>

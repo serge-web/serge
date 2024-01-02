@@ -39,7 +39,7 @@ export const EditableRow: React.FC<PropTypes> = ({
   const [mode, setMode] = useState(defaultMode)
 
   useEffect(() => {
-    setItemsLocal(items)
+    setItemsLocal(onChange(items, 0))
   }, [items])
 
   const switchMode = (): void => {

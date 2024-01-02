@@ -16,7 +16,6 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       const icon = new ms.Symbol(feature.properties.sidc)
       const marker = L.marker(
         latLng, {
-          attribution: feature.properties.id,
           icon: L.divIcon({
             html: icon.asDOM().outerHTML,
             className: styles['asset-icon']
