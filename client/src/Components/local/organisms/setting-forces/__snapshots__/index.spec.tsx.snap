@@ -13,11 +13,39 @@ exports[`SettingForces component: renders correctly 1`] = `
       <div
         className="searchlist"
       >
+        <section
+          className="input-container disable-offset fullwidth"
+        >
+          <div
+            className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+          >
+            <div
+              className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              onClick={[Function]}
+            >
+              <input
+                aria-invalid={false}
+                autoFocus={false}
+                className="MuiInputBase-input MuiInput-input"
+                disabled={false}
+                name=""
+                onAnimationStart={[Function]}
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Search"
+                required={false}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </section>
         <div
           className="searchlist-list searchlist-list"
         >
           <span
-            className="searchlist-row active"
+            className="searchlist-row "
             onClick={[Function]}
           >
             <span>
@@ -81,7 +109,7 @@ exports[`SettingForces component: renders correctly 1`] = `
               className="MuiFormControl-root MuiTextField-root"
             >
               <div
-                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-formControl MuiInput-formControl"
+                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-8 MuiInput-underline makeStyles-underline-5 makeStyles-underline-9 MuiInputBase-formControl MuiInput-formControl"
                 onClick={[Function]}
               >
                 <input
@@ -299,7 +327,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                     >
                                       <span
                                         aria-disabled={false}
-                                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-8 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-9"
+                                        className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-13 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-10 MuiSwitch-colorSecondary PrivateSwitchBase-checked-14 Mui-checked WithStyles(ForwardRef(Switch))-checked-11"
                                         onBlur={[Function]}
                                         onDragLeave={[Function]}
                                         onFocus={[Function]}
@@ -318,7 +346,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                         >
                                           <input
                                             checked={true}
-                                            className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                            className="PrivateSwitchBase-input-16 MuiSwitch-input"
                                             onChange={[Function]}
                                             type="checkbox"
                                           />
@@ -331,7 +359,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                         />
                                       </span>
                                       <span
-                                        className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-10"
+                                        className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-12"
                                       />
                                     </span>
                                     <span
@@ -602,7 +630,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             >
                                               <span
                                                 aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-17 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-18"
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-13 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-19 MuiSwitch-colorSecondary PrivateSwitchBase-checked-14 Mui-checked WithStyles(ForwardRef(Switch))-checked-20"
                                                 onBlur={[Function]}
                                                 onDragLeave={[Function]}
                                                 onFocus={[Function]}
@@ -621,7 +649,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 >
                                                   <input
                                                     checked={true}
-                                                    className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                                    className="PrivateSwitchBase-input-16 MuiSwitch-input"
                                                     disabled={false}
                                                     onChange={[Function]}
                                                     type="checkbox"
@@ -635,7 +663,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 />
                                               </span>
                                               <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-19"
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-21"
                                               />
                                             </span>
                                             <div
@@ -655,7 +683,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             >
                                               <span
                                                 aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-17 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-18"
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-13 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-19 MuiSwitch-colorSecondary PrivateSwitchBase-checked-14 Mui-checked WithStyles(ForwardRef(Switch))-checked-20"
                                                 onBlur={[Function]}
                                                 onDragLeave={[Function]}
                                                 onFocus={[Function]}
@@ -674,7 +702,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 >
                                                   <input
                                                     checked={true}
-                                                    className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                                    className="PrivateSwitchBase-input-16 MuiSwitch-input"
                                                     disabled={false}
                                                     onChange={[Function]}
                                                     type="checkbox"
@@ -688,7 +716,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 />
                                               </span>
                                               <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-19"
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-21"
                                               />
                                             </span>
                                             <div
@@ -708,7 +736,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             >
                                               <span
                                                 aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-17 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-18"
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-13 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-19 MuiSwitch-colorSecondary PrivateSwitchBase-checked-14 Mui-checked WithStyles(ForwardRef(Switch))-checked-20"
                                                 onBlur={[Function]}
                                                 onDragLeave={[Function]}
                                                 onFocus={[Function]}
@@ -727,7 +755,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 >
                                                   <input
                                                     checked={true}
-                                                    className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                                    className="PrivateSwitchBase-input-16 MuiSwitch-input"
                                                     disabled={false}
                                                     onChange={[Function]}
                                                     type="checkbox"
@@ -741,7 +769,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 />
                                               </span>
                                               <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-19"
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-21"
                                               />
                                             </span>
                                             <div
@@ -761,7 +789,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             >
                                               <span
                                                 aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-17 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-18"
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-13 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-19 MuiSwitch-colorSecondary PrivateSwitchBase-checked-14 Mui-checked WithStyles(ForwardRef(Switch))-checked-20"
                                                 onBlur={[Function]}
                                                 onDragLeave={[Function]}
                                                 onFocus={[Function]}
@@ -780,7 +808,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 >
                                                   <input
                                                     checked={true}
-                                                    className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                                    className="PrivateSwitchBase-input-16 MuiSwitch-input"
                                                     disabled={false}
                                                     onChange={[Function]}
                                                     type="checkbox"
@@ -794,7 +822,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 />
                                               </span>
                                               <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-19"
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-21"
                                               />
                                             </span>
                                             <div
@@ -905,7 +933,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             >
                                               <span
                                                 aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-17 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-18"
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-13 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-19 MuiSwitch-colorSecondary PrivateSwitchBase-checked-14 Mui-checked WithStyles(ForwardRef(Switch))-checked-20"
                                                 onBlur={[Function]}
                                                 onDragLeave={[Function]}
                                                 onFocus={[Function]}
@@ -924,7 +952,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 >
                                                   <input
                                                     checked={true}
-                                                    className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                                    className="PrivateSwitchBase-input-16 MuiSwitch-input"
                                                     disabled={false}
                                                     onChange={[Function]}
                                                     type="checkbox"
@@ -938,7 +966,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 />
                                               </span>
                                               <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-19"
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-21"
                                               />
                                             </span>
                                           </div>
@@ -950,7 +978,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             >
                                               <span
                                                 aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-17 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-18"
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-13 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-19 MuiSwitch-colorSecondary PrivateSwitchBase-checked-14 Mui-checked WithStyles(ForwardRef(Switch))-checked-20"
                                                 onBlur={[Function]}
                                                 onDragLeave={[Function]}
                                                 onFocus={[Function]}
@@ -969,7 +997,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 >
                                                   <input
                                                     checked={true}
-                                                    className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                                    className="PrivateSwitchBase-input-16 MuiSwitch-input"
                                                     disabled={false}
                                                     onChange={[Function]}
                                                     type="checkbox"
@@ -983,7 +1011,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 />
                                               </span>
                                               <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-19"
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-21"
                                               />
                                             </span>
                                           </div>
@@ -995,7 +1023,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             >
                                               <span
                                                 aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-17 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-18"
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-13 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-19 MuiSwitch-colorSecondary PrivateSwitchBase-checked-14 Mui-checked WithStyles(ForwardRef(Switch))-checked-20"
                                                 onBlur={[Function]}
                                                 onDragLeave={[Function]}
                                                 onFocus={[Function]}
@@ -1014,7 +1042,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 >
                                                   <input
                                                     checked={true}
-                                                    className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                                    className="PrivateSwitchBase-input-16 MuiSwitch-input"
                                                     disabled={false}
                                                     onChange={[Function]}
                                                     type="checkbox"
@@ -1028,7 +1056,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 />
                                               </span>
                                               <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-19"
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-21"
                                               />
                                             </span>
                                           </div>
@@ -1040,7 +1068,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                             >
                                               <span
                                                 aria-disabled={false}
-                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-17 MuiSwitch-colorSecondary PrivateSwitchBase-checked-12 Mui-checked WithStyles(ForwardRef(Switch))-checked-18"
+                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-13 MuiSwitch-switchBase WithStyles(ForwardRef(Switch))-switchBase-19 MuiSwitch-colorSecondary PrivateSwitchBase-checked-14 Mui-checked WithStyles(ForwardRef(Switch))-checked-20"
                                                 onBlur={[Function]}
                                                 onDragLeave={[Function]}
                                                 onFocus={[Function]}
@@ -1059,7 +1087,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 >
                                                   <input
                                                     checked={true}
-                                                    className="PrivateSwitchBase-input-14 MuiSwitch-input"
+                                                    className="PrivateSwitchBase-input-16 MuiSwitch-input"
                                                     disabled={false}
                                                     onChange={[Function]}
                                                     type="checkbox"
@@ -1073,7 +1101,7 @@ exports[`SettingForces component: renders correctly 1`] = `
                                                 />
                                               </span>
                                               <span
-                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-19"
+                                                className="MuiSwitch-track WithStyles(ForwardRef(Switch))-track-21"
                                               />
                                             </span>
                                           </div>
