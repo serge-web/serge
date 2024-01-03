@@ -3,8 +3,8 @@ import React from 'react'
 import L from 'leaflet'
 import renderer from 'react-test-renderer'
 import CoreMapping from './index'
-import { Phase } from 'src/config'
-import { CHANNEL_CORE_MAPPING, CoreMappingChannel } from 'src/custom-types'
+import { CHANNEL_MAPPING, Phase } from 'src/config'
+import { ChannelMapping } from 'src/custom-types'
 
 jest.mock('react-leaflet-v4', () => ({
   MapContainer: (): React.ReactElement => <></>,
@@ -20,10 +20,10 @@ jest.mock('react-resizable-panels', () => ({
   PanelGroup: (): React.ReactElement => <></>
 }))
 
-const channel: CoreMappingChannel = {
+const channel: ChannelMapping = {
   uniqid: 'core',
   name: 'core-mapping',
-  channelType: CHANNEL_CORE_MAPPING,
+  channelType: CHANNEL_MAPPING,
   participants: [],
   renderers: [],
   constraints: {

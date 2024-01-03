@@ -1,6 +1,5 @@
 /**
  * list the possible phases in a wargame
- * TODO: the concept of phase isn't restricted to the mapping component.  It should be declared higher up the tree
  */
 export enum Phase {
   /* players are planning their next turn
@@ -37,21 +36,6 @@ export enum SpecialChannelTypes {
 /** types of extra column to be shown in collab editing */
 export enum SpecialChannelColumns {
   LOCATION = 'location'
-}
-
-/** style of label for hexes
- */
-export enum CellLabelStyle {
-  // 12.3N 32.3W
-  LAT_LON_LABELS = 'lat_lon_labels',
-  // A12
-  X_Y_LABELS = 'x_y_labels',
-  // 432
-  CTR_LABELS = 'ctr_labels',
-  // 35234fe5effffff
-  H3_LABELS = 'h3_labels',
-  // don't show labels
-  BLANK = 'blank'
 }
 
 /** the phases a v3 collaborative message goes through before
