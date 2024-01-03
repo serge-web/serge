@@ -272,7 +272,6 @@ export const Default: React.FC = () => {
   )
 }
 
-console.log(coreMapChannel)
 export const Bulk: React.FC = () => {
   return (
     <CoreMapping bounds={largeBounds} playerForce={'f-red'} messages={[bulkMessage]} channel={coreMapChannel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>
