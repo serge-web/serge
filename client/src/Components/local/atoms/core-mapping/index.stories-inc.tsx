@@ -3,7 +3,7 @@ import React from 'react'
 import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
-import { CHANNEL_MAPPING, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
+import { CHANNEL_MAPPING, CUSTOM_MESSAGE, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
 import { ChannelMapping, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
@@ -197,12 +197,12 @@ const coreMessage: CoreMappingMessage = {
       roleName: 'MARITIME CTRL',
       iconURL: 'f-red.svg'
     },
-    messageType: 'custom',
+    messageType: MAPPING_MESSAGE,
     timestamp: '2023-11-23T23:32:00',
     turnNumber: 1
   },
-  messageType: MAPPING_MESSAGE,
-  features: features
+  messageType: CUSTOM_MESSAGE,
+  featureCollection: features
 }
 
 const baseProps = [forceProp, phaseProp, turnProp]
@@ -263,8 +263,10 @@ const bulkMessage: CoreMappingMessage = {
     turnNumber: 1
   },
   messageType: MAPPING_MESSAGE,
-  features: generateFeatures(largeBounds, 300, 30)
+  featureCollection: generateFeatures(largeBounds, 300, 30)
 }
+
+console.log(coreMessage)
 
 export const Default: React.FC = () => {
   return (

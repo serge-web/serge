@@ -171,7 +171,7 @@ export interface MessageFeedback extends CoreMessage {
 
 export interface CoreMappingMessage extends CoreMessage {
   readonly messageType: typeof CORE_MAPPING
-  features: FeatureCollection
+  featureCollection: FeatureCollection
 }
 
 /** message containing updated game status, could be one of:

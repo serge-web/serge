@@ -32,7 +32,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   useEffect(() => {
     if (messages.length > 0) {
       const lastMessage: CoreMappingMessage = messages[messages.length - 1]
-      setFeatureCollection(lastMessage.features)
+      setFeatureCollection(lastMessage.featureCollection)
     } else {
       setFeatureCollection(undefined)
     }
