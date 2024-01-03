@@ -198,11 +198,9 @@ export interface MessageInfoTypeClipped {
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom
 
-type Message = MessageCustom |
+export type Message = MessageCustom |
   ChatMessage |
   MessageFeedback |
   MessageInfoTypeClipped |
   MessageInfoType |
   MessageCounter
-
-export default Message

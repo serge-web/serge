@@ -1,6 +1,6 @@
 import Role from './role'
 import ForceData from './force-data'
-import { CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_PLANNING, PARTICIPANT_CHAT, PARTICIPANT_COLLAB } from 'src/config'
+import { CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, PARTICIPANT_CHAT, PARTICIPANT_COLLAB } from 'src/config'
 
 export interface ParticipantTemplate {
   _id: string
@@ -24,11 +24,13 @@ export interface ParticipantCustom extends CoreParticipant {
   templates: ParticipantTemplate[]
 }
 
-/** participation in planning channels */
-export interface ParticipantPlanning extends CoreParticipant {
-  readonly pType: typeof PARTICIPANT_PLANNING
-  // the templates this participant can create
-  templates: ParticipantTemplate[]
+/** participation in mapping channels */
+export interface ParticipantMapping extends CoreParticipant {
+  readonly pType: typeof PARTICIPANT_MAPPING
+  /** the phase(s) that this participant can create/edit items in */
+  canSubmitInPhase: [Phase]
+  /** ids of renderers that this role can create items for */
+  canCreateFrom: BaseRenderer['id'][]
 }
 
 /** participation in chat channels */
@@ -47,4 +49,4 @@ export interface ParticipantCollab extends CoreParticipant {
   permission: CollaborativePermission
 } 
 
-export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantPlanning
+export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantMapping

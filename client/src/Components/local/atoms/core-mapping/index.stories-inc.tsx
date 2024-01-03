@@ -3,8 +3,8 @@ import React from 'react'
 import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
-import { Phase } from 'src/config'
-import { CHANNEL_CORE_MAPPING, CORE_MAPPING, CoreMappingChannel, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, PARTICIPANT_CORE_MAPPING, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { CHANNEL_MAPPING, PARTICIPANT_MAPPING, Phase } from 'src/config'
+import { CORE_MAPPING, ChannelMapping, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
 
@@ -221,10 +221,10 @@ const milSymRenderer: MilSymRenderer = {
   additionalProps: [categoryProp, sizeProp]
 }
 
-const coreMapChannel: CoreMappingChannel = {
+const coreMapChannel: ChannelMapping = {
   uniqid: 'core',
   name: 'core mapping',
-  channelType: CHANNEL_CORE_MAPPING,
+  channelType: CHANNEL_MAPPING,
   constraints: {
     bounds: [[1.1, 2.2], [3.3, 5.5]],
     minZoom: 3,
@@ -236,9 +236,12 @@ const coreMapChannel: CoreMappingChannel = {
   },
   participants: [
     {
+      forceUniqid: 'f-red',
+      roles: [],
+      subscriptionId: 'aaaa',
       canCreateFrom: [coreRenderer.id, milSymRenderer.id],
       canSubmitInPhase: [Phase.Planning],
-      pType: PARTICIPANT_CORE_MAPPING
+      pType: PARTICIPANT_MAPPING
     }
   ],
   renderers: [coreRenderer, milSymRenderer]
