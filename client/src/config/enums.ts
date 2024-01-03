@@ -39,21 +39,6 @@ export enum SpecialChannelColumns {
   LOCATION = 'location'
 }
 
-/** style of label for hexes
- */
-export enum CellLabelStyle {
-  // 12.3N 32.3W
-  LAT_LON_LABELS = 'lat_lon_labels',
-  // A12
-  X_Y_LABELS = 'x_y_labels',
-  // 432
-  CTR_LABELS = 'ctr_labels',
-  // 35234fe5effffff
-  H3_LABELS = 'h3_labels',
-  // don't show labels
-  BLANK = 'blank'
-}
-
 /** the phases a v3 collaborative message goes through before
  * being approved to send
  */
