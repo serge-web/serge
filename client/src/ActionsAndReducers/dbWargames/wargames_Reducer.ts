@@ -9,9 +9,19 @@ import {
   serverPath
 } from 'src/config'
 
-import { ChannelTypes, ForceData, ParticipantTypes, Role, WargameActionTypes } from 'src/custom-types'
+import { 
+  ChannelTypes, ForceData, WargamesState, ParticipantTypes, Role, WargameActionTypes, WargameRevision, Wargame, AllWargameNameSaved, SetCurrentWargame, SetGameSetupData, SetCurrentGameSetupTab, 
+  AddNewForce, SetForceColor, AddNewChannel, SetSelectedChannel
+} from 'src/custom-types'
+let selected: string
+let curChannel: string
+let index
+let newForce
+let newChannel
+let channelIndex
+let newParticipant
 
-const initialState = {
+const initialState: WargamesState = {
   isLoading: false,
   wargameList: [],
   currentWargame: '',
@@ -22,107 +32,121 @@ const initialState = {
   wargameInitiated: false,
   adminNotLoggedIn: true
 }
+type ActionHandler = (newState: WargamesState, action: WargameActionTypes, tab: string) => void;
+
+const handlers: Record<string, ActionHandler> = {
+  [ActionConstant.ALL_WARGAME_NAMES_SAVED]: (newState, action) => handleAllWargameNamesSaved(newState, (action as AllWargameNameSaved).payload),
+  [ActionConstant.SET_CURRENT_WARGAME]: (newState, action) => handleSetCurrentWargame(newState, (action as SetCurrentWargame).payload),
+  [ActionConstant.SET_EXPORT_WARGAME]: (newState, action) => handleSetExportWargame(newState, (action as SetCurrentWargame).payload),
+  [ActionConstant.SET_CURRENT_GAME_SETUP_TAB]: (newState, action) => {
+    newState.currentTab = (action as SetCurrentGameSetupTab).payload
+  },
+  [ActionConstant.SET_GAME_SETUP_DATA]: (newState, action, tab) => {
+    newState.data[tab] = { ...newState.data[tab], ...(action as SetGameSetupData).payload }
+  },
+  [ActionConstant.SET_TAB_SAVED]: (newState, _, tab) => {
+    newState.data[tab].dirty = false
+  },
+  [ActionConstant.SET_TAB_UNSAVED]: (newState, _, tab) => {
+    newState.data[tab].dirty = true
+  },
+  [ActionConstant.ADD_NEW_FORCE]: (newState, action, tab) => {
+    const { payload } = action as AddNewForce
+
+    newForce = forceTemplate
+    newForce.name = payload.name
+    newForce.uniqid = payload.uniqid
+
+    newState.data[tab].forces.unshift(newForce)
+  },
+  [ActionConstant.SET_FORCE_COLOR]: (newState, action, tab) => {
+    const { payload } = action as SetForceColor
+    const selectedForceName = newState.data[tab].selectedForce.name
+
+    newState.data[tab].forces.find((force: ForceData) => force.name === selectedForceName).color = payload
+  },
+  [ActionConstant.SET_SELECTED_FORCE]: (newState, action) => {
+    newState.data.forces.selectedForce = (action as any).payload 
+  },
+  [ActionConstant.ADD_NEW_CHANNEL]: (newState, action, tab) => handleAddNewChannel(newState, (action as AddNewChannel).payload, tab),
+  [ActionConstant.SET_SELECTED_CHANNEL]: (newState, action, tab) => {
+    newState.data[tab].selectedChannel = (action as SetSelectedChannel).payload
+  },
+  [ActionConstant.DELETE_SELECTED_CHANNEL]: (newState, action, tab) => handleDeleteSelectedChannel(newState, (action as SetSelectedChannel).payload, tab)
+}
 
 export const wargamesReducer = (state = initialState, action: WargameActionTypes) => {
-  const newState = copyState(state)
+  const newState: WargamesState = copyState(state)
   const tab = newState.currentTab
 
-  let selected: string
-  let curChannel: string
-  let index
-  let newForce
-  let newChannel
-  let channelIndex
-  let newParticipant
+  const handler = handlers[action.type]
+
+  if (handler) {
+    handler(newState, action, tab)
+  }
 
   switch (action.type) {
-    case ActionConstant.ALL_WARGAME_NAMES_SAVED:
-      const originalList = action.payload || []
-      const anyList = originalList as any
-      // NOTE: we don't know why, but some SQLite files 
-      // can get corrupted, and are empty. Filter them
-      // out, since they're of no values
-      const safeList = anyList.filter((game: any) => {
-        if (game.wargameTitle || game.title) {
-          return true
-        } else {
-          console.warn('Warning Data not found for', game.name, ' potentially corrupt')
-          return false
-        }
-      })
-      newState.wargameList = safeList
-      return newState
+    // case ActionConstant.ALL_WARGAME_NAMES_SAVED:
+    //   handleAllWargameNamesSaved(newState, action.payload)
+    //   break
 
-    case ActionConstant.SET_CURRENT_WARGAME:
+    // case ActionConstant.SET_CURRENT_WARGAME:
+    //   handleSetCurrentWargame(newState, action.payload)
+    //   break
+    // case ActionConstant.SET_EXPORT_WARGAME:
+    //   handleSetExportWargame(newState, action.payload)
+    //   break
+    // case ActionConstant.SET_CURRENT_GAME_SETUP_TAB:
+    //   newState.currentTab = action.payload
+    //   break
 
-      newState.currentWargame = action.payload.name
-      newState.wargameTitle = action.payload.wargameTitle
-      newState.data = action.payload.data
-      newState.wargameInitiated = action.payload.wargameInitiated || false
+    // case ActionConstant.SET_GAME_SETUP_DATA:
+    //   newState.data[tab] = { ...newState.data[tab], ...action.payload }
+    //   break
 
-      return newState
+    // case ActionConstant.SET_TAB_SAVED:
+    //   newState.data[tab].dirty = false
+    //   break
 
-    case ActionConstant.SET_EXPORT_WARGAME:
+    // case ActionConstant.SET_TAB_UNSAVED:
+    //   newState.data[tab].dirty = true
+    //   break
 
-      newState.data = action.payload.data
-      newState.currentWargame = action.payload.name
-      newState.wargameTitle = action.payload.wargameTitle
-      newState.exportMessagelist = action.payload.exportMessagelist
-      newState.wargameInitiated = action.payload.wargameInitiated || false
+    // case ActionConstant.ADD_NEW_FORCE:
 
-      return newState
+    //   newForce = forceTemplate
+    //   newForce.name = action.payload.name
+    //   newForce.uniqid = action.payload.uniqid
 
-    case ActionConstant.SET_CURRENT_GAME_SETUP_TAB:
-      newState.currentTab = action.payload
-      break
+    //   newState.data[tab].forces.unshift(newForce)
+    //   break
 
-    case ActionConstant.SET_GAME_SETUP_DATA:
-      newState.data[tab] = { ...newState.data[tab], ...action.payload }
-      break
+    // case ActionConstant.SET_FORCE_COLOR:
+    //   newState.data[tab].forces.find((force: ForceData) => force.name === newState.data[tab].selectedForce.name).color = action.payload
+    //   break
 
-    case ActionConstant.SET_TAB_SAVED:
-      newState.data[tab].dirty = false
-      break
+    // case ActionConstant.SET_SELECTED_FORCE:
+    //   newState.data.forces.selectedForce = action.payload as any
+    //   break
 
-    case ActionConstant.SET_TAB_UNSAVED:
-      newState.data[tab].dirty = true
-      break
+    // case ActionConstant.ADD_NEW_CHANNEL:
+    //   console.log('newChannel')
+    //   newChannel = channelTemplate
+    //   newChannel.name = action.payload.name
+    //   newChannel.uniqid = action.payload.uniqid
+    //   newState.data[tab].channels.push(newChannel)
+    //   break
 
-    case ActionConstant.ADD_NEW_FORCE:
+    // case ActionConstant.SET_SELECTED_CHANNEL:
+    //   newState.data[tab].selectedChannel = action.payload
+    //   break
 
-      newForce = forceTemplate
-      newForce.name = action.payload.name
-      newForce.uniqid = action.payload.uniqid
+    // case ActionConstant.DELETE_SELECTED_CHANNEL:
 
-      newState.data[tab].forces.unshift(newForce)
-      break
-
-    case ActionConstant.SET_FORCE_COLOR:
-      newState.data[tab].forces.find((force: ForceData) => force.name === newState.data[tab].selectedForce.name).color = action.payload
-      break
-
-    case ActionConstant.SET_SELECTED_FORCE:
-      newState.data.forces.selectedForce = action.payload
-      break
-
-    case ActionConstant.ADD_NEW_CHANNEL:
-
-      newChannel = channelTemplate
-      newChannel.name = action.payload.name
-      newChannel.uniqid = action.payload.uniqid
-      newState.data[tab].channels.push(newChannel)
-      break
-
-    case ActionConstant.SET_SELECTED_CHANNEL:
-      newState.data[tab].selectedChannel = action.payload
-      break
-
-    case ActionConstant.DELETE_SELECTED_CHANNEL:
-
-      channelIndex = newState.data[tab].channels.findIndex((channel: ChannelTypes) => channel.name === action.payload.name)
-      newState.data[tab].channels.splice(channelIndex, 1)
-      newState.data[tab].selectedChannel = ''
-      break
+    //   channelIndex = newState.data[tab].channels.findIndex((channel: ChannelTypes) => channel.name === action.payload.name)
+    //   newState.data[tab].channels.splice(channelIndex, 1)
+    //   newState.data[tab].selectedChannel = ''
+    //   break
 
     case ActionConstant.ADD_NEW_RECIPIENT:
       curChannel = newState.data[tab].selectedChannel.uniqid
@@ -169,6 +193,50 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
     default:
       return newState
   }
-
   return newState
+}
+
+const handleAllWargameNamesSaved = (newState: WargamesState, payload: WargameRevision[] | string | Wargame[]) => {
+  const originalList = payload || []
+  const anyList = originalList as any
+  // // NOTE: we don't know why, but some SQLite files 
+  // // can get corrupted, and are empty. Filter them
+  // // out, since they're of no values
+  const safeList = anyList.filter((game: any) => {
+    if (game.wargameTitle || game.title) {
+      return true
+    } else {
+      console.warn('Warning Data not found for', game.name, ' potentially corrupt')
+      return false
+    }
+  })
+  newState.wargameList = safeList
+}
+
+const handleSetCurrentWargame = (newState: WargamesState, payload: Wargame) => {
+  newState.currentWargame = payload.name
+  newState.wargameTitle = payload.wargameTitle
+  newState.data = payload.data
+  newState.wargameInitiated = payload.wargameInitiated || false
+}
+
+function handleSetExportWargame (newState: WargamesState, payload: Wargame) {
+  newState.data = payload.data
+  newState.currentWargame = payload.name
+  newState.wargameTitle = payload.wargameTitle
+  newState.exportMessagelist = payload.exportMessagelist
+  newState.wargameInitiated = payload.wargameInitiated || false
+}
+
+const handleAddNewChannel = (newState: WargamesState, payload: { name: string, uniqid: string }, tab: string) => {
+  newChannel = channelTemplate
+  newChannel.name = payload.name
+  newChannel.uniqid = payload.uniqid
+  newState.data[tab].channels.push(newChannel)
+}
+
+const handleDeleteSelectedChannel = (newState: WargamesState, payload: { name: string, uniqid: string }, tab: string) => {
+  channelIndex = newState.data[tab].channels.findIndex((channel: ChannelTypes) => channel.name === payload.name)
+  newState.data[tab].channels.splice(channelIndex, 1)
+  newState.data[tab].selectedChannel = ''
 }

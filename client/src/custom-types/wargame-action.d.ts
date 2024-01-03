@@ -25,6 +25,7 @@ import {
   UPDATE_ROLE_NAME
 } from 'src/config'
 import Wargame from './wargame'
+// import ForceData from './force-data'
 // import { ChannelTypes } from './channel-data'
 import WargameOverview from './wargame-overview'
 
@@ -35,7 +36,7 @@ export interface WargameRevision {
     shortName: string
 }
 
-interface AllWargameNameSaved {
+export interface AllWargameNameSaved {
     type: typeof ALL_WARGAME_NAMES_SAVED
     payload: WargameRevision[] | string | Wargame[]
 }
@@ -46,7 +47,12 @@ interface SetCurrentWargame {
 }
 
 interface SetCurrentGameSetupTab {
-    type: typeof SET_CURRENT_GAME_SETUP_TAB | typeof SET_GAME_SETUP_DATA
+    type: typeof SET_CURRENT_GAME_SETUP_TAB 
+    payload: string
+}
+
+interface SetGameSetupData {
+    type: typeof SET_GAME_SETUP_DATA
     payload: Notification | WargameOverview
 }
 
@@ -125,6 +131,7 @@ interface AddNotification {
 export type WargameActionTypes = AllWargameNameSaved |
 SetCurrentWargame |
 SetCurrentGameSetupTab |
+SetGameSetupData |
 SetTabSaved |
 AddNewForce |
 SetForceColor |
