@@ -3,8 +3,8 @@ import React from 'react'
 import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
-import { CHANNEL_MAPPING, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { CORE_MAPPING, ChannelMapping, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { CHANNEL_MAPPING, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
+import { ChannelMapping, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
 
@@ -201,7 +201,7 @@ const coreMessage: CoreMappingMessage = {
     timestamp: '2023-11-23T23:32:00',
     turnNumber: 1
   },
-  messageType: CORE_MAPPING,
+  messageType: MAPPING_MESSAGE,
   features: features
 }
 
@@ -262,7 +262,7 @@ const bulkMessage: CoreMappingMessage = {
     timestamp: '2023-11-23T23:32:00',
     turnNumber: 1
   },
-  messageType: CORE_MAPPING,
+  messageType: MAPPING_MESSAGE,
   features: generateFeatures(largeBounds, 300, 30)
 }
 
@@ -272,6 +272,7 @@ export const Default: React.FC = () => {
   )
 }
 
+console.log(coreMapChannel)
 export const Bulk: React.FC = () => {
   return (
     <CoreMapping bounds={largeBounds} playerForce={'f-red'} messages={[bulkMessage]} channel={coreMapChannel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>

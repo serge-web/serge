@@ -3,8 +3,6 @@
 //
 import { Phase } from 'src/config'
 import { ForceData } from './force-data'
-import { FeatureCollection } from 'geojson'
-import { CoreMessage } from './message'
 
 export const RENDERER_CORE = 'CoreRenderer'
 export const RENDERER_MILSYM = 'MilSymRenderer'
@@ -34,15 +32,6 @@ export interface CoreProperties extends BaseProperties {
 export interface MilSymProperties extends BaseProperties {
     sidc: string
     [other: string]: unknown
-}
-
-// TODO: move this const to the central consts file
-export const CORE_MAPPING = 'CoreMappingMessage'
-
-// TODO: move this type to the message.d.ts file
-export interface CoreMappingMessage extends CoreMessage {
-    readonly messageType: typeof CORE_MAPPING
-    features: FeatureCollection
 }
 
 export interface BaseProperty {

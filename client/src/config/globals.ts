@@ -36,6 +36,9 @@ export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 // series of constants used for `messageType` when using Counter message for COA and RFI messages
 export const COUNTER_MESSAGE = 'CounterMessage'
 
+// mapping messages
+export const MAPPING_MESSAGE = 'MappingMessage'
+
 // series of constants used for `messageType` when sending system messages
 // an INFO_MESSAGE is an update to the wargame document
 export const INFO_MESSAGE = 'InfoMessage'
