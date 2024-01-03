@@ -114,7 +114,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
           className="searchlist-list searchlist-list"
         >
           <span
-            className="searchlist-row active"
+            className="searchlist-row "
             onClick={[Function]}
           >
             <span>
