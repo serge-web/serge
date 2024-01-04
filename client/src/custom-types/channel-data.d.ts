@@ -1,6 +1,6 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_PLANNING, InitialStates, SpecialChannelColumns } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, InitialStates, SpecialChannelColumns } from 'src/config'
 import MappingConstraints from './mapping-constraints'
-import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantPlanning, ParticipantTemplate } from './participant'
+import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping, ParticipantTemplate } from './participant'
 
 /** description of channel, as stored in database */
 export interface ChannelCore {
@@ -9,37 +9,38 @@ export interface ChannelCore {
   /** name of this channel */
   name: string
   /** type - extended by child implementations */
-  channelType: any
+  readonly channelType: any
 }
 
 /** description of chat channel */
 export interface ChannelChat extends ChannelCore {
-  channelType: typeof CHANNEL_CHAT
+  readonly channelType: typeof CHANNEL_CHAT
   /** list of participants for this channel */
   participants: Array<ParticipantChat>
   /** whether to hide the Force and Role of the message author */
   hideMessageAuthor?: boolean
 }
 
-/** description of planning channel */
-export interface ChannelPlanning extends ChannelCore {
-  channelType: typeof CHANNEL_PLANNING
-  /** list of participants for this channel */
-  participants: Array<ParticipantPlanning>
-  /** the constraints (bounds) for the mapping */
+export interface ChannelMapping extends ChannelCore {
+  readonly channelType: typeof CHANNEL_MAPPING
+  /** map/tile constraints */
   constraints: MappingConstraints
+  /** list of participants for this channel */
+  participants: Array<ParticipantMapping>
+  /** list of renderers for this channel */
+  renderers: Array<BaseRenderer>
 }
 
 /** description of standard channel, sending custom messages */
 export interface ChannelCustom extends ChannelCore {
-  channelType: typeof CHANNEL_CUSTOM
+  readonly channelType: typeof CHANNEL_CUSTOM
   /** list of participants for this channel */
   participants: Array<ParticipantCustom>
 }
 
 /** description of collaborative editing channel */
 export interface ChannelCollab extends ChannelCore {
-  channelType: typeof CHANNEL_COLLAB
+  readonly channelType: typeof CHANNEL_COLLAB
   /** list of participants for this channel */
   participants: Array<ParticipantCollab>
   /** verbs for returning for edit */
@@ -66,5 +67,4 @@ export interface ChannelCollab extends ChannelCore {
 export type ChannelTypes = ChannelChat |
   ChannelCustom |
   ChannelCollab |
-  ChannelMapping |
-  ChannelPlanning
+  ChannelMapping

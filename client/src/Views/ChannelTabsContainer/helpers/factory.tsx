@@ -1,7 +1,7 @@
 import React from 'react'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING } from 'src/config'
 import { ChannelTypes, ChannelUI, PlayerUi } from 'src/custom-types'
 import ChatChannel from '../../../Components/ChatChannel'
 import CollabChannel from '../../../Components/CollabChannel'
@@ -46,23 +46,19 @@ const factory = (state: PlayerUi): Factory => {
     if (!channel || !renderThisChannel(channel)) {
       return null
     }
-    // const allTemplates = Object.values(state.allTemplatesByKey)
     const channelData: ChannelTypes = channel.cData
-    const isV3 = !!channelData.channelType
-    if (isV3) {
-      switch (channelData.channelType) {
-        case CHANNEL_COLLAB:
-          return <CollabChannel channelId={channel.uniqid} />
-        case CHANNEL_CHAT:
-          return <ChatChannel channelId={channel.uniqid} />
-        case CHANNEL_CUSTOM:
-          return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
-        default:
-          console.log('not yet handling', channelData)
-          return null
-      }
-    } else {
-      return <>This is a legacy channel. It is not being rendered.</>
+    switch (channelData.channelType) {
+      case CHANNEL_COLLAB:
+        return <CollabChannel channelId={channel.uniqid} />
+      case CHANNEL_CHAT:
+        return <ChatChannel channelId={channel.uniqid} />
+      case CHANNEL_CUSTOM:
+        return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
+      case CHANNEL_MAPPING:
+        return <>Mapping channel in here!</>    
+      default:
+        console.log('not yet handling', channelData)
+        return null
     }
   }
 }

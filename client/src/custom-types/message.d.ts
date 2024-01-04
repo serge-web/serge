@@ -1,5 +1,5 @@
 import { CHAT_MESSAGE, CollaborativeMessageStates, COUNTER_MESSAGE, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
-
+import { FeatureCollection } from 'geojson'
 import { ChannelCore, ForceData, ForceRole, TemplateBody } from '.'
 import Role from './role'
 import Wargame from './wargame'
@@ -169,6 +169,11 @@ export interface MessageFeedback extends CoreMessage {
   message: MessageStructure
 }
 
+export interface CoreMappingMessage extends CoreMessage {
+  readonly messageType: typeof CORE_MAPPING
+  featureCollection: FeatureCollection
+}
+
 /** message containing updated game status, could be one of:
  * new turn
  * updated wargame
@@ -198,11 +203,9 @@ export interface MessageInfoTypeClipped {
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom
 
-type Message = MessageCustom |
+export type Message = MessageCustom |
   ChatMessage |
   MessageFeedback |
   MessageInfoTypeClipped |
   MessageInfoType |
   MessageCounter
-
-export default Message

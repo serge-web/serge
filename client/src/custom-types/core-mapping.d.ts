@@ -3,10 +3,6 @@
 //
 import { Phase } from 'src/config'
 import { ForceData } from './force-data'
-import { FeatureCollection } from 'geojson'
-import { CoreMessage } from './message'
-import { ChannelCore } from './channel-data'
-import MappingConstraints from './mapping-constraints'
 
 export const RENDERER_CORE = 'CoreRenderer'
 export const RENDERER_MILSYM = 'MilSymRenderer'
@@ -37,17 +33,6 @@ export interface MilSymProperties extends BaseProperties {
     sidc: string
     [other: string]: unknown
 }
-
-// TODO: move this const to the central consts file
-export const CORE_MAPPING = 'CoreMappingMessage'
-
-// TODO: move this type to the message.d.ts file
-export interface CoreMappingMessage extends CoreMessage {
-    readonly messageType: typeof CORE_MAPPING
-    features: FeatureCollection
-}
-
-export const CHANNEL_CORE_MAPPING = 'CoreMapping'
 
 export interface BaseProperty {
   id: string
@@ -98,25 +83,4 @@ export interface CoreRenderer extends BaseRenderer {
 export interface MilSymRenderer extends BaseRenderer {
   type: typeof RENDERER_MILSYM
   cluster?: boolean // whether to cluster symbols
-}
-
-const PARTICIPANT_CORE_MAPPING = 'ParticipantCoreMapping'
-
-/** participation in collaborative editing channels */
-export interface CoreMappingParticipant extends CoreParticipant {
-    readonly pType: typeof PARTICIPANT_CORE_MAPPING
-    /** the phase(s) that this participant can create/edit items in */
-    canSubmitInPhase: [Phase]
-    /** ids of renderers that this role can create items for */
-    canCreateFrom: BaseRenderer['id'][]
-} 
-
-export interface CoreMappingChannel extends ChannelCore {
-    channelType: typeof CHANNEL_CORE_MAPPING
-    /** map/tile constraints */
-    constraints: MappingConstraints
-    /** list of participants for this channel */
-    participants: Array<CoreMappingParticipant>
-    /** list of renderers for this channel */
-    renderers: Array<BaseRenderer>
 }

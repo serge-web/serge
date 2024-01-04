@@ -7,7 +7,7 @@ export default interface PropTypes {
   currentTurn: number
   currentPhase: Phase
   forces: ForceStyle[]
-  channel: CoreMappingChannel 
+  channel: ChannelMapping 
   messages: CoreMappingMessage[]
   bounds: L.LatLngBounds
 }
