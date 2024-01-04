@@ -169,7 +169,7 @@ export interface MessageFeedback extends CoreMessage {
   message: MessageStructure
 }
 
-export interface CoreMappingMessage extends CoreMessage {
+export interface MappingMessage extends CoreMessage {
   readonly messageType: typeof CORE_MAPPING
   featureCollection: FeatureCollection
 }
