@@ -4,7 +4,7 @@ import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
 import { CHANNEL_MAPPING, CUSTOM_MESSAGE, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
 
@@ -186,7 +186,7 @@ const features: FeatureCollection = {
   features: [coreFeature, anotherCoreFeature, milFeature, anotherMilFeature]
 }
 
-const coreMessage: CoreMappingMessage = {
+const coreMessage: MappingMessage = {
   _id: 'timestamp-23',
   details: {
     channel: 'core-mapping',
@@ -247,7 +247,7 @@ const coreMapChannel: ChannelMapping = {
   renderers: [coreRenderer, milSymRenderer]
 }
 
-const bulkMessage: CoreMappingMessage = {
+const bulkMessage: MappingMessage = {
   _id: 'timestamp-23',
   details: {
     channel: 'core-mapping',
