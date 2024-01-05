@@ -25,6 +25,7 @@ import {
   UPDATE_ROLE_NAME
 } from 'src/config'
 import Wargame from './wargame'
+import WargamesState from './WargamesState'
 // import ForceData from './force-data'
 // import { ChannelTypes } from './channel-data'
 import WargameOverview from './wargame-overview'
@@ -146,5 +147,7 @@ LoginAdmin |
 PopulatingDb |
 RemoveRoleFromForce | 
 AddNotification
+
+export type ActionHandler = (newState: WargamesState, action: WargameActionTypes, tab: string) => void;
 
 export type WargameDispatch = Dispatch<WargameActionTypes>

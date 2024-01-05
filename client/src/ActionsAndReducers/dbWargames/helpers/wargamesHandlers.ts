@@ -1,8 +1,8 @@
-import { WargamesState, WargameRevision, Wargame, ChannelTypes, ForceData, ParticipantTypes, Role } from 'src/custom-types'
+import { WargamesState, WargameRevision, Wargame, WargameOverview, ChannelTypes, ForceData, ParticipantTypes, Role } from 'src/custom-types'
 import { channelTemplate, serverPath, forceTemplate } from 'src/config'
 import uniqId from 'uniqid'
 
-// Handles the saving of all wargame names.
+// Saves all wargame names to the state.
 export const handleAllWargameNamesSaved = (newState: WargamesState, payload: WargameRevision[] | string | Wargame[]) => {
   const originalList = payload || []
   const anyList = originalList as any
@@ -37,6 +37,14 @@ export const handleSetExportWargame = (newState: WargamesState, payload: Wargame
   newState.wargameInitiated = payload.wargameInitiated || false
 }
 
+export const handleSetCurrentGameSetupTab = (newState: WargamesState, payload: string) => {
+  newState.currentTab = payload
+}
+
+export const handleSetGameSetupData = (newState: WargamesState, payload: Notification | WargameOverview, tab: string) => {
+  newState.data[tab] = { ...newState.data[tab], ...payload }
+}
+
 // adding a new force to the wargame.
 export const handleAddNewForce = (newState: WargamesState, payload: { name: string, uniqid: string }, tab: string) => {
   const newForce: ForceData = {
@@ -48,12 +56,28 @@ export const handleAddNewForce = (newState: WargamesState, payload: { name: stri
   newState.data[tab].forces.unshift(newForce)
 }
 
-// Handles adding a new channel to the wargame.
+// Sets the color for the selected force in the specified tab.
+export const handleSetForceColor = (newState: WargamesState, payload: string, tab: string) => {
+  const selectedForceName = newState.data[tab].selectedForce.name
+  newState.data[tab].forces.find((force: ForceData) => force.name === selectedForceName).color = payload
+}
+
+// Sets the selected force in the global state.
+export const handleSetSelectedForce = (newState: WargamesState, payload: { name: string, uniqid: string, iconURL?: string }) => {
+  newState.data.forces.selectedForce = payload as ForceData
+}
+
+// Adds a new channel to the wargame in the specified tab.
 export const handleAddNewChannel = (newState: WargamesState, payload: { name: string, uniqid: string }, tab: string) => {
   const newChannel = channelTemplate
   newChannel.name = payload.name
   newChannel.uniqid = payload.uniqid
   newState.data[tab].channels.push(newChannel)
+}
+
+// Sets the selected channel in the specified tab.
+export const handleSetSelectedChannel = (newState: WargamesState, payload: { name: string, uniqid: string }, tab: string) => {
+  newState.data[tab].selectedChannel = payload
 }
 
 // Handles deleting the selected channel from the wargame.
@@ -84,7 +108,7 @@ export const handleRemoveRecipient = (newState: WargamesState, payload: string, 
   newState.data[tab].channels.find((c: ChannelTypes) => c.uniqid === curChannel).participants.splice(index, 1)
 }
 
-// Handles adding a role to the force in the selected tab.
+// adding a role to the force in the selected tab.
 export const handleAddRoleToForce = (newState: WargamesState, payload: { 
     force?: string
     role?: string
@@ -93,7 +117,7 @@ export const handleAddRoleToForce = (newState: WargamesState, payload: {
   newState.data[tab].forces.find((force: ForceData) => force.name === payload.force).roles.push(payload.role)
 }
 
-// removing a role from the force in the selected tab.
+//  removing a role from the force in the selected tab.
 export const handleUpdateRoleName = (newState: WargamesState, payload: { 
     force?: string
     role?: string
