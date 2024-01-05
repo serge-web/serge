@@ -57,7 +57,8 @@ const AdminGameSetup: React.FC = () => {
   const {
     overview,
     forces,
-    channels
+    channels,
+    templates
   } = data
   const tabs = Object.keys(data)
 
@@ -76,7 +77,6 @@ const AdminGameSetup: React.FC = () => {
     e.preventDefault()
     dispatch(setCurrentViewFromURI(ADMIN_ROUTE))
   }
-
   const isUniqueName = ({ newName, list, label }: UniqueNameInterface) => {
     let listNames = list.map((item: ForceData) => item.name)
     listNames = _.pull(listNames, newName)
@@ -335,7 +335,7 @@ const AdminGameSetup: React.FC = () => {
       onDuplicateChannel={onDuplicateChannel}
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
-      messageTemplates={messageTypes.messages}
+      messageTemplates={templates?.templates || messageTypes.messages}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
