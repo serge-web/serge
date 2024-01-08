@@ -18,17 +18,7 @@ export * from './global.d'
 export { default as MarkerPerception } from './marker-perception.d'
 export * from './message-types-actions.d'
 export { default as MessageTypes, TemplateBodysByKey } from './message-types.d'
-export {
-  ChatMessage, CollaborationDetails, CoreMessage, default as Message, FeedbackItem,
-  // All template based messages
-  MessageChannel, MessageCounter,
-  // All template based messages
-  MessageCustom, MessageDetails, MessageDetailsFrom,
-  // System Messages
-  MessageFeedback,
-  // Map Types
-  MessageInfoType, MessageInfoTypeClipped, MessageStructure
-} from './message.d'
+export * from './message.d'
 export { MessagesActionTypes, MessagesDispatch, SetCurrentViewFromURI } from './messages-action.d'
 export * from './participant.d'
 export * from './player-log-actions.d'
@@ -39,7 +29,7 @@ export { default as RequestForInformation } from './request-for-information.d'
 export { default as Role } from './role.d'
 export * from './root-state'
 export { default as SetWargameMessage } from './set-wargame-message.d'
-export { default as Template, TemplateBody } from './template.d'
+export { default as Template, TemplateBody, TemplateData } from './template.d'
 export * from './turn-length.d'
 export { WargameActionTypes, WargameDispatch, WargameRevision } from './wargame-action.d'
 export { default as WargameData } from './wargame-data.d'

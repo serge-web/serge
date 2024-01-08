@@ -19,6 +19,7 @@ export class ChannelAdminPage extends BasePage{
   readonly outEmelemtRole: any;
   readonly outEmelemtTemplate: any;
   readonly msgSaveChannelSuccess: any;
+  readonly channelLeftBar: any;
   
   constructor(page: Page) {
     super(page);
@@ -34,6 +35,10 @@ export class ChannelAdminPage extends BasePage{
     this.outEmelemtRole = page.getByText('Participants and messages').first();
     this.outEmelemtTemplate = page.getByText('Participants and messages').first();
     this.msgSaveChannelSuccess = page.getByText('channel saved.');
+    this.channelLeftBar = (channel :string) : Locator => {
+      return page.locator("//span[contains(@class,'_searchlist-row')]//span[text()='"+channel+"']");
+    }
+    
     
     this.selectOption = (option :string) : Locator => {
       return page.getByRole('option', { name: option });
@@ -70,6 +75,10 @@ export class ChannelAdminPage extends BasePage{
 
   async inputNameChannel(name : string) {
     await this.nameChannelInput.fill(name);
+  }
+
+  async verifyChannelIsCreated(name : string) {
+    await this.verifyTextIsvisible(await this.channelLeftBar(name));
   }
 
   async clickSaveChannelButton() {

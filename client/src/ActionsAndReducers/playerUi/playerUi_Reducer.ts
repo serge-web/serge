@@ -5,7 +5,7 @@ import {
 } from 'src/config'
 import { 
   PlayerUi, PlayerUiActionTypes, SetCurrentWargameAction, SetForceAction, SetRoleAction, UpdateMessageStateAction, SetWargameFeedbackAction, SetLatestFeedbackMessageAction, SetLatestWargameMessageAction, 
-  SetWargameMessagesAction, OpenMessageAction, MarkUnreacAction, CloseMessageAction, MarkAllAsReadAction, MarkAllASUnReadAction, OpenTourAction, OpenModalAction
+  SetWargameMessagesAction, OpenMessageAction, MarkUnreacAction, CloseMessageAction, MarkAllAsReadAction, MarkAllASUnReadAction, OpenTourAction, OpenModalAction, SetAllTemplatesAction
 } from 'src/custom-types'
 import copyState from '../../Helpers/copyStateHelper'
 import chat from '../../Schemas/chat.json'
@@ -68,9 +68,11 @@ const actionHandlers: Record<string, ActionHandler> = {
       (action as SetForceAction).payload
     ),
   [SET_ROLE]: (newState, action) => getRoleParamsForPlayerUI((action as SetRoleAction).payload, newState),
-  [SET_ALL_TEMPLATES_PLAYERUI]: (action) => {
-    console.warn('ignoring templates from message types database', action)
-    // newState.allTemplatesByKey = action.payload
+  [SET_ALL_TEMPLATES_PLAYERUI]: (_newState, action) => {
+    // note: Uncomment this line to update the 'allTemplatesByKey' in the state with the payload from the action
+    // _newState.allTemplatesByKey = (action as SetAllTemplatesAction).payload
+
+    console.warn('ignoring templates from message types database', (action as SetAllTemplatesAction).payload)
   },
   [SHOW_HIDE_OBJECTIVES]: newState => {
     newState.showObjective = !newState.showObjective

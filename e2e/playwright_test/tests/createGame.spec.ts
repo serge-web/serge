@@ -65,19 +65,21 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await channelAdminPage.inputNameChannel("Blue HQ");
   await channelAdminPage.inputAParticipantChannelInfors('Blue', 'CO', 'Daily intentions');
   await channelAdminPage.clickSaveRowChannelIcon('Blue', 'CO');
-  await channelAdminPage.inputAParticipantChannelInfors('White', 'Game Control', 'State of World');
+  await channelAdminPage.inputAParticipantChannelInfors('White', 'Game Control', 'Daily intentions');
   await channelAdminPage.clickSaveRowChannelIcon('White', 'Game Control');
   await channelAdminPage.clickSaveChannelButton();
   await channelAdminPage.verifySaveChannelSuccess();
+  await channelAdminPage.verifyChannelIsCreated("Blue HQ");
 
   await channelAdminPage.clickaddAChannelBtn();
   await channelAdminPage.inputNameChannel("Red HQ");
   await channelAdminPage.inputAParticipantChannelInfors('Red', 'CO', 'Daily intentions');
   await channelAdminPage.clickSaveRowChannelIcon('Red', 'CO');
-  await channelAdminPage.inputAParticipantChannelInfors('White', 'Game Control', 'State of World');
+  await channelAdminPage.inputAParticipantChannelInfors('White', 'Game Control', 'Chat');
   await channelAdminPage.clickSaveRowChannelIcon('White', 'Game Control');
   await channelAdminPage.clickSaveChannelButton();
   await channelAdminPage.verifySaveChannelSuccess();
+  await channelAdminPage.verifyChannelIsCreated("Red HQ");
 
   await channelAdminPage.clickaddAChannelBtn();
   await channelAdminPage.inputNameChannel("Blue Chat");
@@ -85,6 +87,7 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await channelAdminPage.clickSaveRowChannelIcon('Blue', '');
   await channelAdminPage.clickSaveChannelButton();
   await channelAdminPage.verifySaveChannelSuccess();
+  await channelAdminPage.verifyChannelIsCreated("Blue Chat");
 
   await channelAdminPage.clickaddAChannelBtn();
   await channelAdminPage.inputNameChannel("Red Chat");
@@ -92,6 +95,7 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await channelAdminPage.clickSaveRowChannelIcon('Red', '');
   await channelAdminPage.clickSaveChannelButton();
   await channelAdminPage.verifySaveChannelSuccess();
+  await channelAdminPage.verifyChannelIsCreated("Red Chat");
 
   await channelAdminPage.clickaddAChannelBtn();
   await channelAdminPage.inputNameChannel("Media");
@@ -103,6 +107,7 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await channelAdminPage.clickSaveRowChannelIcon('Red', 'Media');
   await channelAdminPage.clickSaveChannelButton();
   await channelAdminPage.verifySaveChannelSuccess();
+  await channelAdminPage.verifyChannelIsCreated("Media");
 
   await loginGamePage.openUrl(config.BASE_URL);
   await loginGamePage.clickPlayGameBtn();

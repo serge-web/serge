@@ -36,6 +36,9 @@ export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 // series of constants used for `messageType` when using Counter message for COA and RFI messages
 export const COUNTER_MESSAGE = 'CounterMessage'
 
+// mapping messages
+export const MAPPING_MESSAGE = 'MappingMessage'
+
 // series of constants used for `messageType` when sending system messages
 // an INFO_MESSAGE is an update to the wargame document
 export const INFO_MESSAGE = 'InfoMessage'
@@ -64,13 +67,13 @@ export const CHANNEL_RFI_STATUS = 'rfis'
 export const CHANNEL_CHAT = 'ChannelChat'
 export const CHANNEL_CUSTOM = 'ChannelCustom'
 export const CHANNEL_COLLAB = 'ChannelCollab'
-export const CHANNEL_PLANNING = 'ChannelPlanning'
+export const CHANNEL_MAPPING = 'ChannelMapping'
 
 // types of participant
 export const PARTICIPANT_CHAT = 'ParticipantChat'
 export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
 export const PARTICIPANT_COLLAB = 'ParticipantCollab'
-export const PARTICIPANT_PLANNING = 'ParticipantPlanning'
+export const PARTICIPANT_MAPPING = 'ParticipantMapping'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'

@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { Phase } from 'src/config'
-import { BaseRenderer, CoreMappingMessage, CoreProperties, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, MappingMessage, CoreProperties, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
@@ -31,8 +31,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
 
   useEffect(() => {
     if (messages.length > 0) {
-      const lastMessage: CoreMappingMessage = messages[messages.length - 1]
-      setFeatureCollection(lastMessage.features)
+      const lastMessage: MappingMessage = messages[messages.length - 1]
+      setFeatureCollection(lastMessage.featureCollection)
     } else {
       setFeatureCollection(undefined)
     }

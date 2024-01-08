@@ -3,8 +3,8 @@ import React from 'react'
 import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
-import { Phase } from 'src/config'
-import { CHANNEL_CORE_MAPPING, CORE_MAPPING, CoreMappingChannel, CoreMappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, PARTICIPANT_CORE_MAPPING, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { CHANNEL_MAPPING, CUSTOM_MESSAGE, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
+import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
 
@@ -186,7 +186,7 @@ const features: FeatureCollection = {
   features: [coreFeature, anotherCoreFeature, milFeature, anotherMilFeature]
 }
 
-const coreMessage: CoreMappingMessage = {
+const coreMessage: MappingMessage = {
   _id: 'timestamp-23',
   details: {
     channel: 'core-mapping',
@@ -197,12 +197,12 @@ const coreMessage: CoreMappingMessage = {
       roleName: 'MARITIME CTRL',
       iconURL: 'f-red.svg'
     },
-    messageType: 'custom',
+    messageType: MAPPING_MESSAGE,
     timestamp: '2023-11-23T23:32:00',
     turnNumber: 1
   },
-  messageType: CORE_MAPPING,
-  features: features
+  messageType: CUSTOM_MESSAGE,
+  featureCollection: features
 }
 
 const baseProps = [forceProp, phaseProp, turnProp]
@@ -221,10 +221,10 @@ const milSymRenderer: MilSymRenderer = {
   additionalProps: [categoryProp, sizeProp]
 }
 
-const coreMapChannel: CoreMappingChannel = {
+const coreMapChannel: ChannelMapping = {
   uniqid: 'core',
   name: 'core mapping',
-  channelType: CHANNEL_CORE_MAPPING,
+  channelType: CHANNEL_MAPPING,
   constraints: {
     bounds: [[1.1, 2.2], [3.3, 5.5]],
     minZoom: 3,
@@ -236,15 +236,18 @@ const coreMapChannel: CoreMappingChannel = {
   },
   participants: [
     {
+      forceUniqid: 'f-red',
+      roles: [],
+      subscriptionId: 'aaaa',
       canCreateFrom: [coreRenderer.id, milSymRenderer.id],
       canSubmitInPhase: [Phase.Planning],
-      pType: PARTICIPANT_CORE_MAPPING
+      pType: PARTICIPANT_MAPPING
     }
   ],
   renderers: [coreRenderer, milSymRenderer]
 }
 
-const bulkMessage: CoreMappingMessage = {
+const bulkMessage: MappingMessage = {
   _id: 'timestamp-23',
   details: {
     channel: 'core-mapping',
@@ -259,9 +262,11 @@ const bulkMessage: CoreMappingMessage = {
     timestamp: '2023-11-23T23:32:00',
     turnNumber: 1
   },
-  messageType: CORE_MAPPING,
-  features: generateFeatures(largeBounds, 300, 30)
+  messageType: MAPPING_MESSAGE,
+  featureCollection: generateFeatures(largeBounds, 300, 30)
 }
+
+console.log(coreMessage)
 
 export const Default: React.FC = () => {
   return (

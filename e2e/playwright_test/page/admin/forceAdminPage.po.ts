@@ -34,7 +34,7 @@ export class ForceAdminPage extends BasePage{
     this.page = page;
     this.gameNameInput = page.locator('input[@name]').first();
     this.addANewForceBtn = page.getByRole('button', { name: 'Add a New Force' });
-    this.nameForceInput = page.locator('xpath=//input[@name]').nth(1);
+    this.nameForceInput = page.locator('xpath=//input[@name]').nth(2);
     this.colorSelect = page.locator('xpath=//div[contains(@class,"color-box")]');
     this.changeIconBtn = page.getByText('Change Icon')
     this.saveForceBtn = page.getByRole('button', { name: 'Save Force' });

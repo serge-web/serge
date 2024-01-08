@@ -6,12 +6,13 @@ import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import uniqid from 'uniqid'
 import deepCopy from '../../Helpers/copyStateHelper'
+import * as messageTypesApi from '../../api/messageTypes_api'
 
 import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision } from 'src/custom-types'
+import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TemplateData } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
@@ -195,11 +196,19 @@ export const saveIcon = (file: string) => {
   }).then((res: Response) => res.json())
 }
 
-export const createWargame = (): Promise<Wargame> => {
+export const createWargame = async (): Promise<Wargame> => {
   const name = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name, db })
+  
+  // get all temlete data
+  const messages = await messageTypesApi.getAllMessagesFromDb()
+  const templetes: TemplateData = {
+    templates: messages
+  }
 
+  // include templetes whenever you start a new game
+  dbDefaultSettings.data.templates = templetes
   const settings: Wargame = { 
     ...dbDefaultSettings, 
     name, 
