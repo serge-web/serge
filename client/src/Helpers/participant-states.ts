@@ -179,6 +179,6 @@ export const getParticipantStates = (
     observing = true
     templates = []
   }
-
+  
   return { isParticipant, observing, templates }
 }

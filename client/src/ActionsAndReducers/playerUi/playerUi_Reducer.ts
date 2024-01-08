@@ -12,6 +12,7 @@ import chat from '../../Schemas/chat.json'
 import { closeMessage, markUnread, handleLatestWargameMessage, handleSetAllMessagesAction, openMessageAction, markAllMessagesAsRead, markAllMessagesAsUnread } from './helpers/handleWargameMessagesChange'
 import getRoleParamsForPlayerUI from './helpers/getRoleParamsForPlayerUI'
 import * as playerUIReducerHelpers from './helpers/wargamePlayerHandlers.ts'
+
 export const initialState: PlayerUi = {
   selectedForce: undefined,
   selectedRole: '',
@@ -56,6 +57,11 @@ export const initialState: PlayerUi = {
 
 type ActionHandler = (newState: PlayerUi, action: PlayerUiActionTypes, state: PlayerUi) => void;
 
+// Define an object to map action types to their corresponding Handlers
+// Each property in the actionHandlers object is a key-value pair where:
+// - The key is the action type, obtained from ActionConstant.
+// - The value is a function (handler) that takes the current state, the action, and a tab as parameters.
+// functions is responsible for updating the state
 const actionHandlers: Record<string, ActionHandler> = {
   [SET_CURRENT_WARGAME_PLAYER]: (newState, action, state) => playerUIReducerHelpers.handleCurrentWargamePlayer(
     newState,
@@ -88,11 +94,7 @@ const actionHandlers: Record<string, ActionHandler> = {
       (action as SetLatestFeedbackMessageAction).payload
     )
   },
-  [SET_LATEST_WARGAME_MESSAGE]: (newState, action) =>
-    handleLatestWargameMessage(
-      (action as SetLatestWargameMessageAction).payload,
-      newState
-    ),
+  [SET_LATEST_WARGAME_MESSAGE]: (newState, action) => handleLatestWargameMessage((action as SetLatestWargameMessageAction).payload, newState),
   [SET_ALL_MESSAGES]: (newState, action) => handleSetAllMessagesAction((action as SetWargameMessagesAction).payload, newState),
   [OPEN_MESSAGE]: (newState, action) => openMessageAction((action as OpenMessageAction).payload, newState),
   [MARK_UNREAD]: (newState, action) => {
