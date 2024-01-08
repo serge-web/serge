@@ -3,14 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@material-ui/core'
 import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection } from 'geojson'
-import { LatLng, PM } from 'leaflet'
+import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { cloneDeep, flatten, unionBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
-import { Phase } from 'src/config'
-import { BaseRenderer, MappingMessage, CoreProperties, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, CoreProperties, MappingMessage, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
@@ -19,11 +18,14 @@ import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, currentTurn, currentPhase }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
   const [checked, setChecked] = useState<boolean>(false)
+
+  // const bounds = L.latLngBounds(channel.constraints.bounds)
+  const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
   useEffect(() => {
     loadDefaultMarker()
@@ -68,6 +70,16 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
   
   const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
     const shapeType = (e as any).shape
+    const commonProps = {
+      id: (e as any).layer._leaflet_id,
+      phase: currentPhase,
+      label: playerForce.name,
+      turn: currentTurn,
+      force: playerForce.uniqid,
+      category: 'Civilian',
+      color: playerForce.color
+    }
+
     switch (shapeType) {
       case 'Line': {
         const locs = (e as any).layer._latlngs as L.LatLng[]
@@ -75,14 +87,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
           return [item.lng, item.lat]
         })
         const props: CoreProperties = {
-          id: (e as any).layer._leaflet_id,
           _type: RENDERER_CORE,
-          phase: Phase.Planning,
-          label: 'Headquarters Building',
-          turn: 1,
-          force: 'f-red',
-          category: 'Civilian',
-          color: '#CCF'
+          ...commonProps
         }
         return {
           type: 'Feature',
@@ -100,14 +106,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
           return [item.lng, item.lat]
         })
         const props: CoreProperties = {
-          id: (e as any).layer._leaflet_id,
           _type: RENDERER_CORE,
-          phase: Phase.Planning,
-          label: 'Headquarters Building',
-          turn: 1,
-          force: 'f-red',
-          category: 'Civilian',
-          color: '#CCF'
+          ...commonProps
         }
         return {
           type: 'Feature',
@@ -123,15 +123,10 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
         return {
           type: 'Feature',
           properties: {
-            id: (e as any).layer._leaflet_id,
             _type: RENDERER_MILSYM,
-            phase: Phase.Planning,
-            label: 'Headquarters Building',
-            turn: 1,
-            force: 'f-red',
             sidc: 'SFG-UCI----D',
-            category: 'Civilian',
-            size: 'M'
+            size: 'M',
+            ...commonProps
           },
           geometry: {
             coordinates: [loc.lng, loc.lat],

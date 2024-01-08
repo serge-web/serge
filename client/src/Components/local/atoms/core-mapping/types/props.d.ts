@@ -1,15 +1,15 @@
 import { FeatureCollection } from 'geojson'
 import { LatLng, PM } from 'leaflet'
+import { ChannelMapping, ForceData } from 'src/custom-types'
 
 export default interface PropTypes {
-  playerForce: ForceData['id']
+  playerForce: ForceData
   playerRole: Role['id']
   currentTurn: number
   currentPhase: Phase
   forces: ForceStyle[]
   channel: ChannelMapping 
   messages: CoreMappingMessage[]
-  bounds: L.LatLngBounds
 }
 
 export type CoreRendererProps = {
