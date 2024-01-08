@@ -2,7 +2,7 @@
 
 exports[`ButtonList component: renders correctly 1`] = `
 <div
-  className=""
+  className="button-list"
 >
   <button
     className="MuiButtonBase-root MuiButton-root MuiButton-contained"
