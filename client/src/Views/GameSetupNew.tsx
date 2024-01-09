@@ -24,7 +24,7 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
-import { ChannelTypes, ForceData, MessageTypes, Role, RootState, Wargame, WargameOverview } from 'src/custom-types'
+import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, Wargame } from 'src/custom-types'
 
 /**
  * TODOS:
@@ -45,7 +45,7 @@ import { ChannelTypes, ForceData, MessageTypes, Role, RootState, Wargame, Wargam
 
 const AdminGameSetup: React.FC = () => {
   const dispatch = useDispatch()
-  const { wargame, messageTypes }: { wargame: Wargame, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
+  const { wargame, messageTypes }: { wargame: WargamesState, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
 
   const {
     data,
@@ -65,7 +65,7 @@ const AdminGameSetup: React.FC = () => {
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }
-  const onTabChange = (tab: Notification) => {
+  const onTabChange = (tab: string) => {
     if (!isWargameChanged()) {
       dispatch(setCurrentTab(tab))
     } else {
@@ -305,7 +305,7 @@ const AdminGameSetup: React.FC = () => {
     <GameSetup
       activeTab={currentTab || tabs[0]}
       tabs={tabs}
-      wargame={wargame}
+      wargame={wargame as Wargame}
       wargameChanged={isWargameChanged()}
       // @ts-ignore
       onTabChange={onTabChange}
