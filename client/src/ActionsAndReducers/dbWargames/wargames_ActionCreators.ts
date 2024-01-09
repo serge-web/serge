@@ -17,7 +17,7 @@ import {
   Message
 } from 'src/custom-types'
 
-export const setCurrentTab = (tab: Notification): WargameActionTypes => ({
+export const setCurrentTab = (tab: string): WargameActionTypes => ({
   type: ActionConstant.SET_CURRENT_GAME_SETUP_TAB,
   payload: tab
 })
