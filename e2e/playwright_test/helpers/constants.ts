@@ -1,5 +1,5 @@
 export const config = {
-    BASE_URL: 'http://localhost:8080/'
+    BASE_URL: 'http://localhost:3000/'
   };
 
   export const Constants = {

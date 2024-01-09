@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
-import { BasePage } from './basePage.po';
+import { BasePage } from '../basePage.po';
 
-export class LoginPage extends BasePage{
+export class LoginAdminPage extends BasePage{
   readonly page: Page;
   readonly passwordInput: Locator;
   readonly enterButton: Locator;
