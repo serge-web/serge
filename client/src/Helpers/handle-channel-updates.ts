@@ -4,12 +4,13 @@ import {
   ChannelTypes, ChannelUI, ForceData, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from 'src/custom-types'
-import { CoreParticipant } from 'src/custom-types/participant'
+// import { CoreParticipant } from 'src/custom-types/participant'
 import uniqId from 'uniqid'
 import deepCopy from './deep-copy'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { getParticipantStates } from './participant-states'
+import { updateForceIcons, updateForceColors, updateForceNames } from './handle-channel-updates-force'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -242,6 +243,87 @@ export const handleNewMessageData = (
   return res
 }
 
+const processChannel = (
+  channel: ChannelTypes,
+  forceId: string | undefined,
+  selectedRole: Role['roleId'],
+  isObserver: boolean,
+  allTemplatesByKey: TemplateBodysByKey,
+  allForces: ForceData[],
+  res: SetWargameMessage,
+  gameTurn: number,
+  messageId: string,
+  unprocessedChannels: PlayerUiChannels
+): void => {
+  if (channel.uniqid === undefined) {
+    console.error('Received channel without uniqid')
+    return
+  }
+
+  const channelId = channel.uniqid
+
+  const { isParticipant, observing, templates } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
+  
+  // make a note that we've procesed this channel
+  delete unprocessedChannels[channelId]
+  
+  // are we participating in this channel?
+  if (!isParticipant && !observing) {
+    // we're not a participant, delete it
+    delete res.channels[channelId]
+  } else {
+    updateOrCreateChannel(channel, res, channelId, templates, observing, allForces)
+    updateChannelMessages(gameTurn, messageId, res.channels[channelId])
+  }
+}
+
+const updateOrCreateChannel = (channel: ChannelTypes, res: SetWargameMessage, channelId: string, templates: any, observing: boolean, allForces: ForceData[]): void => {
+  // does this channel exist?
+  if (!res.channels[channelId]) {
+    // create and store it
+    res.channels[channelId] = createNewChannel(channel.uniqid, channel)
+  }
+  
+  // already exists, get shortcut
+  const thisChannel: ChannelUI = res.channels[channelId]
+  
+  // rename channel, if necessary
+  if (thisChannel.name !== channel.name) {
+    // we're not a participant, delete it
+    res.channels[channelId].name = channel.name
+  }
+  
+  // update observing status when observer removed from channel participants
+  thisChannel.observing = observing
+
+  // if (observing !== thisChannel.observing) {
+  // }
+
+  if (templates !== thisChannel.templates) {
+    thisChannel.templates = templates
+  }
+
+  updateForceIcons(thisChannel, channel.participants, allForces)
+
+  updateForceColors(thisChannel, channel.participants, allForces)
+
+  updateForceNames(thisChannel, channel.participants, allForces)
+}
+
+const updateChannelMessages = (gameTurn: number, messageId: string, thisChannel: ChannelUI): void => {
+  // check if this is a collab channel, since we don't fire turn markers into collab channels
+  const collabChannel = thisChannel.cData && thisChannel.cData.channelType === CHANNEL_COLLAB
+  
+  // check if we're missing a turn marker for this turn
+  if (thisChannel.messages && !collabChannel) {
+    if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === gameTurn)) {
+      // no messages, or no turn marker found, create one  
+      const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
+      thisChannel.messages.unshift(message)
+    }
+  }
+}
+
 const handleChannelUpdates = (
   allChannels: ChannelTypes[],
   messageId: string,
@@ -263,95 +345,10 @@ const handleChannelUpdates = (
   const unprocessedChannels: PlayerUiChannels = { ...channels }
 
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
-
+  
   // create any new channels & add to current channel
   allChannels.forEach((channel: ChannelTypes) => {
-    if (channel.uniqid === undefined) {
-      console.error('Received channel without uniqid')
-    }
-    const channelId = channel.uniqid
-
-    const {
-      isParticipant,
-      observing,
-      templates
-    } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
-
-    // make a note that we've procesed this channel
-    delete unprocessedChannels[channelId]
-
-    // are we participating in this channel?
-    if (!isParticipant && !observing) {
-      // we're not a participant, delete it
-      delete res.channels[channelId]
-    } else {
-      // see if there is a channel for this id
-      if (isParticipant || observing) {
-        // does this channel exist?
-        if (!res.channels[channelId]) {
-          // create and store it
-          res.channels[channelId] = createNewChannel(channel.uniqid, channel)
-        }
-
-        // already exists, get shortcut
-        const thisChannel: ChannelUI = res.channels[channelId]
-
-        // rename channel, if necessary
-        if (thisChannel.name !== channel.name) {
-          res.channels[channelId].name = channel.name
-        }
-
-        // update observing status when observer removed from channel participants
-        thisChannel.observing = observing
-        // if (observing !== thisChannel.observing) {
-        // }
-
-        // templates
-        if (templates !== thisChannel.templates) {
-          thisChannel.templates = templates
-        }
-
-        // force icons
-        const cParts: CoreParticipant[] = channel.participants
-        const forceIcons = cParts && cParts.map((participant) => {
-          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-          return (force && force.iconURL) || force?.icon
-        })
-        if (forceIcons !== thisChannel.forceIcons) {
-          thisChannel.forceIcons = forceIcons
-        }
-
-        // force colors
-        const forceColors = cParts && cParts.map((participant) => {
-          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-          return (force && force.color) || '#FFF'
-        })
-        if (forceColors !== thisChannel.forceColors) {
-          thisChannel.forceColors = forceColors
-        }
-
-        // force names
-        const forceNames = cParts && cParts.map((participant) => {
-          const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-          return (force && force.name) || 'pending'
-        })
-        if (forceNames !== thisChannel.forceNames) {
-          thisChannel.forceNames = forceNames
-        }
-
-        // check if this is a collab channel, since we don't fire turn markers into collab channels
-        const collabChannel = thisChannel.cData && thisChannel.cData.channelType === CHANNEL_COLLAB
-
-        // check if we're missing a turn marker for this turn
-        if (thisChannel.messages && !collabChannel) {
-          if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === gameTurn)) {
-            // no messages, or no turn marker found, create one
-            const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
-            thisChannel.messages.unshift(message)
-          }
-        }
-      }
-    }
+    processChannel(channel, forceId, selectedRole, isObserver, allTemplatesByKey, allForces, res, gameTurn, messageId, unprocessedChannels)
   })
 
   // delete any unprocessed channels
@@ -363,4 +360,5 @@ const handleChannelUpdates = (
 
   return res
 }
+
 export default handleChannelUpdates

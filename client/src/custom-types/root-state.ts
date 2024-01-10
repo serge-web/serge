@@ -1,4 +1,4 @@
-import { MessageTypes, PlayerLogEntries, Wargame } from '.'
+import { MessageTypes, PlayerLogEntries, WargamesState } from '.'
 import Role from './role'
 
 export type GameInfo = {
@@ -81,7 +81,7 @@ export type RootState = {
   currentModal: CurrentModal
   notifications: any[]
   playerLog: ActivityLogsInterface
-  wargame: Wargame
+  wargame: WargamesState
   dbLoading: DBLoadingState
   exportItems: ExportItems
   gameInfo: GameInfo
