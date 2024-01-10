@@ -68,6 +68,12 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
         case 'Rectangle':
           onCreate(e as unknown as PM.ChangeEventHandler)
           break
+        case 'Circle':
+          onCreate(e as unknown as PM.ChangeEventHandler)
+          break
+        case 'CircleMarker':
+          onCreate(e as unknown as PM.ChangeEventHandler)
+          break
         default:
           console.log('OnCreate Unimplemented !!!', e['shape'])
       }

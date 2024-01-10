@@ -17,6 +17,7 @@ import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
+import circleToPolygon from './helper/circle-to-linestring'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, currentTurn, currentPhase }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
@@ -134,6 +135,42 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, curr
           }
         }
       }
+      case 'Circle': {
+        const centre = (e as any).layer._latlng as L.LatLng
+        const mRadius = (e as any).layer._mRadius as number
+        const coordinates: [number, number] = [centre.lng, centre.lat] // [lon, lat]
+        const radius = mRadius // in meters
+        const options = { numberOfEdges: 32 }
+        const polygon = circleToPolygon(coordinates, radius, options)
+        const props: CoreProperties = {
+          _type: RENDERER_CORE,
+          ...commonProps
+        }
+        return {
+          type: 'Feature',
+          properties: props,
+          geometry: {
+            coordinates: polygon.coordinates,
+            type: polygon.type
+          }
+        }
+      }
+      // case 'CircleMarker': {
+      //   const centre = (e as any).layer._latlng as L.LatLng
+      //   const coordinates: [number, number] = [centre.lng, centre.lat] // [lon, lat]
+      //   const props: CoreProperties = {
+      //     _type: RENDERER_CORE,
+      //     ...commonProps
+      //   }
+      //   return {
+      //     type: 'Feature',
+      //     properties: props,
+      //     geometry: {
+      //       coordinates: polygon.coordinates,
+      //       type: polygon.type
+      //     }
+      //   }
+      // }
       default: {
         console.warn('Feature creator not present for ' + shapeType)
         return null
