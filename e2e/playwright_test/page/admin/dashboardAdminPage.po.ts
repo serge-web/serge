@@ -3,7 +3,7 @@ import { BasePage } from '../basePage.po';
 
 export class DashboardAdminPage extends BasePage{
   readonly page: Page;
-  readonly customNav: any;
+  readonly leftNav: any;
   readonly messageTemplatesNav: Locator;
   readonly welcomeScreenNav: Locator;
   readonly customBtn: any;
@@ -17,7 +17,7 @@ export class DashboardAdminPage extends BasePage{
     this.page = page;
     this.searchField = page.getByPlaceholder('Search games');
     this.gameActionMenu = page.locator('div').filter({ hasText: 'Wargame menu' }).getByRole('img', { name: 'Wargame menu' });
-    this.customNav = (nameNav : string): Locator => {
+    this.leftNav = (nameNav : string): Locator => {
       return page.locator('#sidebar_admin').getByText(nameNav);
     };
     
@@ -32,7 +32,7 @@ export class DashboardAdminPage extends BasePage{
 
 
   async clickMenuLeft(name :string) {
-    await this.customNav(name).click();
+    await this.leftNav(name).click();
   }
 
   async clickMenuBar(name :string) {
