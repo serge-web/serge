@@ -18,6 +18,7 @@ import { SelectItem } from '../../../molecules/editable-row/types/props'
 import { defaultParticipantCustom } from '../helpers/defaultParticipant'
 import styles from '../styles.module.scss'
 import { Role } from '../types/props'
+import uniqId from 'uniqid'
 
 type CustomChannelProps = {
   channel: ChannelCustom
@@ -70,6 +71,7 @@ export const CustomChannel: React.FC<CustomChannelProps> = ({
 
       return {
         ...participant,
+        subscriptionId: uniqId.time(),
         forceUniqid: selectedForce.uniqid,
         roles,
         templates
@@ -178,7 +180,7 @@ export const CustomChannel: React.FC<CustomChannelProps> = ({
         const items = generateRowItemsCustom(messageTemplatesOptions, forces, participant)
         return <EditableRow
           onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
-          key={key}
+          key={participant.subscriptionId}
           onChange={(nextItems: RowItem[]): RowItem[] => {
             return handleChangeRow(nextItems, participant)
           }}
