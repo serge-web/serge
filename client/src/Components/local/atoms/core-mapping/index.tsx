@@ -155,22 +155,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, curr
           }
         }
       }
-      // case 'CircleMarker': {
-      //   const centre = (e as any).layer._latlng as L.LatLng
-      //   const coordinates: [number, number] = [centre.lng, centre.lat] // [lon, lat]
-      //   const props: CoreProperties = {
-      //     _type: RENDERER_CORE,
-      //     ...commonProps
-      //   }
-      //   return {
-      //     type: 'Feature',
-      //     properties: props,
-      //     geometry: {
-      //       coordinates: polygon.coordinates,
-      //       type: polygon.type
-      //     }
-      //   }
-      // }
       default: {
         console.warn('Feature creator not present for ' + shapeType)
         return null
