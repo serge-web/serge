@@ -4,6 +4,7 @@ import renderer from 'react-test-renderer'
 import CoreMapping from './index'
 import { CHANNEL_MAPPING, Phase } from 'src/config'
 import { ChannelMapping, ForceData } from 'src/custom-types'
+import { noop } from 'lodash'
 
 jest.mock('react-leaflet-v4', () => ({
   MapContainer: (): React.ReactElement => <></>,
@@ -44,7 +45,17 @@ const playerForce: ForceData = {
 describe('Core Mapping component:', () => {
   it('renders correctly', () => {
     const tree = renderer
-      .create(<CoreMapping playerForce={playerForce} messages={[]} channel={channel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>)
+      .create(<CoreMapping
+        playerForce={playerForce}
+        messages={[]}
+        channel={channel}
+        playerRole={'mgr'}
+        currentTurn={1}
+        forces={[]}
+        currentPhase={Phase.Planning}
+        postBack={noop}
+        openPanelAsDefault={false}
+      />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

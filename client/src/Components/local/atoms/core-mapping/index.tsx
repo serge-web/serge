@@ -19,11 +19,11 @@ import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 import circleToPolygon from './helper/circle-to-linestring'
 
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, currentTurn, currentPhase }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, currentTurn, currentPhase, openPanelAsDefault }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
-  const [checked, setChecked] = useState<boolean>(true)
+  const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
 
   // const bounds = L.latLngBounds(channel.constraints.bounds)
   const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
@@ -50,6 +50,10 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, curr
       setRenderers([])
     }
   }, [channel])
+
+  useEffect(() => {
+    // postBack(featureCollection, MAPPING_MESSAGE)
+  }, [featureCollection])
 
   const onCreate = (e: PM.ChangeEventHandler) => {
     setPendingCreate(e)

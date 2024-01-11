@@ -7,6 +7,7 @@ import { CHANNEL_MAPPING, CUSTOM_MESSAGE, MAPPING_MESSAGE, PARTICIPANT_MAPPING, 
 import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
+import { noop } from 'lodash'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
@@ -280,12 +281,32 @@ const playerForce: ForceData = {
 
 export const Default: React.FC = () => {
   return (
-    <CoreMapping playerForce={playerForce} messages={[coreMessage]} channel={coreMapChannel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>
+    <CoreMapping
+      playerForce={playerForce}
+      messages={[coreMessage]}
+      channel={coreMapChannel}
+      playerRole={'mgr'}
+      currentTurn={1}
+      forces={[]}
+      currentPhase={Phase.Planning}
+      postBack={noop}
+      openPanelAsDefault={false}
+    />
   )
 }
 
 export const Bulk: React.FC = () => {
   return (
-    <CoreMapping playerForce={playerForce} messages={[bulkMessage]} channel={coreMapChannel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>
+    <CoreMapping
+      playerForce={playerForce}
+      messages={[bulkMessage]}
+      channel={coreMapChannel}
+      playerRole={'mgr'}
+      currentTurn={1}
+      forces={[]}
+      currentPhase={Phase.Planning}
+      postBack={noop}
+      openPanelAsDefault={false}
+    />
   )
 }

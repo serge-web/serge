@@ -1,6 +1,6 @@
 import { FeatureCollection } from 'geojson'
 import { LatLng, PM } from 'leaflet'
-import { ChannelMapping, ForceData } from 'src/custom-types'
+import { ChannelMapping, ForceData, MappingMessage, MessageDetails } from 'src/custom-types'
 
 export default interface PropTypes {
   playerForce: ForceData
@@ -10,6 +10,8 @@ export default interface PropTypes {
   forces: ForceStyle[]
   channel: ChannelMapping 
   messages: CoreMappingMessage[]
+  postBack: (details: MessageDetails, message: MappingMessage) => void
+  openPanelAsDefault: boolean
 }
 
 export type CoreRendererProps = {
