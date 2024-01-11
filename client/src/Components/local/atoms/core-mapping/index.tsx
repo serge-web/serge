@@ -9,7 +9,7 @@ import { cloneDeep, flatten, unionBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
-import { BaseRenderer, CoreProperties, MappingMessage, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, CoreMessage, CoreProperties, MappingMessage, Message, MessageCustom, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
@@ -18,7 +18,7 @@ import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 import circleToPolygon from './helper/circle-to-linestring'
-import { CUSTOM_MESSAGE, MAPPING_MESSAGE } from 'src/config'
+import { CUSTOM_MESSAGE, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
@@ -34,10 +34,24 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   }, [])
 
   useEffect(() => {
-    if (messages.length > 0) {
-      // note: essages get put into reverse chrono order, so we just need the first one
-      const lastMessage: MappingMessage = messages[0]
-      setFeatureCollection(lastMessage.featureCollection)
+    // sort out the mapping messages, since we actually may also receive turn markers
+    const mappingMessages = messages.filter((message: Message) => {
+      if (message.messageType === CUSTOM_MESSAGE) {
+        const custMessage = message as MessageCustom
+        return custMessage.details.messageType === MAPPING_MESSAGE
+      } else return false
+    })
+    if (mappingMessages.length > 0) {
+      // note: messages get put into reverse chrono order, so we just need the first one
+      const lastMessage: CoreMessage = mappingMessages[0]
+      // is this a whole mapping message?
+      if (lastMessage.details.messageType === MAPPING_MESSAGE) {
+        const wholeMessage = lastMessage as MappingMessage
+        setFeatureCollection(wholeMessage.featureCollection)
+      } else if (lastMessage.details.messageType === MAPPING_MESSAGE_DELTA) {
+        // TODO: create helper to process message list an provide valid composite message
+        console.warn('Not yet handling core message deltas')
+      }
     } else {
       setFeatureCollection(undefined)
     }

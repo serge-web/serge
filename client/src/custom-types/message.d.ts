@@ -174,6 +174,12 @@ export interface MappingMessage extends CoreMessage {
   featureCollection: FeatureCollection
 }
 
+export interface MappingMessageDelta extends CoreMessage {
+  readonly messageType: typeof MAPPING_MESSAGE_DELTA
+  since: string // id of predecessor
+  delta: any // replace by typed field once we've adopted library
+}
+
 /** message containing updated game status, could be one of:
  * new turn
  * updated wargame
