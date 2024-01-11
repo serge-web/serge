@@ -3,7 +3,7 @@
 
 import { Polygon, Position } from 'geojson'
 
-const defaultEarthRadius: number = 6378137 // equatorial Earth radius
+const defaultEarthRadius = 6378137 // equatorial Earth radius
 
 function toRadians (angleInDegrees: number): number {
   return (angleInDegrees * Math.PI) / 180
@@ -42,7 +42,7 @@ export default function circleToPolygon (center: [number, number], radius: numbe
 
   const start: number = toRadians(bearing)
   const coordinates: Position[][] = [[]]
-  for (let i: number = 0; i < n; ++i) {
+  for (let i = 0; i < n; ++i) {
     coordinates[0].push(
       offset(
         center, radius, earthRadius, start + (direction * 2 * Math.PI * -i) / n
