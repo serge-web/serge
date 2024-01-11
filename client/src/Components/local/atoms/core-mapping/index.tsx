@@ -35,7 +35,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
 
   useEffect(() => {
     if (messages.length > 0) {
-      const lastMessage: MappingMessage = messages[messages.length - 1]
+      // note: essages get put into reverse chrono order, so we just need the first one
+      const lastMessage: MappingMessage = messages[0]
       setFeatureCollection(lastMessage.featureCollection)
     } else {
       setFeatureCollection(undefined)
