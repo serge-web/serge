@@ -2,7 +2,7 @@ import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@material-ui/core'
 import Slide from '@mui/material/Slide'
-import { Feature, FeatureCollection } from 'geojson'
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { cloneDeep, flatten, unionBy } from 'lodash'
@@ -19,7 +19,7 @@ import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 import circleToPolygon from './helper/circle-to-linestring'
 
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, currentTurn, currentPhase, openPanelAsDefault }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
@@ -51,10 +51,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, curr
     }
   }, [channel])
 
-  useEffect(() => {
-    // postBack(featureCollection, MAPPING_MESSAGE)
-  }, [featureCollection])
-
   const onCreate = (e: PM.ChangeEventHandler) => {
     setPendingCreate(e)
   }
@@ -66,12 +62,23 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, curr
         const found = featureCollection.features.find(f => f.properties?.id === feature.properties?.id)
         if (!found) {
           featureCollection.features.push(feature)
-          setFeatureCollection(cloneDeep(featureCollection))
+          const cloneFeatureCollection = cloneDeep(featureCollection)
+          setFeatureCollection(cloneFeatureCollection)
+          saveNewMessage(cloneFeatureCollection)
         }
       }
       setPendingCreate(null) 
     }
   }, [pendingCreate])
+  
+  const saveNewMessage = (featureCollection: FeatureCollection<Geometry, GeoJsonProperties>) => {
+    const lastMessage: MappingMessage = messages[messages.length - 1]
+    const cloneLastMsg = cloneDeep(lastMessage)
+    if (cloneLastMsg && featureCollection) {
+      cloneLastMsg.featureCollection = featureCollection
+      postBack(cloneLastMsg)
+    }
+  }
   
   const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
     const shapeType = (e as any).shape
@@ -240,7 +247,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, curr
             minSizePercentage={35}
             style={{ pointerEvents: 'all' }}
           >
-            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} />
+            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} />
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel

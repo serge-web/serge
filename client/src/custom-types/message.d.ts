@@ -206,6 +206,7 @@ export type MessageChannel = MessageInfoTypeClipped |
 export type Message = MessageCustom |
   ChatMessage |
   MessageFeedback |
+  MappingMessage |
   MessageInfoTypeClipped |
   MessageInfoType |
   MessageCounter

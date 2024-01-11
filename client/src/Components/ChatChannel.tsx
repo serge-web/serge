@@ -47,7 +47,6 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
-    console.log('xx> chat channel: ', details, message)
     saveMessage(state.currentWargame, details, message)()
   }
 

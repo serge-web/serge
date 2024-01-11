@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ChannelMapping, MappingMessage, MessageChannel, MessageDetails } from 'src/custom-types'
+import { ChannelMapping, MappingMessage, MessageChannel } from 'src/custom-types'
 import {
   getAllWargameMessages, sendMappingMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -30,12 +30,10 @@ const CoreMappingChannel: React.FC<{ channelId: string, isCustomChannel?: boolea
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const messageHandler = (details: MessageDetails, message: MappingMessage): void => {
-    console.log('xx> save message: ', details, message)
-    sendMappingMessage(state.currentWargame, details, message)
+  const messageHandler = (message: MappingMessage): void => {
+    sendMappingMessage(state.currentWargame, message)
   }
 
-  console.log('xx> messages: ', channelUI.messages)
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <CoreMapping

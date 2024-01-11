@@ -41,7 +41,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
     // with that reference number before we insert the message
     //
     // start off with lower-case reference, as used in PFT
-    if (message.message.reference) {
+    if (message?.message?.reference) {
       // remove any existing RFI with this reference number. Note: we can't use
       // filter() array function since it produces a new array, which would
       // have a new reference, and wouldn't get returned as a parameter
@@ -51,7 +51,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
           theChannel.messages?.splice(idx, 1)
         }
       })
-    } else if (message.message.Reference) {
+    } else if (message?.message?.Reference) {
       // remove any existing RFI with this reference number. Note: we can't use
       // filter() array function since it produces a new array, which would
       // have a new reference, and wouldn't get returned as a parameter

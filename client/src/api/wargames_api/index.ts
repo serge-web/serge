@@ -650,15 +650,14 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
   return db.put(feedback).catch(rejectDefault)
 }
 
-export const postMappingMessage = (dbName: string, details: MessageDetails, message: MappingMessage): Promise<MappingMessage> => {
+export const postMappingMessage = (dbName: string, message: MappingMessage): Promise<MappingMessage> => {
   const { db } = getWargameDbByName(dbName)
-  const mappingMessage: MappingMessage = {
-    _id: new Date().toISOString(),
-    details, // build details message here
-    featureCollection: message.featureCollection,
-    messageType: message.messageType
-  }
-  return db.put(mappingMessage as any).catch(rejectDefault)
+  // const id = message.details.timestamp ? message.details.timestamp : new Date().toISOString()
+  // const mappingMessage: MappingMessage = {
+  //   ...message,
+  //   _id: id
+  // }
+  return db.put(message).catch(rejectDefault)
 }
 
 const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails): Promise<MessageCustom> => {

@@ -129,8 +129,8 @@ export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsF
   }
 }
 
-export const sendMappingMessage = (dbName: string, details: MessageDetails, message: MappingMessage): void => {
-  wargamesApi.postMappingMessage(dbName, details, message)
+export const sendMappingMessage = (dbName: string, message: MappingMessage): void => {
+  wargamesApi.postMappingMessage(dbName, message)
 }
 
 export const failedLoginFeedbackMessage = (dbName: string, password: string, turnNumber: number): Function => {
