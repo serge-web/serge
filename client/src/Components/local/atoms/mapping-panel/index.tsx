@@ -103,14 +103,15 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       return
     }
     const clonePendingSaveFeatures = cloneDeep(pendingSaveFeatures)
-    const features = clonePendingSaveFeatures.features
+    let features = clonePendingSaveFeatures.features
     if (!features) {
       return
     }
-    features.forEach(f => {
+    features = features.map(f => {
       if (isEqual(f, selectedFeatures[0]) && f.properties) {
         f.properties[key] = value
       }
+      return f
     })
     clonePendingSaveFeatures.features = features
     setPendingSaveFeatures(clonePendingSaveFeatures)
