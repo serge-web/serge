@@ -652,11 +652,6 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
 
 export const postMappingMessage = (dbName: string, message: MappingMessage): Promise<MappingMessage> => {
   const { db } = getWargameDbByName(dbName)
-  // const id = message.details.timestamp ? message.details.timestamp : new Date().toISOString()
-  // const mappingMessage: MappingMessage = {
-  //   ...message,
-  //   _id: id
-  // }
   return db.put(message).catch(rejectDefault)
 }
 
