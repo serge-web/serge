@@ -9,7 +9,7 @@ import { cloneDeep, flatten, unionBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
-import { BaseRenderer, CoreProperties, MappingMessage, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, CoreProperties, MappingMessage, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
@@ -18,8 +18,9 @@ import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 import circleToPolygon from './helper/circle-to-linestring'
+import { CUSTOM_MESSAGE, MAPPING_MESSAGE } from 'src/config'
 
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
@@ -72,11 +73,28 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, curr
   }, [pendingCreate])
   
   const saveNewMessage = (featureCollection: FeatureCollection<Geometry, GeoJsonProperties>) => {
-    const lastMessage: MappingMessage = messages[messages.length - 1]
-    const cloneLastMsg = cloneDeep(lastMessage)
-    if (cloneLastMsg && featureCollection) {
-      cloneLastMsg.featureCollection = featureCollection
-      postBack(cloneLastMsg)
+    if (featureCollection) {
+      const timestamp = new Date().toISOString()
+      const details: MessageDetails = {
+        channel: channel.uniqid,
+        from: {
+          force: playerForce.name,
+          forceColor: playerForce.color,
+          roleId: playerRole.uniqid,
+          roleName: playerRole.name,
+          iconURL: ''
+        },
+        messageType: MAPPING_MESSAGE,
+        timestamp: timestamp,
+        turnNumber: 1
+      }
+      const newMessage: MappingMessage = {
+        details, 
+        featureCollection,
+        messageType: CUSTOM_MESSAGE,
+        _id: timestamp
+      }
+      postBack(newMessage as MappingMessage)
     }
   }
   
