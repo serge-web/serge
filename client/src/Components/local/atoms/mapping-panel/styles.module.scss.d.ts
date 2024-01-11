@@ -9,6 +9,7 @@ interface CssExports {
   'itemsBox': string;
   'itemsPanel': string;
   'itemsResponsive': string;
+  'lblCbx': string;
   'listItem': string;
   'panelGroup': string;
   'propertiesPanel': string;
@@ -17,7 +18,6 @@ interface CssExports {
   'resize-handle-horizontal': string;
   'resize-handle-inner': string;
   'resize-handle-outer': string;
-  'lblCbx': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
