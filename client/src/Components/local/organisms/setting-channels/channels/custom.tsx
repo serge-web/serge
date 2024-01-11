@@ -176,10 +176,9 @@ export const CustomChannel: React.FC<CustomChannelProps> = ({
         }
 
         const items = generateRowItemsCustom(messageTemplatesOptions, forces, participant)
-
         return <EditableRow
           onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
-          key={participant.subscriptionId}
+          key={key}
           onChange={(nextItems: RowItem[]): RowItem[] => {
             return handleChangeRow(nextItems, participant)
           }}
