@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { Constants, config } from '../helpers/constants';
+import { config } from '../helpers/constants';
 import { GamePlayPage} from '../page/gamePlay.po';
 import { LoginGamePage} from '../page/loginGamePage.po';
 import { generateCode } from '../helpers/uniqueStr';
