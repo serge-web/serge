@@ -186,5 +186,72 @@ test('Create a simple flow game admin chat successfully', async ({  browser }) =
     whiteGameControlContent, 'Game Control', whiteMediaContent, 'Media', 
     redCoContent, 'CO', redLogsContent, 'Logs', redMediaContent, 'Media',
     blueCoContent, 'CO', blueLogsContent, 'Logs');
+            
    
+});
+
+test('Create a simple flow Feedback successfully', async ({  browser }) => {
+  
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const gamePlayPage = new GamePlayPage(page)
+  const loginGamePage = new LoginGamePage(page)
+
+  const sendFeedbackSteps = async (force: string, role: string, content: string) => {
+    await loginGamePage.openUrl(config.BASE_URL);
+    await loginGamePage.clickPlayGameBtn();
+    await loginGamePage.selectFirstGame('');
+    await loginGamePage.selectRoleOfFoceGame(force, role);
+    await loginGamePage.clickEnterGameBtn();
+    await gamePlayPage.clickCloseGuideBtn();
+    await gamePlayPage.clickSubmitFeedbackBtn();
+    await gamePlayPage.verifyFeedbackFormIsShowed();
+    await gamePlayPage.inputMessageFeedbackArea('Feedback '+ content);
+    await gamePlayPage.inputNameOptionalFeedback('Name '+ content);
+    await gamePlayPage.clickSendMessageFeedbackBtn();
+    
+  };
+  const whiteGameControlContent = 'White - Game Control ' + generateCode(5);
+  await sendFeedbackSteps("White", "Game Control", whiteGameControlContent);
+  
+  const whiteMediaContent = 'White - Media ' + generateCode(5);
+  await sendFeedbackSteps("White", "Media", whiteMediaContent);
+  
+  const redCoContent = 'Red - Co ' + generateCode(5);
+  await sendFeedbackSteps("Red", "CO", redCoContent);
+  
+  const redLogsContent = 'Red - Logs ' + generateCode(5);
+  await sendFeedbackSteps("Red", "Logs", redLogsContent);
+  
+  const redMediaContent = 'Red - Media ' + generateCode(5);
+  await sendFeedbackSteps("Red", "Media", redMediaContent);
+  
+  const blueCoContent = 'Blue - Co ' + generateCode(5);
+  await sendFeedbackSteps("Blue", "CO", blueCoContent);
+  
+  const blueLogsContent = 'Blue - Logs ' + generateCode(5);
+  await sendFeedbackSteps("Blue", "Logs", blueLogsContent);
+  
+  const blueMediaContent = 'Blue - Media ' + generateCode(5);
+  await sendFeedbackSteps("Blue", "Media", blueMediaContent);
+
+  const page1 = await context.newPage();
+  const loginGamePage1 = new LoginGamePage(page1)
+  const gamePlayPage1 = new GamePlayPage(page1)
+  await loginGamePage1.openUrl(config.BASE_URL);
+  await loginGamePage1.clickPlayGameBtn();
+  await loginGamePage1.selectFirstGame('');
+  await loginGamePage1.selectRoleOfFoceGame("White","Game Control");
+  await loginGamePage1.clickEnterGameBtn();
+  await gamePlayPage1.clickCloseGuideBtn();
+  await gamePlayPage1.clickInsightsFeebackTab();
+  await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + whiteGameControlContent, 'Name ' + whiteGameControlContent);
+  await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + whiteMediaContent, 'Name ' + whiteMediaContent);
+  await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + redCoContent, 'Name ' + redCoContent);
+  await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + redLogsContent, 'Name ' + redLogsContent);
+  await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + redMediaContent, 'Name ' + redMediaContent);
+  await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + blueCoContent, 'Name ' + blueCoContent);
+  await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + blueLogsContent, 'Name ' + blueLogsContent);
+  await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + blueMediaContent, 'Name ' + blueMediaContent);
+            
 });

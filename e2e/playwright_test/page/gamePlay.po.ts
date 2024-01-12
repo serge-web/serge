@@ -54,6 +54,16 @@ export class GamePlayPage extends BasePage{
   readonly contentVerifyMessageGameAdmin: any
   readonly messageGameAdminLabel: any
 
+  readonly submitFeedbackBtn: Locator;
+  readonly submitFeedbackForm: Locator;
+  readonly submitFeedbackDesc: Locator;
+  readonly messageFeedbackArea: Locator;
+  readonly nameOptionalFeedbackInput: Locator;
+  readonly sendMessageFeebackBtn: Locator;
+  readonly insightsFeebackTab: Locator;
+  readonly messageFeedbackLabel: any;
+  readonly nameOptionalFeedbackLabel: any;
+
   constructor(page: Page) {
     super(page);
     this.page = page;
@@ -165,6 +175,21 @@ export class GamePlayPage extends BasePage{
 
     this.messageGameAdminLabel = (mes :string, role: string) : Locator => {
       return page.locator(this.contentVerifyMessageGameAdmin(role)+"//div[contains(text(),'"+mes+"')]").last();
+    }
+
+    //----Feedback
+    this.submitFeedbackBtn = page.getByTitle("Submit lesson learned/feedback");
+    this.submitFeedbackForm = page.locator("//div[contains(@class,'_insight-form_')]");
+    this.submitFeedbackDesc = page.getByText("Use this form to give private feedback on the game itself.");
+    this.messageFeedbackArea = page.locator("//textarea[@name='message']");
+    this.sendMessageFeebackBtn = page.locator("//div[contains(@class,'_insight-form')]//span[contains(text(),'Send')]");
+    this.nameOptionalFeedbackInput = page.locator("//input[@name='name-optional']");
+    this.insightsFeebackTab = page.locator("//div[contains(text(),'Insights')]");
+    this.messageFeedbackLabel = (text :string) : Locator => {
+      return page.locator("//div[@class='contain-game-insights']//div[contains(text(),'"+text+"')]");
+    }
+    this.nameOptionalFeedbackLabel = (text :string) : Locator => {
+      return page.locator("//div[@class='contain-game-insights']//span[contains(text(),'"+text+"')]");
     }
  }
 
@@ -278,7 +303,6 @@ export class GamePlayPage extends BasePage{
     await this.verifyLocatorIsvisible(this.commentDailyLabel(comment));
   }
 
-  //-------------
   async inputMessageGameAdmin(mes: string) {
     await this.clickLocator(this.messageGameAdminArea);
     await this.inputValueLocator(this.messageGameAdminArea, mes);
@@ -287,6 +311,39 @@ export class GamePlayPage extends BasePage{
 
   async verifyMessageGameAdminIsShowed(mes : string, role : string) {
     await this.verifyLocatorIsvisible(this.messageGameAdminLabel(mes, role));
+  }
+
+  //Feeback
+  async clickSubmitFeedbackBtn() {
+    await this.clickLocator(this.submitFeedbackBtn);
+  }
+  
+  async verifyFeedbackFormIsShowed() {
+    await this.verifyLocatorIsvisible(this.submitFeedbackForm);
+    await this.verifyTextIsvisible(this.submitFeedbackDesc);
+  }
+
+  async inputMessageFeedbackArea(message: string) {
+    await this.clickLocator(this.messageFeedbackArea);
+    await this.inputValueLocator(this.messageFeedbackArea, message);
+  }
+
+  async inputNameOptionalFeedback(name: string) {
+    await this.clickLocator(this.nameOptionalFeedbackInput);
+    await this.inputValueLocator(this.nameOptionalFeedbackInput, name);
+  }
+
+  async clickSendMessageFeedbackBtn() {
+    await this.clickLocator(this.sendMessageFeebackBtn);
+  }
+
+  async clickInsightsFeebackTab() {
+    await this.clickLocator(this.insightsFeebackTab);
+  }
+
+  async verifyContentFeedbackIsShowed(message : string, nameOptional: string) {
+    await this.verifyLocatorIsvisible(this.messageFeedbackLabel(message));
+    await this.verifyLocatorIsvisible(this.nameOptionalFeedbackLabel(nameOptional));
   }
 
 }
