@@ -7,7 +7,7 @@
   "license": "Apache-2.0",
   "private": true,
   "engines": {
-    "node": "20.x"
+    "node": "18.x"
   },
   "scripts": {
     "start": "concurrently \"yarn start-server\" \"yarn start-client\"",
