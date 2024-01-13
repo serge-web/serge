@@ -221,7 +221,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     if (featureCollection && featureCollection.features) {
       const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
       featureCollection.features = filterFeatures
-      setFeatureCollection(cloneDeep(featureCollection))
+      const cloneFeatureCollection = cloneDeep(featureCollection)
+      setFeatureCollection(cloneFeatureCollection)
+      saveNewMessage(cloneFeatureCollection)
     }
   }
 

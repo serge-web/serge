@@ -2,7 +2,7 @@ import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import { cloneDeep, get, isEqual, set, uniq } from 'lodash'
+import { cloneDeep, get, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { CoreProperties, PropertyTypes } from 'src/custom-types'
@@ -108,7 +108,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       return
     }
     features = features.map(f => {
-      if (isEqual(f, selectedFeatures[0]) && f.properties) {
+      if (get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', '') && f.properties) {
         f.properties[key] = value
       }
       return f
