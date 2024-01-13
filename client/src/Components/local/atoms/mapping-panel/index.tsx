@@ -17,13 +17,15 @@ type MappingPanelProps = {
   onClose: () => void
   features?: FeatureCollection<Geometry, GeoJsonProperties>
   extraFilterProps: PropertyTypes[]
+  onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
 }
 
 const modalStyle = { content: { width: '450px' } }
 const bodyStyle = { padding: '5px' }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps, onSave }): React.ReactElement => {
   const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
+  const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
   const [propertyFiltersListPanel, setPropertyFiltersListPanel] = useState<string[]>([])
   const [selectedFeatures, setSelectedFeatures] = useState<Feature<Geometry, GeoJsonProperties>[]>([])
@@ -34,6 +36,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
 
   useEffect(() => {
     setFilterredFeatures(features)
+    setPendingSaveFeatures(features)
   }, [features])
 
   useEffect(() => {
@@ -95,10 +98,30 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     setSelectedFeatures(checked ? featrure : [])
   }
 
+  const updatePendingSave = (key: string, value: any) => {
+    if (!pendingSaveFeatures) {
+      return
+    }
+    const clonePendingSaveFeatures = cloneDeep(pendingSaveFeatures)
+    let features = clonePendingSaveFeatures.features
+    if (!features) {
+      return
+    }
+    features = features.map(f => {
+      if (get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', '') && f.properties) {
+        f.properties[key] = value
+      }
+      return f
+    })
+    clonePendingSaveFeatures.features = features
+    setPendingSaveFeatures(clonePendingSaveFeatures)
+  }
+
   const onPropertiesChange = (key: string, value: any) => {
     const prevValue = get(selectedProps, key)
     set(prevValue, 'value', value)
     setSelectedProps(cloneDeep(selectedProps))
+    updatePendingSave(key, value)
   }
 
   const onFilterPropertiesChange = (key: string, value: string) => {
@@ -124,10 +147,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     setFilterredFeatures(cloneFeature)
   }, [features, selectedFiltersProps])
 
-  useEffect(() => {
-    console.log('Changed Properties: ', selectedProps)
-    // Save latest properties of the selected item
-  }, [selectedProps])
+  const onLocalSave = () => {
+    if (pendingSaveFeatures) {
+      onSave(pendingSaveFeatures)
+    }
+  }
 
   return (
     <PanelGroup className={styles.panelGroup} direction="vertical">
@@ -209,7 +233,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         </div>
         <div className={styles.button}>
           <button onClick={onClose}>Cancel</button>
-          <button>Save</button>
+          <button onClick={onLocalSave}>Save</button>
         </div>
       </Panel>
       
