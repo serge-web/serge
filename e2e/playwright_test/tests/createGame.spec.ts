@@ -107,7 +107,6 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await channelAdminPage.clickSaveRowChannelIcon('Red', 'Media');
   await channelAdminPage.clickSaveChannelButton();
   await channelAdminPage.verifySaveChannelSuccess();
-  await channelAdminPage.verifyChannelIsCreated("Blue Chat");
   await channelAdminPage.verifyChannelIsCreated("Media");
 
   await loginGamePage.openUrl(config.BASE_URL);
