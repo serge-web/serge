@@ -9,6 +9,7 @@ interface CssExports {
   'itemsBox': string;
   'itemsPanel': string;
   'itemsResponsive': string;
+  'lblCbx': string;
   'listItem': string;
   'panelGroup': string;
   'propertiesPanel': string;

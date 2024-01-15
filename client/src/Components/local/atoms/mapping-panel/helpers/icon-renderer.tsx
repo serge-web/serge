@@ -30,7 +30,8 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }
           size="small"
         />
       }
-      label={feature.properties?.label || feature.properties?.id}
+      
+      label={<span className={styles.lblCbx}>{feature.properties?.label || feature.properties?.id}</span>}
       value={feature.properties?.id}
     />
     <div ref={iconRef}>

@@ -1,6 +1,7 @@
-import React from 'react'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
+import React from 'react'
+import CoreMappingChannel from 'src/Components/CoreMappingChannel'
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING } from 'src/config'
 import { ChannelTypes, ChannelUI, PlayerUi } from 'src/custom-types'
 import ChatChannel from '../../../Components/ChatChannel'
@@ -55,7 +56,7 @@ const factory = (state: PlayerUi): Factory => {
       case CHANNEL_CUSTOM:
         return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
       case CHANNEL_MAPPING:
-        return <>Mapping channel in here!</>    
+        return <CoreMappingChannel channelId={channel.uniqid} />  
       default:
         console.log('not yet handling', channelData)
         return null

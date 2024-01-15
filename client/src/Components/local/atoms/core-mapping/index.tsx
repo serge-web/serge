@@ -2,15 +2,14 @@ import { faCircleArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Box, Button } from '@material-ui/core'
 import Slide from '@mui/material/Slide'
-import { Feature, FeatureCollection } from 'geojson'
-import { LatLng, PM } from 'leaflet'
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
+import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { cloneDeep, flatten, unionBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
-import { Phase } from 'src/config'
-import { BaseRenderer, MappingMessage, CoreProperties, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, CoreMessage, CoreProperties, MappingMessage, Message, MessageCustom, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
@@ -18,21 +17,41 @@ import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
+import circleToPolygon from './helper/circle-to-linestring'
+import { CUSTOM_MESSAGE, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
 
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
-  const [checked, setChecked] = useState<boolean>(false)
+  const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
+
+  // const bounds = L.latLngBounds(channel.constraints.bounds)
+  const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
   useEffect(() => {
     loadDefaultMarker()
   }, [])
 
   useEffect(() => {
-    if (messages.length > 0) {
-      const lastMessage: MappingMessage = messages[messages.length - 1]
-      setFeatureCollection(lastMessage.featureCollection)
+    // sort out the mapping messages, since we actually may also receive turn markers
+    const mappingMessages = messages.filter((message: Message) => {
+      if (message.messageType === CUSTOM_MESSAGE) {
+        const custMessage = message as MessageCustom
+        return custMessage.details.messageType === MAPPING_MESSAGE
+      } else return false
+    })
+    if (mappingMessages.length > 0) {
+      // note: messages get put into reverse chrono order, so we just need the first one
+      const lastMessage: CoreMessage = mappingMessages[0]
+      // is this a whole mapping message?
+      if (lastMessage.details.messageType === MAPPING_MESSAGE) {
+        const wholeMessage = lastMessage as MappingMessage
+        setFeatureCollection(wholeMessage.featureCollection)
+      } else if (lastMessage.details.messageType === MAPPING_MESSAGE_DELTA) {
+        // TODO: create helper to process message list an provide valid composite message
+        console.warn('Not yet handling core message deltas')
+      }
     } else {
       setFeatureCollection(undefined)
     }
@@ -59,15 +78,53 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
         const found = featureCollection.features.find(f => f.properties?.id === feature.properties?.id)
         if (!found) {
           featureCollection.features.push(feature)
-          setFeatureCollection(cloneDeep(featureCollection))
+          const cloneFeatureCollection = cloneDeep(featureCollection)
+          setFeatureCollection(cloneFeatureCollection)
+          saveNewMessage(cloneFeatureCollection)
         }
       }
       setPendingCreate(null) 
     }
   }, [pendingCreate])
   
+  const saveNewMessage = (featureCollection: FeatureCollection<Geometry, GeoJsonProperties>) => {
+    if (featureCollection) {
+      const timestamp = new Date().toISOString()
+      const details: MessageDetails = {
+        channel: channel.uniqid,
+        from: {
+          force: playerForce.name,
+          forceColor: playerForce.color,
+          roleId: playerRole.uniqid,
+          roleName: playerRole.name,
+          iconURL: ''
+        },
+        messageType: MAPPING_MESSAGE,
+        timestamp: timestamp,
+        turnNumber: 1
+      }
+      const newMessage: MappingMessage = {
+        details, 
+        featureCollection,
+        messageType: CUSTOM_MESSAGE,
+        _id: timestamp
+      }
+      postBack(newMessage as MappingMessage)
+    }
+  }
+  
   const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
     const shapeType = (e as any).shape
+    const commonProps = {
+      id: (e as any).layer._leaflet_id,
+      phase: currentPhase,
+      label: playerForce.name,
+      turn: currentTurn,
+      force: playerForce.uniqid,
+      category: 'Civilian',
+      color: playerForce.color
+    }
+
     switch (shapeType) {
       case 'Line': {
         const locs = (e as any).layer._latlngs as L.LatLng[]
@@ -75,14 +132,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
           return [item.lng, item.lat]
         })
         const props: CoreProperties = {
-          id: (e as any).layer._leaflet_id,
           _type: RENDERER_CORE,
-          phase: Phase.Planning,
-          label: 'Headquarters Building',
-          turn: 1,
-          force: 'f-red',
-          category: 'Civilian',
-          color: '#CCF'
+          ...commonProps
         }
         return {
           type: 'Feature',
@@ -100,14 +151,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
           return [item.lng, item.lat]
         })
         const props: CoreProperties = {
-          id: (e as any).layer._leaflet_id,
           _type: RENDERER_CORE,
-          phase: Phase.Planning,
-          label: 'Headquarters Building',
-          turn: 1,
-          force: 'f-red',
-          category: 'Civilian',
-          color: '#CCF'
+          ...commonProps
         }
         return {
           type: 'Feature',
@@ -123,19 +168,34 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
         return {
           type: 'Feature',
           properties: {
-            id: (e as any).layer._leaflet_id,
             _type: RENDERER_MILSYM,
-            phase: Phase.Planning,
-            label: 'Headquarters Building',
-            turn: 1,
-            force: 'f-red',
             sidc: 'SFG-UCI----D',
-            category: 'Civilian',
-            size: 'M'
+            size: 'M',
+            ...commonProps
           },
           geometry: {
             coordinates: [loc.lng, loc.lat],
             type: 'Point'
+          }
+        }
+      }
+      case 'Circle': {
+        const centre = (e as any).layer._latlng as L.LatLng
+        const mRadius = (e as any).layer._mRadius as number
+        const coordinates: [number, number] = [centre.lng, centre.lat] // [lon, lat]
+        const radius = mRadius // in meters
+        const options = { numberOfEdges: 32 }
+        const polygon = circleToPolygon(coordinates, radius, options)
+        const props: CoreProperties = {
+          _type: RENDERER_CORE,
+          ...commonProps
+        }
+        return {
+          type: 'Feature',
+          properties: props,
+          geometry: {
+            coordinates: polygon.coordinates,
+            type: polygon.type
           }
         }
       }
@@ -161,7 +221,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
     if (featureCollection && featureCollection.features) {
       const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
       featureCollection.features = filterFeatures
-      setFeatureCollection(cloneDeep(featureCollection))
+      const cloneFeatureCollection = cloneDeep(featureCollection)
+      setFeatureCollection(cloneFeatureCollection)
+      saveNewMessage(cloneFeatureCollection)
     }
   }
 
@@ -220,7 +282,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {
             minSizePercentage={35}
             style={{ pointerEvents: 'all' }}
           >
-            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} />
+            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} />
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel
