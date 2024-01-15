@@ -1,4 +1,4 @@
-import { Locator, Page } from '@playwright/test';
+import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from '../basePage.po';
 
 export class DashboardAdminPage extends BasePage{
@@ -11,6 +11,10 @@ export class DashboardAdminPage extends BasePage{
   readonly titleGame: Locator;
   readonly customAction: any;
   readonly gameActionMenu: Locator;
+  readonly gameName: Locator;
+  readonly gameNameText: Locator;
+  readonly messagePopup: any;
+  readonly buttonPopup: any;
   
   constructor(page: Page) {
     super(page);
@@ -27,6 +31,14 @@ export class DashboardAdminPage extends BasePage{
 
     this.customAction = (nameAction : string): Locator => {
       return page.locator("span:has-text('"+nameAction+"')");
+    };
+    this.gameName = page.locator('//span[contains(@class,"_wargame-title")]');
+    this.gameNameText = page.locator('//span[contains(@class,"_wargame-title")]//span[@title]');
+    this.messagePopup = (msg : string): Locator => {
+      return page.locator("//div[text()='"+msg+"']");
+    };
+    this.buttonPopup = (name : string): Locator => {
+      return page.locator("span.MuiButton-label:has-text('"+name+"')");
     };
  }
 
@@ -47,8 +59,25 @@ export class DashboardAdminPage extends BasePage{
     await this.searchField.fill(name);
   }
 
-  async clickThreeDots() {
-    await this.gameActionMenu.click();
+  async clickThreeDotsAtFirstGame() {
+    await this.hoverLocator(this.gameName);
+    await this.clickLocator(this.gameActionMenu);
   }
 
+  async getFirstNameOfGame() {
+    return this.gameNameText.first().innerText();
+  }
+
+  async verifyFirstNameOfGameIsDeleted(name: string) {
+    await this.page.waitForTimeout(2000);
+    expect(this.gameNameText.first().innerText()).not.toEqual(name);
+  }
+
+  async verifyMessageIsVisible(msg: string) {
+    await this.clickLocator(this.messagePopup(msg));
+  }
+
+  async clickButtonPopup(name: string) {
+    await this.clickLocator(this.buttonPopup(name));
+  }
 }

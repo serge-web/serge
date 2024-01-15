@@ -1,8 +1,10 @@
 import { test } from '@playwright/test';
-import { config } from '../helpers/constants';
+import { Constants, config } from '../helpers/constants';
 import { GamePlayPage} from '../page/gamePlay.po';
 import { LoginGamePage} from '../page/loginGamePage.po';
 import { generateCode } from '../helpers/uniqueStr';
+import { DashboardAdminPage} from '../page/admin/dashboardAdminPage.po';
+import { LoginAdminPage} from '../page/admin/loginAdminPage.po';
 
 test('Create a simple flow game successfully', async ({  browser }) => {
   
@@ -67,7 +69,6 @@ test('Create a simple flow game successfully', async ({  browser }) => {
 });
 
 test('Create a simple flow game admin chat successfully', async ({  browser }) => {
-  
   const context = await browser.newContext();
   const page = await context.newPage();
   const gamePlayPage = new GamePlayPage(page)
@@ -254,4 +255,19 @@ test('Create a simple flow Feedback successfully', async ({  browser }) => {
   await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + blueLogsContent, 'Name ' + blueLogsContent);
   await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + blueMediaContent, 'Name ' + blueMediaContent);
             
+});
+
+
+test('Delete the game', async ({ page }) => {
+  const dashboardPage = new DashboardAdminPage(page)
+  const loginAdminPage = new LoginAdminPage(page)
+  await loginAdminPage.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage.verifyLoginPassed();
+  const name = await dashboardPage.getFirstNameOfGame()
+  await dashboardPage.clickThreeDotsAtFirstGame();
+  await dashboardPage.selectAction('Delete');
+  await dashboardPage.verifyMessageIsVisible('This will permanently delete the wargame. Are you sure?');
+  await dashboardPage.clickButtonPopup('Delete');
+  await dashboardPage.verifyFirstNameOfGameIsDeleted(name);
 });

@@ -17,8 +17,8 @@ export class OverViewAdminPage extends BasePage{
     this.page = page;
     this.gameNameInput = page.locator('input[type="text"]').first();
     this.overviewMenu = page.getByText('overview', { exact: true });
-    this.forcesMenu = page.getByText('forces');
-    this.channelsMenu = page.getByText('channels');
+    this.forcesMenu = page.getByText('forces').first();
+    this.channelsMenu = page.getByText('channels').first();;
     this.gameDescField = page.locator('textarea').first();
     this.saveOverViewBtn = page.getByRole('button', { name: 'Save Overview' });
     this.saveNameGame = page.locator('xpath=//*[@data-icon="floppy-disk"]');
