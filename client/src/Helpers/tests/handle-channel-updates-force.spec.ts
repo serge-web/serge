@@ -12,7 +12,7 @@ import { getParticipantStates } from '../participant-states'
 const allChannels: ChannelTypes[] = GameChannels2
 const allForces: ForceData[] = forces
 const blueForce: ForceData = allForces[1]
-const isObserver: boolean = false
+const isObserver = false
 const selectedRole = allForces[1].roles[0].roleId
 
 export const getUIChannels = (allChannels: ChannelTypes[], forceId: string, isObserver: boolean): PlayerUiChannels => {
