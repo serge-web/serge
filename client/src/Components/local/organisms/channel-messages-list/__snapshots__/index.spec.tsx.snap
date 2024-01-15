@@ -11,7 +11,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
       <img
         alt=""
         className="force-indicator role-icon"
-        src="default_img/forceDefault.png"
+        src="http://localhost:8080/default_img/forceDefault.png"
         style={
           Object {
             "backgroundColor": "#F00",
