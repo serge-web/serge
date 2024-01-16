@@ -47,6 +47,7 @@
   height: 35px;
   box-shadow: 1px 1px 1px;
   font-weight: 600;
+  color: black;
 
   svg {
     position: absolute;
@@ -71,6 +72,7 @@
     width: 80px;
     margin: 0;
     text-transform: capitalize;
+    color: #000;
   }
 
   div {
@@ -158,4 +160,8 @@
 .removeIcon {
   color: red;
   cursor: pointer;
+}
+
+.lblCbx {
+  color: #000;
 }

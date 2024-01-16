@@ -68,6 +68,9 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
         case 'Rectangle':
           onCreate(e as unknown as PM.ChangeEventHandler)
           break
+        case 'Circle':
+          onCreate(e as unknown as PM.ChangeEventHandler)
+          break
         default:
           console.log('OnCreate Unimplemented !!!', e['shape'])
       }
@@ -91,7 +94,8 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
       position: 'topright',
       rotateMode: true,
       pinningOption: true,
-      snappingOption: true
+      snappingOption: true,
+      drawCircleMarker: false
     }}
     globalOptions={{}}
     onCreate={e => map.removeLayer(e.layer)}

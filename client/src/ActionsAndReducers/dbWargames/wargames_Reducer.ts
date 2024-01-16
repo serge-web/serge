@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import * as ActionConstant from 'src/config'
 import copyState from '../../Helpers/copyStateHelper'
 import * as wargamesHandlers from './helpers/wargamesHandlers'

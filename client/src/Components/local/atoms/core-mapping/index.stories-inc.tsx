@@ -4,9 +4,10 @@ import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
 import { CHANNEL_MAPPING, CUSTOM_MESSAGE, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
+import { noop } from 'lodash'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
@@ -23,7 +24,7 @@ export default {
 }
 
 const largeBounds = L.latLngBounds(L.latLng(45, -30), L.latLng(60, 30))
-const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
+// const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
 /** PROPERTY DEFINITIONS */
 
@@ -268,14 +269,44 @@ const bulkMessage: MappingMessage = {
 
 console.log(coreMessage)
 
+const playerForce: ForceData = {
+  color: '#000',
+  dirty: false,
+  iconURL: '',
+  name: '',
+  overview: '',
+  roles: [],
+  uniqid: 'f-red'
+}
+
 export const Default: React.FC = () => {
   return (
-    <CoreMapping bounds={bounds} playerForce={'f-red'} messages={[coreMessage]} channel={coreMapChannel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>
+    <CoreMapping
+      playerForce={playerForce}
+      messages={[coreMessage]}
+      channel={coreMapChannel}
+      playerRole={'mgr'}
+      currentTurn={1}
+      forces={[]}
+      currentPhase={Phase.Planning}
+      postBack={noop}
+      openPanelAsDefault={false}
+    />
   )
 }
 
 export const Bulk: React.FC = () => {
   return (
-    <CoreMapping bounds={largeBounds} playerForce={'f-red'} messages={[bulkMessage]} channel={coreMapChannel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>
+    <CoreMapping
+      playerForce={playerForce}
+      messages={[bulkMessage]}
+      channel={coreMapChannel}
+      playerRole={'mgr'}
+      currentTurn={1}
+      forces={[]}
+      currentPhase={Phase.Planning}
+      postBack={noop}
+      openPanelAsDefault={false}
+    />
   )
 }
