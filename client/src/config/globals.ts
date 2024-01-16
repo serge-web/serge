@@ -38,6 +38,7 @@ export const COUNTER_MESSAGE = 'CounterMessage'
 
 // mapping messages
 export const MAPPING_MESSAGE = 'MappingMessage'
+export const MAPPING_MESSAGE_DELTA = 'MappingMessageDelta'
 
 // series of constants used for `messageType` when sending system messages
 // an INFO_MESSAGE is an update to the wargame document

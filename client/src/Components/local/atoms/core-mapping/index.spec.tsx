@@ -1,10 +1,10 @@
 /* global it expect */
 import React from 'react'
-import L from 'leaflet'
 import renderer from 'react-test-renderer'
 import CoreMapping from './index'
 import { CHANNEL_MAPPING, Phase } from 'src/config'
-import { ChannelMapping } from 'src/custom-types'
+import { ChannelMapping, ForceData } from 'src/custom-types'
+import { noop } from 'lodash'
 
 jest.mock('react-leaflet-v4', () => ({
   MapContainer: (): React.ReactElement => <></>,
@@ -32,12 +32,30 @@ const channel: ChannelMapping = {
   }
 }
 
-const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
+const playerForce: ForceData = {
+  color: '#000',
+  dirty: false,
+  iconURL: '',
+  name: '',
+  overview: '',
+  roles: [],
+  uniqid: 'f-red'
+}
 
 describe('Core Mapping component:', () => {
   it('renders correctly', () => {
     const tree = renderer
-      .create(<CoreMapping bounds={bounds} playerForce={'f-red'} messages={[]} channel={channel} playerRole={'mgr'} currentTurn={1} forces={[]} currentPhase={Phase.Planning}/>)
+      .create(<CoreMapping
+        playerForce={playerForce}
+        messages={[]}
+        channel={channel}
+        playerRole={'mgr'}
+        currentTurn={1}
+        forces={[]}
+        currentPhase={Phase.Planning}
+        postBack={noop}
+        openPanelAsDefault={false}
+      />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

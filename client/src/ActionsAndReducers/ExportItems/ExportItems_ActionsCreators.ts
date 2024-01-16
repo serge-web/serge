@@ -1,6 +1,6 @@
 import { CHAT_MESSAGE, CREATE_EXPORT_ITEM, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, EXPORT_ITEM_MESSAGES, LOADER } from 'src/config'
 import flatten from 'flat'
-import { ExportItemsUiActionTypes, ExportItem, Wargame, Message, MessageInfoType, ExportItemData } from 'src/custom-types'
+import { ExportItemsUiActionTypes, ExportItem, Wargame, Message, MessageInfoType, ExportItemData, MessageCustom } from 'src/custom-types'
 
 interface ChannelTitles {
   [property: string]: string
@@ -83,12 +83,12 @@ const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): E
   for (const message of messages) {
     let msgType: string = message.messageType
     if (message.messageType === CUSTOM_MESSAGE) {
-      msgType += ' ' + message.details.messageType
+      msgType += ' ' + (message as MessageCustom).details.messageType
     }
     if (msgType && !messageTypes[msgType]) {
       messageTypes[msgType] = true
       const rowsAndFields: ExportDataGroupedGetRowsAndFields = exportDataGroupedGetRowsAndFields(messages, message, channelTitles)
-      const title = message.messageType === CUSTOM_MESSAGE ? 'CM ' + message.details.messageType : msgType
+      const title = message.messageType === CUSTOM_MESSAGE ? 'CM ' + (message as MessageCustom).details.messageType : msgType
       // The max length of the sheet name is 31
       data.push({
         title: title.length > 31
@@ -106,7 +106,7 @@ const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): E
 
 const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message, channelTitles: ChannelTitles) :ExportDataGroupedGetRowsAndFields => {
   const messagesFiltered: Message[] = message.messageType === CUSTOM_MESSAGE 
-    ? messages.filter(msg => msg.messageType === CUSTOM_MESSAGE && message.details.messageType === msg.details.messageType)
+    ? messages.filter(msg => msg.messageType === CUSTOM_MESSAGE && (message as MessageCustom).details.messageType === (msg as MessageCustom).details.messageType)
     : messages.filter(({ messageType }) => message.messageType === messageType)
 
   const fields: string[] = []
@@ -114,8 +114,8 @@ const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message
 
   const messagesWithChannelNames: FlatMessages[] = messagesFiltered.map(msg => {
     if (msg.messageType === CUSTOM_MESSAGE || msg.messageType === CHAT_MESSAGE || msg.messageType === FEEDBACK_MESSAGE) {
-      if (msg.details.channel && channelTitles[msg.details.channel]) {
-        msg.details.channel = channelTitles[msg.details.channel]
+      if ((msg as MessageCustom).details.channel && channelTitles[(msg as MessageCustom).details.channel]) {
+        (msg as MessageCustom).details.channel = channelTitles[(msg as MessageCustom).details.channel]
       }
     }
     const flatMsg: FlatMessage = keysSimplify(flatten<Message, FlatMessage>(msg))

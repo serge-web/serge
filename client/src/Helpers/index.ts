@@ -18,8 +18,7 @@ export { default as getSelectedItem } from './getSelectedItem'
 export {
   default as handleChannelUpdates,
   handleAllInitialChannelMessages,
-  handleNewMessageData,
-  clipInfoMEssage
+  handleNewMessageData
 } from './handle-channel-updates'
 export { default as hexToRGBA } from './hex-to-rgba'
 export { default as findEmptyRolenames } from './find-empty-rolenames'
