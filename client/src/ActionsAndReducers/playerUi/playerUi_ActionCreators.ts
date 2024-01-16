@@ -8,7 +8,7 @@ import * as wargamesApi from '../../api/wargames_api'
 import isError from '../../Helpers/isError'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 
-import { ChatMessage, MappingMessage, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame } from 'src/custom-types'
+import { ChatMessage, MappingMessage, MappingMessageDelta, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame } from 'src/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -129,7 +129,7 @@ export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsF
   }
 }
 
-export const sendMappingMessage = (dbName: string, message: MappingMessage): void => {
+export const sendMappingMessage = (dbName: string, message: MappingMessage | MappingMessageDelta): void => {
   wargamesApi.postMappingMessage(dbName, message)
 }
 

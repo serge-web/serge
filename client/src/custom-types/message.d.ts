@@ -206,13 +206,12 @@ export interface MessageInfoTypeClipped {
   _id?: string
 }
 
-export type MessageChannel = MessageInfoTypeClipped |
-  MessageCustom
-
+export type MessageChannel = MessageInfoTypeClipped | MessageCustom
 export type Message = MessageCustom |
   ChatMessage |
   MessageFeedback |
   MappingMessage |
+  MappingMessageDelta | 
   MessageInfoTypeClipped |
   MessageInfoType |
   MessageCounter

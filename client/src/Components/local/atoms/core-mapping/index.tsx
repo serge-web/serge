@@ -5,23 +5,24 @@ import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { cloneDeep, flatten, unionBy } from 'lodash'
+import { cloneDeep, flatten, unionBy, get, set, hasIn } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
-import { BaseRenderer, CoreMessage, CoreProperties, MappingMessage, Message, MessageCustom, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { CUSTOM_MESSAGE, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
+import { BaseRenderer, CoreMessage, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageCustom, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
+import circleToPolygon from './helper/circle-to-linestring'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
 import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
-import circleToPolygon from './helper/circle-to-linestring'
-import { CUSTOM_MESSAGE, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
+  const [lastMessage, setLastMessage] = useState<MappingMessage>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
   const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
@@ -47,6 +48,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       // is this a whole mapping message?
       if (lastMessage.details.messageType === MAPPING_MESSAGE) {
         const wholeMessage = lastMessage as MappingMessage
+        setLastMessage(wholeMessage)
         setFeatureCollection(wholeMessage.featureCollection)
       } else if (lastMessage.details.messageType === MAPPING_MESSAGE_DELTA) {
         // TODO: create helper to process message list an provide valid composite message
@@ -60,7 +62,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   useEffect(() => {
     if (channel) {
       const rendererObjects: Array<BaseRenderer> = channel.renderers
-      const renList = rendererObjects.map((obj: BaseRenderer) => CoreRendererHelper.from(obj.type))
+      const renList = rendererObjects.map((baseMessage: BaseRenderer) => CoreRendererHelper.from(baseMessage.type))
       setRenderers(renList)
     } else {
       setRenderers([])
@@ -77,8 +79,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       if (feature && featureCollection && featureCollection.features) {
         const found = featureCollection.features.find(f => f.properties?.id === feature.properties?.id)
         if (!found) {
-          featureCollection.features.push(feature)
           const cloneFeatureCollection = cloneDeep(featureCollection)
+          cloneFeatureCollection.features.push(feature)
           setFeatureCollection(cloneFeatureCollection)
           saveNewMessage(cloneFeatureCollection)
         }
@@ -107,10 +109,58 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         details, 
         featureCollection,
         messageType: CUSTOM_MESSAGE,
-        _id: timestamp
+        _id: lastMessage ? lastMessage._id : timestamp
       }
-      postBack(newMessage as MappingMessage)
+
+      if (lastMessage) {
+        const diffKeyArray: string[] = getObjDifferences(lastMessage, newMessage, [], '')
+        const diffKeyArray2: string[] = getObjDifferences(newMessage, lastMessage, [], '')
+        // build message deltas from diff keys array
+        const delta = {};
+        [...diffKeyArray, ...diffKeyArray2].forEach(key => {
+          if (hasIn(newMessage, key)) {
+            set(delta, key, get(newMessage, key))
+          }
+        })
+        const deltaMessage: MappingMessageDelta = {
+          _id: new Date().toISOString(),
+          messageType: MAPPING_MESSAGE_DELTA,
+          details: {
+            channel: lastMessage.details.channel,
+            from: {
+              force: '',
+              forceColor: '',
+              roleId: '',
+              roleName: '',
+              iconURL: ''
+            },
+            messageType: '',
+            timestamp: '',
+            turnNumber: 0
+          },
+          since: newMessage._id,
+          delta
+        }
+        postBack(deltaMessage)
+      }
     }
+  }
+
+  const getObjDifferences = (baseMessage: MappingMessage, newMessage: MappingMessage, diffKeyArray: any[], keyName: string): string[] => {
+    Object.keys(baseMessage).forEach(key => {
+      if (newMessage[key] === undefined) {
+        if (keyName.length > 0) diffKeyArray.push(keyName + '.' + key)
+        else diffKeyArray.push(key)
+      } else if (typeof baseMessage[key] === 'object' && baseMessage[key] !== null) {
+        if (newMessage[key] !== undefined) {
+          if (keyName.length > 0) getObjDifferences(baseMessage[key], newMessage[key], diffKeyArray, keyName + '.' + key)
+          else getObjDifferences(baseMessage[key], newMessage[key], diffKeyArray, key)
+        } else {
+          diffKeyArray.push(key)
+        }      
+      }
+    })
+    return diffKeyArray
   }
   
   const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
@@ -229,9 +279,10 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
 
   const onDragged = (id: number | string, latLngs: LatLng | LatLng[] | LatLng[][]) => {
     if (featureCollection && featureCollection.features) {
-      const idx = featureCollection.features.findIndex(f => f.properties?.id === id)
+      const cloneFeatureCollection = cloneDeep(featureCollection)
+      const idx = cloneFeatureCollection.features.findIndex(f => f.properties?.id === id)
       if (idx !== -1 && latLngs) {
-        const feature = featureCollection.features[idx]
+        const feature = cloneFeatureCollection.features[idx]
         switch (feature.geometry.type) {
           case 'Polygon': {
             const coords = latLngs as LatLng[][]
@@ -258,7 +309,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
             console.warn('Drag handler not implemented for ' + feature.geometry.type)
           }
         }
-        setFeatureCollection(cloneDeep(featureCollection))
+        setFeatureCollection(cloneFeatureCollection)
+        saveNewMessage(cloneFeatureCollection)
       }
     }
   }

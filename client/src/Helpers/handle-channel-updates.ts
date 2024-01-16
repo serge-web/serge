@@ -1,16 +1,17 @@
 /* eslint-disable complexity */
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE_DELTA } from 'src/config'
 import {
-  ChannelTypes, ChannelUI, ForceData, MessageChannel,
+  ChannelTypes, ChannelUI, ForceData, MappingMessage, MappingMessageDelta, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from 'src/custom-types'
 // import { CoreParticipant } from 'src/custom-types/participant'
 import uniqId from 'uniqid'
 import deepCopy from './deep-copy'
+import { updateForceColors, updateForceIcons, updateForceNames } from './handle-channel-updates-force'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { getParticipantStates } from './participant-states'
-import { updateForceIcons, updateForceColors, updateForceNames } from './handle-channel-updates-force'
+import { get } from 'lodash'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -47,7 +48,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
-          msg.message.reference === message.message.reference) {
+          (msg as MessageCustom).message.reference === message.message.reference) {
           theChannel.messages?.splice(idx, 1)
         }
       })
@@ -57,7 +58,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
-          msg.message.Reference === message.message.Reference) {
+          (msg as MessageCustom).message.Reference === message.message.Reference) {
           theChannel.messages?.splice(idx, 1)
         }
       })
@@ -230,16 +231,33 @@ export const handleNewMessageData = (
   }
   if (payload.messageType === INFO_MESSAGE_CLIPPED) {
     // just push it into the channel, or ignore it?
-    const channelId = payload.details.channel
+    const channelId = (payload as MessageInfoTypeClipped).details.channel
     const channel = channels[channelId]
     if (!channel.messages) {
       channel.messages = []
     }
     channel.messages.unshift(payload)
+  } else if (payload.messageType === CUSTOM_MESSAGE) {
+    handleNonInfoMessage(res, (payload as MessageCustom)?.details?.channel, payload as MessageCustom, playerId)
   } else {
-    handleNonInfoMessage(res, payload.details.channel, payload, playerId)
+    const messageType = get(payload, 'messageType')
+    if (messageType === MAPPING_MESSAGE_DELTA) {
+      const messageDelta = payload as MappingMessageDelta
+      const channelId = messageDelta.details.channel
+      const channel = channels[channelId]
+      if (!channel.messages) {
+        channel.messages = []
+      }
+      const basedMessage = channel.messages.find(m => m._id === messageDelta.since)
+      if (basedMessage) {
+        const mappingMessage = basedMessage as unknown as MappingMessage
+        const features = messageDelta.delta.featureCollection.features.filter((f: any) => f)
+        mappingMessage.featureCollection.features.push(...features)
+        console.log('xx> mappingMessage: ', mappingMessage)
+        channel.messages.unshift(mappingMessage as unknown as MessageChannel)
+      }
+    }
   }
-
   return res
 }
 
@@ -316,7 +334,7 @@ const updateChannelMessages = (gameTurn: number, messageId: string, thisChannel:
   
   // check if we're missing a turn marker for this turn
   if (thisChannel.messages && !collabChannel) {
-    if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === gameTurn)) {
+    if (!thisChannel.messages.find((prevMessage: MessageChannel) => (prevMessage as MessageInfoTypeClipped | MessageCustom).gameTurn === gameTurn)) {
       // no messages, or no turn marker found, create one  
       const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
       thisChannel.messages.unshift(message)

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ChannelMapping, MappingMessage, MessageChannel } from 'src/custom-types'
+import { ChannelMapping, MappingMessage, MappingMessageDelta, MessageChannel } from 'src/custom-types'
 import {
   getAllWargameMessages, sendMappingMessage
 } from '../ActionsAndReducers/playerUi/playerUi_ActionCreators'
@@ -16,7 +16,6 @@ const CoreMappingChannel: React.FC<{ channelId: string, isCustomChannel?: boolea
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const { selectedRole, selectedForce } = state
   const channelUI = state.channels[channelId]
-  // const selectedForceId = state.selectedForce ? state.selectedForce.uniqid : ''
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   
   const channel = channelUI.cData as ChannelMapping
@@ -30,7 +29,7 @@ const CoreMappingChannel: React.FC<{ channelId: string, isCustomChannel?: boolea
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const messageHandler = (message: MappingMessage): void => {
+  const messageHandler = (message: MappingMessage | MappingMessageDelta): void => {
     sendMappingMessage(state.currentWargame, message)
   }
 
