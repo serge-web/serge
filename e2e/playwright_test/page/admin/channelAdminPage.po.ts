@@ -39,7 +39,6 @@ export class ChannelAdminPage extends BasePage{
       return page.locator("//span[contains(@class,'_searchlist-row')]//span[text()='"+channel+"']");
     }
     
-    
     this.selectOption = (option :string) : Locator => {
       return page.getByRole('option', { name: option });
     }
@@ -77,10 +76,6 @@ export class ChannelAdminPage extends BasePage{
     await this.nameChannelInput.fill(name);
   }
 
-  async verifyChannelIsCreated(name : string) {
-    await this.verifyTextIsvisible(await this.channelLeftBar(name));
-  }
-
   async clickSaveChannelButton() {
     await this.page.waitForTimeout(3000);
     await this.saveChannelBtn.click();
@@ -116,23 +111,26 @@ export class ChannelAdminPage extends BasePage{
   }
 
   async clickSaveRowChannelIcon(force:string , role : String) {
-    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(1000);
     await this.saveRowChannel(force, role).click();
   }
 
   async clickEditRowChannelIcon(force:string , role : String) {
-    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(1000);
     await this.editRowChannel(force, role).click();
   }
 
   async ClickDeleteRowChannelIcon(force:string , role : String) {
-    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(1000);
     await this.delRowChannel(force, role).click();
   }
 
   async ClickResetRowChannelIcon(force:string , role : String) {
-    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(1000);
     await this.resetRowChannel(force, role).click();
   }
 
+  async verifyChannelIsCreated(name : string) {
+    await this.verifyTextIsvisible(await this.channelLeftBar(name));
+  }
 }

@@ -55,6 +55,7 @@ export class OverViewAdminPage extends BasePage{
 
   async saveOverView() {
     await this.saveOverViewBtn.click();
+    await this.page.waitForTimeout(2000);
   }
 
 }

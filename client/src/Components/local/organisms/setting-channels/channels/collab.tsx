@@ -17,6 +17,7 @@ import { SelectItem, SwitchItem } from '../../../molecules/editable-row/types/pr
 import { defaultParticipantCollab } from '../helpers/defaultParticipant'
 import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues } from '../helpers/genMessageCollabEdit'
 import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, onMessageValuesChanged } from '../helpers/messageCollabUtils'
+import uniqId from 'uniqid'
 import styles from '../styles.module.scss'
 
 type CollabChannelProps = {
@@ -83,6 +84,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
       return {
         ...participantCollab,
         forceUniqid: selectedForce.uniqid,
+        subscriptionId: uniqId.time(),
         roles,
         permission,
         canCreate,
@@ -206,7 +208,6 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
         }
 
         const items = generateRowItemsCollab(forces, participantCollab)
-
         return <EditableRow
           onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
           key={participantCollab.subscriptionId}

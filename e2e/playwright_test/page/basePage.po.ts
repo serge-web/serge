@@ -11,6 +11,7 @@ export class BasePage{
 
  async openUrl(urlPath: string): Promise<void> {
   await this.page.goto(urlPath, { timeout: 50 * 1000 });
+  await this.waitForLoadStateWithDomcontentloaded();
 }
 
 async waitForLoadStateWithDomcontentloaded(): Promise<void> {
@@ -26,4 +27,33 @@ async verifyTextIsvisible(locator : Locator) {
   await expect(locator.first()).toBeVisible();
 }
 
+async inputValueLocator(locator : Locator, value :string) {
+  await locator.first().waitFor({state: "visible"})
+  await locator.first().fill(value);
+}
+
+async clickLocator(locator : Locator) {
+  await locator.first().waitFor({state: "visible"})
+  await locator.first().click();
+}
+
+async doubleClickLocator(locator : Locator) {
+  await locator.first().waitFor({state: "visible"})
+  await locator.first().dblclick();
+}
+
+async selectValueLocator(locator : Locator, value :string) {
+  await locator.first().waitFor({state: "visible"})
+  await locator.selectOption(value);
+}
+
+async verifyLocatorIsvisible(locator : Locator) {
+  await locator.first().waitFor({state: "visible"})
+  await expect(locator.first()).toBeVisible();
+}
+
+async hoverLocator(locator : Locator) {
+  await locator.first().waitFor({state: "visible"})
+  await locator.first().hover();
+}
 }
