@@ -10,7 +10,7 @@ import { buildForceIconsColorsNames, updateForceColors, updateForceIcons, update
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { getParticipantStates } from './participant-states'
-import jiff from 'jiff'
+import jsonPatch from 'fast-json-patch'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -124,13 +124,12 @@ export const handleNewMessageData = (
       if (!channel.messages) {
         channel.messages = []
       }
-      console.log('xx> messageDelta: ', messageDelta.delta)
       const basedMessage = channel.messages.find(m => m._id === messageDelta.since)
       if (basedMessage) {
-        const patched = jiff.patch(messageDelta.delta, basedMessage) as any
-        const mappingMessage = { ...patched, _id: get(messageDelta, '_id') }
-        console.log('xx> mappingMessage: ', mappingMessage)
-        handleNonInfoMessage(res, mappingMessage.details.channel, mappingMessage as any, playerId)
+        const patched = jsonPatch.applyPatch(basedMessage, messageDelta.delta).newDocument
+        console.log('xx> basedMessage: ', basedMessage)
+        console.log('xx> patched: ', patched)
+        handleNonInfoMessage(res, patched.details.channel, patched as MessageCustom, playerId)
       }
     }
   }

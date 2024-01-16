@@ -55,11 +55,6 @@
     "@sentry/types" "7.60.0"
     tslib "^2.4.1 || ^1.9.3"
 
-"@types/jiff@^0.7.5":
-  version "0.7.5"
-  resolved "https://registry.yarnpkg.com/@types/jiff/-/jiff-0.7.5.tgz#cb8745f20967dff2bf5dcb11a819596a134761f4"
-  integrity sha512-IMoL5cpiTF5DsZ97J0r/DbpUfqXeg0PGUOvYCjPgVNf2SFXE3HmnCooHOrcD1Uqa1P9bkRHNnOI0uskfT0aoCQ==
-
 agent-base@6:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-6.0.2.tgz#49fff58577cfee3f37176feab4c22e00f86d7f77"
@@ -180,6 +175,11 @@ escape-string-regexp@^4.0.0:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz#14ba83a5d373e3d311e5afca29cf5bfad965bf34"
   integrity sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==
 
+fast-json-patch@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/fast-json-patch/-/fast-json-patch-3.1.1.tgz#85064ea1b1ebf97a3f7ad01e23f9337e72c66947"
+  integrity sha512-vf6IHUX2SBcA+5/+4883dsIjpBTqmfBjmYiWK1savxQmFk4JfBMLa7ynTYOs1Rolp/T1betJxHiGD3g1Mn8lUQ==
+
 function-bind@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
@@ -265,11 +265,6 @@ is-fullwidth-code-point@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz#f116f8064fe90b3f7844a38997c0b75051269f1d"
   integrity sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==
-
-jiff@^0.7.3:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/jiff/-/jiff-0.7.3.tgz#42db5d9140f1804399bb501747055a9434f40f46"
-  integrity sha512-MAo1DhUJTPPFcC+oY80dLHCcHdliFRJyNKn9o3AjImnNWyeA7bALsFbvmN+1Dv5eGTcEMBz3in3ENgvQsNTp5g==
 
 json-stringify-safe@^5.0.1:
   version "5.0.1"

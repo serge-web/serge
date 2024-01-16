@@ -19,7 +19,7 @@ import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
-import jiff from 'jiff'
+import jsonPath from 'fast-json-patch'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
@@ -114,9 +114,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       }
 
       if (lastMessage) {
-        const delta = jiff.diff(lastMessage, newMessage)
+        const delta = jsonPath.compare(lastMessage, newMessage)
         const deltaMessage: MappingMessageDelta = {
-          _id: new Date().toISOString(),
+          _id: timestamp,
           messageType: MAPPING_MESSAGE_DELTA,
           details,
           since: lastMessage._id,

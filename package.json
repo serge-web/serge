@@ -51,8 +51,7 @@
     ]
   },
   "dependencies": {
-    "@types/jiff": "^0.7.5",
-    "jiff": "^0.7.3",
+    "fast-json-patch": "^3.1.1",
     "react-resizable-panels": "^0.0.63"
   }
 }
