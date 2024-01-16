@@ -12,7 +12,7 @@ export const AdminPanelFooter: React.FC<Props> = ({ force, selectedRoleName, onI
       <div className={styles['role-type']}>{selectedRoleName}</div>
       <div className={styles['force-type']}>{force.name}</div>
     </div>
-    <img className={styles['role-icon']} src={resolveImagePath(force.iconURL || force.icon)} alt="" onClick={onIconClick} data-tour="second-step" style={{ backgroundColor: force.color }} />
+    <img className={styles['role-icon']} src={resolveImagePath(force.icon || force.iconURL)} alt="" onClick={onIconClick} data-tour="second-step" style={{ backgroundColor: force.color }} />
   </div>
 
 export default AdminPanelFooter

@@ -7,7 +7,13 @@ import { serverPath } from 'src/config'
 */
 
 const resolveImagePath = (url: string | undefined) => {
-  const isLocalUrl = url && url.includes(serverPath)
+  const resolvedUrl = new URL(serverPath)
+  const isLocalUrl = url && url.includes(resolvedUrl.host)
+  
+  if (!url || typeof url !== 'string') {
+    return '' // or throw an error, depending on your use case
+  }
+  
   return isLocalUrl ? url : serverPath + url
 }
 
