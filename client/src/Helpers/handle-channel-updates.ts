@@ -1,15 +1,15 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
+import { get } from 'lodash'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE_DELTA } from 'src/config'
 import {
   ChannelTypes, ChannelUI, ForceData, MappingMessage, MappingMessageDelta, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from 'src/custom-types'
 import uniqId from 'uniqid'
 import deepCopy from './deep-copy'
-import { updateForceColors, updateForceIcons, updateForceNames } from './handle-channel-updates-force'
+import { buildForceIconsColorsNames, updateForceColors, updateForceIcons, updateForceNames } from './handle-channel-updates-force'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { getParticipantStates } from './participant-states'
-import { updateForceIcons, updateForceColors, updateForceNames, buildForceIconsColorsNames } from './handle-channel-updates-force'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -112,10 +112,29 @@ export const handleNewMessageData = (
       channel.messages = []
     }
     channel.messages.unshift(payload)
-  } else {
+  } else if (payload.messageType === CUSTOM_MESSAGE) {
     handleNonInfoMessage(res, payload.details.channel, payload, playerId)
+  } else {
+    const messageType = get(payload, 'messageType')
+    if (messageType === MAPPING_MESSAGE_DELTA) {
+      const messageDelta = payload as MappingMessageDelta
+      const channelId = messageDelta.details.channel
+      const channel = channels[channelId]
+      if (!channel.messages) {
+        channel.messages = []
+      }
+      const basedMessage = channel.messages.find(m => m._id === messageDelta.since)
+      if (basedMessage) {
+        const mappingMessage = basedMessage as unknown as MappingMessage
+        const features = messageDelta.delta.featureCollection.features.filter((f: any) => f)
+        // add new feature from delta message to based message
+        // TODO: update existing features in base message if user drags/remove feature 
+        mappingMessage.featureCollection.features.push(...features)
+        console.log('xx> mappingMessage: ', mappingMessage)
+        channel.messages.unshift(mappingMessage as unknown as MessageChannel)
+      }
+    }
   }
-  
   return res
 }
 
