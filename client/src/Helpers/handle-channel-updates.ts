@@ -1,17 +1,15 @@
-/* eslint-disable complexity */
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE_DELTA } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
 import {
   ChannelTypes, ChannelUI, ForceData, MappingMessage, MappingMessageDelta, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from 'src/custom-types'
-// import { CoreParticipant } from 'src/custom-types/participant'
 import uniqId from 'uniqid'
 import deepCopy from './deep-copy'
 import { updateForceColors, updateForceIcons, updateForceNames } from './handle-channel-updates-force'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { getParticipantStates } from './participant-states'
-import { get } from 'lodash'
+import { updateForceIcons, updateForceColors, updateForceNames, buildForceIconsColorsNames } from './handle-channel-updates-force'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -27,7 +25,9 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
     hasBeenRead: !!message.hasBeenRead,
     _id: message._id
   }
+
   data.playerMessageLog[sourceRole] = logger
+
   if (channel === CHAT_CHANNEL_ID) {
     data.chatChannel.messages.unshift(deepCopy(message))
   } else if (data.channels[channel]) {
@@ -93,6 +93,32 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
   }
 }
 
+export const handleNewMessageData = (
+  payload: MessageChannel,
+  channels: PlayerUiChannels,
+  chatChannel: PlayerUiChatChannel,
+  playerMessageLog: PlayerMessageLog,
+  playerId: string): SetWargameMessage => {
+  const res: SetWargameMessage = {
+    channels: { ...channels },
+    chatChannel: { ...chatChannel },
+    playerMessageLog: deepCopy(playerMessageLog)
+  }
+  if (payload.messageType === INFO_MESSAGE_CLIPPED) {
+    // just push it into the channel, or ignore it?
+    const channelId = payload.details.channel
+    const channel = channels[channelId]
+    if (!channel.messages) {
+      channel.messages = []
+    }
+    channel.messages.unshift(payload)
+  } else {
+    handleNonInfoMessage(res, payload.details.channel, payload, playerId)
+  }
+  
+  return res
+}
+
 /** create a new (empty) channel */
 const createNewChannel = (channelId: string, channel: ChannelTypes): ChannelUI => {
   const res: ChannelUI = {
@@ -109,11 +135,12 @@ const createNewChannel = (channelId: string, channel: ChannelTypes): ChannelUI =
   return res
 }
 
-export const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: Role['roleId']): boolean => (
+const isMessageHasBeenRead = (id: string, currentWargame: string, forceId: string | undefined, selectedRole: Role['roleId']): boolean => (
   expiredStorage.getItem(`${currentWargame}-${forceId || ''}-${selectedRole}-${id}`) === 'read'
 )
 
-export const clipInfoMEssage = (gameTurn: number, messageType: string | undefined, id: string | undefined, hasBeenRead = false): MessageInfoTypeClipped => {
+// Clip an info message for a specified game turn.
+const clipInfoMEssage = (gameTurn: number, messageType: string | undefined, id: string | undefined, hasBeenRead = false): MessageInfoTypeClipped => {
   if (messageType !== undefined && messageType !== INFO_MESSAGE && messageType !== INFO_MESSAGE_CLIPPED) {
     throw new TypeError(`Message should be INFO_MESSAGE: "${messageType}" type`)
   }
@@ -130,6 +157,76 @@ export const clipInfoMEssage = (gameTurn: number, messageType: string | undefine
   }
 }
 
+// Transform a message to the appropriate format based on its type.
+const transformMessage = (
+  message: MessageInfoType | MessageCustom,
+  currentWargame: string,
+  forceId: string | undefined,
+  selectedRole: Role['roleId']
+): MessageChannel => {
+  const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
+
+  if (message.messageType === INFO_MESSAGE || message.messageType === undefined) {
+    return clipInfoMEssage(message.gameTurn, message.messageType, message._id, hasBeenRead)
+  } else {
+    return {
+      ...message,
+      hasBeenRead: hasBeenRead,
+      isOpen: false
+    }
+  }
+}
+
+// Filter admin messages for a specific chat channel.
+const filterAdminMessages = (
+  messages: MessageChannel[],
+  chatChannelName: string
+): MessageChannel[] => messages.filter((message) => message.details && message.details.channel === chatChannelName)
+
+// Create or update a channel UI based on the provided parameters.
+const createOrUpdateChannelUI = (
+  channel: ChannelTypes,
+  forceId: string | undefined,
+  selectedRole: Role['roleId'],
+  isObserver: boolean,
+  isUmpire: boolean,
+  allTemplatesByKey: TemplateBodysByKey,
+  messagesFiltered: MessageChannel[],
+  allForces: ForceData[]
+): ChannelUI | undefined => {
+  const { isParticipant, observing, templates } = getParticipantStates(
+    channel,
+    forceId,
+    selectedRole,
+    isObserver,
+    allTemplatesByKey
+  )
+
+  if ((isUmpire && isObserver) || isParticipant) {
+    const { forceIcons, forceColors, forceNames } = buildForceIconsColorsNames(channel.participants, allForces)
+    const isCollab = channel.channelType === CHANNEL_COLLAB
+    const messages = messagesFiltered.filter(
+      (message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED)
+    )
+
+    return {
+      name: channel.name,
+      uniqid: channel.uniqid,
+      templates: templates,
+      forceIcons,
+      forceColors,
+      forceNames,
+      messages,
+      unreadMessageCount: messages.filter((message) => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
+      observing: observing,
+      cData: channel
+    }
+  }
+
+  return undefined
+}
+
+// Handle updates to channels and update the wargame state accordingly.
 export const handleAllInitialChannelMessages = (
   payload: Array<MessageInfoType | MessageCustom>,
   currentWargame: string,
@@ -143,67 +240,27 @@ export const handleAllInitialChannelMessages = (
   isUmpire: boolean
 ): SetWargameMessage => {
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
-  const messagesReduced: Array<MessageChannel> = payload.map((message) => {
-    const hasBeenRead = typeof message._id === 'string' && isMessageHasBeenRead(message._id, currentWargame, forceId, selectedRole)
-    if (message.messageType === INFO_MESSAGE || message.messageType === undefined) {
-      return clipInfoMEssage(message.gameTurn, message.messageType, message._id, hasBeenRead)
-    } else {
-      return {
-        ...message,
-        hasBeenRead: hasBeenRead,
-        isOpen: false
-      }
-    }
-  })
-
+  const messagesReduced: MessageChannel[] = payload.map((message) => transformMessage(message, currentWargame, forceId, selectedRole))
   // reduce messages, so we just have single turn marker, and most recent
   // version of referenced messages
   const messagesFiltered = mostRecentOnly(messagesReduced)
-  const reverseMessagesReduced = messagesFiltered
-
-  const playerLog = newestPerRole(reverseMessagesReduced as Array<MessageCustom>)
-
-  const adminMessages = messagesFiltered
-    .filter((message) => message.details && message.details.channel === chatChannel.name)
-
+  const adminMessages = filterAdminMessages(messagesFiltered, chatChannel.name)
   const channels: PlayerUiChannels = {}
 
   allChannels.forEach((channel: ChannelTypes) => {
-    const {
-      isParticipant,
-      observing,
-      templates
-    } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
-    
-    if ((isUmpire && isObserver) || isParticipant) {
-      // TODO: define type for force Icons
-      const forceIcons: any[] = []
-      const forceColors: string[] = []
-      const forceNames: string[] = []
-      for (const { forceUniqid } of channel.participants) {
-        const force = allForces.find((force) => force.uniqid === forceUniqid)
-        forceIcons.push(force && (force.iconURL || force.icon))
-        forceColors.push((force && force.color) || '#FFF')
-        forceNames.push((force && force.name) || 'PENDING')
-      }
+    // grow the existing channel definition to include the new UI-focussed entries
+    const newChannel = createOrUpdateChannelUI(
+      channel,
+      forceId,
+      selectedRole,
+      isObserver,
+      isUmpire,
+      allTemplatesByKey,
+      messagesFiltered,
+      allForces
+    )
 
-      const isCollab = channel.channelType === CHANNEL_COLLAB
-      const messages = messagesFiltered.filter((message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED))
-
-      // grow the existing channel definition to include the new UI-focussed entries
-      const newChannel: ChannelUI = {
-        name: channel.name,
-        uniqid: channel.uniqid,
-        templates: templates,
-        forceIcons,
-        forceColors,
-        forceNames,
-        messages,
-        unreadMessageCount: messages.filter(message => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
-        observing: observing,
-        cData: channel
-      }
-
+    if (newChannel) {
       channels[channel.uniqid] = newChannel
     }
   })
@@ -214,53 +271,11 @@ export const handleAllInitialChannelMessages = (
       ...chatChannel,
       messages: adminMessages
     },
-    playerMessageLog: playerLog
+    playerMessageLog: newestPerRole(messagesFiltered as Array<MessageCustom>)
   }
 }
 
-export const handleNewMessageData = (
-  payload: MessageChannel,
-  channels: PlayerUiChannels,
-  chatChannel: PlayerUiChatChannel,
-  playerMessageLog: PlayerMessageLog,
-  playerId: string): SetWargameMessage => {
-  const res: SetWargameMessage = {
-    channels: { ...channels },
-    chatChannel: { ...chatChannel },
-    playerMessageLog: deepCopy(playerMessageLog)
-  }
-  if (payload.messageType === INFO_MESSAGE_CLIPPED) {
-    // just push it into the channel, or ignore it?
-    const channelId = (payload as MessageInfoTypeClipped).details.channel
-    const channel = channels[channelId]
-    if (!channel.messages) {
-      channel.messages = []
-    }
-    channel.messages.unshift(payload)
-  } else if (payload.messageType === CUSTOM_MESSAGE) {
-    handleNonInfoMessage(res, (payload as MessageCustom)?.details?.channel, payload as MessageCustom, playerId)
-  } else {
-    const messageType = get(payload, 'messageType')
-    if (messageType === MAPPING_MESSAGE_DELTA) {
-      const messageDelta = payload as MappingMessageDelta
-      const channelId = messageDelta.details.channel
-      const channel = channels[channelId]
-      if (!channel.messages) {
-        channel.messages = []
-      }
-      const basedMessage = channel.messages.find(m => m._id === messageDelta.since)
-      if (basedMessage) {
-        const mappingMessage = basedMessage as unknown as MappingMessage
-        const features = messageDelta.delta.featureCollection.features.filter((f: any) => f)
-        mappingMessage.featureCollection.features.push(...features)
-        console.log('xx> mappingMessage: ', mappingMessage)
-        channel.messages.unshift(mappingMessage as unknown as MessageChannel)
-      }
-    }
-  }
-  return res
-}
-
+// Process a channel and update the wargame state accordingly.
 const processChannel = (
   channel: ChannelTypes,
   forceId: string | undefined,
@@ -279,7 +294,6 @@ const processChannel = (
   }
 
   const channelId = channel.uniqid
-
   const { isParticipant, observing, templates } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
   
   // make a note that we've procesed this channel
