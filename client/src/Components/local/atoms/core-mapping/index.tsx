@@ -110,7 +110,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         details, 
         featureCollection,
         messageType: CUSTOM_MESSAGE,
-        _id: lastMessage ? lastMessage._id : timestamp
+        _id: timestamp
       }
 
       if (lastMessage) {
@@ -119,7 +119,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           _id: new Date().toISOString(),
           messageType: MAPPING_MESSAGE_DELTA,
           details,
-          since: newMessage._id,
+          since: lastMessage._id,
           delta
         }
         postBack(deltaMessage)
