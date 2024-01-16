@@ -116,12 +116,13 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       if (lastMessage) {
         const delta = jsonPath.compare(lastMessage, newMessage)
         const deltaMessage: MappingMessageDelta = {
-          _id: timestamp,
+          _id: new Date().toISOString(),
           messageType: MAPPING_MESSAGE_DELTA,
           details,
           since: lastMessage._id,
           delta
         }
+        console.log(deltaMessage)
         postBack(deltaMessage)
       }
     }

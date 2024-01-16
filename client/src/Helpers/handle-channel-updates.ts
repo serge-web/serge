@@ -127,9 +127,8 @@ export const handleNewMessageData = (
       const basedMessage = channel.messages.find(m => m._id === messageDelta.since)
       if (basedMessage) {
         const patched = jsonPatch.applyPatch(basedMessage, messageDelta.delta).newDocument
-        console.log('xx> basedMessage: ', basedMessage)
-        console.log('xx> patched: ', patched)
-        handleNonInfoMessage(res, patched.details.channel, patched as MessageCustom, playerId)
+        const msgCustom = { ...patched, _id: messageDelta._id } as MessageCustom
+        handleNonInfoMessage(res, msgCustom.details.channel, msgCustom, playerId)
       }
     }
   }
