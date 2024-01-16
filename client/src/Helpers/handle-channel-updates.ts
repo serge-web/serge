@@ -129,10 +129,8 @@ export const handleNewMessageData = (
       if (basedMessage) {
         const patched = jiff.patch(messageDelta.delta, basedMessage) as any
         const mappingMessage = { ...patched, _id: get(messageDelta, '_id') }
-        if (mappingMessage) {
-          console.log('xx> mappingMessage: ', mappingMessage)
-          handleNonInfoMessage(res, mappingMessage.details.channel, mappingMessage as any, playerId)
-        }
+        console.log('xx> mappingMessage: ', mappingMessage)
+        handleNonInfoMessage(res, mappingMessage.details.channel, mappingMessage as any, playerId)
       }
     }
   }
