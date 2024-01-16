@@ -1,7 +1,7 @@
 import { get } from 'lodash'
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE_DELTA } from 'src/config'
 import {
-  ChannelTypes, ChannelUI, ForceData, MappingMessage, MappingMessageDelta, MessageChannel,
+  ChannelTypes, ChannelUI, ForceData, MappingMessageDelta, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from 'src/custom-types'
 import uniqId from 'uniqid'
@@ -10,6 +10,7 @@ import { buildForceIconsColorsNames, updateForceColors, updateForceIcons, update
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { getParticipantStates } from './participant-states'
+import jiff from 'jiff'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -123,15 +124,15 @@ export const handleNewMessageData = (
       if (!channel.messages) {
         channel.messages = []
       }
+      console.log('xx> messageDelta: ', messageDelta.delta)
       const basedMessage = channel.messages.find(m => m._id === messageDelta.since)
       if (basedMessage) {
-        const mappingMessage = basedMessage as unknown as MappingMessage
-        const features = messageDelta.delta.featureCollection.features.filter((f: any) => f)
-        // add new feature from delta message to based message
-        // TODO: update existing features in base message if user drags/remove feature 
-        mappingMessage.featureCollection.features.push(...features)
-        console.log('xx> mappingMessage: ', mappingMessage)
-        channel.messages.unshift(mappingMessage as unknown as MessageChannel)
+        const patched = jiff.patch(messageDelta.delta, basedMessage) as any
+        const mappingMessage = { ...patched, _id: get(messageDelta, '_id') }
+        if (mappingMessage) {
+          console.log('xx> mappingMessage: ', mappingMessage)
+          handleNonInfoMessage(res, mappingMessage.details.channel, mappingMessage as any, playerId)
+        }
       }
     }
   }

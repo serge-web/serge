@@ -5,7 +5,7 @@ import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { cloneDeep, flatten, unionBy, get, set, hasIn } from 'lodash'
+import { cloneDeep, flatten, unionBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
@@ -19,6 +19,7 @@ import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
+import jiff from 'jiff'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
@@ -113,31 +114,11 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       }
 
       if (lastMessage) {
-        const diffKeyArray: string[] = getObjDifferences(lastMessage, newMessage, [], '')
-        const diffKeyArray2: string[] = getObjDifferences(newMessage, lastMessage, [], '')
-        // build message deltas from diff keys array
-        const delta = {};
-        [...diffKeyArray, ...diffKeyArray2].forEach(key => {
-          if (hasIn(newMessage, key)) {
-            set(delta, key, get(newMessage, key))
-          }
-        })
+        const delta = jiff.diff(lastMessage, newMessage)
         const deltaMessage: MappingMessageDelta = {
           _id: new Date().toISOString(),
           messageType: MAPPING_MESSAGE_DELTA,
-          details: {
-            channel: lastMessage.details.channel,
-            from: {
-              force: '',
-              forceColor: '',
-              roleId: '',
-              roleName: '',
-              iconURL: ''
-            },
-            messageType: '',
-            timestamp: '',
-            turnNumber: 0
-          },
+          details,
           since: newMessage._id,
           delta
         }
@@ -146,23 +127,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }
   }
 
-  const getObjDifferences = (baseMessage: MappingMessage, newMessage: MappingMessage, diffKeyArray: any[], keyName: string): string[] => {
-    Object.keys(baseMessage).forEach(key => {
-      if (newMessage[key] === undefined) {
-        if (keyName.length > 0) diffKeyArray.push(keyName + '.' + key)
-        else diffKeyArray.push(key)
-      } else if (typeof baseMessage[key] === 'object' && baseMessage[key] !== null) {
-        if (newMessage[key] !== undefined) {
-          if (keyName.length > 0) getObjDifferences(baseMessage[key], newMessage[key], diffKeyArray, keyName + '.' + key)
-          else getObjDifferences(baseMessage[key], newMessage[key], diffKeyArray, key)
-        } else {
-          diffKeyArray.push(key)
-        }      
-      }
-    })
-    return diffKeyArray
-  }
-  
   const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
     const shapeType = (e as any).shape
     const commonProps = {
