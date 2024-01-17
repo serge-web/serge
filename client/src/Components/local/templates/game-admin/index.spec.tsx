@@ -11,7 +11,6 @@ import moment from 'moment-timezone'
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: '',
   iconURL: ''
 }
 

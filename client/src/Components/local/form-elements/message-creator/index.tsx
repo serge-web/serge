@@ -57,7 +57,7 @@ const MessageCreator: React.FC<PropTypes> = ({
         forceColor: selectedForce.color,
         roleName: selectedRoleName,
         roleId: selectedRole,
-        iconURL: selectedForce.iconURL || selectedForce.icon || ''
+        iconURL: selectedForce.iconURL || ''
       },
       messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),
