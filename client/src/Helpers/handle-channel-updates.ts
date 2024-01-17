@@ -1,7 +1,7 @@
 import { get } from 'lodash'
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE_DELTA } from 'src/config'
 import {
-  ChannelTypes, ChannelUI, ForceData, MappingMessageDelta, MessageChannel,
+  ChannelTypes, ChannelUI, ForceData, MappingMessage, MappingMessageDelta, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from 'src/custom-types'
 import uniqId from 'uniqid'
@@ -124,10 +124,10 @@ export const handleNewMessageData = (
       if (!channel.messages) {
         channel.messages = []
       }
-      const basedMessage = channel.messages.find(m => m._id === messageDelta.since)
+      const basedMessage = channel.messages.find(m => m._id === messageDelta.since) as any as MappingMessage
       if (basedMessage) {
-        const patched = jsonPatch.applyPatch(basedMessage, messageDelta.delta).newDocument
-        const msgCustom = { ...patched, _id: messageDelta._id } as MessageCustom
+        const patched = jsonPatch.applyPatch(basedMessage.featureCollection, messageDelta.delta).newDocument
+        const msgCustom = { ...patched, _id: messageDelta._id } as any as MessageCustom
         handleNonInfoMessage(res, msgCustom.details.channel, msgCustom, playerId)
       }
     }
