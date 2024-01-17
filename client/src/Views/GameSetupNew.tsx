@@ -109,6 +109,7 @@ const AdminGameSetup: React.FC = () => {
   }
 
   const handleFormChange = (changes: WargameOverview) => {
+    console.log('changes', changes)
     dispatch(setGameData(changes))
   }
 
@@ -122,7 +123,6 @@ const AdminGameSetup: React.FC = () => {
   }
 
   const handleSaveOverview = (overview: WargameOverview) => {
-    console.log('currentWargame', currentWargame, overview)
     if (currentWargame) dispatch(saveSettings(currentWargame, overview))
   }
 
@@ -307,13 +307,11 @@ const AdminGameSetup: React.FC = () => {
       tabs={tabs}
       wargame={wargame as Wargame}
       wargameChanged={isWargameChanged()}
-      // @ts-ignore
       onTabChange={onTabChange}
       onPressBack={onPressBack}
       overview={overview}
       forces={forces.forces}
-      // @ts-ignore
-      selectedForce={forces.selectedForce}
+      selectedForce={forces.selectedForce as ForceData}
       channels={channels.channels}
       onOverviewChange={handleFormChange}
       // @ts-ignore
