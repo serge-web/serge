@@ -1,4 +1,4 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CHAT_MESSAGE_TEMPLATE_ID, PARTICIPANT_CUSTOM } from 'src/config'
 import { ChannelCollab, ChannelTypes, ParticipantTemplate, Role, TemplateBody, TemplateBodysByKey } from 'src/custom-types'
 import { CoreParticipant, ParticipantCustom } from 'src/custom-types/participant'
 import getTemplateById, { getTemplateByIdNoUndefined } from './getTemplateById'
@@ -59,6 +59,7 @@ export const checkV3ParticipantStates = (channel: ChannelTypes, selectedForce: s
       break
     }
     case CHANNEL_CHAT:
+    case CHANNEL_MAPPING:
       // don't bother adding it
       break
     case CHANNEL_CUSTOM:
