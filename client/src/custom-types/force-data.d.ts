@@ -8,7 +8,6 @@ export default interface ForceData {
   /**
    * @deprecated use iconURL instead
    */
-  icon?: string
   iconURL: string
   color: string
   /** if a CSS class is used to define the force color, provide it here */

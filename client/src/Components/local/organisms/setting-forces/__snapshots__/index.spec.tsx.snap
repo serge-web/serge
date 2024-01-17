@@ -168,7 +168,26 @@ exports[`SettingForces component: renders correctly 1`] = `
                   "background": "rgba(0,0,0,0)",
                 }
               }
-            />
+            >
+              <div
+                className="asset-icon-background"
+                style={
+                  Object {
+                    "backgroundColor": "#415b76",
+                  }
+                }
+              >
+                <div
+                  className="asset-icon-with-image"
+                >
+                  <img
+                    alt="http://localhost:8080/images/default_img/umpireDefault"
+                    className="img"
+                    src="http://localhost:8080/images/default_img/umpireDefault.png"
+                  />
+                </div>
+              </div>
+            </div>
             <div
               onClick={[Function]}
             >

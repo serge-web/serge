@@ -137,5 +137,5 @@ export const handleRemoveRole = (newState: WargamesState, payload: string, tab: 
 // adding an icon to the selected force in the selected tab.
 export const handleAddIcon = (newState: WargamesState, payload: any, tab: string) => {
   const selectedForceName = newState.data[tab].selectedForce.name
-  newState.data[tab].forces.find((force: ForceData) => force.name === selectedForceName).icon = serverPath + payload.slice(1)
+  newState.data[tab].forces.find((force: ForceData) => force.name === selectedForceName).iconURL = serverPath + payload.slice(1)
 }
