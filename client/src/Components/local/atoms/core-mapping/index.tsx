@@ -44,6 +44,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       } else return false
     })
     if (mappingMessages.length > 0) {
+      // NOTE for phi: now that we use deltas, we can't just take the most recent message
+      // we have to take the most recent message then work back through previous message until
+      // we get whole MAPPING_MESSAGES (we should queue the deltas as we go through them)
+      // Then, we apply series of deltas to whole message, and use newest delta as `lastMessage` and
+      // merged object as `featureCollection`
+
       // note: messages get put into reverse chrono order, so we just need the first one
       const lastMessage: CoreMessage = mappingMessages[0]
       // is this a whole mapping message?
@@ -106,15 +112,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         timestamp: timestamp,
         turnNumber: 1
       }
-      const newMessage: MappingMessage = {
-        details, 
-        featureCollection,
-        messageType: CUSTOM_MESSAGE,
-        _id: timestamp
-      }
 
       if (lastMessage) {
-        const delta = jsonPath.compare(lastMessage, newMessage)
+        const delta = jsonPath.compare(lastMessage.featureCollection, featureCollection)
         const deltaMessage: MappingMessageDelta = {
           _id: new Date().toISOString(),
           messageType: MAPPING_MESSAGE_DELTA,
@@ -122,7 +122,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           since: lastMessage._id,
           delta
         }
-        console.log(deltaMessage)
+        console.log('delta', deltaMessage)
         postBack(deltaMessage)
       }
     }
