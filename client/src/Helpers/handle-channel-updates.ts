@@ -1,7 +1,6 @@
-import { get } from 'lodash'
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE_DELTA } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
 import {
-  ChannelTypes, ChannelUI, ForceData, MappingMessage, MappingMessageDelta, MessageChannel,
+  ChannelTypes, ChannelUI, ForceData, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from 'src/custom-types'
 import uniqId from 'uniqid'
@@ -10,7 +9,6 @@ import { buildForceIconsColorsNames, updateForceColors, updateForceIcons, update
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { getParticipantStates } from './participant-states'
-import jsonPatch from 'fast-json-patch'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -113,24 +111,8 @@ export const handleNewMessageData = (
       channel.messages = []
     }
     channel.messages.unshift(payload)
-  } else if (payload.messageType === CUSTOM_MESSAGE) {
-    handleNonInfoMessage(res, payload.details.channel, payload, playerId)
   } else {
-    const messageType = get(payload, 'messageType')
-    if (messageType === MAPPING_MESSAGE_DELTA) {
-      const messageDelta = payload as MappingMessageDelta
-      const channelId = messageDelta.details.channel
-      const channel = channels[channelId]
-      if (!channel.messages) {
-        channel.messages = []
-      }
-      const basedMessage = channel.messages.find(m => m._id === messageDelta.since) as any as MappingMessage
-      if (basedMessage) {
-        const patched = jsonPatch.applyPatch(basedMessage.featureCollection, messageDelta.delta).newDocument
-        const msgCustom = { ...patched, _id: messageDelta._id } as any as MessageCustom
-        handleNonInfoMessage(res, msgCustom.details.channel, msgCustom, playerId)
-      }
-    }
+    handleNonInfoMessage(res, payload.details.channel, payload, playerId)
   }
   return res
 }
@@ -225,6 +207,10 @@ const createOrUpdateChannelUI = (
       (message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED)
     )
 
+    // channels expect messages to be in reverse chronological order, but database supplies them
+    // in ascending order. So, reverse order
+    const reverseMessages = messages.reverse()
+
     return {
       name: channel.name,
       uniqid: channel.uniqid,
@@ -232,7 +218,7 @@ const createOrUpdateChannelUI = (
       forceIcons,
       forceColors,
       forceNames,
-      messages,
+      messages: reverseMessages,
       unreadMessageCount: messages.filter((message) => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
       observing: observing,
       cData: channel
