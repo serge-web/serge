@@ -5,7 +5,7 @@ import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { cloneDeep, flatten, unionBy } from 'lodash'
+import { cloneDeep, flatten, get, unionBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
@@ -15,11 +15,11 @@ import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
+import { generatePatch, applyPatch } from './helper/feature-collection-helper'
 import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
-import jsonPath from 'fast-json-patch'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
@@ -46,40 +46,21 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     if (mappingMessages.length > 0) {
       console.log('messages', mappingMessages)
 
-      // (temporarily) get newest whole message. We need to replace this with logic t
-      // to take the most recent message then work back through previous message until
-      // we get whole MAPPING_MESSAGES (we should queue the deltas as we go through them)
-      // Then, we apply series of deltas to whole message, and use newest delta as `lastMessage` and
-      // merged object as `featureCollection`
-
-      const lastMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
-      if (lastMessage) {
-        if (lastMessage.details.messageType === MAPPING_MESSAGE) {
-          const wholeMessage = lastMessage as MappingMessage
-          setLastMessage(wholeMessage)
-          setFeatureCollection(wholeMessage.featureCollection)
-        } else if (lastMessage.details.messageType === MAPPING_MESSAGE_DELTA) {
-          // TODO: create helper to process message list an provide valid composite message
-  
-          // else {
-          //   const messageType = get(payload, 'messageType')
-          //   if (messageType === MAPPING_MESSAGE_DELTA) {
-          //     const messageDelta = payload as MappingMessageDelta
-          //     const channelId = messageDelta.details.channel
-          //     const channel = channels[channelId]
-          //     if (!channel.messages) {
-          //       channel.messages = []
-          //     }
-          //     const basedMessage = channel.messages.find(m => m._id === messageDelta.since) as any as MappingMessage
-          //     if (basedMessage) {
-          //       const patched = jsonPatch.applyPatch(basedMessage.featureCollection, messageDelta.delta).newDocument
-          //       const msgCustom = { ...patched, _id: messageDelta._id } as any as MessageCustom
-          //       handleNonInfoMessage(res, msgCustom.details.channel, msgCustom, playerId)
-          //     }
-          //   }
-          // }
-  
-          console.warn('Not yet handling core message deltas')
+      const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
+      if (mappingMessage) {
+        if (mappingMessage.details.messageType === MAPPING_MESSAGE) {
+          const baseMappingMessage = mappingMessage as MappingMessage
+          // find latest delta message based on mapping message id
+          const deltaMessages: MappingMessageDelta = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE_DELTA && get(msg, 'since', '') === baseMappingMessage._id)
+          if (deltaMessages) {
+            // apply latest delta message into mapping message's feature collection
+            baseMappingMessage.featureCollection = applyPatch(baseMappingMessage.featureCollection, deltaMessages as MappingMessageDelta)
+          }
+          // keep the mapping message as original for generate patch later
+          if (!lastMessage) {
+            setLastMessage(baseMappingMessage)
+          }
+          setFeatureCollection(baseMappingMessage.featureCollection)
         }
       }
     } else {
@@ -117,8 +98,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }
   }, [pendingCreate])
   
-  const saveNewMessage = (featureCollection: FeatureCollection<Geometry, GeoJsonProperties>) => {
-    if (featureCollection) {
+  const saveNewMessage = (newFeatureCollection: FeatureCollection<Geometry, GeoJsonProperties>) => {
+    if (newFeatureCollection) {
       const timestamp = new Date().toISOString()
       const details: MessageDetails = {
         channel: channel.uniqid,
@@ -135,7 +116,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       }
 
       if (lastMessage) {
-        const delta = jsonPath.compare(lastMessage.featureCollection, featureCollection)
+        const delta = generatePatch(lastMessage.featureCollection, newFeatureCollection)
         const deltaMessage: MappingMessageDelta = {
           _id: new Date().toISOString(),
           messageType: MAPPING_MESSAGE_DELTA,
