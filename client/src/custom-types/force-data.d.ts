@@ -7,8 +7,6 @@ export default interface ForceData {
   roles: Array<Role>
   iconURL: string
   color: string
-  /** if a CSS class is used to define the force color, provide it here */
-  cssClass?: string
   dirty: boolean
   /** list of force IDs that can see assets of this force.
    *  TODO - concept of assets now embedded in Renderers, we should
