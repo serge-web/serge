@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { DEFAULT_SERVER, forceTemplate } from 'src/config'
+import { DEFAULT_SERVER } from 'src/config'
 import {
   ChannelTypes,
   ForceData,
@@ -306,12 +306,12 @@ export const updateForces = (dbName: string, newData: ForceData[]) => {
 }
 
 export const saveForce = (dbName: string, newData: ForceData) => {
-  return async (dispatch: WargameDispatch, state: any) => {
-    const oldForceData = state().wargame.data.forces.selectedForce
-    if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
-      const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
-      newData.iconURL = savedIconURL.path
-    }
+  return async (dispatch: WargameDispatch) => {
+    // const oldForceData = state().wargame.data.forces.selectedForce
+    // if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
+    //   const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
+    //   newData.iconURL = savedIconURL.path
+    // }
 
     const wargame = await wargamesApi.saveForce(dbName, newData)
 

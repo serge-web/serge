@@ -52,8 +52,7 @@ export default {
 }
 const force = {
   name: 'Blue',
-  color: '#6699cc',
-  icon: ''
+  color: '#6699cc'
 }
 
 const info = InfoMessagesMock as Array<ChatMessage | MessageInfoTypeClipped>

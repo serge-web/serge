@@ -12,7 +12,7 @@ const umpireForce = {
     isRFIManager: true,
     roleId: 'r654643'
   }],
-  icon: 'images/default_img/umpireDefault.png',
+  iconURL: 'images/default_img/umpireDefault.png',
   color: '#FCFBEE',
   umpire: true,
   dirty: false
@@ -31,7 +31,7 @@ const blueForce = {
       roleId: 'r65463343'
     }
   ],
-  icon: 'images/default_img/umpireDefault.png',
+  iconURL: 'images/default_img/umpireDefault.png',
   color: '#00F',
   umpire: false,
   dirty: false
@@ -50,7 +50,7 @@ const redForce = {
       roleId: 'r651184643'
     }
   ],
-  icon: 'images/default_img/umpireDefault.png',
+  iconURL: 'images/default_img/umpireDefault.png',
   color: '#F00',
   umpire: false,
   dirty: false
@@ -69,7 +69,7 @@ const greenForce = {
       roleId: 'r656664643'
     }
   ],
-  icon: 'images/default_img/umpireDefault.png',
+  iconURL: 'images/default_img/umpireDefault.png',
   color: '#0F0',
   umpire: false,
   dirty: false
