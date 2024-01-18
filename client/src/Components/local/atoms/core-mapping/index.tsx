@@ -9,8 +9,8 @@ import { cloneDeep, flatten, unionBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
-import { CUSTOM_MESSAGE, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
-import { BaseRenderer, CoreMessage, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageCustom, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
+import { BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageCustom, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
@@ -38,27 +38,46 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   useEffect(() => {
     // sort out the mapping messages, since we actually may also receive turn markers
     const mappingMessages = messages.filter((message: Message) => {
-      if (message.messageType === CUSTOM_MESSAGE) {
+      if (message.messageType !== INFO_MESSAGE_CLIPPED) {
         const custMessage = message as MessageCustom
-        return custMessage.details.messageType === MAPPING_MESSAGE
+        return custMessage.details.messageType === MAPPING_MESSAGE || custMessage.details.messageType === MAPPING_MESSAGE_DELTA
       } else return false
     })
     if (mappingMessages.length > 0) {
-      // NOTE for phi: now that we use deltas, we can't just take the most recent message
-      // we have to take the most recent message then work back through previous message until
+      console.log('messages', mappingMessages)
+
+      // (temporarily) get newest whole message. We need to replace this with logic t
+      // to take the most recent message then work back through previous message until
       // we get whole MAPPING_MESSAGES (we should queue the deltas as we go through them)
       // Then, we apply series of deltas to whole message, and use newest delta as `lastMessage` and
       // merged object as `featureCollection`
 
-      // note: messages get put into reverse chrono order, so we just need the first one
-      const lastMessage: CoreMessage = mappingMessages[0]
-      // is this a whole mapping message?
-      if (lastMessage.details.messageType === MAPPING_MESSAGE) {
+      const lastMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
+      if (lastMessage) {
         const wholeMessage = lastMessage as MappingMessage
         setLastMessage(wholeMessage)
         setFeatureCollection(wholeMessage.featureCollection)
       } else if (lastMessage.details.messageType === MAPPING_MESSAGE_DELTA) {
         // TODO: create helper to process message list an provide valid composite message
+
+        // else {
+        //   const messageType = get(payload, 'messageType')
+        //   if (messageType === MAPPING_MESSAGE_DELTA) {
+        //     const messageDelta = payload as MappingMessageDelta
+        //     const channelId = messageDelta.details.channel
+        //     const channel = channels[channelId]
+        //     if (!channel.messages) {
+        //       channel.messages = []
+        //     }
+        //     const basedMessage = channel.messages.find(m => m._id === messageDelta.since) as any as MappingMessage
+        //     if (basedMessage) {
+        //       const patched = jsonPatch.applyPatch(basedMessage.featureCollection, messageDelta.delta).newDocument
+        //       const msgCustom = { ...patched, _id: messageDelta._id } as any as MessageCustom
+        //       handleNonInfoMessage(res, msgCustom.details.channel, msgCustom, playerId)
+        //     }
+        //   }
+        // }
+
         console.warn('Not yet handling core message deltas')
       }
     } else {
