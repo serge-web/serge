@@ -54,31 +54,33 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
 
       const lastMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (lastMessage) {
-        const wholeMessage = lastMessage as MappingMessage
-        setLastMessage(wholeMessage)
-        setFeatureCollection(wholeMessage.featureCollection)
-      } else if (lastMessage.details.messageType === MAPPING_MESSAGE_DELTA) {
-        // TODO: create helper to process message list an provide valid composite message
-
-        // else {
-        //   const messageType = get(payload, 'messageType')
-        //   if (messageType === MAPPING_MESSAGE_DELTA) {
-        //     const messageDelta = payload as MappingMessageDelta
-        //     const channelId = messageDelta.details.channel
-        //     const channel = channels[channelId]
-        //     if (!channel.messages) {
-        //       channel.messages = []
-        //     }
-        //     const basedMessage = channel.messages.find(m => m._id === messageDelta.since) as any as MappingMessage
-        //     if (basedMessage) {
-        //       const patched = jsonPatch.applyPatch(basedMessage.featureCollection, messageDelta.delta).newDocument
-        //       const msgCustom = { ...patched, _id: messageDelta._id } as any as MessageCustom
-        //       handleNonInfoMessage(res, msgCustom.details.channel, msgCustom, playerId)
-        //     }
-        //   }
-        // }
-
-        console.warn('Not yet handling core message deltas')
+        if (lastMessage.details.messageType === MAPPING_MESSAGE) {
+          const wholeMessage = lastMessage as MappingMessage
+          setLastMessage(wholeMessage)
+          setFeatureCollection(wholeMessage.featureCollection)
+        } else if (lastMessage.details.messageType === MAPPING_MESSAGE_DELTA) {
+          // TODO: create helper to process message list an provide valid composite message
+  
+          // else {
+          //   const messageType = get(payload, 'messageType')
+          //   if (messageType === MAPPING_MESSAGE_DELTA) {
+          //     const messageDelta = payload as MappingMessageDelta
+          //     const channelId = messageDelta.details.channel
+          //     const channel = channels[channelId]
+          //     if (!channel.messages) {
+          //       channel.messages = []
+          //     }
+          //     const basedMessage = channel.messages.find(m => m._id === messageDelta.since) as any as MappingMessage
+          //     if (basedMessage) {
+          //       const patched = jsonPatch.applyPatch(basedMessage.featureCollection, messageDelta.delta).newDocument
+          //       const msgCustom = { ...patched, _id: messageDelta._id } as any as MessageCustom
+          //       handleNonInfoMessage(res, msgCustom.details.channel, msgCustom, playerId)
+          //     }
+          //   }
+          // }
+  
+          console.warn('Not yet handling core message deltas')
+        }
       }
     } else {
       setFeatureCollection(undefined)
