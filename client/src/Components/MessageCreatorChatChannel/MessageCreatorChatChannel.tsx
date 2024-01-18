@@ -37,7 +37,7 @@ const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactEle
         forceId: selectedForce.uniqid,
         roleId: state.selectedRole,
         roleName: state.selectedRoleName,
-        iconURL: selectedForce.iconURL || (selectedForce.icon || '')
+        iconURL: selectedForce.iconURL 
       },
       messageType: schema.title,
       timestamp: new Date().toISOString(),
