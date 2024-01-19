@@ -56,4 +56,10 @@ async hoverLocator(locator : Locator) {
   await locator.first().waitFor({state: "visible"})
   await locator.first().hover();
 }
+
+async verifyLocatorIshidden(locator : Locator) {
+  await locator.waitFor({state: "hidden"})
+  await expect(locator).toBeHidden();
+}
+
 }

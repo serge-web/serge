@@ -27,9 +27,8 @@ export class LoginGamePage extends BasePage{
  }
 
   async clickPlayGameBtn() {
-    await this.playGameBtn.waitFor();
-    await this.playGameBtn.click();
-  }    
+    await this.clickLocator(this.playGameBtn);
+  }
 
   async verifyRoleOfForceIsVisible(force : string, role : string) {
     await this.verifyTextIsvisible(this.roleOfForce(force, role));
