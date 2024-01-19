@@ -50,15 +50,15 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       if (mappingMessage) {
         if (mappingMessage.details.messageType === MAPPING_MESSAGE) {
           const baseMappingMessage = mappingMessage as MappingMessage
+          // keep the mapping message as original for generate patch later
+          if (!lastMessage) {
+            setLastMessage(cloneDeep(baseMappingMessage))
+          }
           // find latest delta message based on mapping message id
           const deltaMessages: MappingMessageDelta = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE_DELTA && get(msg, 'since', '') === baseMappingMessage._id)
           if (deltaMessages) {
             // apply latest delta message into mapping message's feature collection
             baseMappingMessage.featureCollection = applyPatch(baseMappingMessage.featureCollection, deltaMessages as MappingMessageDelta)
-          }
-          // keep the mapping message as original for generate patch later
-          if (!lastMessage) {
-            setLastMessage(baseMappingMessage)
           }
           setFeatureCollection(baseMappingMessage.featureCollection)
         }
@@ -90,7 +90,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         if (!found) {
           const cloneFeatureCollection = cloneDeep(featureCollection)
           cloneFeatureCollection.features.push(feature)
-          setFeatureCollection(cloneFeatureCollection)
           saveNewMessage(cloneFeatureCollection)
         }
       }
@@ -239,7 +238,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
       featureCollection.features = filterFeatures
       const cloneFeatureCollection = cloneDeep(featureCollection)
-      setFeatureCollection(cloneFeatureCollection)
       saveNewMessage(cloneFeatureCollection)
     }
   }
@@ -276,7 +274,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
             console.warn('Drag handler not implemented for ' + feature.geometry.type)
           }
         }
-        setFeatureCollection(cloneFeatureCollection)
         saveNewMessage(cloneFeatureCollection)
       }
     }
