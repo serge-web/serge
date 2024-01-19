@@ -43,22 +43,21 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         return custMessage.details.messageType === MAPPING_MESSAGE || custMessage.details.messageType === MAPPING_MESSAGE_DELTA
       } else return false
     })
-    if (mappingMessages.length > 0) {
-      console.log('messages', mappingMessages)
-
+    if (mappingMessages.length) {
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
         if (mappingMessage.details.messageType === MAPPING_MESSAGE) {
           const baseMappingMessage = mappingMessage as MappingMessage
-          // keep the mapping message as original for generate patch later
+          // keep the mapping message as original for generating patch later
           if (!lastMessage) {
             setLastMessage(cloneDeep(baseMappingMessage))
           }
+          const basedFeatureCollection = (lastMessage || baseMappingMessage).featureCollection
           // find latest delta message based on mapping message id
           const deltaMessages: MappingMessageDelta = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE_DELTA && get(msg, 'since', '') === baseMappingMessage._id)
           if (deltaMessages) {
-            // apply latest delta message into mapping message's feature collection
-            baseMappingMessage.featureCollection = applyPatch(baseMappingMessage.featureCollection, deltaMessages as MappingMessageDelta)
+            // apply latest delta message into original mapping message's feature collection
+            baseMappingMessage.featureCollection = applyPatch(cloneDeep(basedFeatureCollection), deltaMessages as MappingMessageDelta)
           }
           setFeatureCollection(baseMappingMessage.featureCollection)
         }
@@ -115,6 +114,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       }
 
       if (lastMessage) {
+        // generating path from original message with latest feature collection
         const delta = generatePatch(lastMessage.featureCollection, newFeatureCollection)
         const deltaMessage: MappingMessageDelta = {
           _id: new Date().toISOString(),
