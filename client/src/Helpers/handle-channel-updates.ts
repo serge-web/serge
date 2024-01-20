@@ -5,10 +5,10 @@ import {
 } from 'src/custom-types'
 import uniqId from 'uniqid'
 import deepCopy from './deep-copy'
+import { buildForceIconsColorsNames, updateForceColors, updateForceIcons, updateForceNames } from './handle-channel-updates-force'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { getParticipantStates } from './participant-states'
-import { updateForceIcons, updateForceColors, updateForceNames, buildForceIconsColorsNames } from './handle-channel-updates-force'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -47,7 +47,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
-          msg.message.reference === message.message.reference) {
+          (msg as MessageCustom).message.reference === message.message.reference) {
           theChannel.messages?.splice(idx, 1)
         }
       })
@@ -57,7 +57,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
-          msg.message.Reference === message.message.Reference) {
+          (msg as MessageCustom).message.Reference === message.message.Reference) {
           theChannel.messages?.splice(idx, 1)
         }
       })
@@ -114,7 +114,6 @@ export const handleNewMessageData = (
   } else {
     handleNonInfoMessage(res, payload.details.channel, payload, playerId)
   }
-  
   return res
 }
 
@@ -208,6 +207,10 @@ const createOrUpdateChannelUI = (
       (message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED)
     )
 
+    // channels expect messages to be in reverse chronological order, but database supplies them
+    // in ascending order. So, reverse order
+    const reverseMessages = messages.reverse()
+
     return {
       name: channel.name,
       uniqid: channel.uniqid,
@@ -215,7 +218,7 @@ const createOrUpdateChannelUI = (
       forceIcons,
       forceColors,
       forceNames,
-      messages,
+      messages: reverseMessages,
       unreadMessageCount: messages.filter((message) => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
       observing: observing,
       cData: channel
@@ -347,7 +350,7 @@ const updateChannelMessages = (gameTurn: number, messageId: string, thisChannel:
   
   // check if we're missing a turn marker for this turn
   if (thisChannel.messages && !collabChannel) {
-    if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === gameTurn)) {
+    if (!thisChannel.messages.find((prevMessage: MessageChannel) => (prevMessage as MessageInfoTypeClipped | MessageCustom).gameTurn === gameTurn)) {
       // no messages, or no turn marker found, create one  
       const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
       thisChannel.messages.unshift(message)

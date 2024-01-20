@@ -12,7 +12,7 @@ import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TemplateData, MappingMessage } from 'src/custom-types'
+import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TemplateData, MappingMessage, MappingMessageDelta } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
@@ -650,7 +650,7 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
   return db.put(feedback).catch(rejectDefault)
 }
 
-export const postMappingMessage = (dbName: string, message: MappingMessage): Promise<MappingMessage> => {
+export const postMappingMessage = (dbName: string, message: MappingMessage | MappingMessageDelta): Promise<MappingMessage> => {
   const { db } = getWargameDbByName(dbName)
   return db.put(message).catch(rejectDefault)
 }
