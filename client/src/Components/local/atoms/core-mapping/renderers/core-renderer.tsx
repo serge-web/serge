@@ -6,7 +6,7 @@ import { CoreRendererProps } from '../types/props'
 import { Feature, Geometry } from 'geojson'
 import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 
-const colorFor = (force: string) => {
+export const colorFor = (force: string): string => {
   switch (force) {
     case 'f-red':
       return '#F00'
@@ -15,7 +15,7 @@ const colorFor = (force: string) => {
     case 'f-green':
       return '#0F0'
     default: 
-      return '#aaa'  
+      return '#F00'  
   }
 }
 

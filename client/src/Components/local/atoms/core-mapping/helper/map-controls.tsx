@@ -57,18 +57,11 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
 
       switch (e['shape']) {
         case 'Marker':
-          onCreate(e as unknown as PM.ChangeEventHandler)
-          break
         case 'Polygon':
-          onCreate(e as unknown as PM.ChangeEventHandler)
-          break
         case 'Line':
-          onCreate(e as unknown as PM.ChangeEventHandler)
-          break
         case 'Rectangle':
-          onCreate(e as unknown as PM.ChangeEventHandler)
-          break
         case 'Circle':
+        case 'Text':
           onCreate(e as unknown as PM.ChangeEventHandler)
           break
         default:
@@ -98,7 +91,11 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
       drawCircleMarker: false
     }}
     globalOptions={{}}
-    onCreate={e => map.removeLayer(e.layer)}
+    onCreate={e => {
+      // if (e.shape !== 'Text') {
+      map.removeLayer(e.layer)
+      // }
+    }}
   />
 }
 

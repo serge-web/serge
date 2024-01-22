@@ -195,6 +195,22 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           }
         }
       }
+      case 'Text': {
+        const loc = (e as any).layer._latlng as L.LatLng
+        return {
+          type: 'Feature',
+          properties: {
+            _type: RENDERER_MILSYM,
+            _externalType: 'Text', // GeoJsonObject does not support type Text so I put it here
+            textValue: '', // store value
+            ...commonProps
+          },
+          geometry: { // remove this makes the pointToLayer broken 
+            coordinates: [loc.lng, loc.lat],
+            type: 'Point'
+          }
+        }
+      }
       case 'Circle': {
         const centre = (e as any).layer._latlng as L.LatLng
         const mRadius = (e as any).layer._mRadius as number
@@ -239,6 +255,20 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       featureCollection.features = filterFeatures
       const cloneFeatureCollection = cloneDeep(featureCollection)
       saveNewMessage(cloneFeatureCollection)
+    }
+  }
+
+  const onEdited = (id: number | string, value: string) => {
+    if (featureCollection && featureCollection.features) {
+      const cloneFeatureCollection = cloneDeep(featureCollection)
+      const idx = cloneFeatureCollection.features.findIndex(f => f.properties?.id === id)
+      if (idx !== -1 && value) {
+        const feature = cloneFeatureCollection.features[idx]
+        if (feature.properties) {
+          feature.properties.textValue = value
+          saveNewMessage(cloneFeatureCollection)
+        }
+      }
     }
   }
 
@@ -318,7 +348,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       /> 
       <MapControls onCreate={onCreate} onChange={onChange}/>
       <LayerGroup>
-        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} />) }
+        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} onEdited={onEdited} />) }
       </LayerGroup>
     </MapContainer>
   </Box>
