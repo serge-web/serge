@@ -15,7 +15,7 @@ import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
-import { generatePatch, applyPatch } from './helper/feature-collection-helper'
+import { applyPatch, generatePatch } from './helper/feature-collection-helper'
 import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
 import styles from './styles.module.scss'
@@ -125,6 +125,15 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         }
         console.log('delta', deltaMessage)
         postBack(deltaMessage)
+      } else {
+        const mappingMessage: MappingMessage = {
+          _id: new Date().toISOString(),
+          messageType: MAPPING_MESSAGE,
+          details,
+          featureCollection: newFeatureCollection
+        }
+        console.log('mapping message', mappingMessage)
+        postBack(mappingMessage)
       }
     }
   }
