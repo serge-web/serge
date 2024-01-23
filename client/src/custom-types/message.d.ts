@@ -130,6 +130,8 @@ export interface CollaborationDetails {
 
 export interface MessageCustom extends CoreMessage {
   readonly messageType: typeof CUSTOM_MESSAGE
+    /** Details related to the message, excluding the message type. */
+  details: Omit<MessageDetails, 'messageType'>
   /** the strutured message */
   message: MessageStructure
   /** whether this message is open/expanded on the current client */
@@ -142,6 +144,7 @@ export interface MessageCustom extends CoreMessage {
    * normally `false` for messages like this
    */
   infoType?: boolean
+  templateId: TemplateBody['_id']
 }
 
 /** 

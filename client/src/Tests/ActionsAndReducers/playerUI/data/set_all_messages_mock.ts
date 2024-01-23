@@ -56,7 +56,6 @@ const testState: PlayerUi = {
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:06:19.602Z'
         },
         message: {
@@ -66,6 +65,7 @@ const testState: PlayerUi = {
         _rev: '1-e17592723c22372813d53a52782f9b50',
         hasBeenRead: false,
         isOpen: false,
+        templateId: 'Chat',
         messageType: 'CustomMessage'
       },
       {
@@ -80,7 +80,6 @@ const testState: PlayerUi = {
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:06:12.434Z'
         },
         message: {
@@ -90,6 +89,7 @@ const testState: PlayerUi = {
         _rev: '1-f70b71621c42d3b94ad94ebc09cea9a0',
         hasBeenRead: false,
         isOpen: false,
+        templateId: 'Chat',
         messageType: 'CustomMessage'
       },
       {
@@ -104,7 +104,6 @@ const testState: PlayerUi = {
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:05:07.490Z'
         },
         message: {
@@ -114,6 +113,7 @@ const testState: PlayerUi = {
         _rev: '1-99a75cd848ce35b580fc41e50bdf51f3',
         hasBeenRead: false,
         isOpen: false,
+        templateId: 'Chat',
         messageType: 'CustomMessage'
       }
     ]

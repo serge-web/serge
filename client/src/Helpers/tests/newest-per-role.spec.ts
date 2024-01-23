@@ -39,13 +39,13 @@ it('find newest message across all roles', () => {
   const firstMatch = Object.values(mostRecent)[0]
   expect(firstMatch.roleId).toEqual(firstMessage.details.from.roleId)
   expect(firstMatch.lastMessageTime).toEqual(firstMessage.details.timestamp)
-  expect(firstMatch.lastMessageTitle).toEqual(firstMessage.details.messageType)
+  expect(firstMatch.lastMessageTitle).toEqual(firstMessage.templateId)
 
   // check the second item
   const secondMatch = Object.values(mostRecent)[1]
   expect(secondMatch.roleId).toEqual(secondMessage.details.from.roleId)
   expect(secondMatch.lastMessageTime).toEqual(secondMessage.details.timestamp)
-  expect(secondMatch.lastMessageTitle).toEqual(secondMessage.details.messageType)
+  expect(secondMatch.lastMessageTitle).toEqual(secondMessage.templateId)
 })
 
 it('neatly collate player log data', () => {

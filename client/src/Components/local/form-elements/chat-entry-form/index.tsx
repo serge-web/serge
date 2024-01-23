@@ -43,7 +43,7 @@ export const ChatEntryForm: React.FC<Props> = ({
       content: message
     }
 
-    postBack && postBack(details, contents)
+    postBack && postBack(details, contents, UNSENT_CHAT_MESSAGE_TYPE)
     setMessage('')
     setPrivateMessage('')
     messageEle.current.clear()

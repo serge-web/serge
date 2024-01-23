@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core'
 /* Import Types */
 import PropTypes from './types/props'
 import { INFO_MESSAGE_CLIPPED } from 'src/config'
-import { ChatMessage as ChatMessageType, CoreMessage, MessageInfoTypeClipped } from 'src/custom-types'
+import { ChatMessage as ChatMessageType, MessageChannel, MessageInfoTypeClipped } from 'src/custom-types'
 /* Import Stylesheet */
 import styles from './styles.module.scss'
 /* Import Components */
@@ -24,7 +24,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
       {
         !hideForcesInChannel &&
         <Box mb={2} ml={2} mr={3}>
-          <ForcesInChannel messages={messages as CoreMessage[]} colors={colors} icons={icons} names={names} onMarkAllAsRead={onMarkAllAsRead} />
+          <ForcesInChannel messages={messages as MessageChannel[]} colors={colors} icons={icons} names={names} onMarkAllAsRead={onMarkAllAsRead} />
         </Box>
       }
       <Box ml={2} className={styles['messages-list']} style={{ height: observing ? 'unset' : `calc(100vh - ${height}px)` }} flexDirection="column-reverse" display="flex">

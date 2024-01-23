@@ -300,7 +300,6 @@ const AdminGameSetup: React.FC = () => {
       return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
     }
   }
-
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}

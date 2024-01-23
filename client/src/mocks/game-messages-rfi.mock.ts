@@ -13,6 +13,7 @@ const redCO: Role = forces[2].roles[0]
 const gameMessagesWithRFI: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'k16eedkl',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -22,7 +23,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'k16eedkl',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
@@ -43,6 +43,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'Chat',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -52,7 +53,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: blueCO.roleId
       },
-      messageType: 'Chat',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
@@ -73,6 +73,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'Chat',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -82,7 +83,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         roleName: whiteGC.name,
         roleId: whiteGC.roleId
       },
-      messageType: 'Chat',
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
@@ -104,6 +104,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-BlueRFI',
       from: {
@@ -113,7 +114,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         lastUpdated: '2020-03-25T15:08:47.540Z',
@@ -133,6 +133,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-BlueRFI',
       from: {
@@ -142,7 +143,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:53:21.119Z',
       collaboration: {
         lastUpdated: '2020-03-25T15:08:47.540Z',
@@ -162,6 +162,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-BlueRFI',
       from: {
@@ -171,7 +172,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
         lastUpdated: '2020-03-25T15:08:47.540Z',
@@ -191,6 +191,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-BlueRFI',
       from: {
@@ -200,7 +201,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:53:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
@@ -221,6 +221,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-BlueRFI',
       from: {
@@ -230,7 +231,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
@@ -251,6 +251,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-BlueRFI',
       from: {
@@ -260,7 +261,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
@@ -283,6 +283,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'Red RFI',
       from: {
@@ -292,7 +293,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         lastUpdated: '2020-03-25T15:08:47.540Z',
@@ -312,6 +312,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'Red RFI',
       from: {
@@ -321,7 +322,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.InProgress,
@@ -342,6 +342,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'Red RFI',
       from: {
@@ -351,7 +352,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.PendingReview,
@@ -374,6 +374,7 @@ const gameMessagesWithRFI: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'Red RFI',
       archived: true,
@@ -384,7 +385,6 @@ const gameMessagesWithRFI: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         status: CollaborativeMessageStates.Released,

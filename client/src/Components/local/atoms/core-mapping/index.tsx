@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
-import { BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageCustom, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
@@ -39,10 +39,11 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     // sort out the mapping messages, since we actually may also receive turn markers
     const mappingMessages = messages.filter((message: Message) => {
       if (message.messageType !== INFO_MESSAGE_CLIPPED) {
-        const custMessage = message as MessageCustom
+        const custMessage = message as MappingMessage | MappingMessageDelta
         return custMessage.details.messageType === MAPPING_MESSAGE || custMessage.details.messageType === MAPPING_MESSAGE_DELTA
       } else return false
     })
+    
     if (mappingMessages.length) {
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
@@ -123,7 +124,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           since: lastMessage._id,
           delta
         }
-        console.log('delta', deltaMessage)
         postBack(deltaMessage)
       } else {
         const mappingMessage: MappingMessage = {
@@ -132,7 +132,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           details,
           featureCollection: newFeatureCollection
         }
-        console.log('mapping message', mappingMessage)
         postBack(mappingMessage)
       }
     }

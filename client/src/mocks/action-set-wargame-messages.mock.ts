@@ -9,6 +9,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
   payload: [
     {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       isOpen: false,
       hasBeenRead: false,
       details: {
@@ -20,7 +21,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           roleId: blueCO.roleId,
           iconURL: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-06T11:07:18.374Z',
         turnNumber: 1
       },
@@ -32,6 +32,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     },
     {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       isOpen: false,
       hasBeenRead: false,
       details: {
@@ -43,7 +44,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           roleId: blueCO.roleId,
           iconURL: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-06T11:07:08.130Z',
         turnNumber: 1
       },
@@ -55,6 +55,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     },
     {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'PG19 Weekly Orders',
       isOpen: false,
       hasBeenRead: false,
       details: {
@@ -66,7 +67,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           roleName: blueCO.name,
           iconURL: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'PG19 Weekly Orders',
         timestamp: '2020-12-06T11:06:51.596Z',
         turnNumber: 1
       },
@@ -90,6 +90,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     },
     {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       isOpen: false,
       hasBeenRead: false,
       details: {
@@ -101,7 +102,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           roleName: blueCO.name,
           iconURL: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-06T11:06:19.602Z',
         turnNumber: 1
       },
@@ -113,6 +113,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     },
     {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       isOpen: false,
       hasBeenRead: false,
       details: {
@@ -124,7 +125,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           roleName: blueCO.name,
           iconURL: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-06T11:06:12.434Z',
         turnNumber: 1
       },
@@ -136,6 +136,7 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
     },
     {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       isOpen: false,
       hasBeenRead: false,
       details: {
@@ -147,7 +148,6 @@ const actionSetWargameMessages: SetWargameMessagesAction = {
           roleName: blueCO.name,
           iconURL: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-06T11:05:07.490Z',
         turnNumber: 1
       },

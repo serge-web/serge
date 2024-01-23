@@ -21,7 +21,7 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the component
    */
-  postBack: { (details: MessageDetails, message: any): void }
+  postBack: { (details: MessageDetails, message: any, templateId: string): void }
   channel: ChannelTypes
   gameDate: string
   /** method to customise the new (or existing) message template */

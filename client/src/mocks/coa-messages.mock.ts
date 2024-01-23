@@ -9,6 +9,7 @@ const redCO: Role = forces[2].roles[0]
 export const messageDataCollaborativeEditing: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'COA',
     details: {
       channel: 'channel-BlueRFI',
       archived: true,
@@ -19,7 +20,6 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'COA',
       timestamp: '2020-10-13T08:54:21.119Z',
       privateMessage: 'Private part of COA 3',
       collaboration: {
@@ -98,6 +98,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'COA',
     details: {
       channel: 'Red RFI',
       from: {
@@ -107,7 +108,6 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'COA',
       timestamp: '2020-10-13T08:55:21.119Z',
       privateMessage: 'Private part of RFI 1',
       collaboration: {
@@ -185,6 +185,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'COA',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -194,7 +195,6 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         roleName: whiteGC.name,
         roleId: whiteGC.roleId
       },
-      messageType: 'COA',
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
@@ -278,6 +278,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'COA',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -287,7 +288,6 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'COA',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         lastUpdated: '2020-03-25T15:08:47.540Z',
@@ -357,6 +357,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'COA',
     details: {
       channel: 'channel-ks8soryj',
       from: {
@@ -366,7 +367,6 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: blueCO.roleId
       },
-      messageType: 'COA',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         lastUpdated: '2020-03-25T15:08:47.540Z',
@@ -441,6 +441,7 @@ export const messageDataCollaborativeEditing: MessageCustom[] = [
 export const messageDataCollaborativeResponding: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-BlueRFI',
       from: {
@@ -450,7 +451,6 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       privateMessage: 'The private element of the response',
       collaboration: {
@@ -483,6 +483,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'Red RFI',
       from: {
@@ -492,7 +493,6 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         lastUpdated: '2020-03-25T15:08:47.540Z',
@@ -518,6 +518,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -527,7 +528,6 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         roleName: whiteGC.name,
         roleId: whiteGC.roleId
       },
-      messageType: 'RFI',
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
@@ -558,6 +558,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -567,7 +568,6 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         lastUpdated: '2020-03-25T15:08:47.540Z',
@@ -593,6 +593,7 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-ks8soryj',
       archived: true,
@@ -603,7 +604,6 @@ export const messageDataCollaborativeResponding: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         lastUpdated: '2020-03-25T15:08:47.540Z',

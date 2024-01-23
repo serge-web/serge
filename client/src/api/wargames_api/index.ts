@@ -12,7 +12,7 @@ import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TemplateData, MappingMessage, MappingMessageDelta } from 'src/custom-types'
+import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TemplateData, MappingMessage, MappingMessageDelta } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
@@ -655,10 +655,10 @@ export const postMappingMessage = (dbName: string, message: MappingMessage | Map
   return db.put(message).catch(rejectDefault)
 }
 
-const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails): Promise<MessageCustom> => {
+const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageCustom['details']): Promise<MessageCustom> => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve): Promise<void> => {
-    if (message.details.messageType !== 'Chat' && typeof message.message.Reference === 'string' && message.message.Reference.length === 0) {
+    if (message.templateId !== 'Chat' && typeof message.message.Reference === 'string' && message.message.Reference.length === 0) {
       await db.lastCounter(details.from.force, details.timestamp).then((counter) => {
         message.details.counter = counter
         message.message.Reference = [message.details.from.force, counter].join('-')
@@ -671,14 +671,15 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
   })
 }
 
-export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
+export const postNewMessage = async (dbName: string, details: MessageCustom['details'], message: MessageStructure, templateId: string): Promise<MessageCustom> => {
   const { db } = getWargameDbByName(dbName)
   const id = details.timestamp ? details.timestamp : new Date().toISOString()
   const customMessage: MessageCustom = {
     _id: id,
-    // defined constat for messages, it's not same as message.details.messageType,
+    // defined constat for messages, it's not same as message.templateId,
     // ex for all template based messages will be used CUSTOM_MESSAGE Type
     messageType: CUSTOM_MESSAGE,
+    templateId,
     details,
     message,
     isOpen: false,

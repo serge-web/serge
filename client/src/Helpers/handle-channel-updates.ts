@@ -19,7 +19,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
   const sourceRole: string = message.details.from.roleId
   const logger: PlayerMessage = {
     roleId: message.details.from.roleId,
-    lastMessageTitle: message.details.messageType,
+    lastMessageTitle: message.templateId,
     lastMessageTime: message.details.timestamp,
     hasBeenRead: !!message.hasBeenRead,
     _id: message._id
@@ -266,7 +266,7 @@ export const handleAllInitialChannelMessages = (
       channels[channel.uniqid] = newChannel
     }
   })
-  
+    
   return {
     channels,
     chatChannel: {

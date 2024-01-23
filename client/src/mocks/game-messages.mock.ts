@@ -10,6 +10,7 @@ const redCO: Role = forces[2].roles[0]
 const gameMessages: MessageChannel[] = [
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'Chat',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -19,7 +20,6 @@ const gameMessages: MessageChannel[] = [
         roleName: redCO.name,
         roleId: redCO.roleId
       },
-      messageType: 'Chat',
       timestamp: '2020-10-13T08:52:04.394Z',
       turnNumber: 1,
       privateMessage: 'Private response to message'
@@ -33,6 +33,7 @@ const gameMessages: MessageChannel[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'Chat',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -42,7 +43,6 @@ const gameMessages: MessageChannel[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'Chat',
       timestamp: '2020-10-13T08:52:21.119Z',
       turnNumber: 1
     },
@@ -55,6 +55,7 @@ const gameMessages: MessageChannel[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'Chat',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -64,7 +65,6 @@ const gameMessages: MessageChannel[] = [
         roleName: whiteGC.name,
         roleId: whiteGC.roleId
       },
-      messageType: 'Chat',
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       turnNumber: 1
