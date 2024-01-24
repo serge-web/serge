@@ -134,7 +134,7 @@ export interface MessageCustom extends CoreMessage {
   /** the strutured message */
   message: MessageStructure
   /** whether this message is open/expanded on the current client */
-  isOpen: boolean
+  isOpen?: boolean
   /** 
    * The ID of the template associated with this custom message.
    * It refers to the '_id' property of the TemplateBody interface.

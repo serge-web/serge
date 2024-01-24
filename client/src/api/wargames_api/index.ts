@@ -680,9 +680,7 @@ export const postNewMessage = async (dbName: string, details: MessageCustom['det
     messageType: CUSTOM_MESSAGE,
     templateId,
     details,
-    message,
-    isOpen: false,
-    hasBeenRead: false
+    message
   }
 
   return checkReference(customMessage, db, details).then(messageUpdated => {
