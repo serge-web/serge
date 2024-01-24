@@ -21,7 +21,7 @@ it('find newest message across all roles', () => {
   // messages.forEach((msg: MessageChannel) => {
   //   if (msg.messageType === CUSTOM_MESSAGE) {
   //     const msgC: MessageCustom = msg
-  //     lister.push({ name: msgC.details.from.roleId, mType: msgC.details.messageType, timeS: msgC.details.timestamp })
+  //     lister.push({ name: msgC.details.from.roleId, mType: msgC.templateId, timeS: msgC.details.timestamp })
   //   } else {
   //     lister.push({})
   //   }

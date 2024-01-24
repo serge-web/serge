@@ -266,7 +266,7 @@ export const handleAllInitialChannelMessages = (
       channels[channel.uniqid] = newChannel
     }
   })
-    
+  
   return {
     channels,
     chatChannel: {
@@ -350,7 +350,7 @@ const updateChannelMessages = (gameTurn: number, messageId: string, thisChannel:
   
   // check if we're missing a turn marker for this turn
   if (thisChannel.messages && !collabChannel) {
-    if (!thisChannel.messages.find((prevMessage: MessageChannel) => (prevMessage as MessageInfoTypeClipped | MessageCustom).gameTurn === gameTurn)) {
+    if (!thisChannel.messages.find((prevMessage: MessageChannel) => (prevMessage as MessageInfoTypeClipped).gameTurn === gameTurn)) {
       // no messages, or no turn marker found, create one  
       const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
       thisChannel.messages.unshift(message)

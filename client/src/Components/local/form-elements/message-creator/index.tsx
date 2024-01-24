@@ -59,7 +59,6 @@ const MessageCreator: React.FC<PropTypes> = ({
         roleId: selectedRole,
         iconURL: selectedForce.iconURL || ''
       },
-      messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),
       turnNumber: currentTurn
     }

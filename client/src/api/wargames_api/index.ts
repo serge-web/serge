@@ -638,7 +638,6 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
     details: {
       channel: 'Feedback',
       from: fromDetails,
-      messageType: 'Chat',
       timestamp: new Date().toISOString(),
       turnNumber
     },

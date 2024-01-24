@@ -27,7 +27,6 @@ const wargame = {
           role: 'Comms',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2019-12-04T10:47:38.806Z',
         gameTurn: 2
       },
@@ -46,7 +45,6 @@ const wargame = {
           role: 'Game Control',
           icon: 'http://localhost:8080/default_img/umpireDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2019-12-04T10:46:44.588Z',
         privateMessage: '',
         gameTurn: 2
@@ -66,7 +64,6 @@ const wargame = {
           role: 'Game Control',
           icon: 'http://localhost:8080/default_img/umpireDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2019-12-04T10:46:13.211Z',
         privateMessage: '',
         gameTurn: 2
@@ -347,7 +344,6 @@ const wargame = {
           role: 'CO',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'PG19 Weekly Orders',
         timestamp: '2019-12-04T10:44:55.754Z',
         gameTurn: 1
       },
@@ -378,7 +374,6 @@ const wargame = {
           role: 'CO',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2019-12-04T10:44:11.017Z',
         gameTurn: 1
       },
@@ -397,7 +392,6 @@ const wargame = {
           role: 'CO',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2019-12-04T10:43:57.065Z',
         gameTurn: 1
       },

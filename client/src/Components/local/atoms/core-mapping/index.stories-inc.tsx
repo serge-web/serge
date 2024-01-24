@@ -198,7 +198,6 @@ const coreMessage: MappingMessage = {
       roleName: 'MARITIME CTRL',
       iconURL: 'f-red.svg'
     },
-    messageType: MAPPING_MESSAGE,
     timestamp: '2023-11-23T23:32:00',
     turnNumber: 1
   },
@@ -259,7 +258,6 @@ const bulkMessage: MappingMessage = {
       roleName: 'MARITIME CTRL',
       iconURL: 'f-red.svg'
     },
-    messageType: 'custom',
     timestamp: '2023-11-23T23:32:00',
     turnNumber: 1
   },

@@ -52,7 +52,6 @@ Demonstration.args = {
         roleId: 'i3453',
         iconURL: 'default_img/umpireDefault.png'
       },
-      messageType: 'State of The World',
       timestamp: '2020-09-18T05:41:17.349Z',
       privateMessage: 'Private weather message',
       turnNumber: 1

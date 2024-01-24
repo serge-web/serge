@@ -34,20 +34,20 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   useEffect(() => {
     loadDefaultMarker()
   }, [])
-
+  
   useEffect(() => {
     // sort out the mapping messages, since we actually may also receive turn markers
     const mappingMessages = messages.filter((message: Message) => {
       if (message.messageType !== INFO_MESSAGE_CLIPPED) {
         const custMessage = message as MappingMessage | MappingMessageDelta
-        return custMessage.details.messageType === MAPPING_MESSAGE || custMessage.details.messageType === MAPPING_MESSAGE_DELTA
+        return custMessage.messageType === MAPPING_MESSAGE || custMessage.messageType === MAPPING_MESSAGE_DELTA
       } else return false
     })
     
     if (mappingMessages.length) {
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
-        if (mappingMessage.details.messageType === MAPPING_MESSAGE) {
+        if (mappingMessage.messageType === MAPPING_MESSAGE) {
           const baseMappingMessage = mappingMessage as MappingMessage
           // keep the mapping message as original for generating patch later
           if (!lastMessage) {
@@ -109,7 +109,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           roleName: playerRole.name,
           iconURL: ''
         },
-        messageType: MAPPING_MESSAGE,
         timestamp: timestamp,
         turnNumber: 1
       }
@@ -292,7 +291,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
     return unionBy(flatMap, 'id')
   }
-
   return <Box className={styles.container}>
     {!checked && <Button variant='contained' onClick={() => setChecked(true)}>
       <FontAwesomeIcon icon={faCircleArrowRight} />
