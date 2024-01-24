@@ -6,6 +6,7 @@ import { generateCode } from '../helpers/uniqueStr';
 import { DashboardAdminPage} from '../page/admin/dashboardAdminPage.po';
 import { LoginAdminPage} from '../page/admin/loginAdminPage.po';
 
+let content = 'Content text ' + generateCode(5);
 test('Create a simple flow game successfully', async ({  browser }) => {
   
   const context = await browser.newContext();
@@ -20,7 +21,7 @@ test('Create a simple flow game successfully', async ({  browser }) => {
   await gamePlayPage.clickCloseGuideBtn();
   await gamePlayPage.selectTabName('Red HQ');
   await gamePlayPage.clickNewMessageBtn();
-  const content = 'content text ' + generateCode(5);
+  // const content = 'content text ' + generateCode(5);
   await gamePlayPage.inputChatMessageArearTemplate(content);
   await gamePlayPage.clickSendMessageBtn();
   await gamePlayPage.clickSendMessageBtn();
@@ -65,7 +66,6 @@ test('Create a simple flow game successfully', async ({  browser }) => {
   await gamePlayPage2.verifyMessageDailyIntentTurnAndOverallIsShowed("2", "Testing msg daily intention");
   await gamePlayPage2.verifyMessageDailyIntentContentIsShowed("1","walking around","carefully",'Evade','Do something you like');
 
-  
 });
 
 test('Create a simple flow game admin chat successfully', async ({  browser }) => {
@@ -186,9 +186,7 @@ test('Create a simple flow game admin chat successfully', async ({  browser }) =
   await verifyMessagePerformGameSteps("Blue", "Media", 
     whiteGameControlContent, 'Game Control', whiteMediaContent, 'Media', 
     redCoContent, 'CO', redLogsContent, 'Logs', redMediaContent, 'Media',
-    blueCoContent, 'CO', blueLogsContent, 'Logs');
-            
-   
+    blueCoContent, 'CO', blueLogsContent, 'Logs');           
 });
 
 test('Create a simple flow Feedback successfully', async ({  browser }) => {
@@ -254,9 +252,206 @@ test('Create a simple flow Feedback successfully', async ({  browser }) => {
   await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + blueCoContent, 'Name ' + blueCoContent);
   await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + blueLogsContent, 'Name ' + blueLogsContent);
   await gamePlayPage1.verifyContentFeedbackIsShowed('Feedback ' + blueMediaContent, 'Name ' + blueMediaContent);
-            
 });
 
+test('Verify duplicate game will create a new game which is the same', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const dashboardPage = new DashboardAdminPage(page)
+  const loginAdminPage = new LoginAdminPage(page)
+  await loginAdminPage.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage.verifyLoginPassed();
+
+  const name = await dashboardPage.getFirstNameOfGame();
+  await dashboardPage.verifyGameNameCount(name, 1);
+
+  const page0 = await context.newPage();
+  const loginGamePage0 = new LoginGamePage(page0)
+  await loginGamePage0.openUrl(config.BASE_URL);
+  await loginGamePage0.clickPlayGameBtn();
+  await loginGamePage0.selectFirstGame('');
+  await loginGamePage0.verifyGameNameIsVisible(name, true);
+  await loginGamePage0.selectSecondGame('');
+  // await loginGamePage0.verifyGameNameIsVisible(name, false);
+
+  const pageAdmin0 = await context.newPage();
+  const loginAdminPage0 = new LoginAdminPage(pageAdmin0)
+  await loginAdminPage0.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage0.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage0.verifyLoginPassed();
+  await dashboardPage.clickThreeDotsAtFirstGame();
+  await dashboardPage.selectAction('Duplicate');
+  await dashboardPage.verifyGameNameCount(name, 2);
+  
+  const page1 = await context.newPage();
+  const loginGamePage1 = new LoginGamePage(page1)
+  await loginGamePage1.openUrl(config.BASE_URL);
+  await loginGamePage1.clickPlayGameBtn();
+  await loginGamePage1.selectFirstGame('');
+  await loginGamePage1.verifyGameNameIsVisible(name, true);
+  await loginGamePage1.selectSecondGame('');
+  await loginGamePage1.verifyGameNameIsVisible(name, true);
+  
+  //-----Verify Data Duplicate is Showed-------
+  const gamePlayPage1 = new GamePlayPage(page1)
+  await loginGamePage1.selectFirstGame('');
+  await loginGamePage1.selectRoleOfFoceGame("White","Game Control");
+  await loginGamePage1.clickEnterGameBtn();
+  await gamePlayPage1.clickCloseGuideBtn();
+  await gamePlayPage1.selectTabName('Red HQ');
+  await gamePlayPage1.clickChatTemplateBtn();
+  await gamePlayPage1.verifyMessageChatIsShowed(content);
+  await gamePlayPage1.selectTabName('Blue HQ');
+  await gamePlayPage1.clickDailyIntentTemplateBtn();
+  await gamePlayPage1.verifyMessageDailyIntentTurnAndOverallIsShowed("2", "Testing msg daily intention");
+  await gamePlayPage1.verifyMessageDailyIntentContentIsShowed("1","walking around","carefully",'Evade','Do something you like');
+  
+  const page2 = await context.newPage();
+  const loginGamePage2 = new LoginGamePage(page2)
+  const gamePlayPage2 = new GamePlayPage(page2)
+  await loginGamePage2.openUrl(config.BASE_URL);
+  await loginGamePage2.clickPlayGameBtn();
+  await loginGamePage2.selectFirstGame('');
+  await loginGamePage2.selectRoleOfFoceGame("Red","CO");
+  await loginGamePage2.clickEnterGameBtn();
+  await gamePlayPage2.clickCloseGuideBtn();
+  await gamePlayPage2.selectTabName('Red HQ');
+  await gamePlayPage2.clickChatTemplateBtn();
+  await gamePlayPage2.verifyMessageChatIsShowed(content);
+
+  const page3 = await context.newPage();
+  const loginGamePage3 = new LoginGamePage(page3)
+  const gamePlayPage3 = new GamePlayPage(page3)
+  await loginGamePage3.openUrl(config.BASE_URL);
+  await loginGamePage3.clickPlayGameBtn();
+  await loginGamePage3.selectFirstGame('');
+  await loginGamePage3.selectRoleOfFoceGame("Blue","CO");
+  await loginGamePage3.clickEnterGameBtn();
+  await gamePlayPage3.clickCloseGuideBtn();
+  await gamePlayPage3.selectTabName('Blue HQ');
+  await gamePlayPage3.clickDailyIntentTemplateBtn();
+  await gamePlayPage3.verifyMessageDailyIntentTurnAndOverallIsShowed("2", "Testing msg daily intention");
+  await gamePlayPage3.verifyMessageDailyIntentContentIsShowed("1","walking around","carefully",'Evade','Do something you like');
+  //-----End Verify Data Duplicate is Showed---
+
+});
+
+test('Verify clean copy game will create a new game which is the same setting but do not have data game play', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const dashboardPage = new DashboardAdminPage(page)
+  const loginAdminPage = new LoginAdminPage(page)
+  await loginAdminPage.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage.verifyLoginPassed();
+
+  const name = await dashboardPage.getFirstNameOfGame();
+  await dashboardPage.verifyGameNameCount(name, 1);
+
+  const page0 = await context.newPage();
+  const loginGamePage0 = new LoginGamePage(page0)
+  await loginGamePage0.openUrl(config.BASE_URL);
+  await loginGamePage0.clickPlayGameBtn();
+  await loginGamePage0.selectFirstGame('');
+  await loginGamePage0.verifyGameNameIsVisible(name, true);
+  await loginGamePage0.selectSecondGame('');
+
+  const pageAdmin0 = await context.newPage();
+  const loginAdminPage0 = new LoginAdminPage(pageAdmin0)
+  await loginAdminPage0.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage0.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage0.verifyLoginPassed();
+  await dashboardPage.clickThreeDotsAtFirstGame();
+  await dashboardPage.selectAction('Clean copy');
+  await dashboardPage.verifyGameNameCount(name, 2);
+  
+  const page1 = await context.newPage();
+  const loginGamePage1 = new LoginGamePage(page1)
+  await loginGamePage1.openUrl(config.BASE_URL);
+  await loginGamePage1.clickPlayGameBtn();
+  await loginGamePage1.selectFirstGame('');
+  await loginGamePage1.verifyGameNameIsVisible(name, true);
+  await loginGamePage1.selectSecondGame('');
+  await loginGamePage1.verifyGameNameIsVisible(name, true);
+
+  //-----Verify Data Duplicate is Empty-------
+  const gamePlayPage1 = new GamePlayPage(page1)
+  await loginGamePage1.selectFirstGame('');
+  await loginGamePage1.selectRoleOfFoceGame("White","Game Control");
+  await loginGamePage1.clickEnterGameBtn();
+  await gamePlayPage1.clickCloseGuideBtn();
+  await gamePlayPage1.selectTabName('Red HQ');
+  await gamePlayPage1.verifyMessageChatListIsEmpty(content);
+  await gamePlayPage1.selectTabName('Blue HQ');
+  await gamePlayPage1.verifyDailyIntentTemplateBtnIsEmpty();
+  
+  const page2 = await context.newPage();
+  const loginGamePage2 = new LoginGamePage(page2)
+  const gamePlayPage2 = new GamePlayPage(page2)
+  await loginGamePage2.openUrl(config.BASE_URL);
+  await loginGamePage2.clickPlayGameBtn();
+  await loginGamePage2.selectFirstGame('');
+  await loginGamePage2.selectRoleOfFoceGame("Red","CO");
+  await loginGamePage2.clickEnterGameBtn();
+  await gamePlayPage2.clickCloseGuideBtn();
+  await gamePlayPage2.selectTabName('Red HQ');
+  await gamePlayPage2.verifyMessageChatListIsEmpty(content);
+
+  const page3 = await context.newPage();
+  const loginGamePage3 = new LoginGamePage(page3)
+  const gamePlayPage3 = new GamePlayPage(page3)
+  await loginGamePage3.openUrl(config.BASE_URL);
+  await loginGamePage3.clickPlayGameBtn();
+  await loginGamePage3.selectFirstGame('');
+  await loginGamePage3.selectRoleOfFoceGame("Blue","CO");
+  await loginGamePage3.clickEnterGameBtn();
+  await gamePlayPage3.clickCloseGuideBtn();
+  await gamePlayPage3.selectTabName('Blue HQ');
+  await gamePlayPage3.verifyDailyIntentTemplateBtnIsEmpty();
+  //-----End Verify Data Duplicate is Empty---
+});
+
+test('Verify the game is Hide and Show', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const dashboardPage = new DashboardAdminPage(page)
+  const loginAdminPage = new LoginAdminPage(page)
+  await loginAdminPage.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage.verifyLoginPassed();
+
+  const name = await dashboardPage.getFirstNameOfGame()
+
+  await dashboardPage.clickThreeDotsAtFirstGame();
+  await dashboardPage.selectAction('Hide wargame');
+  await dashboardPage.verifyHideEyeIconIsShowed(name, true);
+  
+  const page1 = await context.newPage();
+  const loginGamePage1 = new LoginGamePage(page1)
+  await loginGamePage1.openUrl(config.BASE_URL);
+  await loginGamePage1.clickPlayGameBtn();
+  await loginGamePage1.selectFirstGame('');
+  await loginGamePage1.verifyGameNameIsVisible(name, false);
+
+  const pageAdmin1 = await context.newPage();
+  const loginAdminPage1 = new LoginAdminPage(pageAdmin1)
+  await loginAdminPage1.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage1.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage1.verifyLoginPassed();
+  await dashboardPage.verifyGameNameIsShowed(name, true);
+  await dashboardPage.clickThreeDotsAtFirstGame();
+  await dashboardPage.selectAction('Show wargame');
+  await dashboardPage.verifyHideEyeIconIsShowed(name, false);
+
+  const page2 = await context.newPage();
+  const loginGamePage2 = new LoginGamePage(page2)
+  await loginGamePage2.openUrl(config.BASE_URL);
+  await loginGamePage2.clickPlayGameBtn();
+  await loginGamePage2.selectFirstGame('');
+  await loginGamePage2.verifyGameNameIsVisible(name, true);
+
+});
 
 test('Delete the game', async ({ page }) => {
   const dashboardPage = new DashboardAdminPage(page)
@@ -270,4 +465,21 @@ test('Delete the game', async ({ page }) => {
   await dashboardPage.verifyMessageIsVisible('This will permanently delete the wargame. Are you sure?');
   await dashboardPage.clickButtonPopup('Delete');
   await dashboardPage.verifyFirstNameOfGameIsDeleted(name);
+});
+
+test.only('Verify Clear wargames is successfully', async ({ page }) => {
+
+  const dashboardPage = new DashboardAdminPage(page)
+  const loginAdminPage = new LoginAdminPage(page)
+  await loginAdminPage.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage.verifyLoginPassed();
+
+  await dashboardPage.verifyGameListIsNotEmpty();
+  await dashboardPage.clickMenuBar('Clear wargames');
+  await dashboardPage.verifyMessageIsVisible('This action is permanent. Are you sure?');
+  await dashboardPage.clickButtonPopup('Delete');
+  await loginAdminPage.inputLoginForm(Constants.defaultPassword);
+  await dashboardPage.verifyGameListIsEmpty();
+
 });

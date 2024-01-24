@@ -31,7 +31,7 @@ test.skip('Verify Dashboard Fauxton UI Admin Page Is Showed', async ({ page }) =
   await openFauxtonUIAdminPage.verifyNotificationsIsDisplay();
 });
 
-test.skip('Verify Menu Is Active When Click', async ({ page }) => {
+test('Verify Menu Is Active When Click', async ({ page }) => {
   page.setViewportSize({ width: 1500, height: 1000 });
   const dashboardPage = new DashboardAdminPage(page);
   const loginAdminPage = new LoginAdminPage(page);

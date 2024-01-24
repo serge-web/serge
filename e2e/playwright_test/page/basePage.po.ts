@@ -62,4 +62,10 @@ async verifyLocatorIshidden(locator : Locator) {
   await expect(locator).toBeHidden();
 }
 
+async verifyLocatorIsNotVisible(locator: Locator) {
+  await locator.first().waitFor({ state: "hidden" });
+  await expect(locator.first()).not.toBeVisible();
+}
+
+
 }

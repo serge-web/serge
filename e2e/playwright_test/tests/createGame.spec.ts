@@ -119,8 +119,7 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await loginGamePage.verifyRoleOfForceIsVisible("Blue","Logs");
   await loginGamePage.verifyRoleOfForceIsVisible("Blue","CO");
   await loginGamePage.verifyRoleOfForceIsVisible("White","Game Control");
-  await loginGamePage.verifyRoleOfForceIsVisible("White","Media");
-
+  await loginGamePage.verifyRoleOfForceIsVisible("White","Media");  
 
 });
 

@@ -191,6 +191,7 @@ export class GamePlayPage extends BasePage{
     this.nameOptionalFeedbackLabel = (text :string) : Locator => {
       return page.locator("//div[@class='contain-game-insights']//span[contains(text(),'"+text+"')]");
     }
+
  }
 
   async clickNewMessageBtn() {
@@ -264,6 +265,11 @@ export class GamePlayPage extends BasePage{
     await this.verifyLocatorIsvisible(this.chatMessageLabel(content));
   }
 
+  async verifyMessageChatListIsEmpty(content : string) {
+    await this.verifyLocatorIsNotVisible(this.chatTemplateBtn);
+    await this.verifyLocatorIsNotVisible(this.chatMessageLabel(content));
+  }
+
   async inputMessageDailyIntentionsTemplate(row : number, unit : string, task: string, searchPolicy : string, action :string, comment :string) {
     await this.inputValueLocator(this.unitDailyInput(row), unit);
     await this.inputValueLocator(this.taskDailyInput(row), task);
@@ -284,6 +290,10 @@ export class GamePlayPage extends BasePage{
 
   async clickDailyIntentTemplateBtn() {
     await this.clickLocator(this.dailyIntentTemplateBtn);
+  }
+
+  async verifyDailyIntentTemplateBtnIsEmpty() {
+    await this.verifyLocatorIsNotVisible(this.dailyIntentTemplateBtn);
   }
 
   async clickAddMoreOneRowBtn() {
@@ -347,3 +357,4 @@ export class GamePlayPage extends BasePage{
   }
 
 }
+
