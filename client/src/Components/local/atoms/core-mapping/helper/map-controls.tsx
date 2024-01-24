@@ -12,24 +12,6 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
   const map = useMap()
 
   const initMapListener = () => {
-    // handle remove listener for geoman items
-    // map.on('pm:remove', (e: LeafletEvent) => {
-    //   console.log('removing', e.layer.feature.properties.id)
-    //   switch (e['shape']) {
-    //     case 'Marker':
-    //       onRemoved(get(e, 'layer.feature.properties.id', ''))
-    //       break
-    //     case 'Polygon':
-    //       onRemoved(get(e, 'layer.feature.properties.id', ''))
-    //       break
-    //     case 'Line':
-    //       onRemoved(get(e, 'layer.feature.properties.id', ''))
-    //       break
-    //     default:
-    //       console.log('OnRemove Unimplemented for ' + e['shape'] + ' !!!')
-    //   }
-    // })
-
     // handle edit listener for geoman items
     map.on('pm:edit', (e: LeafletEvent) => {
       // handle edit/dragend listener for geoman items
@@ -49,24 +31,23 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
     
     // handle onCreate listener for geoman items
     map.on('pm:create', (e: LeafletEvent) => {
-      // handle edit/dragend listener for geoman items
-      // e.layer.on('pm:edit', (e: any) => {
-      //   console.log('Geoman edit action: edit: ', e)
-      //   onChange(e.layer._leaflet_id, (e as any).latlngs)
-      // })
-
       switch (e['shape']) {
         case 'Marker':
         case 'Polygon':
         case 'Line':
         case 'Rectangle':
         case 'Circle':
-        case 'Text':
           onCreate(e as unknown as PM.ChangeEventHandler)
           break
         default:
           console.log('OnCreate Unimplemented !!!', e['shape'])
       }
+    })
+  }
+
+  const addPendingTextEvent = (layer: L.Layer) => {
+    layer.on('pm:edit', e => {
+      onCreate(e as any)
     })
   }
 
@@ -92,9 +73,11 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
     }}
     globalOptions={{}}
     onCreate={e => {
-      // if (e.shape !== 'Text') {
-      map.removeLayer(e.layer)
-      // }
+      if (e.shape === 'Text') {
+        addPendingTextEvent(e.layer)
+      } else {
+        map.removeLayer(e.layer)
+      }
     }}
   />
 }

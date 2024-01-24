@@ -210,8 +210,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           type: 'Feature',
           properties: {
             _type: RENDERER_MILSYM,
-            _externalType: 'Text', // GeoJsonObject does not support type Text so I put it here
-            textValue: '', // store value
+            _externalType: 'Text', // GeoJsonObject does not have geometry.type = 'Text' so adding an indicator in property
+            textValue: get(e, 'target.options.text', ''), // store value
             ...commonProps
           },
           geometry: { // remove this makes the pointToLayer broken 

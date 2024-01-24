@@ -37,10 +37,9 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       })
       marker.addEventListener('pm:dragend', e => {
         const g = e as any
-        const le = e as L.LeafletEvent
         switch (g.shape) {
           case 'Marker': {
-            const coords: L.LatLng = le.layer._latlng
+            const coords: L.LatLng = g.layer._latlng
             onDragged(feature.properties.id, coords)
             break
           } 
