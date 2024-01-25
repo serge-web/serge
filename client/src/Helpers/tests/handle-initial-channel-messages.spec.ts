@@ -35,7 +35,7 @@ describe('handle initial channel creation', () => {
 
     expect(res.channels[channelId].messages?.length).toEqual(5)
 
-    const turnMarkers = res.channels[channelId].messages?.filter((msg: MessageChannel) => msg.infoType)
+    const turnMarkers = res.channels[channelId].messages?.filter((msg: MessageChannel) => ('infoType' in msg && msg.infoType === true))
     expect(turnMarkers?.length).toEqual(2)
 
     // get the blue RFI channel

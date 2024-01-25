@@ -17,7 +17,6 @@ export const feedbackMessage1: MessageFeedback = {
       name: '',
       iconURL: ''
     },
-    messageType: 'Chat',
     timestamp: '2020-12-06T11:05:12.038Z',
     turnNumber: 1
   },
@@ -40,7 +39,6 @@ export const feedbackMessage2: MessageFeedback = {
       name: 'Heri Setiawan',
       iconURL: ''
     },
-    messageType: 'Chat',
     timestamp: '2020-10-01T01:19:56.492Z',
     turnNumber: 1
   },

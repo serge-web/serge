@@ -1,5 +1,5 @@
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
-import { Message, MessageChannel, MessageCustom } from 'src/custom-types'
+import { Message, MessageChannel, MessageCustom, MessageInfoTypeClipped } from 'src/custom-types'
 
 /** helper function to produce unique ids for channel messages
  */
@@ -9,8 +9,9 @@ const getIDs = (message: MessageChannel): string => {
   const isNotMapping = !(generalMessage.messageType === MAPPING_MESSAGE || generalMessage.messageType === MAPPING_MESSAGE_DELTA)
   const customMessage = message as any as MessageCustom
   const emptyNonMappingMessage = isNotMapping && customMessage.message === undefined
-  if (message.messageType === INFO_MESSAGE_CLIPPED || message.infoType === true || emptyNonMappingMessage) {
-    res = '' + message.gameTurn
+  if (message.messageType === INFO_MESSAGE_CLIPPED || ('infoType' in message && message.infoType === true) || emptyNonMappingMessage) {
+    const clippedMessage = message as MessageInfoTypeClipped
+    res = '' + clippedMessage.gameTurn
   } else {
     const msg = message.message
     if (msg && msg.Reference !== undefined) {
@@ -20,9 +21,9 @@ const getIDs = (message: MessageChannel): string => {
       res = message._id
     }
   }
+  
   return res
 }
-
 const uniqByKeepLast = (data: MessageChannel[], key: (message: MessageChannel) => string) => {
   return [
     ...new Map(

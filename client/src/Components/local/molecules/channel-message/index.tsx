@@ -32,7 +32,7 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
         isOpen={!collapsed}
         title={title}
         timestamp={message.details.timestamp}
-        messageType={message.details.messageType}
+        templateId={message.templateId}
         onExpand={handleOnExpand}
         hasBeenRead={message.hasBeenRead}
         forceColor={props.forceColor}

@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
-import { BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageCustom, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
@@ -35,19 +35,20 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   useEffect(() => {
     loadDefaultMarker()
   }, [])
-
+  
   useEffect(() => {
     // sort out the mapping messages, since we actually may also receive turn markers
     const mappingMessages = messages.filter((message: Message) => {
       if (message.messageType !== INFO_MESSAGE_CLIPPED) {
-        const custMessage = message as MessageCustom
-        return custMessage.details.messageType === MAPPING_MESSAGE || custMessage.details.messageType === MAPPING_MESSAGE_DELTA
+        const custMessage = message as MappingMessage | MappingMessageDelta
+        return custMessage.messageType === MAPPING_MESSAGE || custMessage.messageType === MAPPING_MESSAGE_DELTA
       } else return false
     })
+    
     if (mappingMessages.length) {
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
-        if (mappingMessage.details.messageType === MAPPING_MESSAGE) {
+        if (mappingMessage.messageType === MAPPING_MESSAGE) {
           const baseMappingMessage = mappingMessage as MappingMessage
           // keep the mapping message as original for generating patch later
           if (!lastMessage) {
@@ -109,7 +110,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           roleName: playerRole.name,
           iconURL: ''
         },
-        messageType: MAPPING_MESSAGE,
         timestamp: timestamp,
         turnNumber: 1
       }
@@ -124,7 +124,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           since: lastMessage._id,
           delta
         }
-        console.log('delta', deltaMessage)
         postBack(deltaMessage)
       } else {
         const mappingMessage: MappingMessage = {
@@ -133,7 +132,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           details,
           featureCollection: newFeatureCollection
         }
-        console.log('mapping message', mappingMessage)
         postBack(mappingMessage)
       }
     }
@@ -326,7 +324,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
     return unionBy(flatMap, 'id')
   }
-
   return <Box className={styles.container}>
     {!checked && <Button variant='contained' onClick={() => setChecked(true)}>
       <FontAwesomeIcon icon={faCircleArrowRight} />

@@ -39,7 +39,7 @@ class EditMessage extends Component {
   saveSchema = () => {
     this.props.dispatch(createMessageType(this.props.umpireMenu.previewSchema))
   }
-
+  
   render () {
     const SaveMessageButton = () => (
       <div className='button-wrap'>

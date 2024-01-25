@@ -1,5 +1,5 @@
 import React from 'react'
-import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab } from 'src/custom-types'
+import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab, TypeOfCustomMessage } from 'src/custom-types'
 import { ForceColor } from '..'
 import CollabMessageDetail from '../../molecules/collab-message-detail'
 import { Badge } from '../../atoms/badge'
@@ -43,7 +43,7 @@ export const genData = (
   channelColb: ChannelCollab,
   permission: CollaborativePermission,
   gameDate: string,
-  onChange: (msg: MessageCustom) => void,
+  onChange: (msg: MessageCustom, messageType: TypeOfCustomMessage) => void,
   onMessageRead?: (message: MessageCustom) => void
 ): GenData => {
   const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
@@ -190,8 +190,8 @@ export const genData = (
             channelColb={channelColb}
             permission={permission}
             assignees={assignees}
-            onChange={(newMeesage: MessageCustom): void => {
-              onChange && onChange(newMeesage)
+            onChange={(newMeesage: MessageCustom, messageType: TypeOfCustomMessage): void => {
+              onChange && onChange(newMeesage, messageType)
             }}
             collapseMe={collapseMe}
             gameDate={gameDate}

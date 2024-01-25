@@ -51,7 +51,6 @@ const state: PlayerUi = {
             roleName: 'CO-Role',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:06:19.602Z',
           turnNumber: 12
         },
@@ -61,6 +60,7 @@ const state: PlayerUi = {
         _id: '2020-12-06T11:06:19.602Z',
         _rev: '1-e17592723c22372813d53a52782f9b50',
         messageType: CUSTOM_MESSAGE,
+        templateId: 'Chat',
         hasBeenRead: false,
         isOpen: false
       },
@@ -74,7 +74,6 @@ const state: PlayerUi = {
             roleName: 'CO-Role',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:06:12.434Z',
           turnNumber: 12
         },
@@ -84,6 +83,7 @@ const state: PlayerUi = {
         _id: '2020-12-06T11:06:12.434Z',
         _rev: '1-f70b71621c42d3b94ad94ebc09cea9a0',
         messageType: CUSTOM_MESSAGE,
+        templateId: 'Chat',
         hasBeenRead: false,
         isOpen: false
       },
@@ -97,13 +97,13 @@ const state: PlayerUi = {
             roleName: 'CO-Role',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:05:07.490Z',
           turnNumber: 12
         },
         message: {
           content: 'ddaw'
         },
+        templateId: 'Chat',
         _id: '2020-12-06T11:05:07.491Z',
         _rev: '1-99a75cd848ce35b580fc41e50bdf51f3',
         messageType: CUSTOM_MESSAGE,
@@ -168,7 +168,6 @@ const state: PlayerUi = {
               roleName: 'CO-Role',
               iconURL: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-07T05:18:20.053Z',
             turnNumber: 23
           },
@@ -177,6 +176,7 @@ const state: PlayerUi = {
           },
           _id: '2020-12-07T05:18:20.053Z',
           _rev: '1-0ab29a1ecad5f942ad5d62b01930a4f0',
+          templateId: 'Chat',
           messageType: CUSTOM_MESSAGE,
           hasBeenRead: true,
           isOpen: false
@@ -191,7 +191,6 @@ const state: PlayerUi = {
               roleName: 'CO-Role',
               iconURL: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-07T05:18:11.074Z',
             turnNumber: 4
           },
@@ -200,6 +199,7 @@ const state: PlayerUi = {
           },
           _id: '2020-12-07T05:18:11.074Z',
           _rev: '1-eb21db75ad81aa503e2ef09118c7c241',
+          templateId: 'Chat',
           messageType: CUSTOM_MESSAGE,
           hasBeenRead: true,
           isOpen: true
@@ -214,7 +214,6 @@ const state: PlayerUi = {
               roleName: 'CO-Role',
               iconURL: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-07T05:17:45.437Z',
             turnNumber: 4
           },
@@ -224,6 +223,7 @@ const state: PlayerUi = {
           _id: '2020-12-07T05:17:45.437Z',
           _rev: '1-4996ecb4c6b83704ddfa72c5f3d6a7b0',
           messageType: CUSTOM_MESSAGE,
+          templateId: 'Chat',
           hasBeenRead: true,
           isOpen: false
         }
@@ -343,7 +343,6 @@ const state: PlayerUi = {
               roleName: 'CO-Role',
               iconURL: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'PG19 Weekly Orders',
             timestamp: '2020-12-07T05:18:34.179Z',
             turnNumber: 12
           },
@@ -364,6 +363,7 @@ const state: PlayerUi = {
           },
           _id: '2020-12-07T05:18:34.179Z',
           _rev: '1-51716232d1217f6296649ffb1b393f25',
+          templateId: 'PG19 Weekly Orders',
           messageType: CUSTOM_MESSAGE,
           hasBeenRead: false,
           isOpen: false
@@ -668,7 +668,6 @@ const state: PlayerUi = {
           roleName: 'CO-Role',
           iconURL: 'ss'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-07T06:21:42.431Z',
         turnNumber: 12
       },
@@ -689,7 +688,6 @@ const state: PlayerUi = {
           roleName: 'CO-Role',
           iconURL: 'ss'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-06T11:05:12.038Z',
         turnNumber: 12
       },
@@ -710,7 +708,6 @@ const state: PlayerUi = {
           roleName: 'CO-Role',
           iconURL: 'ss'
         },
-        messageType: 'Chat',
         timestamp: '2020-10-01T01:19:56.492Z',
         turnNumber: 12
       },
@@ -740,7 +737,6 @@ const testState: any = {
           role: 'CO',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-07T06:38:43.642Z'
       },
       message: {
@@ -795,7 +791,6 @@ const testState: any = {
               role: 'CO',
               icon: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-06T11:06:19.602Z'
           },
           message: {
@@ -815,7 +810,6 @@ const testState: any = {
               role: 'CO',
               icon: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-06T11:06:12.434Z'
           },
           message: {
@@ -835,7 +829,6 @@ const testState: any = {
               role: 'CO',
               icon: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-06T11:05:07.490Z'
           },
           message: {
@@ -892,7 +885,6 @@ const testState: any = {
                 role: 'CO',
                 icon: 'http://localhost:8080/default_img/forceDefault.png'
               },
-              messageType: 'Chat',
               timestamp: '2020-12-07T06:38:43.642Z'
             },
             message: {
@@ -933,7 +925,6 @@ const testState: any = {
                 role: 'CO',
                 icon: 'http://localhost:8080/default_img/forceDefault.png'
               },
-              messageType: 'Chat',
               timestamp: '2020-12-07T05:18:11.074Z'
             },
             message: {
@@ -953,7 +944,6 @@ const testState: any = {
                 role: 'CO',
                 icon: 'http://localhost:8080/default_img/forceDefault.png'
               },
-              messageType: 'Chat',
               timestamp: '2020-12-07T05:17:45.437Z'
             },
             message: {
@@ -1068,7 +1058,6 @@ const testState: any = {
                 role: 'CO',
                 icon: 'http://localhost:8080/default_img/forceDefault.png'
               },
-              messageType: 'PG19 Weekly Orders',
               timestamp: '2020-12-07T05:18:34.179Z'
             },
             message: {
@@ -1740,7 +1729,6 @@ const testState: any = {
             role: 'CO',
             name: ''
           },
-          messageType: 'Chat',
           timestamp: '2020-12-07T06:21:42.431Z'
         },
         message: {
@@ -1759,7 +1747,6 @@ const testState: any = {
             role: 'CO',
             name: ''
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:05:12.038Z'
         },
         message: {
@@ -1778,7 +1765,6 @@ const testState: any = {
             role: 'Game Control',
             name: 'Heri Setiawan'
           },
-          messageType: 'Chat',
           timestamp: '2020-10-01T01:19:56.492Z'
         },
         message: {

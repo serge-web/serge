@@ -11,7 +11,7 @@ import styles from './styles.module.scss'
 import Badge from '../../atoms/badge'
 import Paragraph from '../../atoms/paragraph'
 
-import { MessageChannel } from 'src/custom-types'
+import { MessageInfoTypeClipped } from 'src/custom-types'
 import { formatTime } from 'src/Helpers'
 
 /* Render component */
@@ -29,9 +29,8 @@ export const ChatMessage: React.FC<Props> = ({ message, isOwner, isUmpire, markU
   
   // TODO: use turn marker as we found when we load existing messages. This workaround
   // presents the game turn as a chat message
-  const channelMessage = message as unknown as MessageChannel
-  const messageContent = message.details.messageType === 'turn marker' ? 'Turn:' + channelMessage.gameTurn : message.message.content
-
+  const channelMessage = message as unknown as MessageInfoTypeClipped
+  const messageContent = message.templateId === 'turn marker' ? 'Turn:' + channelMessage.gameTurn : message.message.content  
   // reverse the flag, to make it easier to read. Show the author if this a player form an umpire force,
   // or if hideAuthor is false
   const showAuthor = isUmpire || !hideAuthor

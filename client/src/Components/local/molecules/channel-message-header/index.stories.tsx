@@ -22,7 +22,7 @@ export const Default: React.FC = () => (
     title="lorem ipsum do lor sit amet"
     timestamp="2020-09-18T05:41:17.349Z"
     role="CO"
-    messageType="Chat"
+    templateId="Chat"
     hasBeenRead={false}
     forceColor={'#000'}
   />
@@ -34,7 +34,7 @@ export const Opened: React.FC = () => (
     title="lorem ipsum do lor sit amet"
     timestamp="2020-09-18T05:41:17.349Z"
     role="CO"
-    messageType="Chat"
+    templateId="Chat"
     hasBeenRead={true}
     forceColor={'#000'}
   />

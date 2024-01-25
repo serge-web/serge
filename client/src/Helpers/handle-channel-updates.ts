@@ -19,7 +19,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
   const sourceRole: string = message.details.from.roleId
   const logger: PlayerMessage = {
     roleId: message.details.from.roleId,
-    lastMessageTitle: message.details.messageType,
+    lastMessageTitle: message.templateId,
     lastMessageTime: message.details.timestamp,
     hasBeenRead: !!message.hasBeenRead,
     _id: message._id
@@ -350,7 +350,7 @@ const updateChannelMessages = (gameTurn: number, messageId: string, thisChannel:
   
   // check if we're missing a turn marker for this turn
   if (thisChannel.messages && !collabChannel) {
-    if (!thisChannel.messages.find((prevMessage: MessageChannel) => (prevMessage as MessageInfoTypeClipped | MessageCustom).gameTurn === gameTurn)) {
+    if (!thisChannel.messages.find((prevMessage: MessageChannel) => (prevMessage as MessageInfoTypeClipped).gameTurn === gameTurn)) {
       // no messages, or no turn marker found, create one  
       const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
       thisChannel.messages.unshift(message)

@@ -1,5 +1,5 @@
 import { Box } from '@material-ui/core'
-import { UNSENT_CHAT_MESSAGE_TYPE } from 'src/config'
+import { UNSENT_CHAT_MESSAGE_TYPE, CUSTOM_MESSAGE } from 'src/config'
 import { MessageDetails } from 'src/custom-types'
 import React, { useRef, useState } from 'react'
 import ChatInputText from '../chat-input-text'
@@ -34,7 +34,6 @@ export const ChatEntryForm: React.FC<Props> = ({
         roleName: roleName,
         iconURL: from.iconURL || (from.icon || '')
       },
-      messageType: UNSENT_CHAT_MESSAGE_TYPE,
       timestamp: timestamp,
       privateMessage: privateMessage,
       turnNumber: turnNumber
@@ -43,7 +42,7 @@ export const ChatEntryForm: React.FC<Props> = ({
       content: message
     }
 
-    postBack && postBack(details, contents)
+    postBack && postBack(details, contents, UNSENT_CHAT_MESSAGE_TYPE, CUSTOM_MESSAGE)
     setMessage('')
     setPrivateMessage('')
     messageEle.current.clear()

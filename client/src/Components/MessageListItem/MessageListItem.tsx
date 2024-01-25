@@ -10,7 +10,7 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
   const state = usePlayerUiState()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-  const { details, message, isOpen, hasBeenRead } = detail
+  const { details, message, isOpen, hasBeenRead, templateId } = detail
   if (message.title) {
     itemTitle = message.title
   } else if (message.content) {
@@ -18,9 +18,9 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
     itemTitle = message.content
   } else {
     // no content, just use message-type
-    itemTitle = details.messageType
+    itemTitle = templateId
   }
-
+  
   return (
     <React.Fragment key={key}>
       <div style={{ margin: '0 15px 8px' }}>
@@ -30,7 +30,7 @@ const MessageListItem: React.FC<Props> = ({ detail, key, open }) => {
           timestamp={`${moment(details.timestamp)}`}
           // @ts-ignore
           role={details.from.role}
-          messageType={details.messageType}
+          templateId={templateId}
           hasBeenRead={hasBeenRead}
           privateMessage={details.privateMessage}
           // @ts-ignore
