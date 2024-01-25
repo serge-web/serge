@@ -78,9 +78,9 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
         feature.geometry.coordinates = [coords.lng, coords.lat]
         onDragged(feature.properties.id, coords)
       })
-      // let geoman calculate itself the with & height of the text area
+      // let geoman calculate the width and height of the textarea element itself
       setTextStyleFromProperties(marker, feature.properties)
-      // after that we adjust the width & height based on input padding
+      // we then adjust the width and height based on the input padding
       setTimeout(() => {
         adjustSizeFromProperties(marker, feature.properties)
       }, 10)
