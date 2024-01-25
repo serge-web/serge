@@ -1,4 +1,4 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody } from 'src/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody, TypeOfCustomMessage } from 'src/custom-types'
 
 export default interface PropTypes {
   orderableChannel: boolean
@@ -28,7 +28,7 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the component
    */
-  postBack: { (details: MessageDetails, message: any, templateId: string): void }
+  postBack: { (details: MessageDetails, message: any, templateId: string, messageType: TypeOfCustomMessage): void }
 
   /**
    * draft message to open in editor. The template should come from the details-messageType

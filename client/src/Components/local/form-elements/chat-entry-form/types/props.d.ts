@@ -1,4 +1,4 @@
-import { MessageDetails, Role } from 'src/custom-types'
+import { MessageDetails, Role, TypeOfCustomMessage } from 'src/custom-types'
 
 export default interface Props {
   from: {
@@ -17,6 +17,6 @@ export default interface Props {
   /**
    * The method for posting messages out of the component
    */
-  postBack?: { (details: MessageDetails, message: any, templateId: string): void }
+  postBack?: { (details: MessageDetails, message: any, templateId: string, messageType: TypeOfCustomMessage): void }
   turnNumber: number
 }

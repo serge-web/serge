@@ -1,7 +1,7 @@
 import CollabStatusBoard from './local/collab-status-board'
 import NewMessage from './local/form-elements/new-message'
 import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from 'src/config'
-import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from 'src/custom-types'
+import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab, TypeOfCustomMessage } from 'src/custom-types'
 import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from 'src/Helpers'
 import { MessageSentInteraction, PlainInteraction } from 'src/custom-types/player-log'
 import 'src/themes/App.scss'
@@ -65,9 +65,9 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // deepScan: This prop requires a new object on every render for some reason,
   // so we cannot use useCallback or useMemo without breaking functionality.
   // The prop should be optimized in the future.
-  const handleChange = (nextMsg: MessageCustom): void => {
+  const handleChange = (nextMsg: MessageCustom, messageType: TypeOfCustomMessage): void => {
     const { details } = nextMsg
-    saveMessage(state.currentWargame, details, nextMsg.message, nextMsg.templateId)()
+    saveMessage(state.currentWargame, details, nextMsg.message, nextMsg.templateId, messageType)()
     const saveMessageInt: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }

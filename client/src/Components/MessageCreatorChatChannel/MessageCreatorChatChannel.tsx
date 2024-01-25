@@ -1,4 +1,5 @@
 import { MessageDetails } from 'src/custom-types'
+import { CUSTOM_MESSAGE } from 'src/config'
 import React, { ChangeEvent, CSSProperties, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
@@ -42,7 +43,7 @@ const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactEle
       timestamp: new Date().toISOString(),
       turnNumber: state.currentTurn
     }
-    saveMessage(state.currentWargame, messageDetails, message, schema.title)()
+    saveMessage(state.currentWargame, messageDetails, message, schema.title, CUSTOM_MESSAGE)()
     saveNewActivityTimeMessage(state.selectedRole, { aType: 'send message' }, state.currentWargame)(dispatch)
     setMessage({
       content: ''

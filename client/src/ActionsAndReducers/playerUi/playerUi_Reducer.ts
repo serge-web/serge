@@ -128,7 +128,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
   }
 
   playerUIReducerHelpers.logUpdate(newState, action.type, state)
-
   return newState
 }
 
