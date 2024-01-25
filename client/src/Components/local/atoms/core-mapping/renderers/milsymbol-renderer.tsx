@@ -64,7 +64,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
     } else if (feature.properties._externalType === 'Text') {
       const marker = L.marker(latLng, {
         textMarker: true,
-        text: feature.properties.textValue
+        text: feature.properties.label
       })
 
       marker.addEventListener('pm:edit', e => {

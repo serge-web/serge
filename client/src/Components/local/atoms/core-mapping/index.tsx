@@ -212,7 +212,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           properties: {
             _type: RENDERER_MILSYM,
             _externalType: 'Text', // GeoJsonObject does not have geometry.type = 'Text' so adding an indicator in property
-            textValue: get(e, 'target.options.text', ''), // store value
             fontSize: DEFAULT_FONT_SIZE,
             padding: DEFAULT_PADDING,
             ...commonProps
@@ -277,7 +276,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       if (idx !== -1 && value) {
         const feature = cloneFeatureCollection.features[idx]
         if (feature.properties) {
-          feature.properties.textValue = value
+          feature.properties.label = value
           saveNewMessage(cloneFeatureCollection)
         }
       }
