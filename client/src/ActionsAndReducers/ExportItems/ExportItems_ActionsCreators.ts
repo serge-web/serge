@@ -83,12 +83,12 @@ const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): E
   for (const message of messages) {
     let msgType: string = message.messageType
     if (message.messageType === CUSTOM_MESSAGE) {
-      msgType += ' ' + (message as MessageCustom).details.messageType
+      msgType += ' ' + (message as MessageCustom).templateId
     }
     if (msgType && !messageTypes[msgType]) {
       messageTypes[msgType] = true
       const rowsAndFields: ExportDataGroupedGetRowsAndFields = exportDataGroupedGetRowsAndFields(messages, message, channelTitles)
-      const title = message.messageType === CUSTOM_MESSAGE ? 'CM ' + (message as MessageCustom).details.messageType : msgType
+      const title = message.messageType === CUSTOM_MESSAGE ? 'CM ' + (message as MessageCustom).templateId : msgType
       // The max length of the sheet name is 31
       data.push({
         title: title.length > 31
@@ -106,7 +106,7 @@ const exportDataGrouped = (messages: Message[], channelTitles: ChannelTitles): E
 
 const exportDataGroupedGetRowsAndFields = (messages: Message[], message: Message, channelTitles: ChannelTitles) :ExportDataGroupedGetRowsAndFields => {
   const messagesFiltered: Message[] = message.messageType === CUSTOM_MESSAGE 
-    ? messages.filter(msg => msg.messageType === CUSTOM_MESSAGE && (message as MessageCustom).details.messageType === (msg as MessageCustom).details.messageType)
+    ? messages.filter(msg => msg.messageType === CUSTOM_MESSAGE && (message as MessageCustom).templateId === (msg as MessageCustom).templateId)
     : messages.filter(({ messageType }) => message.messageType === messageType)
 
   const fields: string[] = []

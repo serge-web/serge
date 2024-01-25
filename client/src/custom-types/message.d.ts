@@ -43,8 +43,6 @@ export interface MessageDetails {
   //  * extra detail for managing an interaction
   //  */
   // interaction?: InteractionDetails
-  /** ID of template for this message */
-  messageType: TemplateBody['_id']
   /** time message sent */
   timestamp: string
   /** turn when this message was sent */
@@ -86,6 +84,7 @@ export interface CoreMessage {
   readonly details: MessageDetails
   /** whether this message has been read on the current client */
   hasBeenRead?: boolean
+  readonly templateId?: TemplateBody['_id']
 }
 
 /** 
@@ -130,18 +129,17 @@ export interface CollaborationDetails {
 
 export interface MessageCustom extends CoreMessage {
   readonly messageType: typeof CUSTOM_MESSAGE
+    /** Details related to the message, excluding the message type. */
+  // details: Omit<MessageDetails, 'messageType'>
   /** the strutured message */
   message: MessageStructure
   /** whether this message is open/expanded on the current client */
-  isOpen: boolean
-  /** the game turn when this was sent */
-  gameTurn?: number
-  /** whether this represents an item of insight/feedback */
-  feedback?: boolean
-  /** whether this is a change in game state (rather than a new message),
-   * normally `false` for messages like this
-   */
-  infoType?: boolean
+  isOpen?: boolean
+  /** 
+   * The ID of the template associated with this custom message.
+   * It refers to the '_id' property of the TemplateBody interface.
+  */
+  templateId: TemplateBody['_id']
 }
 
 /** 

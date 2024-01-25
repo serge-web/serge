@@ -21,6 +21,7 @@ describe('ChannelMessagesList component: ', () => {
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     const messages: MessageCustom[] = [{
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       details: {
         channel: 'channel-k63pjit0',
         from: {
@@ -30,7 +31,6 @@ describe('ChannelMessagesList component: ', () => {
           roleName: 'CO',
           roleId: 'u345'
         },
-        messageType: 'Chat',
         timestamp: '2020-10-13T08:52:04.394Z',
         turnNumber: 1
       },

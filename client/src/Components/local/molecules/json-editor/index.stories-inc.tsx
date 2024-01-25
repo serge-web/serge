@@ -31,10 +31,10 @@ export default {
   }
 }
 
-const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
+const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].templateId]
 const channel = watuWargame.data.channels.channels[1]
 const templateMessageCreator = {
-  details: MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType].details,
+  details: MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].templateId].details,
   _id: channel.uniqid
 }
 

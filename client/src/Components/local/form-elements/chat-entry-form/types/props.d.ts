@@ -17,6 +17,6 @@ export default interface Props {
   /**
    * The method for posting messages out of the component
    */
-  postBack?: { (details: MessageDetails, message: any): void }
+  postBack?: { (details: MessageDetails, message: any, templateId: string): void }
   turnNumber: number
 }

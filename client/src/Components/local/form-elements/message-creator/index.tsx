@@ -59,7 +59,6 @@ const MessageCreator: React.FC<PropTypes> = ({
         roleId: selectedRole,
         iconURL: selectedForce.iconURL || ''
       },
-      messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),
       turnNumber: currentTurn
     }
@@ -90,7 +89,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     // send the data
     setPrivateValue('')
     setClearForm(!clearForm)
-    postBack && postBack(details, formMessage)
+    postBack && postBack(details, formMessage, selectedSchema.title)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
   }

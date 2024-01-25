@@ -67,10 +67,11 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // The prop should be optimized in the future.
   const handleChange = (nextMsg: MessageCustom): void => {
     const { details } = nextMsg
-    saveMessage(state.currentWargame, details, nextMsg.message)()
+    saveMessage(state.currentWargame, details, nextMsg.message, nextMsg.templateId)()
     const saveMessageInt: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
+   
     saveNewActivityTimeMessage(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
   }
 
@@ -130,7 +131,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
     })
   }
-  
+
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>

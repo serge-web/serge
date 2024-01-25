@@ -70,7 +70,7 @@ const Template: Story<DataTableProps> = args => {
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 const rfiMessages = (GameMessagesMockRFI as MessageCustom[])
-  .filter((message: MessageCustom) => message.details.messageType === 'RFI')
+  .filter((message: MessageCustom) => message.templateId === 'RFI')
   // sample data includes multiple versions of RFI messages, ensure we're only
 // looking at newest
 const newest = mostRecentOnly(rfiMessages) as MessageCustom[]

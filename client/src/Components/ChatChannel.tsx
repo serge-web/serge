@@ -42,12 +42,12 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const messageHandler = (details: MessageDetails, message: any): void => {
+  const messageHandler = (details: MessageDetails, message: any, templeteId: string): void => {
     const sendMessage: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
-    saveMessage(state.currentWargame, details, message)()
+    saveMessage(state.currentWargame, details, message, templeteId)()
   }
 
   const markAllAsReadLocal = (): void => {

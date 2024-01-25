@@ -10,7 +10,7 @@ import DataTable, { ROW_WITH_COLLAPSIBLE_TYPE } from './index'
 import { RowWithCollapsibleType } from './types/props'
 import { RfiForm } from '../../molecules/rfi-form'
 
-const rfiMessages = (GameMessagesMockRFI as MessageCustom[]).filter((message: MessageCustom) => message.details.messageType === 'RFI')
+const rfiMessages = (GameMessagesMockRFI as MessageCustom[]).filter((message: MessageCustom) => message.templateId === 'RFI')
 const newest = mostRecentOnly(rfiMessages) as MessageCustom[]
 
 const rfiData = newest.map((message: any) => {

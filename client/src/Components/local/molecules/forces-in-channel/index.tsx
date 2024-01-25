@@ -11,7 +11,7 @@ import { resolveImagePath } from 'src/Helpers'
 
 /* Render component */
 export const ForcesInChannel: React.FC<Props> = ({ icons, colors, names, onMarkAllAsRead, messages = [] }: Props) => {
-  const isAllMsgHasBeenRead = messages.every(msg => msg.hasBeenRead)
+  const isAllMsgHasBeenRead = messages.every((msg) => msg.hasBeenRead)
   return (
     <div className={styles['forces-in-channel']}>
       {icons &&
