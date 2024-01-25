@@ -214,7 +214,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
             _externalType: 'Text', // GeoJsonObject does not have geometry.type = 'Text' so adding an indicator in property
             fontSize: DEFAULT_FONT_SIZE,
             padding: DEFAULT_PADDING,
-            ...commonProps
+            ...commonProps,
+            label: get(e, 'target.options.text', playerForce.name) // store value
           },
           geometry: { // remove this makes the pointToLayer broken 
             coordinates: [loc.lng, loc.lat],
