@@ -12,7 +12,7 @@ import Button from '../../atoms/button'
 import DialogModal from '../../atoms/dialog'
 import SplitButton from '../../atoms/split-button'
 import FeedbackBlock from './helpers/feed-back-blcok'
-import { CollaborativeMessageStates, CollaborativePermission, expiredStorage } from 'src/config'
+import { CollaborativeMessageStates, CollaborativePermission, expiredStorage, CUSTOM_MESSAGE } from 'src/config'
 import { ChannelCollab, ChannelTypes, ChannelUI, ForceRole, MessageCustom } from 'src/custom-types'
 import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, createActionTable } from './helpers/actions-for'
 import { ClaimFunc, CLAIM_HANDLER, CoreFunc, CORE_HANDLER, SubmitFunc, SUBMIT_HANDLER } from './helpers/handlers'
@@ -138,7 +138,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
     // collapse message, if necessary
     collapse && collapseMe && collapseMe(msg)
     // fire update
-    onChange && onChange(msg)
+    onChange && onChange(msg, CUSTOM_MESSAGE)
   }
 
   const onModalValueChange = (content: string): void => {

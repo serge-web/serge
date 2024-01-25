@@ -57,7 +57,7 @@ const pouchDb = (app, io, pouchOptions) => {
       timeout: false,
       heartbeat: false,
       include_docs: true
-    }).on('change', (result) => { io.emit(wargameName, result.doc) })
+    }).on('change', (result) => io.emit(wargameName, result.doc))
   }
 
   // check listeners queue to add a new listenr

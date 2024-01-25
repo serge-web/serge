@@ -8,7 +8,7 @@ import * as wargamesApi from '../../api/wargames_api'
 import isError from '../../Helpers/isError'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 
-import { ChatMessage, MappingMessage, MappingMessageDelta, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageFeedback, MessageInfoType, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame } from 'src/custom-types'
+import { ChatMessage, MappingMessage, MappingMessageDelta, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame, TypeOfCustomMessage } from 'src/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -155,7 +155,13 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
   }
 }
 
-export const saveMessage = (dbName: string, details: MessageCustom['details'], message: object, templateId: string): Function => {
+export const saveMessage = (
+  dbName: string, 
+  details: MessageDetails, 
+  message: object, 
+  templateId: string, 
+  messageType: TypeOfCustomMessage
+): Function => {
   return async (): Promise<void> => {
     // the following block of commented out code was used in the past
     // to generate bulk volumes of test data, by repeatedly submitting
@@ -182,8 +188,7 @@ export const saveMessage = (dbName: string, details: MessageCustom['details'], m
     //   }
     // } else {
     // actually post the message
- 
-    await wargamesApi.postNewMessage(dbName, details, message, templateId)
+    await wargamesApi.postNewMessage(dbName, details, message, templateId, messageType)
   }
 }
 

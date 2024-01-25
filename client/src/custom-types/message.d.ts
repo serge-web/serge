@@ -204,6 +204,8 @@ export interface MessageInfoTypeClipped {
   _id?: string
 }
 
+export type TypeOfCustomMessage = typeof CUSTOM_MESSAGE 
+
 export type MessageChannel = MessageInfoTypeClipped | MessageCustom
 export type Message = MessageCustom |
   ChatMessage |

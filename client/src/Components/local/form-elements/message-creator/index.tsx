@@ -5,7 +5,8 @@ import {
   CHANNEL_COLLAB,
   CollaborativeMessageStates,
   InitialStates,
-  UNSENT_SELECT_BY_DEFAULT_VALUE
+  UNSENT_SELECT_BY_DEFAULT_VALUE,
+  CUSTOM_MESSAGE
 } from 'src/config'
 import {
   ChannelCollab,
@@ -89,7 +90,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     // send the data
     setPrivateValue('')
     setClearForm(!clearForm)
-    postBack && postBack(details, formMessage, selectedSchema.title)
+    postBack && postBack(details, formMessage, selectedSchema.title, CUSTOM_MESSAGE)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
   }

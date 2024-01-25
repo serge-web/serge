@@ -3,11 +3,12 @@ import {
   MessageCustom,
   ForceRole,
   ChannelCollab,
-  TemplateBodysByKey
+  TemplateBodysByKey,
+  TypeOfCustomMessage
 } from 'src/custom-types'
 
 export default interface Props {
-  onChange?: (nextMessage: MessageCustom) => void
+  onChange?: (nextMessage: MessageCustom, messageType: TypeOfCustomMessage) => void
   message: MessageCustom
   /** current state of this message */
   state: CollaborativeMessageStates
