@@ -47,6 +47,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
 
   const addPendingTextEvent = (layer: L.Layer) => {
     layer.on('pm:edit', e => {
+      map.removeLayer(layer)
       onCreate(e as any)
     })
   }

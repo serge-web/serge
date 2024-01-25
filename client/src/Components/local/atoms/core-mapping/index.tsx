@@ -18,6 +18,7 @@ import { CoreRendererHelper } from './helper/core-renderer-helper'
 import { applyPatch, generatePatch } from './helper/feature-collection-helper'
 import MapControls from './helper/map-controls'
 import { loadDefaultMarker } from './helper/marker-helper'
+import { DEFAULT_FONT_SIZE } from './renderers/milsymbol-renderer'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 
@@ -212,6 +213,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
             _type: RENDERER_MILSYM,
             _externalType: 'Text', // GeoJsonObject does not have geometry.type = 'Text' so adding an indicator in property
             textValue: get(e, 'target.options.text', ''), // store value
+            fontSize: DEFAULT_FONT_SIZE,
             ...commonProps
           },
           geometry: { // remove this makes the pointToLayer broken 

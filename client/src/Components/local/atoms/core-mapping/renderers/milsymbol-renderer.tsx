@@ -9,6 +9,8 @@ import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { colorFor } from './core-renderer'
 
+export const DEFAULT_FONT_SIZE = 14
+
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
 
@@ -18,7 +20,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
     elm.style.padding = '0px'
     elm.style.backgroundColor = colorFor(props.force)
     elm.style.color = props.color
-    elm.style.fontSize = props.fontSize || '14px'
+    elm.style.fontSize = (props.fontSize || DEFAULT_FONT_SIZE) + 'px'
   }
 
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
