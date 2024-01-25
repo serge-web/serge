@@ -10,6 +10,7 @@ import { CoreRendererProps } from '../types/props'
 import { colorFor } from './core-renderer'
 
 export const DEFAULT_FONT_SIZE = 14
+export const DEFAULT_PADDING = 0
 
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
@@ -21,6 +22,15 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
     elm.style.backgroundColor = colorFor(props.force)
     elm.style.color = props.color
     elm.style.fontSize = (props.fontSize || DEFAULT_FONT_SIZE) + 'px'
+  }
+
+  const adjustSizeFromProperties = (marker: L.Marker<any>, props: any) => {
+    const elm = marker.pm['_layer'].pm.getElement() as HTMLTextAreaElement
+    elm.style.padding = (props.padding || DEFAULT_PADDING) + 'px'
+    if (props.padding) {
+      elm.style.width = parseInt(elm.style.width) + 2 * props.padding + 'px'
+      elm.style.height = parseInt(elm.style.height) + 2 * props.padding + 'px'
+    }
   }
 
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
@@ -68,7 +78,12 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
         feature.geometry.coordinates = [coords.lng, coords.lat]
         onDragged(feature.properties.id, coords)
       })
+      // let geoman calculate itself the with & height of the text area
       setTextStyleFromProperties(marker, feature.properties)
+      // after that we adjust the width & height based on input padding
+      setTimeout(() => {
+        adjustSizeFromProperties(marker, feature.properties)
+      }, 10)
       return marker
     } else {
       throw new Error('Cannot create layer for ' + feature.geometry.type)
