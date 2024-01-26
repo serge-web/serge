@@ -60,6 +60,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
         className: styles['asset-icon']
       })
       map.pm.setGlobalOptions({ markerStyle: { icon } })
+      map.zoomControl.setPosition('bottomright')
       initMapListener()
     }
   }, [map])

@@ -349,7 +349,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         </PanelGroup>
       </Box>
     </Slide>
-    <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={false} className={styles['map-container']}>
+    <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={true} className={styles['map-container']} >
       
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
