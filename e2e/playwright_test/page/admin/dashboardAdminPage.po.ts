@@ -1,6 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
 import { BasePage } from '../basePage.po';
-
+import fs from 'fs';
+import path from 'path';
 export class DashboardAdminPage extends BasePage{
   readonly page: Page;
   readonly leftNav: any;
@@ -36,8 +37,12 @@ export class DashboardAdminPage extends BasePage{
       return page.getByRole('button', { name: nameBtn })
     };
 
+    // this.customAction = (nameAction : string): Locator => {
+    //   return page.locator("span:has-text('"+nameAction+"')");
+    // };
+
     this.customAction = (nameAction : string): Locator => {
-      return page.locator("span:has-text('"+nameAction+"')");
+      return page.locator("//span[text()='"+nameAction+"']");
     };
     this.gameName = page.locator('//span[contains(@class,"_wargame-title")]');
     this.gameNameText = page.locator('//span[contains(@class,"_wargame-title")]//span[@title]');
@@ -140,6 +145,29 @@ export class DashboardAdminPage extends BasePage{
     const gameTitleListCount = await this.gameTitleList.count();
     expect(gameTableCount).toEqual(1);
     expect(gameTitleListCount).toEqual(0);
+  }
+
+  async verifyDataIsDownloaded() {
+    const page1Promise = this.page.waitForEvent('popup');
+    const downloadPromise = this.page.waitForEvent('download');
+    const page1 = await page1Promise;
+    const download = await downloadPromise;
+    const downloadPath = await download.path();
+    const fileSize = fs.statSync(downloadPath).size;
+    const fileName = path.basename(downloadPath);
+    expect(fileSize).toBeGreaterThan(0);
+    expect(fileName).toContain('all_dbs');
+  }
+
+  async verifyDataOneGameIsDownloaded() {
+    const page1Promise = this.page.waitForEvent('popup');
+    const downloadPromise = this.page.waitForEvent('download');
+    const page1 = await page1Promise;
+    const download = await downloadPromise;
+    const downloadPath = await download.path();
+    const fileSize = fs.statSync(downloadPath).size;
+    const fileName = path.basename(downloadPath);
+    expect(fileSize).toBeGreaterThan(0);
   }
   
 }

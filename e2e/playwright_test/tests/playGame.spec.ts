@@ -483,3 +483,29 @@ test.only('Verify Clear wargames is successfully', async ({ page }) => {
   await dashboardPage.verifyGameListIsEmpty();
 
 });
+
+test.only('Verify downloaded all game is working successfully', async ({ page }) => {
+
+  const dashboardPage = new DashboardAdminPage(page)
+  const loginAdminPage = new LoginAdminPage(page)
+  await loginAdminPage.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage.verifyLoginPassed();
+
+  await dashboardPage.verifyGameListIsNotEmpty();
+  await dashboardPage.clickMenuBar('Clear wargames');
+  await dashboardPage.verifyDataIsDownloaded();
+
+});
+
+test('Verify downloaded a game is working successfully', async ({ page }) => {
+  const dashboardPage = new DashboardAdminPage(page)
+  const loginAdminPage = new LoginAdminPage(page)
+  await loginAdminPage.openUrl(config.BASE_URL+'serge/admin');
+  await loginAdminPage.inputLoginForm(Constants.defaultPassword);
+  await loginAdminPage.verifyLoginPassed();
+  const name = await dashboardPage.getFirstNameOfGame()
+  await dashboardPage.clickThreeDotsAtFirstGame();
+  await dashboardPage.selectAction('Download');
+  await dashboardPage.verifyDataOneGameIsDownloaded();
+});
