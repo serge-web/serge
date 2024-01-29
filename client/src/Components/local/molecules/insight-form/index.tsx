@@ -21,12 +21,14 @@ export const InsightForm: React.FC<Props> = ({ onCancel, onSend, darkMode }: Pro
       message: target.value
     })
   }
+  
   const setName = (target: { value: string }): any => {
     setInputValues({
       ...inputValues,
       name: target.value
     })
   }
+
   return (
     <div className={styles['insight-form']}>
       <div className={styles['insight-title']}>

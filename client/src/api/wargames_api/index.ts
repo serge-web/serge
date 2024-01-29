@@ -631,7 +631,7 @@ export const nextGameTurn = (dbName: string): Promise<Wargame> => {
     .catch(rejectDefault)
 }
 
-export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, turnNumber: number, message: string): Promise<MessageFeedback> => {
+export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, turnNumber: number, message: string, name: string): Promise<MessageFeedback> => {
   const { db } = getWargameDbByName(dbName)
   const feedback: MessageFeedback = {
     _id: new Date().toISOString(),
@@ -644,6 +644,7 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
     message: {
       content: message
     },
+    name,
     messageType: FEEDBACK_MESSAGE
   }
   return db.put(feedback).catch(rejectDefault)

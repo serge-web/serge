@@ -24,7 +24,7 @@ const MessagesListChatChannel = ({ messages, markAllAsRead }) => {
             <div className='info-wrap'>
               <Badge pill variant='primary'>{message.details.from.force}</Badge>
               <Badge pill variant='secondary'>{message.details.from.role}</Badge>
-              {message.details.from.name && <Badge pill variant='warning'>{message.details.from.name}</Badge>}
+              {message.name && <Badge pill variant='warning'>{message.name}</Badge>}
               <span>{formatFullDate(message.details.timestamp)}</span>
             </div>
             <div className={classNames({ bold: !isMessageRead(message) })}>

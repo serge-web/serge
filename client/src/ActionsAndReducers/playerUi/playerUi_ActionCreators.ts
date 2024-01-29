@@ -128,9 +128,9 @@ export const nextGameTurn = (dbName: string): Function => {
   }
 }
 
-export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsFrom, message: string, turnNumber: number): Function => {
+export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsFrom, message: string, turnNumber: number, name: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    await wargamesApi.postFeedback(dbName, fromDetails, turnNumber, message)
+    await wargamesApi.postFeedback(dbName, fromDetails, turnNumber, message, name)
     dispatch(closeModal())
   }
 }
@@ -151,7 +151,7 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
       roleName: '',
       name: password
     }
-    await wargamesApi.postFeedback(dbName, from, turnNumber, 'A failed login attempt has been made.')
+    await wargamesApi.postFeedback(dbName, from, turnNumber, 'A failed login attempt has been made.', password)
   }
 }
 

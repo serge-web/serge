@@ -25,11 +25,10 @@ const InsightsModal: React.FC = () => {
       forceId: selectedForce.uniqid,
       forceColor: selectedForce.color,
       roleId: state.selectedRole,
-      roleName: state.selectedRoleName,
-      name
+      roleName: state.selectedRoleName
     }
 
-    sendFeedbackMessage(state.currentWargame, from, message, currentTurn)(dispatch)
+    sendFeedbackMessage(state.currentWargame, from, message, currentTurn, name)(dispatch)
   }
 
   const handleClose = () => {
