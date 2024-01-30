@@ -644,9 +644,11 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
     message: {
       content: message
     },
-    name,
     messageType: FEEDBACK_MESSAGE
   }
+
+  if (name) feedback.name = name
+  
   return db.put(feedback).catch(rejectDefault)
 }
 

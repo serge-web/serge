@@ -165,7 +165,7 @@ export interface ChatMessage extends CoreMessage {
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE
   message: MessageStructure
-  name: string
+  name?: string
 }
 
 export interface MappingMessage extends CoreMessage {
