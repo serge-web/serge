@@ -3,7 +3,7 @@ import React from 'react'
 import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
-import { CHANNEL_MAPPING, CUSTOM_MESSAGE, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
+import { CHANNEL_MAPPING, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
 import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
@@ -201,7 +201,7 @@ const coreMessage: MappingMessage = {
     timestamp: '2023-11-23T23:32:00',
     turnNumber: 1
   },
-  messageType: CUSTOM_MESSAGE,
+  messageType: MAPPING_MESSAGE,
   featureCollection: features
 }
 
