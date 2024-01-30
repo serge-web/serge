@@ -51,7 +51,7 @@
     "@vitejs/plugin-react": "^4.0.3",
     "babel-loader": "^9.1.2",
     "bootstrap": "^4.3.1",
-    "buildcom": "^3.0.6", 
+    "buildcom": "^3.0.6",
     "check-types": "^11.2.2",
     "classnames": "^2.2.6",
     "copyfiles": "^2.2.0",
@@ -165,6 +165,7 @@
     "stylelint": "^13.13.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-prettier": "^1.2.0",
+    "vite-plugin-node-polyfills": "^0.19.0",
     "webpack": "^5.82.1"
   },
   "scripts": {

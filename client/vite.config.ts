@@ -6,6 +6,7 @@ import path, { resolve } from 'path'
 import envCompatible from 'vite-plugin-env-compatible'
 import checker from 'vite-plugin-checker'
 import macrosPlugin from 'vite-plugin-babel-macros'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import sass from 'sass'
 
 // https://vitejs.dev/config/
@@ -29,6 +30,7 @@ export default defineConfig(({ mode }) => {
           lintCommand: 'eslint "./src/**/*.{ts,tsx}"'
         }
       }), 
+      nodePolyfills(),
       // Plugin to handle TypeScript paths
       viteTsconfigPaths(), 
       // Plugin for handling SVG files as React components
