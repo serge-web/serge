@@ -208,7 +208,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         return {
           type: 'Feature',
           properties: {
-            _type: RENDERER_MILSYM,
+            _type: RENDERER_CORE,
             _externalType: 'Text', // GeoJsonObject does not have geometry.type = 'Text' so adding an indicator in property
             fontSize: DEFAULT_FONT_SIZE,
             padding: DEFAULT_PADDING,
