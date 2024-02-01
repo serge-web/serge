@@ -51,6 +51,6 @@ describe('calculateHealthColor', () => {
 
     const result = calculateHealthColor(health)
     expect(result).toBe(expectedColor)
-    expect(result).toBe('rgb(51, 255, 0)')
+    expect(result).toBe('rgb(0, 255, 0)')
   })
 })
