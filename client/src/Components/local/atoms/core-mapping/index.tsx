@@ -320,10 +320,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }
   }
 
-  const onSelect = (id: number | string) => {
-    setSelectedFeature(id)
-  }
-
   const getExtraFilterProps = (): PropertyTypes[] => {
     const rendererObjects: BaseRenderer[] = channel.renderers
     const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
@@ -362,7 +358,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       /> 
       <MapControls onCreate={onCreate} onChange={onChange}/>
       <LayerGroup>
-        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} onEdited={onEdited} onSelect={onSelect} />) }
+        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} onEdited={onEdited} onSelect={setSelectedFeature} />) }
       </LayerGroup>
     </MapContainer>
   </Box>
