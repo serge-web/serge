@@ -17,13 +17,14 @@ type MappingPanelProps = {
   onClose: () => void
   features?: FeatureCollection<Geometry, GeoJsonProperties>
   extraFilterProps: PropertyTypes[]
+  selected: string | number
   onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
 }
 
 const modalStyle = { content: { width: '450px' } }
 const bodyStyle = { padding: '5px' }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps, onSave }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps, selected, onSave }): React.ReactElement => {
   const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
@@ -62,6 +63,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       setSelectedProps(propsList)
     }
   }, [selectedFeatures])
+
+  useEffect(() => {
+    selectItem('' + selected, true)
+  }, [selected])
   
   const onAddNewFilter = () => setOpenAddFilter(true)
 
@@ -97,7 +102,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   }
 
   const selectItem = (id: string, checked: boolean) => {
-    const featrure = features?.features.filter(f => f.properties?.id === id) || []
+    const featrure = features?.features.filter(f => '' + f.properties?.id === id) || []
     setSelectedFeatures(checked ? featrure : [])
   }
 
