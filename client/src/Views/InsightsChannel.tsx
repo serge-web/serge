@@ -17,7 +17,7 @@ const InsightsChannel = (): React.ReactElement => {
     })
     dispatch(updateMessageState(true))
   }
-
+  
   return (
     <div className='contain-game-insights'>
       <MessagesListRenderProp

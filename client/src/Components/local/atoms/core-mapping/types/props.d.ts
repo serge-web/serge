@@ -19,6 +19,7 @@ export type CoreRendererProps = {
   onDragged: (id: number | string, latLngs: L.LatLng | L.LatLng[] | L.LatLng[][]) => void
   onRemoved: (id: number) => void
   onEdited: (id: number | string, value: string) => void
+  onSelect: (id: number | string) => void
 };
 
 export type GeomanControlProps = {

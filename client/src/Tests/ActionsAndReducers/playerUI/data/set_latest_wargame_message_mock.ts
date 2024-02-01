@@ -674,6 +674,7 @@ const state: PlayerUi = {
       message: {
         content: 'La test'
       },
+      name: 'John Miller',
       messageType: FEEDBACK_MESSAGE,
       _id: '2020-12-07T06:21:42.431Z',
       _rev: '1-dfe835c058e9711c954ad22366a8a2e8'
@@ -694,6 +695,7 @@ const state: PlayerUi = {
       message: {
         content: 'ds'
       },
+      name: 'Sarah Wilson',
       messageType: FEEDBACK_MESSAGE,
       _id: '2020-12-06T11:05:12.038Z',
       _rev: '1-5201037a26e24f70ae45464c20b312aa'
@@ -714,6 +716,7 @@ const state: PlayerUi = {
       message: {
         content: 'Lorem ipsum do lor sit amet'
       },
+      name: 'Alice Johnson',
       messageType: FEEDBACK_MESSAGE,
       _id: '2020-10-01T01:19:56.492Z',
       _rev: '1-1e2289c6ee47e2dfd1ffb7e84f66514f'
