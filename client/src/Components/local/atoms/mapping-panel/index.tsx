@@ -2,7 +2,7 @@ import { faArrowAltCircleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import { cloneDeep, get, set, uniq } from 'lodash'
+import { cloneDeep, get, isEqual, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { CoreProperties, PropertyTypes } from 'src/custom-types'
@@ -32,6 +32,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   const [selectedFeatures, setSelectedFeatures] = useState<Feature<Geometry, GeoJsonProperties>[]>([])
   const [selectedProps, setSelectedProps] = useState<SelectedProps>({})
   const [selectedFiltersProps, setSelectedFiltersProps] = useState<SelectedProps>({})
+  const [disableSave, setDisableSave] = useState<boolean>(true)
   
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
@@ -111,18 +112,19 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       return
     }
     const clonePendingSaveFeatures = cloneDeep(pendingSaveFeatures)
-    let features = clonePendingSaveFeatures.features
-    if (!features) {
+    let localFeatures = clonePendingSaveFeatures.features
+    if (!localFeatures) {
       return
     }
-    features = features.map(f => {
+    localFeatures = localFeatures.map(f => {
       if (get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', '') && f.properties) {
         f.properties[key] = value
       }
       return f
     })
-    clonePendingSaveFeatures.features = features
+    clonePendingSaveFeatures.features = localFeatures
     setPendingSaveFeatures(clonePendingSaveFeatures)
+    setDisableSave(isEqual(features?.features, localFeatures))
   }
 
   const onPropertiesChange = (key: string, value: any) => {
@@ -169,6 +171,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   const onLocalSave = () => {
     if (pendingSaveFeatures) {
       onSave(pendingSaveFeatures)
+      setDisableSave(true)
     }
   }
 
@@ -252,7 +255,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         </div>
         <div className={styles.button}>
           <button onClick={onClose}>Cancel</button>
-          <button onClick={onLocalSave}>Save</button>
+          <button disabled={disableSave} onClick={onLocalSave}>Save</button>
         </div>
       </Panel>
       

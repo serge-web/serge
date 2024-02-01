@@ -8,6 +8,11 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
   return <Fragment>
     {
       Object.keys(selectedProp).map((key, kIdx) => {
+        // do not allow to edit id field
+        if (key === 'id') {
+          return null
+        }
+        
         const { value, choices } = selectedProp[key]
         return <div key={kIdx} className={styles.itemsBox}>
           <p>{key}:</p>
