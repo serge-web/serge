@@ -3,21 +3,14 @@ import { Feature, Geometry, Point } from 'geojson'
 import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
+import { ForceStyle } from 'src/Helpers'
 import { CoreProperties, RENDERER_CORE } from 'src/custom-types'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
 
-export const colorFor = (force: string): string => {
-  switch (force) {
-    case 'f-red':
-      return '#F00'
-    case 'f-blue':
-      return '#00F'
-    case 'f-green':
-      return '#0F0'
-    default: 
-      return '#F00'  
-  }
+export const colorFor = (force: string, forceStyles?: ForceStyle[]): string => {
+  const forceStyle = forceStyles?.find(style => style.force === force)
+  return forceStyle ? forceStyle.color : '#F00'
 }
 
 const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited }) => {
@@ -25,7 +18,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       const props = feature.properties as CoreProperties
-      const color: string = colorFor(props.force)
+      const color = colorFor(props.force, props._forceStyles)
       const weight = feature.geometry.type === 'Polygon' ? 1 : 3
       return {
         color,
@@ -42,7 +35,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     const elm = marker.pm['_layer'].pm.getElement() as HTMLTextAreaElement
     elm.style.textAlign = 'center'
     elm.style.padding = '0px'
-    elm.style.backgroundColor = colorFor(props.force)
+    elm.style.backgroundColor = colorFor(props.force, props._forceStyles)
     elm.style.color = props.color
     elm.style.fontSize = (props.fontSize || DEFAULT_FONT_SIZE) + 'px'
   }
