@@ -57,9 +57,7 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
 
   if (handler) {
     handler(newState, action, tab)
-  } else {
-    console.warn(`Heandler not defined for a action type: ${action.type}`)
-  }
+  } 
 
   return newState
 }
