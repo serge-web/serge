@@ -133,7 +133,7 @@ export const populateWargameList = (): Promise<string | Wargame[]> => {
       const db = new DbProvider(databasePath + name)
       wargameDbStore.unshift({ name, db })
     })
-
+    
     const promises: (Promise<Wargame>)[] = wargameDbStore.map(({ name, db }) => {
       return getLatestWargameRevision(name).then((res) => {
         return ({

@@ -14,6 +14,7 @@ import RolesAccordion from './settings-force-roles'
 import styles from './styles.module.scss'
 import PropTypes, { ForceData } from './types/props'
 import { resolveImagePath } from 'src/Helpers'
+
 export const SettingForces: React.FC<PropTypes> = ({
   forces: initialForces,
   onSave,

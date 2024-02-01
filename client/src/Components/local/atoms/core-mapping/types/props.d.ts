@@ -18,6 +18,7 @@ export type CoreRendererProps = {
   features: FeatureCollection<Geometry, GeoJsonProperties>
   onDragged: (id: number | string, latLngs: L.LatLng | L.LatLng[] | L.LatLng[][]) => void
   onRemoved: (id: number) => void
+  onEdited: (id: number | string, value: string) => void
 };
 
 export type GeomanControlProps = {

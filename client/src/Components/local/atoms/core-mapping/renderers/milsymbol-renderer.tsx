@@ -1,4 +1,5 @@
 
+import { Feature, Geometry, Point } from 'geojson'
 import L from 'leaflet'
 import ms from 'milsymbol'
 import React from 'react'
@@ -6,13 +7,15 @@ import { GeoJSON } from 'react-leaflet-v4'
 import { RENDERER_MILSYM } from 'src/custom-types'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
-import { Feature, Geometry, Point } from 'geojson'
+
+export const DEFAULT_FONT_SIZE = 14
+export const DEFAULT_PADDING = 0
 
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
 
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
-    if (feature.geometry.type === 'Point') {
+    if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       const icon = new ms.Symbol(feature.properties.sidc)
       const marker = L.marker(
         latLng, {
@@ -27,10 +30,9 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       })
       marker.addEventListener('pm:dragend', e => {
         const g = e as any
-        const le = e as L.LeafletEvent
         switch (g.shape) {
           case 'Marker': {
-            const coords: L.LatLng = le.layer._latlng
+            const coords: L.LatLng = g.layer._latlng
             onDragged(feature.properties.id, coords)
             break
           } 

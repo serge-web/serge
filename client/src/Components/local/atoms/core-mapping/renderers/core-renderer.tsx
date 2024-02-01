@@ -1,12 +1,13 @@
 
+import { Feature, Geometry, Point } from 'geojson'
+import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { CoreProperties, RENDERER_CORE } from 'src/custom-types'
 import { CoreRendererProps } from '../types/props'
-import { Feature, Geometry } from 'geojson'
-import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
+import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
 
-const colorFor = (force: string) => {
+export const colorFor = (force: string): string => {
   switch (force) {
     case 'f-red':
       return '#F00'
@@ -15,11 +16,11 @@ const colorFor = (force: string) => {
     case 'f-green':
       return '#0F0'
     default: 
-      return '#aaa'  
+      return '#F00'  
   }
 }
 
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved }) => {
+const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited }) => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
@@ -36,6 +37,55 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
       return {}
     }
   }
+
+  const setTextStyleFromProperties = (marker: L.Marker<any>, props: any) => {
+    const elm = marker.pm['_layer'].pm.getElement() as HTMLTextAreaElement
+    elm.style.textAlign = 'center'
+    elm.style.padding = '0px'
+    elm.style.backgroundColor = colorFor(props.force)
+    elm.style.color = props.color
+    elm.style.fontSize = (props.fontSize || DEFAULT_FONT_SIZE) + 'px'
+  }
+
+  const adjustSizeFromProperties = (marker: L.Marker<any>, props: any) => {
+    const elm = marker.pm['_layer'].pm.getElement() as HTMLTextAreaElement
+    elm.style.padding = (props.padding || DEFAULT_PADDING) + 'px'
+    if (props.padding) {
+      elm.style.width = parseInt(elm.style.width) + 2 * props.padding + 'px'
+      elm.style.height = parseInt(elm.style.height) + 2 * props.padding + 'px'
+    }
+  }
+
+  const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
+    if (feature.properties._externalType === 'Text') {
+      const marker = L.marker(latLng, {
+        textMarker: true,
+        text: feature.properties.label
+      })
+
+      marker.addEventListener('pm:edit', e => {
+        onEdited(feature.properties.id, e.target.pm.textArea.value)
+      })
+      marker.addEventListener('pm:remove', () => {
+        onRemoved(feature.properties.id)
+      })
+      marker.addEventListener('pm:dragend', e => {
+        const coords: L.LatLng = e.layer._latlng
+        feature.geometry.coordinates = [coords.lng, coords.lat]
+        onDragged(feature.properties.id, coords)
+      })
+      // let geoman calculate the width and height of the textarea element itself
+      setTextStyleFromProperties(marker, feature.properties)
+      // we then adjust the width and height based on the input padding
+      setTimeout(() => {
+        adjustSizeFromProperties(marker, feature.properties)
+      }, 10)
+      return marker
+    } else {
+      throw new Error('Cannot create layer for ' + feature.geometry.type)
+    }
+  }
+
   return <GeoJSON onEachFeature={(f, l) => {
     l.addEventListener('pm:remove', () => {
       onRemoved(f.properties.id)
@@ -49,12 +99,12 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
           const coords: L.LatLng[][] = le.layer._latlngs
           onDragged(f.properties.id, coords)
           break
-        } 
+        }
         case 'Line': {
           const coords: L.LatLng[] = le.layer._latlngs
           onDragged(f.properties.id, coords)
           break
-        } 
+        }
 
         default: {
           console.warn('Drag handler not created for ', g.shape)
@@ -64,7 +114,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
 
     l.addEventListener('pm:markerdragend', dragHandler)
     l.addEventListener('pm:dragend', dragHandler)
-  }} data={features} style={style} filter={filter} key={'core_renderer_' + Math.random()} />
+  }} pointToLayer={pointToLayer} data={features} style={style} filter={filter} key={'core_renderer_' + Math.random()} />
 }
 
 export default CoreRenderer
