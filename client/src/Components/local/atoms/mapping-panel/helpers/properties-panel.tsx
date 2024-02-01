@@ -7,12 +7,7 @@ import { ProppertiesPanelProps } from '../types/props'
 const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter }) => {
   return <Fragment>
     {
-      Object.keys(selectedProp).map((key, kIdx) => {
-        // do not allow to edit id field
-        if (key === 'id') {
-          return null
-        }
-        
+      Object.keys(selectedProp).map((key, kIdx) => {        
         const { value, choices } = selectedProp[key]
         return <div key={kIdx} className={styles.itemsBox}>
           <p>{key}:</p>
