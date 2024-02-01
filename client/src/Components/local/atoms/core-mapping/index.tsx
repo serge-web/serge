@@ -44,12 +44,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         return custMessage.messageType === MAPPING_MESSAGE || custMessage.messageType === MAPPING_MESSAGE_DELTA
       } else return false
     })
-    
     if (mappingMessages.length) {
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
         if (mappingMessage.messageType === MAPPING_MESSAGE) {
           const baseMappingMessage = mappingMessage as MappingMessage
+
           // keep the mapping message as original for generating patch later
           if (!lastMessage) {
             setLastMessage(cloneDeep(baseMappingMessage))
@@ -142,6 +142,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     const commonProps = {
       id: (e as any).layer._leaflet_id,
       phase: currentPhase,
+      health: 100,
       label: playerForce.name,
       turn: currentTurn,
       force: playerForce.uniqid,
@@ -357,7 +358,15 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       /> 
       <MapControls onCreate={onCreate} onChange={onChange}/>
       <LayerGroup>
-        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} onEdited={onEdited} />) }
+        {
+          featureCollection && renderers.map((Component, idx) => 
+            <Component 
+              onRemoved={onRemoved} 
+              key={idx + featureCollection.features.length} 
+              features={featureCollection} 
+              onDragged={onDragged} 
+              onEdited={onEdited} />) 
+        }
       </LayerGroup>
     </MapContainer>
   </Box>

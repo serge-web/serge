@@ -39,4 +39,15 @@
     width: 35px;
     height: 35px;
   }
+
+}
+
+.health-bar {
+  position: absolute;
+  bottom: -19px;
+  left: 0;
+  height: 10px;
+  width: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
