@@ -18,6 +18,7 @@ interface CssExports {
   'resize-handle-horizontal': string;
   'resize-handle-inner': string;
   'resize-handle-outer': string;
+  'latLng': string
 }
 export const cssExports: CssExports;
 export default cssExports;

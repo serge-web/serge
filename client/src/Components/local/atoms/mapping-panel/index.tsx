@@ -112,7 +112,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     }
     features = features.map(f => {
       if (get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', '') && f.properties) {
-        f.properties[key] = value
+        if (key === 'lat') {
+          set(f, 'geometry.coordinates.1', +value)
+        } else if (key === 'lng') {
+          set(f, 'geometry.coordinates.0', +value)
+        } else {
+          f.properties[key] = value
+        }
       }
       return f
     })

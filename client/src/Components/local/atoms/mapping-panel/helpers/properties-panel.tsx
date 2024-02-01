@@ -9,7 +9,24 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
     {
       Object.keys(selectedProp).map((key, kIdx) => {
         const { value, choices } = selectedProp[key]
-        return <div key={kIdx} className={styles.itemsBox}>
+
+        if ((key === 'lat')) {
+          const latValue = selectedProp.lat.value
+          const lngValue = selectedProp.lng.value
+          return <div key={key + kIdx} className={styles.itemsBox}>
+            <p>Lat/Lng:</p>
+            <div className={styles.latLng}>
+              <input style={{ width: '49%' }} value={latValue} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange('lat', e.target.value)} />
+              <input style={{ width: '49%' }} value={lngValue} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange('lng', e.target.value)} />
+            </div>
+          </div>
+        }
+
+        if (key === 'lng') {
+          return <Fragment key={key + kIdx}></Fragment>
+        }
+       
+        return <div key={key + kIdx} className={styles.itemsBox}>
           <p>{key}:</p>
           <div>
             {choices.length > 0
@@ -18,7 +35,6 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
               </select>
               : <input value={value} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
             }
-               
           </div>
           {onRemoveFilter && <FontAwesomeIcon icon={faMinusCircle} className={styles.removeIcon} onClick={() => onRemoveFilter(key)}/>}
         </div>
