@@ -11,19 +11,11 @@ import { CoreRendererProps } from '../types/props'
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
-export const mockLat = 50.1234567891011
-export const mockLng = 0.1234567891011
-
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
-
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       const icon = new ms.Symbol(feature.properties.sidc)
-      if (feature.geometry.coordinates[1] && feature.geometry.coordinates[0]) {
-        latLng.lat = feature.geometry.coordinates[1]
-        latLng.lng = feature.geometry.coordinates[0]
-      }
       const marker = L.marker(
         latLng, {
           icon: L.divIcon({

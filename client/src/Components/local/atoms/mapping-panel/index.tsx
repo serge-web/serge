@@ -45,12 +45,25 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   useEffect(() => {
     if (selectedFeatures.length) {
       const properties = selectedFeatures[0].properties as CoreProperties
-      if (!properties) {
+      const geometry = selectedFeatures[0].geometry
+
+      if (!properties || !geometry) {
         return
       }
       const propsList = Object.keys(properties).reduce((result, propKey) => {
         if (propKey.startsWith('_')) {
           return result
+        }
+        if (geometry.type === 'Point') {
+          // inject lat/lng
+          result['lat'] = {
+            value: geometry.coordinates[1],
+            choices: []
+          }
+          result['lng'] = {
+            value: geometry.coordinates[0],
+            choices: []
+          }
         }
         const extraProps = extraFilterProps.find(prop => prop.id === propKey)
         result[propKey] = {
@@ -113,9 +126,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     features = features.map(f => {
       if (get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', '') && f.properties) {
         if (key === 'lat') {
-          set(f, 'geometry.coordinates.1', +value)
+          set(f, 'geometry.coordinates.1', +selectedProps.lat.value)
         } else if (key === 'lng') {
-          set(f, 'geometry.coordinates.0', +value)
+          set(f, 'geometry.coordinates.0', +selectedProps.lng.value)
         } else {
           f.properties[key] = value
         }
