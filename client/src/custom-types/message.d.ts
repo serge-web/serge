@@ -14,16 +14,10 @@ export interface MessageDetailsFrom {
   readonly forceColor: ForceData['color']
   /** role of the individual that wrote message */
   readonly roleId: Role['roleId']
-  /** name of the role that send messsage */
+  /** name of the role that send messsage, to be @deprecated */
   readonly roleName: Role['name']
   /** URL of icon to display for this force
-   * TODO: once all code under TypeScript try making it non-optional,
-   * and fix cases where it's not assigned
    */
-  /**
-   * @deprecated use iconURL instead
-   */
-  icon?: string
   iconURL: ForceData['iconURL']
   /** user-name, as typed into Feedback/insights form */
   name?: string
@@ -165,6 +159,7 @@ export interface ChatMessage extends CoreMessage {
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE
   message: MessageStructure
+  name?: string
 }
 
 export interface MappingMessage extends CoreMessage {

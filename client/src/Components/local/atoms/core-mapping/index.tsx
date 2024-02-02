@@ -28,6 +28,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
   const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
+  const [selectedFeature, setSelectedFeature] = useState<number | string>('')
 
   // const bounds = L.latLngBounds(channel.constraints.bounds)
   const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
@@ -337,7 +338,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
             minSizePercentage={35}
             style={{ pointerEvents: 'all' }}
           >
-            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} />
+            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} selected={selectedFeature} />
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel
@@ -357,7 +358,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       /> 
       <MapControls onCreate={onCreate} onChange={onChange}/>
       <LayerGroup>
-        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} onEdited={onEdited} />) }
+        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} onEdited={onEdited} onSelect={setSelectedFeature} />) }
       </LayerGroup>
     </MapContainer>
   </Box>
