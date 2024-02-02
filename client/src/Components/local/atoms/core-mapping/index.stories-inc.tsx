@@ -285,7 +285,7 @@ export const Default: React.FC = () => {
       channel={coreMapChannel}
       playerRole={'mgr'}
       currentTurn={1}
-      forces={[]}
+      forceStyles={[]}
       currentPhase={Phase.Planning}
       postBack={noop}
       openPanelAsDefault={false}
@@ -301,7 +301,7 @@ export const Bulk: React.FC = () => {
       channel={coreMapChannel}
       playerRole={'mgr'}
       currentTurn={1}
-      forces={[]}
+      forceStyles={[]}
       currentPhase={Phase.Planning}
       postBack={noop}
       openPanelAsDefault={false}
