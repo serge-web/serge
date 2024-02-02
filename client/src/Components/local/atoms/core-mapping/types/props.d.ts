@@ -7,7 +7,7 @@ export default interface PropTypes {
   playerRole: Role['id']
   currentTurn: number
   currentPhase: Phase
-  forces: ForceStyle[]
+  forceStyles: ForceStyle[]
   channel: ChannelMapping 
   messages: CoreMappingMessage[]
   postBack: (message: MappingMessage | MappingMessageDelta) => void

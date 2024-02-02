@@ -9,8 +9,9 @@ import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
 import { Phase } from 'src/config'
 import CoreMapping from './local/atoms/core-mapping'
+import { forceStyles } from 'src/Helpers'
 
-const CoreMappingChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId }) => {
+const CoreMappingChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const playerUiDispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
@@ -33,6 +34,9 @@ const CoreMappingChannel: React.FC<{ channelId: string, isCustomChannel?: boolea
     sendMappingMessage(state.currentWargame, message)
   }
 
+  // it should be get from database ?
+  const forceStylesArr = forceStyles(state.allForces, false)
+
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <CoreMapping
@@ -40,7 +44,7 @@ const CoreMappingChannel: React.FC<{ channelId: string, isCustomChannel?: boolea
         channel={channel}
         currentPhase={Phase.Planning}
         currentTurn={1}
-        forces={[]}
+        forceStyles={forceStylesArr}
         messages={messages}
         playerForce={selectedForce}
         playerRole={selectedRole}
