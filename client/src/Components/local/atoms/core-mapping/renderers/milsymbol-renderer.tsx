@@ -12,7 +12,7 @@ import { calculateHealthColor } from 'src/Helpers'
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
-const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved }): any => {
+const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
      
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
@@ -49,7 +49,10 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
           }
         }
       })
-  
+      marker.addEventListener('click', () => {
+        onSelect(feature.properties.id)
+      })
+
       return marker
     } else {
       throw new Error('Cannot create layer for ' + feature.geometry.type)
