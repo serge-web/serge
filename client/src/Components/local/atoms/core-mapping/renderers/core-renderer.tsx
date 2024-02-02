@@ -90,6 +90,11 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     l.addEventListener('pm:remove', () => {
       onRemoved(f.properties.id)
     })
+
+    l.addEventListener('pm:cut', () => {
+      onRemoved(f.properties.id)
+    })
+
     l.addEventListener('click', () => {
       onSelect(f.properties.id)
     })
