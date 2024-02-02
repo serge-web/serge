@@ -35,6 +35,12 @@
 }
 
 .asset-icon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.asset-icon {
   svg {
     width: 35px;
     height: 35px;
@@ -43,11 +49,11 @@
 }
 
 .health-bar {
-  position: absolute;
-  bottom: -19px;
+  height: 10px;
+  width: 20px;
+  margin-top: 3px;
   left: 0;
   height: 10px;
   width: 20px;
-  border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

@@ -167,14 +167,15 @@
 }
 
 .asset-icon {
-  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2px;
 }
 
 .health-bar {
-  position: absolute;
-  bottom: 0px;
   height: 10px;
   width: 20px;
-  border-radius: 5px;
+  margin-top: 3px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
