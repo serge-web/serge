@@ -11,7 +11,7 @@ import { Phase } from 'src/config'
 import CoreMapping from './local/atoms/core-mapping'
 import { forceStyles } from 'src/Helpers'
 
-const CoreMappingChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId }) => {
+const CoreMappingChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const playerUiDispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
