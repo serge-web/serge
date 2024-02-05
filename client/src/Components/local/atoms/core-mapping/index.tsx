@@ -22,7 +22,7 @@ import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './renderers/milsymbol-render
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, forceStyles, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [lastMessage, setLastMessage] = useState<MappingMessage>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
@@ -147,7 +147,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       turn: currentTurn,
       force: playerForce.uniqid,
       category: 'Civilian',
-      color: playerForce.color
+      color: playerForce.color,
+      _forceStyles: forceStyles
     }
 
     switch (shapeType) {
@@ -333,7 +334,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       <Box className={styles['slide-container']}>
         <PanelGroup direction="horizontal" >
           <Panel
-            collapsible={true}
             defaultSizePercentage={35}
             minSizePercentage={35}
             style={{ pointerEvents: 'all' }}
@@ -342,7 +342,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel
-            collapsible={true}
             defaultSizePercentage={65}
             style={{ pointerEvents: 'none' }}
           >
