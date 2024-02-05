@@ -63,6 +63,15 @@ const turnProp: NumberProperty = {
   format: '0'
 }
 
+const healthProp: NumberProperty = {
+  id: 'health',
+  label: 'Health',
+  description: 'The health of this unit (0..100)',
+  type: 'NumberProperty',
+  editable: false,
+  format: '0'
+}
+
 const categoryProp: EnumProperty = {
   id: 'category',
   label: 'Category',
@@ -88,7 +97,6 @@ const coreProps: CoreProperties = {
   phase: Phase.Planning,
   label: 'START LINE',
   turn: 1,
-  health: 100,
   force: 'f-red',
   // additional props for core renderer
   important: 'Yes'
@@ -220,7 +228,7 @@ const milSymRenderer: MilSymRenderer = {
   id: 'milSym',
   type: 'MilSymRenderer',
   baseProps,
-  additionalProps: [categoryProp, sizeProp]
+  additionalProps: [categoryProp, sizeProp, healthProp]
 }
 
 const coreMapChannel: ChannelMapping = {
