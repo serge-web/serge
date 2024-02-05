@@ -2,7 +2,7 @@
 import { Feature, Geometry, Point } from 'geojson'
 import L from 'leaflet'
 import ms from 'milsymbol'
-import React from 'react'
+import React, { useState } from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { RENDERER_MILSYM } from 'src/custom-types'
 import styles from '../styles.module.scss'
@@ -13,13 +13,14 @@ export const DEFAULT_PADDING = 0
 
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
+  const [showLabels] = useState(true)
 
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       console.log('feature.properties.', feature.properties)
       const icon = new ms.Symbol(feature.properties.sidc, {
         size: 35, 
-        additionalInformation: feature.properties.label.toUpperCase()
+        additionalInformation: showLabels && feature.properties.label.toUpperCase()
       })
       
       const marker = L.marker(
