@@ -335,7 +335,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       <Box className={styles['slide-container']}>
         <PanelGroup direction="horizontal" >
           <Panel
-            collapsible={true}
             defaultSizePercentage={35}
             minSizePercentage={35}
             style={{ pointerEvents: 'all' }}
@@ -344,7 +343,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel
-            collapsible={true}
             defaultSizePercentage={65}
             style={{ pointerEvents: 'none' }}
           >
