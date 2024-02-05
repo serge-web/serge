@@ -16,7 +16,12 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
 
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
-      const icon = new ms.Symbol(feature.properties.sidc)
+      console.log('feature.properties.', feature.properties)
+      const icon = new ms.Symbol(feature.properties.sidc, {
+        size: 35, 
+        additionalInformation: feature.properties.label.toUpperCase()
+      })
+      
       const marker = L.marker(
         latLng, {
           icon: L.divIcon({
