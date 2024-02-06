@@ -28,12 +28,11 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
   const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
   const [selectedFeature, setSelectedFeature] = useState<number | string>('')
-<<<<<<< HEAD
+
   const [showLabels, setShowLabels] = useState<boolean>(false)
-=======
 
   const lastMessages = useRef<MappingMessage>()
->>>>>>> c7fbc1f5cca046b2838a89a22a17068170a19710
+
   // const bounds = L.latLngBounds(channel.constraints.bounds)
   const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
