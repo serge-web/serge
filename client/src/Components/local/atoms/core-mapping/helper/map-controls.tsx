@@ -31,7 +31,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
             const iconElement = layer.getElement()
             const svgText = iconElement && iconElement.querySelector('text')
             if (svgText) {
-              if (layersVisible && svgText) {
+              if (layersVisible) {
                 svgText.style.opacity = '1'
               } else {
                 svgText.style.opacity = '0'
