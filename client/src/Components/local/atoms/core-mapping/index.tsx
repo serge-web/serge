@@ -58,7 +58,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           const basedFeatureCollection = lastMessages.current.featureCollection
           // find latest delta message based on mapping message id
           const deltaMessages = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE_DELTA && get(msg, 'since', '') === baseMappingMessage._id)
-          if (allowToApplyPatch(baseMappingMessage, deltaMessages)) {
+          if (!isAppliedPatch(baseMappingMessage, deltaMessages)) {
             const cloneBaseCollection = cloneDeep(basedFeatureCollection)
             // apply latest delta message into original mapping message's feature collection
             baseMappingMessage.featureCollection = applyPatch(cloneBaseCollection, deltaMessages as MappingMessageDelta)
@@ -96,9 +96,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }
   }, [pendingCreate])
   
-  const allowToApplyPatch = (message: MappingMessage, deltaMessage: MappingMessageDelta) => {
-    return message.featureCollection.features.every(f => {
-      return deltaMessage.delta.every((dtMsg: any) => get(f, 'properties.id', '') !== get(dtMsg, 'value.properties.id', ''))
+  const isAppliedPatch = (message: MappingMessage, deltaMessage: MappingMessageDelta) => {
+    return message.featureCollection.features.some(f => {
+      return deltaMessage.delta.some((dtMsg: any) => get(f, 'properties.id', '') === get(dtMsg, 'value.properties.id', ''))
     })
   }
 
