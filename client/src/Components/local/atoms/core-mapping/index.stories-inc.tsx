@@ -68,7 +68,7 @@ const healthProp: NumberProperty = {
   label: 'Health',
   description: 'The health of this unit (0..100)',
   type: 'NumberProperty',
-  editable: false,
+  editable: true,
   format: '0'
 }
 
