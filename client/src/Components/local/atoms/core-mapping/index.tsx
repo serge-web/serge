@@ -6,7 +6,7 @@ import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { cloneDeep, flatten, get, unionBy } from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
@@ -24,12 +24,16 @@ import PropTypes, { CoreRendererProps } from './types/props'
 
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, forceStyles, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
-  const [lastMessage, setLastMessage] = useState<MappingMessage>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
   const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
   const [selectedFeature, setSelectedFeature] = useState<number | string>('')
+<<<<<<< HEAD
   const [showLabels, setShowLabels] = useState<boolean>(false)
+=======
+
+  const lastMessages = useRef<MappingMessage>()
+>>>>>>> c7fbc1f5cca046b2838a89a22a17068170a19710
   // const bounds = L.latLngBounds(channel.constraints.bounds)
   const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
@@ -52,15 +56,16 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         if (mappingMessage.messageType === MAPPING_MESSAGE) {
           const baseMappingMessage = mappingMessage as MappingMessage
           // keep the mapping message as original for generating patch later
-          if (!lastMessage) {
-            setLastMessage(cloneDeep(baseMappingMessage))
+          if (!lastMessages.current) {
+            lastMessages.current = cloneDeep(baseMappingMessage)
           }
-          const basedFeatureCollection = (lastMessage || baseMappingMessage).featureCollection
+          const basedFeatureCollection = lastMessages.current.featureCollection
           // find latest delta message based on mapping message id
-          const deltaMessages: MappingMessageDelta = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE_DELTA && get(msg, 'since', '') === baseMappingMessage._id)
-          if (deltaMessages) {
+          const deltaMessages = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE_DELTA && get(msg, 'since', '') === baseMappingMessage._id)
+          if (!isAppliedPatch(baseMappingMessage, deltaMessages)) {
+            const cloneBaseCollection = cloneDeep(basedFeatureCollection)
             // apply latest delta message into original mapping message's feature collection
-            baseMappingMessage.featureCollection = applyPatch(cloneDeep(basedFeatureCollection), deltaMessages as MappingMessageDelta)
+            baseMappingMessage.featureCollection = applyPatch(cloneBaseCollection, deltaMessages as MappingMessageDelta)
           }
           setFeatureCollection(baseMappingMessage.featureCollection)
         }
@@ -80,10 +85,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }
   }, [channel])
 
-  const onCreate = (e: PM.ChangeEventHandler) => {
-    setPendingCreate(e)
-  }
-
   useEffect(() => {
     if (pendingCreate) {
       const feature = mapEventToFeatures(pendingCreate)
@@ -99,6 +100,16 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }
   }, [pendingCreate])
   
+  const isAppliedPatch = (message: MappingMessage, deltaMessage: MappingMessageDelta) => {
+    return message.featureCollection.features.some(f => {
+      return deltaMessage.delta.some((dtMsg: any) => get(f, 'properties.id', '') === get(dtMsg, 'value.properties.id', ''))
+    })
+  }
+
+  const onCreate = (e: PM.ChangeEventHandler) => {
+    setPendingCreate(e)
+  }
+
   const saveNewMessage = (newFeatureCollection: FeatureCollection<Geometry, GeoJsonProperties>) => {
     if (newFeatureCollection) {
       const timestamp = new Date().toISOString()
@@ -115,14 +126,14 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         turnNumber: 1
       }
 
-      if (lastMessage) {
+      if (lastMessages.current) {
         // generating path from original message with latest feature collection
-        const delta = generatePatch(lastMessage.featureCollection, newFeatureCollection)
+        const delta = generatePatch(lastMessages.current.featureCollection, newFeatureCollection)
         const deltaMessage: MappingMessageDelta = {
           _id: new Date().toISOString(),
           messageType: MAPPING_MESSAGE_DELTA,
           details,
-          since: lastMessage._id,
+          since: lastMessages.current._id,
           delta
         }
         postBack(deltaMessage)
