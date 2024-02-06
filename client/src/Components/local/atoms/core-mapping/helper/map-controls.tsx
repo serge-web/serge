@@ -8,10 +8,45 @@ import AssetIcon from 'src/Components/local/asset-icon'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
 
+// Extend the Marker class to include the setStyle method
+declare module 'leaflet' {
+  interface Marker {
+    setStyle(style: any): this
+  }
+}
+
 const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
   const map = useMap()
 
   const initMapListener = () => {
+    let layersVisible = true 
+    map.pm.Toolbar.createCustomControl({
+      name: 'showLayersText',
+      block: 'custom',
+      className: 'control-icon leaflet-pm-icon-text',
+      title: 'Show layers Text',
+      afterClick: () => {
+        map.eachLayer((layer) => {
+          if (layer instanceof L.Marker) {
+            const iconElement = layer.getElement()
+            const svgText = iconElement && iconElement.querySelector('text')
+            if (svgText) {
+              if (layersVisible && svgText) {
+                svgText.style.opacity = '1'
+              } else {
+                svgText.style.opacity = '0'
+              }
+            }
+          }
+        })
+
+        layersVisible = !layersVisible 
+      },
+
+      toggle: true
+
+    })
+    
     // handle edit listener for geoman items
     map.on('pm:edit', (e: LeafletEvent) => {
       // handle edit/dragend listener for geoman items
@@ -44,7 +79,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
       }
     })
   }
-
+   
   const addPendingTextEvent = (layer: L.Layer) => {
     layer.on('pm:edit', e => {
       map.removeLayer(layer)
@@ -59,6 +94,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
         html: ReactDOMServer.renderToString(<AssetIcon imageSrc={'/images/marker-icon-2x.png'} />),
         className: styles['asset-icon']
       })
+       
       map.pm.setGlobalOptions({ markerStyle: { icon } })
       map.zoomControl.setPosition('bottomright')
       initMapListener()

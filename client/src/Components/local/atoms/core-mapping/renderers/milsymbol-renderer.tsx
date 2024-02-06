@@ -17,7 +17,6 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
 
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
-      console.log('feature.properties.', feature.properties)
       const icon = new ms.Symbol(feature.properties.sidc, {
         size: 35, 
         additionalInformation: showLabels && feature.properties.label.toUpperCase()
@@ -31,9 +30,11 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
           })
         }
       )
+
       marker.addEventListener('pm:remove', () => {
         onRemoved(feature.properties.id)
       })
+
       marker.addEventListener('pm:dragend', e => {
         const g = e as any
         switch (g.shape) {
@@ -47,6 +48,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
           }
         }
       })
+      
       marker.addEventListener('click', () => {
         onSelect(feature.properties.id)
       })
