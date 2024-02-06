@@ -29,7 +29,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
   const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
   const [selectedFeature, setSelectedFeature] = useState<number | string>('')
-
+  const [showLabels, setShowLabels] = useState<boolean>(false)
   // const bounds = L.latLngBounds(channel.constraints.bounds)
   const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
@@ -261,6 +261,10 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }  
   }
 
+  const onShowText = (showLabels: boolean) => {
+    setShowLabels(showLabels)
+  }
+
   const onRemoved = (id: number) => {
     if (featureCollection && featureCollection.features) {
       const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
@@ -355,9 +359,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       /> 
-      <MapControls onCreate={onCreate} onChange={onChange}/>
+      <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText}/>
       <LayerGroup>
-        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} onEdited={onEdited} onSelect={setSelectedFeature} />) }
+        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} onEdited={onEdited} onSelect={setSelectedFeature} showLabels={showLabels} />) }
       </LayerGroup>
     </MapContainer>
   </Box>

@@ -2,7 +2,7 @@
 import { Feature, Geometry, Point } from 'geojson'
 import L from 'leaflet'
 import ms from 'milsymbol'
-import React, { useState } from 'react'
+import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { RENDERER_MILSYM } from 'src/custom-types'
 import styles from '../styles.module.scss'
@@ -11,9 +11,8 @@ import { CoreRendererProps } from '../types/props'
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
-const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect }): any => {
+const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
-  const [showLabels] = useState(true)
 
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {

@@ -8,14 +8,7 @@ import AssetIcon from 'src/Components/local/asset-icon'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
 
-// Extend the Marker class to include the setStyle method
-declare module 'leaflet' {
-  interface Marker {
-    setStyle(style: any): this
-  }
-}
-
-const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {
   const map = useMap()
 
   const initMapListener = () => {
@@ -26,19 +19,24 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
       className: 'control-icon leaflet-pm-icon-text',
       title: 'Show layers Text',
       afterClick: () => {
-        map.eachLayer((layer) => {
-          if (layer instanceof L.Marker) {
-            const iconElement = layer.getElement()
-            const svgText = iconElement && iconElement.querySelector('text')
-            if (svgText) {
-              if (layersVisible) {
-                svgText.style.opacity = '1'
-              } else {
-                svgText.style.opacity = '0'
-              }
-            }
-          }
-        })
+        onShowLabels(layersVisible)
+
+        // note // Using CSS, we have the ability to dynamically hide or show text based on styling.
+        // This allows for a seamless user experience by toggling the visibility of elements without altering the HTML structure.
+
+        // map.eachLayer((layer) => {
+        //   if (layer instanceof L.Marker) {
+        //     const iconElement = layer.getElement()
+        //     const svgText = iconElement && iconElement.querySelector('text')
+        //     if (svgText) {
+        //       if (layersVisible) {
+        //         svgText.style.opacity = '1'
+        //       } else {
+        //         svgText.style.opacity = '0'
+        //       }
+        //     }
+        //   }
+        // })
 
         layersVisible = !layersVisible 
       },
