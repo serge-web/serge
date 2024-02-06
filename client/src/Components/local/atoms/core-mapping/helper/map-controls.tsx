@@ -17,7 +17,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
       name: 'showLayersText',
       block: 'custom',
       className: 'control-icon leaflet-pm-icon-text',
-      title: 'Show layers Text',
+      title: 'Show symbol labels',
       afterClick: () => {
         onShowLabels(layersVisible)
 
