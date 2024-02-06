@@ -11,12 +11,16 @@ import { CoreRendererProps } from '../types/props'
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
-const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect }): any => {
+const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
 
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
-      const icon = new ms.Symbol(feature.properties.sidc)
+      const icon = new ms.Symbol(feature.properties.sidc, {
+        size: 35, 
+        additionalInformation: showLabels && feature.properties.label.toUpperCase()
+      })
+      
       const marker = L.marker(
         latLng, {
           icon: L.divIcon({
@@ -25,9 +29,11 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
           })
         }
       )
+
       marker.addEventListener('pm:remove', () => {
         onRemoved(feature.properties.id)
       })
+
       marker.addEventListener('pm:dragend', e => {
         const g = e as any
         switch (g.shape) {
@@ -41,6 +47,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
           }
         }
       })
+      
       marker.addEventListener('click', () => {
         onSelect(feature.properties.id)
       })
