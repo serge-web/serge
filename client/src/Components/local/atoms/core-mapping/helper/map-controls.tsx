@@ -40,8 +40,9 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
 
         layersVisible = !layersVisible 
       },
-
-      toggle: true
+      
+      // Set toggle to false to indicate that this custom control does not have a toggle functionality
+      toggle: false
 
     })
     
