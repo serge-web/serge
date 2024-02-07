@@ -12,13 +12,17 @@ import { calculateHealthColor } from 'src/Helpers'
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
-const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect }): any => {
+const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
      
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       const { sidc, health, id } = feature.properties
-      const icon = new ms.Symbol(sidc)
+      // const icon = new ms.Symbol(sidc)
+      const icon = new ms.Symbol(sidc, {
+        size: 35, 
+        additionalInformation: showLabels && feature.properties.label.toUpperCase()
+      })
       const healthColor = calculateHealthColor(health)
       const divIcon = L.divIcon({
         html: `
@@ -49,6 +53,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
           }
         }
       })
+      
       marker.addEventListener('click', () => {
         onSelect(feature.properties.id)
       })

@@ -8,10 +8,44 @@ import AssetIcon from 'src/Components/local/asset-icon'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
 
-const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {
   const map = useMap()
 
   const initMapListener = () => {
+    let layersVisible = true 
+    map.pm.Toolbar.createCustomControl({
+      name: 'showLayersText',
+      block: 'custom',
+      className: 'control-icon leaflet-pm-icon-text',
+      title: 'Show symbol labels',
+      afterClick: () => {
+        onShowLabels(layersVisible)
+
+        // note // Using CSS, we have the ability to dynamically hide or show text based on styling.
+        // This allows for a seamless user experience by toggling the visibility of elements without altering the HTML structure.
+
+        // map.eachLayer((layer) => {
+        //   if (layer instanceof L.Marker) {
+        //     const iconElement = layer.getElement()
+        //     const svgText = iconElement && iconElement.querySelector('text')
+        //     if (svgText) {
+        //       if (layersVisible) {
+        //         svgText.style.opacity = '1'
+        //       } else {
+        //         svgText.style.opacity = '0'
+        //       }
+        //     }
+        //   }
+        // })
+
+        layersVisible = !layersVisible 
+      },
+      
+      // Set toggle to false to indicate that this custom control does not have a toggle functionality
+      toggle: false
+
+    })
+    
     // handle edit listener for geoman items
     map.on('pm:edit', (e: LeafletEvent) => {
       // handle edit/dragend listener for geoman items
@@ -44,7 +78,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
       }
     })
   }
-
+   
   const addPendingTextEvent = (layer: L.Layer) => {
     layer.on('pm:edit', e => {
       map.removeLayer(layer)
@@ -59,6 +93,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {
         html: ReactDOMServer.renderToString(<AssetIcon imageSrc={'/images/marker-icon-2x.png'} />),
         className: styles['asset-icon']
       })
+       
       map.pm.setGlobalOptions({ markerStyle: { icon } })
       map.zoomControl.setPosition('bottomright')
       initMapListener()
