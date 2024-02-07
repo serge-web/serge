@@ -1,4 +1,3 @@
-
 import { Feature, Geometry, Point } from 'geojson'
 import L from 'leaflet'
 import ms from 'milsymbol'
