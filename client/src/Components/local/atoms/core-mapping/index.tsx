@@ -47,13 +47,13 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         const custMessage = message as MappingMessage | MappingMessageDelta
         return custMessage.messageType === MAPPING_MESSAGE || custMessage.messageType === MAPPING_MESSAGE_DELTA
       } else return false
-    })
-    
+    }) 
     if (mappingMessages.length) {
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
         if (mappingMessage.messageType === MAPPING_MESSAGE) {
           const baseMappingMessage = mappingMessage as MappingMessage
+
           // keep the mapping message as original for generating patch later
           if (!lastMessages.current) {
             lastMessages.current = cloneDeep(baseMappingMessage)
@@ -340,6 +340,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
     return unionBy(flatMap, 'id')
   }
+  
   return <Box className={styles.container}>
     {!checked && <Button variant='contained' onClick={() => setChecked(true)}>
       <FontAwesomeIcon icon={faCircleArrowRight} />
@@ -364,14 +365,24 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       </Box>
     </Slide>
     <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={true} className={styles['map-container']} >
-      
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       /> 
       <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText}/>
       <LayerGroup>
-        {featureCollection && renderers.map((Component, idx) => <Component onRemoved={onRemoved} key={idx + featureCollection.features.length} features={featureCollection} onDragged={onDragged} onEdited={onEdited} onSelect={setSelectedFeature} showLabels={showLabels} />) }
+        {
+          featureCollection && renderers.map((Component, idx) => 
+            <Component 
+              onRemoved={onRemoved} 
+              key={idx + featureCollection.features.length} 
+              features={featureCollection} 
+              onDragged={onDragged} 
+              onEdited={onEdited} 
+              onSelect={setSelectedFeature} 
+              showLabels={showLabels} 
+            />) 
+        }
       </LayerGroup>
     </MapContainer>
   </Box>

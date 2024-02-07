@@ -170,3 +170,17 @@
   display: flex;
   justify-content: space-between;
 }
+
+.asset-icon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2px;
+}
+
+.health-bar {
+  height: 5px;
+  width: 20px;
+  margin-top: 1px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
