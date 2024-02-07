@@ -13,7 +13,6 @@ export const DEFAULT_PADDING = 0
 
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
-
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       const { sidc, health, id } = feature.properties

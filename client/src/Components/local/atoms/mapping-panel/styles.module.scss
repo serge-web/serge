@@ -166,6 +166,11 @@
   color: #000;
 }
 
+.latLng {
+  display: flex;
+  justify-content: space-between;
+}
+
 .asset-icon {
   display: flex;
   align-items: center;
