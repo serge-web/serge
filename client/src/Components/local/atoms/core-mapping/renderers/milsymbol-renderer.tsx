@@ -45,7 +45,6 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
 
   const handleDragEnd = (e: any) => {
     const g = e as any
-    console.log('g.layer.feature.properties.id', g.layer.feature.properties.id)
     switch (g.shape) {
       case 'Marker': {
         const coords: L.LatLng = g.layer._latlng
