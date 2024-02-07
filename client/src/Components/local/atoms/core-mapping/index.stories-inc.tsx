@@ -63,6 +63,15 @@ const turnProp: NumberProperty = {
   format: '0'
 }
 
+const healthProp: NumberProperty = {
+  id: 'health',
+  label: 'Health',
+  description: 'The health of this unit (0..100)',
+  type: 'NumberProperty',
+  editable: true,
+  format: '0'
+}
+
 const categoryProp: EnumProperty = {
   id: 'category',
   label: 'Category',
@@ -101,6 +110,7 @@ const milSymProps: MilSymProperties = {
   turn: 1,
   force: 'f-red',
   sidc: 'SFG-UCI----D',
+  health: 80,
   // additional props for mil symbol
   category: 'Civilian',
   size: 'M'
@@ -218,7 +228,7 @@ const milSymRenderer: MilSymRenderer = {
   id: 'milSym',
   type: 'MilSymRenderer',
   baseProps,
-  additionalProps: [categoryProp, sizeProp]
+  additionalProps: [categoryProp, sizeProp, healthProp]
 }
 
 const coreMapChannel: ChannelMapping = {
