@@ -20,9 +20,11 @@ export type CoreRendererProps = {
   onRemoved: (id: number) => void
   onEdited: (id: number | string, value: string) => void
   onSelect: (id: number | string) => void
+  showLabels: boolean
 };
 
 export type GeomanControlProps = {
+  onShowLabels: (showLabels: boolean) => void
   onCreate: (e: PM.ChangeEventHandler) => void
   onChange: (id: number, lnglat: LatLng) => void
 }
