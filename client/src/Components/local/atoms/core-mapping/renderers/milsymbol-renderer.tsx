@@ -18,31 +18,34 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       const { sidc, health, id } = feature.properties
-
+      
+      // Create MilSymbol icon
       const icon = new ms.Symbol(sidc, {
         size: 35, 
         additionalInformation: showLabels && feature.properties.label.toUpperCase()
       })
-
+      
+      // Calculate health color and get icon HTML
       const healthColor = calculateHealthColor(health)
       const iconHTML = icon.asDOM().outerHTML
-      
-      const divIcon = createDivIcon(iconHTML, healthColor)
 
+      // Create custom DivIcon for the marker
+      const divIcon = createDivIcon(iconHTML, healthColor)
       const marker = L.marker(latLng, { icon: divIcon })
-  
-      marker.addEventListener('pm:remove', () => onRemoved(id))
-  
-      marker.addEventListener('pm:dragend', handleDragEnd)
       
+      // Event listeners for marker actions
+      marker.addEventListener('pm:remove', () => onRemoved(id))
+      marker.addEventListener('pm:dragend', handleDragEnd)
       marker.addEventListener('click', () => onSelect(id))
 
       return marker
     } else {
+      // Throw error for unsupported geometry type
       throw new Error('Cannot create layer for ' + feature.geometry.type)
     }
   }
-
+  
+  // Event handler for marker drag end
   const handleDragEnd = (e: any) => {
     const g = e as any
     switch (g.shape) {
