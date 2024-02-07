@@ -52,7 +52,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
         if (mappingMessage.messageType === MAPPING_MESSAGE) {
-          const baseMappingMessage = mappingMessage as MappingMessage
+          const baseMappingMessage = cloneDeep(mappingMessage as MappingMessage)
 
           // keep the mapping message as original for generating patch later
           if (!lastMessages.current) {
