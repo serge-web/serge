@@ -5,35 +5,30 @@ import ms from 'milsymbol'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { RENDERER_MILSYM } from 'src/custom-types'
-import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { calculateHealthColor } from 'src/Helpers'
+import { createDivIcon } from '../helper/marker-helper'
 
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
-     
+
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       const { sidc, health, id } = feature.properties
-      // const icon = new ms.Symbol(sidc)
+
       const icon = new ms.Symbol(sidc, {
         size: 35, 
         additionalInformation: showLabels && feature.properties.label.toUpperCase()
       })
+
       const healthColor = calculateHealthColor(health)
-      const divIcon = L.divIcon({
-        html: `
-          <div class="${styles['asset-icon']}">
-            ${icon.asDOM().outerHTML}
-            <div class="${styles['health-bar']}" style="background-color: ${healthColor};"></div>
-          </div>
-        `,
-        className: styles['combined-icon']
-      })
-  
+      const iconHTML = icon.asDOM().outerHTML
+      
+      const divIcon = createDivIcon(iconHTML, healthColor)
+
       const marker = L.marker(latLng, { icon: divIcon })
   
       marker.addEventListener('pm:remove', () => {
