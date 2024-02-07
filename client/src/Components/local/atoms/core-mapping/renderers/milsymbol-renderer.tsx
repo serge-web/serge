@@ -31,31 +31,30 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
 
       const marker = L.marker(latLng, { icon: divIcon })
   
-      marker.addEventListener('pm:remove', () => {
-        onRemoved(id)
-      })
+      marker.addEventListener('pm:remove', () => onRemoved(id))
   
-      marker.addEventListener('pm:dragend', (e) => {
-        const g = e as any
-        switch (g.shape) {
-          case 'Marker': {
-            const coords: L.LatLng = g.layer._latlng
-            onDragged(feature.properties.id, coords)
-            break
-          } 
-          default: {
-            console.warn('Drag handler not created for ', g.shape)
-          }
-        }
-      })
+      marker.addEventListener('pm:dragend', handleDragEnd)
       
-      marker.addEventListener('click', () => {
-        onSelect(feature.properties.id)
-      })
+      marker.addEventListener('click', () => onSelect(id))
 
       return marker
     } else {
       throw new Error('Cannot create layer for ' + feature.geometry.type)
+    }
+  }
+
+  const handleDragEnd = (e: any) => {
+    const g = e as any
+    console.log('g.layer.feature.properties.id', g.layer.feature.properties.id)
+    switch (g.shape) {
+      case 'Marker': {
+        const coords: L.LatLng = g.layer._latlng
+        onDragged(g.layer.feature.properties.id, coords)
+        break
+      }
+      default: {
+        console.warn('Drag handler not created for ', g.shape)
+      }
     }
   }
 
