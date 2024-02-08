@@ -13,7 +13,6 @@ const fs = require('fs')
 const root = './serge/'
 const dbDir = './serge/db/'
 const imgDir = './serge/img/'
-const dataDir = './serge/data/'
 const remoteServer = process.argv[2] || null
 
 if (!fs.existsSync(root)) {
@@ -26,10 +25,6 @@ if (!fs.existsSync(dbDir)) {
 
 if (!fs.existsSync(imgDir)) {
   fs.mkdirSync(imgDir)
-}
-
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir)
 }
 
 const extract = (src, dest) => {
@@ -46,19 +41,6 @@ fs.readdir(dbPath, (err, dbs) => {
   }
   dbs.forEach(dbFile => {
     extract(`${dbPath}/${dbFile}`, `${dbDir}/${dbFile}`)
-  })
-})
-
-const dataPath = path.join(__dirname, '..', 'data')
-fs.readdir(dataPath, (err, data) => {
-  if (err) {
-    throw err
-  }
-  data.forEach(json => {
-    if (json === 'package.json') {
-      return
-    }
-    extract(`${dataPath}/${json}`, `${dataDir}/${json}`)
   })
 })
 
@@ -93,7 +75,6 @@ setTimeout(() => {
       ]
     },
     imgDir, // images directory
-    dataDir,
     process.env.PORT || 8080, // port
     remoteServer, // remote server path
     onAppInitListeningAddons,
