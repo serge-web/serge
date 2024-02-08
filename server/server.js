@@ -2,7 +2,6 @@ const runServer = (
   pouchOptions,
   corsOptions,
   imgDir,
-  dataDir,
   port,
   remoteServer,
   onAppInitListeningAddons,
@@ -115,26 +114,6 @@ const runServer = (
 
   app.get('/getIp', (req, res) => {
     res.status(200).send({ ip: req.ip })
-  })
-
-  app.get('/cells/:filename', (req, res) => {
-    if (dataDir) {
-      return res.sendFile(
-        path.join(process.cwd(), dataDir, req.params.filename)
-      )
-    }
-    res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
-  })
-
-  app.get('/tiles/:folder/:z/:y/:x', (req, res) => {
-    const { folder, z, y, x } = req.params
-    if (dataDir) {
-      return res.sendFile(
-        path.join(process.cwd(), dataDir, folder, z, y, x)
-      )
-    }
-
-    res.sendFile(path.join(__dirname, '../', 'data', folder, z, y, x))
   })
 
   app.use(
