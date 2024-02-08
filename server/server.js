@@ -116,6 +116,14 @@ const runServer = (
     res.status(200).send({ ip: req.ip })
   })
 
+  app.get('/tiles/:folder/:z/:y/:x', (req, res) => {
+    const { folder, z, y, x } = req.params
+
+    const filePath = path.join(__dirname, '../', 'data', folder, z, y, x)
+
+    res.sendFile(filePath)
+  })
+
   app.use(
     '/saveIcon',
     express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' })
