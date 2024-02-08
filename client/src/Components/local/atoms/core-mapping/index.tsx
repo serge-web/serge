@@ -5,7 +5,7 @@ import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { cloneDeep, flatten, get, unionBy } from 'lodash'
+import { cloneDeep, flatten, get, isEqual, unionBy } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
@@ -388,4 +388,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   </Box>
 }
 
-export default CoreMapping
+const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => isEqual(prevProps.messages, nextProps.messages)
+
+export default React.memo(CoreMapping, areEqual)
