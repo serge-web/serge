@@ -35,8 +35,22 @@
 }
 
 .asset-icon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.asset-icon {
   svg {
-    width: 35px;
-    height: 35px;
+    font-weight: 700;
   }
+
+}
+
+.health-bar {
+  height: 5px;
+  width: 20px;
+  margin-top: 0px;
+  left: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
