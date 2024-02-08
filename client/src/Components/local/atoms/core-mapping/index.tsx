@@ -5,7 +5,7 @@ import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { cloneDeep, flatten, get, unionBy } from 'lodash'
+import { cloneDeep, debounce, delay, flatten, get, unionBy } from 'lodash'
 import React, { useEffect, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
@@ -32,6 +32,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [showLabels, setShowLabels] = useState<boolean>(false)
 
   const lastMessages = useRef<MappingMessage>()
+  const pendingRemoveRef = useRef<number[]>([])
 
   // const bounds = L.latLngBounds(channel.constraints.bounds)
   const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
@@ -275,13 +276,26 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     setShowLabels(showLabels)
   }
 
+  const handlePendingRemoved = debounce(() => {
+    // remove multiple items in queue
+    pendingRemoveRef.current.forEach(async (id, idx) => {
+      delay(() => {
+        if (featureCollection && featureCollection.features) {
+          const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
+          featureCollection.features = filterFeatures
+          const cloneFeatureCollection = cloneDeep(featureCollection)
+          saveNewMessage(cloneFeatureCollection)
+        }
+      }, idx * 50)
+    })
+    pendingRemoveRef.current = []
+  }, 100)
+
   const onRemoved = (id: number) => {
-    if (featureCollection && featureCollection.features) {
-      const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
-      featureCollection.features = filterFeatures
-      const cloneFeatureCollection = cloneDeep(featureCollection)
-      saveNewMessage(cloneFeatureCollection)
+    if (!pendingRemoveRef.current.includes(id)) {
+      pendingRemoveRef.current.push(id)
     }
+    handlePendingRemoved()
   }
 
   const onEdited = (id: number | string, value: string) => {
