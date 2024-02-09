@@ -8,11 +8,6 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
   return <Fragment>
     {
       Object.keys(selectedProp).map((key, kIdx) => {
-        // do not allow to edit id field
-        if (key === 'id' && !onRemoveFilter) {
-          return null
-        }
-        
         const { value, choices } = selectedProp[key]
 
         if ((key === 'lat')) {
