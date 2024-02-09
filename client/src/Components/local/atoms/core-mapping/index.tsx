@@ -22,7 +22,7 @@ import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './renderers/milsymbol-render
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, forceStyles, postBack }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
@@ -157,8 +157,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       turn: currentTurn,
       force: playerForce.uniqid,
       category: 'Civilian',
-      color: playerForce.color,
-      _forceStyles: forceStyles
+      color: playerForce.color
     }
 
     switch (shapeType) {
