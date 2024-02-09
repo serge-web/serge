@@ -25,6 +25,9 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
         if (key === 'lng') {
           return <Fragment key={key + kIdx}></Fragment>
         }
+
+        // check if this is the id property (since we don't allow that to be edited)
+        const isId = key === 'id'
        
         return <div key={key + kIdx} className={styles.itemsBox}>
           <p>{key}:</p>
@@ -33,7 +36,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
               ? <select value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
                 {choices.map((o: string) => (<option key={o} value={o}>{o}</option>))}
               </select>
-              : <input value={value} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
+              : <input value={value} disabled={isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
             }
           </div>
           {onRemoveFilter && <FontAwesomeIcon icon={faMinusCircle} className={styles.removeIcon} onClick={() => onRemoveFilter(key)}/>}
