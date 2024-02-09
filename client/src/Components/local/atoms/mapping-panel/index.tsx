@@ -74,7 +74,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         }
         return result
       }, {})
-      setSelectedProps(propsList)
+      // sort the props in alpha order
+      const sort = <T extends object>(obj: T): T => Object.keys(obj).sort().reduce((acc, c) => { 
+        acc[c] = obj[c]; return acc 
+      }, {}) as T
+      const sortedProps = sort(propsList)
+      setSelectedProps(sortedProps)
     }
   }, [selectedFeatures])
 
