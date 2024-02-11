@@ -13,7 +13,7 @@ export const colorFor = (force: string, forceStyles?: ForceStyle[]): string => {
   return forceStyle ? forceStyle.color : '#F00'
 }
 
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect }) => {
+const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, selected = [] }) => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
@@ -80,13 +80,15 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
   }
 
   return <GeoJSON onEachFeature={(f, l) => {
+    if (selected.some(id => id === f.properties.id)) {
+      console.log('xx> CoreRenderer selected: ', selected)
+    }
     l.addEventListener('pm:remove', () => {
       onRemoved(f.properties.id)
     })
     l.addEventListener('click', () => {
-      onSelect(f.properties.id)
+      onSelect([f.properties.id])
     })
-
     const dragHandler = (e: LeafletEvent) => {
       const g = e as any
       const le = g as L.LeafletEvent

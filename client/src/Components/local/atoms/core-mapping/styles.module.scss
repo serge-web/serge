@@ -48,3 +48,19 @@
   left: 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.selected-icon {
+  margin: 20% 45% 0;
+  display:inline-block;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  animation-name: blinking;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blinking {
+  50% {
+    border-color: #000;
+  }
+}
