@@ -120,6 +120,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     setSelectedFeatures(checked ? featrure : [])
   }
 
+  const onCancel = () => {
+    setSelectedFeatures([])
+    setSelectedProps({})
+  }
+
   const updatePendingSave = (key: string, value: any) => {
     if (!pendingSaveFeatures) {
       return
@@ -273,7 +278,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           <PropertiesPanel selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
         </div>
         <div className={styles.button}>
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={onCancel}>Cancel</button>
           <button disabled={disableSave} onClick={onLocalSave}>Save</button>
         </div>
       </Panel>
