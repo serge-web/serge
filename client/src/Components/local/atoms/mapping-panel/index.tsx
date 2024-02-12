@@ -117,7 +117,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   }
 
   const selectItem = (id: string[], checked: boolean) => {
-    const featrure = features?.features.filter(f => id.includes('' + f.properties?.id)) || []
+    const featrure = features?.features.filter(f => id.includes(f.properties?.id)) || []
     setSelectedFeatures(checked ? featrure : [])
     onSelect(checked ? id : [])
   }
