@@ -125,6 +125,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   const onCancel = () => {
     setSelectedFeatures([])
     setSelectedProps({})
+    onSelect([])
   }
 
   const updatePendingSave = (key: string, value: any) => {
