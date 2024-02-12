@@ -75,7 +75,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         }
         return result
       }, {})
-      setSelectedProps(propsList)
+      // sort the props in alpha order
+      const sort = <T extends Record<string, unknown>>(obj: T): T => Object.keys(obj).sort().reduce((acc, c) => { 
+        acc[c] = obj[c]; return acc 
+      }, {}) as T
+      const sortedProps = sort(propsList)
+      setSelectedProps(sortedProps)
     }
   }, [selectedFeatures])
 
@@ -249,7 +254,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           <p>Filters</p>
         </div>
         <div className={styles.propertiesResponsive}>
-          <PropertiesPanel selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
+          <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
         </div>    
         <div className={styles.button}>
           <button onClick={onAddNewFilter}>Add</button>
@@ -278,7 +283,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       >
         <div className={styles.header}>Properties</div>
         <div className={styles.propertiesResponsive}>
-          <PropertiesPanel selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
+          <PropertiesPanel disableIdEdit={true} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
         </div>
         <div className={styles.button}>
           <button onClick={onCancel}>Cancel</button>
