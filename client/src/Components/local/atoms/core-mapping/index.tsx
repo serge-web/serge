@@ -27,7 +27,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
   const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
-  const [selectedFeature, setSelectedFeature] = useState<number | string>('')
+  const [selectedFeature, setSelectedFeature] = useState<string[]>([])
 
   const [showLabels, setShowLabels] = useState<boolean>(false)
 
@@ -275,9 +275,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     setShowLabels(showLabels)
   }
 
-  const onRemoved = (id: number) => {
+  const onRemoved = (id: string) => {
     if (featureCollection && featureCollection.features) {
-      const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
+      const filterFeatures = featureCollection.features.filter(f => '' + f.properties?.id !== '' + id)
       featureCollection.features = filterFeatures
       const cloneFeatureCollection = cloneDeep(featureCollection)
       saveNewMessage(cloneFeatureCollection)
@@ -353,7 +353,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
             minSizePercentage={35}
             style={{ pointerEvents: 'all' }}
           >
-            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} selected={selectedFeature} />
+            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} />
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel
@@ -380,6 +380,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
               onDragged={onDragged} 
               onEdited={onEdited} 
               onSelect={setSelectedFeature} 
+              selected={selectedFeature}
               showLabels={showLabels} 
             />) 
         }

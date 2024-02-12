@@ -7,6 +7,7 @@ interface CssExports {
   'map-container': string;
   'resize-handler': string;
   'slide-container': string;
+  'selected-icon': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

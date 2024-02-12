@@ -3,15 +3,15 @@ import L from 'leaflet'
 import ms from 'milsymbol'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
-import { RENDERER_MILSYM } from 'src/custom-types'
-import { CoreRendererProps } from '../types/props'
 import { calculateHealthColor } from 'src/Helpers'
+import { RENDERER_MILSYM } from 'src/custom-types'
 import { createDivIcon } from '../helper/marker-helper'
+import { CoreRendererProps } from '../types/props'
 
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
-const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels }): any => {
+const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels, selected = [] }): any => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
@@ -19,22 +19,23 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       
       // Create MilSymbol icon
       const icon = new ms.Symbol(sidc, {
-        size: 35, 
+        size: 25, 
         additionalInformation: showLabels && feature.properties.label.toUpperCase()
       })
       
       // Calculate health color and get icon HTML
       const healthColor = calculateHealthColor(health)
       const iconHTML = icon.asDOM().outerHTML
+      const isSelected = selected.some(id => id === feature.properties.id)
 
       // Create custom DivIcon for the marker
-      const divIcon = createDivIcon(iconHTML, healthColor)
+      const divIcon = createDivIcon(iconHTML, healthColor, isSelected)
       const marker = L.marker(latLng, { icon: divIcon })
       
       // Event listeners for marker actions
       marker.addEventListener('pm:remove', () => onRemoved(id))
       marker.addEventListener('pm:dragend', handleDragEnd)
-      marker.addEventListener('click', () => onSelect(id))
+      marker.addEventListener('click', () => onSelect([id]))
 
       return marker
     } else {
