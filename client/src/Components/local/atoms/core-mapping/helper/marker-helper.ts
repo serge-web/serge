@@ -17,7 +17,7 @@ export const loadDefaultMarker = (): void => {
 export const createDivIcon = (iconHTML: string, healthColor: string, isSelected: boolean): L.DivIcon => {
   return L.divIcon({
     html: `
-      <div class="${cx({ [styles['asset-icon']]: true, [styles['selected-icon']]: isSelected })}">
+      <div class="${cx({ [styles['asset-icon']]: true, [styles['pulse-milsymbol']]: isSelected })}">
         ${iconHTML}
         <div class="${styles['health-bar']}" style="background-color: ${healthColor};"></div>
       </div>

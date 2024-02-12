@@ -19,7 +19,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       
       // Create MilSymbol icon
       const icon = new ms.Symbol(sidc, {
-        size: 35, 
+        size: 25, 
         additionalInformation: showLabels && feature.properties.label.toUpperCase()
       })
       

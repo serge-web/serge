@@ -1,10 +1,12 @@
 
+import cx from 'classnames'
 import { Feature, Geometry, Point } from 'geojson'
 import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { ForceStyle } from 'src/Helpers'
 import { CoreProperties, RENDERER_CORE } from 'src/custom-types'
+import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
 
@@ -17,6 +19,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
+      const isSelected = selected.some(id => id === feature.properties?.id)
       const props = feature.properties as CoreProperties
       const color = colorFor(props.force, props._forceStyles)
       const weight = feature.geometry.type === 'Polygon' ? 1 : 3
@@ -24,7 +27,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
         color,
         weight,
         fillColor: color,
-        className: 'leaflet-default-icon-path'
+        className: cx({ 'leaflet-default-icon-path': true, [styles['pulse-core']]: isSelected })
       }
     } else {
       return {}
@@ -80,9 +83,6 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
   }
 
   return <GeoJSON onEachFeature={(f, l) => {
-    if (selected.some(id => id === f.properties.id)) {
-      console.log('xx> CoreRenderer selected: ', selected)
-    }
     l.addEventListener('pm:remove', () => {
       onRemoved(f.properties.id)
     })
