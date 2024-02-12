@@ -251,7 +251,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           <p>Filters</p>
         </div>
         <div className={styles.propertiesResponsive}>
-          <PropertiesPanel selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
+          <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
         </div>    
         <div className={styles.button}>
           <button onClick={onAddNewFilter}>Add</button>
@@ -280,7 +280,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       >
         <div className={styles.header}>Properties</div>
         <div className={styles.propertiesResponsive}>
-          <PropertiesPanel selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
+          <PropertiesPanel disableIdEdit={true} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
         </div>
         <div className={styles.button}>
           <button onClick={onCancel}>Cancel</button>

@@ -4,7 +4,7 @@ import React, { ChangeEvent, Fragment } from 'react'
 import styles from '../styles.module.scss'
 import { ProppertiesPanelProps } from '../types/props'
 
-const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter }) => {
+const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit }) => {
   return <Fragment>
     {
       Object.keys(selectedProp).map((key, kIdx) => {
@@ -36,7 +36,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
               ? <select value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
                 {choices.map((o: string) => (<option key={o} value={o}>{o}</option>))}
               </select>
-              : <input value={value} disabled={isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
+              : <input value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
             }
           </div>
           {onRemoveFilter && <FontAwesomeIcon icon={faMinusCircle} className={styles.removeIcon} onClick={() => onRemoveFilter(key)}/>}
