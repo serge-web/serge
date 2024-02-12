@@ -27,7 +27,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
         color,
         weight,
         fillColor: color,
-        className: cx({ 'leaflet-default-icon-path': true, [styles['pulse-core']]: isSelected })
+        className: cx({ 'leaflet-default-icon-path': true, [styles['pulse']]: isSelected })
       }
     } else {
       return {}

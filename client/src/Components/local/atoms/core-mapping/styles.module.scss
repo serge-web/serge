@@ -49,11 +49,11 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.pulse-core {
-  animation: pulse-core 1s infinite;
+.pulse {
+  animation: pulse 1s infinite;
 }
 
-@keyframes pulse-core {
+@keyframes pulse {
   0% {
     opacity: 0.2;
     transform: scale(0.995);
@@ -62,28 +62,5 @@
   100% {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-.pulse-milsymbol {
-  animation: pulse-milsymbol 1s infinite;
-  height: max-content;
-  width: max-content;
-}
-
-@keyframes pulse-milsymbol {
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
-    transform: scale(0.95);
-  }
-
-  70% {
-    box-shadow: 0 0 0 15px rgba(0, 0, 0, 0);
-    transform: scale(1);
-  }
-
-  100% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-    transform: scale(0.95);
   }
 }
