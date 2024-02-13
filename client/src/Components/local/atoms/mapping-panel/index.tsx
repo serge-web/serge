@@ -17,14 +17,15 @@ type MappingPanelProps = {
   onClose: () => void
   features?: FeatureCollection<Geometry, GeoJsonProperties>
   extraFilterProps: PropertyTypes[]
-  selected: string | number
+  selected: string[]
+  onSelect: (id: string[]) => void
   onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
 }
 
 const modalStyle = { content: { width: '450px' } }
 const bodyStyle = { padding: '5px' }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps, selected, onSave }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps, selected, onSelect, onSave }): React.ReactElement => {
   const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
@@ -74,12 +75,17 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         }
         return result
       }, {})
-      setSelectedProps(propsList)
+      // sort the props in alpha order
+      const sort = <T extends Record<string, unknown>>(obj: T): T => Object.keys(obj).sort().reduce((acc, c) => { 
+        acc[c] = obj[c]; return acc 
+      }, {}) as T
+      const sortedProps = sort(propsList)
+      setSelectedProps(sortedProps)
     }
   }, [selectedFeatures])
 
   useEffect(() => {
-    selectItem('' + selected, true)
+    selectItem(selected, true)
   }, [selected])
   
   const onAddNewFilter = () => setOpenAddFilter(true)
@@ -115,14 +121,16 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     handleCheck(key, false)
   }
 
-  const selectItem = (id: string, checked: boolean) => {
-    const featrure = features?.features.filter(f => '' + f.properties?.id === '' + id) || []
+  const selectItem = (id: string[], checked: boolean) => {
+    const featrure = features?.features.filter(f => id.includes(f.properties?.id)) || []
     setSelectedFeatures(checked ? featrure : [])
+    onSelect(checked ? id : [])
   }
 
   const onCancel = () => {
     setSelectedFeatures([])
     setSelectedProps({})
+    onSelect([])
   }
 
   const updatePendingSave = (key: string, value: any) => {
@@ -246,7 +254,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           <p>Filters</p>
         </div>
         <div className={styles.propertiesResponsive}>
-          <PropertiesPanel selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
+          <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
         </div>    
         <div className={styles.button}>
           <button onClick={onAddNewFilter}>Add</button>
@@ -275,7 +283,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       >
         <div className={styles.header}>Properties</div>
         <div className={styles.propertiesResponsive}>
-          <PropertiesPanel selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
+          <PropertiesPanel disableIdEdit={true} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
         </div>
         <div className={styles.button}>
           <button onClick={onCancel}>Cancel</button>

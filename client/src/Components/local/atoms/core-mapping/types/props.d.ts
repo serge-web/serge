@@ -16,10 +16,11 @@ export default interface PropTypes {
 
 export type CoreRendererProps = {
   features: FeatureCollection<Geometry, GeoJsonProperties>
-  onDragged: (id: number | string, latLngs: L.LatLng | L.LatLng[] | L.LatLng[][]) => void
-  onRemoved: (id: number) => void
-  onEdited: (id: number | string, value: string) => void
-  onSelect: (id: number | string) => void
+  onDragged: (id: string, latLngs: L.LatLng | L.LatLng[] | L.LatLng[][]) => void
+  onRemoved: (id: string) => void
+  onEdited: (id: string, value: string) => void
+  onSelect: (id: string[]) => void
+  selected: string[]
   showLabels: boolean
 };
 

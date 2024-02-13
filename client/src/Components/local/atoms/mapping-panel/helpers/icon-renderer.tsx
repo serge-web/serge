@@ -12,7 +12,7 @@ import styles from '../styles.module.scss'
 type IconRendererProps = {
   feature: Feature<Geometry, GeoJsonProperties>
   checked: boolean
-  onClick: (id: string, checked: boolean) => void
+  onClick: (id: string[], checked: boolean) => void
 }
 
 const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }) => {
@@ -41,7 +41,7 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }
       control={
         <Radio
           checked={checked}
-          onChange={(_: ChangeEvent<HTMLInputElement>, checked: boolean) => onClick(feature.properties?.id, checked)}
+          onChange={(_: ChangeEvent<HTMLInputElement>, checked: boolean) => onClick([feature.properties?.id], checked)}
           size="small"
         />
       }
