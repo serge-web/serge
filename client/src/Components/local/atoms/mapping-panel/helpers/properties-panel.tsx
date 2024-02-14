@@ -37,7 +37,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
 
         return <div key={key + kIdx} className={styles.itemsBox}>
           <p>{key}:</p>
-          <div>
+          <div className={styles.inputBox}>
             {choices.length > 0
               ? <select value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
                 {choices.map((o: string) => (<option key={o} value={o}>{o}</option>))}
@@ -46,8 +46,8 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
             }
             {key === 'sidc' &&
             <> 
-              <button className={styles.sidcbtn} onClick={openSIDCGenerator}>Open SIDC Generator</button>
-              {isSIDCDialogOpen && <SIDCGenerator onClose={closeSIDCGenerator} onSave={ (value) => onPropertiesChange(key, value)} />}
+              <button className={styles.sidcbtn} onClick={openSIDCGenerator}>Edit</button>
+              {isSIDCDialogOpen && <SIDCGenerator onClose={closeSIDCGenerator} sidcValue={value} onSave={ (value) => onPropertiesChange(key, value)} />}
             </>
             } 
 

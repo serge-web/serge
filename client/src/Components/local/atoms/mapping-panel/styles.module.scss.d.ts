@@ -22,6 +22,7 @@ interface CssExports {
   'resize-handle-inner': string;
   'resize-handle-outer': string;
   'sidcbtn': string;
+  'inputBox': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

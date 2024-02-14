@@ -90,8 +90,13 @@
     }
   }
 
+  .inputBox {
+    display: flex;
+  }
+
   button {
     position: relative;
+    font-size: 14px;
   }
 }
 
