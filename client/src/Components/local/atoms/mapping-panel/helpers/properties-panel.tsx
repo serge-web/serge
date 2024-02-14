@@ -1,10 +1,17 @@
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { ChangeEvent, Fragment } from 'react'
+import React, { ChangeEvent, Fragment, useState } from 'react'
+import SIDCGenerator from '../../../molecules/sidc-generator'
 import styles from '../styles.module.scss'
 import { ProppertiesPanelProps } from '../types/props'
 
 const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit }) => {
+  const [isSIDCDialogOpen, setSIDCDialogOpen] = useState(false)
+
+  const openSIDCGenerator = () => setSIDCDialogOpen(true)
+
+  const closeSIDCGenerator = () => setSIDCDialogOpen(false)
+
   return <Fragment>
     {
       Object.keys(selectedProp).map((key, kIdx) => {
@@ -25,10 +32,9 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
         if (key === 'lng') {
           return <Fragment key={key + kIdx}></Fragment>
         }
-
         // check if this is the id property (since we don't allow that to be edited)
         const isId = key === 'id'
-       
+
         return <div key={key + kIdx} className={styles.itemsBox}>
           <p>{key}:</p>
           <div>
@@ -38,6 +44,13 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
               </select>
               : <input value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
             }
+            {key === 'sidc' &&
+            <> 
+              <button className={styles.sidcbtn} onClick={openSIDCGenerator}>Open SIDC Generator</button>
+              {isSIDCDialogOpen && <SIDCGenerator onClose={closeSIDCGenerator} onSave={ (value) => onPropertiesChange(key, value)} />}
+            </>
+            } 
+
           </div>
           {onRemoveFilter && <FontAwesomeIcon icon={faMinusCircle} className={styles.removeIcon} onClick={() => onRemoveFilter(key)}/>}
         </div>
