@@ -22,7 +22,7 @@ import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './renderers/milsymbol-render
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
 
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, forceStyles, postBack }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
@@ -155,9 +155,11 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       phase: currentPhase,
       label: playerForce.name,
       turn: currentTurn,
-      force: playerForce.uniqid,
+      // The baseProps does not have umpire force in the choices list, so hard code `f-red` here
+      // TODO: should update baseProps in channel.renderers ?
+      force: 'f-red', // playerForce.uniqid,
       category: 'Civilian',
-      color: playerForce.color
+      _forceStyles: forceStyles
     }
 
     switch (shapeType) {
@@ -353,7 +355,14 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
             minSizePercentage={35}
             style={{ pointerEvents: 'all' }}
           >
-            <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} />
+            <MappingPanel
+              onClose={() => setChecked(false)}
+              features={featureCollection}
+              extraFilterProps={getExtraFilterProps()}
+              onSave={saveNewMessage}
+              selected={selectedFeature}
+              onSelect={setSelectedFeature}
+            />
           </Panel>
           <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
           <Panel

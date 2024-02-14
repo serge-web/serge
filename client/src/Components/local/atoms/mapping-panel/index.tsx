@@ -6,6 +6,7 @@ import { cloneDeep, get, isEqual, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { CoreProperties, PropertyTypes } from 'src/custom-types'
+import { colorFor } from '../core-mapping/renderers/core-renderer'
 import CustomDialog from '../custom-dialog'
 import IconRenderer from './helpers/icon-renderer'
 import PropertiesPanel from './helpers/properties-panel'
@@ -268,7 +269,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         </div>
         <div className={styles.itemsResponsive}>
           {filterredFeatures?.features.map((feature, idx) => {
-            return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} />
+            const color = colorFor(feature.properties?.force, feature.properties?._forceStyles)
+            return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} />
           })}
         </div>
       </Panel>

@@ -26,7 +26,7 @@ export interface BaseProperties {
 
 /** custom properties for the core renderer */
 export interface CoreProperties extends BaseProperties {
-    color: string
+    // color: string // redundant property
     [other: string]: unknown
 }
 

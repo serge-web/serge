@@ -11,7 +11,7 @@ import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
 
 export const colorFor = (force: string, forceStyles?: ForceStyle[]): string => {
-  const forceStyle = forceStyles?.find(style => style.force === force)
+  const forceStyle = forceStyles?.find(style => style.forceId === force)
   return forceStyle ? forceStyle.color : '#F00'
 }
 
