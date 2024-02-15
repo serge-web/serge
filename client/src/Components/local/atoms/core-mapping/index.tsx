@@ -155,11 +155,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       phase: currentPhase,
       label: playerForce.name,
       turn: currentTurn,
-      // The baseProps does not have umpire force in the choices list, so hard code `f-red` here
-      // TODO: should update baseProps in channel.renderers ?
-      force: 'f-red', // playerForce.uniqid,
-      category: 'Civilian',
-      _forceStyles: forceStyles
+      force: playerForce.uniqid,
+      category: 'Civilian'
     }
 
     switch (shapeType) {
@@ -391,6 +388,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
               onSelect={setSelectedFeature} 
               selected={selectedFeature}
               showLabels={showLabels} 
+              forceStyles={forceStyles}
             />) 
         }
       </LayerGroup>
