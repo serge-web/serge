@@ -6,13 +6,13 @@ import React, { useEffect, useState } from 'react'
 import { StandardIdentityOne, StandardIdentityTwo, symbolSet, statusDefault } from './helpers/SharedData'
 import replaceNumber from './helpers/replace-number'
 import renderDropdown from './helpers/renderDeopdown'
+import { CUSTOM_SIDC } from 'src/config'
 import PropsTypes from './PropsTypes/types'
-const CUSTOM_SIDC = '10031000000000000000'
 
 const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => {
   const [symbolElement, setSymbolElement] = useState<any | ms.Symbol>(null)
   const [sidcCode, setSidCode] = useState<string>('')
-  const [originalNumber, setoriginalNumber] = useState<any>()
+  const [originalNumber, setoriginalNumber] = useState<string>('')
   const classes = useStyles()
   useEffect(() => {
     const options = {

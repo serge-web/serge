@@ -1,5 +1,5 @@
 
-const replaceNumber = (originalNumber: number | bigint, replacementNumber: string, startIndex: number): string | null => {
+const replaceNumber = (originalNumber: number | string, replacementNumber: string, startIndex: number): string => {
   let originalNumberString = originalNumber.toString()
   const replacementNumberString = replacementNumber.toString()
 
@@ -13,7 +13,7 @@ const replaceNumber = (originalNumber: number | bigint, replacementNumber: strin
     return modifiedNumber
   } else {
     console.log("Replacement doesn't fit into the original number.")
-    return null
+    return ''
   }
 }
 
