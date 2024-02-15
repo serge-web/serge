@@ -12,7 +12,7 @@ import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
 
 export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
-  return forceStyle ? forceStyle.color : '#F00'
+  return forceStyle ? forceStyle.color : '#F0F'
 }
 
 const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, selected = [] }) => {
@@ -38,7 +38,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     const elm = marker.pm['_layer'].pm.getElement() as HTMLTextAreaElement
     elm.style.textAlign = 'center'
     elm.style.padding = '0px'
-    elm.style.backgroundColor = colorFor(props.force, props._forceStyles)
+    elm.style.backgroundColor = colorFor(props.force, forceStyles)
     elm.style.color = props.color
     elm.style.fontSize = (props.fontSize || DEFAULT_FONT_SIZE) + 'px'
   }
