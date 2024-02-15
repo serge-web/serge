@@ -1,5 +1,5 @@
 interface PropsTypes {
-    onClose: () => void
+    onClose?: () => void
     onSave: (symbolName: string) => void
     sidcValue: string
 }
