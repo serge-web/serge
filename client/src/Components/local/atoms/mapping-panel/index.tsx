@@ -108,9 +108,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   const applyFilter = useCallback(() => {
     const selectedFilterOpts = propertyFiltersListPanel.reduce((res, key): SelectedProps => {
       const extraProps = extraFilterProps.find(prop => prop.id === key)
+      const choices: string[] = get(extraProps, 'choices', [])
       res[key] = {
-        value: '',
-        choices: get(extraProps, 'choices', [])
+        value: get(choices, '0', ''),
+        choices
       }
       return res
     }, {})
@@ -130,7 +131,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     onSelect(checked ? id : [])
   }
 
-  const onCancel = () => {
+  const clearSelectedFeature = () => {
     setSelectedFeatures([])
     setSelectedProps({})
     onSelect([])
@@ -200,6 +201,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       })
       return found
     })
+    const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', ''))
+    if (!isSelectedFeatureFilterOut) {
+      clearSelectedFeature()
+    }
     setFilterredFeatures(cloneFeature)
   }, [features, selectedFiltersProps])
 
@@ -290,7 +295,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           <PropertiesPanel disableIdEdit={true} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
         </div>
         <div className={styles.button}>
-          <button onClick={onCancel}>Cancel</button>
+          <button onClick={clearSelectedFeature}>Cancel</button>
           <button disabled={disableSave} onClick={onLocalSave}>Save</button>
         </div>
       </Panel>
