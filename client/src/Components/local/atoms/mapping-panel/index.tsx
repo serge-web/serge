@@ -13,6 +13,7 @@ import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
 import { SelectedProps } from './types/props'
+import { ForceStyle } from 'src/Helpers'
 
 type MappingPanelProps = {
   onClose: () => void
@@ -21,12 +22,13 @@ type MappingPanelProps = {
   selected: string[]
   onSelect: (id: string[]) => void
   onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
+  forceStyles: ForceStyle[]
 }
 
 const modalStyle = { content: { width: '450px' } }
 const bodyStyle = { padding: '5px' }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps, selected, onSelect, onSave }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps, selected, onSelect, onSave, forceStyles }): React.ReactElement => {
   const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
@@ -269,7 +271,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         </div>
         <div className={styles.itemsResponsive}>
           {filterredFeatures?.features.map((feature, idx) => {
-            const color = colorFor(feature.properties?.force, feature.properties?._forceStyles)
+            const color = colorFor(feature.properties?.force, forceStyles)
             return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} />
           })}
         </div>

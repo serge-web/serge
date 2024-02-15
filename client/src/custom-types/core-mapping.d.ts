@@ -3,7 +3,6 @@
 //
 import { Phase } from 'src/config'
 import { ForceData } from './force-data'
-import { ForceStyle } from 'src/Helpers'
 
 export const RENDERER_CORE = 'CoreRenderer'
 export const RENDERER_MILSYM = 'MilSymRenderer'
@@ -18,10 +17,8 @@ export interface BaseProperties {
     _type: typeof RENDERER_CORE | typeof RENDERER_MILSYM
     label: string
     force?: ForceData['id']
-    _forceStyles?: ForceStyle[]
     turn: number
     phase: Phase
-    visibleTo?: [ForceData['id']]
 }
 
 /** custom properties for the core renderer */

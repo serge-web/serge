@@ -358,6 +358,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
               extraFilterProps={getExtraFilterProps()}
               onSave={saveNewMessage}
               selected={selectedFeature}
+              forceStyles={forceStyles}
               onSelect={setSelectedFeature}
             />
           </Panel>
