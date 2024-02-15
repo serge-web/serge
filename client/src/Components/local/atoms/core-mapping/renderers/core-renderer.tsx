@@ -10,18 +10,18 @@ import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
 
-export const colorFor = (force: string, forceStyles?: ForceStyle[]): string => {
-  const forceStyle = forceStyles?.find(style => style.forceId === force)
+export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
+  const forceStyle = forceStyles.find(style => style.forceId === force)
   return forceStyle ? forceStyle.color : '#F00'
 }
 
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, selected = [] }) => {
+const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, selected = [] }) => {
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       const isSelected = selected.some(id => id === feature.properties?.id)
       const props = feature.properties as CoreProperties
-      const color = colorFor(props.force, props._forceStyles)
+      const color = colorFor(props.force, forceStyles)
       const weight = feature.geometry.type === 'Polygon' ? 1 : 3
       return {
         color,
