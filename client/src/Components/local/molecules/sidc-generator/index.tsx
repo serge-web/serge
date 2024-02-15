@@ -7,7 +7,7 @@ import {
   FormControl
 } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import { StandardIdentityOne, StandardIdentityTwo, symbolSet, statusDefault } from './helpers/SharedData'
+import { dropdownOptions } from './helpers/SharedData'
 import replaceNumber from './helpers/replace-number'
 import useStyles from './helpers/SidcGeneratorStyles'
 import ms from 'milsymbol'
@@ -24,7 +24,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
 
   useEffect(() => {
     const options = {
-      size: 50
+      size: 100
     }
 
     const symbol = new ms.Symbol(originalNumber, options)
@@ -54,26 +54,14 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
           <DialogTitle>SIDC Generator</DialogTitle>
           <DialogContent>
             <FormControl className={classes.formControl}>
-              {renderDropdown(
-                StandardIdentityOne,
-                (e) => { setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, 2)) },
-                'Standard Identity 1'
-              )}
-              {renderDropdown(
-                StandardIdentityTwo,
-                (e) => { setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, 3)) },
-                'Standard Identity 2'
-              )}
-              {renderDropdown(
-                symbolSet,
-                (e) => { setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, 4)) },
-                'Symbol set'
-              )}
-              {renderDropdown(
-                statusDefault,
-                (e) => { setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, 6)) },
-                'Status'
-              )}
+              {dropdownOptions.map(option => (
+                renderDropdown(
+                  option.value,
+                  (e) => { setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, option.index)) },
+                  option.title
+                )
+              ))}
+              
             </FormControl>
           </DialogContent>
           <DialogContent>

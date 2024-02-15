@@ -166,3 +166,10 @@ export const statusDefault = {
     sidc: '10031050000000000000'
   }
 }
+
+export const dropdownOptions = [
+  { value: StandardIdentityOne, index: 2, title: 'Standard Identity 1' },
+  { value: StandardIdentityTwo, index: 3, title: 'Standard Identity 2' },
+  { value: symbolSet, index: 4, title: 'Symbol set' },
+  { value: statusDefault, index: 6, title: 'Status' }
+]
