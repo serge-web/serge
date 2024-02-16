@@ -1,24 +1,28 @@
-import { Select, MenuItem, InputLabel, FormControl } from '@material-ui/core'
+import { Select, MenuItem, InputLabel, FormControl, ListItemIcon } from '@material-ui/core'
 import 'leaflet/dist/leaflet.css'
 import ms from 'milsymbol'
 import React from 'react'
+import { StandardIdentityOneItem } from './SharedData'
 
 const renderSymbol = (sidc: string) => {
   return <div dangerouslySetInnerHTML={{ __html: new ms.Symbol(sidc, { size: 20 }).asDOM().outerHTML }} />
 }
 
 const renderDropdown = (
-  data: Record<string, { sidc: string, name: string }>,
+  key: number,
+  data: StandardIdentityOneItem[],
   onChange: (e: React.ChangeEvent<{ value: unknown }>) => void,
   label: string
 ): React.JSX.Element => {
-  return <FormControl>
+  return <FormControl key={key}>
     <InputLabel>{label}</InputLabel>
     <Select onChange={onChange}>
-      {Object.keys(data).map((key) => (
-        <MenuItem key={key} id={key} value={key}>
-          {renderSymbol(data[key].sidc)}
-          {data[key].name}
+      {data.map((data) => (
+        <MenuItem key={data.index} id={data.code} value={data.code}>
+          <ListItemIcon >
+            {renderSymbol(data.sidc)}
+          </ListItemIcon>
+          {data.name}
         </MenuItem>
       ))}
     </Select>

@@ -24,7 +24,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
 
   useEffect(() => {
     const options = {
-      size: 100
+      size: 70
     }
 
     const symbol = new ms.Symbol(originalNumber, options)
@@ -45,25 +45,15 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
     onSave(originalNumber)
     onClose && onClose()
   }
+  const handleDropdownChange = (e: React.ChangeEvent<{ value: unknown }>, key: number) => {
+    setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, key))
+  }
 
   return (
     <div className={classes.root}>
       {onClose && (
         <Dialog open={true} onClose={onClose}>
           <DialogTitle>SIDC Code: {sidcCode}</DialogTitle>
-          <DialogTitle>SIDC Generator</DialogTitle>
-          <DialogContent>
-            <FormControl className={classes.formControl}>
-              {dropdownOptions.map(option => (
-                renderDropdown(
-                  option.value,
-                  (e) => { setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, option.index)) },
-                  option.title
-                )
-              ))}
-              
-            </FormControl>
-          </DialogContent>
           <DialogContent>
             {symbolElement && (
               <div
@@ -72,21 +62,22 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
               />
             )}
           </DialogContent>
+          <DialogTitle>SIDC Generator</DialogTitle>
+          <DialogContent className={classes.content}>
+            <FormControl className={classes.formControl}>
+              {dropdownOptions.map(option => (
+                renderDropdown(
+                  option.index,
+                  option.value,
+                  (e) => { handleDropdownChange(e, option.index) },
+                  option.title
+                )
+              ))}
+            </FormControl>
+          </DialogContent>
           <DialogActions>
-            <Button
-              className={classes.button}
-              onClick={handleSave}
-              color="primary"
-            >
-              Done
-            </Button>
-            <Button
-              className={classes.button}
-              onClick={onClose}
-              color="primary"
-            >
-              Cancel
-            </Button>
+            <Button className={classes.button} onClick={handleSave} color="primary">Done</Button>
+            <Button className={classes.button} onClick={onClose} color="primary">Cancel</Button>
           </DialogActions>
         </Dialog>
       )}

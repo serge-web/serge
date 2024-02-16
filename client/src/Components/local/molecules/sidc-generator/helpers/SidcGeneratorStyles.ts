@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 400
   },
+  content: {
+    maxHeight: 308
+  },
   symbolContainer: {
     textAlign: 'center',
     margin: theme.spacing(2)
