@@ -45,6 +45,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
     onSave(originalNumber)
     onClose && onClose()
   }
+  
   const handleDropdownChange = (e: React.ChangeEvent<{ value: unknown }>, key: number) => {
     setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, key))
   }

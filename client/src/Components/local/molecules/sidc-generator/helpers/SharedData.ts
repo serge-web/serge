@@ -197,10 +197,29 @@ const HeadquartersTask: StandardIdentityOneItem[] = [
   }
 ]
 
+const EchelonMobility = [
+  { code: '00', index: 0, name: 'Unspecified', sidc: '10031000000000000000' },
+  { code: '11', index: 1, name: 'Team/Crew', sidc: '10031000110000000000' },
+  { code: '12', index: 2, name: 'Squad', sidc: '10031000120000000000' },
+  { code: '13', index: 3, name: 'Section', sidc: '10031000130000000000' },
+  { code: '14', index: 4, name: 'Platoon/Detachment', sidc: '10031000140000000000' },
+  { code: '15', index: 5, name: 'Company/Battery/Troop', sidc: '10031000150000000000' },
+  { code: '16', index: 6, name: 'Battalion/Squadron', sidc: '10031000160000000000' },
+  { code: '17', index: 7, name: 'Regiment/Group', sidc: '10031000170000000000' },
+  { code: '18', index: 8, name: 'Brigade', sidc: '10031000180000000000' },
+  { code: '21', index: 9, name: 'Division', sidc: '10031000210000000000' },
+  { code: '22', index: 10, name: 'Corps/Mef', sidc: '10031000220000000000' },
+  { code: '23', index: 11, name: 'Army', sidc: '10031000230000000000' },
+  { code: '24', index: 12, name: 'Army Group/Front', sidc: '10031000240000000000' },
+  { code: '25', index: 13, name: 'Region', sidc: '10031000250000000000' },
+  { code: '26', index: 14, name: 'Command', sidc: '10031000260000000000' }
+]
+
 export const dropdownOptions: DropdownOption[] = [
   { value: StandardIdentityOne, index: 2, title: 'Standard Identity 1' },
   { value: StandardIdentityTwo, index: 3, title: 'Standard Identity 2' },
   { value: symbolSet, index: 4, title: 'Symbol set' },
   { value: statusDefault, index: 6, title: 'Status' },
-  { value: HeadquartersTask, index: 7, title: 'Headquarters/Task force/Dummy' } 
+  { value: HeadquartersTask, index: 7, title: 'Headquarters/Task force/Dummy' },
+  { value: EchelonMobility, index: 8, title: 'Echelon/Mobility/Towed array' } 
 ]
