@@ -41,6 +41,11 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     elm.style.backgroundColor = colorFor(props.force, forceStyles)
     elm.style.color = props.color
     elm.style.fontSize = (props.fontSize || DEFAULT_FONT_SIZE) + 'px'
+    if (selected.includes(props.id)) {
+      elm.classList.add(styles['pulse'])
+    } else {
+      elm.classList.remove(styles['pulse'])
+    }
   }
 
   const adjustSizeFromProperties = (marker: L.Marker<any>, props: any) => {
