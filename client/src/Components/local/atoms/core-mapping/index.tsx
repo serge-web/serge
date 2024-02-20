@@ -101,7 +101,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   
   const isAppliedPatch = (message: MappingMessage, deltaMessage: MappingMessageDelta) => {
     return message.featureCollection.features.some(f => {
-      return deltaMessage.delta.some((dtMsg: any) => get(f, 'properties.id', '') === get(dtMsg, 'value.properties.id', ''))
+      return deltaMessage?.delta.some((dtMsg: any) => get(f, 'properties.id', '') === get(dtMsg, 'value.properties.id', ''))
     })
   }
 
