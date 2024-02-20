@@ -11,13 +11,15 @@ const renderSymbol = (sidc: string) => {
 const renderDropdown = (
   key: number,
   data: StandardIdentityOneItem[],
-  onChange: (e: React.ChangeEvent<{ value: unknown }>) => void,
+  onChange: (e: React.ChangeEvent<{ value: unknown }>) => void | null,
   label: string
 ): React.JSX.Element => {
+  if (!data.length) return <></>
+
   return <FormControl key={key}>
     <InputLabel>{label}</InputLabel>
     <Select onChange={onChange}>
-      {data.map((data) => (
+      { data.map((data) => (
         <MenuItem key={data.index} id={data.code} value={data.code}>
           <ListItemIcon >
             {renderSymbol(data.sidc)}

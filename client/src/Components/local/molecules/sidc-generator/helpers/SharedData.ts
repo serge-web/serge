@@ -3,6 +3,7 @@ export type StandardIdentityOneItem = {
   index: number
   name: string
   sidc: string
+  setCode?: string[]
 };
 
 type DropdownOption = {
@@ -43,9 +44,9 @@ const StandardIdentityTwo: StandardIdentityOneItem[] = [
 ]
 
 const symbolSet: StandardIdentityOneItem[] = [
-  { code: '0', index: 0, name: 'Air', sidc: '10030100000000000000' },
+  { code: '01', index: 0, name: 'Air', sidc: '10030100000000000000' },
   {
-    code: '1',
+    code: '02',
     index: 1,
     name: 'Air missile',
     sidc: '10030200000000000000'
@@ -109,6 +110,74 @@ const symbolSet: StandardIdentityOneItem[] = [
     index: 12,
     name: 'Activities',
     sidc: '10034000000000000000'
+  }
+]
+
+const Icon: StandardIdentityOneItem[] = [
+  {
+    code: '110100',
+    setCode: ['01'],
+    index: 1,
+    name: 'Aircraft Production/Assembly',
+    sidc: '10030100001101000000'
+  },
+  {
+    code: '120500',
+    setCode: ['01'],
+    index: 2,
+    name: 'Airship',
+    sidc: '10030100001205000000'
+  },
+  {
+    code: '110300',
+    setCode: ['01'],
+    index: 3,
+    name: 'Unmanned Aircraft (UA) / Unmanned Aerial Vehicle (UAV)',
+    sidc: '10030100001103000000'
+  },
+
+  {
+    code: '000000',
+    setCode: ['02'],
+    index: 4,
+    name: 'Unspecified',
+    sidc: '10030200000000000000'
+  },
+  {
+    code: '110000',
+    setCode: ['02'],
+    index: 5,
+    name: 'Missile',
+    sidc: '10030200001100000000'
+  },
+  
+  {
+    code: '000000',
+    setCode: ['05'],
+    index: 6,
+    name: 'Unspecified',
+    sidc: '10030500000000000000'
+  },
+  {
+    code: '110000',
+    setCode: ['05'],
+    index: 7,
+    name: 'Military',
+    sidc: '10030500001100000000'
+  },
+  {
+    code: '111000',
+    setCode: ['05'],
+    index: 8,
+    name: 'Biosatellite',
+    sidc: '10030500001110000000'
+  },
+  {
+    code: '110000',
+    setCode: ['10'],
+    index: 9,
+    name: 'Command and Control',
+    sidc: '10031000001100000000'
   }
 ]
 
@@ -215,11 +284,16 @@ const EchelonMobility = [
   { code: '26', index: 14, name: 'Command', sidc: '10031000260000000000' }
 ]
 
-export const dropdownOptions: DropdownOption[] = [
-  { value: StandardIdentityOne, index: 2, title: 'Standard Identity 1' },
-  { value: StandardIdentityTwo, index: 3, title: 'Standard Identity 2' },
-  { value: symbolSet, index: 4, title: 'Symbol set' },
-  { value: statusDefault, index: 6, title: 'Status' },
-  { value: HeadquartersTask, index: 7, title: 'Headquarters/Task force/Dummy' },
-  { value: EchelonMobility, index: 8, title: 'Echelon/Mobility/Towed array' } 
-]
+export const dropdownOptions = (code: string): DropdownOption[] => {
+  const filetrIcon: StandardIdentityOneItem[] = Icon.filter(data => data.setCode && data.setCode.includes(code))
+  
+  return [
+    { value: StandardIdentityOne, index: 2, title: 'Standard Identity 1' },
+    { value: StandardIdentityTwo, index: 3, title: 'Standard Identity 2' },
+    { value: symbolSet, index: 4, title: 'Symbol set' },
+    { value: filetrIcon, index: 10, title: 'Main Icon' }, 
+    { value: statusDefault, index: 6, title: 'Status' },
+    { value: HeadquartersTask, index: 7, title: 'Headquarters/Task force/Dummy' },
+    { value: EchelonMobility, index: 8, title: 'Echelon/Mobility/Towed array' } 
+  ]
+}

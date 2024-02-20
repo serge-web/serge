@@ -31,7 +31,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
     setSidCode(originalNumber)
     setSymbolElement(symbol.asDOM())
   }, [originalNumber])
-
+  
   useEffect(() => {
     const isValid = !isNaN(Number(sidcValue))
     if (!isValid) {
@@ -49,7 +49,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
   const handleDropdownChange = (e: React.ChangeEvent<{ value: unknown }>, key: number) => {
     setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, key))
   }
-
+  console.log(originalNumber[5] + originalNumber[6])
   return (
     <div className={classes.root}>
       {onClose && (
@@ -66,7 +66,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
           <DialogTitle>SIDC Generator</DialogTitle>
           <DialogContent className={classes.content}>
             <FormControl className={classes.formControl}>
-              {dropdownOptions.map(option => (
+              {dropdownOptions(originalNumber[4] + originalNumber[5]).map(option => (
                 renderDropdown(
                   option.index,
                   option.value,
