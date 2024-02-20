@@ -103,10 +103,11 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
   return <GeomanControls
     options={{
       position: 'topright',
-      rotateMode: true,
+      rotateMode: false,
       pinningOption: true,
       snappingOption: true,
-      drawCircleMarker: false
+      drawCircleMarker: false,
+      cutPolygon: false
     }}
     globalOptions={{}}
     onCreate={e => {
