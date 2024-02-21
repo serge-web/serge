@@ -3,8 +3,8 @@ import React from 'react'
 import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
-import { CHANNEL_MAPPING, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData } from 'src/custom-types'
+import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
+import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData, MappingMessageDelta } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
 import { noop } from 'lodash'
@@ -215,6 +215,25 @@ const coreMessage: MappingMessage = {
   featureCollection: features
 }
 
+const deltaMessage: MappingMessageDelta = {
+  _id: 'timestamp-23',
+  delta: [],
+  details: {
+    channel: 'core-mapping',
+    from: {
+      force: 'f-red',
+      forceColor: '#f00',
+      roleId: 'mar-23',
+      roleName: 'MARITIME CTRL',
+      iconURL: 'f-red.svg'
+    },
+    timestamp: '2023-11-23T23:32:00',
+    turnNumber: 1
+  },
+  messageType: MAPPING_MESSAGE_DELTA,
+  since: 'timestamp-23'
+}
+
 const baseProps = [forceProp, phaseProp, turnProp]
 
 const coreRenderer: CoreRenderer = {
@@ -291,7 +310,7 @@ export const Default: React.FC = () => {
   return (
     <CoreMapping
       playerForce={playerForce}
-      messages={[coreMessage]}
+      messages={[coreMessage, deltaMessage]}
       channel={coreMapChannel}
       playerRole={'mgr'}
       currentTurn={1}
@@ -307,7 +326,7 @@ export const Bulk: React.FC = () => {
   return (
     <CoreMapping
       playerForce={playerForce}
-      messages={[bulkMessage]}
+      messages={[bulkMessage, deltaMessage]}
       channel={coreMapChannel}
       playerRole={'mgr'}
       currentTurn={1}
