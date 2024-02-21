@@ -60,11 +60,11 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           }
           const basedFeatureCollection = lastMessages.current.featureCollection
           // find latest delta message based on mapping message id
-          const deltaMessages = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE_DELTA && get(msg, 'since', '') === baseMappingMessage._id)
-          if (!isAppliedPatch(baseMappingMessage, deltaMessages)) {
+          const deltaMessages: MappingMessageDelta = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE_DELTA && get(msg, 'since', '') === baseMappingMessage._id)
+          if (deltaMessages?.delta.length && !isAppliedPatch(baseMappingMessage, deltaMessages)) {
             const cloneBaseCollection = cloneDeep(basedFeatureCollection)
             // apply latest delta message into original mapping message's feature collection
-            baseMappingMessage.featureCollection = applyPatch(cloneBaseCollection, deltaMessages as MappingMessageDelta)
+            baseMappingMessage.featureCollection = applyPatch(cloneBaseCollection, deltaMessages)
           }
           setFeatureCollection(baseMappingMessage.featureCollection)
         }
