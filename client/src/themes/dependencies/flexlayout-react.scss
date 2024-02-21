@@ -179,6 +179,10 @@
   font-size: 13px;
   text-align: center;
   color: #4bf;
+
+  // restore pointer-events for button tab
+  pointer-events: all;
+  
   @include typo-secondary;
 }
 
@@ -287,6 +291,9 @@
   left: 0;
   right: 0;
   overflow: hidden;
+
+  // disable pointer event on title panel to avoid double clicking to maximize
+  pointer-events: none;
 }
 
 .flexlayout__tab_header_outer--admin-insights-tab-btn,
@@ -319,6 +326,9 @@
   top: 0;
   bottom: 0;
   right: 0;
+
+  // hide minimize/maximize button
+  display: none;
 
   button {
     filter: brightness(200%);
