@@ -49,7 +49,19 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
   const handleDropdownChange = (e: React.ChangeEvent<{ value: unknown }>, key: number) => {
     setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, key))
   }
-  console.log(originalNumber[5] + originalNumber[6])
+
+  const renderDropdownOptions = () => {
+    return dropdownOptions(originalNumber[4] + originalNumber[5]).map(option => (
+      renderDropdown({
+        index: option.index,
+        data: option.value,
+        onChange: (e) => handleDropdownChange(e, option.index),
+        label: option.name,
+        originalNumber: originalNumber
+      })
+    ))
+  }
+  
   return (
     <div className={classes.root}>
       {onClose && (
@@ -66,14 +78,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
           <DialogTitle>SIDC Generator</DialogTitle>
           <DialogContent className={classes.content}>
             <FormControl className={classes.formControl}>
-              {dropdownOptions(originalNumber[4] + originalNumber[5]).map(option => (
-                renderDropdown(
-                  option.index,
-                  option.value,
-                  (e) => { handleDropdownChange(e, option.index) },
-                  option.title
-                )
-              ))}
+              {renderDropdownOptions()}
             </FormControl>
           </DialogContent>
           <DialogActions>

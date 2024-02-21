@@ -5,8 +5,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    padding: theme.spacing(2),
-    minWidth: '600px'
+    minWidth: '800px'
   },
   formControl: {
     margin: theme.spacing(1),

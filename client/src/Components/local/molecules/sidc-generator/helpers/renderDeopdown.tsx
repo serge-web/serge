@@ -1,34 +1,48 @@
+import React from 'react'
 import { Select, MenuItem, InputLabel, FormControl, ListItemIcon } from '@material-ui/core'
 import 'leaflet/dist/leaflet.css'
 import ms from 'milsymbol'
-import React from 'react'
-import { StandardIdentityOneItem } from './SharedData'
+import replaceNumber from './replace-number'
+import { StandardIdentityOne } from './SharedData'
+import { CUSTOM_SIDC } from 'src/config'
 
-const renderSymbol = (sidc: string) => {
-  return <div dangerouslySetInnerHTML={{ __html: new ms.Symbol(sidc, { size: 20 }).asDOM().outerHTML }} />
+interface RenderDropdownProps {
+  index: number
+  data: StandardIdentityOne
+  onChange: (e: React.ChangeEvent<{ value: unknown }>) => void | null
+  label: string
+  originalNumber: string
 }
 
-const renderDropdown = (
-  key: number,
-  data: StandardIdentityOneItem[],
-  onChange: (e: React.ChangeEvent<{ value: unknown }>) => void | null,
-  label: string
-): React.JSX.Element => {
-  if (!data.length) return <></>
+const renderSymbol = (sidc: string, key: string, index: number): React.ReactElement => {
+  const replacedSidc = replaceNumber(sidc, key, index)
+  const symbolHtml = new ms.Symbol(replacedSidc, { size: 20 }).asDOM().outerHTML
 
-  return <FormControl key={key}>
-    <InputLabel>{label}</InputLabel>
-    <Select onChange={onChange}>
-      { data.map((data) => (
-        <MenuItem key={data.index} id={data.code} value={data.code}>
-          <ListItemIcon >
-            {renderSymbol(data.sidc)}
-          </ListItemIcon>
-          {data.name}
-        </MenuItem>
-      ))}
-    </Select>
-  </FormControl>
+  return <div dangerouslySetInnerHTML={{ __html: symbolHtml }} />
+}
+
+const renderDropdown = (props: RenderDropdownProps): React.ReactElement => {
+  const { index, data, onChange, label, originalNumber } = props
+  const sidcCode = label === 'Symbol set' ? CUSTOM_SIDC : originalNumber
+
+  return (
+    <FormControl key={index}>
+      <InputLabel>{label}</InputLabel>
+      <Select onChange={onChange}>
+        {Object.keys(data).map((itemKey) => {
+          const itemData = data[itemKey]
+          const value = itemData.code || itemKey
+
+          return (
+            <MenuItem key={itemKey} value={value}>
+              <ListItemIcon>{renderSymbol(sidcCode, value, index)}</ListItemIcon>
+              {itemData.name || itemData['entity type'] || itemData['entity subtype'] || itemData['modifier'] || itemData['entity']}
+            </MenuItem>
+          )
+        })}
+      </Select>
+    </FormControl>
+  )
 }
 
 export default renderDropdown
