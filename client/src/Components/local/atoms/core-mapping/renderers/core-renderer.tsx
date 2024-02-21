@@ -6,6 +6,7 @@ import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { ForceStyle } from 'src/Helpers'
 import { CoreProperties, RENDERER_CORE } from 'src/custom-types'
+import { getInvertColor, getRGB, isSimilar } from '../helper/marker-helper'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
@@ -35,7 +36,12 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
   }
 
   const setTextStyleFromProperties = (marker: L.Marker<any>, props: any) => {
+    const forceColor = colorFor(props.force, forceStyles)
+    const textColor = props.color
     const elm = marker.pm['_layer'].pm.getElement() as HTMLTextAreaElement
+    if (isSimilar(getRGB(forceColor), getRGB(textColor))) {
+      elm.style.textShadow = `0 0 5px ${getInvertColor(getRGB(forceColor))}, 0 0 5px ${getInvertColor(getRGB(forceColor))}`
+    }
     elm.style.textAlign = 'center'
     elm.style.padding = '0px'
     elm.style.backgroundColor = colorFor(props.force, forceStyles)
