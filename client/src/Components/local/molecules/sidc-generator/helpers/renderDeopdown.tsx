@@ -17,13 +17,12 @@ interface RenderDropdownProps {
 const renderSymbol = (sidc: string, key: string, index: number): React.ReactElement => {
   const replacedSidc = replaceNumber(sidc, key, index)
   const symbolHtml = new ms.Symbol(replacedSidc, { size: 20 }).asDOM().outerHTML
-
+  
   return <div dangerouslySetInnerHTML={{ __html: symbolHtml }} />
 }
 
 const renderDropdown = (props: RenderDropdownProps): React.ReactElement => {
   const { index, data, onChange, label, originalNumber } = props
-  const sidcCode = label === 'Symbol set' ? CUSTOM_SIDC : originalNumber
 
   return (
     <FormControl key={index}>
@@ -31,6 +30,8 @@ const renderDropdown = (props: RenderDropdownProps): React.ReactElement => {
       <Select onChange={onChange}>
         {Object.keys(data).map((itemKey) => {
           const itemData = data[itemKey]
+          const sidcCode = itemData.sidc || label === 'Symbol set' ? CUSTOM_SIDC : originalNumber
+
           const value = itemData.code || itemKey
 
           return (

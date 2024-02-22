@@ -23,9 +23,9 @@ export type StandardIdentityOne = {
 };
 
 const StandardIdentityOne: StandardIdentityOne = { 
-  0: { code: '0', index: 0, name: 'Realty', sidc: '' }, 
-  1: { code: '1', index: 1, name: 'Exercise', sidc: '' }, 
-  2: { code: '2', index: 2, name: 'Simulation', sidc: '' }
+  0: { code: '0', index: 0, name: 'Realty', sidc: '0' }, 
+  1: { code: '1', index: 1, name: 'Exercise', sidc: '1' }, 
+  2: { code: '2', index: 2, name: 'Simulation', sidc: '2' }
 }
 
 const StandardIdentityTwo: StandardIdentityOne = {
@@ -158,10 +158,10 @@ const EchelonMobility = {
 
 export const dropdownOptions = (code: string): DropdownOption[] => {
   const iconms2525d = code ? ms2525d[code] : null
-  
+
   const iconSelectOptions = iconms2525d && [
     { value: iconms2525d['main icon'], index: 10, name: 'main icon' },
-    { value: iconms2525d['modifier 1'], index: 17, name: 'modifier 1' },
+    { value: iconms2525d['modifier 1'], index: 16, name: 'modifier 1' },
     { value: iconms2525d['modifier 2'], index: 18, name: 'modifier 2' }
   ]
   const iconDropdownOptions: DropdownOption[] = iconms2525d ? iconSelectOptions : []
@@ -175,6 +175,6 @@ export const dropdownOptions = (code: string): DropdownOption[] => {
     { value: HeadquartersTask, index: 7, name: 'Headquarters/Task force/Dummy' },
     { value: EchelonMobility, index: 8, name: 'Echelon/Mobility/Towed array' }
   ]
-
+  
   return options
 }
