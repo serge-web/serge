@@ -184,11 +184,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         const propertyValue = get(f.properties, filterKey, '').toString().toLowerCase()
         const searchKey = selectedFiltersProps[filterKey].value.toLowerCase()
         if (filterKey === 'Wildcard' && searchKey) {
-          // search wildcard by label
+          // search wildcard by label & id
           const label = get(f.properties, 'label', '').toString().toLowerCase()
+          const id = get(f.properties, 'id', '').toString().toLowerCase()
           try {
             const rgex = new RegExp(searchKey)
-            found = rgex.test(label)
+            found = rgex.test(label) || rgex.test(id)
           } catch (e) {
             found = false
           }
