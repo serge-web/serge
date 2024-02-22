@@ -57,7 +57,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
         data: option.value,
         onChange: (e) => handleDropdownChange(e, option.index),
         label: option.name,
-        originalNumber: originalNumber
+        originalNumber
       })
     ))
   }
