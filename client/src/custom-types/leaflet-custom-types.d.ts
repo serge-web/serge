@@ -29,6 +29,8 @@ class Ruler extends Control {
   addTo(map: Map): this;
   // remove comes from the parent contrlol
   remove(): void
+  _toggleMeasure(): void
+  _choice: boolean
 }
 
 declare module 'leaflet' {

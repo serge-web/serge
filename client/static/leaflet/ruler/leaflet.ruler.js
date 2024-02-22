@@ -56,6 +56,7 @@
       this._totalLength = 0
       if (this._choice) {
         this._map.doubleClickZoom.disable()
+        this._map.pm.disableGlobalEditMode()
         L.DomEvent.on(this._map._container, 'keydown', this._escape, this)
         L.DomEvent.on(this._map._container, 'dblclick', this._closePath, this)
         this._container.classList.add('leaflet-ruler-clicked')
