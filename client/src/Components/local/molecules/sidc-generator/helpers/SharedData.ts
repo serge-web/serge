@@ -158,14 +158,12 @@ const EchelonMobility = {
 
 export const dropdownOptions = (code: string): DropdownOption[] => {
   const iconms2525d = code ? ms2525d[code] : null
-  const icon: DropdownOption[] = iconms2525d
-    ? [
-      { value: iconms2525d['main icon'], index: 10, name: 'main icon' },
-      { value: iconms2525d['modifier 1'], index: 17, name: 'modifier 1' },
-      { value: iconms2525d['modifier 2'], index: 18, name: 'modifier 2' }
-    ]
-    : []
-    
+  const icon: DropdownOption[] = iconms2525d ? [
+    { value: iconms2525d['main icon'], index: 10, name: 'main icon' },
+    { value: iconms2525d['modifier 1'], index: 17, name: 'modifier 1' },
+    { value: iconms2525d['modifier 2'], index: 18, name: 'modifier 2' }
+  ] : []
+
   const options: DropdownOption[] = [
     { value: StandardIdentityOne, index: 2, name: 'Standard Identity 1' },
     { value: StandardIdentityTwo, index: 3, name: 'Standard Identity 2' },
