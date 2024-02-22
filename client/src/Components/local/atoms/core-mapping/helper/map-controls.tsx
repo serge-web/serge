@@ -96,6 +96,8 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
        
       map.pm.setGlobalOptions({ markerStyle: { icon } })
       map.zoomControl.setPosition('bottomright')
+      L.control.scale({ position: 'topright' }).addTo(map)
+      L.control.ruler({ position: 'bottomright' }).addTo(map)
       initMapListener()
     }
   }, [map])
