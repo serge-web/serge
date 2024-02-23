@@ -37,8 +37,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
+  const wildcardLabel = 'id/label (*)'
+
   // add custom search field with wildcard support
-  filterProperties?.push('Wildcard')
+  filterProperties?.unshift(wildcardLabel)
 
   useEffect(() => {
     setFilterredFeatures(features)
@@ -183,7 +185,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       Object.keys(selectedFiltersProps).forEach((filterKey) => {
         const propertyValue = get(f.properties, filterKey, '').toString().toLowerCase()
         const searchKey = selectedFiltersProps[filterKey].value.toLowerCase()
-        if (filterKey === 'Wildcard' && searchKey) {
+        if (filterKey === wildcardLabel && searchKey) {
           // search wildcard by label & id
           const label = get(f.properties, 'label', '').toString().toLowerCase()
           const id = get(f.properties, 'id', '').toString().toLowerCase()
