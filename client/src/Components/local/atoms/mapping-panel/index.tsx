@@ -250,7 +250,6 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         </div>
       </CustomDialog>
       <Panel
-        collapsible={true}
         defaultSizePixels={150}
         minSizePixels={150}
         order={1}
@@ -270,7 +269,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       </Panel>
       <ResizeHandle />
       
-      <Panel collapsible={true} order={2} className={styles.itemsPanel}>
+      <Panel
+        order={2}
+        className={styles.itemsPanel}
+        minSizePixels={300}
+      >
         <div className={styles.header}>
           Items
         </div>
@@ -283,9 +286,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       <ResizeHandle />
       
       <Panel
-        collapsible={true}
-        defaultSizePixels={190}
-        minSizePixels={190}
+        defaultSizePixels={200}
+        minSizePixels={200}
         order={3}
         className={styles.propertiesPanel}
       >
