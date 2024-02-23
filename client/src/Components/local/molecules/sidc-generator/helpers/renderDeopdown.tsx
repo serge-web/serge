@@ -1,24 +1,20 @@
 import React from 'react'
-import { Select, MenuItem, InputLabel, FormControl, ListItemIcon } from '@material-ui/core'
+import {
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  ListItemIcon
+} from '@material-ui/core'
 import 'leaflet/dist/leaflet.css'
 import ms from 'milsymbol'
 import replaceNumber from './replace-number'
-import { StandardIdentityOne } from './SharedData'
+import { RenderDropdownProps } from '../PropsTypes/types'
 import { CUSTOM_SIDC } from 'src/config'
 
-interface RenderDropdownProps {
-  index: number
-  data: StandardIdentityOne
-  onChange: (e: React.ChangeEvent<{ value: unknown }>) => void | null
-  label: string
-  originalNumber: string
-}
-
-const renderSymbol = (sidc: string, key: string, index: number): React.ReactElement => {
+const generateSymbol = (sidc: string, key: string, index: number): string => {
   const replacedSidc = replaceNumber(sidc, key, index)
-  const symbolHtml = new ms.Symbol(replacedSidc, { size: 20 }).asDOM().outerHTML
-  
-  return <div dangerouslySetInnerHTML={{ __html: symbolHtml }} />
+  return new ms.Symbol(replacedSidc, { size: 20 }).asDOM().outerHTML
 }
 
 const renderDropdown = (props: RenderDropdownProps): React.ReactElement => {
@@ -28,16 +24,16 @@ const renderDropdown = (props: RenderDropdownProps): React.ReactElement => {
     <FormControl key={index}>
       <InputLabel>{label}</InputLabel>
       <Select onChange={onChange}>
-        {Object.keys(data).map((itemKey) => {
-          const itemData = data[itemKey]
+        {Object.entries(data).map(([itemKey, itemData]) => {
           const sidcCode = itemData.sidc || label === 'Symbol set' ? CUSTOM_SIDC : originalNumber
-
+          const checkReserved = itemData.modifier === '{Reserved for future use}'
           const value = itemData.code || itemKey
+          const symbolHtml = generateSymbol(sidcCode, value, index)
 
           return (
-            <MenuItem key={itemKey} value={value}>
-              <ListItemIcon>{renderSymbol(sidcCode, value, index)}</ListItemIcon>
-              {itemData.name || itemData['entity type'] || itemData['entity subtype'] || itemData['modifier'] || itemData['entity']}
+            <MenuItem key={itemKey} value={value} disabled={checkReserved}>
+              <ListItemIcon dangerouslySetInnerHTML={{ __html: symbolHtml }} />
+              {itemData.name || itemData['entity subtype'] || itemData['entity type'] || itemData['modifier'] || itemData['entity']}
             </MenuItem>
           )
         })}

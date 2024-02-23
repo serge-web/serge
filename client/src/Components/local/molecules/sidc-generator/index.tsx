@@ -19,8 +19,11 @@ import PropsTypes from './PropsTypes/types'
 const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => {
   const [symbolElement, setSymbolElement] = useState<any | ms.Symbol>(null)
   const [sidcCode, setSidCode] = useState<string>('')
-  const [originalNumber, setoriginalNumber] = useState<string>('')
+  const [originalNumber, setOriginalNumber] = useState<string>('')
+  const [symbolCode, setSymbolCode] = useState<string>('')
   const classes = useStyles()
+
+  const memoizedDropdownOptions = React.useMemo(() => dropdownOptions(symbolCode), [symbolCode])
 
   useEffect(() => {
     const options = {
@@ -31,27 +34,31 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
     setSidCode(originalNumber)
     setSymbolElement(symbol.asDOM())
   }, [originalNumber])
-  
+
   useEffect(() => {
     const isValid = !isNaN(Number(sidcValue))
     if (!isValid) {
       console.log(`${sidcValue} is not a valid number.`)
     }
-
-    setoriginalNumber(isValid ? sidcValue : CUSTOM_SIDC)
-  }, [])
-
+    const originValue = isValid ? sidcValue : CUSTOM_SIDC
+    setSymbolCode(originValue[4] + originValue[5])
+    setOriginalNumber(originValue)
+  }, [sidcValue])
+  
   const handleSave = () => {
     onSave(originalNumber)
     onClose && onClose()
   }
-  
+
   const handleDropdownChange = (e: React.ChangeEvent<{ value: unknown }>, key: number) => {
-    setoriginalNumber(replaceNumber(originalNumber, e.target.value as string, key))
+    const replesNUmber = replaceNumber(originalNumber, e.target.value as string, key)
+    const newSymbolCode = replesNUmber[4] + replesNUmber[5]
+    setSymbolCode(newSymbolCode)
+    setOriginalNumber(replesNUmber)
   }
 
   const renderDropdownOptions = () => {
-    return dropdownOptions(originalNumber[4] + originalNumber[5]).map(option => (
+    return memoizedDropdownOptions.map(option =>
       renderDropdown({
         index: option.index,
         data: option.value,
@@ -59,9 +66,9 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
         label: option.name,
         originalNumber
       })
-    ))
+    )
   }
-  
+
   return (
     <div className={classes.root}>
       {onClose && (
