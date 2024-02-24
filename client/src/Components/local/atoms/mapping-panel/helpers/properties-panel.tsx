@@ -3,13 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { ChangeEvent, Fragment } from 'react'
 import styles from '../styles.module.scss'
 import { ProppertiesPanelProps } from '../types/props'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import { Checkbox, ListItemText } from '@material-ui/core'
 
 const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit }) => {
   return <Fragment>
     {
       Object.keys(selectedProp).map((key, kIdx) => {
         const { value, choices } = selectedProp[key]
-
+  
         if ((key === 'lat')) {
           const latValue = selectedProp.lat.value
           const lngValue = selectedProp.lng.value
@@ -33,9 +36,21 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
           <p>{key}:</p>
           <div>
             {choices.length > 0
-              ? <select value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
-                {choices.map((o: string) => (<option key={o} value={o}>{o}</option>))}
-              </select>
+              ? <Select
+                style={{ width: '100%' }}
+                value={Array.isArray(value) ? value : [value]}
+                multiple={true} // do we need to dynamic this property?
+                onChange={e => { onPropertiesChange(key, e.target.value as string) }}
+                renderValue={(selected: unknown) => {
+                  const selStr = selected as string[]
+                  return selStr.join(', ')
+                }}
+              >
+                {choices.map((o: string) => <MenuItem key={o} value={o}>
+                  <Checkbox name={o} checked={value.includes(o)} />
+                  <ListItemText primary={o} />
+                </MenuItem>)}
+              </Select>
               : <input value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
             }
           </div>

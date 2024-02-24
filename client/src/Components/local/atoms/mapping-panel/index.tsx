@@ -184,8 +184,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       let found = true
       Object.keys(selectedFiltersProps).forEach((filterKey) => {
         const propertyValue = get(f.properties, filterKey, '').toString().toLowerCase()
-        const searchKey = selectedFiltersProps[filterKey].value.toLowerCase()
-        if (filterKey === wildcardLabel && searchKey) {
+        const value = selectedFiltersProps[filterKey].value
+        const searchKey = Array.isArray(value) ? value.join(',').toLowerCase() : value.toLowerCase()
+        if (filterKey === wildcardLabel) {
           // search wildcard by label & id
           const label = get(f.properties, 'label', '').toString().toLowerCase()
           const id = get(f.properties, 'id', '').toString().toLowerCase()
@@ -195,7 +196,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           } catch (e) {
             found = false
           }
-        } else if (!propertyValue.includes(searchKey)) {
+        } else if (!searchKey.includes(propertyValue)) {
           found = false
         }
       })
