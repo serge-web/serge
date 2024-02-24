@@ -1,15 +1,23 @@
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'
 import L, { LeafletEvent, PM } from 'leaflet'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import AssetIcon from 'src/Components/local/asset-icon'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
+import { useMappingState } from './mapping-provider'
 
 const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {
   const map = useMap()
+  const selectedRef = useRef<boolean>(false)
+
+  const { deselecteFeature, setDeselectFeature } = useMappingState()
+
+  useEffect(() => {
+    selectedRef.current = deselecteFeature
+  }, [deselecteFeature])
 
   const initMapListener = () => {
     let layersVisible = true 
@@ -76,6 +84,10 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
         default:
           console.log('OnCreate Unimplemented !!!', e['shape'])
       }
+    })
+
+    map.on('click', () => {
+      setDeselectFeature(!selectedRef.current)
     })
   }
    
