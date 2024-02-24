@@ -37,8 +37,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
+  const wildcardLabel = 'id/label (*)'
+
   // add custom search field with wildcard support
-  filterProperties?.push('Wildcard')
+  filterProperties?.unshift(wildcardLabel)
 
   useEffect(() => {
     setFilterredFeatures(features)
@@ -183,12 +185,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       Object.keys(selectedFiltersProps).forEach((filterKey) => {
         const propertyValue = get(f.properties, filterKey, '').toString().toLowerCase()
         const searchKey = selectedFiltersProps[filterKey].value.toLowerCase()
-        if (filterKey === 'Wildcard' && searchKey) {
-          // search wildcard by label
+        if (filterKey === wildcardLabel && searchKey) {
+          // search wildcard by label & id
           const label = get(f.properties, 'label', '').toString().toLowerCase()
+          const id = get(f.properties, 'id', '').toString().toLowerCase()
           try {
             const rgex = new RegExp(searchKey)
-            found = rgex.test(label)
+            found = rgex.test(label) || rgex.test(id)
           } catch (e) {
             found = false
           }
@@ -247,7 +250,6 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         </div>
       </CustomDialog>
       <Panel
-        collapsible={true}
         defaultSizePixels={150}
         minSizePixels={150}
         order={1}
@@ -267,7 +269,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       </Panel>
       <ResizeHandle />
       
-      <Panel collapsible={true} order={2} className={styles.itemsPanel}>
+      <Panel
+        order={2}
+        className={styles.itemsPanel}
+        minSizePixels={300}
+      >
         <div className={styles.header}>
           Items
         </div>
@@ -280,9 +286,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       <ResizeHandle />
       
       <Panel
-        collapsible={true}
-        defaultSizePixels={190}
-        minSizePixels={190}
+        defaultSizePixels={200}
+        minSizePixels={200}
         order={3}
         className={styles.propertiesPanel}
       >
