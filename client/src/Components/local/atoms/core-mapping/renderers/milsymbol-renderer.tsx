@@ -7,12 +7,15 @@ import { calculateHealthColor } from 'src/Helpers'
 import { RENDERER_MILSYM } from 'src/custom-types'
 import { createDivIcon } from '../helper/marker-helper'
 import { CoreRendererProps } from '../types/props'
+import { useMappingState } from '../helper/mapping-provider'
 
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels, selected = [] }): any => {
-  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM
+  const { filterFeatureIds } = useMappingState()
+
+  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM && filterFeatureIds.includes('' + feature.properties.id)
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       const { sidc, health, id } = feature.properties

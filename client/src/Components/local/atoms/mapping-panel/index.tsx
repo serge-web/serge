@@ -6,12 +6,14 @@ import { cloneDeep, get, isEqual, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { CoreProperties, PropertyTypes } from 'src/custom-types'
+import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import CustomDialog from '../custom-dialog'
 import IconRenderer from './helpers/icon-renderer'
 import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
 import { SelectedProps } from './types/props'
+import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 
 type MappingPanelProps = {
   onClose: () => void
@@ -35,6 +37,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   const [selectedFiltersProps, setSelectedFiltersProps] = useState<SelectedProps>({})
   const [disableSave, setDisableSave] = useState<boolean>(true)
   
+  const { setFilterFeatureIds } = useMappingState()
+
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
   const wildcardLabel = 'id/label (*)'
@@ -205,6 +209,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     if (!isSelectedFeatureFilterOut) {
       clearSelectedFeature()
     }
+    setFilterFeatureIds(getAllFeatureIds(cloneFeature))
     setFilterredFeatures(cloneFeature)
   }, [features, selectedFiltersProps])
 
