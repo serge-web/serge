@@ -37,7 +37,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
           <div>
             {choices.length > 0
               ? <Select
-                style={{ width: '100%' }}
+                className={styles['multi-select']}
                 value={Array.isArray(value) ? value : [value]}
                 multiple={true} // do we need to dynamic this property?
                 onChange={e => { onPropertiesChange(key, e.target.value as string) }}
@@ -46,7 +46,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
                   return selStr.join(', ')
                 }}
               >
-                {choices.map((o: string) => <MenuItem key={o} value={o}>
+                {choices.map((o: string) => <MenuItem key={o} value={o} className={styles['menu-item']}>
                   <Checkbox name={o} checked={value.includes(o)} />
                   <ListItemText primary={o} />
                 </MenuItem>)}

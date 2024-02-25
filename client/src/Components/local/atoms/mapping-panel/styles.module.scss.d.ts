@@ -21,6 +21,8 @@ interface CssExports {
   'resize-handle-horizontal': string;
   'resize-handle-inner': string;
   'resize-handle-outer': string;
+  'multi-select': string;
+  'menu-item': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

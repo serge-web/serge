@@ -184,3 +184,16 @@
   margin-top: 1px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.multi-select {
+  width: 100% !important;
+}
+
+.multi-select > div {
+  width: 100% !important;
+}
+
+.menu-item {
+  padding: 0 !important;
+  height: 36px;
+}
