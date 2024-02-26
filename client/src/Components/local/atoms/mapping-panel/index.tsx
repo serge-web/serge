@@ -178,7 +178,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     updatePendingSave(key, value)
   }
 
-  const onFilterPropertiesChange = (key: string, value: string) => {
+  const onFilterPropertiesChange = (key: string, value: any) => {
     const prevValue = get(selectedFiltersProps, key)
     // leep 1 selected item
     if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
