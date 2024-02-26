@@ -214,7 +214,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           type: 'Feature',
           properties: {
             _type: RENDERER_MILSYM,
-            sidc: 'SFG-UCI----D',
+            sidc: '10031000141211000000',
             size: 'M',
             health: 100,
             ...commonProps
