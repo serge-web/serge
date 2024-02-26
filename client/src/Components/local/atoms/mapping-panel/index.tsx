@@ -289,7 +289,6 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         collapsible
         ref={filterPanel}
         defaultSizePixels={150}
-        minSizePixels={150}
         order={1}
         className={styles.filterPanel}
         id='filter-panel'
@@ -306,14 +305,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           <button onClick={onAddNewFilter}>Add</button>
         </div>
       </Panel>
-      <ResizeHandle />
+      {(panelState.filterPanelState && panelState.itemPanelState) && <ResizeHandle />}
       
       <Panel
         ref={itemPanel}
         collapsible
         order={2}
         className={styles.itemsPanel}
-        minSizePixels={300}
       >
         <div className={styles.header}>
           <div></div>
@@ -326,13 +324,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           })}
         </div>
       </Panel>
-      <ResizeHandle />
+      {(panelState.itemPanelState && panelState.propertyPanelState) && <ResizeHandle />}
       
       <Panel
         ref={propertyPanel}
         collapsible
         defaultSizePixels={200}
-        minSizePixels={200}
         order={3}
         className={styles.propertiesPanel}
       >
