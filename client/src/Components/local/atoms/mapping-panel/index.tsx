@@ -52,7 +52,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   const itemPanel = useRef<ImperativePanelHandle | null>(null)
   const propertyPanel = useRef<ImperativePanelHandle | null>(null)
   
-  const { setFilterFeatureIds } = useMappingState()
+  const { setFilterFeatureIds, deselecteFeature } = useMappingState()
 
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
@@ -108,6 +108,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   useEffect(() => {
     selectItem(selected, true)
   }, [selected])
+
+  useEffect(() => {
+    if (selected.length) {
+      clearSelectedFeature()
+    }
+  }, [deselecteFeature])
   
   const onAddNewFilter = () => setOpenAddFilter(true)
 
