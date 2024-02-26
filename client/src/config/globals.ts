@@ -275,7 +275,8 @@ export const FLEX_LAYOUT_MODEL_DEFAULT: any = {
   global: {
     tabSetTabStripHeight: 45,
     tabEnableClose: false,
-    tabEnableRenderOnDemand: false
+    tabEnableRenderOnDemand: false,
+    tabSetEnableMaximize: false
   },
   borders: [],
   layout: {
