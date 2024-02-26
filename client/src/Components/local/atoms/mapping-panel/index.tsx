@@ -112,8 +112,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     const selectedFilterOpts = propertyFiltersListPanel.reduce((res, key): SelectedProps => {
       const extraProps = extraFilterProps.find(prop => prop.id === key)
       const choices: string[] = get(extraProps, 'choices', [])
+      const value = get(choices, '0', '')
       res[key] = {
-        value: get(choices, '0', ''),
+        value: choices.length ? [value] : '',
         choices
       }
       return res
@@ -168,6 +169,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
 
   const onPropertiesChange = (key: string, value: any) => {
     const prevValue = get(selectedProps, key)
+    // leep 1 selected item
+    if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
+      return
+    }
     set(prevValue, 'value', value)
     setSelectedProps(cloneDeep(selectedProps))
     updatePendingSave(key, value)
@@ -175,6 +180,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
 
   const onFilterPropertiesChange = (key: string, value: string) => {
     const prevValue = get(selectedFiltersProps, key)
+    // leep 1 selected item
+    if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
+      return
+    }
     set(prevValue, 'value', value)
     setSelectedFiltersProps(cloneDeep(selectedFiltersProps))
   }
@@ -185,26 +194,39 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     }
     const cloneFeature = cloneDeep(features)
     cloneFeature.features = cloneFeature.features.filter((f) => {
-      let found = true
+      const andFoundKey: {[x: string]: boolean} = {}
       Object.keys(selectedFiltersProps).forEach((filterKey) => {
-        const propertyValue = get(f.properties, filterKey, '').toString().toLowerCase()
         const value = selectedFiltersProps[filterKey].value
-        const searchKey = Array.isArray(value) ? value.join(',').toLowerCase() : value.toLowerCase()
         if (filterKey === wildcardLabel) {
           // search wildcard by label & id
+          const searchKey = value.toLowerCase()
           const label = get(f.properties, 'label', '').toString().toLowerCase()
           const id = get(f.properties, 'id', '').toString().toLowerCase()
           try {
             const rgex = new RegExp(searchKey)
-            found = rgex.test(label) || rgex.test(id)
+            andFoundKey[filterKey] = rgex.test(label) || rgex.test(id)
           } catch (e) {
-            found = false
+            andFoundKey[filterKey] = false
           }
-        } else if (!searchKey.includes(propertyValue)) {
-          found = false
+        } else {
+          const propertyValue = get(f.properties, filterKey, '')
+          let comparingPropValue = []
+          let comnparingValue = [] 
+          if (Array.isArray(propertyValue)) {
+            comparingPropValue = propertyValue
+          } else {
+            comparingPropValue.push(propertyValue)
+          }
+          if (Array.isArray(value)) {
+            comnparingValue = value
+          } else {
+            comnparingValue.push(value)
+          }
+          andFoundKey[filterKey] = comparingPropValue.sort().join(',').includes(comnparingValue.sort().join(','))
         }
       })
-      return found
+
+      return Object.values(andFoundKey).every(f => f)
     })
     const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', ''))
     if (!isSelectedFeatureFilterOut) {
