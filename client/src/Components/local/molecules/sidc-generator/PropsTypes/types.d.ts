@@ -3,6 +3,7 @@ import { StandardIdentityOne } from '../helpers/SharedData'
 
 export interface RenderDropdownProps {
     index: number
+    endindex: number
     data: StandardIdentityOne
     onChange: (e: React.ChangeEvent<{ value: unknown }>) => void | null
     label: string

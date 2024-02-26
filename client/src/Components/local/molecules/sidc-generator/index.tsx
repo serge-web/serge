@@ -61,6 +61,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
     return memoizedDropdownOptions.map(option =>
       renderDropdown({
         index: option.index,
+        endindex: option.endindex,
         data: option.value,
         onChange: (e) => handleDropdownChange(e, option.index),
         label: option.name,

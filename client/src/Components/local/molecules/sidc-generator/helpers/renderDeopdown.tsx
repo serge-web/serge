@@ -18,12 +18,13 @@ const generateSymbol = (sidc: string, key: string, index: number): string => {
 }
 
 const renderDropdown = (props: RenderDropdownProps): React.ReactElement => {
-  const { index, data, onChange, label, originalNumber } = props
+  const { index, endindex, data, onChange, label, originalNumber } = props
+  const selectedSubstring = originalNumber.slice(index, endindex)
 
   return (
     <FormControl key={index}>
       <InputLabel>{label}</InputLabel>
-      <Select onChange={onChange}>
+      <Select onChange={onChange} value={selectedSubstring}>
         {Object.entries(data).map(([itemKey, itemData]) => {
           const sidcCode = itemData.sidc || label === 'Symbol set' ? CUSTOM_SIDC : originalNumber
           const checkReserved = itemData.modifier === '{Reserved for future use}'

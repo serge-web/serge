@@ -10,6 +10,7 @@ export type StandardIdentityOneItem = {
 type DropdownOption = {
   value: StandardIdentityOne
   index: number
+  endindex: number 
   name: string
 };
 
@@ -160,20 +161,21 @@ const EchelonMobility = {
 export const dropdownOptions = (code: string): DropdownOption[] => {
   const iconms2525d = code ? ms2525d[code] : null
   const iconSelectOptions = iconms2525d && [
-    { value: iconms2525d['main icon'], index: 10, name: 'main icon' },
-    { value: iconms2525d['modifier 1'], index: 16, name: 'modifier 1' },
-    { value: iconms2525d['modifier 2'], index: 18, name: 'modifier 2' }
+    { value: iconms2525d['main icon'], index: 10, endindex: 16, name: 'main icon' },
+    { value: iconms2525d['modifier 1'], index: 16, endindex: 18, name: 'modifier 1' },
+    { value: iconms2525d['modifier 2'], index: 18, endindex: 20, name: 'modifier 2' }
   ]
+
   const iconDropdownOptions: DropdownOption[] = iconms2525d ? iconSelectOptions : []
 
   const options: DropdownOption[] = [
-    { value: StandardIdentityOne, index: 2, name: 'Standard Identity 1' },
-    { value: StandardIdentityTwo, index: 3, name: 'Standard Identity 2' },
-    { value: ms2525d, index: 4, name: 'Symbol set' },
+    { value: StandardIdentityOne, index: 2, endindex: 3, name: 'Standard Identity 1' },
+    { value: StandardIdentityTwo, index: 3, endindex: 4, name: 'Standard Identity 2' },
+    { value: ms2525d, index: 4, endindex: 6, name: 'Symbol set' },
     ...iconDropdownOptions,
-    { value: statusDefault, index: 6, name: 'Status' },
-    { value: HeadquartersTask, index: 7, name: 'Headquarters/Task force/Dummy' },
-    { value: EchelonMobility, index: 8, name: 'Echelon/Mobility/Towed array' }
+    { value: statusDefault, index: 6, endindex: 7, name: 'Status' },
+    { value: HeadquartersTask, index: 7, endindex: 8, name: 'Headquarters/Task force/Dummy' },
+    { value: EchelonMobility, index: 8, endindex: 10, name: 'Echelon/Mobility/Towed array' }
   ]
   
   return options
