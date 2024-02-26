@@ -94,7 +94,8 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     l.addEventListener('pm:remove', () => {
       onRemoved(f.properties.id)
     })
-    l.addEventListener('click', () => {
+    l.addEventListener('click', (e) => {
+      L.DomEvent.stopPropagation(e)
       onSelect([f.properties.id])
     })
     const dragHandler = (e: LeafletEvent) => {
