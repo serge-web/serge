@@ -1,36 +1,12 @@
 import { ms2525d } from 'milstd'
-
-export type StandardIdentityOneItem = {
-  code: string
-  index: number
-  name: string
-  sidc: string
-};
-
-type DropdownOption = {
-  value: StandardIdentityOne
-  index: number
-  endindex: number 
-  name: string
-};
-
-export type StandardIdentityOne = {
-  [key: number]: {
-    code: string
-    index: number
-    name: string
-    sidc: string
-    modifier?: string 
-  }
-};
-
-const StandardIdentityOne: StandardIdentityOne = { 
+import { StandardIdentityOne, DropdownOption } from '../PropsTypes/types'
+const standardIdentityOne: StandardIdentityOne = { 
   0: { code: '0', index: 0, name: 'Realty', sidc: '0' }, 
   1: { code: '1', index: 1, name: 'Exercise', sidc: '1' }, 
   2: { code: '2', index: 2, name: 'Simulation', sidc: '2' }
 }
 
-const StandardIdentityTwo: StandardIdentityOne = {
+const standardIdentityTwo: StandardIdentityOne = {
   0: { code: '0', index: 0, name: 'Pending', sidc: '10001000000000000000' },
   1: { code: '1', index: 1, name: 'Unknown', sidc: '10011000000000000000' },
   2: {
@@ -229,14 +205,14 @@ export const dropdownOptions = (code: string): DropdownOption[] => {
   const iconDropdownOptions: DropdownOption[] = iconms2525d ? iconSelectOptions : []
 
   const options: DropdownOption[] = [
-    { value: StandardIdentityOne, index: 2, endindex: 3, name: 'Standard Identity 1' },
-    { value: StandardIdentityTwo, index: 3, endindex: 4, name: 'Standard Identity 2' },
+    { value: standardIdentityOne, index: 2, endindex: 3, name: 'Standard Identity 1' },
+    { value: standardIdentityTwo, index: 3, endindex: 4, name: 'Standard Identity 2' },
     { value: ms2525d, index: 4, endindex: 6, name: 'Symbol set' },
     { value: statusDefault, index: 6, endindex: 7, name: 'Status' },
     { value: EchelonMobility, index: 8, endindex: 10, name: 'Echelon/Mobility/Towed array' },
     { value: HeadquartersTask, index: 7, endindex: 8, name: 'Headquarters/Task force/Dummy' },
     ...iconDropdownOptions
   ]
-    
+
   return options
 }

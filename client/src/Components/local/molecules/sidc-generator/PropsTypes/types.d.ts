@@ -1,5 +1,4 @@
 import React from 'react'
-import { StandardIdentityOne } from '../helpers/SharedData'
 
 export interface RenderDropdownProps {
     index: number
@@ -9,6 +8,30 @@ export interface RenderDropdownProps {
     label: string
     originalNumber: string
 }
+
+export type StandardIdentityOneItem = {
+    code: string
+    index: number
+    name: string
+    sidc: string
+  }
+  
+export type DropdownOption = {
+    value: StandardIdentityOne
+    index: number
+    endindex: number 
+    name: string
+  }
+  
+export type StandardIdentityOne = {
+    [key: number]: {
+      code: string
+      index: number
+      name: string
+      sidc: string
+      modifier?: string 
+    }
+  }
 
 interface PropsTypes {
     onClose?: () => void
