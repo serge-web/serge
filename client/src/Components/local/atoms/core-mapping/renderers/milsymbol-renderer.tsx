@@ -38,7 +38,10 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       // Event listeners for marker actions
       marker.addEventListener('pm:remove', () => onRemoved(id))
       marker.addEventListener('pm:dragend', handleDragEnd)
-      marker.addEventListener('click', () => onSelect([id]))
+      marker.addEventListener('click', (e) => {
+        L.DomEvent.stopPropagation(e)
+        onSelect([id])
+      })
 
       return marker
     } else {

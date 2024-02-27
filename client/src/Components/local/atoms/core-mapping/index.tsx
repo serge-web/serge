@@ -33,13 +33,18 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const lastMessages = useRef<MappingMessage>()
 
   const [filterFeatureIds, setFilterFeatureIds] = useState<string[]>([])
+  const [deselecteFeature, setDeselectFeature] = useState<boolean>(false)
 
   const mappingProviderValue = useMemo(() => ({
     filterFeatureIds,
-    setFilterFeatureIds
+    setFilterFeatureIds,
+    deselecteFeature,
+    setDeselectFeature
   }), [
     filterFeatureIds,
-    setFilterFeatureIds
+    setFilterFeatureIds,
+    deselecteFeature,
+    setDeselectFeature
   ])
 
   // const bounds = L.latLngBounds(channel.constraints.bounds)
