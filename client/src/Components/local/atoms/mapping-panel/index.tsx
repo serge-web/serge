@@ -24,17 +24,27 @@ type MappingPanelProps = {
   onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
 }
 type PanelState = {
-  filterPanelState: boolean
-  itemPanelState: boolean
-  propertyPanelState: boolean
+  state: boolean
+  // extra props
+}
+type PanelGroupState = {
+  filterPanelState: PanelState
+  itemPanelState: PanelState
+  propertyPanelState: PanelState
 } 
 
 const modalStyle = { content: { width: '450px' } }
 const bodyStyle = { padding: '5px' }
-const initPanelState: PanelState = {
-  filterPanelState: true,
-  itemPanelState: true,
-  propertyPanelState: true
+const initPanelState: PanelGroupState = {
+  filterPanelState: {
+    state: true
+  },
+  itemPanelState: {
+    state: true
+  },
+  propertyPanelState: {
+    state: true
+  }
 }
 
 export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps, selected, onSelect, onSave }): React.ReactElement => {
@@ -46,7 +56,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   const [selectedProps, setSelectedProps] = useState<SelectedProps>({})
   const [selectedFiltersProps, setSelectedFiltersProps] = useState<SelectedProps>({})
   const [disableSave, setDisableSave] = useState<boolean>(true)
-  const [panelState, setPanelState] = useState<PanelState>(initPanelState)
+  const [panelState, setPanelState] = useState<PanelGroupState>(initPanelState)
 
   const filterPanel = useRef<ImperativePanelHandle | null>(null)
   const itemPanel = useRef<ImperativePanelHandle | null>(null)
@@ -243,17 +253,42 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
 
   const handlePanelState = (panelName: 'filterPanelState' | 'itemPanelState' | 'propertyPanelState', state: boolean) => {
     const clonePanelState = cloneDeep(panelState)
-    set(clonePanelState, panelName, state)
+    set(clonePanelState, `${panelName}.state`, state)
     setPanelState(clonePanelState)
 
     if (panelName === 'filterPanelState') {
-      state ? filterPanel.current?.expand() : filterPanel.current?.collapse()
+      if (state) {
+        filterPanel.current?.expand()
+      } else {
+        filterPanel.current?.collapse()
+        if (!panelState.itemPanelState.state) {
+          propertyPanel.current?.resize({ sizePercentage: 99 })
+        }
+      }
     }
     if (panelName === 'itemPanelState') {
-      state ? itemPanel.current?.expand() : itemPanel.current?.collapse()
+      if (state) {
+        itemPanel.current?.expand()
+        if (panelState.propertyPanelState.state) {
+          propertyPanel.current?.resize({ sizePercentage: 25 })
+        }
+      } else {
+        itemPanel.current?.collapse()
+      }
     }
     if (panelName === 'propertyPanelState') {
-      state ? propertyPanel.current?.expand() : propertyPanel.current?.collapse()
+      if (state) {
+        if (panelState.itemPanelState.state) {
+          propertyPanel.current?.resize({ sizePercentage: 25 })
+        } else {
+          propertyPanel.current?.expand()
+        }
+      } else {
+        propertyPanel.current?.collapse()
+        if (!panelState.filterPanelState.state && !panelState.itemPanelState.state) {
+          propertyPanel.current?.resize({ sizePercentage: 99 })
+        }
+      }
     }
   }
 
@@ -294,7 +329,6 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       <Panel
         collapsible
         ref={filterPanel}
-        defaultSizePixels={150}
         order={1}
         className={styles.filterPanel}
         id='filter-panel'
@@ -302,16 +336,19 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         <div className={styles.header}>
           <FontAwesomeIcon icon={faArrowAltCircleLeft} onClick={onClose} />
           <p>Filters</p>
-          <FontAwesomeIcon icon={panelState.filterPanelState ? faWindowMaximize : faWindowMinimize} onClick={() => handlePanelState('filterPanelState', !panelState.filterPanelState)} />
+          <FontAwesomeIcon icon={panelState.filterPanelState.state ? faWindowMaximize : faWindowMinimize} onClick={() => handlePanelState('filterPanelState', !panelState.filterPanelState.state)} />
         </div>
-        <div className={styles.propertiesResponsive}>
-          <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
-        </div>    
-        <div className={styles.button}>
-          <button onClick={onAddNewFilter}>Add</button>
-        </div>
+        {panelState.filterPanelState.state &&
+          <>
+            <div className={styles.propertiesResponsive}>
+              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
+            </div>
+            <div className={styles.button}>
+              <button onClick={onAddNewFilter}>Add</button>
+            </div>
+          </>}
       </Panel>
-      {(panelState.filterPanelState && panelState.itemPanelState) && <ResizeHandle />}
+      <ResizeHandle />
       
       <Panel
         ref={itemPanel}
@@ -322,35 +359,42 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         <div className={styles.header}>
           <div></div>
           Items
-          <FontAwesomeIcon icon={panelState.itemPanelState ? faWindowMaximize : faWindowMinimize} onClick={() => handlePanelState('itemPanelState', !panelState.itemPanelState)} />
+          <FontAwesomeIcon icon={panelState.itemPanelState.state ? faWindowMaximize : faWindowMinimize} onClick={() => handlePanelState('itemPanelState', !panelState.itemPanelState.state)} />
         </div>
-        <div className={styles.itemsResponsive}>
-          {filterredFeatures?.features.map((feature, idx) => {
-            return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} />
-          })}
-        </div>
+        {panelState.itemPanelState.state &&
+          <div className={styles.itemsResponsive}>
+            {filterredFeatures?.features.map((feature, idx) => {
+              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} />
+            })}
+          </div>
+        }
       </Panel>
-      {(panelState.itemPanelState && panelState.propertyPanelState) && <ResizeHandle />}
+      <ResizeHandle />
       
       <Panel
         ref={propertyPanel}
         collapsible
-        defaultSizePixels={200}
         order={3}
         className={styles.propertiesPanel}
       >
         <div className={styles.header}>
           <div></div>
           Properties
-          <FontAwesomeIcon icon={panelState.propertyPanelState ? faWindowMaximize : faWindowMinimize} onClick={() => handlePanelState('propertyPanelState', !panelState.propertyPanelState)} />
+          <FontAwesomeIcon icon={panelState.propertyPanelState.state ? faWindowMaximize : faWindowMinimize} onClick={() => handlePanelState('propertyPanelState', !panelState.propertyPanelState.state)} />
         </div>
-        <div className={styles.propertiesResponsive}>
-          <PropertiesPanel disableIdEdit={true} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange}/>
-        </div>
-        <div className={styles.button}>
-          <button onClick={clearSelectedFeature}>Cancel</button>
-          <button disabled={disableSave} onClick={onLocalSave}>Save</button>
-        </div>
+        {panelState.propertyPanelState.state &&
+          <>
+            <div className={styles.propertiesResponsive}>
+              <PropertiesPanel disableIdEdit={true} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange} />
+            </div>
+            {Object.keys(selectedProps).length > 0 &&
+            <div className={styles.button}>
+              <button onClick={clearSelectedFeature}>Cancel</button>
+              <button disabled={disableSave} onClick={onLocalSave}>Save</button>
+            </div>
+            }
+          </>
+        }
       </Panel>
       
     </PanelGroup>
