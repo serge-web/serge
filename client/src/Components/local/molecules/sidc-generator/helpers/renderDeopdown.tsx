@@ -33,8 +33,9 @@ const renderDropdown = (props: RenderDropdownProps): React.ReactElement => {
           const symbolHtml = generateSymbol(sidcCode, value, index)
 
           return (
-            <MenuItem key={itemKey} value={value} disabled={checkReserved}>
+            <MenuItem className={styles.item} style={{ alignItems: 'baseline' }} key={itemKey} value={value} disabled={checkReserved}>
               <ListItemIcon dangerouslySetInnerHTML={{ __html: symbolHtml }} />
+              {itemData['entity'] && <InputLabel className={styles.label} variant="standard" htmlFor="uncontrolled-native">{itemData['entity']}<span>-</span></InputLabel>}
               {itemData.name || itemData['entity subtype'] || itemData['entity type'] || itemData['modifier'] || itemData['entity']}
             </MenuItem>
           )

@@ -213,6 +213,8 @@ export const dropdownOptions = (code: string): DropdownOption[] => {
     { value: HeadquartersTask, index: 7, endindex: 8, name: 'Headquarters/Task force/Dummy' },
     ...iconDropdownOptions
   ]
+  
+  console.log('options', iconDropdownOptions)
 
   return options
 }

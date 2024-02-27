@@ -1,3 +1,11 @@
 .form {
-   margin-bottom: 14px !important;
+  margin-bottom: 14px !important;
+}
+
+.item {
+   align-items: baseline
+}
+
+.label {
+  span { padding:  4px }
 }
