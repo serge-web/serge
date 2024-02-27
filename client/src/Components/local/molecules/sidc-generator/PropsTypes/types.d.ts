@@ -30,6 +30,9 @@ export type StandardIdentityOne = {
       name: string
       sidc: string
       modifier?: string 
+      entity?: string
+      entity_subtype?: string
+      entity_type?: string
     }
   }
 
