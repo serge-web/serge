@@ -71,9 +71,9 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
   }
 
   return (
-    <div className={classes.root}>
+    <>
       {onClose && (
-        <Dialog open={true} onClose={onClose}>
+        <Dialog className={classes.root} open={true} onClose={onClose}>
           <DialogTitle>SIDC Code: {sidcCode}</DialogTitle>
           <DialogContent>
             {symbolElement && (
@@ -95,7 +95,7 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
           </DialogActions>
         </Dialog>
       )}
-    </div>
+    </>
   )
 }
 

@@ -10,6 +10,7 @@ import 'leaflet/dist/leaflet.css'
 import ms from 'milsymbol'
 import replaceNumber from './replace-number'
 import { RenderDropdownProps } from '../PropsTypes/types'
+import styles from '../styles.module.scss'
 import { CUSTOM_SIDC } from 'src/config'
 
 const generateSymbol = (sidc: string, key: string, index: number): string => {
@@ -22,8 +23,8 @@ const renderDropdown = (props: RenderDropdownProps): React.ReactElement => {
   const selectedSubstring = originalNumber.slice(index, endindex)
 
   return (
-    <FormControl key={index}>
-      <InputLabel>{label}</InputLabel>
+    <FormControl key={index} className={styles.form} fullWidth>
+      <InputLabel variant="standard" htmlFor="uncontrolled-native">{label}</InputLabel>
       <Select onChange={onChange} value={selectedSubstring}>
         {Object.entries(data).map(([itemKey, itemData]) => {
           const sidcCode = itemData.sidc || label === 'Symbol set' ? CUSTOM_SIDC : originalNumber
