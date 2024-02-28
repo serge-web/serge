@@ -271,6 +271,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         itemPanel.current?.expand()
         if (panelState.propertyPanelState.state) {
           propertyPanel.current?.resize({ sizePercentage: 25 })
+        } else {
+          itemPanel.current?.resize({ sizePercentage: 60 })
         }
       } else {
         itemPanel.current?.collapse()
