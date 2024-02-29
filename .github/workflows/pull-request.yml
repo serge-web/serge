@@ -42,7 +42,7 @@ jobs:
         run: yarn test-unit
       
       - name: Clear Playwright cache
-        run: rm -rf ~/.cache/ms-playwright
+        run: rm -rf node_modules
       
       - name: Install Playwright
         run: npx playwright install --with-deps
