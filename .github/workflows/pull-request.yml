@@ -41,9 +41,6 @@ jobs:
       - name : Running unit testing
         run: yarn test-unit
       
-      - name: Clear Playwright cache
-        run: rm -rf node_modules
-      
       - name: Install Playwright
         run: npx playwright install --with-deps
 
