@@ -40,7 +40,10 @@ jobs:
         
       - name : Running unit testing
         run: yarn test-unit
-
+      
+      - name: Clear Playwright cache
+        run: rm -rf ~/.cache/ms-playwright
+      
       - name: Install Playwright
         run: npx playwright install --with-deps
 
