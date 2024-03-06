@@ -89,5 +89,6 @@ export enum TurnFormats {
 export enum AdminTabs {
   Overview = 'overview',
   Forces = 'forces',
-  Channels = 'channels'
+  Channels = 'channels',
+  Templates = 'templates'
 }

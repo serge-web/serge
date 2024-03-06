@@ -4,12 +4,12 @@ import renderer from 'react-test-renderer'
 import GameSetup from './index'
 import {
   WargameExportedMock,
-  MessageTemplatesMock,
   adminTabs
 } from 'src/mocks'
 import {
   ChannelTypes,
   ForceData,
+  TemplateBody,
   Wargame,
   WargameOverview
 } from 'src/custom-types'
@@ -27,6 +27,7 @@ const Component = (): React.ReactElement => {
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
+  const [changedTemplates, setChangedTemplates] = useState<Array<TemplateBody>>(wargame.data.templates.templates || [])
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e: any): void => {
@@ -34,6 +35,7 @@ const Component = (): React.ReactElement => {
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
     setChangedChannels(wargame.data.channels.channels || [])
+    setChangedTemplates(wargame.data.templates.templates)
     setWargameChanged(false)
     setWargame({
       ...wargame,
@@ -60,6 +62,11 @@ const Component = (): React.ReactElement => {
     setWargameChanged(true)
   }
 
+  const onTemplatesChange = (updates: { templates: Array<TemplateBody> }): void => {
+    setChangedTemplates(updates.templates)
+    setWargameChanged(true)
+  }
+
   const onWargameInitiated = (): void => {
     setWargame({
       ...wargame,
@@ -81,8 +88,9 @@ const Component = (): React.ReactElement => {
       onOverviewChange={onOverviewChange}
       onForcesChange={onForcesChange}
       onChannelsChange={onChannelsChange}
+      onTemplateChange={onTemplatesChange}
       onSave={onSave}
-      messageTemplates={MessageTemplatesMock}
+      messageTemplates={changedTemplates}
       onWargameInitiate={onWargameInitiated}
     />
   )

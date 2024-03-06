@@ -1,4 +1,4 @@
-import { WargamesState, WargameRevision, Wargame, WargameOverview, ChannelTypes, ForceData, ParticipantTypes, Role } from 'src/custom-types'
+import { WargamesState, WargameRevision, Wargame, WargameOverview, ChannelTypes, ForceData, ParticipantTypes, Role, TemplateBody } from 'src/custom-types'
 import { channelTemplate, serverPath, forceTemplate } from 'src/config'
 import uniqId from 'uniqid'
 
@@ -65,6 +65,11 @@ export const handleSetForceColor = (newState: WargamesState, payload: string, ta
 // Sets the selected force in the global state.
 export const handleSetSelectedForce = (newState: WargamesState, payload: { name: string, uniqid: string, iconURL?: string }) => {
   newState.data.forces.selectedForce = payload as ForceData
+}
+
+// Sets the selected template in the global state.
+export const handleSetSelectedTemplate = (newState: WargamesState, payload: { title: string, _id: string }) => {
+  newState.data.templates.selectedTemplate = payload as TemplateBody
 }
 
 // Adds a new channel to the wargame in the specified tab.

@@ -1,4 +1,4 @@
-import { ForceData } from 'src/custom-types'
+import { ForceData, TemplateBody } from 'src/custom-types'
 import { Item } from '../../molecules/sortable-list'
 import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
 import { ChannelTypes } from '../../../organisms/setting-channels'
@@ -67,9 +67,33 @@ export default interface Props extends AdminLayoutProps {
    * Callback on channels delete button click events
    */
   onDuplicateChannel?: () => void
+
+  /**
+   * Callback on template Add button click events
+  */
+  onCreateTemplete?: () => void
+  /**
+    * Callback on template delete button click events
+  */
+  onDeleteTemplete?: () => void
+
+  onDuplicateTemplete?: () => void
+  /**
+   * Callback on templete setting change events
+  */
+  onTemplateChange: (updates: { templates: TemplateBody[] }) => void
+  /**
+    * Selected template to indicate which template should be active
+    * in templates setting tab
+  */
+  selectedTemplate?: TemplateBody
+  /**
+   * Callback on template' sidebar click events
+  */
+  onSidebarTemplatesClick?: (template: TemplateBody) => voi
   /**
    * Selected channel to indicate which channel should be active
-   * in channels setting tab
+   * in template setting tab
    */
   selectedChannel?: ChannelTypes
   /**

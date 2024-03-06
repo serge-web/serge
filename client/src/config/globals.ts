@@ -192,6 +192,30 @@ export const forceTemplate = { // +
   dirty: false
 }
 
+export const templateBody = {
+  lastUpdated: '2019-09-30T12:37:26.705Z',
+  title: 'Chat',
+  details: {
+    type: 'object',
+    properties: {
+      content: {
+        type: 'string',
+        format: 'textarea',
+        options: {
+          inputAttributes: {
+            placeholder: 'type the text'
+          }
+        }
+      }
+    },
+    title: 'Chat',
+    format: 'grid'
+  },
+  completed: false,
+  _id: 'k16eedkl',
+  _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
+}
+
 export const umpireForceTemplate = { // +-
   name: 'White',
   uniqid: 'umpire',
@@ -260,6 +284,12 @@ export const dbDefaultSettings: Wargame = { // +
       channels: [],
       selectedChannel: '',
       dirty: false
+    },
+    templates: { 
+      dirty: false,
+      name: 'templates',
+      selectedTemplate: '',
+      templates: [templateBody]
     }
   },
   wargameList: [],

@@ -263,6 +263,123 @@ const wargame: Wargame = {
       timeWarning: 60000,
       logPlayerActivity: true,
       turnPresentation: 'Natural'
+    },
+    templates: {
+      name: 'templates',
+      dirty: false,
+      templates: [
+        {
+          completed: false,
+          details: {
+            properties: {
+              Reference: {
+                title: 'Reference',
+                type: 'string',
+                format: 'text'
+              },
+              Title: {
+                title: 'Title',
+                type: 'string',
+                format: 'text'
+              },
+              Forces: {
+                format: 'table',
+                items: {
+                  minItems: 1,
+                  properties: {
+                    force: {
+                      enum: [
+                        'Blue',
+                        'Red',
+                        'Green'
+                      ],
+                      propertyOrder: 100,
+                      type: 'string'
+                    }
+                  }
+                },
+                minItems: 1,
+                type: 'array'
+              }
+            },
+            title: 'State of World (laydown 2)',
+            type: 'object'
+          },
+          lastUpdated: '2019-09-30T12:37:26.705Z',
+          title: 'State of World L',
+          _id: 'k16eedkp',
+          _rev: '1-612d7dc5d10fc81bc7459b2801c66816'
+        },
+        {
+          lastUpdated: '2019-09-30T12:37:26.705Z',
+          title: 'Daily intentions',
+          details: {
+            type: 'object',
+            properties: {
+              TurnNumber: {
+                title: 'Turn',
+                type: 'string',
+                format: 'number'
+              },
+              OverallIntentions: {
+                title: 'Overall intentions',
+                type: 'string',
+                format: 'textarea'
+              },
+              Orders: {
+                items: {
+                  properties: {
+                    Unit: {
+                      title: 'Unit',
+                      type: 'string',
+                      format: 'text'
+                    },
+                    Tasking: {
+                      title: 'Tasking',
+                      type: 'string',
+                      format: 'textarea'
+                    },
+                    SearchPolicy: {
+                      title: 'Search Policy',
+                      type: 'string',
+                      format: 'textarea'
+                    },
+                    ActionOnContact: {
+                      title: 'Action on Contact',
+                      type: 'string',
+                      enum: [
+                        'Ignore',
+                        'Evade',
+                        'Covert Trail',
+                        'Overt Trail',
+                        'Harass'
+                      ]
+                    },
+                    AnyOtherComments: {
+                      title: 'Any other comments',
+                      type: 'string',
+                      format: 'textarea'
+                    }
+                  },
+                  type: 'object'
+                },
+                title: 'Orders',
+                type: 'array',
+                format: 'table',
+                minItems: 1
+              }
+            },
+            title: 'Daily Intent',
+            required: [
+              'OverallIntentions',
+              'Orders'
+            ]
+          },
+          completed: false,
+          _id: 'k16eedkn',
+          _rev: '1-cc8e8cdb01447959c266761066448382'
+        }
+      ]
     }
   },
   gameTurn: 3,

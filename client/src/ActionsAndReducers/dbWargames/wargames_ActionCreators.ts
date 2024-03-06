@@ -14,7 +14,8 @@ import {
   WargameDispatch,
   WargameOverview,
   WargameRevision,
-  Message
+  Message,
+  TemplateBody
 } from 'src/custom-types'
 
 export const setCurrentTab = (tab: string): WargameActionTypes => ({
@@ -38,6 +39,11 @@ export const setTabUnsaved = (): WargameActionTypes => ({
 export const setSelectedForce = (selectedForce: { name: string, uniqid: string, iconURL?: string }): WargameActionTypes => ({
   type: ActionConstant.SET_SELECTED_FORCE,
   payload: selectedForce
+})
+
+export const setSelectedTemplate = (selectedTemplate: { title: string, _id: string }): WargameActionTypes => ({
+  type: ActionConstant.SET_SELECTED_TEMPLATE,
+  payload: selectedTemplate
 })
 
 export const addNewChannel = (data: { name: string, uniqid: string }): WargameActionTypes => ({
@@ -418,5 +424,36 @@ export const updateWargameVisible = (dbName: string) => {
     await wargamesApi.updateWargameVisible(dbName)
     const games = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(games))
+  }
+}
+
+export const duplicateTemplete = (dbName: string, temlete: string) => {
+  return async (dispatch: WargameDispatch) => {
+    const wargame = await wargamesApi.duplicateTemplete(dbName, temlete)
+
+    dispatch(setCurrentWargame(wargame))
+    dispatch(addNotification('Temlete duplicated.', 'success'))
+  }
+}
+
+export const deleteSelectedTemplate = (dbName: string, templateId: string) => {
+  return async (dispatch: WargameDispatch) => {
+    const wargame = await wargamesApi.deleteTemplete(dbName, templateId)
+
+    dispatch(setCurrentWargame(wargame))
+
+    dispatch(addNotification('Force deleted.', 'warning'))
+  }
+}
+
+export const saveTemplete = (dbName: string, data: TemplateBody) => {
+  return async (dispatch: WargameDispatch) => {
+    const wargame = await wargamesApi.saveTemplete(dbName, data)
+
+    dispatch(setCurrentWargame(wargame))
+
+    dispatch(setTabSaved())
+
+    dispatch(addNotification('Templates saved.', 'success'))
   }
 }

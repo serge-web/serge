@@ -15,16 +15,19 @@ import {
   setGameData,
   setSelectedForce,
   setSelectedChannel,
+  setSelectedTemplate,
   duplicateChannel,
   saveWargameTitle,
   initiateWargame,
-  duplicateForce
+  duplicateForce,
+  duplicateTemplete,
+  saveTemplete
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
-import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, Wargame } from 'src/custom-types'
+import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate, templateBody } from 'src/config'
+import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, Wargame, TemplateBody } from 'src/custom-types'
 
 /**
  * TODOS:
@@ -61,7 +64,6 @@ const AdminGameSetup: React.FC = () => {
     templates
   } = data
   const tabs = Object.keys(data)
-
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }
@@ -122,7 +124,6 @@ const AdminGameSetup: React.FC = () => {
   }
 
   const handleSaveOverview = (overview: WargameOverview) => {
-    console.log('currentWargame', currentWargame, overview)
     if (currentWargame) dispatch(saveSettings(currentWargame, overview))
   }
 
@@ -182,6 +183,13 @@ const AdminGameSetup: React.FC = () => {
     }
   }
 
+  const handleSaveTemplete = (template: TemplateBody[]) => {
+    const { selectedTemplate } = templates
+    const { _id } = selectedTemplate as TemplateBody
+    const newForceData = template.find(template => template._id === _id)
+    if (currentWargame && newForceData) dispatch(saveTemplete(currentWargame, newForceData))
+  }
+
   const onSave = (updates: WargameOverview | ForceData | ChannelTypes) => {
     let saveAction
     switch (currentTab) {
@@ -194,6 +202,9 @@ const AdminGameSetup: React.FC = () => {
       case AdminTabs.Channels:
         saveAction = handleSaveChannel
         break
+      case AdminTabs.Templates:
+        saveAction = handleSaveTemplete
+        break  
       default:
         saveAction = console.error
         break
@@ -268,6 +279,15 @@ const AdminGameSetup: React.FC = () => {
     }
   }
 
+  const onSidebarTemplatesClick = (template: TemplateBody) => {
+    if (!templates) {
+      dispatch(modalAction.open('unsavedTemplate', template))
+    } else {
+      dispatch(setTabSaved())
+      dispatch(setSelectedTemplate(template))
+    }
+  }
+
   const handleSaveWargameTitle = (newGameTitle: string) => {
     let wargameNames = wargameList.map((game) => game.title)
     wargameNames = _.pull(wargameNames, wargameTitle)
@@ -291,6 +311,8 @@ const AdminGameSetup: React.FC = () => {
       dispatch(setSelectedForce(forces.forces[0]))
     } else if (currentTab === 'channels' && channels.selectedChannel === '') {
       dispatch(setSelectedChannel(channels.channels[0]))
+    } else if (currentTab === 'templetes') {
+      dispatch(setSelectedTemplate(templates.templates[0]))
     }
   }, [currentTab])
 
@@ -300,6 +322,36 @@ const AdminGameSetup: React.FC = () => {
       return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
     }
   }
+
+  const getSelectedTemplate = (): any => {
+    if (templates.selectedTemplate) {
+      const { _id } = templates.selectedTemplate as { _id: string }
+      return _id && templates.templates.find((template) => template._id === _id)
+    }
+  }
+
+  const onCreateTemplate = () => {
+    if (templates.dirty) {
+      dispatch(modalAction.open('unsavedForce', 'create-new'))
+    } else {
+      const id = 'template-' + uniqid.time()  
+      const newTemplate = { title: id, _id: id }
+      dispatch(setSelectedTemplate(newTemplate))
+      const template: TemplateBody = templateBody
+      template._id = id
+      template.title = id
+      if (currentWargame) dispatch(saveTemplete(currentWargame, template))
+    }
+  }
+
+  const onDeleteTemplete = ({ _id }: { _id: string }) => {
+    dispatch(modalAction.open('confirmDelete', { type: 'template', data: _id }))
+  }
+
+  const onDuplicateTemplete = ({ _id }: { _id: string }) => {
+    if (currentWargame) dispatch(duplicateTemplete(currentWargame, _id))
+  }
+  
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}
@@ -332,6 +384,15 @@ const AdminGameSetup: React.FC = () => {
       onDeleteChannel={onDeleteChannel}
       // @ts-ignore
       onDuplicateChannel={onDuplicateChannel}
+      onCreateTemplete={onCreateTemplate}
+      // @ts-ignore
+      onDeleteTemplete={onDeleteTemplete}
+      // @ts-ignore
+      onDuplicateTemplete={onDuplicateTemplete}
+      selectedTemplate={getSelectedTemplate()}
+      // @ts-ignore
+      onTemplateChange={handleFormChange}
+      onSidebarTemplatesClick={onSidebarTemplatesClick}
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
       messageTemplates={templates?.templates || messageTypes.messages}
