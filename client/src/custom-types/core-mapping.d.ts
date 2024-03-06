@@ -57,6 +57,7 @@ export const PROPERTY_ENUM = 'EnumProperty'
 export interface StringProperty extends BaseProperty {
   type: typeof PROPERTY_STRING
   default?: string
+  lines?: number // number of lines for a textarea for long string properties.
 }
 
 export interface NumberProperty extends BaseProperty {
