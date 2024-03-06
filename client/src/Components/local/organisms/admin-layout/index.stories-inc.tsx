@@ -29,13 +29,15 @@ export default {
 
 const wargameInit: Wargame = WargameExportedMock
 
+wargameInit.data.templates.templates = MessageTemplatesMock
+
 export const Default: React.FC = (args) => {
   const [wargame, setWargame] = useState<Wargame>(wargameInit)
   const [wargameChanged, setWargameChanged] = useState<boolean>(false)
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
-  const [changedTemplates, setChangedTemplates] = useState<Array<TemplateBody>>(MessageTemplatesMock)
+  const [changedTemplates, setChangedTemplates] = useState<Array<TemplateBody>>(wargame.data.templates.templates)
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e: any): void => {
@@ -43,7 +45,7 @@ export const Default: React.FC = (args) => {
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
     setChangedChannels(wargame.data.channels.channels || [])
-    setChangedTemplates(MessageTemplatesMock)
+    setChangedTemplates(wargame.data.templates.templates)
     setWargameChanged(false)
     setWargame({
       ...wargame,

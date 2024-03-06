@@ -12,7 +12,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 const TemplatesMock = watuWargame.data.templates.templates
 
 export default {
-  title: 'local/organisms/SettingForces',
+  title: 'local/organisms/setting-templates',
   component: SettingTemplate,
   decorators: [withKnobs, wrapper],
   parameters: {

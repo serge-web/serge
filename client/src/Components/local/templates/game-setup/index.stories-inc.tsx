@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {
   WargameExportedMock,
+  MessageTemplatesMock,
   adminTabs
 } from 'src/mocks'
 import {
@@ -32,6 +33,8 @@ export const Default: React.FC = () => {
     ...WargameExportedMock,
     wargameInitiated: false
   }
+
+  initialWargame.data.templates.templates = MessageTemplatesMock
 
   const [wargame, setWargame] = useState<Wargame>(initialWargame)
   const [isWargameChanged, setWargameChanged] = useState<boolean>(false)
