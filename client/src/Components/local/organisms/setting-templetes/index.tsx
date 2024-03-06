@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { CustomDialog } from '../../atoms/custom-dialog'
 import cx from 'classnames'
 import Button from '../../atoms/button'
 import { TemplateBody } from 'src/custom-types'
@@ -63,7 +62,6 @@ const TemplateEditor: React.FC<PropTypes> = ({
 
     return (
       <div key={selectedItem}>
-        <CustomDialog isOpen={false} cancelBtnText={'OK'} header='Error' onClose={() => {}} />
         <div className={cx(styles.row, styles['mb-20'])}>
           <div className={styles.col}>
             <TextInput
