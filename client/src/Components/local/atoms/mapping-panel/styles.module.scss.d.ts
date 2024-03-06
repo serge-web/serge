@@ -3,6 +3,7 @@
 interface CssExports {
   'asset-icon': string;
   'button': string;
+  'disabled': string;
   'filterList': string;
   'filterPanel': string;
   'header': string;
@@ -21,7 +22,6 @@ interface CssExports {
   'resize-handle-horizontal': string;
   'resize-handle-inner': string;
   'resize-handle-outer': string;
-  'disabled': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
