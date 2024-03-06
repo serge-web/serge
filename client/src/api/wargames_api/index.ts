@@ -515,7 +515,7 @@ export const duplicateTemplete = (dbName: string, channelUniqid: string): Promis
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
-    const templates = updatedData.templates?.templates || []
+    const templates = updatedData.templates.templates || []
     const channelIndex = templates.findIndex((template) => template._id === channelUniqid)
 
     const duplicateTemplates = deepCopy(templates[channelIndex])
