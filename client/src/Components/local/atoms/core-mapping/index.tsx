@@ -10,7 +10,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
-import { BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
@@ -350,7 +350,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }
   }
 
-  const getExtraFilterProps = (): PropertyTypes[] => {
+  const getRendererProps = (): PropertyType[] => {
     const rendererObjects: BaseRenderer[] = channel.renderers
     const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
     return unionBy(flatMap, 'id')
@@ -369,7 +369,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
               minSizePercentage={35}
               style={{ pointerEvents: 'all' }}
             >
-              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} />
+              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} rendererProps={getRendererProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} />
             </Panel>
             <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
             <Panel

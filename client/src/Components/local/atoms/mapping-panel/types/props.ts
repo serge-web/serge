@@ -1,4 +1,4 @@
-import { PropertyTypes } from 'src/custom-types'
+import { PropertyType } from 'src/custom-types'
 
 export type SelectedProps = {
   [key: string]: any
@@ -11,5 +11,5 @@ export type ProppertiesPanelProps = {
   /** whether fields called "id" should be disabled */
   disableIdEdit: boolean
   /** property definitions for this feature type (only for props viewer) */
-  featureProps?: PropertyTypes[]
+  rendererProps?: PropertyType[]
 }
