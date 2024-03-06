@@ -183,7 +183,7 @@ const anotherCoreFeature: Feature = {
 
 const milFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'aa' },
+  properties: { ...milSymProps, id: 'aa', orders: 'Plan today\'s activities' },
   geometry: {
     coordinates: [-0.07929841834678086,
       51.497669733260125],
