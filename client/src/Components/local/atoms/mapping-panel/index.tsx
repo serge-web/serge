@@ -169,6 +169,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     setSelectedFeatures([])
     setSelectedProps({})
     onSelect([])
+    setDisableSave(true)
   }
 
   const updatePendingSave = (key: string, value: any) => {
@@ -389,12 +390,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
             <div className={styles.propertiesResponsive}>
               <PropertiesPanel disableIdEdit={true} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange} />
             </div>
-            {Object.keys(selectedProps).length > 0 &&
             <div className={styles.button}>
-              <button onClick={clearSelectedFeature}>Cancel</button>
+              <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
               <button disabled={disableSave} onClick={onLocalSave}>Save</button>
             </div>
-            }
           </>
         }
       </Panel>
