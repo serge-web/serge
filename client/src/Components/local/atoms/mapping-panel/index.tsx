@@ -388,7 +388,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         {panelState.propertyPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={true} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange} />
+              <PropertiesPanel disableIdEdit={true} featureProps={extraFilterProps} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange} />
             </div>
             <div className={styles.button}>
               <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
