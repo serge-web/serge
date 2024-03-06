@@ -4,7 +4,7 @@ import L from 'leaflet'
 import CoreMapping from './index'
 import docs from './README.md'
 import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData, MappingMessageDelta } from 'src/custom-types'
+import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData, MappingMessageDelta, StringProperty } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
 import { generateFeatures } from './helper/feature-generator'
 import { noop } from 'lodash'
@@ -43,6 +43,15 @@ const forceProp: EnumProperty = {
   type: 'EnumProperty', 
   choices: ['f-red', 'f-blue', 'f-green'],
   editable: false
+}
+
+const ordersProp: StringProperty = {
+  id: 'orders',
+  label: 'Orders',
+  description: 'Today\'s orders for this unit',
+  lines: 3,
+  type: 'StringProperty', 
+  editable: true
 }
 
 const phaseProp: EnumProperty = {
@@ -184,7 +193,7 @@ const milFeature: Feature = {
 
 const anotherMilFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor' },
+  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor', orders: 'Make uniforms for the troops if they need them, else darn socks and mittens' },
   geometry: {
     coordinates: [-0.07929841834678096, 51.50966973326012],
     type: 'Point'
@@ -247,7 +256,7 @@ const milSymRenderer: MilSymRenderer = {
   id: 'milSym',
   type: 'MilSymRenderer',
   baseProps,
-  additionalProps: [categoryProp, sizeProp, healthProp]
+  additionalProps: [categoryProp, sizeProp, healthProp, ordersProp]
 }
 
 const coreMapChannel: ChannelMapping = {
