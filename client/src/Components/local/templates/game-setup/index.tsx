@@ -5,7 +5,7 @@ import AdminLayout from '../../organisms/admin-layout'
 import SettingChannels from '../../organisms/setting-channels'
 import SettingForces from '../../organisms/setting-forces'
 import SettingOverview from '../../organisms/setting-overview'
-import SettingsTemplate from '../../organisms/setting-templetes'
+import SettingTemplate from '../../organisms/setting-templetes'
 import Props from './types/props'
 
 /* Render component */
@@ -94,7 +94,7 @@ export const GameSetup: React.FC<Props> = ({
         }
         {
           currentActiveTab === AdminTabs.Templates && (
-            <SettingsTemplate
+            <SettingTemplate
               templates={messageTemplates}
               onSidebarClick={onSidebarTemplatesClick}
               onChange={onTemplateChange}

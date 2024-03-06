@@ -8,7 +8,7 @@ import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import EditableList, { Item } from '../../molecules/editable-list'
 import PropTypes from './types/props'
 
-const TemplateEditor: React.FC<PropTypes> = ({
+const SettingTemplate: React.FC<PropTypes> = ({
   templates,
   selectedTemplate,
   onChange,
@@ -24,7 +24,6 @@ const TemplateEditor: React.FC<PropTypes> = ({
   
   useEffect(() => {
     setSelectedItem(0)
-    // setSelectedChannelState(channels[0])
   }, [templates.length])
 
   const handleSwitch = (_item: Item): void => {
@@ -114,4 +113,4 @@ const TemplateEditor: React.FC<PropTypes> = ({
   )
 }
 
-export default TemplateEditor
+export default SettingTemplate
