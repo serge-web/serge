@@ -203,15 +203,15 @@ export const createWargame = async (): Promise<Wargame> => {
   
   // get all temlete data
   const messages = await messageTypesApi.getAllMessagesFromDb()
-  const templetes: TemplateData = {
+  const templates: TemplateData = {
     selectedTemplate: '',
     dirty: false,
     name: 'template',
     templates: messages
   }
 
-  // include templetes whenever you start a new game
-  dbDefaultSettings.data.templates = templetes
+  // include templates whenever you start a new game
+  dbDefaultSettings.data.templates = templates
   const settings: Wargame = { 
     ...dbDefaultSettings, 
     name, 
@@ -341,7 +341,7 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
   })
 }
 
-export const saveTemplete = (dbName: string, newData: TemplateBody): Promise<Wargame> => {
+export const saveTemplate = (dbName: string, newData: TemplateBody): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
@@ -511,7 +511,7 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
   })
 }
 
-export const duplicateTemplete = (dbName: string, channelUniqid: string): Promise<Wargame> => {
+export const duplicateTemplate = (dbName: string, channelUniqid: string): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
@@ -532,7 +532,7 @@ export const duplicateTemplete = (dbName: string, channelUniqid: string): Promis
   })
 }
 
-export const deleteTemplete = (dbName: string, channelUniqid: string): Promise<Wargame> => {
+export const deleteTemplate = (dbName: string, channelUniqid: string): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data

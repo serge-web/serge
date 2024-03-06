@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SettingForces component: renders correctly 1`] = `
+<div
+  className="main"
+>
+  <div
+    className="left"
+  >
+    <div>
+      <div
+        className="main"
+      >
+        <div
+          className="searchlist"
+        >
+          <section
+            className="input-container disable-offset fullwidth"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
+            >
+              <div
+                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-6 MuiInput-underline makeStyles-underline-5 makeStyles-underline-7 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input"
+                  disabled={false}
+                  name=""
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  placeholder="Search"
+                  required={false}
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </section>
+          <div
+            className="searchlist-list searchlist-list"
+          >
+            <span
+              className="searchlist-row active"
+              onClick={[Function]}
+            >
+              <span>
+                State of World L
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
+                Daily intentions
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
+                Link
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
+                Chat
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
+                COA
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
+                RFI
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
+                Message
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
+                Weather forecast
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
+                Machinery failure
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
+                State of world (full 2)
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="right"
+  >
+    <div>
+      <div
+        className="row mb-20"
+      >
+        <div
+          className="col"
+        >
+          <section
+            className="input-container disable-offset underline"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root"
+            >
+              <div
+                className="MuiInputBase-root MuiInput-root makeStyles-root-4 makeStyles-root-8 MuiInput-underline makeStyles-underline-5 makeStyles-underline-9 MuiInputBase-formControl MuiInput-formControl"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiInput-input"
+                  disabled={false}
+                  name=""
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                  value="State of World L"
+                />
+              </div>
+            </div>
+          </section>
+        </div>
+        <div
+          className="actions"
+        >
+          <button
+            className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+            data-qa-type="save"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onDragLeave={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex={0}
+            type="button"
+          >
+            <span
+              className="MuiButton-label"
+            >
+              Save Template
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

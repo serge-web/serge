@@ -6,7 +6,7 @@ import SettingOverview, { WargameOverview } from '../setting-overview'
 import SettingForces from '../setting-forces'
 import { WargameExportedMock, adminTabs, MessageTemplatesMock } from 'src/mocks'
 import SettingChannels, { ChannelTypes } from '../setting-channels'
-import TemplateEditor from '../setting-templetes'
+import TemplateEditor from '../setting-templates'
 
 import docs from './README.md'
 import { withKnobs } from '@storybook/addon-knobs'

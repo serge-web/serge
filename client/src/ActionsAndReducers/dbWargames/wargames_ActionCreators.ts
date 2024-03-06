@@ -427,9 +427,9 @@ export const updateWargameVisible = (dbName: string) => {
   }
 }
 
-export const duplicateTemplete = (dbName: string, temlete: string) => {
+export const duplicateTemplate = (dbName: string, temlete: string) => {
   return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.duplicateTemplete(dbName, temlete)
+    const wargame = await wargamesApi.duplicateTemplate(dbName, temlete)
 
     dispatch(setCurrentWargame(wargame))
     dispatch(addNotification('Temlete duplicated.', 'success'))
@@ -438,7 +438,7 @@ export const duplicateTemplete = (dbName: string, temlete: string) => {
 
 export const deleteSelectedTemplate = (dbName: string, templateId: string) => {
   return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.deleteTemplete(dbName, templateId)
+    const wargame = await wargamesApi.deleteTemplate(dbName, templateId)
 
     dispatch(setCurrentWargame(wargame))
 
@@ -446,9 +446,9 @@ export const deleteSelectedTemplate = (dbName: string, templateId: string) => {
   }
 }
 
-export const saveTemplete = (dbName: string, data: TemplateBody) => {
+export const saveTemplate = (dbName: string, data: TemplateBody) => {
   return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.saveTemplete(dbName, data)
+    const wargame = await wargamesApi.saveTemplate(dbName, data)
 
     dispatch(setCurrentWargame(wargame))
 
