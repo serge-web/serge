@@ -23,6 +23,7 @@ interface CssExports {
   'resize-handle-outer': string;
   'multi-select': string;
   'menu-item': string;
+  'disabled': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
