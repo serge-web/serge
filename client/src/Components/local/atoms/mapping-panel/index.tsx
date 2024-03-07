@@ -226,7 +226,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     }
     const cloneFeature = cloneDeep(features)
     cloneFeature.features = cloneFeature.features.filter((f) => {
-      const andFoundKey: {[x: string]: boolean} = {}
+      const orFoundKey: {[x: string]: boolean} = {}
       Object.keys(selectedFiltersProps).forEach((filterKey) => {
         const value = selectedFiltersProps[filterKey].value
         if (filterKey === wildcardLabel) {
@@ -236,29 +236,29 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           const id = get(f.properties, 'id', '').toString().toLowerCase()
           try {
             const rgex = new RegExp(searchKey)
-            andFoundKey[filterKey] = rgex.test(label) || rgex.test(id)
+            orFoundKey[filterKey] = rgex.test(label) || rgex.test(id)
           } catch (e) {
-            andFoundKey[filterKey] = false
+            orFoundKey[filterKey] = false
           }
         } else {
           const propertyValue = get(f.properties, filterKey, '')
-          let comparingPropValue = []
-          let comnparingValue = [] 
+          let itemPropValue = []
+          let filteringValue = [] 
           if (Array.isArray(propertyValue)) {
-            comparingPropValue = propertyValue
+            itemPropValue = propertyValue
           } else {
-            comparingPropValue.push(propertyValue)
+            itemPropValue.push(propertyValue)
           }
           if (Array.isArray(value)) {
-            comnparingValue = value
+            filteringValue = value
           } else {
-            comnparingValue.push(value)
+            filteringValue.push(value)
           }
-          andFoundKey[filterKey] = comparingPropValue.sort().join(',').includes(comnparingValue.sort().join(','))
+          orFoundKey[filterKey] = filteringValue.sort().join(',').includes(itemPropValue.sort().join(','))
         }
       })
 
-      return Object.values(andFoundKey).every(f => f)
+      return Object.values(orFoundKey).every(f => f)
     })
     const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', ''))
     if (!isSelectedFeatureFilterOut) {
@@ -367,7 +367,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         {panelState.filterPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
+              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} multipleSelect/>
             </div>
             <div className={styles.button}>
               <button onClick={onAddNewFilter}>Add</button>

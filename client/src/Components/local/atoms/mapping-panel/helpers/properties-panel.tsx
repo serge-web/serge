@@ -7,7 +7,7 @@ import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { Checkbox, ListItemText } from '@material-ui/core'
 
-const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit }) => {
+const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit, multipleSelect }) => {
   return <Fragment>
     {
       Object.keys(selectedProp).map((key, kIdx) => {
@@ -39,7 +39,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
               ? <Select
                 className={styles['multi-select']}
                 value={Array.isArray(value) ? value : [value]}
-                multiple={true} // do we need to dynamic this property?
+                multiple={multipleSelect}
                 onChange={e => { onPropertiesChange(key, e.target.value as string) }}
                 renderValue={(selected: unknown) => {
                   const selStr = selected as string[]
