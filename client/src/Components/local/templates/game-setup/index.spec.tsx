@@ -90,7 +90,7 @@ const Component = (): React.ReactElement => {
       onChannelsChange={onChannelsChange}
       onTemplateChange={onTemplatesChange}
       onSave={onSave}
-      messageTemplates={changedTemplates}
+      templates={changedTemplates}
       onWargameInitiate={onWargameInitiated}
     />
   )

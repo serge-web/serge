@@ -39,7 +39,7 @@ export const GameSetup: React.FC<Props> = ({
   onSidebarTemplatesClick,
   selectedChannel,
   onSave,
-  messageTemplates,
+  templates,
   onSaveGameTitle,
   onWargameInitiate,
   iconUploadUrl,
@@ -88,14 +88,14 @@ export const GameSetup: React.FC<Props> = ({
               onDuplicate={onDuplicateChannel}
               selectedChannel={selectedChannel}
               forces={forces}
-              messageTemplates={messageTemplates}
+              messageTemplates={templates}
             />
           )
         }
         {
           currentActiveTab === AdminTabs.Templates && (
             <SettingTemplate
-              templates={messageTemplates}
+              templates={templates}
               onChange={onTemplateChange}
               onSave={onSave}
               onSidebarClick={onSidebarTemplatesClick}

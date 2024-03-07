@@ -394,7 +394,7 @@ const AdminGameSetup: React.FC = () => {
       onSidebarTemplatesClick={onSidebarTemplatesClick}
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
-      messageTemplates={templates?.templates || messageTypes.messages}
+      templates={templates?.templates || messageTypes.messages}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}

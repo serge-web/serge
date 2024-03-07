@@ -106,7 +106,7 @@ export const Default: React.FC = () => {
       onChannelsChange={onChannelsChange}
       onTemplateChange={onTemplatesChange}
       onSave={onSave}
-      messageTemplates={changedTemplates}
+      templates={changedTemplates}
       onSaveGameTitle={onSaveGameTitle}
       onWargameInitiate={onWargameInitiated}
       iconUploadUrl={iconUploaderPath}
