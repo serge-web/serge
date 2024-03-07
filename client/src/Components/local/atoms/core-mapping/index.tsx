@@ -10,7 +10,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
-import { BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
@@ -163,6 +163,32 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }
   }
 
+  /** add any additional properties for this renderer */
+  const insertMissingProps = (props: BaseProperties) => {
+    // find the renderer for this feature
+    const thisRenderer: BaseRenderer = channel.renderers.find((renderer) => renderer.type === props._type)
+    if (thisRenderer) {
+      const theseProps = thisRenderer.additionalProps
+      // insert missing items from theseProps into props
+      theseProps.forEach(p => {
+        if (!props[p.id]) {
+          // item missing, see what type it is
+          switch (p.type) {
+            case PROPERTY_ENUM:
+              props[p.id] = p.choices[0]
+              break
+            case PROPERTY_NUMBER:
+              props[p.id] = 0
+              break
+            case PROPERTY_STRING:
+              props[p.id] = p.description || 'pending'
+              break
+          }
+        }
+      })
+    }
+  }
+
   const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {
     const shapeType = (e as any).shape
     const commonProps = {
@@ -204,6 +230,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           _type: RENDERER_CORE,
           ...commonProps
         }
+        insertMissingProps(props)
         return {
           type: 'Feature',
           properties: props,
@@ -215,15 +242,20 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       }
       case 'Marker': {
         const loc = (e as any).layer._latlng as L.LatLng
+        const props: MilSymProperties = {
+          _type: RENDERER_MILSYM,
+          sidc: 'SFG-UCI----D',
+          size: 'M',
+          health: 100,
+          ...commonProps
+        }
+
+        // add any other extra props for this feature type
+        insertMissingProps(props)
+
         return {
           type: 'Feature',
-          properties: {
-            _type: RENDERER_MILSYM,
-            sidc: 'SFG-UCI----D',
-            size: 'M',
-            health: 100,
-            ...commonProps
-          },
+          properties: props,
           geometry: {
             coordinates: [loc.lng, loc.lat],
             type: 'Point'
@@ -232,16 +264,18 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       }
       case 'Text': {
         const loc = (e as any).layer._latlng as L.LatLng
+        const props: any = {
+          _type: RENDERER_CORE,
+          _externalType: 'Text', // GeoJsonObject does not have geometry.type = 'Text' so adding an indicator in property
+          fontSize: DEFAULT_FONT_SIZE,
+          padding: DEFAULT_PADDING,
+          ...commonProps,
+          label: get(e, 'target.options.text', playerForce.name) // store value
+        }
+        insertMissingProps(props as BaseProperties)
         return {
           type: 'Feature',
-          properties: {
-            _type: RENDERER_CORE,
-            _externalType: 'Text', // GeoJsonObject does not have geometry.type = 'Text' so adding an indicator in property
-            fontSize: DEFAULT_FONT_SIZE,
-            padding: DEFAULT_PADDING,
-            ...commonProps,
-            label: get(e, 'target.options.text', playerForce.name) // store value
-          },
+          properties: props,
           geometry: { // remove this makes the pointToLayer broken 
             coordinates: [loc.lng, loc.lat],
             type: 'Point'
@@ -350,12 +384,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }
   }
 
-  const getRendererProps = (): PropertyType[] => {
+  const getUnionRendererProps = (): PropertyType[] => {
     const rendererObjects: BaseRenderer[] = channel.renderers
     const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
     return unionBy(flatMap, 'id')
   }
-  
+
   return <MappingProvider value={mappingProviderValue}>
     <Box className={styles.container}>
       {!checked && <Button variant='contained' onClick={() => setChecked(true)}>
@@ -369,7 +403,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
               minSizePercentage={35}
               style={{ pointerEvents: 'all' }}
             >
-              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} rendererProps={getRendererProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} />
+              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} rendererProps={getUnionRendererProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} />
             </Panel>
             <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
             <Panel
