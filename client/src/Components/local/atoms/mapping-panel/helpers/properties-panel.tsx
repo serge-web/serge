@@ -36,6 +36,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
         const field = selectedProp[key]
         const { value, choices } = field
 
+        // handle the special cases first
         switch (key) {
           case 'lat': {
             const latValue = selectedProp.lat.value
@@ -52,6 +53,8 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
             return <Fragment key={key + kIdx}></Fragment>
           }
           default: {
+            // now the remaining cases
+
             // check if this is the id property (since we don't allow that to be edited)
             const isId = key === 'id'
 
@@ -65,7 +68,9 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
             //    practice is called)
             const prop: PropertyType | undefined = rendererProps?.find((p) => p.id === key)
 
+            // do we have enough detail to do special formatting?
             if (prop) {
+              // ok, create dedicated  component for this property
               const title = prop.description && prop.description.length > 0 ? prop.description : 'jimno'
               return <div key={key + kIdx} className={styles.itemsBox} title={title}>
                 <p>{key}:</p>
@@ -75,6 +80,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
                 {onRemoveFilter && <FontAwesomeIcon icon={faMinusCircle} className={styles.removeIcon} onClick={() => onRemoveFilter(key)}/>}
               </div>
             } else {
+              // nope, determine component to use by looking at the data
               return <div key={key + kIdx} className={styles.itemsBox}>
                 <p>{key}:</p>
                 <div>
