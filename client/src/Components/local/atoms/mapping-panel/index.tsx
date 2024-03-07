@@ -254,7 +254,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
           } else {
             filteringValue.push(value)
           }
-          orFoundKey[filterKey] = filteringValue.sort().join(',').includes(itemPropValue.sort().join(','))
+          const filteringValueStr = filteringValue.sort().join(',').toLowerCase()
+          const itemValueStr = itemPropValue.sort().join(',').toLowerCase()
+          orFoundKey[filterKey] = filteringValueStr.includes(itemValueStr) || itemValueStr.includes(filteringValueStr)
         }
       })
 
