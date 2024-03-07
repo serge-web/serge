@@ -4,7 +4,7 @@ interface PropTypes {
     templates: Array<TemplateBody>
     selectedTemplate?: TemplateBody
     onChange: (updates: { templates: TemplateBody[] }) => void
-    onSave: (templates: TemplateBody[]) => void  
+    onSave: (templates: TemplateBody) => void  
     onSidebarClick?: (selectedTemplate: TemplateBody) => void
     onCreate?: () => void
     onDelete?: () => void

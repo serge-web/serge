@@ -31,11 +31,18 @@ export const Default: React.FC = () => {
   const [data, setData] = useState(TemplatesMock)
 
   const onChange = (updates: { templates: Array<TemplateBody> }): void => {
-    console.log('change', updates.templates[0])
+    console.log('change', updates.templates)
+    setData(updates.templates)
   }
-  const onSave = (templates: TemplateBody[]): void => {
-    console.log('Save data', templates[0])
-    setData(templates)
+
+  const onSave = (template: TemplateBody): void => {
+    const selectedId = template._id
+    const newTemplateData = TemplatesMock.findIndex(template => template._id === selectedId)
+    TemplatesMock[newTemplateData] = template
+
+    console.log('Save data', template)
+    console.log('data', data)
+    setData(TemplatesMock)
   }
 
   return <SettingTemplate templates={data} onChange={onChange} onSave={onSave} />

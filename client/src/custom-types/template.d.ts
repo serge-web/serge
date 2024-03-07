@@ -22,7 +22,7 @@ export default interface Template {
 /** top level database object for storing activity definitions */
 /** collection of map annotations */
 export interface TemplateData {
-  selectedTemplate?: string | TemplateBody
+  selectedTemplate: string | TemplateBody
   name: string
   dirty: boolean
   templates: TemplateBody[]

@@ -183,10 +183,9 @@ const AdminGameSetup: React.FC = () => {
     }
   }
 
-  const handleSaveTemplate = (template: TemplateBody[]) => {
-    const { selectedTemplate } = templates
-    const { _id } = selectedTemplate as TemplateBody
-    const newForceData = template.find(template => template._id === _id)
+  const handleSaveTemplate = (template: TemplateBody) => {
+    const selectedId = template._id
+    const newForceData = templates.templates.find(template => template._id === selectedId)
     if (currentWargame && newForceData) dispatch(saveTemplate(currentWargame, newForceData))
   }
 
@@ -311,7 +310,7 @@ const AdminGameSetup: React.FC = () => {
       dispatch(setSelectedForce(forces.forces[0]))
     } else if (currentTab === 'channels' && channels.selectedChannel === '') {
       dispatch(setSelectedChannel(channels.channels[0]))
-    } else if (currentTab === 'templates') {
+    } else if (currentTab === 'templates' && templates.selectedTemplate === '') {
       dispatch(setSelectedTemplate(templates.templates[0]))
     }
   }, [currentTab])

@@ -453,6 +453,7 @@ export const saveTemplate = (dbName: string, data: TemplateBody) => {
     dispatch(setCurrentWargame(wargame))
 
     dispatch(setTabSaved())
+    dispatch(setSelectedTemplate({ title: data.title, _id: data._id }))
 
     dispatch(addNotification('Templates saved.', 'success'))
   }

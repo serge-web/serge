@@ -88,6 +88,7 @@ const wargame: Wargame = {
     },
     templates: {
       name: 'templates',
+      selectedTemplate: '',
       dirty: false,
       templates: []
     }

@@ -23,7 +23,9 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const [templateData, setTemplateData] = useState<TemplateBody[]>(templates)
   
   useEffect(() => {
-    setSelectedItem(0)
+    const selectedId = templates.findIndex(template => template._id === selectedTemplate?._id)
+    setSelectedItem(Math.max(selectedId, 0))
+    setTemplateData(templates)
   }, [templates.length])
 
   const handleSwitch = (_item: Item): void => {
@@ -51,7 +53,8 @@ const SettingTemplate: React.FC<PropTypes> = ({
     }
 
     if (onSave) {
-      onSave(templateData)
+      console.log('templateData', templateData[selectedItem])
+      onSave(templateData[selectedItem])
     }
   }
 
