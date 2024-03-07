@@ -432,7 +432,7 @@ export const duplicateTemplate = (dbName: string, temlete: string) => {
     const wargame = await wargamesApi.duplicateTemplate(dbName, temlete)
 
     dispatch(setCurrentWargame(wargame))
-    dispatch(addNotification('Temlete duplicated.', 'success'))
+    dispatch(addNotification('Template is duplicated.', 'success'))
   }
 }
 
@@ -455,6 +455,6 @@ export const saveTemplate = (dbName: string, data: TemplateBody) => {
     dispatch(setTabSaved())
     dispatch(setSelectedTemplate({ title: data.title, _id: data._id }))
 
-    dispatch(addNotification('Templates saved.', 'success'))
+    dispatch(addNotification('Template is saved.', 'success'))
   }
 }
