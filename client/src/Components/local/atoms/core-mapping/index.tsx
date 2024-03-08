@@ -409,6 +409,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
                 onSelect={setSelectedFeature} 
                 selected={selectedFeature}
                 showLabels={showLabels} 
+                forceStyles={forceStyles}
               />) 
           }
         </LayerGroup>

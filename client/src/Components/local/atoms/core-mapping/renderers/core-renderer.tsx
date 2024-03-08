@@ -6,7 +6,7 @@ import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { ForceStyle } from 'src/Helpers'
 import { CoreProperties, RENDERER_CORE } from 'src/custom-types'
-import { getInvertColor, getRGB, isSimilar } from '../helper/marker-helper'
+import tinycolor from 'tinycolor2'
 import { useMappingState } from '../helper/mapping-provider'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
@@ -39,15 +39,15 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
 
   const setTextStyleFromProperties = (marker: L.Marker<any>, props: any) => {
     const forceColor = colorFor(props.force, forceStyles)
-    const textColor = props.color
+    let textColor = props.color || '#000'
     const elm = marker.pm['_layer'].pm.getElement() as HTMLTextAreaElement
-    if (isSimilar(getRGB(forceColor), getRGB(textColor))) {
-      elm.style.textShadow = `0 0 5px ${getInvertColor(getRGB(forceColor))}, 0 0 5px ${getInvertColor(getRGB(forceColor))}`
+    if (tinycolor(forceColor).isDark()) {
+      textColor = '#fff'
     }
     elm.style.textAlign = 'center'
     elm.style.padding = '0px'
     elm.style.backgroundColor = colorFor(props.force, forceStyles)
-    elm.style.color = props.color
+    elm.style.color = textColor
     elm.style.fontSize = (props.fontSize || DEFAULT_FONT_SIZE) + 'px'
     if (selected.includes(props.id)) {
       elm.classList.add(styles['pulse'])
