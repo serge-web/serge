@@ -9,3 +9,10 @@ export const applyPatch = (featureCollection: FeatureCollection<Geometry, GeoJso
 export const generatePatch = (collectionOne: FeatureCollection<Geometry, GeoJsonProperties>, collectionTwo: FeatureCollection<Geometry, GeoJsonProperties>): Operation[] => {
   return jsonPath.compare(collectionOne, collectionTwo)
 }
+
+export const getAllFeatureIds = (features: FeatureCollection<Geometry, GeoJsonProperties>): string[] => features.features.reduce((acc, f) => {
+  if (f.properties && f.properties.id) {
+    acc.push('' + f.properties.id)
+  }
+  return acc
+}, [] as string[])

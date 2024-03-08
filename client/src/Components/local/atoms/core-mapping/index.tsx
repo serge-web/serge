@@ -6,7 +6,7 @@ import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { cloneDeep, flatten, get, isEqual, unionBy } from 'lodash'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
@@ -15,8 +15,9 @@ import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
-import { applyPatch, generatePatch } from './helper/feature-collection-helper'
+import { applyPatch, generatePatch, getAllFeatureIds } from './helper/feature-collection-helper'
 import MapControls from './helper/map-controls'
+import { MappingProvider } from './helper/mapping-provider'
 import { loadDefaultMarker } from './helper/marker-helper'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './renderers/milsymbol-renderer'
 import styles from './styles.module.scss'
@@ -28,10 +29,23 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
   const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
   const [selectedFeature, setSelectedFeature] = useState<string[]>([])
-
   const [showLabels, setShowLabels] = useState<boolean>(false)
-
   const lastMessages = useRef<MappingMessage>()
+
+  const [filterFeatureIds, setFilterFeatureIds] = useState<string[]>([])
+  const [deselecteFeature, setDeselectFeature] = useState<boolean>(false)
+
+  const mappingProviderValue = useMemo(() => ({
+    filterFeatureIds,
+    setFilterFeatureIds,
+    deselecteFeature,
+    setDeselectFeature
+  }), [
+    filterFeatureIds,
+    setFilterFeatureIds,
+    deselecteFeature,
+    setDeselectFeature
+  ])
 
   // const bounds = L.latLngBounds(channel.constraints.bounds)
   const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
@@ -66,6 +80,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
             // apply latest delta message into original mapping message's feature collection
             baseMappingMessage.featureCollection = applyPatch(cloneBaseCollection, deltaMessages)
           }
+          setFilterFeatureIds(getAllFeatureIds(baseMappingMessage.featureCollection))
           setFeatureCollection(baseMappingMessage.featureCollection)
         }
       }
@@ -340,61 +355,54 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     return unionBy(flatMap, 'id')
   }
   
-  return <Box className={styles.container}>
-    {!checked && <Button variant='contained' onClick={() => setChecked(true)}>
-      <FontAwesomeIcon icon={faCircleArrowRight} />
-    </Button>}
-    <Slide direction='right' in={checked} mountOnEnter timeout={500}>
-      <Box className={styles['slide-container']}>
-        <PanelGroup direction="horizontal" >
-          <Panel
-            defaultSizePercentage={35}
-            minSizePercentage={35}
-            style={{ pointerEvents: 'all' }}
-          >
-            <MappingPanel
-              onClose={() => setChecked(false)}
-              features={featureCollection}
-              extraFilterProps={getExtraFilterProps()}
-              onSave={saveNewMessage}
-              selected={selectedFeature}
-              forceStyles={forceStyles}
-              onSelect={setSelectedFeature}
-            />
-          </Panel>
-          <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
-          <Panel
-            defaultSizePercentage={65}
-            style={{ pointerEvents: 'none' }}
-          >
-          </Panel>
-        </PanelGroup>
-      </Box>
-    </Slide>
-    <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={true} className={styles['map-container']} >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      /> 
-      <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText}/>
-      <LayerGroup>
-        {
-          featureCollection && renderers.map((Component, idx) => 
-            <Component 
-              onRemoved={onRemoved} 
-              key={idx + featureCollection.features.length} 
-              features={featureCollection} 
-              onDragged={onDragged} 
-              onEdited={onEdited} 
-              onSelect={setSelectedFeature} 
-              selected={selectedFeature}
-              showLabels={showLabels} 
-              forceStyles={forceStyles}
-            />) 
-        }
-      </LayerGroup>
-    </MapContainer>
-  </Box>
+  return <MappingProvider value={mappingProviderValue}>
+    <Box className={styles.container}>
+      {!checked && <Button variant='contained' onClick={() => setChecked(true)}>
+        <FontAwesomeIcon icon={faCircleArrowRight} />
+      </Button>}
+      <Slide direction='right' in={checked} mountOnEnter timeout={500}>
+        <Box className={styles['slide-container']}>
+          <PanelGroup direction="horizontal" >
+            <Panel
+              defaultSizePercentage={35}
+              minSizePercentage={35}
+              style={{ pointerEvents: 'all' }}
+            >
+              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} forceStyles={forceStyles} />
+            </Panel>
+            <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
+            <Panel
+              defaultSizePercentage={65}
+              style={{ pointerEvents: 'none' }}
+            >
+            </Panel>
+          </PanelGroup>
+        </Box>
+      </Slide>
+      <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={true} className={styles['map-container']} >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        /> 
+        <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText}/>
+        <LayerGroup>
+          {
+            featureCollection && renderers.map((Component, idx) => 
+              <Component 
+                onRemoved={onRemoved} 
+                key={idx + featureCollection.features.length} 
+                features={featureCollection} 
+                onDragged={onDragged} 
+                onEdited={onEdited} 
+                onSelect={setSelectedFeature} 
+                selected={selectedFeature}
+                showLabels={showLabels} 
+              />) 
+          }
+        </LayerGroup>
+      </MapContainer>
+    </Box>
+  </MappingProvider>
 }
 
 const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => isEqual(prevProps.messages, nextProps.messages)
