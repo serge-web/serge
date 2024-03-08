@@ -13,11 +13,15 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
   const map = useMap()
   const selectedRef = useRef<boolean>(false)
 
-  const { deselecteFeature, setDeselectFeature } = useMappingState()
+  const { deselecteFeature, setDeselectFeature, localPanelSize } = useMappingState()
 
   useEffect(() => {
     selectedRef.current = deselecteFeature
   }, [deselecteFeature])
+
+  useEffect(() => {
+    map.invalidateSize()
+  }, [localPanelSize])
 
   const initMapListener = () => {
     let layersVisible = true 
