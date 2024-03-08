@@ -370,7 +370,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         {panelState.itemPanelState.state &&
           <div className={styles.itemsResponsive}>
             {filterredFeatures?.features.map((feature, idx) => {
-			  const color = colorFor(feature.properties?.force, forceStyles)
+              const color = colorFor(feature.properties?.force, forceStyles)
               return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} color={color}/>
             })}
           </div>
