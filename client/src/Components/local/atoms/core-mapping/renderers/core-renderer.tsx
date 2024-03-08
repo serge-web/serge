@@ -6,6 +6,7 @@ import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { ForceStyle } from 'src/Helpers'
 import { CoreProperties, RENDERER_CORE } from 'src/custom-types'
+import { useMappingState } from '../helper/mapping-provider'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
@@ -16,7 +17,9 @@ export const colorFor = (force: string, forceStyles?: ForceStyle[]): string => {
 }
 
 const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, selected = [] }) => {
-  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE
+  const { filterFeatureIds } = useMappingState()
+  
+  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE && filterFeatureIds.includes('' + feature.properties.id)
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       const isSelected = selected.some(id => id === feature.properties?.id)
@@ -91,7 +94,8 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     l.addEventListener('pm:remove', () => {
       onRemoved(f.properties.id)
     })
-    l.addEventListener('click', () => {
+    l.addEventListener('click', (e) => {
+      L.DomEvent.stopPropagation(e)
       onSelect([f.properties.id])
     })
     const dragHandler = (e: LeafletEvent) => {

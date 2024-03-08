@@ -8,10 +8,22 @@ import AssetIcon from 'src/Components/local/asset-icon'
 import { Ruler } from 'src/custom-types/leaflet-custom-types'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
+import { useMappingState } from './mapping-provider'
 
 const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {
   const map = useMap()
   const ruler = useRef<Ruler | null>(null)
+  const selectedRef = useRef<boolean>(false)
+
+  const { deselecteFeature, setDeselectFeature, localPanelSize } = useMappingState()
+
+  useEffect(() => {
+    selectedRef.current = deselecteFeature
+  }, [deselecteFeature])
+
+  useEffect(() => {
+    map.invalidateSize()
+  }, [localPanelSize])
 
   const initMapListener = () => {
     let layersVisible = true 
@@ -78,6 +90,10 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
         default:
           console.log('OnCreate Unimplemented !!!', e['shape'])
       }
+    })
+
+    map.on('click', () => {
+      setDeselectFeature(!selectedRef.current)
     })
   }
    
