@@ -16,13 +16,10 @@ export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
   return forceStyle ? forceStyle.color : '#F0F'
 }
-
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, selected = [] }) => {
-  const { filterFeatureIds } = useMappingState()
   
-  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE && filterFeatureIds.includes('' + feature.properties.id)
 const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, selected = [] }) => {
-  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE
+  const { filterFeatureIds } = useMappingState()
+  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE && filterFeatureIds.includes('' + feature.properties.id)
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       const isSelected = selected.some(id => id === feature.properties?.id)
