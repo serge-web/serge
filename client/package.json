@@ -186,7 +186,6 @@
     "heroku-postbuild": "yarn build && yarn build-storybook",
     "build-storybook": "build-storybook -s ./static -c .storybook -o ./build/storybook",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
-    "update-deps": "node scripts/update-deps.js",
     "copy-assets": "copyfiles -u 4 src/Components/local/asset-icon/counters/*.svg ./public/assets",
     "copy-assets-storybook": "copyfiles -u 4 src/Components/local/asset-icon/counters/*.svg static/assets/counters",
     "cleanup": "rimraf build/Components/vendor && rimraf build/Components/local/**/mocks && rimraf build/Components/local/**/*.stories.* && rimraf build/Components/local/**/*.spec.*",
