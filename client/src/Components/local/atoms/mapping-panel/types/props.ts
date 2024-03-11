@@ -8,4 +8,5 @@ export type ProppertiesPanelProps = {
   onRemoveFilter?: (filter: string) => void
   /** whether fields called "id" should be disabled */
   disableIdEdit: boolean
+  multipleSelect?: boolean
 }
