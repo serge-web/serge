@@ -9,6 +9,7 @@ import { cloneDeep, flatten, get, isEqual, unionBy } from 'lodash'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
+import { PanelSize } from 'src/Components/CoreMappingChannel'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
 import { BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, PropertyTypes, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
@@ -23,7 +24,7 @@ import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './renderers/milsymbol-render
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
   
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack, panelSize }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
@@ -34,17 +35,22 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
 
   const [filterFeatureIds, setFilterFeatureIds] = useState<string[]>([])
   const [deselecteFeature, setDeselectFeature] = useState<boolean>(false)
+  const [localPanelSize, setLocalPanelSize] = useState<PanelSize | undefined>(panelSize)
 
   const mappingProviderValue = useMemo(() => ({
     filterFeatureIds,
     setFilterFeatureIds,
     deselecteFeature,
-    setDeselectFeature
+    setDeselectFeature,
+    localPanelSize,
+    setLocalPanelSize
   }), [
     filterFeatureIds,
     setFilterFeatureIds,
     deselecteFeature,
-    setDeselectFeature
+    setDeselectFeature,
+    localPanelSize,
+    setLocalPanelSize
   ])
 
   // const bounds = L.latLngBounds(channel.constraints.bounds)
@@ -53,6 +59,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   useEffect(() => {
     loadDefaultMarker()
   }, [])
+
+  useEffect(() => {
+    if (!isEqual(localPanelSize, panelSize)) {
+      setLocalPanelSize(panelSize)
+    }
+  }, [panelSize])
   
   useEffect(() => {
     // sort out the mapping messages, since we actually may also receive turn markers
@@ -406,6 +418,4 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   </MappingProvider>
 }
 
-const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => isEqual(prevProps.messages, nextProps.messages)
-
-export default React.memo(CoreMapping, areEqual)
+export default CoreMapping
