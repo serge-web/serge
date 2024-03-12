@@ -9,13 +9,14 @@ import { Ruler } from 'src/custom-types/leaflet-custom-types'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
 import { useMappingState } from './mapping-provider'
+import { delay } from 'lodash'
 
 const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {
   const map = useMap()
   const ruler = useRef<Ruler | null>(null)
   const selectedRef = useRef<boolean>(false)
 
-  const { deselecteFeature, setDeselectFeature, localPanelSize } = useMappingState()
+  const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring } = useMappingState()
 
   useEffect(() => {
     selectedRef.current = deselecteFeature
@@ -116,6 +117,9 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
       map.zoomControl.setPosition('bottomright')
       L.control.scale({ position: 'topright' }).addTo(map)
       ruler.current = L.control.ruler({ position: 'bottomright' }).addTo(map)
+      ruler.current._container.onclick = () => {
+        delay(() => setIsMeasuring(!!ruler.current?._choice), 50)
+      }
       initMapListener()
     }
   }, [map])
@@ -139,6 +143,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
     }}
     onButtonClick={(e) => {
       if (!e.button.toggleStatus && ruler.current && ruler.current._choice) {
+        ruler.current._closePath()
         ruler.current._toggleMeasure()
       }
     }}

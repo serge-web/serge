@@ -30,7 +30,9 @@ class Ruler extends Control {
   // remove comes from the parent contrlol
   remove(): void
   _toggleMeasure(): void
+  _closePath(): void
   _choice: boolean
+  _container: HTMLDivElement
 }
 
 declare module 'leaflet' {

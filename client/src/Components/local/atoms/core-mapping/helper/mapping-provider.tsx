@@ -8,7 +8,9 @@ type MappingStateValue = {
   deselecteFeature: boolean
   setDeselectFeature: (selected: boolean) => void
   localPanelSize: PanelSize | undefined
-  setLocalPanelSize:(oanelSize: PanelSize) => void
+  setLocalPanelSize: (oanelSize: PanelSize) => void
+  isMeasuring: boolean
+  setIsMeasuring: (isMeasuring: boolean) => void
 }
 
 const initialState: MappingStateValue = {
@@ -17,7 +19,9 @@ const initialState: MappingStateValue = {
   deselecteFeature: false,
   setDeselectFeature: noop,
   localPanelSize: undefined,
-  setLocalPanelSize: noop
+  setLocalPanelSize: noop,
+  isMeasuring: false,
+  setIsMeasuring: noop
 }
 const MappingState = createContext<MappingStateValue>(initialState)
 
