@@ -168,6 +168,10 @@ td[data-schemapath*="root."] {
   width: 40px;
 }
 
+.modal.show .modal-dialog {
+  height: 100vh;
+}
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);

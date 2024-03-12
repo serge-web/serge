@@ -3,7 +3,7 @@ export interface TemplateBody {
   _rev: string
   completed: boolean
   // eslint-disable-next-line @typescript-eslint/ban-types
-  details: object
+  details: object | string
   lastUpdated: string
   title: string    
 }

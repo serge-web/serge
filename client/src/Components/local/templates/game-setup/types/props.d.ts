@@ -71,7 +71,7 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on template Add button click events
   */
-  onCreateTemplate?: () => void
+  onCreateTemplate?: (template: TemplateBody) => void
   /**
     * Callback on template delete button click events
   */

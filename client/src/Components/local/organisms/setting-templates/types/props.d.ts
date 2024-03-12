@@ -6,7 +6,7 @@ interface PropTypes {
     onChange: (updates: { templates: TemplateBody[] }) => void
     onSave: (templates: TemplateBody) => void  
     onSidebarClick?: (selectedTemplate: TemplateBody) => void
-    onCreate?: () => void
+    onCreate?: (template: TemplateBody) => void
     onDelete?: () => void
     onDuplicate?: () => void
 }

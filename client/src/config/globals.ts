@@ -209,6 +209,7 @@ export const templateBody = {
       }
     },
     title: 'Chat',
+    
     format: 'grid'
   },
   completed: false,

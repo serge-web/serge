@@ -6,6 +6,7 @@ import TextInput from '../../atoms/text-input'
 import styles from './styles.module.scss'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import EditableList, { Item } from '../../molecules/editable-list'
+import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder'
 import PropTypes from './types/props'
 
 const SettingTemplate: React.FC<PropTypes> = ({
@@ -21,12 +22,26 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const selectedChannelIdx = templates.findIndex(template => template._id === selectedTemplate?._id)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelIdx, 0))
   const [templateData, setTemplateData] = useState<TemplateBody[]>(templates)
+  const [schema, setSchema] = useState<string>('{}')
+  const [uischema, setUiSchema] = useState('{}')
   
   useEffect(() => {
+    // Find the index of the selected template in the templates array
     const selectedId = templates.findIndex(template => template._id === selectedTemplate?._id)
-    setSelectedItem(Math.max(selectedId, 0))
+  
+    const correctedSelectedItem = Math.max(selectedId, 0)
+  
+    const selectedTemplateDetails = templates[correctedSelectedItem]?.details || {}
+  
+    // Destructure schema and uischema from the selected template details
+    const { schema, uischema } = selectedTemplateDetails as any
+  
+    // Update state with the selected template information
+    setSelectedItem(correctedSelectedItem)
     setTemplateData(templates)
-  }, [templates.length])
+    setSchema(schema)
+    setUiSchema(uischema)
+  }, [selectedItem, templates, selectedTemplate])
 
   const handleSwitch = (_item: Item): void => {
     setSelectedItem(templates.findIndex(item => item === _item))
@@ -53,15 +68,36 @@ const SettingTemplate: React.FC<PropTypes> = ({
     }
 
     if (onSave) {
-      console.log('templateData', templateData[selectedItem])
+      const templateDetails = {
+        schema: schema,
+        uischema: uischema
+      }
+      templateData[selectedItem].details = templateDetails
       onSave(templateData[selectedItem])
     }
   }
 
+  const onCreateNewTemplate = () => {
+    const Template: TemplateBody = {
+      lastUpdated: new Date().toISOString(),
+      title: 'Chat',
+      details: { 
+        schema: '{}',
+        uischema: '{}'
+      },
+      completed: false,
+      _id: 'k16eedkl',
+      _rev: ''
+    }
+    
+    onCreate && onCreate(Template)
+  }
+
   const renderContent = (): React.ReactNode => {
     const data = templates[selectedItem]
-    if (!data) return null
 
+    if (!data) return null
+    
     return (
       <div key={selectedItem}>
         <div className={cx(styles.row, styles['mb-20'])}>
@@ -86,6 +122,14 @@ const SettingTemplate: React.FC<PropTypes> = ({
             </Button>
           </div>
         </div>
+        <FormBuilder
+          schema={schema}
+          uischema={uischema}
+          onChange={(newSchema: string, newUiSchema: string) => {
+            setSchema(newSchema)
+            setUiSchema(newUiSchema)
+          }}
+        />
       </div >
     )
   }
@@ -100,7 +144,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
             filterKey="title"
             labelKey='title'
             onClick={handleSwitch}
-            onCreate={onCreate}
+            onCreate={onCreateNewTemplate}
             onDelete={onDelete}
             onDuplicate={onDuplicate}
             withSearch={true}

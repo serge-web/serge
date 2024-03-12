@@ -26,7 +26,7 @@ import {
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
-import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate, templateBody } from 'src/config'
+import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
 import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, Wargame, TemplateBody } from 'src/custom-types'
 
 /**
@@ -185,8 +185,8 @@ const AdminGameSetup: React.FC = () => {
 
   const handleSaveTemplate = (template: TemplateBody) => {
     const selectedId = template._id
-    const newForceData = templates.templates.find(template => template._id === selectedId)
-    if (currentWargame && newForceData) dispatch(saveTemplate(currentWargame, newForceData))
+    const newTemplateData = templates.templates.find(template => template._id === selectedId)
+    if (currentWargame && newTemplateData) dispatch(saveTemplate(currentWargame, template))
   }
 
   const onSave = (updates: WargameOverview | ForceData | ChannelTypes) => {
@@ -329,7 +329,7 @@ const AdminGameSetup: React.FC = () => {
     }
   }
 
-  const onCreateTemplate = () => {
+  const onCreateTemplate = (templateBody: TemplateBody) => {
     if (templates.dirty) {
       dispatch(modalAction.open('unsavedForce', 'create-new'))
     } else {
@@ -339,6 +339,7 @@ const AdminGameSetup: React.FC = () => {
       const template: TemplateBody = templateBody
       template._id = id
       template.title = id
+
       if (currentWargame) dispatch(saveTemplate(currentWargame, template))
     }
   }
