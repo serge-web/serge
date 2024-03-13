@@ -84,7 +84,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
       onSave(templateData[selectedItem])
     }
   }
-
+  
   const onCreateNewTemplate = () => {
     const Template: TemplateBody = {
       lastUpdated: new Date().toISOString(),
@@ -151,7 +151,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
           />
         }
         {
-          currentTab === TemplateTab.Visual && <Form<FormData> 
+          currentTab === TemplateTab.Visual && schema && <Form<FormData> 
             schema={JSON.parse(schema)} 
             validator={validator} 
             formData={formData} 
