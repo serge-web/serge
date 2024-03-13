@@ -260,6 +260,22 @@ exports[`SettingForces component: renders correctly 1`] = `
         </div>
       </div>
       <div
+        className="main"
+      >
+        <div
+          className="item active"
+          onClick={[Function]}
+        >
+          preview form
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          visual form-builder
+        </div>
+      </div>
+      <div
         data-testid="form-builder-mock"
       />
     </div>
