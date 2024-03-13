@@ -11,6 +11,7 @@ import styles from './styles.module.scss'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import EditableList, { Item } from '../../molecules/editable-list'
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder'
+import './bioworks.css'
 import PropTypes, { FormData } from './types/props'
 
 const SettingTemplate: React.FC<PropTypes> = ({
@@ -31,7 +32,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const [uischema, setUiSchema] = useState('{}')
   const validator = customizeValidator<FormData>()
   const formData: FormData = {}
-  
+
   useEffect(() => {
     // Find the index of the selected template in the templates array
     const selectedId = templates.findIndex(template => template._id === selectedTemplate?._id)
