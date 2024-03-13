@@ -3,11 +3,15 @@ import cx from 'classnames'
 import Button from '../../atoms/button'
 import { TemplateBody } from 'src/custom-types'
 import TextInput from '../../atoms/text-input'
+import { customizeValidator } from '@rjsf/validator-ajv8'
+import Form from '@rjsf/core'
+import Tabs from '../../atoms/tabs'
+import { TemplateTab } from 'src/config'
 import styles from './styles.module.scss'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import EditableList, { Item } from '../../molecules/editable-list'
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder'
-import PropTypes from './types/props'
+import PropTypes, { FormData } from './types/props'
 
 const SettingTemplate: React.FC<PropTypes> = ({
   templates,
@@ -22,8 +26,11 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const selectedChannelIdx = templates.findIndex(template => template._id === selectedTemplate?._id)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelIdx, 0))
   const [templateData, setTemplateData] = useState<TemplateBody[]>(templates)
+  const [currentTab, setCurrentTab] = useState<string>(TemplateTab.Preview)
   const [schema, setSchema] = useState<string>('{}')
   const [uischema, setUiSchema] = useState('{}')
+  const validator = customizeValidator<FormData>()
+  const formData: FormData = {}
   
   useEffect(() => {
     // Find the index of the selected template in the templates array
@@ -96,6 +103,15 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const renderContent = (): React.ReactNode => {
     const data = templates[selectedItem]
 
+    const handleTabChange = (changedTab: string): void => {
+      setCurrentTab(changedTab)
+    }
+
+    const contentTabs = [
+      TemplateTab.Preview,
+      TemplateTab.Visual
+    ]
+
     if (!data) return null
     
     return (
@@ -122,14 +138,24 @@ const SettingTemplate: React.FC<PropTypes> = ({
             </Button>
           </div>
         </div>
-        <FormBuilder
-          schema={schema}
-          uischema={uischema}
-          onChange={(newSchema: string, newUiSchema: string) => {
-            setSchema(newSchema)
-            setUiSchema(newUiSchema)
-          }}
-        />
+        {contentTabs.length > 0 && <Tabs activeTab={currentTab} onChange={handleTabChange} tabs={contentTabs} changed={false} />}
+        { 
+          currentTab === TemplateTab.Preview && <FormBuilder
+            schema={schema}
+            uischema={uischema}
+            onChange={(newSchema: string, newUiSchema: string) => {
+              setSchema(newSchema)
+              setUiSchema(newUiSchema)
+            }}
+          />
+        }
+        {
+          currentTab === TemplateTab.Visual && <Form<FormData> 
+            schema={JSON.parse(schema)} 
+            validator={validator} 
+            formData={formData} 
+          />
+        }
       </div >
     )
   }

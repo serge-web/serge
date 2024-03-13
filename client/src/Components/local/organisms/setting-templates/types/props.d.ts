@@ -1,5 +1,10 @@
 import { TemplateBody } from 'src/custom-types'
 
+export interface FormData {
+  foo?: string
+  bar?: number
+}
+
 interface PropTypes {
     templates: Array<TemplateBody>
     selectedTemplate?: TemplateBody

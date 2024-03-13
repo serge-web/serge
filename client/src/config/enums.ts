@@ -92,3 +92,8 @@ export enum AdminTabs {
   Channels = 'channels',
   Templates = 'templates'
 }
+
+export enum TemplateTab {
+  Preview = 'Preview Form',
+  Visual = 'Visual Form Builder'
+}
