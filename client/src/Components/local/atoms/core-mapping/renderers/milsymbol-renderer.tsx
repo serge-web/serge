@@ -32,7 +32,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       const isSelected = selected.some(id => id === feature.properties.id)
 
       // Create custom DivIcon for the marker
-      const divIcon = createDivIcon(iconHTML, healthColor, isSelected)
+      const divIcon = createDivIcon(iconHTML, healthColor, isSelected, isMeasuring)
       const marker = L.marker(latLng, { icon: divIcon })
       
       // Event listeners for marker actions

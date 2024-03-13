@@ -145,6 +145,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
       if (!e.button.toggleStatus && ruler.current && ruler.current._choice) {
         ruler.current._closePath()
         ruler.current._toggleMeasure()
+        setIsMeasuring(false)
       }
     }}
   />

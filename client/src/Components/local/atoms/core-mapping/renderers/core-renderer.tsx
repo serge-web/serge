@@ -49,6 +49,11 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     } else {
       elm.classList.remove(styles['pulse'])
     }
+    if (isMeasuring) {
+      elm.classList.add(styles.measuring)
+    } else {
+      elm.classList.remove(styles.measuring)
+    }
   }
 
   const adjustSizeFromProperties = (marker: L.Marker<any>, props: any) => {
