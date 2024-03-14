@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import Button from '../../atoms/button'
-import { TemplateBody } from 'src/custom-types'
 import TextInput from '../../atoms/text-input'
-import { customizeValidator } from '@rjsf/validator-ajv8'
 import Form from '@rjsf/core'
 import Tabs from '../../atoms/tabs'
-import { TemplateTab } from 'src/config'
-import styles from './styles.module.scss'
-import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import EditableList, { Item } from '../../molecules/editable-list'
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder'
-import './bioworks.css'
 import PropTypes, { FormData } from './types/props'
+import { TemplateBody } from 'src/custom-types'
+import { TemplateTab } from 'src/config'
+import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
+import { customizeValidator } from '@rjsf/validator-ajv8'
+import './bioworks.css'
+import styles from './styles.module.scss'
 
 const SettingTemplate: React.FC<PropTypes> = ({
   templates,
@@ -24,39 +24,33 @@ const SettingTemplate: React.FC<PropTypes> = ({
   onDelete,
   onSidebarClick
 }) => {
-  const selectedChannelIdx = templates.findIndex(template => template._id === selectedTemplate?._id)
-  const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelIdx, 0))
+  const [selectedItem, setSelectedItem] = useState<number>(0)
   const [templateData, setTemplateData] = useState<TemplateBody[]>(templates)
   const [currentTab, setCurrentTab] = useState<string>(TemplateTab.Preview)
   const [schema, setSchema] = useState<string>('{}')
-  const [uischema, setUiSchema] = useState('{}')
+  const [uischema, setUiSchema] = useState<string>('{}')
   const validator = customizeValidator<FormData>()
   const formData: FormData = {}
 
   useEffect(() => {
-    // Find the index of the selected template in the templates array
     const selectedId = templates.findIndex(template => template._id === selectedTemplate?._id)
-  
     const correctedSelectedItem = Math.max(selectedId, 0)
-  
     const selectedTemplateDetails = templates[correctedSelectedItem]?.details || {}
-  
-    // Destructure schema and uischema from the selected template details
     const { schema, uischema } = selectedTemplateDetails as any
-  
-    // Update state with the selected template information
+    
     setSelectedItem(correctedSelectedItem)
     setTemplateData(templates)
     setSchema(schema)
     setUiSchema(uischema)
-  }, [selectedItem, templates, selectedTemplate])
+  }, [selectedTemplate, templates])
 
   const handleSwitch = (_item: Item): void => {
-    setSelectedItem(templates.findIndex(item => item === _item))
+    const index = templates.findIndex(item => item === _item)
+    setSelectedItem(index)
     onSidebarClick && onSidebarClick(_item as TemplateBody)
   }
 
-  const handleChangeTemplates = (nextTemplates: Array<TemplateBody>): void => {
+  const handleChangeTemplates = (nextTemplates: TemplateBody[]): void => {
     setTemplateData(nextTemplates)
     onChange({ templates: nextTemplates })
   }
@@ -71,47 +65,46 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const onSaveTemplate = (): void => {
     const currentTemplate = selectedItem >= 0 && templateData[selectedItem]
     if (!currentTemplate) {
-      console.log('do not have selected force. Not saving', selectedItem)
+      console.log('No selected template. Not saving.', selectedItem)
       return
     }
 
     if (onSave) {
-      const templateDetails = {
-        schema: schema,
-        uischema: uischema
-      }
+      const templateDetails = { schema, uischema }
       templateData[selectedItem].details = templateDetails
       onSave(templateData[selectedItem])
     }
   }
   
   const onCreateNewTemplate = () => {
-    const Template: TemplateBody = {
+    const newTemplate: TemplateBody = {
       lastUpdated: new Date().toISOString(),
       title: 'Chat',
-      details: { 
-        schema: '{}',
-        uischema: '{}'
-      },
+      details: { schema: '{}', uischema: '{}' },
       completed: false,
       _id: 'k16eedkl',
       _rev: ''
     }
     
-    onCreate && onCreate(Template)
+    onCreate && onCreate(newTemplate)
   }
 
   const renderContent = (): React.ReactNode => {
     const data = templates[selectedItem]
+    const isValidJSON = (jsonString: string): boolean => {
+      try {
+        JSON.parse(jsonString)
+        return true
+      } catch {
+        return false
+      }
+    }
 
     const handleTabChange = (changedTab: string): void => {
       setCurrentTab(changedTab)
     }
 
-    const contentTabs = [
-      TemplateTab.Preview,
-      TemplateTab.Visual
-    ]
+    const contentTabs = [TemplateTab.Preview, TemplateTab.Visual]
 
     if (!data) return null
     
@@ -130,12 +123,8 @@ const SettingTemplate: React.FC<PropTypes> = ({
             />
           </div>
           <div className={styles.actions}>
-            <Button
-              color="primary"
-              onClick={onSaveTemplate}
-              data-qa-type="save"
-            >
-                Save Template
+            <Button color="primary" onClick={onSaveTemplate} data-qa-type="save">
+              Save Template
             </Button>
           </div>
         </div>
@@ -151,13 +140,13 @@ const SettingTemplate: React.FC<PropTypes> = ({
           />
         }
         {
-          currentTab === TemplateTab.Visual && schema && <Form<FormData> 
+          currentTab === TemplateTab.Visual && isValidJSON(schema) && <Form<FormData> 
             schema={JSON.parse(schema)} 
             validator={validator} 
             formData={formData} 
           />
         }
-      </div >
+      </div>
     )
   }
   
@@ -177,7 +166,6 @@ const SettingTemplate: React.FC<PropTypes> = ({
             withSearch={true}
             title="Create Template List"
           />
- 
         </div>
       </LeftSide>
       <RightSide>
