@@ -54,7 +54,6 @@
       this._clickedLatLong = null
       this._clickedPoints = []
       this._totalLength = 0
-      console.log('xx> 111111')
       if (this._choice) {
         this._map.doubleClickZoom.disable()
         this._map.pm.disableGlobalEditMode()
