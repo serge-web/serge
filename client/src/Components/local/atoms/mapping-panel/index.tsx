@@ -2,7 +2,7 @@ import { faArrowAltCircleLeft, faWindowMaximize, faWindowMinimize } from '@forta
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import { cloneDeep, get, isEqual, set, uniq } from 'lodash'
+import { cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
 import { CoreProperties, PropertyTypes } from 'src/custom-types'
@@ -150,7 +150,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       }
       return res
     }, {})
-    setSelectedFiltersProps(selectedFilterOpts)
+    setSelectedFiltersProps(merge(selectedFilterOpts, selectedFiltersProps))
     closeApplyFilterModal()
   }, [features, propertyFiltersListPanel])
 
