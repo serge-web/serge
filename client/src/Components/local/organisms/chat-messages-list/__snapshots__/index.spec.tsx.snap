@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
-<div>
+<div
+  className="MuiBox-root MuiBox-root-1"
+>
   <div
-    className="MuiBox-root MuiBox-root-1"
+    className="MuiBox-root MuiBox-root-2"
   >
     <div
       className="forces-in-channel"
@@ -55,18 +57,18 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
     </div>
   </div>
   <div
-    className="MuiBox-root MuiBox-root-2 messages-list"
+    className="MuiBox-root MuiBox-root-3 messages-list"
     style={
       Object {
-        "height": "calc(100vh - 280px)",
+        "height": "calc(100% - 280px)",
       }
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-3"
+      className="MuiBox-root MuiBox-root-4"
     >
       <div
-        className="MuiBox-root MuiBox-root-4"
+        className="MuiBox-root MuiBox-root-5"
         style={
           Object {
             "float": "right",
@@ -99,7 +101,7 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
             Content of message
           </div>
           <div
-            className="MuiBox-root MuiBox-root-5"
+            className="MuiBox-root MuiBox-root-6"
           >
             <span>
               <span
@@ -116,15 +118,15 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
               </span>
             </span>
             <div
-              className="MuiBox-root MuiBox-root-6"
+              className="MuiBox-root MuiBox-root-7"
             >
               <div
-                className="MuiChip-root makeStyles-root-7 makeStyles-root-10 MuiChip-sizeSmall makeStyles-sizeSmall-8"
+                className="MuiChip-root makeStyles-root-8 makeStyles-root-11 MuiChip-sizeSmall makeStyles-sizeSmall-9"
                 onKeyDown={[Function]}
                 onKeyUp={[Function]}
               >
                 <span
-                  className="MuiChip-label makeStyles-label-9 makeStyles-label-11 MuiChip-labelSmall"
+                  className="MuiChip-label makeStyles-label-10 makeStyles-label-12 MuiChip-labelSmall"
                 >
                   Game Control
                 </span>
@@ -137,7 +139,7 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
             </div>
           </div>
           <div
-            className="MuiBox-root MuiBox-root-12 private"
+            className="MuiBox-root MuiBox-root-13 private"
           >
             <div
               className="paragraph"

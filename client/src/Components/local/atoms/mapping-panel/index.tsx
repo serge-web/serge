@@ -146,8 +146,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     const selectedFilterOpts = propertyFiltersListPanel.reduce((res, key): SelectedProps => {
       const extraProps = extraFilterProps.find(prop => prop.id === key)
       const choices: string[] = get(extraProps, 'choices', [])
+      const value = get(choices, '0', '')
       res[key] = {
-        value: get(choices, '0', ''),
+        value: choices.length ? [value] : '',
         choices
       }
       return res
@@ -203,13 +204,21 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
 
   const onPropertiesChange = (key: string, value: any) => {
     const prevValue = get(selectedProps, key)
+    // leep 1 selected item
+    if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
+      return
+    }
     set(prevValue, 'value', value)
     setSelectedProps(cloneDeep(selectedProps))
     updatePendingSave(key, value)
   }
 
-  const onFilterPropertiesChange = (key: string, value: string) => {
+  const onFilterPropertiesChange = (key: string, value: any) => {
     const prevValue = get(selectedFiltersProps, key)
+    // leep 1 selected item
+    if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
+      return
+    }
     set(prevValue, 'value', value)
     setSelectedFiltersProps(cloneDeep(selectedFiltersProps))
   }
@@ -220,25 +229,41 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     }
     const cloneFeature = cloneDeep(features)
     cloneFeature.features = cloneFeature.features.filter((f) => {
-      let found = true
+      const orFoundKey: {[x: string]: boolean} = {}
       Object.keys(selectedFiltersProps).forEach((filterKey) => {
-        const propertyValue = get(f.properties, filterKey, '').toString().toLowerCase()
-        const searchKey = selectedFiltersProps[filterKey].value.toLowerCase()
-        if (filterKey === wildcardLabel && searchKey) {
+        const value = selectedFiltersProps[filterKey].value
+        if (filterKey === wildcardLabel) {
           // search wildcard by label & id
+          const searchKey = value.toLowerCase()
           const label = get(f.properties, 'label', '').toString().toLowerCase()
           const id = get(f.properties, 'id', '').toString().toLowerCase()
           try {
             const rgex = new RegExp(searchKey)
-            found = rgex.test(label) || rgex.test(id)
+            orFoundKey[filterKey] = rgex.test(label) || rgex.test(id)
           } catch (e) {
-            found = false
+            orFoundKey[filterKey] = false
           }
-        } else if (!propertyValue.includes(searchKey)) {
-          found = false
+        } else {
+          const propertyValue = get(f.properties, filterKey, '')
+          let itemPropValue = []
+          let filteringValue = [] 
+          if (Array.isArray(propertyValue)) {
+            itemPropValue = propertyValue
+          } else {
+            itemPropValue.push(propertyValue)
+          }
+          if (Array.isArray(value)) {
+            filteringValue = value
+          } else {
+            filteringValue.push(value)
+          }
+          const filteringValueStr = filteringValue.sort().join(',').toLowerCase()
+          const itemValueStr = itemPropValue.sort().join(',').toLowerCase()
+          orFoundKey[filterKey] = (filteringValueStr.includes(itemValueStr) || itemValueStr.includes(filteringValueStr)) && !!itemValueStr
         }
       })
-      return found
+
+      return Object.values(orFoundKey).every(f => f)
     })
     const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', ''))
     if (!isSelectedFeatureFilterOut) {
@@ -347,7 +372,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         {panelState.filterPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} />
+              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} multipleSelect/>
             </div>
             <div className={styles.button}>
               <button onClick={onAddNewFilter}>Add</button>
