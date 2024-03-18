@@ -4,6 +4,7 @@ import Button from '../../atoms/button'
 import TextInput from '../../atoms/text-input'
 import Form from '@rjsf/core'
 import Tabs from '../../atoms/tabs'
+import uniqid from 'uniqid'
 import EditableList, { Item } from '../../molecules/editable-list'
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder'
 import PropTypes, { FormData } from './types/props'
@@ -70,22 +71,30 @@ const SettingTemplate: React.FC<PropTypes> = ({
     }
 
     if (onSave) {
-      const templateDetails = { schema, uischema }
+      // @ts-ignore
+      const { title } = templateData[selectedItem].details
+      const templateDetails = {
+        schema, 
+        uischema,
+        title
+
+      }
       templateData[selectedItem].details = templateDetails
       onSave(templateData[selectedItem])
     }
   }
   
   const onCreateNewTemplate = () => {
+    const id = 'template-' + uniqid.time()  
+
     const newTemplate: TemplateBody = {
       lastUpdated: new Date().toISOString(),
-      title: 'Chat',
-      details: { schema: '{}', uischema: '{}' },
+      title: id,
+      details: { schema: '{}', uischema: '{}', title: id },
       completed: false,
-      _id: 'k16eedkl',
+      _id: id,
       _rev: ''
     }
-    
     onCreate && onCreate(newTemplate)
   }
 
@@ -142,6 +151,8 @@ const SettingTemplate: React.FC<PropTypes> = ({
         {
           currentTab === TemplateTab.Visual && isValidJSON(schema) && <Form<FormData> 
             schema={JSON.parse(schema)} 
+            uiSchema={JSON.parse(uischema)}
+            onChange={(newFormData) => console.log('newFormData', newFormData)}
             validator={validator} 
             formData={formData} 
           />

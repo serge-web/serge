@@ -1,18 +1,20 @@
-import { Editor, TemplateBody } from 'src/custom-types'
+import { TemplateBody } from 'src/custom-types'
 import { configDateTimeLocal, deepCopy, usePrevious } from 'src/Helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { isEqual } from 'lodash'
+import Form, { IChangeEvent } from '@rjsf/core'
+import { customizeValidator } from '@rjsf/validator-ajv8'
 import moment from 'moment'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
-import setupEditor from './helpers/setupEditor'
 import Props from './types/props'
 
-const alwaysShowEditorErrors = 'always'
+export interface FormData {
+  foo?: string
+  bar?: number
+}
 
-// keydown listener should works only for defined tags
-const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({
   messageId,
@@ -24,9 +26,9 @@ export const JsonEditor: React.FC<Props> = ({
   formId,
   customiseTemplate,
   disabled = false,
-  expandHeight = true,
+  // expandHeight = true,
   gameDate,
-  disableArrayToolsWithEditor = true,
+  // disableArrayToolsWithEditor = true,
   clearForm,
   saveMessage,
   onCancelEdit,
@@ -34,12 +36,14 @@ export const JsonEditor: React.FC<Props> = ({
   confirmCancel = false,
   viewSaveButton = false
 }) => {
-  const jsonEditorRef = useRef<HTMLDivElement>(null)
-  const [editor, setEditor] = useState<Editor | null>(null)
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
+  const [schema, setSchema] = useState<object>()
+  const [uischema, setUiSchema] = useState<string>('{}')
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
-
+  const validator = customizeValidator<FormData>()
+  const [formData, setFormData] = useState({})
+  
   const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
     const styles = {
@@ -51,9 +55,6 @@ export const JsonEditor: React.FC<Props> = ({
     return <span style={styles} >Schema not found for {template}</span>
   }
 
-  const destroyEditor = (editorObject: Editor | null): void => {
-    if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
-  }
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {
       if (!date.includes('Z')) {
@@ -75,18 +76,6 @@ export const JsonEditor: React.FC<Props> = ({
     return res
   }
 
-  const handleChange = (value: { [property: string]: any }): void => {
-    /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
-     * convert them
-     */
-    const fixedDate = fixDate(value)
-    const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
-    if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
-      storeNewValue && storeNewValue(newDoc)
-      setSelectOptionsHeaders()
-    }
-  }
-
   const setSelectOptionsHeaders = (): void => {
     /**
          * heading option should have pattern: ###<heading>
@@ -106,6 +95,19 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
+  const handleChange = (newFormData: IChangeEvent<FormData>) => { 
+    //   /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
+    //    * convert them
+    //    */
+    const fixedDate = fixDate(newFormData.formData as any)
+    const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
+    if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
+      storeNewValue && storeNewValue(newDoc)
+      setSelectOptionsHeaders()
+      setFormData({})
+    }
+  }
+    
   const OnSave = () => {
     saveMessage && saveMessage()
     setBeingEdited(false)
@@ -117,9 +119,6 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const onPopupConfirm = (): void => {
-    if (!viewSaveButton) {
-      initEditor()
-    }
     onCancelEdit && onCancelEdit()
     setConfirmIsOpen(false)
     setBeingEdited(false)
@@ -131,141 +130,30 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
-  const initEditor = (): () => void => {
-    const hideArrayButtons = disabled
-    const jsonEditorConfig = hideArrayButtons
-      ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
-      : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
-
-    // initialise date editors
-    gameDate && console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
-    const modSchema = gameDate ? configDateTimeLocal(template.details, gameDate) : template.details
-
-    // apply any other template modifications
-    const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
-
-    // if a title was supplied, replace the title in the schema
-    const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, alwaysShowEditorErrors)
-
-    const changeListenter = (): void => {
-      if (nextEditor) {
-        const nexValue = nextEditor.getValue()
-        handleChange(nexValue)
-      }
-    }
-
-    // Timer it foo throttle
-    let timerId: ReturnType<typeof setTimeout>
-
-    // Keydown litener
-    const handleKeyDown = ({ target }: KeyboardEvent): void => {
-      // if target not null
-      if (target) {
-        // convert targetElement to HTMLElement
-        const targetElement = target as HTMLElement
-        // if target valid input tag
-        if (keydowListenFor.includes(targetElement.tagName)) {
-          // remove old onChange waiting timers
-          if (timerId) clearTimeout(timerId)
-          // create new timer
-          timerId = setTimeout((): void => {
-            // trigger changes listener after 128ms
-            targetElement.dispatchEvent(new Event('change'))
-          }, 128)
-        }
-      }
-    }
-
-    // add keydown listener to be able to track input changes
-    document.addEventListener('keydown', handleKeyDown)
-
-    setTimeout(() => {
-      try {
-        if (nextEditor) {
-          // only retrieve from expired content if we haven't been provided with message content
-          if (messageContent) {
-            nextEditor.setValue(messageContent)
-            nextEditor.on('change', changeListenter)
-          } else {
-            nextEditor.on('change', changeListenter)
-          }
-        }
-      } catch (err) {
-        console.warn('JSONEditor error 2:', err)
-      }
-      // update time input for flatpickr
-      const flatPickrElm = document.querySelectorAll('div[class*="flatpickr-calendar"]')
-      Array.from(flatPickrElm).forEach(elm => elm.classList.add('showTimeInput'))
-    })
-
-    setEditor(nextEditor)
-
-    // handle textarea height to fit its content
-    if (expandHeight && jsonEditorRef.current) {
-      const textareaElms = jsonEditorRef.current.querySelectorAll<HTMLTextAreaElement>('[data-schemaformat="textarea"]')
-      for (const textareaElm of Array.from(textareaElms)) {
-        textareaElm.style.height = `${textareaElm.scrollHeight + 5}px`
-      }
-    }
-
-    return (): void => {
-      // remove timer for unmounted component
-      if (timerId) clearTimeout(timerId)
-      // remove keydown listener for unmounted component
-      document.removeEventListener('keydown', handleKeyDown)
-      if (nextEditor) {
-        // remove change listener for unmounted component
-        nextEditor.off('change', changeListenter)
-      }
-    }
-  }
-
   useEffect(() => {
-    if (template.details && editor) {
-      return initEditor()
+    if (template.details && template.details.schema) {
+      const { schema, uischema } = template.details
+      const jsonSchema = JSON.parse(schema)
+  
+      // Initialize date editors if necessary
+      if (gameDate) {
+        console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
+      }
+  
+      // Apply modifications to the schema
+      const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema
+      const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
+      const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
+  
+      // Set state
+      setFormData({})
+      setSchema(schemaWithTitle)
+      setUiSchema(uischema)
     }
-
-    return (): void => destroyEditor(editor)
-  }, [template.details, clearForm])
-
-  useEffect(() => {
-    if (editor) {
-      setTimeout(() => {
-        try {
-          if (viewSaveButton && !beingEdited) {
-            editor.disable()
-          } else if (disabled && !viewSaveButton) {
-            editor.disable()
-          } else {
-            editor.enable()
-          }
-        } catch (err) {
-          console.warn('JSONEditor error 1', err)
-        }
-        const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
-        Array.from(editInLocationBtns).forEach(btn => {
-          btn.classList.remove('btn-hide')
-        })
-        setSelectOptionsHeaders()
-      }, 50)
-      return
-    }
-
-    if (template.details && template.details.type) {
-      setBeingEdited(false)
-      initEditor()
-    }
-
-    return (): void => destroyEditor(editor)
-  }, [template.details, messageId, messageContent, prevTemplates, beingEdited, editor])
-
-  useLayoutEffect(() => {
-    if (editor) editor.destroy()
-  }, [disableArrayToolsWithEditor && disabled])
+  }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title, clearForm])
 
   const SaveMessageButton = () => (
-    editor && viewSaveButton ? (
+    schema && viewSaveButton ? (
       <div className='button-wrap' >
         {!disabled && beingEdited
           ? <>
@@ -297,11 +185,30 @@ export const JsonEditor: React.FC<Props> = ({
               onConfirm={onPopupConfirm}
             />
             <SaveMessageButton />
-            <div id={formId} ref={jsonEditorRef} />
+            {
+              schema && <Form<FormData> 
+                id={formId}
+                schema={schema} 
+                uiSchema={JSON.parse(uischema)}
+                onChange={handleChange}
+                validator={validator} 
+                formData={formData} 
+                templates={{ ButtonTemplates: { } }}
+                disabled={disabled}
+              />
+              
+            }
             <SaveMessageButton />
           </>
-          : <div className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
-      }
+          : schema && <Form<FormData> 
+            className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
+            schema={schema} 
+            uiSchema={JSON.parse(uischema)}
+            onChange={handleChange}
+            validator={validator} 
+            formData={formData} 
+            disabled={disabled}
+          /> }
     </>
   )
 }

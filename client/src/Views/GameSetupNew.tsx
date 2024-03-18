@@ -333,14 +333,9 @@ const AdminGameSetup: React.FC = () => {
     if (templates.dirty) {
       dispatch(modalAction.open('unsavedForce', 'create-new'))
     } else {
-      const id = 'template-' + uniqid.time()  
-      const newTemplate = { title: id, _id: id }
-      dispatch(setSelectedTemplate(newTemplate))
-      const template: TemplateBody = templateBody
-      template._id = id
-      template.title = id
-
-      if (currentWargame) dispatch(saveTemplate(currentWargame, template))
+      dispatch(setSelectedTemplate(templateBody))
+      
+      if (currentWargame) dispatch(saveTemplate(currentWargame, templateBody))
     }
   }
 
