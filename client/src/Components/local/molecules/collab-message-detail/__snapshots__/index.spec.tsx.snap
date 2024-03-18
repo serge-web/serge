@@ -9,9 +9,6 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     className="actions"
   />
   <div
-    className="edt-enable"
-  />
-  <div
     className="main theme-dark disabled"
   >
     <label
