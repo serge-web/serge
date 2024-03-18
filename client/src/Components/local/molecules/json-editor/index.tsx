@@ -38,11 +38,11 @@ export const JsonEditor: React.FC<Props> = ({
 }) => {
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
-  const [schema, setSchema] = useState<object>()
+  const [schema, setSchema] = useState<Record<string, unknown>>()
   const [uischema, setUiSchema] = useState<string>('{}')
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
   const validator = customizeValidator<FormData>()
-  const [formData, setFormData] = useState({})
+  const [formData, setFormData] = useState<Record<string, unknown>>({}) 
   
   const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
@@ -52,7 +52,7 @@ export const JsonEditor: React.FC<Props> = ({
       padding: '20px',
       fontSize: '16px'
     }
-    return <span style={styles} >Schema not found for {template}</span>
+    return <span style={styles}>Schema not found for {template}</span>
   }
 
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
@@ -147,68 +147,70 @@ export const JsonEditor: React.FC<Props> = ({
   
       // Set state
       setFormData({})
-      setSchema(schemaWithTitle)
+      setSchema(schemaWithTitle as Record<string, unknown>) 
       setUiSchema(uischema)
     }
   }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title, clearForm])
 
   const SaveMessageButton = () => (
     schema && viewSaveButton ? (
-      <div className='button-wrap' >
-        {!disabled && beingEdited
-          ? <>
-            <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
-            {
-              confirmCancel
-                ? <Button color='secondary' onClick={openConfirmPopup} icon='delete'>Cancel</Button>
-                : null
-            }
+      <div className='button-wrap'>
+        {!disabled && beingEdited ? (
+          <>
+            <Button color='secondary' onClick={OnSave} icon='save'>
+              Save
+            </Button>
+            {confirmCancel ? (
+              <Button color='secondary' onClick={openConfirmPopup} icon='delete'>
+                Cancel
+              </Button>
+            ) : null}
           </>
-          : !disabled ? <Button color='secondary' onClick={() => {
-            setBeingEdited(true)
-          }} icon='edit'>Edit</Button>
-            : null
-        }
+        ) : !disabled ? (
+          <Button color='secondary' onClick={() => setBeingEdited(true)} icon='edit'>
+            Edit
+          </Button>
+        ) : null}
       </div>
     ) : null
   )
 
   return (
     <>
-      {
-        viewSaveButton
-          ? <>
-            <Confirm
-              isOpen={confirmIsOpen}
-              message="Are you sure you wish to cancel editing this message?"
-              onCancel={onPopupCancel}
-              onConfirm={onPopupConfirm}
+      {viewSaveButton ? (
+        <>
+          <Confirm
+            isOpen={confirmIsOpen}
+            message="Are you sure you wish to cancel editing this message?"
+            onCancel={onPopupCancel}
+            onConfirm={onPopupConfirm}
+          />
+          <SaveMessageButton />
+          {schema && (
+            <Form<FormData>
+              id={formId}
+              schema={schema}
+              uiSchema={JSON.parse(uischema)}
+              onChange={handleChange}
+              validator={validator}
+              formData={formData}
+              templates={{ ButtonTemplates: {} }}
+              disabled={disabled}
             />
-            <SaveMessageButton />
-            {
-              schema && <Form<FormData> 
-                id={formId}
-                schema={schema} 
-                uiSchema={JSON.parse(uischema)}
-                onChange={handleChange}
-                validator={validator} 
-                formData={formData} 
-                templates={{ ButtonTemplates: { } }}
-                disabled={disabled}
-              />
-              
-            }
-            <SaveMessageButton />
-          </>
-          : schema && <Form<FormData> 
-            className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
-            schema={schema} 
-            uiSchema={JSON.parse(uischema)}
-            onChange={handleChange}
-            validator={validator} 
-            formData={formData} 
-            disabled={disabled}
-          /> }
+          )}
+          <SaveMessageButton />
+        </>
+      ) : schema && (
+        <Form<FormData>
+          className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
+          schema={schema}
+          uiSchema={JSON.parse(uischema)}
+          onChange={handleChange}
+          validator={validator}
+          formData={formData}
+          disabled={disabled}
+        />
+      )}
     </>
   )
 }
