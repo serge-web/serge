@@ -164,6 +164,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     const featrure = features?.features.filter(f => id.includes(f.properties?.id)) || []
     setSelectedFeatures(checked ? featrure : [])
     onSelect(checked ? id : [])
+    setPendingSaveFeatures(features)
   }
 
   const clearSelectedFeature = () => {
