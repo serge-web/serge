@@ -25,3 +25,19 @@ export const createDivIcon = (iconHTML: string, healthColor: string, isSelected:
     className: styles['combined-icon']
   })
 }
+
+export const getRGB = (color: string): number[] => {
+  const rgbColor = parseInt(color.substring(1), 16)
+  const r = rgbColor >> 16
+  const g = (rgbColor - (r << 16)) >> 8
+  const b = rgbColor - (r << 16) - (g << 8)
+  return [r, g, b]
+}
+
+export const isSimilar = ([r1, g1, b1]: number[], [r2, g2, b2]: number[]): boolean => {
+  return Math.abs(r1 - r2) + Math.abs(g1 - g2) + Math.abs(b1 - b2) < 50
+}
+
+export const getInvertColor = ([r, g, b]: number[]): string => {
+  return `rgb(${255 - r}, ${255 - g}, ${255 - b})`
+}

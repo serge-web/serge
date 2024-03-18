@@ -24,7 +24,7 @@ import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './renderers/milsymbol-render
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
   
-const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, postBack, panelSize }) => {
+const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, forceStyles, postBack, panelSize }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
@@ -183,8 +183,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       label: playerForce.name,
       turn: currentTurn,
       force: playerForce.uniqid,
-      category: 'Civilian',
-      color: playerForce.color
+      category: 'Civilian'
     }
 
     switch (shapeType) {
@@ -381,7 +380,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
               minSizePercentage={35}
               style={{ pointerEvents: 'all' }}
             >
-              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} />
+              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} extraFilterProps={getExtraFilterProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} forceStyles={forceStyles} />
             </Panel>
             <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
             <Panel
@@ -410,6 +409,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
                 onSelect={setSelectedFeature} 
                 selected={selectedFeature}
                 showLabels={showLabels} 
+                forceStyles={forceStyles}
               />) 
           }
         </LayerGroup>

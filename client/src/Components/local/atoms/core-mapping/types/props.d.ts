@@ -1,5 +1,6 @@
 import { FeatureCollection } from 'geojson'
 import { LatLng, PM } from 'leaflet'
+import { ForceStyle } from 'src/Helpers'
 import { PanelSize } from 'src/Components/CoreMappingChannel'
 import { ChannelMapping, ForceData, MappingMessage, MappingMessageDelta } from 'src/custom-types'
 
@@ -24,6 +25,7 @@ export type CoreRendererProps = {
   onSelect: (id: string[]) => void
   selected: string[]
   showLabels: boolean
+  forceStyles: ForceStyle[]
 };
 
 export type GeomanControlProps = {
