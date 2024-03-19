@@ -38,7 +38,10 @@
   svg {
     font-weight: 700;
   }
+}
 
+.measuring {
+  pointer-events: none;
 }
 
 .health-bar {

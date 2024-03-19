@@ -36,6 +36,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [filterFeatureIds, setFilterFeatureIds] = useState<string[]>([])
   const [deselecteFeature, setDeselectFeature] = useState<boolean>(false)
   const [localPanelSize, setLocalPanelSize] = useState<PanelSize | undefined>(panelSize)
+  const [isMeasuring, setIsMeasuring] = useState<boolean>(false)
 
   const mappingProviderValue = useMemo(() => ({
     filterFeatureIds,
@@ -43,14 +44,18 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     deselecteFeature,
     setDeselectFeature,
     localPanelSize,
-    setLocalPanelSize
+    setLocalPanelSize,
+    isMeasuring,
+    setIsMeasuring
   }), [
     filterFeatureIds,
     setFilterFeatureIds,
     deselecteFeature,
     setDeselectFeature,
     localPanelSize,
-    setLocalPanelSize
+    setLocalPanelSize,
+    isMeasuring,
+    setIsMeasuring
   ])
 
   // const bounds = L.latLngBounds(channel.constraints.bounds)
