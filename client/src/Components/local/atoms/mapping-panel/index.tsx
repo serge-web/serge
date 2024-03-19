@@ -164,6 +164,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     const featrure = features?.features.filter(f => id.includes(f.properties?.id)) || []
     setSelectedFeatures(checked ? featrure : [])
     onSelect(checked ? id : [])
+    setPendingSaveFeatures(features)
   }
 
   const clearSelectedFeature = () => {
@@ -171,6 +172,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     setSelectedProps({})
     onSelect([])
     setDisableSave(true)
+    if (!isEqual(pendingSaveFeatures, features)) {
+      setPendingSaveFeatures(features)
+    }
   }
 
   const updatePendingSave = (key: string, value: any) => {
@@ -201,7 +205,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
 
   const onPropertiesChange = (key: string, value: any) => {
     const prevValue = get(selectedProps, key)
-    // leep 1 selected item
+    // keep 1 selected item
     if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
       return
     }
