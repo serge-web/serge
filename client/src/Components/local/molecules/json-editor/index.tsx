@@ -153,24 +153,22 @@ export const JsonEditor: React.FC<Props> = ({
   }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title, clearForm])
 
   const SaveMessageButton = () => (
-    viewSaveButton ? (
-      <div className='button-wrap' >
-        {!disabled && beingEdited
-          ? <>
-            <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
-            {
-              confirmCancel
-                ? <Button color='secondary' onClick={openConfirmPopup} icon='delete'>Cancel</Button>
-                : null
-            }
-          </>
-          : !disabled ? <Button color='secondary' onClick={() => {
-            setBeingEdited(true)
-          }} icon='edit'>Edit</Button>
-            : null
-        }
-      </div>
-    ) : null
+    <div className='button-wrap' >
+      {!disabled && beingEdited
+        ? <>
+          <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
+          {
+            confirmCancel
+              ? <Button color='secondary' onClick={openConfirmPopup} icon='delete'>Cancel</Button>
+              : null
+          }
+        </>
+        : !disabled ? <Button color='secondary' onClick={() => {
+          setBeingEdited(true)
+        }} icon='edit'>Edit</Button>
+          : null
+      }
+    </div>
   )
 
   return (
