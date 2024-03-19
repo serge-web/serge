@@ -4,39 +4,9 @@ const messageTemplatesMock: TemplateBody[] = [
   {
     completed: false,
     details: {
-      properties: {
-        Reference: {
-          title: 'Reference',
-          type: 'string',
-          format: 'text'
-        },
-        Title: {
-          title: 'Title',
-          type: 'string',
-          format: 'text'
-        },
-        Forces: {
-          format: 'table',
-          items: {
-            minItems: 1,
-            properties: {
-              force: {
-                enum: [
-                  'Blue',
-                  'Red',
-                  'Green'
-                ],
-                propertyOrder: 100,
-                type: 'string'
-              }
-            }
-          },
-          minItems: 1,
-          type: 'array'
-        }
-      },
-      title: 'State of World (laydown 2)',
-      type: 'object'
+      schema: '{"title":"State of World (laydown 2)","type":"object","properties":{"completed":{"type":"boolean","title":"Completed"},"Reference":{"type":"string","title":"Reference","format":"text"},"Title":{"type":"string","title":"Title","format":"text"},"Forces":{"type":"array","title":"Forces","minItems":1,"items":{"type":"object","properties":{"force":{"type":"string","enum":["Blue","Red","Green"]}}}},"newInput1":{"title":"New Input 1","type":"string"}},"dependencies":{},"required":[]}',
+      uischema: '{"completed":{"ui:widget":"checkbox"},"Reference":{"ui:placeholder":"Enter reference"},"Title":{"ui:placeholder":"Enter title"},"Forces":{"ui:options":{"orderable":false},"items":{"force":{"ui:widget":"select"}}},"ui:order":["completed","Reference","Title","Forces","newInput1"]}',
+      title: 'State of World L'
     },
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'State of World L',
