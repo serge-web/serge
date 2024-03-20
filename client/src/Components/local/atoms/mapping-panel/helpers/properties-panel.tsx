@@ -4,6 +4,7 @@ import React, { ChangeEvent, Fragment } from 'react'
 import styles from '../styles.module.scss'
 import { ProppertiesPanelProps, SelectedProps } from '../types/props'
 import { PropertyType } from 'src/custom-types'
+import { Checkbox, ListItemText, MenuItem, Select } from '@material-ui/core'
 
 const componentFor = (key: string, prop: SelectedProps, propertyType: PropertyType, value: any, disableIdEdit: boolean, isId: boolean, onPropertiesChange: any): React.ReactNode => {
   switch (propertyType.type) {
@@ -29,7 +30,7 @@ const componentFor = (key: string, prop: SelectedProps, propertyType: PropertyTy
   }
 }
 
-const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit, rendererProps }) => {
+const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit, rendererProps, multipleSelect }) => {
   return <Fragment>
     {
       Object.keys(selectedProp).map((key, kIdx) => {
@@ -54,10 +55,8 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
           }
           default: {
             // now the remaining cases
-
             // check if this is the id property (since we don't allow that to be edited)
             const isId = key === 'id'
-
             // look for this id in the rendererProps. If present, use that to decide how to construct
             // the edit component (especially textarea when `lines` present).  If no reendererProps present
             // then use existing data-driven approach.
@@ -85,9 +84,19 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
                 <p>{key}:</p>
                 <div>
                   {choices.length > 0
-                    ? <select value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
-                      {choices.map((o: string) => (<option key={o} value={o}>{o}</option>))}
-                    </select>
+                    ? <Select
+                      className={styles['multi-select']}
+                      value={Array.isArray(value) ? value : [value]}
+                      multiple={multipleSelect}
+                      onChange={e => { onPropertiesChange(key, e.target.value as string) }}
+                      renderValue={(selected: unknown) => {
+                        const selStr = selected as string[]
+                        return selStr.join(', ')
+                      }}> {choices.map((o: string) => <MenuItem key={o} value={o} className={styles['menu-item']}>
+                        <Checkbox name={o} checked={value.includes(o)} />
+                        <ListItemText primary={o} />
+                      </MenuItem>)}
+                    </Select>
                     : <input value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
                   }
                 </div>

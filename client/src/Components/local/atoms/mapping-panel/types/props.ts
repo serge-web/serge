@@ -12,4 +12,5 @@ export type ProppertiesPanelProps = {
   disableIdEdit: boolean
   /** property definitions for this feature type (only for props viewer) */
   rendererProps?: PropertyType[]
+  multipleSelect?: boolean
 }
