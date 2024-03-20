@@ -14,6 +14,18 @@ const messageTemplatesMock: TemplateBody[] = [
     _rev: '1-612d7dc5d10fc81bc7459b2801c66816'
   },
   {
+    _id: 'k16eedkl',
+    _rev: '1-09ab7a18ff677cec5d9a56f02a45788d',
+    completed: false,
+    details: {
+      schema: '{"type":"object","properties":{"content":{"title":"content","type":"string","default":"type the text"}},"dependencies":{},"required":[]}',
+      uischema: '{"ui:order":["content"]}',
+      title: 'Chat'
+    },
+    lastUpdated: '2019-09-30T12:37:26.705Z',
+    title: 'Chat'
+  },
+  {
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'Daily intentions',
     details: {
@@ -104,29 +116,7 @@ const messageTemplatesMock: TemplateBody[] = [
     _id: 'k16eedkm',
     _rev: '1-7fa1e6dd6b4ac5b6afc45b596ee7af61'
   },
-  {
-    lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'Chat',
-    details: {
-      type: 'object',
-      properties: {
-        content: {
-          type: 'string',
-          format: 'textarea',
-          options: {
-            inputAttributes: {
-              placeholder: 'type the text'
-            }
-          }
-        }
-      },
-      title: 'Chat',
-      format: 'grid'
-    },
-    completed: false,
-    _id: 'k16eedkl',
-    _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
-  },
+
   {
     completed: false,
     details: {
