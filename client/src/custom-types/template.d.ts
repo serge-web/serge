@@ -1,9 +1,9 @@
 export interface TemplateBody {
   _id: string
-  _rev: string
+  _rev?: string
   completed: boolean
   // eslint-disable-next-line @typescript-eslint/ban-types
-  details: object
+  details: object | string
   lastUpdated: string
   title: string    
 }
@@ -22,5 +22,8 @@ export default interface Template {
 /** top level database object for storing activity definitions */
 /** collection of map annotations */
 export interface TemplateData {
+  selectedTemplate: string | TemplateBody
+  name: string
+  dirty: boolean
   templates: TemplateBody[]
 }

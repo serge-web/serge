@@ -3,9 +3,6 @@
 exports[`MessageCreator renders correctly 1`] = `
 Array [
   <div
-    className="form-group message-creator"
-  />,
-  <div
     className="flex-content form-group"
   >
     <label

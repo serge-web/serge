@@ -32,7 +32,7 @@ const NewMessage: React.FC<PropTypes> = ({
   modifyForSave
 }) => {
   const prevTemplates: TemplateBody = usePrevious(templates)
-  const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
+  const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null | string>(null)
   const [selectedType, setSelectedType] = useState<string>('')
   const [updateNewMessage, setUpdateNewMessage] = useState(false)
 

@@ -40,7 +40,7 @@ export default interface Props {
   /**
    * in read view (disabled) make textarea items tall enough to view all contents
    */
-  expandHeight?: boolean
+  // expandHeight?: boolean
   /** flag from parent class to clear the form, possibly on
    * send or cancel. The value toggles between states on update,
    * rather than requiring a specific true/false value
@@ -53,7 +53,7 @@ export default interface Props {
   // to enter dates
   gameDate?: string
   /** disable/enable Array tools with form */
-  disableArrayToolsWithEditor?: boolean
+  // disableArrayToolsWithEditor?: boolean
   formClassName?: string
   formId?: string
   viewSaveButton?: boolean

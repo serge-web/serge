@@ -19,6 +19,7 @@ import {
   SET_GAME_SETUP_DATA,
   SET_SELECTED_CHANNEL,
   SET_SELECTED_FORCE,
+  SET_SELECTED_TEMPLATE,
   SET_TAB_SAVED,
   SET_TAB_UNSAVED,
   UPDATE_RECIPIENT,
@@ -75,6 +76,11 @@ interface SetForceColor {
 interface SetSelectedForce {
     type: typeof SET_SELECTED_FORCE
     payload: { name: string, uniqid: string, iconURL?: string }
+}
+
+interface SetSelectedTemplate {
+    type: typeof SET_SELECTED_TEMPLATE
+    payload: { title: string, _id: string }
 }
 
 interface AddNewChannel {
@@ -137,6 +143,7 @@ SetTabSaved |
 AddNewForce |
 SetForceColor |
 SetSelectedForce |
+SetSelectedTemplate|
 AddNewChannel |
 SetSelectedChannel |
 AddNewRecipient |

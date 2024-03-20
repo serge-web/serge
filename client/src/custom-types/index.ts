@@ -6,7 +6,6 @@
 export * from './channel-data.d'
 export type { default as ChannelUI } from './channel-ui.d'
 export type { default as Channel } from './channel.d'
-export type { default as Editor } from './editor.d'
 export * from './export-items-actions.d'
 export * from './export-items.d'
 export type { default as ForceData } from './force-data.d'
