@@ -157,6 +157,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
             formData={formData} 
           />
         }
+        {schema && console.log('Please note: No form has been created. To proceed, kindly create a form.')}
       </div>
     )
   }
