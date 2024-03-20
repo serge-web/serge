@@ -92,6 +92,17 @@ exports[`SettingForces component: renders correctly 1`] = `
               onClick={[Function]}
             >
               <span>
+                Chat
+              </span>
+              <div
+                className="searchlist-menu"
+              />
+            </span>
+            <span
+              className="searchlist-row "
+              onClick={[Function]}
+            >
+              <span>
                 Daily intentions
               </span>
               <div
@@ -104,17 +115,6 @@ exports[`SettingForces component: renders correctly 1`] = `
             >
               <span>
                 Link
-              </span>
-              <div
-                className="searchlist-menu"
-              />
-            </span>
-            <span
-              className="searchlist-row "
-              onClick={[Function]}
-            >
-              <span>
-                Chat
               </span>
               <div
                 className="searchlist-menu"
