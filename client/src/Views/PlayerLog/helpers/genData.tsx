@@ -17,8 +17,8 @@ type ColumnListItem = {
 }
 export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTable => {
   const sortCol = (str1: string, str2: string): number => {
-    const a = str1.toLowerCase()
-    const b = str2.toLowerCase()
+    const a = str1?.toLowerCase()
+    const b = str2?.toLowerCase()
 
     return a > b ? 1 : -1
   }
