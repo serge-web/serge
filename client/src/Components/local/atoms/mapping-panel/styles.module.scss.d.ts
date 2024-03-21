@@ -3,6 +3,7 @@
 interface CssExports {
   'asset-icon': string;
   'button': string;
+  'disabled': string;
   'filterList': string;
   'filterPanel': string;
   'header': string;
