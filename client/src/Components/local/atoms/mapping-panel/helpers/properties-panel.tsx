@@ -9,6 +9,11 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { Checkbox, ListItemText } from '@material-ui/core'
 
 const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit, multipleSelect }) => {
+  const [isSIDCDialogOpen, setSIDCDialogOpen] = useState(false)
+
+  const openSIDCGenerator = () => setSIDCDialogOpen(true)
+
+  const closeSIDCGenerator = () => setSIDCDialogOpen(false)
   return <Fragment>
     {
       Object.keys(selectedProp).map((key, kIdx) => {
