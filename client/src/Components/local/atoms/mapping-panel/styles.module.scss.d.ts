@@ -3,6 +3,7 @@
 interface CssExports {
   'asset-icon': string;
   'button': string;
+  'disabled': string;
   'filterList': string;
   'filterPanel': string;
   'header': string;
@@ -15,6 +16,8 @@ interface CssExports {
   'latLng': string;
   'lblCbx': string;
   'listItem': string;
+  'menu-item': string;
+  'multi-select': string;
   'panelGroup': string;
   'propertiesPanel': string;
   'propertiesResponsive': string;

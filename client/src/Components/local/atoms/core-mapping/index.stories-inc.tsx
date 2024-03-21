@@ -1,15 +1,49 @@
 import { withKnobs } from '@storybook/addon-knobs'
-import React from 'react'
-import L from 'leaflet'
-import CoreMapping from './index'
-import docs from './README.md'
-import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData, MappingMessageDelta } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
-import { generateFeatures } from './helper/feature-generator'
+import L from 'leaflet'
 import { noop } from 'lodash'
+import React, { CSSProperties, useEffect, useState } from 'react'
+import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
+import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import docs from './README.md'
+import { generateFeatures } from './helper/feature-generator'
+import CoreMapping from './index'
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
+type ScriptDecoratorProps = {
+  scripts: string[]
+  children: React.ReactElement
+  style: CSSProperties
+}
+
+const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, style }) => {
+  const [loaded, setLoaded] = useState<boolean>(false)
+
+  const loadScript = (script: string): Promise<boolean> => {
+    return new Promise(resolve => {
+      const head = document.querySelector('head')
+      const scriptElm = document.createElement('script')
+      if (!head) {
+        return
+      }
+      scriptElm.async = true
+      scriptElm.src = script
+      scriptElm.onload = () => {
+        resolve(true)
+      }
+      head.appendChild(scriptElm)
+    })
+  }
+
+  useEffect(() => {
+    Promise.all(scripts.map(script => loadScript(script))).then(() => setLoaded(true))
+  }, [])
+
+  return (
+    loaded ? <div style={style}>{children}</div> : null
+  )
+}
+
+const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet/ruler/leaflet.ruler.js']} style={{ height: '600px', position: 'relative' }}>{storyFn()}</ScriptDecorator>
 
 export default {
   title: 'local/organisms/CoreMapping',

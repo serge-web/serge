@@ -17,7 +17,7 @@ export const colorFor = (force: string, forceStyles?: ForceStyle[]): string => {
 }
 
 const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, selected = [] }) => {
-  const { filterFeatureIds } = useMappingState()
+  const { filterFeatureIds, isMeasuring } = useMappingState()
   
   const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE && filterFeatureIds.includes('' + feature.properties.id)
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
@@ -48,6 +48,11 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
       elm.classList.add(styles['pulse'])
     } else {
       elm.classList.remove(styles['pulse'])
+    }
+    if (isMeasuring) {
+      elm.classList.add(styles.measuring)
+    } else {
+      elm.classList.remove(styles.measuring)
     }
   }
 
@@ -95,8 +100,10 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
       onRemoved(f.properties.id)
     })
     l.addEventListener('click', (e) => {
-      L.DomEvent.stopPropagation(e)
-      onSelect([f.properties.id])
+      if (!isMeasuring) {
+        L.DomEvent.stopPropagation(e)
+        onSelect([f.properties.id])
+      }
     })
     const dragHandler = (e: LeafletEvent) => {
       const g = e as any

@@ -14,10 +14,10 @@ export const loadDefaultMarker = (): void => {
   Marker.prototype.options.icon = iconDefault
 }
 
-export const createDivIcon = (iconHTML: string, healthColor: string, isSelected: boolean): L.DivIcon => {
+export const createDivIcon = (iconHTML: string, healthColor: string, isSelected: boolean, isMeasuring: boolean): L.DivIcon => {
   return L.divIcon({
     html: `
-      <div class="${cx({ [styles['asset-icon']]: true, [styles['pulse']]: isSelected })}">
+      <div class="${cx({ [styles['asset-icon']]: true, [styles['pulse']]: isSelected, [styles.measuring]: isMeasuring })}">
         ${iconHTML}
         <div class="${styles['health-bar']}" style="background-color: ${healthColor};"></div>
       </div>
