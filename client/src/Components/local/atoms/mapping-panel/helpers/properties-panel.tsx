@@ -70,29 +70,31 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
     <div key={key} className={styles.itemsBox}>
       <p>{key}:</p>
       <div className={styles.inputBox}>
-        {field.choices.length > 0 ? (
-          <Select
-            className={styles['multi-select']}
-            value={Array.isArray(value) ? value : [value]}
-            multiple={multipleSelect}
-            onChange={(e) => {
-              onPropertiesChange(key, e.target.value as string)
-            }}
-            renderValue={(selected) => {
-              const selectedValues = selected as string[]
-              return selectedValues.join(', ')
-            }}
-          >
-            {field.choices.map((option: string) => (
-              <MenuItem key={option} value={option} className={styles['menu-item']}>
-                <Checkbox name={option} checked={value.includes(option)} />
-                <ListItemText primary={option} />
-              </MenuItem>
-            ))}
-          </Select>
-        ) : (
-          <input value={value} disabled={disableIdEdit && isId} onChange={(e) => onPropertiesChange(key, e.target.value)} />
-        )}
+        {field.choices.length > 0
+          ? (
+            <Select
+              className={styles['multi-select']}
+              value={Array.isArray(value) ? value : [value]}
+              multiple={multipleSelect}
+              onChange={(e) => {
+                onPropertiesChange(key, e.target.value as string)
+              }}
+              renderValue={(selected) => {
+                const selectedValues = selected as string[]
+                return selectedValues.join(', ')
+              }}
+            >
+              {field.choices.map((option: string) => (
+                <MenuItem key={option} value={option} className={styles['menu-item']}>
+                  <Checkbox name={option} checked={value.includes(option)} />
+                  <ListItemText primary={option} />
+                </MenuItem>
+              ))}
+            </Select>
+          )
+          : (
+            <input value={value} disabled={disableIdEdit && isId} onChange={(e) => onPropertiesChange(key, e.target.value)} />
+          )}
         {key === 'sidc' && (
           <>
             <button className={styles.sidcbtn} onClick={openSIDCGenerator}>
