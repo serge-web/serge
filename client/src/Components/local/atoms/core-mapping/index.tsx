@@ -259,15 +259,20 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       }
       case 'Marker': {
         const loc = (e as any).layer._latlng as L.LatLng
+        const props: MilSymProperties = {
+          _type: RENDERER_MILSYM,
+          sidc: 'SFG-UCI----D',
+          size: 'M',
+          health: 100,
+          ...commonProps
+        }
+
+        // add any other extra props for this feature type
+        insertMissingProps(props)
+
         return {
           type: 'Feature',
-          properties: {
-            _type: RENDERER_MILSYM,
-            sidc: 'SFG-UCI----D',
-            size: 'M',
-            health: 100,
-            ...commonProps
-          },
+          properties: props,
           geometry: {
             coordinates: [loc.lng, loc.lat],
             type: 'Point'

@@ -1,6 +1,7 @@
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { ChangeEvent, Fragment } from 'react'
+import React, { ChangeEvent, Fragment, useState } from 'react'
+import SIDCGenerator from '../../../molecules/sidc-generator'
 import styles from '../styles.module.scss'
 import { ProppertiesPanelProps, SelectedProps } from '../types/props'
 import { PropertyType } from 'src/custom-types'
@@ -31,6 +32,12 @@ const componentFor = (key: string, prop: SelectedProps, propertyType: PropertyTy
 }
 
 const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit, rendererProps, multipleSelect }) => {
+  const [isSIDCDialogOpen, setSIDCDialogOpen] = useState(false)
+
+  const openSIDCGenerator = () => setSIDCDialogOpen(true)
+
+  const closeSIDCGenerator = () => setSIDCDialogOpen(false)
+
   return <Fragment>
     {
       Object.keys(selectedProp).map((key, kIdx) => {
@@ -82,7 +89,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
               // nope, determine component to use by looking at the data
               return <div key={key + kIdx} className={styles.itemsBox}>
                 <p>{key}:</p>
-                <div>
+                <div className={styles.inputBox}>
                   {choices.length > 0
                     ? <Select
                       className={styles['multi-select']}
@@ -99,6 +106,12 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
                     </Select>
                     : <input value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
                   }
+                  {key === 'sidc' &&
+            <> 
+              <button className={styles.sidcbtn} onClick={openSIDCGenerator}>Edit</button>
+              {isSIDCDialogOpen && <SIDCGenerator onClose={closeSIDCGenerator} sidcValue={value} onSave={ (value) => onPropertiesChange(key, value)} />}
+            </>
+                  } 
                 </div>
                 {onRemoveFilter && <FontAwesomeIcon icon={faMinusCircle} className={styles.removeIcon} onClick={() => onRemoveFilter(key)}/>}
               </div>    
