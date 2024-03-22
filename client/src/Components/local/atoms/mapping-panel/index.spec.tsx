@@ -15,7 +15,7 @@ describe('Mapping Panel component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <MappingPanel onClose={noop} extraFilterProps={[]} onSave={noop} selected={[]} onSelect={noop}/>
+        <MappingPanel onClose={noop} rendererProps={[]} onSave={noop} selected={[]} onSelect={noop}/>
       )
       .toJSON()
     expect(tree).toMatchSnapshot()
