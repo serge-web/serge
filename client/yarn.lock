@@ -2713,6 +2713,11 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@orbat-mapper/convert-symbology@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@orbat-mapper/convert-symbology/-/convert-symbology-1.0.0.tgz#b5502087fec6ef6ee1e33b52a4f66cb51e83ec81"
+  integrity sha512-l3EDOsv7QDMVYXPwcAbjjDh2XN/BewtcOzvedHddgfkNYYqG8qehP9smlI2eNJr2/4kee7OPebUWHhstC64JVA==
+
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.3":
   version "0.5.11"
   resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.5.11.tgz#7c2268cedaa0644d677e8c4f377bc8fb304f714a"

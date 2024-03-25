@@ -11,9 +11,9 @@ import { dropdownOptions } from './helpers/SharedData'
 import replaceNumber from './helpers/replace-number'
 import useStyles from './helpers/SidcGeneratorStyles'
 import ms from 'milsymbol'
+import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
 import 'leaflet/dist/leaflet.css'
 import renderDropdown from './helpers/renderDeopdown'
-import { CUSTOM_SIDC } from 'src/config'
 import PropsTypes from './PropsTypes/types'
 
 const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => {
@@ -29,7 +29,6 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
     const options = {
       size: 70
     }
-
     const symbol = new ms.Symbol(originalNumber, options)
     setSidCode(originalNumber)
     setSymbolElement(symbol.asDOM())
@@ -38,9 +37,11 @@ const SIDCGenerator: React.FC<PropsTypes> = ({ onClose, onSave, sidcValue }) => 
   useEffect(() => {
     const isValid = !isNaN(Number(sidcValue))
     if (!isValid) {
+      const { sidc } = convertLetterSidc2NumberSidc(sidcValue)
+      sidcValue = sidc
       console.log(`${sidcValue} is not a valid number.`)
     }
-    const originValue = isValid ? sidcValue : CUSTOM_SIDC
+    const originValue = sidcValue 
     setSymbolCode(originValue[4] + originValue[5])
     setOriginalNumber(originValue)
   }, [sidcValue])
