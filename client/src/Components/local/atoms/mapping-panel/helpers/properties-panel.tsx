@@ -95,7 +95,8 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
             )
             : (
               <input value={value} disabled={disableIdEdit && isId} onChange={(e) => onPropertiesChange(key, e.target.value)} />
-            )}
+            )
+        }
         {key === 'sidc' && (
           <>
             <button className={styles.sidcbtn} onClick={openSIDCGenerator}>

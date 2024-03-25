@@ -2,8 +2,12 @@
   margin-bottom: 14px !important;
 }
 
-.value { display: flex }
+.value {
+  display: flex;
+}
 
 .label {
-  span { padding:  4px }
+  span {
+    padding: 4px;
+  }
 }
