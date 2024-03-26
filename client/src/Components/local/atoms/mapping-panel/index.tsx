@@ -5,6 +5,7 @@ import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson
 import { cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
+import { convertLetterSidc2NumberSidc, convertNumberSidc2LetterSidc } from '@orbat-mapper/convert-symbology'
 import { CoreProperties, PropertyType } from 'src/custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
@@ -57,7 +58,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   const [selectedFiltersProps, setSelectedFiltersProps] = useState<SelectedProps>({})
   const [disableSave, setDisableSave] = useState<boolean>(true)
   const [panelState, setPanelState] = useState<PanelGroupState>(initPanelState)
-
+  const [checkSidc, setCheckSidc] = useState<boolean>(true)
   const filterPanel = useRef<ImperativePanelHandle | null>(null)
   const itemPanel = useRef<ImperativePanelHandle | null>(null)
   const propertyPanel = useRef<ImperativePanelHandle | null>(null)
@@ -110,8 +111,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       const sort = <T extends Record<string, unknown>>(obj: T): T => Object.keys(obj).sort().reduce((acc, c) => { 
         acc[c] = obj[c]; return acc 
       }, {}) as T
-      const sortedProps = sort(propsList)
-      setSelectedProps(sortedProps)
+      const sortedProps: SelectedProps = sort(propsList)
+      
+      const { success, sidc } = handleSidcValue(sortedProps.sidc.value)
+      setCheckSidc(success)
+      setSelectedProps({ ...sortedProps, sidc: { ...sortedProps.sidc, value: sidc } })
     }
   }, [selectedFeatures])
 
@@ -126,6 +130,19 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }, [deselecteFeature])
   
   const onAddNewFilter = () => setOpenAddFilter(true)
+
+  const handleSidcValue = (sidcValue: string): { success: boolean, sidc: string } => {
+    let value = sidcValue
+    const isValid = !isNaN(Number(value))
+    if (!isValid) {
+      const { sidc } = convertLetterSidc2NumberSidc(value)
+      value = sidc
+      console.log(`${value} is not a valid number.`)
+    }
+    const originValue = value
+    const { success } = convertNumberSidc2LetterSidc(value)
+    return { success, sidc: originValue }
+  }
 
   const handleCheck = (filter: string, checked: boolean) => {
     const cloneFilters = cloneDeep(propertyFiltersListPanel)
@@ -204,6 +221,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }
 
   const onPropertiesChange = (key: string, value: any) => {
+    const { success } = handleSidcValue(value)
+    setCheckSidc(success)
     const prevValue = get(selectedProps, key)
     // keep 1 selected item
     if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
@@ -417,11 +436,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         {panelState.propertyPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange} />
+              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} checkSidc={checkSidc} onPropertiesChange={onPropertiesChange} />
             </div>
             <div className={styles.button}>
               <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
-              <button disabled={disableSave} onClick={onLocalSave}>Save</button>
+              <button disabled={disableSave || !checkSidc} onClick={onLocalSave}>Save</button>
             </div>
           </>
         }

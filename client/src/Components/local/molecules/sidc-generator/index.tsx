@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormControl } from '@material-ui/core'
 import ms from 'milsymbol'
-import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
 import 'leaflet/dist/leaflet.css'
 import renderDropdown from './helpers/renderDeopdown'
 import useStyles from './helpers/SidcGeneratorStyles'
@@ -28,16 +27,8 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
   }, [originalNumber])
 
   useEffect(() => {
-    let value = sidcValue
-    const isValid = !isNaN(Number(value))
-    if (!isValid) {
-      const { sidc } = convertLetterSidc2NumberSidc(value)
-      value = sidc
-      console.log(`${value} is not a valid number.`)
-    }
-    const originValue = value
-    setSymbolCode(originValue[4] + originValue[5])
-    setOriginalNumber(originValue)
+    setSymbolCode(sidcValue[4] + sidcValue[5])
+    setOriginalNumber(sidcValue)
   }, [sidcValue])
 
   const handleSave = () => {

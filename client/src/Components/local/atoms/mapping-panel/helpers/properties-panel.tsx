@@ -35,6 +35,7 @@ const componentFor = (
         </select>
       )
     }
+    
     case 'NumberProperty': {
       return <input value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
     }
@@ -45,7 +46,7 @@ const componentFor = (
   }
 }
 
-const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, disableIdEdit, rendererProps, multipleSelect }) => {
+const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, checkSidc, disableIdEdit, rendererProps, multipleSelect }) => {
   const [isSIDCDialogOpen, setSIDCDialogOpen] = useState(false)
 
   const openSIDCGenerator = () => setSIDCDialogOpen(true)
@@ -99,7 +100,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
         }
         {key === 'sidc' && (
           <>
-            <button className={styles.sidcbtn} onClick={openSIDCGenerator}>
+            <button style={ { border: key === 'sidc' && !checkSidc ? 'solid 2px red' : '' }} className={styles.sidcbtn} onClick={openSIDCGenerator}>
               Edit
             </button>
             {isSIDCDialogOpen && <SIDCGenerator onClose={closeSIDCGenerator} sidcValue={value} onSave={(value) => onPropertiesChange(key, value)} />}
