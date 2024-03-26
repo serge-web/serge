@@ -35,7 +35,7 @@ const componentFor = (
         </select>
       )
     }
-    
+
     case 'NumberProperty': {
       return <input value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
     }
@@ -100,7 +100,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
         }
         {key === 'sidc' && (
           <>
-            <button style={ { border: key === 'sidc' && !checkSidc ? 'solid 2px red' : '' }} className={styles.sidcbtn} onClick={openSIDCGenerator}>
+            <button style={ { border: !checkSidc ? 'solid 2px red' : '' }} className={styles.sidcbtn} onClick={openSIDCGenerator}>
               Edit
             </button>
             {isSIDCDialogOpen && <SIDCGenerator onClose={closeSIDCGenerator} sidcValue={value} onSave={(value) => onPropertiesChange(key, value)} />}
