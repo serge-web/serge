@@ -45,7 +45,7 @@ export const generateFeatures = (bounds: L.LatLngBounds, numPoints: number, numS
         phase: randString([Phase.Adjudication, Phase.Planning]),
         turn: Math.floor(Math.random() * 5),
         _type: RENDERER_MILSYM,
-        sidc: randString(sidcValues), // 'SFG-UCI----D',
+        sidc: randString(sidcValues), // 10031000141211000000,
         category: 'Civilian',
         size: randString(sizes)
       },

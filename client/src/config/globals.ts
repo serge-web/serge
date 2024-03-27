@@ -153,6 +153,8 @@ export const STORYBOOK_ROUTE = './storybook'
 // Interval for check server heartbeats
 export const SERVER_PING_INTERVAL = 20000
 
+export const CUSTOM_SIDC = '10031000000000000000'
+
 export const headers = { // +
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',

@@ -35,6 +35,7 @@ export { default as isObjectEquivalent } from './is-object-equivalent'
 export { default as isPlainObject } from './is-plain-object'
 export { type ForceStyle } from './is-perceived-by'
 export { default as isValidUrl } from './is-valid-url'
+export { default as isValidSymbol } from './is-vaild-symbol'
 export { default as mostRecentOnly } from './most-recent-only'
 export { default as newestPerRole, logTable } from './newest-per-role'
 export {
