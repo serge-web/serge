@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 500,
     paddingTop: 18
   },
+  warning: {
+    fontWeight: 600
+  },
   content: {
     maxHeight: 308
   },

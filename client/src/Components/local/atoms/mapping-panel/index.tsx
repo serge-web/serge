@@ -5,7 +5,7 @@ import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson
 import { cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
-import { convertLetterSidc2NumberSidc, convertNumberSidc2LetterSidc } from '@orbat-mapper/convert-symbology'
+import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
 import { CoreProperties, PropertyType } from 'src/custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
@@ -15,6 +15,7 @@ import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
 import { SelectedProps } from './types/props'
+import { isValidSymbol } from 'src/Helpers'
 
 type MappingPanelProps = {
   onClose: () => void
@@ -140,8 +141,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       console.log(`${value} is not a valid number.`)
     }
     const originValue = value
-    const { success } = convertNumberSidc2LetterSidc(value)
-    return { success, sidc: originValue }
+    const success = isValidSymbol(originValue)
+    return { success: success, sidc: originValue }
   }
 
   const handleCheck = (filter: string, checked: boolean) => {

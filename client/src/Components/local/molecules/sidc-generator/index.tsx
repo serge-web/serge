@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormControl } from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormControl, Typography } from '@material-ui/core'
+import { isValidSymbol } from 'src/Helpers'
 import ms from 'milsymbol'
 import 'leaflet/dist/leaflet.css'
 import renderDropdown from './helpers/renderDeopdown'
@@ -15,6 +16,7 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
   const [sidcCode, setSidCode] = useState<string>('')
   const [originalNumber, setOriginalNumber] = useState<string>('')
   const [symbolCode, setSymbolCode] = useState<string>('')
+  const [warning, setWarning] = useState<string>('')
   const classes = useStyles()
 
   const memoizedDropdownOptions = useMemo(() => dropdownOptions(symbolCode), [symbolCode])
@@ -38,9 +40,17 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
 
   const handleDropdownChange = (e: React.ChangeEvent<{ value: unknown }>, key: number) => {
     const replesNumber = replaceNumber(originalNumber, e.target.value as string, key)
-    const newSymbolCode = replesNumber[4] + replesNumber[5]
-    setSymbolCode(newSymbolCode)
-    setOriginalNumber(replesNumber)
+    const vaildSymbol = isValidSymbol(replesNumber)
+    if (vaildSymbol) {
+      const newSymbolCode = replesNumber[4] + replesNumber[5]
+      setSymbolCode(newSymbolCode)
+      setOriginalNumber(replesNumber)
+    } else {
+      setWarning('The selected symbol in invalid')
+      setTimeout(() => {
+        setWarning('')
+      }, 2000)
+    }
   }
 
   const renderDropdownOptions = useMemo(() => {
@@ -60,7 +70,9 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
     <>
       {onClose && (
         <Dialog className={classes.root} open={true} onClose={onClose}>
-          <DialogTitle>SIDC Code: {sidcCode}</DialogTitle>
+          <DialogTitle>SIDC Code: {sidcCode}
+            {warning && <Typography className={classes.warning} color="error">{warning}</Typography>} 
+          </DialogTitle>
           <DialogContent>
             {symbolElement && (
               <div className={classes.symbolContainer} dangerouslySetInnerHTML={{ __html: symbolElement.outerHTML }} />
