@@ -113,10 +113,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         acc[c] = obj[c]; return acc 
       }, {}) as T
       const sortedProps: SelectedProps = sort(propsList)
-      
-      const { success, sidc } = handleSidcValue(sortedProps.sidc.value)
-      setCheckSidc(success)
-      setSelectedProps({ ...sortedProps, sidc: { ...sortedProps.sidc, value: sidc } })
+      if (sortedProps.sidc) {
+        const { success, sidc } = handleSidcValue(sortedProps.sidc.value)
+        setCheckSidc(success)
+        setSelectedProps({ ...sortedProps, sidc: { ...sortedProps.sidc, value: sidc } })
+      } else {
+        setSelectedProps(sortedProps)  
+      }
     }
   }, [selectedFeatures])
 
