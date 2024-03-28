@@ -5,6 +5,14 @@ export interface FormData {
   bar?: number
 }
 
+export interface FormProps {
+  schema: string
+  uiSchema: string
+  onChange: (newSchema: string, newUiSchema: string) => void
+  validator: any
+  formData: FormData
+}
+
 interface PropTypes {
     templates: Array<TemplateBody>
     selectedTemplate?: TemplateBody

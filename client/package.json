@@ -18,6 +18,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "4.0.0-alpha.60",
     "@mui/material": "^5.15.14",
+    "@rjsf/bootstrap-4": "^5.18.1",
     "@rjsf/core": "^5.17.1",
     "@storybook/addon-essentials": "^6.5.12",
     "@storybook/addon-interactions": "^6.5.12",

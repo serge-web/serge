@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FunctionComponent } from 'react'
 import cx from 'classnames'
 import Button from '../../atoms/button'
 import TextInput from '../../atoms/text-input'
-import Form from '@rjsf/core'
+import { withTheme } from '@rjsf/core'
 import Tabs from '../../atoms/tabs'
 import uniqid from 'uniqid'
 import EditableList, { Item } from '../../molecules/editable-list'
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder'
-import PropTypes, { FormData } from './types/props'
+import { Theme as Bootstrap4Theme } from '@rjsf/bootstrap-4'
+import PropTypes, { FormData, FormProps } from './types/props'
 import { TemplateBody } from 'src/custom-types'
 import { TemplateTab } from 'src/config'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import { customizeValidator } from '@rjsf/validator-ajv8'
 import './bioworks.css'
 import styles from './styles.module.scss'
+
+const Form = withTheme(
+  Bootstrap4Theme
+) as unknown as FunctionComponent<FormProps>
 
 const SettingTemplate: React.FC<PropTypes> = ({
   templates,
@@ -149,7 +154,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
           />
         }
         {
-          currentTab === TemplateTab.Visual && isValidJSON(schema) && <Form<FormData> 
+          currentTab === TemplateTab.Visual && isValidJSON(schema) && <Form
             schema={JSON.parse(schema)} 
             uiSchema={JSON.parse(uischema)}
             onChange={(newFormData) => console.log('newFormData', newFormData)}
