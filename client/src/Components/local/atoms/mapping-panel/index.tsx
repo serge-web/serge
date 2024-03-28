@@ -122,7 +122,6 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       }
     }
   }, [selectedFeatures])
-
   useEffect(() => {
     selectItem(selected, true)
   }, [selected])
@@ -225,8 +224,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }
 
   const onPropertiesChange = (key: string, value: any) => {
-    const { success } = handleSidcValue(value)
-    setCheckSidc(success)
+    if (key === 'sidc') {
+      const { success } = handleSidcValue(value)
+      setCheckSidc(success)
+    }
     const prevValue = get(selectedProps, key)
     // keep 1 selected item
     if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
