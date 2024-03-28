@@ -4,7 +4,7 @@ import L from 'leaflet'
 import { noop } from 'lodash'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
 import docs from './README.md'
 import { generateFeatures } from './helper/feature-generator'
 import CoreMapping from './index'
@@ -77,6 +77,15 @@ const forceProp: EnumProperty = {
   type: 'EnumProperty', 
   choices: ['f-red', 'f-blue', 'f-green'],
   editable: false
+}
+
+const ordersProp: StringProperty = {
+  id: 'orders',
+  label: 'Orders',
+  description: 'Today\'s orders for this unit',
+  lines: 3,
+  type: 'StringProperty', 
+  editable: true
 }
 
 const phaseProp: EnumProperty = {
@@ -208,7 +217,7 @@ const anotherCoreFeature: Feature = {
 
 const milFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'aa' },
+  properties: { ...milSymProps, id: 'aa', orders: 'Plan today\'s activities' },
   geometry: {
     coordinates: [-0.07929841834678086,
       51.497669733260125],
@@ -218,7 +227,7 @@ const milFeature: Feature = {
 
 const anotherMilFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor' },
+  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor', orders: 'Make uniforms for the troops if they need them, else darn socks and mittens' },
   geometry: {
     coordinates: [-0.07929841834678096, 51.50966973326012],
     type: 'Point'
@@ -281,7 +290,7 @@ const milSymRenderer: MilSymRenderer = {
   id: 'milSym',
   type: 'MilSymRenderer',
   baseProps,
-  additionalProps: [categoryProp, sizeProp, healthProp]
+  additionalProps: [categoryProp, sizeProp, healthProp, ordersProp]
 }
 
 const coreMapChannel: ChannelMapping = {
