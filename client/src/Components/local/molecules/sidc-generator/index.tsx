@@ -16,15 +16,17 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
   const [sidcCode, setSidCode] = useState<string>('')
   const [originalNumber, setOriginalNumber] = useState<string>('')
   const [symbolCode, setSymbolCode] = useState<string>('')
-  const [warning, setWarning] = useState<string>('')
+  const [info, setInfo] = useState<string>('')
+  const [success, setSucess] = useState<boolean>(false)
   const classes = useStyles()
-
   const memoizedDropdownOptions = useMemo(() => dropdownOptions(symbolCode), [symbolCode])
 
   useEffect(() => {
     const options = { size: 70 }
     const symbol = new ms.Symbol(originalNumber, options)
     setSidCode(originalNumber)
+    setSucess(isValidSymbol(originalNumber))
+    setInfo('')
     setSymbolElement(symbol.asDOM())
   }, [originalNumber])
 
@@ -46,10 +48,10 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
       setSymbolCode(newSymbolCode)
       setOriginalNumber(replesNumber)
     } else {
-      setWarning('The selected symbol in invalid')
+      setInfo('The symbol you have chosen is not compatible with the current sidc code . Please select a different symbol or leave it unchanged to maintain validity.')
       setTimeout(() => {
-        setWarning('')
-      }, 2000)
+        setInfo('')
+      }, 20000)
     }
   }
 
@@ -70,8 +72,7 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
     <>
       {onClose && (
         <Dialog className={classes.root} open={true} onClose={onClose}>
-          <DialogTitle>SIDC Code: {sidcCode}
-            {warning && <Typography className={classes.warning} color="error">{warning}</Typography>} 
+          <DialogTitle>SIDC Code: {sidcCode} <span className={success ? classes.success : ''}>{success && 'Success!'} </span>
           </DialogTitle>
           <DialogContent>
             {symbolElement && (
@@ -79,6 +80,11 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
             )}
           </DialogContent>
           <DialogTitle>SIDC Generator</DialogTitle>
+          {info && <Typography className={classes.info} color="error">
+            <h4>Info!</h4>   
+            {info}
+          </Typography>} 
+
           <DialogContent className={classes.content}>
             <FormControl className={classes.formControl}>
               {renderDropdownOptions}
