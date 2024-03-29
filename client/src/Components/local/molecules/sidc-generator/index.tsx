@@ -80,7 +80,7 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
             )}
           </DialogContent>
           <DialogTitle>SIDC Generator</DialogTitle>
-          {info && <Typography className={classes.info} color="error">
+          {info && <Typography className={classes.info}>
             <h4>Info!</h4>   
             {info}
           </Typography>} 

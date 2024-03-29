@@ -12,6 +12,7 @@ import replaceNumber from './replace-number'
 import { RenderDropdownProps } from '../PropsTypes/types'
 import styles from '../styles.module.scss'
 import { CUSTOM_SIDC } from 'src/config'
+import { isValidSymbol } from 'src/Helpers'
 
 const generateSymbol = (sidc: string, key: string, index: number): string => {
   const replacedSidc = replaceNumber(sidc, key, index)
@@ -21,19 +22,22 @@ const generateSymbol = (sidc: string, key: string, index: number): string => {
 const renderDropdown = (props: RenderDropdownProps): React.ReactElement => {
   const { index, endindex, data, onChange, label, originalNumber } = props
   const selectedSubstring = originalNumber.slice(index, endindex)
-
+  
+  const isValid = (value: string) => {
+    const replaced = replaceNumber(originalNumber, value, index)
+    return isValidSymbol(replaced)
+  }
   return (
     <FormControl key={index} className={styles.form} fullWidth>
       <InputLabel variant="standard" htmlFor="uncontrolled-native">{label}</InputLabel>
       <Select onChange={onChange} value={selectedSubstring} >
         {Object.entries(data).map(([itemKey, itemData]) => {
           const sidcCode = itemData.sidc || label === 'Symbol set' ? CUSTOM_SIDC : originalNumber
-          const checkReserved = itemData.modifier === '{Reserved for future use}'
           const value = itemData.code || itemKey
           const symbolHtml = generateSymbol(sidcCode, value, index)
-
+          const isValidItem = isValid(value)
           return (
-            <MenuItem key={itemKey} value={value} disabled={checkReserved}>
+            <MenuItem key={itemKey} value={value} disabled={!isValidItem}>
               <ListItemIcon dangerouslySetInnerHTML={{ __html: symbolHtml }} />
               <div className={styles.value}>
                 {itemData['entity'] && <InputLabel className={styles.label} variant="standard" htmlFor="uncontrolled-native">{itemData['entity']}<span>-</span></InputLabel>}
