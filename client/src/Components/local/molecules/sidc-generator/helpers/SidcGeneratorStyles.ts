@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     border: '1px solid #ccc',
     padding: '1.01em 16px',
-    fontFamily: 'Verdana,sans-serif'
+    fontFamily: 'Verdana,sans-serif',
+    fontSize: '13px'
   },
   content: {
     maxHeight: 308
