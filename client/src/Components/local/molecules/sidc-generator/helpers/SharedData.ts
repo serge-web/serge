@@ -1,7 +1,7 @@
 import { ms2525d } from 'milstd'
 import { StandardIdentityOne, DropdownOption } from '../PropsTypes/types'
 const standardIdentityOne: StandardIdentityOne = { 
-  0: { code: '0', index: 0, name: 'Realty', sidc: '0' }, 
+  0: { code: '0', index: 0, name: 'Reality', sidc: '0' }, 
   1: { code: '1', index: 1, name: 'Exercise', sidc: '1' }, 
   2: { code: '2', index: 2, name: 'Simulation', sidc: '2' }
 }
