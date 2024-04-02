@@ -6,7 +6,7 @@ import {
   DB_MESSAGE_SAVED,
   DB_MESSAGE_STATUS,
   DB_RETURNED_MESSAGE,
-  RESET_MESSAGE_PREVIEW,
+  //   RESET_MESSAGE_PREVIEW,
   SET_CURRENT_VIEW_FROM_URI
 } from 'src/config'
 import { MessageFeedback } from './message'
@@ -31,9 +31,9 @@ interface LoadingDBMessage {
     isLoading: boolean
 }
 
-interface resetMessagePreview {
-    type: typeof RESET_MESSAGE_PREVIEW
-}
+// interface resetMessagePreview {
+//     type: typeof RESET_MESSAGE_PREVIEW
+// }
 
 interface AddNotification {
     type: typeof ADD_NOTIFICATION
@@ -48,7 +48,7 @@ export type MessagesActionTypes = DBMessageSaveStatus |
 DbMessagesSaved |
 DBSaveMessagePreview |
 LoadingDBMessage |
-resetMessagePreview |
+// resetMessagePreview |
 AddNotification |
 SetCurrentViewFromURI
 

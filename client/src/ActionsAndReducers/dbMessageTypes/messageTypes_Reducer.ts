@@ -11,9 +11,9 @@ const initialState: MessageTypes = {
 export const messageTypesReducer = (state: MessageTypes = initialState, action: MessageTypesActionTypes): MessageTypes => {
   const newState = copyState(state)
   switch (action.type) {
-    case ActionConstant.DB_MESSAGE_TYPES_GET:
-      newState.isLoading = action.payload
-      return newState
+    // case ActionConstant.DB_MESSAGE_TYPES_GET:
+    //   newState.isLoading = action.payload
+    //   return newState
 
     case ActionConstant.DB_MESSAGE_TYPES_SAVED:
       newState.messages = action.payload

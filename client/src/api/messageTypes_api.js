@@ -131,71 +131,73 @@ export const populateDb = () => {
   })
 }
 
-// Function to post a new message type (schema) to the database
-export const postNewMessageTypeToDb = (schema) => {
-  return new Promise((resolve, reject) => {
-    (async () => {
-      // Get all existing message types from the database
-      const allMessages = await getAllMessagesFromDb()
+// // +
+// // Function to post a new message type (schema) to the database
+// export const postNewMessageTypeToDb = (schema) => {
+//   return new Promise((resolve, reject) => {
+//     (async () => {
+//       // Get all existing message types from the database
+//       // +
+//       const allMessages = await getAllMessagesFromDb()
 
-      // Check if the message type title is already used
-      const matchedName = allMessages.find((messageType) => messageType.title && schema.title && messageType.title.toLowerCase() === schema.title.toLowerCase())
+//       // Check if the message type title is already used
+//       const matchedName = allMessages.find((messageType) => messageType.title && schema.title && messageType.title.toLowerCase() === schema.title.toLowerCase())
   
-      if (matchedName) {
-        reject('Message title already used')
-        return
-      }
+//       if (matchedName) {
+//         reject('Message title already used')
+//         return
+//       }
 
-      const time = new Date().toISOString()
+//       const time = new Date().toISOString()
       
-      // Create a new schema object and add it to the database
-      const schemaObj = {
-        _id: time,
-        lastUpdated: time,
-        title: schema.title,
-        details: schema,
-        completed: false
-      }
+//       // Create a new schema object and add it to the database
+//       const schemaObj = {
+//         _id: time,
+//         lastUpdated: time,
+//         title: schema.title,
+//         details: schema,
+//         completed: false
+//       }
     
-      return db.put(schemaObj)
-        .then(function (result) {
-          resolve(result)
-        })
-        .catch(function (err) {
-          console.log(err)
-          reject(false)
-        })
-    })()
-  })
-}
+//       return db.put(schemaObj)
+//         .then(function (result) {
+//           resolve(result)
+//         })
+//         .catch(function (err) {
+//           console.log(err)
+//           reject(false)
+//         })
+//     })()
+//   })
+// }
 
 // Duplicate a message type in the database
-export const duplicateMessageInDb = (id) => {
-  const time = new Date().toISOString()
+// export const duplicateMessageInDb = (id) => {
+//   const time = new Date().toISOString()
 
-  return new Promise((resolve, reject) => {
-    db.get(id)
-      .then(function (doc) {
-        // var updatedMessage = doc.details;
+//   return new Promise((resolve, reject) => {
+//     db.get(id)
+//       .then(function (doc) {
+//         // var updatedMessage = doc.details;
 
-        doc.details.title = `${doc.details.title} Copy-${uniqid.time()}`
+//         doc.details.title = `${doc.details.title} Copy-${uniqid.time()}`
 
-        return db.put({
-          _id: time,
-          lastUpdated: time,
-          title: doc.details.title,
-          details: doc.details
-        })
-      })
-      .then(function () {
-        resolve(true)
-      })
-      .catch(function (err) {
-        console.log(err)
-        reject(false)
-      })
-  })
-}
+//         return db.put({
+//           _id: time,
+//           lastUpdated: time,
+//           title: doc.details.title,
+//           details: doc.details
+//         })
+//       })
+//       .then(function () {
+//         resolve(true)
+//       })
+//       .catch(function (err) {
+//         console.log(err)
+//         reject(false)
+//       })
+//   })
+// }
 
 // Update a message type in the database
 export const updateMessageInDb = (schema, id) => {
@@ -231,22 +233,22 @@ export const updateMessageInDb = (schema, id) => {
   })
 }
 
-// Delete a message type from the database
-export const deleteMessageFromDb = (id) => {
-  return new Promise((resolve, reject) => {
-    db.get(id)
-      .then(function (doc) {
-        return db.remove(doc)
-      })
-      .then(function (result) {
-        resolve(result)
-      })
-      .catch(function (err) {
-        console.log(err)
-        reject(false)
-      })
-  })
-}
+// // Delete a message type from the database
+// export const deleteMessageFromDb = (id) => {
+//   return new Promise((resolve, reject) => {
+//     db.get(id)
+//       .then(function (doc) {
+//         return db.remove(doc)
+//       })
+//       .then(function (result) {
+//         resolve(result)
+//       })
+//       .catch(function (err) {
+//         console.log(err)
+//         reject(false)
+//       })
+//   })
+// }
 
 // Get all message from the database
 export const getAllMessagesFromDb = () => {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import DeleteModal from '../DeleteModal'
+// import DeleteModal from '../DeleteModal'
 import DeleteWargameModal from '../DeleteWargameModal'
 import UnsavedForceModal from '../UnsavedForceModal'
 import UnsavedChannelModal from '../UnsavedChannelModal'
@@ -13,11 +13,12 @@ import { CurrentModal } from 'src/custom-types'
 
 class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {
   render () {
+    console.log('currentModall', this.props.currentModal)
     let modal
     switch (this.props.currentModal.modal) {
-      case 'delete':
-        modal = <DeleteModal />
-        break
+      // case 'delete':
+      //   modal = <DeleteModal />
+      //   break
 
       case 'deleteWargame':
         modal = <DeleteWargameModal />
@@ -54,6 +55,7 @@ class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {
 
     return (
       <>
+        11
         {modal}
       </>
     )
