@@ -12,23 +12,6 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 500,
     paddingTop: 18
   },
-  success: {
-    color: '#fff',
-    fontWeight: 700,
-    padding: '0.01em 16px',
-    borderRadius: 4,
-    border: '1px solid #fff !important',
-    backgroundColor: '#4CAF50 !important'
-  },
-  info: {
-    fontWeight: 500,
-    background: '#2196F3',
-    color: '#fff',
-    border: '1px solid #ccc',
-    padding: '1.01em 16px',
-    fontFamily: 'Verdana,sans-serif',
-    fontSize: '13px'
-  },
   content: {
     maxHeight: 308
   },

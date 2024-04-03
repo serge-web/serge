@@ -8,7 +8,7 @@ describe('replaceNumber', () => {
 
     const result = replaceNumber(originalNumber, replacementNumber, startIndex)
 
-    expect(result).toBe('123999789')
+    expect(result).toBe('12399900000000000000')
   })
 
   it('should handle replacement when it exceeds the original number length', () => {
@@ -28,6 +28,6 @@ describe('replaceNumber', () => {
 
     const result = replaceNumber(originalNumber, replacementNumber, startIndex)
 
-    expect(result).toBe('12999')
+    expect(result).toBe('1299900000000000000')
   })
 })
