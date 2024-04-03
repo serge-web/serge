@@ -54,6 +54,7 @@ export const PROPERTY_ENUM = 'EnumProperty'
 export interface StringProperty extends BaseProperty {
   type: typeof PROPERTY_STRING
   default?: string
+  lines?: number // number of lines for a textarea for long string properties.
 }
 
 export interface NumberProperty extends BaseProperty {
@@ -68,13 +69,13 @@ export interface EnumProperty extends BaseProperty {
   default?: string // default value (or use first choice by default)
 }
 
-export type PropertyTypes = StringProperty | NumberProperty | EnumProperty
+export type PropertyType = StringProperty | NumberProperty | EnumProperty
 
 export interface BaseRenderer {
     id: string 
     type: string // one of the renderer type strings
-    baseProps: PropertyTypes[] // general properties, applicable to all renderers
-    additionalProps: PropertyTypes[] // any additional properties that are used for this renderer
+    baseProps: PropertyType[] // general properties, applicable to all renderers
+    additionalProps: PropertyType[] // any additional properties that are used for this renderer
 }
 
 export interface CoreRenderer extends BaseRenderer {

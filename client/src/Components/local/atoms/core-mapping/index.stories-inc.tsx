@@ -1,15 +1,49 @@
 import { withKnobs } from '@storybook/addon-knobs'
-import React from 'react'
-import L from 'leaflet'
-import CoreMapping from './index'
-import docs from './README.md'
-import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData, MappingMessageDelta } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
-import { generateFeatures } from './helper/feature-generator'
+import L from 'leaflet'
 import { noop } from 'lodash'
+import React, { CSSProperties, useEffect, useState } from 'react'
+import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
+import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
+import docs from './README.md'
+import { generateFeatures } from './helper/feature-generator'
+import CoreMapping from './index'
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
+type ScriptDecoratorProps = {
+  scripts: string[]
+  children: React.ReactElement
+  style: CSSProperties
+}
+
+const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, style }) => {
+  const [loaded, setLoaded] = useState<boolean>(false)
+
+  const loadScript = (script: string): Promise<boolean> => {
+    return new Promise(resolve => {
+      const head = document.querySelector('head')
+      const scriptElm = document.createElement('script')
+      if (!head) {
+        return
+      }
+      scriptElm.async = true
+      scriptElm.src = script
+      scriptElm.onload = () => {
+        resolve(true)
+      }
+      head.appendChild(scriptElm)
+    })
+  }
+
+  useEffect(() => {
+    Promise.all(scripts.map(script => loadScript(script))).then(() => setLoaded(true))
+  }, [])
+
+  return (
+    loaded ? <div style={style}>{children}</div> : null
+  )
+}
+
+const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet/ruler/leaflet.ruler.js']} style={{ height: '600px', position: 'relative' }}>{storyFn()}</ScriptDecorator>
 
 export default {
   title: 'local/organisms/CoreMapping',
@@ -43,6 +77,15 @@ const forceProp: EnumProperty = {
   type: 'EnumProperty', 
   choices: ['f-red', 'f-blue', 'f-green'],
   editable: false
+}
+
+const ordersProp: StringProperty = {
+  id: 'orders',
+  label: 'Orders',
+  description: 'Today\'s orders for this unit',
+  lines: 3,
+  type: 'StringProperty', 
+  editable: true
 }
 
 const phaseProp: EnumProperty = {
@@ -174,7 +217,7 @@ const anotherCoreFeature: Feature = {
 
 const milFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'aa' },
+  properties: { ...milSymProps, id: 'aa', orders: 'Plan today\'s activities' },
   geometry: {
     coordinates: [-0.07929841834678086,
       51.497669733260125],
@@ -184,7 +227,7 @@ const milFeature: Feature = {
 
 const anotherMilFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor' },
+  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor', orders: 'Make uniforms for the troops if they need them, else darn socks and mittens' },
   geometry: {
     coordinates: [-0.07929841834678096, 51.50966973326012],
     type: 'Point'
@@ -247,7 +290,7 @@ const milSymRenderer: MilSymRenderer = {
   id: 'milSym',
   type: 'MilSymRenderer',
   baseProps,
-  additionalProps: [categoryProp, sizeProp, healthProp]
+  additionalProps: [categoryProp, sizeProp, healthProp, ordersProp]
 }
 
 const coreMapChannel: ChannelMapping = {

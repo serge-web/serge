@@ -2,25 +2,25 @@ import { faArrowAltCircleLeft, faWindowMaximize, faWindowMinimize } from '@forta
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import { cloneDeep, get, isEqual, set, uniq } from 'lodash'
+import { cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
-import { CoreProperties, PropertyTypes } from 'src/custom-types'
-import { colorFor } from '../core-mapping/renderers/core-renderer'
+import { ForceStyle } from 'src/Helpers'
+import { CoreProperties, PropertyType } from 'src/custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
+import { colorFor } from '../core-mapping/renderers/core-renderer'
 import CustomDialog from '../custom-dialog'
 import IconRenderer from './helpers/icon-renderer'
 import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
 import { SelectedProps } from './types/props'
-import { ForceStyle } from 'src/Helpers'
 
 type MappingPanelProps = {
   onClose: () => void
   features?: FeatureCollection<Geometry, GeoJsonProperties>
-  extraFilterProps: PropertyTypes[]
+  rendererProps: PropertyType[] // property definitions for the renderer for this feature
   selected: string[]
   onSelect: (id: string[]) => void
   onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
@@ -50,7 +50,7 @@ const initPanelState: PanelGroupState = {
   }
 }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, extraFilterProps, selected, onSelect, onSave, forceStyles }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave, forceStyles }): React.ReactElement => {
   const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
@@ -102,7 +102,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
             choices: []
           }
         }
-        const extraProps = extraFilterProps.find(prop => prop.id === propKey)
+        const extraProps = rendererProps.find(prop => prop.id === propKey)
         result[propKey] = {
           value: properties[propKey] as any,
           choices: get(extraProps, 'choices', [])
@@ -144,7 +144,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
   
   const applyFilter = useCallback(() => {
     const selectedFilterOpts = propertyFiltersListPanel.reduce((res, key): SelectedProps => {
-      const extraProps = extraFilterProps.find(prop => prop.id === key)
+      const extraProps = rendererProps.find(prop => prop.id === key)
       const choices: string[] = get(extraProps, 'choices', [])
       const value = get(choices, '0', '')
       res[key] = {
@@ -153,7 +153,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
       }
       return res
     }, {})
-    setSelectedFiltersProps(selectedFilterOpts)
+    setSelectedFiltersProps(merge(selectedFilterOpts, selectedFiltersProps))
     closeApplyFilterModal()
   }, [features, propertyFiltersListPanel])
 
@@ -167,6 +167,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     const featrure = features?.features.filter(f => id.includes(f.properties?.id)) || []
     setSelectedFeatures(checked ? featrure : [])
     onSelect(checked ? id : [])
+    setPendingSaveFeatures(features)
   }
 
   const clearSelectedFeature = () => {
@@ -174,6 +175,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
     setSelectedProps({})
     onSelect([])
     setDisableSave(true)
+    if (!isEqual(pendingSaveFeatures, features)) {
+      setPendingSaveFeatures(features)
+    }
   }
 
   const updatePendingSave = (key: string, value: any) => {
@@ -204,7 +208,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
 
   const onPropertiesChange = (key: string, value: any) => {
     const prevValue = get(selectedProps, key)
-    // leep 1 selected item
+    // keep 1 selected item
     if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
       return
     }
@@ -417,7 +421,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e
         {panelState.propertyPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={true} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange} />
+              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange} />
             </div>
             <div className={styles.button}>
               <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
