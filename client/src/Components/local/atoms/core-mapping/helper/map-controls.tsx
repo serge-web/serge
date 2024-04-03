@@ -1,15 +1,30 @@
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'
 import L, { LeafletEvent, PM } from 'leaflet'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import AssetIcon from 'src/Components/local/asset-icon'
+import { Ruler } from 'src/custom-types/leaflet-custom-types'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
+import { useMappingState } from './mapping-provider'
+import { delay } from 'lodash'
 
 const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {
   const map = useMap()
+  const ruler = useRef<Ruler | null>(null)
+  const selectedRef = useRef<boolean>(false)
+
+  const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring } = useMappingState()
+
+  useEffect(() => {
+    selectedRef.current = deselecteFeature
+  }, [deselecteFeature])
+
+  useEffect(() => {
+    map.invalidateSize()
+  }, [localPanelSize])
 
   const initMapListener = () => {
     let layersVisible = true 
@@ -77,6 +92,10 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
           console.log('OnCreate Unimplemented !!!', e['shape'])
       }
     })
+
+    map.on('click', () => {
+      setDeselectFeature(!selectedRef.current)
+    })
   }
    
   const addPendingTextEvent = (layer: L.Layer) => {
@@ -96,6 +115,11 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
        
       map.pm.setGlobalOptions({ markerStyle: { icon } })
       map.zoomControl.setPosition('bottomright')
+      L.control.scale({ position: 'topright' }).addTo(map)
+      ruler.current = L.control.ruler({ position: 'bottomright' }).addTo(map)
+      ruler.current._container.onclick = () => {
+        delay(() => setIsMeasuring(!!ruler.current?._choice), 50)
+      }
       initMapListener()
     }
   }, [map])
@@ -103,10 +127,11 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
   return <GeomanControls
     options={{
       position: 'topright',
-      rotateMode: true,
+      rotateMode: false,
       pinningOption: true,
       snappingOption: true,
-      drawCircleMarker: false
+      drawCircleMarker: false,
+      cutPolygon: false
     }}
     globalOptions={{}}
     onCreate={e => {
@@ -114,6 +139,13 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
         addPendingTextEvent(e.layer)
       } else {
         map.removeLayer(e.layer)
+      }
+    }}
+    onButtonClick={(e) => {
+      if (!e.button.toggleStatus && ruler.current && ruler.current._choice) {
+        ruler.current._closePath()
+        ruler.current._toggleMeasure()
+        setIsMeasuring(false)
       }
     }}
   />

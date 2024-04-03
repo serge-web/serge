@@ -1,5 +1,6 @@
 import { FeatureCollection } from 'geojson'
 import { LatLng, PM } from 'leaflet'
+import { PanelSize } from 'src/Components/CoreMappingChannel'
 import { ChannelMapping, ForceData, MappingMessage, MappingMessageDelta } from 'src/custom-types'
 
 export default interface PropTypes {
@@ -12,6 +13,7 @@ export default interface PropTypes {
   messages: CoreMappingMessage[]
   postBack: (message: MappingMessage | MappingMessageDelta) => void
   openPanelAsDefault: boolean
+  panelSize?: PanelSize
 }
 
 export type CoreRendererProps = {

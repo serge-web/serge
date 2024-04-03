@@ -20,14 +20,14 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
   const cMessages = [...rMessages].reverse() // note we have to clone it first, since reverse is destructive
   const height = chatContainerHeight || 280
   return (
-    <div>
+    <Box sx={{ height: '100%' }}>
       {
         !hideForcesInChannel &&
         <Box mb={2} ml={2} mr={3}>
           <ForcesInChannel messages={messages as MessageChannel[]} colors={colors} icons={icons} names={names} onMarkAllAsRead={onMarkAllAsRead} />
         </Box>
       }
-      <Box ml={2} className={styles['messages-list']} style={{ height: observing ? 'unset' : `calc(100vh - ${height}px)` }} flexDirection="column-reverse" display="flex">
+      <Box ml={2} className={styles['messages-list']} style={{ height: observing ? 'unset' : `calc(100% - ${height}px)` }} flexDirection="column-reverse" display="flex">
         {
           cMessages.map((message, key) => {
             if (message.messageType === INFO_MESSAGE_CLIPPED) {
@@ -60,7 +60,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
           })
         }
       </Box>
-    </div>
+    </Box>
   )
 }
 

@@ -36,11 +36,12 @@
 .filterPanel {
   background-color: lightgray;
   padding: 0px 0px 20px 0px;
+  min-height: 36px;
 }
 
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: rgb(238, 238, 238);
   border: 1px solid lightgray;
@@ -48,9 +49,9 @@
   box-shadow: 1px 1px 1px;
   font-weight: 600;
   color: black;
+  padding: 0  10px 0 10px;
 
   svg {
-    position: absolute;
     left: 10px;
     cursor: pointer;
   }
@@ -68,8 +69,8 @@
   gap: 10px;
 
   p {
-    min-width: 80px;
-    width: 80px;
+    min-width: 90px;
+    width: 90px;
     margin: 0;
     text-transform: capitalize;
     color: #000;
@@ -80,6 +81,7 @@
     
 
     input,
+    textarea,
     select {
       width: 100%;
       min-height: 30px;
@@ -108,11 +110,12 @@
 .itemsPanel {
   background-color: lightgray;
   padding: 0px 0px 20px 0px;
+  min-height: 36px;
 }
 
 .propertiesPanel {
   background-color: lightgray;
-  padding: 0px 0px 20px 0px;
+  padding: 0px 0px 35px 0px;
 }
 
 .listItem {
@@ -183,4 +186,21 @@
   width: 20px;
   margin-top: 1px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.multi-select {
+  width: 100% !important;
+}
+
+.multi-select > div {
+  width: 100% !important;
+}
+
+.menu-item {
+  padding: 0 !important;
+  height: 36px;
+}
+
+.disabled {
+  pointer-events: none;
 }
