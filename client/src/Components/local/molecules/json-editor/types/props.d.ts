@@ -1,4 +1,30 @@
 import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from 'src/custom-types'
+import { IChangeEvent } from '@rjsf/core'
+
+// export interface FormProps {
+//   schema: string
+//   uiSchema: string
+//   onChange: (newSchema: string, newUiSchema: string) => void
+//   validator: any
+//   formData: FormData
+// }
+export interface FormData {
+  foo?: string
+  bar?: number
+}
+
+export interface FormProps {
+  schema: Record<string, unknown>
+  id?: string
+  uiSchema: string
+  className?: string
+  onChange: (newSchema: IChangeEvent<FormData>) => void
+  validator: any
+  templates?: any
+  formData: FormData
+  disabled: boolean
+  formClassName?: string // Optional class name for the form
+}
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void

@@ -2,18 +2,23 @@ import { TemplateBody } from 'src/custom-types'
 import { configDateTimeLocal, deepCopy, usePrevious } from 'src/Helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { isEqual } from 'lodash'
-import Form, { IChangeEvent } from '@rjsf/core'
+import { IChangeEvent, withTheme } from '@rjsf/core'
+import { Theme as Bootstrap4Theme } from '@rjsf/bootstrap-4'
 import { customizeValidator } from '@rjsf/validator-ajv8'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, FunctionComponent } from 'react'
 import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
-import Props from './types/props'
+import Props, { FormProps } from './types/props'
 
 export interface FormData {
   foo?: string
   bar?: number
 }
+
+const Form = withTheme(
+  Bootstrap4Theme
+) as unknown as FunctionComponent<FormProps>
 
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({
@@ -184,7 +189,7 @@ export const JsonEditor: React.FC<Props> = ({
             />
             <SaveMessageButton />
             {
-              schema && <Form<FormData> 
+              schema && <Form 
                 id={formId}
                 schema={schema} 
                 uiSchema={JSON.parse(uischema)}
@@ -198,7 +203,7 @@ export const JsonEditor: React.FC<Props> = ({
             }
             <SaveMessageButton />
           </>
-          : schema && <Form<FormData> 
+          : schema && <Form
             className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
             schema={schema} 
             uiSchema={JSON.parse(uischema)}
