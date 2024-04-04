@@ -5,7 +5,7 @@ import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { cloneDeep, flatten, get, isEqual, unionBy } from 'lodash'
+import { cloneDeep, flatten, get, isEqual, unionBy, uniq } from 'lodash'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
@@ -215,7 +215,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       turn: currentTurn,
       force: playerForce.uniqid,
       category: 'Civilian',
-      color: playerForce.color
+      color: playerForce.color,
+      shapeType
     }
 
     switch (shapeType) {
@@ -404,6 +405,17 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const getUnionRendererProps = (): PropertyType[] => {
     const rendererObjects: BaseRenderer[] = channel.renderers
     const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
+
+    // this filter should be added in baseProps or additionalProps in database like other?
+    if (featureCollection && featureCollection.features) {
+      flatMap.push({
+        choices: uniq(featureCollection.features.filter(f => f.properties?.shapeType).map(f => f.properties?.shapeType)) || [], // fixed by ['Point', 'Text', 'Line', 'Polygon', 'Rectangle', 'Circle'] if defined in db ?
+        id: 'shapeType',
+        label: 'Shape Type',
+        type: 'EnumProperty'
+      })
+    }
+
     return unionBy(flatMap, 'id')
   }
 
