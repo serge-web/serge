@@ -5,11 +5,11 @@ interface CssExports {
   'container': string;
   'health-bar': string;
   'map-container': string;
+  'measuring': string;
   'pulse': string;
   'resize-handler': string;
-  'slide-container': string;
-  'measuring': string;
   'shape': string;
+  'slide-container': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
