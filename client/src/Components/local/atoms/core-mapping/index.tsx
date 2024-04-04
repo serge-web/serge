@@ -409,7 +409,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     // this filter should be added in baseProps or additionalProps in database like other?
     if (featureCollection && featureCollection.features) {
       flatMap.push({
-        choices: uniq(featureCollection.features.filter(f => f.properties?.shapeType).map(f => f.properties?.shapeType)) || [], // fixed by ['Point', 'Text', 'Line', 'Polygon', 'Rectangle', 'Circle'] if defined in db ?
+        choices: uniq(featureCollection.features.filter(f => f.properties?.shapeType).map(f => f.properties?.shapeType)), // fixed by ['Point', 'Text', 'Line', 'Polygon', 'Rectangle', 'Circle'] if defined in db ?
         id: 'shapeType',
         label: 'Shape Type',
         type: 'EnumProperty'
