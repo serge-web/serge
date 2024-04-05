@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import UniversalRouter from 'universal-router'
-import { DEMO_ROUTE, ADMIN_ROUTE, CREATE_TEMPLATE_ROUTE, EXPORT_ROUTE, EXPORT_MESSAGES_SUBROUTE, EXPORT_FORCES_SUBROUTE, EXPORT_PRINT_SUBROUTE, GAME_SETUP_ROUTE, WELCOME_SCREEN_EDIT_ROUTE } from 'src/config'
+import { DEMO_ROUTE, ADMIN_ROUTE, EXPORT_ROUTE, EXPORT_MESSAGES_SUBROUTE, EXPORT_FORCES_SUBROUTE, EXPORT_PRINT_SUBROUTE, GAME_SETUP_ROUTE, WELCOME_SCREEN_EDIT_ROUTE } from 'src/config'
 import GameDesignerInterface from '../../Views/GameDesignerInterface'
 import AdminGameSetup from '../../Views/GameSetupNew'
 // import GameSetup from '../../Views/GameSetup'
