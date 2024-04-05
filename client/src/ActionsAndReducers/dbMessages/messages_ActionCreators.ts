@@ -9,7 +9,6 @@ import check from 'check-types'
 import * as messagesApi from '../../api/messages_api'
 
 import { addNotification } from '../Notification/Notification_ActionCreators'
-// import { MessageFeedback, MessagesActionTypes, MessagesDispatch, RequestForInformation } from 'src/custom-types'
 import { MessageFeedback, MessagesActionTypes, MessagesDispatch, RequestForInformation } from 'src/custom-types'
 
 const DBMessageSaveStatus = (status: string): MessagesActionTypes => ({
@@ -36,36 +35,6 @@ const loadingDBMessageGet = (isLoading: boolean): MessagesActionTypes => ({
   type: ActionConstant.DB_MESSAGES_GET,
   isLoading
 })
-
-// export const resetMessagePreview = (): MessagesActionTypes => ({
-//   type: ActionConstant.RESET_MESSAGE_PREVIEW
-// })
-
-// export const createMessage = (message: RequestForInformation, schema: {}) => {
-//   if (!check.object(message)) throw Error(`createMessageType() requires object with message, from & to NOT. ${message}`)
-
-//   return async (dispatch: MessagesDispatch) => {
-//     dispatch(loadingDBMessageCreate(true))
-
-//     try {
-//       const result = await messagesApi.addMessage(message, schema)
-
-//       if (result.err) {
-//         dispatch(addNotification(result.err, 'warning'))
-//       }
-
-//       if (result.ok) {
-//         dispatch(DBMessageSaveStatus(result))
-//         const messages = await messagesApi.getAllMessagesFromDb()
-//         dispatch(DBSaveMessageArray(messages))
-//         dispatch(loadingDBMessageCreate(false))
-//       }
-//     } catch (e) {
-//       dispatch(loadingDBMessageCreate(false))
-//       alert(e)
-//     }
-//   }
-// }
 
 export const duplicateMessage = (messageId: string) => {
   if (!check.string(messageId)) throw Error(`duplicateMessage() requires a string Not. ${messageId}`)
@@ -114,27 +83,6 @@ export const updateMessage = (message: RequestForInformation, id: string) => {
     }
   }
 }
-
-// export const deleteMessage = (messageId: string) => {
-//   if (!check.string(messageId)) throw Error(`duplicateMessage() requires a string Not. ${messageId}`)
-
-//   return async (dispatch: MessagesDispatch) => {
-//     dispatch(loadingDBMessageCreate(true))
-    
-//     // +
-//     const result = await messagesApi.deleteMessageFromDb(messageId)
-
-//     if (result) {
-//       const messages = await messagesApi.getAllMessagesFromDb()
-//       dispatch(DBSaveMessageArray(messages))
-//       dispatch(resetMessagePreview())
-//     } else {
-//       // error action
-//     }
-
-//     dispatch(loadingDBMessageCreate(false))
-//   }
-// }
 
 export const getSingleMessage = (id: string) => {
   if (!check.string(id)) throw Error('duplicateMessage() requires a string id..')

@@ -29,11 +29,6 @@ export const messagesReducer = (state = initialState, action: MessagesActionType
       newState.messagePreview = action.payload
       return newState
 
-      // case ActionConstant.RESET_MESSAGE_PREVIEW:
-      //   newState.messagePreviewId = ''
-      //   newState.messagePreview = {}
-      //   return newState
-
     default:
       return newState
   }

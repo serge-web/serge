@@ -1,19 +1,8 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import UniversalRouter from 'universal-router'
-import {
-  DEMO_ROUTE,
-  ADMIN_ROUTE,
-  CREATE_TEMPLATE_ROUTE,
-  EDIT_TEMPLATE_ROUTE, EXPORT_ROUTE, EXPORT_MESSAGES_SUBROUTE, EXPORT_FORCES_SUBROUTE, EXPORT_PRINT_SUBROUTE, GAME_SETUP_ROUTE,
-  MESSAGE_CREATOR_BASE_ROUTE, 
-  // MESSAGE_TEMPLATE_ROUTE, 
-  WELCOME_SCREEN_EDIT_ROUTE
-} from 'src/config'
+import { DEMO_ROUTE, ADMIN_ROUTE, CREATE_TEMPLATE_ROUTE, EXPORT_ROUTE, EXPORT_MESSAGES_SUBROUTE, EXPORT_FORCES_SUBROUTE, EXPORT_PRINT_SUBROUTE, GAME_SETUP_ROUTE, WELCOME_SCREEN_EDIT_ROUTE } from 'src/config'
 import GameDesignerInterface from '../../Views/GameDesignerInterface'
-// import MessageTemplates from '../../Views/MessageTemplates'
-// import EditTemplate from '../../Views/EditTemplate'
-// import CreateTemplate from '../../Views/CreateTemplate'
 import AdminGameSetup from '../../Views/GameSetupNew'
 // import GameSetup from '../../Views/GameSetup'
 import ExportMessages from '../../Views/ExportMessages/ExportMessages'
@@ -27,18 +16,6 @@ import { setCurrentViewFromURI } from '../../ActionsAndReducers/setCurrentViewFr
 const routes = [
   { path: DEMO_ROUTE, action: () => <GameDesignerInterface/> },
   { path: ADMIN_ROUTE, action: () => <GameDesignerInterface/> },
-  // { path: MESSAGE_TEMPLATE_ROUTE, action: () => <MessageTemplates /> },
-  // {
-  //   path: MESSAGE_CREATOR_BASE_ROUTE,
-  //   // +
-  //   children:
-  //   [ 
-  //     // +
-  //     // { path: CREATE_TEMPLATE_ROUTE, action: () => <CreateTemplate /> },
-  //     // +
-  //     // { path: EDIT_TEMPLATE_ROUTE, action: () => <EditTemplate /> }
-  //   ]
-  // },
   {
     path: EXPORT_ROUTE,
     children:

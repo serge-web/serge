@@ -27,7 +27,7 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
-import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, Wargame, TemplateBody } from 'src/custom-types'
+import { ChannelTypes, ForceData, Role, RootState, WargamesState, WargameOverview, Wargame, TemplateBody } from 'src/custom-types'
 
 /**
  * TODOS:
@@ -48,7 +48,7 @@ import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, 
 
 const AdminGameSetup: React.FC = () => {
   const dispatch = useDispatch()
-  const { wargame, messageTypes }: { wargame: WargamesState, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
+  const { wargame }: { wargame: WargamesState } = useSelector(({ wargame }: RootState) => ({ wargame }))
 
   const {
     data,
@@ -390,7 +390,7 @@ const AdminGameSetup: React.FC = () => {
       onSidebarTemplatesClick={onSidebarTemplatesClick}
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
-      templates={templates?.templates || messageTypes.messages}
+      templates={templates.templates}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}

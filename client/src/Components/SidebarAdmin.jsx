@@ -1,15 +1,9 @@
-import {
-  ADMIN_ROUTE,
-  // MESSAGE_TEMPLATE_ROUTE,
-  WELCOME_SCREEN_EDIT_ROUTE
-} from 'src/config'
+import { ADMIN_ROUTE, WELCOME_SCREEN_EDIT_ROUTE } from 'src/config'
 import Link from './Link'
-// import 'src/themes/App.scss'
 
 export default (props) => {
   const menus = {
     [ADMIN_ROUTE]: 'Games',
-    // [MESSAGE_TEMPLATE_ROUTE]: 'Message Templates',
     [WELCOME_SCREEN_EDIT_ROUTE]: 'Welcome Screen'
   }
   return (

@@ -7,39 +7,6 @@ import DbProvider from './db'
 
 const db = new DbProvider(databasePath + MSG_STORE)
 
-// export const addMessage = (messageDetail, schema) => {
-//   return new Promise((resolve, reject) => {
-//     (async () => {
-//       const allMessages = await getAllMessagesFromDb()
-//       const matchedName = allMessages.find((el) => el.details.title === messageDetail.title && el._id !== messageDetail.id)
-
-//       if (matchedName) {
-//         reject('Message title already used')
-//         return
-//       }
-
-//       const time = new Date().toISOString()
-
-//       const message = {
-//         _id: time,
-//         lastUpdated: time,
-//         details: messageDetail,
-//         schema,
-//         completed: false
-//       }
-
-//       return db.put(message)
-//         .then(function (result) {
-//           resolve(result)
-//         })
-//         .catch(function (err) {
-//           console.log(err)
-//           reject(false)
-//         })
-//     })()
-//   })
-// }
-
 export const duplicateMessageInDb = (id) => {
   const time = new Date().toISOString()
 

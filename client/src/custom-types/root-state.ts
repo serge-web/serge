@@ -1,4 +1,4 @@
-import { MessageTypes, PlayerLogEntries, WargamesState } from '.'
+import { PlayerLogEntries, WargamesState } from '.'
 import Role from './role'
 
 export type GameInfo = {
@@ -74,7 +74,6 @@ export type CurrentModal = {
 }
 
 export type RootState = {
-  messageTypes: MessageTypes
   messages: Messages
   umpireMenu: UmpireMenu
   currentViewURI: string

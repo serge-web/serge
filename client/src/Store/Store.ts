@@ -1,7 +1,6 @@
 import { RootState } from 'src/custom-types'
 import { applyMiddleware, combineReducers, createStore, Store } from 'redux'
 import thunk from 'redux-thunk'
-import { messageTypesReducer } from '../ActionsAndReducers/dbMessageTypes/messageTypes_Reducer'
 import { wargamesReducer } from '../ActionsAndReducers/dbWargames/wargames_Reducer'
 import { addPlayerLogReducer } from '../ActionsAndReducers/PlayerLog/PlayerLog_Reducer'
 import { currentViewURIReducer } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_Reducer'
@@ -25,7 +24,6 @@ if (import.meta.env.NODE_ENV === 'development') {
 }
 
 const store: Store<RootState> = createStore<RootState, any, any, any>(combineReducers({
-  messageTypes: messageTypesReducer,
   messages: messagesTypesReducerWithType,
   umpireMenu: umpireMenuReducerWithType,
   currentViewURI: currentViewURIReducer,

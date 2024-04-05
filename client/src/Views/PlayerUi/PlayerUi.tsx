@@ -20,7 +20,7 @@ enum Room {
   player
 }
 
-const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameIsInvalid, loadData }: Props): React.ReactElement => {
+const PlayerUi = ({ gameInfo, wargame, checkPasswordFail, wargameIsInvalid, loadData }: Props): React.ReactElement => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [waitingLoginPassword, setWaitingLoginPassword] = useState('')
   const [screen, setScreen] = useState<Room>(Room.landing)
@@ -31,8 +31,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
     selectedRole,
     currentTurn
   } = usePlayerUiState()
-
-  // const dispatch = useDispatch()
+  const { templates } = wargame.data
   const playerUiDispatch = usePlayerUiDispatch()
 
   useEffect(() => {
@@ -78,7 +77,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
       wargameIsInvalid()
       return
     }
-    const check = checkPassword(pass, messageTypes, currentWargame, allForces, currentTurn, playerUiDispatch)
+    const check = checkPassword(pass, templates.templates, currentWargame, allForces, currentTurn, playerUiDispatch)
     if (check) {
       const currentUrl = new URL(document.location!.href)
       const byPassParams = {
