@@ -55,7 +55,6 @@ class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {
 
     return (
       <>
-        11
         {modal}
       </>
     )
