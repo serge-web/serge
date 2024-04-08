@@ -13,7 +13,6 @@ import { CurrentModal } from 'src/custom-types'
 
 class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {
   render () {
-    console.log('currentModall', this.props.currentModal)
     let modal
     switch (this.props.currentModal.modal) {
       // case 'delete':
