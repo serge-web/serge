@@ -1,8 +1,8 @@
-import { Row, Column } from '../../../Components/local/react-table/types/props'
 import cx from 'classnames'
 import orderBy from 'lodash/orderBy'
 import moment from 'moment'
-import React from 'react'
+import React, { ReactElement } from 'react'
+import { Column, Row } from '../../../Components/local/react-table/types/props'
 import styles from '../styles.module.scss'
 import { PlayerLogModal } from '../types/props'
 
@@ -16,10 +16,15 @@ type ColumnListItem = {
   field: string
 }
 export const genPlayerLogDataTable = (rows: PlayerLogModal[]): PlayerLogDataTable => {
-  const sortCol = (str1: string, str2: string): number => {
-    const a = str1?.toLowerCase()
-    const b = str2?.toLowerCase()
-
+  const sortCol = (str1: string | React.ReactElement, str2: string | React.ReactElement): number => {
+    if (!str1 || !str2) {
+      return 1
+    }
+    if (typeof str1 === 'string' && typeof str2 === 'string') {
+      return str1 > str2 ? 1 : -1
+    }
+    const a = (str1 as unknown as ReactElement).props.children
+    const b = (str2 as unknown as ReactElement).props.children
     return a > b ? 1 : -1
   }
 
