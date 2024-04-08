@@ -15,4 +15,4 @@ export default {
   }
 }
 
-export const Default: React.FC = () => <MappingPanel onClose={noop} rendererProps={[]} onSave={noop} selected={[]} onSelect={noop} />
+export const Default: React.FC = () => <MappingPanel forceStyles={[]} onClose={noop} rendererProps={[]} onSave={noop} selected={[]} onSelect={noop} />
