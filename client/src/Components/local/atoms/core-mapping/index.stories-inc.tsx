@@ -1,15 +1,50 @@
 import { withKnobs } from '@storybook/addon-knobs'
-import React from 'react'
-import L from 'leaflet'
-import CoreMapping from './index'
-import docs from './README.md'
-import { CHANNEL_MAPPING, MAPPING_MESSAGE, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, MappingMessage, CoreProperties, CoreRenderer, EnumProperty, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, ForceData } from 'src/custom-types'
 import { Feature, FeatureCollection } from 'geojson'
-import { generateFeatures } from './helper/feature-generator'
+import L from 'leaflet'
 import { noop } from 'lodash'
+import React, { CSSProperties, useEffect, useState } from 'react'
+import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
+import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
+import { forceStyles } from 'src/Helpers'
+import docs from './README.md'
+import { generateFeatures } from './helper/feature-generator'
+import CoreMapping from './index'
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
+type ScriptDecoratorProps = {
+  scripts: string[]
+  children: React.ReactElement
+  style: CSSProperties
+}
+
+const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, style }) => {
+  const [loaded, setLoaded] = useState<boolean>(false)
+
+  const loadScript = (script: string): Promise<boolean> => {
+    return new Promise(resolve => {
+      const head = document.querySelector('head')
+      const scriptElm = document.createElement('script')
+      if (!head) {
+        return
+      }
+      scriptElm.async = true
+      scriptElm.src = script
+      scriptElm.onload = () => {
+        resolve(true)
+      }
+      head.appendChild(scriptElm)
+    })
+  }
+
+  useEffect(() => {
+    Promise.all(scripts.map(script => loadScript(script))).then(() => setLoaded(true))
+  }, [])
+
+  return (
+    loaded ? <div style={style}>{children}</div> : null
+  )
+}
+
+const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet/ruler/leaflet.ruler.js']} style={{ height: '600px', position: 'relative' }}>{storyFn()}</ScriptDecorator>
 
 export default {
   title: 'local/organisms/CoreMapping',
@@ -43,6 +78,15 @@ const forceProp: EnumProperty = {
   type: 'EnumProperty', 
   choices: ['f-red', 'f-blue', 'f-green'],
   editable: false
+}
+
+const ordersProp: StringProperty = {
+  id: 'orders',
+  label: 'Orders',
+  description: 'Today\'s orders for this unit',
+  lines: 3,
+  type: 'StringProperty', 
+  editable: true
 }
 
 const phaseProp: EnumProperty = {
@@ -174,7 +218,7 @@ const anotherCoreFeature: Feature = {
 
 const milFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'aa' },
+  properties: { ...milSymProps, id: 'aa', orders: 'Plan today\'s activities' },
   geometry: {
     coordinates: [-0.07929841834678086,
       51.497669733260125],
@@ -184,7 +228,7 @@ const milFeature: Feature = {
 
 const anotherMilFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor' },
+  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor', orders: 'Make uniforms for the troops if they need them, else darn socks and mittens' },
   geometry: {
     coordinates: [-0.07929841834678096, 51.50966973326012],
     type: 'Point'
@@ -215,6 +259,25 @@ const coreMessage: MappingMessage = {
   featureCollection: features
 }
 
+const deltaMessage: MappingMessageDelta = {
+  _id: 'timestamp-23',
+  delta: [],
+  details: {
+    channel: 'core-mapping',
+    from: {
+      force: 'f-red',
+      forceColor: '#f00',
+      roleId: 'mar-23',
+      roleName: 'MARITIME CTRL',
+      iconURL: 'f-red.svg'
+    },
+    timestamp: '2023-11-23T23:32:00',
+    turnNumber: 1
+  },
+  messageType: MAPPING_MESSAGE_DELTA,
+  since: 'timestamp-23'
+}
+
 const baseProps = [forceProp, phaseProp, turnProp]
 
 const coreRenderer: CoreRenderer = {
@@ -228,7 +291,7 @@ const milSymRenderer: MilSymRenderer = {
   id: 'milSym',
   type: 'MilSymRenderer',
   baseProps,
-  additionalProps: [categoryProp, sizeProp, healthProp]
+  additionalProps: [categoryProp, sizeProp, healthProp, ordersProp]
 }
 
 const coreMapChannel: ChannelMapping = {
@@ -277,25 +340,45 @@ const bulkMessage: MappingMessage = {
 
 console.log(coreMessage)
 
-const playerForce: ForceData = {
-  color: '#000',
-  dirty: false,
-  iconURL: '',
-  name: '',
-  overview: '',
-  roles: [],
-  uniqid: 'f-red'
-}
+const forces: ForceData[] = [
+  {
+    color: '#F00',
+    dirty: false,
+    iconURL: '',
+    name: 'Red',
+    overview: '',
+    roles: [],
+    uniqid: 'f-red'
+  }, {
+    color: '#00F',
+    dirty: false,
+    iconURL: '',
+    name: 'Blue',
+    overview: '',
+    roles: [],
+    uniqid: 'f-blue'
+  }, {
+    color: '#0F0',
+    dirty: false,
+    iconURL: '',
+    name: 'Green',
+    overview: '',
+    roles: [],
+    uniqid: 'f-green'
+  }
+]
+const playerForce: ForceData = forces[0]
+const forceStylesArr = forceStyles(forces, false)
 
 export const Default: React.FC = () => {
   return (
     <CoreMapping
       playerForce={playerForce}
-      messages={[coreMessage]}
+      messages={[coreMessage, deltaMessage]}
       channel={coreMapChannel}
       playerRole={'mgr'}
       currentTurn={1}
-      forceStyles={[]}
+      forceStyles={forceStylesArr}
       currentPhase={Phase.Planning}
       postBack={noop}
       openPanelAsDefault={false}
@@ -307,11 +390,11 @@ export const Bulk: React.FC = () => {
   return (
     <CoreMapping
       playerForce={playerForce}
-      messages={[bulkMessage]}
+      messages={[bulkMessage, deltaMessage]}
       channel={coreMapChannel}
       playerRole={'mgr'}
       currentTurn={1}
-      forceStyles={[]}
+      forceStyles={forceStylesArr}
       currentPhase={Phase.Planning}
       postBack={noop}
       openPanelAsDefault={false}
