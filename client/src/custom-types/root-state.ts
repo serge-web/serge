@@ -9,14 +9,6 @@ export type GameInfo = {
   showAccessCodes: boolean
 }
 
-export type Messages = {
-  isLoading: boolean
-  messages: never[]
-  messagePreviewId: string
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  messagePreview: {}
-}
-
 export type UmpireMenu = {
   selectedSchemaID: string
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -74,7 +66,6 @@ export type CurrentModal = {
 }
 
 export type RootState = {
-  messages: Messages
   umpireMenu: UmpireMenu
   currentViewURI: string
   currentModal: CurrentModal

@@ -1,5 +1,4 @@
-import { CurrentModal, DBLoadingState, ExportItems, GameInfo, Messages, UmpireMenu } from 'src/custom-types'
-import { messagesReducer } from '../ActionsAndReducers/dbMessages/messages_Reducer'
+import { CurrentModal, DBLoadingState, ExportItems, GameInfo, UmpireMenu } from 'src/custom-types'
 import { exportItems } from '../ActionsAndReducers/ExportItems/ExportItems_Reducer'
 import { loadingDbReducer } from '../ActionsAndReducers/loadingDb_Reducer'
 import { currentModal } from '../ActionsAndReducers/Modal/Modal_Reducer'
@@ -11,7 +10,6 @@ import { umpireMenuReducer } from '../ActionsAndReducers/UmpireMenu/umpireMenu_R
 // it makes a bit difficult when query data from state and we don't know extractly what type of the state
 // solution: convert all old state to a new state with type
 // TODO*: update action with type
-export const messagesTypesReducerWithType = (state: Messages | undefined, action: any): Messages => messagesReducer(state, action)
 export const umpireMenuReducerWithType = (state: UmpireMenu | undefined, action: any): UmpireMenu => umpireMenuReducer(state, action)
 export const currentModalWithType = (state: CurrentModal | undefined, action: any): CurrentModal => currentModal(state, action)
 export const notificationReducerWithType = (state: any[] | undefined, action: any): any[] => notificationReducer(state, action)
