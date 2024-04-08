@@ -15,10 +15,6 @@ class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {
   render () {
     let modal
     switch (this.props.currentModal.modal) {
-      // case 'delete':
-      //   modal = <DeleteModal />
-      //   break
-
       case 'deleteWargame':
         modal = <DeleteWargameModal />
         break
