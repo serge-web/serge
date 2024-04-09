@@ -8,6 +8,7 @@ interface CssExports {
   'measuring': string;
   'pulse': string;
   'resize-handler': string;
+  'shape': string;
   'slide-container': string;
 }
 export const cssExports: CssExports;
