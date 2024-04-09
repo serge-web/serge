@@ -196,21 +196,9 @@ export const templateBody = {
   lastUpdated: '2019-09-30T12:37:26.705Z',
   title: 'Chat',
   details: {
-    type: 'object',
-    properties: {
-      content: {
-        type: 'string',
-        format: 'textarea',
-        options: {
-          inputAttributes: {
-            placeholder: 'type the text'
-          }
-        }
-      }
-    },
-    title: 'Chat',
-    
-    format: 'grid'
+    schema: '{"type":"object","properties":{"Chat":{"title":"Chat","type":"string"}},"dependencies":{},"required":[]}',
+    uischema: '{"ui:order":["Chat"]}',
+    title: 'Chat'
   },
   completed: false,
   _id: 'k16eedkl',

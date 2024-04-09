@@ -10,7 +10,6 @@ import {
   exportItemsReducerWithType,
   gameInfoReducerWithType,
   loadingDbReducerWithType,
-  messagesTypesReducerWithType,
   notificationReducerWithType,
   umpireMenuReducerWithType
 } from './RootReducer'
@@ -24,7 +23,6 @@ if (import.meta.env.NODE_ENV === 'development') {
 }
 
 const store: Store<RootState> = createStore<RootState, any, any, any>(combineReducers({
-  messages: messagesTypesReducerWithType,
   umpireMenu: umpireMenuReducerWithType,
   currentViewURI: currentViewURIReducer,
   currentModal: currentModalWithType,

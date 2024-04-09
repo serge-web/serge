@@ -37,7 +37,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const [uischema, setUiSchema] = useState<string>('{}')
   const validator = customizeValidator<FormData>()
   const formData: FormData = {}
-
+  
   useEffect(() => {
     const selectedId = templates.findIndex(template => template._id === selectedTemplate?._id)
     const correctedSelectedItem = Math.max(selectedId, 0)
