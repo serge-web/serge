@@ -90,7 +90,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     // send the data
     setPrivateValue('')
     setClearForm(!clearForm)
-    postBack && postBack(details, formMessage, selectedSchema.title, CUSTOM_MESSAGE)
+    postBack && postBack(details, formMessage, messageOption, CUSTOM_MESSAGE)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
   }

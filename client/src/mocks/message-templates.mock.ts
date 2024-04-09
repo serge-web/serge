@@ -14,16 +14,16 @@ const messageTemplatesMock: TemplateBody[] = [
     _rev: '1-612d7dc5d10fc81bc7459b2801c66816'
   },
   {
-    _id: 'k16eedkl',
-    _rev: '1-09ab7a18ff677cec5d9a56f02a45788d',
-    completed: false,
+    lastUpdated: '2019-09-30T12:37:26.705Z',
+    title: 'Chats',
     details: {
-      schema: '{"type":"object","properties":{"content":{"title":"content","type":"string","default":"type the text"}},"dependencies":{},"required":[]}',
-      uischema: '{"ui:order":["content"]}',
+      schema: '{"type":"object","properties":{"Chat":{"title":"Chat","type":"string"}},"dependencies":{},"required":[]}',
+      uischema: '{"ui:order":["Chat"]}',
       title: 'Chat'
     },
-    lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'Chat'
+    completed: false,
+    _id: 'k16eedkl',
+    _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
   },
   {
     lastUpdated: '2019-09-30T12:37:26.705Z',

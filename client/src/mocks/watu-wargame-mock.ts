@@ -270,6 +270,18 @@ const wargame: Wargame = {
       dirty: false,
       templates: [
         {
+          lastUpdated: '2019-09-30T12:37:26.705Z',
+          title: 'Chat',
+          details: {
+            schema: '{"type":"object","properties":{"Chat":{"title":"Chat","type":"string"}},"dependencies":{},"required":[]}',
+            uischema: '{"ui:order":["Chat"]}',
+            title: 'Chat'
+          },
+          completed: false,
+          _id: 'k16eedkl',
+          _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
+        },
+        {
           completed: false,
           details: {
             properties: {

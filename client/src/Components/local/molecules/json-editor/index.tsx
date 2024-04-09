@@ -134,7 +134,6 @@ export const JsonEditor: React.FC<Props> = ({
       setConfirmIsOpen(true)
     }
   }
-
   useEffect(() => {
     if (template.details && template.details.schema) {
       const { schema, uischema } = template.details
