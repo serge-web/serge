@@ -37,6 +37,7 @@
     "@types/tinycolor2": "^1.4.6",
     "concurrently": "^8.2.1",
     "husky": "^7.0.0",
+    "@playwright/test": "1.42.0",
     "snyk": "^1.298.1"
   },
   "eslintConfig": {
