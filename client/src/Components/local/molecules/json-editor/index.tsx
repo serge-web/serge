@@ -9,7 +9,7 @@ import moment from 'moment'
 import React, { useEffect, useState, FunctionComponent } from 'react'
 import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
-import Props, { FormProps } from './types/props'
+import Props, { FormProps, UISchemas } from './types/props'
 
 export interface FormData {
   foo?: string
@@ -181,7 +181,8 @@ export const JsonEditor: React.FC<Props> = ({
       }
     </div>
   )
-  const uiSchemas: any = {
+  
+  const submitUiSchema: UISchemas = {
     'ui:submitButtonOptions': {
       props: {
         disabled: false,
@@ -189,13 +190,6 @@ export const JsonEditor: React.FC<Props> = ({
       },
       norender: false,
       submitText: 'Send Message'
-    },
-    'ui:cancelButtonOptions': {
-      props: {
-        className: 'btn btn-info'
-      },
-      norender: false,
-      cancelText: 'Cancel'
     }
   }
   
@@ -229,7 +223,7 @@ export const JsonEditor: React.FC<Props> = ({
             className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
             schema={schema} 
             uiSchema={
-              { ...JSON.parse(uischema), ...uiSchemas }}
+              { ...JSON.parse(uischema), ...submitUiSchema }}
             onChange={handleChange}
             validator={validator} 
             onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}
