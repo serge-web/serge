@@ -27,6 +27,7 @@ export const JsonEditor: React.FC<Props> = ({
   title,
   template,
   storeNewValue,
+  submitNewValue,
   formClassName,
   formId,
   customiseTemplate,
@@ -39,7 +40,8 @@ export const JsonEditor: React.FC<Props> = ({
   onCancelEdit,
   modifyForSave,
   confirmCancel = false,
-  viewSaveButton = false
+  viewSaveButton = false,
+  children
 }) => {
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
@@ -47,7 +49,6 @@ export const JsonEditor: React.FC<Props> = ({
   const [uischema, setUiSchema] = useState<string>('{}')
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
   const validator = customizeValidator<FormData>()
-  const [formData, setFormData] = useState({})
   
   const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
@@ -109,7 +110,15 @@ export const JsonEditor: React.FC<Props> = ({
     if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
       storeNewValue && storeNewValue(newDoc)
       setSelectOptionsHeaders()
-      setFormData({})
+    }
+  }
+
+  const handleSubmit = (newFormData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => {
+    const fixedDate = fixDate(newFormData.formData as any)
+    const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
+    if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
+      submitNewValue && submitNewValue(newDoc, e)
+      setSelectOptionsHeaders()
     }
   }
     
@@ -149,8 +158,6 @@ export const JsonEditor: React.FC<Props> = ({
       const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
       const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
   
-      // Set state
-      setFormData({})
       setSchema(schemaWithTitle)
       setUiSchema(uischema)
     }
@@ -174,7 +181,24 @@ export const JsonEditor: React.FC<Props> = ({
       }
     </div>
   )
-
+  const uiSchemas: any = {
+    'ui:submitButtonOptions': {
+      props: {
+        disabled: false,
+        className: 'btn btn-info'
+      },
+      norender: false,
+      submitText: 'Send Message'
+    },
+    'ui:cancelButtonOptions': {
+      props: {
+        className: 'btn btn-info'
+      },
+      norender: false,
+      cancelText: 'Cancel'
+    }
+  }
+  
   return (
     <>
       {
@@ -194,7 +218,6 @@ export const JsonEditor: React.FC<Props> = ({
                 uiSchema={JSON.parse(uischema)}
                 onChange={handleChange}
                 validator={validator} 
-                formData={formData} 
                 templates={{ ButtonTemplates: { } }}
                 disabled={disabled}
               />
@@ -205,12 +228,15 @@ export const JsonEditor: React.FC<Props> = ({
           : schema && <Form
             className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
             schema={schema} 
-            uiSchema={JSON.parse(uischema)}
+            uiSchema={
+              { ...JSON.parse(uischema), ...uiSchemas }}
             onChange={handleChange}
             validator={validator} 
-            formData={formData} 
+            onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}
             disabled={disabled}
           /> }
+      {children}
+
     </>
   )
 }

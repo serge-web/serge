@@ -17,11 +17,12 @@ export interface FormProps {
   schema: Record<string, unknown>
   id?: string
   uiSchema: string
+  onSubmit?: any
   className?: string
   onChange: (newSchema: IChangeEvent<FormData>) => void
+  onSubmit: (newSchema: IChangeEvent<FormData>) => void
   validator: any
   templates?: any
-  formData: FormData
   disabled: boolean
   formClassName?: string // Optional class name for the form
 }
@@ -35,6 +36,7 @@ export default interface Props {
   /**
    * content of message
    */
+  submitNewValue?: (value: { [property: string]: any }, e: React.MouseEvent<HTMLButtonElement>) => void
   messageContent?: MessageStructure
   /**
    * id for message (used for tracking message read)
