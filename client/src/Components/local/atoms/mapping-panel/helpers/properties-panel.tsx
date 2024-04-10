@@ -21,7 +21,7 @@ const componentFor = (key: string, prop: SelectedProps, propertyType: PropertyTy
       </select>
     } 
     case 'NumberProperty': {
-      return <input value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
+      return <input type='number' value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
     }
     default: {
       console.warn('Failed to generate component for ' + prop.type)
@@ -45,8 +45,8 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
             return <div key={key + kIdx} className={styles.itemsBox}>
               <p>Lat/Lng:</p>
               <div className={styles.latLng}>
-                <input style={{ width: '49%' }} value={latValue} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange('lat', e.target.value)} />
-                <input style={{ width: '49%' }} value={lngValue} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange('lng', e.target.value)} />
+                <input type='number' style={{ width: '49%' }} value={latValue} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange('lat', e.target.value)} />
+                <input type='number' style={{ width: '49%' }} value={lngValue} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange('lng', e.target.value)} />
               </div>
             </div>  
           }
