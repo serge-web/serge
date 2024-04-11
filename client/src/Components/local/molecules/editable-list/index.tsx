@@ -50,7 +50,7 @@ export const EditableList: React.FC<PropTypes> = ({
   }
 
   const filterChannels = (item: Item, value: string): boolean => {
-    return (item[filterKey] || item.name || item.title).toLowerCase().indexOf(value.toLowerCase()) > -1
+    return (item[filterKey] || item.name || item.title || '').toLowerCase().indexOf(value.toLowerCase()) > -1
   }
 
   return (
