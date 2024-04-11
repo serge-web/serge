@@ -1,39 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MessageCreator renders correctly 1`] = `
-Array [
-  <div
-    className="flex-content form-group"
+<div
+  className="flex-content form-group"
+>
+  <label
+    className="material-label"
+    htmlFor=""
+    id="private-message-input-label"
   >
-    <label
-      className="material-label"
-      htmlFor=""
-      id="private-message-input-label"
-    >
-      <svg
-        className="svg-inline--fa fa-user-secret"
-      />
-      Private message
-    </label>
-    <textarea
-      className="form-control"
-      id="private-message-input"
-      onChange={[Function]}
-      value=""
+    <svg
+      className="svg-inline--fa fa-user-secret"
     />
-  </div>,
-  <div
-    className="form-group"
-  >
-    <button
-      className="btn btn-action btn-action--form btn-action--cancel"
-      name="cancel"
-      onClick={[Function]}
-    >
-      <span>
-        Cancel
-      </span>
-    </button>
-  </div>,
-]
+    Private message
+  </label>
+  <textarea
+    className="form-control"
+    id="private-message-input"
+    onChange={[Function]}
+    value=""
+  />
+</div>
 `;
