@@ -25,6 +25,7 @@ export interface FormProps {
   id?: string
   uiSchema: string
   onSubmit?: any
+  formData: formData
   className?: string
   onChange: (newSchema: IChangeEvent<FormData>) => void
   onSubmit: (newSchema: IChangeEvent<FormData>) => void

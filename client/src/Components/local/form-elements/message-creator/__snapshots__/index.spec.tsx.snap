@@ -34,15 +34,6 @@ Array [
         Cancel
       </span>
     </button>
-    <button
-      className="btn btn-action btn-action--form btn-action--send-message"
-      name="send"
-      onClick={[Function]}
-    >
-      <span>
-        Send Message
-      </span>
-    </button>
   </div>,
 ]
 `;

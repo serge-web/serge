@@ -48,6 +48,7 @@ export const JsonEditor: React.FC<Props> = ({
   const [schema, setSchema] = useState<Record<string, unknown>>() 
   const [uischema, setUiSchema] = useState<string>('{}')
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
+  const [formData, setFormData] = useState<FormData>({})
   const validator = customizeValidator<FormData>()
   
   const prevTemplates: TemplateBody = usePrevious(messageId)
@@ -105,6 +106,7 @@ export const JsonEditor: React.FC<Props> = ({
     //   /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
     //    * convert them
     //    */
+    setFormData(newFormData.formData as any)
     const fixedDate = fixDate(newFormData.formData as any)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
     if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
@@ -130,6 +132,7 @@ export const JsonEditor: React.FC<Props> = ({
   const onPopupCancel = (): void => {
     // removePlanning
     setConfirmIsOpen(false)
+    setFormData({})
   }
 
   const onPopupConfirm = (): void => {
@@ -162,6 +165,10 @@ export const JsonEditor: React.FC<Props> = ({
       setUiSchema(uischema)
     }
   }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title, clearForm])
+
+  useEffect(() => {
+    setFormData({})
+  }, [clearForm, template])
 
   const SaveMessageButton = () => (
     <div className='button-wrap' >
@@ -211,6 +218,8 @@ export const JsonEditor: React.FC<Props> = ({
                 schema={schema} 
                 uiSchema={JSON.parse(uischema)}
                 onChange={handleChange}
+                onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}  
+                formData={formData}
                 validator={validator} 
                 templates={{ ButtonTemplates: { } }}
                 disabled={disabled}
@@ -222,15 +231,16 @@ export const JsonEditor: React.FC<Props> = ({
           : schema && <Form
             className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
             schema={schema} 
+            
             uiSchema={
               { ...JSON.parse(uischema), ...submitUiSchema }}
             onChange={handleChange}
             validator={validator} 
+            formData={formData}
             onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}
             disabled={disabled}
           /> }
       {children}
-
     </>
   )
 }
