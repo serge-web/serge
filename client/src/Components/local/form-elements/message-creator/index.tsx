@@ -148,6 +148,7 @@ const MessageCreator: React.FC<PropTypes> = ({
         }}
         customiseTemplate={customiseTemplate}
         submitNewValue={sendMessage}
+        openCancelConfirmPopup={openConfirmPopup}
         messageId={messageOption}
         formClassName={'form-group message-creator'}
         title={messageOption}
@@ -177,16 +178,6 @@ const MessageCreator: React.FC<PropTypes> = ({
             />
           </div>
         )}
-        <div className="form-group">
-          <button
-            name="cancel"
-            className="btn btn-action btn-action--form btn-action--cancel"
-            onClick={openConfirmPopup}
-          >
-            <span>Cancel</span>
-          </button>
-
-        </div>
       </ JsonEditor >
     </>
   )

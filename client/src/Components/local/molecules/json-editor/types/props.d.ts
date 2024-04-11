@@ -62,6 +62,7 @@ export default interface Props {
 
   // Called when user cancels document edit
   onCancelEdit?: () => void
+  openCancelConfirmPopup?: (event: MouseEvent<HTMLButtonElement>) => void
   confirmCancel?: boolean
   /**
    * whether the form is editable (disable for read-only view)

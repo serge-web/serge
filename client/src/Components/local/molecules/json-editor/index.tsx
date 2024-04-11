@@ -9,7 +9,7 @@ import moment from 'moment'
 import React, { useEffect, useState, FunctionComponent } from 'react'
 import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
-import Props, { FormProps, UISchemas } from './types/props'
+import Props, { FormProps } from './types/props'
 
 export interface FormData {
   foo?: string
@@ -31,6 +31,7 @@ export const JsonEditor: React.FC<Props> = ({
   formClassName,
   formId,
   customiseTemplate,
+  openCancelConfirmPopup,
   disabled = false,
   // expandHeight = true,
   gameDate,
@@ -164,11 +165,11 @@ export const JsonEditor: React.FC<Props> = ({
       setSchema(schemaWithTitle)
       setUiSchema(uischema)
     }
-  }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title, clearForm])
+  }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title])
 
   useEffect(() => {
     setFormData({})
-  }, [clearForm, template])
+  }, [clearForm, prevTemplates])
 
   const SaveMessageButton = () => (
     <div className='button-wrap' >
@@ -188,17 +189,6 @@ export const JsonEditor: React.FC<Props> = ({
       }
     </div>
   )
-  
-  const submitUiSchema: UISchemas = {
-    'ui:submitButtonOptions': {
-      props: {
-        disabled: false,
-        className: 'btn btn-info'
-      },
-      norender: false,
-      submitText: 'Send Message'
-    }
-  }
   
   return (
     <>
@@ -232,14 +222,30 @@ export const JsonEditor: React.FC<Props> = ({
             className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
             schema={schema} 
             
-            uiSchema={
-              { ...JSON.parse(uischema), ...submitUiSchema }}
+            uiSchema={JSON.parse(uischema)}
             onChange={handleChange}
             validator={validator} 
             formData={formData}
             onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}
             disabled={disabled}
-          /> }
+          >
+            <div className="form-group">
+              <button
+                name="cancel"
+                className="btn btn-action btn-action--form btn-action--cancel"
+                type='button'
+                onClick={ openCancelConfirmPopup}
+              >
+                <span>Cancel</span>
+              </button>
+              <button
+                name="send"
+                className="btn btn-action btn-action--form btn-action--send-message"
+              >
+                <span>Send Message</span>
+              </button>
+            </div>
+          </Form> }
       {children}
     </>
   )
