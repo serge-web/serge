@@ -9,6 +9,7 @@ interface CssExports {
   'header': string;
   'health-bar': string;
   'icon': string;
+  'inputBox': string;
   'itemsBox': string;
   'itemsPanel': string;
   'itemsResponsive': string;
@@ -24,6 +25,7 @@ interface CssExports {
   'resize-handle-horizontal': string;
   'resize-handle-inner': string;
   'resize-handle-outer': string;
+  'sidcbtn': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
