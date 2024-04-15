@@ -153,7 +153,7 @@ const milSymProps: MilSymProperties = {
   label: 'Headquarters Building',
   turn: 1,
   force: 'f-red',
-  sidc: 'SFG-UCI----D',
+  sidc: '10031000141211000000',
   health: 80,
   // additional props for mil symbol
   category: 'Civilian',
