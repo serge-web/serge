@@ -125,7 +125,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
     const handleFormChange = (newSchema: string, newUiSchema: string) => {
       const details = data.details
       const newDetails = {
-        ...details as object,
+        ...details,
         schema: newSchema,
         uischema: newUiSchema
       }
