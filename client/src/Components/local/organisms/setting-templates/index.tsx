@@ -121,7 +121,18 @@ const SettingTemplate: React.FC<PropTypes> = ({
     const contentTabs = [TemplateTab.Preview, TemplateTab.Visual]
 
     if (!data) return null
-    
+
+    const handleFormChange = (newSchema: string, newUiSchema: string) => {
+      const details = data.details
+      const newDetails = {
+        ...details as object,
+        schema: newSchema,
+        uischema: newUiSchema
+      }
+
+      handleChangeTemplate({ ...data, details: newDetails })
+    }
+
     return (
       <div key={selectedItem}>
         <div className={cx(styles.row, styles['mb-20'])}>
@@ -147,19 +158,16 @@ const SettingTemplate: React.FC<PropTypes> = ({
           currentTab === TemplateTab.Preview && <FormBuilder
             schema={schema}
             uischema={uischema}
-            onChange={(newSchema: string, newUiSchema: string) => {
-              setSchema(newSchema)
-              setUiSchema(newUiSchema)
-            }}
+            onChange={handleFormChange}
           />
         }
         {
           currentTab === TemplateTab.Visual && isValidJSON(schema) && <Form
             schema={JSON.parse(schema)} 
             uiSchema={JSON.parse(uischema)}
+            formData={formData}
             onChange={(newFormData) => console.log('newFormData', newFormData)}
             validator={validator} 
-            formData={formData} 
           />
         }
         {schema && console.log('Please note: No form has been created. To proceed, kindly create a form.')}
