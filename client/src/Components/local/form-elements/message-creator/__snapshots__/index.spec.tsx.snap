@@ -1,24 +1,563 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MessageCreator renders correctly 1`] = `
-<div
-  className="flex-content form-group"
->
-  <label
-    className="material-label"
-    htmlFor=""
-    id="private-message-input-label"
+Array [
+  <div
+    className="alert alert-danger fade"
+    role="alert"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
   >
-    <svg
-      className="svg-inline--fa fa-user-secret"
+    <h5>
+      Schema:
+    </h5>
+     
+    
+  </div>,
+  <div
+    className="alert alert-danger fade"
+    role="alert"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  >
+    <h5>
+      UI Schema:
+    </h5>
+     
+    
+  </div>,
+  <form
+    className="form-group message-creator"
+    noValidate={false}
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group field field-object"
+    >
+      <div
+        className="form-group"
+      >
+        <div
+          className="my-1"
+          id="root__title"
+        >
+          <h5>
+            Chat
+          </h5>
+          <hr
+            className="border-0 bg-secondary"
+            style={
+              Object {
+                "height": "1px",
+              }
+            }
+          />
+        </div>
+        <div
+          className="p-0 container-fluid"
+        >
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-boolean"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_completed"
+                  >
+                    Completed
+                  </label>
+                  <div
+                    aria-describedby="root_completed__error root_completed__description root_completed__help"
+                    className="checkbox  form-group"
+                  >
+                    <div
+                      className="form-check"
+                    >
+                      <input
+                        autoFocus={false}
+                        checked={false}
+                        className="form-check-input"
+                        disabled={false}
+                        id="root_completed"
+                        name="root_completed"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onFocus={[Function]}
+                        required={false}
+                        type="checkbox"
+                      />
+                      <label
+                        className="form-check-label"
+                        htmlFor="root_completed"
+                        title=""
+                      >
+                        Completed
+                      </label>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_Reference"
+                  >
+                    Reference
+                  </label>
+                  <input
+                    aria-describedby="root_Reference__error root_Reference__description root_Reference__help"
+                    autoFocus={false}
+                    className="form-control"
+                    disabled={false}
+                    id="root_Reference"
+                    name="root_Reference"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder="Enter reference"
+                    readOnly={false}
+                    required={false}
+                    type="text"
+                    value=""
+                  />
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_Title"
+                  >
+                    Title
+                  </label>
+                  <input
+                    aria-describedby="root_Title__error root_Title__description root_Title__help"
+                    autoFocus={false}
+                    className="form-control"
+                    disabled={false}
+                    id="root_Title"
+                    name="root_Title"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder="Enter title"
+                    readOnly={false}
+                    required={false}
+                    type="text"
+                    value=""
+                  />
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-array"
+              >
+                <div
+                  className="form-group"
+                >
+                  <div>
+                    <div
+                      className="p-0 m-0 row"
+                    >
+                      <div
+                        className="p-0 m-0 col"
+                      >
+                        <div
+                          className="my-1"
+                          id="root_Forces__title"
+                        >
+                          <h5>
+                            Forces
+                          </h5>
+                          <hr
+                            className="border-0 bg-secondary"
+                            style={
+                              Object {
+                                "height": "1px",
+                              }
+                            }
+                          />
+                        </div>
+                        <div
+                          className="p-0 m-0 container-fluid"
+                        >
+                          <div>
+                            <div
+                              className="mb-2  d-flex align-items-center row"
+                            >
+                              <div
+                                className="col-lg-9 col-9"
+                              >
+                                <div
+                                  className="form-group field field-object"
+                                >
+                                  <div
+                                    className="form-group"
+                                  >
+                                    <div
+                                      className="my-1"
+                                      id="root_Forces_0__title"
+                                    >
+                                      <h5>
+                                        Forces-1
+                                      </h5>
+                                      <hr
+                                        className="border-0 bg-secondary"
+                                        style={
+                                          Object {
+                                            "height": "1px",
+                                          }
+                                        }
+                                      />
+                                    </div>
+                                    <div
+                                      className="p-0 container-fluid"
+                                    >
+                                      <div
+                                        className="row"
+                                        style={
+                                          Object {
+                                            "marginBottom": "10px",
+                                          }
+                                        }
+                                      >
+                                        <div
+                                          className="col-12"
+                                        >
+                                           
+                                          <div
+                                            className="form-group field field-string"
+                                          >
+                                            <div
+                                              className="form-group"
+                                            >
+                                              <label
+                                                className="form-label"
+                                                htmlFor="root_Forces_0_force"
+                                              >
+                                                force
+                                              </label>
+                                              <select
+                                                aria-describedby="root_Forces_0_force__error root_Forces_0_force__description root_Forces_0_force__help"
+                                                autoFocus={false}
+                                                className="custom-select"
+                                                disabled={false}
+                                                id="root_Forces_0_force"
+                                                name="root_Forces_0_force"
+                                                onBlur={[Function]}
+                                                onChange={[Function]}
+                                                onFocus={[Function]}
+                                                required={false}
+                                                value=""
+                                              >
+                                                <option
+                                                  value=""
+                                                >
+                                                  
+                                                </option>
+                                                <option
+                                                  disabled={false}
+                                                  id="Blue"
+                                                  value="0"
+                                                >
+                                                  Blue
+                                                </option>
+                                                <option
+                                                  disabled={false}
+                                                  id="Red"
+                                                  value="1"
+                                                >
+                                                  Red
+                                                </option>
+                                                <option
+                                                  disabled={false}
+                                                  id="Green"
+                                                  value="2"
+                                                >
+                                                  Green
+                                                </option>
+                                              </select>
+                                              
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div
+                                className="py-4 col-lg-3 col-3"
+                              >
+                                <div
+                                  className="d-flex flex-row"
+                                >
+                                  <div
+                                    className="m-0 p-0"
+                                  >
+                                    <button
+                                      className="btn btn-danger btn-sm"
+                                      disabled={false}
+                                      onClick={[Function]}
+                                      style={
+                                        Object {
+                                          "flex": 1,
+                                          "fontWeight": "bold",
+                                          "paddingLeft": 6,
+                                          "paddingRight": 6,
+                                        }
+                                      }
+                                      title="Remove"
+                                      type="button"
+                                    >
+                                      <svg
+                                        fill="currentColor"
+                                        height="1em"
+                                        stroke="currentColor"
+                                        strokeWidth="0"
+                                        style={
+                                          Object {
+                                            "color": undefined,
+                                          }
+                                        }
+                                        viewBox="0 0 512 512"
+                                        width="1em"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          d="M368.5 240h-225c-8.8 0-16 7.2-16 16 0 4.4 1.8 8.4 4.7 11.3 2.9 2.9 6.9 4.7 11.3 4.7h225c8.8 0 16-7.2 16-16s-7.2-16-16-16z"
+                                        />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            className="container"
+                          >
+                            <div
+                              className="mt-2 row"
+                            >
+                              <div
+                                className="col-9"
+                              />
+                              <div
+                                className="py-4 col-lg-3 col-3 col-3"
+                              >
+                                <button
+                                  className="ml-1 array-item-add btn btn-primary"
+                                  disabled={false}
+                                  onClick={[Function]}
+                                  style={
+                                    Object {
+                                      "width": "100%",
+                                    }
+                                  }
+                                  title="Add Item"
+                                  type="button"
+                                >
+                                  <svg
+                                    fill="currentColor"
+                                    height="1em"
+                                    stroke="currentColor"
+                                    strokeWidth="0"
+                                    style={
+                                      Object {
+                                        "color": undefined,
+                                      }
+                                    }
+                                    viewBox="0 0 16 16"
+                                    width="1em"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clipRule="evenodd"
+                                      d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z"
+                                      fillRule="evenodd"
+                                    />
+                                    <path
+                                      clipRule="evenodd"
+                                      d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z"
+                                      fillRule="evenodd"
+                                    />
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_newInput1"
+                  >
+                    New Input 1
+                  </label>
+                  <input
+                    aria-describedby="root_newInput1__error root_newInput1__description root_newInput1__help"
+                    autoFocus={false}
+                    className="form-control"
+                    disabled={false}
+                    id="root_newInput1"
+                    name="root_newInput1"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder=""
+                    readOnly={false}
+                    required={false}
+                    type="text"
+                    value=""
+                  />
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-group"
+    >
+      <button
+        className="btn btn-action btn-action--form btn-action--cancel"
+        name="cancel"
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          Cancel
+        </span>
+      </button>
+      <button
+        className="btn btn-action btn-action--form btn-action--send-message"
+        name="send"
+      >
+        <span>
+          Send Message
+        </span>
+      </button>
+    </div>
+  </form>,
+  <div
+    className="flex-content form-group"
+  >
+    <label
+      className="material-label"
+      htmlFor=""
+      id="private-message-input-label"
+    >
+      <svg
+        className="svg-inline--fa fa-user-secret"
+      />
+      Private message
+    </label>
+    <textarea
+      className="form-control"
+      id="private-message-input"
+      onChange={[Function]}
+      value=""
     />
-    Private message
-  </label>
-  <textarea
-    className="form-control"
-    id="private-message-input"
-    onChange={[Function]}
-    value=""
-  />
-</div>
+  </div>,
+]
 `;

@@ -1,4 +1,7 @@
 import { TemplateBody } from 'src/custom-types'
+import {
+  Alert
+} from 'reactstrap'
 import { configDateTimeLocal, deepCopy, usePrevious } from 'src/Helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { isEqual } from 'lodash'
@@ -9,6 +12,7 @@ import moment from 'moment'
 import React, { useEffect, useState, FunctionComponent } from 'react'
 import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
+import { ErrorBoundary } from 'react-error-boundary'
 import Props, { FormProps } from './types/props'
 
 export interface FormData {
@@ -46,7 +50,7 @@ export const JsonEditor: React.FC<Props> = ({
 }) => {
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
-  const [schema, setSchema] = useState<Record<string, unknown>>() 
+  const [schema, setSchema] = useState<string>('') 
   const [uischema, setUiSchema] = useState<string>('{}')
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
   const [formData, setFormData] = useState<FormData>({})
@@ -162,14 +166,38 @@ export const JsonEditor: React.FC<Props> = ({
       const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
       const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
   
-      setSchema(schemaWithTitle)
+      setSchema(JSON.stringify(schemaWithTitle))
       setUiSchema(uischema)
     }
-  }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title])
+  }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title, clearForm])
 
   useEffect(() => {
-    setFormData({})
+    const clearFormData = () => {
+      const newFormData = {}
+      for (const key in formData) {
+        newFormData[key] = ''
+      }
+      setFormData(newFormData)
+    }
+
+    if (clearForm || prevTemplates) {
+      clearFormData()
+    }
   }, [clearForm, prevTemplates])
+
+  function checkError (text: string) {
+    let data
+    try {
+      data = JSON.parse(text)
+    } catch (e: any) {
+      return e.toString()
+    }
+    // console.log('data', typeof data === 'string')
+    if (typeof data === 'string') {
+      return 'Received a string instead of object.'
+    } 
+    return ''
+  }
 
   const SaveMessageButton = () => (
     <div className='button-wrap' >
@@ -189,9 +217,22 @@ export const JsonEditor: React.FC<Props> = ({
       }
     </div>
   )
-  
+  const schemaError = checkError(schema)
+  const schemaUiError = checkError(uischema)
   return (
     <>
+      <Alert
+        style={{ display: schemaError === '' ? 'none' : 'block' }}
+        color='danger'
+      >
+        <h5>Schema:</h5> {schemaError}
+      </Alert>
+      <Alert
+        style={{ display: schemaUiError === '' ? 'none' : 'block' }}
+        color='danger'
+      >
+        <h5>UI Schema:</h5> {schemaUiError}
+      </Alert>
       {
         viewSaveButton
           ? <>
@@ -205,7 +246,9 @@ export const JsonEditor: React.FC<Props> = ({
             {
               schema && <Form 
                 id={formId}
-                schema={schema} 
+                schema={
+                  schemaError === '' ? JSON.parse(schema) : {}
+                }
                 uiSchema={JSON.parse(uischema)}
                 onChange={handleChange}
                 onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}  
@@ -218,34 +261,52 @@ export const JsonEditor: React.FC<Props> = ({
             }
             <SaveMessageButton />
           </>
-          : schema && <Form
-            className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
-            schema={schema} 
-            
-            uiSchema={JSON.parse(uischema)}
-            onChange={handleChange}
-            validator={validator} 
-            formData={formData}
-            onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}
-            disabled={disabled}
+          
+          : schema &&
+          <ErrorBoundary
+            fallbackRender={({ error, resetErrorBoundary }) => (
+              <div role="alert" className="error">
+                <h2>{error.toString()}</h2>
+                <button onClick={resetErrorBoundary}>Reset Error</button>
+              </div>
+            )}
           >
-            <div className="form-group">
-              <button
-                name="cancel"
-                className="btn btn-action btn-action--form btn-action--cancel"
-                type='button'
-                onClick={ openCancelConfirmPopup}
-              >
-                <span>Cancel</span>
-              </button>
-              <button
-                name="send"
-                className="btn btn-action btn-action--form btn-action--send-message"
-              >
-                <span>Send Message</span>
-              </button>
-            </div>
-          </Form> }
+            <Form
+              className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
+              schema={
+                schemaError === '' ? JSON.parse(schema) : ''
+              }
+              uiSchema={
+                schemaUiError === ''
+                  ? JSON.parse(uischema)
+                  : ''
+              }
+              onChange={handleChange}
+              validator={validator} 
+              formData={formData}
+              onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}
+              disabled={disabled}
+            >
+              <div className="form-group">
+                <button
+                  name="cancel"
+                  className="btn btn-action btn-action--form btn-action--cancel"
+                  type='button'
+                  onClick={ openCancelConfirmPopup}
+                >
+                  <span>Cancel</span>
+                </button>
+                <button
+                  name="send"
+                  className="btn btn-action btn-action--form btn-action--send-message"
+                >
+                  <span>Send Message</span>
+                </button>
+              </div>
+            </Form> 
+          </ErrorBoundary>
+          
+      }
       {children}
     </>
   )

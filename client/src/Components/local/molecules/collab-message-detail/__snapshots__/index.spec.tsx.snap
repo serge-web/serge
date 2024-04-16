@@ -9,6 +9,470 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     className="actions"
   />
   <div
+    className="alert alert-danger fade"
+    role="alert"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  >
+    <h5>
+      Schema:
+    </h5>
+     
+    
+  </div>
+  <div
+    className="alert alert-danger fade"
+    role="alert"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  >
+    <h5>
+      UI Schema:
+    </h5>
+     
+    
+  </div>
+  <form
+    className="edt-enable"
+    noValidate={false}
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group field field-object"
+    >
+      <div
+        className="form-group"
+      >
+        
+        <div
+          className="p-0 container-fluid"
+        >
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_Reference"
+                  >
+                    Reference (sys generated)
+                  </label>
+                  <input
+                    aria-describedby="root_Reference__error root_Reference__description root_Reference__help"
+                    autoFocus={false}
+                    className="form-control"
+                    disabled={true}
+                    id="root_Reference"
+                    name="root_Reference"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder=""
+                    readOnly={false}
+                    required={false}
+                    type="text"
+                    value=""
+                  />
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_Title"
+                  >
+                    Title
+                  </label>
+                  <input
+                    aria-describedby="root_Title__error root_Title__description root_Title__help"
+                    autoFocus={false}
+                    className="form-control"
+                    disabled={true}
+                    id="root_Title"
+                    name="root_Title"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder=""
+                    readOnly={false}
+                    required={false}
+                    type="text"
+                    value=""
+                  />
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_RFI"
+                  >
+                    RFI
+                  </label>
+                  <div
+                    className="input-group"
+                  >
+                    <textarea
+                      aria-describedby="root_RFI__error root_RFI__description root_RFI__help"
+                      autoFocus={false}
+                      className="form-control"
+                      disabled={true}
+                      id="root_RFI"
+                      name="root_RFI"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onFocus={[Function]}
+                      placeholder=""
+                      readOnly={false}
+                      required={false}
+                      rows={5}
+                    />
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_Priority"
+                  >
+                    Priority
+                  </label>
+                  <select
+                    aria-describedby="root_Priority__error root_Priority__description root_Priority__help"
+                    autoFocus={false}
+                    className="custom-select"
+                    disabled={true}
+                    id="root_Priority"
+                    name="root_Priority"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    value=""
+                  >
+                    <option
+                      value=""
+                    >
+                      
+                    </option>
+                    <option
+                      disabled={false}
+                      id="High"
+                      value="0"
+                    >
+                      High
+                    </option>
+                    <option
+                      disabled={false}
+                      id="Medium"
+                      value="1"
+                    >
+                      Medium
+                    </option>
+                    <option
+                      disabled={false}
+                      id="Low"
+                      value="2"
+                    >
+                      Low
+                    </option>
+                  </select>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_FAO"
+                  >
+                    FAO
+                  </label>
+                  <select
+                    aria-describedby="root_FAO__error root_FAO__description root_FAO__help"
+                    autoFocus={false}
+                    className="custom-select"
+                    disabled={true}
+                    id="root_FAO"
+                    name="root_FAO"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    value=""
+                  >
+                    <option
+                      value=""
+                    >
+                      
+                    </option>
+                    <option
+                      disabled={false}
+                      id="J2"
+                      value="0"
+                    >
+                      J2
+                    </option>
+                    <option
+                      disabled={false}
+                      id="SME – CEMA"
+                      value="1"
+                    >
+                      SME – CEMA
+                    </option>
+                    <option
+                      disabled={false}
+                      id="SME – Space"
+                      value="2"
+                    >
+                      SME – Space
+                    </option>
+                    <option
+                      disabled={false}
+                      id="SME – Logs & Med"
+                      value="3"
+                    >
+                      SME – Logs & Med
+                    </option>
+                    <option
+                      disabled={false}
+                      id="SME – IO"
+                      value="4"
+                    >
+                      SME – IO
+                    </option>
+                    <option
+                      disabled={false}
+                      id="SME – White"
+                      value="5"
+                    >
+                      SME – White
+                    </option>
+                    <option
+                      disabled={false}
+                      id="Actor – White"
+                      value="6"
+                    >
+                      Actor – White
+                    </option>
+                    <option
+                      disabled={false}
+                      id="Actor – Red"
+                      value="7"
+                    >
+                      Actor – Red
+                    </option>
+                    <option
+                      disabled={false}
+                      id="Other"
+                      value="8"
+                    >
+                      Other
+                    </option>
+                  </select>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_ResponseRequiredBy"
+                  >
+                    Response required by
+                  </label>
+                  <select
+                    aria-describedby="root_ResponseRequiredBy__error root_ResponseRequiredBy__description root_ResponseRequiredBy__help"
+                    autoFocus={false}
+                    className="custom-select"
+                    disabled={true}
+                    id="root_ResponseRequiredBy"
+                    name="root_ResponseRequiredBy"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    value=""
+                  >
+                    <option
+                      value=""
+                    >
+                      
+                    </option>
+                    <option
+                      disabled={false}
+                      id="Within an hour"
+                      value="0"
+                    >
+                      Within an hour
+                    </option>
+                    <option
+                      disabled={false}
+                      id="NLT 1300"
+                      value="1"
+                    >
+                      NLT 1300
+                    </option>
+                    <option
+                      disabled={false}
+                      id="NLT 1600"
+                      value="2"
+                    >
+                      NLT 1600
+                    </option>
+                    <option
+                      disabled={false}
+                      id="Not urgent"
+                      value="3"
+                    >
+                      Not urgent
+                    </option>
+                  </select>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-group"
+    >
+      <button
+        className="btn btn-action btn-action--form btn-action--cancel"
+        name="cancel"
+        type="button"
+      >
+        <span>
+          Cancel
+        </span>
+      </button>
+      <button
+        className="btn btn-action btn-action--form btn-action--send-message"
+        name="send"
+      >
+        <span>
+          Send Message
+        </span>
+      </button>
+    </div>
+  </form>
+  <div
     className="main theme-dark disabled"
   >
     <label

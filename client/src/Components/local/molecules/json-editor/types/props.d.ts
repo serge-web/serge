@@ -1,3 +1,4 @@
+import React from 'react'
 import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from 'src/custom-types'
 import { IChangeEvent } from '@rjsf/core'
 
@@ -21,7 +22,7 @@ export type UISchemas = {
 }
 
 export interface FormProps {
-  schema: Record<string, unknown>
+  schema: string
   id?: string
   uiSchema: string
   onSubmit?: any
@@ -62,7 +63,7 @@ export default interface Props {
 
   // Called when user cancels document edit
   onCancelEdit?: () => void
-  openCancelConfirmPopup?: (event: MouseEvent<HTMLButtonElement>) => void
+  openCancelConfirmPopup?: (event: React.MouseEvent<HTMLButtonElement>) => void
   confirmCancel?: boolean
   /**
    * whether the form is editable (disable for read-only view)
