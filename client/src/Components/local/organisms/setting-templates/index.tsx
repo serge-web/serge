@@ -57,7 +57,6 @@ const SettingTemplate: React.FC<PropTypes> = ({
   }
 
   const handleChangeTemplates = (nextTemplates: TemplateBody[]): void => {
-    setTemplateData(nextTemplates)
     onChange({ templates: nextTemplates })
   }
 
@@ -129,7 +128,6 @@ const SettingTemplate: React.FC<PropTypes> = ({
         schema: newSchema,
         uischema: newUiSchema
       }
-
       handleChangeTemplate({ ...data, details: newDetails })
     }
 

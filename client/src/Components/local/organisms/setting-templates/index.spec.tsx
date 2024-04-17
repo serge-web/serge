@@ -7,8 +7,9 @@ import SettingForces from './index'
 const onChange = (updates: { templates: Array<TemplateBody> }): void =>
   console.log({ 'update template data': updates })
 
-const onSave = (): void => {
+const onSave = (templateData: TemplateBody): void => {
   console.log('Your save logic', MessageTemplatesMock)
+  console.log('templateData:', templateData)
 }
 
 jest.mock('@ginkgo-bioworks/react-json-schema-form-builder', () => ({
