@@ -81,6 +81,8 @@ const SettingTemplate: React.FC<PropTypes> = ({
 
   const renderContent = (): React.ReactNode => {
     const data = templateData[selectedItem]
+    if (!data) return null
+
     const { schema, uischema } = data.details 
 
     const isValidJSON = (jsonString: string): boolean => {
@@ -98,7 +100,6 @@ const SettingTemplate: React.FC<PropTypes> = ({
 
     const contentTabs = [TemplateTab.Preview, TemplateTab.Visual]
 
-    if (!data) return null
     const handleFormChange = (newSchema: string, newUiSchema: string) => {
       const details = data.details
       const newDetails = {

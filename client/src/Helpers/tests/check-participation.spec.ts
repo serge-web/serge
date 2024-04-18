@@ -48,7 +48,11 @@ const allTemplatesNoChat: TemplateBodysByKey = {
     _rev: '',
     completed: false,
     lastUpdated: '',
-    details: {}
+    details: {
+      title: 'RFI',
+      schema: '',
+      uischema: ''
+    }
   },
   wather: {
     title: 'Weather',
@@ -56,7 +60,11 @@ const allTemplatesNoChat: TemplateBodysByKey = {
     _rev: '',
     completed: false,
     lastUpdated: '',
-    details: {}
+    details: {
+      title: 'Weather',
+      schema: '',
+      uischema: ''
+    }
   }
 }
 
@@ -67,7 +75,11 @@ const allTemplates: TemplateBodysByKey = {
     _rev: '',
     completed: false,
     lastUpdated: '',
-    details: {}
+    details: {
+      title: 'Chat',
+      schema: '',
+      uischema: ''
+    }
   },
   ...allTemplatesNoChat
 }

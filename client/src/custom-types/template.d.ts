@@ -8,9 +8,9 @@ export interface TemplateBody {
 }
 
 interface TemplateBodyDetails {
-  schema?: string
-  uischema?: string
-  title?: string
+  schema: string
+  uischema: string
+  title: string
 }
 
 export interface TempletCreatorBody {
