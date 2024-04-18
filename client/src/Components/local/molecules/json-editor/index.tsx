@@ -292,7 +292,7 @@ export const JsonEditor: React.FC<Props> = ({
                   name="cancel"
                   className="btn btn-action btn-action--form btn-action--cancel"
                   type='button'
-                  onClick={ openCancelConfirmPopup}
+                  onClick={openCancelConfirmPopup}
                 >
                   <span>Cancel</span>
                 </button>

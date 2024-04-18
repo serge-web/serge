@@ -1,24 +1,18 @@
-import React, { useState, useEffect, FunctionComponent } from 'react'
+import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import Button from '../../atoms/button'
 import TextInput from '../../atoms/text-input'
-import { withTheme } from '@rjsf/core'
 import Tabs from '../../atoms/tabs'
 import uniqid from 'uniqid'
 import EditableList, { Item } from '../../molecules/editable-list'
 import { FormBuilder } from '@ginkgo-bioworks/react-json-schema-form-builder'
-import { Theme as Bootstrap4Theme } from '@rjsf/bootstrap-4'
-import PropTypes, { FormData, FormProps } from './types/props'
+import PropTypes from './types/props'
+import JsonEditor from '../../molecules/json-editor'
 import { TemplateBody } from 'src/custom-types'
 import { TemplateTab } from 'src/config'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
-import { customizeValidator } from '@rjsf/validator-ajv8'
 import './bioworks.css'
 import styles from './styles.module.scss'
-
-const Form = withTheme(
-  Bootstrap4Theme
-) as unknown as FunctionComponent<FormProps>
 
 const SettingTemplate: React.FC<PropTypes> = ({
   templates,
@@ -35,8 +29,6 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const [currentTab, setCurrentTab] = useState<string>(TemplateTab.Preview)
   const [schema, setSchema] = useState<string>('{}')
   const [uischema, setUiSchema] = useState<string>('{}')
-  const validator = customizeValidator<FormData>()
-  const formData: FormData = {}
   
   useEffect(() => {
     const selectedId = templates.findIndex(template => template._id === selectedTemplate?._id)
@@ -57,6 +49,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
   }
 
   const handleChangeTemplates = (nextTemplates: TemplateBody[]): void => {
+    setTemplateData(nextTemplates)
     onChange({ templates: nextTemplates })
   }
 
@@ -120,7 +113,6 @@ const SettingTemplate: React.FC<PropTypes> = ({
     const contentTabs = [TemplateTab.Preview, TemplateTab.Visual]
 
     if (!data) return null
-
     const handleFormChange = (newSchema: string, newUiSchema: string) => {
       const details = data.details
       const newDetails = {
@@ -160,12 +152,12 @@ const SettingTemplate: React.FC<PropTypes> = ({
           />
         }
         {
-          currentTab === TemplateTab.Visual && isValidJSON(schema) && <Form
-            schema={JSON.parse(schema)} 
-            uiSchema={JSON.parse(uischema)}
-            formData={formData}
-            onChange={(newFormData) => console.log('newFormData', newFormData)}
-            validator={validator} 
+          currentTab === TemplateTab.Visual && isValidJSON(schema) && <JsonEditor
+            template={{
+              details: data.details,
+              _id: data._id
+            }}
+            messageId={data._id}
           />
         }
         {schema && console.log('Please note: No form has been created. To proceed, kindly create a form.')}
