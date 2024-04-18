@@ -2,9 +2,15 @@ export interface TemplateBody {
   _id: string
   _rev?: string
   completed: boolean
-  details: object
+  details: TemplateBodyDetails
   lastUpdated: string
   title: string    
+}
+
+interface TemplateBodyDetails {
+  schema?: string
+  uischema?: string
+  title?: string
 }
 
 export interface TempletCreatorBody {

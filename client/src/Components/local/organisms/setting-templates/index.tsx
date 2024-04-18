@@ -81,7 +81,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
 
   const renderContent = (): React.ReactNode => {
     const data = templateData[selectedItem]
-    const { schema, uischema } = data.details as any
+    const { schema, uischema } = data.details 
 
     const isValidJSON = (jsonString: string): boolean => {
       try {
@@ -138,7 +138,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
           />
         }
         {
-          currentTab === TemplateTab.Visual && isValidJSON(schema) && <JsonEditor
+          currentTab === TemplateTab.Visual && isValidJSON(schema as string) && <JsonEditor
             template={{
               details: data.details,
               _id: data._id

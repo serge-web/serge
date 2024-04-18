@@ -131,20 +131,9 @@ const state: PlayerUi = {
           lastUpdated: '2019-09-30T12:37:26.705Z',
           title: 'Chat',
           details: {
-            type: 'object',
-            properties: {
-              content: {
-                type: 'string',
-                format: 'textarea',
-                options: {
-                  inputAttributes: {
-                    placeholder: 'type the text'
-                  }
-                }
-              }
-            },
-            title: 'Chat',
-            format: 'grid'
+            schema: '',
+            uischema: '',
+            title: 'Chat'
           },
           completed: false,
           _id: 'k16eedkl',
@@ -249,75 +238,9 @@ const state: PlayerUi = {
           lastUpdated: '2019-09-30T12:37:26.705Z',
           title: 'PG19 Weekly Orders',
           details: {
-            type: 'object',
-            properties: {
-              CommandersIntent: {
-                title: 'Commanders Intent',
-                type: 'string',
-                format: 'textarea'
-              },
-              Orders: {
-                items: {
-                  properties: {
-                    Unit: {
-                      title: 'Unit',
-                      type: 'string',
-                      format: 'text'
-                    },
-                    Orders: {
-                      title: 'Orders',
-                      type: 'string',
-                      format: 'textarea'
-                    },
-                    ContingencyOrders: {
-                      title: 'Contingency Orders',
-                      type: 'string',
-                      format: 'textarea'
-                    }
-                  },
-                  type: 'object'
-                },
-                title: 'Orders',
-                type: 'array',
-                format: 'table',
-                minItems: 1
-              },
-              PxTasking: {
-                title: 'Px Tasking',
-                type: 'string',
-                format: 'textarea'
-              },
-              AlliedUnitTasking: {
-                title: 'Allied Unit Tasking',
-                type: 'string',
-                format: 'textarea'
-              },
-              ForceActionOnContact: {
-                title: 'Force action on contact',
-                type: 'string',
-                format: 'textarea'
-              },
-              ForceActionOnLossOfContact: {
-                title: 'Force action on loss of contact',
-                type: 'string',
-                format: 'textarea'
-              },
-              SupportingLogisticsActivity: {
-                title: 'Supporting logistics activity',
-                type: 'string',
-                format: 'textarea'
-              }
-            },
-            title: 'PG19 Weekly Orders',
-            required: [
-              'CommandersIntent',
-              'Orders',
-              'PxTasking',
-              'AlliedUnitTasking',
-              'ForceActionOnContact',
-              'ForceActionOnLossOfContact',
-              'SupportingLogisticsActivity'
-            ]
+            schema: '',
+            uischema: '',
+            title: 'PG19 Weekly Orders'
           },
           completed: false,
           _id: 'k16eedko',
@@ -466,29 +389,9 @@ const state: PlayerUi = {
     'State of World L': {
       completed: false,
       details: {
-        properties: {
-          Forces: {
-            format: 'table',
-            items: {
-              minItems: 1,
-              properties: {
-                force: {
-                  enum: [
-                    'Blue',
-                    'Red',
-                    'Green'
-                  ],
-                  propertyOrder: 100,
-                  type: 'string'
-                }
-              }
-            },
-            minItems: 1,
-            type: 'array'
-          }
-        },
-        title: 'State of World (laydown 2)',
-        type: 'object'
+        schema: '',
+        uischema: '',
+        title: 'State of World (laydown 2)'
       },
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'State of World L',
@@ -499,66 +402,9 @@ const state: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Daily intentions',
       details: {
-        type: 'object',
-        properties: {
-          TurnNumber: {
-            title: 'Turn',
-            type: 'string',
-            format: 'number'
-          },
-          OverallIntentions: {
-            title: 'Overall intentions',
-            type: 'string',
-            format: 'textarea'
-          },
-          Orders: {
-            items: {
-              properties: {
-                Unit: {
-                  title: 'Unit',
-                  type: 'string',
-                  format: 'text'
-                },
-                Tasking: {
-                  title: 'Tasking',
-                  type: 'string',
-                  format: 'textarea'
-                },
-                SearchPolicy: {
-                  title: 'Search Policy',
-                  type: 'string',
-                  format: 'textarea'
-                },
-                ActionOnContact: {
-                  title: 'Action on Contact',
-                  type: 'string',
-                  enum: [
-                    'Ignore',
-                    'Evade',
-                    'Covert Trail',
-                    'Overt Trail',
-                    'Harass'
-                  ]
-                },
-                AnyOtherComments: {
-                  title: 'Any other comments',
-                  type: 'string',
-                  format: 'textarea'
-                }
-              },
-              type: 'object'
-            },
-            title: 'Orders',
-            type: 'array',
-            format: 'table',
-            minItems: 1
-          }
-        },
-        title: 'Daily Intent',
-        required: [
-          'OverallIntentions',
-          'Orders'
-        ]
+        schema: '',
+        uischema: '',
+        title: 'Daily Intent'
       },
       completed: false,
       _id: 'k16eedkn',
@@ -568,18 +414,9 @@ const state: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Message',
       details: {
-        type: 'object',
-        properties: {
-          title: {
-            type: 'string'
-          },
-          content: {
-            type: 'string',
-            format: 'textarea'
-          }
-        },
-        title: 'Message',
-        format: 'grid'
+        schema: '',
+        uischema: '',
+        title: 'Message'
       },
       completed: false,
       _id: 'k16eedki',
@@ -589,65 +426,8 @@ const state: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Weather forecast',
       details: {
-        type: 'object',
-        properties: {
-          title: {
-            type: 'string',
-            title: 'Title'
-          },
-          Location: {
-            type: 'object',
-            properties: {
-              Lat: {
-                type: 'number'
-              },
-              'Lat Hemi': {
-                type: 'string',
-                enum: [
-                  'N',
-                  'S'
-                ]
-              },
-              Long: {
-                type: 'number'
-              },
-              'Long Hemi': {
-                type: 'string',
-                enum: [
-                  'E',
-                  'W'
-                ]
-              }
-            },
-            format: 'grid'
-          },
-          'Valid from': {
-            type: 'string',
-            format: 'datetime-local',
-            options: {
-              flatpickr: {
-                wrap: true,
-                time_24hr: true,
-                allowInput: true
-              }
-            }
-          },
-          'Valid until': {
-            type: 'string',
-            format: 'datetime-local',
-            options: {
-              flatpickr: {
-                wrap: true,
-                time_24hr: true,
-                allowInput: true
-              }
-            }
-          },
-          Forecast: {
-            type: 'string',
-            format: 'textarea'
-          }
-        },
+        schema: '',
+        uischema: '',
         title: 'Weather Forecast'
       },
       completed: false,

@@ -40,6 +40,9 @@ exports[`SettingForces component: renders correctly 1`] = `
             >
               Create Template List
             </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
           </button>
         </div>
         <div
@@ -256,6 +259,9 @@ exports[`SettingForces component: renders correctly 1`] = `
             >
               Save Template
             </span>
+            <span
+              className="MuiTouchRipple-root"
+            />
           </button>
         </div>
       </div>

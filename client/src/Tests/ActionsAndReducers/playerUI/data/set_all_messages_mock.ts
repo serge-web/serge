@@ -255,29 +255,9 @@ const testState: PlayerUi = {
     aa: {
       completed: false,
       details: {
-        properties: {
-          Forces: {
-            format: 'table',
-            items: {
-              minItems: 1,
-              properties: {
-                force: {
-                  enum: [
-                    'Blue',
-                    'Red',
-                    'Green'
-                  ],
-                  propertyOrder: 100,
-                  type: 'string'
-                }
-              }
-            },
-            minItems: 1,
-            type: 'array'
-          }
-        },
-        title: 'State of World (laydown 2)',
-        type: 'object'
+        schema: '',
+        uischema: '',
+        title: 'State of World (laydown 2)'
       },
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'State of World L',
@@ -288,66 +268,9 @@ const testState: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Daily intentions',
       details: {
-        type: 'object',
-        properties: {
-          TurnNumber: {
-            title: 'Turn',
-            type: 'string',
-            format: 'number'
-          },
-          OverallIntentions: {
-            title: 'Overall intentions',
-            type: 'string',
-            format: 'textarea'
-          },
-          Orders: {
-            items: {
-              properties: {
-                Unit: {
-                  title: 'Unit',
-                  type: 'string',
-                  format: 'text'
-                },
-                Tasking: {
-                  title: 'Tasking',
-                  type: 'string',
-                  format: 'textarea'
-                },
-                SearchPolicy: {
-                  title: 'Search Policy',
-                  type: 'string',
-                  format: 'textarea'
-                },
-                ActionOnContact: {
-                  title: 'Action on Contact',
-                  type: 'string',
-                  enum: [
-                    'Ignore',
-                    'Evade',
-                    'Covert Trail',
-                    'Overt Trail',
-                    'Harass'
-                  ]
-                },
-                AnyOtherComments: {
-                  title: 'Any other comments',
-                  type: 'string',
-                  format: 'textarea'
-                }
-              },
-              type: 'object'
-            },
-            title: 'Orders',
-            type: 'array',
-            format: 'table',
-            minItems: 1
-          }
-        },
-        title: 'Daily Intent',
-        required: [
-          'OverallIntentions',
-          'Orders'
-        ]
+        schema: '',
+        uischema: '',
+        title: 'Daily Intent'
       },
       completed: false,
       _id: 'k16eedkn',
@@ -357,19 +280,9 @@ const testState: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Link',
       details: {
-        type: 'object',
-        properties: {
-          title: {
-            type: 'string',
-            format: 'text'
-          },
-          URL: {
-            type: 'string',
-            format: 'url'
-          }
-        },
-        title: 'Link',
-        format: 'grid'
+        schema: '',
+        uischema: '',
+        title: 'Link'
       },
       completed: false,
       _id: 'k16eedkm',
