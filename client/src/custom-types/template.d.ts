@@ -2,7 +2,6 @@ export interface TemplateBody {
   _id: string
   _rev?: string
   completed: boolean
-  // eslint-disable-next-line @typescript-eslint/ban-types
   details: object
   lastUpdated: string
   title: string    

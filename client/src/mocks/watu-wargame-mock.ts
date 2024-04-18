@@ -284,39 +284,9 @@ const wargame: Wargame = {
         {
           completed: false,
           details: {
-            properties: {
-              Reference: {
-                title: 'Reference',
-                type: 'string',
-                format: 'text'
-              },
-              Title: {
-                title: 'Title',
-                type: 'string',
-                format: 'text'
-              },
-              Forces: {
-                format: 'table',
-                items: {
-                  minItems: 1,
-                  properties: {
-                    force: {
-                      enum: [
-                        'Blue',
-                        'Red',
-                        'Green'
-                      ],
-                      propertyOrder: 100,
-                      type: 'string'
-                    }
-                  }
-                },
-                minItems: 1,
-                type: 'array'
-              }
-            },
-            title: 'State of World (laydown 2)',
-            type: 'object'
+            schema: '{"title":"State of World (laydown 2)","type":"object","properties":{"completed":{"type":"boolean","title":"Completed"},"Reference":{"type":"string","title":"Reference","format":"text"},"Title":{"type":"string","title":"Title","format":"text"},"Forces":{"type":"array","title":"Forces","minItems":1,"items":{"type":"object","properties":{"force":{"type":"string","enum":["Blue","Red","Green"]}}}},"newInput1":{"title":"New Input 1","type":"string"}},"dependencies":{},"required":[]}',
+            uischema: '{"completed":{"ui:widget":"checkbox"},"Reference":{"ui:placeholder":"Enter reference"},"Title":{"ui:placeholder":"Enter title"},"Forces":{"ui:options":{"orderable":false},"items":{"force":{"ui:widget":"select"}}},"ui:order":["completed","Reference","Title","Forces","newInput1"]}',
+            title: 'State of World L'
           },
           lastUpdated: '2019-09-30T12:37:26.705Z',
           title: 'State of World L',
@@ -327,66 +297,9 @@ const wargame: Wargame = {
           lastUpdated: '2019-09-30T12:37:26.705Z',
           title: 'Daily intentions',
           details: {
-            type: 'object',
-            properties: {
-              TurnNumber: {
-                title: 'Turn',
-                type: 'string',
-                format: 'number'
-              },
-              OverallIntentions: {
-                title: 'Overall intentions',
-                type: 'string',
-                format: 'textarea'
-              },
-              Orders: {
-                items: {
-                  properties: {
-                    Unit: {
-                      title: 'Unit',
-                      type: 'string',
-                      format: 'text'
-                    },
-                    Tasking: {
-                      title: 'Tasking',
-                      type: 'string',
-                      format: 'textarea'
-                    },
-                    SearchPolicy: {
-                      title: 'Search Policy',
-                      type: 'string',
-                      format: 'textarea'
-                    },
-                    ActionOnContact: {
-                      title: 'Action on Contact',
-                      type: 'string',
-                      enum: [
-                        'Ignore',
-                        'Evade',
-                        'Covert Trail',
-                        'Overt Trail',
-                        'Harass'
-                      ]
-                    },
-                    AnyOtherComments: {
-                      title: 'Any other comments',
-                      type: 'string',
-                      format: 'textarea'
-                    }
-                  },
-                  type: 'object'
-                },
-                title: 'Orders',
-                type: 'array',
-                format: 'table',
-                minItems: 1
-              }
-            },
-            title: 'Daily Intent',
-            required: [
-              'OverallIntentions',
-              'Orders'
-            ]
+            schema: '{"title":"Your Form Title","type":"object","properties":{"TurnNumber":{"title":"Turn","type":"string","format":"number"},"OverallIntentions":{"title":"Overall intentions","type":"string","format":"textarea"},"Orders":{"type":"array","title":"Orders","format":"table","minItems":1,"items":{"type":"object","properties":{"Unit":{"title":"Unit","type":"string","format":"text"},"Tasking":{"title":"Tasking","type":"string","format":"textarea"},"SearchPolicy":{"title":"Search Policy","type":"string","format":"textarea"},"ActionOnContact":{"title":"Action on Contact","type":"string","enum":["Ignore","Evade","Covert Trail","Overt Trail","Harass"]},"AnyOtherComments":{"title":"Any other comments","type":"string","format":"textarea"}}}}}}',
+            uischema: ' {"TurnNumber":{"ui:placeholder":"Enter turn number"},"OverallIntentions":{"ui:placeholder":"Enter overall intentions"},"Orders":{"ui:options":{"orderable":false},"items":{"Unit":{"ui:placeholder":"Enter unit"},"Tasking":{"ui:placeholder":"Enter tasking"},"SearchPolicy":{"ui:placeholder":"Enter search policy"},"ActionOnContact":{"ui:placeholder":"Select action on contact"},"AnyOtherComments":{"ui:placeholder":"Enter any other comments"}}}}',
+            title: 'Daily Intent'
           },
           completed: false,
           _id: 'k16eedkn',

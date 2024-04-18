@@ -29,7 +29,6 @@ export default {
 
 export const Default: React.FC = () => {
   const [data, setData] = useState(TemplatesMock)
-
   const onChange = (updates: { templates: Array<TemplateBody> }): void => {
     console.log('change', updates.templates)
     setData(updates.templates)
@@ -44,6 +43,6 @@ export const Default: React.FC = () => {
     console.log('data', data)
     setData(TemplatesMock)
   }
-
+  
   return <SettingTemplate templates={data} onChange={onChange} onSave={onSave} />
 }

@@ -27,19 +27,12 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const [selectedItem, setSelectedItem] = useState<number>(0)
   const [templateData, setTemplateData] = useState<TemplateBody[]>(templates)
   const [currentTab, setCurrentTab] = useState<string>(TemplateTab.Preview)
-  const [schema, setSchema] = useState<string>('{}')
-  const [uischema, setUiSchema] = useState<string>('{}')
   
   useEffect(() => {
     const selectedId = templates.findIndex(template => template._id === selectedTemplate?._id)
-    const correctedSelectedItem = Math.max(selectedId, 0)
-    const selectedTemplateDetails = templates[correctedSelectedItem]?.details || {}
-    const { schema, uischema } = selectedTemplateDetails as any
-    
+    const correctedSelectedItem = Math.max(selectedId, 0)    
     setSelectedItem(correctedSelectedItem)
     setTemplateData(templates)
-    setSchema(schema)
-    setUiSchema(uischema)
   }, [selectedTemplate, templates])
 
   const handleSwitch = (_item: Item): void => {
@@ -66,17 +59,8 @@ const SettingTemplate: React.FC<PropTypes> = ({
       console.log('No selected template. Not saving.', selectedItem)
       return
     }
-
+  
     if (onSave) {
-      // @ts-ignore
-      const { title } = templateData[selectedItem].details
-      const templateDetails = {
-        schema, 
-        uischema,
-        title
-
-      }
-      templateData[selectedItem].details = templateDetails
       onSave(templateData[selectedItem])
     }
   }
@@ -96,7 +80,9 @@ const SettingTemplate: React.FC<PropTypes> = ({
   }
 
   const renderContent = (): React.ReactNode => {
-    const data = templates[selectedItem]
+    const data = templateData[selectedItem]
+    const { schema, uischema } = data.details as any
+
     const isValidJSON = (jsonString: string): boolean => {
       try {
         JSON.parse(jsonString)
@@ -164,7 +150,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
       </div>
     )
   }
-  
+
   return (
     <AdminContent>
       <LeftSide>
