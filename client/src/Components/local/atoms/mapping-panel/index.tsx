@@ -5,9 +5,12 @@ import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson
 import { cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
+import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
+import { ForceStyle, isValidSymbol } from 'src/Helpers'
 import { CoreProperties, PropertyType } from 'src/custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
+import { colorFor } from '../core-mapping/renderers/core-renderer'
 import CustomDialog from '../custom-dialog'
 import IconRenderer from './helpers/icon-renderer'
 import PropertiesPanel from './helpers/properties-panel'
@@ -22,6 +25,7 @@ type MappingPanelProps = {
   selected: string[]
   onSelect: (id: string[]) => void
   onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
+  forceStyles: ForceStyle[]
 }
 type PanelState = {
   state: boolean
@@ -47,7 +51,7 @@ const initPanelState: PanelGroupState = {
   }
 }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave, forceStyles }): React.ReactElement => {
   const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
@@ -57,7 +61,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   const [selectedFiltersProps, setSelectedFiltersProps] = useState<SelectedProps>({})
   const [disableSave, setDisableSave] = useState<boolean>(true)
   const [panelState, setPanelState] = useState<PanelGroupState>(initPanelState)
-
+  const [checkSidc, setCheckSidc] = useState<boolean>(true)
   const filterPanel = useRef<ImperativePanelHandle | null>(null)
   const itemPanel = useRef<ImperativePanelHandle | null>(null)
   const propertyPanel = useRef<ImperativePanelHandle | null>(null)
@@ -111,11 +115,16 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       const sort = <T extends Record<string, unknown>>(obj: T): T => Object.keys(obj).sort().reduce((acc, c) => { 
         acc[c] = obj[c]; return acc 
       }, {}) as T
-      const sortedProps = sort(propsList)
-      setSelectedProps(sortedProps)
+      const sortedProps: SelectedProps = sort(propsList)
+      if (sortedProps.sidc) {
+        const { success, sidc } = handleSidcValue(sortedProps.sidc.value)
+        setCheckSidc(success)
+        setSelectedProps({ ...sortedProps, sidc: { ...sortedProps.sidc, value: sidc } })
+      } else {
+        setSelectedProps(sortedProps)  
+      }
     }
   }, [selectedFeatures])
-
   useEffect(() => {
     selectItem(selected, true)
   }, [selected])
@@ -127,6 +136,19 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }, [deselecteFeature])
   
   const onAddNewFilter = () => setOpenAddFilter(true)
+
+  const handleSidcValue = (sidcValue: string): { success: boolean, sidc: string } => {
+    let value = sidcValue
+    const isValid = !isNaN(Number(value))
+    if (!isValid) {
+      const { sidc } = convertLetterSidc2NumberSidc(value)
+      value = sidc
+      console.log(`${value} is not a valid number.`)
+    }
+    const originValue = value
+    const success = isValidSymbol(originValue)
+    return { success: success, sidc: originValue }
+  }
 
   const handleCheck = (filter: string, checked: boolean) => {
     const cloneFilters = cloneDeep(propertyFiltersListPanel)
@@ -205,6 +227,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }
 
   const onPropertiesChange = (key: string, value: any) => {
+    if (key === 'sidc') {
+      const { success } = handleSidcValue(value)
+      setCheckSidc(success)
+    }
     const prevValue = get(selectedProps, key)
     // keep 1 selected item
     if (prevValue.value.length <= 1 && Array.isArray(value) && !value.length) {
@@ -397,7 +423,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         {panelState.itemPanelState.state &&
           <div className={styles.itemsResponsive}>
             {filterredFeatures?.features.map((feature, idx) => {
-              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} />
+              const color = colorFor(feature.properties?.force, forceStyles)
+              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} color={color}/>
             })}
           </div>
         }
@@ -418,11 +445,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         {panelState.propertyPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} onPropertiesChange={onPropertiesChange} />
+              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} checkSidc={checkSidc} onPropertiesChange={onPropertiesChange} />
             </div>
             <div className={styles.button}>
               <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
-              <button disabled={disableSave} onClick={onLocalSave}>Save</button>
+              <button disabled={disableSave || !checkSidc} onClick={onLocalSave}>Save</button>
             </div>
           </>
         }

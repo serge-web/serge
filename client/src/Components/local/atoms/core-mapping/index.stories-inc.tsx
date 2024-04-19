@@ -5,6 +5,7 @@ import { noop } from 'lodash'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
 import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
+import { forceStyles } from 'src/Helpers'
 import docs from './README.md'
 import { generateFeatures } from './helper/feature-generator'
 import CoreMapping from './index'
@@ -152,7 +153,7 @@ const milSymProps: MilSymProperties = {
   label: 'Headquarters Building',
   turn: 1,
   force: 'f-red',
-  sidc: 'SFG-UCI----D',
+  sidc: '10031000141211000000',
   health: 80,
   // additional props for mil symbol
   category: 'Civilian',
@@ -339,15 +340,35 @@ const bulkMessage: MappingMessage = {
 
 console.log(coreMessage)
 
-const playerForce: ForceData = {
-  color: '#000',
-  dirty: false,
-  iconURL: '',
-  name: '',
-  overview: '',
-  roles: [],
-  uniqid: 'f-red'
-}
+const forces: ForceData[] = [
+  {
+    color: '#F00',
+    dirty: false,
+    iconURL: '',
+    name: 'Red',
+    overview: '',
+    roles: [],
+    uniqid: 'f-red'
+  }, {
+    color: '#00F',
+    dirty: false,
+    iconURL: '',
+    name: 'Blue',
+    overview: '',
+    roles: [],
+    uniqid: 'f-blue'
+  }, {
+    color: '#0F0',
+    dirty: false,
+    iconURL: '',
+    name: 'Green',
+    overview: '',
+    roles: [],
+    uniqid: 'f-green'
+  }
+]
+const playerForce: ForceData = forces[0]
+const forceStylesArr = forceStyles(forces, false)
 
 export const Default: React.FC = () => {
   return (
@@ -357,7 +378,7 @@ export const Default: React.FC = () => {
       channel={coreMapChannel}
       playerRole={'mgr'}
       currentTurn={1}
-      forceStyles={[]}
+      forceStyles={forceStylesArr}
       currentPhase={Phase.Planning}
       postBack={noop}
       openPanelAsDefault={false}
@@ -373,7 +394,7 @@ export const Bulk: React.FC = () => {
       channel={coreMapChannel}
       playerRole={'mgr'}
       currentTurn={1}
-      forceStyles={[]}
+      forceStyles={forceStylesArr}
       currentPhase={Phase.Planning}
       postBack={noop}
       openPanelAsDefault={false}

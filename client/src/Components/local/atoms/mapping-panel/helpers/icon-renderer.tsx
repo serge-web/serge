@@ -13,9 +13,10 @@ type IconRendererProps = {
   feature: Feature<Geometry, GeoJsonProperties>
   checked: boolean
   onClick: (id: string[], checked: boolean) => void
+  color: string
 }
 
-const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }) => {
+const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, onClick }) => {
   const iconElm = useMemo(() => {
     if (!feature) {
       return
@@ -27,7 +28,7 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }
 
     return <div className={styles['asset-icon']}>
       {get(feature, 'properties._type') === RENDERER_CORE
-        ? <FontAwesomeIcon icon={faShapes} color={feature.properties?.color} fontSize={25} />
+        ? <FontAwesomeIcon icon={faShapes} color={color} fontSize={25} />
         : <>
           <img src={icon.toDataURL()} />
           <div className={styles['health-bar']} style={{ backgroundColor: healthColor }}></div>
