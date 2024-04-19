@@ -215,8 +215,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       turn: currentTurn,
       force: playerForce.uniqid,
       category: 'Civilian',
-      color: playerForce.color,
-      shapeType
+      color: playerForce.color
     }
 
     switch (shapeType) {
@@ -406,12 +405,11 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     const rendererObjects: BaseRenderer[] = channel.renderers
     const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
 
-    // this filter should be added in baseProps or additionalProps in database like other?
     if (featureCollection && featureCollection.features) {
       flatMap.push({
-        choices: uniq(featureCollection.features.filter(f => f.properties?.shapeType).map(f => f.properties?.shapeType)), // fixed by ['Point', 'Text', 'Line', 'Polygon', 'Rectangle', 'Circle'] if defined in db ?
-        id: 'shapeType',
-        label: 'Shape Type',
+        choices: uniq(featureCollection.features.filter(f => f.geometry.type).map(f => f.geometry.type)),
+        id: 'geoType',
+        label: 'Geometry Type',
         type: 'EnumProperty'
       })
     }
