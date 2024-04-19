@@ -408,7 +408,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     if (featureCollection && featureCollection.features) {
       flatMap.push({
         choices: uniq(featureCollection.features.filter(f => f.geometry.type).map(f => f.geometry.type)),
-        id: 'geoType',
+        id: 'shapeType',
         label: 'Geometry Type',
         type: 'EnumProperty'
       })

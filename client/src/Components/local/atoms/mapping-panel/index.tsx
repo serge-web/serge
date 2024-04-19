@@ -71,10 +71,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
   const wildcardLabel = 'id/label (*)'
-  const geoTypeLabel = 'geoType'
+  const shapeTypeLabel = 'shapeType'
 
   // add custom search field with wildcard support
-  filterProperties?.unshift(wildcardLabel, geoTypeLabel)
+  filterProperties?.unshift(wildcardLabel, shapeTypeLabel)
 
   useEffect(() => {
     setFilterredFeatures(features)
@@ -273,7 +273,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           } catch (e) {
             orFoundKey[filterKey] = false
           }
-        } else if (filterKey === geoTypeLabel) {
+        } else if (filterKey === shapeTypeLabel) {
           const selectedGeoType = value.join(',').toLowerCase()
           const geoType = f.geometry.type.valueOf().toLowerCase()
           try {
