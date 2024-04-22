@@ -80,12 +80,6 @@ Array [
                 <div
                   className="form-group"
                 >
-                  <label
-                    className="form-label"
-                    htmlFor="root_completed"
-                  >
-                    Completed
-                  </label>
                   <div
                     aria-describedby="root_completed__error root_completed__description root_completed__help"
                     className="checkbox  form-group"
@@ -111,11 +105,10 @@ Array [
                         htmlFor="root_completed"
                         title=""
                       >
-                        Completed
+                        completed
                       </label>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             </div>
@@ -154,7 +147,7 @@ Array [
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    placeholder="Enter reference"
+                    placeholder=""
                     readOnly={false}
                     required={false}
                     type="text"
@@ -199,7 +192,7 @@ Array [
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
-                    placeholder="Enter title"
+                    placeholder=""
                     readOnly={false}
                     required={false}
                     type="text"
@@ -254,159 +247,6 @@ Array [
                         <div
                           className="p-0 m-0 container-fluid"
                         >
-                          <div>
-                            <div
-                              className="mb-2  d-flex align-items-center row"
-                            >
-                              <div
-                                className="col-lg-9 col-9"
-                              >
-                                <div
-                                  className="form-group field field-object"
-                                >
-                                  <div
-                                    className="form-group"
-                                  >
-                                    <div
-                                      className="my-1"
-                                      id="root_Forces_0__title"
-                                    >
-                                      <h5>
-                                        Forces-1
-                                      </h5>
-                                      <hr
-                                        className="border-0 bg-secondary"
-                                        style={
-                                          Object {
-                                            "height": "1px",
-                                          }
-                                        }
-                                      />
-                                    </div>
-                                    <div
-                                      className="p-0 container-fluid"
-                                    >
-                                      <div
-                                        className="row"
-                                        style={
-                                          Object {
-                                            "marginBottom": "10px",
-                                          }
-                                        }
-                                      >
-                                        <div
-                                          className="col-12"
-                                        >
-                                           
-                                          <div
-                                            className="form-group field field-string"
-                                          >
-                                            <div
-                                              className="form-group"
-                                            >
-                                              <label
-                                                className="form-label"
-                                                htmlFor="root_Forces_0_force"
-                                              >
-                                                force
-                                              </label>
-                                              <select
-                                                aria-describedby="root_Forces_0_force__error root_Forces_0_force__description root_Forces_0_force__help"
-                                                autoFocus={false}
-                                                className="custom-select"
-                                                disabled={false}
-                                                id="root_Forces_0_force"
-                                                name="root_Forces_0_force"
-                                                onBlur={[Function]}
-                                                onChange={[Function]}
-                                                onFocus={[Function]}
-                                                required={false}
-                                                value=""
-                                              >
-                                                <option
-                                                  value=""
-                                                >
-                                                  
-                                                </option>
-                                                <option
-                                                  disabled={false}
-                                                  id="Blue"
-                                                  value="0"
-                                                >
-                                                  Blue
-                                                </option>
-                                                <option
-                                                  disabled={false}
-                                                  id="Red"
-                                                  value="1"
-                                                >
-                                                  Red
-                                                </option>
-                                                <option
-                                                  disabled={false}
-                                                  id="Green"
-                                                  value="2"
-                                                >
-                                                  Green
-                                                </option>
-                                              </select>
-                                              
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div
-                                className="py-4 col-lg-3 col-3"
-                              >
-                                <div
-                                  className="d-flex flex-row"
-                                >
-                                  <div
-                                    className="m-0 p-0"
-                                  >
-                                    <button
-                                      className="btn btn-danger btn-sm"
-                                      disabled={false}
-                                      onClick={[Function]}
-                                      style={
-                                        Object {
-                                          "flex": 1,
-                                          "fontWeight": "bold",
-                                          "paddingLeft": 6,
-                                          "paddingRight": 6,
-                                        }
-                                      }
-                                      title="Remove"
-                                      type="button"
-                                    >
-                                      <svg
-                                        fill="currentColor"
-                                        height="1em"
-                                        stroke="currentColor"
-                                        strokeWidth="0"
-                                        style={
-                                          Object {
-                                            "color": undefined,
-                                          }
-                                        }
-                                        viewBox="0 0 512 512"
-                                        width="1em"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <path
-                                          d="M368.5 240h-225c-8.8 0-16 7.2-16 16 0 4.4 1.8 8.4 4.7 11.3 2.9 2.9 6.9 4.7 11.3 4.7h225c8.8 0 16-7.2 16-16s-7.2-16-16-16z"
-                                        />
-                                      </svg>
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
                           <div
                             className="container"
                           >
@@ -464,51 +304,6 @@ Array [
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            className="row"
-            style={
-              Object {
-                "marginBottom": "10px",
-              }
-            }
-          >
-            <div
-              className="col-12"
-            >
-               
-              <div
-                className="form-group field field-string"
-              >
-                <div
-                  className="form-group"
-                >
-                  <label
-                    className="form-label"
-                    htmlFor="root_newInput1"
-                  >
-                    New Input 1
-                  </label>
-                  <input
-                    aria-describedby="root_newInput1__error root_newInput1__description root_newInput1__help"
-                    autoFocus={false}
-                    className="form-control"
-                    disabled={false}
-                    id="root_newInput1"
-                    name="root_newInput1"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onFocus={[Function]}
-                    placeholder=""
-                    readOnly={false}
-                    required={false}
-                    type="text"
-                    value=""
-                  />
-                  
                 </div>
               </div>
             </div>

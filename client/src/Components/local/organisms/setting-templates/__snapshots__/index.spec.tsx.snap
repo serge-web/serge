@@ -95,7 +95,7 @@ exports[`SettingForces component: renders correctly 1`] = `
               onClick={[Function]}
             >
               <span>
-                Chats
+                Chat
               </span>
               <div
                 className="searchlist-menu"
