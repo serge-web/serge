@@ -56,7 +56,6 @@ const Template: Story<StoryPropTypes> = (args) => {
   const postBack = (details: MessageDetails, message: any): void => {
     console.log('send message', details, message)
   }
-
   return (<MessageCreator
     channel={channel}
     messageOption='Chat'

@@ -1,11 +1,12 @@
+/* eslint-disable quotes */
 import { TemplateBody } from 'src/custom-types'
 
 const messageTemplatesMock: TemplateBody[] = [
   {
     completed: false,
     details: {
-      schema: '{"title":"State of World (laydown 2)","type":"object","properties":{"completed":{"type":"boolean","title":"Completed"},"Reference":{"type":"string","title":"Reference","format":"text"},"Title":{"type":"string","title":"Title","format":"text"},"Forces":{"type":"array","title":"Forces","minItems":1,"items":{"type":"object","properties":{"force":{"type":"string","enum":["Blue","Red","Green"]}}}},"newInput1":{"title":"New Input 1","type":"string"}},"dependencies":{},"required":[]}',
-      uischema: '{"completed":{"ui:widget":"checkbox"},"Reference":{"ui:placeholder":"Enter reference"},"Title":{"ui:placeholder":"Enter title"},"Forces":{"ui:options":{"orderable":false},"items":{"force":{"ui:widget":"select"}}},"ui:order":["completed","Reference","Title","Forces","newInput1"]}',
+      schema: "{\"type\":\"object\",\"title\":\"State of World (laydown 2)\",\"properties\":{\"completed\":{\"title\":\"completed\",\"type\":\"boolean\"},\"Reference\":{\"title\":\"Reference\",\"type\":\"string\"},\"Title\":{\"title\":\"Title\",\"type\":\"string\"},\"Forces\":{\"items\":{\"type\":\"object\",\"properties\":{\"Forces\":{\"enum\":[\"Blue\",\"Red\",\"Green\"],\"type\":\"string\",\"title\":\"Forces\"}},\"dependencies\":{},\"required\":[]},\"title\":\"Forces\",\"type\":\"array\"}},\"dependencies\":{},\"required\":[]}",
+      uischema: "{\"Forces\":{\"items\":{\"ui:order\":[\"Forces\"]}},\"ui:order\":[\"completed\",\"Reference\",\"Title\",\"Forces\"]}",
       title: 'State of World L'
     },
     lastUpdated: '2019-09-30T12:37:26.705Z',
@@ -15,10 +16,10 @@ const messageTemplatesMock: TemplateBody[] = [
   },
   {
     lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'Chats',
+    title: 'Chat',
     details: {
-      schema: '{"type":"object","properties":{"Chat":{"title":"Chat","type":"string"}},"dependencies":{},"required":[]}',
-      uischema: '{"ui:order":["Chat"]}',
+      schema: "{\"type\":\"object\",\"properties\":{\"Chat\":{\"title\":\"Chat\",\"type\":\"string\",\"description\":\"content\",\"default\":\"type the text \"}},\"dependencies\":{},\"required\":[]}",
+      uischema: "{\"Chat\":{\"ui:widget\":\"textarea\"},\"ui:order\":[\"Chat\"]}",
       title: 'Chat'
     },
     completed: false,
@@ -29,8 +30,8 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'Daily intentions',
     details: {
-      schema: '{"title":"Your Form Title","type":"object","properties":{"TurnNumber":{"title":"Turn","type":"string","format":"number"},"OverallIntentions":{"title":"Overall intentions","type":"string","format":"textarea"},"Orders":{"type":"array","title":"Orders","format":"table","minItems":1,"items":{"type":"object","properties":{"Unit":{"title":"Unit","type":"string","format":"text"},"Tasking":{"title":"Tasking","type":"string","format":"textarea"},"SearchPolicy":{"title":"Search Policy","type":"string","format":"textarea"},"ActionOnContact":{"title":"Action on Contact","type":"string","enum":["Ignore","Evade","Covert Trail","Overt Trail","Harass"]},"AnyOtherComments":{"title":"Any other comments","type":"string","format":"textarea"}}}}}}',
-      uischema: ' {"TurnNumber":{"ui:placeholder":"Enter turn number"},"OverallIntentions":{"ui:placeholder":"Enter overall intentions"},"Orders":{"ui:options":{"orderable":false},"items":{"Unit":{"ui:placeholder":"Enter unit"},"Tasking":{"ui:placeholder":"Enter tasking"},"SearchPolicy":{"ui:placeholder":"Enter search policy"},"ActionOnContact":{"ui:placeholder":"Select action on contact"},"AnyOtherComments":{"ui:placeholder":"Enter any other comments"}}}}',
+      schema: "{\"type\":\"object\",\"properties\":{\"TurnNumber\":{\"title\":\"Turn\",\"type\":\"string\"},\"OverallIntentions\":{\"title\":\"Overall intentions\",\"type\":\"string\"},\"orders\":{\"items\":{\"type\":\"object\",\"title\":\"\",\"properties\":{\"Unit\":{\"title\":\"Unit\",\"type\":\"string\"},\"Tasking\":{\"title\":\"Tasking\",\"type\":\"string\"},\"Search Policy\":{\"title\":\"Search Policy\",\"type\":\"string\"},\"Action on Contact\":{\"enum\":[\"Ignore\",\"Evade\",\"Covert Trail\",\"Overt Trail\",\"Harass\"],\"title\":\"Action on Contact\",\"type\":\"string\",\"enumNames\":null},\"Any other comments\":{\"title\":\"Any other comments\",\"type\":\"string\"}},\"dependencies\":{},\"required\":[]},\"title\":\"orders\",\"type\":\"array\"}},\"dependencies\":{},\"required\":[]}",
+      uischema: "{\"orders\":{\"items\":{\"Tasking\":{\"ui:widget\":\"textarea\"},\"Search Policy\":{\"ui:widget\":\"textarea\"},\"Any other comments\":{\"ui:widget\":\"textarea\"},\"ui:order\":[\"Unit\",\"Tasking\",\"Search Policy\",\"Action on Contact\",\"Any other comments\"]}},\"ui:order\":[\"TurnNumber\",\"OverallIntentions\",\"orders\"]}",
       title: 'Daily Intent'
     },
     completed: false,
@@ -42,8 +43,8 @@ const messageTemplatesMock: TemplateBody[] = [
     title: 'Link',
     details: {
       title: 'Link',
-      schema: '{"title":"Link","type":"object","properties":{"lastUpdated":{"type":"string","format":"date-time"},"details":{"type":"object","title":"Link","properties":{"Title":{"type":"string","format":"text"},"URL":{"type":"string","format":"url"}},"format":"grid"},"completed":{"type":"boolean"},"_id":{"type":"string"},"_rev":{"type":"string"}}}',
-      uischema: '{"lastUpdated":{"ui:widget":"datetime"},"details":{"Title":{"ui:placeholder":"Enter title"},"URL":{"ui:placeholder":"Enter URL"}}}'
+      schema: "{\"type\":\"object\",\"properties\":{\"Title\":{\"title\":\"Title\",\"type\":\"string\"},\"URL\":{\"title\":\"URL\",\"type\":\"string\"}},\"dependencies\":{},\"required\":[],\"title\":\"Link\"}",
+      uischema: "{\"ui:order\":[\"Title\",\"URL\"]}"
     },
     completed: false,
     _id: 'k16eedkm',
@@ -66,8 +67,8 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'RFI',
     details: {
-      schema: '{"type":"object","properties":{"Reference":{"type":"string","title":"Reference (sys generated)","readonly":true},"Title":{"type":"string","format":"text","title":"Title"},"RFI":{"type":"string","format":"textarea","title":"RFI"},"Priority":{"type":"string","title":"Priority","enum":["High","Medium","Low"]},"FAO":{"type":"string","title":"FAO","enum":["J2","SME – CEMA","SME – Space","SME – Logs & Med","SME – IO","SME – White","Actor – White","Actor – Red","Other"]},"ResponseRequiredBy":{"type":"string","title":"Response required by","enum":["Within an hour","NLT 1300","NLT 1600","Not urgent"]}}}',
-      uischema: '{"Reference":{"ui:options":{"grid_columns":4}},"Title":{"ui:options":{"grid_columns":8}},"RFI":{"ui:options":{"grid_columns":12}}}',
+      schema: "{\"type\":\"object\",\"properties\":{\"\":{\"title\":\"\",\"type\":\"object\",\"properties\":{\"Reference (sys generated)\":{\"title\":\"Reference (sys generated)\",\"type\":\"string\"},\"Title\":{\"title\":\"Title\",\"type\":\"string\"}},\"dependencies\":{},\"required\":[]},\"RFI\":{\"title\":\"RFI\",\"type\":\"string\"},\"newInput1\":{\"title\":\"RFI\",\"type\":\"object\",\"properties\":{\"Priority\":{\"enum\":[\"High\",\"Medium\",\"Low\"],\"title\":\"Priority\",\"type\":\"string\"},\"FAO\":{\"enum\":[\"J2\",\"SME - CEMA\",\"SME - Space\",\"SME - Logs & Med\",\"SME - IO\",\"SME - White\",\"Actor - White\",\"Actor - Red\",\"Other\"],\"title\":\"FAO\",\"type\":\"string\"},\"Response required by\":{\"enum\":[\"Within in hour\",\"NlT 1300\",\"NLT 1600\",\"Not Urgent\"],\"title\":\"Response required by\",\"type\":\"string\"}},\"dependencies\":{},\"required\":[]}},\"dependencies\":{},\"required\":[]}",
+      uischema: "{\"\":{\"ui:order\":[\"Reference (sys generated)\",\"Title\"]},\"RFI\":{\"ui:widget\":\"textarea\"},\"newInput1\":{\"ui:order\":[\"Priority\",\"FAO\",\"Response required by\"]},\"ui:order\":[\"\",\"RFI\",\"newInput1\"]}",
       title: 'RFI'
     },
     completed: false,
