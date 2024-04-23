@@ -103,8 +103,8 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.704Z',
     title: 'Machinery failure',
     details: {
-      schema: ' {"type":"object","properties":{"title":{"type":"string","title":"Title"},"Date":{"type":"string","format":"datetime-local","options":{"flatpickr":{"wrap":true,"time_24hr":true,"allowInput":true}}},"Status":{"type":"string","enum":["Minor","Major","Critical"]},"Description":{"type":"string","format":"textarea"}}}',
-      uischema: '{"title":{"ui:placeholder":"Enter title"},"Date":{"ui:placeholder":"Select date and time"},"Status":{"ui:placeholder":"Select status"},"Description":{"ui:placeholder":"Enter description"}}',
+      schema: "{\"type\":\"object\",\"properties\":{\"title\":{\"type\":\"string\"},\"Date\":{\"format\":\"date\",\"title\":\"Date\",\"type\":\"string\"},\"Status\":{\"enum\":[\"Minor\",\"Major\",\"Critical\"],\"title\":\"Status\",\"type\":\"string\"},\"Description\":{\"title\":\"Description\",\"type\":\"string\"}},\"dependencies\":{},\"required\":[],\"description\":\"\",\"title\":\"Machinery failure\"}",
+      uischema: "{\"Description\":{\"ui:widget\":\"textarea\"},\"ui:order\":[\"title\",\"Date\",\"Status\",\"Description\"]}",
       title: 'Machinery Failure'
     },
     completed: false,
