@@ -114,8 +114,8 @@ const messageTemplatesMock: TemplateBody[] = [
   {
     completed: false,
     details: {
-      schema: '{"title":"State of World (Full 2)","type":"object","properties":{"force":{"type":"array","minItems":1,"items":{"type":"object","properties":{"force":{"type":"string","enum":["Blue","Red","Green"],"propertyOrder":100}}}}}}',
-      uischema: ' {"force":{"items":{"force":{"ui:widget":"select"}}}}',
+      schema: "{\"type\":\"object\",\"properties\":{\"Forces\":{\"items\":{\"type\":\"string\"},\"title\":\"Forces\",\"type\":\"array\",\"minItems\":1}},\"dependencies\":{},\"required\":[]}",
+      uischema: "{\"Forces\":{\"items\":{}},\"ui:order\":[\"Forces\"]}",
       title: 'State of World (Full 2)'
     },
     lastUpdated: '2019-12-20T15:57:11.519Z',
