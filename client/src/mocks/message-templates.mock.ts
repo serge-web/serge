@@ -79,8 +79,8 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'Message',
     details: {
-      schema: '{"type":"object","properties":{"title":{"type":"string"},"content":{"type":"string","format":"textarea"}}}',
-      uischema: '{"title":{"ui:placeholder":"Enter title"},"content":{"ui:placeholder":"Enter content"}}',
+      schema: "{\"type\":\"object\",\"properties\":{\"title\":{\"title\":\"title\",\"type\":\"string\"},\"content\":{\"title\":\"content\",\"type\":\"string\"}},\"dependencies\":{},\"required\":[]}",
+      uischema: "{\"content\":{\"ui:widget\":\"textarea\"},\"ui:order\":[\"title\",\"content\"]}",
       title: 'Message'
     },
     completed: false,
