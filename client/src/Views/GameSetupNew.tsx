@@ -185,8 +185,15 @@ const AdminGameSetup: React.FC = () => {
 
   const handleSaveTemplate = (template: TemplateBody) => {
     const selectedId = template._id
+    const templateTitle = template.title
     const newTemplateData = templates.templates.find(template => template._id === selectedId)
-    if (currentWargame && newTemplateData) dispatch(saveTemplate(currentWargame, template))
+    if (currentWargame && newTemplateData) { 
+      if (typeof templateTitle === 'string' && templateTitle.length > 0) {
+        dispatch(saveTemplate(currentWargame, template))
+      } else if (templateTitle.length === 0) {
+        window.alert('no Template name')
+      }
+    }
   }
 
   const onSave = (updates: WargameOverview | ForceData | ChannelTypes) => {
