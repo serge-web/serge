@@ -1,5 +1,4 @@
 import React, { Fragment, ReactFragment } from 'react'
-import moment from 'moment'
 
 /* Import Types */
 import Props from './types/props'
@@ -13,6 +12,7 @@ import {
   isArrayOfObject,
   isBoolean,
   isValidUrl,
+  isValidDateFormat,
   capitalize,
   formatFullDate
 } from 'src/Helpers'
@@ -106,7 +106,9 @@ const defaultRender = (pair: Array<any>): React.ReactFragment => {
 
 const decideRender = (pair: Array<any>) => (fallback: (pair: any[]) => ReactFragment): React.ReactFragment => {
   const [, detail] = pair
+
   let renderer
+  
   switch (true) {
     case isPlainObject(detail):
       renderer = createObjItem
@@ -120,7 +122,7 @@ const decideRender = (pair: Array<any>) => (fallback: (pair: any[]) => ReactFrag
     case isValidUrl(detail):
       renderer = createUrlItem
       break
-    case moment(detail, moment.ISO_8601, true).isValid():
+    case isValidDateFormat(detail):
       renderer = createTimeItem
       break
     default:
