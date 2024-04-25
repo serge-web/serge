@@ -186,14 +186,24 @@ const AdminGameSetup: React.FC = () => {
   const handleSaveTemplate = (template: TemplateBody) => {
     const selectedId = template._id
     const templateTitle = template.title
-    const newTemplateData = templates.templates.find(template => template._id === selectedId)
-    if (currentWargame && newTemplateData) { 
-      if (typeof templateTitle === 'string' && templateTitle.length > 0) {
-        dispatch(saveTemplate(currentWargame, template))
-      } else if (templateTitle.length === 0) {
-        window.alert('no Template name')
-      }
+    const existingTemplate = templates.templates.find(temp => temp._id === selectedId)
+    const isDuplicateTitle = templates.templates.filter(temp => temp.title === templateTitle).length === 2
+  
+    if (!currentWargame || !existingTemplate) {
+      return // No current wargame or template not found
     }
+  
+    if (templateTitle.trim().length === 0) {
+      window.alert('Please provide a template name.')
+      return
+    }
+  
+    if (isDuplicateTitle) {
+      window.alert('Template name should not be duplicated.')
+      return
+    }
+  
+    dispatch(saveTemplate(currentWargame, template))
   }
 
   const onSave = (updates: WargameOverview | ForceData | ChannelTypes) => {
