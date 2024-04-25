@@ -187,7 +187,7 @@ const AdminGameSetup: React.FC = () => {
     const selectedId = template._id
     const templateTitle = template.title
     const existingTemplate = templates.templates.find(temp => temp._id === selectedId)
-    const isDuplicateTitle = templates.templates.filter(temp => temp.title === templateTitle).length === 2
+    const isDuplicateTitle = templates.templates.filter(temp => temp.title === templateTitle).length > 1
   
     if (!currentWargame || !existingTemplate) {
       return // No current wargame or template not found
