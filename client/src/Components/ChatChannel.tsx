@@ -16,7 +16,7 @@ import 'src/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
 import { MessageReadInteraction, MessageSentInteraction, MessageUnReadInteraction } from 'src/custom-types/player-log'
-import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION } from 'src/config'
+import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION, CUSTOM_MESSAGE } from 'src/config'
 
 const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
   const state = usePlayerUiState()
@@ -97,13 +97,16 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       _id: detail._id || 'na'
     }
     saveNewActivityTimeMessage(coreMessage.details.from.roleId, readMessage, state.currentWargame)(dispatch)
-    
+   
     playerUiDispatch(openMessage(channelId, detail))
   }
 
   const handleUnreadMessage = (message: MessageChannel | ChatMessage): void => {
     if (message._id) {
       message.hasBeenRead = false
+    }
+    if (message.messageType === CUSTOM_MESSAGE) {
+      message.isOpen = false
     }
     // since this is a message, we know it must come from CoreMessage
     const coreMessage = message as any as CoreMessage
