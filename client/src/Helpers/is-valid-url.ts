@@ -6,8 +6,17 @@ const isValidUrl = (str: string): boolean => {
     '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
     '(\\#[-a-z\\d_]*)?$', 'i') // fragment locator
   const windowsFilePath = new RegExp('^[\\w\\\\.:\\s]+?\\.\\w{2,4}')
-
+  if (!isValidHttpUrl(str)) return false
   return httpPattern.test(str) || (typeof str === 'string' && str.startsWith('file:///')) || windowsFilePath.test(str)
 }
 
 export default isValidUrl
+
+const isValidHttpUrl = (string: string) => {
+  try {
+    const newUrl = new URL(string)
+    return newUrl.protocol === 'http:' || newUrl.protocol === 'https:'
+  } catch (err) {
+    return false
+  }
+}
