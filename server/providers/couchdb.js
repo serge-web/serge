@@ -1,10 +1,9 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, databaseUrlPrefix, CUSTOM_MESSAGE } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, databaseUrlPrefix, CUSTOM_MESSAGE, GLOBAL_CHANGES } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
-
 const couchDb = (app, io, pouchOptions) => {
   const CouchDB = require('pouchdb-core')
   const PouchDB = require('pouchdb-core')
@@ -25,6 +24,12 @@ const couchDb = (app, io, pouchOptions) => {
   // changesListener
   const initChangesListener = (dbName) => {
     const db = new CouchDB(couchDbURL(dbName))
+
+    // Check if the database name is `_global_changes`, if so, return
+    if (dbName === GLOBAL_CHANGES) {
+      return
+    }
+
     // saving listener
     listeners[dbName] = db.changes({
       since: 'now',
@@ -80,7 +85,6 @@ const couchDb = (app, io, pouchOptions) => {
     if (!listeners[cleanName]) {
       addListenersQueue.push(cleanName)
     }
-
     const retryUntilWritten = (db, doc) => {
       return db.get(doc._id).then((origDoc) => {
         doc._rev = origDoc._rev
@@ -275,7 +279,6 @@ const couchDb = (app, io, pouchOptions) => {
     }
 
     const db = new CouchDB(couchDbURL(databaseName))
-
     db.find({
       selector: {
         wargame: req.params.wargame
