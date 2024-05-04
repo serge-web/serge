@@ -8,6 +8,7 @@ export interface DbProviderInterface {
   put: (doc: Wargame | Message) => Promise<Wargame | Message >
   allDocs: () => Promise<Message[]>
   lastWargame: () => Promise<MessageInfoType>
+  // allDbsWargame: () => Promise<any>
   getTurnPeriods: () => Promise<TurnPeriod[]>
   lastCounter: (roleId: string, id: string) => Promise<number>
   getPlayerLogs: (wargames: string, query: string) => Promise<PlayerLogEntries>

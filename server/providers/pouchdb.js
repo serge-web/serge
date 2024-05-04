@@ -173,6 +173,16 @@ const pouchDb = (app, io, pouchOptions) => {
       .catch(err => res.status(500).send(`Error on clearAll ${err}`))
   })
 
+  // const getAllDatabases = async () => {
+  //   try {
+  //     const allDbNames = await PouchDB.allDbs()
+  //     return allDbNames
+  //   } catch (error) {
+  //     console.error('Error retrieving all databases:', error)
+  //     throw error
+  //   }
+  // }
+
   // get all wargame names
   app.get('/allDbs', async (req, res) => {
     PouchDB.allDbs().then(dbs => {
@@ -180,6 +190,59 @@ const pouchDb = (app, io, pouchOptions) => {
       res.send({ msg: 'ok', data: dbList || [] })
     }).catch(() => res.send([]))
   })
+
+  // app.get('/wargameList', async (req, res) => {
+  //   try {
+  //     const allDbs = await getAllDatabases() // Implement this function to get all databases
+  //     console.log('allDbs', allDbs)
+  //     const wargameDbs = allDbs.filter(name => name.includes('wargame'))
+  //     const serverPath = `${req.protocol}://${req.get('host')}`
+  //     const aggregatedData = []
+
+  //     const dbPromises = wargameDbs.map(async dbName => {
+  //       try {
+  //         const databaseName = checkSqliteExists(dbName)
+  //         if (!databaseName) {
+  //           res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+  //           return
+  //         }
+
+  //         const db = new PouchDB(databaseName)
+  //         const result = await db.find({
+  //           selector: {
+  //             $or: [
+  //               { messageType: INFO_MESSAGE },
+  //               { _id: wargameSettings }
+  //             ],
+  //             _id: { $gte: null }
+  //           },
+  //           sort: [{ _id: 'desc' }],
+  //           fields: ['wargameTitle', 'wargameInitiated', 'name'],
+  //           limit: 1
+  //         })
+
+  //         if (result.docs && result.docs.length > 0) {
+  //           aggregatedData.push({
+  //             name: `${serverPath}/db/${dbName}`,
+  //             title: result.docs[0].wargameTitle,
+  //             initiated: result.docs[0].wargameInitiated,
+  //             shortName: result.docs[0].name
+  //           })
+  //         } else {
+  //           console.log(`No data found for database ${dbName}`)
+  //         }
+  //       } catch (error) {
+  //         console.error(`Error fetching data from database ${dbName}:`, error)
+  //       }
+  //     })
+
+  //     await Promise.all(dbPromises)
+  //     res.status(200).json(aggregatedData)
+  //   } catch (err) {
+  //     console.error('Error on load alldbs:', err)
+  //     res.status(500).json({ error: 'Internal Server Error' })
+  //   }
+  // })
 
   // get all message documents for wargame
   app.get('/:wargame', async (req, res) => {

@@ -138,6 +138,18 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
+  // allDbsWargame (): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     fetch(serverPath + 'allDbsWargame')
+  //       .then(res => res.json() as Promise<any>)
+  //       .then((res) => {
+  //         const { msg, data } = res
+  //         if (msg === 'ok') resolve(data)
+  //         else reject(msg)
+  //       })
+  //   })
+  // }
+
   getTurnPeriods (): Promise<TurnPeriod[]> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + this.getDbName() + '/' + 'turns')

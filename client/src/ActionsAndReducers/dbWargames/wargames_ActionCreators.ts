@@ -151,6 +151,7 @@ export const populateWargameList = () => {
 
     // @ts-ignore
     const wargameNames = await wargamesApi.populateWargameList(dispatch)
+    console.warn('now all wargameenams come from server', wargameNames)
     dispatch(saveAllWargameNames(wargameNames))
 
     dispatch(populatingDb(false))

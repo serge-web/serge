@@ -193,6 +193,59 @@ const couchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([])))
   })
 
+  app.get('/wargameList', async (req, res) => {
+    try {
+      const allDbs = await CouchDB.fetch(couchDbURL('_all_dbs')).then(result => result.json())
+      const wargameDbs = allDbs.filter(name => name.includes('wargame'))
+      const serverPath = `${req.protocol}://${req.get('host')}`
+      const aggregatedData = []
+      // Use map instead of forEach to create an array of promises
+      const dbPromises = wargameDbs.map(async dbs => {
+        try {
+          const databaseName = checkSqliteExists(dbs)
+          if (!databaseName) {
+            res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+          }
+
+          const db = new CouchDB(couchDbURL(databaseName))
+          const result = await db.find({
+            selector: {
+              $or: [
+                { messageType: INFO_MESSAGE },
+                { _id: wargameSettings }
+              ],
+              _id: { $gte: null }
+            },
+            sort: [{ _id: 'desc' }],
+            fields: ['wargameTitle', 'wargameInitiated', 'name'],
+            limit: 1
+          })
+
+          if (result.docs && result.docs.length > 0) {
+            aggregatedData.push({
+              name: serverPath + '/db/' + dbs,
+              title: result.docs[0].wargameTitle,
+              initiated: result.docs[0].wargameInitiated,
+              shortName: result.docs[0].name
+            })
+          } else {
+            console.log(`No data found for database ${dbs}`)
+          }
+        } catch (error) {
+          console.error(`Error fetching data from database ${dbs}:`, error)
+        }
+      })
+
+      // Wait for all promises to resolve
+      await Promise.all(dbPromises)
+
+      res.status(200).json(aggregatedData)
+    } catch (err) {
+      console.error('Error on load alldbs:', err)
+      res.status(500).json({ error: 'Internal Server Error' })
+    }
+  })
+
   // get all documents for wargame
   app.get('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)

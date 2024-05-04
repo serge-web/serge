@@ -125,33 +125,30 @@ export const getPlayerActivityLogs = async (wargame: string, dbName: string, que
 }
 
 export const populateWargameList = (): Promise<string | Wargame[]> => {
-  return fetch(serverPath + allDbs).then((res: Response) => res.json()).then((res: { data: string[] }) => (res.data || []) as string[]).then((dbs: string[]) => {
-    const wargameNames: string[] = wargameDbStore.map((db) => db.name)
-    const toCreateDiff: string[] = _.difference(dbs, wargameNames)
-    const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
-    toCreate.forEach(name => {
-      const db = new DbProvider(databasePath + name)
-      wargameDbStore.unshift({ name, db })
-    })
-    
-    const promises: (Promise<Wargame>)[] = wargameDbStore.map(({ name, db }) => {
-      return getLatestWargameRevision(name).then((res) => {
-        return ({
-          name: db.name,
-          title: res.wargameTitle,
-          initiated: res.wargameInitiated,
-          shortName: res.name
-        })
-      }).catch((err) => {
-        console.log(err)
-        return err
+  return fetch(serverPath + allDbs)
+    .then((res: Response) => res.json())
+    .then((res: { data: string[] }) => (res.data || []) as string[])
+    .then(async (dbs: string[]) => {
+      const wargameNames: string[] = wargameDbStore.map((db) => db.name)
+      const toCreateDiff: string[] = _.difference(dbs, wargameNames)
+      const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
+
+      // Filter out only the databases that contain "wargame" in their names
+      const wargameDbs: string[] = toCreate.filter(name => name.includes('wargame'))
+
+      wargameDbs.forEach(name => {
+        const db = new DbProvider(databasePath + name)
+        wargameDbStore.unshift({ name, db })
       })
+      // Fetch additional data for wargame databases
+      const additionalDataRes = await fetch(serverPath + 'wargameList')
+      const additionalData = await additionalDataRes.json()
+
+      return additionalData
+    }).catch((err: string) => {
+      console.log(err)
+      return err
     })
-    return Promise.all(promises)
-  }).catch((err: string) => {
-    console.log(err)
-    return err
-  })
 }
 
 export const clearWargames = (): void => {
