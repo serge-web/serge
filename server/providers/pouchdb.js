@@ -173,16 +173,6 @@ const pouchDb = (app, io, pouchOptions) => {
       .catch(err => res.status(500).send(`Error on clearAll ${err}`))
   })
 
-  // const getAllDatabases = async () => {
-  //   try {
-  //     const allDbNames = await PouchDB.allDbs()
-  //     return allDbNames
-  //   } catch (error) {
-  //     console.error('Error retrieving all databases:', error)
-  //     throw error
-  //   }
-  // }
-
   // get all wargame names
   app.get('/allDbs', async (req, res) => {
     PouchDB.allDbs().then(dbs => {
@@ -191,7 +181,54 @@ const pouchDb = (app, io, pouchOptions) => {
     }).catch(() => res.send([]))
   })
 
-  // app.get('/wargameList', async (req, res) => {
+  app.get('/wargameList', async (req, res) => {
+    PouchDB.allDbs()
+      .then(dbList => {
+        const dbLists = dbList.map(dbName => dbName.replace(dbSuffix, ''))
+        const wargameDbs = dbLists.filter(name => name.includes('wargame'))
+        const serverPath = `${req.protocol}://${req.get('host')}`
+
+        return Promise.all(wargameDbs.map(async db => {
+          const databaseName = checkSqliteExists(db)
+          if (!databaseName) {
+            return null
+          }
+          const dbInstance = new PouchDB(databaseName)
+          return dbInstance.find({
+            selector: {
+              $or: [{ messageType: INFO_MESSAGE }, { _id: wargameSettings }],
+              _id: { $gte: null }
+            },
+            sort: [{ _id: 'desc' }],
+            fields: ['wargameTitle', 'wargameInitiated', 'name'],
+            limit: 1
+          }).then(result => {
+            if (result.docs && result.docs.length > 0) {
+              return {
+                name: `${serverPath}/db/${db}`,
+                title: result.docs[0].wargameTitle,
+                initiated: result.docs[0].wargameInitiated,
+                shortName: result.docs[0].name
+              }
+            } else {
+              return null
+            }
+          }).catch(error => {
+            console.error(`Error fetching data for database ${db}:`, error)
+            return null
+          })
+        }))
+      })
+      .then(aggregatedData => {
+        const filteredData = aggregatedData.filter(data => data !== null)
+        res.status(200).json(filteredData)
+      })
+      .catch(error => {
+        console.error('Error fetching wargame list:', error)
+        res.status(500).json({ error: 'Internal Server Error' })
+      })
+  })
+
   //   try {
   //     const allDbs = await getAllDatabases() // Implement this function to get all databases
   //     console.log('allDbs', allDbs)

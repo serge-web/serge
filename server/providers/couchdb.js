@@ -194,37 +194,27 @@ const couchDb = (app, io, pouchOptions) => {
   })
 
   app.get('/wargameList', async (req, res) => {
-    try {
-      const allDbs = await CouchDB.fetch(couchDbURL('_all_dbs')).then(result => result.json())
+    const allDbsPromise = CouchDB.fetch(couchDbURL('_all_dbs')).then(result => result.json())
+    const serverPath = `${req.protocol}://${req.get('host')}`
+
+    const wargameListPromise = allDbsPromise.then(allDbs => {
       const wargameDbs = allDbs.filter(name => name.includes('wargame'))
-      const serverPath = `${req.protocol}://${req.get('host')}`
-
-      // Use Promise.all with map to fetch data from all databases concurrently
-      const aggregatedData = await Promise.all(wargameDbs.map(async db => {
-        try {
-          const databaseName = checkSqliteExists(db)
-          if (!databaseName) {
-            // If database doesn't exist, return null
-            return null
-          }
-
-          const dbInstance = new CouchDB(couchDbURL(databaseName))
-
-          const result = await dbInstance.find({
-            selector: {
-              $or: [
-                { messageType: INFO_MESSAGE },
-                { _id: wargameSettings }
-              ],
-              _id: { $gte: null }
-            },
-            sort: [{ _id: 'desc' }],
-            fields: ['wargameTitle', 'wargameInitiated', 'name'],
-            limit: 1
-          })
-
+      return Promise.all(wargameDbs.map(async db => {
+        const databaseName = checkSqliteExists(db)
+        if (!databaseName) {
+          return null
+        }
+        const dbInstance = new CouchDB(couchDbURL(databaseName))
+        return dbInstance.find({
+          selector: {
+            $or: [{ messageType: INFO_MESSAGE }, { _id: wargameSettings }],
+            _id: { $gte: null }
+          },
+          sort: [{ _id: 'desc' }],
+          fields: ['wargameTitle', 'wargameInitiated', 'name'],
+          limit: 1
+        }).then(result => {
           if (result.docs && result.docs.length > 0) {
-            // If data exists, format and return it
             return {
               name: `${serverPath}/db/${db}`,
               title: result.docs[0].wargameTitle,
@@ -234,19 +224,22 @@ const couchDb = (app, io, pouchOptions) => {
           } else {
             return null
           }
-        } catch (error) {
+        }).catch(error => {
           console.error(`Error fetching data from database ${db}:`, error)
           return null
-        }
+        })
       }))
+    })
 
-      const filteredData = aggregatedData.filter(data => data !== null)
-
-      res.status(200).json(filteredData)
-    } catch (err) {
-      console.error('Error on load alldbs:', err)
-      res.status(500).json({ error: 'Internal Server Error' })
-    }
+    Promise.all([allDbsPromise, wargameListPromise])
+      .then(([allDbs, aggregatedData]) => {
+        const filteredData = aggregatedData.filter(data => data !== null)
+        res.status(200).json(filteredData)
+      })
+      .catch(err => {
+        console.error('Error on load alldbs:', err)
+        res.status(500).json({ error: 'Internal Server Error' })
+      })
   })
 
   // get all documents for wargame
