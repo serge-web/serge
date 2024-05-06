@@ -212,14 +212,14 @@ const couchDb = (app, io, pouchOptions) => {
           },
           sort: [{ _id: 'desc' }],
           fields: ['wargameTitle', 'wargameInitiated', 'name'],
-          limit: 1
+          limit: 2
         }).then(result => {
           if (result.docs && result.docs.length > 0) {
             return {
               name: `${serverPath}/db/${db}`,
-              title: result.docs[0].wargameTitle,
-              initiated: result.docs[0].wargameInitiated,
-              shortName: result.docs[0].name
+              title: result.docs.length === 1 ? result.docs[0].wargameTitle : result.docs[1].wargameTitle,
+              initiated: result.docs.length === 1 ? result.docs[0].wargameInitiated : result.docs[1].wargameInitiated,
+              shortName: result.docs.length === 1 ? result.docs[0].name : result.docs[1].name
             }
           } else {
             return null

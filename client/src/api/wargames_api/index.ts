@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ADJUDICATION_PHASE, allDbs, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
+import { ADJUDICATION_PHASE, allDbs, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, wargameList, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
 import { deleteRoleAndParts, duplicateThisForce } from 'src/Helpers'
 import _ from 'lodash'
 import moment from 'moment'
@@ -124,6 +124,12 @@ export const getPlayerActivityLogs = async (wargame: string, dbName: string, que
     .catch(err => err)
 }
 
+export const fetchWargameList = async (): Promise<any> => {
+  const additionalDataRes = await fetch(serverPath + wargameList)
+  const additionalData = await additionalDataRes.json()
+  return additionalData
+}
+
 export const populateWargameList = (): Promise<string | Wargame[]> => {
   return fetch(serverPath + allDbs)
     .then((res: Response) => res.json())
@@ -141,10 +147,9 @@ export const populateWargameList = (): Promise<string | Wargame[]> => {
         wargameDbStore.unshift({ name, db })
       })
       // Fetch additional data for wargame databases
-      const additionalDataRes = await fetch(serverPath + 'wargameList')
-      const additionalData = await additionalDataRes.json()
+      const wargameList = await fetchWargameList()
 
-      return additionalData
+      return wargameList
     }).catch((err: string) => {
       console.log(err)
       return err
@@ -750,17 +755,7 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
     })
 }
 
-export const getAllWargames = (): Promise<WargameRevision[]> => {
-  const promises = wargameDbStore.map<Promise<WargameRevision>>((game) => {
-    return getLatestWargameRevision(game.name)
-      .then(({ wargameTitle, wargameInitiated, name }) => {
-        return {
-          name: game.db.name,
-          title: wargameTitle,
-          initiated: wargameInitiated,
-          shortName: name
-        }
-      }).catch(rejectDefault)
-  })
-  return Promise.all<WargameRevision>(promises)
+export const getAllWargames = async (): Promise<WargameRevision[]> => {
+  const wargameList = await fetchWargameList()
+  return wargameList
 }

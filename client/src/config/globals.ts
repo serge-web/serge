@@ -125,6 +125,7 @@ export const hiddenPrefix = '_#_'
 
 export const clearAll = 'clearAll'
 export const allDbs = 'allDbs'
+export const wargameList = 'wargameList'
 export const playerlogs = 'playerlogs'
 // Note: On heroku we don't use the additional port for the socket, we use the plain origin
 export const socketPath = origin.toLowerCase().indexOf('herokuapp') !== -1 ? origin : origin.replace(/3000|8080/g, '4000')

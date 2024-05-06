@@ -45,7 +45,7 @@ export const GameSetup: React.FC<Props> = ({
         {
           currentActiveTab === AdminTabs.Overview && (
             <SettingOverview
-              overview={overview}
+              overview={overview} 
               onChange={onOverviewChange}
               onSave={onSave}
               initiateWargame={onWargameInitiate}
