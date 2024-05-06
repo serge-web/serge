@@ -198,17 +198,19 @@ const couchDb = (app, io, pouchOptions) => {
       const allDbs = await CouchDB.fetch(couchDbURL('_all_dbs')).then(result => result.json())
       const wargameDbs = allDbs.filter(name => name.includes('wargame'))
       const serverPath = `${req.protocol}://${req.get('host')}`
-      const aggregatedData = []
-      // Use map instead of forEach to create an array of promises
-      const dbPromises = wargameDbs.map(async dbs => {
+
+      // Use Promise.all with map to fetch data from all databases concurrently
+      const aggregatedData = await Promise.all(wargameDbs.map(async db => {
         try {
-          const databaseName = checkSqliteExists(dbs)
+          const databaseName = checkSqliteExists(db)
           if (!databaseName) {
-            res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+            // If database doesn't exist, return null
+            return null
           }
 
-          const db = new CouchDB(couchDbURL(databaseName))
-          const result = await db.find({
+          const dbInstance = new CouchDB(couchDbURL(databaseName))
+
+          const result = await dbInstance.find({
             selector: {
               $or: [
                 { messageType: INFO_MESSAGE },
@@ -222,24 +224,25 @@ const couchDb = (app, io, pouchOptions) => {
           })
 
           if (result.docs && result.docs.length > 0) {
-            aggregatedData.push({
-              name: serverPath + '/db/' + dbs,
+            // If data exists, format and return it
+            return {
+              name: `${serverPath}/db/${db}`,
               title: result.docs[0].wargameTitle,
               initiated: result.docs[0].wargameInitiated,
               shortName: result.docs[0].name
-            })
+            }
           } else {
-            console.log(`No data found for database ${dbs}`)
+            return null
           }
         } catch (error) {
-          console.error(`Error fetching data from database ${dbs}:`, error)
+          console.error(`Error fetching data from database ${db}:`, error)
+          return null
         }
-      })
+      }))
 
-      // Wait for all promises to resolve
-      await Promise.all(dbPromises)
+      const filteredData = aggregatedData.filter(data => data !== null)
 
-      res.status(200).json(aggregatedData)
+      res.status(200).json(filteredData)
     } catch (err) {
       console.error('Error on load alldbs:', err)
       res.status(500).json({ error: 'Internal Server Error' })
