@@ -56,13 +56,24 @@ export const addWargameDbStore = (wargameDbObject: ApiWargameDbObject) => {
 }
 
 // remove wargame database
-export const deleteWargame = (wargamePath: string): string => {
-  const name: string = getNameFromPath(wargamePath)
-  const wargame = getWargameDbByName(name)
-  wargame.db.destroy()
-  const index = wargameDbStore.findIndex((item) => item.name === name)
-  wargameDbStore.splice(index, 1)
-  return name
+export const deleteWargame = async (wargamePath: string): Promise<string> => {
+  const name: string = getNameFromPath(wargamePath) 
+  const wargame = getWargameDbByName(name) 
+  
+  if (!wargame) {
+    throw new Error(`Wargame '${name}' not found`)
+  }
+
+  await wargame.db.destroy() 
+
+  const index = wargameDbStore.findIndex((item) => item.name === name) 
+  if (index !== -1) {
+    wargameDbStore.splice(index, 1) 
+  } else {
+    throw new Error(`Wargame '${name}' not found in the store`)
+  }
+
+  return name 
 }
 
 export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void => {

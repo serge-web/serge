@@ -275,7 +275,7 @@ export const saveWargameTitle = (dbName: string, title: string) => {
   return async (dispatch: WargameDispatch) => {
     const wargames = await wargamesApi.getAllWargames()
     const wargame = await wargamesApi.updateWargameTitle(wargames, dbName, title)
-
+    
     dispatch(saveAllWargameNames(wargames))
 
     dispatch(setCurrentWargame(wargame))
