@@ -12,7 +12,7 @@ import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
-import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageDetails, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TemplateData, MappingMessage, MappingMessageDelta, TypeOfCustomMessage } from 'src/custom-types'
+import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageDetails, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TemplateData, MappingMessage, MappingMessageDelta, TypeOfCustomMessage, WargameList } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
@@ -56,12 +56,13 @@ export const addWargameDbStore = (wargameDbObject: ApiWargameDbObject) => {
 }
 
 // remove wargame database
-export const deleteWargame = (wargamePath: string): void => {
+export const deleteWargame = (wargamePath: string): string => {
   const name: string = getNameFromPath(wargamePath)
   const wargame = getWargameDbByName(name)
   wargame.db.destroy()
   const index = wargameDbStore.findIndex((item) => item.name === name)
   wargameDbStore.splice(index, 1)
+  return name
 }
 
 export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void => {
@@ -321,14 +322,12 @@ const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck =
   }
 }
 
-export const updateWargameTitle = (dbName: string, title: string): Promise<Wargame> => {
-  return getAllWargames().then((games) => {
-    if (games.some((game) => game && game.title === title && getNameFromPath(game.name) !== dbName)) {
-      throw new Error('Name already in use.')
-    }
-    return getLatestWargameRevision(dbName).then((doc) => {
-      return updateWargame({ ...doc, wargameTitle: title }, dbName)
-    })
+export const updateWargameTitle = async (games: WargameList[], dbName: string, title: string): Promise<Wargame> => {
+  if (games.some((game) => game && game.title === title && getNameFromPath(game.name) !== dbName)) {
+    throw new Error('Name already in use.')
+  }
+  return getLatestWargameRevision(dbName).then((doc) => {
+    return updateWargame({ ...doc, wargameTitle: title }, dbName)
   })
 }
 

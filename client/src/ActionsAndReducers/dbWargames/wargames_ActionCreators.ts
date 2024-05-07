@@ -216,10 +216,10 @@ export const downloadWargame = (dbPath: string) => {
 
 export const deleteWargame = (name: string) => {
   return async (dispatch: WargameDispatch) => {
-    await wargamesApi.deleteWargame(name)
-
+    const deleteName = await wargamesApi.deleteWargame(name)
     const wargames = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(wargames))
+    dispatch(addNotification(`delete ${deleteName} wargame`, 'success'))
   }
 }
 
@@ -273,10 +273,9 @@ export const refreshChannel = (dbName: string, selectedChannel: string) => {
 
 export const saveWargameTitle = (dbName: string, title: string) => {
   return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.updateWargameTitle(dbName, title)
-
     const wargames = await wargamesApi.getAllWargames()
-    
+    const wargame = await wargamesApi.updateWargameTitle(wargames, dbName, title)
+
     dispatch(saveAllWargameNames(wargames))
 
     dispatch(setCurrentWargame(wargame))
