@@ -186,9 +186,10 @@ const pouchDb = (app, io, pouchOptions) => {
       .then(dbList => {
         const dbLists = dbList.map(dbName => dbName.replace(dbSuffix, ''))
         const wargameDbs = dbLists.filter(name => name.includes('wargame'))
+        const reversedWargameDbs = wargameDbs.reverse()
         const serverPath = `${req.protocol}://${req.get('host')}`
 
-        return Promise.all(wargameDbs.map(async db => {
+        return Promise.all(reversedWargameDbs.map(async db => {
           const databaseName = checkSqliteExists(db)
           if (!databaseName) {
             return null
@@ -202,21 +203,23 @@ const pouchDb = (app, io, pouchOptions) => {
             sort: [{ _id: 'desc' }],
             fields: ['wargameTitle', 'wargameInitiated', 'name'],
             limit: 2
-          }).then(result => {
-            if (result.docs && result.docs.length > 0) {
-              return {
-                name: `${serverPath}/db/${db}`,
-                title: result.docs.length === 1 ? result.docs[0].wargameTitle : result.docs[1].wargameTitle,
-                initiated: result.docs.length === 1 ? result.docs[0].wargameInitiated : result.docs[1].wargameInitiated,
-                shortName: result.docs.length === 1 ? result.docs[0].name : result.docs[1].name
-              }
-            } else {
-              return null
-            }
-          }, error => {
-            console.error(`Error fetching data for database ${db}:`, error)
-            return Promise.reject(error)
           })
+            .then(result => {
+              if (result.docs && result.docs.length > 0) {
+                return {
+                  name: `${serverPath}/db/${db}`,
+                  title: result.docs.length > 1 && result.docs._id === wargameSettings ? result.docs[1].wargameTitle : result.docs[0].wargameTitle,
+                  initiated: result.docs.length > 1 && result.docs._id === wargameSettings ? result.docs[1].wargameInitiated : result.docs[0].wargameInitiated,
+                  shortName: result.docs.length > 1 && result.docs._id === wargameSettings ? result.docs[1].name : result.docs[0].name
+                }
+              } else {
+                return null
+              }
+            })
+            .catch(error => {
+              console.error(`Error fetching data for database ${db}:`, error)
+              return Promise.reject(error)
+            })
         }))
       })
       .then(aggregatedData => {
@@ -229,58 +232,6 @@ const pouchDb = (app, io, pouchOptions) => {
       })
   })
 
-  //   try {
-  //     const allDbs = await getAllDatabases() // Implement this function to get all databases
-  //     console.log('allDbs', allDbs)
-  //     const wargameDbs = allDbs.filter(name => name.includes('wargame'))
-  //     const serverPath = `${req.protocol}://${req.get('host')}`
-  //     const aggregatedData = []
-
-  //     const dbPromises = wargameDbs.map(async dbName => {
-  //       try {
-  //         const databaseName = checkSqliteExists(dbName)
-  //         if (!databaseName) {
-  //           res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
-  //           return
-  //         }
-
-  //         const db = new PouchDB(databaseName)
-  //         const result = await db.find({
-  //           selector: {
-  //             $or: [
-  //               { messageType: INFO_MESSAGE },
-  //               { _id: wargameSettings }
-  //             ],
-  //             _id: { $gte: null }
-  //           },
-  //           sort: [{ _id: 'desc' }],
-  //           fields: ['wargameTitle', 'wargameInitiated', 'name'],
-  //           limit: 1
-  //         })
-
-  //         if (result.docs && result.docs.length > 0) {
-  //           aggregatedData.push({
-  //             name: `${serverPath}/db/${dbName}`,
-  //             title: result.docs[0].wargameTitle,
-  //             initiated: result.docs[0].wargameInitiated,
-  //             shortName: result.docs[0].name
-  //           })
-  //         } else {
-  //           console.log(`No data found for database ${dbName}`)
-  //         }
-  //       } catch (error) {
-  //         console.error(`Error fetching data from database ${dbName}:`, error)
-  //       }
-  //     })
-
-  //     await Promise.all(dbPromises)
-  //     res.status(200).json(aggregatedData)
-  //   } catch (err) {
-  //     console.error('Error on load alldbs:', err)
-  //     res.status(500).json({ error: 'Internal Server Error' })
-  //   }
-  // })
-
   // get all message documents for wargame
   app.get('/:wargame', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
@@ -288,6 +239,7 @@ const pouchDb = (app, io, pouchOptions) => {
     if (!databaseName) {
       res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
     }
+
     const db = new PouchDB(databaseName, pouchOptions)
 
     db.allDocs({ include_docs: true, attachments: true })
@@ -319,13 +271,21 @@ const pouchDb = (app, io, pouchOptions) => {
     // NOTE: If we do "wind-back" of wargame, delete "settings"
     db.find({
       selector: {
-        messageType: INFO_MESSAGE,
-        _id: { $ne: wargameSettings }
+        $or: [{ messageType: INFO_MESSAGE }, { _id: wargameSettings }],
+        _id: { $gte: null }
       },
-      limit: 1,
-      sort: [{ _id: 'desc' }]
-    }).then((result) => res.send({ msg: 'ok', data: result.docs }))
-      .catch(() => res.send([]))
+      sort: [{ _id: 'desc' }],
+      limit: 2
+    }).then((result) => {
+      if (result.docs && result.docs.length > 0) {
+        const responseData = result.docs.length > 1 && result.docs._id === wargameSettings ? [result.docs[1]] : [result.docs[0]]
+
+        return res.send({ msg: 'ok', data: responseData })
+      } else {
+        return res.send([])
+      }
+    }
+    ).catch(() => res.send([]))
   })
 
   app.get('/:wargame/turns', (req, res) => {

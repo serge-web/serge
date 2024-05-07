@@ -199,7 +199,8 @@ const couchDb = (app, io, pouchOptions) => {
 
     const wargameListPromise = allDbsPromise.then(allDbs => {
       const wargameDbs = allDbs.filter(name => name.includes('wargame'))
-      return Promise.all(wargameDbs.map(async db => {
+      const reversedWargameDbs = wargameDbs.reverse()
+      return Promise.all(reversedWargameDbs.map(async db => {
         const databaseName = checkSqliteExists(db)
         if (!databaseName) {
           return null
@@ -217,9 +218,9 @@ const couchDb = (app, io, pouchOptions) => {
           if (result.docs && result.docs.length > 0) {
             return {
               name: `${serverPath}/db/${db}`,
-              title: result.docs.length === 1 ? result.docs[0].wargameTitle : result.docs[1].wargameTitle,
-              initiated: result.docs.length === 1 ? result.docs[0].wargameInitiated : result.docs[1].wargameInitiated,
-              shortName: result.docs.length === 1 ? result.docs[0].name : result.docs[1].name
+              title: result.docs.length > 1 && result.docs._id === wargameSettings ? result.docs[1].wargameTitle : result.docs[0].wargameTitle,
+              initiated: result.docs.length > 1 && result.docs._id === wargameSettings ? result.docs[1].wargameInitiated : result.docs[0].wargameInitiated,
+              shortName: result.docs.length > 1 && result.docs._id === wargameSettings ? result.docs[1].name : result.docs[0].name
             }
           } else {
             return null
@@ -275,12 +276,21 @@ const couchDb = (app, io, pouchOptions) => {
 
     db.find({
       selector: {
-        messageType: INFO_MESSAGE,
-        _id: { $ne: wargameSettings, $gte: null }
+        $or: [{ messageType: INFO_MESSAGE }, { _id: wargameSettings }],
+        _id: { $gte: null }
       },
       sort: [{ _id: 'desc' }],
-      limit: 1
-    }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
+      limit: 2
+    }).then((result) => {
+      if (result.docs && result.docs.length > 0) {
+        const responseData = result.docs.length > 1 && result.docs._id === wargameSettings ? [result.docs[1]] : [result.docs[0]]
+
+        return res.send({ msg: 'ok', data: responseData })
+      } else {
+        return res.send([])
+      }
+    }
+    )
       .catch(() => res.send([]))
   })
 
