@@ -216,7 +216,7 @@ export const downloadWargame = (dbPath: string) => {
 
 export const deleteWargame = (name: string) => {
   return async (dispatch: WargameDispatch) => {
-    wargamesApi.deleteWargame(name)
+    await wargamesApi.deleteWargame(name)
 
     const wargames = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(wargames))
