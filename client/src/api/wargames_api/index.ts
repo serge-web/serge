@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { ADJUDICATION_PHASE, allDbs, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, wargameList, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
 import { deleteRoleAndParts, duplicateThisForce } from 'src/Helpers'
+import { Dispatch } from 'redux'
 import _ from 'lodash'
 import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
@@ -11,7 +12,7 @@ import * as messageTypesApi from '../../api/messageTypes_api'
 import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-
+import { saveAllWargameNames } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageDetails, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TemplateData, MappingMessage, MappingMessageDelta, TypeOfCustomMessage, WargameList } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
@@ -210,11 +211,10 @@ export const saveIcon = (file: string) => {
   }).then((res: Response) => res.json())
 }
 
-export const createWargame = async (): Promise<Wargame> => {
+export const createWargame = async (dispatch: Dispatch, wargameLists : WargameList[]): Promise<Wargame> => {
   const name = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name, db })
-  
   // get all temlete data
   const messages = await messageTypesApi.getAllMessagesFromDb()
   const templetes: TemplateData = {
@@ -236,6 +236,16 @@ export const createWargame = async (): Promise<Wargame> => {
     db.put(settings)
       .then(() => {
         db.get(wargameSettings).then((res) => {
+          const wargame = res as Wargame
+          const newWargameListItem: WargameList = {
+            name: db.name,
+            title: wargame.wargameTitle,
+            initiated: wargame.wargameInitiated as boolean,
+            shortName: wargame.name
+          }  
+
+          wargameLists.unshift(newWargameListItem)
+          dispatch(saveAllWargameNames(wargameLists))
           // @ts-ignore
           resolve(res)
         }).catch((err) => {

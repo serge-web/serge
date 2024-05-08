@@ -72,7 +72,7 @@ const AdminGameSetup: React.FC = () => {
       dispatch(addNotification('Unsaved changes', 'warning'))
     }
   }
-
+  
   const onPressBack = (e: MouseEvent) => {
     e.preventDefault()
     dispatch(setCurrentViewFromURI(ADMIN_ROUTE))
@@ -278,7 +278,7 @@ const AdminGameSetup: React.FC = () => {
     }
 
     if (typeof newGameTitle === 'string' && newGameTitle.length > 0) {
-      if (currentWargame) dispatch(saveWargameTitle(currentWargame, newGameTitle))
+      if (currentWargame) dispatch(saveWargameTitle(currentWargame, newGameTitle, wargameList))
     }
 
     if (newGameTitle === null || newGameTitle.length === 0) {

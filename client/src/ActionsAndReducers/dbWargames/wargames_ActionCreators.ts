@@ -14,6 +14,7 @@ import {
   WargameDispatch,
   WargameOverview,
   WargameRevision,
+  WargameList,
   Message
 } from 'src/custom-types'
 
@@ -60,7 +61,7 @@ export const setSelectedChannel = (selectedChannel: { name: string, uniqid: stri
   payload: selectedChannel
 })
 
-const saveAllWargameNames = (names: WargameRevision[] | string | Wargame[]): WargameActionTypes => ({
+export const saveAllWargameNames = (names: WargameRevision[] | string | Wargame[]): WargameActionTypes => ({
   type: ActionConstant.ALL_WARGAME_NAMES_SAVED,
   payload: names
 })
@@ -158,14 +159,10 @@ export const populateWargameList = () => {
   }
 }
 
-export const createNewWargameDB = () => {
+export const createNewWargameDB = (wargameList: WargameList) => {
   return async (dispatch: WargameDispatch) => {
     // @ts-ignore
-    const wargame = await wargamesApi.createWargame(dispatch)
-
-    const wargames = await wargamesApi.getAllWargames()
-
-    dispatch(saveAllWargameNames(wargames))
+    const wargame = await wargamesApi.createWargame(dispatch, wargameList)
 
     dispatch(setCurrentWargame(_.omit(wargame, ['_id', '_rev'])))
   }
@@ -271,12 +268,9 @@ export const refreshChannel = (dbName: string, selectedChannel: string) => {
   }
 }
 
-export const saveWargameTitle = (dbName: string, title: string) => {
+export const saveWargameTitle = (dbName: string, title: string, WargameList: WargameList[]) => {
   return async (dispatch: WargameDispatch) => {
-    const wargames = await wargamesApi.getAllWargames()
-    const wargame = await wargamesApi.updateWargameTitle(wargames, dbName, title)
-    
-    dispatch(saveAllWargameNames(wargames))
+    const wargame = await wargamesApi.updateWargameTitle(WargameList, dbName, title)
 
     dispatch(setCurrentWargame(wargame))
 
