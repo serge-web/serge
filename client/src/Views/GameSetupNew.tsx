@@ -13,6 +13,7 @@ import {
   saveChannel,
   setTabSaved,
   setGameData,
+  setWargameTitle,
   setSelectedForce,
   setSelectedChannel,
   duplicateChannel,
@@ -110,6 +111,10 @@ const AdminGameSetup: React.FC = () => {
 
   const handleFormChange = (changes: WargameOverview) => {
     dispatch(setGameData(changes))
+  }
+
+  const handleTitleChnage = (title: string) => {
+    dispatch(setWargameTitle(title))
   }
 
   const handleDeleteGameControl = (roles: Role[], key: number, handleChange: () => void) => {
@@ -335,6 +340,7 @@ const AdminGameSetup: React.FC = () => {
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
       messageTemplates={templates?.templates || messageTypes.messages}
+      onChangeWargameTitle={handleTitleChnage}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}

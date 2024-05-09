@@ -229,7 +229,7 @@ export const createWargame = async (dispatch: Dispatch, wargameLists : WargameLi
     wargameTitle: name, 
     phase: ADJUDICATION_PHASE 
   }
-
+  
   return new Promise((resolve, reject) => {
     // TODO: this method returns the inserted wargame.  I believe we could
     // return that, instead of `getLatestWargameRevisiion`
