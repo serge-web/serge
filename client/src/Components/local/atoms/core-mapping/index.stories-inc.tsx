@@ -4,7 +4,7 @@ import L from 'leaflet'
 import { noop } from 'lodash'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
+import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MappingPermissions, MilSymProperties, MilSymRenderer, NumberProperty, ParticipantMapping, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
 import { forceStyles } from 'src/Helpers'
 import docs from './README.md'
 import { generateFeatures } from './helper/feature-generator'
@@ -294,6 +294,28 @@ const milSymRenderer: MilSymRenderer = {
   additionalProps: [categoryProp, sizeProp, healthProp, ordersProp]
 }
 
+const participant: ParticipantMapping = {
+  forceUniqid: 'f-red',
+  roles: [],
+  subscriptionId: 'aaaa',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Planning],
+  pType: PARTICIPANT_MAPPING,
+  appliesTo: 'All features',
+  permissionTo: [MappingPermissions.View, MappingPermissions.MoveResize, MappingPermissions.EditAllProps]
+}
+
+const participant2: ParticipantMapping = {
+  forceUniqid: 'f-red',
+  roles: [],
+  subscriptionId: 'bbbb',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Planning],
+  pType: PARTICIPANT_MAPPING,
+  appliesTo: 'My features',
+  permissionTo: [MappingPermissions.View, MappingPermissions.MoveResize, MappingPermissions.EditAllProps]
+}   
+
 const coreMapChannel: ChannelMapping = {
   uniqid: 'core',
   name: 'core mapping',
@@ -308,14 +330,7 @@ const coreMapChannel: ChannelMapping = {
     }
   },
   participants: [
-    {
-      forceUniqid: 'f-red',
-      roles: [],
-      subscriptionId: 'aaaa',
-      canCreateFrom: [coreRenderer.id, milSymRenderer.id],
-      canSubmitInPhase: [Phase.Planning],
-      pType: PARTICIPANT_MAPPING
-    }
+    participant, participant2
   ],
   renderers: [coreRenderer, milSymRenderer]
 }
