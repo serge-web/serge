@@ -25,7 +25,7 @@ export interface ParticipantCustom extends CoreParticipant {
 }
 
 /** the tasks a participant can be allowed to perform in a mapping channel */
-enum MappingPermissions {
+export enum MappingPermissions {
   View = 'View',
   AddRemove = 'Add/Remove',
   MoveResize = 'Move/resize',
