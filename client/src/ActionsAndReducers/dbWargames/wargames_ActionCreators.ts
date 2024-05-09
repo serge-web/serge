@@ -276,16 +276,6 @@ export const refreshChannel = (dbName: string, selectedChannel: string) => {
 export const saveWargameTitle = (dbName: string, title: string, WargameList: WargameList[]) => {
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.updateWargameTitle(WargameList, dbName, title)
-    console.log('wargame', wargame)
-    const wargameIndex = WargameList.findIndex(wargame => wargame.shortName === dbName)
-    // console.log('wargameIndex', wargameIndex)
-    if (wargameIndex !== -1) { 
-      WargameList[wargameIndex].title = wargame.wargameTitle
-      WargameList[wargameIndex].initiated = wargame.wargameInitiated as boolean
-      WargameList[wargameIndex].shortName = wargame.name
-    }
-
-    console.log('wargameList', WargameList)
     dispatch(setCurrentWargame(wargame))
 
     dispatch(addNotification('Wargame name updated.', 'success'))
