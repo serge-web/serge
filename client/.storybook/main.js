@@ -1,19 +1,18 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   stories: [
-    '../src/**/*.stories-inc.mdx',
-    '../src/**/*.stories-inc.@(tsx)'
+    '../src/**/core-mapping.stories-inc.tsx' // testing
   ],
-  core: {
-    builder: "webpack5",
-  },
 
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
+    '@storybook/addon-webpack5-compiler-swc',
+    '@chromatic-com/storybook'
   ],
+
   webpackFinal: async config => {
     config.module.rules.push(
     {
@@ -28,14 +27,6 @@ module.exports = {
           '@babel/plugin-proposal-nullish-coalescing-operator',
         ],
       },
-    },
-    {
-      test: /\.md$/,
-      use: [
-        {
-          loader: 'markdown-loader',
-        }
-      ]
     },
     {
       test: /\.(png|jpe?g|gif)$/i,
@@ -94,5 +85,18 @@ module.exports = {
     config.resolve.extensions.push('.ts', '.tsx', '.md');
     return config;
   },
+
+  framework: {
+    name: '@storybook/react-webpack5',
+    options: {}
+  },
+
+  docs: {
+    autodocs: true
+  },
+
+  features: {
+    storyStoreV7: false
+  }
 };
 

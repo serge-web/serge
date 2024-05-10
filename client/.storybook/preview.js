@@ -84,7 +84,7 @@ export const parameters = {
     codeTheme: 'atom-dark',
   },
   actions: {
-    argTypesRegex: "^on[A-Z].*"
+    // argTypesRegex: "^on[A-Z].*"
   }
 };
 
