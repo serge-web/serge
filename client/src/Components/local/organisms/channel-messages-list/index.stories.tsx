@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { StoryFn } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs'
 
 // Import component files
 import MessageListPropTypes from './types/props'
@@ -15,7 +14,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/organisms/ChannelMessagesList',
   component: ChannelMessagesList,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

@@ -3,7 +3,6 @@ import React from 'react'
 // Import component files
 import SettingOverview from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 import { StoryFn } from '@storybook/react'
 import { WargameExportedMock } from 'src/mocks'
 import { WargameOverview } from './types/props'
@@ -19,7 +18,7 @@ const items = { tenKmillis, sixMonths, eighteenMonths: seventeenMonths }
 export default {
   title: 'local/organisms/SettingOverview',
   component: SettingOverview,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

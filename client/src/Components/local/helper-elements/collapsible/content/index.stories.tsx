@@ -3,14 +3,13 @@ import React from 'react'
 // Import component files
 import CollapsibleContent from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/helper-elements/collapsible/CollapsibleContent',
   component: CollapsibleContent,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

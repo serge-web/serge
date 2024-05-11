@@ -1,6 +1,5 @@
 import React from 'react'
 import { StoryFn } from '@storybook/react'
-import { withKnobs } from '@storybook/addon-knobs'
 
 import { ChatMessagesMock, InfoMessagesMock } from 'src/mocks'
 import Props from './types/props'
@@ -13,7 +12,6 @@ import docs from './README.md'
 export default {
   title: 'local/organisms/ChatMessagesList',
   component: ChatMessagesList,
-  decorators: [withKnobs],
   parameters: {
     readme: {
       // Show readme before story

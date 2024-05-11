@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Import component files
-import { withKnobs } from '@storybook/addon-knobs'
+
 import JsonEditor from './index'
 import docs from './README.md'
 
@@ -15,7 +15,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/molecules/JsonEditor',
   component: JsonEditor,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
