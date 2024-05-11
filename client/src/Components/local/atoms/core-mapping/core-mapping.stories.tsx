@@ -1,14 +1,13 @@
-import { withKnobs } from '@storybook/addon-knobs'
 import { Feature, FeatureCollection } from 'geojson'
 import L from 'leaflet'
 import { noop } from 'lodash'
 import React, { CSSProperties, useEffect, useState } from 'react'
+import { forceStyles } from 'src/Helpers'
 import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
 import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
-import { forceStyles } from 'src/Helpers'
-import docs from './README.md'
 import { generateFeatures } from './helper/feature-generator'
 import CoreMapping from './index'
+import { StoryObj } from '@storybook/react'
 
 type ScriptDecoratorProps = {
   scripts: string[]
@@ -49,13 +48,7 @@ const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet
 export default {
   title: 'local/organisms/CoreMapping',
   component: CoreMapping,
-  decorators: [withKnobs, wrapper],
-  parameters: {
-    readme: {
-      // Show readme before story
-      content: docs
-    }
-  }
+  decorators: [wrapper]
 }
 
 const largeBounds = L.latLngBounds(L.latLng(45, -30), L.latLng(60, 30))
@@ -370,34 +363,30 @@ const forces: ForceData[] = [
 const playerForce: ForceData = forces[0]
 const forceStylesArr = forceStyles(forces, false)
 
-export const Default: React.FC = () => {
-  return (
-    <CoreMapping
-      playerForce={playerForce}
-      messages={[coreMessage, deltaMessage]}
-      channel={coreMapChannel}
-      playerRole={'mgr'}
-      currentTurn={1}
-      forceStyles={forceStylesArr}
-      currentPhase={Phase.Planning}
-      postBack={noop}
-      openPanelAsDefault={false}
-    />
-  )
+export const Default: StoryObj<typeof CoreMapping> = {
+  render: () => <CoreMapping
+    playerForce={playerForce}
+    messages={[coreMessage, deltaMessage]}
+    channel={coreMapChannel}
+    playerRole={'mgr'}
+    currentTurn={1}
+    forceStyles={forceStylesArr}
+    currentPhase={Phase.Planning}
+    postBack={noop}
+    openPanelAsDefault={false}
+  />
 }
 
-export const Bulk: React.FC = () => {
-  return (
-    <CoreMapping
-      playerForce={playerForce}
-      messages={[bulkMessage, deltaMessage]}
-      channel={coreMapChannel}
-      playerRole={'mgr'}
-      currentTurn={1}
-      forceStyles={forceStylesArr}
-      currentPhase={Phase.Planning}
-      postBack={noop}
-      openPanelAsDefault={false}
-    />
-  )
+export const Bulk: StoryObj<typeof CoreMapping> = {
+  render: () => <CoreMapping
+    playerForce={playerForce}
+    messages={[bulkMessage, deltaMessage]}
+    channel={coreMapChannel}
+    playerRole={'mgr'}
+    currentTurn={1}
+    forceStyles={forceStylesArr}
+    currentPhase={Phase.Planning}
+    postBack={noop}
+    openPanelAsDefault={false}
+  />
 }

@@ -2,13 +2,16 @@ const path = require('path');
 
 module.exports = {
   stories: [
-    '../src/**/demo.stories.tsx' // testing
+    '../src/**/core-mapping.stories.tsx'
   ],
+  staticDirs: ['../public', '../static'],
 
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
+    '@storybook/preview-api',
+    '@storybook/addon-controls',
     '@storybook/addon-webpack5-compiler-swc',
     '@chromatic-com/storybook'
   ],
