@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import { Phase, TurnFormats } from 'src/config'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 // Import component files
 import TurnProgression from './index'
 import TurnPropTypes from './types/props'
@@ -76,7 +76,7 @@ export default {
 
 const stepTime = 20000
 
-const Template: Story<TurnPropTypes> = (args) => {
+const Template: StoryFn<TurnPropTypes> = (args) => {
   const { ...props } = args
   const [state, setState] = useState({
     phase: props.phase,

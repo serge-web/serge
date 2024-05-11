@@ -7,7 +7,7 @@ import docs from './README.md'
 
 // Import mock
 import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMoskByTitle, WargameMock, watuWargame } from 'src/mocks'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -38,7 +38,7 @@ const templateMessageCreator = {
   _id: channel.uniqid
 }
 
-const Template: Story<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit, customiseTemplate }) => {
+const Template: StoryFn<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit, customiseTemplate }) => {
   return (
     <JsonEditor
       template={template}

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 // Import component files
 import { MessageTemplatesMock, watuWargame } from 'src/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import SettingChannels from './index'
 import docs from './README.md'
 import { ChannelTypes } from './types/props'
@@ -34,7 +34,7 @@ export default {
   }
 }
 
-const Template: Story = (args) => {
+const Template: StoryFn = (args) => {
   // the channels child element may theoretically be undefined, we
   // make the compiler happy
   if (args.channels === undefined) {

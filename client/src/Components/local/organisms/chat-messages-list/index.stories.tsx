@@ -1,5 +1,5 @@
 import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 
 import { ChatMessagesMock, InfoMessagesMock } from 'src/mocks'
@@ -61,7 +61,7 @@ const messages = info.concat(chat)
 const chatMessage = chat[1] as ChatMessage
 const playerRole = chatMessage.details.from.roleId
 
-const Template: Story<Props> = (args) => {
+const Template: StoryFn<Props> = (args) => {
   const icons = [
     './images/default_img/forceDefault.png'
   ]

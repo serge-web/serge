@@ -4,7 +4,7 @@ import React from 'react'
 import DataTable, { ROW_WITH_COLLAPSIBLE_TYPE } from './index'
 import DataTableProps, { RowWithCollapsibleType } from './types/props'
 import docs from './README.md'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import Badge from '../../atoms/badge'
 import { MessageCustom } from 'src/custom-types/message'
 import { GameMessagesMockRFI } from 'src/mocks'
@@ -24,7 +24,7 @@ export default {
   }
 }
 
-const Template: Story<DataTableProps> = args => {
+const Template: StoryFn<DataTableProps> = args => {
   return (
     <DataTable {...args} />
   )

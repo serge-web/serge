@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import { withKnobs } from '@storybook/addon-knobs'
 
 // Import component files
@@ -44,7 +44,7 @@ export default {
   }
 }
 
-const Template: Story<MessageListPropTypes> = (args) => {
+const Template: StoryFn<MessageListPropTypes> = (args) => {
   const { messages, playerForceId, hideForcesInChannel } = args
   const icons = [
     './images/default_img/forceDefault.png'
