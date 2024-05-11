@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   stories: [
-    '../src/**/core-mapping.stories-inc.tsx' // testing
+    '../src/**/demo.stories.tsx' // testing
   ],
 
   addons: [
@@ -94,9 +94,5 @@ module.exports = {
   docs: {
     autodocs: true
   },
-
-  features: {
-    storyStoreV7: false
-  }
 };
 
