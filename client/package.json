@@ -50,7 +50,7 @@
     "@typescript-eslint/parser": "^6.7.0",
     "@vitejs/plugin-react": "^4.0.3",
     "babel-loader": "^9.1.2",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^5.3.3",
     "buildcom": "^3.0.6",
     "check-types": "^11.2.2",
     "classnames": "^2.2.6",
