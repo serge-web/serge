@@ -1,11 +1,10 @@
-const path = require('path');
+import path from 'path';
 
-module.exports = {
+export default {
   stories: [
     '../src/**/*.stories.tsx'
   ],
   staticDirs: ['../static'],
-
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -15,7 +14,6 @@ module.exports = {
     '@storybook/addon-webpack5-compiler-swc',
     '@chromatic-com/storybook'
   ],
-
   webpackFinal: async config => {
     config.module.rules.push(
     {
