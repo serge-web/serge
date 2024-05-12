@@ -1,6 +1,7 @@
-import path from "path";
+import type { StorybookConfig } from '@storybook/react-webpack5';
+import path from 'path';
 
-export default {
+const config: StorybookConfig = {
   stories: ["../src/**/*.stories.tsx"],
   staticDirs: ["../static"],
   addons: [
@@ -13,6 +14,9 @@ export default {
     "@chromatic-com/storybook",
   ],
   webpackFinal: async (config) => {
+    if (!config.module || !config.module.rules || !config.resolve || !config.resolve.alias || !config.resolve.extensions) {
+      return config
+    }
     config.module.rules.push(
       {
         test: /\.(js|jsx)$/,
@@ -75,7 +79,7 @@ export default {
         ],
       }
     );
-    config.resolve.alias["src"] = path.resolve(__dirname, "../src");
+    config.resolve.alias['src'] = path.resolve(__dirname, "../src")
     config.resolve.extensions.push(".ts", ".tsx", ".md");
     return config;
   },
@@ -87,3 +91,5 @@ export default {
     autodocs: true,
   },
 };
+
+export default config;
