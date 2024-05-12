@@ -20,7 +20,6 @@
     "@storybook/addon-essentials": "^8.0.10",
     "@storybook/addon-interactions": "^8.0.10",
     "@storybook/addon-links": "^8.0.10",
-    "@storybook/preset-scss": "^1.0.3",
     "@storybook/preview-api": "^8.0.10",
     "@storybook/react": "^8.0.10",
     "@storybook/test": "^8.0.10",
@@ -175,7 +174,7 @@
   "scripts": {
     "start": "vite",
     "preview": "vite preview --port 8080",
-    "storybook": "storybook dev ./static -p 6611",
+    "storybook": "storybook dev -p 6611",
     "build": "rimraf build && vite build && yarn copy-assets && yarn copy-assets-storybook && yarn cleanup",
     "test": "run-p test:*",
     "test:unit": "jest --passWithNoTests",
