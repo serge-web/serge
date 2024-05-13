@@ -65,7 +65,7 @@ typings/
 
 # Generated files and folders
 client/build/**/*
-client/static/**/*
+client/public/**/*
 log.txt
 
 # Ignore local and special envs
