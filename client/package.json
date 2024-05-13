@@ -152,6 +152,7 @@
     "@chromatic-com/storybook": "^1",
     "@storybook/addon-actions": "^8.0.10",
     "@storybook/addon-webpack5-compiler-swc": "^1.0.2",
+    "@storybook/cli": "^8.0.10",
     "@storybook/codemod": "^8.0.10",
     "@storybook/node-logger": "^8.0.10",
     "@storybook/react-webpack5": "^8.0.10",
