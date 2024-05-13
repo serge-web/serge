@@ -88,7 +88,9 @@ const couchDb = (app, io, pouchOptions) => {
     const retryUntilWritten = (db, doc) => {
       return db.get(doc._id).then((origDoc) => {
         doc._rev = origDoc._rev
-        return db.put(doc).then(async () => {
+        return db.put(doc).then(async (result) => {
+          doc._id = result.id
+          doc._rev = result.rev
           await db.compact()
           res.send({ msg: 'Updated', data: doc })
         })
@@ -97,7 +99,11 @@ const couchDb = (app, io, pouchOptions) => {
           return retryUntilWritten(db, doc)
         } else { // new doc
           return db.put(doc)
-            .then(() => res.send({ msg: 'Saved', data: doc }))
+            .then((result) => {
+              doc._id = result.id
+              doc._rev = result.rev
+              res.send({ msg: 'Saved', data: doc })
+            })
             .catch(() => {
               const settingsDoc = {
                 ...doc,
@@ -212,8 +218,8 @@ const couchDb = (app, io, pouchOptions) => {
             _id: { $gte: null }
           },
           sort: [{ _id: 'desc' }],
-          fields: ['wargameTitle', 'wargameInitiated', 'name'],
-          limit: 2
+          limit: 2,
+          fields: ['wargameTitle', 'wargameInitiated', 'name']
         }).then(result => {
           if (result.docs && result.docs.length > 0) {
             return {

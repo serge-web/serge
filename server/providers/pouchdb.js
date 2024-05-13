@@ -94,7 +94,9 @@ const pouchDb = (app, io, pouchOptions) => {
     const retryUntilWritten = (db, doc) => {
       return db.get(doc._id).then((origDoc) => {
         doc._rev = origDoc._rev
-        return db.put(doc).then(async () => {
+        return db.put(doc).then(async (result) => {
+          doc._id = result.id
+          doc._rev = result.rev
           await db.compact()
           res.send({ msg: 'Updated', data: doc })
         })
@@ -103,7 +105,11 @@ const pouchDb = (app, io, pouchOptions) => {
           return retryUntilWritten(db, doc)
         } else { // new doc
           return db.put(doc)
-            .then(() => res.send({ msg: 'Saved', data: doc }))
+            .then((result) => {
+              doc._id = result.id
+              doc._rev = result.rev
+              res.send({ msg: 'Saved', data: doc })
+            })
             .catch(() => {
               const settingsDoc = {
                 ...doc,
@@ -208,7 +214,7 @@ const pouchDb = (app, io, pouchOptions) => {
               if (result.docs && result.docs.length > 0) {
                 return {
                   name: `${serverPath}/db/${db}`,
-                  title: result.docs.length > 1 && result.docs[0]._id === wargameSettings ? result.docs[1].wargameTitle : result.docs[0].wargameTitle,
+                  title: result.docs.length > 1 && result.docs[0]._id === wargameSettings ? result.docs[1].wargameTitle + 'true' : result.docs[0].wargameTitle,
                   initiated: result.docs.length > 1 && result.docs[0]._id === wargameSettings ? result.docs[1].wargameInitiated : result.docs[0].wargameInitiated,
                   shortName: result.docs.length > 1 && result.docs[0]._id === wargameSettings ? result.docs[1].name : result.docs[0].name
                 }

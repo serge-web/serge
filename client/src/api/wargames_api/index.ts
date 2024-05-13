@@ -7,13 +7,12 @@ import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
 import uniqid from 'uniqid'
 import deepCopy from '../../Helpers/copyStateHelper'
-import * as messageTypesApi from '../../api/messageTypes_api'
 
 import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { saveAllWargameNames } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
-import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageDetails, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TemplateData, MappingMessage, MappingMessageDelta, TypeOfCustomMessage, WargameList } from 'src/custom-types'
+import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageDetails, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, MappingMessage, MappingMessageDelta, TypeOfCustomMessage, WargameList } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
@@ -215,14 +214,7 @@ export const createWargame = async (dispatch: Dispatch, wargameLists : WargameLi
   const name = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name, db })
-  // get all temlete data
-  const messages = await messageTypesApi.getAllMessagesFromDb()
-  const templetes: TemplateData = {
-    templates: messages
-  }
 
-  // include templetes whenever you start a new game
-  dbDefaultSettings.data.templates = templetes
   const settings: Wargame = { 
     ...dbDefaultSettings, 
     name, 
@@ -234,23 +226,17 @@ export const createWargame = async (dispatch: Dispatch, wargameLists : WargameLi
     // TODO: this method returns the inserted wargame.  I believe we could
     // return that, instead of `getLatestWargameRevisiion`
     db.put(settings)
-      .then(() => {
-        db.get(wargameSettings).then((res) => {
-          const wargame = res as Wargame
-          const newWargameListItem: WargameList = {
-            name: db.name,
-            title: wargame.wargameTitle,
-            initiated: wargame.wargameInitiated as boolean,
-            shortName: wargame.name
-          }  
-
-          wargameLists.unshift(newWargameListItem)
-          dispatch(saveAllWargameNames(wargameLists))
-          // @ts-ignore
-          resolve(res)
-        }).catch((err) => {
-          reject(err)
-        })
+      .then((res) => {
+        const wargame = res.data as Wargame
+        const newWargameListItem: WargameList = {
+          name: db.name,
+          title: wargame.wargameTitle,
+          initiated: wargame.wargameInitiated as boolean,
+          shortName: wargame.name
+        } 
+        wargameLists.unshift(newWargameListItem)
+        dispatch(saveAllWargameNames(wargameLists))
+        resolve(wargame)
       }).catch((err) => {
         console.log(err)
         reject(err)
@@ -337,8 +323,8 @@ const updateWargameByDb = (nextWargame: Wargame, dbName: string, revisionCheck =
     return db.put({
       ...nextWargame,
       _id: wargameSettings
-    }).then(() => {
-      return db.get(wargameSettings) as Promise<Wargame>
+    }).then((resault) => {
+      return resault.data as Wargame
     })
   }
 }
@@ -614,8 +600,8 @@ export const createLatestWargameRevision = (dbName: string, wargame: Wargame): P
     _rev: undefined,
     _id: new Date().toISOString(),
     messageType: INFO_MESSAGE
-  }).then(() => {
-    return getLatestWargameRevision(dbName)
+  }).then((result) => {
+    return result.data
   }).catch(rejectDefault)
 }
 

@@ -73,7 +73,7 @@ export class DbProvider implements DbProviderInterface {
     return url.replace(databasePath, '')
   }
 
-  put (doc: Wargame | Message): Promise<Wargame | Message> {
+  put (doc: Wargame | Message): Promise< { data: Wargame | Message, msg: string}> {
     return new Promise((resolve) => {
       fetch(serverPath + this.getDbName(), {
         method: 'PUT',
