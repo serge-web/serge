@@ -207,16 +207,17 @@ const pouchDb = (app, io, pouchOptions) => {
               _id: { $gte: null }
             },
             sort: [{ _id: 'desc' }],
-            fields: ['wargameTitle', 'wargameInitiated', 'name'],
+            fields: ['wargameTitle', 'wargameInitiated', 'name', '_id'],
             limit: 2
           })
             .then(result => {
               if (result.docs && result.docs.length > 0) {
+                const lastWargame = result.docs.length > 1 && result.docs[0]._id === wargameSettings ? result.docs[1] : result.docs[0]
                 return {
                   name: `${serverPath}/db/${db}`,
-                  title: result.docs.length > 1 && result.docs[0]._id === wargameSettings ? result.docs[1].wargameTitle + 'true' : result.docs[0].wargameTitle,
-                  initiated: result.docs.length > 1 && result.docs[0]._id === wargameSettings ? result.docs[1].wargameInitiated : result.docs[0].wargameInitiated,
-                  shortName: result.docs.length > 1 && result.docs[0]._id === wargameSettings ? result.docs[1].name : result.docs[0].name
+                  title: lastWargame.wargameTitle,
+                  initiated: lastWargame.wargameInitiated,
+                  shortName: lastWargame.name
                 }
               } else {
                 return null
