@@ -187,7 +187,7 @@
     "lint:styles": "stylelint --fix src/**/*.scss",
     "lint:ts": "eslint --fix src/**/*.ts*",
     "heroku-postbuild": "yarn build && yarn build-storybook",
-    "build-storybook": "storybook build -s ./static -c .storybook -o ./build/storybook",
+    "build-storybook": "storybook build -c .storybook -o ./build/storybook",
     "copy": "copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build",
     "copy-assets": "copyfiles -u 4 src/Components/local/asset-icon/counters/*.svg ./public/assets",
     "copy-assets-storybook": "copyfiles -u 4 src/Components/local/asset-icon/counters/*.svg static/assets/counters",
