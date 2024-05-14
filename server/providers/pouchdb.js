@@ -233,8 +233,8 @@ const pouchDb = (app, io, pouchOptions) => {
     Promise.all([allDbsPromise, wargameListPromise])
       .then(([allDbs, aggregatedData]) => {
         const filteredData = aggregatedData.filter(data => data !== null)
-        const test = allDbs.map(dbName => dbName.replace(dbSuffix, ''))
-        res.status(200).json({ data: filteredData, allDbs: test })
+        const wargameList = allDbs.map(dbName => dbName.replace(dbSuffix, ''))
+        res.status(200).json({ data: filteredData, allDbs: wargameList })
       })
       .catch(err => {
         console.error('Error on load alldbs:', err)
