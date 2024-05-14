@@ -242,7 +242,7 @@ const couchDb = (app, io, pouchOptions) => {
     Promise.all([allDbsPromise, wargameListPromise])
       .then(([allDbs, aggregatedData]) => {
         const filteredData = aggregatedData.filter(data => data !== null)
-        res.status(200).json(filteredData)
+        res.status(200).json({ data: filteredData, allDbs: allDbs })
       })
       .catch(err => {
         console.error('Error on load alldbs:', err)

@@ -188,7 +188,8 @@ const pouchDb = (app, io, pouchOptions) => {
   })
 
   app.get('/wargameList', async (req, res) => {
-    PouchDB.allDbs()
+    const allDbsPromise = PouchDB.allDbs()
+    const wargameListPromise = allDbsPromise
       .then(dbList => {
         const dbLists = dbList.map(dbName => dbName.replace(dbSuffix, ''))
         const wargameDbs = dbLists.filter(name => name.includes('wargame'))
@@ -229,12 +230,14 @@ const pouchDb = (app, io, pouchOptions) => {
             })
         }))
       })
-      .then(aggregatedData => {
+    Promise.all([allDbsPromise, wargameListPromise])
+      .then(([allDbs, aggregatedData]) => {
         const filteredData = aggregatedData.filter(data => data !== null)
-        res.status(200).json(filteredData)
+        const test = allDbs.map(dbName => dbName.replace(dbSuffix, ''))
+        res.status(200).json({ data: filteredData, allDbs: test })
       })
-      .catch(error => {
-        console.error('Error fetching wargame list:', error)
+      .catch(err => {
+        console.error('Error on load alldbs:', err)
         res.status(500).json({ error: 'Internal Server Error' })
       })
   })

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ADJUDICATION_PHASE, allDbs, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, wargameList, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
+import { ADJUDICATION_PHASE, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, wargameList, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
 import { deleteRoleAndParts, duplicateThisForce } from 'src/Helpers'
 import { Dispatch } from 'redux'
 import _ from 'lodash'
@@ -143,14 +143,12 @@ export const fetchWargameList = async (): Promise<any> => {
 }
 
 export const populateWargameList = (): Promise<string | Wargame[]> => {
-  return fetch(serverPath + allDbs)
-    .then((res: Response) => res.json())
-    .then((res: { data: string[] }) => (res.data || []) as string[])
-    .then(async (dbs: string[]) => {
+  return fetchWargameList()
+    .then(async (res) => { 
+      const dbs = await res.allDbs
       const wargameNames: string[] = wargameDbStore.map((db) => db.name)
       const toCreateDiff: string[] = _.difference(dbs, wargameNames)
       const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')
-
       // Filter out only the databases that contain "wargame" in their names
       const wargameDbs: string[] = toCreate.filter(name => name.includes('wargame'))
 
@@ -158,11 +156,9 @@ export const populateWargameList = (): Promise<string | Wargame[]> => {
         const db = new DbProvider(databasePath + name)
         wargameDbStore.unshift({ name, db })
       })
-      // Fetch additional data for wargame databases
-      const wargameList = await fetchWargameList()
-
-      return wargameList
-    }).catch((err: string) => {
+      return res.data
+    })
+    .catch((err: string) => {
       console.log(err)
       return err
     })
