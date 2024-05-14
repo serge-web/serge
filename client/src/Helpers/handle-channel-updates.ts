@@ -71,23 +71,33 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       isOpen: false
     }
 
-    // check the channel doesn't already contain the message
-    // we can mistakenly register for updates twice, which gives the appearance
-    // of duplicate messages
-    const present = theChannel.messages.some((msg: MessageChannel) => msg._id === message._id)
-    if (!present) {
-      // chat messages need to go at the end, not the start
-      if (theChannel.cData.channelType === CHANNEL_CHAT) {
-        theChannel.messages.push(newObj)
-      } else {
-        theChannel.messages.unshift(newObj)
-      }
-      // update message count, if it's not from us
-      if (!ourMessage) {
-        theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
-      }
+    // if this is a collab channel, we need the newest version of the message, else we ditch duplicates
+    if (theChannel.cData.channelType === CHANNEL_COLLAB) {
+      // strip out old versions of this message
+      const cleanOldVersions = theChannel.messages.filter((msg: MessageChannel) => msg._id !== message._id)
+      // append the new message
+      cleanOldVersions.push(message)
+      
+      theChannel.messages = cleanOldVersions
     } else {
-      console.warn('Duplicate message ditched. But, we should be preventing this in DBProvider', message)
+      // check the channel doesn't already contain the message
+      // we can mistakenly register for updates twice, which gives the appearance
+      // of duplicate messages
+      const present = theChannel.messages.some((msg: MessageChannel) => msg._id === message._id)
+      if (!present) {
+        // chat messages need to go at the end, not the start
+        if (theChannel.cData.channelType === CHANNEL_CHAT) {
+          theChannel.messages.push(newObj)
+        } else {
+          theChannel.messages.unshift(newObj)
+        }
+        // update message count, if it's not from us
+        if (!ourMessage) {
+          theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+        }
+      } else {
+        console.warn('Duplicate message ditched. But, we should be preventing this in DBProvider', message)
+      }
     }
   }
 }
