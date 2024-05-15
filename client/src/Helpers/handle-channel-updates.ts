@@ -76,7 +76,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       // strip out old versions of this message
       const cleanOldVersions = theChannel.messages.filter((msg: MessageChannel) => msg._id !== message._id)
       // append the new message
-      cleanOldVersions.push(message)
+      cleanOldVersions.unshift(message)
       
       theChannel.messages = cleanOldVersions
     } else {
