@@ -31,21 +31,26 @@ export class DbProvider implements DbProviderInterface {
     const socket = io(socketPath)
 
     const listenerMessage = (data: MessageCustom) => {
-      // Convert the message object to a JSON string
-      const messageString = JSON.stringify(data)
       // we use a special name for the wargame document
       const specialFiles = [wargameSettings]
       // have we just received this message?
       
       // Check if the message is already received
-      if (!specialFiles.includes(data._id) && (messageString === this.lastMessage) && !Array.isArray(data)) {
-        console.warn('Duplicate message received, skipping', data._id)
-        // Skip processing this message
+      if (!specialFiles.includes(data._id) && !Array.isArray(data)) {
+        console.warn('Message not relevant, skipping', data._id)
       } else {
-        // Handle the message
-        listener(data)
-        // Add the message to the set
-        this.lastMessage = messageString
+        // Convert the message object to a JSON string
+        const messageString = JSON.stringify(data)
+
+        // is this the same as the last one?
+        if (messageString === this.lastMessage) {
+          console.warn('Duplicate message, skipping', data._id)
+        } else {
+          // Handle the message
+          listener(data)
+          // Add the message to the set
+          this.lastMessage = messageString
+        }  
       }
     }
 
