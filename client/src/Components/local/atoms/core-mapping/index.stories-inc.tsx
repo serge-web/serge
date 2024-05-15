@@ -299,21 +299,26 @@ const participant: ParticipantMapping = {
   roles: [],
   subscriptionId: 'aaaa',
   forRenderer: [coreRenderer.id, milSymRenderer.id],
-  phases: [Phase.Planning],
+  phases: [Phase.Planning, Phase.Adjudication],
   pType: PARTICIPANT_MAPPING,
-  appliesTo: 'All features',
-  permissionTo: [MappingPermissions.View, MappingPermissions.MoveResize, MappingPermissions.EditAllProps]
+  permissionTo: {
+    'f-red': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.AddRemove, 
+      MappingPermissions.ViewProps, MappingPermissions.EditOwnProps],
+    'f-blue': [MappingPermissions.ViewSpatial] 
+  } 
 }
 
 const participant2: ParticipantMapping = {
-  forceUniqid: 'f-red',
+  forceUniqid: 'f-blue',
   roles: [],
   subscriptionId: 'bbbb',
   forRenderer: [coreRenderer.id, milSymRenderer.id],
   phases: [Phase.Planning],
   pType: PARTICIPANT_MAPPING,
-  appliesTo: 'My features',
-  permissionTo: [MappingPermissions.View, MappingPermissions.MoveResize, MappingPermissions.EditAllProps]
+  permissionTo: {
+    'f-blue': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.EditAllProps],
+    'f-red': [MappingPermissions.ViewSpatial, MappingPermissions.ViewProps] 
+  } 
 }   
 
 const coreMapChannel: ChannelMapping = {
