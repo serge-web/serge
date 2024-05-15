@@ -321,6 +321,19 @@ const blueParticipant: ParticipantMapping = {
   } 
 }   
 
+const umpireParticipant: ParticipantMapping = {
+  forceUniqid: 'umpire',
+  roles: ['umpire'],
+  subscriptionId: 'casa',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Planning, Phase.Adjudication],
+  pType: PARTICIPANT_MAPPING,
+  permissionTo: {
+    'f-blue': [MappingPermissions.AddRemove, MappingPermissions.ViewProps, MappingPermissions.EditAllProps, MappingPermissions.MoveResize, MappingPermissions.ViewSpatial],
+    'f-red': [MappingPermissions.ViewSpatial, MappingPermissions.ViewProps, MappingPermissions.AddRemove] 
+  } 
+}   
+
 const coreMapChannel: ChannelMapping = {
   uniqid: 'core',
   name: 'core mapping',
@@ -335,7 +348,7 @@ const coreMapChannel: ChannelMapping = {
     }
   },
   participants: [
-    redParticipant, blueParticipant
+    redParticipant, blueParticipant, umpireParticipant
   ],
   renderers: [coreRenderer, milSymRenderer]
 }
