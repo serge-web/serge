@@ -6,7 +6,6 @@ import deepCopy from './deep-copy'
  */
 const configCommonProps = (propIn: Record<string, unknown>, gameDate: string): Record<string, unknown> => {
   const prop = deepCopy(propIn)
-  console.log('config common props')
   switch (prop.format) {
     case 'datetime-local':
       // no, don't overwride flatpick

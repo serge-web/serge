@@ -17,34 +17,37 @@ export class DbProvider implements DbProviderInterface {
   private provider: ProviderDbInterface
   name: string
   // track the most recently received message
-  message_ID: string
+  lastMessage: string
 
   constructor (databasePath: string) {
     this.provider = {
       db: databasePath
     }
     this.name = databasePath
-    this.message_ID = '' 
+    this.lastMessage = '' 
   }
 
   changes (listener: (doc: Message) => void): void {
     const socket = io(socketPath)
+
     const listenerMessage = (data: MessageCustom) => {
       // we use a special name for the wargame document
       const specialFiles = [wargameSettings]
       // have we just received this message?
-      if (!specialFiles.includes(data._id) && (this.message_ID === data._id) && !Array.isArray(data)) {
-        // yes. warn maintainer but don't propagate message
-        console.warn('duplicate message, skipping', data._id)
-        // yes - stop listening on this socket
-        // socket.off(this.getDbName(), listenerMessage) 
+      // Convert the message object to a JSON string
+      const messageString = JSON.stringify(data)
+      
+      // Check if the message is already received
+      if (!specialFiles.includes(data._id) && !Array.isArray(data) && messageString === this.lastMessage) {
+        console.warn('Message not relevant or duplicate, skipping', data._id)
       } else {
-        // no, handle the message
+        // Handle the message
         listener(data)
-        // and cache the id
-        this.message_ID = data._id 
-      }
+        // Add the message to the set
+        this.lastMessage = messageString
+      }  
     }
+
     socket.on(this.getDbName(), listenerMessage)
   }
 
