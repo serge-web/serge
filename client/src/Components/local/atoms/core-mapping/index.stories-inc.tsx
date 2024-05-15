@@ -294,7 +294,7 @@ const milSymRenderer: MilSymRenderer = {
   additionalProps: [categoryProp, sizeProp, healthProp, ordersProp]
 }
 
-const participant: ParticipantMapping = {
+const redParticipant: ParticipantMapping = {
   forceUniqid: 'f-red',
   roles: [],
   subscriptionId: 'aaaa',
@@ -308,9 +308,9 @@ const participant: ParticipantMapping = {
   } 
 }
 
-const participant2: ParticipantMapping = {
+const blueParticipant: ParticipantMapping = {
   forceUniqid: 'f-blue',
-  roles: [],
+  roles: ['blue-mtg-1'],
   subscriptionId: 'bbbb',
   forRenderer: [coreRenderer.id, milSymRenderer.id],
   phases: [Phase.Planning],
@@ -335,7 +335,7 @@ const coreMapChannel: ChannelMapping = {
     }
   },
   participants: [
-    participant, participant2
+    redParticipant, blueParticipant
   ],
   renderers: [coreRenderer, milSymRenderer]
 }
@@ -375,7 +375,22 @@ const forces: ForceData[] = [
     iconURL: '',
     name: 'Blue',
     overview: '',
-    roles: [],
+    roles: [
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 1',
+        roleId: 'blue-mtg-1'
+      },
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 2',
+        roleId: 'blue-mtg-2'
+      }
+    ],
     uniqid: 'f-blue'
   }, {
     color: '#0F0',
