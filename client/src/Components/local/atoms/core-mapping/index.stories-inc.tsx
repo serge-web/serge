@@ -362,12 +362,41 @@ console.log(coreMessage)
 
 const forces: ForceData[] = [
   {
+    color: '#FFF',
+    dirty: false,
+    iconURL: '',
+    name: 'Umpire',
+    overview: '',
+    roles: [{
+      isGameControl: true,
+      isInsightViewer: true,
+      isObserver: true,
+      isRFIManager: false,
+      name: 'MTG 1',
+      roleId: 'umpire'
+    }],
+    uniqid: 'umpire'
+  },
+  {
     color: '#F00',
     dirty: false,
     iconURL: '',
     name: 'Red',
     overview: '',
-    roles: [],
+    roles: [{
+      isGameControl: false,
+      isInsightViewer: false,
+      isObserver: false,
+      name: 'MTG 1',
+      roleId: 'red-mtg-1'
+    },
+    {
+      isGameControl: false,
+      isInsightViewer: false,
+      isObserver: false,
+      name: 'MTG 2',
+      roleId: 'blue-mtg-2'
+    }],
     uniqid: 'f-red'
   }, {
     color: '#00F',
@@ -398,7 +427,14 @@ const forces: ForceData[] = [
     iconURL: '',
     name: 'Green',
     overview: '',
-    roles: [],
+    roles: [
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 2',
+        roleId: 'green-mtg-2'
+      }],
     uniqid: 'f-green'
   }
 ]
