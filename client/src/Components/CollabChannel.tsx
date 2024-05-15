@@ -1,7 +1,7 @@
 import CollabStatusBoard from './local/collab-status-board'
 import NewMessage from './local/form-elements/new-message'
 import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from 'src/config'
-import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab, TypeOfCustomMessage } from 'src/custom-types'
+import { ChannelCollab, MessageChannel, MessageCustom, MessageDetails, ParticipantCollab, TypeOfCustomMessage } from 'src/custom-types'
 import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from 'src/Helpers'
 import { MessageSentInteraction, PlainInteraction } from 'src/custom-types/player-log'
 import 'src/themes/App.scss'
@@ -73,6 +73,14 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     }
    
     saveNewActivityTimeMessage(details.from.roleId, saveMessageInt, state.currentWargame)(dispatch)
+  }
+
+  const messageHandler = (details: MessageDetails, message: any, templeteId: string, messageType: TypeOfCustomMessage): void => {
+    const sendMessage: MessageSentInteraction = {
+      aType: MESSAGE_SENT_INTERACTION
+    }
+    saveNewActivityTimeMessage(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
+    saveMessage(state.currentWargame, details, message, templeteId, messageType)()
   }
 
   // deepScan: This prop requires a new object on every render for some reason,
@@ -183,6 +191,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
           selectedForce={state.selectedForce}
           selectedRoleName={state.selectedRoleName}
           dispatch={dispatch}
+          postBack={messageHandler}
         />
       }
     </div>
