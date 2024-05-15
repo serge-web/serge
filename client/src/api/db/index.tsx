@@ -34,24 +34,18 @@ export class DbProvider implements DbProviderInterface {
       // we use a special name for the wargame document
       const specialFiles = [wargameSettings]
       // have we just received this message?
+      // Convert the message object to a JSON string
+      const messageString = JSON.stringify(data)
       
       // Check if the message is already received
-      if (!specialFiles.includes(data._id) && !Array.isArray(data)) {
-        console.warn('Message not relevant, skipping', data._id)
+      if (!specialFiles.includes(data._id) && !Array.isArray(data) && messageString === this.lastMessage) {
+        console.warn('Message not relevant or duplicate, skipping', data._id)
       } else {
-        // Convert the message object to a JSON string
-        const messageString = JSON.stringify(data)
-
-        // is this the same as the last one?
-        if (messageString === this.lastMessage) {
-          console.warn('Duplicate message, skipping', data._id)
-        } else {
-          // Handle the message
-          listener(data)
-          // Add the message to the set
-          this.lastMessage = messageString
-        }  
-      }
+        // Handle the message
+        listener(data)
+        // Add the message to the set
+        this.lastMessage = messageString
+      }  
     }
 
     socket.on(this.getDbName(), listenerMessage)
