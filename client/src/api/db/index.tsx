@@ -17,14 +17,14 @@ export class DbProvider implements DbProviderInterface {
   private provider: ProviderDbInterface
   name: string
   // track the most recently received message
-  receivedMessages: string
+  lastMessage: string
 
   constructor (databasePath: string) {
     this.provider = {
       db: databasePath
     }
     this.name = databasePath
-    this.receivedMessages = '' 
+    this.lastMessage = '' 
   }
 
   changes (listener: (doc: Message) => void): void {
@@ -38,14 +38,14 @@ export class DbProvider implements DbProviderInterface {
       // have we just received this message?
       
       // Check if the message is already received
-      if (!specialFiles.includes(data._id) && (messageString === this.receivedMessages) && !Array.isArray(data)) {
+      if (!specialFiles.includes(data._id) && (messageString === this.lastMessage) && !Array.isArray(data)) {
         console.warn('Duplicate message received, skipping', data._id)
         // Skip processing this message
       } else {
         // Handle the message
         listener(data)
         // Add the message to the set
-        this.receivedMessages = messageString
+        this.lastMessage = messageString
       }
     }
 
