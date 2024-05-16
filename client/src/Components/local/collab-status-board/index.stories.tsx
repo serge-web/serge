@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 
 // Import component files
 import CollabStatusBoard from './index'
@@ -59,7 +59,7 @@ export default {
   }
 }
 
-const Template: Story<CollabStatusBoardProps> = (args) => {
+const Template: StoryFn<CollabStatusBoardProps> = (args) => {
   const { isObserver, isUmpire } = args
   const [messages, setMessages] = useState(args.messages)
 

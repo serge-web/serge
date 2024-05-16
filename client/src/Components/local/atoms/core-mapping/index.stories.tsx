@@ -1,4 +1,3 @@
-import { withKnobs } from '@storybook/addon-knobs'
 import { Feature, FeatureCollection } from 'geojson'
 import L from 'leaflet'
 import { noop } from 'lodash'
@@ -49,7 +48,7 @@ const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet
 export default {
   title: 'local/organisms/CoreMapping',
   component: CoreMapping,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

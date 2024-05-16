@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
 
@@ -10,7 +10,6 @@ import docs from './README.md'
 export default {
   title: 'local/atoms/Textarea',
   component: Textarea,
-  decorators: [withKnobs],
   parameters: {
     readme: {
       // Show readme before story
