@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField'
 import docs from './README.md'
 
 export default {
-  title: 'vendor/TextField',
+  title: 'md-text-field/vendor/TextField',
   component: TextField,
   parameters: {
     readme: {

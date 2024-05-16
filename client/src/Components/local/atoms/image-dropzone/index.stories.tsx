@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import ImageDropzone from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
 export default {
   title: 'local/atoms/ImageDropzone',
   component: ImageDropzone,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

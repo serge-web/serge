@@ -7,7 +7,7 @@ import { Home, Language, HourglassFull } from '@material-ui/icons'
 import docs from './README.md'
 
 export default {
-  title: 'vendor/ButtonGroup',
+  title: 'md-button-group/vendor/ButtonGroup',
   component: ButtonGroup,
   parameters: {
     readme: {

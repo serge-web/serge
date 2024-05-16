@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 // Import component files
 import SettingsForceOverview from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { watuWargame } from 'src/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '300px' }}>{storyFn()}</div>
@@ -13,7 +13,7 @@ const forcesMock = watuWargame.data.forces.forces
 export default {
   title: 'local/organisms/SettingForces/SettingsForceOverview',
   component: SettingsForceOverview,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 // Import component files
 import SettingForces from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { watuWargame } from 'src/mocks'
 import { ForceData } from './types/props'
 
@@ -14,7 +14,7 @@ const forcesMock = watuWargame.data.forces.forces
 export default {
   title: 'local/organisms/SettingForces',
   component: SettingForces,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
