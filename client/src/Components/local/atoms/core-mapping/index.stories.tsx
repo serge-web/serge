@@ -3,7 +3,7 @@ import L from 'leaflet'
 import { noop } from 'lodash'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
+import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MappingPermissions, MilSymProperties, MilSymRenderer, NumberProperty, ParticipantMapping, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
 import { forceStyles } from 'src/Helpers'
 import docs from './README.md'
 import { generateFeatures } from './helper/feature-generator'
@@ -293,6 +293,46 @@ const milSymRenderer: MilSymRenderer = {
   additionalProps: [categoryProp, sizeProp, healthProp, ordersProp]
 }
 
+const redParticipant: ParticipantMapping = {
+  forceUniqid: 'f-red',
+  roles: [],
+  subscriptionId: 'aaaa',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Planning, Phase.Adjudication],
+  pType: PARTICIPANT_MAPPING,
+  permissionTo: {
+    'f-red': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.AddRemove, 
+      MappingPermissions.ViewProps, MappingPermissions.EditOwnProps],
+    'f-blue': [MappingPermissions.ViewSpatial] 
+  } 
+}
+
+const blueParticipant: ParticipantMapping = {
+  forceUniqid: 'f-blue',
+  roles: ['blue-mtg-1'],
+  subscriptionId: 'bbbb',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Planning],
+  pType: PARTICIPANT_MAPPING,
+  permissionTo: {
+    'f-blue': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.EditAllProps],
+    'f-red': [MappingPermissions.ViewSpatial, MappingPermissions.ViewProps] 
+  } 
+}   
+
+const umpireParticipant: ParticipantMapping = {
+  forceUniqid: 'umpire',
+  roles: ['umpire'],
+  subscriptionId: 'casa',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Planning, Phase.Adjudication],
+  pType: PARTICIPANT_MAPPING,
+  permissionTo: {
+    'f-blue': [MappingPermissions.AddRemove, MappingPermissions.ViewProps, MappingPermissions.EditAllProps, MappingPermissions.MoveResize, MappingPermissions.ViewSpatial],
+    'f-red': [MappingPermissions.ViewSpatial, MappingPermissions.ViewProps, MappingPermissions.AddRemove] 
+  } 
+}   
+
 const coreMapChannel: ChannelMapping = {
   uniqid: 'core',
   name: 'core mapping',
@@ -307,14 +347,7 @@ const coreMapChannel: ChannelMapping = {
     }
   },
   participants: [
-    {
-      forceUniqid: 'f-red',
-      roles: [],
-      subscriptionId: 'aaaa',
-      canCreateFrom: [coreRenderer.id, milSymRenderer.id],
-      canSubmitInPhase: [Phase.Planning],
-      pType: PARTICIPANT_MAPPING
-    }
+    redParticipant, blueParticipant, umpireParticipant
   ],
   renderers: [coreRenderer, milSymRenderer]
 }
@@ -341,12 +374,41 @@ console.log(coreMessage)
 
 const forces: ForceData[] = [
   {
+    color: '#FFF',
+    dirty: false,
+    iconURL: '',
+    name: 'Umpire',
+    overview: '',
+    roles: [{
+      isGameControl: true,
+      isInsightViewer: true,
+      isObserver: true,
+      isRFIManager: false,
+      name: 'MTG 1',
+      roleId: 'umpire'
+    }],
+    uniqid: 'umpire'
+  },
+  {
     color: '#F00',
     dirty: false,
     iconURL: '',
     name: 'Red',
     overview: '',
-    roles: [],
+    roles: [{
+      isGameControl: false,
+      isInsightViewer: false,
+      isObserver: false,
+      name: 'MTG 1',
+      roleId: 'red-mtg-1'
+    },
+    {
+      isGameControl: false,
+      isInsightViewer: false,
+      isObserver: false,
+      name: 'MTG 2',
+      roleId: 'blue-mtg-2'
+    }],
     uniqid: 'f-red'
   }, {
     color: '#00F',
@@ -354,7 +416,22 @@ const forces: ForceData[] = [
     iconURL: '',
     name: 'Blue',
     overview: '',
-    roles: [],
+    roles: [
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 1',
+        roleId: 'blue-mtg-1'
+      },
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 2',
+        roleId: 'blue-mtg-2'
+      }
+    ],
     uniqid: 'f-blue'
   }, {
     color: '#0F0',
@@ -362,7 +439,14 @@ const forces: ForceData[] = [
     iconURL: '',
     name: 'Green',
     overview: '',
-    roles: [],
+    roles: [
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 2',
+        roleId: 'green-mtg-2'
+      }],
     uniqid: 'f-green'
   }
 ]
