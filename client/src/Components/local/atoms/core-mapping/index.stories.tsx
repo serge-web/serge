@@ -1,19 +1,105 @@
 import { Feature, FeatureCollection } from 'geojson'
+import { StoryFn } from '@storybook/react'
 import L from 'leaflet'
 import { noop } from 'lodash'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MappingPermissions, MilSymProperties, MilSymRenderer, NumberProperty, ParticipantMapping, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
+import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MappingPermissions, MilSymProperties, MilSymRenderer, NumberProperty, ParticipantMapping, RENDERER_CORE, RENDERER_MILSYM, Role, StringProperty } from 'src/custom-types'
 import { forceStyles } from 'src/Helpers'
 import docs from './README.md'
 import { generateFeatures } from './helper/feature-generator'
 import CoreMapping from './index'
+import PropTypes from './types/props'
 
 type ScriptDecoratorProps = {
   scripts: string[]
   children: React.ReactElement
   style: CSSProperties
 }
+
+type ExtendPropTypes = PropTypes & {
+  currentPhase: string
+  selectedRole: string
+}
+
+const forces: ForceData[] = [
+  {
+    color: '#FFF',
+    dirty: false,
+    iconURL: '',
+    name: 'Umpire',
+    overview: '',
+    roles: [{
+      isGameControl: true,
+      isInsightViewer: true,
+      isObserver: true,
+      isRFIManager: false,
+      name: 'MTG 1',
+      roleId: 'umpire'
+    }],
+    uniqid: 'umpire'
+  },
+  {
+    color: '#F00',
+    dirty: false,
+    iconURL: '',
+    name: 'Red',
+    overview: '',
+    roles: [{
+      isGameControl: false,
+      isInsightViewer: false,
+      isObserver: false,
+      name: 'MTG 1',
+      roleId: 'red-mtg-1'
+    },
+    {
+      isGameControl: false,
+      isInsightViewer: false,
+      isObserver: false,
+      name: 'MTG 2',
+      roleId: 'red-mtg-2'
+    }],
+    uniqid: 'f-red'
+  }, {
+    color: '#00F',
+    dirty: false,
+    iconURL: '',
+    name: 'Blue',
+    overview: '',
+    roles: [
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 1',
+        roleId: 'blue-mtg-1'
+      },
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 2',
+        roleId: 'blue-mtg-2'
+      }
+    ],
+    uniqid: 'f-blue'
+  }, {
+    color: '#0F0',
+    dirty: false,
+    iconURL: '',
+    name: 'Green',
+    overview: '',
+    roles: [
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 2',
+        roleId: 'green-mtg-2'
+      }],
+    uniqid: 'f-green'
+  }
+]
 
 const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, style }) => {
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -45,6 +131,8 @@ const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, st
 
 const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet/ruler/leaflet.ruler.js']} style={{ height: '600px', position: 'relative' }}>{storyFn()}</ScriptDecorator>
 
+console.log(forces.flatMap(force => force.roles.map(role => role.roleId)))
+
 export default {
   title: 'local/organisms/CoreMapping',
   component: CoreMapping,
@@ -53,6 +141,19 @@ export default {
     readme: {
       // Show readme before story
       content: docs
+    }
+  },
+  argTypes: {
+    currentPhase: {
+      options: ['Planning', 'Adjudication'],
+      control: { type: 'radio' }
+    },
+    selectedRole: {
+      options: forces.flatMap(force => force.roles.map(role => role.roleId)),
+      control: { type: 'radio' }
+    },
+    openPanelAsDefault: {
+      control: { type: 'boolean' }
     }
   }
 }
@@ -370,117 +471,39 @@ const bulkMessage: MappingMessage = {
   featureCollection: generateFeatures(largeBounds, 300, 30)
 }
 
-console.log(coreMessage)
-
-const forces: ForceData[] = [
-  {
-    color: '#FFF',
-    dirty: false,
-    iconURL: '',
-    name: 'Umpire',
-    overview: '',
-    roles: [{
-      isGameControl: true,
-      isInsightViewer: true,
-      isObserver: true,
-      isRFIManager: false,
-      name: 'MTG 1',
-      roleId: 'umpire'
-    }],
-    uniqid: 'umpire'
-  },
-  {
-    color: '#F00',
-    dirty: false,
-    iconURL: '',
-    name: 'Red',
-    overview: '',
-    roles: [{
-      isGameControl: false,
-      isInsightViewer: false,
-      isObserver: false,
-      name: 'MTG 1',
-      roleId: 'red-mtg-1'
-    },
-    {
-      isGameControl: false,
-      isInsightViewer: false,
-      isObserver: false,
-      name: 'MTG 2',
-      roleId: 'blue-mtg-2'
-    }],
-    uniqid: 'f-red'
-  }, {
-    color: '#00F',
-    dirty: false,
-    iconURL: '',
-    name: 'Blue',
-    overview: '',
-    roles: [
-      {
-        isGameControl: false,
-        isInsightViewer: false,
-        isObserver: false,
-        name: 'MTG 1',
-        roleId: 'blue-mtg-1'
-      },
-      {
-        isGameControl: false,
-        isInsightViewer: false,
-        isObserver: false,
-        name: 'MTG 2',
-        roleId: 'blue-mtg-2'
-      }
-    ],
-    uniqid: 'f-blue'
-  }, {
-    color: '#0F0',
-    dirty: false,
-    iconURL: '',
-    name: 'Green',
-    overview: '',
-    roles: [
-      {
-        isGameControl: false,
-        isInsightViewer: false,
-        isObserver: false,
-        name: 'MTG 2',
-        roleId: 'green-mtg-2'
-      }],
-    uniqid: 'f-green'
-  }
-]
-const playerForce: ForceData = forces[0]
 const forceStylesArr = forceStyles(forces, false)
 
-export const Default: React.FC = () => {
-  return (
-    <CoreMapping
-      playerForce={playerForce}
-      messages={[coreMessage, deltaMessage]}
-      channel={coreMapChannel}
-      playerRole={'mgr'}
-      currentTurn={1}
-      forceStyles={forceStylesArr}
-      currentPhase={Phase.Planning}
-      postBack={noop}
-      openPanelAsDefault={false}
-    />
-  )
+/** from the provided force & role, produce a ForceRole object */
+const roleFromName = (selection: string, forces: ForceData[]): Role | undefined => {
+  const allRoles = forces.flatMap(force => force.roles)
+  return allRoles.find((role: Role) => {
+    return role.roleId === selection
+  })
 }
 
-export const Bulk: React.FC = () => {
-  return (
-    <CoreMapping
-      playerForce={playerForce}
-      messages={[bulkMessage, deltaMessage]}
-      channel={coreMapChannel}
-      playerRole={'mgr'}
-      currentTurn={1}
-      forceStyles={forceStylesArr}
-      currentPhase={Phase.Planning}
-      postBack={noop}
-      openPanelAsDefault={false}
-    />
-  )
+const forceFromRole = (role: Role, forces: ForceData[]): ForceData | undefined => {
+  return forces.find(force => {
+    return force.roles.includes(role)
+  })
+}
+
+const Template: StoryFn<ExtendPropTypes> = (args) => {
+  return <CoreMapping
+    playerForce={forceFromRole(roleFromName(args.selectedRole, forces) as Role, forces) as ForceData}
+    messages={[coreMessage, deltaMessage]}
+    channel={coreMapChannel}
+    playerRole={roleFromName(args.selectedRole, forces)}
+    currentTurn={1}
+    forceStyles={forceStylesArr}
+    currentPhase={args.currentPhase}
+    postBack={noop}
+    openPanelAsDefault={args.openPanelAsDefault}
+  />
+}
+
+export const Default = Template.bind({})
+
+export const Bulk = Template.bind({})
+Bulk.args = {
+  messages: [bulkMessage, deltaMessage]
 }
