@@ -292,7 +292,7 @@ const coreFeature: Feature = {
 
 const anotherCoreFeature: Feature = {
   type: 'Feature',
-  properties: { ...coreProps, id: 'ba' },
+  properties: { ...coreProps, id: 'ba', force: 'f-blue' },
   geometry: {
     coordinates: [
       [
@@ -326,7 +326,7 @@ const milFeature: Feature = {
 
 const anotherMilFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor', orders: 'Make uniforms for the troops if they need them, else darn socks and mittens' },
+  properties: { ...milSymProps, force: 'f-blue', id: 'ab', label: 'Military Tailor', orders: 'Make uniforms for the troops if they need them, else darn socks and mittens' },
   geometry: {
     coordinates: [-0.07929841834678096, 51.50966973326012],
     type: 'Point'
@@ -415,7 +415,7 @@ const blueParticipant: ParticipantMapping = {
   pType: PARTICIPANT_MAPPING,
   permissionTo: {
     'f-blue': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.EditAllProps],
-    'f-red': [MappingPermissions.ViewProps] 
+    'f-red': [MappingPermissions.ViewProps, MappingPermissions.ViewSpatial] 
   } 
 }   
 

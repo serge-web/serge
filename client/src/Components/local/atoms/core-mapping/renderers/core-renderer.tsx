@@ -19,15 +19,15 @@ export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
 
 const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, permissions, selected = [] }) => {
   const { filterFeatureIds, isMeasuring } = useMappingState()
-
+  console.log('permissions', permissions)
   const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
     const isThisRenderer = feature.properties._type === RENDERER_CORE
     const isShown = filterFeatureIds.includes('' + feature.properties.id)
     const hisProps = feature.properties as CoreProperties
     const hisForce = hisProps.force || ''
-    const partsForThisForce = permissions.filter((part: ParticipantMapping) => part.forceUniqid === hisForce)
-    const canSeeSpatial = partsForThisForce.some((part: ParticipantMapping) => part.permissionTo[hisForce].includes(MappingPermissions.ViewSpatial))
-    console.log('feature', hisProps.id, isThisRenderer, isShown,hisForce, partsForThisForce.length, canSeeSpatial)
+    console.log('perms', permissions, hisForce)
+    const canSeeSpatial = permissions.some((part: ParticipantMapping) => part.permissionTo[hisForce] && part.permissionTo[hisForce].includes(MappingPermissions.ViewSpatial))
+    console.log('feature', hisProps.id, isThisRenderer, isShown, hisForce, canSeeSpatial)
     return isThisRenderer && isShown && canSeeSpatial
   }
 

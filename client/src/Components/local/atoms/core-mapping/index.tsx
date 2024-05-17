@@ -72,11 +72,10 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         const forceValid = participant.forceUniqid === playerForce.uniqid
         const roleValid = participant.roles.length ? participant.roles.includes(playerRole.roleId) : true
         const phaseValid = participant.phases.includes(currentPhase)
-        // TODO: check if correct render
         return forceValid && roleValid && phaseValid 
       })
       setPermissions(relevantParts)
-      console.log('relevantParts', playerForce.uniqid, playerRole.roleId, currentPhase, channel.participants, relevantParts)  
+      console.log('relevantParts 2', playerForce.uniqid, playerRole.roleId, currentPhase, channel.participants.length, relevantParts)  
     }
   }, [channel, playerForce, playerRole, currentPhase])
 
