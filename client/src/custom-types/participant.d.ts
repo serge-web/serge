@@ -36,13 +36,15 @@ export enum MappingPermissions {
   EditAllProps = 'Edit all props'
 }
 
+export type ForcePermissions = Record<ForceData['uniqid'], MappingPermissions[]>
+
 /** participation in mapping channels */
 export interface ParticipantMapping extends CoreParticipant {
   readonly pType: typeof PARTICIPANT_MAPPING
   /** ids of renderers that this role can create items for */
   forRenderer: BaseRenderer['id'][]
   /** has permission to do these per-force actions */
-  permissionTo: Record<Force['uniqid'], MappingPermissions[]>
+  permissionTo: ForcePermissions
   /** the phase(s) that this participation applies to */
   phases: Phase[]
 }

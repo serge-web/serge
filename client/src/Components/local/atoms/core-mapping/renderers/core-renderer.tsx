@@ -5,7 +5,7 @@ import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { ForceStyle } from 'src/Helpers'
-import { CoreProperties, RENDERER_CORE } from 'src/custom-types'
+import { CoreProperties, MappingPermissions, ParticipantMapping, RENDERER_CORE } from 'src/custom-types'
 import tinycolor from 'tinycolor2'
 import { useMappingState } from '../helper/mapping-provider'
 import styles from '../styles.module.scss'
@@ -17,9 +17,20 @@ export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   return forceStyle ? forceStyle.color : '#F0F'
 }
 
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, selected = [] }) => {
+const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, permissions, selected = [] }) => {
   const { filterFeatureIds, isMeasuring } = useMappingState()
-  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE && filterFeatureIds.includes('' + feature.properties.id)
+
+  const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
+    const isThisRenderer = feature.properties._type === RENDERER_CORE
+    const isShown = filterFeatureIds.includes('' + feature.properties.id)
+    const hisProps = feature.properties as CoreProperties
+    const hisForce = hisProps.force || ''
+    const partsForThisForce = permissions.filter((part: ParticipantMapping) => part.forceUniqid === hisForce)
+    const canSeeSpatial = partsForThisForce.some((part: ParticipantMapping) => part.permissionTo[hisForce].includes(MappingPermissions.ViewSpatial))
+    console.log('feature', hisProps.id, isThisRenderer, isShown,hisForce, partsForThisForce.length, canSeeSpatial)
+    return isThisRenderer && isShown && canSeeSpatial
+  }
+
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       const isSelected = selected.some(id => id === feature.properties?.id)
@@ -133,7 +144,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
 
     l.addEventListener('pm:markerdragend', dragHandler)
     l.addEventListener('pm:dragend', dragHandler)
-  }} pointToLayer={pointToLayer} data={features} style={style} filter={filter} key={'core_renderer_' + Math.random()} />
+  }} pointToLayer={pointToLayer} data={features} style={style} filter={filterForThisRenderer} key={'core_renderer_' + Math.random()} />
 }
 
 export default CoreRenderer

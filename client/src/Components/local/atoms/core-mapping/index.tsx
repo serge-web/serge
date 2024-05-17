@@ -11,7 +11,7 @@ import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { PanelSize } from 'src/Components/CoreMappingChannel'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
-import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
@@ -32,6 +32,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [selectedFeature, setSelectedFeature] = useState<string[]>([])
   const [showLabels, setShowLabels] = useState<boolean>(false)
   const lastMessages = useRef<MappingMessage>()
+  const [permissions, setPermissions] = useState<ParticipantMapping[]>([])
 
   const [filterFeatureIds, setFilterFeatureIds] = useState<string[]>([])
   const [deselecteFeature, setDeselectFeature] = useState<boolean>(false)
@@ -64,6 +65,20 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   useEffect(() => {
     loadDefaultMarker()
   }, [])
+
+  useEffect(() => {
+    if (channel && playerForce && playerRole && currentPhase) {
+      const relevantParts = channel.participants.filter((participant: ParticipantMapping) => {
+        const forceValid = participant.forceUniqid === playerForce.uniqid
+        const roleValid = participant.roles.length ? participant.roles.includes(playerRole.roleId) : true
+        const phaseValid = participant.phases.includes(currentPhase)
+        // TODO: check if correct render
+        return forceValid && roleValid && phaseValid 
+      })
+      setPermissions(relevantParts)
+      console.log('relevantParts', playerForce.uniqid, playerRole.roleId, currentPhase, channel.participants, relevantParts)  
+    }
+  }, [channel, playerForce, playerRole, currentPhase])
 
   useEffect(() => {
     if (!isEqual(localPanelSize, panelSize)) {
@@ -460,6 +475,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
                 selected={selectedFeature}
                 showLabels={showLabels} 
                 forceStyles={forceStyles}
+                permissions={permissions}
               />) 
           }
         </LayerGroup>

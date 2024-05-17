@@ -131,8 +131,6 @@ const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, st
 
 const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet/ruler/leaflet.ruler.js']} style={{ height: '600px', position: 'relative' }}>{storyFn()}</ScriptDecorator>
 
-console.log(forces.flatMap(force => force.roles.map(role => role.roleId)))
-
 export default {
   title: 'local/organisms/CoreMapping',
   component: CoreMapping,
@@ -145,7 +143,7 @@ export default {
   },
   argTypes: {
     currentPhase: {
-      options: ['Planning', 'Adjudication'],
+      options: [Phase.Adjudication, Phase.Planning],
       control: { type: 'radio' }
     },
     selectedRole: {
@@ -417,7 +415,7 @@ const blueParticipant: ParticipantMapping = {
   pType: PARTICIPANT_MAPPING,
   permissionTo: {
     'f-blue': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.EditAllProps],
-    'f-red': [MappingPermissions.ViewSpatial, MappingPermissions.ViewProps] 
+    'f-red': [MappingPermissions.ViewProps] 
   } 
 }   
 
