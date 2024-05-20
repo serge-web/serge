@@ -4,7 +4,7 @@ import ms from 'milsymbol'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { calculateHealthColor } from 'src/Helpers'
-import { RENDERER_MILSYM } from 'src/custom-types'
+import { CoreProperties, MappingPermissions, ParticipantMapping, RENDERER_MILSYM } from 'src/custom-types'
 import { createDivIcon } from '../helper/marker-helper'
 import { CoreRendererProps } from '../types/props'
 import { useMappingState } from '../helper/mapping-provider'
@@ -12,10 +12,20 @@ import { useMappingState } from '../helper/mapping-provider'
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
-const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels, selected = [] }): any => {
+const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels, permissions, selected = [] }): any => {
   const { filterFeatureIds, isMeasuring } = useMappingState()
 
-  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM && filterFeatureIds.includes('' + feature.properties.id)
+  const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
+    const isThisRenderer = feature.properties._type === RENDERER_MILSYM
+    const isShown = filterFeatureIds.includes('' + feature.properties.id)
+    const hisProps = feature.properties as CoreProperties
+    const hisForce = hisProps.force || ''
+    console.log('perms', permissions, hisForce)
+    const canSeeSpatial = permissions.some((part: ParticipantMapping) => part.permissionTo[hisForce] && part.permissionTo[hisForce].includes(MappingPermissions.ViewSpatial))
+    console.log('feature', hisProps.id, isThisRenderer, isShown, hisForce, canSeeSpatial)
+    return isThisRenderer && isShown && canSeeSpatial
+  }
+
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       const { sidc, health, id } = feature.properties
@@ -67,7 +77,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
     }
   }
 
-  return <GeoJSON data={features} filter={filter} pointToLayer={pointToLayer} key={'feature_no_contact' + Math.random()} />
+  return <GeoJSON data={features} filter={filterForThisRenderer} pointToLayer={pointToLayer} key={'feature_no_contact' + Math.random()} />
 }
 
 export default MilSymbolRenderer

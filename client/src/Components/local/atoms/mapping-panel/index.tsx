@@ -7,7 +7,7 @@ import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 're
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
 import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
 import { ForceStyle, isValidSymbol } from 'src/Helpers'
-import { CoreProperties, PropertyType } from 'src/custom-types'
+import { CoreProperties, ParticipantMapping, PropertyType } from 'src/custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import { colorFor } from '../core-mapping/renderers/core-renderer'
@@ -26,6 +26,7 @@ type MappingPanelProps = {
   onSelect: (id: string[]) => void
   onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
   forceStyles: ForceStyle[]
+  permissions: ParticipantMapping[]
 }
 type PanelState = {
   state: boolean
