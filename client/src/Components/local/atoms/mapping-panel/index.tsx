@@ -17,7 +17,7 @@ import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
 import { SelectedProps } from './types/props'
-import { hasMappingPermission } from './helpers/has-mapping-permission'
+import { hasMappingPermission, hasMappingPermissions } from './helpers/has-mapping-permission'
 
 type MappingPanelProps = {
   onClose: () => void
@@ -54,7 +54,7 @@ const initPanelState: PanelGroupState = {
 }
 
 export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave, forceStyles, permissions }): React.ReactElement => {
-  const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
+  const [filteredFeatures, setFilteredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
   const [propertyFiltersListPanel, setPropertyFiltersListPanel] = useState<string[]>([])
@@ -88,14 +88,19 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
     }
   }
 
+  const canSeeProps = (feature: Feature<Geometry, any>): boolean => {
+    return hasMappingPermissions(feature, [MappingPermissions.ViewProps, MappingPermissions.EditAllProps,
+      MappingPermissions.EditOwnProps], permissions)
+  }
+
   useEffect(() => {
     if (features) {
       const visibleFeatures = features.features.filter(f => knowsItExists(f))
       features.features = visibleFeatures
-      setFilterredFeatures(features)
+      setFilteredFeatures(features)
       setPendingSaveFeatures(features)  
     } else {
-      setFilterredFeatures(features)
+      setFilteredFeatures(features)
       setPendingSaveFeatures(features)      
     }
   }, [features])
@@ -327,7 +332,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       clearSelectedFeature()
     }
     setFilterFeatureIds(getAllFeatureIds(cloneFeature))
-    setFilterredFeatures(cloneFeature)
+    setFilteredFeatures(cloneFeature)
   }, [features, selectedFiltersProps])
 
   const onLocalSave = () => {
@@ -451,9 +456,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         </div>
         {panelState.itemPanelState.state &&
           <div className={styles.itemsResponsive}>
-            {filterredFeatures?.features.map((feature, idx) => {
+            {filteredFeatures?.features.map((feature, idx) => {
               const color = colorFor(feature.properties?.force, forceStyles)
-              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} color={color}/>
+              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
             })}
           </div>
         }

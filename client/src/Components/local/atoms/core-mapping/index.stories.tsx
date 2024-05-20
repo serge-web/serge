@@ -427,7 +427,7 @@ const blueAdudicationParticipant: ParticipantMapping = {
   phases: [Phase.Adjudication],
   pType: PARTICIPANT_MAPPING,
   permissionTo: {
-    'f-blue': [MappingPermissions.Exists],
+    'f-blue': [MappingPermissions.Exists, MappingPermissions.ViewProps],
     'f-red': [] 
   } 
 }   
