@@ -151,7 +151,8 @@ export default {
       control: { type: 'radio' }
     },
     openPanelAsDefault: {
-      control: { type: 'boolean' }
+      options: [true, false],
+      control: { type: 'radio' }
     }
   }
 }
