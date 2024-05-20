@@ -13,20 +13,21 @@ const componentFor = (
   propertyType: PropertyType,
   value: any,
   disableIdEdit: boolean,
+  disabled: boolean,
   isId: boolean,
   onPropertiesChange: any
 ): React.ReactNode => {
   switch (propertyType.type) {
     case 'StringProperty': {
       if (propertyType.lines && propertyType.lines > 0) {
-        return <textarea value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => onPropertiesChange(key, e.target.value)} rows={propertyType.lines} />
+        return <textarea value={value} disabled={disabled || (disableIdEdit && isId)} onChange={(e: ChangeEvent<HTMLTextAreaElement>) => onPropertiesChange(key, e.target.value)} rows={propertyType.lines} />
       } else {
-        return <input value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
+        return <input value={value} disabled={disabled || (disableIdEdit && isId)} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
       }
     }
     case 'EnumProperty': {
       return (
-        <select value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
+        <select disabled={disabled} value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
           {propertyType.choices.map((o: string) => (
             <option key={o} value={o}>
               {o}
@@ -46,7 +47,7 @@ const componentFor = (
   }
 }
 
-const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, checkSidc, disableIdEdit, rendererProps, multipleSelect }) => {
+const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, checkSidc, disableIdEdit, rendererProps, multipleSelect, disabled = false }) => {
   const [isSIDCDialogOpen, setSIDCDialogOpen] = useState(false)
 
   const openSIDCGenerator = () => setSIDCDialogOpen(true)
@@ -59,7 +60,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
       <div key={key} className={styles.itemsBox} title={title}>
         <p>{key}:</p>
         <div>
-          {componentFor(key, field, prop, value, disableIdEdit, isId, onPropertiesChange)}
+          {componentFor(key, field, prop, value, disableIdEdit, disabled, isId, onPropertiesChange)}
         </div>
         {onRemoveFilter && <FontAwesomeIcon icon={faMinusCircle} className={styles.removeIcon} onClick={() => onRemoveFilter(key)} />}
       </div>

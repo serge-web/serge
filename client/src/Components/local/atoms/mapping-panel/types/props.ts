@@ -14,4 +14,5 @@ export type ProppertiesPanelProps = {
   /** property definitions for this feature type (only for props viewer) */
   rendererProps?: PropertyType[]
   multipleSelect?: boolean
+  disabled?: boolean
 }

@@ -58,7 +58,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
   const [propertyFiltersListPanel, setPropertyFiltersListPanel] = useState<string[]>([])
-  const [selectedFeatures, setSelectedFeatures] = useState<Feature<Geometry, GeoJsonProperties>[]>([])
+  const [selectedFeature, setSelectedFeature] = useState<Feature<Geometry, GeoJsonProperties> | undefined>(undefined)
+  const [propsEditable, setPropsEditable] = useState<boolean>(false)
   const [selectedProps, setSelectedProps] = useState<SelectedProps>({})
   const [selectedFiltersProps, setSelectedFiltersProps] = useState<SelectedProps>({})
   const [disableSave, setDisableSave] = useState<boolean>(true)
@@ -93,6 +94,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       MappingPermissions.EditOwnProps], permissions)
   }
 
+  const canEditProps = (feature: Feature<Geometry, any>): boolean => {
+    return hasMappingPermissions(feature, [MappingPermissions.EditAllProps,
+      MappingPermissions.EditOwnProps], permissions)
+  }
+
   useEffect(() => {
     if (features) {
       const visibleFeatures = features.features.filter(f => knowsItExists(f))
@@ -106,9 +112,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }, [features])
 
   useEffect(() => {
-    if (selectedFeatures.length) {
-      const properties = selectedFeatures[0].properties as CoreProperties
-      const geometry = selectedFeatures[0].geometry
+    if (selectedFeature) {
+      const properties = selectedFeature.properties as CoreProperties
+      const geometry = selectedFeature.geometry
 
       if (!properties || !geometry) {
         return
@@ -148,8 +154,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       } else {
         setSelectedProps(sortedProps)  
       }
+      // and if the form is editable
+      setPropsEditable(canEditProps(selectedFeature))
     }
-  }, [selectedFeatures])
+  }, [selectedFeature])
 
   useEffect(() => {
     selectItem(selected, true)
@@ -211,13 +219,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
   const selectItem = (id: string[], checked: boolean) => {
     const featrure = features?.features.filter(f => id.includes(f.properties?.id)) || []
-    setSelectedFeatures(checked ? featrure : [])
+    setSelectedFeature(checked ? featrure[0] : undefined)
     onSelect(checked ? id : [])
     setPendingSaveFeatures(features)
   }
 
   const clearSelectedFeature = () => {
-    setSelectedFeatures([])
+    setSelectedFeature(undefined)
     setSelectedProps({})
     onSelect([])
     setDisableSave(true)
@@ -236,7 +244,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       return
     }
     localFeatures = localFeatures.map(f => {
-      if (get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', '') && f.properties) {
+      if (get(f, 'properties.id', '') === get(selectedFeature, '0.properties.id', '') && f.properties) {
         if (key === 'lat') {
           set(f, 'geometry.coordinates.1', +selectedProps.lat.value)
         } else if (key === 'lng') {
@@ -327,7 +335,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
       return Object.values(orFoundKey).every(f => f)
     })
-    const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', ''))
+    const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeature, '0.properties.id', ''))
     if (!isSelectedFeatureFilterOut) {
       clearSelectedFeature()
     }
@@ -458,7 +466,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           <div className={styles.itemsResponsive}>
             {filteredFeatures?.features.map((feature, idx) => {
               const color = colorFor(feature.properties?.force, forceStyles)
-              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
+              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeature, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
             })}
           </div>
         }
@@ -479,12 +487,14 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         {panelState.propertyPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} checkSidc={checkSidc} onPropertiesChange={onPropertiesChange} />
+              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} checkSidc={checkSidc} onPropertiesChange={onPropertiesChange} disabled={!propsEditable} />
             </div>
-            <div className={styles.button}>
-              <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
-              <button disabled={disableSave || !checkSidc} onClick={onLocalSave}>Save</button>
-            </div>
+            { propsEditable &&
+              <div className={styles.button}>
+                <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
+                <button disabled={disableSave || !checkSidc} onClick={onLocalSave}>Save</button>
+              </div>
+            }
           </>
         }
       </Panel>
