@@ -176,3 +176,65 @@
 .paper-container {
   padding-top: 12px;
 }
+
+.channelTabContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: start;
+  padding: 20px;
+  
+  div {
+    text-transform: capitalize;
+    div {
+      text-align: left;
+      div {
+        text-align: end;
+        button {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}
+
+.channelTabDetailsContainer {
+  width: 90%;
+  background-color: rgb(238, 238, 238);
+  padding: 20px 30px 20px 20px;
+}
+
+.mapFieldItem {
+  display: flex; 
+  flex-direction: row;
+  align-items: end;
+  margin-bottom: 10px;
+
+  label {
+    min-width: 150px;
+    font-size: 14px;
+  }
+}
+
+.renderersTab {
+  display: flex;
+  justify-content: space-between;
+}
+
+.renderersList {
+  background-color: #fff;
+  border: 1px solid gray;
+  min-width: 150px;
+  div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+}
+
+.itemTitle {
+  font-size: 14px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
