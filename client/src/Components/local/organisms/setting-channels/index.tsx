@@ -7,7 +7,7 @@ import MenuList from '@material-ui/core/MenuList'
 import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, SpecialChannelTypes } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, SpecialChannelTypes } from 'src/config'
 import { 
   ChannelChat, ChannelCollab, ChannelCore, ChannelCustom
   //  ChannelMapping 
@@ -24,6 +24,7 @@ import CustomChannel from './channels/custom'
 import createChannel from './helpers/createChannel'
 import styles from './styles.module.scss'
 import PropTypes, { ChannelTypes } from './types/props'
+import CoreMappingChannel from './channels/core-mapping'
 
 export const SettingChannels: React.FC<PropTypes> = ({
   onChange,
@@ -89,6 +90,11 @@ export const SettingChannels: React.FC<PropTypes> = ({
           forces={forces}
           onChange={onChannelDataChange}
         />
+      case CHANNEL_MAPPING:
+        return <CoreMappingChannel
+          channel={selectedChannelState as ChannelCustom}
+          forces={forces}
+          onChange={onChannelDataChange}/>
       case undefined:
         return <div>Channels empty. Please create a channel.</div>
       default:

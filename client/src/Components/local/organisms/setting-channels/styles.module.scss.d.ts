@@ -31,6 +31,12 @@ interface CssExports {
   'status-item': string;
   'table': string;
   'title': string;
+  'channelTabContainer': string;
+  'channelTabDetailsContainer': string;
+  'mapFieldItem': string;
+  'renderersList': string;
+  'renderersTab': string;
+  'itemTitle': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
