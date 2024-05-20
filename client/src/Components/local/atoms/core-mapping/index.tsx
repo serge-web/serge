@@ -75,7 +75,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         return forceValid && roleValid && phaseValid 
       })
       setPermissions(relevantParts)
-      console.log('relevantParts 2', playerForce.uniqid, playerRole.roleId, currentPhase, channel.participants.length, relevantParts)  
     }
   }, [channel, playerForce, playerRole, currentPhase])
 
