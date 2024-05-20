@@ -251,7 +251,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       return
     }
     localFeatures = localFeatures.map(f => {
-      if (get(f, 'properties.id', '') === get(selectedFeature, '0.properties.id', '') && f.properties) {
+      if (get(f, 'properties.id', '') === get(selectedFeature, 'properties.id', '') && f.properties) {
         if (key === 'lat') {
           set(f, 'geometry.coordinates.1', +selectedProps.lat.value)
         } else if (key === 'lng') {
@@ -342,7 +342,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
       return Object.values(orFoundKey).every(f => f)
     })
-    const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeature, '0.properties.id', ''))
+    const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeature, 'properties.id', ''))
     if (!isSelectedFeatureFilterOut) {
       clearSelectedFeature()
     }
