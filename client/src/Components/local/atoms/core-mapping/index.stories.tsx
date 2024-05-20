@@ -406,7 +406,7 @@ const redParticipant: ParticipantMapping = {
   } 
 }
 
-const blueParticipant: ParticipantMapping = {
+const bluePlanningParticipant: ParticipantMapping = {
   forceUniqid: 'f-blue',
   roles: ['blue-mtg-1'],
   subscriptionId: 'bbbb',
@@ -415,7 +415,20 @@ const blueParticipant: ParticipantMapping = {
   pType: PARTICIPANT_MAPPING,
   permissionTo: {
     'f-blue': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.EditAllProps],
-    'f-red': [MappingPermissions.ViewProps, MappingPermissions.ViewSpatial] 
+    'f-red': [MappingPermissions.ViewSpatial] 
+  } 
+}   
+
+const blueAdudicationParticipant: ParticipantMapping = {
+  forceUniqid: 'f-blue',
+  roles: ['blue-mtg-1'],
+  subscriptionId: 'bbbb',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Adjudication],
+  pType: PARTICIPANT_MAPPING,
+  permissionTo: {
+    'f-blue': [MappingPermissions.Exists],
+    'f-red': [] 
   } 
 }   
 
@@ -446,7 +459,7 @@ const coreMapChannel: ChannelMapping = {
     }
   },
   participants: [
-    redParticipant, blueParticipant, umpireParticipant
+    redParticipant, bluePlanningParticipant, blueAdudicationParticipant, umpireParticipant
   ],
   renderers: [coreRenderer, milSymRenderer]
 }

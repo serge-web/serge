@@ -7,7 +7,7 @@ import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 're
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
 import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
 import { ForceStyle, isValidSymbol } from 'src/Helpers'
-import { CoreProperties, ParticipantMapping, PropertyType } from 'src/custom-types'
+import { CoreProperties, MappingPermissions, ParticipantMapping, PropertyType } from 'src/custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import { colorFor } from '../core-mapping/renderers/core-renderer'
@@ -17,6 +17,7 @@ import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
 import { SelectedProps } from './types/props'
+import { hasMappingPermission } from './helpers/has-mapping-permission'
 
 type MappingPanelProps = {
   onClose: () => void
@@ -52,7 +53,7 @@ const initPanelState: PanelGroupState = {
   }
 }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave, forceStyles }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave, forceStyles, permissions }): React.ReactElement => {
   const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
@@ -77,9 +78,26 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   // add custom search field with wildcard support
   filterProperties?.unshift(wildcardLabel, shapeTypeLabel)
 
+  const knowsItExists = (feature: Feature<Geometry, any>): boolean => {
+    const knowsPos = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
+    if (!knowsPos) {
+      // though the player doesn't know location of subject, see if it knows it exists
+      return hasMappingPermission(feature, MappingPermissions.Exists, permissions)
+    } else {
+      return true
+    }
+  }
+
   useEffect(() => {
-    setFilterredFeatures(features)
-    setPendingSaveFeatures(features)
+    if (features) {
+      const visibleFeatures = features.features.filter(f => knowsItExists(f))
+      features.features = visibleFeatures
+      setFilterredFeatures(features)
+      setPendingSaveFeatures(features)  
+    } else {
+      setFilterredFeatures(features)
+      setPendingSaveFeatures(features)      
+    }
   }, [features])
 
   useEffect(() => {

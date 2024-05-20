@@ -5,12 +5,13 @@ import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { ForceStyle } from 'src/Helpers'
-import { CoreProperties, MappingPermissions, ParticipantMapping, RENDERER_CORE } from 'src/custom-types'
+import { CoreProperties, MappingPermissions, RENDERER_CORE } from 'src/custom-types'
 import tinycolor from 'tinycolor2'
 import { useMappingState } from '../helper/mapping-provider'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
+import { hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-permission'
 
 export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
@@ -22,9 +23,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
   const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
     const isThisRenderer = feature.properties._type === RENDERER_CORE
     const isShown = filterFeatureIds.includes('' + feature.properties.id)
-    const hisProps = feature.properties as CoreProperties
-    const hisForce = hisProps.force || ''
-    const canSeeSpatial = permissions.some((part: ParticipantMapping) => part.permissionTo[hisForce] && part.permissionTo[hisForce].includes(MappingPermissions.ViewSpatial))
+    const canSeeSpatial = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
     return isThisRenderer && isShown && canSeeSpatial
   }
 

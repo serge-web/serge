@@ -26,12 +26,13 @@ export interface ParticipantCustom extends CoreParticipant {
 
 /** the tasks a participant can be allowed to perform in a mapping channel */
 export enum MappingPermissions {
+  Exists = 'Exists',
   // spatially related
-  ViewSpatial = 'ViewSpatial',
+  ViewSpatial = 'ViewSpatial', // NOTE: infers `exists`
   AddRemove = 'Add/Remove',
   MoveResize = 'Move/resize',
   // props related permissions
-  ViewProps = 'ViewProps',
+  ViewProps = 'ViewProps', // NOTE: infers `exists`
   EditOwnProps = 'Edit own props', // edit props marked as user editable
   EditAllProps = 'Edit all props'
 }
