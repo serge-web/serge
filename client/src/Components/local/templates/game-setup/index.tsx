@@ -40,6 +40,8 @@ export const GameSetup: React.FC<Props> = ({
   selectedChannel,
   onSave,
   templates,
+  messageTemplates,
+  onChangeWargameTitle,
   onSaveGameTitle,
   onWargameInitiate,
   iconUploadUrl,
@@ -47,12 +49,12 @@ export const GameSetup: React.FC<Props> = ({
 }: Props) => {
   const currentActiveTab = wargame?.currentTab || activeTab
   return (
-    <AdminLayout onSave={onSaveGameTitle} wargame={wargame} activeTab={currentActiveTab} onPressBack={onPressBack} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
+    <AdminLayout onSave={onSaveGameTitle} onChange={onChangeWargameTitle} wargame={wargame} activeTab={currentActiveTab} onPressBack={onPressBack} tabs={tabs} onTabChange={onTabChange} wargameChanged={wargameChanged}>
       <AdminContent>
         {
           currentActiveTab === AdminTabs.Overview && (
             <SettingOverview
-              overview={overview}
+              overview={overview} 
               onChange={onOverviewChange}
               onSave={onSave}
               initiateWargame={onWargameInitiate}

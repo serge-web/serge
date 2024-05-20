@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 // Import component files
 import EditableList from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 // import types
 import { Item } from './types/props'
@@ -13,7 +12,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/molecules/EditableList',
   component: EditableList,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

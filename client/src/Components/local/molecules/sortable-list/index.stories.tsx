@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 // Import component files
 import SortableList from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { watuWargame } from 'src/mocks'
 
 // import types
@@ -14,7 +14,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/molecules/SortableList',
   component: SortableList,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

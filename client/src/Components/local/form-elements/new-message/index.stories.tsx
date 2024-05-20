@@ -1,6 +1,6 @@
 import { MessageDetails, TemplateBody } from 'src/custom-types'
 import { watuWargame, MessageTemplatesMock } from 'src/mocks'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import React from 'react'
 import NewMessage from './index'
 import docs from './README.md'
@@ -51,7 +51,7 @@ interface StoryPropTypes {
   templates: TemplateBody[]
 }
 
-const Template: Story<StoryPropTypes> = (args) => {
+const Template: StoryFn<StoryPropTypes> = (args) => {
   const { privateMessage, orderableChannel, confirmCancel, ...props } = args
 
   const postBack = (details: MessageDetails, message: any): void => {

@@ -2,7 +2,7 @@ import { ChannelUI, MessageDetails } from 'src/custom-types'
 import { watuWargame, MessageTemplatesMock } from 'src/mocks'
 import React from 'react'
 import MessageCreator from './index'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import docs from './README.md'
 
 export default {
@@ -42,7 +42,7 @@ interface StoryPropTypes {
   confirmCancel: boolean
 }
 
-const Template: Story<StoryPropTypes> = (args) => {
+const Template: StoryFn<StoryPropTypes> = (args) => {
   const { privateMessage, confirmCancel } = args
   const channel = watuWargame.data.channels.channels[0]
   const channels = {}

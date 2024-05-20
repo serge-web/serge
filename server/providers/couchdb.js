@@ -1,10 +1,9 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, databaseUrlPrefix, CUSTOM_MESSAGE } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, databaseUrlPrefix, CUSTOM_MESSAGE, GLOBAL_CHANGES } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
-
 const couchDb = (app, io, pouchOptions) => {
   const CouchDB = require('pouchdb-core')
   const PouchDB = require('pouchdb-core')
@@ -25,6 +24,12 @@ const couchDb = (app, io, pouchOptions) => {
   // changesListener
   const initChangesListener = (dbName) => {
     const db = new CouchDB(couchDbURL(dbName))
+
+    // Check if the database name is `_global_changes`, if so, return
+    if (dbName === GLOBAL_CHANGES) {
+      return
+    }
+
     // saving listener
     listeners[dbName] = db.changes({
       since: 'now',
@@ -80,11 +85,12 @@ const couchDb = (app, io, pouchOptions) => {
     if (!listeners[cleanName]) {
       addListenersQueue.push(cleanName)
     }
-
     const retryUntilWritten = (db, doc) => {
       return db.get(doc._id).then((origDoc) => {
         doc._rev = origDoc._rev
-        return db.put(doc).then(async () => {
+        return db.put(doc).then(async (result) => {
+          doc._id = result.id
+          doc._rev = result.rev
           await db.compact()
           res.send({ msg: 'Updated', data: doc })
         })
@@ -93,7 +99,11 @@ const couchDb = (app, io, pouchOptions) => {
           return retryUntilWritten(db, doc)
         } else { // new doc
           return db.put(doc)
-            .then(() => res.send({ msg: 'Saved', data: doc }))
+            .then((result) => {
+              doc._id = result.id
+              doc._rev = result.rev
+              res.send({ msg: 'Saved', data: doc })
+            })
             .catch(() => {
               const settingsDoc = {
                 ...doc,
@@ -189,6 +199,57 @@ const couchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([])))
   })
 
+  app.get('/wargameList', async (req, res) => {
+    const allDbsPromise = CouchDB.fetch(couchDbURL('_all_dbs')).then(result => result.json())
+    const serverPath = `${req.protocol}://${req.get('host')}`
+
+    const wargameListPromise = allDbsPromise.then(allDbs => {
+      const wargameDbs = allDbs.filter(name => name.includes('wargame'))
+      const reversedWargameDbs = wargameDbs.reverse()
+      return Promise.all(reversedWargameDbs.map(async db => {
+        const databaseName = checkSqliteExists(db)
+        if (!databaseName) {
+          return null
+        }
+        const dbInstance = new CouchDB(couchDbURL(databaseName))
+        return dbInstance.find({
+          selector: {
+            $or: [{ messageType: INFO_MESSAGE }, { _id: wargameSettings }],
+            _id: { $gte: null }
+          },
+          sort: [{ _id: 'desc' }],
+          limit: 2,
+          fields: ['wargameTitle', 'wargameInitiated', 'name', '_id']
+        }).then(result => {
+          if (result.docs && result.docs.length > 0) {
+            const lastWargame = result.docs.length > 1 && result.docs[0]._id === wargameSettings ? result.docs[1] : result.docs[0]
+            return {
+              name: `${serverPath}/db/${db}`,
+              title: lastWargame.wargameTitle,
+              initiated: lastWargame.wargameInitiated,
+              shortName: lastWargame.name
+            }
+          } else {
+            return null
+          }
+        }).catch(error => {
+          console.error(`Error fetching data from database ${db}:`, error)
+          return null
+        })
+      }))
+    })
+
+    Promise.all([allDbsPromise, wargameListPromise])
+      .then(([allDbs, aggregatedData]) => {
+        const filteredData = aggregatedData.filter(data => data !== null)
+        res.status(200).json({ data: filteredData, allDbs })
+      })
+      .catch(err => {
+        console.error('Error on load alldbs:', err)
+        res.status(500).json({ error: 'Internal Server Error' })
+      })
+  })
+
   // get all documents for wargame
   app.get('/:wargame', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
@@ -222,12 +283,21 @@ const couchDb = (app, io, pouchOptions) => {
 
     db.find({
       selector: {
-        messageType: INFO_MESSAGE,
-        _id: { $ne: wargameSettings, $gte: null }
+        $or: [{ messageType: INFO_MESSAGE }, { _id: wargameSettings }],
+        _id: { $gte: null }
       },
       sort: [{ _id: 'desc' }],
-      limit: 1
-    }).then((resault) => res.send({ msg: 'ok', data: resault.docs }))
+      limit: 2
+    }).then((result) => {
+      if (result.docs && result.docs.length > 0) {
+        const responseData = result.docs.length > 1 && result.docs[0]._id === wargameSettings ? [result.docs[1]] : [result.docs[0]]
+
+        return res.send({ msg: 'ok', data: responseData })
+      } else {
+        return res.send([])
+      }
+    }
+    )
       .catch(() => res.send([]))
   })
 
@@ -275,7 +345,6 @@ const couchDb = (app, io, pouchOptions) => {
     }
 
     const db = new CouchDB(couchDbURL(databaseName))
-
     db.find({
       selector: {
         wargame: req.params.wargame

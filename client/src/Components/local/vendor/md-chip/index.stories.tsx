@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip'
 import docs from './README.md'
 
 export default {
-  title: 'vendor/Chip',
+  title: 'md-chip/vendor/Chip',
   component: Chip,
   parameters: {
     readme: {

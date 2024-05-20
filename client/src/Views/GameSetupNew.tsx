@@ -13,6 +13,7 @@ import {
   saveChannel,
   setTabSaved,
   setGameData,
+  setWargameTitle,
   setSelectedForce,
   setSelectedChannel,
   setSelectedTemplate,
@@ -74,7 +75,7 @@ const AdminGameSetup: React.FC = () => {
       dispatch(addNotification('Unsaved changes', 'warning'))
     }
   }
-
+  
   const onPressBack = (e: MouseEvent) => {
     e.preventDefault()
     dispatch(setCurrentViewFromURI(ADMIN_ROUTE))
@@ -112,6 +113,10 @@ const AdminGameSetup: React.FC = () => {
 
   const handleFormChange = (changes: WargameOverview) => {
     dispatch(setGameData(changes))
+  }
+
+  const handleTitleChnage = (title: string) => {
+    dispatch(setWargameTitle(title))
   }
 
   const handleDeleteGameControl = (roles: Role[], key: number, handleChange: () => void) => {
@@ -314,7 +319,7 @@ const AdminGameSetup: React.FC = () => {
     }
 
     if (typeof newGameTitle === 'string' && newGameTitle.length > 0) {
-      if (currentWargame) dispatch(saveWargameTitle(currentWargame, newGameTitle))
+      if (currentWargame) dispatch(saveWargameTitle(currentWargame, newGameTitle, wargameList))
     }
 
     if (newGameTitle === null || newGameTitle.length === 0) {
@@ -408,6 +413,8 @@ const AdminGameSetup: React.FC = () => {
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
       templates={templates.templates}
+      messageTemplates={templates?.templates || messageTypes.messages}
+      onChangeWargameTitle={handleTitleChnage}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
