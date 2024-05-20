@@ -60,7 +60,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
       <div key={key} className={styles.itemsBox} title={title}>
         <p>{key}:</p>
         <div>
-          {componentFor(key, field, prop, value, disableIdEdit, disabled, isId, onPropertiesChange)}
+          {componentFor(key, field, prop, value, disableIdEdit, disabled || field.disabled, isId, onPropertiesChange)}
         </div>
         {onRemoveFilter && <FontAwesomeIcon icon={faMinusCircle} className={styles.removeIcon} onClick={() => onRemoveFilter(key)} />}
       </div>
@@ -129,7 +129,6 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
         // 3. if it's a StringProperty and empty, show `description` in grey default text (not sure what that UI
         //    practice is called)
         const prop: PropertyType | undefined = rendererProps?.find((p) => p.id === key)
-
         if (key === 'lat') {
           const latValue = selectedProp.lat.value
           const lngValue = selectedProp.lng.value

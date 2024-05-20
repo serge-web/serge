@@ -99,6 +99,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       MappingPermissions.EditOwnProps], permissions)
   }
 
+  const canOnlyEditOwnProps = (feature: Feature<Geometry, any>): boolean => {
+    return hasMappingPermissions(feature, [MappingPermissions.EditOwnProps], permissions)
+  }
+
   useEffect(() => {
     if (features) {
       const visibleFeatures = features.features.filter(f => knowsItExists(f))
@@ -135,10 +139,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
             choices: []
           }
         }
+        const onlyEditOwnProps = canOnlyEditOwnProps(selectedFeature)
         const extraProps = rendererProps.find(prop => prop.id === propKey)
         result[propKey] = {
           value: properties[propKey] as any,
-          choices: get(extraProps, 'choices', [])
+          choices: get(extraProps, 'choices', []),
+          disabled: onlyEditOwnProps && extraProps?.editable !== undefined && extraProps?.editable === false
         }
         return result
       }, {})
@@ -154,6 +160,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       } else {
         setSelectedProps(sortedProps)  
       }
+
       // and if the form is editable
       setPropsEditable(canEditProps(selectedFeature))
     }
