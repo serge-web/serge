@@ -40,7 +40,6 @@ export const GameSetup: React.FC<Props> = ({
   selectedChannel,
   onSave,
   templates,
-  messageTemplates,
   onChangeWargameTitle,
   onSaveGameTitle,
   onWargameInitiate,

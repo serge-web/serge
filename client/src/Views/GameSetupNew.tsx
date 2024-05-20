@@ -413,7 +413,7 @@ const AdminGameSetup: React.FC = () => {
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
       templates={templates.templates}
-      messageTemplates={templates?.templates || messageTypes.messages}
+      messageTemplates={templates?.templates}
       onChangeWargameTitle={handleTitleChnage}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
