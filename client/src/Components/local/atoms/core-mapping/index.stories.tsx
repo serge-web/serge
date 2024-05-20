@@ -167,7 +167,7 @@ const importantProp: EnumProperty = {
   type: 'EnumProperty', 
   description: 'Whether this relates to an important operation or interaction',
   choices: ['Yes', 'No'],
-  editable: true
+  playerEditable: true
 }
 
 const forceProp: EnumProperty = {
@@ -175,7 +175,7 @@ const forceProp: EnumProperty = {
   label: 'Force',
   type: 'EnumProperty', 
   choices: ['f-red', 'f-blue', 'f-green'],
-  editable: false
+  playerEditable: false
 }
 
 const ordersProp: StringProperty = {
@@ -184,7 +184,7 @@ const ordersProp: StringProperty = {
   description: 'Today\'s orders for this unit',
   lines: 3,
   type: 'StringProperty', 
-  editable: true
+  playerEditable: true
 }
 
 const phaseProp: EnumProperty = {
@@ -193,7 +193,7 @@ const phaseProp: EnumProperty = {
   description: 'The phase when this item was generated',
   type: 'EnumProperty', 
   choices: [Phase.Adjudication, Phase.Planning],
-  editable: false
+  playerEditable: false
 }
 
 const turnProp: NumberProperty = {
@@ -201,7 +201,7 @@ const turnProp: NumberProperty = {
   label: 'Turn',
   description: 'The turn when this item was generated',
   type: 'NumberProperty',
-  editable: false,
+  playerEditable: false,
   format: '0'
 }
 
@@ -210,7 +210,7 @@ const healthProp: NumberProperty = {
   label: 'Health',
   description: 'The health of this unit (0..100)',
   type: 'NumberProperty',
-  editable: true,
+  playerEditable: true,
   format: '0'
 }
 
@@ -219,7 +219,7 @@ const categoryProp: EnumProperty = {
   label: 'Category',
   type: 'EnumProperty', 
   choices: ['Infrastructure', 'Military', 'Civilian'],
-  editable: false
+  playerEditable: false
 }
 
 const sizeProp: EnumProperty = {
@@ -227,7 +227,7 @@ const sizeProp: EnumProperty = {
   label: 'Size',
   type: 'EnumProperty', 
   choices: ['S', 'M', 'L'],
-  editable: false
+  playerEditable: false
 }
 
 /** Feature Properties definitions */
@@ -414,7 +414,7 @@ const bluePlanningParticipant: ParticipantMapping = {
   phases: [Phase.Planning],
   pType: PARTICIPANT_MAPPING,
   permissionTo: {
-    'f-blue': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.EditAllProps],
+    'f-blue': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.EditOwnProps],
     'f-red': [MappingPermissions.ViewSpatial] 
   } 
 }   
