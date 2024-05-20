@@ -33,4 +33,6 @@ export type GeomanControlProps = {
   onShowLabels: (showLabels: boolean) => void
   onCreate: (e: PM.ChangeEventHandler) => void
   onChange: (id: number, lnglat: LatLng) => void
+  canAddRemove: boolean
+  canMoveResize: boolean
 }

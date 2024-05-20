@@ -1,6 +1,6 @@
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'
 import L, { LeafletEvent, PM } from 'leaflet'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
@@ -11,12 +11,25 @@ import { GeomanControlProps } from '../types/props'
 import { useMappingState } from './mapping-provider'
 import { delay } from 'lodash'
 
-const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {
+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, canAddRemove, canMoveResize }) => {
   const map = useMap()
   const ruler = useRef<Ruler | null>(null)
   const selectedRef = useRef<boolean>(false)
 
+  // track permissions getting updated
+  const [prevPermissions, setPermissions] = useState<string>('')
+
+  console.log('map controls', canAddRemove, canMoveResize)
+
   const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring } = useMappingState()
+
+  useEffect(() => {
+    const thesePerms = canAddRemove + '-' + canMoveResize
+    if (thesePerms !== prevPermissions) {
+      setPermissions(thesePerms)
+      // TODO: regenerate set of geoman controls
+    }
+  }, [canAddRemove, canMoveResize])
 
   useEffect(() => {
     selectedRef.current = deselecteFeature
@@ -131,6 +144,14 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
       pinningOption: true,
       snappingOption: true,
       drawCircleMarker: false,
+      drawMarker: canAddRemove,
+      drawPolyline: canAddRemove,
+      drawCircle: canAddRemove,
+      drawPolygon: canAddRemove,
+      drawRectangle: canAddRemove,
+      dragMode: canMoveResize,
+      removalMode: canAddRemove,
+      editMode: canMoveResize,
       cutPolygon: false
     }}
     globalOptions={{}}
