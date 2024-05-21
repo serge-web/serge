@@ -19,8 +19,6 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
   // track permissions getting updated
   const [prevPermissions, setPermissions] = useState<string>('')
 
-  console.log('map controls', canAddRemove, canMoveResize)
-
   const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring } = useMappingState()
 
   const controls: PM.ToolbarOptions = useMemo(() => ({
@@ -44,9 +42,9 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
     const thesePerms = canAddRemove + '-' + canMoveResize
     if (thesePerms !== prevPermissions) {
       setPermissions(thesePerms)
+      map.pm.removeControls()
+      map.pm.addControls(controls)
     }
-    map.pm.removeControls()
-    map.pm.addControls(controls)
   }, [canAddRemove, canMoveResize])
 
   useEffect(() => {
