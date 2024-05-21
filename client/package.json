@@ -79,6 +79,7 @@
     "leaflet": "^1.8.0",
     "lodash": "^4.17.21",
     "markdown-loader": "^8.0.0",
+    "material-ui-popup-state": "^5.1.2",
     "milstd": "^0.1.6",
     "milsymbol": "^2.0.0",
     "moment": "^2.24.0",
