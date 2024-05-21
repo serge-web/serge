@@ -1,6 +1,6 @@
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'
 import L, { LeafletEvent, PM } from 'leaflet'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
@@ -23,12 +23,30 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
 
   const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring } = useMappingState()
 
+  const controls: PM.ToolbarOptions = useMemo(() => ({
+    position: 'topright',
+    rotateMode: false,
+    pinningOption: true,
+    snappingOption: true,
+    drawCircleMarker: false,
+    drawMarker: canAddRemove,
+    drawPolyline: canAddRemove,
+    drawCircle: canAddRemove,
+    drawPolygon: canAddRemove,
+    drawRectangle: canAddRemove,
+    dragMode: canMoveResize,
+    removalMode: canAddRemove,
+    editMode: canMoveResize,
+    cutPolygon: false
+  }), [canAddRemove, canMoveResize])
+
   useEffect(() => {
     const thesePerms = canAddRemove + '-' + canMoveResize
     if (thesePerms !== prevPermissions) {
       setPermissions(thesePerms)
-      // TODO: regenerate set of geoman controls
     }
+    map.pm.removeControls()
+    map.pm.addControls(controls)
   }, [canAddRemove, canMoveResize])
 
   useEffect(() => {
@@ -138,22 +156,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
   }, [map])
 
   return <GeomanControls
-    options={{
-      position: 'topright',
-      rotateMode: false,
-      pinningOption: true,
-      snappingOption: true,
-      drawCircleMarker: false,
-      drawMarker: canAddRemove,
-      drawPolyline: canAddRemove,
-      drawCircle: canAddRemove,
-      drawPolygon: canAddRemove,
-      drawRectangle: canAddRemove,
-      dragMode: canMoveResize,
-      removalMode: canAddRemove,
-      editMode: canMoveResize,
-      cutPolygon: false
-    }}
+    options={controls}
     globalOptions={{}}
     onCreate={e => {
       if (e.shape === 'Text') {
