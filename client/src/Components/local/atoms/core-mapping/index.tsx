@@ -84,29 +84,32 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   useEffect(() => {
     if (playerForce && channel) {
       const id = playerForce.uniqid
-      console.log('new force 1', id)
       if (id === UMPIRE_FORCE) {
         setCanAddRemove(true)
         setCanMoveResize(true)
       } else {
-        const perms = channel.participants.filter((p: ParticipantMapping) => p.forceUniqid === id)
-        const thisPhasePerms = perms.filter((p: ParticipantMapping) => p.phases.includes(currentPhase))
+        const myForcePerms = channel.participants.filter((p: ParticipantMapping) => p.forceUniqid === id)
+        const myRolePerms = myForcePerms.filter((p: ParticipantMapping) =>
+          p.roles === undefined || 
+          p.roles.length === 0 || 
+          p.roles.includes(playerRole.roleId))
+        const thisPhasePerms = myRolePerms.filter((p: ParticipantMapping) => p.phases.includes(currentPhase))
         const myPerms = thisPhasePerms.filter((p: ParticipantMapping) => p.permissionTo[id] !== undefined)
-        console.log('new force 2', myPerms)
-        setCanAddRemove(false)
-        setCanMoveResize(false)
+        let localCanAddRemove = false
+        let localCanMoveResize = false
         myPerms.forEach((p: ParticipantMapping) => {
-          console.log('new force 3', p.permissionTo[id])
-          if (p.permissionTo[id].includes(MappingPermissions.AddRemove)) {
-            setCanAddRemove(true)
+          if (p.permissionTo[id].includes(MappingPermissions.AddRemove) && !localCanAddRemove) {
+            localCanAddRemove = true
           }
-          if (p.permissionTo[id].includes(MappingPermissions.MoveResize)) {
-            setCanMoveResize(true)
+          if (p.permissionTo[id].includes(MappingPermissions.MoveResize) && !localCanMoveResize) {
+            localCanMoveResize = true
           }
         })
+        setCanAddRemove(localCanAddRemove)
+        setCanMoveResize(localCanMoveResize)
       }
     }
-  }, [playerForce, channel])
+  }, [playerForce, playerRole, channel, currentPhase])
 
   useEffect(() => {
     if (!isEqual(localPanelSize, panelSize)) {
