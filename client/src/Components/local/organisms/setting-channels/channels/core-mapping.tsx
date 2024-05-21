@@ -8,7 +8,6 @@ import {
   Box,
   Button,
   Checkbox,
-  Fade,
   FormControlLabel,
   InputLabel,
   List,
@@ -28,6 +27,7 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import cx from 'classnames'
 import { noop } from 'lodash'
+import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state'
 import React, { useCallback, useMemo, useState } from 'react'
 import Tabs from 'src/Components/local/atoms/tabs'
 import { Column } from 'src/Components/local/react-table/types/props'
@@ -71,30 +71,43 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
       editable: true,
       icon: 'Icon',
       others: 'Line:3'
+    },
+    {
+      type: 'String',
+      label: 'Orders',
+      description: 'Todays...',
+      editable: true,
+      icon: 'Icon',
+      others: 'Line:3'
+    },
+    {
+      type: 'String',
+      label: 'Orders',
+      description: 'Todays...',
+      editable: true,
+      icon: 'Icon',
+      others: 'Line:3'
+    },
+    {
+      type: 'String',
+      label: 'Orders',
+      description: 'Todays...',
+      editable: true,
+      icon: 'Icon',
+      others: 'Line:3'
+    },
+    {
+      type: 'String',
+      label: 'Orders',
+      description: 'Todays...',
+      editable: true,
+      icon: 'Icon',
+      others: 'Line:3'
     }
   ])
-  const [addRenderEl, setAddRenderEl] = useState<null | HTMLElement>(null)
-  const [addPropertyEl, setAddPropertyEl] = useState<HTMLElement | null>(null)
-
-  const openAddRenderEl = Boolean(addRenderEl)
-  const openAddPropertyEl = Boolean(addPropertyEl)
 
   const onTabChange = (_: string, index: number) => {
     setActiveTab(index)
-  }
-
-  const openRendererEl = (event: React.MouseEvent<HTMLElement>) => {
-    setAddRenderEl(event.currentTarget)
-  }
-  const closeRendererEl = () => {
-    setAddRenderEl(null)
-  }
-
-  const openPropertyEl = (event: React.MouseEvent<HTMLElement>) => {
-    setAddPropertyEl(event.currentTarget)
-  }
-  const closePropertyEl = () => {
-    setAddPropertyEl(null)
   }
 
   const DropdownZoom: React.FC<{
@@ -121,28 +134,32 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
       []
     )
 
-  // const AddButton: React.FC<{className?: string}> = ({ className }) => <Box className={className}>
-  //   <Button
-  //     variant="contained"
-  //     disableElevation
-  //     onClick={handleClick}
-  //     endIcon={<KeyboardArrowDownIcon />}
-  //   >
-  //   Add
-  //   </Button>
-  //   <Menu
-  //     transformOrigin={{
-  //       vertical: 'bottom',
-  //       horizontal: 'left'
-  //     }}
-  //     anchorEl={anchorEl}
-  //     open={open}
-  //     onClose={handleClose}
-  //     TransitionComponent={Fade}
-  //   >
-  //     <MenuItem onClick={handleClose}>More Renderer</MenuItem>
-  //   </Menu>
-  // </Box>
+  const AddButton: React.FC<{ className?: string }> = ({ className }) => {
+    return (
+      <PopupState variant="popover">
+        {(popupState) => (
+          <Box className={className}>
+            <Button
+              variant="contained"
+              {...bindTrigger(popupState)}
+              endIcon={<KeyboardArrowDownIcon />}
+            >
+              Add
+            </Button>
+            <Menu
+              {...bindMenu(popupState)}
+              transformOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left'
+              }}
+            >
+              <MenuItem onClick={popupState.close}>New Property</MenuItem>
+            </Menu>
+          </Box>
+        )}
+      </PopupState>
+    )
+  }
 
   const removeRender = useCallback((renderer: string) => {
     console.log('Remove: ', renderer)
@@ -177,43 +194,27 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
           <Box>
             <span className={styles.itemTitle}>Renderers</span>
             <List className={styles.renderersList}>
-              {renderList.map(renderer => <ListItem key={renderer} button>
-                <span>{renderer}</span>
-                <FontAwesomeIcon icon={faTimesCircle} onClick={() => removeRender(renderer)}/>
-              </ListItem>)}
+              {renderList.map((renderer) => (
+                <ListItem key={renderer} button>
+                  <span>{renderer}</span>
+                  <FontAwesomeIcon
+                    icon={faTimesCircle}
+                    onClick={() => removeRender(renderer)}
+                  />
+                </ListItem>
+              ))}
             </List>
-            <Box>
-              <Button
-                variant="contained"
-                disableElevation
-                onClick={openRendererEl}
-                endIcon={<KeyboardArrowDownIcon />}
-              >
-                Add
-              </Button>
-              <Menu
-                transformOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left'
-                }}
-                anchorEl={addRenderEl}
-                open={openAddRenderEl}
-                onClose={closeRendererEl}
-                TransitionComponent={Fade}
-              >
-                <MenuItem onClick={closeRendererEl}>New Renderer</MenuItem>
-              </Menu>
-            </Box>
+            <AddButton />
           </Box>
           <Box>
             <span className={styles.itemTitle}>Renderer specific</span>
             <FormControlLabel
-              control={<Checkbox defaultChecked/>}
+              control={<Checkbox defaultChecked />}
               label={<span style={{ fontSize: '14px' }}>Cluster markers</span>}
-              labelPlacement='start'
+              labelPlacement="start"
             />
             <span className={styles.itemTitle}>Additional Properties</span>
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} style={{ maxHeight: '200px' }}>
               <Table stickyHeader>
                 <TableHead>
                   <TableRow>
@@ -229,44 +230,27 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {properties.map((prop, idx) => <TableRow key={idx}>
-                    <TableCell>{prop.type}</TableCell>
-                    <TableCell>{prop.label}</TableCell>
-                    <TableCell>{prop.description}</TableCell>
-                    <TableCell>{prop.editable ? 'Y' : 'N'}</TableCell>
-                    <TableCell>{prop.icon}</TableCell>
-                    <TableCell>{prop.others}</TableCell>
-                    <TableCell align="right">
-                      <FontAwesomeIcon icon={faEdit} />
-                      <FontAwesomeIcon icon={faTrash} />
-                    </TableCell>
-                  </TableRow>)}
-                  
+                  {properties.map((prop, idx) => (
+                    <TableRow key={idx} style={{ cursor: 'pointer' }}>
+                      <TableCell>{prop.type}</TableCell>
+                      <TableCell>{prop.label}</TableCell>
+                      <TableCell>{prop.description}</TableCell>
+                      <TableCell>{prop.editable ? 'Y' : 'N'}</TableCell>
+                      <TableCell>{prop.icon}</TableCell>
+                      <TableCell>{prop.others}</TableCell>
+                      <TableCell align="right">
+                        <FontAwesomeIcon
+                          icon={faEdit}
+                          style={{ marginRight: '5px' }}
+                        />
+                        <FontAwesomeIcon icon={faTrash} />
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>
-            <Box>
-              <Button
-                variant="contained"
-                disableElevation
-                onClick={openPropertyEl}
-                endIcon={<KeyboardArrowDownIcon />}
-              >
-                Add
-              </Button>
-              <Menu
-                transformOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left'
-                }}
-                anchorEl={addPropertyEl}
-                open={openAddPropertyEl}
-                onClose={closePropertyEl}
-                TransitionComponent={Fade}
-              >
-                <MenuItem onClick={closePropertyEl}>New Property</MenuItem>
-              </Menu>
-            </Box>
+            <AddButton />
           </Box>
         </Box>
       )}
