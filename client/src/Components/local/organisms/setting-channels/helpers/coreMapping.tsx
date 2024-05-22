@@ -21,9 +21,37 @@ import {
 } from '@material-ui/core'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Column } from 'src/Components/local/react-table/types/props'
 import styles from '../styles.module.scss'
+
+export const CoreMappingTabs = ['Map', 'Renderers', 'Participants']
+export const AdditionalPropcolumns: readonly Column[] = [
+  { id: 'type', label: 'Type' },
+  { id: 'label', label: 'Label' },
+  { id: 'description', label: 'Description' },
+  { id: 'editable', label: 'User Editable' },
+  { id: 'icon', label: 'Icon' },
+  { id: 'others', label: 'Others' },
+  { id: 'action', label: '' }
+]
+export const ParticipantColumns: readonly Column[] = [
+  { id: 'subject', label: 'Subject' },
+  { id: 'type', label: 'Feature-type' },
+  { id: 'permission', label: 'Permissions' },
+  { id: 'applied', label: 'Applied in' },
+  { id: 'action', label: '' }
+]
+export const EditParticipantColumns: readonly Column[] = [
+  { id: 'force', label: 'Force' },
+  { id: 'viewSpatial', label: 'View Spatial' },
+  { id: 'viewProp', label: 'View Props' },
+  { id: 'editRemoveFeature', label: 'Edit/Remove Feature' },
+  { id: 'moveResizeFeature', label: 'Move/Resize Feature' },
+  { id: 'editProp', label: 'Edit Props' },
+  { id: 'action', label: '' }
+]
+export const ZoomOptions = Array.from(Array(20).keys()).map(v => v + 1)
 
 type SimpleTableProps = {
   columns: readonly Column[]
@@ -101,27 +129,24 @@ export const AddButton: React.FC<{ className?: string }> = ({ className }) => {
   )
 }
 
-export const DropdownZoom: React.FC<{
+export const SimpleSelect: React.FC<{
   title: string
-  values: number[]
+  value?: number
+  options: number[]
   labelWidth: string
+  width?: string
   onChange: (
     event: React.ChangeEvent<{ name?: string | undefined, value: unknown }>,
     child: React.ReactNode
   ) => void
-}> = ({ title, values, labelWidth, onChange }) =>
-  useMemo(
-    () => (
-      <Box className={styles.mapFieldItem}>
-        <InputLabel variant="standard" style={{ minWidth: labelWidth }}>{title}</InputLabel>
-        <Select fullWidth onChange={onChange}>
-          {values.map((value) => (
-            <MenuItem key={value} value={value}>
-              {value}
-            </MenuItem>
-          ))}
-        </Select>
-      </Box>
-    ),
-    []
-  )
+}> = ({ title, options, value, labelWidth, width, onChange }) =>
+  <Box className={styles.mapFieldItem} sx={{ width }}>
+    <InputLabel variant="standard" style={{ minWidth: labelWidth }}>{title}</InputLabel>
+    <Select fullWidth onChange={onChange} value={value}>
+      {options.map((option) => (
+        <MenuItem key={option} value={option}>
+          {option}
+        </MenuItem>
+      ))}
+    </Select>
+  </Box>
