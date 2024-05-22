@@ -309,7 +309,7 @@ const couchDb = (app, io, pouchOptions) => {
     }
 
     const db = new CouchDB(couchDbURL(databaseName))
-
+    // If an _id is provided, return all documents since that _id
     if (req.params.id) {
       try {
         const result = await db.find({
@@ -326,6 +326,7 @@ const couchDb = (app, io, pouchOptions) => {
       }
     }
 
+    // If no ID is provided, return the latest document
     try {
       const result = await db.find({
         selector: {

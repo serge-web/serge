@@ -306,7 +306,7 @@ const pouchDb = (app, io, pouchOptions) => {
     }
 
     const db = new PouchDB(databaseName, pouchOptions)
-    // If an _id is provided, returna all documents since that _id
+    // If an _id is provided, return all documents since that _id
     if (req.params.id) {
       try {
         const result = await db.find({
