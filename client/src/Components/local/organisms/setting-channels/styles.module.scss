@@ -216,15 +216,17 @@
   }
 }
 
-.renderersTab {
+.renderersTab,
+.participants {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .renderersList {
   background-color: #fff;
   border: 1px solid gray;
-  min-width: 170px;
+  min-width: 150px;
   div {
     display: flex;
     justify-content: space-between;
@@ -237,4 +239,11 @@
   font-weight: bold;
   display: block;
   margin-bottom: 10px;
+}
+
+.tableRow { 
+  background-color: #fff !important;
+  border: 2px solid #000 !important; 
+  color: #000 !important;
+  margin-right: 5px;
 }

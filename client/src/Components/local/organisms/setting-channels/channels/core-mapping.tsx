@@ -1,38 +1,25 @@
 import {
-  faEdit,
-  faTimesCircle,
-  faTrash
+  faTimesCircle
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Box,
-  Button,
   Checkbox,
   FormControlLabel,
   InputLabel,
   List,
   ListItem,
-  Menu,
-  MenuItem,
-  Paper,
-  Select,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   TextField
 } from '@material-ui/core'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import cx from 'classnames'
 import { noop } from 'lodash'
-import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useState } from 'react'
+import CustomDialog from 'src/Components/local/atoms/custom-dialog'
 import Tabs from 'src/Components/local/atoms/tabs'
 import { Column } from 'src/Components/local/react-table/types/props'
 import { ForceData } from 'src/custom-types'
 import { ChannelCustom } from 'src/custom-types/channel-data'
+import { AddButton, DropdownZoom, SimpleTable } from '../helpers/coreMapping'
 import styles from '../styles.module.scss'
 
 type CoreMappingChannelProps = {
@@ -51,16 +38,33 @@ const columns: readonly Column[] = [
   { id: 'others', label: 'Others' },
   { id: 'action', label: '' }
 ]
+const participantColumns: readonly Column[] = [
+  { id: 'subject', label: 'Subject' },
+  { id: 'type', label: 'Feature-type' },
+  { id: 'permission', label: 'Permissions' },
+  { id: 'applied', label: 'Applied in' },
+  { id: 'action', label: '' }
+]
+const editParticipantColumns: readonly Column[] = [
+  { id: 'force', label: 'Force' },
+  { id: 'viewSpatial', label: 'View Spatial' },
+  { id: 'viewProp', label: 'View Props' },
+  { id: 'editRemoveFeature', label: 'Edit/Remove Feature' },
+  { id: 'moveResizeFeature', label: 'Move/Resize Feature' },
+  { id: 'editProp', label: 'Edit Props' },
+  { id: 'action', label: '' }
+]
 
 export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
   const [activeTab, setActiveTab] = useState<number>(0)
+  const [openEditModal, setOpenEditModal] = useState<boolean>(false)
   const [renderList] = useState<string[]>(['Core', 'Milsymbol'])
   const [properties] = useState<any[]>([
     {
       type: 'String',
       label: 'Orders',
       description: 'Todays...',
-      editable: true,
+      editable: 'Y',
       icon: 'Icon',
       others: 'Line:3'
     },
@@ -68,105 +72,79 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
       type: 'String',
       label: 'Orders',
       description: 'Todays...',
-      editable: true,
-      icon: 'Icon',
-      others: 'Line:3'
-    },
-    {
-      type: 'String',
-      label: 'Orders',
-      description: 'Todays...',
-      editable: true,
-      icon: 'Icon',
-      others: 'Line:3'
-    },
-    {
-      type: 'String',
-      label: 'Orders',
-      description: 'Todays...',
-      editable: true,
-      icon: 'Icon',
-      others: 'Line:3'
-    },
-    {
-      type: 'String',
-      label: 'Orders',
-      description: 'Todays...',
-      editable: true,
-      icon: 'Icon',
-      others: 'Line:3'
-    },
-    {
-      type: 'String',
-      label: 'Orders',
-      description: 'Todays...',
-      editable: true,
+      editable: 'N',
       icon: 'Icon',
       others: 'Line:3'
     }
   ])
+  const [participants] = useState<any[]>([
+    {
+      subject: 'White/All',
+      type: ['Core', 'MilSym'],
+      permission: ['View', 'Edit'],
+      applied: ['Plan', 'Adjud']
+    },
+    {
+      subject: 'Blue/Co',
+      type: ['MilSym'],
+      permission: ['Blue: VS EP MR VP', 'Red: VS', 'Green: VP'],
+      applied: ['Plan']
+    }
+  ])
+  const [editParticipants] = useState<any[]>([
+    {
+      force: 'Blue',
+      viewSpatial: 'Y',
+      viewProp: 'N',
+      editRemoveFeature: 'N',
+      moveResizeFeature: 'N',
+      editProp: 'N'
+
+    }
+  ])
+
+  const modalStyle = { content: { width: '60%' } }
 
   const onTabChange = (_: string, index: number) => {
     setActiveTab(index)
-  }
-
-  const DropdownZoom: React.FC<{
-    title: string
-    values: number[]
-    onChange: (
-      event: React.ChangeEvent<{ name?: string | undefined, value: unknown }>,
-      child: React.ReactNode
-    ) => void
-  }> = ({ title, values, onChange }) =>
-    useMemo(
-      () => (
-        <Box className={styles.mapFieldItem} sx={{ width: '60%' }}>
-          <InputLabel variant="standard">{title}</InputLabel>
-          <Select fullWidth onChange={onChange}>
-            {values.map((value) => (
-              <MenuItem key={value} value={value}>
-                {value}
-              </MenuItem>
-            ))}
-          </Select>
-        </Box>
-      ),
-      []
-    )
-
-  const AddButton: React.FC<{ className?: string }> = ({ className }) => {
-    return (
-      <PopupState variant="popover">
-        {(popupState) => (
-          <Box className={className}>
-            <Button
-              variant="contained"
-              {...bindTrigger(popupState)}
-              endIcon={<KeyboardArrowDownIcon />}
-            >
-              Add
-            </Button>
-            <Menu
-              {...bindMenu(popupState)}
-              transformOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left'
-              }}
-            >
-              <MenuItem onClick={popupState.close}>New Property</MenuItem>
-            </Menu>
-          </Box>
-        )}
-      </PopupState>
-    )
   }
 
   const removeRender = useCallback((renderer: string) => {
     console.log('Remove: ', renderer)
   }, [])
 
+  const onEdit = () => setOpenEditModal(true)
+  const onCloseEditModal = () => setOpenEditModal(false)
+  const onSave = () => setOpenEditModal(false)
+
   return (
     <Box className={styles.channelTabContainer}>
+      <CustomDialog
+        modalStyle={modalStyle}
+        isOpen={openEditModal}
+        header={'Add/Edit Participant'}
+        cancelBtnText='Cancel'
+        saveBtnText='OK'
+        onClose={onCloseEditModal}
+        onSave={onSave}
+      >
+        <Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box sx={{ width: '49%' }}>
+              <DropdownZoom title="Force" values={[5, 10, 15]} labelWidth='80px' onChange={noop} />
+              <DropdownZoom title="Role" values={[5, 10, 15]} labelWidth='80px' onChange={noop} />
+            </Box>
+            <Box sx={{ width: '49%' }}>
+              <DropdownZoom title="Renderer" values={[5, 10, 15]} labelWidth='80px' onChange={noop} />
+              <DropdownZoom title="For phase" values={[5, 10, 15]} labelWidth='80px' onChange={noop} />
+            </Box>
+          </Box>
+          <Box>
+            <span>Permissions</span>
+            <SimpleTable columns={editParticipantColumns} data={editParticipants}/>
+          </Box>
+        </Box>
+      </CustomDialog>
       <Tabs tabs={CoreMappingTabs} activeTab="Map" onChange={onTabChange} />
       {activeTab === 0 && (
         <Box className={styles.channelTabDetailsContainer}>
@@ -178,10 +156,11 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
           <DropdownZoom
             title="Max native zoom"
             values={[5, 10, 15]}
+            labelWidth='150px'
             onChange={noop}
           />
-          <DropdownZoom title="Max zoom" values={[5, 10, 15]} onChange={noop} />
-          <DropdownZoom title="Min zoom" values={[5, 10, 15]} onChange={noop} />
+          <DropdownZoom title="Max zoom" values={[5, 10, 15]} labelWidth='150px'onChange={noop} />
+          <DropdownZoom title="Min zoom" values={[5, 10, 15]} labelWidth='150px' onChange={noop} />
         </Box>
       )}
       {activeTab === 1 && (
@@ -214,46 +193,17 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
               labelPlacement="start"
             />
             <span className={styles.itemTitle}>Additional Properties</span>
-            <TableContainer component={Paper} style={{ maxHeight: '200px' }}>
-              <Table stickyHeader>
-                <TableHead>
-                  <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        key={column.id}
-                        align={column.align}
-                        style={{ minWidth: column.minWidth }}
-                      >
-                        {column.label}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {properties.map((prop, idx) => (
-                    <TableRow key={idx} style={{ cursor: 'pointer' }}>
-                      <TableCell>{prop.type}</TableCell>
-                      <TableCell>{prop.label}</TableCell>
-                      <TableCell>{prop.description}</TableCell>
-                      <TableCell>{prop.editable ? 'Y' : 'N'}</TableCell>
-                      <TableCell>{prop.icon}</TableCell>
-                      <TableCell>{prop.others}</TableCell>
-                      <TableCell align="right">
-                        <FontAwesomeIcon
-                          icon={faEdit}
-                          style={{ marginRight: '5px' }}
-                        />
-                        <FontAwesomeIcon icon={faTrash} />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <SimpleTable columns={columns} data={properties}/>
             <AddButton />
           </Box>
         </Box>
       )}
+      {activeTab === 2 && <Box className={cx({
+        [styles.channelTabDetailsContainer]: true,
+        [styles.participants]: true
+      })}>
+        <SimpleTable columns={participantColumns} data={participants} onEdit={onEdit}/>
+      </Box>}
     </Box>
   )
 }
