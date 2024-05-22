@@ -1,6 +1,4 @@
-import {
-  faTimesCircle
-} from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Box,
@@ -12,14 +10,13 @@ import {
   TextField
 } from '@material-ui/core'
 import cx from 'classnames'
-import { noop } from 'lodash'
-import React, { useCallback, useState } from 'react'
+import { cloneDeep, noop, set } from 'lodash'
+import React, { useCallback, useEffect, useState } from 'react'
 import CustomDialog from 'src/Components/local/atoms/custom-dialog'
 import Tabs from 'src/Components/local/atoms/tabs'
-import { Column } from 'src/Components/local/react-table/types/props'
 import { ForceData } from 'src/custom-types'
-import { ChannelCustom } from 'src/custom-types/channel-data'
-import { AddButton, DropdownZoom, SimpleTable } from '../helpers/coreMapping'
+import { ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
+import { AddButton, AdditionalPropcolumns, CoreMappingTabs, EditParticipantColumns, ParticipantColumns, SimpleSelect, SimpleTable, ZoomOptions } from '../helpers/coreMapping'
 import styles from '../styles.module.scss'
 
 type CoreMappingChannelProps = {
@@ -28,36 +25,10 @@ type CoreMappingChannelProps = {
   onChange: (channel: ChannelCustom) => void
 };
 
-const CoreMappingTabs = ['Map', 'Renderers', 'Participants']
-const columns: readonly Column[] = [
-  { id: 'type', label: 'Type' },
-  { id: 'label', label: 'Label' },
-  { id: 'description', label: 'Description' },
-  { id: 'editable', label: 'User Editable' },
-  { id: 'icon', label: 'Icon' },
-  { id: 'others', label: 'Others' },
-  { id: 'action', label: '' }
-]
-const participantColumns: readonly Column[] = [
-  { id: 'subject', label: 'Subject' },
-  { id: 'type', label: 'Feature-type' },
-  { id: 'permission', label: 'Permissions' },
-  { id: 'applied', label: 'Applied in' },
-  { id: 'action', label: '' }
-]
-const editParticipantColumns: readonly Column[] = [
-  { id: 'force', label: 'Force' },
-  { id: 'viewSpatial', label: 'View Spatial' },
-  { id: 'viewProp', label: 'View Props' },
-  { id: 'editRemoveFeature', label: 'Edit/Remove Feature' },
-  { id: 'moveResizeFeature', label: 'Move/Resize Feature' },
-  { id: 'editProp', label: 'Edit Props' },
-  { id: 'action', label: '' }
-]
-
-export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
+export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel, onChange }) => {
   const [activeTab, setActiveTab] = useState<number>(0)
   const [openEditModal, setOpenEditModal] = useState<boolean>(false)
+  const [localChannelUpdates, setLocalChannelUpdates] = useState<ChannelMapping>(channel as unknown as ChannelMapping)
   const [renderList] = useState<string[]>(['Core', 'Milsymbol'])
   const [properties] = useState<any[]>([
     {
@@ -99,10 +70,10 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
       editRemoveFeature: 'N',
       moveResizeFeature: 'N',
       editProp: 'N'
-
     }
   ])
 
+  console.log('xx> channel: ', channel)
   const modalStyle = { content: { width: '60%' } }
 
   const onTabChange = (_: string, index: number) => {
@@ -117,31 +88,44 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
   const onCloseEditModal = () => setOpenEditModal(false)
   const onSave = () => setOpenEditModal(false)
 
+  const onLocalChange = (key: string, value: string) => {
+    const cloneChannel = cloneDeep(localChannelUpdates)
+    set(cloneChannel, key, value)
+    setLocalChannelUpdates(cloneChannel)
+  }
+
+  useEffect(() => {
+    onChange(localChannelUpdates as unknown as ChannelCustom)
+  }, [localChannelUpdates])
+
   return (
     <Box className={styles.channelTabContainer}>
       <CustomDialog
         modalStyle={modalStyle}
         isOpen={openEditModal}
         header={'Add/Edit Participant'}
-        cancelBtnText='Cancel'
-        saveBtnText='OK'
+        cancelBtnText="Cancel"
+        saveBtnText="OK"
         onClose={onCloseEditModal}
         onSave={onSave}
       >
         <Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box sx={{ width: '49%' }}>
-              <DropdownZoom title="Force" values={[5, 10, 15]} labelWidth='80px' onChange={noop} />
-              <DropdownZoom title="Role" values={[5, 10, 15]} labelWidth='80px' onChange={noop} />
+              <SimpleSelect title="Force" options={[]} labelWidth="80px" onChange={noop} />
+              <SimpleSelect title="Role" options={[]} labelWidth="80px" onChange={noop} />
             </Box>
             <Box sx={{ width: '49%' }}>
-              <DropdownZoom title="Renderer" values={[5, 10, 15]} labelWidth='80px' onChange={noop} />
-              <DropdownZoom title="For phase" values={[5, 10, 15]} labelWidth='80px' onChange={noop} />
+              <SimpleSelect title="Renderer" options={[]} labelWidth="80px" onChange={noop} />
+              <SimpleSelect title="For phase" options={[]} labelWidth="80px" onChange={noop} />
             </Box>
           </Box>
           <Box>
             <span>Permissions</span>
-            <SimpleTable columns={editParticipantColumns} data={editParticipants}/>
+            <SimpleTable
+              columns={EditParticipantColumns}
+              data={editParticipants}
+            />
           </Box>
         </Box>
       </CustomDialog>
@@ -150,36 +134,23 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
         <Box className={styles.channelTabDetailsContainer}>
           <Box className={styles.mapFieldItem}>
             <InputLabel variant="standard">URL</InputLabel>
-            <TextField fullWidth />
+            <TextField fullWidth value={localChannelUpdates.constraints.tileLayer?.url || ''} onChange={(e) => onLocalChange('constraints.tileLayer.url', e.target.value)}/>
           </Box>
 
-          <DropdownZoom
-            title="Max native zoom"
-            values={[5, 10, 15]}
-            labelWidth='150px'
-            onChange={noop}
-          />
-          <DropdownZoom title="Max zoom" values={[5, 10, 15]} labelWidth='150px'onChange={noop} />
-          <DropdownZoom title="Min zoom" values={[5, 10, 15]} labelWidth='150px' onChange={noop} />
+          <SimpleSelect title="Max native zoom" value={localChannelUpdates.constraints.tileLayer?.maxNativeZoom || 1} options={ZoomOptions} labelWidth="150px" width="60%" onChange={(e) => onLocalChange('constraints.tileLayer.maxNativeZoom', e.target.value as string)} />
+          <SimpleSelect title="Max zoom" value={localChannelUpdates.constraints.maxZoom || 1} options={ZoomOptions} labelWidth="150px" width="60%" onChange={(e) => onLocalChange('constraints.maxZoom', e.target.value as string)} />
+          <SimpleSelect title="Min zoom" value={localChannelUpdates.constraints.minZoom || 1} options={ZoomOptions} labelWidth="150px" width="60%" onChange={(e) => onLocalChange('constraints.minZoom', e.target.value as string)} />
         </Box>
       )}
       {activeTab === 1 && (
-        <Box
-          className={cx({
-            [styles.channelTabDetailsContainer]: true,
-            [styles.renderersTab]: true
-          })}
-        >
+        <Box className={cx({ [styles.channelTabDetailsContainer]: true, [styles.renderersTab]: true })} >
           <Box>
             <span className={styles.itemTitle}>Renderers</span>
             <List className={styles.renderersList}>
               {renderList.map((renderer) => (
                 <ListItem key={renderer} button>
                   <span>{renderer}</span>
-                  <FontAwesomeIcon
-                    icon={faTimesCircle}
-                    onClick={() => removeRender(renderer)}
-                  />
+                  <FontAwesomeIcon icon={faTimesCircle} onClick={() => removeRender(renderer)} />
                 </ListItem>
               ))}
             </List>
@@ -193,17 +164,16 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = () => {
               labelPlacement="start"
             />
             <span className={styles.itemTitle}>Additional Properties</span>
-            <SimpleTable columns={columns} data={properties}/>
+            <SimpleTable columns={AdditionalPropcolumns} data={properties} />
             <AddButton />
           </Box>
         </Box>
       )}
-      {activeTab === 2 && <Box className={cx({
-        [styles.channelTabDetailsContainer]: true,
-        [styles.participants]: true
-      })}>
-        <SimpleTable columns={participantColumns} data={participants} onEdit={onEdit}/>
-      </Box>}
+      {activeTab === 2 && (
+        <Box className={cx({ [styles.channelTabDetailsContainer]: true, [styles.participantsTab]: true })}>
+          <SimpleTable columns={ParticipantColumns} data={participants} onEdit={onEdit} />
+        </Box>
+      )}
     </Box>
   )
 }
