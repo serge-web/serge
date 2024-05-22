@@ -301,6 +301,48 @@ const couchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([]))
   })
 
+  app.get('/:wargame/lastDoc/:id?', async (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      return res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new CouchDB(couchDbURL(databaseName))
+    // If an _id is provided, return all documents since that _id
+    if (req.params.id) {
+      try {
+        const result = await db.find({
+          selector: {
+            _id: { $gt: req.params.id }
+          },
+          sort: [{ _id: 'asc' }]
+        })
+
+        return res.send({ msg: 'ok', data: result.docs })
+      } catch (error) {
+        console.error(`Error fetching documents since ID ${req.params.id}:`, error)
+        return res.status(500).send({ msg: 'Error fetching documents', data: error })
+      }
+    }
+
+    // If no ID is provided, return the latest document
+    try {
+      const result = await db.find({
+        selector: {
+          _id: { $gte: null }
+        },
+        sort: [{ _id: 'desc' }],
+        limit: 1
+      })
+
+      return res.send({ msg: 'ok', data: result.docs })
+    } catch (error) {
+      console.error('Error fetching the latest document:', error)
+      return res.status(500).send({ msg: 'Error fetching the latest document', data: error })
+    }
+  })
+
   app.get('/:wargame/turns', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
 
