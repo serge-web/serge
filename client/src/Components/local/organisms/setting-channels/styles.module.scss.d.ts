@@ -37,6 +37,8 @@ interface CssExports {
   'renderersList': string;
   'renderersTab': string;
   'itemTitle': string;
+  'participants': string;
+  'tableRow': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
