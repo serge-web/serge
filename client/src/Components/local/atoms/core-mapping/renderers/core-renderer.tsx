@@ -15,6 +15,7 @@ import { hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-pe
 
 export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
+  console.log('forceStyle', forceStyle, force, forceStyles)
   return forceStyle ? forceStyle.color : '#F0F'
 }
 
@@ -46,7 +47,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
 
   const setTextStyleFromProperties = (marker: L.Marker<any>, props: any) => {
     const forceColor = colorFor(props.force, forceStyles)
-    let textColor = props.color || '#000'
+    let textColor = '#000'
     const elm = marker.pm['_layer'].pm.getElement() as HTMLTextAreaElement
     if (tinycolor(forceColor).isDark()) {
       textColor = '#fff'
