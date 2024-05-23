@@ -15,6 +15,7 @@ import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
 import { ErrorBoundary } from 'react-error-boundary'
 import Props, { FormProps } from './types/props'
+import widgets from './helpers/customCheckbox'
 
 export interface FormData {
   foo?: string
@@ -284,7 +285,8 @@ export const JsonEditor: React.FC<Props> = ({
                   : ''
               }
               onChange={handleChange}
-              validator={validator} 
+              validator={validator}
+              widgets={widgets}
               formData={formData}
               onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}
               disabled={disabled}

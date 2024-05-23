@@ -27,6 +27,7 @@ export interface FormProps {
   uiSchema: string
   onSubmit?: any
   formData: formData
+  widgets?: CustomWidgets
   className?: string
   onChange: (newSchema: IChangeEvent<FormData>) => void
   onSubmit: (newSchema: IChangeEvent<FormData>) => void
