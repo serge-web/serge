@@ -60,7 +60,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
     map.pm.Toolbar.createCustomControl({
       name: 'showLayersText',
       block: 'custom',
-      className: 'control-icon leaflet-pm-icon-text',
+      className: 'control-icon leaflet-pm-icon-snapping',
       title: 'Show symbol labels',
       afterClick: () => {
         onShowLabels(layersVisible)
@@ -86,7 +86,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
       },
       
       // Set toggle to false to indicate that this custom control does not have a toggle functionality
-      toggle: false
+      toggle: true
 
     })
     
