@@ -1,4 +1,4 @@
-.modal {
+.modal-open .modal {
     background: white;
     position: fixed !important;
     color: black;
@@ -11,7 +11,7 @@
 }
 
 
-.modal.show .modal-dialog {
+.modal-open .modal.show .modal-dialog {
     height: 100vh;
   }
   
