@@ -42,6 +42,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [canAddRemove, setCanAddRemove] = useState<boolean>(false)
   const [canMoveResize, setCanMoveResize] = useState<boolean>(false)
 
+  const SEND_MAPPING_DELTA_MESSAGES = false
+
   const mappingProviderValue = useMemo(() => ({
     filterFeatureIds,
     setFilterFeatureIds,
@@ -73,7 +75,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     if (channel && playerForce && playerRole && currentPhase) {
       const relevantParts = channel.participants.filter((participant: ParticipantMapping) => {
         const forceValid = participant.forceUniqid === playerForce.uniqid
-        const roleValid = participant.roles.length ? participant.roles.includes(playerRole.roleId) : true
+        const roleValid = participant.roles.length ? participant.roles.includes(playerRole) : true
         const phaseValid = participant.phases.includes(currentPhase)
         return forceValid && roleValid && phaseValid 
       })
@@ -92,7 +94,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         const myRolePerms = myForcePerms.filter((p: ParticipantMapping) =>
           p.roles === undefined || 
           p.roles.length === 0 || 
-          p.roles.includes(playerRole.roleId))
+          p.roles.includes(playerRole))
         const thisPhasePerms = myRolePerms.filter((p: ParticipantMapping) => p.phases.includes(currentPhase))
         const myPerms = thisPhasePerms.filter((p: ParticipantMapping) => p.permissionTo[id] !== undefined)
         let localCanAddRemove = false
@@ -203,7 +205,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         turnNumber: 1
       }
 
-      if (lastMessages.current) {
+      if (lastMessages.current && SEND_MAPPING_DELTA_MESSAGES) {
         // generating path from original message with latest feature collection
         const delta = generatePatch(lastMessages.current.featureCollection, newFeatureCollection)
         const deltaMessage: MappingMessageDelta = {
