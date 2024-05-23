@@ -10,8 +10,8 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { PanelSize } from 'src/Components/CoreMappingChannel'
-import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from 'src/config'
-import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, UMPIRE_FORCE } from 'src/config'
+import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, MappingPermissions, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
@@ -32,11 +32,17 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [selectedFeature, setSelectedFeature] = useState<string[]>([])
   const [showLabels, setShowLabels] = useState<boolean>(false)
   const lastMessages = useRef<MappingMessage>()
+  const [permissions, setPermissions] = useState<ParticipantMapping[]>([])
 
   const [filterFeatureIds, setFilterFeatureIds] = useState<string[]>([])
   const [deselecteFeature, setDeselectFeature] = useState<boolean>(false)
   const [localPanelSize, setLocalPanelSize] = useState<PanelSize | undefined>(panelSize)
   const [isMeasuring, setIsMeasuring] = useState<boolean>(false)
+
+  const [canAddRemove, setCanAddRemove] = useState<boolean>(false)
+  const [canMoveResize, setCanMoveResize] = useState<boolean>(false)
+
+  const SEND_MAPPING_DELTA_MESSAGES = false
 
   const mappingProviderValue = useMemo(() => ({
     filterFeatureIds,
@@ -64,6 +70,48 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   useEffect(() => {
     loadDefaultMarker()
   }, [])
+
+  useEffect(() => {
+    if (channel && playerForce && playerRole && currentPhase) {
+      const relevantParts = channel.participants.filter((participant: ParticipantMapping) => {
+        const forceValid = participant.forceUniqid === playerForce.uniqid
+        const roleValid = participant.roles.length ? participant.roles.includes(playerRole) : true
+        const phaseValid = participant.phases.includes(currentPhase)
+        return forceValid && roleValid && phaseValid 
+      })
+      setPermissions(relevantParts)
+    }
+  }, [channel, playerForce, playerRole, currentPhase])
+
+  useEffect(() => {
+    if (playerForce && channel) {
+      const id = playerForce.uniqid
+      if (id === UMPIRE_FORCE) {
+        setCanAddRemove(true)
+        setCanMoveResize(true)
+      } else {
+        const myForcePerms = channel.participants.filter((p: ParticipantMapping) => p.forceUniqid === id)
+        const myRolePerms = myForcePerms.filter((p: ParticipantMapping) =>
+          p.roles === undefined || 
+          p.roles.length === 0 || 
+          p.roles.includes(playerRole))
+        const thisPhasePerms = myRolePerms.filter((p: ParticipantMapping) => p.phases.includes(currentPhase))
+        const myPerms = thisPhasePerms.filter((p: ParticipantMapping) => p.permissionTo[id] !== undefined)
+        let localCanAddRemove = false
+        let localCanMoveResize = false
+        myPerms.forEach((p: ParticipantMapping) => {
+          if (p.permissionTo[id].includes(MappingPermissions.AddRemove) && !localCanAddRemove) {
+            localCanAddRemove = true
+          }
+          if (p.permissionTo[id].includes(MappingPermissions.MoveResize) && !localCanMoveResize) {
+            localCanMoveResize = true
+          }
+        })
+        setCanAddRemove(localCanAddRemove)
+        setCanMoveResize(localCanMoveResize)
+      }
+    }
+  }, [playerForce, playerRole, channel, currentPhase])
 
   useEffect(() => {
     if (!isEqual(localPanelSize, panelSize)) {
@@ -157,7 +205,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         turnNumber: 1
       }
 
-      if (lastMessages.current) {
+      if (lastMessages.current && SEND_MAPPING_DELTA_MESSAGES) {
         // generating path from original message with latest feature collection
         const delta = generatePatch(lastMessages.current.featureCollection, newFeatureCollection)
         const deltaMessage: MappingMessageDelta = {
@@ -430,7 +478,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
               minSizePercentage={35}
               style={{ pointerEvents: 'all' }}
             >
-              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} rendererProps={getUnionRendererProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} forceStyles={forceStyles}/>
+              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} rendererProps={getUnionRendererProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} forceStyles={forceStyles} permissions={permissions} />
             </Panel>
             <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
             <Panel
@@ -446,7 +494,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         /> 
-        <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText}/>
+        <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText} canAddRemove={canAddRemove} canMoveResize={canMoveResize}/>
         <LayerGroup>
           {
             featureCollection && renderers.map((Component, idx) => 
@@ -460,6 +508,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
                 selected={selectedFeature}
                 showLabels={showLabels} 
                 forceStyles={forceStyles}
+                permissions={permissions}
               />) 
           }
         </LayerGroup>

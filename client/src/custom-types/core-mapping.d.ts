@@ -41,8 +41,8 @@ export interface BaseProperty {
   label: string
   /** longer description for this property */
   description?: string
-  /** whether the property is user-editable */
-  editable?: boolean
+  /** whether the property is editable by players */
+  playerEditable?: boolean
   /** font-awesome icon to show against this field */
   icon?: string
 }

@@ -7,7 +7,7 @@ import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 're
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
 import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
 import { ForceStyle, isValidSymbol } from 'src/Helpers'
-import { CoreProperties, PropertyType } from 'src/custom-types'
+import { CoreProperties, MappingPermissions, ParticipantMapping, PropertyType } from 'src/custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import { colorFor } from '../core-mapping/renderers/core-renderer'
@@ -17,6 +17,7 @@ import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
 import { SelectedProps } from './types/props'
+import { hasMappingPermission, hasMappingPermissions } from './helpers/has-mapping-permission'
 
 type MappingPanelProps = {
   onClose: () => void
@@ -26,6 +27,7 @@ type MappingPanelProps = {
   onSelect: (id: string[]) => void
   onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
   forceStyles: ForceStyle[]
+  permissions: ParticipantMapping[]
 }
 type PanelState = {
   state: boolean
@@ -51,12 +53,13 @@ const initPanelState: PanelGroupState = {
   }
 }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave, forceStyles }): React.ReactElement => {
-  const [filterredFeatures, setFilterredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave, forceStyles, permissions }): React.ReactElement => {
+  const [filteredFeatures, setFilteredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
   const [propertyFiltersListPanel, setPropertyFiltersListPanel] = useState<string[]>([])
-  const [selectedFeatures, setSelectedFeatures] = useState<Feature<Geometry, GeoJsonProperties>[]>([])
+  const [selectedFeature, setSelectedFeature] = useState<Feature<Geometry, GeoJsonProperties> | undefined>(undefined)
+  const [propsEditable, setPropsEditable] = useState<boolean>(false)
   const [selectedProps, setSelectedProps] = useState<SelectedProps>({})
   const [selectedFiltersProps, setSelectedFiltersProps] = useState<SelectedProps>({})
   const [disableSave, setDisableSave] = useState<boolean>(true)
@@ -76,15 +79,46 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   // add custom search field with wildcard support
   filterProperties?.unshift(wildcardLabel, shapeTypeLabel)
 
+  const knowsItExists = (feature: Feature<Geometry, any>): boolean => {
+    const knowsPos = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
+    if (!knowsPos) {
+      // though the player doesn't know location of subject, see if it knows it exists
+      return hasMappingPermission(feature, MappingPermissions.Exists, permissions)
+    } else {
+      return true
+    }
+  }
+
+  const canSeeProps = (feature: Feature<Geometry, any>): boolean => {
+    return hasMappingPermissions(feature, [MappingPermissions.ViewProps, MappingPermissions.EditAllProps,
+      MappingPermissions.EditOwnProps], permissions)
+  }
+
+  const canEditProps = (feature: Feature<Geometry, any>): boolean => {
+    return hasMappingPermissions(feature, [MappingPermissions.EditAllProps,
+      MappingPermissions.EditOwnProps], permissions)
+  }
+
+  const canOnlyEditOwnProps = (feature: Feature<Geometry, any>): boolean => {
+    return hasMappingPermissions(feature, [MappingPermissions.EditOwnProps], permissions)
+  }
+
   useEffect(() => {
-    setFilterredFeatures(features)
-    setPendingSaveFeatures(features)
+    if (features) {
+      const visibleFeatures = features.features.filter(f => knowsItExists(f))
+      features.features = visibleFeatures
+      setFilteredFeatures(features)
+      setPendingSaveFeatures(features)  
+    } else {
+      setFilteredFeatures(features)
+      setPendingSaveFeatures(features)      
+    }
   }, [features])
 
   useEffect(() => {
-    if (selectedFeatures.length) {
-      const properties = selectedFeatures[0].properties as CoreProperties
-      const geometry = selectedFeatures[0].geometry
+    if (selectedFeature) {
+      const properties = selectedFeature.properties as CoreProperties
+      const geometry = selectedFeature.geometry
 
       if (!properties || !geometry) {
         return
@@ -105,10 +139,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
             choices: []
           }
         }
+        const onlyEditOwnProps = canOnlyEditOwnProps(selectedFeature)
         const extraProps = rendererProps.find(prop => prop.id === propKey)
         result[propKey] = {
           value: properties[propKey] as any,
-          choices: get(extraProps, 'choices', [])
+          choices: get(extraProps, 'choices', []),
+          disabled: onlyEditOwnProps && extraProps?.playerEditable !== undefined && extraProps?.playerEditable === false
         }
         return result
       }, {})
@@ -124,8 +160,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       } else {
         setSelectedProps(sortedProps)  
       }
+
+      // and if the form is editable
+      setPropsEditable(canEditProps(selectedFeature))
     }
-  }, [selectedFeatures])
+  }, [selectedFeature])
 
   useEffect(() => {
     selectItem(selected, true)
@@ -187,13 +226,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
   const selectItem = (id: string[], checked: boolean) => {
     const featrure = features?.features.filter(f => id.includes(f.properties?.id)) || []
-    setSelectedFeatures(checked ? featrure : [])
+    setSelectedFeature(checked ? featrure[0] : undefined)
     onSelect(checked ? id : [])
     setPendingSaveFeatures(features)
   }
 
   const clearSelectedFeature = () => {
-    setSelectedFeatures([])
+    setSelectedFeature(undefined)
     setSelectedProps({})
     onSelect([])
     setDisableSave(true)
@@ -212,7 +251,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       return
     }
     localFeatures = localFeatures.map(f => {
-      if (get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', '') && f.properties) {
+      if (get(f, 'properties.id', '') === get(selectedFeature, 'properties.id', '') && f.properties) {
         if (key === 'lat') {
           set(f, 'geometry.coordinates.1', +selectedProps.lat.value)
         } else if (key === 'lng') {
@@ -303,12 +342,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
       return Object.values(orFoundKey).every(f => f)
     })
-    const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeatures, '0.properties.id', ''))
+    const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeature, 'properties.id', ''))
     if (!isSelectedFeatureFilterOut) {
       clearSelectedFeature()
     }
     setFilterFeatureIds(getAllFeatureIds(cloneFeature))
-    setFilterredFeatures(cloneFeature)
+    setFilteredFeatures(cloneFeature)
   }, [features, selectedFiltersProps])
 
   const onLocalSave = () => {
@@ -432,9 +471,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         </div>
         {panelState.itemPanelState.state &&
           <div className={styles.itemsResponsive}>
-            {filterredFeatures?.features.map((feature, idx) => {
+            {filteredFeatures?.features.map((feature, idx) => {
               const color = colorFor(feature.properties?.force, forceStyles)
-              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeatures, '0.properties.id', '') === feature.properties?.id} onClick={selectItem} color={color}/>
+              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
             })}
           </div>
         }
@@ -455,12 +494,14 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         {panelState.propertyPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} checkSidc={checkSidc} onPropertiesChange={onPropertiesChange} />
+              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} checkSidc={checkSidc} onPropertiesChange={onPropertiesChange} disabled={!propsEditable} />
             </div>
-            <div className={styles.button}>
-              <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
-              <button disabled={disableSave || !checkSidc} onClick={onLocalSave}>Save</button>
-            </div>
+            { propsEditable &&
+              <div className={styles.button}>
+                <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
+                <button disabled={disableSave || !checkSidc} onClick={onLocalSave}>Save</button>
+              </div>
+            }
           </>
         }
       </Panel>
