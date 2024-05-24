@@ -80,35 +80,15 @@ Array [
                 <div
                   className="form-group"
                 >
-                  <div
-                    aria-describedby="root_completed__error root_completed__description root_completed__help"
-                    className="checkbox  form-group"
-                  >
-                    <div
-                      className="form-check"
-                    >
-                      <input
-                        autoFocus={false}
-                        checked={false}
-                        className="form-check-input"
-                        disabled={false}
-                        id="root_completed"
-                        name="root_completed"
-                        onBlur={[Function]}
-                        onChange={[Function]}
-                        onFocus={[Function]}
-                        required={false}
-                        type="checkbox"
-                      />
-                      <label
-                        className="form-check-label"
-                        htmlFor="root_completed"
-                        title=""
-                      >
-                        completed
-                      </label>
-                    </div>
-                  </div>
+                  <input
+                    className="unchecked"
+                    onClick={[Function]}
+                    required={false}
+                    type="checkbox"
+                  />
+                  <label>
+                    completed
+                  </label>
                 </div>
               </div>
             </div>

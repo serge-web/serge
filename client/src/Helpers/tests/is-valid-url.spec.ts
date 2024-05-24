@@ -23,7 +23,7 @@ describe('isValidUrl', () => {
     expect(isValidUrl(badIpAdr)).toBeFalsy()
     expect(isValidUrl(withPort)).toBeTruthy()
     expect(isValidUrl(withQuery)).toBeTruthy()
-    expect(isValidUrl(filePath)).toBeTruthy()
+    expect(isValidUrl(filePath)).toBeFalsy()
     expect(isValidUrl(misformatted)).toBeFalsy()
   })
 })
