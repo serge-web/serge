@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 // Import component files
 import SettingTemplate from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 import { TemplateBody } from 'src/custom-types'
 import { watuWargame } from 'src/mocks'
 
@@ -14,7 +13,7 @@ const TemplatesMock = watuWargame.data.templates.templates
 export default {
   title: 'local/organisms/setting-templates',
   component: SettingTemplate,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
