@@ -6,7 +6,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Box,
   Button,
+  Checkbox,
   Chip,
+  FormControlLabel,
   InputLabel,
   Menu,
   MenuItem,
@@ -23,6 +25,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state'
 import React from 'react'
 import { Column } from 'src/Components/local/react-table/types/props'
+import { PropertyType } from 'src/custom-types'
 import styles from '../styles.module.scss'
 
 export const CoreMappingTabs = ['Map', 'Renderers', 'Participants']
@@ -56,12 +59,12 @@ export const ZoomOptions = Array.from(Array(20).keys()).map(v => v + 1)
 type SimpleTableProps = {
   columns: readonly Column[]
   data: any[]
-  onEdit?: () => void
-  onRemove?: () => void
+  onEdit: (row: PropertyType) => void
+  onRemove: (row: PropertyType) => void
 }
 
 export const SimpleTable: React.FC<SimpleTableProps> = ({ columns, data, onEdit, onRemove }) => {
-  return <TableContainer component={Paper} style={{ maxHeight: '200px' }}>
+  return <TableContainer component={Paper} style={{ maxHeight: '400px' }}>
     <Table stickyHeader>
       <TableHead>
         <TableRow>
@@ -79,21 +82,26 @@ export const SimpleTable: React.FC<SimpleTableProps> = ({ columns, data, onEdit,
       <TableBody>
         {data.map((prop, idx) => (
           <TableRow key={idx} style={{ cursor: 'pointer' }}>
-            {Object.keys(prop).map(key => (<TableCell key={key} style={{ padding: '4px' }}>
+            {Object.keys(prop).map(key => (key !== 'id' && <TableCell key={key} style={{ padding: '4px' }}>
               {Array.isArray(prop[key])
                 ? <>
-                  {prop[key].map((value: string) => (<Chip key={value} label={value} className={styles.tableRow} />))}
+                  {prop[key].map((value: any) => (value && <Chip key={value} label={value} className={styles.tableCellText} />))}
                 </>
-                : <Chip label={prop[key]} className={styles.tableRow} />}
+                : typeof prop[key] === 'boolean'
+                  ? <FormControlLabel
+                    style={{ marginLeft: '0' }}
+                    control={<Checkbox defaultChecked />} label={undefined} disabled
+                  />
+                  : prop[key] && <Chip label={prop[key]} className={styles.tableCellText} />}
               
             </TableCell>))}
             <TableCell align="right" style={{ minWidth: '70px' }}>
               <FontAwesomeIcon
                 icon={faEdit}
                 style={{ marginRight: '5px' }}
-                onClick={onEdit}
+                onClick={() => onEdit(prop)}
               />
-              <FontAwesomeIcon icon={faTrash} onClick={onRemove}/>
+              <FontAwesomeIcon icon={faTrash} onClick={() => onRemove(prop)}/>
             </TableCell>
           </TableRow>
         ))}
@@ -102,7 +110,7 @@ export const SimpleTable: React.FC<SimpleTableProps> = ({ columns, data, onEdit,
   </TableContainer>
 }
 
-export const AddButton: React.FC<{ className?: string }> = ({ className }) => {
+export const AddButton: React.FC<{ className?: string, options: string[], onChange: (value: string) => void }> = ({ className, options = [], onChange }) => {
   return (
     <PopupState variant="popover">
       {(popupState) => (
@@ -121,7 +129,10 @@ export const AddButton: React.FC<{ className?: string }> = ({ className }) => {
               horizontal: 'left'
             }}
           >
-            <MenuItem onClick={popupState.close}>New Property</MenuItem>
+            {options.map(option => <MenuItem key={option} onClick={() => {
+              onChange(option)
+              popupState.close()
+            }}>{option}</MenuItem>)}
           </Menu>
         </Box>
       )}
@@ -131,8 +142,8 @@ export const AddButton: React.FC<{ className?: string }> = ({ className }) => {
 
 export const SimpleSelect: React.FC<{
   title: string
-  value?: number
-  options: number[]
+  value?: number | string
+  options: number[] | string[]
   labelWidth: string
   width?: string
   onChange: (
