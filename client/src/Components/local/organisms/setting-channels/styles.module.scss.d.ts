@@ -38,7 +38,8 @@ interface CssExports {
   'renderersTab': string;
   'itemTitle': string;
   'participantsTab': string;
-  'tableRow': string;
+  'tableCellText': string;
+  'editPropField': string
 }
 export const cssExports: CssExports;
 export default cssExports;

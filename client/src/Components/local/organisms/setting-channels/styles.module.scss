@@ -204,6 +204,18 @@
   padding: 20px 30px 20px 20px;
 }
 
+.editPropField {
+  display: flex; 
+  flex-direction: row;
+  align-items: end;
+  margin-bottom: 10px;
+
+  label {
+    min-width: 90px;
+    font-size: 14px;
+  }
+}
+
 .mapFieldItem {
   display: flex; 
   flex-direction: row;
@@ -241,7 +253,7 @@
   margin-bottom: 10px;
 }
 
-.tableRow { 
+.tableCellText { 
   background-color: #fff !important;
   border: 2px solid #000 !important; 
   color: #000 !important;
