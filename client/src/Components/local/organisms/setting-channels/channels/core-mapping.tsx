@@ -40,7 +40,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   const [activeTab, setActiveTab] = useState<number>(0)
   const [editParticipant, setEditParticipant] = useState<boolean>(false)
   const [editProperty, setEditProperty] = useState<PropertyType | undefined>()
-  const [selectedRenderer, setSelectedRender] = useState<string>(get(channel, 'renderers[0].id', ''))
+  const [selectedRenderer, setSelectedRender] = useState<string>('')
   const [localChannel, setLocalChannel] = useState<ChannelMapping>(channel as unknown as ChannelMapping)
   const [properties, setProperties] = useState<any[]>([])
   const [participants] = useState<any[]>([
@@ -67,6 +67,11 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
       editProp: 'N'
     }
   ])
+
+  useEffect(() => {
+    setLocalChannel(channel as unknown as ChannelMapping)
+    setSelectedRender(get(channel, 'renderers[0].id', ''))
+  }, [])
 
   useEffect(() => {
     if (activeTab === 1 && selectedRenderer) {
@@ -151,7 +156,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     setLocalChannel(cloneChannel)
   }, [])
 
-  const selectRender = useCallback((rendererId: string) => setSelectedRender(rendererId), [])
+  const selectRender = useCallback((rendererId: string) => setSelectedRender(rendererId), [localChannel])
 
   const removeRender = useCallback((e: any, renderer: string) => {
     const cloneChannels = cloneDeep(localChannel)
@@ -197,7 +202,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
       }
       return false
     })
-  }, [localChannel])
+  }, [localChannel, selectedRenderer])
 
   console.log('xx> channel: ', channel)
 
