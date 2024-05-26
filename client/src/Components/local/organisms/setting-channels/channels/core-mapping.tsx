@@ -14,12 +14,21 @@ import { capitalize, cloneDeep, get, noop, set } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import CustomDialog from 'src/Components/local/atoms/custom-dialog'
 import Tabs from 'src/Components/local/atoms/tabs'
-import { BaseRenderer, ForceData, PROPERTY_ENUM, PROPERTY_NUMBER, PropertyType } from 'src/custom-types'
+import { BaseRenderer, ForceData, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, PropertyType } from 'src/custom-types'
 import { ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
-import { AddButton, AdditionalPropcolumns, CoreMappingTabs, EditParticipantColumns, ParticipantColumns, SimpleSelect, SimpleTable, ZoomOptions } from '../helpers/coreMapping'
+import { AddButton, AdditionalPropcolumns, ButtonOptions, CoreMappingTabs, EditParticipantColumns, ParticipantColumns, SimpleSelect, SimpleTable, ZoomOptions } from '../helpers/coreMapping'
 import styles from '../styles.module.scss'
 
-const RendererOpts = ['Core', 'MilSym']
+const RendererOpts: ButtonOptions[] = [
+  { id: 'core', label: 'Core' },
+  { id: 'milSym', label: 'MilSym' }
+]
+
+const AddPropOpts: ButtonOptions[] = [
+  { id: PROPERTY_STRING, label: PROPERTY_STRING },
+  { id: PROPERTY_NUMBER, label: PROPERTY_NUMBER },
+  { id: PROPERTY_ENUM, label: PROPERTY_ENUM }
+]
 
 type CoreMappingChannelProps = {
   channel: ChannelCustom
@@ -61,33 +70,38 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
 
   useEffect(() => {
     if (activeTab === 1 && selectedRenderer) {
-      const newProperties: any[] = []
-      const renderer: BaseRenderer = localChannel.renderers.find(r => r.id === selectedRenderer)
-      if (renderer) {
-        renderer.baseProps.map(prop => {
-          newProperties.push({
-            type: getType(prop.type),
-            label: prop.label,
-            description: prop.description,
-            editable: prop.editable,
-            icon: prop.icon || 'N/A',
-            others: 'N/A',
-            id: prop.id
+      const newProperties: PropertyType[] = []
+      localChannel.renderers.some((r: BaseRenderer) => {
+        if (r.id === selectedRenderer) {
+          r.baseProps.map(prop => {
+            newProperties.push({
+              type: prop.type,
+              label: prop.label,
+              description: prop.description,
+              editable: prop.editable,
+              icon: prop.icon || 'N/A',
+              choices: [],
+              id: prop.id
+            })
           })
-        })
-        renderer.additionalProps.map(prop => {
-          newProperties.push({
-            type: getType(prop.type),
-            label: prop.label,
-            description: prop.description,
-            editable: prop.editable,
-            icon: prop.icon || 'N/A',
-            others: 'N/A',
-            id: prop.id
+          r.additionalProps.map(prop => {
+            newProperties.push({
+              type: prop.type,
+              label: prop.label,
+              description: prop.description,
+              editable: prop.editable,
+              icon: prop.icon || 'N/A',
+              choices: [],
+              id: prop.id
+            })
           })
-        })
-        setProperties(newProperties)
-      }
+          setProperties(newProperties)
+          return true
+        }
+        return false
+      })
+    } else {
+      setProperties([])
     }
   }, [activeTab, selectedRenderer, localChannel])
 
@@ -105,8 +119,29 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   const onCloseProperty = () => setEditProperty(undefined)
 
   const onSaveProperty = () => {
-    console.log('xx> editProps: ', editProperty)
-    // update new property into localChannel
+    if (!editProperty) {
+      return
+    }
+    localChannel.renderers.forEach((r: BaseRenderer, idx: number) => {
+      if (r.id === selectedRenderer) {
+        const baseProps = r.baseProps.map(prop => {
+          if (prop.id === editProperty.id) {
+            return editProperty
+          }
+          return prop
+        })
+        const additionalProps = r.additionalProps.map(prop => {
+          if (prop.id === editProperty.id) {
+            return editProperty
+          }
+          return prop
+        })
+        const cloneLocalChannel = cloneDeep(localChannel)
+        cloneLocalChannel.renderers[idx].baseProps = baseProps
+        cloneLocalChannel.renderers[idx].additionalProps = additionalProps
+        setLocalChannel(cloneLocalChannel)
+      }
+    })
     setEditProperty(undefined)
   }
 
@@ -123,29 +158,46 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     const filterRender = cloneChannels.renderers.filter(r => r.id !== renderer)
     set(cloneChannels, 'renderers', filterRender)
     setLocalChannel(cloneChannels)
-    if (localChannel.renderers.length) {
-      setSelectedRender(localChannel.renderers[0].id)
+    if (cloneChannels.renderers.length) {
+      setSelectedRender(cloneChannels.renderers[0].id)
+    } else {
+      setSelectedRender('')
     }
     e.stopPropagation()
   }, [localChannel])
 
   const onAddNewRenderer = useCallback((rendererId: string) => {
-    console.log('Add new renderere with id: ', rendererId)
-  }, [])
-
-  const onAddNewProp = useCallback((value: string) => {
-    console.log(value)
-  }, [])
-
-  const getType = (type: string) => {
-    if (type === PROPERTY_ENUM) {
-      return 'Enum'
-    } else if (type === PROPERTY_NUMBER) {
-      return 'Number'
-    } else {
-      return 'String'
+    const newRenderer: BaseRenderer = {
+      id: new Date().getTime().toString(),
+      type: rendererId,
+      baseProps: [],
+      additionalProps: []
     }
-  }
+    const cloneChannel = cloneDeep(localChannel)
+    cloneChannel.renderers.push(newRenderer)
+    setLocalChannel(cloneChannel)
+  }, [localChannel])
+
+  const onAddNewProp = useCallback((value: any) => {
+    localChannel.renderers.some((r: BaseRenderer, idx: number) => {
+      if (r.id === selectedRenderer) {
+        const cloneLocalChannel = cloneDeep(localChannel)
+        const newProperty: PropertyType = {
+          id: new Date().getTime().toString(),
+          choices: [],
+          label: 'New Property',
+          type: value,
+          icon: 'N/A',
+          editable: true,
+          description: 'Property description'
+        }
+        cloneLocalChannel.renderers[idx].additionalProps.push(newProperty)
+        setLocalChannel(cloneLocalChannel)
+        return true
+      }
+      return false
+    })
+  }, [localChannel])
 
   console.log('xx> channel: ', channel)
 
@@ -222,18 +274,18 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
           {editProperty && Object.keys(editProperty).map((key, idx) => {
             switch (key) {
               case 'type':
-                return <SimpleSelect key={idx} title="Type" options={['Enum', 'Number', 'String']} labelWidth="90px" value={get(editProperty, key, '')} onChange={(e) => onEditPropertyChange(key, e.target.value)} />
+                return <SimpleSelect key={idx} title="Type" options={[PROPERTY_STRING, PROPERTY_NUMBER, PROPERTY_ENUM]} labelWidth="90px" value={get(editProperty, key, '')} onChange={(e) => onEditPropertyChange(key, e.target.value)} />
               case 'editable':
                 return <Box key={idx}>
                   <FormControlLabel
                     style={{ marginLeft: '0' }}
-                    control={<Checkbox defaultChecked onChange={(e) => onEditPropertyChange(key, e.target.checked)}/>}
+                    control={<Checkbox checked={editProperty[key]} onChange={(e) => onEditPropertyChange(key, e.target.checked)}/>}
                     label={<span style={{ fontSize: '14px', minWidth: '80px', display: 'block' }}>Editable</span>}
                     labelPlacement="start"
                   />
                 </Box>
               case 'icon':
-                return <Box>
+                return <Box key={idx}>
                   <FormControlLabel
                     style={{ marginLeft: '0' }}
                     control={<FontAwesomeIcon icon={faIcons} size='2x'/>}
@@ -242,11 +294,12 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
                   />
                 </Box>
               case 'id':
+              case 'choices':
                 return <></>
               default:
                 return <Box key={idx} className={styles.editPropField}>
                   <InputLabel variant="standard">{ capitalize(key)}</InputLabel>
-                  <TextField fullWidth onChange={(e) => onEditPropertyChange(key, e.target.value)}/>
+                  <TextField fullWidth value={editProperty[key]} onChange={(e) => onEditPropertyChange(key, e.target.value)}/>
                 </Box>
             }
           })}
@@ -273,14 +326,14 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
             <List className={styles.renderersList}>
               {localChannel.renderers.map(renderer => (
                 <ListItem key={renderer.id} button selected={selectedRenderer === renderer.id} onClick={() => selectRender(renderer.id)}>
-                  <span>{renderer.id}</span>
+                  <span>{renderer.type.replace('Renderer', '')}</span>
                   <FontAwesomeIcon icon={faTimesCircle} onClick={(e) => removeRender(e, renderer.id)} />
                 </ListItem>
               ))}
             </List>
             <AddButton options={RendererOpts} onChange={onAddNewRenderer}/>
           </Box>
-          <Box sx={{ maxWidth: 'calc(100% - 180px)' }}>
+          <Box sx={{ width: 'calc(100% - 180px)' }}>
             <span className={styles.itemTitle}>Renderer specific</span>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
@@ -289,7 +342,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
             />
             <span className={styles.itemTitle}>Additional Properties</span>
             <SimpleTable columns={AdditionalPropcolumns} data={properties} onEdit={setEditProperty} onRemove={removePropRow} />
-            <AddButton options={['String', 'Number', 'Enum']} onChange={onAddNewProp}/>
+            <AddButton options={AddPropOpts} onChange={onAddNewProp}/>
           </Box>
         </Box>
       )}
