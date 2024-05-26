@@ -63,6 +63,11 @@ type SimpleTableProps = {
   onRemove: (row: PropertyType) => void
 }
 
+export type ButtonOptions = {
+  id: string
+  label: string
+}
+
 export const SimpleTable: React.FC<SimpleTableProps> = ({ columns, data, onEdit, onRemove }) => {
   return <TableContainer component={Paper} style={{ maxHeight: '400px' }}>
     <Table stickyHeader>
@@ -90,7 +95,7 @@ export const SimpleTable: React.FC<SimpleTableProps> = ({ columns, data, onEdit,
                 : typeof prop[key] === 'boolean'
                   ? <FormControlLabel
                     style={{ marginLeft: '0' }}
-                    control={<Checkbox defaultChecked />} label={undefined} disabled
+                    control={<Checkbox checked={prop[key]} />} label={undefined} disabled
                   />
                   : prop[key] && <Chip label={prop[key]} className={styles.tableCellText} />}
               
@@ -110,7 +115,7 @@ export const SimpleTable: React.FC<SimpleTableProps> = ({ columns, data, onEdit,
   </TableContainer>
 }
 
-export const AddButton: React.FC<{ className?: string, options: string[], onChange: (value: string) => void }> = ({ className, options = [], onChange }) => {
+export const AddButton: React.FC<{ className?: string, options: ButtonOptions[], onChange: (value: string) => void }> = ({ className, options = [], onChange }) => {
   return (
     <PopupState variant="popover">
       {(popupState) => (
@@ -129,10 +134,10 @@ export const AddButton: React.FC<{ className?: string, options: string[], onChan
               horizontal: 'left'
             }}
           >
-            {options.map(option => <MenuItem key={option} onClick={() => {
-              onChange(option)
+            {options.map(option => <MenuItem key={option.id} onClick={() => {
+              onChange(option.id)
               popupState.close()
-            }}>{option}</MenuItem>)}
+            }}>{option.label}</MenuItem>)}
           </Menu>
         </Box>
       )}
