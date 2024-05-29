@@ -12,11 +12,12 @@ import styles from '../styles.module.scss'
 type IconRendererProps = {
   feature: Feature<Geometry, GeoJsonProperties>
   checked: boolean
+  disabled?: boolean
   onClick: (id: string[], checked: boolean) => void
   color: string
 }
 
-const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, onClick }) => {
+const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, onClick, disabled = false }) => {
   const iconElm = useMemo(() => {
     if (!feature) {
       return
@@ -42,6 +43,7 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, on
       control={
         <Radio
           checked={checked}
+          disabled={disabled}
           onChange={(_: ChangeEvent<HTMLInputElement>, checked: boolean) => onClick([feature.properties?.id], checked)}
           size="small"
         />

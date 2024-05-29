@@ -26,15 +26,18 @@ export interface ParticipantCustom extends CoreParticipant {
 
 /** the tasks a participant can be allowed to perform in a mapping channel */
 export enum MappingPermissions {
+  Exists = 'Exists',
   // spatially related
-  ViewSpatial = 'ViewSpatial',
+  ViewSpatial = 'ViewSpatial', // NOTE: infers `exists`
   AddRemove = 'Add/Remove',
   MoveResize = 'Move/resize',
   // props related permissions
-  ViewProps = 'ViewProps',
+  ViewProps = 'ViewProps', // NOTE: infers `exists`
   EditOwnProps = 'Edit own props', // edit props marked as user editable
   EditAllProps = 'Edit all props'
 }
+
+export type ForcePermissions = Record<ForceData['uniqid'], MappingPermissions[]>
 
 /** participation in mapping channels */
 export interface ParticipantMapping extends CoreParticipant {
@@ -42,7 +45,7 @@ export interface ParticipantMapping extends CoreParticipant {
   /** ids of renderers that this role can create items for */
   forRenderer: BaseRenderer['id'][]
   /** has permission to do these per-force actions */
-  permissionTo: Record<Force['uniqid'], MappingPermissions[]>
+  permissionTo: ForcePermissions
   /** the phase(s) that this participation applies to */
   phases: Phase[]
 }

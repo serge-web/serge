@@ -5,21 +5,29 @@ import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { ForceStyle } from 'src/Helpers'
-import { CoreProperties, RENDERER_CORE } from 'src/custom-types'
+import { CoreProperties, MappingPermissions, RENDERER_CORE } from 'src/custom-types'
 import tinycolor from 'tinycolor2'
 import { useMappingState } from '../helper/mapping-provider'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
+import { hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-permission'
 
 export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
+  console.log('forceStyle', forceStyle, force, forceStyles)
   return forceStyle ? forceStyle.color : '#F0F'
 }
 
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, selected = [] }) => {
+const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, permissions, selected = [] }) => {
   const { filterFeatureIds, isMeasuring } = useMappingState()
-  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_CORE && filterFeatureIds.includes('' + feature.properties.id)
+  const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
+    const isThisRenderer = feature.properties._type === RENDERER_CORE
+    const isShown = filterFeatureIds.includes('' + feature.properties.id)
+    const canSeeSpatial = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
+    return isThisRenderer && isShown && canSeeSpatial
+  }
+
   const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       const isSelected = selected.some(id => id === feature.properties?.id)
@@ -39,7 +47,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
 
   const setTextStyleFromProperties = (marker: L.Marker<any>, props: any) => {
     const forceColor = colorFor(props.force, forceStyles)
-    let textColor = props.color || '#000'
+    let textColor = '#000'
     const elm = marker.pm['_layer'].pm.getElement() as HTMLTextAreaElement
     if (tinycolor(forceColor).isDark()) {
       textColor = '#fff'
@@ -133,7 +141,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
 
     l.addEventListener('pm:markerdragend', dragHandler)
     l.addEventListener('pm:dragend', dragHandler)
-  }} pointToLayer={pointToLayer} data={features} style={style} filter={filter} key={'core_renderer_' + Math.random()} />
+  }} pointToLayer={pointToLayer} data={features} style={style} filter={filterForThisRenderer} key={'core_renderer_' + Math.random()} />
 }
 
 export default CoreRenderer

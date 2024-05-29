@@ -7,7 +7,6 @@ import {
 import 'src/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
-import { Phase } from 'src/config'
 import CoreMapping from './local/atoms/core-mapping'
 import { forceStyles } from 'src/Helpers'
 import { isEqual } from 'lodash'
@@ -21,7 +20,7 @@ const CoreMappingChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const state = usePlayerUiState()
   const playerUiDispatch = usePlayerUiDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
-  const { selectedRole, selectedForce } = state
+  const { selectedRole, selectedForce, phase } = state
   const channelUI = state.channels[channelId]
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
   
@@ -58,7 +57,7 @@ const CoreMappingChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     return <CoreMapping
       postBack={messageHandler}
       channel={channel}
-      currentPhase={Phase.Planning}
+      currentPhase={phase}
       currentTurn={1}
       forceStyles={forceStylesArr}
       messages={messages}
