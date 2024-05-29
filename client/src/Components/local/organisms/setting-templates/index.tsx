@@ -157,15 +157,15 @@ const SettingTemplate: React.FC<PropTypes> = ({
         {contentTabs.length > 0 && <Tabs activeTab={currentTab} onChange={handleTabChange} tabs={contentTabs} changed={false} />}
         { 
           currentTab === TemplateTab.Visual && <FormBuilder
-            schema={JSON.stringify(schema)}
-            uischema={JSON.stringify(uischema)}
+            schema={JSON.stringify(schema || {})}
+            uischema={JSON.stringify(uischema || {})}
             onChange={handleFormChange}
           />
         }
         {
           currentTab === TemplateTab.Preview && isValidJSON(schema) && <JsonEditor
             template={{
-              details: data.details,
+              details: { schema: schema },
               _id: data._id
             }}
             messageId={data._id}
