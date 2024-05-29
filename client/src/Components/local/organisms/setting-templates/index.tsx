@@ -26,7 +26,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
 }) => {
   const [selectedItem, setSelectedItem] = useState<number>(0)
   const [templateData, setTemplateData] = useState<TemplateBody[]>(templates)
-  const [currentTab, setCurrentTab] = useState<string>(TemplateTab.Preview)
+  const [currentTab, setCurrentTab] = useState<string>(TemplateTab.Visual)
   
   useEffect(() => {
     const selectedId = templates.findIndex(template => template._id === selectedTemplate?._id)
@@ -98,7 +98,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
       setCurrentTab(changedTab)
     }
 
-    const contentTabs = [TemplateTab.Preview, TemplateTab.Visual]
+    const contentTabs = [TemplateTab.Visual, TemplateTab.Preview]
 
     const handleFormChange = (newSchema: string, newUiSchema: string) => {
       const details = data.details
@@ -132,14 +132,14 @@ const SettingTemplate: React.FC<PropTypes> = ({
         </div>
         {contentTabs.length > 0 && <Tabs activeTab={currentTab} onChange={handleTabChange} tabs={contentTabs} changed={false} />}
         { 
-          currentTab === TemplateTab.Preview && <FormBuilder
+          currentTab === TemplateTab.Visual && <FormBuilder
             schema={schema}
             uischema={uischema}
             onChange={handleFormChange}
           />
         }
         {
-          currentTab === TemplateTab.Visual && isValidJSON(schema as string) && <JsonEditor
+          currentTab === TemplateTab.Preview && isValidJSON(schema as string) && <JsonEditor
             template={{
               details: data.details,
               _id: data._id
