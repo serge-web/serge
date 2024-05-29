@@ -52,8 +52,8 @@ export const JsonEditor: React.FC<Props> = ({
 }) => {
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
-  const [schema, setSchema] = useState<string>('') 
-  const [uischema, setUiSchema] = useState<string>('{}')
+  const [schema, setSchema] = useState<object>({}) 
+  const [uischema, setUiSchema] = useState<object>({})
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
   const [formData, setFormData] = useState<FormData>({})
   const validator = customizeValidator<FormData>()
@@ -68,7 +68,6 @@ export const JsonEditor: React.FC<Props> = ({
     }
     return <span style={styles} >Schema not found for {template}</span>
   }
-
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {
       if (!date.includes('Z')) {
@@ -153,10 +152,11 @@ export const JsonEditor: React.FC<Props> = ({
       setConfirmIsOpen(true)
     }
   }
+  
   useEffect(() => {
     if (template.details && template.details.schema) {
       const { schema, uischema } = template.details
-      const jsonSchema = JSON.parse(schema)
+      const jsonSchema = schema
   
       // Initialize date editors if necessary
       if (gameDate) {
@@ -169,7 +169,7 @@ export const JsonEditor: React.FC<Props> = ({
       const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
       setFormData({})
       
-      setSchema(JSON.stringify(schemaWithTitle))
+      setSchema(schemaWithTitle)
       setUiSchema(uischema)
     }
   }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title, clearForm])
@@ -188,10 +188,10 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }, [clearForm, prevTemplates])
 
-  function checkError (text: string) {
+  function checkError (text: any) {
     let data
     try {
-      data = JSON.parse(text)
+      data = text
     } catch (e: any) {
       return e.toString()
     }
@@ -222,6 +222,7 @@ export const JsonEditor: React.FC<Props> = ({
   )
   const schemaError = checkError(schema)
   const schemaUiError = checkError(uischema)
+
   return (
     <>
       <Alert
@@ -250,9 +251,9 @@ export const JsonEditor: React.FC<Props> = ({
               schema && <Form 
                 id={formId}
                 schema={
-                  schemaError === '' ? JSON.parse(schema) : {}
+                  schemaError === '' ? schema : {}
                 }
-                uiSchema={JSON.parse(uischema)}
+                uiSchema={uischema}
                 onChange={handleChange}
                 onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}  
                 formData={formData}
@@ -277,11 +278,11 @@ export const JsonEditor: React.FC<Props> = ({
             <Form
               className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
               schema={
-                schemaError === '' ? JSON.parse(schema) : ''
+                schemaError === '' ? schema : ''
               }
               uiSchema={
                 schemaUiError === ''
-                  ? JSON.parse(uischema)
+                  ? uischema
                   : ''
               }
               onChange={handleChange}

@@ -34,13 +34,11 @@ const SettingTemplate: React.FC<PropTypes> = ({
     setSelectedItem(correctedSelectedItem)
     setTemplateData(templates)
   }, [selectedTemplate, templates])
-
   const handleSwitch = (_item: Item): void => {
     const index = templates.findIndex(item => item === _item)
     setSelectedItem(index)
     onSidebarClick && onSidebarClick(_item as TemplateBody)
   }
-
   const handleChangeTemplates = (nextTemplates: TemplateBody[]): void => {
     setTemplateData(nextTemplates)
     onChange({ templates: nextTemplates })
@@ -71,7 +69,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
     const newTemplate: TemplateBody = {
       lastUpdated: new Date().toISOString(),
       title: id,
-      details: { schema: '{}', uischema: '{}', title: id },
+      details: { schema: {}, uischema: {}, title: id },
       completed: false,
       _id: id,
       _rev: ''
@@ -79,20 +77,25 @@ const SettingTemplate: React.FC<PropTypes> = ({
     onCreate && onCreate(newTemplate)
   }
 
+  const isValidJSON = (input: any): boolean => {
+    try {
+      if (typeof input === 'object') {
+        JSON.stringify(input)
+      } else if (typeof input === 'string') {
+        JSON.parse(input)
+      } else {
+        return false
+      }
+      return true
+    } catch {
+      return false
+    }
+  }
   const renderContent = (): React.ReactNode => {
     const data = templateData[selectedItem]
     if (!data) return null
 
-    const { schema, uischema } = data.details 
-
-    const isValidJSON = (jsonString: string): boolean => {
-      try {
-        JSON.parse(jsonString)
-        return true
-      } catch {
-        return false
-      }
-    }
+    const { schema, uischema } = data.details
 
     const handleTabChange = (changedTab: string): void => {
       setCurrentTab(changedTab)
@@ -101,15 +104,36 @@ const SettingTemplate: React.FC<PropTypes> = ({
     const contentTabs = [TemplateTab.Visual, TemplateTab.Preview]
 
     const handleFormChange = (newSchema: string, newUiSchema: string) => {
+      // console.log('newSchema', JSON.parse(newSchema))
+      // console.log('newUiSchema', JSON.parse(newUiSchema))
+    
       const details = data.details
       const newDetails = {
         ...details,
-        schema: newSchema,
-        uischema: newUiSchema
+        schema: JSON.parse(newSchema),
+        uischema: JSON.parse(newUiSchema)
       }
+      copyToClipboard(newDetails)
+
+      // console.log('newDetails', newDetails)
       handleChangeTemplate({ ...data, details: newDetails })
     }
-
+    async function copyToClipboard (data: any) {
+      try {
+        // Convert the data to a JSON string with pretty-printing
+        const jsonString = JSON.stringify(data, null, 2)
+  
+        // Use the Clipboard API to write the text to the clipboard
+        await navigator.clipboard.writeText(jsonString)
+  
+        console.log('Data copied to clipboard successfully.')
+      } catch (err) {
+        console.error('Failed to copy data to clipboard:', err)
+      }
+    }
+  
+    // Call the function with your big object or array
+  
     return (
       <div key={selectedItem}>
         <div className={cx(styles.row, styles['mb-20'])}>
@@ -133,13 +157,13 @@ const SettingTemplate: React.FC<PropTypes> = ({
         {contentTabs.length > 0 && <Tabs activeTab={currentTab} onChange={handleTabChange} tabs={contentTabs} changed={false} />}
         { 
           currentTab === TemplateTab.Visual && <FormBuilder
-            schema={schema}
-            uischema={uischema}
+            schema={JSON.stringify(schema)}
+            uischema={JSON.stringify(uischema)}
             onChange={handleFormChange}
           />
         }
         {
-          currentTab === TemplateTab.Preview && isValidJSON(schema as string) && <JsonEditor
+          currentTab === TemplateTab.Preview && isValidJSON(schema) && <JsonEditor
             template={{
               details: data.details,
               _id: data._id

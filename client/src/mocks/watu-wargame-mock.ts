@@ -273,8 +273,27 @@ const wargame: Wargame = {
           lastUpdated: '2019-09-30T12:37:26.705Z',
           title: 'Chat',
           details: {
-            schema: '{"type":"object","properties":{"Chat":{"title":"Chat","type":"string"}},"dependencies":{},"required":[]}',
-            uischema: '{"ui:order":["Chat"]}',
+            schema: {
+              type: 'object',
+              properties: {
+                Chat: {
+                  title: 'Chat',
+                  type: 'string',
+                  description: 'content',
+                  default: 'type the text '
+                }
+              },
+              dependencies: {},
+              required: []
+            },
+            uischema: {
+              Chat: {
+                'ui:widget': 'textarea'
+              },
+              'ui:order': [
+                'Chat'
+              ]
+            },
             title: 'Chat'
           },
           completed: false,
@@ -284,8 +303,61 @@ const wargame: Wargame = {
         {
           completed: false,
           details: {
-            schema: '{"title":"State of World (laydown 2)","type":"object","properties":{"completed":{"type":"boolean","title":"Completed"},"Reference":{"type":"string","title":"Reference","format":"text"},"Title":{"type":"string","title":"Title","format":"text"},"Forces":{"type":"array","title":"Forces","minItems":1,"items":{"type":"object","properties":{"force":{"type":"string","enum":["Blue","Red","Green"]}}}},"newInput1":{"title":"New Input 1","type":"string"}},"dependencies":{},"required":[]}',
-            uischema: '{"completed":{"ui:widget":"checkbox"},"Reference":{"ui:placeholder":"Enter reference"},"Title":{"ui:placeholder":"Enter title"},"Forces":{"ui:options":{"orderable":false},"items":{"force":{"ui:widget":"select"}}},"ui:order":["completed","Reference","Title","Forces","newInput1"]}',
+            schema: {
+              type: 'object',
+              title: 'State of World (laydown 2)',
+              properties: {
+                completed: {
+                  title: 'completed',
+                  type: 'boolean'
+                },
+                Reference: {
+                  title: 'Reference',
+                  type: 'string'
+                },
+                Title: {
+                  title: 'Title',
+                  type: 'string'
+                },
+                Forces: {
+                  items: {
+                    type: 'object',
+                    properties: {
+                      Forces: {
+                        enum: [
+                          'Blue',
+                          'Red',
+                          'Green'
+                        ],
+                        type: 'string',
+                        title: 'Forces'
+                      }
+                    },
+                    dependencies: {},
+                    required: []
+                  },
+                  title: 'Forces',
+                  type: 'array'
+                }
+              },
+              dependencies: {},
+              required: []
+            },
+            uischema: {
+              Forces: {
+                items: {
+                  'ui:order': [
+                    'Forces'
+                  ]
+                }
+              },
+              'ui:order': [
+                'completed',
+                'Reference',
+                'Title',
+                'Forces'
+              ]
+            },
             title: 'State of World L'
           },
           lastUpdated: '2019-09-30T12:37:26.705Z',
@@ -297,8 +369,88 @@ const wargame: Wargame = {
           lastUpdated: '2019-09-30T12:37:26.705Z',
           title: 'Daily intentions',
           details: {
-            schema: '{"title":"Your Form Title","type":"object","properties":{"TurnNumber":{"title":"Turn","type":"string","format":"number"},"OverallIntentions":{"title":"Overall intentions","type":"string","format":"textarea"},"Orders":{"type":"array","title":"Orders","format":"table","minItems":1,"items":{"type":"object","properties":{"Unit":{"title":"Unit","type":"string","format":"text"},"Tasking":{"title":"Tasking","type":"string","format":"textarea"},"SearchPolicy":{"title":"Search Policy","type":"string","format":"textarea"},"ActionOnContact":{"title":"Action on Contact","type":"string","enum":["Ignore","Evade","Covert Trail","Overt Trail","Harass"]},"AnyOtherComments":{"title":"Any other comments","type":"string","format":"textarea"}}}}}}',
-            uischema: ' {"TurnNumber":{"ui:placeholder":"Enter turn number"},"OverallIntentions":{"ui:placeholder":"Enter overall intentions"},"Orders":{"ui:options":{"orderable":false},"items":{"Unit":{"ui:placeholder":"Enter unit"},"Tasking":{"ui:placeholder":"Enter tasking"},"SearchPolicy":{"ui:placeholder":"Enter search policy"},"ActionOnContact":{"ui:placeholder":"Select action on contact"},"AnyOtherComments":{"ui:placeholder":"Enter any other comments"}}}}',
+            schema: {
+              type: 'object',
+              properties: {
+                TurnNumber: {
+                  title: 'Turn',
+                  type: 'string'
+                },
+                OverallIntentions: {
+                  title: 'Overall intentions',
+                  type: 'string'
+                },
+                orders: {
+                  items: {
+                    type: 'object',
+                    title: '',
+                    properties: {
+                      Unit: {
+                        title: 'Unit',
+                        type: 'string'
+                      },
+                      Tasking: {
+                        title: 'Tasking',
+                        type: 'string'
+                      },
+                      'Search Policy': {
+                        title: 'Search Policy',
+                        type: 'string'
+                      },
+                      'Action on Contact': {
+                        enum: [
+                          'Ignore',
+                          'Evade',
+                          'Covert Trail',
+                          'Overt Trail',
+                          'Harass'
+                        ],
+                        title: 'Action on Contact',
+                        type: 'string',
+                        enumNames: null
+                      },
+                      'Any other comments': {
+                        title: 'Any other comments',
+                        type: 'string'
+                      }
+                    },
+                    dependencies: {},
+                    required: []
+                  },
+                  title: 'orders',
+                  type: 'array'
+                }
+              },
+              dependencies: {},
+              required: []
+            },
+            uischema: {
+              orders: {
+                items: {
+                  Tasking: {
+                    'ui:widget': 'textarea'
+                  },
+                  'Search Policy': {
+                    'ui:widget': 'textarea'
+                  },
+                  'Any other comments': {
+                    'ui:widget': 'textarea'
+                  },
+                  'ui:order': [
+                    'Unit',
+                    'Tasking',
+                    'Search Policy',
+                    'Action on Contact',
+                    'Any other comments'
+                  ]
+                }
+              },
+              'ui:order': [
+                'TurnNumber',
+                'OverallIntentions',
+                'orders'
+              ]
+            },
             title: 'Daily Intent'
           },
           completed: false,
