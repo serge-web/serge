@@ -199,8 +199,22 @@ export const templateBody = {
   lastUpdated: '2019-09-30T12:37:26.705Z',
   title: 'Chat',
   details: {
-    schema: '{"type":"object","properties":{"Chat":{"title":"Chat","type":"string"}},"dependencies":{},"required":[]}',
-    uischema: '{"ui:order":["Chat"]}',
+    schema: {
+      type: 'object',
+      properties: {
+        Chat: {
+          title: 'Chat',
+          type: 'string'
+        }
+      },
+      dependencies: {},
+      required: []
+    },
+    uischema: {
+      'ui:order': [
+        'Chat'
+      ]
+    },
     title: 'Chat'
   },
   completed: false,
