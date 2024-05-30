@@ -23,8 +23,8 @@ export type UISchemas = {
 
 export interface FormProps {
   id?: string
-  uiSchema: object
-  schema: object
+  uiSchema: Record<string, unknown>
+  schema: Record<string, unknown>
   onSubmit?: any
   formData: formData
   widgets?: CustomWidgets

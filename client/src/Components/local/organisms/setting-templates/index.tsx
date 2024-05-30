@@ -165,7 +165,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
         {
           currentTab === TemplateTab.Preview && isValidJSON(schema) && <JsonEditor
             template={{
-              details: { schema: schema },
+              details: { schema },
               _id: data._id
             }}
             messageId={data._id}
