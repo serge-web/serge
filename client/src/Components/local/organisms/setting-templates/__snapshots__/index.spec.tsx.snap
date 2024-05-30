@@ -272,13 +272,13 @@ exports[`SettingForces component: renders correctly 1`] = `
           className="item active"
           onClick={[Function]}
         >
-          preview form
+          visual form-builder
         </div>
         <div
           className="item"
           onClick={[Function]}
         >
-          visual form-builder
+          preview form
         </div>
       </div>
       <div
