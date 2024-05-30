@@ -131,8 +131,8 @@ const state: PlayerUi = {
           lastUpdated: '2019-09-30T12:37:26.705Z',
           title: 'Chat',
           details: {
-            schema: '',
-            uischema: '',
+            schema: {},
+            uischema: {},
             title: 'Chat'
           },
           completed: false,
@@ -238,8 +238,8 @@ const state: PlayerUi = {
           lastUpdated: '2019-09-30T12:37:26.705Z',
           title: 'PG19 Weekly Orders',
           details: {
-            schema: '',
-            uischema: '',
+            schema: {},
+            uischema: {},
             title: 'PG19 Weekly Orders'
           },
           completed: false,
@@ -389,8 +389,8 @@ const state: PlayerUi = {
     'State of World L': {
       completed: false,
       details: {
-        schema: '',
-        uischema: '',
+        schema: {},
+        uischema: {},
         title: 'State of World (laydown 2)'
       },
       lastUpdated: '2019-09-30T12:37:26.705Z',
@@ -402,8 +402,8 @@ const state: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Daily intentions',
       details: {
-        schema: '',
-        uischema: '',
+        schema: {},
+        uischema: {},
         title: 'Daily Intent'
       },
       completed: false,
@@ -414,8 +414,8 @@ const state: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Message',
       details: {
-        schema: '',
-        uischema: '',
+        schema: {},
+        uischema: {},
         title: 'Message'
       },
       completed: false,
@@ -426,8 +426,8 @@ const state: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Weather forecast',
       details: {
-        schema: '',
-        uischema: '',
+        schema: {},
+        uischema: {},
         title: 'Weather Forecast'
       },
       completed: false,

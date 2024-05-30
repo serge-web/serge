@@ -255,8 +255,8 @@ const testState: PlayerUi = {
     aa: {
       completed: false,
       details: {
-        schema: '',
-        uischema: '',
+        schema: {},
+        uischema: {},
         title: 'State of World (laydown 2)'
       },
       lastUpdated: '2019-09-30T12:37:26.705Z',
@@ -268,8 +268,8 @@ const testState: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Daily intentions',
       details: {
-        schema: '',
-        uischema: '',
+        schema: {},
+        uischema: {},
         title: 'Daily Intent'
       },
       completed: false,
@@ -280,8 +280,8 @@ const testState: PlayerUi = {
       lastUpdated: '2019-09-30T12:37:26.705Z',
       title: 'Link',
       details: {
-        schema: '',
-        uischema: '',
+        schema: {},
+        uischema: {},
         title: 'Link'
       },
       completed: false,

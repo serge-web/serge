@@ -8,8 +8,8 @@ export interface TemplateBody {
 }
 
 interface TemplateBodyDetails {
-  schema: object | string
-  uischema: object | string
+  schema: object
+  uischema: object
   title: string
 }
 
