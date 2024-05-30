@@ -27,6 +27,7 @@ export class GamePlayPage extends BasePage{
   readonly addRowTempLaydownButton: Locator;
 
   readonly chatMessageArea: Locator;
+  readonly chatMessageInput: Locator;
 
   readonly turnDailyInput: Locator;
   readonly overallIntentionDailyInput: Locator;
@@ -110,7 +111,8 @@ export class GamePlayPage extends BasePage{
     }
     
     this.addRowTempLaydownButton = page.getByTitle('Add row');
-    this.chatMessageArea = page.getByPlaceholder('type the text');
+    this.chatMessageArea = page.locator("//input[@name='root_Chat']");
+    this.chatMessageInput = page.getByPlaceholder('type the text');
 
     this.turnDailyInput = page.getByLabel('root[TurnNumber]');
     this.overallIntentionDailyInput = page.getByLabel('root[OverallIntentions]');
@@ -212,7 +214,12 @@ export class GamePlayPage extends BasePage{
   }
 
   async clickSendMessageBtn() {
-    await this.clickLocator(this.sendMessageBtn);
+    if(await (this.chatTemplateBtn).isVisible()){
+      await this.page.waitForTimeout(1000);
+    } else {
+      await this.clickLocator(this.sendMessageBtn);
+    }
+    
   }
 
   async clickCancelMessageBtn() {
@@ -252,8 +259,14 @@ export class GamePlayPage extends BasePage{
 
   //-----------New--------
   async inputChatMessageArearTemplate(content : string) {
-    await this.clickLocator(this.chatMessageArea);
-    await this.inputValueLocator(this.chatMessageArea, content);
+    if(await (this.chatMessageArea).count()>0){
+      await this.clickLocator(this.chatMessageArea);
+      await this.inputValueLocator(this.chatMessageArea, content);
+    }
+    else {
+      await this.clickLocator(this.chatMessageInput);
+      await this.inputValueLocator(this.chatMessageInput, content);
+    }
   }
 
   async clickChatTemplateBtn() {
