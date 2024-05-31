@@ -113,9 +113,9 @@ const SettingTemplate: React.FC<PropTypes> = ({
         schema: JSON.parse(newSchema),
         uischema: JSON.parse(newUiSchema)
       }
+      
       copyToClipboard(newDetails)
 
-      // console.log('newDetails', newDetails)
       handleChangeTemplate({ ...data, details: newDetails })
     }
     async function copyToClipboard (data: any) {
@@ -165,7 +165,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
         {
           currentTab === TemplateTab.Preview && isValidJSON(schema) && <JsonEditor
             template={{
-              details: { schema },
+              details: { schema, uischema },
               _id: data._id
             }}
             messageId={data._id}
