@@ -30,7 +30,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   channel,
   gameDate,
   postBack,
-  customiseTemplate,
   messageOption,
   clearCachedCreatorMessage,
   draftMessage,
@@ -146,7 +145,6 @@ const MessageCreator: React.FC<PropTypes> = ({
           details: selectedSchema,
           _id: channel.uniqid
         }}
-        customiseTemplate={customiseTemplate}
         submitNewValue={sendMessage}
         openCancelConfirmPopup={openConfirmPopup}
         messageId={messageOption}

@@ -38,7 +38,7 @@ const templateMessageCreator = {
   _id: channel.uniqid
 }
 
-const Template: StoryFn<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit, customiseTemplate }) => {
+const Template: StoryFn<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit }) => {
   return (
     <JsonEditor
       template={template}
@@ -47,7 +47,6 @@ const Template: StoryFn<Props> = ({ messageId, disabled, template, messageConten
       gameDate={WargameMock.data.overview.gameDate}
       messageContent={messageContent}
       modifyForEdit={modifyForEdit}
-      customiseTemplate={customiseTemplate}
     />
   )
 }

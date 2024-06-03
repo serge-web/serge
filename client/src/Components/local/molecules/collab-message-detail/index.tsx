@@ -128,10 +128,6 @@ export const CollabMessageDetail: React.FC<Props> = ({
     setAnswer(val)
   }
 
-  const notHappeningHandler = (_val: { [property: string]: any }): void => {
-    // ignore
-  }
-
   /** Submit new message, and collapse panel, if necessary
      */
   const handleChange = (msg: MessageCustom, collapse: boolean): void => {
@@ -284,7 +280,6 @@ export const CollabMessageDetail: React.FC<Props> = ({
             message={message}
             collaboration={collaboration}
             template={templates[templateId]}
-            notHappeningHandler={notHappeningHandler}
             responseHandler={responseHandler}
             newMessageHandler={newMessageHandler}
             state={state}

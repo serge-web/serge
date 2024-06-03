@@ -11,8 +11,6 @@ import { customizeValidator } from '@rjsf/validator-ajv8'
 import moment from 'moment'
 import './bioworks.css'
 import React, { useEffect, useState, FunctionComponent } from 'react'
-import { Button } from '../../atoms/button'
-import { Confirm } from '../../atoms/confirm'
 import { ErrorBoundary } from 'react-error-boundary'
 import Props, { FormProps } from './types/props'
 import widgets from './helpers/customCheckbox'
@@ -35,23 +33,13 @@ export const JsonEditor: React.FC<Props> = ({
   storeNewValue,
   submitNewValue,
   formClassName,
-  formId,
-  customiseTemplate,
   openCancelConfirmPopup,
   disabled = false,
-  // expandHeight = true,
   gameDate,
-  // disableArrayToolsWithEditor = true,
   clearForm,
-  saveMessage,
-  onCancelEdit,
   modifyForSave,
-  confirmCancel = false,
-  viewSaveButton = false,
   children
 }) => {
-  const [beingEdited, setBeingEdited] = useState<boolean>(false)
-  const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const [schema, setSchema] = useState({}) 
   const [uischema, setUiSchema] = useState({})
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
@@ -130,29 +118,6 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
     
-  const OnSave = () => {
-    saveMessage && saveMessage()
-    setBeingEdited(false)
-  }
-
-  const onPopupCancel = (): void => {
-    // removePlanning
-    setConfirmIsOpen(false)
-    setFormData({})
-  }
-
-  const onPopupConfirm = (): void => {
-    onCancelEdit && onCancelEdit()
-    setConfirmIsOpen(false)
-    setBeingEdited(false)
-  }
-
-  const openConfirmPopup = (): void => {
-    if (confirmCancel) {
-      setConfirmIsOpen(true)
-    }
-  }
-  
   useEffect(() => {
     if (template.details && template.details.schema) {
       const { schema, uischema } = template.details
@@ -162,17 +127,18 @@ export const JsonEditor: React.FC<Props> = ({
       if (gameDate) {
         console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
       }
-  
+
+      console.log('gameData', gameDate)
       // Apply modifications to the schema
       const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema
-      const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
+      const customizedSchema = modSchema
       const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
       setFormData({})
       
       setSchema(schemaWithTitle)
       setUiSchema(uischema)
     }
-  }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title, clearForm])
+  }, [template, gameDate, messageContent, prevTemplates, title, clearForm])
 
   useEffect(() => {
     const clearFormData = () => {
@@ -202,24 +168,6 @@ export const JsonEditor: React.FC<Props> = ({
     return ''
   }
 
-  const SaveMessageButton = () => (
-    <div className='button-wrap' >
-      {!disabled && beingEdited
-        ? <>
-          <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
-          {
-            confirmCancel
-              ? <Button color='secondary' onClick={openConfirmPopup} icon='delete'>Cancel</Button>
-              : null
-          }
-        </>
-        : !disabled ? <Button color='secondary' onClick={() => {
-          setBeingEdited(true)
-        }} icon='edit'>Edit</Button>
-          : null
-      }
-    </div>
-  )
   const schemaError = checkError(schema)
   const schemaUiError = checkError(uischema)
 
@@ -237,36 +185,8 @@ export const JsonEditor: React.FC<Props> = ({
       >
         <h5>UI Schema:</h5> {schemaUiError}
       </Alert>
-      {
-        viewSaveButton
-          ? <>
-            <Confirm
-              isOpen={confirmIsOpen}
-              message="Are you sure you wish to cancel editing this message?"
-              onCancel={onPopupCancel}
-              onConfirm={onPopupConfirm}
-            />
-            <SaveMessageButton />
-            {
-              schema && <Form 
-                id={formId}
-                schema={
-                  schemaError === '' ? schema : {}
-                }
-                uiSchema={uischema}
-                onChange={handleChange}
-                onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}  
-                formData={formData}
-                validator={validator} 
-                templates={{ ButtonTemplates: { } }}
-                disabled={disabled}
-              />
-              
-            }
-            <SaveMessageButton />
-          </>
-          
-          : schema &&
+      {     
+        schema &&
           <ErrorBoundary
             fallbackRender={({ error, resetErrorBoundary }) => (
               <div role="alert" className="error">
