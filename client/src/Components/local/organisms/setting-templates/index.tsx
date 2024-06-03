@@ -104,9 +104,6 @@ const SettingTemplate: React.FC<PropTypes> = ({
     const contentTabs = [TemplateTab.Visual, TemplateTab.Preview]
 
     const handleFormChange = (newSchema: string, newUiSchema: string) => {
-      // console.log('newSchema', JSON.parse(newSchema))
-      // console.log('newUiSchema', JSON.parse(newUiSchema))
-    
       const details = data.details
       const newDetails = {
         ...details,

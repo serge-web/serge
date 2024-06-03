@@ -128,12 +128,10 @@ export const JsonEditor: React.FC<Props> = ({
         console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
       }
 
-      console.log('gameData', gameDate)
       // Apply modifications to the schema
       const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema
       const customizedSchema = modSchema
       const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
-      setFormData({})
       
       setSchema(schemaWithTitle)
       setUiSchema(uischema)
