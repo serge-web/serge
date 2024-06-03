@@ -256,7 +256,11 @@
 
 .tableCellText { 
   background-color: #fff !important;
-  border: 2px solid #000 !important; 
+  border: 1px solid #000 !important; 
   color: #000 !important;
   margin-right: 5px;
+  
+  span {
+    font-size: 10px;
+  }
 }

@@ -1,7 +1,8 @@
-import { faIcons, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faIcons, faPlusCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Box,
+  Button,
   Checkbox,
   FormControlLabel,
   InputLabel,
@@ -14,9 +15,9 @@ import { capitalize, cloneDeep, get, noop, set } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import CustomDialog from 'src/Components/local/atoms/custom-dialog'
 import Tabs from 'src/Components/local/atoms/tabs'
-import { BaseRenderer, ForceData, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, PropertyType } from 'src/custom-types'
+import { BaseRenderer, ForceData, MappingPermissions, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, PropertyType } from 'src/custom-types'
 import { ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
-import { AddButton, AdditionalPropcolumns, ButtonOptions, CoreMappingTabs, EditParticipantColumns, ParticipantColumns, SimpleSelect, SimpleTable, ZoomOptions } from '../helpers/coreMapping'
+import { AddButton, AdditionalPropcolumns, ButtonOptions, CoreMappingTabs, EditParticipantColumns, EditParticipantType, ParticipantColumns, PhaseOptions, RendererOptions, SimpleSelect, SimpleTable, ZoomOptions } from '../helpers/coreMapping'
 import styles from '../styles.module.scss'
 
 const RendererOpts: ButtonOptions[] = [
@@ -30,48 +31,41 @@ const AddPropOpts: ButtonOptions[] = [
   { id: PROPERTY_ENUM, label: PROPERTY_ENUM }
 ]
 
+const initialEditParticipant: EditParticipantType = {
+  force: '',
+  phases: [],
+  roles: [],
+  renderers: [],
+  tableData: [],
+  id: ''
+}
+
 type CoreMappingChannelProps = {
   channel: ChannelCustom
   forces: ForceData[]
   onChange: (channel: ChannelCustom) => void
 };
 
-export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel, onChange }) => {
+export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel, onChange, forces }) => {
   const [activeTab, setActiveTab] = useState<number>(0)
-  const [editParticipant, setEditParticipant] = useState<boolean>(false)
   const [editProperty, setEditProperty] = useState<PropertyType | undefined>()
   const [selectedRenderer, setSelectedRender] = useState<string>('')
   const [localChannel, setLocalChannel] = useState<ChannelMapping>(channel as unknown as ChannelMapping)
   const [properties, setProperties] = useState<any[]>([])
-  const [participants] = useState<any[]>([
-    {
-      subject: 'White/All',
-      type: ['Core', 'MilSym'],
-      permission: ['View', 'Edit'],
-      applied: ['Plan', 'Adjud']
-    },
-    {
-      subject: 'Blue/Co',
-      type: ['MilSym'],
-      permission: ['Blue: VS EP MR VP', 'Red: VS', 'Green: VP'],
-      applied: ['Plan']
-    }
-  ])
-  const [editParticipants] = useState<any[]>([
-    {
-      force: 'Blue',
-      viewSpatial: 'Y',
-      viewProp: 'N',
-      editRemoveFeature: 'N',
-      moveResizeFeature: 'N',
-      editProp: 'N'
-    }
-  ])
+  const [participants, setParticipants] = useState<any[]>([])
+  const [editParticipants, setEditParticipants] = useState<EditParticipantType>(initialEditParticipant)
+  const [editInline, setEditInline] = useState<number>(-1)
 
   useEffect(() => {
     setLocalChannel(channel as unknown as ChannelMapping)
     setSelectedRender(get(channel, 'renderers[0].id', ''))
   }, [])
+
+  useEffect(() => {
+    if (!editParticipants.id) {
+      setEditInline(-1)
+    }
+  }, [editParticipants])
 
   useEffect(() => {
     if (activeTab === 1 && selectedRenderer) {
@@ -83,7 +77,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
               type: prop.type,
               label: prop.label,
               description: prop.description,
-              editable: prop.editable,
+              playerEditable: prop.playerEditable,
               icon: prop.icon || 'N/A',
               choices: [],
               id: prop.id
@@ -94,7 +88,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
               type: prop.type,
               label: prop.label,
               description: prop.description,
-              editable: prop.editable,
+              playerEditable: prop.playerEditable,
               icon: prop.icon || 'N/A',
               choices: [],
               id: prop.id
@@ -108,19 +102,140 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     } else {
       setProperties([])
     }
+
+    const participantsData: any[] = []
+    localChannel.participants.forEach(p => {
+      participantsData.push({
+        subject: p.forceUniqid,
+        type: p.forRenderer,
+        permission: getPermission(p.permissionTo),
+        applied: p.phases,
+        id: p.subscriptionId
+      })
+    })
+    setParticipants(participantsData)
   }, [activeTab, selectedRenderer, localChannel])
 
   useEffect(() => {
     onChange(localChannel as unknown as ChannelCustom)
   }, [localChannel])
 
+  // const getForceName = (f: string) => {
+  //   if (f.toLowerCase().includes('red')) {
+  //     return 'RED'
+  //   } else if (f.toLowerCase().includes('blue')) {
+  //     return 'BLUE'
+  //   } else if (f.toLowerCase().includes('white')) {
+  //     return 'WHITE'
+  //   } else if (f.toLowerCase().includes('green')) {
+  //     return 'GREEN'
+  //   } else if (f.toLowerCase().includes('umpire')) {
+  //     return 'UMPIRE'
+  //   }
+  //   return ''
+  // }
+
+  const shortPermissionName = (permission: string[]) => {
+    return permission.map(p => {
+      if (p === MappingPermissions.ViewSpatial) {
+        return 'VS'
+      }
+      if (p === MappingPermissions.ViewProps) {
+        return 'VP'
+      }
+      if (p === MappingPermissions.MoveResize) {
+        return 'MR'
+      }
+      if (p === MappingPermissions.Exists) {
+        return 'E'
+      }
+      if (p === MappingPermissions.EditOwnProps) {
+        return 'EOP'
+      }
+      if (p === MappingPermissions.EditAllProps) {
+        return 'EAP'
+      }
+      if (p === MappingPermissions.AddRemove) {
+        return 'AR'
+      }
+      return ''
+    }).join(' ')
+  }
+
+  const getPermission = (permissionTo: any) => {
+    const keys = Object.keys(permissionTo || {})
+    return keys.map(key => {
+      return `${key}: ${shortPermissionName(permissionTo[key])}`
+    })
+  }
+
   const onTabChange = (_: string, index: number) => {
     setActiveTab(index)
   }
 
-  const onEditParticipant = () => setEditParticipant(true)
-  const onCloseEditParticipant = () => setEditParticipant(false)
-  const onSaveParticipant = () => setEditParticipant(false)
+  const onEditParticipant = (row: any) => {
+    const editParticipant = localChannel.participants.find(p => p.subscriptionId === row.id)
+    if (editParticipant) {
+      const editingParticipant: EditParticipantType = {
+        tableData: [],
+        force: editParticipant.forceUniqid || 'N/A',
+        roles: editParticipant.roles || [],
+        phases: editParticipant.phases || [],
+        renderers: editParticipant.forRenderer || [],
+        id: editParticipant.subscriptionId
+      }
+      const permissionTo = editParticipant.permissionTo || {}
+      Object.keys(permissionTo).map((key, idx) => {
+        editingParticipant.tableData.push({
+          id: idx,
+          permissionOnForce: key,
+          viewSpatial: permissionTo[key].includes(MappingPermissions.ViewSpatial),
+          viewProp: permissionTo[key].includes(MappingPermissions.ViewProps),
+          editRemoveFeature: permissionTo[key].includes(MappingPermissions.EditAllProps),
+          moveResizeFeature: permissionTo[key].includes(MappingPermissions.MoveResize),
+          editProp: permissionTo[key].includes(MappingPermissions.EditOwnProps)
+        })
+      })
+      setEditParticipants(editingParticipant)
+    }
+  }
+
+  const onCloseEditParticipant = () => setEditParticipants(initialEditParticipant)
+
+  const onSaveParticipant = () => {
+    const cloneChannel = cloneDeep(localChannel)
+    cloneChannel.participants = cloneChannel.participants.map(p => {
+      if (p.subscriptionId === editParticipants.id) {
+        p.forRenderer = editParticipants.renderers
+        p.phases = editParticipants.phases
+        p.roles = editParticipants.roles
+        p.permissionTo = {}
+        editParticipants.tableData.map(row => {
+          const permissionTo = []
+          if (row.editProp) {
+            permissionTo.push(MappingPermissions.ViewProps)
+          }
+          if (row.editRemoveFeature) {
+            permissionTo.push(MappingPermissions.EditAllProps)
+          }
+          if (row.moveResizeFeature) {
+            permissionTo.push(MappingPermissions.MoveResize)
+          }
+          if (row.viewProp) {
+            permissionTo.push(MappingPermissions.ViewProps)
+          }
+          if (row.viewSpatial) {
+            permissionTo.push(MappingPermissions.ViewSpatial)
+          }
+          p.permissionTo[row.permissionOnForce] = permissionTo
+        })
+      }
+      return p
+    })
+    setLocalChannel(cloneChannel)
+    setEditParticipants(initialEditParticipant)
+  }
+
   const onCloseProperty = () => setEditProperty(undefined)
 
   const onSaveProperty = () => {
@@ -193,7 +308,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
           label: 'New Property',
           type: value,
           icon: 'N/A',
-          editable: true,
+          playerEditable: true,
           description: 'Property description'
         }
         cloneLocalChannel.renderers[idx].additionalProps.push(newProperty)
@@ -204,14 +319,30 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     })
   }, [localChannel, selectedRenderer])
 
-  console.log('xx> channel: ', channel)
-
-  const editRowPermission = (row: PropertyType) => {
-    console.log('xx> row: ', row)
+  const removeRowPermission = (row: any) => {
+    const cloneChannel = cloneDeep(localChannel)
+    cloneChannel.participants = cloneChannel.participants.map(p => {
+      if (p.subscriptionId === editParticipants.id) {
+        editParticipants.tableData = editParticipants.tableData.filter(r => r.id !== row.id)
+        setEditParticipants(cloneDeep(editParticipants))
+      }
+      return p
+    })
+    setLocalChannel(cloneChannel)
   }
 
-  const removeRowPermission = (row: PropertyType) => {
-    console.log('xx> row: ', row)
+  const onRowDataChange = (row: any) => {
+    const cloneEditParticipant = cloneDeep(editParticipants)
+    cloneEditParticipant.tableData[row.id] = {
+      id: row.id,
+      permissionOnForce: row.permissionOnForce,
+      viewSpatial: row.viewSpatial,
+      viewProp: row.viewProp,
+      editRemoveFeature: row.editRemoveFeature,
+      moveResizeFeature: row.moveResizeFeature,
+      editProp: row.editProp
+    }
+    setEditParticipants(cloneEditParticipant)
   }
 
   const removePropRow = (row: PropertyType) => {
@@ -232,11 +363,40 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     setEditProperty(cloneRow)
   }
 
+  const onEditParticipantChange = (path: string, value: string[]) => {
+    const cloneParticipant = cloneDeep(editParticipants)
+    set(cloneParticipant, path, value)
+    setEditParticipants(cloneParticipant)
+  }
+
+  const addParticipantPermission = () => {
+    const cloneChannel = cloneDeep(localChannel)
+    cloneChannel.participants = cloneChannel.participants.map(p => {
+      if (p.subscriptionId === editParticipants.id) {
+        editParticipants.tableData.push({
+          id: editParticipants.tableData.length,
+          permissionOnForce: 'N/A',
+          viewSpatial: false,
+          viewProp: false,
+          editRemoveFeature: false,
+          moveResizeFeature: false,
+          editProp: false
+        })
+        if (!p.permissionTo) {
+          p.permissionTo = {}
+        }
+        setEditParticipants(cloneDeep(editParticipants))
+      }
+      return p
+    })
+    setLocalChannel(cloneChannel)
+  }
+
   return (
     <Box className={styles.channelTabContainer}>
       <CustomDialog
         modalStyle={{ content: { width: '60%' } }}
-        isOpen={editParticipant}
+        isOpen={!!editParticipants.id}
         header={'Add/Edit Participant'}
         cancelBtnText="Cancel"
         saveBtnText="OK"
@@ -246,23 +406,30 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
         <Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box sx={{ width: '49%' }}>
-              <SimpleSelect title="Force" options={[]} labelWidth="80px" onChange={noop} />
-              <SimpleSelect title="Role" options={[]} labelWidth="80px" onChange={noop} />
+              <SimpleSelect title="Force" value={editParticipants.force} options={[editParticipants.force]} labelWidth="80px" onChange={noop} />
+              <SimpleSelect title="Role" value={editParticipants.roles} options={[]} labelWidth="80px" onChange={(e) => onEditParticipantChange('roles', e.target.value as string[])} multiple/>
             </Box>
             <Box sx={{ width: '49%' }}>
-              <SimpleSelect title="Renderer" options={[]} labelWidth="80px" onChange={noop} />
-              <SimpleSelect title="For phase" options={[]} labelWidth="80px" onChange={noop} />
+              <SimpleSelect title="Renderer" value={editParticipants.renderers} options={RendererOptions} labelWidth="80px" onChange={(e) => onEditParticipantChange('renderers', e.target.value as string[])} multiple/>
+              <SimpleSelect title="For phase" value={editParticipants.phases} options={PhaseOptions} labelWidth="80px" onChange={(e) => onEditParticipantChange('phases', e.target.value as string[])} multiple/>
             </Box>
           </Box>
           <Box>
             <span>Permissions</span>
             <SimpleTable
               columns={EditParticipantColumns}
-              data={editParticipants}
-              onEdit={editRowPermission}
+              data={editParticipants.tableData || []}
+              onEdit={r => setEditInline(r.id)}
               onRemove={removeRowPermission}
+              editInline={editInline}
+              forceNames={forces.map(f => f.uniqid)}
+              onChange={onRowDataChange}
             />
           </Box>
+          <Button variant='outlined' style={{ marginTop: '5px' }} onClick={addParticipantPermission}>
+            <FontAwesomeIcon icon={faPlusCircle} style={{ marginRight: '10px' }}/>
+            Add
+          </Button>
         </Box>
       </CustomDialog>
 
