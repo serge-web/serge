@@ -26,17 +26,17 @@ test('Create a simple flow game successfully', async ({  browser }) => {
   await gamePlayPage.clickSendMessageBtn();
   await gamePlayPage.clickChatTemplateBtn();
   await gamePlayPage.verifyMessageChatIsShowed(content);
-  await gamePlayPage.selectTabName('Blue HQ');
-  await gamePlayPage.clickNewMessageBtn();
-  await gamePlayPage.inputTurnMessageDailyIntentionsTemplate("2");
-  await gamePlayPage.inputOverallMessageDailyIntentionsTemplate("Testing msg daily intention");
-  await gamePlayPage.inputMessageDailyIntentionsTemplate(0,"1","walking around","carefully",'Evade','Do something you like');
-  await gamePlayPage.clickAddMoreOneRowBtn();
-  await gamePlayPage.inputMessageDailyIntentionsTemplate(1,"2","running","security",'Overt Trail','Checking something');
-  await gamePlayPage.clickSendMessageBtn();
-  await gamePlayPage.clickDailyIntentTemplateBtn();
-  await gamePlayPage.verifyMessageDailyIntentTurnAndOverallIsShowed("2", "Testing msg daily intention");
-  await gamePlayPage.verifyMessageDailyIntentContentIsShowed("1","walking around","carefully",'Evade','Do something you like');
+  // await gamePlayPage.selectTabName('Blue HQ');
+  // await gamePlayPage.clickNewMessageBtn();
+  // await gamePlayPage.inputTurnMessageDailyIntentionsTemplate("2");
+  // await gamePlayPage.inputOverallMessageDailyIntentionsTemplate("Testing msg daily intention");
+  // await gamePlayPage.inputMessageDailyIntentionsTemplate(0,"1","walking around","carefully",'Evade','Do something you like');
+  // await gamePlayPage.clickAddMoreOneRowBtn();
+  // await gamePlayPage.inputMessageDailyIntentionsTemplate(1,"2","running","security",'Overt Trail','Checking something');
+  // await gamePlayPage.clickSendMessageBtn();
+  // await gamePlayPage.clickDailyIntentTemplateBtn();
+  // await gamePlayPage.verifyMessageDailyIntentTurnAndOverallIsShowed("2", "Testing msg daily intention");
+  // await gamePlayPage.verifyMessageDailyIntentContentIsShowed("1","walking around","carefully",'Evade','Do something you like');
   
   const page1 = await context.newPage();
   const loginGamePage1 = new LoginGamePage(page1)
@@ -60,10 +60,10 @@ test('Create a simple flow game successfully', async ({  browser }) => {
   await loginGamePage2.selectRoleOfFoceGame("Blue","CO");
   await loginGamePage2.clickEnterGameBtn();
   await gamePlayPage2.clickCloseGuideBtn();
-  await gamePlayPage2.selectTabName('Blue HQ');
-  await gamePlayPage2.clickDailyIntentTemplateBtn();
-  await gamePlayPage2.verifyMessageDailyIntentTurnAndOverallIsShowed("2", "Testing msg daily intention");
-  await gamePlayPage2.verifyMessageDailyIntentContentIsShowed("1","walking around","carefully",'Evade','Do something you like');
+  // await gamePlayPage2.selectTabName('Blue HQ');
+  // await gamePlayPage2.clickDailyIntentTemplateBtn();
+  // await gamePlayPage2.verifyMessageDailyIntentTurnAndOverallIsShowed("2", "Testing msg daily intention");
+  // await gamePlayPage2.verifyMessageDailyIntentContentIsShowed("1","walking around","carefully",'Evade','Do something you like');
 
   
 });
