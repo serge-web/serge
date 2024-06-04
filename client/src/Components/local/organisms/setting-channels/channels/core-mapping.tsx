@@ -13,6 +13,7 @@ import {
 import cx from 'classnames'
 import { capitalize, cloneDeep, get, noop, set } from 'lodash'
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import Confirm from 'src/Components/local/atoms/confirm'
 import CustomDialog from 'src/Components/local/atoms/custom-dialog'
 import Tabs from 'src/Components/local/atoms/tabs'
 import { BaseRenderer, ForceData, MappingPermissions, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, PropertyType } from 'src/custom-types'
@@ -55,6 +56,8 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   const [participants, setParticipants] = useState<any[]>([])
   const [editParticipants, setEditParticipants] = useState<EditParticipantType>(initialEditParticipant)
   const [editInline, setEditInline] = useState<number>(-1)
+  const [deletingParticipant, setDeletingParticipant] = useState<any>()
+  const [deletingRenderer, setDeletingRenderer] = useState<string>('')
 
   useEffect(() => {
     setLocalChannel(channel as unknown as ChannelMapping)
@@ -69,29 +72,29 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
 
   useEffect(() => {
     if (activeTab === 1 && selectedRenderer) {
-      const newProperties: PropertyType[] = []
+      const newProperties: any[] = []
       localChannel.renderers.some((r: BaseRenderer) => {
         if (r.id === selectedRenderer) {
-          r.baseProps.forEach(prop => {
+          (r.baseProps || []).forEach(prop => {
             newProperties.push({
               type: prop.type,
               label: prop.label,
               description: prop.description,
-              playerEditable: prop.playerEditable,
+              playerEditable: prop.playerEditable || false,
               icon: prop.icon || 'N/A',
-              choices: [],
-              id: prop.id
+              id: prop.id,
+              others: getOthersData(prop)
             })
-          })
-          r.additionalProps.forEach(prop => {
+          });
+          (r.additionalProps || []).forEach(prop => {
             newProperties.push({
               type: prop.type,
               label: prop.label,
               description: prop.description,
-              playerEditable: prop.playerEditable,
+              playerEditable: prop.playerEditable || false,
               icon: prop.icon || 'N/A',
-              choices: [],
-              id: prop.id
+              id: prop.id,
+              others: getOthersData(prop)
             })
           })
           setProperties(newProperties)
@@ -120,20 +123,15 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     onChange(localChannel as unknown as ChannelCustom)
   }, [localChannel])
 
-  // const getForceName = (f: string) => {
-  //   if (f.toLowerCase().includes('red')) {
-  //     return 'RED'
-  //   } else if (f.toLowerCase().includes('blue')) {
-  //     return 'BLUE'
-  //   } else if (f.toLowerCase().includes('white')) {
-  //     return 'WHITE'
-  //   } else if (f.toLowerCase().includes('green')) {
-  //     return 'GREEN'
-  //   } else if (f.toLowerCase().includes('umpire')) {
-  //     return 'UMPIRE'
-  //   }
-  //   return ''
-  // }
+  const getOthersData = (prop: PropertyType) => {
+    if (prop['format']) {
+      return `Format: ${prop['format']}`
+    }
+    if (prop['lines'] !== undefined) {
+      return `Line: ${prop['lines']}`
+    }
+    return ''
+  }
 
   const shortPermissionName = (permission: string[]) => {
     return permission.map(p => {
@@ -173,8 +171,14 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     setActiveTab(index)
   }
 
-  const onRemoveParticipants = (row: any) => {
-    console.log('xx> row: ', row)
+  const onRemoveParticipants = () => {
+    if (!deletingParticipant) {
+      return
+    }
+    const cloneChannel = cloneDeep(localChannel)
+    cloneChannel.participants = cloneChannel.participants.filter(p => p.subscriptionId !== deletingParticipant.id)
+    setLocalChannel(cloneChannel)
+    setDeletingParticipant(undefined)
   }
 
   const onEditParticipant = (row: any) => {
@@ -248,7 +252,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     }
     localChannel.renderers.forEach((r: BaseRenderer, idx: number) => {
       if (r.id === selectedRenderer) {
-        const baseProps = r.baseProps.forEach(prop => {
+        const baseProps = r.baseProps.map(prop => {
           if (prop.id === editProperty.id) {
             return editProperty
           }
@@ -277,9 +281,9 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
 
   const selectRender = useCallback((rendererId: string) => setSelectedRender(rendererId), [localChannel])
 
-  const removeRender = useCallback((e: any, renderer: string) => {
+  const handleRemoveRenderer = () => {
     const cloneChannels = cloneDeep(localChannel)
-    const filterRender = cloneChannels.renderers.filter(r => r.id !== renderer)
+    const filterRender = cloneChannels.renderers.filter(r => r.id !== deletingRenderer)
     set(cloneChannels, 'renderers', filterRender)
     setLocalChannel(cloneChannels)
     if (cloneChannels.renderers.length) {
@@ -287,6 +291,10 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     } else {
       setSelectedRender('')
     }
+    setDeletingRenderer('')
+  }
+  const removeRender = useCallback((e: any, renderer: string) => {
+    setDeletingRenderer(renderer)
     e.stopPropagation()
   }, [localChannel])
 
@@ -398,6 +406,20 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
 
   return (
     <Box className={styles.channelTabContainer}>
+      <Confirm
+        isOpen={!!deletingParticipant}
+        message='Are you sure that you want to delete this participant?'
+        onCancel={() => setDeletingParticipant(undefined)}
+        onConfirm={onRemoveParticipants}
+        modalStyle={{ content: { width: '40%' } }}
+      />
+      <Confirm
+        isOpen={!!deletingRenderer}
+        message='Are you sure that you want to delete this renderer?'
+        onCancel={() => setDeletingRenderer('')}
+        onConfirm={handleRemoveRenderer}
+        modalStyle={{ content: { width: '40%' } }}
+      />
       <CustomDialog
         modalStyle={{ content: { width: '60%' } }}
         isOpen={!!editParticipants.id}
@@ -451,7 +473,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
             switch (key) {
               case 'type':
                 return <SimpleSelect key={idx} title="Type" options={[PROPERTY_STRING, PROPERTY_NUMBER, PROPERTY_ENUM]} labelWidth="90px" value={get(editProperty, key, '')} onChange={(e) => onEditPropertyChange(key, e.target.value)} />
-              case 'editable':
+              case 'playerEditable':
                 return <Box key={idx}>
                   <FormControlLabel
                     style={{ marginLeft: '0' }}
@@ -500,6 +522,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
           <Box>
             <span className={styles.itemTitle}>Renderers</span>
             <List className={styles.renderersList}>
+              {localChannel.renderers.length === 0 && <ListItem>No Renderer</ListItem>}
               {localChannel.renderers.map(renderer => (
                 <ListItem key={renderer.id} button selected={selectedRenderer === renderer.id} onClick={() => selectRender(renderer.id)}>
                   <span>{renderer.type.replace('Renderer', '')}</span>
@@ -511,11 +534,12 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
           </Box>
           <Box sx={{ width: 'calc(100% - 180px)' }}>
             <span className={styles.itemTitle}>Renderer specific</span>
-            <FormControlLabel
+            {/* <FormControlLabel
               control={<Checkbox defaultChecked />}
               label={<span style={{ fontSize: '14px' }}>Cluster markers</span>}
               labelPlacement="start"
-            />
+            /> */}
+            <div style={{ marginBottom: '30px' }}></div>
             <span className={styles.itemTitle}>Additional Properties</span>
             <SimpleTable columns={AdditionalPropcolumns} data={properties} onEdit={setEditProperty} onRemove={removePropRow} />
             <AddButton options={AddPropOpts} onChange={onAddNewProp}/>
@@ -524,7 +548,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
       )}
       {activeTab === 2 && (
         <Box className={cx({ [styles.channelTabDetailsContainer]: true, [styles.participantsTab]: true })}>
-          <SimpleTable columns={ParticipantColumns} data={participants} onEdit={onEditParticipant} onRemove={onRemoveParticipants} />
+          <SimpleTable columns={ParticipantColumns} data={participants} onEdit={onEditParticipant} onRemove={row => setDeletingParticipant(row)} />
         </Box>
       )}
     </Box>
