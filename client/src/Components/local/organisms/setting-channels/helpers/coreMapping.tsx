@@ -223,11 +223,14 @@ export const SimpleSelect: React.FC<{
     <Select fullWidth onChange={onChange} value={value} multiple={multiple} renderValue={value => <>{Array.isArray(value) ? value.join(', ') : value}</>}>
       {options.map((option) => (
         <MenuItem key={option} value={option}>
-          {multiple
-            ? <FormControlLabel
-              style={{ marginLeft: '0' }}
-              control={<Checkbox checked={(value as any)?.includes(option)} />} label={option}
-            /> : option}
+          {
+            multiple
+              ? <FormControlLabel
+                style={{ marginLeft: '0' }}
+                control={<Checkbox checked={(value as any)?.includes(option)} />} label={option}
+              />
+              : option
+          }
         </MenuItem>
       ))}
     </Select>
