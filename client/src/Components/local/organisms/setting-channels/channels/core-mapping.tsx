@@ -433,7 +433,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box sx={{ width: '49%' }}>
               <SimpleSelect title="Force" value={editParticipants.force} options={[editParticipants.force]} labelWidth="80px" onChange={noop} />
-              <SimpleSelect title="Role" value={editParticipants.roles} options={[]} labelWidth="80px" onChange={(e) => onEditParticipantChange('roles', e.target.value as string[])} multiple/>
+              <SimpleSelect title="Role" value={editParticipants.roles} options={editParticipants.roles} labelWidth="80px" onChange={(e) => onEditParticipantChange('roles', e.target.value as string[])} multiple/>
             </Box>
             <Box sx={{ width: '49%' }}>
               <SimpleSelect title="Renderer" value={editParticipants.renderers} options={RendererOptions} labelWidth="80px" onChange={(e) => onEditParticipantChange('renderers', e.target.value as string[])} multiple/>
