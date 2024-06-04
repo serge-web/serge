@@ -111,26 +111,9 @@ const SettingTemplate: React.FC<PropTypes> = ({
         uischema: JSON.parse(newUiSchema)
       }
       
-      copyToClipboard(newDetails)
-
       handleChangeTemplate({ ...data, details: newDetails })
     }
-    async function copyToClipboard (data: any) {
-      try {
-        // Convert the data to a JSON string with pretty-printing
-        const jsonString = JSON.stringify(data, null, 2)
-  
-        // Use the Clipboard API to write the text to the clipboard
-        await navigator.clipboard.writeText(jsonString)
-  
-        console.log('Data copied to clipboard successfully.')
-      } catch (err) {
-        console.error('Failed to copy data to clipboard:', err)
-      }
-    }
-  
-    // Call the function with your big object or array
-  
+
     return (
       <div key={selectedItem}>
         <div className={cx(styles.row, styles['mb-20'])}>
@@ -154,8 +137,8 @@ const SettingTemplate: React.FC<PropTypes> = ({
         {contentTabs.length > 0 && <Tabs activeTab={currentTab} onChange={handleTabChange} tabs={contentTabs} changed={false} />}
         { 
           currentTab === TemplateTab.Visual && <FormBuilder
-            schema={JSON.stringify(schema || {})}
-            uischema={JSON.stringify(uischema || {})}
+            schema={JSON.stringify(schema)}
+            uischema={JSON.stringify(uischema)}
             onChange={handleFormChange}
           />
         }
