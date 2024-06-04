@@ -492,7 +492,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
                   />
                 </Box>
               case 'id':
-              case 'choices':
+              case 'others':
                 return <Fragment key={idx}></Fragment>
               default:
                 return <Box key={idx} className={styles.editPropField}>
@@ -542,7 +542,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
             <div style={{ marginBottom: '30px' }}></div>
             <span className={styles.itemTitle}>Additional Properties</span>
             <SimpleTable columns={AdditionalPropcolumns} data={properties} onEdit={setEditProperty} onRemove={removePropRow} />
-            <AddButton options={AddPropOpts} onChange={onAddNewProp}/>
+            {localChannel.renderers.length > 0 && <AddButton options={AddPropOpts} onChange={onAddNewProp} />}
           </Box>
         </Box>
       )}
