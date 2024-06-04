@@ -16,6 +16,7 @@ import React, { createRef, MouseEvent, useEffect, useRef, useState } from 'react
 import JsonEditor from '../../molecules/json-editor'
 
 import PropTypes from './types/props'
+import { isEmpty } from 'lodash'
 
 const MessageCreator: React.FC<PropTypes> = ({
   schema,
@@ -85,10 +86,11 @@ const MessageCreator: React.FC<PropTypes> = ({
       privateMessageRef.current.value = ''
     }
 
-    if (formMessage.content === '') return
+    if (isEmpty(formMessage)) return
 
     // send the data
     setPrivateValue('')
+    setFormMessage({})
     setClearForm(!clearForm)
     postBack && postBack(details, formMessage, selectedSchema.title, CUSTOM_MESSAGE)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
