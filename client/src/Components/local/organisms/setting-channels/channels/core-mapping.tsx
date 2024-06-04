@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core'
 import cx from 'classnames'
 import { capitalize, cloneDeep, get, noop, set } from 'lodash'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import CustomDialog from 'src/Components/local/atoms/custom-dialog'
 import Tabs from 'src/Components/local/atoms/tabs'
 import { BaseRenderer, ForceData, MappingPermissions, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, PropertyType } from 'src/custom-types'
@@ -72,7 +72,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
       const newProperties: PropertyType[] = []
       localChannel.renderers.some((r: BaseRenderer) => {
         if (r.id === selectedRenderer) {
-          r.baseProps.map(prop => {
+          r.baseProps.forEach(prop => {
             newProperties.push({
               type: prop.type,
               label: prop.label,
@@ -83,7 +83,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
               id: prop.id
             })
           })
-          r.additionalProps.map(prop => {
+          r.additionalProps.forEach(prop => {
             newProperties.push({
               type: prop.type,
               label: prop.label,
@@ -173,6 +173,10 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     setActiveTab(index)
   }
 
+  const onRemoveParticipants = (row: any) => {
+    console.log('xx> row: ', row)
+  }
+
   const onEditParticipant = (row: any) => {
     const editParticipant = localChannel.participants.find(p => p.subscriptionId === row.id)
     if (editParticipant) {
@@ -185,7 +189,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
         id: editParticipant.subscriptionId
       }
       const permissionTo = editParticipant.permissionTo || {}
-      Object.keys(permissionTo).map((key, idx) => {
+      Object.keys(permissionTo).forEach((key, idx) => {
         editingParticipant.tableData.push({
           id: idx,
           permissionOnForce: key,
@@ -210,7 +214,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
         p.phases = editParticipants.phases
         p.roles = editParticipants.roles
         p.permissionTo = {}
-        editParticipants.tableData.map(row => {
+        editParticipants.tableData.forEach(row => {
           const permissionTo = []
           if (row.editProp) {
             permissionTo.push(MappingPermissions.ViewProps)
@@ -244,7 +248,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     }
     localChannel.renderers.forEach((r: BaseRenderer, idx: number) => {
       if (r.id === selectedRenderer) {
-        const baseProps = r.baseProps.map(prop => {
+        const baseProps = r.baseProps.forEach(prop => {
           if (prop.id === editProperty.id) {
             return editProperty
           }
@@ -467,7 +471,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
                 </Box>
               case 'id':
               case 'choices':
-                return <></>
+                return <Fragment key={idx}></Fragment>
               default:
                 return <Box key={idx} className={styles.editPropField}>
                   <InputLabel variant="standard">{ capitalize(key)}</InputLabel>
@@ -520,7 +524,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
       )}
       {activeTab === 2 && (
         <Box className={cx({ [styles.channelTabDetailsContainer]: true, [styles.participantsTab]: true })}>
-          <SimpleTable columns={ParticipantColumns} data={participants} onEdit={onEditParticipant} onRemove={noop} />
+          <SimpleTable columns={ParticipantColumns} data={participants} onEdit={onEditParticipant} onRemove={onRemoveParticipants} />
         </Box>
       )}
     </Box>
