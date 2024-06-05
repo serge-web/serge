@@ -62,7 +62,7 @@ const Template: StoryFn = (args) => {
   }
 
   const handleCreate = (): void => {
-    console.log('=> handleCreate: ')
+    console.log(' => handleCreate: ')
   }
 
   return <SettingChannels

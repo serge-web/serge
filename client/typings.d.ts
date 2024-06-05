@@ -18,3 +18,4 @@ declare module 'redux-logger'
 // TODO: Remove the line below when the store package has been converted
 declare module '@serge/store'
 declare module 'whatwg-fetch'
+declare module '@ginkgo-bioworks/react-json-schema-form-builder'

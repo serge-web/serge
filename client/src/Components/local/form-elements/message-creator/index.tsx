@@ -12,7 +12,7 @@ import {
   ChannelCollab,
   MessageDetails
 } from 'src/custom-types'
-import React, { createRef, MouseEvent, useEffect, useRef, useState } from 'react'
+import React, { createRef, MouseEvent, useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 
 import PropTypes from './types/props'
@@ -39,7 +39,10 @@ const MessageCreator: React.FC<PropTypes> = ({
   modifyForSave
 }) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
+<<<<<<< HEAD
   const [formMessage, setFormMessage] = useState<any>({})
+=======
+>>>>>>> 37ad552c7e350a784d8715ec2e16c1f67cdf6b22
   const [clearForm, setClearForm] = useState(false)
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
@@ -47,9 +50,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const [messageContent, setMessageContent] = useState<Record<string, unknown> | undefined>(undefined)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
-  const messageBeingEdited = useRef<Record<string, any> | string>('')
-
-  const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const sendMessage = (val: { [property: string]: any }, e: React.MouseEvent<HTMLButtonElement>) => {
     e.persist()
     const details: MessageDetails = {
       channel: channel.uniqid,
@@ -86,17 +87,16 @@ const MessageCreator: React.FC<PropTypes> = ({
       privateMessageRef.current.value = ''
     }
 
-    if (isEmpty(formMessage)) return
+    if (val.content === '') return
 
     // send the data
     setPrivateValue('')
     setFormMessage({})
     setClearForm(!clearForm)
-    postBack && postBack(details, formMessage, selectedSchema.title, CUSTOM_MESSAGE)
+    postBack && postBack(details, val, messageOption, CUSTOM_MESSAGE)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
   }
-
   useEffect(() => {
     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
       setSelectedSchema(schema)
@@ -127,11 +127,6 @@ const MessageCreator: React.FC<PropTypes> = ({
     setPrivateValue(e.target.value)
   }
 
-  const responseHandler = (val: { [property: string]: any }): void => {
-    setFormMessage(val)
-    messageBeingEdited.current = val
-  }
-
   useEffect(() => {
     if (draftMessage) {
       const anyDraft = draftMessage as any
@@ -158,52 +153,38 @@ const MessageCreator: React.FC<PropTypes> = ({
           _id: channel.uniqid
         }}
         customiseTemplate={customiseTemplate}
+        submitNewValue={sendMessage}
+        openCancelConfirmPopup={openConfirmPopup}
         messageId={messageOption}
         formClassName={'form-group message-creator'}
         title={messageOption}
-        storeNewValue={responseHandler}
         disabled={false}
         gameDate={gameDate}
         clearForm={clearForm}
         messageContent={messageContent}
         modifyForEdit={modifyForEdit}
         modifyForSave={modifyForSave}
-      />
-      {privateMessage && (
-        <div className="flex-content form-group">
-          <label
-            htmlFor=""
-            className="material-label"
-            id="private-message-input-label"
-          >
-            <FontAwesomeIcon size="2x" icon={faUserSecret} />
+      >
+        {privateMessage && (
+          <div className="flex-content form-group">
+            <label
+              htmlFor=""
+              className="material-label"
+              id="private-message-input-label"
+            >
+              <FontAwesomeIcon size="2x" icon={faUserSecret} />
             Private message
-          </label>
-          <textarea
-            onChange={onChangePrivate}
-            id="private-message-input"
-            className="form-control"
-            ref={privateMessageRef}
-            value={privateValue}
-          />
-        </div>
-      )}
-      <div className="form-group">
-        <button
-          name="cancel"
-          className="btn btn-action btn-action--form btn-action--cancel"
-          onClick={openConfirmPopup}
-        >
-          <span>Cancel</span>
-        </button>
-        <button
-          name="send"
-          className="btn btn-action btn-action--form btn-action--send-message"
-          onClick={sendMessage}
-        >
-          <span>Send Message</span>
-        </button>
-      </div>
+            </label>
+            <textarea
+              onChange={onChangePrivate}
+              id="private-message-input"
+              className="form-control"
+              ref={privateMessageRef}
+              value={privateValue}
+            />
+          </div>
+        )}
+      </ JsonEditor >
     </>
   )
 }

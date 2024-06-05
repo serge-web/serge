@@ -1,4 +1,41 @@
+import React from 'react'
 import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from 'src/custom-types'
+import { IChangeEvent } from '@rjsf/core'
+
+export interface FormData {
+  foo?: string
+  bar?: number
+}
+
+ interface ButtonOptions {
+  props: {
+    disabled?: boolean
+    className: string
+  }
+  norender: boolean
+  submitText?: string
+  cancelText?: string
+}
+
+export type UISchemas = {
+  [key: string]: ButtonOptions
+}
+
+export interface FormProps {
+  id?: string
+  uiSchema: Record<string, unknown>
+  schema: Record<string, unknown>
+  onSubmit?: any
+  formData: formData
+  widgets?: CustomWidgets
+  className?: string
+  onChange: (newSchema: IChangeEvent<FormData>) => void
+  onSubmit: (newSchema: IChangeEvent<FormData>) => void
+  validator: any
+  templates?: any
+  disabled: boolean
+  formClassName?: string // Optional class name for the form
+}
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
@@ -9,6 +46,7 @@ export default interface Props {
   /**
    * content of message
    */
+  submitNewValue?: (value: { [property: string]: any }, e: React.MouseEvent<HTMLButtonElement>) => void
   messageContent?: MessageStructure
   /**
    * id for message (used for tracking message read)
@@ -26,6 +64,7 @@ export default interface Props {
 
   // Called when user cancels document edit
   onCancelEdit?: () => void
+  openCancelConfirmPopup?: (event: React.MouseEvent<HTMLButtonElement>) => void
   confirmCancel?: boolean
   /**
    * whether the form is editable (disable for read-only view)
@@ -40,7 +79,7 @@ export default interface Props {
   /**
    * in read view (disabled) make textarea items tall enough to view all contents
    */
-  expandHeight?: boolean
+  // expandHeight?: boolean
   /** flag from parent class to clear the form, possibly on
    * send or cancel. The value toggles between states on update,
    * rather than requiring a specific true/false value
@@ -53,7 +92,7 @@ export default interface Props {
   // to enter dates
   gameDate?: string
   /** disable/enable Array tools with form */
-  disableArrayToolsWithEditor?: boolean
+  // disableArrayToolsWithEditor?: boolean
   formClassName?: string
   formId?: string
   viewSaveButton?: boolean

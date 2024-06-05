@@ -16,16 +16,19 @@ import {
   setWargameTitle,
   setSelectedForce,
   setSelectedChannel,
+  setSelectedTemplate,
   duplicateChannel,
   saveWargameTitle,
   initiateWargame,
-  duplicateForce
+  duplicateForce,
+  duplicateTemplate,
+  saveTemplate
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
-import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, Wargame } from 'src/custom-types'
+import { ChannelTypes, ForceData, Role, RootState, WargamesState, WargameOverview, Wargame, TemplateBody } from 'src/custom-types'
 
 /**
  * TODOS:
@@ -46,7 +49,7 @@ import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, 
 
 const AdminGameSetup: React.FC = () => {
   const dispatch = useDispatch()
-  const { wargame, messageTypes }: { wargame: WargamesState, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
+  const { wargame }: { wargame: WargamesState } = useSelector(({ wargame }: RootState) => ({ wargame }))
 
   const {
     data,
@@ -62,7 +65,6 @@ const AdminGameSetup: React.FC = () => {
     templates
   } = data
   const tabs = Object.keys(data)
-
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }
@@ -127,7 +129,6 @@ const AdminGameSetup: React.FC = () => {
   }
 
   const handleSaveOverview = (overview: WargameOverview) => {
-    console.log('currentWargame', currentWargame, overview)
     if (currentWargame) dispatch(saveSettings(currentWargame, overview))
   }
 
@@ -187,6 +188,29 @@ const AdminGameSetup: React.FC = () => {
     }
   }
 
+  const handleSaveTemplate = (template: TemplateBody) => {
+    const selectedId = template._id
+    const templateTitle = template.title
+    const existingTemplate = templates.templates.find(temp => temp._id === selectedId)
+    const isDuplicateTitle = templates.templates.filter(temp => temp.title === templateTitle).length > 1
+  
+    if (!currentWargame || !existingTemplate) {
+      return // No current wargame or template not found
+    }
+  
+    if (templateTitle.trim().length === 0) {
+      window.alert('Please provide a template name.')
+      return
+    }
+  
+    if (isDuplicateTitle) {
+      window.alert('Template name should not be duplicated.')
+      return
+    }
+  
+    dispatch(saveTemplate(currentWargame, template))
+  }
+
   const onSave = (updates: WargameOverview | ForceData | ChannelTypes) => {
     let saveAction
     switch (currentTab) {
@@ -199,6 +223,9 @@ const AdminGameSetup: React.FC = () => {
       case AdminTabs.Channels:
         saveAction = handleSaveChannel
         break
+      case AdminTabs.Templates:
+        saveAction = handleSaveTemplate
+        break  
       default:
         saveAction = console.error
         break
@@ -273,6 +300,15 @@ const AdminGameSetup: React.FC = () => {
     }
   }
 
+  const onSidebarTemplatesClick = (template: TemplateBody) => {
+    if (!templates) {
+      dispatch(modalAction.open('unsavedTemplate', template))
+    } else {
+      dispatch(setTabSaved())
+      dispatch(setSelectedTemplate(template))
+    }
+  }
+
   const handleSaveWargameTitle = (newGameTitle: string) => {
     let wargameNames = wargameList.map((game) => game.title)
     wargameNames = _.pull(wargameNames, wargameTitle)
@@ -296,6 +332,8 @@ const AdminGameSetup: React.FC = () => {
       dispatch(setSelectedForce(forces.forces[0]))
     } else if (currentTab === 'channels' && channels.selectedChannel === '') {
       dispatch(setSelectedChannel(channels.channels[0]))
+    } else if (currentTab === 'templates' && templates.selectedTemplate === '') {
+      dispatch(setSelectedTemplate(templates.templates[0]))
     }
   }, [currentTab])
 
@@ -305,6 +343,32 @@ const AdminGameSetup: React.FC = () => {
       return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
     }
   }
+
+  const getSelectedTemplate = (): any => {
+    if (templates.selectedTemplate) {
+      const { _id } = templates.selectedTemplate as { _id: string }
+      return _id && templates.templates.find((template) => template._id === _id)
+    }
+  }
+
+  const onCreateTemplate = (templateBody: TemplateBody) => {
+    if (templates.dirty) {
+      dispatch(modalAction.open('unsavedForce', 'create-new'))
+    } else {
+      dispatch(setSelectedTemplate(templateBody))
+      
+      if (currentWargame) dispatch(saveTemplate(currentWargame, templateBody))
+    }
+  }
+
+  const onDeleteTemplate = ({ _id }: { _id: string }) => {
+    dispatch(modalAction.open('confirmDelete', { type: 'template', data: _id }))
+  }
+
+  const onDuplicateTemplate = ({ _id }: { _id: string }) => {
+    if (currentWargame) dispatch(duplicateTemplate(currentWargame, _id))
+  }
+  
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}
@@ -337,9 +401,19 @@ const AdminGameSetup: React.FC = () => {
       onDeleteChannel={onDeleteChannel}
       // @ts-ignore
       onDuplicateChannel={onDuplicateChannel}
+      onCreateTemplate={onCreateTemplate}
+      // @ts-ignore
+      onDeleteTemplate={onDeleteTemplate}
+      // @ts-ignore
+      onDuplicateTemplate={onDuplicateTemplate}
+      selectedTemplate={getSelectedTemplate()}
+      // @ts-ignore
+      onTemplateChange={handleFormChange}
+      onSidebarTemplatesClick={onSidebarTemplatesClick}
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
-      messageTemplates={templates?.templates || messageTypes.messages}
+      templates={templates.templates}
+      messageTemplates={templates.templates}
       onChangeWargameTitle={handleTitleChnage}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}

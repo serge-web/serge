@@ -10,7 +10,7 @@ import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, Me
 import { StoryFn } from '@storybook/react'
 import Props from './types/props'
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', overflow: 'auto' }}>{storyFn()}</div>
 
 export default {
   title: 'local/molecules/JsonEditor',

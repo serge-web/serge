@@ -3,8 +3,317 @@
 exports[`MessageCreator renders correctly 1`] = `
 Array [
   <div
+    className="alert alert-danger fade"
+    role="alert"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  >
+    <h5>
+      Schema:
+    </h5>
+     
+    
+  </div>,
+  <div
+    className="alert alert-danger fade"
+    role="alert"
+    style={
+      Object {
+        "display": "none",
+      }
+    }
+  >
+    <h5>
+      UI Schema:
+    </h5>
+     
+    
+  </div>,
+  <form
     className="form-group message-creator"
-  />,
+    noValidate={false}
+    onSubmit={[Function]}
+  >
+    <div
+      className="form-group field field-object"
+    >
+      <div
+        className="form-group"
+      >
+        <div
+          className="my-1"
+          id="root__title"
+        >
+          <h5>
+            Chat
+          </h5>
+          <hr
+            className="border-0 bg-secondary"
+            style={
+              Object {
+                "height": "1px",
+              }
+            }
+          />
+        </div>
+        <div
+          className="p-0 container-fluid"
+        >
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-boolean"
+              >
+                <div
+                  className="form-group"
+                >
+                  <input
+                    className="unchecked"
+                    onClick={[Function]}
+                    required={false}
+                    type="checkbox"
+                  />
+                  <label>
+                    completed
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_Reference"
+                  >
+                    Reference
+                  </label>
+                  <input
+                    aria-describedby="root_Reference__error root_Reference__description root_Reference__help"
+                    autoFocus={false}
+                    className="form-control"
+                    disabled={false}
+                    id="root_Reference"
+                    name="root_Reference"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder=""
+                    readOnly={false}
+                    required={false}
+                    type="text"
+                    value=""
+                  />
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-string"
+              >
+                <div
+                  className="form-group"
+                >
+                  <label
+                    className="form-label"
+                    htmlFor="root_Title"
+                  >
+                    Title
+                  </label>
+                  <input
+                    aria-describedby="root_Title__error root_Title__description root_Title__help"
+                    autoFocus={false}
+                    className="form-control"
+                    disabled={false}
+                    id="root_Title"
+                    name="root_Title"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    placeholder=""
+                    readOnly={false}
+                    required={false}
+                    type="text"
+                    value=""
+                  />
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="row"
+            style={
+              Object {
+                "marginBottom": "10px",
+              }
+            }
+          >
+            <div
+              className="col-12"
+            >
+               
+              <div
+                className="form-group field field-array"
+              >
+                <div
+                  className="form-group"
+                >
+                  <div>
+                    <div
+                      className="p-0 m-0 row"
+                    >
+                      <div
+                        className="p-0 m-0 col"
+                      >
+                        <div
+                          className="my-1"
+                          id="root_Forces__title"
+                        >
+                          <h5>
+                            Forces
+                          </h5>
+                          <hr
+                            className="border-0 bg-secondary"
+                            style={
+                              Object {
+                                "height": "1px",
+                              }
+                            }
+                          />
+                        </div>
+                        <div
+                          className="p-0 m-0 container-fluid"
+                        >
+                          <div
+                            className="container"
+                          >
+                            <div
+                              className="mt-2 row"
+                            >
+                              <div
+                                className="col-9"
+                              />
+                              <div
+                                className="py-4 col-lg-3 col-3 col-3"
+                              >
+                                <button
+                                  className="ml-1 array-item-add btn btn-primary"
+                                  disabled={false}
+                                  onClick={[Function]}
+                                  style={
+                                    Object {
+                                      "width": "100%",
+                                    }
+                                  }
+                                  title="Add Item"
+                                  type="button"
+                                >
+                                  <svg
+                                    fill="currentColor"
+                                    height="1em"
+                                    stroke="currentColor"
+                                    strokeWidth="0"
+                                    style={
+                                      Object {
+                                        "color": undefined,
+                                      }
+                                    }
+                                    viewBox="0 0 16 16"
+                                    width="1em"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      clipRule="evenodd"
+                                      d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z"
+                                      fillRule="evenodd"
+                                    />
+                                    <path
+                                      clipRule="evenodd"
+                                      d="M7.5 8a.5.5 0 01.5-.5h4a.5.5 0 010 1H8.5V12a.5.5 0 01-1 0V8z"
+                                      fillRule="evenodd"
+                                    />
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-group"
+    >
+      <button
+        className="btn btn-action btn-action--form btn-action--cancel"
+        name="cancel"
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          Cancel
+        </span>
+      </button>
+      <button
+        className="btn btn-action btn-action--form btn-action--send-message"
+        name="send"
+      >
+        <span>
+          Send Message
+        </span>
+      </button>
+    </div>
+  </form>,
   <div
     className="flex-content form-group"
   >
@@ -24,28 +333,6 @@ Array [
       onChange={[Function]}
       value=""
     />
-  </div>,
-  <div
-    className="form-group"
-  >
-    <button
-      className="btn btn-action btn-action--form btn-action--cancel"
-      name="cancel"
-      onClick={[Function]}
-    >
-      <span>
-        Cancel
-      </span>
-    </button>
-    <button
-      className="btn btn-action btn-action--form btn-action--send-message"
-      name="send"
-      onClick={[Function]}
-    >
-      <span>
-        Send Message
-      </span>
-    </button>
   </div>,
 ]
 `;

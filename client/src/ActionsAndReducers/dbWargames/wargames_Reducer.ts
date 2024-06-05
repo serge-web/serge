@@ -5,7 +5,7 @@ import * as wargamesHandlers from './helpers/wargamesHandlers'
 import { dbDefaultSettings } from 'src/config'
 import { 
   WargamesState, WargameActionTypes, AllWargameNameSaved, SetCurrentWargame, SetGameSetupData, setWargameTitle, AddNewRecipient, RemoveRecipient, ActionHandler,
-  SetCurrentGameSetupTab, AddNewForce, SetForceColor, AddNewChannel, SetSelectedChannel, AddRoleToForce, RemoveRoleFromForce, AddIcon, SetSelectedForce
+  SetCurrentGameSetupTab, AddNewForce, SetForceColor, AddNewChannel, SetSelectedChannel, AddRoleToForce, RemoveRoleFromForce, AddIcon, SetSelectedForce, SetSelectedTemplate
 } from 'src/custom-types'
 
 const initialState: WargamesState = {
@@ -35,6 +35,7 @@ const handlers: Record<string, ActionHandler> = {
   [ActionConstant.ADD_NEW_FORCE]: (newState, action, tab) => wargamesHandlers.handleAddNewForce(newState, (action as AddNewForce).payload, tab),
   [ActionConstant.SET_FORCE_COLOR]: (newState, action, tab) => wargamesHandlers.handleSetForceColor(newState, (action as SetForceColor).payload, tab),
   [ActionConstant.SET_SELECTED_FORCE]: (newState, action) => wargamesHandlers.handleSetSelectedForce(newState, (action as SetSelectedForce).payload),
+  [ActionConstant.SET_SELECTED_TEMPLATE]: (newState, action) => wargamesHandlers.handleSetSelectedTemplate(newState, (action as SetSelectedTemplate).payload),
   [ActionConstant.ADD_NEW_CHANNEL]: (newState, action, tab) => wargamesHandlers.handleAddNewChannel(newState, (action as AddNewChannel).payload, tab),
   [ActionConstant.SET_SELECTED_CHANNEL]: (newState, action, tab) => wargamesHandlers.handleSetSelectedChannel(newState, (action as SetSelectedChannel).payload, tab),
   [ActionConstant.DELETE_SELECTED_CHANNEL]: (newState, action, tab) => wargamesHandlers.handleDeleteSelectedChannel(newState, (action as SetSelectedChannel).payload, tab),

@@ -263,6 +263,201 @@ const wargame: Wargame = {
       timeWarning: 60000,
       logPlayerActivity: true,
       turnPresentation: 'Natural'
+    },
+    templates: {
+      name: 'templates',
+      selectedTemplate: '',
+      dirty: false,
+      templates: [
+        {
+          lastUpdated: '2019-09-30T12:37:26.705Z',
+          title: 'Chat',
+          details: {
+            schema: {
+              type: 'object',
+              properties: {
+                Chat: {
+                  title: 'Chat',
+                  type: 'string',
+                  description: 'content',
+                  default: 'type the text '
+                }
+              },
+              dependencies: {},
+              required: []
+            },
+            uischema: {
+              Chat: {
+                'ui:widget': 'textarea'
+              },
+              'ui:order': [
+                'Chat'
+              ]
+            },
+            title: 'Chat'
+          },
+          completed: false,
+          _id: 'k16eedkl',
+          _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
+        },
+        {
+          completed: false,
+          details: {
+            schema: {
+              type: 'object',
+              title: 'State of World (laydown 2)',
+              properties: {
+                completed: {
+                  title: 'completed',
+                  type: 'boolean'
+                },
+                Reference: {
+                  title: 'Reference',
+                  type: 'string'
+                },
+                Title: {
+                  title: 'Title',
+                  type: 'string'
+                },
+                Forces: {
+                  items: {
+                    type: 'object',
+                    properties: {
+                      Forces: {
+                        enum: [
+                          'Blue',
+                          'Red',
+                          'Green'
+                        ],
+                        type: 'string',
+                        title: 'Forces'
+                      }
+                    },
+                    dependencies: {},
+                    required: []
+                  },
+                  title: 'Forces',
+                  type: 'array'
+                }
+              },
+              dependencies: {},
+              required: []
+            },
+            uischema: {
+              Forces: {
+                items: {
+                  'ui:order': [
+                    'Forces'
+                  ]
+                }
+              },
+              'ui:order': [
+                'completed',
+                'Reference',
+                'Title',
+                'Forces'
+              ]
+            },
+            title: 'State of World L'
+          },
+          lastUpdated: '2019-09-30T12:37:26.705Z',
+          title: 'State of World L',
+          _id: 'k16eedkp',
+          _rev: '1-612d7dc5d10fc81bc7459b2801c66816'
+        },
+        {
+          lastUpdated: '2019-09-30T12:37:26.705Z',
+          title: 'Daily intentions',
+          details: {
+            schema: {
+              type: 'object',
+              properties: {
+                TurnNumber: {
+                  title: 'Turn',
+                  type: 'string'
+                },
+                OverallIntentions: {
+                  title: 'Overall intentions',
+                  type: 'string'
+                },
+                orders: {
+                  items: {
+                    type: 'object',
+                    title: '',
+                    properties: {
+                      Unit: {
+                        title: 'Unit',
+                        type: 'string'
+                      },
+                      Tasking: {
+                        title: 'Tasking',
+                        type: 'string'
+                      },
+                      'Search Policy': {
+                        title: 'Search Policy',
+                        type: 'string'
+                      },
+                      'Action on Contact': {
+                        enum: [
+                          'Ignore',
+                          'Evade',
+                          'Covert Trail',
+                          'Overt Trail',
+                          'Harass'
+                        ],
+                        title: 'Action on Contact',
+                        type: 'string',
+                        enumNames: null
+                      },
+                      'Any other comments': {
+                        title: 'Any other comments',
+                        type: 'string'
+                      }
+                    },
+                    dependencies: {},
+                    required: []
+                  },
+                  title: 'orders',
+                  type: 'array'
+                }
+              },
+              dependencies: {},
+              required: []
+            },
+            uischema: {
+              orders: {
+                items: {
+                  Tasking: {
+                    'ui:widget': 'textarea'
+                  },
+                  'Search Policy': {
+                    'ui:widget': 'textarea'
+                  },
+                  'Any other comments': {
+                    'ui:widget': 'textarea'
+                  },
+                  'ui:order': [
+                    'Unit',
+                    'Tasking',
+                    'Search Policy',
+                    'Action on Contact',
+                    'Any other comments'
+                  ]
+                }
+              },
+              'ui:order': [
+                'TurnNumber',
+                'OverallIntentions',
+                'orders'
+              ]
+            },
+            title: 'Daily Intent'
+          },
+          completed: false,
+          _id: 'k16eedkn',
+          _rev: '1-cc8e8cdb01447959c266761066448382'
+        }
+      ]
     }
   },
   gameTurn: 3,
