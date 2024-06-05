@@ -39,7 +39,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   modifyForSave
 }) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
-  const [formMessage, setFormMessage] = useState<any>()
+  const [formMessage, setFormMessage] = useState<any>({})
   const [clearForm, setClearForm] = useState(false)
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
@@ -85,7 +85,6 @@ const MessageCreator: React.FC<PropTypes> = ({
       details.privateMessage = privateMessageRef.current.value
       privateMessageRef.current.value = ''
     }
-
     if (isEmpty(formMessage)) return
 
     // send the data
