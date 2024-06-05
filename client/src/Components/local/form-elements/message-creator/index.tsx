@@ -85,6 +85,7 @@ const MessageCreator: React.FC<PropTypes> = ({
       details.privateMessage = privateMessageRef.current.value
       privateMessageRef.current.value = ''
     }
+
     if (isEmpty(formMessage)) return
 
     // send the data
