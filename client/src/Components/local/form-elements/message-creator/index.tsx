@@ -16,7 +16,6 @@ import React, { createRef, MouseEvent, useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 
 import PropTypes from './types/props'
-import { isEmpty } from 'lodash'
 
 const MessageCreator: React.FC<PropTypes> = ({
   schema,
@@ -39,10 +38,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   modifyForSave
 }) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
-<<<<<<< HEAD
-  const [formMessage, setFormMessage] = useState<any>({})
-=======
->>>>>>> 37ad552c7e350a784d8715ec2e16c1f67cdf6b22
   const [clearForm, setClearForm] = useState(false)
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
@@ -91,7 +86,6 @@ const MessageCreator: React.FC<PropTypes> = ({
 
     // send the data
     setPrivateValue('')
-    setFormMessage({})
     setClearForm(!clearForm)
     postBack && postBack(details, val, messageOption, CUSTOM_MESSAGE)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
