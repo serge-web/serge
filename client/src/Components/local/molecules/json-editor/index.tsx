@@ -1,4 +1,4 @@
-import { TemplateBody } from 'src/custom-types'
+import { TemplateBody, MessageStructure } from 'src/custom-types'
 import {
   Alert
 } from 'reactstrap'
@@ -55,7 +55,7 @@ export const JsonEditor: React.FC<Props> = ({
   const [schema, setSchema] = useState({}) 
   const [uischema, setUiSchema] = useState({})
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
-  const [formData, setFormData] = useState<FormData>({})
+  const [formData, setFormData] = useState<FormData | MessageStructure | undefined>(messageContent)
   const validator = customizeValidator<FormData>()
   
   const prevTemplates: TemplateBody = usePrevious(messageId)
@@ -107,11 +107,11 @@ export const JsonEditor: React.FC<Props> = ({
       })
     }
   }
-
   const handleChange = (newFormData: IChangeEvent<FormData>) => { 
     //   /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
     //    * convert them
     //    */
+
     setFormData(newFormData.formData as any)
     const fixedDate = fixDate(newFormData.formData as any)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
@@ -152,6 +152,20 @@ export const JsonEditor: React.FC<Props> = ({
       setConfirmIsOpen(true)
     }
   }
+
+  useEffect(() => {
+    const clearFormData = () => {
+      const newFormData = {}
+      for (const key in formData) {
+        newFormData[key] = ''
+      }
+      setFormData(newFormData)
+    }
+
+    if (clearForm || prevTemplates) {
+      clearFormData()
+    }
+  }, [clearForm, prevTemplates])
   
   useEffect(() => {
     if (template.details && template.details.schema) {
@@ -167,26 +181,12 @@ export const JsonEditor: React.FC<Props> = ({
       const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema
       const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
       const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
-      setFormData({})
+      setFormData(messageContent || {})
       
       setSchema(schemaWithTitle)
       setUiSchema(uischema)
     }
   }, [template, gameDate, messageContent, customiseTemplate, prevTemplates, title, clearForm])
-
-  useEffect(() => {
-    const clearFormData = () => {
-      const newFormData = {}
-      for (const key in formData) {
-        newFormData[key] = ''
-      }
-      setFormData(newFormData)
-    }
-
-    if (clearForm || prevTemplates) {
-      clearFormData()
-    }
-  }, [clearForm, prevTemplates])
 
   function checkError (text: any) {
     let data
@@ -222,7 +222,6 @@ export const JsonEditor: React.FC<Props> = ({
   )
   const schemaError = checkError(schema)
   const schemaUiError = checkError(uischema)
-
   return (
     <>
       <Alert
