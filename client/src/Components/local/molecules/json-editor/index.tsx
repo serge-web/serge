@@ -37,6 +37,7 @@ export const JsonEditor: React.FC<Props> = ({
   disabled = false,
   gameDate,
   clearForm,
+  viewSaveButton = false,
   modifyForSave,
   children
 }) => {
@@ -210,22 +211,28 @@ export const JsonEditor: React.FC<Props> = ({
               onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}
               disabled={disabled}
             >
-              <div className="form-group">
-                <button
-                  name="cancel"
-                  className="btn btn-action btn-action--form btn-action--cancel"
-                  type='button'
-                  onClick={openCancelConfirmPopup}
-                >
-                  <span>Cancel</span>
-                </button>
-                <button
-                  name="send"
-                  className="btn btn-action btn-action--form btn-action--send-message"
-                >
-                  <span>Send Message</span>
-                </button>
-              </div>
+              { 
+                <div className="form-group">
+                  { viewSaveButton && 
+                <>
+                  <button
+                    name="cancel"
+                    className="btn btn-action btn-action--form btn-action--cancel"
+                    type='button'
+                    onClick={openCancelConfirmPopup}
+                  >
+                    <span>Cancel</span>
+                  </button>
+                  <button
+                    name="send"
+                    className="btn btn-action btn-action--form btn-action--send-message"
+                  >
+                    <span>Send Message</span>
+                  </button>
+                </>
+                  }
+                </div>
+              }
             </Form> 
           </ErrorBoundary>
           

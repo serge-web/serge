@@ -151,6 +151,7 @@ const MessageCreator: React.FC<PropTypes> = ({
         formClassName={'form-group message-creator'}
         title={messageOption}
         disabled={false}
+        viewSaveButton={true}
         gameDate={gameDate}
         clearForm={clearForm}
         messageContent={messageContent}

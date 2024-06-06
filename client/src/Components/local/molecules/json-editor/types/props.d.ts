@@ -81,6 +81,7 @@ export default interface Props {
   // to enter dates
   gameDate?: string
   formClassName?: string
+  viewSaveButton?: boolean
   /**
    *  modify document prior to rendering in JSON editor
    */
