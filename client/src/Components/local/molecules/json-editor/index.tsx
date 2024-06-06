@@ -122,6 +122,7 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const handleSubmit = (newFormData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     const fixedDate = fixDate(newFormData.formData as any)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
     if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
@@ -171,7 +172,7 @@ export const JsonEditor: React.FC<Props> = ({
     if (template.details && template.details.schema) {
       const { schema, uischema } = template.details
       const jsonSchema = schema
-  
+
       // Initialize date editors if necessary
       if (gameDate) {
         console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
@@ -222,6 +223,7 @@ export const JsonEditor: React.FC<Props> = ({
   )
   const schemaError = checkError(schema)
   const schemaUiError = checkError(uischema)
+
   return (
     <>
       <Alert
