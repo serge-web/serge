@@ -158,6 +158,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                   <MenuItem disabled>Special channels</MenuItem>
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_COLLAB)} >Collab Edit</MenuItem>
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_CHAT)} >Chat</MenuItem>
+                  <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_CORE_MAPPING)} >Core Mapping</MenuItem>
                 </MenuList>
               </ClickAwayListener>
             </Paper>
