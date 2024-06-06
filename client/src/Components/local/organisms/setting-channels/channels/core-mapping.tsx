@@ -57,6 +57,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   const [editParticipants, setEditParticipants] = useState<EditParticipantType>(initialEditParticipant)
   const [editInline, setEditInline] = useState<number>(-1)
   const [deletingParticipant, setDeletingParticipant] = useState<any>()
+  const [deletingProp, setDeletingProp] = useState<PropertyType>()
   const [deletingRenderer, setDeletingRenderer] = useState<string>('')
 
   useEffect(() => {
@@ -221,7 +222,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
         editParticipants.tableData.forEach(row => {
           const permissionTo = []
           if (row.editProp) {
-            permissionTo.push(MappingPermissions.ViewProps)
+            permissionTo.push(MappingPermissions.EditOwnProps)
           }
           if (row.editRemoveFeature) {
             permissionTo.push(MappingPermissions.EditAllProps)
@@ -357,12 +358,13 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     setEditParticipants(cloneEditParticipant)
   }
 
-  const removePropRow = (row: PropertyType) => {
+  const removePropRow = () => {
     const renderer: BaseRenderer = localChannel.renderers.find(r => r.id === selectedRenderer)
     if (renderer) {
-      renderer.baseProps = renderer.baseProps.filter(prop => prop.id !== row.id)
-      renderer.additionalProps = renderer.additionalProps.filter(prop => prop.id !== row.id)
+      renderer.baseProps = renderer.baseProps.filter(prop => prop.id !== deletingProp?.id)
+      renderer.additionalProps = renderer.additionalProps.filter(prop => prop.id !== deletingProp?.id)
       setLocalChannel(cloneDeep(localChannel))
+      setDeletingProp(undefined)
     }
   }
 
@@ -411,6 +413,13 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
         message='Are you sure that you want to delete this participant?'
         onCancel={() => setDeletingParticipant(undefined)}
         onConfirm={onRemoveParticipants}
+        modalStyle={{ content: { width: '40%' } }}
+      />
+      <Confirm
+        isOpen={!!deletingProp}
+        message='Are you sure that you want to delete this property?'
+        onCancel={() => setDeletingProp(undefined)}
+        onConfirm={removePropRow}
         modalStyle={{ content: { width: '40%' } }}
       />
       <Confirm
@@ -541,7 +550,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
             /> */}
             <div style={{ marginBottom: '30px' }}></div>
             <span className={styles.itemTitle}>Additional Properties</span>
-            <SimpleTable columns={AdditionalPropcolumns} data={properties} onEdit={setEditProperty} onRemove={removePropRow} />
+            <SimpleTable columns={AdditionalPropcolumns} data={properties} onEdit={setEditProperty} onRemove={setDeletingProp} />
             {localChannel.renderers.length > 0 && <AddButton options={AddPropOpts} onChange={onAddNewProp} />}
           </Box>
         </Box>
