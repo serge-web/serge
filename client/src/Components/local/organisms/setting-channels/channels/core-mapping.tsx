@@ -1,4 +1,4 @@
-import { faIcons, faPlusCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPlusCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   Box,
@@ -16,7 +16,7 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import Confirm from 'src/Components/local/atoms/confirm'
 import CustomDialog from 'src/Components/local/atoms/custom-dialog'
 import Tabs from 'src/Components/local/atoms/tabs'
-import { BaseRenderer, ForceData, MappingPermissions, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, PropertyType } from 'src/custom-types'
+import { BaseRenderer, ForceData, MappingPermissions, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType } from 'src/custom-types'
 import { ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
 import { AddButton, AdditionalPropcolumns, ButtonOptions, CoreMappingTabs, EditParticipantColumns, EditParticipantType, ParticipantColumns, PhaseOptions, RendererOptions, SimpleSelect, SimpleTable, ZoomOptions } from '../helpers/coreMapping'
 import styles from '../styles.module.scss'
@@ -59,6 +59,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   const [deletingParticipant, setDeletingParticipant] = useState<any>()
   const [deletingProp, setDeletingProp] = useState<PropertyType>()
   const [deletingRenderer, setDeletingRenderer] = useState<string>('')
+  const [rolesOptions, setRoleOptions] = useState<string[]>([])
 
   useEffect(() => {
     setLocalChannel(channel as unknown as ChannelMapping)
@@ -125,7 +126,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   }, [localChannel])
 
   const getOthersData = (prop: PropertyType) => {
-    if (prop['format']) {
+    if (prop['format'] !== undefined) {
       return `Format: ${prop['format']}`
     }
     if (prop['lines'] !== undefined) {
@@ -182,9 +183,19 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     setDeletingParticipant(undefined)
   }
 
+  const getRolesForParticipant = (participant: ParticipantMapping) => {
+    const force = forces.find(f => f.uniqid === participant.forceUniqid)
+    if (force) {
+      return (force.roles || []).map(r => r.roleId)
+    }
+    return participant.roles
+  }
+
   const onEditParticipant = (row: any) => {
     const editParticipant = localChannel.participants.find(p => p.subscriptionId === row.id)
     if (editParticipant) {
+      const rolesOpts = getRolesForParticipant(editParticipant)
+      setRoleOptions(rolesOpts)
       const editingParticipant: EditParticipantType = {
         tableData: [],
         force: editParticipant.forceUniqid || 'N/A',
@@ -442,7 +453,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box sx={{ width: '49%' }}>
               <SimpleSelect title="Force" value={editParticipants.force} options={[editParticipants.force]} labelWidth="80px" onChange={noop} />
-              <SimpleSelect title="Role" value={editParticipants.roles} options={editParticipants.roles} labelWidth="80px" onChange={(e) => onEditParticipantChange('roles', e.target.value as string[])} multiple/>
+              <SimpleSelect title="Role" value={editParticipants.roles} options={rolesOptions} labelWidth="80px" onChange={(e) => onEditParticipantChange('roles', e.target.value as string[])} multiple/>
             </Box>
             <Box sx={{ width: '49%' }}>
               <SimpleSelect title="Renderer" value={editParticipants.renderers} options={RendererOptions} labelWidth="80px" onChange={(e) => onEditParticipantChange('renderers', e.target.value as string[])} multiple/>
@@ -491,15 +502,16 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
                     labelPlacement="start"
                   />
                 </Box>
+              // case 'icon':
+              //   return <Box key={idx}>
+              //     <FormControlLabel
+              //       style={{ marginLeft: '0' }}
+              //       control={<FontAwesomeIcon icon={faIcons} size='2x'/>}
+              //       label={<span style={{ minWidth: '90px', display: 'block' }}>Icon</span>}
+              //       labelPlacement="start"
+              //     />
+              //   </Box>
               case 'icon':
-                return <Box key={idx}>
-                  <FormControlLabel
-                    style={{ marginLeft: '0' }}
-                    control={<FontAwesomeIcon icon={faIcons} size='2x'/>}
-                    label={<span style={{ minWidth: '90px', display: 'block' }}>Icon</span>}
-                    labelPlacement="start"
-                  />
-                </Box>
               case 'id':
               case 'others':
                 return <Fragment key={idx}></Fragment>
