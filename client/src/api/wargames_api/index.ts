@@ -808,5 +808,5 @@ export const getAllMessages = (dbName: string): Promise<Message[]> => {
 
 export const getAllWargames = async (): Promise<WargameRevision[]> => {
   const wargameList = await fetchWargameList()
-  return wargameList
+  return wargameList.data
 }
