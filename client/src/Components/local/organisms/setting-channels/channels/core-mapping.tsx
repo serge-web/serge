@@ -83,7 +83,6 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
               label: prop.label,
               description: prop.description,
               playerEditable: prop.playerEditable || false,
-              icon: prop.icon || 'N/A',
               id: prop.id,
               others: getOthersData(prop)
             })
@@ -94,7 +93,6 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
               label: prop.label,
               description: prop.description,
               playerEditable: prop.playerEditable || false,
-              icon: prop.icon || 'N/A',
               id: prop.id,
               others: getOthersData(prop)
             })
@@ -331,7 +329,6 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
           choices: [],
           label: 'New Property',
           type: value,
-          icon: 'N/A',
           playerEditable: true,
           description: 'Property description'
         }
