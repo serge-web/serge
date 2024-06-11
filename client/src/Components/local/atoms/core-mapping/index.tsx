@@ -48,8 +48,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     console.log('panning map to', lat, lng)
     // const map = useMap()
     //    map.flyTo([lat, lng], 13)
-    const map = L.map('map')
-    map.setView([lat, lng], 13)
+    // const map = L.map('map')
+    // map.setView([lat, lng], 13)
   }
 
   const bounds = L.latLngBounds(channel.constraints.bounds)
