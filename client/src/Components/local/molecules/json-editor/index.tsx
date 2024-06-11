@@ -1,4 +1,4 @@
-import { TemplateBody } from 'src/custom-types'
+import { TemplateBody, MessageStructure } from 'src/custom-types'
 import {
   Alert
 } from 'reactstrap'
@@ -44,7 +44,7 @@ export const JsonEditor: React.FC<Props> = ({
   const [schema, setSchema] = useState({}) 
   const [uischema, setUiSchema] = useState({})
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
-  const [formData, setFormData] = useState<FormData>({})
+  const [formData, setFormData] = useState<FormData | MessageStructure | undefined>(messageContent)
   const validator = customizeValidator<FormData>()
   
   const prevTemplates: TemplateBody = usePrevious(messageId)
@@ -96,11 +96,11 @@ export const JsonEditor: React.FC<Props> = ({
       })
     }
   }
-
   const handleChange = (newFormData: IChangeEvent<FormData>) => { 
     //   /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
     //    * convert them
     //    */
+
     setFormData(newFormData.formData as any)
     const fixedDate = fixDate(newFormData.formData as any)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
@@ -111,6 +111,7 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const handleSubmit = (newFormData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     const fixedDate = fixDate(newFormData.formData as any)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
     if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
@@ -118,27 +119,7 @@ export const JsonEditor: React.FC<Props> = ({
       setSelectOptionsHeaders()
     }
   }
-    
-  useEffect(() => {
-    if (template.details && template.details.schema) {
-      const { schema, uischema } = template.details
-      const jsonSchema = schema
   
-      // Initialize date editors if necessary
-      if (gameDate) {
-        console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
-      }
-
-      // Apply modifications to the schema
-      const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema
-      const customizedSchema = modSchema
-      const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
-      
-      setSchema(schemaWithTitle)
-      setUiSchema(uischema)
-    }
-  }, [template, gameDate, messageContent, prevTemplates, title, clearForm])
-
   useEffect(() => {
     const clearFormData = () => {
       const newFormData = {}
@@ -152,6 +133,27 @@ export const JsonEditor: React.FC<Props> = ({
       clearFormData()
     }
   }, [clearForm, prevTemplates])
+  
+  useEffect(() => {
+    if (template.details && template.details.schema) {
+      const { schema, uischema } = template.details
+      const jsonSchema = schema
+
+      // Initialize date editors if necessary
+      if (gameDate) {
+        console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
+      }
+
+      // Apply modifications to the schema
+      const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema
+      const customizedSchema = modSchema
+      const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
+      setFormData(messageContent || {})
+      
+      setSchema(schemaWithTitle)
+      setUiSchema(uischema)
+    }
+  }, [template, gameDate, messageContent, prevTemplates, title, clearForm])
 
   function checkError (text: any) {
     let data
