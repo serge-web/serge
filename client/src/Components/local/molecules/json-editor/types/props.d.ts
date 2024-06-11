@@ -22,7 +22,6 @@ export type UISchemas = {
 }
 
 export interface FormProps {
-  id?: string
   uiSchema: Record<string, unknown>
   schema: Record<string, unknown>
   onSubmit?: any
@@ -60,12 +59,7 @@ export default interface Props {
    * title to display above the form
    */
   title?: string
-  saveMessage?: () => void
-
-  // Called when user cancels document edit
-  onCancelEdit?: () => void
   openCancelConfirmPopup?: (event: React.MouseEvent<HTMLButtonElement>) => void
-  confirmCancel?: boolean
   /**
    * whether the form is editable (disable for read-only view)
    */
@@ -76,31 +70,18 @@ export default interface Props {
    * the underlying issue was fixed.
    */
   saveEditedMessage?: boolean
-  /**
-   * in read view (disabled) make textarea items tall enough to view all contents
-   */
-  // expandHeight?: boolean
   /** flag from parent class to clear the form, possibly on
    * send or cancel. The value toggles between states on update,
    * rather than requiring a specific true/false value
    */
   clearForm?: boolean
   /** current game time, used for initialising date-time controls */
-  // NOTE: provide game date using `customiseTemplate` helper. This allows
   // you to specify the default value in the schema, rather than the document itself
   // in that way - validation can be applied to the field - forcing the user
   // to enter dates
   gameDate?: string
-  /** disable/enable Array tools with form */
-  // disableArrayToolsWithEditor?: boolean
   formClassName?: string
-  formId?: string
   viewSaveButton?: boolean
-  /**
-   *  method to customize template, potentially filling any drop-downs
-   */
-  customiseTemplate?: { (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }
-
   /**
    *  modify document prior to rendering in JSON editor
    */

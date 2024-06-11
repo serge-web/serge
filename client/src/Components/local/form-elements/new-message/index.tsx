@@ -24,7 +24,6 @@ const NewMessage: React.FC<PropTypes> = ({
   saveCachedNewMessageValue,
   getCachedNewMessagevalue,
   clearCachedNewMessage,
-  customiseTemplate,
   draftMessage,
   title,
   hideTemplateSelector,
@@ -149,7 +148,6 @@ const NewMessage: React.FC<PropTypes> = ({
           selectedRole={selectedRole}
           selectedRoleName={selectedRoleName}
           postBack={postBack}
-          customiseTemplate={customiseTemplate}
           draftMessage={draftMessage}
           modifyForEdit={modifyForEdit}
           modifyForSave={modifyForSave}

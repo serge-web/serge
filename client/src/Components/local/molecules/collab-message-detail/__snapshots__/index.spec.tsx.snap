@@ -521,25 +521,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
     </div>
     <div
       className="form-group"
-    >
-      <button
-        className="btn btn-action btn-action--form btn-action--cancel"
-        name="cancel"
-        type="button"
-      >
-        <span>
-          Cancel
-        </span>
-      </button>
-      <button
-        className="btn btn-action btn-action--form btn-action--send-message"
-        name="send"
-      >
-        <span>
-          Send Message
-        </span>
-      </button>
-    </div>
+    />
   </form>
   <div
     className="main theme-dark disabled"
