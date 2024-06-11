@@ -268,7 +268,6 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }
 
   const centerFor = (geometry: Geometry): [number, number] => {
-    console.log('type:', geometry.type)
     if (geometry.type === 'Point') {
       return [geometry.coordinates[0], geometry.coordinates[1]]
     }
