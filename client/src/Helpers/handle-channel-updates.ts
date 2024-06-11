@@ -31,7 +31,6 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
     data.chatChannel.messages.unshift(deepCopy(message))
   } else if (data.channels[channel]) {
     const theChannel: ChannelUI = data.channels[channel]
-
     // create the messages array, if necessary
     if (theChannel.messages === undefined) {
       theChannel.messages = []
@@ -70,15 +69,17 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       hasBeenRead: ourMessage,
       isOpen: false
     }
-
     // if this is a collab channel, we need the newest version of the message, else we ditch duplicates
     if (theChannel.cData.channelType === CHANNEL_COLLAB) {
-      // strip out old versions of this message
-      const cleanOldVersions = theChannel.messages.filter((msg: MessageChannel) => msg._id !== message._id)
-      // append the new message
-      cleanOldVersions.unshift(message)
-      
-      theChannel.messages = cleanOldVersions
+      // Find the index of the existing message
+      const existingMessageIndex = theChannel.messages.findIndex((msg: MessageChannel) => msg._id === message._id)
+
+      if (existingMessageIndex !== -1) {
+        theChannel.messages[existingMessageIndex] = message
+      } else {
+        // Add the new message to the beginning of the array
+        theChannel.messages.unshift(message)
+      }
     } else {
       // check the channel doesn't already contain the message
       // we can mistakenly register for updates twice, which gives the appearance

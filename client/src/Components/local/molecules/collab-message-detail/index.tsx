@@ -217,7 +217,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
   /** any feedback in the message */
   const feedback = collaboration.feedback
   const haveData = state !== undefined && permission !== undefined
-
+  
   // special case. If the message is `in-progress`, we only generate actions for `save` or `submit` if this is the owner
   const inProgress = state === CollaborativeMessageStates.InProgress
   const saveOrSubmit = permission >= CollaborativePermission.CanEdit

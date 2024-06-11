@@ -141,7 +141,7 @@ export const genData = (
     extraCols.push(...newCols)
   }
   columns.push(...extraCols)
-
+  
   const rows: Row[] = messages.map((message): Row => {
     const collab = message.details.collaboration
     const ownerRole = (collab && collab.owner) || undefined
