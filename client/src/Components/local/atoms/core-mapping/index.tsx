@@ -64,8 +64,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     setIsMeasuring
   ])
 
-  // const bounds = L.latLngBounds(channel.constraints.bounds)
-  const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
+  const bounds = L.latLngBounds(channel.constraints.bounds)
+  // const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
   useEffect(() => {
     loadDefaultMarker()
