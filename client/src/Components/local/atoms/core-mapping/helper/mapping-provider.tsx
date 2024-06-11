@@ -11,6 +11,7 @@ type MappingStateValue = {
   setLocalPanelSize: (oanelSize: PanelSize) => void
   isMeasuring: boolean
   setIsMeasuring: (isMeasuring: boolean) => void
+  panTo: (lat: number, lng: number) => void
 }
 
 const initialState: MappingStateValue = {
@@ -21,7 +22,8 @@ const initialState: MappingStateValue = {
   localPanelSize: undefined,
   setLocalPanelSize: noop,
   isMeasuring: false,
-  setIsMeasuring: noop
+  setIsMeasuring: noop,
+  panTo: noop
 }
 const MappingState = createContext<MappingStateValue>(initialState)
 
