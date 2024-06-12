@@ -2,6 +2,7 @@
  * list the possible phases in a wargame
  */
 export enum Phase {
+  // note: ensure case is same as in globals file
   /* players are planning their next turn
    */
   Planning = 'planning',
