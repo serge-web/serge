@@ -119,7 +119,7 @@ CollaborativeEditEditor.args = {
   channelColb: channelCollaborativeEditing2,
   messages: mostColabEditMock,
   isObserver: false,
-  isUmpire: false,
+  isUmpire: true,
   role: blueCollaborator2,
   templates: MessageTemplatesMockByKey
 }
