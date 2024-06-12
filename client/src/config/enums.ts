@@ -1,14 +1,12 @@
-import { ADJUDICATION_PHASE, PLANNING_PHASE } from "./globals";
-
 /**
  * list the possible phases in a wargame
  */
 export enum Phase {
   /* players are planning their next turn
    */
-  Planning = PLANNING_PHASE,
+  Planning = 'planning',
   /** umpire is resolving planned turns */
-  Adjudication = ADJUDICATION_PHASE
+  Adjudication = 'adjudication'
 }
 
 /** increasing permissions in a collaborative editing channel
