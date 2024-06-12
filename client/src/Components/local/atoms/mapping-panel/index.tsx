@@ -69,7 +69,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   const itemPanel = useRef<ImperativePanelHandle | null>(null)
   const propertyPanel = useRef<ImperativePanelHandle | null>(null)
   
-  const { setFilterFeatureIds, deselecteFeature } = useMappingState()
+  const { setFilterFeatureIds, deselecteFeature, panTo } = useMappingState()
 
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
@@ -265,6 +265,19 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
     clonePendingSaveFeatures.features = localFeatures
     setPendingSaveFeatures(clonePendingSaveFeatures)
     setDisableSave(isEqual(features?.features, localFeatures))
+  }
+
+  const centerFor = (geometry: Geometry): [number, number] => {
+    if (geometry.type === 'Point') {
+      return [geometry.coordinates[0], geometry.coordinates[1]]
+    }
+    if (geometry.type === 'Polygon') {
+      const coords = geometry.coordinates[0]
+      const x = coords.reduce((acc, c) => acc + c[0], 0) / coords.length
+      const y = coords.reduce((acc, c) => acc + c[1], 0) / coords.length
+      return [x, y]
+    }
+    return [0, 0]
   }
 
   const onPropertiesChange = (key: string, value: any) => {
@@ -473,7 +486,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           <div className={styles.itemsResponsive}>
             {filteredFeatures?.features.map((feature, idx) => {
               const color = colorFor(feature.properties?.force, forceStyles)
-              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
+              const center = centerFor(feature.geometry)
+              const mapPanTo = () => {
+                // pan to the center of the feature
+                panTo(center[1], center[0])
+              }
+              return <IconRenderer onPan={mapPanTo} key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
             })}
           </div>
         }

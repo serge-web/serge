@@ -15,7 +15,6 @@ import { hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-pe
 
 export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
-  console.log('forceStyle', forceStyle, force, forceStyles)
   return forceStyle ? forceStyle.color : '#F0F'
 }
 

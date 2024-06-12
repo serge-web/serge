@@ -44,6 +44,17 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
 
   const SEND_MAPPING_DELTA_MESSAGES = false
 
+  const panTo = (lat: number, lng: number) => {
+    console.log('panning map to', lat, lng)
+    // const map = useMap()
+    //    map.flyTo([lat, lng], 13)
+    // const map = L.map('map')
+    // map.setView([lat, lng], 13)
+  }
+
+  const bounds = L.latLngBounds(channel.constraints.bounds)
+  // const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
+
   const mappingProviderValue = useMemo(() => ({
     filterFeatureIds,
     setFilterFeatureIds,
@@ -52,7 +63,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     localPanelSize,
     setLocalPanelSize,
     isMeasuring,
-    setIsMeasuring
+    setIsMeasuring,
+    panTo
   }), [
     filterFeatureIds,
     setFilterFeatureIds,
@@ -61,11 +73,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     localPanelSize,
     setLocalPanelSize,
     isMeasuring,
-    setIsMeasuring
+    setIsMeasuring,
+    panTo
   ])
-
-  // const bounds = L.latLngBounds(channel.constraints.bounds)
-  const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
   useEffect(() => {
     loadDefaultMarker()
