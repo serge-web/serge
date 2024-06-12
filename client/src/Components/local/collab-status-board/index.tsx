@@ -62,7 +62,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
     }
     onMarkAllAsRead && onMarkAllAsRead()
   }, [filteredDoc])
-  
+
   const handleArchiveDoc = useCallback(() => {
     setShowArchived(!showArchived)
   }, [showArchived])
@@ -84,6 +84,8 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
       defaultSortAsc={true}
       persistTableHead={true}
       expandableRowsHideExpander={true}
+      fixedHeaderScrollHeight='86vh'
+
       highlightOnHover={true}
     />
   )
