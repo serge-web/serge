@@ -57,7 +57,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
 
   useEffect(() => {
     if (panTo.lat && panTo.lng) {
-      map.flyTo([panTo.lat, panTo.lng], 13)
+      map.flyTo([panTo.lat, panTo.lng])
     }
   }, [panTo])
 
