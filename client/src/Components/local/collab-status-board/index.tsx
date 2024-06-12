@@ -34,6 +34,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
 
   // check if this is a valid phase
   const validPhase = myParticipations.length && myParticipations.some((part: ParticipantCollab) => {
+    console.log('phase', phase, part.phases, part.phases?.includes(phase))
     return !part.phases || part.phases?.length === 0 || part.phases.includes(phase)
   }) 
   
