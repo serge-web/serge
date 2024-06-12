@@ -3,7 +3,15 @@
 .main {
   @include typo-primary;
   padding-top: 10px;
-  color: #ffffff;
+}
+
+.main h3 {
+  color: white;
+  background: #00274b;
+  font-weight: bold;
+  margin: 10px;
+  padding: 2px;
+  border-radius: 3px;
 }
 
 .actions {
