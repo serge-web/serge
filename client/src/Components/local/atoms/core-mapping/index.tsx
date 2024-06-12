@@ -9,9 +9,9 @@ import { cloneDeep, flatten, get, isEqual, unionBy, uniq } from 'lodash'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
-import { PanelSize } from 'src/Components/CoreMappingChannel'
-import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, UMPIRE_FORCE } from 'src/config'
-import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, MappingPermissions, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
+import { PanelSize } from '../../../../Components/CoreMappingChannel'
+import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, UMPIRE_FORCE } from '../../../../config'
+import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, MappingPermissions, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from '../../../../custom-types'
 import MappingPanel from '../mapping-panel'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
@@ -46,14 +46,19 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
 
   const panTo = (lat: number, lng: number) => {
     console.log('panning map to', lat, lng)
+
     // const map = useMap()
     //    map.flyTo([lat, lng], 13)
     // const map = L.map('map')
     // map.setView([lat, lng], 13)
   }
 
+  // log message to console if the channel constraints bounds are not set
+  if (!channel.constraints.bounds) {
+    console.warn('Channel constraints bounds are not set')
+  }
+
   const bounds = L.latLngBounds(channel.constraints.bounds)
-  // const bounds = L.latLngBounds(L.latLng(51.405, -0.02), L.latLng(51.605, -0.13))
 
   const mappingProviderValue = useMemo(() => ({
     filterFeatureIds,

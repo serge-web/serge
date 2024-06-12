@@ -6,8 +6,8 @@ import { cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
 import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
-import { ForceStyle, isValidSymbol } from 'src/Helpers'
-import { CoreProperties, MappingPermissions, ParticipantMapping, PropertyType } from 'src/custom-types'
+import { ForceStyle, isValidSymbol } from '../../../../Helpers'
+import { CoreProperties, MappingPermissions, ParticipantMapping, PropertyType } from '../../../../custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import { colorFor } from '../core-mapping/renderers/core-renderer'
@@ -335,8 +335,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           }
         } else {
           const propertyValue = get(f.properties, filterKey, '')
-          let itemPropValue = []
-          let filteringValue = [] 
+          let itemPropValue: any[] = [] // Explicitly type as an array of any[]
+          let filteringValue: any[] = [] // Explicitly type as an array of any[]
           if (Array.isArray(propertyValue)) {
             itemPropValue = propertyValue
           } else {
