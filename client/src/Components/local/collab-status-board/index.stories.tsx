@@ -22,7 +22,7 @@ import {
   messageDataCollaborativeResponding,
   messageDataCollaborativeEditing
 } from 'src/mocks'
-import { CollaborativeMessageStates } from 'src/config'
+import { CollaborativeMessageStates, Phase } from 'src/config'
 export default {
   title: 'local/CollabStatusBoard',
   component: CollabStatusBoard,
@@ -82,6 +82,7 @@ const Template: StoryFn<CollabStatusBoardProps> = (args) => {
     forces={collabForces2}
     messages={messages}
     isUmpire={isUmpire}
+    phase={Phase.Adjudication}
     isObserver={isObserver}
     onChange={onChange}
     onMessageRead={handleReadMessage}
@@ -118,7 +119,7 @@ CollaborativeEditEditor.args = {
   channelColb: channelCollaborativeEditing2,
   messages: mostColabEditMock,
   isObserver: false,
-  isUmpire: true,
+  isUmpire: false,
   role: blueCollaborator2,
   templates: MessageTemplatesMockByKey
 }
