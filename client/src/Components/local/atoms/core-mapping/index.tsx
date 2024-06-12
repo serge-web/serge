@@ -41,17 +41,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
 
   const [canAddRemove, setCanAddRemove] = useState<boolean>(false)
   const [canMoveResize, setCanMoveResize] = useState<boolean>(false)
+  const [panTo, setPanTo] = useState<{lat: number, lng: number}>({ lat: 0, lng: 0 })
 
   const SEND_MAPPING_DELTA_MESSAGES = false
-
-  const panTo = (lat: number, lng: number) => {
-    console.log('panning map to', lat, lng)
-
-    // const map = useMap()
-    //    map.flyTo([lat, lng], 13)
-    // const map = L.map('map')
-    // map.setView([lat, lng], 13)
-  }
 
   // log message to console if the channel constraints bounds are not set
   if (!channel.constraints.bounds) {
@@ -69,6 +61,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     setLocalPanelSize,
     isMeasuring,
     setIsMeasuring,
+    setPanTo,
     panTo
   }), [
     filterFeatureIds,
@@ -79,6 +72,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     setLocalPanelSize,
     isMeasuring,
     setIsMeasuring,
+    setPanTo,
     panTo
   ])
 
