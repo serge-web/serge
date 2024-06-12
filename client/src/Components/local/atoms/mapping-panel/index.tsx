@@ -69,7 +69,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   const itemPanel = useRef<ImperativePanelHandle | null>(null)
   const propertyPanel = useRef<ImperativePanelHandle | null>(null)
   
-  const { setFilterFeatureIds, deselecteFeature, panTo } = useMappingState()
+  const { setFilterFeatureIds, deselecteFeature, setPanTo } = useMappingState()
 
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
@@ -489,7 +489,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
               const center = centerFor(feature.geometry)
               const mapPanTo = () => {
                 // pan to the center of the feature
-                panTo(center[1], center[0])
+                setPanTo({ lat: center[1], lng: center[0] })
               }
               return <IconRenderer onPan={mapPanTo} key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
             })}

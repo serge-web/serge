@@ -1,6 +1,6 @@
 import { faShapes, faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FormControlLabel, Radio } from '@material-ui/core'
+import { Box, FormControlLabel, Radio } from '@material-ui/core'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { get } from 'lodash'
 import ms from 'milsymbol'
@@ -53,8 +53,10 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, on
       label={<span className={styles.lblCbx}>{feature.properties?.label || feature.properties?.id}</span>}
       value={feature.properties?.id}
     />
-    <FontAwesomeIcon onClick={onPan} icon={faMagnifyingGlassLocation} color={'#000'} fontSize={25} />
-    {iconElm}
+    <Box>
+      <FontAwesomeIcon onClick={onPan} icon={faMagnifyingGlassLocation} color={'#000'} fontSize={25} />
+      {iconElm}
+    </Box>
   </div>
 }
 
