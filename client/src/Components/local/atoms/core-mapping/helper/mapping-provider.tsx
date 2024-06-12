@@ -1,6 +1,6 @@
 import { noop } from 'lodash'
 import { createContext, useContext } from 'react'
-import { PanelSize } from 'src/Components/CoreMappingChannel'
+import { PanelSize } from '../../../../../Components/CoreMappingChannel'
 
 type MappingStateValue = {
   filterFeatureIds: string[]

@@ -5,8 +5,8 @@ import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { get } from 'lodash'
 import ms from 'milsymbol'
 import React, { ChangeEvent, useMemo } from 'react'
-import { calculateHealthColor } from 'src/Helpers'
-import { RENDERER_CORE } from 'src/custom-types'
+import { calculateHealthColor } from '../../../../../Helpers'
+import { RENDERER_CORE } from '../../../../../custom-types'
 import styles from '../styles.module.scss'
 
 type IconRendererProps = {
