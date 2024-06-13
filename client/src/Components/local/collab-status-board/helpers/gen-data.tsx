@@ -50,8 +50,8 @@ export const genData = (
   const isCollaborating = permission > CollaborativePermission.CannotCollaborate || isObserver
 
   const sortCol = (str1: string, str2: string): number => {
-    const a = str1.toLowerCase()
-    const b = str2.toLowerCase()
+    const a = str1 && str1.toLowerCase()
+    const b = str2 && str2.toLowerCase()
 
     return a > b ? 1 : -1
   }
