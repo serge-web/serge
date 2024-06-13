@@ -18,10 +18,10 @@ export interface ForceColor {
 /* Render component */
 export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
   templates, messages, channelColb, isObserver, isUmpire, onChange, role, forces,
-  gameDate, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame, collabActivity
+  gameDate, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame, collabActivity, expandedRowId
 }) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
-
+  
   const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.forceUniqid === role.forceId)
   // participations relate to me if they contain no roles, or if they contain my role
   const myParticipations = participationsForMyForce.filter((p: ParticipantCollab) => (p.roles.length === 0 || p.roles.includes(role.roleId)))
@@ -31,7 +31,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
     // ok, should not be here
     throw new Error('Should not be in this channel')
   }
-
+   
   // find my highest permission (or take no permission)
   const permission: CollaborativePermission = myParticipations.length ? myParticipations.reduce((a, b) => a.permission > b.permission ? a : b).permission : CollaborativePermission.CannotCollaborate
 
@@ -53,7 +53,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
     )
     return { ...data, filteredDoc }
   }, [messages])
-  
+
   const handleMarkAllAsRead = useCallback(() => {
     for (const message of filteredDoc) {
       // flag for if we tell original sender of RFI that it has been responded to
@@ -74,6 +74,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
       tableActivity={collabActivity}
       customStyles={customStyles}
       showArchived={showArchived}
+      expandedRowId={expandedRowId}
       handleArchiveDoc={handleArchiveDoc}
       handleMarkAllAsRead={handleMarkAllAsRead}
       handleMarkAllAsUnread={onMarkAllAsUnRead}

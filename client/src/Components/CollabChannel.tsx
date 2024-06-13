@@ -19,6 +19,8 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const playerUiDispatch = usePlayerUiDispatch()
   const dispatch = useDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
+  const [expandedRowId, setExpandedRowId] = useState('')
+
   const { selectedForce, selectedRole, selectedRoleName, gameDate } = state
   const isUmpire = selectedForce && selectedForce.umpire
   const selectedForceId = state.selectedForce ? state.selectedForce.uniqid : ''
@@ -67,6 +69,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // The prop should be optimized in the future.
   const handleChange = (nextMsg: MessageCustom, messageType: TypeOfCustomMessage): void => {
     const { details } = nextMsg
+    setExpandedRowId(nextMsg._id)
     saveMessage(state.currentWargame, details, nextMsg.message, nextMsg.templateId, messageType)()
     const saveMessageInt: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
@@ -139,7 +142,6 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
     })
   }
-
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
@@ -154,6 +156,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
             onMarkAllAsRead={markAllMsgAsRead}
             /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             onMarkAllAsUnRead={handleUnreadAllMessage}
+            expandedRowId={expandedRowId}
             templates={state.allTemplatesByKey}
             messages={messages as MessageCustom[]}
             role={role}

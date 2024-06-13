@@ -19,6 +19,7 @@ export type CollabStatusBoardProps = {
   /** role of logged in player */
   role: ForceRole
   templates: TemplateBodysByKey
+  expandedRowId?: string
   /** list of forces */
   forces: ForceData[]
   /** current game time, used for initialising date-time controls */
