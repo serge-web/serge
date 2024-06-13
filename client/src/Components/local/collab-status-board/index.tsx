@@ -85,10 +85,11 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
       persistTableHead={true}
       expandableRowsHideExpander={true}
       fixedHeaderScrollHeight='86vh'
-
       highlightOnHover={true}
     />
   )
 }
-
-export default React.memo(CollabStatusBoard)
+const areEqual = (prevProps: CollabStatusBoardProps, nextProps: CollabStatusBoardProps) => {
+  return JSON.stringify(prevProps) === JSON.stringify(nextProps)
+}
+export default React.memo(CollabStatusBoard, areEqual)
