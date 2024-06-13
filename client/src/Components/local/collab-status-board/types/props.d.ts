@@ -32,6 +32,5 @@ export type CollabStatusBoardProps = {
   onMarkAllAsRead?: () => void
   /** mark message unread */
   onMarkAllAsUnRead?: () => void
-
   collabActivity: (getRoleId: string, activityType: string) => void
 }

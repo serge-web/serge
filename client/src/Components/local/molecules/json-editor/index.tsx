@@ -8,7 +8,7 @@ import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
 import Props from './types/props'
-
+import './styles.css'
 const alwaysShowEditorErrors = 'always'
 
 // keydown listener should works only for defined tags
