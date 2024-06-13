@@ -8,10 +8,11 @@ type MappingStateValue = {
   deselecteFeature: boolean
   setDeselectFeature: (selected: boolean) => void
   localPanelSize: PanelSize | undefined
-  setLocalPanelSize: (oanelSize: PanelSize) => void
+  setLocalPanelSize: (panelSize: PanelSize) => void
   isMeasuring: boolean
   setIsMeasuring: (isMeasuring: boolean) => void
-  panTo: (lat: number, lng: number) => void
+  panTo: { lat: number, lng: number }
+  setPanTo: (value: {lat: number, lng: number}) => void
 }
 
 const initialState: MappingStateValue = {
@@ -23,7 +24,8 @@ const initialState: MappingStateValue = {
   setLocalPanelSize: noop,
   isMeasuring: false,
   setIsMeasuring: noop,
-  panTo: noop
+  panTo: { lat: 0, lng: 0 },
+  setPanTo: noop
 }
 const MappingState = createContext<MappingStateValue>(initialState)
 
