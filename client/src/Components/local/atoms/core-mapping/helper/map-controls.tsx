@@ -4,8 +4,8 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
-import AssetIcon from 'src/Components/local/asset-icon'
-import { Ruler } from 'src/custom-types/leaflet-custom-types'
+import AssetIcon from '../../../../../Components/local/asset-icon'
+import { Ruler } from '../../../../../custom-types/leaflet-custom-types'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
 import { useMappingState } from './mapping-provider'
@@ -19,7 +19,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
   // track permissions getting updated
   const [prevPermissions, setPermissions] = useState<string>('')
 
-  const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring } = useMappingState()
+  const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring, panTo } = useMappingState()
 
   const controls: PM.ToolbarOptions = useMemo(() => ({
     position: 'topright',
@@ -54,6 +54,12 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
   useEffect(() => {
     map.invalidateSize()
   }, [localPanelSize])
+
+  useEffect(() => {
+    if (panTo.lat && panTo.lng) {
+      map.flyTo([panTo.lat, panTo.lng])
+    }
+  }, [panTo])
 
   const initMapListener = () => {
     let layersVisible = true 

@@ -6,8 +6,8 @@ import { cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
 import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
-import { ForceStyle, isValidSymbol } from 'src/Helpers'
-import { CoreProperties, MappingPermissions, ParticipantMapping, PropertyType } from 'src/custom-types'
+import { ForceStyle, isValidSymbol } from '../../../../Helpers'
+import { CoreProperties, MappingPermissions, ParticipantMapping, PropertyType } from '../../../../custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import { colorFor } from '../core-mapping/renderers/core-renderer'
@@ -69,7 +69,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   const itemPanel = useRef<ImperativePanelHandle | null>(null)
   const propertyPanel = useRef<ImperativePanelHandle | null>(null)
   
-  const { setFilterFeatureIds, deselecteFeature } = useMappingState()
+  const { setFilterFeatureIds, deselecteFeature, setPanTo } = useMappingState()
 
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
@@ -267,6 +267,19 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
     setDisableSave(isEqual(features?.features, localFeatures))
   }
 
+  const centerFor = (geometry: Geometry): [number, number] => {
+    if (geometry.type === 'Point') {
+      return [geometry.coordinates[0], geometry.coordinates[1]]
+    }
+    if (geometry.type === 'Polygon') {
+      const coords = geometry.coordinates[0]
+      const x = coords.reduce((acc, c) => acc + c[0], 0) / coords.length
+      const y = coords.reduce((acc, c) => acc + c[1], 0) / coords.length
+      return [x, y]
+    }
+    return [0, 0]
+  }
+
   const onPropertiesChange = (key: string, value: any) => {
     if (key === 'sidc') {
       const { success } = handleSidcValue(value)
@@ -322,8 +335,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           }
         } else {
           const propertyValue = get(f.properties, filterKey, '')
-          let itemPropValue = []
-          let filteringValue = [] 
+          let itemPropValue: any[] = [] // Explicitly type as an array of any[]
+          let filteringValue: any[] = [] // Explicitly type as an array of any[]
           if (Array.isArray(propertyValue)) {
             itemPropValue = propertyValue
           } else {
@@ -473,7 +486,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           <div className={styles.itemsResponsive}>
             {filteredFeatures?.features.map((feature, idx) => {
               const color = colorFor(feature.properties?.force, forceStyles)
-              return <IconRenderer key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
+              const center = centerFor(feature.geometry)
+              const mapPanTo = () => {
+                // pan to the center of the feature
+                setPanTo({ lat: center[1], lng: center[0] })
+              }
+              return <IconRenderer onPan={mapPanTo} key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
             })}
           </div>
         }

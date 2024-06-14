@@ -1,12 +1,12 @@
-import { faShapes } from '@fortawesome/free-solid-svg-icons'
+import { faShapes, faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FormControlLabel, Radio } from '@material-ui/core'
+import { Box, FormControlLabel, Radio } from '@material-ui/core'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { get } from 'lodash'
 import ms from 'milsymbol'
 import React, { ChangeEvent, useMemo } from 'react'
-import { calculateHealthColor } from 'src/Helpers'
-import { RENDERER_CORE } from 'src/custom-types'
+import { calculateHealthColor } from '../../../../../Helpers'
+import { RENDERER_CORE } from '../../../../../custom-types'
 import styles from '../styles.module.scss'
 
 type IconRendererProps = {
@@ -14,10 +14,11 @@ type IconRendererProps = {
   checked: boolean
   disabled?: boolean
   onClick: (id: string[], checked: boolean) => void
+  onPan: () => void
   color: string
 }
 
-const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, onClick, disabled = false }) => {
+const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, onPan, onClick, disabled = false }) => {
   const iconElm = useMemo(() => {
     if (!feature) {
       return
@@ -52,7 +53,10 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, on
       label={<span className={styles.lblCbx}>{feature.properties?.label || feature.properties?.id}</span>}
       value={feature.properties?.id}
     />
-    {iconElm}
+    <Box>
+      <FontAwesomeIcon onClick={onPan} icon={faMagnifyingGlassLocation} color={'#000'} fontSize={25} />
+      {iconElm}
+    </Box>
   </div>
 }
 
