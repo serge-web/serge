@@ -541,12 +541,12 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
                 return <Fragment key={idx}></Fragment>
               case 'others':
                 return (editProperty.type === 'EnumProperty' || Object.hasOwn(editProperty, 'format') || Object.hasOwn(editProperty, 'lines'))
-                  ? <></>
+                  ? null
                   : renderOtherField(editProperty, key, idx)
               case 'format':
               case 'lines':
                 return editProperty.type === 'EnumProperty'
-                  ? <></>
+                  ? null
                   : renderOtherField(editProperty, key, idx)
               default:
                 return <Box key={idx} className={styles.editPropField}>
