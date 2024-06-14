@@ -5,7 +5,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import { CollaborativePermission } from 'src/config'
+import { ADJUDICATION_PHASE, CollaborativePermission, PLANNING_PHASE } from 'src/config'
 import { ForceData, ParticipantCollab, Role, TemplateBody } from 'src/custom-types'
 import { ChannelCollab } from 'src/custom-types/channel-data'
 import cx from 'classnames'
@@ -19,6 +19,7 @@ import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues 
 import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, onMessageValuesChanged } from '../helpers/messageCollabUtils'
 import uniqId from 'uniqid'
 import styles from '../styles.module.scss'
+import { capitalize } from 'lodash'
 
 type CollabChannelProps = {
   channel: ChannelCollab
@@ -69,9 +70,10 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
     }
 
     const rowToParticipantCollab = (forces: ForceData[], nextItems: RowItem[], participantCollab: ParticipantCollab): ParticipantCollab => {
-      const [force, access, permissionsTpls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
+      const [force, access, phasesActive, permissionsTpls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
       const selectedForce = forces[force.active ? force.active[0] : 0]
       const roles: Array<Role['roleId']> = access.active ? access.active.map((key: number) => (selectedForce.roles[key].roleId)) : []
+      const phases = phasesActive.active || []
       const permission = permissionsTpls.active ? permissionsTpls.active[0] : CollaborativePermission.CannotCollaborate
 
       let { canCreate, viewUnreleasedVersions } = defaultParticipantCollab
@@ -86,6 +88,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
         forceUniqid: selectedForce.uniqid,
         subscriptionId: uniqId.time(),
         roles,
+        phases,
         permission,
         canCreate,
         viewUnreleasedVersions
@@ -130,6 +133,19 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
         active: !!nextParticipant.viewUnreleasedVersions
       })
 
+      const phaseOptions: Option[] = [
+        { name: capitalize(PLANNING_PHASE), uniqid: PLANNING_PHASE },
+        { name: capitalize(ADJUDICATION_PHASE), uniqid: ADJUDICATION_PHASE }
+      ]
+      const phases = nextParticipant.phases || []
+      additionalFields.push({
+        active: phases,
+        emptyTitle: 'All Phases',
+        multiple: true,
+        options: phaseOptions,
+        uniqid: 'phases',
+        type: EDITABLE_SELECT_ITEM
+      })
       const permissionOptions: Option[] = []
       Object.keys(CollaborativePermission).forEach((key: string) => {
         if (!isNaN(Number(key))) {
@@ -376,6 +392,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
                         <TableCell align="center">Role</TableCell>
                         <TableCell align="center">Create New Message</TableCell>
                         <TableCell align="center">See Live Updates</TableCell>
+                        <TableCell align="center">Phases</TableCell>
                         <TableCell align="center">Permission</TableCell>
                         <TableCell align="center"></TableCell>
                       </TableRow>
