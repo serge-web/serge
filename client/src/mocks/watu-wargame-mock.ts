@@ -35,7 +35,7 @@ const wargame: Wargame = {
           uniqid: 'channel-koirdijk'
         },
         {
-          name: 'mapping',
+          name: 'General chit-chat',
           channelType: 'ChannelChat',
           participants: [
             {
