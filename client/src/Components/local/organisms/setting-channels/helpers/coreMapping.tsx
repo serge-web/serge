@@ -34,7 +34,6 @@ export const AdditionalPropcolumns: readonly Column[] = [
   { id: 'label', label: 'Label' },
   { id: 'description', label: 'Description' },
   { id: 'editable', label: 'User Editable' },
-  { id: 'icon', label: 'Icon' },
   { id: 'others', label: 'Others' },
   { id: 'action', label: '' }
 ]

@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { faPlusCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -11,7 +12,7 @@ import {
   TextField
 } from '@material-ui/core'
 import cx from 'classnames'
-import { capitalize, cloneDeep, get, noop, set } from 'lodash'
+import { capitalize, cloneDeep, get, noop, set, unset } from 'lodash'
 import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import Confirm from 'src/Components/local/atoms/confirm'
 import CustomDialog from 'src/Components/local/atoms/custom-dialog'
@@ -124,11 +125,10 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   }, [localChannel])
 
   const getOthersData = (prop: PropertyType) => {
-    if (prop['format'] !== undefined) {
-      return `Format: ${prop['format']}`
-    }
-    if (prop['lines'] !== undefined) {
-      return `Line: ${prop['lines']}`
+    if (prop.type === 'NumberProperty') {
+      return `Format: ${prop['format'] || 1}`
+    } else if (prop.type === 'StringProperty') {
+      return `Lines: ${prop['lines'] || 'default'}`
     }
     return ''
   }
@@ -381,6 +381,10 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
       return
     }
     const cloneRow = cloneDeep(editProperty)
+    if (path === 'type' && value !== 'EnumProperty') {
+      unset(cloneRow, 'lines')
+      unset(cloneRow, 'format')
+    }
     set(cloneRow, path, value)
     setEditProperty(cloneRow)
   }
@@ -413,6 +417,30 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     })
     setLocalChannel(cloneChannel)
   }
+
+  const getOtherFieldLabel = useCallback((prop: PropertyType) => {
+    if (prop.type === 'NumberProperty') {
+      return 'Format'
+    } else if (prop.type === 'StringProperty') {
+      return 'Lines'
+    }
+    return ''
+  }, [])
+
+  const getOthersFieldValue = useCallback((rawValue: string) => {
+    if (rawValue.includes(':')) {
+      return rawValue.split(':')[1].trim()
+    }
+    return rawValue
+  }, [])
+
+  const renderOtherField = useCallback((editProperty: PropertyType, key: string, idx: number) => {
+    const valueType = editProperty.type === 'NumberProperty' ? 'number' : 'text'
+    return <Box key={idx} className={styles.editPropField}>
+      <InputLabel variant="standard">{getOtherFieldLabel(editProperty)}</InputLabel>
+      <TextField fullWidth type={valueType} value={getOthersFieldValue(editProperty[key])} autoFocus onChange={(e) => onEditPropertyChange(editProperty.type === 'NumberProperty' ? 'format' : 'lines', e.target.value)}/>
+    </Box>
+  }, [editProperty])
 
   return (
     <Box className={styles.channelTabContainer}>
@@ -510,12 +538,20 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
               //   </Box>
               case 'icon':
               case 'id':
-              case 'others':
                 return <Fragment key={idx}></Fragment>
+              case 'others':
+                return (editProperty.type === 'EnumProperty' || Object.hasOwn(editProperty, 'format') || Object.hasOwn(editProperty, 'lines'))
+                  ? <></>
+                  : renderOtherField(editProperty, key, idx)
+              case 'format':
+              case 'lines':
+                return editProperty.type === 'EnumProperty'
+                  ? <></>
+                  : renderOtherField(editProperty, key, idx)
               default:
                 return <Box key={idx} className={styles.editPropField}>
                   <InputLabel variant="standard">{ capitalize(key)}</InputLabel>
-                  <TextField fullWidth value={editProperty[key]} onChange={(e) => onEditPropertyChange(key, e.target.value)}/>
+                  <TextField fullWidth defaultValue={editProperty[key]} onChange={(e) => onEditPropertyChange(key, e.target.value)}/>
                 </Box>
             }
           })}
