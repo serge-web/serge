@@ -178,7 +178,7 @@ export const SimpleTable: React.FC<SimpleTableProps> = ({ columns, data, editInl
 export const AddButton: React.FC<{ className?: string, options: ButtonOptions[], onChange: (value: string) => void }> = ({ className, options = [], onChange }) => {
   return (
     <PopupState variant="popover">
-      {(popupState) => (
+      {(popupState: any) => (
         <Box className={className}>
           <Button
             variant="contained"
