@@ -280,7 +280,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
       setMessageLocal(nextMsgLocal)
       handleUpdateCollabChannel(nextMsgLocal)
     }
-
+    
     return (
       <div>
         <div className={styles.row}>
