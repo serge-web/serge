@@ -14,7 +14,7 @@ import {
 } from 'src/custom-types'
 import React, { createRef, MouseEvent, useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
-
+import { isEmpty } from 'lodash'
 import PropTypes from './types/props'
 
 const MessageCreator: React.FC<PropTypes> = ({
@@ -30,7 +30,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   channel,
   gameDate,
   postBack,
-  customiseTemplate,
   messageOption,
   clearCachedCreatorMessage,
   draftMessage,
@@ -82,11 +81,13 @@ const MessageCreator: React.FC<PropTypes> = ({
       privateMessageRef.current.value = ''
     }
 
-    if (val.content === '') return
+    val = Object.fromEntries(Object.entries(val).filter(([_, value]) => value))
+    if (isEmpty(val)) return
 
     // send the data
     setPrivateValue('')
     setClearForm(!clearForm)
+
     postBack && postBack(details, val, messageOption, CUSTOM_MESSAGE)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
@@ -146,13 +147,13 @@ const MessageCreator: React.FC<PropTypes> = ({
           details: selectedSchema,
           _id: channel.uniqid
         }}
-        customiseTemplate={customiseTemplate}
         submitNewValue={sendMessage}
         openCancelConfirmPopup={openConfirmPopup}
         messageId={messageOption}
         formClassName={'form-group message-creator'}
         title={messageOption}
         disabled={false}
+        viewSaveButton={true}
         gameDate={gameDate}
         clearForm={clearForm}
         messageContent={messageContent}
