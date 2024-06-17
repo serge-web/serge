@@ -4,8 +4,8 @@ import { Feature, Geometry, Point } from 'geojson'
 import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
-import { ForceStyle } from 'src/Helpers'
-import { CoreProperties, MappingPermissions, RENDERER_CORE } from 'src/custom-types'
+import { ForceStyle } from '../../../../../Helpers'
+import { CoreProperties, MappingPermissions, RENDERER_CORE } from '../../../../../custom-types'
 import tinycolor from 'tinycolor2'
 import { useMappingState } from '../helper/mapping-provider'
 import styles from '../styles.module.scss'
@@ -15,7 +15,6 @@ import { hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-pe
 
 export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
-  console.log('forceStyle', forceStyle, force, forceStyles)
   return forceStyle ? forceStyle.color : '#F0F'
 }
 

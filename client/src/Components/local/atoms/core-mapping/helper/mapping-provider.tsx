@@ -1,6 +1,6 @@
 import { noop } from 'lodash'
 import { createContext, useContext } from 'react'
-import { PanelSize } from 'src/Components/CoreMappingChannel'
+import { PanelSize } from '../../../../../Components/CoreMappingChannel'
 
 type MappingStateValue = {
   filterFeatureIds: string[]
@@ -8,9 +8,11 @@ type MappingStateValue = {
   deselecteFeature: boolean
   setDeselectFeature: (selected: boolean) => void
   localPanelSize: PanelSize | undefined
-  setLocalPanelSize: (oanelSize: PanelSize) => void
+  setLocalPanelSize: (panelSize: PanelSize) => void
   isMeasuring: boolean
   setIsMeasuring: (isMeasuring: boolean) => void
+  panTo: { lat: number, lng: number }
+  setPanTo: (value: {lat: number, lng: number}) => void
 }
 
 const initialState: MappingStateValue = {
@@ -21,7 +23,9 @@ const initialState: MappingStateValue = {
   localPanelSize: undefined,
   setLocalPanelSize: noop,
   isMeasuring: false,
-  setIsMeasuring: noop
+  setIsMeasuring: noop,
+  panTo: { lat: 0, lng: 0 },
+  setPanTo: noop
 }
 const MappingState = createContext<MappingStateValue>(initialState)
 

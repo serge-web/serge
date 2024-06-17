@@ -137,6 +137,14 @@
   label {
     margin: 0;
   }
+
+  div {
+    display: flex;
+
+    svg {
+      cursor: pointer;
+    }
+  }
 }
 
 .filterList {
@@ -187,6 +195,7 @@
   align-items: center;
   flex-direction: column;
   padding: 2px;
+  margin-left: 10px;
 }
 
 .health-bar {
