@@ -265,13 +265,13 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
       if (r.id === selectedRenderer) {
         const baseProps = r.baseProps.map(prop => {
           if (prop.id === editProperty.id) {
-            return editProperty
+            return { ...prop, ...editProperty }
           }
           return prop
         })
         const additionalProps = r.additionalProps.map(prop => {
           if (prop.id === editProperty.id) {
-            return editProperty
+            return { ...prop, ...editProperty }
           }
           return prop
         })

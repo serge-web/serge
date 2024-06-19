@@ -48,7 +48,6 @@ const componentFor = (
 }
 
 const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, checkSidc, disableIdEdit, rendererProps, multipleSelect, disabled = false }) => {
-  console.log('xx> rendererProps: ', rendererProps)
   const [isSIDCDialogOpen, setSIDCDialogOpen] = useState(false)
 
   const openSIDCGenerator = () => setSIDCDialogOpen(true)
