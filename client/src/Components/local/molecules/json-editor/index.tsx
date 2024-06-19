@@ -149,11 +149,11 @@ export const JsonEditor: React.FC<Props> = ({
       const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema
       const customizedSchema = modSchema
       const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
-      const cloumnToClassName = mapColumnToClassName(uischema)
+      const columnToClassName = mapColumnToClassName(uischema)
       setFormData(messageContent || {})
       
       setSchema(schemaWithTitle)
-      setUiSchema(cloumnToClassName)
+      setUiSchema(columnToClassName)
     }
   }, [template, gameDate, messageContent, prevTemplates, title, clearForm])
 
