@@ -27,6 +27,7 @@ const SettingTemplate: React.FC<PropTypes> = ({
   const [selectedItem, setSelectedItem] = useState<number>(0)
   const [templateData, setTemplateData] = useState<TemplateBody[]>(templates)
   const [currentTab, setCurrentTab] = useState<string>(TemplateTab.Visual)
+  const [formData, setFormData] = useState({})
   
   useEffect(() => {
     const selectedId = templates.findIndex(template => template._id === selectedTemplate?._id)
@@ -148,6 +149,8 @@ const SettingTemplate: React.FC<PropTypes> = ({
               details: { schema, uischema },
               _id: data._id
             }}
+            messageContent={formData}
+            storeNewValue={(formData) => setFormData(formData)}
             messageId={data._id}
           />
         }
