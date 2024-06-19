@@ -13,6 +13,7 @@ import './bioworks.css'
 import React, { useEffect, useState, FunctionComponent } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 import Props, { FormProps } from './types/props'
+import mapColumnToClassName from './helpers/mapColumnToClassName'
 import widgets from './helpers/customCheckbox'
 
 export interface FormData {
@@ -148,10 +149,11 @@ export const JsonEditor: React.FC<Props> = ({
       const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema
       const customizedSchema = modSchema
       const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
+      const cloumnToClassName = mapColumnToClassName(uischema)
       setFormData(messageContent || {})
       
       setSchema(schemaWithTitle)
-      setUiSchema(uischema)
+      setUiSchema(cloumnToClassName)
     }
   }, [template, gameDate, messageContent, prevTemplates, title, clearForm])
 
