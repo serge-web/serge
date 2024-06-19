@@ -27,6 +27,7 @@ import PopupState, { bindMenu, bindTrigger } from 'material-ui-popup-state'
 import React, { ChangeEvent } from 'react'
 import { Column } from 'src/Components/local/react-table/types/props'
 import styles from '../styles.module.scss'
+import { Option } from 'src/Components/local/molecules/editable-row'
 
 export const CoreMappingTabs = ['Map', 'Renderers', 'Participants']
 export const AdditionalPropcolumns: readonly Column[] = [
@@ -53,9 +54,9 @@ export const EditParticipantColumns: readonly Column[] = [
   { id: 'editProp', label: 'Edit Props' },
   { id: 'action', label: '' }
 ]
-export const ZoomOptions = Array.from(Array(20).keys()).map(v => v + 1)
-export const RendererOptions = ['core', 'milSym']
-export const PhaseOptions = ['planning', 'adjudication']
+export const ZoomOptions: Option[] = Array.from(Array(20).keys()).map(v => ({ name: `${v + 1}`, uniqid: `${v + 1}` }))
+export const RendererOptions: Option[] = [{ name: 'Core', uniqid: 'core' }, { name: 'MilSym', uniqid: 'milSym' }]
+export const PhaseOptions: Option[] = [{ name: 'Planning', uniqid: 'planning' }, { name: 'Adjudication', uniqid: 'adjudication' }]
 
 export type EditParticipantType = {
   tableData: any[]
@@ -82,7 +83,7 @@ type SimpleTableProps = {
   columns: readonly Column[]
   data: any[]
   editInline?: number
-  forceNames?: string[]
+  forceNames?: Option[]
   onEdit?: (row: any) => void
   onRemove: (row: any) => void
   onChange?: (data: any) => void
@@ -208,7 +209,7 @@ export const AddButton: React.FC<{ className?: string, options: ButtonOptions[],
 export const SimpleSelect: React.FC<{
   title: string
   value?: number | string | number[] | string[]
-  options: number[] | string[]
+  options: Option[]
   labelWidth: string
   width?: string
   multiple?: boolean
@@ -216,21 +217,31 @@ export const SimpleSelect: React.FC<{
     event: React.ChangeEvent<{ name?: string | undefined, value: unknown }>,
     child: React.ReactNode
   ) => void
-}> = ({ title, options, value, labelWidth, width, onChange, multiple }) =>
-  <Box className={styles.mapFieldItem} sx={{ width }}>
+}> = ({ title, options, value, labelWidth, width, onChange, multiple }) => {
+  const getDisplayName = (val: any) => {
+    if (Array.isArray(val)) {
+      const optValue = options.filter(o => val?.includes(o.uniqid as string))
+      return optValue.map(v => v.name).join(', ')
+    }
+    const optValue = options.filter(o => o.uniqid === val)
+    return optValue.length ? optValue[0].name : ''
+  }
+
+  return <Box className={styles.mapFieldItem} sx={{ width }}>
     <InputLabel variant="standard" style={{ minWidth: labelWidth }}>{title}</InputLabel>
-    <Select fullWidth onChange={onChange} value={value} multiple={multiple} renderValue={value => <>{Array.isArray(value) ? value.join(', ') : value}</>}>
+    <Select fullWidth onChange={onChange} value={value} multiple={multiple} renderValue={value => <>{getDisplayName(value)}</>}>
       {options.map((option) => (
-        <MenuItem key={option} value={option}>
+        <MenuItem key={option.uniqid} value={option.uniqid}>
           {
             multiple
               ? <FormControlLabel
                 style={{ marginLeft: '0' }}
-                control={<Checkbox checked={(value as any)?.includes(option)} />} label={option}
+                control={<Checkbox checked={(value as any)?.includes(option.uniqid)} />} label={option.name}
               />
-              : option
+              : option.name
           }
         </MenuItem>
       ))}
     </Select>
   </Box>
+}

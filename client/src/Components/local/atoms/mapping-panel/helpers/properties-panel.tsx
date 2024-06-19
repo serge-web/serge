@@ -28,7 +28,7 @@ const componentFor = (
     case 'EnumProperty': {
       return (
         <select disabled={disabled} value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
-          {propertyType.choices.map((o: string) => (
+          {(propertyType.choices || []).map((o: string) => (
             <option key={o} value={o}>
               {o}
             </option>
@@ -48,6 +48,7 @@ const componentFor = (
 }
 
 const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, checkSidc, disableIdEdit, rendererProps, multipleSelect, disabled = false }) => {
+  console.log('xx> rendererProps: ', rendererProps)
   const [isSIDCDialogOpen, setSIDCDialogOpen] = useState(false)
 
   const openSIDCGenerator = () => setSIDCDialogOpen(true)
