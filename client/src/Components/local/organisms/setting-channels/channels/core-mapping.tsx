@@ -21,6 +21,7 @@ import { BaseRenderer, ForceData, MappingPermissions, PROPERTY_ENUM, PROPERTY_NU
 import { ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
 import { AddButton, AdditionalPropcolumns, ButtonOptions, CoreMappingTabs, EditParticipantColumns, EditParticipantType, ParticipantColumns, PhaseOptions, RendererOptions, SimpleSelect, SimpleTable, ZoomOptions } from '../helpers/coreMapping'
 import styles from '../styles.module.scss'
+import { Option } from 'src/Components/local/molecules/editable-row'
 
 const RendererOpts: ButtonOptions[] = [
   { id: 'core', label: 'Core' },
@@ -60,7 +61,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   const [deletingParticipant, setDeletingParticipant] = useState<any>()
   const [deletingProp, setDeletingProp] = useState<PropertyType>()
   const [deletingRenderer, setDeletingRenderer] = useState<string>('')
-  const [rolesOptions, setRoleOptions] = useState<string[]>([])
+  const [rolesOptions, setRoleOptions] = useState<Option[]>([])
 
   useEffect(() => {
     setLocalChannel(channel as unknown as ChannelMapping)
@@ -181,12 +182,12 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     setDeletingParticipant(undefined)
   }
 
-  const getRolesForParticipant = (participant: ParticipantMapping) => {
+  const getRolesForParticipant = (participant: ParticipantMapping): Option[] => {
     const force = forces.find(f => f.uniqid === participant.forceUniqid)
     if (force) {
-      return (force.roles || []).map(r => r.roleId)
+      return (force.roles || []).map(r => ({ name: r.name, uniqid: r.roleId }))
     }
-    return participant.roles
+    return []
   }
 
   const onEditParticipant = (row: any) => {
@@ -287,7 +288,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     const cloneChannel = cloneDeep(localChannel)
     set(cloneChannel, key, value)
     setLocalChannel(cloneChannel)
-  }, [])
+  }, [localChannel])
 
   const selectRender = useCallback((rendererId: string) => setSelectedRender(rendererId), [localChannel])
 
@@ -442,6 +443,10 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     </Box>
   }, [editProperty])
 
+  const getForceName = (forceId: string) => {
+    return forces.find(f => f.uniqid === forceId)?.name || ''
+  }
+
   return (
     <Box className={styles.channelTabContainer}>
       <Confirm
@@ -477,7 +482,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
         <Box>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box sx={{ width: '49%' }}>
-              <SimpleSelect title="Force" value={editParticipants.force} options={[editParticipants.force]} labelWidth="80px" onChange={noop} />
+              <SimpleSelect title="Force" value={editParticipants.force} options={[{ name: getForceName(editParticipants.force), uniqid: editParticipants.force }]} labelWidth="80px" onChange={noop} />
               <SimpleSelect title="Role" value={editParticipants.roles} options={rolesOptions} labelWidth="80px" onChange={(e) => onEditParticipantChange('roles', e.target.value as string[])} multiple/>
             </Box>
             <Box sx={{ width: '49%' }}>
@@ -493,7 +498,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
               onEdit={r => setEditInline(r.id)}
               onRemove={removeRowPermission}
               editInline={editInline}
-              forceNames={forces.map(f => f.uniqid)}
+              forceNames={forces.map(f => ({ name: f.name, uniqid: f.uniqid }))}
               onChange={onRowDataChange}
             />
           </Box>
@@ -517,7 +522,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
           {editProperty && Object.keys(editProperty).map((key, idx) => {
             switch (key) {
               case 'type':
-                return <SimpleSelect key={idx} title="Type" options={[PROPERTY_STRING, PROPERTY_NUMBER, PROPERTY_ENUM]} labelWidth="90px" value={get(editProperty, key, '')} onChange={(e) => onEditPropertyChange(key, e.target.value)} />
+                return <SimpleSelect key={idx} title="Type" options={[{ name: PROPERTY_STRING, uniqid: PROPERTY_STRING }, { name: PROPERTY_NUMBER, uniqid: PROPERTY_NUMBER }, { name: PROPERTY_ENUM, uniqid: PROPERTY_ENUM }]} labelWidth="90px" value={get(editProperty, key, '')} onChange={(e) => onEditPropertyChange(key, e.target.value)} />
               case 'playerEditable':
                 return <Box key={idx}>
                   <FormControlLabel
