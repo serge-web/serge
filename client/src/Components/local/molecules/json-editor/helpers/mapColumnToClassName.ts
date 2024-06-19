@@ -1,5 +1,7 @@
-const mapColumnToClassName = (uiSchema: object): object => {
-  const newUiSchema: any = {}
+type UiSchema = Record<string, any>;
+
+const mapColumnToClassName = (uiSchema: UiSchema): UiSchema => {
+  const newUiSchema: UiSchema = {}
 
   for (const key in uiSchema) {
     if (Object.prototype.hasOwnProperty.call(uiSchema, key)) {
