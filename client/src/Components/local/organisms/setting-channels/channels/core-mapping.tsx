@@ -17,15 +17,15 @@ import React, { Fragment, useCallback, useEffect, useState } from 'react'
 import Confirm from 'src/Components/local/atoms/confirm'
 import CustomDialog from 'src/Components/local/atoms/custom-dialog'
 import Tabs from 'src/Components/local/atoms/tabs'
-import { BaseRenderer, ForceData, MappingPermissions, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType } from 'src/custom-types'
+import { BaseRenderer, ForceData, MappingPermissions, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'
 import { ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
 import { AddButton, AdditionalPropcolumns, ButtonOptions, CoreMappingTabs, EditParticipantColumns, EditParticipantType, ParticipantColumns, PhaseOptions, RendererOptions, SimpleSelect, SimpleTable, ZoomOptions } from '../helpers/coreMapping'
 import styles from '../styles.module.scss'
 import { Option } from 'src/Components/local/molecules/editable-row'
 
 const RendererOpts: ButtonOptions[] = [
-  { id: 'core', label: 'Core' },
-  { id: 'milSym', label: 'MilSym' }
+  { id: RENDERER_CORE, label: 'Core' },
+  { id: RENDERER_MILSYM, label: 'MilSym' }
 ]
 
 const AddPropOpts: ButtonOptions[] = [
