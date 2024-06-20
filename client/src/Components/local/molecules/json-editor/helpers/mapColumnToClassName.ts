@@ -28,26 +28,24 @@ type UiSchema = Record<string, any>;
  */
 
 const mapColumnToClassName = (uiSchema: UiSchema): UiSchema => {
-  const newUiSchema: UiSchema = {}
-
-  for (const key in uiSchema) {
-    if (Object.prototype.hasOwnProperty.call(uiSchema, key)) {
-      const field = uiSchema[key]
-      const columnSize = field['ui:column']
-        
-      if (columnSize) {
-        newUiSchema[key] = {
-          ...field,
-          'ui:classNames': `col-${columnSize}`
+  const transformObject = (obj: any): any => {
+    const newObj: any = {}
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key)) {
+        if (key === 'ui:column') {
+          newObj['ui:classNames'] = `col-${obj[key]}`
+        } else if (typeof obj[key] === 'object') {
+          newObj[key] = transformObject(obj[key])
+        } else {
+          newObj[key] = obj[key]
         }
-        delete newUiSchema[key]['ui:column']
-      } else {
-        newUiSchema[key] = field
       }
     }
+    return newObj
   }
 
+  const newUiSchema = transformObject(uiSchema)
   return newUiSchema
 }
 
-export default mapColumnToClassName 
+export default mapColumnToClassName
