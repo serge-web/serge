@@ -33,7 +33,8 @@ const mapColumnToClassName = (uiSchema: UiSchema): UiSchema => {
     for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, key)) {
         if (key === 'ui:column') {
-          newObj['ui:classNames'] = `col-${obj[key]}`
+          const columnSize = obj[key]
+          newObj['ui:classNames'] = `col-${columnSize > 12 ? 12 : columnSize}`
         } else if (typeof obj[key] === 'object') {
           newObj[key] = transformObject(obj[key])
         } else {

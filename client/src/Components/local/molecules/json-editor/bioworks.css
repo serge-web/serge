@@ -1,5 +1,14 @@
 .edt-disable .row {
-    display: inline-block;
+    display: contents;
+  flex-wrap: wrap;
     vertical-align: top;
     margin-right: 10px; 
+}
+
+.edt-disable .row > .col-12 {
+    display: contents;
+}
+
+.edt-disable .form-group {
+    display: inline-grid;
 }
