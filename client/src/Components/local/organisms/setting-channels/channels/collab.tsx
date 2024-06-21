@@ -73,7 +73,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
       const [force, access, phasesActive, permissionsTpls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
       const selectedForce = forces[force.active ? force.active[0] : 0]
       const roles: Array<Role['roleId']> = access.active ? access.active.map((key: number) => (selectedForce.roles[key].roleId)) : []
-      const phases = phasesActive.active || []
+      const phases = phasesActive.active ? phasesActive.active.map((key: number) => key === 0 ? PLANNING_PHASE : ADJUDICATION_PHASE) : []
       const permission = permissionsTpls.active ? permissionsTpls.active[0] : CollaborativePermission.CannotCollaborate
 
       let { canCreate, viewUnreleasedVersions } = defaultParticipantCollab
@@ -137,9 +137,11 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
         { name: capitalize(PLANNING_PHASE), uniqid: PLANNING_PHASE },
         { name: capitalize(ADJUDICATION_PHASE), uniqid: ADJUDICATION_PHASE }
       ]
-      const phases = nextParticipant.phases || []
+      const partPhases = nextParticipant.phases || []
+      const activePhases: Array<number> = partPhases.map(phase => phase === PLANNING_PHASE ? 0 : 1)
+
       additionalFields.push({
-        active: phases,
+        active: activePhases,
         emptyTitle: 'All Phases',
         multiple: true,
         options: phaseOptions,
@@ -389,12 +391,12 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
                     <TableHead>
                       <TableRow>
                         <TableCell>Force</TableCell>
-                        <TableCell align="center">Role</TableCell>
-                        <TableCell align="center">Create New Message</TableCell>
-                        <TableCell align="center">See Live Updates</TableCell>
-                        <TableCell align="center">Phases</TableCell>
-                        <TableCell align="center">Permission</TableCell>
-                        <TableCell align="center"></TableCell>
+                        <TableCell>Role</TableCell>
+                        <TableCell>Create New Message</TableCell>
+                        <TableCell>See Live Updates</TableCell>
+                        <TableCell>Phases</TableCell>
+                        <TableCell>Permission</TableCell>
+                        <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
