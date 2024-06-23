@@ -65,6 +65,7 @@ export type EditParticipantType = {
   phases: string[]
   renderers: string[]
   id: string
+  isNew: boolean
 }
 
 export type ButtonOptions = {
@@ -213,11 +214,12 @@ export const SimpleSelect: React.FC<{
   labelWidth: string
   width?: string
   multiple?: boolean
+  disabled?: boolean
   onChange: (
     event: React.ChangeEvent<{ name?: string | undefined, value: unknown }>,
     child: React.ReactNode
   ) => void
-}> = ({ title, options, value, labelWidth, width, onChange, multiple }) => {
+}> = ({ title, options, value, labelWidth, width, onChange, multiple, disabled }) => {
   const getDisplayName = (val: any) => {
     if (Array.isArray(val)) {
       const optValue = options.filter(o => val?.includes(o.uniqid as string))
@@ -229,7 +231,7 @@ export const SimpleSelect: React.FC<{
 
   return <Box className={styles.mapFieldItem} sx={{ width }}>
     <InputLabel variant="standard" style={{ minWidth: labelWidth }}>{title}</InputLabel>
-    <Select fullWidth onChange={onChange} value={value} multiple={multiple} renderValue={value => <>{getDisplayName(value)}</>}>
+    <Select disabled={disabled} fullWidth onChange={onChange} value={value} multiple={multiple} renderValue={value => <>{getDisplayName(value)}</>}>
       {options.map((option) => (
         <MenuItem key={option.uniqid} value={option.uniqid}>
           {
