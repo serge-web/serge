@@ -67,6 +67,8 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   useEffect(() => {
     if (channel.uniqid !== localChannel.uniqid) {
       setLocalChannel(channel as unknown as ChannelMapping)
+    }
+    if (!selectedRenderer) {
       setSelectedRender(get(channel, 'renderers[0].id', ''))
     }
   }, [channel])
