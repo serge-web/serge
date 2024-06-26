@@ -42,6 +42,7 @@
   "scripts": {
     "dev": "nodemon main.js",
     "start": "node main.js",
+    "serve-openapi": "node main.js --openapi",
     "lint": "eslint --fix **/*.js"
   }
 }

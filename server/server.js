@@ -369,13 +369,16 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
+
+    const openApi = process.argv.includes('--openapi')
+    const startUrl = openApi ? `http://localhost:${port}/api-docs` : `http://localhost:${port}`
     const start =
       process.platform === 'darwin'
         ? 'open'
         : process.platform === 'win32'
           ? 'start'
           : 'xdg-open'
-    require('child_process').exec(start + ' ' + `http://localhost:${port}`)
+    require('child_process').exec(start + ' ' + startUrl)
   })
 }
 
