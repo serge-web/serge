@@ -83,6 +83,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /{wargame}:
  *   put:
+ *     tags:
+ *       - Database Operations
  *     summary: Update wargame
  *     description: Updates or creates a document in the specified wargame database.
  *     parameters:
@@ -162,6 +164,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /bulkDocs/{dbname}:
  *   put:
+ *     tags:
+ *       - Database Operations
  *     summary: Bulk document update
  *     description: Updates multiple documents in a specified database in bulk.
  *     parameters:
@@ -237,6 +241,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /replicate/{replicate}/{dbname}:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Replicate database
  *     description: Replicates data from an existing database to a new database.
  *     parameters:
@@ -291,6 +297,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /delete/{dbName}:
  *   delete:
+ *     tags:
+ *       - Database Operations
  *     summary: Delete database
  *     description: Deletes a specified database.
  *     parameters:
@@ -340,6 +348,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /clearAll:
  *   delete:
+ *     tags:
+ *       - Database Operations
  *     summary: Clear all databases
  *     description: Resets all databases.
  *     responses:
@@ -364,6 +374,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /allDbs:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Get all wargame names
  *     description: Retrieves the names of all wargame databases.
  *     responses:
@@ -402,6 +414,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /wargameList:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Get wargame list
  *     description: Retrieves a list of all wargame databases with their details.
  *     responses:
@@ -501,6 +515,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /{wargame}:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Retrieve all message documents for the specified wargame.
  *     parameters:
  *       - in: path
@@ -558,6 +574,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /{wargame}/last:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Get the last wargame
  *     description: Retrieves the last document for the specified wargame.
  *     parameters:
@@ -651,6 +669,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /{wargame}/lastDoc/{id}:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Get the last document or documents since a specific ID
  *     description: Retrieves the latest document or all documents since a specific ID for the specified wargame.
  *     parameters:
@@ -755,6 +775,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /{wargame}/turns:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Get game turns for a specified wargame
  *     description: Retrieves all game turns for the specified wargame.
  *     parameters:
@@ -839,6 +861,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /{wargame}/{dbname}/logs:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Get logs for a specific database within a wargame
  *     description: Retrieves logs for a specified database within the specified wargame.
  *     parameters:
@@ -910,6 +934,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /{wargame}/{force}/{id}/counter:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Get the message counter for a specified force in a wargame
  *     description: Retrieves the message counter for the specified force in the given wargame.
  *     parameters:
@@ -997,6 +1023,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /{wargame}/{dbname}/logs-latest:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Get the latest logs for a specific database within a wargame
  *     description: Retrieves the latest logs for a specified database within the specified wargame.
  *     parameters:
@@ -1083,6 +1111,8 @@ const pouchDb = (app, io, pouchOptions) => {
  * @swagger
  * /get/{wargame}/{id}:
  *   get:
+ *     tags:
+ *       - Database Operations
  *     summary: Get document for a specified wargame
  *     description: Retrieves a document for the specified wargame and document ID.
  *     parameters:

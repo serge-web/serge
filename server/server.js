@@ -42,6 +42,12 @@ const runServer = (
     COUCH_URL = process.env.COUCH_URL
     COUCH_PASSWORD = process.env.COUCH_PASSWORD
   }
+  /**
+ * @swagger
+ * tags:
+ *   name: Server
+ *   description: API for server management
+ */
 
   // note: use use the presence of `process.env.PORT` as an
   // note: indicator that we're running on Heroku
@@ -65,6 +71,8 @@ const runServer = (
    * @swagger
    * /download/{wargame}:
    *   get:
+   *     tags:
+   *       - Database Management
    *     summary: Download wargame database
    *     description: Downloads a wargame database in zip format
    *     parameters:
@@ -116,6 +124,8 @@ const runServer = (
    * @swagger
    * /downloadAll:
    *   get:
+   *     tags:
+   *       - Database Management
    *     summary: Download all databases
    *     description: Downloads all databases in a zip format
    *     responses:
@@ -144,6 +154,8 @@ const runServer = (
    * @swagger
    * /deleteDb:
    *   get:
+   *     tags:
+   *       - Database Management
    *     summary: Delete a database
    *     description: Deletes a database specified by the query parameter
    *     parameters:
@@ -195,6 +207,8 @@ const runServer = (
    * @swagger
    * /tiles/{folder}/{z}/{y}/{x}:
    *   get:
+   *     tags:
+   *       - File Management
    *     summary: Get tile image
    *     description: Returns a tile image based on the specified folder and coordinates
    *     parameters:
@@ -252,6 +266,8 @@ const runServer = (
  * @swagger
  * /saveIcon:
  *   post:
+ *     tags:
+ *       - File Management
  *     summary: Save icon
  *     description: Uploads an icon image (PNG or SVG) and saves it to the server.
  *     requestBody:
@@ -293,6 +309,8 @@ const runServer = (
  * @swagger
  * /getIcon/{icon}:
  *   get:
+ *     tags:
+ *       - File Management
  *     summary: Get icon
  *     description: Retrieves an icon image by its filename.
  *     parameters:
@@ -324,10 +342,14 @@ const runServer = (
   })
 
   app.use('/saveLogo', express.raw({ type: ['image/png', 'image/svg+xml'], limit: '100kb' }))
+  // serge/server/server.js
+
   /**
  * @swagger
  * /saveLogo:
  *   post:
+ *     tags:
+ *       - File Management
  *     summary: Save a logo image
  *     description: Uploads a logo image in PNG or SVG format and saves it to the server.
  *     requestBody:
