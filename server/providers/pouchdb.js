@@ -79,7 +79,6 @@ const pouchDb = (app, io, pouchOptions) => {
     return dbName.indexOf('wargame') !== -1 && dbName.indexOf(dbSuffix) === -1 ? dbName + dbSuffix : dbName
   }
 
-  // serge/packa0ges/server/server.js
   /**
  * @swagger
  * /{wargame}:
@@ -234,8 +233,6 @@ const pouchDb = (app, io, pouchOptions) => {
     }
   })
 
-  // serge/server/server.js
-
   /**
  * @swagger
  * /replicate/{replicate}/{dbname}:
@@ -290,8 +287,6 @@ const pouchDb = (app, io, pouchOptions) => {
     }).catch(err => res.status(400).send({ msg: 'Error on replication', data: err }))
   })
 
-  // serge/packages/server/server.js
-
   /**
  * @swagger
  * /delete/{dbName}:
@@ -340,8 +335,6 @@ const pouchDb = (app, io, pouchOptions) => {
       res.send({ msg: 'ok', data: dbName })
     }).catch((err) => res.status(400).send({ msg: 'error', data: err }))
   })
-
-  // serge/server/server.js
 
   /**
  * @swagger
@@ -565,7 +558,6 @@ const pouchDb = (app, io, pouchOptions) => {
       }).catch(() => res.send([]))
   })
 
-  // serge/server/server.js
   /**
  * @swagger
  * /{wargame}/last:
@@ -659,7 +651,6 @@ const pouchDb = (app, io, pouchOptions) => {
     ).catch(() => res.send([]))
   })
 
-  // serge/server/server.js
   /**
  * @swagger
  * /{wargame}/lastDoc/{id}:
@@ -848,8 +839,6 @@ const pouchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([]))
   })
 
-  // serge/server/server.js
-
   /**
  * @swagger
  * /{wargame}/{dbname}/logs:
@@ -921,7 +910,6 @@ const pouchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([]))
   })
 
-  // +
   /**
  * @swagger
  * /{wargame}/{force}/{id}/counter:
@@ -1009,7 +997,6 @@ const pouchDb = (app, io, pouchOptions) => {
       })
   })
 
-  // +
   /**
  * @swagger
  * /{wargame}/{dbname}/logs-latest:

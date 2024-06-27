@@ -289,7 +289,6 @@ const runServer = (
     res.status(200).send({ path: imagePath })
   })
 
-  // serge/server.js
   /**
  * @swagger
  * /getIcon/{icon}:
