@@ -42,12 +42,6 @@ const runServer = (
     COUCH_URL = process.env.COUCH_URL
     COUCH_PASSWORD = process.env.COUCH_PASSWORD
   }
-  /**
- * @swagger
- * tags:
- *   name: Server
- *   description: API for server management
- */
 
   // note: use use the presence of `process.env.PORT` as an
   // note: indicator that we're running on Heroku
