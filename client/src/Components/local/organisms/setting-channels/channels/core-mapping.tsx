@@ -646,15 +646,15 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
           </Box>
           <Box className={styles.mapFieldItem}>
             <InputLabel variant="standard">Max native zoom</InputLabel>
-            <TextField value={localChannel.constraints.tileLayer?.maxNativeZoom || 1} onChange={(e) => onLocalChange('constraints.tileLayer.maxNativeZoom', e.target.value as string)}/>
+            <TextField type='number' value={localChannel.constraints.tileLayer?.maxNativeZoom || 1} onChange={(e) => onLocalChange('constraints.tileLayer.maxNativeZoom', e.target.value as string)}/>
           </Box>
           <Box className={styles.mapFieldItem}>
             <InputLabel variant="standard">Max zoom</InputLabel>
-            <TextField value={localChannel.constraints.maxZoom || 1} onChange={(e) => onLocalChange('constraints.maxZoom', e.target.value as string)}/>
+            <TextField type='number' value={localChannel.constraints.maxZoom || 1} onChange={(e) => onLocalChange('constraints.maxZoom', e.target.value as string)}/>
           </Box>
           <Box className={styles.mapFieldItem}>
             <InputLabel variant="standard">Min zoom</InputLabel>
-            <TextField value={localChannel.constraints.minZoom || 1} onChange={(e) => onLocalChange('constraints.minZoom', e.target.value as string)}/>
+            <TextField type='number' value={localChannel.constraints.minZoom || 1} onChange={(e) => onLocalChange('constraints.minZoom', e.target.value as string)}/>
           </Box>
           {/* <SimpleSelect title="Max native zoom" value={localChannel.constraints.tileLayer?.maxNativeZoom || 1} options={ZoomOptions} labelWidth="150px" width="40%" onChange={(e) => onLocalChange('constraints.tileLayer.maxNativeZoom', e.target.value as string)} />
           <SimpleSelect title="Max zoom" value={localChannel.constraints.maxZoom || 1} options={ZoomOptions} labelWidth="150px" width="40%" onChange={(e) => onLocalChange('constraints.maxZoom', e.target.value as string)} />
