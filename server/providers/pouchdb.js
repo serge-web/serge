@@ -360,8 +360,6 @@ const pouchDb = (app, io, pouchOptions) => {
   })
 
   // get all wargame names
-  // serge/packages/server/server.js
-
   /**
  * @swagger
  * /allDbs:
@@ -399,8 +397,6 @@ const pouchDb = (app, io, pouchOptions) => {
       res.send({ msg: 'ok', data: dbList || [] })
     }).catch(() => res.send([]))
   })
-
-  // serge/packages/server/server.js
 
   /**
  * @swagger
