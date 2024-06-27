@@ -324,6 +324,35 @@ const runServer = (
   })
 
   app.use('/saveLogo', express.raw({ type: ['image/png', 'image/svg+xml'], limit: '100kb' }))
+  /**
+ * @swagger
+ * /saveLogo:
+ *   post:
+ *     summary: Save a logo image
+ *     description: Uploads a logo image in PNG or SVG format and saves it to the server.
+ *     requestBody:
+ *       content:
+ *         image/png:
+ *           schema:
+ *             type: string
+ *             format: binary
+ *         image/svg+xml:
+ *           schema:
+ *             type: string
+ *             format: binary
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Successfully saved the logo image.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 path:
+ *                   type: string
+ *                   example: /path/to/logo-file.png
+ */
   app.post('/saveLogo', (req, res) => {
     const imagePath = `${imgDir}/${uniqid.time('logo-')}.${req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'}`
     fs.writeFile(imagePath, req.body, err => console.log(err))
