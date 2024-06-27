@@ -58,7 +58,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
     const title = prop.description && prop.description.length > 0 ? prop.description : 'jimno'
     return (
       <div key={key} className={styles.itemsBox} title={title}>
-        <p>{key}:</p>
+        <p>{prop.label || key}:</p>
         <div>
           {componentFor(key, field, prop, value, disableIdEdit, disabled || field.disabled, isId, onPropertiesChange)}
         </div>
