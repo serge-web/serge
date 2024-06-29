@@ -5,15 +5,18 @@ import {
   Box,
   Button,
   Checkbox,
+  Chip,
   FormControlLabel,
   InputLabel,
   List,
   ListItem,
-  TextField
+  TextField,
+  Tooltip
 } from '@material-ui/core'
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete'
 import cx from 'classnames'
 import { capitalize, cloneDeep, get, set, unset } from 'lodash'
-import React, { Fragment, useCallback, useEffect, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import Confirm from 'src/Components/local/atoms/confirm'
 import CustomDialog from 'src/Components/local/atoms/custom-dialog'
 import Tabs from 'src/Components/local/atoms/tabs'
@@ -50,6 +53,8 @@ type CoreMappingChannelProps = {
   onChange: (channel: ChannelCustom) => void
 };
 
+const filter = createFilterOptions<Option>()
+
 export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel, onChange, forces }) => {
   const [activeTab, setActiveTab] = useState<number>(0)
   const [editProperty, setEditProperty] = useState<PropertyType | undefined>()
@@ -63,13 +68,21 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   const [deletingProp, setDeletingProp] = useState<PropertyType>()
   const [deletingRenderer, setDeletingRenderer] = useState<string>('')
   const [rolesOptions, setRoleOptions] = useState<Option[]>([])
+  const [choices, setChoices] = useState<string[]>([])
+  const [choiceOpts, setChoiceOpts] = useState<Option[]>([])
+  const needInitChoicesOpt = useRef<boolean>(true)
 
   useEffect(() => {
+    const channelMapping = channel as unknown as ChannelMapping
     if (channel.uniqid !== localChannel.uniqid) {
-      setLocalChannel(channel as unknown as ChannelMapping)
+      setLocalChannel(channelMapping)
     }
-    if (!selectedRenderer) {
-      setSelectedRender(get(channel, 'renderers[0].id', ''))
+    if (channelMapping.renderers.length) {
+      if (!selectedRenderer) {
+        setSelectedRender(get(channel, 'renderers[0].id', ''))
+      }
+    } else {
+      setSelectedRender('')
     }
   }, [channel])
 
@@ -116,7 +129,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     const participantsData: any[] = []
     localChannel.participants.forEach(p => {
       participantsData.push({
-        subject: p.forceUniqid,
+        subject: getForceName(p.forceUniqid),
         type: p.forRenderer,
         permission: getPermission(p.permissionTo),
         applied: p.phases,
@@ -130,11 +143,18 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     onChange(localChannel as unknown as ChannelCustom)
   }, [localChannel])
 
+  const getForceName = (forceId: string) => {
+    const force = forces.find(f => f.uniqid === forceId)
+    return force ? force.name : ''
+  }
+
   const getOthersData = (prop: PropertyType) => {
     if (prop.type === 'NumberProperty') {
       return `Format: ${prop['format'] || 1}`
     } else if (prop.type === 'StringProperty') {
       return `Lines: ${prop['lines'] || 'default'}`
+    } else if (prop.type === 'EnumProperty') {
+      return `Choices: ${prop.choices.join(', ')}`
     }
     return ''
   }
@@ -169,7 +189,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   const getPermission = (permissionTo: any) => {
     const keys = Object.keys(permissionTo || {})
     return keys.map(key => {
-      return `${key}: ${shortPermissionName(permissionTo[key])}`
+      return `${getForceName(key)}: ${shortPermissionName(permissionTo[key])}`
     })
   }
 
@@ -305,7 +325,12 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     setEditParticipants(initialEditParticipant)
   }
 
-  const onCloseProperty = () => setEditProperty(undefined)
+  const onCloseProperty = () => {
+    setEditProperty(undefined)
+    setChoiceOpts([])
+    setChoices([])
+    needInitChoicesOpt.current = true
+  }
 
   const onSaveProperty = () => {
     if (!editProperty) {
@@ -331,7 +356,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
         setLocalChannel(cloneLocalChannel)
       }
     })
-    setEditProperty(undefined)
+    onCloseProperty()
   }
 
   const onLocalChange = useCallback((key: string, value: string) => {
@@ -435,6 +460,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     if (path === 'type' && value !== 'EnumProperty') {
       unset(cloneRow, 'lines')
       unset(cloneRow, 'format')
+      setChoices([])
     }
     set(cloneRow, path, value)
     setEditProperty(cloneRow)
@@ -442,16 +468,22 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
 
   const onEditParticipantChange = (path: string, value: string[] | string) => {
     if (path === 'force') {
-      const row = participants.find(p => p.subject === value)
-      if (row) {
-        if (!editParticipants.isNew) {
+      if (!editParticipants.isNew) {
+        const row = participants.find(p => p.subject === value)
+        if (row) {
           onEditParticipant(row)
+        }
+        return
+      } else {
+        const editParticipant = localChannel.participants.find(p => p.forceUniqid === value)
+        if (editParticipant) {
+          alert(`This force "${getForceName(editParticipant.forceUniqid)}" already exists, please choose another one`)
           return
         } else {
-          const editParticipant = localChannel.participants.find(p => p.subscriptionId === row.id)
-          if (editParticipant) {
-            const rolesOpts = getRolesForParticipant(editParticipant)
-            setRoleOptions(rolesOpts)
+          const force = forces.find(f => f.uniqid === value)
+          if (force) {
+            const roleOpts = force.roles.map(r => ({ name: r.name, uniqid: r.roleId }))
+            setRoleOptions(roleOpts)
           }
         }
       }
@@ -503,7 +535,7 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
     } else if (prop.type === 'StringProperty') {
       return 'Lines'
     }
-    return ''
+    return 'Choices'
   }, [])
 
   const getOthersFieldValue = useCallback((rawValue: string) => {
@@ -514,12 +546,64 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
   }, [])
 
   const renderOtherField = useCallback((editProperty: PropertyType, key: string, idx: number) => {
-    const valueType = editProperty.type === 'NumberProperty' ? 'number' : 'text'
+    const valueType = editProperty.type === 'NumberProperty' ? 'number' : editProperty.type === 'EnumProperty' ? 'select' : 'text'
     return <Box key={idx} className={styles.editPropField}>
       <InputLabel variant="standard">{getOtherFieldLabel(editProperty)}</InputLabel>
-      <TextField fullWidth type={valueType} value={getOthersFieldValue(editProperty[key])} autoFocus onChange={(e) => onEditPropertyChange(editProperty.type === 'NumberProperty' ? 'format' : 'lines', e.target.value)}/>
+      {valueType === 'select'
+        ? <Autocomplete
+          value={choices}
+          fullWidth
+          onChange={(_, newValue: (string | Option)[]): void => {
+            const finalVal = newValue.map(item => {
+              if (typeof item === 'string') {
+                return item
+              } else {
+                return item.uniqid
+              }
+            })
+            setChoices(finalVal)
+            onEditPropertyChange('choices', finalVal)
+            setChoiceOpts(finalVal.map(v => ({ name: v, uniqid: v })))
+          }}
+          multiple
+          options={choiceOpts}
+          freeSolo
+          disableClearable
+          renderTags={(vals: any, getTagProps): any =>
+            vals.map((val: string, index: number) => (
+              <Chip 
+                key={index}
+                label={<Tooltip title={val} placement="top"><span>{val}</span></Tooltip>}
+                size="small"
+                {...getTagProps({ index })}
+              />
+            ))
+          }
+          renderInput={(params): any => (
+            <TextField
+              {...params}
+              label="Option"
+            />
+          )}
+          filterOptions={(opts, params): any => {
+            const filtered = filter(opts, params)
+            const { inputValue } = params
+            const isExisting = opts.some((option) => inputValue === option.uniqid)
+            if (inputValue !== '' && !isExisting) {
+              filtered.push({
+                uniqid: inputValue,
+                name: `Add "${inputValue}"`
+              })
+            }
+            return filtered.filter(item => !choices.includes(item.name))
+          }}
+          getOptionLabel={(option: Option): any => {
+            return (option && option.name) || ''
+          }}
+        />
+        : <TextField fullWidth type={valueType} value={getOthersFieldValue(editProperty[key])} autoFocus onChange={(e) => onEditPropertyChange(editProperty.type === 'NumberProperty' ? 'format' : 'lines', e.target.value)} />}
     </Box>
-  }, [editProperty])
+  }, [editProperty, choices, choiceOpts])
 
   return (
     <Box className={styles.channelTabContainer}>
@@ -619,14 +703,35 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
               case 'id':
                 return <Fragment key={idx}></Fragment>
               case 'others':
-                return (editProperty.type === 'EnumProperty' || Object.hasOwn(editProperty, 'format') || Object.hasOwn(editProperty, 'lines'))
+                // render enum options from others value
+                if (editProperty.type === 'EnumProperty' && needInitChoicesOpt.current) {
+                  needInitChoicesOpt.current = false
+                  const others = get(editProperty, 'others', '').split(':')
+                  if (others.length > 1 && others[1].trim().includes(',')) {
+                    const choiceValues = others[1].split(',').map(v => v.trim())
+                    setChoiceOpts(choiceValues.map(c => ({ name: c, uniqid: c })))
+                    setChoices(choiceValues)
+                  }
+                }
+                return (Object.hasOwn(editProperty, 'format') || Object.hasOwn(editProperty, 'lines') || Object.hasOwn(editProperty, 'choices'))
                   ? null
                   : renderOtherField(editProperty, key, idx)
               case 'format':
               case 'lines':
-                return editProperty.type === 'EnumProperty'
-                  ? null
-                  : renderOtherField(editProperty, key, idx)
+                if (Object.hasOwn(editProperty, 'choices') && editProperty.type !== 'EnumProperty') {
+                  const cloneEditProp = cloneDeep(editProperty)
+                  unset(cloneEditProp, 'choices')
+                  setEditProperty(cloneEditProp)
+                }
+                return renderOtherField(editProperty, key, idx)
+              case 'choices':
+                if ((Object.hasOwn(editProperty, 'format') || Object.hasOwn(editProperty, 'lines')) && editProperty.type === 'EnumProperty') {
+                  const cloneEditProp = cloneDeep(editProperty)
+                  unset(cloneEditProp, 'format')
+                  unset(cloneEditProp, 'lines')
+                  setEditProperty(cloneEditProp)
+                }
+                return renderOtherField(editProperty, key, idx)
               default:
                 return <Box key={idx} className={styles.editPropField}>
                   <InputLabel variant="standard">{ capitalize(key)}</InputLabel>
@@ -656,9 +761,6 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
             <InputLabel variant="standard">Min zoom</InputLabel>
             <TextField type='number' value={localChannel.constraints.minZoom || 1} onChange={(e) => onLocalChange('constraints.minZoom', e.target.value as string)}/>
           </Box>
-          {/* <SimpleSelect title="Max native zoom" value={localChannel.constraints.tileLayer?.maxNativeZoom || 1} options={ZoomOptions} labelWidth="150px" width="40%" onChange={(e) => onLocalChange('constraints.tileLayer.maxNativeZoom', e.target.value as string)} />
-          <SimpleSelect title="Max zoom" value={localChannel.constraints.maxZoom || 1} options={ZoomOptions} labelWidth="150px" width="40%" onChange={(e) => onLocalChange('constraints.maxZoom', e.target.value as string)} />
-          <SimpleSelect title="Min zoom" value={localChannel.constraints.minZoom || 1} options={ZoomOptions} labelWidth="150px" width="40%" onChange={(e) => onLocalChange('constraints.minZoom', e.target.value as string)} /> */}
         </Box>
       )}
       {activeTab === 1 && (

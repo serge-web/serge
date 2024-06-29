@@ -249,7 +249,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           // item missing, see what type it is
           switch (p.type) {
             case PROPERTY_ENUM:
-              props[p.id] = p.choices[0]
+              props[p.id] = p.choices[0] || ''
               break
             case PROPERTY_NUMBER:
               props[p.id] = 0

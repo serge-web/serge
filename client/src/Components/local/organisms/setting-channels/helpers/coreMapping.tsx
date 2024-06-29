@@ -108,7 +108,7 @@ export const SimpleTable: React.FC<SimpleTableProps> = ({ columns, data, editInl
   }
 
   const TextElm: React.FC<RenderElmProps> = ({ prop, ckey, rowId, onChange }) => {
-    const elm = prop[ckey]
+    let elm = prop[ckey]
     if (!elm) {
       return <></>
     }
@@ -122,9 +122,13 @@ export const SimpleTable: React.FC<SimpleTableProps> = ({ columns, data, editInl
       onChange && onChange(prop)
     }
 
-    if (editInline === rowId && ckey === 'permissionOnForce') {
-      return <SimpleSelect title='' value={elm} options={forceNames} labelWidth="10px" onChange={onElmChange} />
+    if (ckey === 'permissionOnForce') {
+      if (editInline === rowId) {
+        return <SimpleSelect title='' value={elm} options={forceNames} labelWidth="10px" onChange={onElmChange} />
+      }
+      elm = forceNames.find(f => f.uniqid === prop[ckey])?.name || 'N/A'
     }
+
     return <Chip label={elm} className={styles.tableCellText} />
   }
 
