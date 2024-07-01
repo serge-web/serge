@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css'
 import renderDropdown from './helpers/renderDeopdown'
 import useStyles from './helpers/SidcGeneratorStyles'
 import PropsTypes from './PropsTypes/types'
+import { CUSTOM_SIDC } from 'src/config'
 import replaceNumber from './helpers/replace-number'
 import { dropdownOptions } from './helpers/SharedData'
 
@@ -27,7 +28,7 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
 
   useEffect(() => {
     setSymbolCode(sidcValue[4] + sidcValue[5])
-    setOriginalNumber(sidcValue)
+    setOriginalNumber(sidcValue || CUSTOM_SIDC)
   }, [sidcValue])
 
   const handleSave = () => {
