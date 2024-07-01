@@ -27,7 +27,12 @@ const SIDCGenerator: React.FC<PropsTypes> = (props) => {
   }, [originalNumber])
 
   useEffect(() => {
-    setSymbolCode(sidcValue[4] + sidcValue[5])
+    if (sidcValue && sidcValue.length >= 6) {
+      setSymbolCode(sidcValue[4] + sidcValue[5])
+    } else {
+      console.warn('sidcValue is either undefined or too short')
+      setSymbolCode('')
+    }
     setOriginalNumber(sidcValue || CUSTOM_SIDC)
   }, [sidcValue])
 
