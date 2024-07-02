@@ -207,10 +207,6 @@ const createOrUpdateChannelUI = (
       (message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED)
     )
 
-    // channels expect messages to be in reverse chronological order, but database supplies them
-    // in ascending order. So, reverse order
-    const reverseMessages = messages.reverse()
-
     return {
       name: channel.name,
       uniqid: channel.uniqid,
@@ -218,7 +214,7 @@ const createOrUpdateChannelUI = (
       forceIcons,
       forceColors,
       forceNames,
-      messages: reverseMessages,
+      messages: messages,
       unreadMessageCount: messages.filter((message) => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
       observing: observing,
       cData: channel
@@ -353,7 +349,7 @@ const updateChannelMessages = (gameTurn: number, messageId: string, thisChannel:
     if (!thisChannel.messages.find((prevMessage: MessageChannel) => (prevMessage as MessageInfoTypeClipped).gameTurn === gameTurn)) {
       // no messages, or no turn marker found, create one  
       const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
-      thisChannel.messages.unshift(message)
+      thisChannel.messages.push(message)
     }
   }
 }
