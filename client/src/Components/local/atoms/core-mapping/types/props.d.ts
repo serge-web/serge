@@ -1,10 +1,12 @@
 import { FeatureCollection } from 'geojson'
 import { LatLng, PM } from 'leaflet'
-import { ChannelMapping, ForceData, MappingMessage, MappingMessageDelta } from 'src/custom-types'
+import { ForceStyle } from 'src/Helpers'
+import { PanelSize } from 'src/Components/CoreMappingChannel'
+import { ChannelMapping, ForceData, MappingMessage, MappingMessageDelta, ParticipantMapping, Role } from 'src/custom-types'
 
 export default interface PropTypes {
   playerForce: ForceData
-  playerRole: Role['id']
+  playerRole: Role['uniqid']
   currentTurn: number
   currentPhase: Phase
   forceStyles: ForceStyle[]
@@ -12,6 +14,7 @@ export default interface PropTypes {
   messages: CoreMappingMessage[]
   postBack: (message: MappingMessage | MappingMessageDelta) => void
   openPanelAsDefault: boolean
+  panelSize?: PanelSize
 }
 
 export type CoreRendererProps = {
@@ -22,10 +25,14 @@ export type CoreRendererProps = {
   onSelect: (id: string[]) => void
   selected: string[]
   showLabels: boolean
+  forceStyles: ForceStyle[]
+  permissions: ParticipantMapping[]
 };
 
 export type GeomanControlProps = {
   onShowLabels: (showLabels: boolean) => void
   onCreate: (e: PM.ChangeEventHandler) => void
   onChange: (id: number, lnglat: LatLng) => void
+  canAddRemove: boolean
+  canMoveResize: boolean
 }

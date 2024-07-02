@@ -3,7 +3,6 @@
 //
 import { Phase } from 'src/config'
 import { ForceData } from './force-data'
-import { ForceStyle } from 'src/Helpers'
 
 export const RENDERER_CORE = 'CoreRenderer'
 export const RENDERER_MILSYM = 'MilSymRenderer'
@@ -18,15 +17,13 @@ export interface BaseProperties {
     _type: typeof RENDERER_CORE | typeof RENDERER_MILSYM
     label: string
     force?: ForceData['id']
-    _forceStyles?: ForceStyle[]
     turn: number
     phase: Phase
-    visibleTo?: [ForceData['id']]
 }
 
 /** custom properties for the core renderer */
 export interface CoreProperties extends BaseProperties {
-    color: string
+    // color: string // redundant property
     [other: string]: unknown
 }
 
@@ -44,10 +41,8 @@ export interface BaseProperty {
   label: string
   /** longer description for this property */
   description?: string
-  /** whether the property is user-editable */
-  editable?: boolean
-  /** font-awesome icon to show against this field */
-  icon?: string
+  /** whether the property is editable by players */
+  playerEditable?: boolean
 }
 
 export const PROPERTY_STRING = 'StringProperty'
@@ -57,6 +52,7 @@ export const PROPERTY_ENUM = 'EnumProperty'
 export interface StringProperty extends BaseProperty {
   type: typeof PROPERTY_STRING
   default?: string
+  lines?: number // number of lines for a textarea for long string properties.
 }
 
 export interface NumberProperty extends BaseProperty {
@@ -71,13 +67,13 @@ export interface EnumProperty extends BaseProperty {
   default?: string // default value (or use first choice by default)
 }
 
-export type PropertyTypes = StringProperty | NumberProperty | EnumProperty
+export type PropertyType = StringProperty | NumberProperty | EnumProperty
 
 export interface BaseRenderer {
     id: string 
     type: string // one of the renderer type strings
-    baseProps: PropertyTypes[] // general properties, applicable to all renderers
-    additionalProps: PropertyTypes[] // any additional properties that are used for this renderer
+    baseProps: PropertyType[] // general properties, applicable to all renderers
+    additionalProps: PropertyType[] // any additional properties that are used for this renderer
 }
 
 export interface CoreRenderer extends BaseRenderer {

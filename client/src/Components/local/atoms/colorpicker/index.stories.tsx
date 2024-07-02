@@ -3,14 +3,13 @@ import React, { useState } from 'react'
 // Import component files
 import Colorpicker from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/atoms/Colorpicker',
   component: Colorpicker,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

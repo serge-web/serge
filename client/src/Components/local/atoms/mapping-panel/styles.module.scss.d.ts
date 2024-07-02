@@ -3,17 +3,21 @@
 interface CssExports {
   'asset-icon': string;
   'button': string;
+  'disabled': string;
   'filterList': string;
   'filterPanel': string;
   'header': string;
   'health-bar': string;
   'icon': string;
+  'inputBox': string;
   'itemsBox': string;
   'itemsPanel': string;
   'itemsResponsive': string;
   'latLng': string;
   'lblCbx': string;
   'listItem': string;
+  'menu-item': string;
+  'multi-select': string;
   'panelGroup': string;
   'propertiesPanel': string;
   'propertiesResponsive': string;
@@ -21,6 +25,7 @@ interface CssExports {
   'resize-handle-horizontal': string;
   'resize-handle-inner': string;
   'resize-handle-outer': string;
+  'sidcbtn': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

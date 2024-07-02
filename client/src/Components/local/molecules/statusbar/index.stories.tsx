@@ -3,7 +3,7 @@ import React from 'react'
 // Import component files
 import StatusBar from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { WargameMock as wargame } from 'src/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -11,7 +11,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/molecules/StatusBar',
   component: StatusBar,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

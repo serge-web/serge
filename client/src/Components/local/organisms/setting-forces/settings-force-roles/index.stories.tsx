@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 // Import component files
 import { watuWargame } from 'src/mocks'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { noop } from 'lodash'
 import docs from './README.md'
 import RolesAccordion from './index'
@@ -14,7 +14,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/organisms/SettingForces/RolesAccordion',
   component: RolesAccordion,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

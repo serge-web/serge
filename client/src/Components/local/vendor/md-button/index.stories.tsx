@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button'
 import docs from './README.md'
 
 export default {
-  title: 'vendor/Button',
+  title: 'md-button/vendor/Button',
   component: Button,
   parameters: {
     readme: {

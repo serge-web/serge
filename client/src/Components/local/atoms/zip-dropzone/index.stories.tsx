@@ -2,7 +2,7 @@ import React from 'react'
 import ZipFileUploader from './index'
 import docs from './README.md'
 import Button from '../button'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { Wargame, Message } from 'src/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
@@ -10,7 +10,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', posit
 export default {
   title: 'local/atoms/ZipDropzone',
   component: ZipFileUploader,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story

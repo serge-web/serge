@@ -2,7 +2,7 @@
   border: 1px solid #d3d3d3;
   background-color: #fff;
   width: 100%;
-  border-right: 2px solid gray;
+  border-right: 2px solid #808080;
 }
 
 .resize-handle-outer {
@@ -34,23 +34,24 @@
 }
 
 .filterPanel {
-  background-color: lightgray;
-  padding: 0px 0px 20px 0px;
+  background-color: #d3d3d3;
+  padding: 0 0 20px;
+  min-height: 36px;
 }
 
 .header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: rgb(238, 238, 238);
-  border: 1px solid lightgray;
+  border: 1px solid #d3d3d3;
   height: 35px;
   box-shadow: 1px 1px 1px;
   font-weight: 600;
-  color: black;
+  color: #000;
+  padding: 0 10px;
 
   svg {
-    position: absolute;
     left: 10px;
     cursor: pointer;
   }
@@ -67,6 +68,10 @@
   margin-top: 5px;
   gap: 10px;
 
+  .sidcbtn {
+    position: static;
+  }
+
   p {
     min-width: 90px;
     width: 90px;
@@ -77,17 +82,22 @@
 
   div {
     width: calc(100% - 80px);
-    
 
     input,
+    textarea,
     select {
       width: 100%;
       min-height: 30px;
     }
   }
 
+  .inputBox {
+    display: flex;
+  }
+
   button {
     position: relative;
+    font-size: 14px;
   }
 }
 
@@ -101,23 +111,24 @@
     position: relative !important;
     width: 70px;
     border-radius: 5px;
-    box-shadow: 2px 2px 2px gray;
+    box-shadow: 2px 2px 2px #808080;
   }
 }
 
 .itemsPanel {
-  background-color: lightgray;
-  padding: 0px 0px 20px 0px;
+  background-color: #d3d3d3;
+  padding: 0 0 20px;
+  min-height: 36px;
 }
 
 .propertiesPanel {
-  background-color: lightgray;
-  padding: 0px 0px 20px 0px;
+  background-color: #d3d3d3;
+  padding: 0 0 35px;
 }
 
 .listItem {
   padding: 0 0 0 10px;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #808080;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -125,6 +136,14 @@
 
   label {
     margin: 0;
+  }
+
+  div {
+    display: flex;
+
+    svg {
+      cursor: pointer;
+    }
   }
 }
 
@@ -134,7 +153,7 @@
 
   div {
     height: 35px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid #d3d3d3;
     padding-left: 10px;
     cursor: pointer;
     display: flex;
@@ -149,16 +168,16 @@
 
 .itemsResponsive {
   overflow: auto;
-  height: calc(100% - 20px) ;
+  height: calc(100% - 20px);
 }
 
-.propertiesResponsive { 
+.propertiesResponsive {
   overflow: auto;
-  height: calc(100% - 60px) ;
+  height: calc(100% - 60px);
 }
 
 .removeIcon {
-  color: red;
+  color: #f00;
   cursor: pointer;
 }
 
@@ -176,6 +195,7 @@
   align-items: center;
   flex-direction: column;
   padding: 2px;
+  margin-left: 10px;
 }
 
 .health-bar {
@@ -183,4 +203,21 @@
   width: 20px;
   margin-top: 1px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.multi-select {
+  width: 100% !important;
+}
+
+.multi-select > div {
+  width: 100% !important;
+}
+
+.menu-item {
+  padding: 0 !important;
+  height: 36px;
+}
+
+.disabled {
+  pointer-events: none;
 }

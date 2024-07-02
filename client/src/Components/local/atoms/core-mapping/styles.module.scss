@@ -38,7 +38,10 @@
   svg {
     font-weight: 700;
   }
+}
 
+.measuring {
+  pointer-events: none;
 }
 
 .health-bar {
@@ -63,4 +66,9 @@
     opacity: 1;
     transform: scale(1);
   }
+}
+
+.shape {
+  fill-opacity: 0.5;
+  stroke-width: 2;
 }

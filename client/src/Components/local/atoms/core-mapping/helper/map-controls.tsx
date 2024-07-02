@@ -1,30 +1,72 @@
 import '@geoman-io/leaflet-geoman-free/dist/leaflet-geoman.css'
 import L, { LeafletEvent, PM } from 'leaflet'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
-import AssetIcon from 'src/Components/local/asset-icon'
+import AssetIcon from '../../../../../Components/local/asset-icon'
+import { Ruler } from '../../../../../custom-types/leaflet-custom-types'
 import styles from '../styles.module.scss'
 import { GeomanControlProps } from '../types/props'
 import { useMappingState } from './mapping-provider'
+import { delay } from 'lodash'
 
-const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {
+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, canAddRemove, canMoveResize }) => {
   const map = useMap()
+  const ruler = useRef<Ruler | null>(null)
   const selectedRef = useRef<boolean>(false)
 
-  const { deselecteFeature, setDeselectFeature } = useMappingState()
+  // track permissions getting updated
+  const [prevPermissions, setPermissions] = useState<string>('')
+
+  const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring, panTo } = useMappingState()
+
+  const controls: PM.ToolbarOptions = useMemo(() => ({
+    position: 'topright',
+    rotateMode: false,
+    pinningOption: true,
+    snappingOption: true,
+    drawCircleMarker: false,
+    drawMarker: canAddRemove,
+    drawPolyline: canAddRemove,
+    drawCircle: canAddRemove,
+    drawPolygon: canAddRemove,
+    drawRectangle: canAddRemove,
+    dragMode: canMoveResize,
+    removalMode: canAddRemove,
+    editMode: canMoveResize,
+    cutPolygon: false
+  }), [canAddRemove, canMoveResize])
+
+  useEffect(() => {
+    const thesePerms = canAddRemove + '-' + canMoveResize
+    if (thesePerms !== prevPermissions) {
+      setPermissions(thesePerms)
+      map.pm.removeControls()
+      map.pm.addControls(controls)
+    }
+  }, [canAddRemove, canMoveResize])
 
   useEffect(() => {
     selectedRef.current = deselecteFeature
   }, [deselecteFeature])
+
+  useEffect(() => {
+    map.invalidateSize()
+  }, [localPanelSize])
+
+  useEffect(() => {
+    if (panTo.lat && panTo.lng) {
+      map.flyTo([panTo.lat, panTo.lng])
+    }
+  }, [panTo])
 
   const initMapListener = () => {
     let layersVisible = true 
     map.pm.Toolbar.createCustomControl({
       name: 'showLayersText',
       block: 'custom',
-      className: 'control-icon leaflet-pm-icon-text',
+      className: 'control-icon leaflet-pm-icon-snapping',
       title: 'Show symbol labels',
       afterClick: () => {
         onShowLabels(layersVisible)
@@ -50,7 +92,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
       },
       
       // Set toggle to false to indicate that this custom control does not have a toggle functionality
-      toggle: false
+      toggle: true
 
     })
     
@@ -108,25 +150,30 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =
        
       map.pm.setGlobalOptions({ markerStyle: { icon } })
       map.zoomControl.setPosition('bottomright')
+      L.control.scale({ position: 'topright' }).addTo(map)
+      ruler.current = L.control.ruler({ position: 'bottomright' }).addTo(map)
+      ruler.current._container.onclick = () => {
+        delay(() => setIsMeasuring(!!ruler.current?._choice), 50)
+      }
       initMapListener()
     }
   }, [map])
 
   return <GeomanControls
-    options={{
-      position: 'topright',
-      rotateMode: false,
-      pinningOption: true,
-      snappingOption: true,
-      drawCircleMarker: false,
-      cutPolygon: false
-    }}
+    options={controls}
     globalOptions={{}}
     onCreate={e => {
       if (e.shape === 'Text') {
         addPendingTextEvent(e.layer)
       } else {
         map.removeLayer(e.layer)
+      }
+    }}
+    onButtonClick={(e) => {
+      if (!e.button.toggleStatus && ruler.current && ruler.current._choice) {
+        ruler.current._closePath()
+        ruler.current._toggleMeasure()
+        setIsMeasuring(false)
       }
     }}
   />

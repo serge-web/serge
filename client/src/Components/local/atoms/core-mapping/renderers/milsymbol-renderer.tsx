@@ -4,18 +4,25 @@ import ms from 'milsymbol'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { calculateHealthColor } from 'src/Helpers'
-import { RENDERER_MILSYM } from 'src/custom-types'
+import { MappingPermissions, RENDERER_MILSYM } from 'src/custom-types'
 import { createDivIcon } from '../helper/marker-helper'
 import { CoreRendererProps } from '../types/props'
 import { useMappingState } from '../helper/mapping-provider'
+import { hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-permission'
 
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
-const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels, selected = [] }): any => {
-  const { filterFeatureIds } = useMappingState()
+const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels, permissions, selected = [] }): any => {
+  const { filterFeatureIds, isMeasuring } = useMappingState()
 
-  const filter = (feature: Feature<Geometry, any>): boolean => feature.properties._type === RENDERER_MILSYM && filterFeatureIds.includes('' + feature.properties.id)
+  const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
+    const isThisRenderer = feature.properties._type === RENDERER_MILSYM
+    const isShown = filterFeatureIds.includes('' + feature.properties.id)
+    const canSeeSpatial = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
+    return isThisRenderer && isShown && canSeeSpatial
+  }
+
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
       const { sidc, health, id } = feature.properties
@@ -32,15 +39,17 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       const isSelected = selected.some(id => id === feature.properties.id)
 
       // Create custom DivIcon for the marker
-      const divIcon = createDivIcon(iconHTML, healthColor, isSelected)
+      const divIcon = createDivIcon(iconHTML, healthColor, isSelected, isMeasuring)
       const marker = L.marker(latLng, { icon: divIcon })
       
       // Event listeners for marker actions
       marker.addEventListener('pm:remove', () => onRemoved(id))
       marker.addEventListener('pm:dragend', handleDragEnd)
       marker.addEventListener('click', (e) => {
-        L.DomEvent.stopPropagation(e)
-        onSelect([id])
+        if (!isMeasuring) {
+          L.DomEvent.stopPropagation(e)
+          onSelect([id])
+        }
       })
 
       return marker
@@ -65,7 +74,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
     }
   }
 
-  return <GeoJSON data={features} filter={filter} pointToLayer={pointToLayer} key={'feature_no_contact' + Math.random()} />
+  return <GeoJSON data={features} filter={filterForThisRenderer} pointToLayer={pointToLayer} key={'feature_no_contact' + Math.random()} />
 }
 
 export default MilSymbolRenderer
