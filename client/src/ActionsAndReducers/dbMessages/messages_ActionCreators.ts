@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import * as ActionConstant from 'src/config'
 import 'whatwg-fetch'
-// @ts-ignore
 import check from 'check-types'
 
 import * as messagesApi from '../../api/messages_api'

@@ -156,8 +156,7 @@ export const populateWargameList = () => {
   return async (dispatch: WargameDispatch) => {
     dispatch(populatingDb(true))
 
-    // @ts-ignore
-    const wargameNames = await wargamesApi.populateWargameList(dispatch)
+    const wargameNames = await wargamesApi.populateWargameList()
     console.warn('now all wargameenams come from server', wargameNames)
     dispatch(saveAllWargameNames(wargameNames))
 
@@ -165,9 +164,8 @@ export const populateWargameList = () => {
   }
 }
 
-export const createNewWargameDB = (wargameList: WargameList) => {
+export const createNewWargameDB = (wargameList: WargameList[]) => {
   return async (dispatch: WargameDispatch) => {
-    // @ts-ignore
     const wargame = await wargamesApi.createWargame(dispatch, wargameList)
 
     dispatch(setCurrentWargame(_.omit(wargame, ['_id', '_rev'])))

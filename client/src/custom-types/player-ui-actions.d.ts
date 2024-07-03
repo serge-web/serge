@@ -113,11 +113,16 @@ interface OpenModalAction {
 interface CloseModalAction {
   type: typeof CLOSE_MODAL
 }
-
+interface AddNotificationAction {
+  type: 'ADD_NOTIFICATION'
+  message: string
+  level: 'error' | 'warning' | 'info' | 'success'
+}
 export type PlayerUiActionTypes = SetCurrentWargameAction |
   SetForceAction |
   SetRoleAction |
-  SetAllTemplatesAction |
+  SetAllTemplatesAction | 
+  // AddNotificationAction |
   ShowHideObjectivesAction |
   UpdateMessageStateAction |
   SetWargameFeedbackAction |
