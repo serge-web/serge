@@ -30,7 +30,7 @@ class GameDesignerInterface extends Component {
   }
 
   createWargame = () => {
-    this.props.dispatch(createNewWargameDB())
+    this.props.dispatch(createNewWargameDB(this.props.wargame.wargameList))
   }
 
   clearWargames = () => {

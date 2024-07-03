@@ -4,7 +4,7 @@ import copyState from '../../Helpers/copyStateHelper'
 import * as wargamesHandlers from './helpers/wargamesHandlers'
 import { dbDefaultSettings } from 'src/config'
 import { 
-  WargamesState, WargameActionTypes, AllWargameNameSaved, SetCurrentWargame, SetGameSetupData, AddNewRecipient, RemoveRecipient, ActionHandler,
+  WargamesState, WargameActionTypes, AllWargameNameSaved, SetCurrentWargame, SetGameSetupData, setWargameTitle, AddNewRecipient, RemoveRecipient, ActionHandler,
   SetCurrentGameSetupTab, AddNewForce, SetForceColor, AddNewChannel, SetSelectedChannel, AddRoleToForce, RemoveRoleFromForce, AddIcon, SetSelectedForce
 } from 'src/custom-types'
 
@@ -31,6 +31,7 @@ const handlers: Record<string, ActionHandler> = {
   [ActionConstant.SET_EXPORT_WARGAME]: (newState, action) => wargamesHandlers.handleSetExportWargame(newState, (action as SetCurrentWargame).payload),
   [ActionConstant.SET_CURRENT_GAME_SETUP_TAB]: (newState, action) => wargamesHandlers.handleSetCurrentGameSetupTab(newState, (action as SetCurrentGameSetupTab).payload),
   [ActionConstant.SET_GAME_SETUP_DATA]: (newState, action, tab) => wargamesHandlers.handleSetGameSetupData(newState, (action as SetGameSetupData).payload, tab),
+  [ActionConstant.SET_WARGAME_TITLE]: (newState, action) => { newState.wargameTitle = (action as setWargameTitle).payload },
   [ActionConstant.ADD_NEW_FORCE]: (newState, action, tab) => wargamesHandlers.handleAddNewForce(newState, (action as AddNewForce).payload, tab),
   [ActionConstant.SET_FORCE_COLOR]: (newState, action, tab) => wargamesHandlers.handleSetForceColor(newState, (action as SetForceColor).payload, tab),
   [ActionConstant.SET_SELECTED_FORCE]: (newState, action) => wargamesHandlers.handleSetSelectedForce(newState, (action as SetSelectedForce).payload),
@@ -57,9 +58,7 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
 
   if (handler) {
     handler(newState, action, tab)
-  } else {
-    console.warn(`Heandler not defined for a action type: ${action.type}`)
-  }
+  } 
 
   return newState
 }

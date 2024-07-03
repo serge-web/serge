@@ -8,7 +8,7 @@ import * as wargamesApi from '../../api/wargames_api'
 import isError from '../../Helpers/isError'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 
-import { ChatMessage, MappingMessage, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame } from 'src/custom-types'
+import { ChatMessage, MappingMessage, MappingMessageDelta, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame, TypeOfCustomMessage } from 'src/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -48,10 +48,12 @@ export const setLatestFeedbackMessage = (message: MessageFeedback): PlayerUiActi
   type: SET_LATEST_FEEDBACK_MESSAGE,
   payload: message
 })
+
 export const setLatestWargameMessage = (message: MessageChannel): PlayerUiActionTypes => ({
   type: SET_LATEST_WARGAME_MESSAGE,
   payload: message
 })
+
 export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoType>): PlayerUiActionTypes => ({
   type: SET_ALL_MESSAGES,
   payload: messages
@@ -61,10 +63,12 @@ export const openMessage = (channel: string, message: MessageChannel): PlayerUiA
   type: OPEN_MESSAGE,
   payload: { channel, message }
 })
+
 export const markUnread = (channel: string, message: MessageChannel | ChatMessage): PlayerUiActionTypes => ({
   type: MARK_UNREAD,
   payload: { channel, message }
 })
+
 export const closeMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
   type: CLOSE_MESSAGE,
   payload: { channel, message }
@@ -105,6 +109,7 @@ export const initiateGame = (dbName: string): Function => {
     dispatch(setCurrentWargame(wargame))
   }
 }
+
 export const getWargame = (gamePath: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const wargame = await wargamesApi.getWargame(gamePath)
@@ -116,20 +121,21 @@ export const getWargame = (gamePath: string): Function => {
     }
   }
 }
+
 export const nextGameTurn = (dbName: string): Function => {
   return async (): Promise<void> => {
     await wargamesApi.nextGameTurn(dbName)
   }
 }
 
-export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsFrom, message: string, turnNumber: number): Function => {
+export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsFrom, message: string, turnNumber: number, name: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    await wargamesApi.postFeedback(dbName, fromDetails, turnNumber, message)
+    await wargamesApi.postFeedback(dbName, fromDetails, turnNumber, message, name)
     dispatch(closeModal())
   }
 }
 
-export const sendMappingMessage = (dbName: string, message: MappingMessage): void => {
+export const sendMappingMessage = (dbName: string, message: MappingMessage | MappingMessageDelta): void => {
   wargamesApi.postMappingMessage(dbName, message)
 }
 
@@ -145,11 +151,17 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
       roleName: '',
       name: password
     }
-    await wargamesApi.postFeedback(dbName, from, turnNumber, 'A failed login attempt has been made.')
+    await wargamesApi.postFeedback(dbName, from, turnNumber, 'A failed login attempt has been made.', password)
   }
 }
 
-export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
+export const saveMessage = (
+  dbName: string, 
+  details: MessageDetails, 
+  message: object, 
+  templateId: string, 
+  messageType: TypeOfCustomMessage
+): Function => {
   return async (): Promise<void> => {
     // the following block of commented out code was used in the past
     // to generate bulk volumes of test data, by repeatedly submitting
@@ -176,7 +188,7 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
     //   }
     // } else {
     // actually post the message
-    await wargamesApi.postNewMessage(dbName, details, message)
+    await wargamesApi.postNewMessage(dbName, details, message, templateId, messageType)
   }
 }
 

@@ -1,24 +1,42 @@
-import { FormControlLabel, Radio } from '@material-ui/core'
+import { faShapes, faMagnifyingGlassLocation } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Box, FormControlLabel, Radio } from '@material-ui/core'
 import { Feature, GeoJsonProperties, Geometry } from 'geojson'
+import { get } from 'lodash'
 import ms from 'milsymbol'
-import React, { ChangeEvent, useEffect, useRef } from 'react'
+import React, { ChangeEvent, useMemo } from 'react'
+import { calculateHealthColor } from '../../../../../Helpers'
+import { RENDERER_CORE } from '../../../../../custom-types'
 import styles from '../styles.module.scss'
 
 type IconRendererProps = {
   feature: Feature<Geometry, GeoJsonProperties>
   checked: boolean
-  onClick: (id: string, checked: boolean) => void
+  disabled?: boolean
+  onClick: (id: string[], checked: boolean) => void
+  onPan: () => void
+  color: string
 }
 
-const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }) => {
-  const iconRef = useRef<HTMLDivElement>(null)
- 
-  useEffect(() => {
-    // TODO: reserch how to render shape in this line
-    const icon = new ms.Symbol(feature.properties?.sidc, { size: 20 })
-    if (iconRef.current) {
-      iconRef.current.innerHTML = icon.asSVG()
+const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, onPan, onClick, disabled = false }) => {
+  const iconElm = useMemo(() => {
+    if (!feature) {
+      return
     }
+    const icon = new ms.Symbol(feature.properties?.sidc, { size: 20 })
+    const health = feature.properties?.health
+
+    const healthColor = calculateHealthColor(health)
+
+    return <div className={styles['asset-icon']}>
+      {get(feature, 'properties._type') === RENDERER_CORE
+        ? <FontAwesomeIcon icon={faShapes} color={color} fontSize={25} />
+        : <>
+          <img src={icon.toDataURL()} />
+          <div className={styles['health-bar']} style={{ backgroundColor: healthColor }}></div>
+        </>
+      }
+    </div>
   }, [feature])
 
   return <div className={styles.listItem}>
@@ -26,7 +44,8 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }
       control={
         <Radio
           checked={checked}
-          onChange={(_: ChangeEvent<HTMLInputElement>, checked: boolean) => onClick(feature.properties?.id, checked)}
+          disabled={disabled}
+          onChange={(_: ChangeEvent<HTMLInputElement>, checked: boolean) => onClick([feature.properties?.id], checked)}
           size="small"
         />
       }
@@ -34,8 +53,10 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }
       label={<span className={styles.lblCbx}>{feature.properties?.label || feature.properties?.id}</span>}
       value={feature.properties?.id}
     />
-    <div ref={iconRef}>
-    </div>
+    <Box>
+      <FontAwesomeIcon onClick={onPan} icon={faMagnifyingGlassLocation} color={'#000'} fontSize={25} />
+      {iconElm}
+    </Box>
   </div>
 }
 

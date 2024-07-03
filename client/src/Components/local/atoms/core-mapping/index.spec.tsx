@@ -1,10 +1,10 @@
 /* global it expect */
+import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import CoreMapping from './index'
 import { CHANNEL_MAPPING, Phase } from 'src/config'
 import { ChannelMapping, ForceData } from 'src/custom-types'
-import { noop } from 'lodash'
+import CoreMapping from './index'
 
 jest.mock('react-leaflet-v4', () => ({
   MapContainer: (): React.ReactElement => <></>,
@@ -51,7 +51,7 @@ describe('Core Mapping component:', () => {
         channel={channel}
         playerRole={'mgr'}
         currentTurn={1}
-        forces={[]}
+        forceStyles={[]}
         currentPhase={Phase.Planning}
         postBack={noop}
         openPanelAsDefault={false}

@@ -66,7 +66,7 @@ const NewMessage: React.FC<PropTypes> = ({
         } else {
           if (draftMessage) {
             const msg = draftMessage as CoreMessage
-            const schemaId = msg.details.messageType
+            const schemaId = msg.templateId
             const template = templates.find((tmpl: TemplateBody) => tmpl._id === schemaId)
             if (template) {
               setSelectedSchema(template.details)

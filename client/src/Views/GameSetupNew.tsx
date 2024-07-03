@@ -13,6 +13,7 @@ import {
   saveChannel,
   setTabSaved,
   setGameData,
+  setWargameTitle,
   setSelectedForce,
   setSelectedChannel,
   duplicateChannel,
@@ -72,7 +73,7 @@ const AdminGameSetup: React.FC = () => {
       dispatch(addNotification('Unsaved changes', 'warning'))
     }
   }
-
+  
   const onPressBack = (e: MouseEvent) => {
     e.preventDefault()
     dispatch(setCurrentViewFromURI(ADMIN_ROUTE))
@@ -112,7 +113,11 @@ const AdminGameSetup: React.FC = () => {
     dispatch(setGameData(changes))
   }
 
-  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: (item : any) => void) => {
+  const handleTitleChnage = (title: string) => {
+    dispatch(setWargameTitle(title))
+  }
+
+  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: () => void) => {
     const role = roles[key]
     if (role.isGameControl) {
       dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
@@ -279,7 +284,7 @@ const AdminGameSetup: React.FC = () => {
     }
 
     if (typeof newGameTitle === 'string' && newGameTitle.length > 0) {
-      if (currentWargame) dispatch(saveWargameTitle(currentWargame, newGameTitle))
+      if (currentWargame) dispatch(saveWargameTitle(currentWargame, newGameTitle, wargameList))
     }
 
     if (newGameTitle === null || newGameTitle.length === 0) {
@@ -301,7 +306,6 @@ const AdminGameSetup: React.FC = () => {
       return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
     }
   }
-
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}
@@ -328,6 +332,7 @@ const AdminGameSetup: React.FC = () => {
       onDuplicateForce={onDuplicateForce}
       selectedChannel={getSelectedChannel()}
       messageTemplates={templates?.templates || messageTypes.messages}
+      onChangeWargameTitle={handleTitleChnage}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}

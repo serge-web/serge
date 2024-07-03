@@ -3,14 +3,17 @@ import {
   ForceData,
   ForceRole,
   MessageCustom,
-  TemplateBodysByKey
+  TemplateBodysByKey,
+  TypeOfCustomMessage
 } from 'src/custom-types'
 
 export type CollabStatusBoardProps = {
   currentWargame: string
   messages: MessageCustom[]
   channelColb: ChannelCollab
-  onChange: (nextMessage: MessageCustom) => void
+  /** current game phase */
+  phase: Phase 
+  onChange: (nextMessage: MessageCustom, messageType: TypeOfCustomMessage) => void
   /** if this player is from an umpire force (and can see private messages) */
   isUmpire: boolean
   /** if this player is an Observer, with read only access to messages */

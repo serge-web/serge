@@ -34,6 +34,7 @@
   },
   "snyk": true,
   "devDependencies": {
+    "@types/tinycolor2": "^1.4.6",
     "concurrently": "^8.2.1",
     "husky": "^7.0.0",
     "snyk": "^1.298.1"
@@ -51,6 +52,10 @@
     ]
   },
   "dependencies": {
-    "react-resizable-panels": "^0.0.63"
+    "@playwright/test": "1.42.0",
+    "@types/node-fetch": "^2.6.11",
+    "fast-json-patch": "^3.1.1",
+    "react-resizable-panels": "^0.0.63",
+    "tinycolor2": "^1.6.0"
   }
 }

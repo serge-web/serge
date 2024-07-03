@@ -3,8 +3,12 @@
 interface CssExports {
   'asset-icon': string;
   'container': string;
+  'health-bar': string;
   'map-container': string;
+  'measuring': string;
+  'pulse': string;
   'resize-handler': string;
+  'shape': string;
   'slide-container': string;
 }
 export const cssExports: CssExports;

@@ -7,6 +7,7 @@ const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
   type: SET_LATEST_WARGAME_MESSAGE,
   payload: {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'Chat',
     isOpen: false,
     hasBeenRead: false,
     details: {
@@ -18,7 +19,6 @@ const actionSetLatestFeedbackMessage: SetLatestWargameMessageAction = {
         roleName: blueCO.name,
         iconURL: 'http://localhost:8080/default_img/forceDefault.png'
       },
-      messageType: 'Chat',
       timestamp: '2020-12-07T06:38:43.642Z',
       turnNumber: 1
     },

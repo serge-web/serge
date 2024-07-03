@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import * as wargamesApi from '../../api/wargames_api'
 import { addNotification } from '../Notification/Notification_ActionCreators'
-import { DEFAULT_SERVER, forceTemplate } from 'src/config'
+import { DEFAULT_SERVER } from 'src/config'
 import {
   ChannelTypes,
   ForceData,
@@ -15,6 +15,7 @@ import {
   WargameOverview,
   WargameRevision,
   WargameDataChange,
+  WargameList,
   Message
 } from 'src/custom-types'
 
@@ -25,6 +26,11 @@ export const setCurrentTab = (tab: string): WargameActionTypes => ({
 
 export const setGameData = (data: WargameDataChange): WargameActionTypes => ({
   type: ActionConstant.SET_GAME_SETUP_DATA,
+  payload: data
+})
+
+export const setWargameTitle = (data: string): WargameActionTypes => ({
+  type: ActionConstant.SET_WARGAME_TITLE,
   payload: data
 })
 
@@ -61,7 +67,7 @@ export const setSelectedChannel = (selectedChannel: { name: string, uniqid: stri
   payload: selectedChannel
 })
 
-const saveAllWargameNames = (names: WargameRevision[] | string | Wargame[]): WargameActionTypes => ({
+export const saveAllWargameNames = (names: WargameRevision[] | string | Wargame[]): WargameActionTypes => ({
   type: ActionConstant.ALL_WARGAME_NAMES_SAVED,
   payload: names
 })
@@ -152,21 +158,17 @@ export const populateWargameList = () => {
 
     // @ts-ignore
     const wargameNames = await wargamesApi.populateWargameList(dispatch)
-
+    console.warn('now all wargameenams come from server', wargameNames)
     dispatch(saveAllWargameNames(wargameNames))
 
     dispatch(populatingDb(false))
   }
 }
 
-export const createNewWargameDB = () => {
+export const createNewWargameDB = (wargameList: WargameList) => {
   return async (dispatch: WargameDispatch) => {
     // @ts-ignore
-    const wargame = await wargamesApi.createWargame(dispatch)
-
-    const wargames = await wargamesApi.getAllWargames()
-
-    dispatch(saveAllWargameNames(wargames))
+    const wargame = await wargamesApi.createWargame(dispatch, wargameList)
 
     dispatch(setCurrentWargame(_.omit(wargame, ['_id', '_rev'])))
   }
@@ -217,17 +219,17 @@ export const downloadWargame = (dbPath: string) => {
 
 export const deleteWargame = (name: string) => {
   return async (dispatch: WargameDispatch) => {
-    wargamesApi.deleteWargame(name)
-
+    const deleteName = await wargamesApi.deleteWargame(name)
     const wargames = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(wargames))
+    dispatch(addNotification(`delete ${deleteName} wargame`, 'success'))
   }
 }
 
 export const editWargame = (name: string) => {
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.editWargame(name)
-
+    
     dispatch(setCurrentWargame(wargame))
   }
 }
@@ -272,14 +274,9 @@ export const refreshChannel = (dbName: string, selectedChannel: string) => {
   }
 }
 
-export const saveWargameTitle = (dbName: string, title: string) => {
+export const saveWargameTitle = (dbName: string, title: string, WargameList: WargameList[]) => {
   return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.updateWargameTitle(dbName, title)
-
-    const wargames = await wargamesApi.getAllWargames()
-
-    dispatch(saveAllWargameNames(wargames))
-
+    const wargame = await wargamesApi.updateWargameTitle(WargameList, dbName, title)
     dispatch(setCurrentWargame(wargame))
 
     dispatch(addNotification('Wargame name updated.', 'success'))
@@ -307,12 +304,12 @@ export const updateForces = (dbName: string, newData: ForceData[]) => {
 }
 
 export const saveForce = (dbName: string, newData: ForceData) => {
-  return async (dispatch: WargameDispatch, state: any) => {
-    const oldForceData = state().wargame.data.forces.selectedForce
-    if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
-      const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
-      newData.iconURL = savedIconURL.path
-    }
+  return async (dispatch: WargameDispatch) => {
+    // const oldForceData = state().wargame.data.forces.selectedForce
+    // if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
+    //   const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)
+    //   newData.iconURL = savedIconURL.path
+    // }
 
     const wargame = await wargamesApi.saveForce(dbName, newData)
 

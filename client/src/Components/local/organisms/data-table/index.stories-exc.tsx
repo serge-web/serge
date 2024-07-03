@@ -4,7 +4,7 @@ import React from 'react'
 import DataTable, { ROW_WITH_COLLAPSIBLE_TYPE } from './index'
 import DataTableProps, { RowWithCollapsibleType } from './types/props'
 import docs from './README.md'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import Badge from '../../atoms/badge'
 import { MessageCustom } from 'src/custom-types/message'
 import { GameMessagesMockRFI } from 'src/mocks'
@@ -24,7 +24,7 @@ export default {
   }
 }
 
-const Template: Story<DataTableProps> = args => {
+const Template: StoryFn<DataTableProps> = args => {
   return (
     <DataTable {...args} />
   )
@@ -70,7 +70,7 @@ const Template: Story<DataTableProps> = args => {
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 const rfiMessages = (GameMessagesMockRFI as MessageCustom[])
-  .filter((message: MessageCustom) => message.details.messageType === 'RFI')
+  .filter((message: MessageCustom) => message.templateId === 'RFI')
   // sample data includes multiple versions of RFI messages, ensure we're only
 // looking at newest
 const newest = mostRecentOnly(rfiMessages) as MessageCustom[]

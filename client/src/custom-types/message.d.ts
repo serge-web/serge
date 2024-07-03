@@ -14,16 +14,10 @@ export interface MessageDetailsFrom {
   readonly forceColor: ForceData['color']
   /** role of the individual that wrote message */
   readonly roleId: Role['roleId']
-  /** name of the role that send messsage */
+  /** name of the role that send messsage, to be @deprecated */
   readonly roleName: Role['name']
   /** URL of icon to display for this force
-   * TODO: once all code under TypeScript try making it non-optional,
-   * and fix cases where it's not assigned
    */
-  /**
-   * @deprecated use iconURL instead
-   */
-  icon?: string
   iconURL: ForceData['iconURL']
   /** user-name, as typed into Feedback/insights form */
   name?: string
@@ -43,8 +37,6 @@ export interface MessageDetails {
   //  * extra detail for managing an interaction
   //  */
   // interaction?: InteractionDetails
-  /** ID of template for this message */
-  messageType: TemplateBody['_id']
   /** time message sent */
   timestamp: string
   /** turn when this message was sent */
@@ -86,6 +78,7 @@ export interface CoreMessage {
   readonly details: MessageDetails
   /** whether this message has been read on the current client */
   hasBeenRead?: boolean
+  readonly templateId?: TemplateBody['_id']
 }
 
 /** 
@@ -130,18 +123,17 @@ export interface CollaborationDetails {
 
 export interface MessageCustom extends CoreMessage {
   readonly messageType: typeof CUSTOM_MESSAGE
+    /** Details related to the message, excluding the message type. */
+  // details: Omit<MessageDetails, 'messageType'>
   /** the strutured message */
   message: MessageStructure
   /** whether this message is open/expanded on the current client */
-  isOpen: boolean
-  /** the game turn when this was sent */
-  gameTurn?: number
-  /** whether this represents an item of insight/feedback */
-  feedback?: boolean
-  /** whether this is a change in game state (rather than a new message),
-   * normally `false` for messages like this
-   */
-  infoType?: boolean
+  isOpen?: boolean
+  /** 
+   * The ID of the template associated with this custom message.
+   * It refers to the '_id' property of the TemplateBody interface.
+  */
+  templateId: TemplateBody['_id']
 }
 
 /** 
@@ -167,6 +159,7 @@ export interface ChatMessage extends CoreMessage {
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE
   message: MessageStructure
+  name?: string
 }
 
 export interface MappingMessage extends CoreMessage {
@@ -206,13 +199,14 @@ export interface MessageInfoTypeClipped {
   _id?: string
 }
 
-export type MessageChannel = MessageInfoTypeClipped |
-  MessageCustom
+export type TypeOfCustomMessage = typeof CUSTOM_MESSAGE 
 
+export type MessageChannel = MessageInfoTypeClipped | MessageCustom
 export type Message = MessageCustom |
   ChatMessage |
   MessageFeedback |
   MappingMessage |
+  MappingMessageDelta | 
   MessageInfoTypeClipped |
   MessageInfoType |
   MessageCounter

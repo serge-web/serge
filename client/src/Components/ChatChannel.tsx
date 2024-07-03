@@ -2,7 +2,7 @@ import ChannelMessagesList from './local/organisms/channel-messages-list'
 import ChatEntryForm from './local/form-elements/chat-entry-form'
 import ChatMessagesList from './local/organisms/chat-messages-list'
 import NewMessage from './local/form-elements/new-message'
-import { ChannelChat, ChatMessage, CoreMessage, MessageChannel, MessageCustom, MessageDetails, MessageInfoTypeClipped } from 'src/custom-types'
+import { ChannelChat, ChatMessage, CoreMessage, MessageChannel, MessageCustom, MessageDetails, MessageInfoTypeClipped, TypeOfCustomMessage } from 'src/custom-types'
 import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from 'src/Helpers'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -42,12 +42,12 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const messageHandler = (details: MessageDetails, message: any): void => {
+  const messageHandler = (details: MessageDetails, message: any, templeteId: string, messageType: TypeOfCustomMessage): void => {
     const sendMessage: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
-    saveMessage(state.currentWargame, details, message)()
+    saveMessage(state.currentWargame, details, message, templeteId, messageType)()
   }
 
   const markAllAsReadLocal = (): void => {

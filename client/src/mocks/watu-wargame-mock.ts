@@ -142,7 +142,6 @@ const wargame: Wargame = {
         },
         {
           color: '#00aaff',
-          cssClass: 'blue-1',
           dirty: false,
           iconURL: 'http://localhost:8080/default_img/forceDefault.png',
           name: 'Blue-1 Force',
@@ -179,7 +178,6 @@ const wargame: Wargame = {
         },
         {
           color: '#f00',
-          cssClass: 'red-1',
           dirty: false,
           iconURL: 'http://localhost:8080/default_img/forceDefault.png',
           name: 'Red-1 Force',

@@ -5,10 +5,10 @@ import {
 } from 'src/custom-types'
 import uniqId from 'uniqid'
 import deepCopy from './deep-copy'
+import { buildForceIconsColorsNames, updateForceColors, updateForceIcons, updateForceNames } from './handle-channel-updates-force'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
 import { getParticipantStates } from './participant-states'
-import { updateForceIcons, updateForceColors, updateForceNames, buildForceIconsColorsNames } from './handle-channel-updates-force'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -19,7 +19,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
   const sourceRole: string = message.details.from.roleId
   const logger: PlayerMessage = {
     roleId: message.details.from.roleId,
-    lastMessageTitle: message.details.messageType,
+    lastMessageTitle: message.templateId,
     lastMessageTime: message.details.timestamp,
     hasBeenRead: !!message.hasBeenRead,
     _id: message._id
@@ -47,7 +47,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
-          msg.message.reference === message.message.reference) {
+          (msg as MessageCustom).message.reference === message.message.reference) {
           theChannel.messages?.splice(idx, 1)
         }
       })
@@ -57,7 +57,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       // have a new reference, and wouldn't get returned as a parameter
       theChannel.messages.forEach((msg, idx) => {
         if (msg.messageType === CUSTOM_MESSAGE &&
-          msg.message.Reference === message.message.Reference) {
+          (msg as MessageCustom).message.Reference === message.message.Reference) {
           theChannel.messages?.splice(idx, 1)
         }
       })
@@ -71,23 +71,33 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       isOpen: false
     }
 
-    // check the channel doesn't already contain the message
-    // we can mistakenly register for updates twice, which gives the appearance
-    // of duplicate messages
-    const present = theChannel.messages.some((msg: MessageChannel) => msg._id === message._id)
-    if (!present) {
-      // chat messages need to go at the end, not the start
-      if (theChannel.cData.channelType === CHANNEL_CHAT) {
-        theChannel.messages.push(newObj)
-      } else {
-        theChannel.messages.unshift(newObj)
-      }
-      // update message count, if it's not from us
-      if (!ourMessage) {
-        theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
-      }
+    // if this is a collab channel, we need the newest version of the message, else we ditch duplicates
+    if (theChannel.cData.channelType === CHANNEL_COLLAB) {
+      // strip out old versions of this message
+      const cleanOldVersions = theChannel.messages.filter((msg: MessageChannel) => msg._id !== message._id)
+      // append the new message
+      cleanOldVersions.unshift(message)
+      
+      theChannel.messages = cleanOldVersions
     } else {
-      console.warn('Duplicate message ditched. But, we should be preventing this in DBProvider', message)
+      // check the channel doesn't already contain the message
+      // we can mistakenly register for updates twice, which gives the appearance
+      // of duplicate messages
+      const present = theChannel.messages.some((msg: MessageChannel) => msg._id === message._id)
+      if (!present) {
+        // chat messages need to go at the end, not the start
+        if (theChannel.cData.channelType === CHANNEL_CHAT) {
+          theChannel.messages.push(newObj)
+        } else {
+          theChannel.messages.unshift(newObj)
+        }
+        // update message count, if it's not from us
+        if (!ourMessage) {
+          theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
+        }
+      } else {
+        console.warn('Duplicate message ditched. But, we should be preventing this in DBProvider', message)
+      }
     }
   }
 }
@@ -114,7 +124,6 @@ export const handleNewMessageData = (
   } else {
     handleNonInfoMessage(res, payload.details.channel, payload, playerId)
   }
-  
   return res
 }
 
@@ -347,10 +356,10 @@ const updateChannelMessages = (gameTurn: number, messageId: string, thisChannel:
   
   // check if we're missing a turn marker for this turn
   if (thisChannel.messages && !collabChannel) {
-    if (!thisChannel.messages.find((prevMessage: MessageChannel) => prevMessage.gameTurn === gameTurn)) {
+    if (!thisChannel.messages.find((prevMessage: MessageChannel) => (prevMessage as MessageInfoTypeClipped).gameTurn === gameTurn)) {
       // no messages, or no turn marker found, create one  
       const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
-      thisChannel.messages.unshift(message)
+      thisChannel.messages.push(message)
     }
   }
 }

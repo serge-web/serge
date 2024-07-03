@@ -56,7 +56,7 @@ export const createMessageType = (schema) => {
     dispatch(loadingDBMessageCreate(true))
 
     try {
-      const result = await messageTypesApi.postNewMessage(schema)
+      const result = await messageTypesApi.postNewMessageTypeToDb(schema)
 
       if (result.err) {
         // @ts-ignore

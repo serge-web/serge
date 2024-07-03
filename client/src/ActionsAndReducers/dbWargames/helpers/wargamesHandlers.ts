@@ -22,12 +22,24 @@ export const handleAllWargameNamesSaved = (newState: WargamesState, payload: War
 
 // setting the current wargame.
 export const handleSetCurrentWargame = (newState: WargamesState, payload: Wargame) => {
+  const wargameIndex = newState.wargameList.findIndex(wargame => wargame.shortName === payload.name)
+  
+  if (wargameIndex !== -1) {
+    const updatedWargame = {
+      ...newState.wargameList[wargameIndex],
+      title: payload.wargameTitle,
+      initiated: payload.wargameInitiated as boolean,
+      shortName: payload.name
+    }
+    
+    newState.wargameList[wargameIndex] = updatedWargame
+  }
+  
   newState.currentWargame = payload.name
   newState.wargameTitle = payload.wargameTitle
   newState.data = payload.data
   newState.wargameInitiated = payload.wargameInitiated || false
 }
-
 // Handles setting the wargame data for export.
 export const handleSetExportWargame = (newState: WargamesState, payload: Wargame) => {
   newState.data = payload.data
@@ -137,5 +149,5 @@ export const handleRemoveRole = (newState: WargamesState, payload: string, tab: 
 // adding an icon to the selected force in the selected tab.
 export const handleAddIcon = (newState: WargamesState, payload: any, tab: string) => {
   const selectedForceName = newState.data[tab].selectedForce.name
-  newState.data[tab].forces.find((force: ForceData) => force.name === selectedForceName).icon = serverPath + payload.slice(1)
+  newState.data[tab].forces.find((force: ForceData) => force.name === selectedForceName).iconURL = serverPath + payload.slice(1)
 }

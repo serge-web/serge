@@ -4,7 +4,7 @@
 
   button {
     position: absolute;
-    bottom: 0;
+    top: 0;
     z-index: 1112;
     padding: 0;
     min-width: 40px;
@@ -36,7 +36,39 @@
 
 .asset-icon {
   svg {
-    width: 35px;
-    height: 35px;
+    font-weight: 700;
   }
+}
+
+.measuring {
+  pointer-events: none;
+}
+
+.health-bar {
+  height: 5px;
+  width: 40px;
+  margin-top: 0;
+  left: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.pulse {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.2;
+    transform: scale(0.995);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.shape {
+  fill-opacity: 0.5;
+  stroke-width: 2;
 }

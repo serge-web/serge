@@ -5,9 +5,10 @@ export interface DbProviderInterface {
   changes: (listener: (doc: Message | Wargame) => void) => void
   destroy: () => void
   get: (query: string) => Promise<Wargame | Message | { status: number }>
-  put: (doc: Wargame | Message) => Promise<Wargame | Message >
+  put: (doc: Wargame | Message) => Promise< { data: Wargame | Message, msg: string}>
   allDocs: () => Promise<Message[]>
   lastWargame: () => Promise<MessageInfoType>
+  // allDbsWargame: () => Promise<any>
   getTurnPeriods: () => Promise<TurnPeriod[]>
   lastCounter: (roleId: string, id: string) => Promise<number>
   getPlayerLogs: (wargames: string, query: string) => Promise<PlayerLogEntries>

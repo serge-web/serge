@@ -29,7 +29,7 @@ export default interface Props {
   /**
    * Message type
    */
-  messageType?: string
+  templateId?: string
   /**
    * Message read state
    */

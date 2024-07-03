@@ -1,13 +1,13 @@
 import React from 'react'
 
 // Import component files
-import { withKnobs } from '@storybook/addon-knobs'
+
 import JsonEditor from './index'
 import docs from './README.md'
 
 // Import mock
 import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMoskByTitle, WargameMock, watuWargame } from 'src/mocks'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -15,7 +15,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/molecules/JsonEditor',
   component: JsonEditor,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -31,14 +31,14 @@ export default {
   }
 }
 
-const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
+const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].templateId]
 const channel = watuWargame.data.channels.channels[1]
 const templateMessageCreator = {
-  details: MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType].details,
+  details: MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].templateId].details,
   _id: channel.uniqid
 }
 
-const Template: Story<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit, customiseTemplate }) => {
+const Template: StoryFn<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit, customiseTemplate }) => {
   return (
     <JsonEditor
       template={template}

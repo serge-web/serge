@@ -1,5 +1,5 @@
 import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 
 // Import component files
 import ChatEntryForm from './index'
@@ -27,11 +27,10 @@ export default {
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: '',
   iconURL: ''
 }
 
-const Template: Story<ChatPropTypes> = (args) => {
+const Template: StoryFn<ChatPropTypes> = (args) => {
   const { from, role, roleName, isUmpire, channel } = args
 
   const postBack = (details: MessageDetails, message: any): void => {

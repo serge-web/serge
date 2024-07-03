@@ -5,7 +5,7 @@ export const updateForceIcons = (thisChannel: ChannelUI, participants: CoreParti
   // force icons
   const forceIcons = participants?.map((participant) => {
     const force = allForces.find((force) => force.uniqid === participant.forceUniqid)
-    return (force && force.iconURL) || force?.icon
+    return force && force.iconURL 
   })
 
   if (forceIcons !== thisChannel.forceIcons) {
@@ -48,7 +48,7 @@ export const buildForceIconsColorsNames = (
 
   for (const { forceUniqid } of participants) {
     const force = allForces.find((force) => force.uniqid === forceUniqid)
-    forceIcons.push(force && (force.iconURL || force.icon))
+    forceIcons.push(force && force.iconURL)
     forceColors.push((force && force.color) || '#FFF')
     forceNames.push((force && force.name) || 'PENDING')
   }

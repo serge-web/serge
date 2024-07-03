@@ -13,6 +13,7 @@ import SettingsForceOverview from './settings-force-overview'
 import RolesAccordion from './settings-force-roles'
 import styles from './styles.module.scss'
 import PropTypes, { ForceData } from './types/props'
+import { resolveImagePath } from 'src/Helpers'
 
 export const SettingForces: React.FC<PropTypes> = ({
   forces: initialForces,
@@ -140,8 +141,8 @@ export const SettingForces: React.FC<PropTypes> = ({
             }} />
           </div>
           <div className={styles.col} style={{ textDecoration: 'underline' }}>
-            <IconUploader classname='main' iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={(icon: string): void => {
-              handleChangeForce({ ...data, icon })
+            <IconUploader classname='main' iconUploadUrl={iconUploadUrl} limit={20000} icon={resolveImagePath(data.iconURL)} onChange={(iconURL: string): void => {
+              handleChangeForce({ ...data, iconURL })
             }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.actions}>

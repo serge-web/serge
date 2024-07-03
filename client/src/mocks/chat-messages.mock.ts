@@ -16,7 +16,6 @@ const message1: ChatMessage = {
       roleName: whiteGC.name,
       iconURL: 'default_img/umpireDefault.png'
     },
-    messageType: 'Chat',
     privateMessage: 'Private message here',
     timestamp: '2020-03-25T15:08:47.510Z',
     turnNumber: 1
@@ -39,7 +38,6 @@ const message2: ChatMessage = {
       name: 'Blue',
       iconURL: 'default_img/umpireDefault.png'
     },
-    messageType: 'Chat',
     timestamp: '2020-03-25T15:08:47.510Z',
     turnNumber: 1
   },
