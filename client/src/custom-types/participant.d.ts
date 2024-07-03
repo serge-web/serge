@@ -64,6 +64,8 @@ export interface ParticipantCollab extends CoreParticipant {
   viewUnreleasedVersions: boolean
   // level of access for the participant
   permission: CollaborativePermission
+  // phases in which this participant can participate (all if empty)
+  phases?: Phase[]
 } 
 
 export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantMapping
