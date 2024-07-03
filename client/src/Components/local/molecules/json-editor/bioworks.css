@@ -1,5 +1,14 @@
-/* .field-array .container-fluid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-} */
+.edt-disable .row {
+    display: contents;
+  flex-wrap: wrap;
+    vertical-align: top;
+    margin-right: 10px; 
+}
+
+.edt-disable .row > .col-12 {
+    display: contents;
+}
+
+.edt-disable .form-group {
+    display: inline-grid;
+}
