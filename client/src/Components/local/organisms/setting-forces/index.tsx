@@ -51,7 +51,14 @@ export const SettingForces: React.FC<PropTypes> = ({
     setSelectedItem(Math.max(selectedId, 0))
     setForcesData(initialForces)
   }, [initialForces])
+  
+  const onDeleteForce = (_item: Item) => {
+    onDelete && onDelete(_item as ForceData)
+  }
 
+  const onDuplicateForce = (_item: Item) => {
+    onDuplicate && onDuplicate(_item as ForceData)
+  }
   const renderContent = (): React.ReactNode => {
     const data = forcesData[selectedItem]
     if (!data) return null
@@ -178,8 +185,8 @@ export const SettingForces: React.FC<PropTypes> = ({
           filterKey="name"
           onClick={handleSwitch}
           onCreate={onCreate}
-          onDelete={onDelete}
-          onDuplicate={onDuplicate}
+          onDelete={onDeleteForce}
+          onDuplicate={onDuplicateForce}
           withSearch={true}
           title="Add a New Force"
         />

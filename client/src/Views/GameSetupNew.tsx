@@ -24,7 +24,7 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
-import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, Wargame } from 'src/custom-types'
+import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, WargameDataChange, Wargame } from 'src/custom-types'
 
 /**
  * TODOS:
@@ -108,12 +108,11 @@ const AdminGameSetup: React.FC = () => {
     })
   }
 
-  const handleFormChange = (changes: WargameOverview) => {
-    console.log('changes', changes)
+  const handleFormChange = (changes: WargameDataChange) => {
     dispatch(setGameData(changes))
   }
 
-  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: () => void) => {
+  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: (item : any) => void) => {
     const role = roles[key]
     if (role.isGameControl) {
       dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
@@ -232,6 +231,8 @@ const AdminGameSetup: React.FC = () => {
   }
 
   const onCreateChannel = (_id: string, createdChannel: ChannelTypes) => {
+    console.log('_id', _id)
+    console.log('createdChannel', createdChannel)
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
@@ -313,31 +314,23 @@ const AdminGameSetup: React.FC = () => {
       forces={forces.forces}
       selectedForce={forces.selectedForce as ForceData}
       channels={channels.channels}
+      onSave={onSave}
       onOverviewChange={handleFormChange}
-      // @ts-ignore
       onForcesChange={handleFormChange}
-      onCreateForce={onCreateForce}
-      // @ts-ignore
+      onChannelsChange={handleFormChange}
       onDeleteForce={onDeleteForce}
-      // @ts-ignore
-      onDuplicateForce={onDuplicateForce}
+      onDeleteChannel={onDeleteChannel}
       onSidebarForcesClick={handleSidebarForcesClick}
       onSidebarChannelsClick={handleSidebarChannelsClick}
-      // @ts-ignore
-      onChannelsChange={handleFormChange}
-      // @ts-ignore
       onCreateChannel={onCreateChannel}
-      // @ts-ignore
-      onDeleteChannel={onDeleteChannel}
-      // @ts-ignore
+      onCreateForce={onCreateForce}
       onDuplicateChannel={onDuplicateChannel}
+      onDuplicateForce={onDuplicateForce}
       selectedChannel={getSelectedChannel()}
-      onSave={onSave}
       messageTemplates={templates?.templates || messageTypes.messages}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
-      // @ts-ignore
       customDeleteHandler={handleDeleteGameControl}
     />
   )

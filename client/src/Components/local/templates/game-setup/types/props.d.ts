@@ -4,7 +4,6 @@ import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
 import { ChannelTypes } from '../../../organisms/setting-channels'
 import { MessageTemplate } from '../../../organisms/setting-channels/types/props'
 import { WargameOverview } from '../../../organisms/setting-overview'
-
 export default interface Props extends AdminLayoutProps {
   /**
    * Game overview, retrieved from database
@@ -25,7 +24,7 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on forces setting change events
    */
-  onForcesChange: (updates: { forces: ForceData[] }) => void
+  onForcesChange: (updates: { forces: Array<ForceData> }) => void
   /**
    * Callback on forces Add button click events
    */
@@ -33,11 +32,11 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on forces delete button click events
    */
-  onDeleteForce?: () => void
+  onDeleteForce?: (data: ForceData) => void
   /**
    * Callback on forces duplicate button click events
    */
-  onDuplicateForce?: () => void
+  onDuplicateForce?: (item: ForceData) => void
   /**
    * Callback on forces' sidebar click events
    */
@@ -50,7 +49,7 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on channels setting change events
    */
-  onChannelsChange: (updates: { channels: ChannelTypes[] }) => void
+  onChannelsChange: (updates: { channels: Array<ChannelTypes>, selectedChannel: ChannelTypes }) => void
   /**
    * Callback on channel' sidebar click events
    */
@@ -58,15 +57,15 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on channels Add button click events
    */
-  onCreateChannel?: (buttonText: string | undefined) => void
+  onCreateChannel?: (name: string, channel: ChannelTypes) => void
   /**
    * Callback on channels delete button click events
    */
-  onDeleteChannel?: () => void
+  onDeleteChannel?: (data: ChannelTypes) => void
   /**
    * Callback on channels delete button click events
    */
-  onDuplicateChannel?: () => void
+  onDuplicateChannel?: (item: ChannelTypes) => void
   /**
    * Selected channel to indicate which channel should be active
    * in channels setting tab

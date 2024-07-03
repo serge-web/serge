@@ -14,6 +14,7 @@ import {
   WargameDispatch,
   WargameOverview,
   WargameRevision,
+  WargameDataChange,
   Message
 } from 'src/custom-types'
 
@@ -22,7 +23,7 @@ export const setCurrentTab = (tab: string): WargameActionTypes => ({
   payload: tab
 })
 
-export const setGameData = (data: WargameOverview): WargameActionTypes => ({
+export const setGameData = (data: WargameDataChange): WargameActionTypes => ({
   type: ActionConstant.SET_GAME_SETUP_DATA,
   payload: data
 })
