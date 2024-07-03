@@ -26,6 +26,7 @@ import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
 import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, WargameDataChange, Wargame } from 'src/custom-types'
+import { Item } from 'src/Components/local/molecules/editable-list'
 
 /**
  * TODOS:
@@ -117,7 +118,7 @@ const AdminGameSetup: React.FC = () => {
     dispatch(setWargameTitle(title))
   }
 
-  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: () => void) => {
+  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: (item: Item[]) => void) => {
     const role = roles[key]
     if (role.isGameControl) {
       dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
