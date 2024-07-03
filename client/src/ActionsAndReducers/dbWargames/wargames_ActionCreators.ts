@@ -228,7 +228,7 @@ export const deleteWargame = (name: string) => {
 export const editWargame = (name: string) => {
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.editWargame(name)
-
+    
     dispatch(setCurrentWargame(wargame))
   }
 }
