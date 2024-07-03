@@ -22,6 +22,7 @@ export const UMPIRE_FORCE = 'umpire'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
+export const GAME_START_TAB = 'overview' 
 // series of constants used for `messageType` when sending map events
 
 // series of constants used for `messageType` when sending custom messages
