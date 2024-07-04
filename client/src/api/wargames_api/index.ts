@@ -719,7 +719,6 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
     db.bulkDocs(customBulkMessage).then(() => {
       // Call getLatestWargameRevision() to retrieve the latest revision of the new wargame
       getLatestWargameRevision(name).then((res) => {
-        // @ts-ignore
         return resolve(res)
       }).catch((err) => {
         reject(err)
@@ -731,13 +730,15 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
   })
 }
 
-export const getAllMessages = (dbName: string): Promise<Message[]> => {
+export const getAllMessages = (dbName: string): Promise<(Wargame | Message)[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
     // TODO: this should probably be a filter function
-    .then((res): Array<Message> => {
+    .then((res): (Wargame | Message)[] => {
       // drop counters
-      const nonCounter = res.filter((message: Message) => message.messageType !== COUNTER_MESSAGE)
+      
+      const nonCounter = res.filter((message) => message.messageType !== COUNTER_MESSAGE)
+
       // NOTE: SPECIAL CASE. It appears the docs are being sorted by _id before being returned.
       // This is putting the initial 'settings' doc at the end. It should be at the start. 
       // If it's at the end, move it to the start
