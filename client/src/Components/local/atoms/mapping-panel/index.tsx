@@ -333,6 +333,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           } catch (e) {
             orFoundKey[filterKey] = false
           }
+        } else if (filterKey === 'sidc') {
+          const sidcValue = get(f.properties, 'sidc', '')
+          const { sidc } = convertLetterSidc2NumberSidc(sidcValue)
+
+          if (value) {
+            orFoundKey[filterKey] = value.includes(sidc)
+          } 
         } else {
           const propertyValue = get(f.properties, filterKey, '')
           let itemPropValue: any[] = [] // Explicitly type as an array of any[]
