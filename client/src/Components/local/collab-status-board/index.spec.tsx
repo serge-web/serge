@@ -3,7 +3,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelCollab } from 'src/custom-types'
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, PARTICIPANT_COLLAB } from 'src/config'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, PARTICIPANT_COLLAB, Phase } from 'src/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from 'src/mocks'
 import CollabStatusBoard from './index'
 import newDate from 'src/Helpers/new-date'
@@ -219,6 +219,7 @@ it('CoaStatusBoard renders correctly', () => {
         forces={forces}
         role={role}
         isUmpire={false}
+        phase={Phase.Planning}
         isObserver={true}
         channelColb={testChannelColb}
         messages={testMock}
