@@ -174,7 +174,7 @@ export const downloadAllWargames = (): void => {
   window.open(serverPath + 'downloadAll')
 }
 
-export const openFauxtonUI = ():void => {
+export const openFauxtonUI = (): void => {
   window.open(serverPath + 'db/_utils/')
 }
 
