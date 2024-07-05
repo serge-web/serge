@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
+import { REST_API_ROUTE, serverPath } from 'src/config'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 
 import 'src/themes/App.scss'
@@ -11,8 +12,11 @@ class Link extends Component {
 
     const aNewTab = e.metaKey || e.ctrlKey
     const anExternalLink = this.props.href.startsWith('http')
-
+  
     if (!aNewTab && !anExternalLink) {
+      if (this.props.href === REST_API_ROUTE) {
+        window.open(serverPath + REST_API_ROUTE)
+      }
       e.preventDefault()
       this.props.dispatch(setCurrentViewFromURI(this.props.href))
     }
