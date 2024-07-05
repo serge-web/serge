@@ -145,7 +145,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         result[propKey] = {
           value: properties[propKey] as any,
           choices: get(extraProps, 'choices', []),
-          disabled: onlyEditOwnProps && extraProps?.playerEditable !== undefined && extraProps?.playerEditable === false
+          disabled: onlyEditOwnProps && !extraProps?.playerEditable
         }
         return result
       }, {})
