@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { ChangeEvent, Fragment, useState } from 'react'
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -38,7 +39,7 @@ const componentFor = (
     }
 
     case 'NumberProperty': {
-      return <input type='number' value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
+      return <input type='number' value={value} disabled={disabled || (disableIdEdit && isId)} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
     }
     default: {
       console.warn('Failed to generate component for ' + prop.type)
