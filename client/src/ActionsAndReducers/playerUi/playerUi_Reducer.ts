@@ -90,7 +90,7 @@ const actionHandlers: Record<string, ActionHandler> = {
     newState.feedbackMessages = (action as SetWargameFeedbackAction).payload
   },
   [SET_LATEST_FEEDBACK_MESSAGE]: (newState, action) => {
-    newState.feedbackMessages.unshift(
+    newState.feedbackMessages.push(
       (action as SetLatestFeedbackMessageAction).payload
     )
   },
