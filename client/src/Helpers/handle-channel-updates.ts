@@ -89,7 +89,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
         if (theChannel.cData.channelType === CHANNEL_CHAT) {
           theChannel.messages.push(newObj)
         } else {
-          theChannel.messages.unshift(newObj)
+          theChannel.messages.push(newObj)
         }
         // update message count, if it's not from us
         if (!ourMessage) {
