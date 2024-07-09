@@ -21,6 +21,8 @@
     "pouchdb-replication": "^7.0.0",
     "socket.io": "^4.3.1",
     "sqlite3": "^5.1.6",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "uniqid": "^5.0.3"
   },
   "devDependencies": {
@@ -40,6 +42,7 @@
   "scripts": {
     "dev": "nodemon main.js",
     "start": "node main.js",
+    "serve-openapi": "node main.js --openapi",
     "lint": "eslint --fix **/*.js"
   }
 }
