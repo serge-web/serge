@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { faArrowAltCircleLeft, faWindowMaximize, faWindowMinimize } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
@@ -335,11 +336,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           }
         } else if (filterKey === 'sidc') {
           const sidcValue = get(f.properties, 'sidc', '')
-          const { sidc } = convertLetterSidc2NumberSidc(sidcValue)
-
-          if (value) {
+      
+          const { success, sidc } = handleSidcValue(sidcValue)
+         
+          if (value && success) {
             orFoundKey[filterKey] = value.includes(sidc)
-          } 
+          }
         } else {
           const propertyValue = get(f.properties, filterKey, '')
           let itemPropValue: any[] = [] // Explicitly type as an array of any[]
