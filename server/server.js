@@ -13,6 +13,7 @@ const runServer = (
   const uniqid = require('uniqid')
   const archiver = require('archiver')
   const { dbSuffix } = require('./consts')
+  const setupSwagger = require('./swagger')
 
   /*
   // replicate database
@@ -59,6 +60,31 @@ const runServer = (
   // Note: This API call will help you download the wargame SQLite database.
   // Note: This route handles the download of a wargame database in zip format.
   // Note: It expects a URL parameter 'wargame', which is the name of the SQLite file to download.
+  // Example route with Swagger JSDoc comment
+  /**
+   * @swagger
+   * /download/{wargame}:
+   *   get:
+   *     tags:
+   *       - Database Management
+   *     summary: Download wargame database
+   *     description: Downloads a wargame database in zip format
+   *     parameters:
+   *       - in: path
+   *         name: wargame
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Name of the SQLite file to download
+   *     responses:
+   *       200:
+   *         description: A successful response
+   *         content:
+   *           application/zip:
+   *             schema:
+   *               type: string
+   *               format: binary
+   */
   app.get('/download/:wargame', function (req, res) {
     const checkSqliteExists = (dbName) => {
       return dbName.indexOf('wargame') !== -1 && dbName.indexOf(dbSuffix) === -1 ? dbName + dbSuffix : dbName
@@ -88,6 +114,23 @@ const runServer = (
     archive.finalize()
   })
 
+  /**
+   * @swagger
+   * /downloadAll:
+   *   get:
+   *     tags:
+   *       - Database Management
+   *     summary: Download all databases
+   *     description: Downloads all databases in a zip format
+   *     responses:
+   *       200:
+   *         description: A successful response
+   *         content:
+   *           application/zip:
+   *             schema:
+   *               type: string
+   *               format: binary
+   */
   app.get('/downloadAll', (req, res) => {
     const output = fs.createWriteStream('all_dbs.zip')
     const archive = archiver('zip')
@@ -101,6 +144,27 @@ const runServer = (
     setTimeout(() => res.download(path.join(__dirname, 'all_dbs.zip')), 500)
   })
 
+  /**
+   * @swagger
+   * /deleteDb:
+   *   get:
+   *     tags:
+   *       - Database Management
+   *     summary: Delete a database
+   *     description: Deletes a database specified by the query parameter
+   *     parameters:
+   *       - in: query
+   *         name: db
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Name of the database to delete
+   *     responses:
+   *       200:
+   *         description: A successful response
+   *       500:
+   *         description: An error occurred
+   */
   app.get('/deleteDb', (req, res) => {
     fs.unlink('db/' + req.query.db, err => {
       console.log(err)
@@ -112,10 +176,73 @@ const runServer = (
     })
   })
 
+  /**
+   * @swagger
+   * /getIp:
+   *   get:
+   *     summary: Get IP address
+   *     description: Returns the IP address of the request
+   *     responses:
+   *       200:
+   *         description: A successful response
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 ip:
+   *                   type: string
+   */
   app.get('/getIp', (req, res) => {
     res.status(200).send({ ip: req.ip })
   })
 
+  /**
+   * @swagger
+   * /tiles/{folder}/{z}/{y}/{x}:
+   *   get:
+   *     tags:
+   *       - File Management
+   *     summary: Get tile image
+   *     description: Returns a tile image based on the specified folder and coordinates
+   *     parameters:
+   *       - in: path
+   *         name: folder
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Folder name
+   *       - in: path
+   *         name: z
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Z coordinate
+   *       - in: path
+   *         name: y
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Y coordinate
+   *       - in: path
+   *         name: x
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: X coordinate
+   *     responses:
+   *       200:
+   *         description: A successful response
+   *         content:
+   *           image/png:
+   *             schema:
+   *               type: string
+   *               format: binary
+   *           image/svg+xml:
+   *             schema:
+   *               type: string
+   *               format: binary
+   */
   app.get('/tiles/:folder/:z/:y/:x', (req, res) => {
     const { folder, z, y, x } = req.params
 
@@ -128,6 +255,38 @@ const runServer = (
     '/saveIcon',
     express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' })
   )
+
+  /**
+ * @swagger
+ * /saveIcon:
+ *   post:
+ *     tags:
+ *       - File Management
+ *     summary: Save icon
+ *     description: Uploads an icon image (PNG or SVG) and saves it to the server.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         image/png:
+ *           schema:
+ *             type: string
+ *             format: binary
+ *         image/svg+xml:
+ *           schema:
+ *             type: string
+ *             format: binary
+ *     responses:
+ *       200:
+ *         description: Successfully uploaded and saved the icon.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 path:
+ *                   type: string
+ *                   description: URL path to access the saved icon.
+ */
   app.post('/saveIcon', (req, res) => {
     const imageName = `${uniqid.time('icon-')}.${
       req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'
@@ -140,6 +299,34 @@ const runServer = (
     res.status(200).send({ path: imagePath })
   })
 
+  /**
+ * @swagger
+ * /getIcon/{icon}:
+ *   get:
+ *     tags:
+ *       - File Management
+ *     summary: Get icon
+ *     description: Retrieves an icon image by its filename.
+ *     parameters:
+ *       - in: path
+ *         name: icon
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Filename of the icon to retrieve.
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved the icon.
+ *         content:
+ *           image/png:
+ *             schema:
+ *               type: string
+ *               format: binary
+ *           image/svg+xml:
+ *             schema:
+ *               type: string
+ *               format: binary
+ */
   app.get('/getIcon/:icon', (req, res) => {
     if (imgDir) {
       res.sendFile(path.join(process.cwd(), imgDir, req.params.icon))
@@ -149,6 +336,39 @@ const runServer = (
   })
 
   app.use('/saveLogo', express.raw({ type: ['image/png', 'image/svg+xml'], limit: '100kb' }))
+  // serge/server/server.js
+
+  /**
+ * @swagger
+ * /saveLogo:
+ *   post:
+ *     tags:
+ *       - File Management
+ *     summary: Save a logo image
+ *     description: Uploads a logo image in PNG or SVG format and saves it to the server.
+ *     requestBody:
+ *       content:
+ *         image/png:
+ *           schema:
+ *             type: string
+ *             format: binary
+ *         image/svg+xml:
+ *           schema:
+ *             type: string
+ *             format: binary
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: Successfully saved the logo image.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 path:
+ *                   type: string
+ *                   example: /path/to/logo-file.png
+ */
   app.post('/saveLogo', (req, res) => {
     const imagePath = `${imgDir}/${uniqid.time('logo-')}.${req.headers['content-type'] === 'image/svg+xml' ? 'svg' : 'png'}`
     fs.writeFile(imagePath, req.body, err => console.log(err))
@@ -172,7 +392,7 @@ const runServer = (
   app.use('/img/*', file404Error)
   app.use('/serge/img', express.static(path.join(process.cwd(), imgDir)))
   app.use('/default_img', express.static(path.join(__dirname, './default_img')))
-
+  setupSwagger(app)
   if (COUCH_ACCOUNT && COUCH_URL && COUCH_PASSWORD) {
     const couchDb = require('./providers/couchdb')
     couchDb(app, io, pouchOptions)
@@ -193,13 +413,16 @@ const runServer = (
     onAppStartListeningAddons.forEach(addon => {
       addon.run(app, server)
     })
+
+    const openApi = process.argv.includes('--openapi')
+    const startUrl = openApi ? `http://localhost:${port}/api-docs` : `http://localhost:${port}`
     const start =
       process.platform === 'darwin'
         ? 'open'
         : process.platform === 'win32'
           ? 'start'
           : 'xdg-open'
-    require('child_process').exec(start + ' ' + `http://localhost:${port}`)
+    require('child_process').exec(start + ' ' + startUrl)
   })
 }
 
