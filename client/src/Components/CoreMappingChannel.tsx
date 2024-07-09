@@ -52,7 +52,6 @@ const CoreMappingChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const messageHandler = (message: MappingMessage | MappingMessageDelta): void => {
     sendMappingMessage(state.currentWargame, message)
   }
-
   const coreMappingComponent = useMemo(() => {
     return <CoreMapping
       postBack={messageHandler}
