@@ -1,4 +1,4 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
+import { CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
 import {
   ChannelTypes, ChannelUI, ForceData, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
@@ -86,11 +86,8 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       const present = theChannel.messages.some((msg: MessageChannel) => msg._id === message._id)
       if (!present) {
         // chat messages need to go at the end, not the start
-        if (theChannel.cData.channelType === CHANNEL_CHAT) {
-          theChannel.messages.push(newObj)
-        } else {
-          theChannel.messages.push(newObj)
-        }
+        theChannel.messages.push(newObj)
+  
         // update message count, if it's not from us
         if (!ourMessage) {
           theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
