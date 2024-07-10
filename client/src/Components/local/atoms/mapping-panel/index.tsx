@@ -334,20 +334,17 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           } catch (e) {
             orFoundKey[filterKey] = false
           }
-        } else if (filterKey === 'sidc') {
-          const sidcValue = get(f.properties, 'sidc', '')
-      
-          const { success, sidc } = handleSidcValue(sidcValue)
-         
-          if (value && success) {
-            orFoundKey[filterKey] = value.includes(sidc)
-          }
         } else {
           const propertyValue = get(f.properties, filterKey, '')
           let itemPropValue: any[] = [] // Explicitly type as an array of any[]
           let filteringValue: any[] = [] // Explicitly type as an array of any[]
           if (Array.isArray(propertyValue)) {
             itemPropValue = propertyValue
+          } else if (filterKey === 'sidc') {
+            const { success, sidc } = handleSidcValue(propertyValue)
+            if (success) {
+              itemPropValue.push(sidc)
+            }
           } else {
             itemPropValue.push(propertyValue)
           }
@@ -361,13 +358,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           orFoundKey[filterKey] = (filteringValueStr.includes(itemValueStr) || itemValueStr.includes(filteringValueStr)) && !!itemValueStr
         }
       })
-
+      
       return Object.values(orFoundKey).every(f => f)
     })
     const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeature, 'properties.id', ''))
     if (!isSelectedFeatureFilterOut) {
       clearSelectedFeature()
-    }
+    } 
     setFilterFeatureIds(getAllFeatureIds(cloneFeature))
     setFilteredFeatures(cloneFeature)
   }, [features, selectedFiltersProps])
