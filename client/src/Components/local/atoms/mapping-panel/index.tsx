@@ -468,7 +468,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         {panelState.filterPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={true} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} multipleSelect/>
+              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} multipleSelect/>
             </div>
             <div className={styles.button}>
               <button onClick={onAddNewFilter}>Add</button>

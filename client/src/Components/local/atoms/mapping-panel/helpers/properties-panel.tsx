@@ -99,7 +99,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
               <input value={value} disabled={disableIdEdit && isId} onChange={(e) => onPropertiesChange(key, e.target.value)} />
             )
         }
-        {key === 'sidc' && disableIdEdit && (
+        {key === 'sidc' && (
           <>
             <button style={ { border: !checkSidc ? 'solid 2px red' : '' }} className={styles.sidcbtn} onClick={openSIDCGenerator}>
               Edit
