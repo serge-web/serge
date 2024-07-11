@@ -162,6 +162,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
             messages={messages as MessageCustom[]}
             role={role}
             forces={state.allForces}
+            phase={state.phase}
             isUmpire={!!isUmpire}
             isObserver={observing}
             channelColb={channel as ChannelCollab}

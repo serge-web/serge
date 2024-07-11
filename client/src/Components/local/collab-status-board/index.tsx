@@ -18,7 +18,7 @@ export interface ForceColor {
 /* Render component */
 export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
   templates, messages, channelColb, isObserver, isUmpire, onChange, role, forces,
-  gameDate, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame, collabActivity, expandedRowId
+  gameDate, phase, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame, collabActivity, expandedRowId
 }) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
   
@@ -31,9 +31,14 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
     // ok, should not be here
     throw new Error('Should not be in this channel')
   }
-   
+
+  // check if this is a valid phase
+  const validPhase = myParticipations.length && myParticipations.some((part: ParticipantCollab) => {
+    return !part.phases || part.phases?.length === 0 || part.phases.includes(phase)
+  }) 
+  
   // find my highest permission (or take no permission)
-  const permission: CollaborativePermission = myParticipations.length ? myParticipations.reduce((a, b) => a.permission > b.permission ? a : b).permission : CollaborativePermission.CannotCollaborate
+  const permission: CollaborativePermission = (myParticipations.length && validPhase) ? myParticipations.reduce((a, b) => a.permission > b.permission ? a : b).permission : CollaborativePermission.CannotCollaborate
 
   // on message changed, re-render table data
   const { rows, columns, customStyles, filteredDoc } = useMemo(() => {

@@ -1,4 +1,4 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
+import { CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
 import {
   ChannelTypes, ChannelUI, ForceData, MessageChannel,
   MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
@@ -87,11 +87,8 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       const present = theChannel.messages.some((msg: MessageChannel) => msg._id === message._id)
       if (!present) {
         // chat messages need to go at the end, not the start
-        if (theChannel.cData.channelType === CHANNEL_CHAT) {
-          theChannel.messages.push(newObj)
-        } else {
-          theChannel.messages.unshift(newObj)
-        }
+        theChannel.messages.push(newObj)
+  
         // update message count, if it's not from us
         if (!ourMessage) {
           theChannel.unreadMessageCount = (theChannel.unreadMessageCount || 0) + 1
@@ -218,10 +215,6 @@ const createOrUpdateChannelUI = (
       (message) => (message.details && message.details.channel === channel.uniqid) || (!isCollab && message.messageType === INFO_MESSAGE_CLIPPED)
     )
 
-    // channels expect messages to be in reverse chronological order, but database supplies them
-    // in ascending order. So, reverse order
-    const reverseMessages = messages.reverse()
-
     return {
       name: channel.name,
       uniqid: channel.uniqid,
@@ -229,7 +222,7 @@ const createOrUpdateChannelUI = (
       forceIcons,
       forceColors,
       forceNames,
-      messages: reverseMessages,
+      messages,
       unreadMessageCount: messages.filter((message) => !message.hasBeenRead && message.messageType !== INFO_MESSAGE_CLIPPED).length,
       observing: observing,
       cData: channel
@@ -364,7 +357,7 @@ const updateChannelMessages = (gameTurn: number, messageId: string, thisChannel:
     if (!thisChannel.messages.find((prevMessage: MessageChannel) => (prevMessage as MessageInfoTypeClipped).gameTurn === gameTurn)) {
       // no messages, or no turn marker found, create one  
       const message: MessageChannel = clipInfoMEssage(gameTurn, undefined, messageId, false)
-      thisChannel.messages.unshift(message)
+      thisChannel.messages.push(message)
     }
   }
 }

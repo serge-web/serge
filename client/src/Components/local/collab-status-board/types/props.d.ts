@@ -11,6 +11,8 @@ export type CollabStatusBoardProps = {
   currentWargame: string
   messages: MessageCustom[]
   channelColb: ChannelCollab
+  /** current game phase */
+  phase: Phase 
   onChange: (nextMessage: MessageCustom, messageType: TypeOfCustomMessage) => void
   /** if this player is from an umpire force (and can see private messages) */
   isUmpire: boolean

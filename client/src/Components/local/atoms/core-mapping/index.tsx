@@ -135,7 +135,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         const custMessage = message as MappingMessage | MappingMessageDelta
         return custMessage.messageType === MAPPING_MESSAGE || custMessage.messageType === MAPPING_MESSAGE_DELTA
       } else return false
-    }) 
+    }).reverse()
+  
     if (mappingMessages.length) {
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
