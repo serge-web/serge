@@ -123,6 +123,11 @@ const pouchDb = (app, io, pouchOptions) => {
     const db = new PouchDB(databaseName, pouchOptions)
     const putData = req.body
     wargameName = req.params.wargame
+
+    if (!putData._id) {
+      return res.status(400).send({ error: '_id is required for PUT requests' })
+    }
+
     if (!listeners[databaseName]) {
       addListenersQueue.push(databaseName)
     }
