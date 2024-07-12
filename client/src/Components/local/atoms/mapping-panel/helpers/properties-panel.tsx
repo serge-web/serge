@@ -48,7 +48,7 @@ const componentFor = (
   }
 }
 
-const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, checkSidc, disableIdEdit, rendererProps, multipleSelect, disabled = false }) => {
+const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, checkSidc, disableIdEdit, rendererProps, multipleSelect, disabled = false, selectedRenderer }) => {
   const [isSIDCDialogOpen, setSIDCDialogOpen] = useState(false)
 
   const openSIDCGenerator = () => setSIDCDialogOpen(true)
@@ -129,7 +129,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
         // 2. if it's a StringProperty and `lines` is present, use a textarea
         // 3. if it's a StringProperty and empty, show `description` in grey default text (not sure what that UI
         //    practice is called)
-        const prop: PropertyType | undefined = rendererProps?.find((p) => p.id === key)
+        const prop: PropertyType | undefined = rendererProps?.find((p) => p.id === key && p.renderer === selectedRenderer)
         if (key === 'lat') {
           const latValue = selectedProp.lat.value
           const lngValue = selectedProp.lng.value

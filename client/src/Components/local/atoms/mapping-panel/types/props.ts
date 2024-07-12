@@ -15,4 +15,5 @@ export type ProppertiesPanelProps = {
   rendererProps?: PropertyType[]
   multipleSelect?: boolean
   disabled?: boolean
+  selectedRenderer: string
 }
