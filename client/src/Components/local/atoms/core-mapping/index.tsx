@@ -5,7 +5,7 @@ import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { cloneDeep, flatten, get, isEqual, unionBy, uniq } from 'lodash'
+import { cloneDeep, flatten, get, isEqual, uniq } from 'lodash'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
@@ -461,18 +461,19 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
 
   const getUnionRendererProps = (): PropertyType[] => {
     const rendererObjects: BaseRenderer[] = channel.renderers
-    const flatMap = flatten(rendererObjects.map(r => [...r.baseProps, ...r.additionalProps]))
+    const flatMap = flatten(rendererObjects.map(r => [...r.baseProps.map(p => ({ ...p, renderer: r.id })), ...r.additionalProps.map(p => ({ ...p, renderer: r.id }))]))
 
     if (featureCollection && featureCollection.features) {
       flatMap.push({
         choices: uniq(featureCollection.features.filter(f => f.geometry.type).map(f => f.geometry.type)),
         id: 'shapeType',
         label: 'Geometry Type',
-        type: 'EnumProperty'
+        type: 'EnumProperty',
+        renderer: 'core'
       })
     }
 
-    return unionBy(flatMap, 'id')
+    return flatMap
   }
 
   return <MappingProvider value={mappingProviderValue}>

@@ -419,6 +419,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
     }
   }
 
+  const getSelectedRenderer = () => {
+    if (selectedFeature?.properties?._type === 'CoreRenderer') {
+      return 'core'
+    }
+    return 'milSym'
+  }
+
   return (
     <PanelGroup className={styles.panelGroup} direction="vertical">
       <CustomDialog
@@ -468,7 +475,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         {panelState.filterPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} multipleSelect/>
+              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} selectedRenderer={getSelectedRenderer()} multipleSelect/>
             </div>
             <div className={styles.button}>
               <button onClick={onAddNewFilter}>Add</button>
@@ -518,7 +525,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         {panelState.propertyPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} checkSidc={checkSidc} onPropertiesChange={onPropertiesChange} disabled={!propsEditable} />
+              <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} checkSidc={checkSidc} onPropertiesChange={onPropertiesChange} disabled={!propsEditable} selectedRenderer={getSelectedRenderer()}/>
             </div>
             { propsEditable &&
               <div className={styles.button}>
