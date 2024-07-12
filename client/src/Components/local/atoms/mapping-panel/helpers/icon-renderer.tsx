@@ -27,7 +27,7 @@ const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, color, on
     const health = feature.properties?.health
 
     const healthColor = calculateHealthColor(health)
-
+    
     return <div className={styles['asset-icon']}>
       {get(feature, 'properties._type') === RENDERER_CORE
         ? <FontAwesomeIcon icon={faShapes} color={color} fontSize={25} />
