@@ -173,7 +173,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       setRenderers([])
     }
   }, [channel])
-
+  
   useEffect(() => {
     if (pendingCreate) {
       const feature = mapEventToFeatures(pendingCreate)

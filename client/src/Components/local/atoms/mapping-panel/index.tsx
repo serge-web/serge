@@ -106,10 +106,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
   useEffect(() => {
     if (features) {
-      const visibleFeatures = features.features.filter(f => knowsItExists(f))
-      features.features = visibleFeatures
-      setFilteredFeatures(features)
-      setPendingSaveFeatures(features)  
+      const cloneFeatures = cloneDeep(features)
+      const visibleFeatures = cloneFeatures.features.filter(f => knowsItExists(f))
+      cloneFeatures.features = visibleFeatures
+      setFilteredFeatures(cloneFeatures)
+      setPendingSaveFeatures(cloneFeatures)  
     } else {
       setFilteredFeatures(features)
       setPendingSaveFeatures(features)      
@@ -141,7 +142,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           }
         }
         const onlyEditOwnProps = canOnlyEditOwnProps(selectedFeature)
-        const extraProps = rendererProps.find(prop => prop.id === propKey)
+        const extraProps = rendererProps.find(prop => prop.id === propKey && prop.renderer === getSelectedRenderer())
         result[propKey] = {
           value: properties[propKey] as any,
           choices: get(extraProps, 'choices', []),
@@ -161,7 +162,6 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       } else {
         setSelectedProps(sortedProps)  
       }
-
       // and if the form is editable
       setPropsEditable(canEditProps(selectedFeature))
     }
