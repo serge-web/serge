@@ -503,7 +503,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={true} className={styles['map-container']} >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url={channel.constraints.tileLayer?.url || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'}
         /> 
         <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText} canAddRemove={canAddRemove} canMoveResize={canMoveResize}/>
         <LayerGroup>
