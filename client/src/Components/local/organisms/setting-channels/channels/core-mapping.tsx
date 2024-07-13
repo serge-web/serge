@@ -707,8 +707,13 @@ export const CoreMappingChannel: React.FC<CoreMappingChannelProps> = ({ channel,
                 if (editProperty.type === 'EnumProperty' && needInitChoicesOpt.current) {
                   needInitChoicesOpt.current = false
                   const others = get(editProperty, 'others', '').split(':')
-                  if (others.length > 1 && others[1].trim().includes(',')) {
-                    const choiceValues = others[1].split(',').map(v => v.trim())
+                  if (others.length > 1) {
+                    let choiceValues: any[] = []
+                    if (others[1].trim().includes(',')) {
+                      choiceValues = others[1].split(',').map(v => v.trim())
+                    } else if (others[1].trim().length) {
+                      choiceValues = [others[1].trim()]
+                    }
                     setChoiceOpts(choiceValues.map(c => ({ name: c, uniqid: c })))
                     setChoices(choiceValues)
                   }
