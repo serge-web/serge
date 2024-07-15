@@ -2,23 +2,23 @@
 import { faArrowAltCircleLeft, faWindowMaximize, faWindowMinimize } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
+import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import { cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
+import { capitalize, cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
-import { convertLetterSidc2NumberSidc } from '@orbat-mapper/convert-symbology'
 import { ForceStyle, isValidSymbol } from '../../../../Helpers'
 import { CoreProperties, MappingPermissions, ParticipantMapping, PropertyType } from '../../../../custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import { colorFor } from '../core-mapping/renderers/core-renderer'
 import CustomDialog from '../custom-dialog'
+import { canEditProps, canOnlyEditOwnProps, canSeeProps, hasMappingPermission } from './helpers/has-mapping-permission'
 import IconRenderer from './helpers/icon-renderer'
 import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
 import styles from './styles.module.scss'
 import { SelectedProps } from './types/props'
-import { hasMappingPermission, hasMappingPermissions } from './helpers/has-mapping-permission'
 
 type MappingPanelProps = {
   onClose: () => void
@@ -90,20 +90,6 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
     }
   }
 
-  const canSeeProps = (feature: Feature<Geometry, any>): boolean => {
-    return hasMappingPermissions(feature, [MappingPermissions.ViewProps, MappingPermissions.EditAllProps,
-      MappingPermissions.EditOwnProps], permissions)
-  }
-
-  const canEditProps = (feature: Feature<Geometry, any>): boolean => {
-    return hasMappingPermissions(feature, [MappingPermissions.EditAllProps,
-      MappingPermissions.EditOwnProps], permissions)
-  }
-
-  const canOnlyEditOwnProps = (feature: Feature<Geometry, any>): boolean => {
-    return hasMappingPermissions(feature, [MappingPermissions.EditOwnProps], permissions)
-  }
-
   useEffect(() => {
     if (features) {
       const cloneFeatures = cloneDeep(features)
@@ -141,7 +127,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
             choices: []
           }
         }
-        const onlyEditOwnProps = canOnlyEditOwnProps(selectedFeature)
+        const onlyEditOwnProps = canOnlyEditOwnProps(selectedFeature, permissions)
         const extraProps = rendererProps.find(prop => prop.id === propKey && prop.renderer === getSelectedRenderer())
         result[propKey] = {
           value: properties[propKey] as any,
@@ -163,7 +149,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         setSelectedProps(sortedProps)  
       }
       // and if the form is editable
-      setPropsEditable(canEditProps(selectedFeature))
+      setPropsEditable(canEditProps(selectedFeature, permissions))
     }
   }, [selectedFeature])
 
@@ -373,6 +359,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
     if (pendingSaveFeatures) {
       onSave(pendingSaveFeatures)
       setDisableSave(true)
+      const feature = pendingSaveFeatures.features.find(f => f.id === selectedFeature?.id)
+      if (feature && !canSeeProps(feature, permissions)) {
+        clearSelectedFeature()
+      }
     }
   }
 
@@ -426,6 +416,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
     return 'milSym'
   }
 
+  const getLabelFilter = (id: string) => {
+    const renderProp = rendererProps.find(p => p.id === id)
+    return renderProp ? renderProp.label : capitalize(id)
+  }
+
   return (
     <PanelGroup className={styles.panelGroup} direction="vertical">
       <CustomDialog
@@ -453,7 +448,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
                     size="small"
                   />
                 }
-                label={filter}
+                label={getLabelFilter(filter)}
                 value={filter}
               />
             </div>
@@ -504,7 +499,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
                 // pan to the center of the feature
                 setPanTo({ lat: center[1], lng: center[0] })
               }
-              return <IconRenderer onPan={mapPanTo} key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature)} />
+              return <IconRenderer onPan={mapPanTo} key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature, permissions)} />
             })}
           </div>
         }
