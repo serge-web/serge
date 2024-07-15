@@ -207,7 +207,7 @@ const createOrUpdateChannelUI = (
     isObserver,
     allTemplatesByKey
   )
-  
+
   if ((isUmpire && isObserver) || isParticipant) {
     const { forceIcons, forceColors, forceNames } = buildForceIconsColorsNames(channel.participants, allForces)
     const isCollab = channel.channelType === CHANNEL_COLLAB
@@ -364,7 +364,7 @@ const updateOrCreateChannel = (
     res.channels[channelId] = {
       ...thisChannel,
       cData: channel,
-      templates: templates
+      templates
     }
   }
 }
