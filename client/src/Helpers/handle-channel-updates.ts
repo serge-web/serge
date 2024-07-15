@@ -207,7 +207,7 @@ const createOrUpdateChannelUI = (
     isObserver,
     allTemplatesByKey
   )
-
+  
   if ((isUmpire && isObserver) || isParticipant) {
     const { forceIcons, forceColors, forceNames } = buildForceIconsColorsNames(channel.participants, allForces)
     const isCollab = channel.channelType === CHANNEL_COLLAB
@@ -301,7 +301,7 @@ const processChannel = (
 
   const channelId = channel.uniqid
   const { isParticipant, observing, templates } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
-  
+
   // make a note that we've procesed this channel
   delete unprocessedChannels[channelId]
   
@@ -328,7 +328,7 @@ const updateOrCreateChannel = (
     // create and store it
     res.channels[channelId] = createNewChannel(channel.uniqid, channel)
   }
-
+  
   // already exists, get shortcut
   const thisChannel: ChannelUI = res.channels[channelId]
   // rename channel, if necessary
@@ -363,7 +363,8 @@ const updateOrCreateChannel = (
   if (res.channels[channelId].cData) {
     res.channels[channelId] = {
       ...thisChannel,
-      cData: channel
+      cData: channel,
+      templates: templates
     }
   }
 }
