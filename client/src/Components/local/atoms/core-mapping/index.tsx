@@ -10,9 +10,10 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { PanelSize } from '../../../../Components/CoreMappingChannel'
-import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, UMPIRE_FORCE } from '../../../../config'
-import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, MappingPermissions, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from '../../../../custom-types'
+import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from '../../../../config'
+import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from '../../../../custom-types'
 import MappingPanel from '../mapping-panel'
+import { canMoveResize as canMoveReizeFnc, canAddRemove as canMoveReizeFncFnc } from '../mapping-panel/helpers/has-mapping-permission'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
@@ -93,34 +94,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   }, [channel, playerForce, playerRole, currentPhase])
 
   useEffect(() => {
-    if (playerForce && channel) {
-      const id = playerForce.uniqid
-      if (id === UMPIRE_FORCE) {
-        setCanAddRemove(true)
-        setCanMoveResize(true)
-      } else {
-        const myForcePerms = channel.participants.filter((p: ParticipantMapping) => p.forceUniqid === id)
-        const myRolePerms = myForcePerms.filter((p: ParticipantMapping) =>
-          p.roles === undefined || 
-          p.roles.length === 0 || 
-          p.roles.includes(playerRole))
-        const thisPhasePerms = myRolePerms.filter((p: ParticipantMapping) => p.phases.includes(currentPhase))
-        const myPerms = thisPhasePerms.filter((p: ParticipantMapping) => p.permissionTo[id] !== undefined)
-        let localCanAddRemove = false
-        let localCanMoveResize = false
-        myPerms.forEach((p: ParticipantMapping) => {
-          if (p.permissionTo[id].includes(MappingPermissions.AddRemove) && !localCanAddRemove) {
-            localCanAddRemove = true
-          }
-          if (p.permissionTo[id].includes(MappingPermissions.MoveResize) && !localCanMoveResize) {
-            localCanMoveResize = true
-          }
-        })
-        setCanAddRemove(localCanAddRemove)
-        setCanMoveResize(localCanMoveResize)
-      }
+    const selectedFeatureObj = featureCollection?.features.find(f => get(f, 'properties.id', '') === selectedFeature[0])
+    if (selectedFeatureObj) {
+      setCanMoveResize(canMoveReizeFnc(selectedFeatureObj, permissions))
+      setCanAddRemove(canMoveReizeFncFnc(selectedFeatureObj, permissions))
     }
-  }, [playerForce, playerRole, channel, currentPhase])
+  }, [selectedFeature])
 
   useEffect(() => {
     if (!isEqual(localPanelSize, panelSize)) {

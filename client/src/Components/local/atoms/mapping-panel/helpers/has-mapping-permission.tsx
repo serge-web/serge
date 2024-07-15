@@ -21,3 +21,25 @@ export const hasMappingPermissions = (feature: Feature<Geometry, any>, permissio
     _.intersection(part.permissionTo[hisForce], permissions).length)
   return hasPermission
 }
+
+export const canSeeProps = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.ViewProps, MappingPermissions.EditAllProps,
+    MappingPermissions.EditOwnProps], permissions)
+}
+
+export const canEditProps = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.EditAllProps,
+    MappingPermissions.EditOwnProps], permissions)
+}
+
+export const canOnlyEditOwnProps = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.EditOwnProps], permissions)
+}
+
+export const canMoveResize = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.MoveResize], permissions)
+}
+
+export const canAddRemove = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.AddRemove], permissions)
+}
