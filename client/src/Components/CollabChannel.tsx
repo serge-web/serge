@@ -27,7 +27,9 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const channelUI = state.channels[channelId]
+
   const channel = channelUI.cData as ChannelCollab
+
   if (!channel) {
     console.warn('failed to receive v3 data')
     return (
@@ -116,7 +118,6 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     console.warn('Problem - new message template not specified')
   }
   const trimmedTemplates = channel.newMessageTemplate ? [allTemplates[channel.newMessageTemplate._id]] : []
-
   const observing = !!channelUI.observing
 
   const isCollabEdit = channel.channelType === CHANNEL_COLLAB

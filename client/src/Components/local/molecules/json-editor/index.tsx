@@ -38,7 +38,7 @@ export const JsonEditor: React.FC<Props> = ({
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
-
+  
   const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
     const styles = {
