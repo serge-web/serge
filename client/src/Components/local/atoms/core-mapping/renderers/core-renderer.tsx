@@ -4,14 +4,14 @@ import { Feature, Geometry, Point } from 'geojson'
 import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
 import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
+import tinycolor from 'tinycolor2'
 import { ForceStyle } from '../../../../../Helpers'
 import { CoreProperties, MappingPermissions, RENDERER_CORE } from '../../../../../custom-types'
-import tinycolor from 'tinycolor2'
+import { canAddRemove, canEditProps, canMoveResize, canSeeProps, hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-permission'
 import { useMappingState } from '../helper/mapping-provider'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
-import { hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-permission'
 
 export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
@@ -85,12 +85,21 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
       })
 
       marker.addEventListener('pm:edit', e => {
+        if (!canEditProps(feature, permissions)) {
+          return
+        }
         onEdited(feature.properties.id, e.target.pm.textArea.value)
       })
       marker.addEventListener('pm:remove', () => {
+        if (!canAddRemove(feature, permissions)) {
+          return
+        }
         onRemoved(feature.properties.id)
       })
       marker.addEventListener('pm:dragend', e => {
+        if (!canMoveResize(feature, permissions)) {
+          return
+        }
         const coords: L.LatLng = e.layer._latlng
         feature.geometry.coordinates = [coords.lng, coords.lat]
         onDragged(feature.properties.id, coords)
@@ -109,15 +118,21 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
 
   return <GeoJSON onEachFeature={(f, l) => {
     l.addEventListener('pm:remove', () => {
+      if (!canAddRemove(f, permissions)) {
+        return
+      }
       onRemoved(f.properties.id)
     })
     l.addEventListener('click', (e) => {
-      if (!isMeasuring) {
+      if (!isMeasuring && canSeeProps(f, permissions)) {
         L.DomEvent.stopPropagation(e)
         onSelect([f.properties.id])
       }
     })
     const dragHandler = (e: LeafletEvent) => {
+      if (!canMoveResize(f, permissions)) {
+        return
+      }
       const g = e as any
       const le = g as L.LeafletEvent
       switch (g.shape) {
