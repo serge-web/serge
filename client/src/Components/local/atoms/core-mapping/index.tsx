@@ -30,7 +30,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [renderers, setRenderers] = useState<React.FunctionComponent<CoreRendererProps>[]>([])
   const [pendingCreate, setPendingCreate] = useState<PM.ChangeEventHandler | null>(null)
   const [checked, setChecked] = useState<boolean>(openPanelAsDefault)
-  const [selectedFeature, setSelectedFeature] = useState<string[]>([])
+  const [selectedFeatureIDs, setSelectedFeatureIDs] = useState<string[]>([])
   const [showLabels, setShowLabels] = useState<boolean>(false)
   const lastMessages = useRef<MappingMessage>()
   const [permissions, setPermissions] = useState<ParticipantMapping[]>([])
@@ -166,9 +166,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   }, [messages])
 
   useEffect(() => {
-    if (selectedFeature.length) {
+    if (selectedFeatureIDs.length) {
       // find the feature in the feature collection
-      const features = featureCollection?.features.filter(f => selectedFeature.includes(f.properties?.id))
+      const features = featureCollection?.features.filter(f => selectedFeatureIDs.includes(f.properties?.id))
 
       // find features with geometries
       const featuresWithGeometry = features?.filter(f => f.geometry.type)
@@ -187,7 +187,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         }
       }
     }
-  }, [selectedFeature])
+  }, [selectedFeatureIDs])
 
   useEffect(() => {
     if (channel) {
@@ -513,7 +513,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
               minSizePercentage={35}
               style={{ pointerEvents: 'all' }}
             >
-              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} rendererProps={getUnionRendererProps()} onSave={saveNewMessage} selected={selectedFeature} onSelect={setSelectedFeature} forceStyles={forceStyles} permissions={permissions} />
+              <MappingPanel onClose={() => setChecked(false)} features={featureCollection} rendererProps={getUnionRendererProps()} onSave={saveNewMessage} selected={selectedFeatureIDs} onSelect={setSelectedFeatureIDs} forceStyles={forceStyles} permissions={permissions} />
             </Panel>
             <ResizeHandle direction='horizontal' className={styles['resize-handler']} />
             <Panel
@@ -539,8 +539,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
                 features={featureCollection} 
                 onDragged={onDragged} 
                 onEdited={onEdited} 
-                onSelect={setSelectedFeature} 
-                selected={selectedFeature}
+                onSelect={setSelectedFeatureIDs} 
+                selected={selectedFeatureIDs}
                 showLabels={showLabels} 
                 forceStyles={forceStyles}
                 permissions={permissions}
