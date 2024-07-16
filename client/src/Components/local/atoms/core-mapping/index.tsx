@@ -11,9 +11,9 @@ import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
 import { PanelSize } from '../../../../Components/CoreMappingChannel'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from '../../../../config'
-import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from '../../../../custom-types'
+import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, MappingPermissions, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from '../../../../custom-types'
 import MappingPanel from '../mapping-panel'
-import { canMoveResize as canMoveReizeFnc, canAddRemove as canMoveReizeFncFnc } from '../mapping-panel/helpers/has-mapping-permission'
+import { canMoveResize as canMoveReizeFnc, canAddRemove as canMoveReizeFncFnc, permissionError } from '../mapping-panel/helpers/has-mapping-permission'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
@@ -89,6 +89,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         const phaseValid = participant.phases.includes(currentPhase)
         return forceValid && roleValid && phaseValid 
       })
+      const userPermission = relevantParts.find(p => p.forceUniqid === playerForce.uniqid)
+      setCanAddRemove(!!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.AddRemove))
+      setCanMoveResize(!!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.MoveResize))
       setPermissions(relevantParts)
     }
   }, [channel, playerForce, playerRole, currentPhase])
@@ -98,6 +101,10 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     if (selectedFeatureObj) {
       setCanMoveResize(canMoveReizeFnc(selectedFeatureObj, permissions))
       setCanAddRemove(canMoveReizeFncFnc(selectedFeatureObj, permissions))
+    } else {
+      const userPermission = permissions.find(p => p.forceUniqid === playerForce.uniqid)
+      setCanAddRemove(!!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.AddRemove))
+      setCanMoveResize(!!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.MoveResize))
     }
   }, [selectedFeature])
 
@@ -175,7 +182,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   }
 
   const onCreate = (e: PM.ChangeEventHandler) => {
-    setPendingCreate(e)
+    const userPermission = permissions.find(p => p.forceUniqid === playerForce.uniqid)
+    if (userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.AddRemove)) {
+      setPendingCreate(e)
+    } else {
+      permissionError()
+    }
   }
 
   const saveNewMessage = (newFeatureCollection: FeatureCollection<Geometry, GeoJsonProperties>) => {

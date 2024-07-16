@@ -43,3 +43,5 @@ export const canMoveResize = (feature: Feature<Geometry, any>, permissions: Part
 export const canAddRemove = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
   return hasMappingPermissions(feature, [MappingPermissions.AddRemove], permissions)
 }
+
+export const permissionError = (): void => alert('You do not have permission on this action')
