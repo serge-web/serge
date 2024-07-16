@@ -23,6 +23,7 @@ import { loadDefaultMarker } from './helper/marker-helper'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './renderers/milsymbol-renderer'
 import styles from './styles.module.scss'
 import PropTypes, { CoreRendererProps } from './types/props'
+import { boundsOfFeatures } from './helper/bounds-of-features'
   
 const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, playerRole, currentTurn, currentPhase, openPanelAsDefault, forceStyles, postBack, panelSize }) => {
   const [featureCollection, setFeatureCollection] = useState<FeatureCollection>()
@@ -163,6 +164,30 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       setFeatureCollection(undefined)
     }
   }, [messages])
+
+  useEffect(() => {
+    if (selectedFeature.length) {
+      // find the feature in the feature collection
+      const features = featureCollection?.features.filter(f => selectedFeature.includes(f.properties?.id))
+
+      // find features with geometries
+      const featuresWithGeometry = features?.filter(f => f.geometry.type)
+
+      // extract geometries from features with geometries
+      const geometries = featuresWithGeometry?.map(f => f.geometry)
+
+      // find union of geometries
+      if (geometries?.length) {
+        const boundaries = geometries.map(g => boundsOfFeatures(g))
+
+        if (boundaries.length === 1) {
+          setPanTo({ lat: boundaries[0][0][1], lng: boundaries[0][0][0] })
+        } else {
+          console.warn('Multiple features selected, cannot pan to all')
+        }
+      }
+    }
+  }, [selectedFeature])
 
   useEffect(() => {
     if (channel) {
