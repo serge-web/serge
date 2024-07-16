@@ -44,4 +44,4 @@ export const canAddRemove = (feature: Feature<Geometry, any>, permissions: Parti
   return hasMappingPermissions(feature, [MappingPermissions.AddRemove], permissions)
 }
 
-export const permissionError = (): void => alert('You do not have permission on this action')
+export const permissionError = (): void => console.log('You do not have permission on this action')
