@@ -5,10 +5,10 @@ import React from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { calculateHealthColor } from 'src/Helpers'
 import { MappingPermissions, RENDERER_MILSYM } from 'src/custom-types'
+import { canAddRemove, canMoveResize, canSeeProps, hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-permission'
+import { useMappingState } from '../helper/mapping-provider'
 import { createDivIcon } from '../helper/marker-helper'
 import { CoreRendererProps } from '../types/props'
-import { useMappingState } from '../helper/mapping-provider'
-import { hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-permission'
 
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
@@ -43,10 +43,20 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       const marker = L.marker(latLng, { icon: divIcon })
       
       // Event listeners for marker actions
-      marker.addEventListener('pm:remove', () => onRemoved(id))
-      marker.addEventListener('pm:dragend', handleDragEnd)
+      marker.addEventListener('pm:remove', () => {
+        if (!canAddRemove(feature, permissions)) {
+          return
+        }
+        onRemoved(id)
+      })
+      marker.addEventListener('pm:dragend', e => {
+        if (!canMoveResize(feature, permissions)) {
+          return
+        }
+        handleDragEnd(e)
+      })
       marker.addEventListener('click', (e) => {
-        if (!isMeasuring) {
+        if (!isMeasuring && canSeeProps(feature, permissions)) {
           L.DomEvent.stopPropagation(e)
           onSelect([id])
         }

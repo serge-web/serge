@@ -212,9 +212,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }
 
   const selectItem = (id: string[], checked: boolean) => {
-    const featrure = features?.features.filter(f => id.includes(f.properties?.id)) || []
-    setSelectedFeature(checked ? featrure[0] : undefined)
-    onSelect(checked ? id : [])
+    const feature = features?.features.find(f => id.includes(f.properties?.id))
+    if (feature && canSeeProps(feature, permissions)) {
+      setSelectedFeature(checked ? feature : undefined)
+      onSelect(checked ? id : [])
+    }
     setPendingSaveFeatures(features)
   }
 
