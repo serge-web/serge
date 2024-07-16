@@ -524,12 +524,10 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
             <div className={styles.propertiesResponsive}>
               <PropertiesPanel disableIdEdit={true} rendererProps={rendererProps} selectedProp={selectedProps} checkSidc={checkSidc} onPropertiesChange={onPropertiesChange} disabled={!propsEditable} selectedRenderer={getSelectedRenderer()}/>
             </div>
-            { propsEditable &&
-              <div className={styles.button}>
-                <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
-                <button disabled={disableSave || !checkSidc} onClick={onLocalSave}>Save</button>
-              </div>
-            }
+            <div className={styles.button}>
+              <button disabled={!Object.keys(selectedProps).length} onClick={clearSelectedFeature}>Cancel</button>
+              {propsEditable && <button disabled={disableSave || !checkSidc} onClick={onLocalSave}>Save</button>}
+            </div>
           </>
         }
       </Panel>
