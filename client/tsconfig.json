@@ -22,7 +22,9 @@
     "forceConsistentCasingInFileNames": true,
     "module": "es2020",
     "moduleResolution": "node",
-    "suppressImplicitAnyIndexErrors": true,
+    // this option is now deprecated, replaced with `ignoreDeprecations: 5.0`
+    // "suppressImplicitAnyIndexErrors": true,
+    "ignoreDeprecations": "5.0",
     "declaration": true,
     "resolveJsonModule": true,
     "noEmit": true, // note: Removing the 'noEmit' directive will result in the compilation of the 'src' folder.

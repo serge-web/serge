@@ -8,7 +8,7 @@ import { capitalize, cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
 import { ForceStyle, isValidSymbol } from '../../../../Helpers'
-import { CoreProperties, MappingPermissions, ParticipantMapping, PropertyType } from '../../../../custom-types'
+import { CoreProperties, MappingPermissions, MilSymProperties, ParticipantMapping, PropertyType } from '../../../../custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import { colorFor } from '../core-mapping/renderers/core-renderer'
@@ -105,7 +105,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
   useEffect(() => {
     if (selectedFeature) {
-      const properties = selectedFeature.properties as CoreProperties
+      const properties = selectedFeature.properties as MilSymProperties | CoreProperties
       const geometry = selectedFeature.geometry
 
       if (!properties || !geometry) {
@@ -116,20 +116,22 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           return result
         }
 
+        const safeResult = result as any
+
         if (geometry.type === 'Point') {
           // inject lat/lng
-          result['lat'] = {
+          safeResult['lat'] = {
             value: geometry.coordinates[1],
             choices: []
           }
-          result['lng'] = {
+          safeResult['lng'] = {
             value: geometry.coordinates[0],
             choices: []
           }
         }
         const onlyEditOwnProps = canOnlyEditOwnProps(selectedFeature, permissions)
         const extraProps = rendererProps.find(prop => prop.id === propKey && prop.renderer === getSelectedRenderer())
-        result[propKey] = {
+        safeResult[propKey] = {
           value: properties[propKey] as any,
           choices: get(extraProps, 'choices', []),
           disabled: onlyEditOwnProps && !extraProps?.playerEditable
@@ -138,7 +140,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       }, {})
       // sort the props in alpha order
       const sort = <T extends Record<string, unknown>>(obj: T): T => Object.keys(obj).sort().reduce((acc, c) => { 
-        acc[c] = obj[c]; return acc 
+        const safeAcc = acc as any
+        safeAcc[c] = obj[c]
+        return acc 
       }, {}) as T
       const sortedProps: SelectedProps = sort(propsList)
       if (sortedProps.sidc) {
@@ -195,7 +199,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       const extraProps = rendererProps.find(prop => prop.id === key)
       const choices: string[] = get(extraProps, 'choices', [])
       const value = get(choices, '0', '')
-      res[key] = {
+      const safeRes = res as any
+      safeRes[key] = {
         value: choices.length ? [value] : '',
         choices
       }

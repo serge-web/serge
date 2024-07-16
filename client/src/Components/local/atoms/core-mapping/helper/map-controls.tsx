@@ -114,8 +114,10 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
     })
     
     // handle onCreate listener for geoman items
-    map.on('pm:create', (e: LeafletEvent) => {
-      switch (e['shape']) {
+    // note: the shape string parameter was added to the event object to help determine the type of shape being created,
+    // and avoid a compiler issue.
+    map.on('pm:create', (e: LeafletEvent & { shape?: string }) => {
+      switch (e.shape) {
         case 'Marker':
         case 'Polygon':
         case 'Line':
@@ -124,7 +126,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
           onCreate(e as unknown as PM.ChangeEventHandler)
           break
         default:
-          console.log('OnCreate Unimplemented !!!', e['shape'])
+          console.log('OnCreate Unimplemented !!!', e.shape)
       }
     })
 
