@@ -234,20 +234,23 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     // find the renderer for this feature
     const thisRenderer: BaseRenderer = channel.renderers.find((renderer) => renderer.type === props._type)
     if (thisRenderer) {
+      // allow props to be cast to CoreProperties or MilSymProperties, so
+      // we can use indexed properties
+      const propsWithFields = props as CoreProperties | MilSymProperties
       const theseProps = thisRenderer.additionalProps
       // insert missing items from theseProps into props
       theseProps.forEach(p => {
-        if (!props[p.id]) {
+        if (!propsWithFields[p.id]) {
           // item missing, see what type it is
           switch (p.type) {
             case PROPERTY_ENUM:
-              props[p.id] = p.choices[0] || ''
+              propsWithFields[p.id] = p.choices[0] || ''
               break
             case PROPERTY_NUMBER:
-              props[p.id] = 0
+              propsWithFields[p.id] = 0
               break
             case PROPERTY_STRING:
-              props[p.id] = p.description || 'pending'
+              propsWithFields[p.id] = p.description || 'pending'
               break
           }
         }
