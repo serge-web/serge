@@ -82,6 +82,10 @@ const couchDb = (app, io, pouchOptions) => {
     const putData = req.body
     wargameName = req.params.wargame
 
+    if (!putData._id) {
+      return res.status(400).send({ error: '_id is required for PUT requests' })
+    }
+
     if (!listeners[cleanName]) {
       addListenersQueue.push(cleanName)
     }
