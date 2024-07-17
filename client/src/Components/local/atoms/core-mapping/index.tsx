@@ -13,7 +13,7 @@ import { PanelSize } from '../../../../Components/CoreMappingChannel'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from '../../../../config'
 import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, MappingPermissions, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from '../../../../custom-types'
 import MappingPanel from '../mapping-panel'
-import { canMoveResize as canMoveReizeFnc, canAddRemove as canMoveReizeFncFnc, permissionError } from '../mapping-panel/helpers/has-mapping-permission'
+import { canMoveResize as canMoveReizeFnc, canAddRemove as canAddRemoveFnc, permissionError } from '../mapping-panel/helpers/has-mapping-permission'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
@@ -89,22 +89,26 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         const phaseValid = participant.phases.includes(currentPhase)
         return forceValid && roleValid && phaseValid 
       })
-      const userPermission = relevantParts.find(p => p.forceUniqid === playerForce.uniqid)
-      setCanAddRemove(!!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.AddRemove))
-      setCanMoveResize(!!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.MoveResize))
-      setPermissions(relevantParts)
+      updateToolbarStateIfNeed(relevantParts)
+      if (!isEqual(permissions, relevantParts)) {
+        setPermissions(relevantParts)
+      }
     }
   }, [channel, playerForce, playerRole, currentPhase])
 
   useEffect(() => {
     const selectedFeatureObj = featureCollection?.features.find(f => get(f, 'properties.id', '') === selectedFeature[0])
     if (selectedFeatureObj) {
-      setCanMoveResize(canMoveReizeFnc(selectedFeatureObj, permissions))
-      setCanAddRemove(canMoveReizeFncFnc(selectedFeatureObj, permissions))
+      const canMoveResizePermission = canMoveReizeFnc(selectedFeatureObj, permissions)
+      if (canMoveResizePermission !== canMoveResize) {
+        setCanMoveResize(canMoveResizePermission)
+      }
+      const canAddRemovePermission = canAddRemoveFnc(selectedFeatureObj, permissions)
+      if (canAddRemovePermission !== canAddRemove) {
+        setCanAddRemove(canAddRemovePermission)
+      }
     } else {
-      const userPermission = permissions.find(p => p.forceUniqid === playerForce.uniqid)
-      setCanAddRemove(!!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.AddRemove))
-      setCanMoveResize(!!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.MoveResize))
+      updateToolbarStateIfNeed(permissions)
     }
   }, [selectedFeature])
 
@@ -154,7 +158,9 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     if (channel) {
       const rendererObjects: Array<BaseRenderer> = channel.renderers
       const renList = rendererObjects.map((baseMessage: BaseRenderer) => CoreRendererHelper.from(baseMessage.type))
-      setRenderers(renList)
+      if (!isEqual(renderers, renList)) {
+        setRenderers(renList)
+      }
     } else {
       setRenderers([])
     }
@@ -174,6 +180,18 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       setPendingCreate(null) 
     }
   }, [pendingCreate])
+  
+  const updateToolbarStateIfNeed = (permissions: ParticipantMapping[]) => {
+    const userPermission = permissions.find(p => p.forceUniqid === playerForce.uniqid)
+    const canAddRemovePermission = !!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.AddRemove)
+    if (canAddRemovePermission !== canAddRemove) {
+      setCanAddRemove(canAddRemovePermission)
+    }
+    const canMoveResizePermission = !!userPermission && userPermission.permissionTo[playerForce.uniqid] && userPermission.permissionTo[playerForce.uniqid].includes(MappingPermissions.MoveResize)
+    if (canMoveResizePermission !== canMoveResize) {
+      setCanMoveResize(canMoveResizePermission)
+    }
+  }
   
   const isAppliedPatch = (message: MappingMessage, deltaMessage: MappingMessageDelta) => {
     return message.featureCollection.features.some(f => {
