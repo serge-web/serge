@@ -94,4 +94,4 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
   )
 }
 
-export default React.memo(CollabStatusBoard)
+export default CollabStatusBoard

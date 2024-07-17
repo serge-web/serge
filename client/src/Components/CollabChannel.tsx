@@ -1,7 +1,7 @@
 import CollabStatusBoard from './local/collab-status-board'
 import NewMessage from './local/form-elements/new-message'
 import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from 'src/config'
-import { ChannelCollab, MessageChannel, MessageCustom, MessageDetails, ParticipantCollab, TypeOfCustomMessage } from 'src/custom-types'
+import { ChannelCollab, MessageChannel, MessageCustom, MessageDetails, ParticipantCollab, TypeOfCustomMessage, ForceRole } from 'src/custom-types'
 import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from 'src/Helpers'
 import { MessageSentInteraction, PlainInteraction } from 'src/custom-types/player-log'
 import 'src/themes/App.scss'
@@ -95,13 +95,13 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const channelMessages = channelUI.messages
   const messages = channelMessages ? channelMessages as MessageChannel[] : []
 
-  //
-  const role = {
+  const role: ForceRole = {
     forceId: selectedForce.uniqid,
     forceName: selectedForce.name,
     roleId: selectedRole,
     roleName: selectedRoleName
   }
+  
   const participationsForMyForce = channel.participants.filter((p: ParticipantCollab) => p.forceUniqid === role.forceId)
   // participations relate to me if they contain no roles, or if they contain my role
   const isParticipating = participationsForMyForce.filter((p: ParticipantCollab) => (p.roles.length === 0 || p.roles.includes(role.roleId)))
