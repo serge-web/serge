@@ -433,7 +433,6 @@ export const saveForce = (dbName: string, newData: ForceData) => {
     //     _id: dbDefaultSettings._id,
     //     data: updatedData,  // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
     //     turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-    //     // @ts-ignore
     //     wargameInitiated: res.wargameInitiated
     //   }).then<Wargame>(() => {
     //     return db.get(dbDefaultSettings._id)
@@ -530,8 +529,7 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
   const uniqId = uniqid.time()
   const newDbName = `wargame-${uniqId}`
   const newDb: ApiWargameDb = new DbProvider(databasePath + newDbName)
-  // @ts-ignore
-  return db.replicate(newDb).then((): Promise<Wargame> => {
+  return db.replicate(newDb as any).then((): Promise<Wargame> => {
     addWargameDbStore({ name: newDbName, db: newDb })
     // get default wargame
     return getWargameLocalFromName(dbName)

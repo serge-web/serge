@@ -37,5 +37,6 @@ export type { default as WargameData, WargameDataChange } from './wargame-data.d
 export type { default as WargameList } from './wargame-list.d'
 export type { default as WargameOverview } from './wargame-overview.d'
 export type { default as Wargame } from './wargame.d'
+export type { default as StoryFC } from './story-fc.d'
 export * from './core-mapping.d'
 export * from './turn-period.d'

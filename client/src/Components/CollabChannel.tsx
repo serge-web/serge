@@ -118,14 +118,6 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
 
   const isCollabEdit = channel.channelType === CHANNEL_COLLAB
 
-  const newActiveMessage = (roleId: string, activityMessage: string) => {
-    // we don't have a message id at this point, player has only opened empty template
-    const newMessage: PlainInteraction = {
-      aType: activityMessage
-    }
-    saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(dispatch)
-  }
-
   const cacheMessage = (value: string | any, messageType: string): void | string => {
     return value && saveUnsentMessage(value, state.currentWargame, selectedForceId, state.selectedRole, channelId, messageType)
   }
@@ -139,20 +131,16 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
     })
   }
-
+  
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       <div className='flexlayout__scrollbox' style={{ height: observing ? '100%' : 'calc(100% - 40px)' }}>
         {isCollabEdit && (
           <CollabStatusBoard
-          /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             collabActivity={collabActivityMessage}
             currentWargame={state.currentWargame}
-            /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             onMessageRead={handleOpenMessage}
-            /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             onMarkAllAsRead={markAllMsgAsRead}
-            /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             onMarkAllAsUnRead={handleUnreadAllMessage}
             templates={state.allTemplatesByKey}
             messages={messages as MessageCustom[]}
@@ -162,7 +150,6 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
             isUmpire={!!isUmpire}
             isObserver={observing}
             channelColb={channel as ChannelCollab}
-            /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
             onChange={handleChange}
             gameDate={gameDate}
           />
@@ -171,27 +158,19 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
       {
         canCreateMessages &&
         <NewMessage
-          activityTimeChanel={newActiveMessage}
           saveCachedNewMessageValue={cacheMessage}
           getCachedNewMessagevalue={getCachedMessage}
           channel={channel}
           clearCachedNewMessage={clearCachedMessage}
           orderableChannel={true}
-          curChannel={channelId}
           confirmCancel={isCollabEdit}
           privateMessage={!!selectedForce.umpire}
           templates={trimmedTemplates}
-          // @ts-ignore
-          selectedRole={role}
-          channels={state.channels}
+          selectedRole={role.roleId}
           currentTurn={state.currentTurn}
-          currentWargame={state.currentWargame}
           gameDate={state.gameDate}
-          cacheMessage={saveMessage}
-          saveNewActivityTimeMessage={saveNewActivityTimeMessage}
           selectedForce={state.selectedForce}
           selectedRoleName={state.selectedRoleName}
-          dispatch={dispatch}
           postBack={messageHandler}
         />
       }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { StoryFC } from 'src/custom-types'
 
 // Import component files
 import CollapsibleHeader from './index'
@@ -22,10 +23,9 @@ const onClick = (): void => {
   console.log('clicked')
 }
 
-export const Default: React.FC = () => <CollapsibleHeader onClick={onClick}>Header</CollapsibleHeader>
+export const Default: StoryFC = () => <CollapsibleHeader onClick={onClick}>Header</CollapsibleHeader>
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

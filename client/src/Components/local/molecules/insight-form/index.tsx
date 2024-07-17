@@ -11,7 +11,7 @@ import TextInput from '../../atoms/text-input'
 
 /* Render component */
 export const InsightForm: React.FC<Props> = ({ onCancel, onSend, darkMode }: Props) => {
-  const [inputValues, setInputValues] = useState({
+  const [inputValues, setInputValues] = useState<{ message: string, name: string }>({
     message: '',
     name: ''
   })

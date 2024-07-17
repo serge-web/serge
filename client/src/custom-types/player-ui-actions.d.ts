@@ -15,6 +15,7 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
+  ADD_NOTIFICATION,
   CLOSE_MODAL,
   MARK_ALL_AS_UNREAD
 } from 'src/config'
@@ -113,16 +114,21 @@ interface OpenModalAction {
 interface CloseModalAction {
   type: typeof CLOSE_MODAL
 }
-interface AddNotificationAction {
-  type: 'ADD_NOTIFICATION'
-  message: string
-  level: 'error' | 'warning' | 'info' | 'success'
+interface AddNotificationInterface {
+  type: typeof ADD_NOTIFICATION
+  payload: {
+    message: string
+    type: string
+    id: string
+    autoHide: boolean
+    subType: string
+  }
 }
 export type PlayerUiActionTypes = SetCurrentWargameAction |
   SetForceAction |
   SetRoleAction |
   SetAllTemplatesAction | 
-  // AddNotificationAction |
+  AddNotificationAction |
   ShowHideObjectivesAction |
   UpdateMessageStateAction |
   SetWargameFeedbackAction |

@@ -135,34 +135,50 @@ const AdminGameSetup: React.FC = () => {
     const { selectedForce } = forces
     const { uniqid } = selectedForce as ForceData
     const newForceData = newForces.find(force => force.uniqid === uniqid)
+  
     if (newForceData) {
-      const forceOverview = newForceData.overview
-      const forceName = newForceData.name
-      // @ts-ignore
-      newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === uniqid).overview
+      updateForceOverview(newForceData, uniqid)
   
       const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
       if (empForceRoleNames.length > 0) {
-        dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+        notifyEmptyRoleNames(empForceRoleNames)
         return
       }
   
       const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
       if (dupForceRoleNames.length > 0) {
-        dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
+        notifyDuplicatePasscodes(dupForceRoleNames)
         return
       }
   
-      if (typeof forceName === 'string' && forceName.length > 0) {
-        if (!isUniqueForceName(newForceData)) return
-        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
-      }
+      validateAndSaveForce(newForceData)
+    }
+  }
   
-      if (forceName === null) {
-        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
-      } else if (forceName.length === 0) {
-        dispatch(addNotification('No Force Name', 'warning'))
-      }
+  const updateForceOverview = (newForceData: ForceData, uniqid: string) => {
+    const forceOverview = newForceData.overview
+    newForceData.overview = typeof forceOverview === 'string' 
+      ? forceOverview 
+      : forces.forces.find((force) => force.uniqid === uniqid)?.overview ?? ''
+  }
+  
+  const notifyEmptyRoleNames = (empForceRoleNames: any[]) => {
+    dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+  }
+  
+  const notifyDuplicatePasscodes = (dupForceRoleNames: any[]) => {
+    dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
+  }
+  
+  const validateAndSaveForce = (newForceData: ForceData) => {
+    const forceName = newForceData.name
+    if (typeof forceName === 'string' && forceName.length > 0) {
+      if (!isUniqueForceName(newForceData)) return
+      if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
+    } else if (forceName === null) {
+      if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
+    } else if (forceName.length === 0) {
+      dispatch(addNotification('No Force Name', 'warning'))
     }
   }
 

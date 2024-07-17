@@ -17,8 +17,7 @@ const InsightsModal: React.FC = () => {
   if (!state.modalOpened) return <></>
 
   // TODO: Non defined types in @serge/Components/InsightForm
-  // @ts-ignore
-  const handleSend = ({ name, message }) => {
+  const handleSend = ({ name, message }: { message: string, name: string }) => {
     const from: MessageDetailsFrom = {
       iconURL: '',
       force: selectedForce.name,
