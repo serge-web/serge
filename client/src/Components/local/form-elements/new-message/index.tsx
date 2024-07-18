@@ -111,7 +111,7 @@ const NewMessage: React.FC<PropTypes> = ({
   const onOpencollapsible = (): void => {
     saveCachedNewMessageValue && saveCachedNewMessageValue(selectedType, UNSENT_SELECT_BY_DEFAULT_VALUE)
   }
-  console.log('selcetedRole', selectedRole)
+  
   return (
     <div className={classes} style={{ zIndex: 10 }}>
       <Collapsible
