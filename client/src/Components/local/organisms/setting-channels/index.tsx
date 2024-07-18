@@ -8,10 +8,7 @@ import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, SpecialChannelTypes } from 'src/config'
-import { 
-  ChannelChat, ChannelCollab, ChannelCore, ChannelCustom
-  //  ChannelMapping 
-} from 'src/custom-types/channel-data'
+import { ChannelChat, ChannelCollab, ChannelCustom } from 'src/custom-types/channel-data'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
@@ -20,7 +17,6 @@ import EditableList, { Item } from '../../molecules/editable-list'
 import ChatChannel from './channels/chat'
 import CollabChannel from './channels/collab'
 import CustomChannel from './channels/custom'
-// import MappingChannel from './channels/mapping'
 import createChannel from './helpers/createChannel'
 import styles from './styles.module.scss'
 import PropTypes, { ChannelTypes } from './types/props'
@@ -60,7 +56,9 @@ export const SettingChannels: React.FC<PropTypes> = ({
     setLocalChannelUpdates(nextChannels)
     setSelectedChannelState(selectedChannel)
   }
-
+  const onDeletetChannel = (item: Item) => {
+    onDelete && onDelete(item as ChannelTypes)
+  }
   const onChannelSwitch = (_item: Item): void => {
     setSelectedItem(channels.findIndex(item => item === _item))
     onSidebarClick && onSidebarClick(_item as ChannelTypes)
@@ -101,7 +99,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
   }, [channels])
 
   const addNewChannel = (type?: SpecialChannelTypes): void => {
-    const createdChannel: ChannelCore = createChannel(channels, forces[0], type)
+    const createdChannel: ChannelTypes = createChannel(channels, forces[0], type)
     const channelD = createdChannel as unknown as ChannelTypes
     localChannelUpdates.unshift(channelD)
     setOpen(false)
@@ -170,7 +168,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
           selectedItem={localChannelUpdates[selectedItem]?.uniqid}
           filterKey="name"
           onClick={onChannelSwitch}
-          onDelete={onDelete}
+          onDelete={onDeletetChannel}
           onDuplicate={onDuplicate}
         />
       </LeftSide>

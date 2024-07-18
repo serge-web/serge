@@ -26,9 +26,20 @@ export default {
   }
 }
 
+interface StoryFC<P = Record<string, never>> extends React.FC<P> {
+  story?: {
+    parameters?: {
+      options?: {
+        showPanel?: boolean
+      }
+    }
+    args?: Record<string, any>
+  }
+}
+
 const wargameInit: Wargame = WargameExportedMock
 
-export const Default: React.FC = (args) => {
+export const Default: StoryFC = (args) => {
   const [wargame, setWargame] = useState<Wargame>(wargameInit)
   const [wargameChanged, setWargameChanged] = useState<boolean>(false)
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
@@ -106,8 +117,6 @@ export const Default: React.FC = (args) => {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

@@ -4340,6 +4340,11 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/check-types@^11.2.2":
+  version "11.2.2"
+  resolved "https://registry.yarnpkg.com/@types/check-types/-/check-types-11.2.2.tgz#3db7d732d6d3acf894c17cf48124d9ccb427b5b8"
+  integrity sha512-PCpqdZdBZtjGxkNUFNVmchydRUI5s/v/7xpTaf99vR47MQy///mmoffQ6b3J31zDt74LzW08kcIkN5PfxHbq2w==
+
 "@types/cheerio@*":
   version "0.22.31"
   resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.31.tgz#b8538100653d6bb1b08a1e46dec75b4f2a5d5eb6"

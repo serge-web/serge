@@ -37,7 +37,6 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
 
   useEffect(() => {
     loadData()
-    // @ts-ignore
     window.channelTabsContainer = window.channelTabsContainer || {}
   }, [])
 

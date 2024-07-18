@@ -95,7 +95,5 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
     />
   )
 }
-const areEqual = (prevProps: CollabStatusBoardProps, nextProps: CollabStatusBoardProps) => {
-  return JSON.stringify(prevProps) === JSON.stringify(nextProps)
-}
-export default React.memo(CollabStatusBoard, areEqual)
+
+export default CollabStatusBoard

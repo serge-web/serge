@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { ADJUDICATION_PHASE, clearAll, COUNTER_MESSAGE, CUSTOM_MESSAGE, wargameList, databasePath, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE, MSG_TYPE_STORE, PLANNING_PHASE, SERGE_INFO, serverPath, wargameSettings, dbDefaultSettings } from 'src/config'
 import { deleteRoleAndParts, duplicateThisForce } from 'src/Helpers'
-import { Dispatch } from 'redux'
 import _ from 'lodash'
 import moment from 'moment'
 import fetch, { Response } from 'node-fetch'
@@ -12,7 +11,7 @@ import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { saveAllWargameNames } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
-import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageDetails, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, MappingMessage, MappingMessageDelta, TypeOfCustomMessage, WargameList } from 'src/custom-types'
+import { ActivityLogsInterface, WargameDispatch, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageDetails, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, MappingMessage, MappingMessageDelta, TypeOfCustomMessage, WargameList } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
@@ -206,7 +205,7 @@ export const saveIcon = (file: string) => {
   }).then((res: Response) => res.json())
 }
 
-export const createWargame = async (dispatch: Dispatch, wargameLists : WargameList[]): Promise<Wargame> => {
+export const createWargame = async (dispatch: WargameDispatch, wargameLists : WargameList[]): Promise<Wargame> => {
   const name = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name, db })
@@ -434,7 +433,6 @@ export const saveForce = (dbName: string, newData: ForceData) => {
     //     _id: dbDefaultSettings._id,
     //     data: updatedData,  // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
     //     turnEndTime: moment().add(res.data.overview.realtimeTurnTime, 'ms').format(),
-    //     // @ts-ignore
     //     wargameInitiated: res.wargameInitiated
     //   }).then<Wargame>(() => {
     //     return db.get(dbDefaultSettings._id)
@@ -531,8 +529,7 @@ export const duplicateWargame = (dbPath: string): Promise<WargameRevision[]> => 
   const uniqId = uniqid.time()
   const newDbName = `wargame-${uniqId}`
   const newDb: ApiWargameDb = new DbProvider(databasePath + newDbName)
-  // @ts-ignore
-  return db.replicate(newDb).then((): Promise<Wargame> => {
+  return db.replicate(newDb as any).then((): Promise<Wargame> => {
     addWargameDbStore({ name: newDbName, db: newDb })
     // get default wargame
     return getWargameLocalFromName(dbName)
@@ -720,7 +717,6 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
     db.bulkDocs(customBulkMessage).then(() => {
       // Call getLatestWargameRevision() to retrieve the latest revision of the new wargame
       getLatestWargameRevision(name).then((res) => {
-        // @ts-ignore
         return resolve(res)
       }).catch((err) => {
         reject(err)
@@ -732,13 +728,15 @@ export const populateWargame = (dbName: string, bulkData: Array<Message | Wargam
   })
 }
 
-export const getAllMessages = (dbName: string): Promise<Message[]> => {
+export const getAllMessages = (dbName: string): Promise<(Wargame | Message)[]> => {
   const { db } = getWargameDbByName(dbName)
   return db.allDocs()
     // TODO: this should probably be a filter function
-    .then((res): Array<Message> => {
+    .then((res): (Wargame | Message)[] => {
       // drop counters
-      const nonCounter = res.filter((message: Message) => message.messageType !== COUNTER_MESSAGE)
+      
+      const nonCounter = res.filter((message) => message.messageType !== COUNTER_MESSAGE)
+
       // NOTE: SPECIAL CASE. It appears the docs are being sorted by _id before being returned.
       // This is putting the initial 'settings' doc at the end. It should be at the start. 
       // If it's at the end, move it to the start

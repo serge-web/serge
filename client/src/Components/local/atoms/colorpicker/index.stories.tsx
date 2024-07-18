@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { StoryFC } from 'src/custom-types'
 
 // Import component files
 import Colorpicker from './index'
@@ -18,7 +19,7 @@ export default {
   }
 }
 
-export const Default: React.FC = () => {
+export const Default: StoryFC = () => {
   const [value, setValue] = useState('orange')
   const handleChange = (nextColor: string): void => {
     setValue(nextColor)
@@ -26,8 +27,7 @@ export const Default: React.FC = () => {
 
   return <Colorpicker value={value} onChange={handleChange} />
 }
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
+
 Default.story = {
   parameters: {
     options: {

@@ -18,18 +18,28 @@ export default {
   }
 }
 
-export const Default: React.FC = () => (
+// Define a type that extends React.FC to include the 'story' property
+interface StoryFC<P = Record<string, never>> extends React.FC<P> {
+  story?: {
+    parameters?: {
+      options?: {
+        showPanel?: boolean
+      }
+    }
+  }
+}
+
+export const Default: StoryFC = () => (
   <AdminContent>
     <LeftSide>Menu</LeftSide>
     <RightSide>Content</RightSide>
   </AdminContent>
 )
+
 export const Main: React.FC = () => <AdminContent>Content</AdminContent>
 export const Left: React.FC = () => <LeftSide>Menu</LeftSide>
 export const Right: React.FC = () => <RightSide>Content</RightSide>
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

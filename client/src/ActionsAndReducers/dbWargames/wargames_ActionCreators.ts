@@ -14,6 +14,7 @@ import {
   WargameDispatch,
   WargameOverview,
   WargameRevision,
+  WargameDataChange,
   WargameList,
   Message
 } from 'src/custom-types'
@@ -23,7 +24,7 @@ export const setCurrentTab = (tab: string): WargameActionTypes => ({
   payload: tab
 })
 
-export const setGameData = (data: WargameOverview): WargameActionTypes => ({
+export const setGameData = (data: WargameDataChange): WargameActionTypes => ({
   type: ActionConstant.SET_GAME_SETUP_DATA,
   payload: data
 })
@@ -155,8 +156,7 @@ export const populateWargameList = () => {
   return async (dispatch: WargameDispatch) => {
     dispatch(populatingDb(true))
 
-    // @ts-ignore
-    const wargameNames = await wargamesApi.populateWargameList(dispatch)
+    const wargameNames = await wargamesApi.populateWargameList()
     console.warn('now all wargameenams come from server', wargameNames)
     dispatch(saveAllWargameNames(wargameNames))
 
@@ -164,9 +164,8 @@ export const populateWargameList = () => {
   }
 }
 
-export const createNewWargameDB = (wargameList: WargameList) => {
+export const createNewWargameDB = (wargameList: WargameList[]) => {
   return async (dispatch: WargameDispatch) => {
-    // @ts-ignore
     const wargame = await wargamesApi.createWargame(dispatch, wargameList)
 
     dispatch(setCurrentWargame(_.omit(wargame, ['_id', '_rev'])))
