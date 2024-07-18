@@ -90,14 +90,13 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  allDocs (): Promise<MessageCustom[]> {
+  allDocs (): Promise<(Wargame | Message)[]> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + this.getDbName())
         .then(res => res.json() as Promise<FetchDataArray>)
         .then((res) => {
           const { msg, data } = res
-          // @ts-ignore
-          if (msg === 'ok') resolve(data[0] && data[0].docs ? data[0].docs : data as Message[])
+          if (msg === 'ok') resolve(data)
           else reject(msg)
         })
     })

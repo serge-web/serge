@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { StoryFC } from 'src/custom-types'
 
 // Import component files
 import SettingsForceOverview from './index'
@@ -21,13 +22,11 @@ export default {
     }
   }
 }
-export const Default: React.FC = () => {
+export const Default: StoryFC = () => {
   const [data, setData] = useState(forcesMock[0])
   return <SettingsForceOverview data={data} handleChangeForce={(nextData): void => setData(nextData)} />
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

@@ -1,4 +1,4 @@
-import { ChannelCore, ChannelTypes, ForceData, TemplateBody } from 'src/custom-types'
+import { ChannelTypes, ForceData, TemplateBody } from 'src/custom-types'
 import { Item } from 'src/local/molecules/editable-list'
 import { Option } from 'src/local/molecules/editable-row'
 
@@ -9,8 +9,8 @@ export default interface PropTypes {
   onChange: (updates: { channels: Array<ChannelTypes>, selectedChannel: ChannelTypes }) => void
   onSave?: (channel: ChannelTypes) => void
   onSidebarClick?: (selectedChannel: ChannelTypes) => void
-  onCreate?: (name: string, channel: ChannelCore) => void
-  onDelete?: (item: Item) => void
+  onCreate?: (name: string, channel: ChannelTypes) => void
+  onDelete?: (item: ChannelTypes) => void
   onDuplicate?: (item: Item) => void
   selectedChannel?: ChannelTypes
 }

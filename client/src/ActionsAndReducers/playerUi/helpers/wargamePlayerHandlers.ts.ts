@@ -50,7 +50,6 @@ export const handleCurrentWargamePlayer = (newState: PlayerUi, payload: Wargame,
   newState.allChannels = cleanChannels
   
   newState.allForces = data.forces?.forces
-  // @ts-ignore
   getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
 }
 

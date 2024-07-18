@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { StoryFC } from 'src/custom-types'
 // Import component files
 import StatusBar from './index'
 import docs from './README.md'
@@ -28,11 +28,9 @@ const onSave = (update: string): void => {
   console.log(update)
 }
 
-export const Default: React.FC = () => <StatusBar wargame={wargame} onChange={onChange} onSave={onSave} />
+export const Default: StoryFC = () => <StatusBar wargame={wargame} onChange={onChange} onSave={onSave} />
 export const Initiated: React.FC = () => <StatusBar wargame={{ ...wargame, wargameInitiated: true }} onChange={onChange} onSave={onSave} />
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

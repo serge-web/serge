@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { StoryFC } from 'src/custom-types'
 // Import component files
 import { watuWargame } from 'src/mocks'
 
@@ -22,7 +22,7 @@ export default {
     }
   }
 }
-export const Default: React.FC = () => {
+export const Default: StoryFC = () => {
   const [data, setData] = useState(forcesMock[0])
   return <RolesAccordion
     data={data}
@@ -32,8 +32,6 @@ export const Default: React.FC = () => {
   />
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

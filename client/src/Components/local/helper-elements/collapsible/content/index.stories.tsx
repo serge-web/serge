@@ -1,4 +1,5 @@
 import React from 'react'
+import { StoryFC } from 'src/custom-types'
 
 // Import component files
 import CollapsibleContent from './index'
@@ -22,12 +23,11 @@ const onClick = (): void => {
   console.log('clicked')
 }
 
-export const Default: React.FC = () => (
+export const Default: StoryFC = () => (
   <CollapsibleContent collapsed={false} onClick={onClick}>Content</CollapsibleContent>
 )
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {
