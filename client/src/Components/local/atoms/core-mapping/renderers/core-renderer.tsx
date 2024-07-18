@@ -2,7 +2,7 @@
 import cx from 'classnames'
 import { Feature, Geometry, Point } from 'geojson'
 import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
-import React from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import tinycolor from 'tinycolor2'
 import { ForceStyle } from '../../../../../Helpers'
@@ -12,6 +12,7 @@ import { useMappingState } from '../helper/mapping-provider'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
+import { isEqual } from 'lodash'
 
 export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
@@ -20,6 +21,9 @@ export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
 
 const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, permissions, selected = [] }) => {
   const { filterFeatureIds, isMeasuring } = useMappingState()
+  const [localSelected, setLocalSelected] = useState<string[]>([])
+  const [localFilterFeatureId, setLocalFilterIds] = useState<string[]>([])
+
   const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
     const isThisRenderer = feature.properties._type === RENDERER_CORE
     const isShown = filterFeatureIds.includes('' + feature.properties.id)
@@ -27,7 +31,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     return isThisRenderer && isShown && canSeeSpatial
   }
 
-  const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
+  const style: StyleFunction<any> = useCallback((feature?: Feature<any>): PathOptions => {
     if (feature) {
       const isSelected = selected.some(id => id === feature.properties?.id)
       const props = feature.properties as CoreProperties
@@ -42,7 +46,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     } else {
       return {}
     }
-  }
+  }, [selected])
 
   const setTextStyleFromProperties = (marker: L.Marker<any>, props: any) => {
     const forceColor = colorFor(props.force, forceStyles)
@@ -119,52 +123,64 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     }
   }
 
-  return <GeoJSON onEachFeature={(f, l) => {
-    l.addEventListener('pm:remove', () => {
-      if (!canAddRemove(f, permissions)) {
-        permissionError()
-        return
-      }
-      onRemoved(f.properties.id)
-    })
-    l.addEventListener('click', (e) => {
-      if (!isMeasuring) {
-        if (!canSeeProps(f, permissions)) {
+  useEffect(() => {
+    if (!isEqual(selected, localSelected)) {
+      setLocalSelected(selected)
+    }
+    
+    if (!isEqual(filterFeatureIds, localFilterFeatureId)) {
+      setLocalFilterIds(filterFeatureIds)
+    }
+  }, [selected, filterFeatureIds])
+
+  return useMemo(() => {
+    return <GeoJSON onEachFeature={(f, l) => {
+      l.addEventListener('pm:remove', () => {
+        if (!canAddRemove(f, permissions)) {
           permissionError()
           return
         }
-        L.DomEvent.stopPropagation(e)
-        onSelect([f.properties.id])
-      }
-    })
-    const dragHandler = (e: LeafletEvent) => {
-      if (!canMoveResize(f, permissions)) {
-        permissionError()
-        return
-      }
-      const g = e as any
-      const le = g as L.LeafletEvent
-      switch (g.shape) {
-        case 'Polygon': {
-          const coords: L.LatLng[][] = le.layer._latlngs
-          onDragged(f.properties.id, coords)
-          break
+        onRemoved(f.properties.id)
+      })
+      l.addEventListener('click', (e) => {
+        if (!isMeasuring) {
+          if (!canSeeProps(f, permissions)) {
+            permissionError()
+            return
+          }
+          L.DomEvent.stopPropagation(e)
+          onSelect([f.properties.id])
         }
-        case 'Line': {
-          const coords: L.LatLng[] = le.layer._latlngs
-          onDragged(f.properties.id, coords)
-          break
+      })
+      const dragHandler = (e: LeafletEvent) => {
+        if (!canMoveResize(f, permissions)) {
+          permissionError()
+          return
         }
+        const g = e as any
+        const le = g as L.LeafletEvent
+        switch (g.shape) {
+          case 'Polygon': {
+            const coords: L.LatLng[][] = le.layer._latlngs
+            onDragged(f.properties.id, coords)
+            break
+          }
+          case 'Line': {
+            const coords: L.LatLng[] = le.layer._latlngs
+            onDragged(f.properties.id, coords)
+            break
+          }
 
-        default: {
-          console.warn('Drag handler not created for ', g.shape)
+          default: {
+            console.warn('Drag handler not created for ', g.shape)
+          }
         }
       }
-    }
 
-    l.addEventListener('pm:markerdragend', dragHandler)
-    l.addEventListener('pm:dragend', dragHandler)
-  }} pointToLayer={pointToLayer} data={features} style={style} filter={filterForThisRenderer} key={'core_renderer_' + Math.random()} />
+      l.addEventListener('pm:markerdragend', dragHandler)
+      l.addEventListener('pm:dragend', dragHandler)
+    }} pointToLayer={pointToLayer} data={features} style={style} filter={filterForThisRenderer} key={'core_renderer_' + Math.random()} /> 
+  }, [features, localSelected, localFilterFeatureId, isMeasuring])
 }
 
 export default CoreRenderer
