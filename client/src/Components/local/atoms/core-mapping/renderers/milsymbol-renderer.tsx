@@ -1,7 +1,7 @@
 import { Feature, Geometry, Point } from 'geojson'
 import L from 'leaflet'
 import ms from 'milsymbol'
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { calculateHealthColor } from 'src/Helpers'
 import { MappingPermissions, RENDERER_MILSYM } from 'src/custom-types'
@@ -9,12 +9,15 @@ import { canAddRemove, canMoveResize, canSeeProps, hasMappingPermission } from '
 import { useMappingState } from '../helper/mapping-provider'
 import { createDivIcon } from '../helper/marker-helper'
 import { CoreRendererProps } from '../types/props'
+import { isEqual } from 'lodash'
 
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
 const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels, permissions, selected = [] }): any => {
   const { filterFeatureIds, isMeasuring } = useMappingState()
+  const [localSelected, setLocalSelected] = useState<string[]>([])
+  const [localFilterFeatureId, setLocalFilterIds] = useState<string[]>([])
 
   const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
     const isThisRenderer = feature.properties._type === RENDERER_MILSYM
@@ -22,6 +25,16 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
     const canSeeSpatial = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
     return isThisRenderer && isShown && canSeeSpatial
   }
+
+  useEffect(() => {
+    if (!isEqual(selected, localSelected)) {
+      setLocalSelected(selected)
+    }
+    
+    if (!isEqual(filterFeatureIds, localFilterFeatureId)) {
+      setLocalFilterIds(filterFeatureIds)
+    }
+  }, [selected, filterFeatureIds])
 
   const pointToLayer = (feature: Feature<Point, any>, latLng: L.LatLng) => {
     if (feature.geometry.type === 'Point' && feature.properties._externalType !== 'Text') {
@@ -84,7 +97,9 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
     }
   }
 
-  return <GeoJSON data={features} filter={filterForThisRenderer} pointToLayer={pointToLayer} key={'feature_no_contact' + Math.random()} />
+  return useMemo(() => {
+    return <GeoJSON data={features} filter={filterForThisRenderer} pointToLayer={pointToLayer} key={'feature_no_contact' + Math.random()} />
+  }, [features, localSelected, localFilterFeatureId, isMeasuring])
 }
 
 export default MilSymbolRenderer
