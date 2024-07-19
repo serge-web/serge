@@ -108,10 +108,10 @@ export const integrateWithLocalChanges = (options: Option[], channelData: Channe
   const nextChannel: ChannelCollab = ({ ...channelData }) as unknown as ChannelCollab
 
   const msgTpl = filterInByUniqId(messageUpdates, options, 'messageTemplate')
-  nextChannel.newMessageTemplate = msgTpl
+  nextChannel.newMessageTemplate = msgTpl._id ? msgTpl : undefined
 
   const resTpl = filterInByUniqId(messageUpdates, options, 'responseTemplate')
-  nextChannel.responseTemplate = resTpl
+  nextChannel.responseTemplate = resTpl._id ? resTpl : undefined
 
   nextChannel.initialState = getInitialState(messageUpdates.documentStatus[0])
   nextChannel.requestChangesVerbs = messageUpdates.requestChanges
@@ -160,6 +160,6 @@ export const onMessageValuesChanged = (messageLocal: MessagesValues, value: stri
     default:
       return nextMessageLocal
   }
-
+  
   return nextMessageLocal
 }

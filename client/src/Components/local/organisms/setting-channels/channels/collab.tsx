@@ -42,10 +42,8 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
     uniqid: template._id,
     value: template
   }))
-
   const messagesValues = getMessagesValues(localChannelUpdates)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
-  
   useEffect(() => {
     setLocalChannelUpdates(channel)
   }, [channel])
