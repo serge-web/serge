@@ -3,8 +3,7 @@ import React from 'react'
 // Import component files
 import SettingOverview from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import { WargameExportedMock } from 'src/mocks'
 import { WargameOverview } from './types/props'
 import { GameTurnLength, MilliTurns, MonthTurns } from 'src/custom-types'
@@ -19,7 +18,7 @@ const items = { tenKmillis, sixMonths, eighteenMonths: seventeenMonths }
 export default {
   title: 'local/organisms/SettingOverview',
   component: SettingOverview,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -51,7 +50,7 @@ interface StoryPropTypes {
   turnTime: GameTurnLength
 }
 
-const Template: Story<StoryPropTypes> = (args) => {
+const Template: StoryFn<StoryPropTypes> = (args) => {
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     turnTime

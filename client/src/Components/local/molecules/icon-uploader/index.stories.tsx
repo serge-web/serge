@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-
+import { StoryFC } from 'src/custom-types'
 // Import component files
 import IconUploader from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', position: 'relative' }}>{storyFn()}</div>
 
 export default {
   title: 'local/molecules/IconUploader',
   component: IconUploader,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -19,7 +18,7 @@ export default {
   }
 }
 
-export const Default: React.FC = () => {
+export const Default: StoryFC = () => {
   const [src, setSrc] = useState<string>('')
   const handleChange = (newSrc: string): void => {
     console.log(newSrc)
@@ -28,8 +27,6 @@ export const Default: React.FC = () => {
   return <IconUploader classname='main' onChange={handleChange} limit={20000} icon={src} background={'red'}>change icon</IconUploader>
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

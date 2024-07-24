@@ -17,6 +17,7 @@ import {
   SET_EXPORT_WARGAME,
   SET_FORCE_COLOR,
   SET_GAME_SETUP_DATA,
+  SET_WARGAME_TITLE,
   SET_SELECTED_CHANNEL,
   SET_SELECTED_FORCE,
   SET_TAB_SAVED,
@@ -28,7 +29,8 @@ import Wargame from './wargame'
 import WargamesState from './WargamesState'
 // import ForceData from './force-data'
 // import { ChannelTypes } from './channel-data'
-import WargameOverview from './wargame-overview'
+// import WargameOverview from './wargame-overview'
+import { WargameDataChange } from './wargame-data'
 
 export interface WargameRevision {
     name: string
@@ -54,7 +56,12 @@ interface SetCurrentGameSetupTab {
 
 interface SetGameSetupData {
     type: typeof SET_GAME_SETUP_DATA
-    payload: Notification | WargameOverview
+    payload: Notification | WargameDataChange
+}
+
+interface setWargameTitle {
+    type: typeof SET_WARGAME_TITLE
+    payload: string
 }
 
 interface SetTabSaved {
@@ -133,6 +140,7 @@ export type WargameActionTypes = AllWargameNameSaved |
 SetCurrentWargame |
 SetCurrentGameSetupTab |
 SetGameSetupData |
+setWargameTitle|
 SetTabSaved |
 AddNewForce |
 SetForceColor |

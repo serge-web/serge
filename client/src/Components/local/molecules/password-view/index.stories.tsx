@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
-
+import { StoryFC } from 'src/custom-types'
 // Import component files
 import PasswordView from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/molecules/PasswordView',
   component: PasswordView,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -19,7 +18,7 @@ export default {
   }
 }
 
-export const Default: React.FC = () => {
+export const Default: StoryFC = () => {
   const [value, setValue] = useState('Password')
   const onChange = (nextValue: string): void => {
     setValue(nextValue)
@@ -27,8 +26,6 @@ export const Default: React.FC = () => {
   return <PasswordView value={value} onChange={onChange}>Title</PasswordView>
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

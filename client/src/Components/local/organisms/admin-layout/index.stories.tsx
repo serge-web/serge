@@ -8,7 +8,7 @@ import { WargameExportedMock, MessageTemplatesMock, adminTabs } from 'src/mocks'
 import SettingChannels, { ChannelTypes } from '../setting-channels'
 
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { ForceData, Wargame } from 'src/custom-types'
 import { AdminContent } from '../../atoms/admin-content'
 
@@ -17,7 +17,7 @@ const wrapper: React.FC = (storyFn: any) => <div>{storyFn()}</div>
 export default {
   title: 'local/organisms/AdminLayout',
   component: AdminLayout,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -26,9 +26,20 @@ export default {
   }
 }
 
+interface StoryFC<P = Record<string, never>> extends React.FC<P> {
+  story?: {
+    parameters?: {
+      options?: {
+        showPanel?: boolean
+      }
+    }
+    args?: Record<string, any>
+  }
+}
+
 const wargameInit: Wargame = WargameExportedMock
 
-export const Default: React.FC = (args) => {
+export const Default: StoryFC = (args) => {
   const [wargame, setWargame] = useState<Wargame>(wargameInit)
   const [wargameChanged, setWargameChanged] = useState<boolean>(false)
   const [changedOverview, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
@@ -106,8 +117,6 @@ export const Default: React.FC = (args) => {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

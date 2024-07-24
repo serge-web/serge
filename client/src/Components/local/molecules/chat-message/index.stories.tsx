@@ -1,5 +1,5 @@
 import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 import { CHAT_MESSAGE } from 'src/config'
 
 // Import component files
@@ -33,7 +33,7 @@ export default {
   }
 }
 
-const Template: Story<ChatMessageProps> = (args) => {
+const Template: StoryFn<ChatMessageProps> = (args) => {
   const { message, isOwner, isUmpire } = args
   return <ChatMessage message={message} isUmpire={isUmpire} isOwner={isOwner}/>
 }

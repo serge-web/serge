@@ -8,7 +8,6 @@ import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
 import Props from './types/props'
-
 const alwaysShowEditorErrors = 'always'
 
 // keydown listener should works only for defined tags
@@ -39,7 +38,7 @@ export const JsonEditor: React.FC<Props> = ({
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
-
+  
   const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
     const styles = {

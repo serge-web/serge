@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-
+import { StoryFC } from 'src/custom-types'
 // Import component files
 import { watuWargame } from 'src/mocks'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { noop } from 'lodash'
 import docs from './README.md'
 import RolesAccordion from './index'
@@ -14,7 +14,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/organisms/SettingForces/RolesAccordion',
   component: RolesAccordion,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -22,7 +22,7 @@ export default {
     }
   }
 }
-export const Default: React.FC = () => {
+export const Default: StoryFC = () => {
   const [data, setData] = useState(forcesMock[0])
   return <RolesAccordion
     data={data}
@@ -32,8 +32,6 @@ export const Default: React.FC = () => {
   />
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

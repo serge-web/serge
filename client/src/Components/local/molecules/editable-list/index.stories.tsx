@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
+import { StoryFC } from 'src/custom-types'
 
 // Import component files
 import EditableList from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 // import types
 import { Item } from './types/props'
@@ -13,7 +13,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/molecules/EditableList',
   component: EditableList,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -22,7 +22,7 @@ export default {
   }
 }
 
-export const Default: React.FC = () => {
+export const Default: StoryFC = () => {
   const [items, setItems] = useState<Array<Item>>([{ name: 'list item 1' }, { name: 'list item 2' }])
 
   const handleClick = (item: Item): void => {
@@ -53,8 +53,6 @@ export const Default: React.FC = () => {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

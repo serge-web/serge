@@ -4,7 +4,7 @@ import React from 'react'
 import Badge from './index'
 import BadgePropTypes from './types/props'
 import docs from './README.md'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 
 export default {
   title: 'local/atoms/Badge',
@@ -71,7 +71,7 @@ export default {
   }
 }
 
-const Template: Story<BadgePropTypes> = (args) => {
+const Template: StoryFn<BadgePropTypes> = (args) => {
   const { ...props } = args
   return <Badge {...props} />
 }

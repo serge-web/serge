@@ -3,7 +3,6 @@
 //
 import { Phase } from 'src/config'
 import { ForceData } from './force-data'
-import { ForceStyle } from 'src/Helpers'
 
 export const RENDERER_CORE = 'CoreRenderer'
 export const RENDERER_MILSYM = 'MilSymRenderer'
@@ -18,15 +17,13 @@ export interface BaseProperties {
     _type: typeof RENDERER_CORE | typeof RENDERER_MILSYM
     label: string
     force?: ForceData['id']
-    _forceStyles?: ForceStyle[]
     turn: number
     phase: Phase
-    visibleTo?: [ForceData['id']]
 }
 
 /** custom properties for the core renderer */
 export interface CoreProperties extends BaseProperties {
-    color: string
+    // color: string // redundant property
     [other: string]: unknown
 }
 
@@ -44,10 +41,8 @@ export interface BaseProperty {
   label: string
   /** longer description for this property */
   description?: string
-  /** whether the property is user-editable */
-  editable?: boolean
-  /** font-awesome icon to show against this field */
-  icon?: string
+  /** whether the property is editable by players */
+  playerEditable?: boolean
 }
 
 export const PROPERTY_STRING = 'StringProperty'

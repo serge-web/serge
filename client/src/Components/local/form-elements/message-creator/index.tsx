@@ -47,7 +47,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   const messageBeingEdited = useRef<Record<string, any> | string>('')
-
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.persist()
     const details: MessageDetails = {
@@ -141,7 +140,6 @@ const MessageCreator: React.FC<PropTypes> = ({
       }
     }
   }, [draftMessage])
-
   return (
     <>
       <Confirm

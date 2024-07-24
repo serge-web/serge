@@ -1,19 +1,105 @@
-import { withKnobs } from '@storybook/addon-knobs'
 import { Feature, FeatureCollection } from 'geojson'
+import { StoryFn } from '@storybook/react'
 import L from 'leaflet'
 import { noop } from 'lodash'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { CHANNEL_MAPPING, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA, PARTICIPANT_MAPPING, Phase } from 'src/config'
-import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MilSymProperties, MilSymRenderer, NumberProperty, RENDERER_CORE, RENDERER_MILSYM, StringProperty } from 'src/custom-types'
+import { ChannelMapping, CoreProperties, CoreRenderer, EnumProperty, ForceData, MappingMessage, MappingMessageDelta, MappingPermissions, MilSymProperties, MilSymRenderer, NumberProperty, ParticipantMapping, RENDERER_CORE, RENDERER_MILSYM, Role, StringProperty } from 'src/custom-types'
+import { forceStyles } from 'src/Helpers'
 import docs from './README.md'
 import { generateFeatures } from './helper/feature-generator'
 import CoreMapping from './index'
+import PropTypes from './types/props'
 
 type ScriptDecoratorProps = {
   scripts: string[]
   children: React.ReactElement
   style: CSSProperties
 }
+
+type ExtendPropTypes = PropTypes & {
+  currentPhase: string
+  selectedRole: string
+}
+
+const forces: ForceData[] = [
+  {
+    color: '#FFF',
+    dirty: false,
+    iconURL: '',
+    name: 'Umpire',
+    overview: '',
+    roles: [{
+      isGameControl: true,
+      isInsightViewer: true,
+      isObserver: true,
+      isRFIManager: false,
+      name: 'MTG 1',
+      roleId: 'umpire'
+    }],
+    uniqid: 'umpire'
+  },
+  {
+    color: '#F00',
+    dirty: false,
+    iconURL: '',
+    name: 'Red',
+    overview: '',
+    roles: [{
+      isGameControl: false,
+      isInsightViewer: false,
+      isObserver: false,
+      name: 'MTG 1',
+      roleId: 'red-mtg-1'
+    },
+    {
+      isGameControl: false,
+      isInsightViewer: false,
+      isObserver: false,
+      name: 'MTG 2',
+      roleId: 'red-mtg-2'
+    }],
+    uniqid: 'f-red'
+  }, {
+    color: '#00F',
+    dirty: false,
+    iconURL: '',
+    name: 'Blue',
+    overview: '',
+    roles: [
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 1',
+        roleId: 'blue-mtg-1'
+      },
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 2',
+        roleId: 'blue-mtg-2'
+      }
+    ],
+    uniqid: 'f-blue'
+  }, {
+    color: '#0F0',
+    dirty: false,
+    iconURL: '',
+    name: 'Green',
+    overview: '',
+    roles: [
+      {
+        isGameControl: false,
+        isInsightViewer: false,
+        isObserver: false,
+        name: 'MTG 2',
+        roleId: 'green-mtg-2'
+      }],
+    uniqid: 'f-green'
+  }
+]
 
 const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, style }) => {
   const [loaded, setLoaded] = useState<boolean>(false)
@@ -48,11 +134,25 @@ const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet
 export default {
   title: 'local/organisms/CoreMapping',
   component: CoreMapping,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
       content: docs
+    }
+  },
+  argTypes: {
+    currentPhase: {
+      options: [Phase.Adjudication, Phase.Planning],
+      control: { type: 'radio' }
+    },
+    selectedRole: {
+      options: forces.flatMap(force => force.roles.map(role => role.roleId)),
+      control: { type: 'radio' }
+    },
+    openPanelAsDefault: {
+      options: [true, false],
+      control: { type: 'radio' }
     }
   }
 }
@@ -68,7 +168,7 @@ const importantProp: EnumProperty = {
   type: 'EnumProperty', 
   description: 'Whether this relates to an important operation or interaction',
   choices: ['Yes', 'No'],
-  editable: true
+  playerEditable: true
 }
 
 const forceProp: EnumProperty = {
@@ -76,7 +176,7 @@ const forceProp: EnumProperty = {
   label: 'Force',
   type: 'EnumProperty', 
   choices: ['f-red', 'f-blue', 'f-green'],
-  editable: false
+  playerEditable: false
 }
 
 const ordersProp: StringProperty = {
@@ -85,7 +185,7 @@ const ordersProp: StringProperty = {
   description: 'Today\'s orders for this unit',
   lines: 3,
   type: 'StringProperty', 
-  editable: true
+  playerEditable: true
 }
 
 const phaseProp: EnumProperty = {
@@ -94,7 +194,7 @@ const phaseProp: EnumProperty = {
   description: 'The phase when this item was generated',
   type: 'EnumProperty', 
   choices: [Phase.Adjudication, Phase.Planning],
-  editable: false
+  playerEditable: false
 }
 
 const turnProp: NumberProperty = {
@@ -102,7 +202,7 @@ const turnProp: NumberProperty = {
   label: 'Turn',
   description: 'The turn when this item was generated',
   type: 'NumberProperty',
-  editable: false,
+  playerEditable: false,
   format: '0'
 }
 
@@ -111,7 +211,7 @@ const healthProp: NumberProperty = {
   label: 'Health',
   description: 'The health of this unit (0..100)',
   type: 'NumberProperty',
-  editable: true,
+  playerEditable: true,
   format: '0'
 }
 
@@ -120,7 +220,7 @@ const categoryProp: EnumProperty = {
   label: 'Category',
   type: 'EnumProperty', 
   choices: ['Infrastructure', 'Military', 'Civilian'],
-  editable: false
+  playerEditable: false
 }
 
 const sizeProp: EnumProperty = {
@@ -128,7 +228,7 @@ const sizeProp: EnumProperty = {
   label: 'Size',
   type: 'EnumProperty', 
   choices: ['S', 'M', 'L'],
-  editable: false
+  playerEditable: false
 }
 
 /** Feature Properties definitions */
@@ -152,7 +252,7 @@ const milSymProps: MilSymProperties = {
   label: 'Headquarters Building',
   turn: 1,
   force: 'f-red',
-  sidc: 'SFG-UCI----D',
+  sidc: '10031000141211000000',
   health: 80,
   // additional props for mil symbol
   category: 'Civilian',
@@ -193,7 +293,7 @@ const coreFeature: Feature = {
 
 const anotherCoreFeature: Feature = {
   type: 'Feature',
-  properties: { ...coreProps, id: 'ba' },
+  properties: { ...coreProps, id: 'ba', force: 'f-blue' },
   geometry: {
     coordinates: [
       [
@@ -227,7 +327,7 @@ const milFeature: Feature = {
 
 const anotherMilFeature: Feature = {
   type: 'Feature',
-  properties: { ...milSymProps, id: 'ab', label: 'Military Tailor', orders: 'Make uniforms for the troops if they need them, else darn socks and mittens' },
+  properties: { ...milSymProps, force: 'f-blue', id: 'ab', label: 'Military Tailor', orders: 'Make uniforms for the troops if they need them, else darn socks and mittens' },
   geometry: {
     coordinates: [-0.07929841834678096, 51.50966973326012],
     type: 'Point'
@@ -293,6 +393,59 @@ const milSymRenderer: MilSymRenderer = {
   additionalProps: [categoryProp, sizeProp, healthProp, ordersProp]
 }
 
+const redParticipant: ParticipantMapping = {
+  forceUniqid: 'f-red',
+  roles: [],
+  subscriptionId: 'aaaa',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Planning, Phase.Adjudication],
+  pType: PARTICIPANT_MAPPING,
+  permissionTo: {
+    'f-red': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.AddRemove, 
+      MappingPermissions.ViewProps, MappingPermissions.EditOwnProps],
+    'f-blue': [MappingPermissions.ViewSpatial] 
+  } 
+}
+
+const bluePlanningParticipant: ParticipantMapping = {
+  forceUniqid: 'f-blue',
+  roles: ['blue-mtg-1'],
+  subscriptionId: 'bbbb',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Planning],
+  pType: PARTICIPANT_MAPPING,
+  permissionTo: {
+    'f-blue': [MappingPermissions.ViewSpatial, MappingPermissions.MoveResize, MappingPermissions.EditOwnProps],
+    'f-red': [MappingPermissions.ViewSpatial] 
+  } 
+}   
+
+const blueAdudicationParticipant: ParticipantMapping = {
+  forceUniqid: 'f-blue',
+  roles: ['blue-mtg-1'],
+  subscriptionId: 'bbbb',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Adjudication],
+  pType: PARTICIPANT_MAPPING,
+  permissionTo: {
+    'f-blue': [MappingPermissions.Exists, MappingPermissions.AddRemove, MappingPermissions.ViewProps],
+    'f-red': [] 
+  } 
+}   
+
+const umpireParticipant: ParticipantMapping = {
+  forceUniqid: 'umpire',
+  roles: ['umpire'],
+  subscriptionId: 'casa',
+  forRenderer: [coreRenderer.id, milSymRenderer.id],
+  phases: [Phase.Planning, Phase.Adjudication],
+  pType: PARTICIPANT_MAPPING,
+  permissionTo: {
+    'f-blue': [MappingPermissions.AddRemove, MappingPermissions.ViewProps, MappingPermissions.EditAllProps, MappingPermissions.MoveResize, MappingPermissions.ViewSpatial],
+    'f-red': [MappingPermissions.ViewSpatial, MappingPermissions.ViewProps, MappingPermissions.AddRemove] 
+  } 
+}   
+
 const coreMapChannel: ChannelMapping = {
   uniqid: 'core',
   name: 'core mapping',
@@ -307,14 +460,7 @@ const coreMapChannel: ChannelMapping = {
     }
   },
   participants: [
-    {
-      forceUniqid: 'f-red',
-      roles: [],
-      subscriptionId: 'aaaa',
-      canCreateFrom: [coreRenderer.id, milSymRenderer.id],
-      canSubmitInPhase: [Phase.Planning],
-      pType: PARTICIPANT_MAPPING
-    }
+    redParticipant, bluePlanningParticipant, blueAdudicationParticipant, umpireParticipant
   ],
   renderers: [coreRenderer, milSymRenderer]
 }
@@ -337,46 +483,39 @@ const bulkMessage: MappingMessage = {
   featureCollection: generateFeatures(largeBounds, 300, 30)
 }
 
-console.log(coreMessage)
+const forceStylesArr = forceStyles(forces, false)
 
-const playerForce: ForceData = {
-  color: '#000',
-  dirty: false,
-  iconURL: '',
-  name: '',
-  overview: '',
-  roles: [],
-  uniqid: 'f-red'
+/** from the provided force & role, produce a ForceRole object */
+const roleFromName = (selection: string, forces: ForceData[]): Role | undefined => {
+  const allRoles = forces.flatMap(force => force.roles)
+  return allRoles.find((role: Role) => {
+    return role.roleId === selection
+  })
 }
 
-export const Default: React.FC = () => {
-  return (
-    <CoreMapping
-      playerForce={playerForce}
-      messages={[coreMessage, deltaMessage]}
-      channel={coreMapChannel}
-      playerRole={'mgr'}
-      currentTurn={1}
-      forceStyles={[]}
-      currentPhase={Phase.Planning}
-      postBack={noop}
-      openPanelAsDefault={false}
-    />
-  )
+const forceFromRole = (role: Role, forces: ForceData[]): ForceData | undefined => {
+  return forces.find(force => {
+    return force.roles.includes(role)
+  })
 }
 
-export const Bulk: React.FC = () => {
-  return (
-    <CoreMapping
-      playerForce={playerForce}
-      messages={[bulkMessage, deltaMessage]}
-      channel={coreMapChannel}
-      playerRole={'mgr'}
-      currentTurn={1}
-      forceStyles={[]}
-      currentPhase={Phase.Planning}
-      postBack={noop}
-      openPanelAsDefault={false}
-    />
-  )
+const Template: StoryFn<ExtendPropTypes> = (args) => {
+  return <CoreMapping
+    playerForce={forceFromRole(roleFromName(args.selectedRole, forces) as Role, forces) as ForceData}
+    messages={[coreMessage, deltaMessage]}
+    channel={coreMapChannel}
+    playerRole={roleFromName(args.selectedRole, forces)}
+    currentTurn={1}
+    forceStyles={forceStylesArr}
+    currentPhase={args.currentPhase}
+    postBack={noop}
+    openPanelAsDefault={args.openPanelAsDefault}
+  />
+}
+
+export const Default = Template.bind({})
+
+export const Bulk = Template.bind({})
+Bulk.args = {
+  messages: [bulkMessage, deltaMessage]
 }

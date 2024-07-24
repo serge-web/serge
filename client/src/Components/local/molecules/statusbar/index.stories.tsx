@@ -1,9 +1,9 @@
 import React from 'react'
-
+import { StoryFC } from 'src/custom-types'
 // Import component files
 import StatusBar from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { WargameMock as wargame } from 'src/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -11,7 +11,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/molecules/StatusBar',
   component: StatusBar,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -28,11 +28,9 @@ const onSave = (update: string): void => {
   console.log(update)
 }
 
-export const Default: React.FC = () => <StatusBar wargame={wargame} onChange={onChange} onSave={onSave} />
+export const Default: StoryFC = () => <StatusBar wargame={wargame} onChange={onChange} onSave={onSave} />
 export const Initiated: React.FC = () => <StatusBar wargame={{ ...wargame, wargameInitiated: true }} onChange={onChange} onSave={onSave} />
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

@@ -11,8 +11,14 @@ declare global {
   }
 }
 
+interface Window {
+  channelTabsContainer?: any
+  selectedChannel: string
+}
+
 declare module 'react-leaflet-vectorgrid'
 declare module '@json-editor/json-editor'
+declare module 'milstd'
 declare module 'redux-logger'
 // TODO: Remove the line below when the store package has been converted
 declare module '@serge/store'

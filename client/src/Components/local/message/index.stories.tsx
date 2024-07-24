@@ -8,7 +8,6 @@ import { AdminMessagesMock } from 'src/mocks'
 export default {
   title: 'local/Message',
   component: Message,
-  decorators: [],
   parameters: {
     options: {
       // No addons are used in this story so don't show the addon panel

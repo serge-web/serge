@@ -1,5 +1,5 @@
 import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 
 // Import component files
 import ChannelMessageDetail from './index'
@@ -37,7 +37,7 @@ export default {
   }
 }
 
-const Template: Story<DetailPropTypes> = (args) => {
+const Template: StoryFn<DetailPropTypes> = (args) => {
   const { isUmpire, message } = args
   return <ChannelMessageDetail
     message={message}

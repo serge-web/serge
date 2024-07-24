@@ -1,9 +1,9 @@
 import React from 'react'
-
+import { StoryFC } from 'src/custom-types'
 // Import component files
 import EditableRow, { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM } from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
+
 import { Item } from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -11,7 +11,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/molecules/EditableRow',
   component: EditableRow,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -55,7 +55,7 @@ const items: Array<Item> = [
   }
 ]
 
-export const Default: React.FC = () => {
+export const Default: StoryFC = () => {
   const handleChange = (nextItems: Array<Item>, _changedKey: number): Array<Item> => {
     return nextItems
   }
@@ -70,8 +70,6 @@ export const Default: React.FC = () => {
   </table>
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

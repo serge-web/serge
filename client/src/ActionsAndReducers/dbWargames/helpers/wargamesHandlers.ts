@@ -1,4 +1,4 @@
-import { WargamesState, WargameRevision, Wargame, WargameOverview, ChannelTypes, ForceData, ParticipantTypes, Role } from 'src/custom-types'
+import { WargamesState, WargameRevision, Wargame, ChannelTypes, ForceData, ParticipantTypes, Role, WargameDataChange } from 'src/custom-types'
 import { channelTemplate, serverPath, forceTemplate } from 'src/config'
 import uniqId from 'uniqid'
 
@@ -22,12 +22,24 @@ export const handleAllWargameNamesSaved = (newState: WargamesState, payload: War
 
 // setting the current wargame.
 export const handleSetCurrentWargame = (newState: WargamesState, payload: Wargame) => {
+  const wargameIndex = newState.wargameList.findIndex(wargame => wargame.shortName === payload.name)
+  
+  if (wargameIndex !== -1) {
+    const updatedWargame = {
+      ...newState.wargameList[wargameIndex],
+      title: payload.wargameTitle,
+      initiated: payload.wargameInitiated as boolean,
+      shortName: payload.name
+    }
+    
+    newState.wargameList[wargameIndex] = updatedWargame
+  }
+  
   newState.currentWargame = payload.name
   newState.wargameTitle = payload.wargameTitle
   newState.data = payload.data
   newState.wargameInitiated = payload.wargameInitiated || false
 }
-
 // Handles setting the wargame data for export.
 export const handleSetExportWargame = (newState: WargamesState, payload: Wargame) => {
   newState.data = payload.data
@@ -41,7 +53,7 @@ export const handleSetCurrentGameSetupTab = (newState: WargamesState, payload: s
   newState.currentTab = payload
 }
 
-export const handleSetGameSetupData = (newState: WargamesState, payload: Notification | WargameOverview, tab: string) => {
+export const handleSetGameSetupData = (newState: WargamesState, payload: Notification | WargameDataChange, tab: string) => {
   newState.data[tab] = { ...newState.data[tab], ...payload }
 }
 

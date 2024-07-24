@@ -1,6 +1,5 @@
 import * as ActionConstant from 'src/config'
 import 'whatwg-fetch'
-// @ts-ignore
 import check from 'check-types'
 
 import * as messageTypesApi from '../../api/messageTypes_api'

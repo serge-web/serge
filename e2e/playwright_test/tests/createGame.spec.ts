@@ -63,9 +63,9 @@ test('Create a simple flow game successfully', async ({ page }) => {
   await overViewAdminPage.clickChannelMenu();
   await channelAdminPage.clickaddAChannelBtn();
   await channelAdminPage.inputNameChannel("Blue HQ");
-  await channelAdminPage.inputAParticipantChannelInfors('Blue', 'CO', 'Daily intentions');
+  await channelAdminPage.inputAParticipantChannelInfors('Blue', 'CO', 'Chat');
   await channelAdminPage.clickSaveRowChannelIcon('Blue', 'CO');
-  await channelAdminPage.inputAParticipantChannelInfors('White', 'Game Control', 'Daily intentions');
+  await channelAdminPage.inputAParticipantChannelInfors('White', 'Game Control', 'Chat');
   await channelAdminPage.clickSaveRowChannelIcon('White', 'Game Control');
   await channelAdminPage.clickSaveChannelButton();
   await channelAdminPage.verifySaveChannelSuccess();
@@ -73,7 +73,7 @@ test('Create a simple flow game successfully', async ({ page }) => {
 
   await channelAdminPage.clickaddAChannelBtn();
   await channelAdminPage.inputNameChannel("Red HQ");
-  await channelAdminPage.inputAParticipantChannelInfors('Red', 'CO', 'Daily intentions');
+  await channelAdminPage.inputAParticipantChannelInfors('Red', 'CO', 'Chat');
   await channelAdminPage.clickSaveRowChannelIcon('Red', 'CO');
   await channelAdminPage.inputAParticipantChannelInfors('White', 'Game Control', 'Chat');
   await channelAdminPage.clickSaveRowChannelIcon('White', 'Game Control');

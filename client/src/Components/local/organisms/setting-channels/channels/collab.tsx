@@ -5,7 +5,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import { CollaborativePermission } from 'src/config'
+import { ADJUDICATION_PHASE, CollaborativePermission, PLANNING_PHASE } from 'src/config'
 import { ForceData, ParticipantCollab, Role, TemplateBody } from 'src/custom-types'
 import { ChannelCollab } from 'src/custom-types/channel-data'
 import cx from 'classnames'
@@ -19,6 +19,7 @@ import { Action, AdditionalData, MessageGroup, MessageGroupType, MessagesValues 
 import { getMessagesValues, getSelectedOptions, integrateWithLocalChanges, onMessageValuesChanged } from '../helpers/messageCollabUtils'
 import uniqId from 'uniqid'
 import styles from '../styles.module.scss'
+import { capitalize } from 'lodash'
 
 type CollabChannelProps = {
   channel: ChannelCollab
@@ -36,21 +37,19 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channel)
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
-
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
     uniqid: template._id,
     value: template
   }))
-
   const messagesValues = getMessagesValues(localChannelUpdates)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
-  
   useEffect(() => {
     setLocalChannelUpdates(channel)
   }, [channel])
 
   useEffect(() => {
+    setMessageLocal(messagesValues)
     onChange(localChannelUpdates)
   }, [localChannelUpdates])
 
@@ -69,9 +68,10 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
     }
 
     const rowToParticipantCollab = (forces: ForceData[], nextItems: RowItem[], participantCollab: ParticipantCollab): ParticipantCollab => {
-      const [force, access, permissionsTpls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
+      const [force, access, phasesActive, permissionsTpls] = nextItems.filter(item => item.type === EDITABLE_SELECT_ITEM) as SelectItem[]
       const selectedForce = forces[force.active ? force.active[0] : 0]
       const roles: Array<Role['roleId']> = access.active ? access.active.map((key: number) => (selectedForce.roles[key].roleId)) : []
+      const phases = phasesActive.active ? phasesActive.active.map((key: number) => key === 0 ? PLANNING_PHASE : ADJUDICATION_PHASE) : []
       const permission = permissionsTpls.active ? permissionsTpls.active[0] : CollaborativePermission.CannotCollaborate
 
       let { canCreate, viewUnreleasedVersions } = defaultParticipantCollab
@@ -86,6 +86,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
         forceUniqid: selectedForce.uniqid,
         subscriptionId: uniqId.time(),
         roles,
+        phases,
         permission,
         canCreate,
         viewUnreleasedVersions
@@ -130,6 +131,21 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
         active: !!nextParticipant.viewUnreleasedVersions
       })
 
+      const phaseOptions: Option[] = [
+        { name: capitalize(PLANNING_PHASE), uniqid: PLANNING_PHASE },
+        { name: capitalize(ADJUDICATION_PHASE), uniqid: ADJUDICATION_PHASE }
+      ]
+      const partPhases = nextParticipant.phases || []
+      const activePhases: Array<number> = partPhases.map(phase => phase === PLANNING_PHASE ? 0 : 1)
+
+      additionalFields.push({
+        active: activePhases,
+        emptyTitle: 'All Phases',
+        multiple: true,
+        options: phaseOptions,
+        uniqid: 'phases',
+        type: EDITABLE_SELECT_ITEM
+      })
       const permissionOptions: Option[] = []
       Object.keys(CollaborativePermission).forEach((key: string) => {
         if (!isNaN(Number(key))) {
@@ -280,7 +296,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
       setMessageLocal(nextMsgLocal)
       handleUpdateCollabChannel(nextMsgLocal)
     }
-
+    
     return (
       <div>
         <div className={styles.row}>
@@ -373,11 +389,12 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
                     <TableHead>
                       <TableRow>
                         <TableCell>Force</TableCell>
-                        <TableCell align="center">Role</TableCell>
-                        <TableCell align="center">Create New Message</TableCell>
-                        <TableCell align="center">See Live Updates</TableCell>
-                        <TableCell align="center">Permission</TableCell>
-                        <TableCell align="center"></TableCell>
+                        <TableCell>Role</TableCell>
+                        <TableCell>Create New Message</TableCell>
+                        <TableCell>See Live Updates</TableCell>
+                        <TableCell>Phases</TableCell>
+                        <TableCell>Permission</TableCell>
+                        <TableCell></TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
