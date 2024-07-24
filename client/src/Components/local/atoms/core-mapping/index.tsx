@@ -33,6 +33,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [selectedFeature, setSelectedFeature] = useState<string[]>([])
   const [showLabels, setShowLabels] = useState<boolean>(false)
   const lastMessages = useRef<MappingMessage>()
+  const pendingRemoveRef = useRef<string[]>([])
   const [permissions, setPermissions] = useState<ParticipantMapping[]>([])
 
   const [filterFeatureIds, setFilterFeatureIds] = useState<string[]>([])
@@ -411,13 +412,26 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     setShowLabels(showLabels)
   }
 
+  const handlePendingRemoved = debounce(() => {
+    // remove multiple items in queue
+    pendingRemoveRef.current.forEach(async (id, idx) => {
+      delay(() => {
+        if (featureCollection && featureCollection.features) {
+          const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
+          featureCollection.features = filterFeatures
+          const cloneFeatureCollection = cloneDeep(featureCollection)
+          saveNewMessage(cloneFeatureCollection)
+        }
+      }, idx * 50)
+    })
+    pendingRemoveRef.current = []
+  }, 100)
+
   const onRemoved = (id: string) => {
-    if (featureCollection && featureCollection.features) {
-      const filterFeatures = featureCollection.features.filter(f => '' + f.properties?.id !== '' + id)
-      featureCollection.features = filterFeatures
-      const cloneFeatureCollection = cloneDeep(featureCollection)
-      saveNewMessage(cloneFeatureCollection)
+    if (!pendingRemoveRef.current.includes(id)) {
+      pendingRemoveRef.current.push(id)
     }
+    handlePendingRemoved()
   }
 
   const onEdited = (id: number | string, value: string) => {
