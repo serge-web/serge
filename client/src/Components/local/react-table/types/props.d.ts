@@ -11,6 +11,7 @@ export type ReactTableProps = Omit<TableProps, 'columns'> & {
   rows: Row[]
   customStyles: any
   showArchived?: boolean
+  expandedRowId?: string
   handleArchiveDoc?: () => void
   handleMarkAllAsRead?: () => void
   handleMarkAllAsUnread?: () => void

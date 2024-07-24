@@ -19,13 +19,17 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const playerUiDispatch = usePlayerUiDispatch()
   const dispatch = useDispatch()
   const [channelTabClass, setChannelTabClass] = useState<string>('')
+  const [expandedRowId, setExpandedRowId] = useState('')
+
   const { selectedForce, selectedRole, selectedRoleName, gameDate } = state
   const isUmpire = selectedForce && selectedForce.umpire
   const selectedForceId = state.selectedForce ? state.selectedForce.uniqid : ''
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const channelUI = state.channels[channelId]
+
   const channel = channelUI.cData as ChannelCollab
+
   if (!channel) {
     console.warn('failed to receive v3 data')
     return (
@@ -67,6 +71,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   // The prop should be optimized in the future.
   const handleChange = (nextMsg: MessageCustom, messageType: TypeOfCustomMessage): void => {
     const { details } = nextMsg
+    setExpandedRowId(nextMsg._id)
     saveMessage(state.currentWargame, details, nextMsg.message, nextMsg.templateId, messageType)()
     const saveMessageInt: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
@@ -113,7 +118,6 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     console.warn('Problem - new message template not specified')
   }
   const trimmedTemplates = channel.newMessageTemplate ? [allTemplates[channel.newMessageTemplate._id]] : []
-
   const observing = !!channelUI.observing
 
   const isCollabEdit = channel.channelType === CHANNEL_COLLAB
@@ -142,6 +146,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
             onMessageRead={handleOpenMessage}
             onMarkAllAsRead={markAllMsgAsRead}
             onMarkAllAsUnRead={handleUnreadAllMessage}
+            expandedRowId={expandedRowId}
             templates={state.allTemplatesByKey}
             messages={messages as MessageCustom[]}
             role={role}

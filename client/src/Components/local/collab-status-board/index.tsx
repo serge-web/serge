@@ -18,10 +18,10 @@ export interface ForceColor {
 /* Render component */
 export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
   templates, messages, channelColb, isObserver, isUmpire, onChange, role, forces,
-  gameDate, phase, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame, collabActivity
+  gameDate, phase, onMessageRead, onMarkAllAsRead, onMarkAllAsUnRead, currentWargame, collabActivity, expandedRowId
 }) => {
   const [showArchived, setShowArchived] = useState<boolean>(false)
-
+  
   const participationsForMyForce = channelColb.participants.filter((p: ParticipantCollab) => p.forceUniqid === role.forceId)
   // participations relate to me if they contain no roles, or if they contain my role
   const myParticipations = participationsForMyForce.filter((p: ParticipantCollab) => (p.roles.length === 0 || p.roles.includes(role.roleId)))
@@ -67,7 +67,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
     }
     onMarkAllAsRead && onMarkAllAsRead()
   }, [filteredDoc])
-  
+
   const handleArchiveDoc = useCallback(() => {
     setShowArchived(!showArchived)
   }, [showArchived])
@@ -79,6 +79,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
       tableActivity={collabActivity}
       customStyles={customStyles}
       showArchived={showArchived}
+      expandedRowId={expandedRowId}
       handleArchiveDoc={handleArchiveDoc}
       handleMarkAllAsRead={handleMarkAllAsRead}
       handleMarkAllAsUnread={onMarkAllAsUnRead}
@@ -89,6 +90,7 @@ export const CollabStatusBoard: React.FC<CollabStatusBoardProps> = ({
       defaultSortAsc={true}
       persistTableHead={true}
       expandableRowsHideExpander={true}
+      fixedHeaderScrollHeight='86vh'
       highlightOnHover={true}
     />
   )
