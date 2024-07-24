@@ -5,7 +5,7 @@ import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { cloneDeep, debounce, delay, flatten, get, isEqual, uniq } from 'lodash'
+import { cloneDeep, flatten, get, isEqual, uniq } from 'lodash'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
@@ -13,7 +13,7 @@ import { PanelSize } from '../../../../Components/CoreMappingChannel'
 import { INFO_MESSAGE_CLIPPED, MAPPING_MESSAGE, MAPPING_MESSAGE_DELTA } from '../../../../config'
 import { BaseProperties, BaseRenderer, CoreProperties, MappingMessage, MappingMessageDelta, MappingPermissions, Message, MessageDetails, MilSymProperties, PROPERTY_ENUM, PROPERTY_NUMBER, PROPERTY_STRING, ParticipantMapping, PropertyType, RENDERER_CORE, RENDERER_MILSYM } from '../../../../custom-types'
 import MappingPanel from '../mapping-panel'
-import { canMoveResize as canMoveReizeFnc, canAddRemove as canAddRemoveFnc, permissionError } from '../mapping-panel/helpers/has-mapping-permission'
+import { canAddRemove as canAddRemoveFnc, canMoveResize as canMoveReizeFnc, permissionError } from '../mapping-panel/helpers/has-mapping-permission'
 import ResizeHandle from '../mapping-panel/helpers/resize-handler'
 import circleToPolygon from './helper/circle-to-linestring'
 import { CoreRendererHelper } from './helper/core-renderer-helper'
@@ -33,7 +33,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [selectedFeature, setSelectedFeature] = useState<string[]>([])
   const [showLabels, setShowLabels] = useState<boolean>(false)
   const lastMessages = useRef<MappingMessage>()
-  const pendingRemoveRef = useRef<string[]>([])
   const [permissions, setPermissions] = useState<ParticipantMapping[]>([])
 
   const [filterFeatureIds, setFilterFeatureIds] = useState<string[]>([])
@@ -412,28 +411,15 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     setShowLabels(showLabels)
   }
 
-  const handlePendingRemoved = debounce(() => {
-    // remove multiple items in queue
-    pendingRemoveRef.current.forEach(async (id, idx) => {
-      delay(() => {
-        if (featureCollection && featureCollection.features) {
-          const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
-          featureCollection.features = filterFeatures
-          const cloneFeatureCollection = cloneDeep(featureCollection)
-          saveNewMessage(cloneFeatureCollection)
-        }
-      }, idx * 50)
-    })
-    pendingRemoveRef.current = []
-  }, 100)
-
   const onRemoved = (id: string) => {
-    if (!pendingRemoveRef.current.includes(id)) {
-      pendingRemoveRef.current.push(id)
+    if (featureCollection && featureCollection.features) {
+      const filterFeatures = featureCollection.features.filter(f => '' + f.properties?.id !== '' + id)
+      featureCollection.features = filterFeatures
+      const cloneFeatureCollection = cloneDeep(featureCollection)
+      saveNewMessage(cloneFeatureCollection)
     }
-    handlePendingRemoved()
   }
-
+  
   const onEdited = (id: number | string, value: string) => {
     if (featureCollection && featureCollection.features) {
       const cloneFeatureCollection = cloneDeep(featureCollection)
