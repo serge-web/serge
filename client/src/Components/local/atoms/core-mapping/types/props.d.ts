@@ -35,4 +35,5 @@ export type GeomanControlProps = {
   onChange: (id: number, lnglat: LatLng) => void
   canAddRemove: boolean
   canMoveResize: boolean
+  forRenderer: string[]
 }

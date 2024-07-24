@@ -11,7 +11,7 @@ import { GeomanControlProps } from '../types/props'
 import { useMappingState } from './mapping-provider'
 import { delay } from 'lodash'
 
-const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, canAddRemove, canMoveResize }) => {
+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, canAddRemove, canMoveResize, forRenderer }) => {
   const map = useMap()
   const ruler = useRef<Ruler | null>(null)
   const selectedRef = useRef<boolean>(false)
@@ -21,22 +21,26 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
 
   const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring, panTo } = useMappingState()
 
+  const isMilSymRenderer = () => forRenderer.includes('milSym')
+  const isCoreRenderere = () => forRenderer.includes('core')
+
   const controls: PM.ToolbarOptions = useMemo(() => ({
     position: 'topright',
     rotateMode: false,
     pinningOption: true,
     snappingOption: true,
     drawCircleMarker: false,
-    drawMarker: canAddRemove,
-    drawPolyline: canAddRemove,
-    drawCircle: canAddRemove,
-    drawPolygon: canAddRemove,
-    drawRectangle: canAddRemove,
+    drawMarker: canAddRemove && isMilSymRenderer(),
+    drawPolyline: canAddRemove && isCoreRenderere(),
+    drawCircle: canAddRemove && isCoreRenderere(),
+    drawPolygon: canAddRemove && isCoreRenderere(),
+    drawRectangle: canAddRemove && isCoreRenderere(),
+    drawText: canAddRemove && isCoreRenderere(),
     dragMode: canMoveResize,
     removalMode: canAddRemove,
     editMode: canMoveResize,
     cutPolygon: false
-  }), [canAddRemove, canMoveResize])
+  }), [canAddRemove, canMoveResize, forRenderer])
 
   useEffect(() => {
     const thesePerms = canAddRemove + '-' + canMoveResize

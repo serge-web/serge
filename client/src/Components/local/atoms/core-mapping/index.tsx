@@ -488,6 +488,19 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     return flatMap
   }
 
+  const getForRenderers = () => {
+    const participant = channel.participants.find(p => p.forceUniqid === playerForce.uniqid)
+    if (participant) {
+      return participant.forRenderer
+    }
+    return []
+  }
+
+  const isValidPhase = () => {
+    const participant = channel.participants.find(p => p.forceUniqid === playerForce.uniqid)
+    return participant ? participant.phases.includes(currentPhase) : false
+  }
+
   return <MappingProvider value={mappingProviderValue}>
     <Box className={styles.container}>
       {!checked && <Button variant='contained' onClick={() => setChecked(true)}>
@@ -512,12 +525,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           </PanelGroup>
         </Box>
       </Slide>
-      <MapContainer bounds={bounds} zoom={13} scrollWheelZoom={true} className={styles['map-container']} >
+      <MapContainer bounds={bounds} maxZoom={channel.constraints.maxZoom} minZoom={channel.constraints.minZoom} zoom={channel.constraints.tileLayer?.maxNativeZoom} scrollWheelZoom={true} className={styles['map-container']} >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={channel.constraints.tileLayer?.url || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'}
         /> 
-        <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText} canAddRemove={canAddRemove} canMoveResize={canMoveResize}/>
+        <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText} canAddRemove={canAddRemove && isValidPhase()} canMoveResize={canMoveResize && isValidPhase()} forRenderer={getForRenderers()} />
         <LayerGroup>
           {
             featureCollection && renderers.map((Component, idx) => 
