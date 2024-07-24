@@ -37,21 +37,19 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
   const [localChannelUpdates, setLocalChannelUpdates] = useState(channel)
   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)
   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)
-
   const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({
     name: template.title,
     uniqid: template._id,
     value: template
   }))
-
   const messagesValues = getMessagesValues(localChannelUpdates)
   const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)
-  
   useEffect(() => {
     setLocalChannelUpdates(channel)
   }, [channel])
 
   useEffect(() => {
+    setMessageLocal(messagesValues)
     onChange(localChannelUpdates)
   }, [localChannelUpdates])
 
@@ -298,7 +296,7 @@ export const CollabChannel: React.FC<CollabChannelProps> = ({
       setMessageLocal(nextMsgLocal)
       handleUpdateCollabChannel(nextMsgLocal)
     }
-
+    
     return (
       <div>
         <div className={styles.row}>

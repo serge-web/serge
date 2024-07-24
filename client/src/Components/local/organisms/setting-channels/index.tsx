@@ -167,7 +167,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
       </Popper>
     </div>
   }, [open])
-
+  
   return (
     <AdminContent>
       <LeftSide>

@@ -31,7 +31,6 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
     data.chatChannel.messages.unshift(deepCopy(message))
   } else if (data.channels[channel]) {
     const theChannel: ChannelUI = data.channels[channel]
-
     // create the messages array, if necessary
     if (theChannel.messages === undefined) {
       theChannel.messages = []
@@ -70,15 +69,17 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
       hasBeenRead: ourMessage,
       isOpen: false
     }
-
     // if this is a collab channel, we need the newest version of the message, else we ditch duplicates
     if (theChannel.cData.channelType === CHANNEL_COLLAB) {
-      // strip out old versions of this message
-      const cleanOldVersions = theChannel.messages.filter((msg: MessageChannel) => msg._id !== message._id)
-      // append the new message
-      cleanOldVersions.unshift(message)
-      
-      theChannel.messages = cleanOldVersions
+      // Find the index of the existing message
+      const existingMessageIndex = theChannel.messages.findIndex((msg: MessageChannel) => msg._id === message._id)
+
+      if (existingMessageIndex !== -1) {
+        theChannel.messages[existingMessageIndex] = message
+      } else {
+        // Add the new message to the beginning of the array
+        theChannel.messages.unshift(message)
+      }
     } else {
       // check the channel doesn't already contain the message
       // we can mistakenly register for updates twice, which gives the appearance
@@ -300,7 +301,7 @@ const processChannel = (
 
   const channelId = channel.uniqid
   const { isParticipant, observing, templates } = getParticipantStates(channel, forceId, selectedRole, isObserver, allTemplatesByKey)
-  
+
   // make a note that we've procesed this channel
   delete unprocessedChannels[channelId]
   
@@ -314,7 +315,14 @@ const processChannel = (
   }
 }
 
-const updateOrCreateChannel = (channel: ChannelTypes, res: SetWargameMessage, channelId: string, templates: any, observing: boolean, allForces: ForceData[]): void => {
+const updateOrCreateChannel = (
+  channel: ChannelTypes,
+  res: SetWargameMessage,
+  channelId: string,
+  templates: any,
+  observing: boolean,
+  allForces: ForceData[]
+): void => {
   // does this channel exist?
   if (!res.channels[channelId]) {
     // create and store it
@@ -323,28 +331,42 @@ const updateOrCreateChannel = (channel: ChannelTypes, res: SetWargameMessage, ch
   
   // already exists, get shortcut
   const thisChannel: ChannelUI = res.channels[channelId]
-  
   // rename channel, if necessary
   if (thisChannel.name !== channel.name) {
-    // we're not a participant, delete it
-    res.channels[channelId].name = channel.name
+    res.channels[channelId] = {
+      ...thisChannel,
+      name: channel.name
+    }
   }
-  
+
   // update observing status when observer removed from channel participants
-  thisChannel.observing = observing
-
-  // if (observing !== thisChannel.observing) {
-  // }
-
-  if (templates !== thisChannel.templates) {
-    thisChannel.templates = templates
+  if (thisChannel.observing !== observing) {
+    res.channels[channelId] = {
+      ...thisChannel,
+      observing
+    }
   }
 
+  // update templates if necessary
+  if (thisChannel.templates !== templates) {
+    res.channels[channelId] = {
+      ...thisChannel,
+      templates
+    }
+  }
+
+  // update force icons, colors, and names
   updateForceIcons(thisChannel, channel.participants, allForces)
-
   updateForceColors(thisChannel, channel.participants, allForces)
-
   updateForceNames(thisChannel, channel.participants, allForces)
+  // handle cData
+  if (res.channels[channelId].cData) {
+    res.channels[channelId] = {
+      ...thisChannel,
+      cData: channel,
+      templates
+    }
+  }
 }
 
 const updateChannelMessages = (gameTurn: number, messageId: string, thisChannel: ChannelUI): void => {
@@ -382,7 +404,6 @@ const handleChannelUpdates = (
   const unprocessedChannels: PlayerUiChannels = { ...channels }
 
   const forceId: string | undefined = selectedForce ? selectedForce.uniqid : undefined
-  
   // create any new channels & add to current channel
   allChannels.forEach((channel: ChannelTypes) => {
     processChannel(channel, forceId, selectedRole, isObserver, allTemplatesByKey, allForces, res, gameTurn, messageId, unprocessedChannels)
@@ -394,7 +415,6 @@ const handleChannelUpdates = (
     // it must have been deleted
     delete res.channels[key]
   }
-
   return res
 }
 

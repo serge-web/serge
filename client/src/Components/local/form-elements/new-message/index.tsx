@@ -37,7 +37,6 @@ const NewMessage: React.FC<PropTypes> = ({
   const [updateNewMessage, setUpdateNewMessage] = useState(false)
 
   const tab = useRef<any>(null)
-
   const schemaTitle = useMemo(() => getCachedNewMessagevalue && getCachedNewMessagevalue(UNSENT_SELECT_BY_DEFAULT_VALUE), [channelId, updateNewMessage])
 
   const setTemplate = (templateData: TemplateBody): void => {
@@ -55,31 +54,40 @@ const NewMessage: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const allTemplates: TemplateBody[] = (templates && templates.length > 0) ? templates : []
-    if (!prevTemplates || updateNewMessage || draftMessage) {
-      if (allTemplates.length) {
-        if (schemaTitle) {
-          const findColumn = templates.find(find => find.title === schemaTitle)
-          if (findColumn) {
-            setSelectedSchema(findColumn.details)
-            setSelectedType(findColumn.title)
-          }
+    const checkTitle = selectedSchema && templates[0]?.title !== selectedSchema.title
+  
+    const updateSchema = (schema: any) => {
+      setSelectedSchema(schema.details)
+      setSelectedType(schema.title)
+    }
+  
+    const handleTemplateSelection = () => {
+      if (schemaTitle) {
+        const findColumn = templates.find(find => find.title === schemaTitle)
+        if (findColumn) {
+          updateSchema(findColumn)
         } else {
-          if (draftMessage) {
-            const msg = draftMessage as CoreMessage
-            const schemaId = msg.templateId
-            const template = templates.find((tmpl: TemplateBody) => tmpl._id === schemaId)
-            if (template) {
-              setSelectedSchema(template.details)
-              setSelectedType(template.title)
-            } else {
-              console.warn('failed to find schema', schemaId, templates)
-            }
-          } else {
-            setUpdateNewMessage(false)
-            setSelectedSchema(templates[0].details)
-            setSelectedType(templates[0].title)
-          }
+          setUpdateNewMessage(false)
+          updateSchema(templates[0])
         }
+      } else if (draftMessage) {
+        const msg = draftMessage as CoreMessage
+        const schemaId = msg.templateId
+        const template = templates.find((tmpl: TemplateBody) => tmpl._id === schemaId)
+        if (template) {
+          updateSchema(template)
+        } else {
+          console.warn('failed to find schema', schemaId, templates)
+        }
+      } else {
+        setUpdateNewMessage(false)
+        updateSchema(templates[0])
+      }
+    }
+  
+    if (!prevTemplates || updateNewMessage || draftMessage || checkTitle || templates) {
+      if (allTemplates.length) {
+        handleTemplateSelection()
       } else {
         console.warn('Zero templates received for channel ', channel)
       }
