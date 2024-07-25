@@ -11,10 +11,11 @@ import { GeomanControlProps } from '../types/props'
 import { useMappingState } from './mapping-provider'
 import { delay } from 'lodash'
 
-const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, canAddRemove, canMoveResize, forRenderer }) => {
+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, toggleShowLabel, canAddRemove, canMoveResize, forRenderer }) => {
   const map = useMap()
   const ruler = useRef<Ruler | null>(null)
   const selectedRef = useRef<boolean>(false)
+  const showLabels = useRef<boolean>(false)
 
   // track permissions getting updated
   const [prevPermissions, setPermissions] = useState<string>('')
@@ -66,14 +67,14 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
   }, [panTo])
 
   const initMapListener = () => {
-    let layersVisible = true 
     map.pm.Toolbar.createCustomControl({
       name: 'showLayersText',
       block: 'custom',
       className: 'control-icon leaflet-pm-icon-snapping',
       title: 'Show symbol labels',
       afterClick: () => {
-        onShowLabels(layersVisible)
+        showLabels.current = !showLabels.current
+        toggleShowLabel(showLabels.current)
 
         // note // Using CSS, we have the ability to dynamically hide or show text based on styling.
         // This allows for a seamless user experience by toggling the visibility of elements without altering the HTML structure.
@@ -91,8 +92,6 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
         //     }
         //   }
         // })
-
-        layersVisible = !layersVisible 
       },
       
       // Set toggle to false to indicate that this custom control does not have a toggle functionality

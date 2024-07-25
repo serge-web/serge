@@ -18,8 +18,10 @@ export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   return forceStyle ? forceStyle.color : '#F0F'
 }
 
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, permissions, selected = [] }) => {
+const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, permissions, selected = [], forRenderer }) => {
   const { filterFeatureIds, isMeasuring } = useMappingState()
+
+  const enableCoreRenderer = useCallback(() => forRenderer.includes('core'), [forRenderer])
 
   const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
     const isThisRenderer = feature.properties._type === RENDERER_CORE
@@ -86,21 +88,21 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
       })
 
       marker.addEventListener('pm:edit', e => {
-        if (!canEditProps(feature, permissions)) {
+        if (!canEditProps(feature, permissions) || !enableCoreRenderer()) {
           permissionError()
           return
         }
         onEdited(feature.properties.id, e.target.pm.textArea.value)
       })
       marker.addEventListener('pm:remove', () => {
-        if (!canAddRemove(feature, permissions)) {
+        if (!canAddRemove(feature, permissions) || !enableCoreRenderer()) {
           permissionError()
           return
         }
         onRemoved(feature.properties.id)
       })
       marker.addEventListener('pm:dragend', e => {
-        if (!canMoveResize(feature, permissions)) {
+        if (!canMoveResize(feature, permissions) || !enableCoreRenderer()) {
           permissionError()
           return
         }
@@ -123,7 +125,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
   return useMemo(() => {
     return <GeoJSON onEachFeature={(f, l) => {
       l.addEventListener('pm:remove', () => {
-        if (!canAddRemove(f, permissions)) {
+        if (!canAddRemove(f, permissions) || !enableCoreRenderer()) {
           permissionError()
           return
         }
@@ -131,7 +133,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
       })
       l.addEventListener('click', (e) => {
         if (!isMeasuring) {
-          if (!canSeeProps(f, permissions)) {
+          if (!canSeeProps(f, permissions) || !enableCoreRenderer()) {
             permissionError()
             return
           }
@@ -140,7 +142,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
         }
       })
       const dragHandler = (e: LeafletEvent) => {
-        if (!canMoveResize(f, permissions)) {
+        if (!canMoveResize(f, permissions) || !enableCoreRenderer()) {
           permissionError()
           return
         }

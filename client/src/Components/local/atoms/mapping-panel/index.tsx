@@ -136,7 +136,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           choices: get(extraProps, 'choices', []),
           disabled: onlyEditOwnProps && !extraProps?.playerEditable
         }
-        return result
+        return safeResult
       }, {})
       // sort the props in alpha order
       const sort = <T extends Record<string, unknown>>(obj: T): T => Object.keys(obj).sort().reduce((acc, c) => { 
@@ -202,7 +202,8 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       const safeRes = res as any
       safeRes[key] = {
         value: choices.length ? [value] : '',
-        choices
+        choices,
+        label: extraProps?.label || key
       }
       return res
     }, {})

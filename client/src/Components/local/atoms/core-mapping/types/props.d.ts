@@ -27,10 +27,11 @@ export type CoreRendererProps = {
   showLabels: boolean
   forceStyles: ForceStyle[]
   permissions: ParticipantMapping[]
+  forRenderer: string[]
 };
 
 export type GeomanControlProps = {
-  onShowLabels: (showLabels: boolean) => void
+  toggleShowLabel: (showLabels: boolean) => void
   onCreate: (e: PM.ChangeEventHandler) => void
   onChange: (id: number, lnglat: LatLng) => void
   canAddRemove: boolean

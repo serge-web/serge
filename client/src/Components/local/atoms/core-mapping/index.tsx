@@ -407,8 +407,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     }  
   }
 
-  const onShowText = (showLabels: boolean) => {
-    setShowLabels(showLabels)
+  const onShowText = (showLbl: boolean) => {
+    setShowLabels(showLbl)
   }
 
   const onRemoved = (id: string) => {
@@ -419,7 +419,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       saveNewMessage(cloneFeatureCollection)
     }
   }
-  
+
   const onEdited = (id: number | string, value: string) => {
     if (featureCollection && featureCollection.features) {
       const cloneFeatureCollection = cloneDeep(featureCollection)
@@ -525,12 +525,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
           </PanelGroup>
         </Box>
       </Slide>
-      <MapContainer bounds={bounds} maxZoom={channel.constraints.maxZoom} minZoom={channel.constraints.minZoom} zoom={channel.constraints.tileLayer?.maxNativeZoom} scrollWheelZoom={true} className={styles['map-container']} >
+      <MapContainer bounds={bounds} zoom={channel.constraints.tileLayer?.maxNativeZoom} maxZoom={channel.constraints.maxZoom} minZoom={channel.constraints.minZoom} scrollWheelZoom={true} className={styles['map-container']} >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url={channel.constraints.tileLayer?.url || 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'}
         /> 
-        <MapControls onCreate={onCreate} onChange={onChange} onShowLabels={onShowText} canAddRemove={canAddRemove && isValidPhase()} canMoveResize={canMoveResize && isValidPhase()} forRenderer={getForRenderers()} />
+        <MapControls onCreate={onCreate} onChange={onChange} toggleShowLabel={onShowText} canAddRemove={canAddRemove && isValidPhase()} canMoveResize={canMoveResize && isValidPhase()} forRenderer={getForRenderers()} />
         <LayerGroup>
           {
             featureCollection && renderers.map((Component, idx) => 
@@ -545,6 +545,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
                 showLabels={showLabels} 
                 forceStyles={forceStyles}
                 permissions={permissions}
+                forRenderer={getForRenderers()}
               />) 
           }
         </LayerGroup>

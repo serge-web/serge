@@ -71,7 +71,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
   const renderDefaultPropertyComponent = (key: string, field: SelectedProps, value: any, isId: boolean) => (
     // nope, determine component to use by looking at the data
     <div key={key} className={styles.itemsBox}>
-      <p>{key}:</p>
+      <p>{selectedProp[key].label || key}:</p>
       <div className={styles.inputBox}>
         {
           field.choices.length > 0

@@ -1,7 +1,7 @@
 import { Feature, Geometry, Point } from 'geojson'
 import L from 'leaflet'
 import ms from 'milsymbol'
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
 import { calculateHealthColor } from 'src/Helpers'
 import { MappingPermissions, RENDERER_MILSYM } from 'src/custom-types'
@@ -13,8 +13,10 @@ import { CoreRendererProps } from '../types/props'
 export const DEFAULT_FONT_SIZE = 14
 export const DEFAULT_PADDING = 0
 
-const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels, permissions, selected = [] }): any => {
+const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onSelect, showLabels, permissions, selected = [], forRenderer }): any => {
   const { filterFeatureIds, isMeasuring } = useMappingState()
+
+  const enableMilSymRenderer = useCallback(() => forRenderer.includes('milSym'), [forRenderer])
 
   const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
     const isThisRenderer = feature.properties._type === RENDERER_MILSYM
@@ -44,13 +46,13 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
       
       // Event listeners for marker actions
       marker.addEventListener('pm:remove', () => {
-        if (!canAddRemove(feature, permissions)) {
+        if (!canAddRemove(feature, permissions) || !enableMilSymRenderer()) {
           return
         }
         onRemoved(id)
       })
       marker.addEventListener('pm:dragend', e => {
-        if (!canMoveResize(feature, permissions)) {
+        if (!canMoveResize(feature, permissions) || !enableMilSymRenderer()) {
           return
         }
         handleDragEnd(e)
@@ -86,7 +88,7 @@ const MilSymbolRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, o
 
   return useMemo(() => {
     return <GeoJSON data={features} filter={filterForThisRenderer} pointToLayer={pointToLayer} key={'feature_no_contact' + Math.random()} />
-  }, [features, selected, filterFeatureIds, isMeasuring])
+  }, [features, selected, filterFeatureIds, isMeasuring, showLabels])
 }
 
 export default MilSymbolRenderer
