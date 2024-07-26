@@ -29,6 +29,7 @@ type MappingPanelProps = {
   onSave: (features: FeatureCollection<Geometry, GeoJsonProperties>) => void
   forceStyles: ForceStyle[]
   permissions: ParticipantMapping[]
+  forRenderer: string[]
 }
 type PanelState = {
   state: boolean
@@ -54,7 +55,7 @@ const initPanelState: PanelGroupState = {
   }
 }
 
-export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave, forceStyles, permissions }): React.ReactElement => {
+export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, rendererProps, selected, onSelect, onSave, forceStyles, permissions, forRenderer }): React.ReactElement => {
   const [filteredFeatures, setFilteredFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [pendingSaveFeatures, setPendingSaveFeatures] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(features)
   const [openAddFilter, setOpenAddFilter] = useState<boolean>(false)
@@ -153,7 +154,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         setSelectedProps(sortedProps)  
       }
       // and if the form is editable
-      setPropsEditable(canEditProps(selectedFeature, permissions))
+      setPropsEditable(canEditProps(selectedFeature, permissions) && forRenderer.includes(getSelectedRenderer()))
     }
   }, [selectedFeature])
 
@@ -365,9 +366,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
   const onLocalSave = () => {
     if (pendingSaveFeatures) {
+      const feature = pendingSaveFeatures.features.find(f => f.id === selectedFeature?.id)
+      if (feature && !canEditProps(feature, permissions)) {
+        return
+      }
       onSave(pendingSaveFeatures)
       setDisableSave(true)
-      const feature = pendingSaveFeatures.features.find(f => f.id === selectedFeature?.id)
       if (feature && !canSeeProps(feature, permissions)) {
         clearSelectedFeature()
       }
@@ -478,7 +482,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
         {panelState.filterPanelState.state &&
           <>
             <div className={styles.propertiesResponsive}>
-              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} selectedRenderer={getSelectedRenderer()} multipleSelect/>
+              <PropertiesPanel disableIdEdit={false} selectedProp={selectedFiltersProps} onPropertiesChange={onFilterPropertiesChange} onRemoveFilter={onRemoveFilter} selectedRenderer={getSelectedRenderer()} disabled={!forRenderer.includes(getSelectedRenderer())} multipleSelect/>
             </div>
             <div className={styles.button}>
               <button onClick={onAddNewFilter}>Add</button>

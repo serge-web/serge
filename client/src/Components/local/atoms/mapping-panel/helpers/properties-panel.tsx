@@ -100,7 +100,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
               <input value={value} disabled={disableIdEdit && isId} onChange={(e) => onPropertiesChange(key, e.target.value)} />
             )
         }
-        {key === 'sidc' && (
+        {key === 'sidc' && !disabled && (
           <>
             <button style={ { border: !checkSidc ? 'solid 2px red' : '' }} className={styles.sidcbtn} onClick={openSIDCGenerator}>
               Edit
@@ -149,7 +149,6 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
           return <Fragment key={key + kIdx}></Fragment>
         }
         // do we have enough detail to do special formatting?
-
         return prop
           ? renderSpecialPropertyComponent(key, field, prop, value, isId)
           : renderDefaultPropertyComponent(key, field, value, isId)
