@@ -366,7 +366,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
   const onLocalSave = () => {
     if (pendingSaveFeatures) {
-      const feature = pendingSaveFeatures.features.find(f => f.id === selectedFeature?.id)
+      const feature = pendingSaveFeatures.features.find(f => f.properties?.id === selectedFeature?.properties?.id)
       if (feature && !canEditProps(feature, permissions)) {
         return
       }
