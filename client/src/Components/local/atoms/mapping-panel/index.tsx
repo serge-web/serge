@@ -13,7 +13,7 @@ import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-help
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import { colorFor } from '../core-mapping/renderers/core-renderer'
 import CustomDialog from '../custom-dialog'
-import { canEditProps, canOnlyEditOwnProps, canSeeProps, hasMappingPermission } from './helpers/has-mapping-permission'
+import { canEditProps, canOnlyEditOwnProps, hasMappingPermission } from './helpers/has-mapping-permission'
 import IconRenderer from './helpers/icon-renderer'
 import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
@@ -71,7 +71,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   const itemPanel = useRef<ImperativePanelHandle | null>(null)
   const propertyPanel = useRef<ImperativePanelHandle | null>(null)
   
-  const { setFilterFeatureIds, deselecteFeature, setPanTo } = useMappingState()
+  const { setFilterFeatureIds, deselecteFeature, setPanTo, playerForce } = useMappingState()
 
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
@@ -220,7 +220,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
 
   const selectItem = (id: string[], checked: boolean) => {
     const feature = features?.features.find(f => id.includes(f.properties?.id))
-    if (feature && canSeeProps(feature, permissions)) {
+    if (feature && canEditProps(feature, permissions)) {
       setSelectedFeature(checked ? feature : undefined)
       onSelect(checked ? id : [])
     }
@@ -365,14 +365,15 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }, [features, selectedFiltersProps])
 
   const onLocalSave = () => {
+    const permissionFeature = features?.features.find(f => f.properties?.force === playerForce?.uniqid)
+    if (permissionFeature && !canEditProps(permissionFeature, permissions)) {
+      return
+    }
     if (pendingSaveFeatures) {
       const feature = pendingSaveFeatures.features.find(f => f.properties?.id === selectedFeature?.properties?.id)
-      if (feature && !canEditProps(feature, permissions)) {
-        return
-      }
       onSave(pendingSaveFeatures)
       setDisableSave(true)
-      if (feature && !canSeeProps(feature, permissions)) {
+      if (feature && !canEditProps(feature, permissions)) {
         clearSelectedFeature()
       }
     }
@@ -511,7 +512,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
                 // pan to the center of the feature
                 setPanTo({ lat: center[1], lng: center[0] })
               }
-              return <IconRenderer onPan={mapPanTo} key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canSeeProps(feature, permissions)} />
+              return <IconRenderer onPan={mapPanTo} key={idx} feature={feature} checked={get(selectedFeature, 'properties.id', '') === feature.properties?.id} onClick={selectItem} color={color} disabled={!canEditProps(feature, permissions)} />
             })}
           </div>
         }

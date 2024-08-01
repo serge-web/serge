@@ -1,5 +1,6 @@
 import { noop } from 'lodash'
 import { createContext, useContext } from 'react'
+import { ForceData } from 'src/custom-types'
 import { PanelSize } from '../../../../../Components/CoreMappingChannel'
 
 type MappingStateValue = {
@@ -12,7 +13,8 @@ type MappingStateValue = {
   isMeasuring: boolean
   setIsMeasuring: (isMeasuring: boolean) => void
   panTo: { lat: number, lng: number }
-  setPanTo: (value: {lat: number, lng: number}) => void
+  setPanTo: (value: { lat: number, lng: number }) => void
+  playerForce: ForceData | null
 }
 
 const initialState: MappingStateValue = {
@@ -25,7 +27,8 @@ const initialState: MappingStateValue = {
   isMeasuring: false,
   setIsMeasuring: noop,
   panTo: { lat: 0, lng: 0 },
-  setPanTo: noop
+  setPanTo: noop,
+  playerForce: null
 }
 const MappingState = createContext<MappingStateValue>(initialState)
 

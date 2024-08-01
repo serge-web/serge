@@ -63,7 +63,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     isMeasuring,
     setIsMeasuring,
     setPanTo,
-    panTo
+    panTo,
+    playerForce
   }), [
     filterFeatureIds,
     setFilterFeatureIds,
@@ -74,7 +75,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     isMeasuring,
     setIsMeasuring,
     setPanTo,
-    panTo
+    panTo,
+    playerForce
   ])
 
   useEffect(() => {
