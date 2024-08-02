@@ -82,28 +82,27 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   // add custom search field with wildcard support
   filterProperties?.unshift(wildcardLabel, shapeTypeLabel)
 
-  const knowsItExists = (_: Feature<Geometry, any>): boolean => {
-    // const knowsPos = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
-    // if (!knowsPos) {
-    //   // though the player doesn't know location of subject, see if it knows it exists
-    //   return hasMappingPermission(feature, MappingPermissions.Exists, permissions)
-    // } else {
-    //   return true
-    // }
-    return true
-  }
+  // const knowsItExists = (feature: Feature<Geometry, any>): boolean => {
+  //   const knowsPos = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
+  //   if (!knowsPos) {
+  //     // though the player doesn't know location of subject, see if it knows it exists
+  //     return hasMappingPermission(feature, MappingPermissions.Exists, permissions)
+  //   } else {
+  //     return true
+  //   }
+  // }
 
   useEffect(() => {
-    if (features) {
-      const cloneFeatures = cloneDeep(features)
-      const visibleFeatures = cloneFeatures.features.filter(f => knowsItExists(f))
-      cloneFeatures.features = visibleFeatures
-      setFilteredFeatures(cloneFeatures)
-      setPendingSaveFeatures(cloneFeatures)  
-    } else {
-      setFilteredFeatures(features)
-      setPendingSaveFeatures(features)      
-    }
+    // if (features) {
+    //   const cloneFeatures = cloneDeep(features)
+    //   const visibleFeatures = cloneFeatures.features.filter(f => knowsItExists(f))
+    //   cloneFeatures.features = visibleFeatures
+    //   setFilteredFeatures(cloneFeatures)
+    //   setPendingSaveFeatures(cloneFeatures)  
+    // } else {
+    setFilteredFeatures(features)
+    setPendingSaveFeatures(features)      
+    // }
   }, [features])
 
   useEffect(() => {
