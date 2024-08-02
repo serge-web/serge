@@ -22,6 +22,11 @@ export const hasMappingPermissions = (feature: Feature<Geometry, any>, permissio
   return hasPermission
 }
 
+export const canSeeSpartial = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.ViewSpatial, MappingPermissions.EditAllProps,
+    MappingPermissions.EditOwnProps], permissions)
+}
+
 export const canSeeProps = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
   return hasMappingPermissions(feature, [MappingPermissions.ViewProps, MappingPermissions.EditAllProps,
     MappingPermissions.EditOwnProps], permissions)
