@@ -63,8 +63,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     isMeasuring,
     setIsMeasuring,
     setPanTo,
-    panTo,
-    playerForce
+    panTo
   }), [
     filterFeatureIds,
     setFilterFeatureIds,
@@ -75,8 +74,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     isMeasuring,
     setIsMeasuring,
     setPanTo,
-    panTo,
-    playerForce
+    panTo
   ])
 
   useEffect(() => {
@@ -119,7 +117,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       setLocalPanelSize(panelSize)
     }
   }, [panelSize])
-  
+
   useEffect(() => {
     // sort out the mapping messages, since we actually may also receive turn markers
     const mappingMessages = messages.filter((message: Message) => {
@@ -128,13 +126,12 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         return custMessage.messageType === MAPPING_MESSAGE || custMessage.messageType === MAPPING_MESSAGE_DELTA
       } else return false
     }).reverse()
-  
+
     if (mappingMessages.length) {
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
         if (mappingMessage.messageType === MAPPING_MESSAGE) {
           const baseMappingMessage = cloneDeep(mappingMessage as MappingMessage)
-
           // keep the mapping message as original for generating patch later
           if (!lastMessages.current) {
             lastMessages.current = cloneDeep(baseMappingMessage)

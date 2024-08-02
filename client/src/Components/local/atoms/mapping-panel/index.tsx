@@ -8,12 +8,12 @@ import { capitalize, cloneDeep, get, isEqual, merge, set, uniq } from 'lodash'
 import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { ImperativePanelHandle, Panel, PanelGroup } from 'react-resizable-panels'
 import { ForceStyle, isValidSymbol } from '../../../../Helpers'
-import { CoreProperties, MappingPermissions, MilSymProperties, ParticipantMapping, PropertyType } from '../../../../custom-types'
+import { CoreProperties, MilSymProperties, ParticipantMapping, PropertyType } from '../../../../custom-types'
 import { getAllFeatureIds } from '../core-mapping/helper/feature-collection-helper'
 import { useMappingState } from '../core-mapping/helper/mapping-provider'
 import { colorFor } from '../core-mapping/renderers/core-renderer'
 import CustomDialog from '../custom-dialog'
-import { canEditProps, canOnlyEditOwnProps, canSeeProps, canSeeSpartial, hasMappingPermission } from './helpers/has-mapping-permission'
+import { canEditProps, canOnlyEditOwnProps, canSeeProps, canSeeSpartial } from './helpers/has-mapping-permission'
 import IconRenderer from './helpers/icon-renderer'
 import PropertiesPanel from './helpers/properties-panel'
 import ResizeHandle from './helpers/resize-handler'
@@ -70,8 +70,9 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   const filterPanel = useRef<ImperativePanelHandle | null>(null)
   const itemPanel = useRef<ImperativePanelHandle | null>(null)
   const propertyPanel = useRef<ImperativePanelHandle | null>(null)
+  const [originalSelectedFeature, setOriginalSelectedFeature] = useState<Feature<Geometry, GeoJsonProperties>>()
   
-  const { setFilterFeatureIds, deselecteFeature, setPanTo, playerForce } = useMappingState()
+  const { setFilterFeatureIds, deselecteFeature, setPanTo } = useMappingState()
 
   const filterProperties = features?.features.reduce((result, f) => uniq([...result, ...Object.keys(f.properties || []).filter(p => !p.startsWith('_'))]), [] as string[])
 
@@ -81,14 +82,15 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   // add custom search field with wildcard support
   filterProperties?.unshift(wildcardLabel, shapeTypeLabel)
 
-  const knowsItExists = (feature: Feature<Geometry, any>): boolean => {
-    const knowsPos = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
-    if (!knowsPos) {
-      // though the player doesn't know location of subject, see if it knows it exists
-      return hasMappingPermission(feature, MappingPermissions.Exists, permissions)
-    } else {
-      return true
-    }
+  const knowsItExists = (_: Feature<Geometry, any>): boolean => {
+    // const knowsPos = hasMappingPermission(feature, MappingPermissions.ViewSpatial, permissions)
+    // if (!knowsPos) {
+    //   // though the player doesn't know location of subject, see if it knows it exists
+    //   return hasMappingPermission(feature, MappingPermissions.Exists, permissions)
+    // } else {
+    //   return true
+    // }
+    return true
   }
 
   useEffect(() => {
@@ -225,6 +227,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
       onSelect(checked ? id : [])
     }
     setPendingSaveFeatures(features)
+    setOriginalSelectedFeature(cloneDeep(feature))
   }
 
   const clearSelectedFeature = () => {
@@ -365,8 +368,7 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
   }, [features, selectedFiltersProps])
 
   const onLocalSave = () => {
-    const permissionFeature = features?.features.find(f => f.properties?.force === playerForce?.uniqid)
-    if (permissionFeature && !canEditProps(permissionFeature, permissions)) {
+    if (originalSelectedFeature && !canEditProps(originalSelectedFeature, permissions)) {
       return
     }
     if (pendingSaveFeatures) {
