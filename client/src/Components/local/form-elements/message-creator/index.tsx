@@ -86,6 +86,7 @@ const MessageCreator: React.FC<PropTypes> = ({
 
     // send the data
     setPrivateValue('')
+    setMessageContent(undefined)
     setClearForm(!clearForm)
 
     postBack && postBack(details, val, messageOption, CUSTOM_MESSAGE)
@@ -122,6 +123,10 @@ const MessageCreator: React.FC<PropTypes> = ({
     setPrivateValue(e.target.value)
   }
 
+  const storeNewValue = (documet: { [property: string]: any }) => {
+    setMessageContent(documet)
+  }
+ 
   useEffect(() => {
     if (draftMessage) {
       const anyDraft = draftMessage as any
@@ -133,6 +138,7 @@ const MessageCreator: React.FC<PropTypes> = ({
       }
     }
   }, [draftMessage])
+
   return (
     <>
       <Confirm
@@ -156,6 +162,7 @@ const MessageCreator: React.FC<PropTypes> = ({
         gameDate={gameDate}
         clearForm={clearForm}
         messageContent={messageContent}
+        storeNewValue={storeNewValue}
         modifyForEdit={modifyForEdit}
         modifyForSave={modifyForSave}
       >
