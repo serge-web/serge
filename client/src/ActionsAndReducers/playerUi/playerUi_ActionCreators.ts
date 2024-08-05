@@ -6,6 +6,7 @@ import {
 import React from 'react'
 import * as wargamesApi from '../../api/wargames_api'
 import isError from '../../Helpers/isError'
+
 import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import { ChatMessage, MappingMessage, MappingMessageDelta, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame, TypeOfCustomMessage } from 'src/custom-types'
@@ -114,7 +115,6 @@ export const getWargame = (gamePath: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const wargame = await wargamesApi.getWargame(gamePath)
     if (isError(wargame)) {
-      // @ts-ignore
       dispatch(addNotification('Serge disconnected', 'error'))
     } else {
       dispatch(setCurrentWargame(wargame))

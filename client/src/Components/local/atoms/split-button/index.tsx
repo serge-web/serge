@@ -47,6 +47,7 @@ export const SplitButton: React.FC<Props> = ({ label, options = [], onClick }: P
   const handleMenuItemClick = (index: number): void => {
     setSelectedIndex(index)
     setOpen(false)
+    onClick && onClick(options[index])
   }
 
   const handleToggle = (): void => {

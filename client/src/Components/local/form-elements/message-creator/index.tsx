@@ -133,7 +133,6 @@ const MessageCreator: React.FC<PropTypes> = ({
       }
     }
   }, [draftMessage])
-
   return (
     <>
       <Confirm

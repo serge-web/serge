@@ -11,6 +11,8 @@ export type CollabStatusBoardProps = {
   currentWargame: string
   messages: MessageCustom[]
   channelColb: ChannelCollab
+  /** current game phase */
+  phase: Phase 
   onChange: (nextMessage: MessageCustom, messageType: TypeOfCustomMessage) => void
   /** if this player is from an umpire force (and can see private messages) */
   isUmpire: boolean
@@ -19,6 +21,7 @@ export type CollabStatusBoardProps = {
   /** role of logged in player */
   role: ForceRole
   templates: TemplateBodysByKey
+  expandedRowId?: string
   /** list of forces */
   forces: ForceData[]
   /** current game time, used for initialising date-time controls */
@@ -31,6 +34,5 @@ export type CollabStatusBoardProps = {
   onMarkAllAsRead?: () => void
   /** mark message unread */
   onMarkAllAsUnRead?: () => void
-
   collabActivity: (getRoleId: string, activityType: string) => void
 }

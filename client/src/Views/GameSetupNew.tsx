@@ -28,7 +28,8 @@ import { addNotification } from '../ActionsAndReducers/Notification/Notification
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
-import { ChannelTypes, ForceData, Role, RootState, WargamesState, WargameOverview, Wargame, TemplateBody } from 'src/custom-types'
+import { ChannelTypes, ForceData, Role, RootState, WargamesState, WargameOverview, WargameDataChange, Wargame, TemplateBody } from 'src/custom-types'
+import { Item } from 'src/Components/local/molecules/editable-list'
 
 /**
  * TODOS:
@@ -111,7 +112,7 @@ const AdminGameSetup: React.FC = () => {
     })
   }
 
-  const handleFormChange = (changes: WargameOverview) => {
+  const handleFormChange = (changes: WargameDataChange) => {
     dispatch(setGameData(changes))
   }
 
@@ -119,7 +120,7 @@ const AdminGameSetup: React.FC = () => {
     dispatch(setWargameTitle(title))
   }
 
-  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: () => void) => {
+  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: (item: Item[]) => void) => {
     const role = roles[key]
     if (role.isGameControl) {
       dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
@@ -136,34 +137,50 @@ const AdminGameSetup: React.FC = () => {
     const { selectedForce } = forces
     const { uniqid } = selectedForce as ForceData
     const newForceData = newForces.find(force => force.uniqid === uniqid)
+  
     if (newForceData) {
-      const forceOverview = newForceData.overview
-      const forceName = newForceData.name
-      // @ts-ignore
-      newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === uniqid).overview
+      updateForceOverview(newForceData, uniqid)
   
       const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
       if (empForceRoleNames.length > 0) {
-        dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+        notifyEmptyRoleNames(empForceRoleNames)
         return
       }
   
       const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
       if (dupForceRoleNames.length > 0) {
-        dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
+        notifyDuplicatePasscodes(dupForceRoleNames)
         return
       }
   
-      if (typeof forceName === 'string' && forceName.length > 0) {
-        if (!isUniqueForceName(newForceData)) return
-        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
-      }
+      validateAndSaveForce(newForceData)
+    }
+  }
   
-      if (forceName === null) {
-        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
-      } else if (forceName.length === 0) {
-        dispatch(addNotification('No Force Name', 'warning'))
-      }
+  const updateForceOverview = (newForceData: ForceData, uniqid: string) => {
+    const forceOverview = newForceData.overview
+    newForceData.overview = typeof forceOverview === 'string' 
+      ? forceOverview 
+      : forces.forces.find((force) => force.uniqid === uniqid)?.overview ?? ''
+  }
+  
+  const notifyEmptyRoleNames = (empForceRoleNames: any[]) => {
+    dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+  }
+  
+  const notifyDuplicatePasscodes = (dupForceRoleNames: any[]) => {
+    dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
+  }
+  
+  const validateAndSaveForce = (newForceData: ForceData) => {
+    const forceName = newForceData.name
+    if (typeof forceName === 'string' && forceName.length > 0) {
+      if (!isUniqueForceName(newForceData)) return
+      if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
+    } else if (forceName === null) {
+      if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
+    } else if (forceName.length === 0) {
+      dispatch(addNotification('No Force Name', 'warning'))
     }
   }
 
@@ -264,6 +281,8 @@ const AdminGameSetup: React.FC = () => {
   }
 
   const onCreateChannel = (_id: string, createdChannel: ChannelTypes) => {
+    console.log('_id', _id)
+    console.log('createdChannel', createdChannel)
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
@@ -375,31 +394,21 @@ const AdminGameSetup: React.FC = () => {
       tabs={tabs}
       wargame={wargame as Wargame}
       wargameChanged={isWargameChanged()}
-      // @ts-ignore
       onTabChange={onTabChange}
       onPressBack={onPressBack}
       overview={overview}
       forces={forces.forces}
-      // @ts-ignore
-      selectedForce={forces.selectedForce}
+      selectedForce={forces.selectedForce as ForceData}
       channels={channels.channels}
       onOverviewChange={handleFormChange}
-      // @ts-ignore
       onForcesChange={handleFormChange}
-      onCreateForce={onCreateForce}
-      // @ts-ignore
+      onChannelsChange={handleFormChange}
       onDeleteForce={onDeleteForce}
-      // @ts-ignore
-      onDuplicateForce={onDuplicateForce}
+      onDeleteChannel={onDeleteChannel}
       onSidebarForcesClick={handleSidebarForcesClick}
       onSidebarChannelsClick={handleSidebarChannelsClick}
-      // @ts-ignore
-      onChannelsChange={handleFormChange}
-      // @ts-ignore
       onCreateChannel={onCreateChannel}
-      // @ts-ignore
-      onDeleteChannel={onDeleteChannel}
-      // @ts-ignore
+      onCreateForce={onCreateForce}
       onDuplicateChannel={onDuplicateChannel}
       onCreateTemplate={onCreateTemplate}
       // @ts-ignore
@@ -414,11 +423,11 @@ const AdminGameSetup: React.FC = () => {
       onSave={onSave}
       templates={templates.templates}
       messageTemplates={templates.templates}
+      onDuplicateForce={onDuplicateForce}
       onChangeWargameTitle={handleTitleChnage}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
-      // @ts-ignore
       customDeleteHandler={handleDeleteGameControl}
     />
   )

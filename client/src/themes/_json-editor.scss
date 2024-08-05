@@ -17,3 +17,14 @@
 div[data-schemaid="root"] > h3 > span:first-child {
   color: #fff !important;
 }
+
+
+.je-ready h3 {
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
+.flexlayout__scrollbox .je-ready .card .card-title {
+    color: rgb(0, 0, 0) !important;
+}

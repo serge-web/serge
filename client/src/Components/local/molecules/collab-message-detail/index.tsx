@@ -67,13 +67,13 @@ export const CollabMessageDetail: React.FC<Props> = ({
   }
   
   const channelCollab = channelGeneric as ChannelCollab
-
+  
   if (collaboration === undefined) {
     console.warn('not rendering message, collaborative details missing')
     return <></>
   }
 
-  const isResponse = !!channelCollab.responseTemplate
+  const isResponse = !!channelCollab.responseTemplate?._id
   const canSeeResponse = permission > CollaborativePermission.CannotCollaborate || state === CollaborativeMessageStates.Released || isObserver
 
   /**
@@ -213,7 +213,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
   /** any feedback in the message */
   const feedback = collaboration.feedback
   const haveData = state !== undefined && permission !== undefined
-
+  
   // special case. If the message is `in-progress`, we only generate actions for `save` or `submit` if this is the owner
   const inProgress = state === CollaborativeMessageStates.InProgress
   const saveOrSubmit = permission >= CollaborativePermission.CanEdit

@@ -222,7 +222,11 @@ exports[`GameSetup component: renders correctly 1`] = `
                     </span>
                     <div
                       className="searchlist-menu"
-                    />
+                    >
+                      <svg
+                        className="svg-inline--fa fa-trash"
+                      />
+                    </div>
                   </span>
                   <span
                     className="searchlist-row "
@@ -233,7 +237,11 @@ exports[`GameSetup component: renders correctly 1`] = `
                     </span>
                     <div
                       className="searchlist-menu"
-                    />
+                    >
+                      <svg
+                        className="svg-inline--fa fa-trash"
+                      />
+                    </div>
                   </span>
                   <span
                     className="searchlist-row "
@@ -244,7 +252,11 @@ exports[`GameSetup component: renders correctly 1`] = `
                     </span>
                     <div
                       className="searchlist-menu"
-                    />
+                    >
+                      <svg
+                        className="svg-inline--fa fa-trash"
+                      />
+                    </div>
                   </span>
                 </div>
               </div>

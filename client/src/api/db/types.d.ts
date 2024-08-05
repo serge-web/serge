@@ -6,7 +6,7 @@ export interface DbProviderInterface {
   destroy: () => void
   get: (query: string) => Promise<Wargame | Message | { status: number }>
   put: (doc: Wargame | Message) => Promise< { data: Wargame | Message, msg: string}>
-  allDocs: () => Promise<Message[]>
+  allDocs: () => Promise<(Wargame | Message)[]>
   lastWargame: () => Promise<MessageInfoType>
   // allDbsWargame: () => Promise<any>
   getTurnPeriods: () => Promise<TurnPeriod[]>

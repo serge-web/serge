@@ -1,4 +1,5 @@
-import { WargamesState, WargameRevision, Wargame, WargameOverview, ChannelTypes, ForceData, ParticipantTypes, Role, TemplateBody } from 'src/custom-types'
+
+import { WargamesState, WargameRevision, Wargame, ChannelTypes, ForceData, ParticipantTypes, Role, WargameDataChange, TemplateBody, WargameOverview } from 'src/custom-types'
 import { channelTemplate, serverPath, forceTemplate } from 'src/config'
 import uniqId from 'uniqid'
 
@@ -53,7 +54,7 @@ export const handleSetCurrentGameSetupTab = (newState: WargamesState, payload: s
   newState.currentTab = payload
 }
 
-export const handleSetGameSetupData = (newState: WargamesState, payload: Notification | WargameOverview, tab: string) => {
+export const handleSetGameSetupData = (newState: WargamesState, payload: Notification | WargameDataChange, tab: string) => {
   newState.data[tab] = { ...newState.data[tab], ...payload }
 }
 

@@ -138,9 +138,9 @@ Array [
     </div>
   </div>,
   <div
-    className="sc-dmlpXa MBFhO"
+    className="sc-dmlpXa ffRrGl"
     fixedHeader={true}
-    fixedHeaderScrollHeight="100vh"
+    fixedHeaderScrollHeight="86vh"
     responsive={true}
   >
     <div

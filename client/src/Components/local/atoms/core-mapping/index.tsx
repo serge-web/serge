@@ -5,7 +5,7 @@ import Slide from '@mui/material/Slide'
 import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L, { LatLng, PM } from 'leaflet'
 import 'leaflet/dist/leaflet.css'
-import { cloneDeep, flatten, get, isEqual, unionBy, uniq } from 'lodash'
+import { cloneDeep, debounce, delay, flatten, get, isEqual, unionBy, uniq } from 'lodash'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { LayerGroup, MapContainer, TileLayer } from 'react-leaflet-v4'
 import { Panel, PanelGroup } from 'react-resizable-panels'
@@ -32,6 +32,7 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
   const [selectedFeature, setSelectedFeature] = useState<string[]>([])
   const [showLabels, setShowLabels] = useState<boolean>(false)
   const lastMessages = useRef<MappingMessage>()
+  const pendingRemoveRef = useRef<string[]>([])
   const [permissions, setPermissions] = useState<ParticipantMapping[]>([])
 
   const [filterFeatureIds, setFilterFeatureIds] = useState<string[]>([])
@@ -135,7 +136,8 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
         const custMessage = message as MappingMessage | MappingMessageDelta
         return custMessage.messageType === MAPPING_MESSAGE || custMessage.messageType === MAPPING_MESSAGE_DELTA
       } else return false
-    }) 
+    }).reverse()
+  
     if (mappingMessages.length) {
       const mappingMessage = mappingMessages.find((msg: Message) => msg.messageType === MAPPING_MESSAGE)
       if (mappingMessage) {
@@ -245,17 +247,18 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
       const theseProps = thisRenderer.additionalProps
       // insert missing items from theseProps into props
       theseProps.forEach(p => {
-        if (!props[p.id]) {
+        const safeProp: any = props
+        if (!safeProp[p.id]) {
           // item missing, see what type it is
           switch (p.type) {
             case PROPERTY_ENUM:
-              props[p.id] = p.choices[0]
+              safeProp[p.id] = p.choices[0]
               break
             case PROPERTY_NUMBER:
-              props[p.id] = 0
+              safeProp[p.id] = 0
               break
             case PROPERTY_STRING:
-              props[p.id] = p.description || 'pending'
+              safeProp[p.id] = p.description || 'pending'
               break
           }
         }
@@ -398,13 +401,26 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play
     setShowLabels(showLabels)
   }
 
+  const handlePendingRemoved = debounce(() => {
+    // remove multiple items in queue
+    pendingRemoveRef.current.forEach(async (id, idx) => {
+      delay(() => {
+        if (featureCollection && featureCollection.features) {
+          const filterFeatures = featureCollection.features.filter(f => f.properties?.id !== id)
+          featureCollection.features = filterFeatures
+          const cloneFeatureCollection = cloneDeep(featureCollection)
+          saveNewMessage(cloneFeatureCollection)
+        }
+      }, idx * 50)
+    })
+    pendingRemoveRef.current = []
+  }, 100)
+
   const onRemoved = (id: string) => {
-    if (featureCollection && featureCollection.features) {
-      const filterFeatures = featureCollection.features.filter(f => '' + f.properties?.id !== '' + id)
-      featureCollection.features = filterFeatures
-      const cloneFeatureCollection = cloneDeep(featureCollection)
-      saveNewMessage(cloneFeatureCollection)
+    if (!pendingRemoveRef.current.includes(id)) {
+      pendingRemoveRef.current.push(id)
     }
+    handlePendingRemoved()
   }
 
   const onEdited = (id: number | string, value: string) => {

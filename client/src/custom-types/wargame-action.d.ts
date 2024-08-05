@@ -30,7 +30,8 @@ import Wargame from './wargame'
 import WargamesState from './WargamesState'
 // import ForceData from './force-data'
 // import { ChannelTypes } from './channel-data'
-import WargameOverview from './wargame-overview'
+// import WargameOverview from './wargame-overview'
+import { WargameDataChange } from './wargame-data'
 
 export interface WargameRevision {
     name: string
@@ -56,7 +57,7 @@ interface SetCurrentGameSetupTab {
 
 interface SetGameSetupData {
     type: typeof SET_GAME_SETUP_DATA
-    payload: Notification | WargameOverview
+    payload: Notification | WargameDataChange
 }
 
 interface setWargameTitle {

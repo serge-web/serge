@@ -11,6 +11,11 @@ declare global {
   }
 }
 
+interface Window {
+  channelTabsContainer?: any
+  selectedChannel: string
+}
+
 declare module 'react-leaflet-vectorgrid'
 declare module '@json-editor/json-editor'
 declare module 'milstd'

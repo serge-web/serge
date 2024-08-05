@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import { faArrowAltCircleLeft, faWindowMaximize, faWindowMinimize } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Checkbox, FormControlLabel } from '@material-ui/core'
@@ -339,6 +340,11 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           let filteringValue: any[] = [] // Explicitly type as an array of any[]
           if (Array.isArray(propertyValue)) {
             itemPropValue = propertyValue
+          } else if (filterKey === 'sidc') {
+            const { success, sidc } = handleSidcValue(propertyValue)
+            if (success) {
+              itemPropValue.push(sidc)
+            }
           } else {
             itemPropValue.push(propertyValue)
           }
@@ -352,13 +358,13 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, r
           orFoundKey[filterKey] = (filteringValueStr.includes(itemValueStr) || itemValueStr.includes(filteringValueStr)) && !!itemValueStr
         }
       })
-
+      
       return Object.values(orFoundKey).every(f => f)
     })
     const isSelectedFeatureFilterOut = cloneFeature.features.some(f => get(f, 'properties.id', '') === get(selectedFeature, 'properties.id', ''))
     if (!isSelectedFeatureFilterOut) {
       clearSelectedFeature()
-    }
+    } 
     setFilterFeatureIds(getAllFeatureIds(cloneFeature))
     setFilteredFeatures(cloneFeature)
   }, [features, selectedFiltersProps])

@@ -2,6 +2,7 @@ import React from 'react'
 import { styled } from '@material-ui/core/styles'
 import CollapsibleHeader from './header'
 import CollapsibleContent from './content'
+import { StoryFC } from 'src/custom-types'
 
 // Import component files
 import Collapsible from './index'
@@ -25,7 +26,7 @@ const onClick = (): void => {
   console.log('clicked')
 }
 
-export const Default: React.FC = () => <Collapsible onClick={onClick}>
+export const Default: StoryFC = () => <Collapsible onClick={onClick}>
   <CollapsibleHeader>Header</CollapsibleHeader>
   <CollapsibleContent>Content</CollapsibleContent>
 </Collapsible>
@@ -60,8 +61,6 @@ export const CustomStructure: React.FC = () => (
   />
 )
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

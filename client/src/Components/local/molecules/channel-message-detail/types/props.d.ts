@@ -9,7 +9,7 @@ export default interface Props {
   /**
    * Checks if user is an umpire. Assume not umpire if parameter missing
    */
-  isUmpire: boolean
+  isUmpire?: boolean
   /**
    * If control should be rendered in collapsed state
    */
