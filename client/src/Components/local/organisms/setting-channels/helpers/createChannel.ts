@@ -1,7 +1,7 @@
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, SpecialChannelTypes } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, CollaborativePermission, InitialStates, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, SpecialChannelTypes } from 'src/config'
 import { ChannelCollab, ChannelTypes, ForceData } from 'src/custom-types'
-import { ChannelChat, ChannelCustom } from 'src/custom-types/channel-data'
-import { ParticipantChat, ParticipantCollab, ParticipantCustom } from 'src/custom-types/participant'
+import { ChannelChat, ChannelCustom, ChannelMapping } from 'src/custom-types/channel-data'
+import { ParticipantChat, ParticipantCollab, ParticipantCustom, ParticipantMapping } from 'src/custom-types/participant'
 import uniqid from 'uniqid'
 
 // Create uniq chanel name
@@ -53,6 +53,34 @@ const createChannel = (
         }
         return res
       }
+      case SpecialChannelTypes.CHANNEL_CORE_MAPPING:
+        const participant: ParticipantMapping = {
+          forceUniqid: defaultForce.uniqid,
+          roles: [],
+          subscriptionId: Math.random().toString(36).substring(8),
+          pType: PARTICIPANT_MAPPING,
+          forRenderer: [],
+          permissionTo: {},
+          phases: []
+        }
+        const res: ChannelMapping = {
+          uniqid: uniqid.time(),
+          name: generateChannelName(channels),
+          channelType: CHANNEL_MAPPING,
+          participants: [participant],
+          constraints: {
+            bounds: [[1.1, 2.2], [3.3, 5.5]],
+            minZoom: 1,
+            maxZoom: 12,
+            tileLayer: {
+              url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
+              attribution: '',
+              maxNativeZoom: 12
+            }
+          },
+          renderers: []
+        }
+        return res
       case SpecialChannelTypes.CHANNEL_CHAT:
       default: {
         const participant: ParticipantChat = {

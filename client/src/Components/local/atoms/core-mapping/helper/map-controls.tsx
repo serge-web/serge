@@ -11,15 +11,19 @@ import { GeomanControlProps } from '../types/props'
 import { useMappingState } from './mapping-provider'
 import { delay } from 'lodash'
 
-const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, canAddRemove, canMoveResize }) => {
+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, toggleShowLabel, canAddRemove, canMoveResize, forRenderer }) => {
   const map = useMap()
   const ruler = useRef<Ruler | null>(null)
   const selectedRef = useRef<boolean>(false)
+  const showLabels = useRef<boolean>(false)
 
   // track permissions getting updated
   const [prevPermissions, setPermissions] = useState<string>('')
 
   const { deselecteFeature, setDeselectFeature, localPanelSize, setIsMeasuring, panTo } = useMappingState()
+
+  const isMilSymRenderer = () => forRenderer.includes('milSym')
+  const isCoreRenderere = () => forRenderer.includes('core')
 
   const controls: PM.ToolbarOptions = useMemo(() => ({
     position: 'topright',
@@ -27,16 +31,17 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
     pinningOption: true,
     snappingOption: true,
     drawCircleMarker: false,
-    drawMarker: canAddRemove,
-    drawPolyline: canAddRemove,
-    drawCircle: canAddRemove,
-    drawPolygon: canAddRemove,
-    drawRectangle: canAddRemove,
+    drawMarker: canAddRemove && isMilSymRenderer(),
+    drawPolyline: canAddRemove && isCoreRenderere(),
+    drawCircle: canAddRemove && isCoreRenderere(),
+    drawPolygon: canAddRemove && isCoreRenderere(),
+    drawRectangle: canAddRemove && isCoreRenderere(),
+    drawText: canAddRemove && isCoreRenderere(),
     dragMode: canMoveResize,
     removalMode: canAddRemove,
     editMode: canMoveResize,
     cutPolygon: false
-  }), [canAddRemove, canMoveResize])
+  }), [canAddRemove, canMoveResize, forRenderer])
 
   useEffect(() => {
     const thesePerms = canAddRemove + '-' + canMoveResize
@@ -62,14 +67,14 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
   }, [panTo])
 
   const initMapListener = () => {
-    let layersVisible = true 
     map.pm.Toolbar.createCustomControl({
       name: 'showLayersText',
       block: 'custom',
       className: 'control-icon leaflet-pm-icon-snapping',
       title: 'Show symbol labels',
       afterClick: () => {
-        onShowLabels(layersVisible)
+        showLabels.current = !showLabels.current
+        toggleShowLabel(showLabels.current)
 
         // note // Using CSS, we have the ability to dynamically hide or show text based on styling.
         // This allows for a seamless user experience by toggling the visibility of elements without altering the HTML structure.
@@ -87,8 +92,6 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
         //     }
         //   }
         // })
-
-        layersVisible = !layersVisible 
       },
       
       // Set toggle to false to indicate that this custom control does not have a toggle functionality
@@ -114,8 +117,10 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
     })
     
     // handle onCreate listener for geoman items
-    map.on('pm:create', (e: LeafletEvent) => {
-      switch (e['shape']) {
+    // note: the shape string parameter was added to the event object to help determine the type of shape being created,
+    // and avoid a compiler issue.
+    map.on('pm:create', (e: LeafletEvent & { shape?: string }) => {
+      switch (e.shape) {
         case 'Marker':
         case 'Polygon':
         case 'Line':
@@ -124,7 +129,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels, can
           onCreate(e as unknown as PM.ChangeEventHandler)
           break
         default:
-          console.log('OnCreate Unimplemented !!!', e['shape'])
+          console.log('OnCreate Unimplemented !!!', e.shape)
       }
     })
 

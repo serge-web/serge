@@ -43,6 +43,7 @@ export interface BaseProperty {
   description?: string
   /** whether the property is editable by players */
   playerEditable?: boolean
+  renderer?: string
 }
 
 export const PROPERTY_STRING = 'StringProperty'

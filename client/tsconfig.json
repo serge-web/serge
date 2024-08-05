@@ -22,6 +22,8 @@
     "forceConsistentCasingInFileNames": true,
     "module": "es2020",
     "moduleResolution": "node",
+    "ignoreDeprecations": "5.0",
+    // this option is now deprecated, but we're ignoring the deprecations with the `ignoreDeprecations: 5.0` option
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true,
     "resolveJsonModule": true,

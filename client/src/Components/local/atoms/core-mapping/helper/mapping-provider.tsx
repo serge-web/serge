@@ -12,7 +12,7 @@ type MappingStateValue = {
   isMeasuring: boolean
   setIsMeasuring: (isMeasuring: boolean) => void
   panTo: { lat: number, lng: number }
-  setPanTo: (value: {lat: number, lng: number}) => void
+  setPanTo: (value: { lat: number, lng: number }) => void
 }
 
 const initialState: MappingStateValue = {

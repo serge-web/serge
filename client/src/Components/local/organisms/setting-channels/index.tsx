@@ -7,15 +7,19 @@ import MenuList from '@material-ui/core/MenuList'
 import Paper from '@material-ui/core/Paper'
 import Popper from '@material-ui/core/Popper'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, SpecialChannelTypes } from 'src/config'
-import { ChannelChat, ChannelCollab, ChannelCustom } from 'src/custom-types/channel-data'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHANNEL_CUSTOM, CHANNEL_MAPPING, SpecialChannelTypes } from 'src/config'
+import {
+  ChannelChat, ChannelCollab,
+  ChannelCustom
+} from 'src/custom-types/channel-data'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
 import Button from '../../atoms/button'
 import TextInput from '../../atoms/text-input'
 import EditableList, { Item } from '../../molecules/editable-list'
 import ChatChannel from './channels/chat'
 import CollabChannel from './channels/collab'
+import CoreMappingChannel from './channels/core-mapping'
 import CustomChannel from './channels/custom'
 import createChannel from './helpers/createChannel'
 import styles from './styles.module.scss'
@@ -87,6 +91,11 @@ export const SettingChannels: React.FC<PropTypes> = ({
           forces={forces}
           onChange={onChannelDataChange}
         />
+      case CHANNEL_MAPPING:
+        return <CoreMappingChannel
+          channel={selectedChannelState as ChannelCustom}
+          forces={forces}
+          onChange={onChannelDataChange}/>
       case undefined:
         return <div>Channels empty. Please create a channel.</div>
       default:
@@ -149,6 +158,7 @@ export const SettingChannels: React.FC<PropTypes> = ({
                   <MenuItem disabled>Special channels</MenuItem>
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_COLLAB)} >Collab Edit</MenuItem>
                   <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_CHAT)} >Chat</MenuItem>
+                  <MenuItem onClick={(): void => addNewChannel(SpecialChannelTypes.CHANNEL_CORE_MAPPING)} >Core Mapping</MenuItem>
                 </MenuList>
               </ClickAwayListener>
             </Paper>

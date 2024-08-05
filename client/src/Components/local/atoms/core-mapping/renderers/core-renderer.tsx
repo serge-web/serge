@@ -2,24 +2,27 @@
 import cx from 'classnames'
 import { Feature, Geometry, Point } from 'geojson'
 import L, { LeafletEvent, PathOptions, StyleFunction } from 'leaflet'
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { GeoJSON } from 'react-leaflet-v4'
+import tinycolor from 'tinycolor2'
 import { ForceStyle } from '../../../../../Helpers'
 import { CoreProperties, MappingPermissions, RENDERER_CORE } from '../../../../../custom-types'
-import tinycolor from 'tinycolor2'
+import { canAddRemove, canEditProps, canMoveResize, canSeeProps, hasMappingPermission, permissionError } from '../../mapping-panel/helpers/has-mapping-permission'
 import { useMappingState } from '../helper/mapping-provider'
 import styles from '../styles.module.scss'
 import { CoreRendererProps } from '../types/props'
 import { DEFAULT_FONT_SIZE, DEFAULT_PADDING } from './milsymbol-renderer'
-import { hasMappingPermission } from '../../mapping-panel/helpers/has-mapping-permission'
 
 export const colorFor = (force: string, forceStyles: ForceStyle[]): string => {
   const forceStyle = forceStyles.find(style => style.forceId === force)
   return forceStyle ? forceStyle.color : '#F0F'
 }
 
-const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, permissions, selected = [] }) => {
+const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemoved, onEdited, onSelect, forceStyles, permissions, selected = [], forRenderer }) => {
   const { filterFeatureIds, isMeasuring } = useMappingState()
+
+  const enableCoreRenderer = useCallback(() => forRenderer.includes('core'), [forRenderer])
+
   const filterForThisRenderer = (feature: Feature<Geometry, any>): boolean => {
     const isThisRenderer = feature.properties._type === RENDERER_CORE
     const isShown = filterFeatureIds.includes('' + feature.properties.id)
@@ -27,7 +30,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     return isThisRenderer && isShown && canSeeSpatial
   }
 
-  const style: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
+  const style: StyleFunction<any> = useCallback((feature?: Feature<any>): PathOptions => {
     if (feature) {
       const isSelected = selected.some(id => id === feature.properties?.id)
       const props = feature.properties as CoreProperties
@@ -42,7 +45,7 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     } else {
       return {}
     }
-  }
+  }, [selected])
 
   const setTextStyleFromProperties = (marker: L.Marker<any>, props: any) => {
     const forceColor = colorFor(props.force, forceStyles)
@@ -85,12 +88,24 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
       })
 
       marker.addEventListener('pm:edit', e => {
+        if (!canEditProps(feature, permissions) || !enableCoreRenderer()) {
+          permissionError()
+          return
+        }
         onEdited(feature.properties.id, e.target.pm.textArea.value)
       })
       marker.addEventListener('pm:remove', () => {
+        if (!canAddRemove(feature, permissions) || !enableCoreRenderer()) {
+          permissionError()
+          return
+        }
         onRemoved(feature.properties.id)
       })
       marker.addEventListener('pm:dragend', e => {
+        if (!canMoveResize(feature, permissions) || !enableCoreRenderer()) {
+          permissionError()
+          return
+        }
         const coords: L.LatLng = e.layer._latlng
         feature.geometry.coordinates = [coords.lng, coords.lat]
         onDragged(feature.properties.id, coords)
@@ -107,43 +122,54 @@ const CoreRenderer: React.FC<CoreRendererProps> = ({ features, onDragged, onRemo
     }
   }
 
-  return <GeoJSON onEachFeature={(f, l) => {
-    l.addEventListener('pm:remove', () => {
-      onRemoved(f.properties.id)
-    })
-    l.addEventListener('pm:cut', () => {
-      onRemoved(f.properties.id)
-    })
-    l.addEventListener('click', (e) => {
-      if (!isMeasuring) {
-        L.DomEvent.stopPropagation(e)
-        onSelect([f.properties.id])
-      }
-    })
-    const dragHandler = (e: LeafletEvent) => {
-      const g = e as any
-      const le = g as L.LeafletEvent
-      switch (g.shape) {
-        case 'Polygon': {
-          const coords: L.LatLng[][] = le.layer._latlngs
-          onDragged(f.properties.id, coords)
-          break
+  return useMemo(() => {
+    return <GeoJSON onEachFeature={(f, l) => {
+      l.addEventListener('pm:remove', () => {
+        if (!canAddRemove(f, permissions) || !enableCoreRenderer()) {
+          permissionError()
+          return
         }
-        case 'Line': {
-          const coords: L.LatLng[] = le.layer._latlngs
-          onDragged(f.properties.id, coords)
-          break
+        onRemoved(f.properties.id)
+      })
+      l.addEventListener('click', (e) => {
+        if (!isMeasuring) {
+          if (!canSeeProps(f, permissions) || !enableCoreRenderer()) {
+            permissionError()
+            return
+          }
+          L.DomEvent.stopPropagation(e)
+          onSelect([f.properties.id])
         }
+      })
+      const dragHandler = (e: LeafletEvent) => {
+        if (!canMoveResize(f, permissions) || !enableCoreRenderer()) {
+          permissionError()
+          return
+        }
+        const g = e as any
+        const le = g as L.LeafletEvent
+        switch (g.shape) {
+          case 'Polygon': {
+            const coords: L.LatLng[][] = le.layer._latlngs
+            onDragged(f.properties.id, coords)
+            break
+          }
+          case 'Line': {
+            const coords: L.LatLng[] = le.layer._latlngs
+            onDragged(f.properties.id, coords)
+            break
+          }
 
-        default: {
-          console.warn('Drag handler not created for ', g.shape)
+          default: {
+            console.warn('Drag handler not created for ', g.shape)
+          }
         }
       }
-    }
 
-    l.addEventListener('pm:markerdragend', dragHandler)
-    l.addEventListener('pm:dragend', dragHandler)
-  }} pointToLayer={pointToLayer} data={features} style={style} filter={filterForThisRenderer} key={'core_renderer_' + Math.random()} />
+      l.addEventListener('pm:markerdragend', dragHandler)
+      l.addEventListener('pm:dragend', dragHandler)
+    }} pointToLayer={pointToLayer} data={features} style={style} filter={filterForThisRenderer} key={'core_renderer_' + Math.random()} /> 
+  }, [features, selected, filterFeatureIds, isMeasuring])
 }
 
 export default CoreRenderer

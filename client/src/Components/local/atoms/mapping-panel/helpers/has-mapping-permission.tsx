@@ -21,3 +21,32 @@ export const hasMappingPermissions = (feature: Feature<Geometry, any>, permissio
     _.intersection(part.permissionTo[hisForce], permissions).length)
   return hasPermission
 }
+
+export const canSeeSpartial = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.ViewSpatial, MappingPermissions.EditAllProps,
+    MappingPermissions.EditOwnProps], permissions)
+}
+
+export const canSeeProps = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.ViewProps, MappingPermissions.EditAllProps,
+    MappingPermissions.EditOwnProps], permissions)
+}
+
+export const canEditProps = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.EditAllProps,
+    MappingPermissions.EditOwnProps], permissions)
+}
+
+export const canOnlyEditOwnProps = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.EditOwnProps], permissions)
+}
+
+export const canMoveResize = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.MoveResize], permissions)
+}
+
+export const canAddRemove = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {
+  return hasMappingPermissions(feature, [MappingPermissions.AddRemove], permissions)
+}
+
+export const permissionError = (): void => console.log('You do not have permission on this action')
