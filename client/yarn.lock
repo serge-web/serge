@@ -1860,7 +1860,6 @@
   dependencies:
     regenerator-runtime "^0.13.11"
 
-<<<<<<< HEAD
 "@babel/runtime@^7.12.0":
   version "7.24.0"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.0.tgz#584c450063ffda59697021430cb47101b085951e"
@@ -1868,10 +1867,7 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
-"@babel/runtime@^7.13.10":
-=======
 "@babel/runtime@^7.13.10", "@babel/runtime@^7.20.6":
->>>>>>> 7ea32bc5fecffcc2e8e2be358570c3a7a5b84125
   version "7.24.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.24.5.tgz#230946857c053a36ccc66e1dd03b17dd0c4ed02c"
   integrity sha512-Nms86NXrsaeU9vbBJKni6gXiEXZ4CVpYVzEjDH9Sb8vmZ3UljyA1GSOJl/6LGPO8EHLuSF9H+IxNXHPX8QHJ4g==
@@ -5023,7 +5019,6 @@
   dependencies:
     "@types/react" "*"
 
-<<<<<<< HEAD
 "@types/react-transition-group@^4.4.0", "@types/react-transition-group@^4.4.10":
   version "4.4.10"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.10.tgz#6ee71127bdab1f18f11ad8fb3322c6da27c327ac"
@@ -5031,10 +5026,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@>=16.14.8", "@types/react@>=16.9.11", "@types/react@^16", "@types/react@^16.14.5", "@types/react@^16.8.0 || ^17.0.0 || ^18.0.0", "@types/react@^16.9.35":
-=======
 "@types/react@*", "@types/react@>=16.14.8", "@types/react@>=16.9.11", "@types/react@^16", "@types/react@^16.14.5", "@types/react@^16.8.0 || ^17.0.0 || ^18.0.0", "@types/react@^16.9.35", "@types/react@^18.0.26":
->>>>>>> 7ea32bc5fecffcc2e8e2be358570c3a7a5b84125
   version "16.14.43"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.14.43.tgz#bc6e7a0e99826809591d38ddf1193955de32c446"
   integrity sha512-7zdjv7jvoLLQg1tTvpQsm+hyNUMT2mPlNV1+d0I8fbGhkJl82spopMyBlu4wb1dviZAxpGdk5eHu/muacknnfw==
