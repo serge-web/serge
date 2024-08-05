@@ -1,5 +1,5 @@
 
-import { WargamesState, WargameRevision, Wargame, ChannelTypes, ForceData, ParticipantTypes, Role, WargameDataChange, TemplateBody, WargameOverview } from 'src/custom-types'
+import { WargamesState, WargameRevision, Wargame, ChannelTypes, ForceData, ParticipantTypes, Role, WargameDataChange, TemplateBody } from 'src/custom-types'
 import { channelTemplate, serverPath, forceTemplate } from 'src/config'
 import uniqId from 'uniqid'
 

@@ -7,7 +7,7 @@ export interface TemplateBody {
   title: string    
 }
 
-interface TemplateBodyDetails {
+export interface TemplateBodyDetails {
   schema: Record<string, unknown>
   uischema: Record<string, unknown>
   title: string
