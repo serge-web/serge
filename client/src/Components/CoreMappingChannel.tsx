@@ -23,7 +23,7 @@ const CoreMappingChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
   const { selectedRole, selectedForce, phase } = state
   const channelUI = state.channels[channelId]
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
-  
+
   const channel = channelUI.cData as ChannelMapping
   const messages = state.channels[channelId].messages as Array<MessageChannel>
   const forceStylesArr = forceStyles(state.allForces, false)

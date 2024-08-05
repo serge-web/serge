@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { ChangeEvent, Fragment, useState } from 'react'
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,7 +29,7 @@ const componentFor = (
     case 'EnumProperty': {
       return (
         <select disabled={disabled} value={value} onChange={(e: ChangeEvent<HTMLSelectElement>) => onPropertiesChange(key, e.target.value)}>
-          {propertyType.choices.map((o: string) => (
+          {(propertyType.choices || []).map((o: string) => (
             <option key={o} value={o}>
               {o}
             </option>
@@ -38,7 +39,7 @@ const componentFor = (
     }
 
     case 'NumberProperty': {
-      return <input type='number' value={value} disabled={disableIdEdit && isId} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
+      return <input type='number' value={value} disabled={disabled || (disableIdEdit && isId)} onChange={(e: ChangeEvent<HTMLInputElement>) => onPropertiesChange(key, e.target.value)} />
     }
     default: {
       console.warn('Failed to generate component for ' + prop.type)
@@ -47,7 +48,7 @@ const componentFor = (
   }
 }
 
-const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, checkSidc, disableIdEdit, rendererProps, multipleSelect, disabled = false }) => {
+const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onPropertiesChange, onRemoveFilter, checkSidc, disableIdEdit, rendererProps, multipleSelect, disabled = false, selectedRenderer }) => {
   const [isSIDCDialogOpen, setSIDCDialogOpen] = useState(false)
 
   const openSIDCGenerator = () => setSIDCDialogOpen(true)
@@ -58,7 +59,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
     const title = prop.description && prop.description.length > 0 ? prop.description : 'jimno'
     return (
       <div key={key} className={styles.itemsBox} title={title}>
-        <p>{key}:</p>
+        <p>{prop.label || key}:</p>
         <div>
           {componentFor(key, field, prop, value, disableIdEdit, disabled || field.disabled, isId, onPropertiesChange)}
         </div>
@@ -70,7 +71,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
   const renderDefaultPropertyComponent = (key: string, field: SelectedProps, value: any, isId: boolean) => (
     // nope, determine component to use by looking at the data
     <div key={key} className={styles.itemsBox}>
-      <p>{key}:</p>
+      <p>{selectedProp[key].label || key}:</p>
       <div className={styles.inputBox}>
         {
           field.choices.length > 0
@@ -99,7 +100,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
               <input value={value} disabled={disableIdEdit && isId} onChange={(e) => onPropertiesChange(key, e.target.value)} />
             )
         }
-        {key === 'sidc' && (
+        {key === 'sidc' && !disabled && (
           <>
             <button style={ { border: !checkSidc ? 'solid 2px red' : '' }} className={styles.sidcbtn} onClick={openSIDCGenerator}>
               Edit
@@ -128,7 +129,7 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
         // 2. if it's a StringProperty and `lines` is present, use a textarea
         // 3. if it's a StringProperty and empty, show `description` in grey default text (not sure what that UI
         //    practice is called)
-        const prop: PropertyType | undefined = rendererProps?.find((p) => p.id === key)
+        const prop: PropertyType | undefined = rendererProps?.find((p) => p.id === key && p.renderer === selectedRenderer)
         if (key === 'lat') {
           const latValue = selectedProp.lat.value
           const lngValue = selectedProp.lng.value
@@ -148,7 +149,6 @@ const PropertiesPanel: React.FC<ProppertiesPanelProps> = ({ selectedProp, onProp
           return <Fragment key={key + kIdx}></Fragment>
         }
         // do we have enough detail to do special formatting?
-
         return prop
           ? renderSpecialPropertyComponent(key, field, prop, value, isId)
           : renderDefaultPropertyComponent(key, field, value, isId)
