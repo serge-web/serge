@@ -116,13 +116,6 @@ const SettingTemplate: React.FC<PropTypes> = ({
       handleChangeTemplate({ ...data, details: newDetails })
     }
 
-    const isLegacyTemplate = (template: TemplateBody): boolean => {
-      // Add logic to determine if the template is legacy
-      // For example, if legacy templates have a specific type property:
-      console.log('template', template)
-      return template.title === 'legacy'
-    }
-    console.log('data', isLegacyTemplate(data))
     return (
       <div key={selectedItem}>
         <div className={cx(styles.row, styles['mb-20'])}>
@@ -145,18 +138,17 @@ const SettingTemplate: React.FC<PropTypes> = ({
         </div>
         {contentTabs.length > 0 && <Tabs activeTab={currentTab} onChange={handleTabChange} tabs={contentTabs} changed={false} />}
         { 
-          currentTab === TemplateTab.Visual && (
-            !schema ? (
-              <div>Legacy template type. No longer editable.</div>
-            ) : (
-              <FormBuilder
-                schema={JSON.stringify(schema)}
-                uischema={JSON.stringify(uischema)}
-                onChange={handleFormChange}
-              />
-            )
-          )
+          currentTab === TemplateTab.Visual &&
+           (!schema
+             ? <div>Legacy template type. No longer editable.</div>
+             : <FormBuilder
+               schema={JSON.stringify(schema)}
+               uischema={JSON.stringify(uischema)}
+               onChange={handleFormChange}
+             />
+           )
         }
+
         {
           currentTab === TemplateTab.Preview && isValidJSON(schema) && <JsonEditor
             template={{
