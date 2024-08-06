@@ -111,7 +111,6 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,
     handleChangeForce({ ...data, roles: roles })
   }
   
-  console.log('data.roles', data.roles)
   return (
     <Accordion className={styles.accordion}>
       <AccordionSummary

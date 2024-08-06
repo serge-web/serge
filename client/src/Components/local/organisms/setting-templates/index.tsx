@@ -169,18 +169,20 @@ const SettingTemplate: React.FC<PropTypes> = ({
     <AdminContent>
       <LeftSide>
         <div>
-          <EditableList
-            items={templates}
-            selectedItem={templateData[selectedItem].title}
-            filterKey="title"
-            labelKey='title'
-            onClick={handleSwitch}
-            onCreate={onCreateNewTemplate}
-            onDelete={onDelete}
-            onDuplicate={onDuplicate}
-            withSearch={true}
-            title="Create Template List"
-          />
+          {
+            templateData && templateData.length > 0 && <EditableList
+              items={templates}
+              selectedItem={templateData[selectedItem].title}
+              filterKey="title"
+              labelKey='title'
+              onClick={handleSwitch}
+              onCreate={onCreateNewTemplate}
+              onDelete={onDelete}
+              onDuplicate={onDuplicate}
+              withSearch={true}
+              title="Create Template List"
+            />
+          }
         </div>
       </LeftSide>
       <RightSide>

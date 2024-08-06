@@ -351,7 +351,7 @@ const AdminGameSetup: React.FC = () => {
       dispatch(setSelectedForce(forces.forces[0]))
     } else if (currentTab === 'channels' && channels.selectedChannel === '') {
       dispatch(setSelectedChannel(channels.channels[0]))
-    } else if (currentTab === 'templates' && templates.selectedTemplate === '') {
+    } else if (currentTab === 'templates' && templates && templates.selectedTemplate === '') {
       dispatch(setSelectedTemplate(templates.templates[0]))
     }
   }, [currentTab])
@@ -364,7 +364,7 @@ const AdminGameSetup: React.FC = () => {
   }
 
   const getSelectedTemplate = (): any => {
-    if (templates.selectedTemplate) {
+    if (templates && templates.selectedTemplate) {
       const { _id } = templates.selectedTemplate as { _id: string }
       return _id && templates.templates.find((template) => template._id === _id)
     }
@@ -421,8 +421,8 @@ const AdminGameSetup: React.FC = () => {
       onSidebarTemplatesClick={onSidebarTemplatesClick}
       selectedChannel={getSelectedChannel()}
       onSave={onSave}
-      templates={templates.templates}
-      messageTemplates={templates.templates}
+      templates={templates ? templates.templates : []}
+      messageTemplates={templates ? templates.templates : []}
       onDuplicateForce={onDuplicateForce}
       onChangeWargameTitle={handleTitleChnage}
       onSaveGameTitle={handleSaveWargameTitle}
