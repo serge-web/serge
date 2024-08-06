@@ -9,6 +9,10 @@
     display: contents;
 }
 
+#root_id__description {
+  color: white;
+}
+
 .edt-disable .form-group {
     display: inline-grid;
 }
