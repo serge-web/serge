@@ -9,7 +9,7 @@
     display: contents;
 }
 
-.edt-disable .form-group {
+form .field {
     display: inline-grid;
 }
 
