@@ -47,17 +47,8 @@ export const JsonEditor: React.FC<Props> = ({
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
   const [formData, setFormData] = useState<FormData | MessageStructure | undefined>(messageContent)
   const validator = customizeValidator<FormData>()
-  
   const prevTemplates: TemplateBody = usePrevious(messageId)
-  if (!template) {
-    const styles = {
-      color: '#f00',
-      background: '#ff0',
-      padding: '20px',
-      fontSize: '16px'
-    }
-    return <span style={styles} >Schema not found for {template}</span>
-  }
+
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {
       if (!date.includes('Z')) {
