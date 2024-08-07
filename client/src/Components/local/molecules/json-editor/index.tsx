@@ -47,8 +47,17 @@ export const JsonEditor: React.FC<Props> = ({
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
   const [formData, setFormData] = useState<FormData | MessageStructure | undefined>(messageContent)
   const validator = customizeValidator<FormData>()
+  
   const prevTemplates: TemplateBody = usePrevious(messageId)
-
+  if (!template) {
+    const styles = {
+      color: '#f00',
+      background: '#ff0',
+      padding: '20px',
+      fontSize: '16px'
+    }
+    return <span style={styles} >Schema not found for {template}</span>
+  }
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {
       if (!date.includes('Z')) {
@@ -102,25 +111,27 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
+  const clearFormData = () => {
+    const newFormData: any = {}
+    for (const key in formData) {
+      newFormData[key] = ''
+    }
+
+    setFormData(newFormData)
+  }
   const handleSubmit = (newFormData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     const fixedDate = fixDate(newFormData.formData as any)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
     if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
       submitNewValue && submitNewValue(newDoc, e)
+      console.log('fixedDate', fixedDate)
+      clearFormData()
       setSelectOptionsHeaders()
     }
   }
   
   useEffect(() => {
-    const clearFormData = () => {
-      const newFormData = {}
-      for (const key in formData) {
-        newFormData[key] = ''
-      }
-      setFormData(newFormData)
-    }
-
     if (clearForm || prevTemplates) {
       clearFormData()
     }
