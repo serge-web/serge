@@ -28,4 +28,5 @@ form .field {
 .form-group-button {
   display: flex;
   flex-direction: row-reverse;
+  margin-top: 14px;
 }
