@@ -520,7 +520,7 @@ exports[`ChannelMessageDetail: renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="form-group"
+      className="form-group-button"
     />
   </form>
   <div

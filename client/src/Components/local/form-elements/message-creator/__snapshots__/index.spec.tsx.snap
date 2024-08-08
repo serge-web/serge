@@ -292,7 +292,7 @@ Array [
       </div>
     </div>
     <div
-      className="form-group"
+      className="form-group-button"
     >
       <button
         className="btn btn-action btn-action--form btn-action--cancel"
