@@ -16,3 +16,16 @@ form .field {
 .form-group .mb-3 {
   color: white;
 }
+
+.form-group .py-4 {
+  height: 10px;
+}
+
+.form-group button {
+  width: auto !important;
+}
+
+.form-group-button {
+  display: flex;
+  flex-direction: row-reverse;
+}

@@ -33,7 +33,7 @@ Array [
     
   </div>,
   <form
-    className="form-group message-creator"
+    className="form-group message-creator edt-disable"
     noValidate={false}
     onSubmit={[Function]}
   >
