@@ -9,8 +9,9 @@
     display: contents;
 }
 
-form .field {
-    display: inline-grid;
+.form-group .field {
+  float: left;
+  padding: 2px;
 }
 
 .message-creator .form-group .mb-3 {
