@@ -12,8 +12,12 @@
 .form-group .field {
   float: left;
   padding: 2px;
+  /* width: 100%; */
 }
 
+.form-group .field:not([class*="col"]) {
+  width: 100%;
+}
 .message-creator .form-group .mb-3 {
   color: white;
 }
