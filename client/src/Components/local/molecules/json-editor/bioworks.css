@@ -31,7 +31,6 @@
 }
 
 .form-group-button {
-  display: flex;
-  flex-direction: row-reverse;
+  float: right;
   margin-top: 14px;
 }
