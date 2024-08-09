@@ -57,7 +57,62 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
     </div>
   </div>
   <div
-    className="MuiBox-root MuiBox-root-3 messages-list"
+    className="MuiFormGroup-root"
+  >
+    <label
+      className="MuiFormControlLabel-root"
+    >
+      <span
+        className="MuiSwitch-root"
+      >
+        <span
+          aria-disabled={false}
+          className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-3 MuiSwitch-switchBase PrivateSwitchBase-checked-4 Mui-checked"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onDragLeave={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          onMouseDown={[Function]}
+          onMouseLeave={[Function]}
+          onMouseUp={[Function]}
+          onTouchEnd={[Function]}
+          onTouchMove={[Function]}
+          onTouchStart={[Function]}
+          tabIndex={null}
+        >
+          <span
+            className="MuiIconButton-label"
+          >
+            <input
+              checked={true}
+              className="PrivateSwitchBase-input-6 MuiSwitch-input"
+              id="trim-mgs"
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <span
+              className="MuiSwitch-thumb"
+            />
+          </span>
+          <span
+            className="MuiTouchRipple-root"
+          />
+        </span>
+        <span
+          className="MuiSwitch-track"
+        />
+      </span>
+      <span
+        className="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+      >
+        Trim to last 50 messaages
+      </span>
+    </label>
+  </div>
+  <div
+    className="MuiBox-root MuiBox-root-7 messages-list"
     style={
       Object {
         "height": "calc(100% - 280px)",
@@ -65,10 +120,10 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-4"
+      className="MuiBox-root MuiBox-root-8"
     >
       <div
-        className="MuiBox-root MuiBox-root-5"
+        className="MuiBox-root MuiBox-root-9"
         style={
           Object {
             "float": "right",
@@ -101,7 +156,7 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
             Content of message
           </div>
           <div
-            className="MuiBox-root MuiBox-root-6"
+            className="MuiBox-root MuiBox-root-10"
           >
             <span>
               <span
@@ -118,15 +173,15 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
               </span>
             </span>
             <div
-              className="MuiBox-root MuiBox-root-7"
+              className="MuiBox-root MuiBox-root-11"
             >
               <div
-                className="MuiChip-root makeStyles-root-8 makeStyles-root-11 MuiChip-sizeSmall makeStyles-sizeSmall-9"
+                className="MuiChip-root makeStyles-root-12 makeStyles-root-15 MuiChip-sizeSmall makeStyles-sizeSmall-13"
                 onKeyDown={[Function]}
                 onKeyUp={[Function]}
               >
                 <span
-                  className="MuiChip-label makeStyles-label-10 makeStyles-label-12 MuiChip-labelSmall"
+                  className="MuiChip-label makeStyles-label-14 makeStyles-label-16 MuiChip-labelSmall"
                 >
                   Game Control
                 </span>
@@ -139,7 +194,7 @@ exports[`ChatMessagesList renders correctly renders component correctly 1`] = `
             </div>
           </div>
           <div
-            className="MuiBox-root MuiBox-root-13 private"
+            className="MuiBox-root MuiBox-root-17 private"
           >
             <div
               className="paragraph"
