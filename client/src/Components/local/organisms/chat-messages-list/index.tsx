@@ -1,5 +1,5 @@
-import React from 'react'
-import { Box } from '@material-ui/core'
+import React, { useEffect, useState } from 'react'
+import { Box, FormControlLabel, FormGroup, Switch } from '@material-ui/core'
 /* Import Types */
 import PropTypes from './types/props'
 import { INFO_MESSAGE_CLIPPED } from 'src/config'
@@ -15,9 +15,21 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
   messages, icons, colors, names, onMarkAllAsRead, isUmpire,
   playerRole, playerForce, chatContainerHeight, turnPresentation, observing, markUnread, hideForcesInChannel, hideAuthor
 }: PropTypes) => {
-  // cast messages, for type-checking
-  const rMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
-  const cMessages = [...rMessages].reverse() // note we have to clone it first, since reverse is destructive
+  const [revMessages, setRevMessages] = useState<Array<ChatMessageType | MessageInfoTypeClipped>>([])
+  const [trimMessages, setTrimMessages] = useState<boolean>(true)
+
+  const trimmedLen = 50
+
+  useEffect(() => {
+    // cast messages, for type-checking
+    const chatMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
+    // trim messages, if necessary
+    const rMessages = trimMessages ? chatMessages.slice(-trimmedLen) : chatMessages
+    // note we have to clone it first, since reverse is destructive
+    const cMessages = [...rMessages].reverse()
+    setRevMessages(cMessages)
+  }, [messages, trimMessages])
+
   const height = chatContainerHeight || 280
   return (
     <Box sx={{ height: '100%' }}>
@@ -27,9 +39,12 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
           <ForcesInChannel messages={messages as MessageChannel[]} colors={colors} icons={icons} names={names} onMarkAllAsRead={onMarkAllAsRead} />
         </Box>
       }
+      <FormGroup>
+        <FormControlLabel control={<Switch id='trim-mgs' color="default" onClick={() => setTrimMessages(!trimMessages)} checked={trimMessages} />} label={'Trim to last ' + trimmedLen + ' messaages'} />
+      </FormGroup>
       <Box ml={2} className={styles['messages-list']} style={{ height: observing ? 'unset' : `calc(100% - ${height}px)` }} flexDirection="column-reverse" display="flex">
         {
-          cMessages.map((message, key) => {
+          revMessages.map((message, key) => {
             if (message.messageType === INFO_MESSAGE_CLIPPED) {
               return (
                 <Box mr={2} key={`${message.gameTurn}-turnmarker-${key}`}>
