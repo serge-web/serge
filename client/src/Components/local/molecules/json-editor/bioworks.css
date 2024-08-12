@@ -9,6 +9,7 @@
     display: contents;
 }
 
+
 .form-group .field {
   float: left;
   padding: 2px;
@@ -20,6 +21,10 @@
 }
 .message-creator .form-group .mb-3 {
   color: white;
+}
+
+.form-group .form-label input {
+  margin-right: 4px;
 }
 
 .form-group .py-4 {

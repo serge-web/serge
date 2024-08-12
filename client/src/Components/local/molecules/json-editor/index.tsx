@@ -123,6 +123,7 @@ export const JsonEditor: React.FC<Props> = ({
 
   const handleSubmit = (newFormData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
+    console.log('newFormData', newFormData)
     const fixedDate = fixDate(newFormData.formData as any)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
     if (!isEqual(JSON.stringify(newDoc), originalMessage)) {

@@ -59,7 +59,7 @@ const MessageCreator: React.FC<PropTypes> = ({
       timestamp: new Date().toISOString(),
       turnNumber: currentTurn
     }
-
+    console.log('val', val)
     // special handling if this is a collab-channel
     if (channel.channelType === CHANNEL_COLLAB) {
       // populate the metadata
@@ -88,7 +88,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     setPrivateValue('')
     setMessageContent(undefined)
     setClearForm(!clearForm)
-
+    console.log('val', val)
     postBack && postBack(details, val, messageOption, CUSTOM_MESSAGE)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)

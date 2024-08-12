@@ -132,7 +132,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
     })
   }
-
+  console.log('isCustomChannel', isCustomChannel)
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       {

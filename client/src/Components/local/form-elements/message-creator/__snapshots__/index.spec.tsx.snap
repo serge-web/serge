@@ -80,15 +80,20 @@ Array [
                 <div
                   className="form-group"
                 >
-                  <input
-                    className="unchecked"
-                    onClick={[Function]}
-                    required={false}
-                    type="checkbox"
-                  />
-                  <label>
-                    completed
-                  </label>
+                  <div
+                    className="form-label"
+                  >
+                    <input
+                      className="unchecked"
+                      onClick={[Function]}
+                      required={false}
+                      type="checkbox"
+                    />
+                    <label>
+                      completed
+                    </label>
+                  </div>
+                  <small />
                 </div>
               </div>
             </div>
