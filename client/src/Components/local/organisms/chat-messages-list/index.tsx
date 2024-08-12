@@ -19,7 +19,8 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
 
   const trimmedLen = 50
 
-  const revMessages = useMemo(() => {
+  // only update the rendered messages if the messages change
+  const messageList = useMemo(() => {
     // cast messages, for type-checking
     const chatMessages = messages as Array<ChatMessageType | MessageInfoTypeClipped>
     // trim messages, if necessary
@@ -70,7 +71,7 @@ export const ChatMessagesList: React.FC<PropTypes> = ({
         <FormControlLabel control={<Switch id='trim-mgs' color="default" onClick={() => setTrimMessages(!trimMessages)} checked={trimMessages} />} label={'Trim to last ' + trimmedLen + ' messaages'} />
       </FormGroup>
       <Box ml={2} className={styles['messages-list']} style={{ height: observing ? 'unset' : `calc(100% - ${height}px)` }} flexDirection="column-reverse" display="flex">
-        { revMessages }
+        { messageList }
       </Box>
     </Box>
   )
