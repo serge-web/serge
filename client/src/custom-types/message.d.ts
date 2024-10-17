@@ -93,8 +93,8 @@ export interface FeedbackItem {
   readonly date: string
   /** the feedback */
   readonly feedback: string
-  /** the previous version of the message (if modified) */
-  readonly previous?: MessageStructure
+  /** changes in the new version */
+  readonly revert?: jsonpath.Operation[]
 }
 
 /** data for a message that is being
