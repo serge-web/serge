@@ -9,6 +9,7 @@ import { expiredStorage } from 'src/config'
 import { formatFullDate } from 'src/Helpers'
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
+import * as jsonpatch from 'fast-json-patch'
 
 export type ModalHandlerFn = (message: MessageCustom) => void
 
@@ -109,7 +110,7 @@ export const injectFeedback = (message: MessageCustom, verb: string, feedback: s
       fromForce: role.forceName,
       date: new Date().toISOString(),
       feedback: withFeedback,
-      ...(messageChanged && { previous: previous })
+      ...(messageChanged && { revert: jsonpatch.compare(message.message, previous) })
     }
   if (message.details.collaboration) {
     if (!message.details.collaboration.feedback) {
