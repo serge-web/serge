@@ -157,7 +157,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
     // different handling depending upon if it's a response that's being sent
     const updatedPart = isResponse ? answer : newMsg
     const changed = handler(role, verb, message, updatedPart, privateMessage)
-    const withFeedback = injectFeedback(changed, verb, '', role)
+    const withFeedback = injectFeedback(changed, verb, '', role, message.message)
     handleChange(withFeedback, true)
   }
 
