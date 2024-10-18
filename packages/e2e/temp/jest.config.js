@@ -1,3 +1,3 @@
 {
-  "preset": "jest-puppeteer"
-}
+  "preset" : "jest-puppeteer"
+};

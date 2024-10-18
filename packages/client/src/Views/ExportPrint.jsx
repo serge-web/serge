@@ -6,6 +6,7 @@ import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromU
 const ExportPrint = ({ exportItem, notFound }) => {
   if (!exportItem) {
     notFound()
+    return
   }
 
   return (
@@ -16,7 +17,7 @@ const ExportPrint = ({ exportItem, notFound }) => {
         <h4>Wargame: {exportItem.wargame}</h4>
         <h4>Type: {exportItem.type}</h4>
       </section>
-      {exportItem.data.map((data, pageIndex) => (
+      { exportItem.data.map((data, pageIndex) => (
         <section key={pageIndex}>
           <h2>{exportItem.wargame}</h2>
           <h4>{data.title}</h4>
