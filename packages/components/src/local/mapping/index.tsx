@@ -130,7 +130,7 @@ export const Mapping: React.FC<PropTypes> = ({
   const [atlanticCells, setAtlanticCells] = useState<GeoJSON.FeatureCollection>()
   const [lastAtlanticCells, setLastAtlanticCells] = useState<GeoJSON.FeatureCollection>()
   const [polygonAreas, setPolygonAreas] = useState<FeatureCollection<Geometry, GeoJsonProperties> | undefined>(undefined)
-  const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.H3_LABELS)
+  const [cellLabelStyle, setCellLabelStyle] = useState<CellLabelStyle>(CellLabelStyle.CTR_LABELS)
   const [mappingConstraintState, setMappingConstraintState] = useState<MappingConstraints>(mappingConstraints)
   const [viewAsUmpire, setViewAsUmpire] = useState<boolean>(isUmpire)
 
