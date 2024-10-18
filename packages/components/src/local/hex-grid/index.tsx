@@ -763,7 +763,7 @@ export const HexGrid: React.FC<{}> = () => {
 
   return <>
     { /*  - show number of visible cells */}
-    { viewport && false &&
+    {/* { viewport &&
       <Marker
         key={'num_vis_cells'}
         position={viewport.getCenter()}
@@ -774,7 +774,7 @@ export const HexGrid: React.FC<{}> = () => {
           iconSize: [30, 20]
         })}
       />
-    }
+    } */}
 
     { /* POLY BINS */}
     { /* <LayerGroup key={'poly_bounds'} >{viewport && polyBins3 && polyBins3.map((bin: PolyBin3, index: number) => (
