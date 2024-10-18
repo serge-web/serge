@@ -93,7 +93,7 @@ export interface FeedbackItem {
   readonly date: string
   /** the feedback */
   readonly feedback: string
-  /** changes in the new version */
+  /** deltas to get to the previous version */
   readonly revert?: jsonpath.Operation[]
 }
 
