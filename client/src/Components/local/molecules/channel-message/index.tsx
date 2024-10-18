@@ -29,7 +29,7 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
 
     return (
       <MessageListHeader
-        isOpen={!collapsed}
+        isOpen={!message.isOpen}
         title={title}
         timestamp={message.details.timestamp}
         templateId={message.templateId}
@@ -42,11 +42,12 @@ export const ChannelMessage: React.FC<Props> = (props: Props) => {
     )
   }
 
-  const CollapsibleContent = ({ collapsed }: any): React.ReactElement => {
+  const CollapsibleContent = (): React.ReactElement => {
+    const { message } = props
     return (
       <MessageListDetail
         {...props}
-        collapsed={collapsed}
+        collapsed={!message.isOpen}
       />
     )
   }

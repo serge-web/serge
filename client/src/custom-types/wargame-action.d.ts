@@ -20,6 +20,7 @@ import {
   SET_WARGAME_TITLE,
   SET_SELECTED_CHANNEL,
   SET_SELECTED_FORCE,
+  SET_SELECTED_TEMPLATE,
   SET_TAB_SAVED,
   SET_TAB_UNSAVED,
   UPDATE_RECIPIENT,
@@ -84,6 +85,11 @@ interface SetSelectedForce {
     payload: { name: string, uniqid: string, iconURL?: string }
 }
 
+interface SetSelectedTemplate {
+    type: typeof SET_SELECTED_TEMPLATE
+    payload: { title: string, _id: string }
+}
+
 interface AddNewChannel {
     type: typeof ADD_NEW_CHANNEL
     payload: { name: string, uniqid: string }
@@ -145,6 +151,7 @@ SetTabSaved |
 AddNewForce |
 SetForceColor |
 SetSelectedForce |
+SetSelectedTemplate|
 AddNewChannel |
 SetSelectedChannel |
 AddNewRecipient |

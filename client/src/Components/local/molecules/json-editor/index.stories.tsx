@@ -10,7 +10,7 @@ import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, Me
 import { StoryFn } from '@storybook/react'
 import Props from './types/props'
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px', overflow: 'auto' }}>{storyFn()}</div>
 
 export default {
   title: 'local/molecules/JsonEditor',
@@ -38,7 +38,7 @@ const templateMessageCreator = {
   _id: channel.uniqid
 }
 
-const Template: StoryFn<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit, customiseTemplate }) => {
+const Template: StoryFn<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit }) => {
   return (
     <JsonEditor
       template={template}
@@ -47,7 +47,6 @@ const Template: StoryFn<Props> = ({ messageId, disabled, template, messageConten
       gameDate={WargameMock.data.overview.gameDate}
       messageContent={messageContent}
       modifyForEdit={modifyForEdit}
-      customiseTemplate={customiseTemplate}
     />
   )
 }

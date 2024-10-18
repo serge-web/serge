@@ -1,0 +1,21 @@
+.modal-open .modal {
+    background: white;
+    position: fixed !important;
+    color: black;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%);
+    display: block !important;
+    height: auto !important;
+    max-height: 100%;
+}
+
+
+.modal-open .modal.show .modal-dialog {
+    height: 100vh;
+  }
+  
+  .collapse span {
+    display: inline-block;
+  }
+  

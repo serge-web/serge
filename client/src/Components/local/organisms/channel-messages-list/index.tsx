@@ -19,6 +19,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({
   messages, names, icons, colors,
   onMarkAllAsRead, onRead, onUnread, isUmpire, turnPresentation, hideForcesInChannel
 }: PropTypes) => {
+  console.log('messages', messages)
   return (
     <div>
       {

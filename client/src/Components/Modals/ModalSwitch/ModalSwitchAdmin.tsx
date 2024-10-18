@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import DeleteModal from '../DeleteModal'
+// import DeleteModal from '../DeleteModal'
 import DeleteWargameModal from '../DeleteWargameModal'
 import UnsavedForceModal from '../UnsavedForceModal'
 import UnsavedChannelModal from '../UnsavedChannelModal'
@@ -15,10 +15,6 @@ class ModalSwitchAdmin extends Component<{ currentModal: CurrentModal }> {
   render () {
     let modal
     switch (this.props.currentModal.modal) {
-      case 'delete':
-        modal = <DeleteModal />
-        break
-
       case 'deleteWargame':
         modal = <DeleteWargameModal />
         break

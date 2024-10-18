@@ -11,7 +11,7 @@ import {
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import { saveAllWargameNames } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
-import { ActivityLogsInterface, WargameDispatch, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageDetails, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, MappingMessage, MappingMessageDelta, TypeOfCustomMessage, WargameList } from 'src/custom-types'
+import { ActivityLogsInterface, ChannelTypes, ForceData, GameTurnLength, Message, MessageChannel, MessageCustom, MessageDetailsFrom, MessageDetails, MessageFeedback, MessageInfoType, MessageStructure, ParticipantChat, ParticipantTypes, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, MappingMessage, MappingMessageDelta, TypeOfCustomMessage, WargameList, WargameDispatch, TemplateBody } from 'src/custom-types'
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
@@ -209,7 +209,6 @@ export const createWargame = async (dispatch: WargameDispatch, wargameLists : Wa
   const name = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name, db })
-
   const settings: Wargame = { 
     ...dbDefaultSettings, 
     name, 
@@ -338,6 +337,25 @@ export const saveSettings = (dbName: string, data: WargameOverview): Promise<War
     const wargame: Wargame = deepCopy(res)
     wargame.data.overview = data
     return updateWargame(wargame, dbName)
+  })
+}
+
+export const saveTemplate = (dbName: string, newData: TemplateBody): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const templates = updatedData.templates.templates || []
+    const templateNew = templates.every((temlete: TemplateBody) => temlete._id !== newData._id)
+    if (templateNew) {
+      templates.unshift({ ...newData, title: newData.title })
+    } else {
+      const channelIndex = templates.findIndex((template) => template._id === newData._id)
+      templates.splice(channelIndex, 1, { ...newData, title: newData.title })
+    }
+
+    updatedData.templates.templates = templates
+
+    return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }
 
@@ -487,6 +505,37 @@ export const duplicateForce = (dbName: string, currentForce: ForceData): Promise
     updatedData.forces.forces = forces
     updatedData.forces.selectedForce = duplicate
 
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+}
+
+export const duplicateTemplate = (dbName: string, channelUniqid: string): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const templates = updatedData.templates.templates || []
+    const channelIndex = templates.findIndex((template) => template._id === channelUniqid)
+
+    const duplicateTemplates = deepCopy(templates[channelIndex])
+    
+    const uniq = uniqid.time()
+
+    duplicateTemplates.title = duplicateTemplates.title + `-${uniq}`
+    duplicateTemplates._id = `${duplicateTemplates._id}-${uniq}`
+
+    templates.splice(channelIndex, 0, duplicateTemplates)
+  
+    updatedData.templates.templates = templates
+    return updateWargame({ ...res, data: updatedData }, dbName)
+  })
+}
+
+export const deleteTemplate = (dbName: string, channelUniqid: string): Promise<Wargame> => {
+  return getLatestWargameRevision(dbName).then((res) => {
+    const newDoc: Wargame = deepCopy(res)
+    const updatedData = newDoc.data
+    const templates = updatedData.templates.templates || []
+    updatedData.templates.templates = templates.filter((template: TemplateBody) => template._id != channelUniqid)
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
 }

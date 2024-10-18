@@ -77,7 +77,7 @@ const actionHandlers: Record<string, ActionHandler> = {
   [SET_ALL_TEMPLATES_PLAYERUI]: (_newState, action) => {
     // note: Uncomment this line to update the 'allTemplatesByKey' in the state with the payload from the action
     // _newState.allTemplatesByKey = (action as SetAllTemplatesAction).payload
-
+    
     console.warn('ignoring templates from message types database', (action as SetAllTemplatesAction).payload)
   },
   [SHOW_HIDE_OBJECTIVES]: newState => {

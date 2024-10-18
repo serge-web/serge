@@ -1,15 +1,15 @@
+
 import {
   ADMIN_ROUTE,
-  MESSAGE_TEMPLATE_ROUTE,
   WELCOME_SCREEN_EDIT_ROUTE,
   REST_API_ROUTE
 } from 'src/config'
+
 import Link from './Link'
 
 export default (props) => {
   const menus = {
     [ADMIN_ROUTE]: 'Games',
-    [MESSAGE_TEMPLATE_ROUTE]: 'Message Templates',
     [WELCOME_SCREEN_EDIT_ROUTE]: 'Welcome Screen',
     [REST_API_ROUTE]: 'REST API' 
   }

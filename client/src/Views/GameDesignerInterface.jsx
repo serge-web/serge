@@ -18,14 +18,12 @@ import {
   openFauxtonUI,
   populateWargame
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
-import { populateMessageTypesDb } from '../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import '../themes/App.scss'
 
 class GameDesignerInterface extends Component {
   componentDidMount () {
-    this.props.dispatch(populateMessageTypesDb())
     this.props.dispatch(populateWargameList())
   }
 

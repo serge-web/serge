@@ -16,7 +16,7 @@ import 'src/themes/App.scss'
 import { usePlayerUiDispatch, usePlayerUiState } from '../Store/PlayerUi'
 
 import { MessageReadInteraction, MessageSentInteraction, MessageUnReadInteraction } from 'src/custom-types/player-log'
-import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION } from 'src/config'
+import { MESSAGE_UNREAD_INTERACTION, MESSAGE_SENT_INTERACTION, MESSAGE_READ_INTERACTION, CUSTOM_MESSAGE } from 'src/config'
 
 const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = ({ channelId, isCustomChannel }) => {
   const state = usePlayerUiState()
@@ -42,12 +42,12 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
     setChannelTabClass(`tab-content-${channelClassName}`)
   }, [])
 
-  const messageHandler = (details: MessageDetails, message: any, templeteId: string, messageType: TypeOfCustomMessage): void => {
+  const messageHandler = (details: MessageDetails, message: any, templateId: string, messageType: TypeOfCustomMessage): void => {
     const sendMessage: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
-    saveMessage(state.currentWargame, details, message, templeteId, messageType)()
+    saveMessage(state.currentWargame, details, message, templateId, messageType)()
   }
 
   const markAllAsReadLocal = (): void => {
@@ -97,13 +97,16 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       _id: detail._id || 'na'
     }
     saveNewActivityTimeMessage(coreMessage.details.from.roleId, readMessage, state.currentWargame)(dispatch)
-    
+   
     playerUiDispatch(openMessage(channelId, detail))
   }
 
   const handleUnreadMessage = (message: MessageChannel | ChatMessage): void => {
     if (message._id) {
       message.hasBeenRead = false
+    }
+    if (message.messageType === CUSTOM_MESSAGE) {
+      message.isOpen = false
     }
     // since this is a message, we know it must come from CoreMessage
     const coreMessage = message as any as CoreMessage
@@ -129,7 +132,7 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
       return clearUnsentMessage(state.currentWargame, selectedForceId, state.selectedRole, channelId, removeType)
     })
   }
-  
+  console.log('isCustomChannel', isCustomChannel)
   return (
     <div className={channelTabClass} data-channel-id={channelId}>
       {

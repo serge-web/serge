@@ -48,7 +48,6 @@ export const SettingChannels: React.FC<PropTypes> = ({
     setSelectedItem(0)
     setSelectedChannelState(channels[0])
   }, [channels.length])
-
   useEffect(() => {
     setSelectedChannelState(channels[selectedItem])
   }, [selectedItem])

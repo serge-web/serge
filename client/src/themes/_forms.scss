@@ -19,6 +19,10 @@
     margin-top: 16px;
   }
 
+  .list-group {
+    color: #dc3545
+  }
+
   .form-control-label {
     @include white-on-message-creator;
     font-size: 12px;

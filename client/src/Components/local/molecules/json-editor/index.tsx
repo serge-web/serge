@@ -1,17 +1,30 @@
-import { Editor, TemplateBody } from 'src/custom-types'
+import { TemplateBody, MessageStructure } from 'src/custom-types'
+import {
+  Alert
+} from 'reactstrap'
 import { configDateTimeLocal, deepCopy, usePrevious } from 'src/Helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { isEqual } from 'lodash'
+import { IChangeEvent, withTheme } from '@rjsf/core'
+import { Theme as Bootstrap4Theme } from '@rjsf/bootstrap-4'
+import { customizeValidator } from '@rjsf/validator-ajv8'
 import moment from 'moment'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Button } from '../../atoms/button'
-import { Confirm } from '../../atoms/confirm'
-import setupEditor from './helpers/setupEditor'
-import Props from './types/props'
-const alwaysShowEditorErrors = 'always'
+import './bioworks.css'
+import React, { useEffect, useState, FunctionComponent } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
+import Props, { FormProps } from './types/props'
+import mapColumnToClassName from './helpers/mapColumnToClassName'
+import widgets from './helpers/customCheckbox'
 
-// keydown listener should works only for defined tags
-const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
+export interface FormData {
+  foo?: string
+  bar?: number
+}
+
+const Form = withTheme(
+  Bootstrap4Theme
+) as unknown as FunctionComponent<FormProps>
+
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({
   messageId,
@@ -19,27 +32,23 @@ export const JsonEditor: React.FC<Props> = ({
   title,
   template,
   storeNewValue,
+  submitNewValue,
   formClassName,
-  formId,
-  customiseTemplate,
+  openCancelConfirmPopup,
   disabled = false,
-  expandHeight = true,
   gameDate,
-  disableArrayToolsWithEditor = true,
   clearForm,
-  saveMessage,
-  onCancelEdit,
+  viewSaveButton = false,
   modifyForSave,
-  confirmCancel = false,
-  viewSaveButton = false
+  children
 }) => {
-  const jsonEditorRef = useRef<HTMLDivElement>(null)
-  const [editor, setEditor] = useState<Editor | null>(null)
-  const [beingEdited, setBeingEdited] = useState<boolean>(false)
-  const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
+  const [schema, setSchema] = useState({}) 
+  const [uischema, setUiSchema] = useState({})
   const [originalMessage] = useState<string>(JSON.stringify(messageContent))
-  
+  const [formData, setFormData] = useState<FormData | MessageStructure | undefined>(messageContent)
+  const validator = customizeValidator<FormData>()
   const prevTemplates: TemplateBody = usePrevious(messageId)
+
   if (!template) {
     const styles = {
       color: '#f00',
@@ -50,9 +59,6 @@ export const JsonEditor: React.FC<Props> = ({
     return <span style={styles} >Schema not found for {template}</span>
   }
 
-  const destroyEditor = (editorObject: Editor | null): void => {
-    if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
-  }
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {
       if (!date.includes('Z')) {
@@ -74,18 +80,6 @@ export const JsonEditor: React.FC<Props> = ({
     return res
   }
 
-  const handleChange = (value: { [property: string]: any }): void => {
-    /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
-     * convert them
-     */
-    const fixedDate = fixDate(value)
-    const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
-    if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
-      storeNewValue && storeNewValue(newDoc)
-      setSelectOptionsHeaders()
-    }
-  }
-
   const setSelectOptionsHeaders = (): void => {
     /**
          * heading option should have pattern: ###<heading>
@@ -104,203 +98,156 @@ export const JsonEditor: React.FC<Props> = ({
       })
     }
   }
+  const handleChange = (newFormData: IChangeEvent<FormData>) => { 
+    //   /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
+    //    * convert them
+    //    */
 
-  const OnSave = () => {
-    saveMessage && saveMessage()
-    setBeingEdited(false)
-  }
-
-  const onPopupCancel = (): void => {
-    // removePlanning
-    setConfirmIsOpen(false)
-  }
-
-  const onPopupConfirm = (): void => {
-    if (!viewSaveButton) {
-      initEditor()
-    }
-    onCancelEdit && onCancelEdit()
-    setConfirmIsOpen(false)
-    setBeingEdited(false)
-  }
-
-  const openConfirmPopup = (): void => {
-    if (confirmCancel) {
-      setConfirmIsOpen(true)
+    setFormData(newFormData.formData as any)
+    const fixedDate = fixDate(newFormData.formData as any)
+    const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
+    if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
+      storeNewValue && storeNewValue(newDoc)
+      setSelectOptionsHeaders()
     }
   }
 
-  const initEditor = (): () => void => {
-    const hideArrayButtons = disabled
-    const jsonEditorConfig = hideArrayButtons
-      ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
-      : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
-
-    // initialise date editors
-    gameDate && console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
-    const modSchema = gameDate ? configDateTimeLocal(template.details, gameDate) : template.details
-
-    // apply any other template modifications
-    const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
-
-    // if a title was supplied, replace the title in the schema
-    const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, alwaysShowEditorErrors)
-
-    const changeListenter = (): void => {
-      if (nextEditor) {
-        const nexValue = nextEditor.getValue()
-        handleChange(nexValue)
-      }
+  const clearFormData = () => {
+    const newFormData: any = {}
+    for (const key in formData) {
+      newFormData[key] = ''
     }
 
-    // Timer it foo throttle
-    let timerId: ReturnType<typeof setTimeout>
-
-    // Keydown litener
-    const handleKeyDown = ({ target }: KeyboardEvent): void => {
-      // if target not null
-      if (target) {
-        // convert targetElement to HTMLElement
-        const targetElement = target as HTMLElement
-        // if target valid input tag
-        if (keydowListenFor.includes(targetElement.tagName)) {
-          // remove old onChange waiting timers
-          if (timerId) clearTimeout(timerId)
-          // create new timer
-          timerId = setTimeout((): void => {
-            // trigger changes listener after 128ms
-            targetElement.dispatchEvent(new Event('change'))
-          }, 128)
-        }
-      }
-    }
-
-    // add keydown listener to be able to track input changes
-    document.addEventListener('keydown', handleKeyDown)
-
-    setTimeout(() => {
-      try {
-        if (nextEditor) {
-          // only retrieve from expired content if we haven't been provided with message content
-          if (messageContent) {
-            nextEditor.setValue(messageContent)
-            nextEditor.on('change', changeListenter)
-          } else {
-            nextEditor.on('change', changeListenter)
-          }
-        }
-      } catch (err) {
-        console.warn('JSONEditor error 2:', err)
-      }
-      // update time input for flatpickr
-      const flatPickrElm = document.querySelectorAll('div[class*="flatpickr-calendar"]')
-      Array.from(flatPickrElm).forEach(elm => elm.classList.add('showTimeInput'))
-    })
-
-    setEditor(nextEditor)
-
-    // handle textarea height to fit its content
-    if (expandHeight && jsonEditorRef.current) {
-      const textareaElms = jsonEditorRef.current.querySelectorAll<HTMLTextAreaElement>('[data-schemaformat="textarea"]')
-      for (const textareaElm of Array.from(textareaElms)) {
-        textareaElm.style.height = `${textareaElm.scrollHeight + 5}px`
-      }
-    }
-
-    return (): void => {
-      // remove timer for unmounted component
-      if (timerId) clearTimeout(timerId)
-      // remove keydown listener for unmounted component
-      document.removeEventListener('keydown', handleKeyDown)
-      if (nextEditor) {
-        // remove change listener for unmounted component
-        nextEditor.off('change', changeListenter)
-      }
-    }
+    setFormData(newFormData)
   }
 
+  const handleSubmit = (newFormData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    console.log('newFormData', newFormData)
+    const fixedDate = fixDate(newFormData.formData as any)
+    const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
+    if (!isEqual(JSON.stringify(newDoc), originalMessage)) {
+      submitNewValue && submitNewValue(newDoc, e)
+      console.log('fixedDate', fixedDate)
+      clearFormData()
+      setSelectOptionsHeaders()
+    }
+  }
+  
   useEffect(() => {
-    if (template.details && editor) {
-      return initEditor()
+    if (clearForm || prevTemplates) {
+      clearFormData()
     }
-
-    return (): void => destroyEditor(editor)
-  }, [template.details, clearForm])
-
+  }, [clearForm, prevTemplates])
+  
   useEffect(() => {
-    if (editor) {
-      setTimeout(() => {
-        try {
-          if (viewSaveButton && !beingEdited) {
-            editor.disable()
-          } else if (disabled && !viewSaveButton) {
-            editor.disable()
-          } else {
-            editor.enable()
-          }
-        } catch (err) {
-          console.warn('JSONEditor error 1', err)
-        }
-        const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
-        Array.from(editInLocationBtns).forEach(btn => {
-          btn.classList.remove('btn-hide')
-        })
-        setSelectOptionsHeaders()
-      }, 50)
-      return
+    if (template.details && template.details.schema) {
+      const { schema, uischema } = template.details
+      const jsonSchema = schema
+
+      // Initialize date editors if necessary
+      if (gameDate) {
+        console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
+      }
+
+      // Apply modifications to the schema
+      const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema
+      const customizedSchema = modSchema
+      const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema
+      const columnToClassName = mapColumnToClassName(uischema)
+      console.log('columnToClassName', columnToClassName)
+      setFormData(messageContent || {})
+      
+      setSchema(schemaWithTitle)
+      setUiSchema(columnToClassName)
     }
+  }, [template, gameDate, messageContent, prevTemplates, title, clearForm])
 
-    if (template.details && template.details.type) {
-      setBeingEdited(false)
-      initEditor()
+  function checkError (text: any) {
+    let data
+    try {
+      data = text
+    } catch (e: any) {
+      return e.toString()
     }
+    // console.log('data', typeof data === 'string')
+    if (typeof data === 'string') {
+      return 'Received a string instead of object.'
+    } 
+    return ''
+  }
 
-    return (): void => destroyEditor(editor)
-  }, [template.details, messageId, messageContent, prevTemplates, beingEdited, editor])
-
-  useLayoutEffect(() => {
-    if (editor) editor.destroy()
-  }, [disableArrayToolsWithEditor && disabled])
-
-  const SaveMessageButton = () => (
-    editor && viewSaveButton ? (
-      <div className='button-wrap' >
-        {!disabled && beingEdited
-          ? <>
-            <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
-            {
-              confirmCancel
-                ? <Button color='secondary' onClick={openConfirmPopup} icon='delete'>Cancel</Button>
-                : null
-            }
-          </>
-          : !disabled ? <Button color='secondary' onClick={() => {
-            setBeingEdited(true)
-          }} icon='edit'>Edit</Button>
-            : null
-        }
-      </div>
-    ) : null
-  )
+  const schemaError = checkError(schema)
+  const schemaUiError = checkError(uischema)
 
   return (
     <>
-      {
-        viewSaveButton
-          ? <>
-            <Confirm
-              isOpen={confirmIsOpen}
-              message="Are you sure you wish to cancel editing this message?"
-              onCancel={onPopupCancel}
-              onConfirm={onPopupConfirm}
-            />
-            <SaveMessageButton />
-            <div id={formId} ref={jsonEditorRef} />
-            <SaveMessageButton />
-          </>
-          : <div className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
+      <Alert
+        style={{ display: schemaError === '' ? 'none' : 'block' }}
+        color='danger'
+      >
+        <h5>Schema:</h5> {schemaError}
+      </Alert>
+      <Alert
+        style={{ display: schemaUiError === '' ? 'none' : 'block' }}
+        color='danger'
+      >
+        <h5>UI Schema:</h5> {schemaUiError}
+      </Alert>
+      {     
+        schema &&
+          <ErrorBoundary
+            fallbackRender={({ error, resetErrorBoundary }) => (
+              <div role="alert" className="error">
+                <h2>{error.toString()}</h2>
+                <button onClick={resetErrorBoundary}>Reset Error</button>
+              </div>
+            )}
+          >
+            <Form
+              className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')}
+              schema={
+                schemaError === '' ? schema : ''
+              }
+              uiSchema={
+                schemaUiError === ''
+                  ? uischema
+                  : ''
+              }
+              onChange={handleChange}
+              validator={validator}
+              widgets={widgets}
+              formData={formData}
+              onSubmit={(formData: IChangeEvent<FormData>, e: React.MouseEvent<HTMLButtonElement>) => handleSubmit(formData, e)}
+              disabled={disabled}
+            >
+              { 
+                <div className="form-group-button">
+                  { viewSaveButton && 
+                <>
+                  <button
+                    name="cancel"
+                    className="btn btn-action btn-action--form btn-action--cancel"
+                    type='button'
+                    onClick={openCancelConfirmPopup}
+                  >
+                    <span>Cancel</span>
+                  </button>
+                  <button
+                    name="send"
+                    className="btn btn-action btn-action--form btn-action--send-message"
+                  >
+                    <span>Send Message</span>
+                  </button>
+                </>
+                  }
+                </div>
+              }
+            </Form> 
+          </ErrorBoundary>
+          
       }
+      {children}
     </>
   )
 }
