@@ -4,7 +4,7 @@ import Modal from 'react-modal'
 import localStyles from './styles.module.scss'
 import { Props } from './types/props'
 
-/* Render component */
+/* Render component (dummy change) */
 export const CustomDialog: React.FC<Props> = (props) => {
   const {
     isOpen,
