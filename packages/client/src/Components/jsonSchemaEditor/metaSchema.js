@@ -23,7 +23,7 @@ class MetaSchema extends Component {
     this.setEditorValue(JSON.stringify(this.props.value, null, 2))
   }
 
-  componentWillRecieveProps ({ value }) {
+  componentWillReceiveProps ({ value }) {
     this.setEditorValue(JSON.stringify(value, null, 2))
   }
 
