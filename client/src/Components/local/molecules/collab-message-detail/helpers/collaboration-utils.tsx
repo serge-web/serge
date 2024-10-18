@@ -1,5 +1,5 @@
 import React from 'react'
-import { ForceRole, FeedbackItem, MessageCustom, ChannelCollab } from 'src/custom-types'
+import { ForceRole, FeedbackItem, MessageCustom, ChannelCollab, MessageStructure } from 'src/custom-types'
 
 /* Import Icons */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,6 +9,7 @@ import { expiredStorage } from 'src/config'
 import { formatFullDate } from 'src/Helpers'
 /* Import Stylesheet */
 import styles from '../styles.module.scss'
+import * as jsonpatch from 'fast-json-patch'
 
 export type ModalHandlerFn = (message: MessageCustom) => void
 
@@ -96,17 +97,20 @@ export const CollapsedFeedbackList = ({ onExpand, collapsed, feedback }: {onExpa
   )
 }
 
-export const injectFeedback = (message: MessageCustom, verb: string, feedback: string, role: ForceRole): MessageCustom => {
+export const injectFeedback = (message: MessageCustom, verb: string, feedback: string, role: ForceRole, previous?: MessageStructure): MessageCustom => {
   const verbStr = '[' + verb + '] '
   const withFeedback = verbStr + (feedback || '')
   // put message into feedback item
+  // is the new message different to the previous one?  
+  const messageChanged = previous && JSON.stringify(message.message) !== JSON.stringify(previous)
   const feedbackItem: FeedbackItem =
     {
       fromId: role.roleId,
       fromName: role.roleName,
       fromForce: role.forceName,
       date: new Date().toISOString(),
-      feedback: withFeedback
+      feedback: withFeedback,
+      ...(messageChanged && { revert: jsonpatch.compare(message.message, previous) })
     }
   if (message.details.collaboration) {
     if (!message.details.collaboration.feedback) {
