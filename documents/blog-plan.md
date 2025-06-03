@@ -29,10 +29,16 @@ The Serge blog is used to introduce new users to the software and demonstrate on
     - A `summary.json` file with aggregated PR data
     - A `summary.md` file with a human-readable overview of PRs by month and contributor
   - Review the generated summary to identify significant contributions and development trends
-- **1.2** Identify significant issues that have been addressed
+- **1.2** Identify significant issues that have been addressed. Do this using these criteria:
+  - PRs with lots of changed files
+  - PRs with lots of changed lines
+  - PRs with lots of comments
+  - PRs with any images
+  - PRs with a lot of body text
+  - PRs with `enhancement` label
+  
 - **1.3** Document major feature additions and improvements
-- **1.4** Collect information about bug fixes and performance enhancements
-- **1.5** Identify key contributors to recognize in the blog
+- **1.4** Collate `summary` blog posts for labels in `pr_labels_with_descriptions.json`. The posting should be dated around the date of the latest entry for that label.
 
 ### 2. Content Organization and Structure
 - **2.1** Determine the best platform/location for the blog (GitHub Pages, project website, etc.)
