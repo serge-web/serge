@@ -13,8 +13,22 @@ The Serge blog is used to introduce new users to the software and demonstrate on
 ### 1. Research and Content Gathering
 - **1.1** Review GitHub repository for recent pull requests (last 2-3 years)
   - Use GitHub API to download PR data to a new `PRs` folder within the `documents` directory
-  - Store PR data in structured format (JSON) for easy analysis and reference
-  - Include key metadata: PR title, description, author, date, labels, and link
+  - Use the created `fetch-prs.js` script to automate this process:
+    ```bash
+    # Set GitHub token (optional but recommended to avoid rate limits)
+    export GITHUB_TOKEN=your_github_token
+    
+    # Run the script (fetches PRs since 2023-01-01 by default)
+    node documents/fetch-prs.js
+    
+    # Or specify a custom date range
+    node documents/fetch-prs.js --since 2022-01-01 --max-pages 20
+    ```
+  - The script will generate:
+    - Individual JSON files for each PR in the `documents/PRs` directory
+    - A `summary.json` file with aggregated PR data
+    - A `summary.md` file with a human-readable overview of PRs by month and contributor
+  - Review the generated summary to identify significant contributions and development trends
 - **1.2** Identify significant issues that have been addressed
 - **1.3** Document major feature additions and improvements
 - **1.4** Collect information about bug fixes and performance enhancements
