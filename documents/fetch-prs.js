@@ -14,7 +14,7 @@ var execSync = require('child_process').execSync
 
 // Configuration
 var REPO_OWNER = 'serge-web'
-var REPO_NAME = 'serge-web'
+var REPO_NAME = 'serge'
 var OUTPUT_DIR = path.join(__dirname, 'PRs')
 var PER_PAGE = 100
 
@@ -81,10 +81,10 @@ function makeRequest(path, page) {
               hasNextPage: res.headers.link && res.headers.link.includes('rel="next"')
             })
           } catch (error) {
-            reject(new Error(`Failed to parse response: ${error.message}`))
+            reject(new Error('Failed to parse response: ' + error.message))
           }
         } else {
-          reject(new Error(`Request failed with status code ${res.statusCode}: ${data}`))
+          reject(new Error('Request failed with status code ' + res.statusCode + ': ' + data))
         }
       })
     })
@@ -201,7 +201,7 @@ function createSummaryFile() {
         created_at: data.created_at,
         merged_at: data.merged_at,
         state: data.state,
-        labels: data.labels.map(label => label.name),
+        labels: data.labels.map(function(label) { return label.name }),
         additions: data.additions,
         deletions: data.deletions,
         changed_files: data.changed_files,
@@ -253,7 +253,7 @@ function createMarkdownSummary(prs, prsByMonth) {
   try {
     let markdown = '# Serge Pull Request Summary\n\n'
     
-    markdown += `Total PRs: ${prs.length}\n\n`
+    markdown += 'Total PRs: ' + prs.length + '\n\n'
     
     // Add stats by month
     markdown += '## PRs by Month\n\n'
@@ -266,7 +266,7 @@ function createMarkdownSummary(prs, prsByMonth) {
       
       markdown += '### ' + monthName + ' ' + year + ' (' + prsByMonth[month].length + ' PRs)\n\n'
       
-      prsByMonth[month].forEach(pr => {
+      prsByMonth[month].forEach(function(pr) {
         var status = pr.merged_at ? '✅ Merged' : (pr.state === 'closed' ? '❌ Closed' : '⏳ Open')
         var labels = pr.labels.length > 0 ? ' [' + pr.labels.join(', ') + ']' : ''
         
