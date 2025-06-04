@@ -1,0 +1,73 @@
+{
+  "number": 1913,
+  "title": "Hotfix geometries in orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-30T15:59:14Z",
+  "updated_at": "2022-10-01T07:20:55Z",
+  "closed_at": "2022-10-01T07:20:54Z",
+  "merged_at": "2022-10-01T07:20:54Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1913",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1913/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1913/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1913",
+  "body": "Fixes #1863 \r\nFixes #1912 \r\n\r\nI started off by just generating the geometry data, but then I moved on, to rendering too.",
+  "additions": 926,
+  "deletions": 154,
+  "changed_files": 37,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 4,
+  "total_comments": 4,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 984881803,
+      "user": "IanMayo",
+      "created_at": "2022-09-30T19:14:10Z",
+      "updated_at": "2022-09-30T19:14:26Z",
+      "body": "@IanMayo  - these styles need deleting. Also check for the other new components.",
+      "path": "packages/components/src/local/organisms/map-planning-orders/styles.module.scss",
+      "diff_hunk": "@@ -0,0 +1,31 @@\n+@import \"../../../../../themes/dependencies/variables\";\n+\n+.selected {",
+      "html_url": "https://github.com/serge-web/serge/pull/1913#discussion_r984881803"
+    },
+    {
+      "id": 984882758,
+      "user": "IanMayo",
+      "created_at": "2022-09-30T19:15:42Z",
+      "updated_at": "2022-09-30T19:15:42Z",
+      "body": "Generate an `ApplyFilter` component for this",
+      "path": "packages/components/src/local/organisms/planning-channel/index.tsx",
+      "diff_hunk": "@@ -219,18 +243,29 @@ export const PlanningChannel: React.FC<PropTypes> = ({\n         bounds={bounds}\n         zoom={zoom}\n         position={position}\n-        opAssets={filterApplied ? opAssetsFiltered : allOppAssets}\n-        ownAssets={filterApplied ? ownAssetsFiltered : allOwnAssets}\n-        filterApplied={filterApplied}\n-        setFilterApplied={setFilterApplied}\n-        selectedAssets={selectedAssets}\n-        setSelectedAssets={setSelectedAssets}\n-        forces={allForces}\n-        viewAsCallback={setViewAsForce}\n-        viewAsForce={viewAsForce}\n         actionItems={mapActionItems}\n         actionCallback={mapActionCallback}\n-      />\n+        toolbarChildren={\n+          <>\n+            <div className={cx('leaflet-control')} data-tour=\"filter-applied\">",
+      "html_url": "https://github.com/serge-web/serge/pull/1913#discussion_r984882758"
+    },
+    {
+      "id": 984885569,
+      "user": "IanMayo",
+      "created_at": "2022-09-30T19:19:15Z",
+      "updated_at": "2022-09-30T19:21:42Z",
+      "body": "ditch these styles",
+      "path": "packages/components/src/local/organisms/view-as/styles.module.scss",
+      "diff_hunk": "@@ -0,0 +1,31 @@\n+@import \"../../../../../themes/dependencies/variables\";\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1913#discussion_r984885569"
+    },
+    {
+      "id": 984886190,
+      "user": "IanMayo",
+      "created_at": "2022-09-30T19:19:51Z",
+      "updated_at": "2022-09-30T19:21:42Z",
+      "body": "stop these being optional.  If we're going to have a `view-as` component, then we'll have the data",
+      "path": "packages/components/src/local/organisms/view-as/types/props.d.ts",
+      "diff_hunk": "@@ -0,0 +1,8 @@\n+export default interface PropTypes {\n+    // current set of forces",
+      "html_url": "https://github.com/serge-web/serge/pull/1913#discussion_r984886190"
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 37,
+  "total_changed_lines": 1080
+}

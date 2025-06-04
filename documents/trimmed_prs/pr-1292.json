@@ -1,0 +1,151 @@
+{
+  "number": 1292,
+  "title": "Implement new admin controls for Collab Editing",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-05T14:30:08Z",
+  "updated_at": "2022-01-13T12:03:13Z",
+  "closed_at": "2022-01-13T12:03:12Z",
+  "merged_at": "2022-01-13T12:03:12Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1292",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1292/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1292/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1292",
+  "body": "Fixes #1278 ",
+  "additions": 1800,
+  "deletions": 5469,
+  "changed_files": 132,
+  "labels": [],
+  "comments_count": 8,
+  "review_comments_count": 4,
+  "total_comments": 12,
+  "comments_data": [
+    {
+      "id": 1006575386,
+      "user": "IanMayo",
+      "created_at": "2022-01-06T13:05:45Z",
+      "updated_at": "2022-01-06T13:05:45Z",
+      "body": "I've tested this via deployment, and the functionality seems to work.  Will test further on local branch.\r\n\r\nBut... Could we please move \"Additional data\" above the \"Permission\" block, so it's beneath \"Terminology\"?  Otherwise I worry that it could slip off the bottom of the page, and be missed."
+    },
+    {
+      "id": 1006651547,
+      "user": "lebaphi",
+      "created_at": "2022-01-06T14:51:45Z",
+      "updated_at": "2022-01-06T14:51:45Z",
+      "body": "> I've tested this via deployment, and the functionality seems to work. Will test further on local branch.\r\n> \r\n> But... Could we please move \"Additional data\" above the \"Permission\" block, so it's beneath \"Terminology\"? Otherwise I worry that it could slip off the bottom of the page, and be missed.\r\n\r\nsure @IanMayo "
+    },
+    {
+      "id": 1006806501,
+      "user": "IanMayo",
+      "created_at": "2022-01-06T18:12:03Z",
+      "updated_at": "2022-01-06T18:12:03Z",
+      "body": "Hello @lebaphi ,\r\nI've had a play in the branch.\r\n\r\nThe `Participations` now show valid fields (see below). But, the fields aren't editable.  If you don't have chance to work on it, I'll come back & look tomorrow.  I (strongly) suspect part of the solution is casting the `Participant` to `ParticipantCollab`.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/148430329-d59ca0ed-acf1-4cb7-8475-e6ac3895d3be.png)\r\n"
+    },
+    {
+      "id": 1007096263,
+      "user": "lebaphi",
+      "created_at": "2022-01-07T02:44:09Z",
+      "updated_at": "2022-01-07T02:44:09Z",
+      "body": "> #1278\r\n\r\nHi @IanMayo , I keep the old participant but add more fields into it, you can see the file `setting-channels/helpers/generateRowItems.ts`, code line from 47 to 86.\r\nSo I should keep the old `Participant` and to create a new interface like `ParticipantCollab` with new fields."
+    },
+    {
+      "id": 1007266388,
+      "user": "IanMayo",
+      "created_at": "2022-01-07T09:38:37Z",
+      "updated_at": "2022-01-07T10:46:49Z",
+      "body": "Hello @lebaphi \r\n\r\n_One day_ we will get rid of `Participant` - and use `ParticipantCore` and its child interfaces.  For now we check `isCollab` and use the `ParticipantCollab` interface when we know it's valid:\r\n![image](https://user-images.githubusercontent.com/1108513/148523671-9fd837c4-5410-4989-b28c-17d4bf1a517d.png)\r\n\r\nNote: I _think_ we need to refactor the editor page for `Channels` tab.  I _think_ we need a separate instance for each type of channel.   That will produce much cleaner code - the same class won't have to handle each different type of channel.  \r\n\r\nThen it will be easy/tidy for the channel-type to have its own properties at the top, and different `Participant` columns for different channel types. Unique TypeScript interfaces for the `Channel` and `Participant` for this channel-type will keep the code easy to maintain/understand (such as `ChannelCollab` that contains a list of `ParticipantCollab`).\r\n\r\nWhat do you think?\r\n\r\n(But, let's get this version working first, anyway 🤣 )\r\n\r\nThe new controls in the `Participant` row appear to be either locked, or the handler isn't updating state correctly:\r\n[screencast](https://i.gyazo.com/dbcc155d7a3cf1f15f250c20b7876c5d.mp4)"
+    },
+    {
+      "id": 1007392733,
+      "user": "lebaphi",
+      "created_at": "2022-01-07T13:07:22Z",
+      "updated_at": "2022-01-07T13:07:22Z",
+      "body": "> Hello @lebaphi\r\n> \r\n> _One day_ we will get rid of `Participant` - and use `ParticipantCore` and its child interfaces. For now we check `isCollab` and use the `ParticipantCollab` interface when we know it's valid: ![image](https://user-images.githubusercontent.com/1108513/148523671-9fd837c4-5410-4989-b28c-17d4bf1a517d.png)\r\n> \r\n> Note: I _think_ we need to refactor the editor page for `Channels` tab. I _think_ we need a separate instance for each type of channel. That will produce much cleaner code - the same class won't have to handle each different type of channel.\r\n> \r\n> Then it will be easy/tidy for the channel-type to have its own properties at the top, and different `Participant` columns for different channel types. Unique TypeScript interfaces for the `Channel` and `Participant` for this channel-type will keep the code easy to maintain/understand (such as `ChannelCollab` that contains a list of `ParticipantCollab`).\r\n> \r\n> What do you think?\r\n> \r\n> (But, let's get this version working first, anyway 🤣 )\r\n> \r\n> The new controls in the `Participant` row appear to be either locked, or the handler isn't updating state correctly: [screencast](https://i.gyazo.com/dbcc155d7a3cf1f15f250c20b7876c5d.mp4)\r\n\r\nsure @IanMayo , I think we should make it separate, then we get it easy to maintain later 👍 "
+    },
+    {
+      "id": 1007394270,
+      "user": "IanMayo",
+      "created_at": "2022-01-07T13:09:34Z",
+      "updated_at": "2022-01-07T13:09:34Z",
+      "body": "> sure @IanMayo , I think we should make it separate, then we get it easy to maintain later 👍\r\n\r\nOk @lebaphi - get it working, then refactor it?  Or refactor it now and then get it working?"
+    },
+    {
+      "id": 1007467898,
+      "user": "lebaphi",
+      "created_at": "2022-01-07T14:51:19Z",
+      "updated_at": "2022-01-07T14:51:19Z",
+      "body": "> > sure @IanMayo , I think we should make it separate, then we get it easy to maintain later 👍\r\n> \r\n> Ok @lebaphi - get it working, then refactor it? Or refactor it now and then get it working?\r\n\r\nI fix it now with a bit refactor, I will do more refactor on the weekend 😄 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 780317406,
+      "user": "IanMayo",
+      "created_at": "2022-01-07T14:57:48Z",
+      "updated_at": "2022-01-07T14:58:36Z",
+      "body": "if this helper is just for collab channels, how about changing the type of the `nextParticipant` parameter to `ParticipantCollab`?\r\n\r\n(then we don't need to do the cast down here)",
+      "path": "packages/components/src/local/organisms/setting-channels/helpers/generateRowItemsCollab.ts",
+      "diff_hunk": "@@ -0,0 +1,93 @@\n+import { CollaborativePermission } from '@serge/config'\n+import { ForceData, ParticipantCollab } from '@serge/custom-types'\n+import { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM, Item, Option } from '../../../molecules/editable-row'\n+import { Participant } from '../types/props'\n+\n+export default (forces: Array<ForceData>, nextParticipant: Participant): Array<Item> => {\n+  // by default selected force\n+  let forceSelected: Array<number> = [0]\n+  // init empty roles array\n+  let roleOptions: Array<Option> = []\n+\n+  // additional table cols for RFI participation toggles\n+  const additionalFields: Item[] = []\n+\n+  if (nextParticipant.forceUniqid) {\n+    // get selected force for current row\n+    const forceIndex = forces.findIndex(force => force.uniqid === nextParticipant.forceUniqid)\n+    if (forceIndex !== -1) {\n+      // get all roles for current force and generate options for select\n+      roleOptions = forces[forceIndex].roles.map((role): Option => ({\n+        name: role.name,\n+        uniqid: role.name,\n+        value: role\n+      }))\n+      // selected value value for select\n+      forceSelected = [forceIndex]\n+    }\n+  }\n+\n+  // get selected roles\n+  const activeRoles: Array<number> = nextParticipant.roles.map(role => {\n+    return roleOptions.findIndex(option => option.value.roleId === role)\n+  }).filter(active => active !== -1)\n+\n+  // if this is a collaborative editing channel then the participant",
+      "html_url": "https://github.com/serge-web/serge/pull/1292#discussion_r780317406"
+    },
+    {
+      "id": 780318861,
+      "user": "IanMayo",
+      "created_at": "2022-01-07T14:59:59Z",
+      "updated_at": "2022-01-07T14:59:59Z",
+      "body": "I'm worried this this could be a number or a string. Doesn't our current implementation force the enum value to be a number?",
+      "path": "packages/components/src/local/organisms/setting-channels/helpers/generateRowItemsCollab.ts",
+      "diff_hunk": "@@ -0,0 +1,93 @@\n+import { CollaborativePermission } from '@serge/config'\n+import { ForceData, ParticipantCollab } from '@serge/custom-types'\n+import { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM, Item, Option } from '../../../molecules/editable-row'\n+import { Participant } from '../types/props'\n+\n+export default (forces: Array<ForceData>, nextParticipant: Participant): Array<Item> => {\n+  // by default selected force\n+  let forceSelected: Array<number> = [0]\n+  // init empty roles array\n+  let roleOptions: Array<Option> = []\n+\n+  // additional table cols for RFI participation toggles\n+  const additionalFields: Item[] = []\n+\n+  if (nextParticipant.forceUniqid) {\n+    // get selected force for current row\n+    const forceIndex = forces.findIndex(force => force.uniqid === nextParticipant.forceUniqid)\n+    if (forceIndex !== -1) {\n+      // get all roles for current force and generate options for select\n+      roleOptions = forces[forceIndex].roles.map((role): Option => ({\n+        name: role.name,\n+        uniqid: role.name,\n+        value: role\n+      }))\n+      // selected value value for select\n+      forceSelected = [forceIndex]\n+    }\n+  }\n+\n+  // get selected roles\n+  const activeRoles: Array<number> = nextParticipant.roles.map(role => {\n+    return roleOptions.findIndex(option => option.value.roleId === role)\n+  }).filter(active => active !== -1)\n+\n+  // if this is a collaborative editing channel then the participant\n+  // will be of a specific type\n+  const collab = nextParticipant as unknown as ParticipantCollab\n+\n+  // init row item for create new message switch\n+  additionalFields.push({\n+    type: EDITABLE_SWITCH_ITEM,\n+    uniqid: 'create_new_message',\n+    // get default value for switcher\n+    active: !!collab.canCreate\n+  })\n+\n+  // init row item for see live updates switch\n+  additionalFields.push({\n+    type: EDITABLE_SWITCH_ITEM,\n+    uniqid: 'see_live_updates',\n+    // get default value for switcher\n+    active: !!collab.viewUnreleasedVersions\n+  })\n+\n+  const permissionOptions: Option[] = []\n+  Object.keys(CollaborativePermission).forEach((key: number | string) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1292#discussion_r780318861"
+    },
+    {
+      "id": 780670958,
+      "user": "lebaphi",
+      "created_at": "2022-01-08T13:53:43Z",
+      "updated_at": "2022-01-08T14:43:55Z",
+      "body": "I think we just need to update the `rowToParticipantCollab` to return the `ParticipantCollab ` data type, then we don't need to do a cast, it will need to update data type for some handler of saving data like `handleSaveRows`.",
+      "path": "packages/components/src/local/organisms/setting-channels/helpers/generateRowItemsCollab.ts",
+      "diff_hunk": "@@ -0,0 +1,93 @@\n+import { CollaborativePermission } from '@serge/config'\n+import { ForceData, ParticipantCollab } from '@serge/custom-types'\n+import { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM, Item, Option } from '../../../molecules/editable-row'\n+import { Participant } from '../types/props'\n+\n+export default (forces: Array<ForceData>, nextParticipant: Participant): Array<Item> => {\n+  // by default selected force\n+  let forceSelected: Array<number> = [0]\n+  // init empty roles array\n+  let roleOptions: Array<Option> = []\n+\n+  // additional table cols for RFI participation toggles\n+  const additionalFields: Item[] = []\n+\n+  if (nextParticipant.forceUniqid) {\n+    // get selected force for current row\n+    const forceIndex = forces.findIndex(force => force.uniqid === nextParticipant.forceUniqid)\n+    if (forceIndex !== -1) {\n+      // get all roles for current force and generate options for select\n+      roleOptions = forces[forceIndex].roles.map((role): Option => ({\n+        name: role.name,\n+        uniqid: role.name,\n+        value: role\n+      }))\n+      // selected value value for select\n+      forceSelected = [forceIndex]\n+    }\n+  }\n+\n+  // get selected roles\n+  const activeRoles: Array<number> = nextParticipant.roles.map(role => {\n+    return roleOptions.findIndex(option => option.value.roleId === role)\n+  }).filter(active => active !== -1)\n+\n+  // if this is a collaborative editing channel then the participant",
+      "html_url": "https://github.com/serge-web/serge/pull/1292#discussion_r780670958"
+    },
+    {
+      "id": 780674833,
+      "user": "lebaphi",
+      "created_at": "2022-01-08T14:42:29Z",
+      "updated_at": "2022-01-08T14:42:29Z",
+      "body": "```\r\nexport interface SelectItem {\r\n  readonly uniqid: string\r\n  type: typeof EDITABLE_SELECT_ITEM\r\n  title?: string\r\n  active?: Array<number>\r\n  multiple?: boolean\r\n  emptyTitle?: string\r\n  options: Array<Option>\r\n}\r\n```\r\nyep @IanMayo , the `active` items is an array of number.",
+      "path": "packages/components/src/local/organisms/setting-channels/helpers/generateRowItemsCollab.ts",
+      "diff_hunk": "@@ -0,0 +1,93 @@\n+import { CollaborativePermission } from '@serge/config'\n+import { ForceData, ParticipantCollab } from '@serge/custom-types'\n+import { EDITABLE_SELECT_ITEM, EDITABLE_SWITCH_ITEM, Item, Option } from '../../../molecules/editable-row'\n+import { Participant } from '../types/props'\n+\n+export default (forces: Array<ForceData>, nextParticipant: Participant): Array<Item> => {\n+  // by default selected force\n+  let forceSelected: Array<number> = [0]\n+  // init empty roles array\n+  let roleOptions: Array<Option> = []\n+\n+  // additional table cols for RFI participation toggles\n+  const additionalFields: Item[] = []\n+\n+  if (nextParticipant.forceUniqid) {\n+    // get selected force for current row\n+    const forceIndex = forces.findIndex(force => force.uniqid === nextParticipant.forceUniqid)\n+    if (forceIndex !== -1) {\n+      // get all roles for current force and generate options for select\n+      roleOptions = forces[forceIndex].roles.map((role): Option => ({\n+        name: role.name,\n+        uniqid: role.name,\n+        value: role\n+      }))\n+      // selected value value for select\n+      forceSelected = [forceIndex]\n+    }\n+  }\n+\n+  // get selected roles\n+  const activeRoles: Array<number> = nextParticipant.roles.map(role => {\n+    return roleOptions.findIndex(option => option.value.roleId === role)\n+  }).filter(active => active !== -1)\n+\n+  // if this is a collaborative editing channel then the participant\n+  // will be of a specific type\n+  const collab = nextParticipant as unknown as ParticipantCollab\n+\n+  // init row item for create new message switch\n+  additionalFields.push({\n+    type: EDITABLE_SWITCH_ITEM,\n+    uniqid: 'create_new_message',\n+    // get default value for switcher\n+    active: !!collab.canCreate\n+  })\n+\n+  // init row item for see live updates switch\n+  additionalFields.push({\n+    type: EDITABLE_SWITCH_ITEM,\n+    uniqid: 'see_live_updates',\n+    // get default value for switcher\n+    active: !!collab.viewUnreleasedVersions\n+  })\n+\n+  const permissionOptions: Option[] = []\n+  Object.keys(CollaborativePermission).forEach((key: number | string) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1292#discussion_r780674833"
+    }
+  ],
+  "issue_numbers": [
+    1278
+  ],
+  "issues": [
+    {
+      "id": 1085794219,
+      "number": 1278,
+      "title": "Implement new admin controls for Collab Editing",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-12-21T12:43:04Z",
+      "updated_at": "2022-01-13T12:03:12Z",
+      "closed_at": "2022-01-13T12:03:12Z",
+      "body": "Implement the UI shown at the end of the thread in #1198 \r\n\r\nThis is the creation of a new admin page, used to edit Collaborative Editing channels.\r\n\r\nThe `Channels` admin page will have these changes:\r\n* [x] Change the `Add channel` button to just have `Collab' Editing` and `Mapping`\r\n* [x] On `Collab' Editing`, open new `CollaborativeEditing` page\r\n* [x] New page will allow creation/edit of a new `ChannelCollab` object\r\n* [x] UI for object contained in #1198 \r\n* [x] Instead of existing `Participant` editor table, it will edit instances of `ParticipantCollab`.\r\n\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/148430329-d59ca0ed-acf1-4cb7-8475-e6ac3895d3be.png",
+    "https://user-images.githubusercontent.com/1108513/148523671-9fd837c4-5410-4989-b28c-17d4bf1a517d.png"
+  ],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 6150
+}

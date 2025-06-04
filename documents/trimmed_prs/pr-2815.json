@@ -1,0 +1,92 @@
+{
+  "number": 2815,
+  "title": "2808 Don't hard-code force colors",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-01T14:31:47Z",
+  "updated_at": "2024-02-02T11:30:08Z",
+  "closed_at": "2024-02-02T11:30:07Z",
+  "merged_at": "2024-02-02T11:30:07Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2815",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2815/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2815/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2815",
+  "body": "Fixes #2808 ",
+  "additions": 35,
+  "deletions": 21,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1921542218,
+      "user": "IanMayo",
+      "created_at": "2024-02-01T15:05:46Z",
+      "updated_at": "2024-02-01T15:05:46Z",
+      "body": "Sorry @lebaphi - I didn't really solve your problem there.\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/f1a36435-43c6-47aa-b71c-dcc147bb290c)\r\n\r\nI didn't realise they weren't being passed into the parent class.  I'll try to hook things up for your in the morning :-D\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2808
+  ],
+  "issues": [
+    {
+      "id": 2109746897,
+      "number": 2808,
+      "title": "Don't hard-code force colors",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-31T10:14:24Z",
+      "updated_at": "2024-02-02T11:30:08Z",
+      "closed_at": "2024-02-02T11:30:08Z",
+      "body": "In `core-renderer.tsx` we have hard-coded force ids and colors.\r\n\r\nInstead, we should lookup the data from the `ForceStyle` object provided in the props.",
+      "labels": [
+        "enhancement",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1918832511,
+          "user": "IanMayo",
+          "created_at": "2024-01-31T10:34:36Z",
+          "updated_at": "2024-01-31T10:34:36Z",
+          "body": "Close. Duplicate of #2806 "
+        },
+        {
+          "id": 1918834561,
+          "user": "IanMayo",
+          "created_at": "2024-01-31T10:35:38Z",
+          "updated_at": "2024-01-31T10:35:38Z",
+          "body": "No, it's not a duplicate."
+        },
+        {
+          "id": 1920351237,
+          "user": "lebaphi",
+          "created_at": "2024-02-01T01:59:09Z",
+          "updated_at": "2024-02-01T01:59:09Z",
+          "body": "Hi @IanMayo, where can I find the force styles object?"
+        },
+        {
+          "id": 1920949268,
+          "user": "IanMayo",
+          "created_at": "2024-02-01T10:01:05Z",
+          "updated_at": "2024-02-01T10:01:05Z",
+          "body": "Hello @lebaphi ,\r\n`forces: ForceStyle[]` is in the props for `core-mapping`, though it isn't actually used within the component."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/f1a36435-43c6-47aa-b71c-dcc147bb290c"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 56
+}

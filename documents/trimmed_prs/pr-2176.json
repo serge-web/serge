@@ -1,0 +1,101 @@
+{
+  "number": 2176,
+  "title": "Fix issue when integrate with json-editor v2.8.0",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-21T02:26:02Z",
+  "updated_at": "2022-12-23T16:23:55Z",
+  "closed_at": "2022-12-23T16:23:55Z",
+  "merged_at": "2022-12-23T16:23:54Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2176",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2176/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2176/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2176",
+  "body": "Fixes #2171 \r\n\r\nHi @IanMayo, I just made a temporary fix to get it working, to support custom editor like location I need to spend more time to research. The class `AbstractEditor.extend` no longer exists.",
+  "additions": 70,
+  "deletions": 68,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 6,
+  "review_comments_count": 0,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1361072815,
+      "user": "IanMayo",
+      "created_at": "2022-12-21T09:33:40Z",
+      "updated_at": "2022-12-21T09:33:40Z",
+      "body": "> The class AbstractEditor.extend no longer exists.\r\n\r\nOh dear @lebaphi - that sounds scary."
+    },
+    {
+      "id": 1361160432,
+      "user": "lebaphi",
+      "created_at": "2022-12-21T10:51:37Z",
+      "updated_at": "2022-12-21T10:51:37Z",
+      "body": "> > The class AbstractEditor.extend no longer exists.\n> \n> \n> \n> Oh dear @lebaphi - that sounds scary.\n\nno worries @IanMayo, I think there is an alternative solution for it"
+    },
+    {
+      "id": 1363808581,
+      "user": "IanMayo",
+      "created_at": "2022-12-23T10:05:35Z",
+      "updated_at": "2022-12-23T10:05:35Z",
+      "body": "Thanks for this @philb89 - is there a particular StoryBook I can use to view the new editor, is it via `yarn develop`?"
+    },
+    {
+      "id": 1363821214,
+      "user": "lebaphi",
+      "created_at": "2022-12-23T10:22:32Z",
+      "updated_at": "2022-12-23T10:22:32Z",
+      "body": "> Thanks for this @philb89 - is there a particular StoryBook I can use to view the new editor, is it via `yarn develop`?\r\n\r\nHi @IanMayo , currently not, I think we should remove this block first\r\n<img width=\"783\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/209318752-cbca725a-fa5e-4fa5-94f9-d42905ae67b4.png\">\r\n\r\nThen we can create a new storybook for the location editor 🤔 "
+    },
+    {
+      "id": 1363831842,
+      "user": "IanMayo",
+      "created_at": "2022-12-23T10:35:43Z",
+      "updated_at": "2022-12-23T10:35:43Z",
+      "body": "> currently not, I think we should remove this block first\r\n\r\nOk, but I _think_ we still need some processing like that.  We need to store the current GeoJSON data in the form (somewhere - maybe in the `location-editor`, or `DOM`), and we need to re-format the GeoJSON in human-readable form. \r\n\r\nWe have these requirements. When the form contains a `location-editor`:\r\n1. store the `PlannedActivityGeometry[]` JS array \r\n2. call a `render` function to convert the array to human readable `<ul>` list, display this as read-only in the `div`\r\n3. provide an `Edit` button, when the form is editable\r\n4. when the `Edit` button is clicked, provide the raw `PlannedActivityGeometry[]` array to the callback\r\n5. when `Save` is clicked during location edit, store the new `PlannedActivityGeometry[]`, and re-do the `Render` function\r\n6. when `Save` is clicked for the JSON-Editor, push the `current` value of of `PlannedActivityGeometry` back into the location field of the results object."
+    },
+    {
+      "id": 1363837727,
+      "user": "IanMayo",
+      "created_at": "2022-12-23T10:43:09Z",
+      "updated_at": "2022-12-23T10:43:40Z",
+      "body": "Note: this isn't relevant for this immediate issue, but note that in the future, we may have a table of `location` objects to edit.  So, we'll get this sorted first, and in the future come up with a way of the form containing multiple rows that contain a location-editor.  The drop-down in the below image will be replaced with a new `location-editor` with an `edit` button.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/209322155-1c0936b1-e9d1-456b-b180-1a7e1dcb68f9.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2171
+  ],
+  "issues": [
+    {
+      "id": 1503388894,
+      "number": 2171,
+      "title": "Bug in `develop` - JSONEditor not found",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-12-19T18:31:25Z",
+      "updated_at": "2022-12-23T16:23:56Z",
+      "closed_at": "2022-12-23T16:23:56Z",
+      "body": "Aaah, err, I think I've introduced a bug into develop, while integrating the new location-editor code.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/208494616-54b86bcc-2afd-48ca-a608-983d212fdc41.png)\r\n\r\nSteps to reproduce:\r\n- run `develop` branch\r\n- log in as `MTG-1`\r\n\r\nIt looks like we have this new method of referring to JSONEditor, but JSONEditor is undefined in the above issue:\r\n![image](https://user-images.githubusercontent.com/1108513/208495113-91aff4a3-d073-499c-9b76-88b23815a7e3.png)\r\n\r\nNote: as I look at the codebase, there are quite a few instances of `JSONEditor.defaults`, rather than `JSONEditor.JSONEditor.defaults`.  Could we investigate which is the correct pattern to use?\r\n",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/209318752-cbca725a-fa5e-4fa5-94f9-d42905ae67b4.png",
+    "https://user-images.githubusercontent.com/1108513/209322155-1c0936b1-e9d1-456b-b180-1a7e1dcb68f9.png",
+    "https://user-images.githubusercontent.com/1108513/208494616-54b86bcc-2afd-48ca-a608-983d212fdc41.png",
+    "https://user-images.githubusercontent.com/1108513/208495113-91aff4a3-d073-499c-9b76-88b23815a7e3.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 138
+}

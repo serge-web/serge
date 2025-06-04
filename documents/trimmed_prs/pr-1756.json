@@ -1,0 +1,52 @@
+{
+  "number": 1756,
+  "title": "1753 depth in state",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-11T16:33:48Z",
+  "updated_at": "2022-08-12T18:31:32Z",
+  "closed_at": "2022-08-12T18:31:32Z",
+  "merged_at": "2022-08-12T18:31:32Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1756",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1756/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1756/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1756",
+  "body": "Fixes #1753 ",
+  "additions": 11,
+  "deletions": 5,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1753
+  ],
+  "issues": [
+    {
+      "id": 1336043481,
+      "number": 1753,
+      "title": "Plan Turn Form - editing attributes for future state",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-11T14:28:04Z",
+      "updated_at": "2022-08-12T18:31:32Z",
+      "closed_at": "2022-08-12T18:31:32Z",
+      "body": "We've got SSK depth represented as an attribute.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/184156981-7ef4c948-1dec-4b20-aa44-14e00bef9a39.png)\r\n\r\n\r\nBut, attributes only relate to the present.  When we're planning actions, it's \"State\" that we set for the future.\r\n\r\nSo, for SSK I think we should use \"State\" values of:\r\n- Deep transit\r\n- Deep evade\r\n- PD search\r\n- PD evade\r\n- PD Launch weapons\r\n- Surface search\r\n- Surface attack\r\n- Surface evade\r\n\r\nPlayers can then use these states to plan a future attack.",
+      "labels": [
+        "4watu"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/184156981-7ef4c948-1dec-4b20-aa44-14e00bef9a39.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 16
+}

@@ -1,0 +1,78 @@
+{
+  "number": 1844,
+  "title": "1801 Only provide number unread if it's not a mapping channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-13T12:52:12Z",
+  "updated_at": "2022-09-13T13:58:12Z",
+  "closed_at": "2022-09-13T13:58:11Z",
+  "merged_at": "2022-09-13T13:58:11Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1844",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1844/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1844/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1844",
+  "body": "Fixes #1801 ",
+  "additions": 16,
+  "deletions": 10,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1801
+  ],
+  "issues": [
+    {
+      "id": 1357821670,
+      "number": 1801,
+      "title": "Submit New State Notification",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-08-31T20:16:15Z",
+      "updated_at": "2023-11-13T11:34:24Z",
+      "closed_at": "2023-11-13T11:34:24Z",
+      "body": "After submitting a new state, I got a notification on the mapping channel tab: \r\n\r\n![Submit State Notification](https://user-images.githubusercontent.com/85491794/187773750-4fae288a-a9c4-4dc8-87fa-076bead5282d.png)\r\n\r\nWhat does this notification mean?",
+      "labels": [
+        "wontfix",
+        "4watu",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1240423934,
+          "user": "IanMayo",
+          "created_at": "2022-09-08T08:52:48Z",
+          "updated_at": "2022-09-08T08:52:48Z",
+          "body": "Correct.  We should remove the message counter from the Mapping tab. \r\n\r\nMaybe we need a _model_ for channels to indicate if they should have a message-read counter or not."
+        },
+        {
+          "id": 1255217429,
+          "user": "ShendMikullovci",
+          "created_at": "2022-09-22T15:45:27Z",
+          "updated_at": "2022-09-22T15:45:27Z",
+          "body": "Test Wargame still has the notification: \r\n\r\n![Mapping notification](https://user-images.githubusercontent.com/85491794/191792674-992abac9-862e-46d0-830a-21663e4e6c74.png)\r\n\r\n"
+        },
+        {
+          "id": 1255251087,
+          "user": "IanMayo",
+          "created_at": "2022-09-22T16:13:35Z",
+          "updated_at": "2022-09-22T16:13:35Z",
+          "body": "Thanks @ShendMikullovci .  I've tried a few wargames on `serge-review`, and none of them show the unread message count for `Mapping channel`:\r\n![image](https://user-images.githubusercontent.com/1108513/191798576-cbbaf0d3-51b5-4f7b-87f9-480b52dc6b70.png)\r\n\r\nCould you give me some specific steps to reproduce what you saw please ? (URL of Serge instance in use, name of wargame, role logged in as)."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/187773750-4fae288a-a9c4-4dc8-87fa-076bead5282d.png",
+    "https://user-images.githubusercontent.com/85491794/191792674-992abac9-862e-46d0-830a-21663e4e6c74.png",
+    "https://user-images.githubusercontent.com/1108513/191798576-cbbaf0d3-51b5-4f7b-87f9-480b52dc6b70.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 26
+}

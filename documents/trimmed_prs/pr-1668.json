@@ -1,0 +1,108 @@
+{
+  "number": 1668,
+  "title": "1656 wrong id for new message",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-14T13:14:21Z",
+  "updated_at": "2022-07-20T10:28:08Z",
+  "closed_at": "2022-07-20T10:28:07Z",
+  "merged_at": "2022-07-20T10:28:07Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1668",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1668/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1668/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1668",
+  "body": "Fixes #1656 \r\nFixes #1667\r\n\r\nSupercedes #1666 ",
+  "additions": 199,
+  "deletions": 136,
+  "changed_files": 21,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 2,
+  "total_comments": 2,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 924341629,
+      "user": "IanMayo",
+      "created_at": "2022-07-19T10:41:04Z",
+      "updated_at": "2022-07-19T10:59:22Z",
+      "body": "hey @lilitkarapetyan  - this is clever :-)\r\n\r\nBut, I have this worry:\r\n1.  Doesn't PouchDb have to sort all the documents by `_id` before it can determine the last one?",
+      "path": "packages/server/providers/pouchdb.js",
+      "diff_hunk": "@@ -139,6 +138,26 @@ const pouchDb = (app, io, pouchOptions) => {\n       }).catch(() => res.send([]))\n   })\n \n+  app.get('/:wargame/last', (req, res) => {\n+    const databaseName = checkSqliteExists(req.params.wargame)\n+\n+    if (!databaseName) {\n+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })\n+    }\n+\n+    const db = new PouchDB(databaseName, pouchOptions)\n+\n+    db.find({\n+      selector: {\n+        messageType: INFO_MESSAGE,\n+        _id: { $ne: wargameSettings }\n+      },\n+      limit: 1,\n+      sort: [{ _id: 'desc' }]",
+      "html_url": "https://github.com/serge-web/serge/pull/1668#discussion_r924341629"
+    },
+    {
+      "id": 925174636,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-07-20T04:59:30Z",
+      "updated_at": "2022-07-20T04:59:30Z",
+      "body": "Hi Ian, From my research I found that the PouchDb doesn't give us to take last one, the best solution in this case just make sort and then take.",
+      "path": "packages/server/providers/pouchdb.js",
+      "diff_hunk": "@@ -139,6 +138,26 @@ const pouchDb = (app, io, pouchOptions) => {\n       }).catch(() => res.send([]))\n   })\n \n+  app.get('/:wargame/last', (req, res) => {\n+    const databaseName = checkSqliteExists(req.params.wargame)\n+\n+    if (!databaseName) {\n+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })\n+    }\n+\n+    const db = new PouchDB(databaseName, pouchOptions)\n+\n+    db.find({\n+      selector: {\n+        messageType: INFO_MESSAGE,\n+        _id: { $ne: wargameSettings }\n+      },\n+      limit: 1,\n+      sort: [{ _id: 'desc' }]",
+      "html_url": "https://github.com/serge-web/serge/pull/1668#discussion_r925174636"
+    }
+  ],
+  "issue_numbers": [
+    1656
+  ],
+  "issues": [
+    {
+      "id": 1295803332,
+      "number": 1656,
+      "title": "New map messages produces wargame with wrong id",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-06T12:56:06Z",
+      "updated_at": "2022-07-20T10:28:07Z",
+      "closed_at": "2022-07-20T10:28:07Z",
+      "body": "When a wargame update happens, the admin pages pull out the most recent wargame with a particular`doc_id` (`initial-settings` if pre-initiated, and `settings` if after initiated).\r\n\r\nBut, when I submit a message from the map (umpire laydown in this case) the new document is stored with a date-time id.\r\n\r\nThen, when I make a wargame change from the admin pages (such as initiate wargame), they actually retrieve and modify an earlier wargame.\r\n\r\nSteps to reproduce:\r\n1. checkout branch `1656_wargame_document_id`\r\n2. open `wargame-l56yw0y5.sqlite` database in DB Browser. Verify there are 3 records. Newest one is `initial_wargame`\r\n3. note that this wargame includes the phrase \"Umpire laydown\" 4 times.\r\n4. enter game `Small wargame-laydown`\r\n5. login as `Game Control`\r\n6. move 4 assets from \"laydown pen\". Click once to select, and once to drag.  Move them anywhere.\r\n7.  Once all 4 are moved, \"Submit laydown\" button will become enabled. Click it, and confirm \"Submit laydown\"\r\n8.  Open wargame database.  There are now 5 records. The two new ones are \"Umpire Laydown\" message, then new wargame. Note that the `doc_id` for the new wargame is the date/time. Also note that the new wargame doesn't include the phrase \"Umpire laydown\" - since no assets are still waiting for \"umpire laydown\"\r\n9.  Open admin pages, enter `Small wargame-laydown`\r\n10.  Mark wargame as initiated\r\n11.  Player UI fails, since `Error: Should not have umpire laydown for initiated wargame`\r\n12.  Look at database. It now has 6  records. The newest wargame has date-time for `doc_id`, and includes the phrase \"umpire laydown\" - which shows it wasn't the most recent wargame that got updated.",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1176427392,
+          "user": "IanMayo",
+          "created_at": "2022-07-06T16:25:06Z",
+          "updated_at": "2022-07-06T16:42:25Z",
+          "body": "I've been thinking about this @lilitkarapetyan \r\n\r\nI _think_ the first error is in line `#8` above - where we get the database record for the updated wargame with date-time for `doc_id`.\r\n\r\nFixing that may fix the _downstream_ error I get afterwards."
+        },
+        {
+          "id": 1178864837,
+          "user": "IanMayo",
+          "created_at": "2022-07-08T11:12:18Z",
+          "updated_at": "2022-07-08T11:12:18Z",
+          "body": "Startup condition.  Wargame not initiated, so wargame document stored in `initial_wargame`:\r\n![image](https://user-images.githubusercontent.com/1108513/177980949-418c2e29-9af7-4e37-b964-a97c1d3f845a.png)\r\n\r\nLog into `Small game - laydown`. Move `pending` assets.  Then submit laydown:\r\n![image](https://user-images.githubusercontent.com/1108513/177981180-dec58635-72b0-4e74-9467-c5e06b498ace.png)\r\n\r\nNote the two new documents. The one with `seq` of `11` is the `Submit laydown message` and the one at `12` is the new wargame.  It has the wrong name:\r\n![image](https://user-images.githubusercontent.com/1108513/177981383-b440b01c-0ea8-4cb9-accf-01385ca0fc5d.png)\r\n\r\nSo, now if we make a change from the `Admin` pages (such as `initiate wargame`) Serge will pull out the document at `seq` value `10`, and modify that.  This is because the one at `12` has the wrong name."
+        },
+        {
+          "id": 1180629433,
+          "user": "IanMayo",
+          "created_at": "2022-07-11T16:38:51Z",
+          "updated_at": "2022-07-11T16:38:51Z",
+          "body": "@lilitkarapetyan - I'm pretty sure the issue is with this message:\r\n![image](https://user-images.githubusercontent.com/1108513/178313805-9b3288e7-b175-45cc-91ae-0b39798d9815.png)\r\n\r\n\r\nI _think_ that if the wargame is not initiated we need to overwrite the `initial_wargame` document, otherwise we create a new version of the `settings` document.  Here is where these are defined:\r\n![image](https://user-images.githubusercontent.com/1108513/178314112-973c6dd5-2108-4bbf-92db-66fbfae5fbe0.png)\r\n"
+        },
+        {
+          "id": 1181298080,
+          "user": "lilitkarapetyan",
+          "created_at": "2022-07-12T04:23:49Z",
+          "updated_at": "2022-07-12T04:23:49Z",
+          "body": "> @lilitkarapetyan - I'm pretty sure the issue is with this message: ![image](https://user-images.githubusercontent.com/1108513/178313805-9b3288e7-b175-45cc-91ae-0b39798d9815.png)\r\n> \r\n> I _think_ that if the wargame is not initiated we need to overwrite the `initial_wargame` document, otherwise we create a new version of the `settings` document. Here is where these are defined: ![image](https://user-images.githubusercontent.com/1108513/178314112-973c6dd5-2108-4bbf-92db-66fbfae5fbe0.png)\r\n\r\nHi Ian, the issue is resolved, I will add today "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/177980949-418c2e29-9af7-4e37-b964-a97c1d3f845a.png",
+    "https://user-images.githubusercontent.com/1108513/177981180-dec58635-72b0-4e74-9467-c5e06b498ace.png",
+    "https://user-images.githubusercontent.com/1108513/177981383-b440b01c-0ea8-4cb9-accf-01385ca0fc5d.png",
+    "https://user-images.githubusercontent.com/1108513/178313805-9b3288e7-b175-45cc-91ae-0b39798d9815.png",
+    "https://user-images.githubusercontent.com/1108513/178314112-973c6dd5-2108-4bbf-92db-66fbfae5fbe0.png"
+  ],
+  "number_of_changed_files": 21,
+  "total_changed_lines": 335
+}

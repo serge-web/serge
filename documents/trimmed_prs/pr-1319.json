@@ -1,0 +1,67 @@
+{
+  "number": 1319,
+  "title": "Home button zooms out to show whole area, not just map centre",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-24T15:10:39Z",
+  "updated_at": "2022-01-24T16:14:49Z",
+  "closed_at": "2022-01-24T16:14:48Z",
+  "merged_at": "2022-01-24T16:14:48Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1319",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1319/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1319/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1319",
+  "body": "Fixes #1307 ",
+  "additions": 11,
+  "deletions": 7,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1307
+  ],
+  "issues": [
+    {
+      "id": 1105096298,
+      "number": 1307,
+      "title": "Fit to Window Button Bug",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-16T16:24:00Z",
+      "updated_at": "2022-01-24T16:14:48Z",
+      "closed_at": "2022-01-24T16:14:48Z",
+      "body": "The Fit to Window button is inconsistent and doesn't zoom into a clicked cell, but rather on the focal point of the screen at the time. Very often, this leads to screens like this:\r\n\r\n![Fit to Window](https://user-images.githubusercontent.com/85491794/149668453-7c0ebfa1-dde5-4a26-a83c-2aa9d5fecced.png)\r\n\r\nCan we see to it that the button leads to a specific clicked cell or cell area? \r\n\r\nAlso, clicking on the Fit to Window button after the zoom should zoom the screen out to its previous position. \r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1014699117,
+          "user": "IanMayo",
+          "created_at": "2022-01-17T16:11:17Z",
+          "updated_at": "2022-01-17T16:11:17Z",
+          "body": "Ian to reproduce & consider underlying issue."
+        },
+        {
+          "id": 1020187670,
+          "user": "IanMayo",
+          "created_at": "2022-01-24T14:57:48Z",
+          "updated_at": "2022-01-24T14:57:48Z",
+          "body": "Aah, I see.  This is what happens when nothing is selected. Let me investigate."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/149668453-7c0ebfa1-dde5-4a26-a83c-2aa9d5fecced.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 18
+}

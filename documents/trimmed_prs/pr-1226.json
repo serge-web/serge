@@ -1,0 +1,32 @@
+{
+  "number": 1226,
+  "title": "Hotfix/template name for json editor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-01T17:35:50Z",
+  "updated_at": "2021-12-01T17:51:02Z",
+  "closed_at": "2021-12-01T17:51:01Z",
+  "merged_at": "2021-12-01T17:51:01Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1226",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1226/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1226/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1226",
+  "body": "Fixes issue @lebaphi noticed following json-editor updates, plus some linter fixes.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/144284744-662e3b94-f4b3-49f3-921c-4819f9a66604.png)\r\n",
+  "additions": 9,
+  "deletions": 20,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/144284744-662e3b94-f4b3-49f3-921c-4819f9a66604.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 29
+}

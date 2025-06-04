@@ -1,0 +1,87 @@
+{
+  "number": 1314,
+  "title": "blue_screen_of_death_#1300",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-19T09:07:19Z",
+  "updated_at": "2022-01-19T12:05:47Z",
+  "closed_at": "2022-01-19T12:05:47Z",
+  "merged_at": "2022-01-19T12:05:46Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1314",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1314/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1314/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1314",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1300 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1016357504,
+      "user": "IanMayo",
+      "created_at": "2022-01-19T11:19:47Z",
+      "updated_at": "2022-01-19T11:19:47Z",
+      "body": "@lilitkarapetyan - can you tell me what you had to fix here please?  I have a SQL Diff app, but it's not showing me what has changed.\r\n\r\nAah, is it every. instance of `\"status2\": \"Being edited\"` to `\"status2\": \"In progress\"` ?"
+    },
+    {
+      "id": 1016402516,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-01-19T12:04:54Z",
+      "updated_at": "2022-01-19T12:04:54Z",
+      "body": "> @lilitkarapetyan - can you tell me what you had to fix here please? I have a SQL Diff app, but it's not showing me what has changed.\r\n> \r\n> Aah, is it every. instance of `\"status2\": \"Being edited\"` to `\"status2\": \"In progress\"` ?\r\n\r\nAfter PR Rafactor participants & channels #1294 the text \"Being Edited\" does not exist it was changed \"In progress\" so when we clicked on it we had a issue"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1294
+  ],
+  "issues": [
+    {
+      "id": 1097685945,
+      "number": 1294,
+      "title": "Rafactor participants & channels",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-01-10T10:07:20Z",
+      "updated_at": "2022-01-13T11:13:21Z",
+      "closed_at": "2022-01-13T11:13:20Z",
+      "body": "Extends work in #1278 \r\nCreate PR for branch, to make it easier to review @lebaphi 's suggested changes.\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1010036306,
+          "user": "lebaphi",
+          "created_at": "2022-01-11T14:48:31Z",
+          "updated_at": "2022-01-11T14:48:31Z",
+          "body": "Hi @IanMayo , I just play a bit and found 2 issues as this video below:\r\n- Does not prevent accessing to the legacy channel\r\n- After saving channel collab, it  show wrong  admin controls page :D\r\n\r\nhttps://user-images.githubusercontent.com/26705621/148963932-c5f8e85d-33ab-40ea-8283-1371082e8644.mov\r\n\r\n"
+        },
+        {
+          "id": 1010039841,
+          "user": "IanMayo",
+          "created_at": "2022-01-11T14:52:10Z",
+          "updated_at": "2022-01-11T14:52:10Z",
+          "body": "> Hi @IanMayo , I just play a bit and found 2 issues as this video below:\r\n> \r\n> * Does not prevent accessing to the legacy channel\r\n> * After saving channel collab, it  show wrong  admin controls page :D\r\n> \r\n\r\nWow, thanks for that. On it!\r\n\r\n"
+        },
+        {
+          "id": 1010223659,
+          "user": "IanMayo",
+          "created_at": "2022-01-11T18:03:49Z",
+          "updated_at": "2022-01-11T18:03:49Z",
+          "body": "Ok. We now don't try to render the legacy channel.\r\n\r\nI've had a look at what the channel _appears_ to lose it's \"collaborative editing\" controls on save.   It's saving the correct value, so that's not the cause.\r\n\r\nBut, it does seem to be rendering the wrong channel after the `Save` operation.\r\n\r\nTomorrow, would you mind trying to investigate it please @lebaphi ?\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 0
+}

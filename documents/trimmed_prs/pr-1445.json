@@ -1,0 +1,40 @@
+{
+  "number": 1445,
+  "title": "Investigate Serge-Review crash",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-23T13:43:52Z",
+  "updated_at": "2022-03-23T14:13:21Z",
+  "closed_at": "2022-03-23T14:13:20Z",
+  "merged_at": "2022-03-23T14:13:20Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1445",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1445/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1445/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1445",
+  "body": "Introduce some diagnostics to learn what's making live deployment crash.\r\n\r\nSupports #1433 ",
+  "additions": 4,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1076424436,
+      "user": "IanMayo",
+      "created_at": "2022-03-23T14:13:13Z",
+      "updated_at": "2022-03-23T14:13:13Z",
+      "body": "Hmm, not failing in Heroku for this branch. Try merging it, so we can test in `serge-review`."
+    }
+  ],
+  "review_comments_data": [],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 4
+}

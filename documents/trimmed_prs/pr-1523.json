@@ -1,0 +1,73 @@
+{
+  "number": 1523,
+  "title": "1520: Rename settings document to initial_wargame",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-21T12:01:16Z",
+  "updated_at": "2022-04-26T08:37:48Z",
+  "closed_at": "2022-04-26T08:37:48Z",
+  "merged_at": "2022-04-26T08:37:48Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1523",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1523/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1523/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1523",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1520\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 78,
+  "deletions": 62,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1108295592,
+      "user": "IanMayo",
+      "created_at": "2022-04-25T09:09:09Z",
+      "updated_at": "2022-04-25T09:09:09Z",
+      "body": "Thanks @lilitkarapetyan \r\n\r\nWe have the `local_settings` constant declared, but we still have lots of instances of using the string `\"local_settings\"`. Can we replace as many strings as possible with the constant please?"
+    },
+    {
+      "id": 1109413513,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-04-26T06:50:11Z",
+      "updated_at": "2022-04-26T06:50:11Z",
+      "body": "> :-(\r\n> \r\n> But this still means we still declare the value of `initial_wargame` twice in the client-side code. Can't `client` package read from `config`?\r\n\r\nI think it works differently for `consts.js` and `*.test.js`."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1520
+  ],
+  "issues": [
+    {
+      "id": 1210831100,
+      "number": 1520,
+      "title": "Rename `settings` document to `initial_wargame`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-21T10:27:23Z",
+      "updated_at": "2022-05-17T09:38:52Z",
+      "closed_at": "2022-05-17T09:38:52Z",
+      "body": "Before a wargame starts, the Game Designer can make lots of changes to the wargame definition.\r\n\r\nThese game documents used to be stored in `_local\\settings`, but are now in `settings`.  Once the game has started, new wargame documents get stored as new documents, with their own ids.  This is quite deliberate, to allow \"time-travel\" back to the previous version of a wargame.\r\n\r\nAnyway, the`settings` document has a meaning more specific than just `settings`.  It's the initial version of the wargame.  So, I believe it should be called `initial_wargame`.\r\n\r\nI'm expecting these changes:\r\n- when creating new wargames, we will use the name `initial_wargame`\r\n- when loading a wargame, first check for `initial_wargame`. If it's not present, retrieve data from `settings`",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1128648027,
+          "user": "IanMayo",
+          "created_at": "2022-05-17T09:38:52Z",
+          "updated_at": "2022-05-17T09:38:52Z",
+          "body": "Fixed in #1523 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 140
+}

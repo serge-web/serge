@@ -1,0 +1,67 @@
+{
+  "number": 2056,
+  "title": "2055 remember filters",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-11T19:41:01Z",
+  "updated_at": "2022-11-12T10:09:22Z",
+  "closed_at": "2022-11-12T10:09:21Z",
+  "merged_at": "2022-11-12T10:09:21Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2056",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2056/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2056/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2056",
+  "body": "Fixes #2055",
+  "additions": 9,
+  "deletions": 3,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2055
+  ],
+  "issues": [
+    {
+      "id": 1445927983,
+      "number": 2055,
+      "title": "When we select an icon, any filters are lost",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-11T19:34:18Z",
+      "updated_at": "2022-11-12T10:29:26Z",
+      "closed_at": "2022-11-12T10:09:22Z",
+      "body": "In the PlanningChannel we have the two lists of forces.\r\n\r\nWe can filter for things, including platform-type.\r\n\r\nBut, the filter is lost when an asset is selected, either from the table or the map.\r\n\r\nI _guess_ we need to cache the filter settings, then update the rows, then apply the settings again.\r\n\r\nHmm, the drop-downs probably only need to be generated once - since the assets essentially stay in the game.  So, may just declare the columns once - and just do the rows afterwards?\r\n\r\nYes THAT'S THE FIX!",
+      "labels": [
+        "bug",
+        "4p9",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1312366535,
+          "user": "lebaphi",
+          "created_at": "2022-11-12T05:04:36Z",
+          "updated_at": "2022-11-12T05:05:43Z",
+          "body": "Hi @IanMayo , does PR https://github.com/serge-web/serge/pull/2056 fix this problem? I tried to select an asset but the filter is still there"
+        },
+        {
+          "id": 1312448953,
+          "user": "IanMayo",
+          "created_at": "2022-11-12T10:29:26Z",
+          "updated_at": "2022-11-12T10:29:26Z",
+          "body": "> Hi @IanMayo , does PR #2056 fix this problem? I tried to select an asset but the filter is still there\r\n\r\nYes.  While I was writing the issue, the  possible solution jumped into my head.  I gave it a go, and it worked."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 12
+}

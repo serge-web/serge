@@ -1,0 +1,178 @@
+{
+  "number": 2991,
+  "title": "2769 eliminate ts ignore in admin game setup component",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-07-03T11:29:10Z",
+  "updated_at": "2024-07-18T09:28:32Z",
+  "closed_at": "2024-07-18T09:28:30Z",
+  "merged_at": "2024-07-18T09:28:30Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2991",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2991/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2991/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2991",
+  "body": "Fixes #2769 \r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 337,
+  "deletions": 308,
+  "changed_files": 59,
+  "labels": [
+    "Technical Debt",
+    "4p10"
+  ],
+  "comments_count": 14,
+  "review_comments_count": 1,
+  "total_comments": 15,
+  "comments_data": [
+    {
+      "id": 2216867879,
+      "user": "Tristina1788",
+      "created_at": "2024-07-09T07:56:40Z",
+      "updated_at": "2024-07-09T07:56:40Z",
+      "body": "@lilitkarapetyan @IanMayo I see the failed tests then I checkout and check from my side. I can run pass without any issue. So I re-run the job and the tests from deployment are also passed. The failed test before maybe from low connection. \r\nBut I don't know what I should check in this PR. From UI, seems everything is working as before."
+    },
+    {
+      "id": 2217097343,
+      "user": "IanMayo",
+      "created_at": "2024-07-09T09:09:55Z",
+      "updated_at": "2024-07-09T09:09:55Z",
+      "body": ">  But I don't know what I should check in this PR. From UI, seems everything is working as before.\r\n\r\nHello @Tristina1788 - this is a code change that should not change the UI functionality.  So, everything should work as before - so that's a good sign :-)\r\n"
+    },
+    {
+      "id": 2217408711,
+      "user": "IanMayo",
+      "created_at": "2024-07-09T11:31:31Z",
+      "updated_at": "2024-07-09T11:31:31Z",
+      "body": "We have these build errors @lilitkarapetyan.  I tried the apply the suggested fix, but I don't think it worked:\r\n```\r\n       src/ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators.ts(3,19): error TS7016: Could not find a declaration file for module 'check-types'. '/tmp/build_0e601687/client/node_modules/check-types/src/check-types.js' implicitly has an 'any' type.\r\n         Try `npm i --save-dev @types/check-types` if it exists or add a new declaration (.d.ts) file containing `declare module 'check-types';`\r\n       src/ActionsAndReducers/dbMessages/messages_ActionCreators.ts(4,19): error TS7016: Could not find a declaration file for module 'check-types'. '/tmp/build_0e601687/client/node_modules/check-types/src/check-types.js' implicitly has an 'any' type.\r\n         Try `npm i --save-dev @types/check-types` if it exists or add a new declaration (.d.ts) file containing `declare module 'check-types';`\r\n```\r\n\r\nI'll have to leave it to you, please."
+    },
+    {
+      "id": 2217474576,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-09T12:08:48Z",
+      "updated_at": "2024-07-09T12:08:48Z",
+      "body": "> We have these build errors @lilitkarapetyan. I tried the apply the suggested fix, but I don't think it worked:\r\n> \r\n> ```\r\n>        src/ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators.ts(3,19): error TS7016: Could not find a declaration file for module 'check-types'. '/tmp/build_0e601687/client/node_modules/check-types/src/check-types.js' implicitly has an 'any' type.\r\n>          Try `npm i --save-dev @types/check-types` if it exists or add a new declaration (.d.ts) file containing `declare module 'check-types';`\r\n>        src/ActionsAndReducers/dbMessages/messages_ActionCreators.ts(4,19): error TS7016: Could not find a declaration file for module 'check-types'. '/tmp/build_0e601687/client/node_modules/check-types/src/check-types.js' implicitly has an 'any' type.\r\n>          Try `npm i --save-dev @types/check-types` if it exists or add a new declaration (.d.ts) file containing `declare module 'check-types';`\r\n> ```\r\n> \r\n> I'll have to leave it to you, please.\r\n\r\nI will solove it"
+    },
+    {
+      "id": 2217477555,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-09T12:10:01Z",
+      "updated_at": "2024-07-09T12:10:01Z",
+      "body": "Did you run the yarn command ?\r\n"
+    },
+    {
+      "id": 2217529305,
+      "user": "IanMayo",
+      "created_at": "2024-07-09T12:26:21Z",
+      "updated_at": "2024-07-09T12:26:21Z",
+      "body": "> Did you run the yarn command ?\r\n\r\nThe error comes from the Heroku build, not my local machine.  Running `yarn install` locally fixed my build, but we need the Heroku build to run, too.\r\n"
+    },
+    {
+      "id": 2225034057,
+      "user": "IanMayo",
+      "created_at": "2024-07-12T07:57:38Z",
+      "updated_at": "2024-07-12T07:57:38Z",
+      "body": "Hello @lilitkarapetyan - this is done, really. But, how about you try to remove some other `ts-ignore` comments in the code base, too?"
+    },
+    {
+      "id": 2225110010,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-12T08:45:00Z",
+      "updated_at": "2024-07-12T08:45:00Z",
+      "body": "> Hello @lilitkarapetyan - this is done, really. But, how about you try to remove some other `ts-ignore` comments in the code base, too?\r\n\r\nI Think It's good Idea "
+    },
+    {
+      "id": 2233218909,
+      "user": "IanMayo",
+      "created_at": "2024-07-17T12:36:01Z",
+      "updated_at": "2024-07-17T12:36:01Z",
+      "body": "This is good work, thanks @lilitkarapetyan \r\n\r\nIt seems to cover quite a wide area, so it's worth @Tristina1788 doing some wider testing.  @lilitkarapetyan - could you please provide a list of areas of Serge that should be re-tested due to changes in this PR?"
+    },
+    {
+      "id": 2235797489,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-18T07:17:01Z",
+      "updated_at": "2024-07-18T07:17:01Z",
+      "body": "> This is good work, thanks @lilitkarapetyan\r\n> \r\n> It seems to cover quite a wide area, so it's worth @Tristina1788 doing some wider testing. @lilitkarapetyan - could you please provide a list of areas of Serge that should be re-tested due to changes in this PR?\r\n\r\nHello , I think you could test keeping the Forces Save section in the admin panel and the Chanel tab in the game. \r\n![Screenshot (303)](https://github.com/user-attachments/assets/5193f8ab-fefc-44cd-9db4-c31f72b2b339)\r\n![Screenshot (304)](https://github.com/user-attachments/assets/e7283d7a-8113-4937-b377-49921f5481ce)\r\n "
+    },
+    {
+      "id": 2235856170,
+      "user": "Tristina1788",
+      "created_at": "2024-07-18T07:51:20Z",
+      "updated_at": "2024-07-18T07:51:20Z",
+      "body": "@IanMayo  @lilitkarapetyan Checking all places and I don't see the difference with before. "
+    },
+    {
+      "id": 2235864217,
+      "user": "IanMayo",
+      "created_at": "2024-07-18T07:55:47Z",
+      "updated_at": "2024-07-18T08:03:24Z",
+      "body": "> I don't see the difference with before.\r\n\r\nGood, that's what we're hoping to see 🤣   . Lilit has done some tidying (refactoring) of the source code for Serge, but the test is that nothing has been broken.  So, that's what we're looking for @Tristina1788 ."
+    },
+    {
+      "id": 2235871170,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-18T07:58:30Z",
+      "updated_at": "2024-07-18T07:58:30Z",
+      "body": "> @IanMayo @lilitkarapetyan Checking all places and I don't see the difference with before.\r\n\r\nYes, we need it to work like before."
+    },
+    {
+      "id": 2235901655,
+      "user": "Tristina1788",
+      "created_at": "2024-07-18T08:14:20Z",
+      "updated_at": "2024-07-18T08:14:20Z",
+      "body": "> > I don't see the difference with before.\r\n> \r\n> Good, that's what we're hoping to see 🤣 . Lilit has done some tidying (refactoring) of the source code for Serge, but the test is that nothing has been broken. So, that's what we're looking for @Tristina1788 .\r\n\r\nYes, I understand that. So It's good to go."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1670078988,
+      "user": "IanMayo",
+      "created_at": "2024-07-09T09:05:17Z",
+      "updated_at": "2024-07-09T09:05:17Z",
+      "body": "@lilitkarapetyan - we can probably lose the above debug line",
+      "path": "client/src/ActionsAndReducers/dbWargames/wargames_ActionCreators.ts",
+      "diff_hunk": "@@ -155,18 +156,16 @@ export const populateWargameList = () => {\n   return async (dispatch: WargameDispatch) => {\r\n     dispatch(populatingDb(true))\r\n \r\n-    // @ts-ignore\r\n-    const wargameNames = await wargamesApi.populateWargameList(dispatch)\r\n+    const wargameNames = await wargamesApi.populateWargameList()\r\n     console.warn('now all wargameenams come from server', wargameNames)\r",
+      "html_url": "https://github.com/serge-web/serge/pull/2991#discussion_r1670078988"
+    }
+  ],
+  "issue_numbers": [
+    2769
+  ],
+  "issues": [
+    {
+      "id": 2083137196,
+      "number": 2769,
+      "title": "Eliminate @ts-ignore in AdminGameSetup Component",
+      "state": "closed",
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-16T06:58:02Z",
+      "updated_at": "2024-07-18T09:28:31Z",
+      "closed_at": "2024-07-18T09:28:31Z",
+      "body": "## 🐞 Amendment description\r\nThe `AdminGameSetup` component currently uses `@ts-ignore` in several places. This is not a recommended practice as it suppresses TypeScript errors without providing a proper solution. We need to refactor the code to eliminate the usage of `@ts-ignore` and implement TypeScript-friendly solutions.\r\n\r\n\r\n## 🖥️ Screenshots\r\n![393a98d96d2307b448cfedeecca32fa6](https://github.com/serge-web/serge/assets/20753599/b5ab9114-6836-4990-914d-fa75d5a9949e)\r\n\r\n\r\n\r\n",
+      "labels": [
+        "Technical Debt",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1893421576,
+          "user": "IanMayo",
+          "created_at": "2024-01-16T10:02:38Z",
+          "updated_at": "2024-01-30T16:14:04Z",
+          "body": "Well spotted, thanks @lilitkarapetyan \r\n\r\n**Update:** I've just had a look, and it looks like those `ts-ignore` flags are suppressing some issues that really need solving."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/user-attachments/assets/5193f8ab-fefc-44cd-9db4-c31f72b2b339",
+    "https://github.com/user-attachments/assets/e7283d7a-8113-4937-b377-49921f5481ce",
+    "https://github.com/serge-web/serge/assets/20753599/b5ab9114-6836-4990-914d-fa75d5a9949e"
+  ],
+  "number_of_changed_files": 59,
+  "total_changed_lines": 645
+}

@@ -1,0 +1,58 @@
+{
+  "number": 1515,
+  "title": "1503 Refactor Asset Icon",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-17T04:58:48Z",
+  "updated_at": "2022-04-19T15:33:41Z",
+  "closed_at": "2022-04-19T15:33:40Z",
+  "merged_at": "2022-04-19T15:33:39Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1515",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1515/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1515/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1515",
+  "body": "Fixes #1503 ",
+  "additions": 438,
+  "deletions": 654,
+  "changed_files": 35,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1102435892,
+      "user": "IanMayo",
+      "created_at": "2022-04-19T10:01:42Z",
+      "updated_at": "2022-04-19T10:01:42Z",
+      "body": "The file called `marker` appears to be a `.png` - can we give it the correct file-type please.\r\n\r\nCan you explain the role of this file please @lebaphi ?   I can't see how it is used in `asset-icon`."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1503
+  ],
+  "issues": [
+    {
+      "id": 1203188319,
+      "number": 1503,
+      "title": "Refactor `<AssetIcon>`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-13T11:46:10Z",
+      "updated_at": "2022-04-19T15:33:40Z",
+      "closed_at": "2022-04-19T15:33:40Z",
+      "body": "IMHO, our icon implementation is a bit clunky.\r\n\r\nSpecifically, `<AssetIcon>` includes the `<GetIcon>` component, but it doesn't use it.\r\n\r\nI'd like us to refactor `<GetIcon>` into it's own component, so we can give it an `storybook` test that allows `destroyed`, `selected`, `force` and `type` to be modified in the storybook control.\r\n\r\nSo, I _think_ we should:\r\n1. Rename `AssetIcon` to `MapIcon` (since it is used for putting an icon on the map)\r\n2. Rename `GetIcon` to `AssetIcon`\r\n3. Modify _new_ `MapIcon` to use _new_ `AssetIcon`\r\n4. Refactor `AssetIcon` to it's own component\r\n5. Produce `story` and `spec` for `AssetIcon`\r\n\r\nI hope all that renaming isn't too complicated 🤣 ",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 35,
+  "total_changed_lines": 1092
+}

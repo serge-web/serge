@@ -1,0 +1,64 @@
+{
+  "number": 2014,
+  "title": "refactor how we customise templates",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-07T19:15:59Z",
+  "updated_at": "2022-11-08T12:25:31Z",
+  "closed_at": "2022-11-08T12:25:30Z",
+  "merged_at": "2022-11-08T12:25:30Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2014",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2014/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2014/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2014",
+  "body": "Fixes #2013",
+  "additions": 124,
+  "deletions": 96,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 1,
+  "total_comments": 1,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 1015810461,
+      "user": "IanMayo",
+      "created_at": "2022-11-07T19:19:22Z",
+      "updated_at": "2022-11-07T19:19:22Z",
+      "body": "@lebaphi - could you help review my JS please?\r\n\r\nWe did have a method that would take a `json-editor` template, and modify it (to build up the assets drop-down).\r\n\r\nIt was quite complex, with lots of params, and we need to add/modify some more drop-downs for it.  So,I've refactored it into a series (two so far) of methods that _effectively_ get called in a chain.\r\n\r\nCould you check it makes sense please? Oh, and one last worry.  You see the `allOwnAssets` field in the code below?  Can you confirm that this should use the _current_ value of that state when the function gets called, and not the value of `allOwnAssets` when the page is first rendered?",
+      "path": "packages/components/src/local/organisms/support-panel/index.tsx",
+      "diff_hunk": "@@ -156,6 +157,19 @@ export const SupportPanel: React.FC<PropTypes> = ({\n     setTurnFilter(turn)\n   }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/2014#discussion_r1015810461"
+    }
+  ],
+  "issue_numbers": [
+    2013
+  ],
+  "issues": [
+    {
+      "id": 1438715189,
+      "number": 2013,
+      "title": "Refactor template customisers",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-07T17:21:34Z",
+      "updated_at": "2022-11-08T12:25:31Z",
+      "closed_at": "2022-11-08T12:25:31Z",
+      "body": "We have a template-customiser to improve the drop-down lists in JSON-editor.\r\n\r\nThe method is steadily receiving more parameters.\r\n\r\nInstead, we should declare an array of them, and work through the array when we need to _do-customise_.  The methods would be declared with their individual parameters, so they still match the `expected` API.",
+      "labels": [
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 220
+}

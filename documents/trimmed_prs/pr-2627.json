@@ -1,0 +1,50 @@
+{
+  "number": 2627,
+  "title": "give all forces the real location",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-13T06:38:29Z",
+  "updated_at": "2023-03-13T07:15:49Z",
+  "closed_at": "2023-03-13T07:15:48Z",
+  "merged_at": "2023-03-13T07:15:48Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2627",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2627/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2627/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2627",
+  "body": "Fixes #2625",
+  "additions": 4,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2625
+  ],
+  "issues": [
+    {
+      "id": 1620464832,
+      "number": 2625,
+      "title": "Use `perfect` location for red perception of blue/green assets",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-12T18:31:00Z",
+      "updated_at": "2023-03-13T07:15:49Z",
+      "closed_at": "2023-03-13T07:15:49Z",
+      "body": "We're having trouble maintaining red perception of blue/green assets.\r\n\r\nWe can avoid it by giving red the perfect location of blue/green assets, but telling them it is the last known location.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 5
+}

@@ -1,0 +1,75 @@
+{
+  "number": 1334,
+  "title": "add action for healtcheck api",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-02-01T11:59:12Z",
+  "updated_at": "2022-03-07T14:10:30Z",
+  "closed_at": "2022-03-07T14:10:29Z",
+  "merged_at": "2022-03-07T14:10:29Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1334",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1334/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1334/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1334",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1317 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 141,
+  "deletions": 83,
+  "changed_files": 26,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 1,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1026791002,
+      "user": "IanMayo",
+      "created_at": "2022-02-01T12:28:00Z",
+      "updated_at": "2022-02-01T12:28:00Z",
+      "body": "Thanks @lilitkarapetyan - but this is more advanced than we need.\r\n\r\nIt _looks like_ this PR tells the server when an interaction happens.\r\n\r\nI don't think we need that level of network activity.  Instead, I think this is enough:\r\n- when these interactions happen:\r\n    - store the time of the interaction (`mostRecentActivity`)\r\n- when heartbeat request is sent:\r\n    - pass the `mostRecentActivity` time in the request, which the server stores (instead of the time of heartbeat)\r\n\r\nI hope this makes sense.\r\n"
+    },
+    {
+      "id": 1034632714,
+      "user": "IanMayo",
+      "created_at": "2022-02-10T08:36:24Z",
+      "updated_at": "2022-02-10T08:36:24Z",
+      "body": "Nice work, thanks @lilitkarapetyan \r\n\r\n```\r\nexpiredStorage.setItem('activityTime', `${new Date().getTime()}`)\r\n```\r\n\r\nCould you swap instances of this bit of code with calls to a function please?\r\n\r\nThen, if we want to modify the _activity-tracking_, we only have to do it in one place."
+    },
+    {
+      "id": 1034925665,
+      "user": "IanMayo",
+      "created_at": "2022-02-10T13:31:31Z",
+      "updated_at": "2022-02-10T13:31:31Z",
+      "body": "@lilitkarapetyan - the logic is still a little confused here.\r\n\r\nWe have the `healthcheck` and `playerlog` messages.  Currently:\r\n* `healthcheck` is passing the `activity-time` in the **get** which returns the status\r\n* `playerlog` is **posting** `wargame` and `role` - and the server is injecting the current time\r\n* `playerlog` is **getting** the log of activity for the specified wargame\r\n\r\nWe need to modify `healthcheck` to send `activity-time`, `activity-type`, `wargame` and `role` (all of the `PlayerActivity` elements.  The server should then store this data using the logic in `app.post(\"playerlog\")` in `server.js`.\r\n\r\nThen we don't need to **post** playerlog.  We will just include the details when we  **get**  the healthcheck \r\n\r\nNote: for the player-log I'd like us to start tracking the `activityType` too.  I've made the client-side changes - but we need to send it to the server & store it there, too.\r\n"
+    },
+    {
+      "id": 1055295718,
+      "user": "IanMayo",
+      "created_at": "2022-03-01T10:50:55Z",
+      "updated_at": "2022-03-01T10:50:55Z",
+      "body": "I'm pretty sure there is an outstanding issue with this.\r\n\r\nIf I remember correctly, I don't think the `node` server is returning the correct `last-activity` value for the current user. I was logged in as `Game Manager`, but it said I hadn't interacted for 20 minutes:\r\n![image](https://user-images.githubusercontent.com/1108513/156155857-c55cb736-5fa3-454e-a121-c1ffef4a65d6.png)\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 804589089,
+      "user": "IanMayo",
+      "created_at": "2022-02-11T12:05:25Z",
+      "updated_at": "2022-02-11T12:05:26Z",
+      "body": "@lilitkarapetyan - would it be a problem if we passed the data as four fields , instead of using `stringify`?  The use of `stringify` is making the call harder to read:\r\n![image](https://user-images.githubusercontent.com/1108513/153588473-6d335c2a-c79f-4cf3-bd50-2f5c41bccad3.png)\r\n\r\nThere may be a strong reason to keep `stringify`.  If there is, please just say.\r\n\r\n",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -159,9 +160,12 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch\n   listenNewMessage({ db, name, dispatch })\n }\n \n-export const pingServer = (): Promise<any> => {\n+export const pingServer = (activityDetails: {wargame: string, role: string}): Promise<any> => {\n   const activityTime = expiredStorage.getItem(ACTIVITY_TIME) || 'The player has not shown any activity yet'\n-  return fetch(serverPath + 'healthcheck/' + activityTime + '/healthcheck', {\n+  const activityType = expiredStorage.getItem(ACTIVITY_TYPE) || 'The player has not shown any activity yet'\n+  const activityLogs: ActivityLogsInterface = { activityTime, activityType, ...activityDetails }\n+\n+  return fetch(serverPath + 'healthcheck/' + JSON.stringify(activityLogs) + '/healthcheck', {",
+      "html_url": "https://github.com/serge-web/serge/pull/1334#discussion_r804589089"
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/156155857-c55cb736-5fa3-454e-a121-c1ffef4a65d6.png",
+    "https://user-images.githubusercontent.com/1108513/153588473-6d335c2a-c79f-4cf3-bd50-2f5c41bccad3.png"
+  ],
+  "number_of_changed_files": 26,
+  "total_changed_lines": 224
+}

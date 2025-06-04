@@ -1,0 +1,102 @@
+{
+  "number": 1311,
+  "title": "1305: Fix issue mapping cursor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-18T14:18:03Z",
+  "updated_at": "2022-01-24T13:29:01Z",
+  "closed_at": "2022-01-24T13:29:00Z",
+  "merged_at": "2022-01-24T13:29:00Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1311",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1311/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1311/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1311",
+  "body": "Fixes #1305 \r\n\r\nHi @ShendMikullovci @IanMayo , please have a look on the deploy link, I can not capture the cursor icon 😄 ",
+  "additions": 1,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 0,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1015818943,
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-18T20:44:39Z",
+      "updated_at": "2022-01-18T20:44:39Z",
+      "body": "This deployment also sends me to Papafoxtrot."
+    },
+    {
+      "id": 1016411577,
+      "user": "IanMayo",
+      "created_at": "2022-01-19T12:17:03Z",
+      "updated_at": "2022-01-19T12:17:03Z",
+      "body": "Hmm, @ShendMikullovci - the cursor changes to pointer as it goes over the icon for an asset.\r\n\r\n![hover icon](https://i.gyazo.com/3ebf7beef48f091a7441edbb1bfbe2ad.gif)\r\n\r\nBut, did you think it should be a pointer over the asset name too?  Hmm, the whole of the row acts as a \"click target\" - so maybe it should change to a pointer when it goes on the row.\r\n\r\nDo you have an opinion @lebaphi ?"
+    },
+    {
+      "id": 1016445374,
+      "user": "lebaphi",
+      "created_at": "2022-01-19T13:03:43Z",
+      "updated_at": "2022-01-19T13:03:43Z",
+      "body": "> Hmm, @ShendMikullovci - the cursor changes to pointer as it goes over the icon for an asset.\r\n> \r\n> ![hover icon](https://camo.githubusercontent.com/4a97dc802153cc99a02d5b55430d756cc7b58a01b9ce710d997d3c4b6f46cbaf/68747470733a2f2f692e6779617a6f2e636f6d2f33656266376265656634386630393161373434316564626231626662653261642e676966)\r\n> \r\n> But, did you think it should be a pointer over the asset name too? Hmm, the whole of the row acts as a \"click target\" - so maybe it should change to a pointer when it goes on the row.\r\n> \r\n> Do you have an opinion @lebaphi ?\r\n\r\nYes, I have the same idea with you @IanMayo 👍 "
+    },
+    {
+      "id": 1017150482,
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-20T06:08:51Z",
+      "updated_at": "2022-01-20T06:08:51Z",
+      "body": "> Hmm, @ShendMikullovci - the cursor changes to pointer as it goes over the icon for an asset.\r\n> \r\n> ![hover icon](https://camo.githubusercontent.com/4a97dc802153cc99a02d5b55430d756cc7b58a01b9ce710d997d3c4b6f46cbaf/68747470733a2f2f692e6779617a6f2e636f6d2f33656266376265656634386630393161373434316564626231626662653261642e676966)\r\n> \r\n> But, did you think it should be a pointer over the asset name too? Hmm, the whole of the row acts as a \"click target\" - so maybe it should change to a pointer when it goes on the row.\r\n> \r\n> Do you have an opinion @lebaphi ?\r\n\r\nYes, I was thinking for it to be a pointer over asset name as well."
+    },
+    {
+      "id": 1017658153,
+      "user": "IanMayo",
+      "created_at": "2022-01-20T16:01:22Z",
+      "updated_at": "2022-01-20T16:01:22Z",
+      "body": "Ok,  @lebaphi -  let's go for the pointer over the asset name as well as the icon."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1305
+  ],
+  "issues": [
+    {
+      "id": 1105094889,
+      "number": 1305,
+      "title": "Mapping Cursor",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-16T16:18:45Z",
+      "updated_at": "2022-01-24T13:29:00Z",
+      "closed_at": "2022-01-24T13:29:00Z",
+      "body": "![Cursor change to pointer hand](https://user-images.githubusercontent.com/85491794/149668248-58a1bc45-ff6d-4ebf-b072-eedeb48b8cdb.png)\r\n\r\nThe cursor should change to a pointer/hand click when hovering over each asset.",
+      "labels": [
+        "bug",
+        "enhancement",
+        "UX: Low Priority"
+      ],
+      "comments": [
+        {
+          "id": 1014541917,
+          "user": "IanMayo",
+          "created_at": "2022-01-17T13:29:16Z",
+          "updated_at": "2022-01-17T13:29:16Z",
+          "body": "Nice suggestion @ShendMikullovci "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/3ebf7beef48f091a7441edbb1bfbe2ad.gif",
+    "https://camo.githubusercontent.com/4a97dc802153cc99a02d5b55430d756cc7b58a01b9ce710d997d3c4b6f46cbaf/68747470733a2f2f692e6779617a6f2e636f6d2f33656266376265656634386630393161373434316564626231626662653261642e676966",
+    "https://user-images.githubusercontent.com/85491794/149668248-58a1bc45-ff6d-4ebf-b072-eedeb48b8cdb.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 1
+}

@@ -1,0 +1,167 @@
+{
+  "number": 1873,
+  "title": "1860: Add cancel button for chat message",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-23T15:54:25Z",
+  "updated_at": "2022-09-28T16:01:53Z",
+  "closed_at": "2022-09-28T16:01:52Z",
+  "merged_at": "2022-09-28T16:01:52Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1873",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1873/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1873/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1873",
+  "body": "Fixes #1860 \r\n\r\n\r\nhttps://user-images.githubusercontent.com/26705621/192002168-084010fe-24b5-45f7-b6e8-5dc7233c318f.mov\r\n\r\n",
+  "additions": 371,
+  "deletions": 235,
+  "changed_files": 10,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1256837113,
+      "user": "lebaphi",
+      "created_at": "2022-09-24T02:24:50Z",
+      "updated_at": "2022-09-24T02:24:50Z",
+      "body": "> it needs to wipe the private chat box too, please.\r\n\r\nsure @IanMayo "
+    },
+    {
+      "id": 1256956419,
+      "user": "IanMayo",
+      "created_at": "2022-09-24T12:21:38Z",
+      "updated_at": "2022-09-24T12:21:38Z",
+      "body": "Functionality works, but not comitting right now.  I've fired a UI question back to Shend in #1860 \r\n"
+    },
+    {
+      "id": 1256967285,
+      "user": "lebaphi",
+      "created_at": "2022-09-24T13:20:07Z",
+      "updated_at": "2022-09-24T13:20:07Z",
+      "body": "no worries @IanMayo "
+    },
+    {
+      "id": 1261080469,
+      "user": "lebaphi",
+      "created_at": "2022-09-28T15:26:02Z",
+      "updated_at": "2022-09-28T15:26:02Z",
+      "body": "<img width=\"176\" alt=\"Screen Shot 2022-09-28 at 10 20 03 PM\" src=\"https://user-images.githubusercontent.com/26705621/192820198-38863879-b896-4d67-8bc9-1d5c4d13a0d9.png\">\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1860
+  ],
+  "issues": [
+    {
+      "id": 1380503406,
+      "number": 1860,
+      "title": "Need a cancel button for Chat Messages",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-21T08:05:00Z",
+      "updated_at": "2022-10-10T11:04:12Z",
+      "closed_at": "2022-10-10T11:04:12Z",
+      "body": "We now temporarily store (cache) the contents of messages that are being edited.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/191449477-5652e571-2c53-4284-8fdc-8055092267be.png)\r\n\r\nNow, when we refresh the browser, the Chat Message will keep any draft content.  But, if I change my mind about creating the chat message, I have to manually select-all in the public/private text boxes, and delete them.  I _think_ we would benefit from a `Cancel` button.  One place for this would be beneath (or near) the `Send` right-arrow icon.\r\n\r\nAny thoughts @ShendMikullovci ?\r\n",
+      "labels": [
+        "4watu",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1255213172,
+          "user": "ShendMikullovci",
+          "created_at": "2022-09-22T15:42:09Z",
+          "updated_at": "2022-09-22T15:42:09Z",
+          "body": "Hi Ian! Yes, a cancel feature does sound beneficial now. I think it would be a little messy to have the button near the Send icon. But we could use an X button instead: \r\n\r\n![Chat X Feature](https://user-images.githubusercontent.com/85491794/191791882-51bbfe8e-63e3-4330-8bdd-d1e78fb8273b.png)\r\n"
+        },
+        {
+          "id": 1255237299,
+          "user": "IanMayo",
+          "created_at": "2022-09-22T16:02:15Z",
+          "updated_at": "2022-09-22T16:02:15Z",
+          "body": "Sure, ok.  Let's add it to the list of jobs for @lebaphi "
+        },
+        {
+          "id": 1256921412,
+          "user": "IanMayo",
+          "created_at": "2022-09-24T09:24:26Z",
+          "updated_at": "2022-09-24T09:24:26Z",
+          "body": "Hello @ShendMikullovci - we have a working version of this here: https://serge-1860-cancel-butto-ua8zpm.herokuapp.com/?wargame=wargame-kskl1i3t&access=pkskl17ti\r\n\r\n(see `White Chat` channel`).\r\n\r\nIn a chat channel - the `new message` component is always present, they don't collapse.  When playing with it, the `X` _feels_ like it should close/collapse the new message panel. Well, that's the standard purpose of the `X` in the corner.   Can you think of an alternate icon/button to use that represents `Clear message`.  Maybe an eraser or delete-left icon? "
+        },
+        {
+          "id": 1259529486,
+          "user": "ShendMikullovci",
+          "created_at": "2022-09-27T13:42:11Z",
+          "updated_at": "2022-09-27T13:42:11Z",
+          "body": "> Well, that's the standard purpose of the `X` in the corner.\r\n\r\nGood point. The benefit of having the X is that it stands outside of the messag field, allowing for enough functional space for the arrow. In its stead, we could play around with these ideas:\r\n\r\n![Eraser Outside](https://user-images.githubusercontent.com/85491794/192540918-62916095-97ab-4dbc-af92-35e97c9c22f5.png)\r\n\r\nEraser icon. Feels somewhat out of place. Like you said, we're used to having buttons like these be closing buttons or minimizers. \r\n\r\n![Delete Left Outside](https://user-images.githubusercontent.com/85491794/192541150-6052e424-c5b9-4abb-9124-a95a2299b493.png)\r\n\r\nDelete left also feels a little out of place, but slightly more intuitive than the eraser. Perhaps because it's essentially an X button, but with a tag aimed towards the text. \r\n\r\n![Trash Outside](https://user-images.githubusercontent.com/85491794/192541341-9a2e66cb-ee6d-4366-aa7a-267d0d8b9966.png)\r\n\r\nThe trash icon is pretty straightforward. I'm not sure how much it insinuates that the message is collapsible though...\r\n\r\nIf we were to add icons _inside_ of the message box, we'd have to distinguish them from the arrow by color and structure, so the user doesn't accidentally click on one instead of the other. Here they are on the inside: \r\n\r\n![X Inside](https://user-images.githubusercontent.com/85491794/192541660-9692cddc-cc3a-4b8d-8a46-e9ae3445cc4f.png)\r\n\r\nSimilarly, now the X feels a little out of place, since we're used to seeing it on top...\r\n\r\n![Eraser Inside](https://user-images.githubusercontent.com/85491794/192541788-8e84a383-6516-4dd2-a57a-8e54349aa7e6.png)\r\n\r\nThe eraser looks and feels better than before, but I have this tendency to think it belongs inside the text box instead. Not sure how smart that would be...\r\n\r\n![Delete Left Inside](https://user-images.githubusercontent.com/85491794/192541981-a1831ee2-0743-46df-9fb8-f49dcfae7dfe.png)\r\n\r\nPretty straightforward. Common icon aimed towards the text to indicate the impacted area.\r\n\r\n![Trash Inside](https://user-images.githubusercontent.com/85491794/192542121-4dc62317-56f7-475d-bd45-4e8571e8dbec.png)\r\n\r\nStraightforward as well. Common icon both outside and within SERGE. Makes sense intuitively.\r\n\r\nI'm opting for Delete Left and the Trash bin inside and/or outside of the message box. What do you guys think? \r\n"
+        },
+        {
+          "id": 1259532047,
+          "user": "IanMayo",
+          "created_at": "2022-09-27T13:44:03Z",
+          "updated_at": "2022-09-27T13:44:03Z",
+          "body": "The big solid red trash can looks really clear to me:\r\n![image](https://user-images.githubusercontent.com/1108513/192543276-7b9bc0aa-1df1-48bf-b260-9b4862d5321d.png)\r\n"
+        },
+        {
+          "id": 1259536672,
+          "user": "ShendMikullovci",
+          "created_at": "2022-09-27T13:47:17Z",
+          "updated_at": "2022-09-27T13:47:17Z",
+          "body": "> The big solid red trash can looks really clear to me: ![image](https://user-images.githubusercontent.com/1108513/192543276-7b9bc0aa-1df1-48bf-b260-9b4862d5321d.png)\r\n\r\nIf you think it'll look clear to the players, let's go for it."
+        },
+        {
+          "id": 1261171684,
+          "user": "IanMayo",
+          "created_at": "2022-09-28T16:40:56Z",
+          "updated_at": "2022-09-28T16:40:56Z",
+          "body": "Ok @ShendMikullovci - there is a playable version here: https://serge-sql.herokuapp.com/?wargame=wargame-kqgy546g&access=rkrlw6f5f. (look in a chat channel)"
+        },
+        {
+          "id": 1262114231,
+          "user": "ShendMikullovci",
+          "created_at": "2022-09-29T10:57:29Z",
+          "updated_at": "2022-09-29T10:57:29Z",
+          "body": "Unfortunately, I came across a UX issue with the design already...\r\n\r\nI was trying to test the feature and accidentally hit send instead of delete message. I realized the buttons may be too close together. Furthermore, we're used to the send button being on the right hand side of the message box, so introducing another button on the right hand side automatically makes them compete between one another. I came up with some variations: \r\n\r\n![Trash Bin Variations](https://user-images.githubusercontent.com/85491794/193013389-eb091466-e7b6-4bfd-9064-5627837460ba.png)\r\n\r\nDesign 1: We display them horizontally instead of vertically stacked upon one another. This respects the consensus of the send button being on the far right while fully distinguishing the delete button as well. \r\n\r\nDesign 2: Same horizontal display, except we take them out of the text box. It shrinks the size of the text box a little, but the box remains quite large (especially since the designs here use the minimized window version of the message boxes). What we lose in text box size, we gain in focus: the text box itself becomes unencumbered with anything but its sole purpose, which is typing text.\r\n\r\nDesign 3: Same horizontal display on the outside of the text box, but without separation. This reintroduces the issue we currently have (competition between buttons) but on a horizontal scale. However, it shrinks the text box less and is consistent with our current designs in other areas of the game (mainly admin pages). \r\n\r\nDesign 4: Here, we would be fully distinguishing between message box and text box. With this design, we respect the consensus of the send button being on the right. But it being on the right hand side of the _text box_ is what distinguishes it from the entire _message box_, where we introduce the trash bin. Essentially, this feature is built to delete a _cached text_. But for the user, it serves the purpose of deleting an old _message_. I think this design should work well. \r\n\r\nDesign 5: The flip side of design 4. Here, we also distinguish between text and message box, but we display it according to our paradigm: the trash bin symbolizes _the deletion of a cached text_, and the arrow the sending of a message. This design also respects consensus for the arrow being on the right hand side.\r\n\r\nLet me know your thoughts.\r\n\r\nP.S. Notice I used a new arrow icon for the send button. I think a paper-plane icon is much more intuitive to a message being sent than the 2D arrow."
+        },
+        {
+          "id": 1262146701,
+          "user": "IanMayo",
+          "created_at": "2022-09-29T11:30:00Z",
+          "updated_at": "2022-09-29T11:30:00Z",
+          "body": "Thanks @ShendMikullovci.  I think the last one has the best UX.  The trash icon is next to the content that is about to be trashed, and the blue background behind the `Send` button suggests it is operating on \"another level\"."
+        },
+        {
+          "id": 1273143529,
+          "user": "IanMayo",
+          "created_at": "2022-10-10T11:04:12Z",
+          "updated_at": "2022-10-10T11:04:12Z",
+          "body": "This is  done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/192820198-38863879-b896-4d67-8bc9-1d5c4d13a0d9.png",
+    "https://user-images.githubusercontent.com/1108513/191449477-5652e571-2c53-4284-8fdc-8055092267be.png",
+    "https://user-images.githubusercontent.com/85491794/191791882-51bbfe8e-63e3-4330-8bdd-d1e78fb8273b.png",
+    "https://user-images.githubusercontent.com/85491794/192540918-62916095-97ab-4dbc-af92-35e97c9c22f5.png",
+    "https://user-images.githubusercontent.com/85491794/192541150-6052e424-c5b9-4abb-9124-a95a2299b493.png",
+    "https://user-images.githubusercontent.com/85491794/192541341-9a2e66cb-ee6d-4366-aa7a-267d0d8b9966.png",
+    "https://user-images.githubusercontent.com/85491794/192541660-9692cddc-cc3a-4b8d-8a46-e9ae3445cc4f.png",
+    "https://user-images.githubusercontent.com/85491794/192541788-8e84a383-6516-4dd2-a57a-8e54349aa7e6.png",
+    "https://user-images.githubusercontent.com/85491794/192541981-a1831ee2-0743-46df-9fb8-f49dcfae7dfe.png",
+    "https://user-images.githubusercontent.com/85491794/192542121-4dc62317-56f7-475d-bd45-4e8571e8dbec.png",
+    "https://user-images.githubusercontent.com/1108513/192543276-7b9bc0aa-1df1-48bf-b260-9b4862d5321d.png",
+    "https://user-images.githubusercontent.com/85491794/193013389-eb091466-e7b6-4bfd-9064-5627837460ba.png"
+  ],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 606
+}

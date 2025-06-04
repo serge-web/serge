@@ -1,0 +1,220 @@
+{
+  "number": 1346,
+  "title": "1345: Add Info Card Component",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-02-12T06:20:16Z",
+  "updated_at": "2022-02-18T14:35:03Z",
+  "closed_at": "2022-02-18T14:35:02Z",
+  "merged_at": "2022-02-18T14:35:02Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1346",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1346/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1346/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1346",
+  "body": "Fixed #1345 ",
+  "additions": 272,
+  "deletions": 24,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 21,
+  "review_comments_count": 0,
+  "total_comments": 21,
+  "comments_data": [
+    {
+      "id": 1037084829,
+      "user": "IanMayo",
+      "created_at": "2022-02-12T09:26:07Z",
+      "updated_at": "2022-02-12T09:27:19Z",
+      "body": "Thanks @lebaphi - could you provide stories that show how the more-info is added to a block of text or an icon.\r\n\r\nI'm _hoping_ our implementation means we can have something like this:\r\n```\r\n<MoreInfo description=\"The percentage fuel remaining\">Fuel</MoreInfo>\r\n\r\n<MoreInfo description=\"Whether this player can edit this commodity\">\r\n  <FontAwesomeIcon icon='fa-user-cog'/>\r\n</MoreInfo>\r\n```\r\n\r\nI think the _current_ implementation means the the icon is declared immediately after the text/icon it relates to.  But, I want it to \"steal\" some of the area from the text/icon it relates to - to \"tie\" them together.    If that's possible by declaring it afterwards, then that's ok.\r\n\r\nOne last thing. Could the cursor please change to a question mark (or info marker) as it goes over the icon please?"
+    },
+    {
+      "id": 1038206487,
+      "user": "IanMayo",
+      "created_at": "2022-02-13T15:46:42Z",
+      "updated_at": "2022-02-13T15:48:13Z",
+      "body": "Great progress.  But,  the \"i\" icon is missing in StoryBook: \r\n![image](https://user-images.githubusercontent.com/1108513/153761013-c86d10f7-0230-4ec9-8a81-0aada16dce60.png)\r\n\r\nIt;s the \"i\" icon that is indicates to the user that further help is availalble.\r\n\r\nNote: I don't need the dialog to switch between text and long text.  In the issue, I was just suggesting that you provide multiple storybook examples - so we could see one example with short text, and another with long text.\r\n\r\nI'd also like to see an example of an icon that has its own \"more info\" icon."
+    },
+    {
+      "id": 1040216754,
+      "user": "IanMayo",
+      "created_at": "2022-02-15T12:30:29Z",
+      "updated_at": "2022-02-15T12:30:29Z",
+      "body": "Sorry @lebaphi  - the `i` in the info icon is too small for me to see:\r\n![image](https://user-images.githubusercontent.com/1108513/154062432-9b7068ed-e47c-4882-a497-4de05d712302.png)\r\n"
+    },
+    {
+      "id": 1040218195,
+      "user": "lebaphi",
+      "created_at": "2022-02-15T12:32:09Z",
+      "updated_at": "2022-02-15T12:32:09Z",
+      "body": "> <MoreInfo description=\"Whether this player can edit this commodity\">\r\n>   <FontAwesomeIcon icon='fa-user-cog'/>\r\n> </MoreInfo>\r\n\r\nno worries, I will make it bigger 🤣 "
+    },
+    {
+      "id": 1040223516,
+      "user": "lebaphi",
+      "created_at": "2022-02-15T12:38:00Z",
+      "updated_at": "2022-02-15T12:38:00Z",
+      "body": "Hi @IanMayo , I just push the code to increase the size of the icon info, you can change its value accordingly as your view 😄 \r\n\r\n<img width=\"116\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/154063341-29f3cab3-9182-4dfc-9b43-a2b7e6491753.png\">\r\n"
+    },
+    {
+      "id": 1040256332,
+      "user": "IanMayo",
+      "created_at": "2022-02-15T13:12:36Z",
+      "updated_at": "2022-02-15T13:12:36Z",
+      "body": "Thanks @lebaphi \r\n\r\nCan you teach me why you wrap the component in `React.memo()`?\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/154068883-d60a3ae9-d516-4e1a-850f-d00415023ad5.png)\r\n"
+    },
+    {
+      "id": 1041020950,
+      "user": "lebaphi",
+      "created_at": "2022-02-16T02:13:22Z",
+      "updated_at": "2022-02-16T02:13:22Z",
+      "body": "> Thanks @lebaphi\r\n> \r\n> Can you teach me why you wrap the component in `React.memo()`?\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/154068883-d60a3ae9-d516-4e1a-850f-d00415023ad5.png)\r\n\r\nHi @IanMayo, using `React.memo(...)` to memoize functional components, it prevents useless re-renderings when the next props equal to previous ones to improve the performance."
+    },
+    {
+      "id": 1041233856,
+      "user": "IanMayo",
+      "created_at": "2022-02-16T08:26:07Z",
+      "updated_at": "2022-02-16T08:26:07Z",
+      "body": "> Hi @IanMayo, using `React.memo(...)` to memoize functional components, it prevents useless re-renderings when the next props equal to previous ones to improve the performance.\r\n\r\nAah, ok - I've done some googling, and found an [article](https://dmitripavlutin.com/use-react-memo-wisely/). The MoreInfo component doesn't occur very often, and doesn't take long to render.  The channels full of formatted messages take _ages_ to re-render.  I _get_ the use of memo there - I can't say I'm _fully convinced_ here ;-)"
+    },
+    {
+      "id": 1041309974,
+      "user": "IanMayo",
+      "created_at": "2022-02-16T09:55:24Z",
+      "updated_at": "2022-02-16T09:55:24Z",
+      "body": "Hello @ShendMikullovci - could you have a look at this please.  Just select a platform-type to see the `more-info` markers: \r\nhttps://serge-1345-info-card-co-uya9qi.herokuapp.com/storybook/?path=/story/local-organisms-settingplatformtypes--default\r\n\r\nI've temporarily made the markers a more red color. Is there a more subdued color that you would prefer?"
+    },
+    {
+      "id": 1041860306,
+      "user": "lebaphi",
+      "created_at": "2022-02-16T16:40:02Z",
+      "updated_at": "2022-02-16T16:40:02Z",
+      "body": "> > Hi @IanMayo, using `React.memo(...)` to memoize functional components, it prevents useless re-renderings when the next props equal to previous ones to improve the performance.\r\n> \r\n> Aah, ok - I've done some googling, and found an [article](https://dmitripavlutin.com/use-react-memo-wisely/). The MoreInfo component doesn't occur very often, and doesn't take long to render. The channels full of formatted messages take _ages_ to re-render. I _get_ the use of memo there - I can't say I'm _fully convinced_ here ;-)\r\n\r\nyes, you're are right. One component is insignificant but if many components are like that then I think in the long run it will not be good. So I think this is a good habit."
+    },
+    {
+      "id": 1042224783,
+      "user": "ShendMikullovci",
+      "created_at": "2022-02-16T20:29:49Z",
+      "updated_at": "2022-02-16T20:29:49Z",
+      "body": "> Hello @ShendMikullovci - could you have a look at this please. Just select a platform-type to see the `more-info` markers: https://serge-1345-info-card-co-uya9qi.herokuapp.com/storybook/?path=/story/local-organisms-settingplatformtypes--default\r\n> \r\n> I've temporarily made the markers a more red color. Is there a more subdued color that you would prefer?\r\n\r\nLike we discussed over in Slack, we could try having them outlined rather than filled in. I'd say we could do with the icons being a little smaller too, so they don't attract as much attention as they do. Otherwise, it's a great addition!"
+    },
+    {
+      "id": 1042685876,
+      "user": "IanMayo",
+      "created_at": "2022-02-17T08:21:48Z",
+      "updated_at": "2022-02-17T08:21:48Z",
+      "body": "Hello @lebaphi - could you have a go at changing the style of the info icon please?\r\n\r\n@ShendMikullovci has asked that it be outlined.  So, we would see the outline of the circle, with the solid `i` in the middle.  I ***guess*** this is just about switching the foreground and background colors."
+    },
+    {
+      "id": 1042833723,
+      "user": "lebaphi",
+      "created_at": "2022-02-17T11:06:22Z",
+      "updated_at": "2022-02-17T11:06:22Z",
+      "body": "> Hello @lebaphi - could you have a go at changing the style of the info icon please?\r\n> \r\n> @ShendMikullovci has asked that it be outlined. So, we would see the outline of the circle, with the solid `i` in the middle. I _**guess**_ this is just about switching the foreground and background colors.\r\n\r\nSure @IanMayo , I will fix it now."
+    },
+    {
+      "id": 1042855581,
+      "user": "lebaphi",
+      "created_at": "2022-02-17T11:33:14Z",
+      "updated_at": "2022-02-17T11:33:14Z",
+      "body": "outlined icon @IanMayo @ShendMikullovci:\r\n\r\n<img width=\"135\" alt=\"Screen Shot 2022-02-17 at 6 31 45 PM\" src=\"https://user-images.githubusercontent.com/26705621/154472957-a2363383-15dd-47a2-bb20-a07d89cdc19a.png\">\r\n"
+    },
+    {
+      "id": 1042857242,
+      "user": "IanMayo",
+      "created_at": "2022-02-17T11:35:24Z",
+      "updated_at": "2022-02-17T11:35:24Z",
+      "body": "> outlined icon @IanMayo @ShendMikullovci:\r\n> \r\n> <img alt=\"Screen Shot 2022-02-17 at 6 31 45 PM\" width=\"135\" src=\"https://user-images.githubusercontent.com/26705621/154472957-a2363383-15dd-47a2-bb20-a07d89cdc19a.png\">\r\n\r\nWell that was easy :-)\r\n\r\nCould you also provide an optional color field please?  I'm pretty sure we'll need that to ensure it's visible on light and dark backgrounds.\r\n"
+    },
+    {
+      "id": 1042888866,
+      "user": "lebaphi",
+      "created_at": "2022-02-17T12:15:20Z",
+      "updated_at": "2022-02-17T12:15:20Z",
+      "body": "> > outlined icon @IanMayo @ShendMikullovci:\r\n> > <img alt=\"Screen Shot 2022-02-17 at 6 31 45 PM\" width=\"135\" src=\"https://user-images.githubusercontent.com/26705621/154472957-a2363383-15dd-47a2-bb20-a07d89cdc19a.png\">\r\n> \r\n> Well that was easy :-)\r\n> \r\n> Could you also provide an optional color field please? I'm pretty sure we'll need that to ensure it's visible on light and dark backgrounds.\r\n\r\n@IanMayo Do you think we should provide only `color` field or provide a `style` field then we can customize more property?"
+    },
+    {
+      "id": 1043012347,
+      "user": "IanMayo",
+      "created_at": "2022-02-17T14:32:42Z",
+      "updated_at": "2022-02-17T14:32:42Z",
+      "body": "Can we start off with just color please?"
+    },
+    {
+      "id": 1043284411,
+      "user": "ShendMikullovci",
+      "created_at": "2022-02-17T18:35:15Z",
+      "updated_at": "2022-02-17T18:35:15Z",
+      "body": "> outlined icon @IanMayo @ShendMikullovci:\r\n> \r\n> <img alt=\"Screen Shot 2022-02-17 at 6 31 45 PM\" width=\"135\" src=\"https://user-images.githubusercontent.com/26705621/154472957-a2363383-15dd-47a2-bb20-a07d89cdc19a.png\">\r\n\r\nHi @lebaphi. It looks great from the screenshot. If you could make it slightly smaller so it doesn't attract immediate attention then it'd be perfect."
+    },
+    {
+      "id": 1043812691,
+      "user": "lebaphi",
+      "created_at": "2022-02-18T03:17:02Z",
+      "updated_at": "2022-02-18T03:17:02Z",
+      "body": "okay @IanMayo, I will update soon"
+    },
+    {
+      "id": 1044234269,
+      "user": "IanMayo",
+      "created_at": "2022-02-18T09:47:35Z",
+      "updated_at": "2022-02-18T09:47:35Z",
+      "body": "> okay @IanMayo, I will update soon\r\n\r\nI've got it, @lebaphi  :-D"
+    },
+    {
+      "id": 1044619932,
+      "user": "lebaphi",
+      "created_at": "2022-02-18T14:33:52Z",
+      "updated_at": "2022-02-18T14:33:52Z",
+      "body": "> > okay @IanMayo, I will update soon\r\n> \r\n> I've got it, @lebaphi :-D\r\n\r\nYour change looks good 👍 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1345
+  ],
+  "issues": [
+    {
+      "id": 1132323640,
+      "number": 1345,
+      "title": "Component for \"More info available\" text span",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-02-11T10:41:02Z",
+      "updated_at": "2022-02-18T14:35:02Z",
+      "closed_at": "2022-02-18T14:35:02Z",
+      "body": "There are lots of occasions when we need to provide supporting/background information to a player (or even Game Designer in the admin pages).\r\n\r\nWe currently support this via tooltips, but it's cumbersome for a player to hover over all screen elements in the hope of finding tooltips.\r\n\r\nI don't know if this is possible, but it would be great if we could have a modified span control that includes a small info marker (fa-circle-info) at the top-right.   Clicking on the question mark pops up the explanatory guidance.  I guess we should allow for up to 30 words.\r\n\r\nI'm thinking of a span control since the text is currently just displayed as plain text - so switching to a `span` shouldn't cause any layout problems.\r\n\r\nI guess the control would also have these props:\r\n- icon color (so it can stand out from background)\r\n- description text\r\n\r\nWe should develop this a StoryBook component that has a range of values for the above, including short and long descriptions.\r\n\r\nAah, hold on. There are also occasions when we wish to indicate that an icon has \"more info\" available.  So, I guess we also need an extended font-awesome icon that can have its own more-info icon at the top-right.\r\n\r\nSo, we'd be able to provide `more-info` for the `Password` and `Game control` column headers.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/153577940-7faf5dcb-dfb4-4825-8656-d32c4503e820.png)\r\n\r\n\r\nAn early use of this would be the ",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1037011289,
+          "user": "lebaphi",
+          "created_at": "2022-02-12T06:07:46Z",
+          "updated_at": "2022-02-12T06:07:46Z",
+          "body": "I just done the initial demo of this component. How do you think @IanMayo @ShendMikullovci \r\n\r\nhttps://user-images.githubusercontent.com/26705621/153699366-b75475ed-cc4a-47ca-aabc-e616a5cb623d.mov\r\n\r\n "
+        },
+        {
+          "id": 1037082446,
+          "user": "IanMayo",
+          "created_at": "2022-02-12T09:20:11Z",
+          "updated_at": "2022-02-12T09:20:11Z",
+          "body": "Thanks @lebaphi  - but we need to apply \"more info\" to the three column header icons.  So, to be in proportion with them, I think we need to have a smaller icon."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/153761013-c86d10f7-0230-4ec9-8a81-0aada16dce60.png",
+    "https://user-images.githubusercontent.com/1108513/154062432-9b7068ed-e47c-4882-a497-4de05d712302.png",
+    "https://user-images.githubusercontent.com/26705621/154063341-29f3cab3-9182-4dfc-9b43-a2b7e6491753.png",
+    "https://user-images.githubusercontent.com/1108513/154068883-d60a3ae9-d516-4e1a-850f-d00415023ad5.png",
+    "https://user-images.githubusercontent.com/26705621/154472957-a2363383-15dd-47a2-bb20-a07d89cdc19a.png",
+    "https://user-images.githubusercontent.com/1108513/153577940-7faf5dcb-dfb4-4825-8656-d32c4503e820.png"
+  ],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 296
+}

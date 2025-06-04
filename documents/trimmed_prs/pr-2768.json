@@ -1,0 +1,153 @@
+{
+  "number": 2768,
+  "title": "WIP: 2745 Core Mapping - support for generating message deltas",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-16T03:19:12Z",
+  "updated_at": "2024-01-20T15:25:42Z",
+  "closed_at": "2024-01-20T15:25:41Z",
+  "merged_at": "2024-01-20T15:25:41Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2768",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2768/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2768/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2768",
+  "body": "Fixes #2745 ",
+  "additions": 94,
+  "deletions": 55,
+  "changed_files": 13,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 9,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 1895483827,
+      "user": "IanMayo",
+      "created_at": "2024-01-17T10:06:00Z",
+      "updated_at": "2024-01-17T10:06:00Z",
+      "body": "One first observation.  The `delta` should be of the `featureCollection`, not the whole message:\r\n![image](https://github.com/serge-web/serge/assets/1108513/c57e437c-e06a-4d15-ac0d-80d2f8e87f3c)\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1453264218,
+      "user": "IanMayo",
+      "created_at": "2024-01-16T10:57:02Z",
+      "updated_at": "2024-01-16T10:57:02Z",
+      "body": "@lebaphi - could we please generate the diff using an JSON-Patch library?  Then we can be confident of how the diff is written/implemented. This also means apps other than Serge may be able to handle/generate them.\r\nThe possible libraries are here:\r\nhttps://jsonpatch.com/#javascript",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -107,11 +109,59 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play\n         details, \n         featureCollection,\n         messageType: CUSTOM_MESSAGE,\n-        _id: timestamp\n+        _id: lastMessage ? lastMessage._id : timestamp\n+      }\n+\n+      if (lastMessage) {\n+        const diffKeyArray: string[] = getObjDifferences(lastMessage, newMessage, [], '')\n+        const diffKeyArray2: string[] = getObjDifferences(newMessage, lastMessage, [], '')\n+        // build message deltas from diff keys array\n+        const delta = {};\n+        [...diffKeyArray, ...diffKeyArray2].forEach(key => {\n+          if (hasIn(newMessage, key)) {\n+            set(delta, key, get(newMessage, key))\n+          }\n+        })\n+        const deltaMessage: MappingMessageDelta = {\n+          _id: new Date().toISOString(),\n+          messageType: MAPPING_MESSAGE_DELTA,\n+          details: {\n+            channel: lastMessage.details.channel,\n+            from: {\n+              force: '',\n+              forceColor: '',\n+              roleId: '',\n+              roleName: '',\n+              iconURL: ''\n+            },\n+            messageType: '',\n+            timestamp: '',\n+            turnNumber: 0\n+          },\n+          since: newMessage._id,\n+          delta\n+        }\n+        postBack(deltaMessage)\n       }\n-      postBack(newMessage as MappingMessage)\n     }\n   }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2768#discussion_r1453264218"
+    },
+    {
+      "id": 1453459487,
+      "user": "lebaphi",
+      "created_at": "2024-01-16T13:53:32Z",
+      "updated_at": "2024-01-16T13:53:33Z",
+      "body": "okay @IanMayo ",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -107,11 +109,59 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play\n         details, \n         featureCollection,\n         messageType: CUSTOM_MESSAGE,\n-        _id: timestamp\n+        _id: lastMessage ? lastMessage._id : timestamp\n+      }\n+\n+      if (lastMessage) {\n+        const diffKeyArray: string[] = getObjDifferences(lastMessage, newMessage, [], '')\n+        const diffKeyArray2: string[] = getObjDifferences(newMessage, lastMessage, [], '')\n+        // build message deltas from diff keys array\n+        const delta = {};\n+        [...diffKeyArray, ...diffKeyArray2].forEach(key => {\n+          if (hasIn(newMessage, key)) {\n+            set(delta, key, get(newMessage, key))\n+          }\n+        })\n+        const deltaMessage: MappingMessageDelta = {\n+          _id: new Date().toISOString(),\n+          messageType: MAPPING_MESSAGE_DELTA,\n+          details: {\n+            channel: lastMessage.details.channel,\n+            from: {\n+              force: '',\n+              forceColor: '',\n+              roleId: '',\n+              roleName: '',\n+              iconURL: ''\n+            },\n+            messageType: '',\n+            timestamp: '',\n+            turnNumber: 0\n+          },\n+          since: newMessage._id,\n+          delta\n+        }\n+        postBack(deltaMessage)\n       }\n-      postBack(newMessage as MappingMessage)\n     }\n   }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2768#discussion_r1453459487"
+    },
+    {
+      "id": 1453529031,
+      "user": "lebaphi",
+      "created_at": "2024-01-16T14:43:09Z",
+      "updated_at": "2024-01-16T14:43:09Z",
+      "body": "I just added the jiff lib to generate the diff but it seems the lib throws an error when applying the patch, I'm still investigating it. @IanMayo ",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -107,11 +109,59 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play\n         details, \n         featureCollection,\n         messageType: CUSTOM_MESSAGE,\n-        _id: timestamp\n+        _id: lastMessage ? lastMessage._id : timestamp\n+      }\n+\n+      if (lastMessage) {\n+        const diffKeyArray: string[] = getObjDifferences(lastMessage, newMessage, [], '')\n+        const diffKeyArray2: string[] = getObjDifferences(newMessage, lastMessage, [], '')\n+        // build message deltas from diff keys array\n+        const delta = {};\n+        [...diffKeyArray, ...diffKeyArray2].forEach(key => {\n+          if (hasIn(newMessage, key)) {\n+            set(delta, key, get(newMessage, key))\n+          }\n+        })\n+        const deltaMessage: MappingMessageDelta = {\n+          _id: new Date().toISOString(),\n+          messageType: MAPPING_MESSAGE_DELTA,\n+          details: {\n+            channel: lastMessage.details.channel,\n+            from: {\n+              force: '',\n+              forceColor: '',\n+              roleId: '',\n+              roleName: '',\n+              iconURL: ''\n+            },\n+            messageType: '',\n+            timestamp: '',\n+            turnNumber: 0\n+          },\n+          since: newMessage._id,\n+          delta\n+        }\n+        postBack(deltaMessage)\n       }\n-      postBack(newMessage as MappingMessage)\n     }\n   }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2768#discussion_r1453529031"
+    },
+    {
+      "id": 1453594066,
+      "user": "lebaphi",
+      "created_at": "2024-01-16T15:29:15Z",
+      "updated_at": "2024-01-16T15:29:15Z",
+      "body": "I decided to use this lib https://www.npmjs.com/package/fast-json-patch, it seems better in terms of performance and it solves the error of jiff lib. The only small problem I have is that after the c/u/d feature and reloading the page, all the features are gone. I'm still working on it but I welcome you to check this out. @IanMayo ",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -107,11 +109,59 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play\n         details, \n         featureCollection,\n         messageType: CUSTOM_MESSAGE,\n-        _id: timestamp\n+        _id: lastMessage ? lastMessage._id : timestamp\n+      }\n+\n+      if (lastMessage) {\n+        const diffKeyArray: string[] = getObjDifferences(lastMessage, newMessage, [], '')\n+        const diffKeyArray2: string[] = getObjDifferences(newMessage, lastMessage, [], '')\n+        // build message deltas from diff keys array\n+        const delta = {};\n+        [...diffKeyArray, ...diffKeyArray2].forEach(key => {\n+          if (hasIn(newMessage, key)) {\n+            set(delta, key, get(newMessage, key))\n+          }\n+        })\n+        const deltaMessage: MappingMessageDelta = {\n+          _id: new Date().toISOString(),\n+          messageType: MAPPING_MESSAGE_DELTA,\n+          details: {\n+            channel: lastMessage.details.channel,\n+            from: {\n+              force: '',\n+              forceColor: '',\n+              roleId: '',\n+              roleName: '',\n+              iconURL: ''\n+            },\n+            messageType: '',\n+            timestamp: '',\n+            turnNumber: 0\n+          },\n+          since: newMessage._id,\n+          delta\n+        }\n+        postBack(deltaMessage)\n       }\n-      postBack(newMessage as MappingMessage)\n     }\n   }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2768#discussion_r1453594066"
+    },
+    {
+      "id": 1455048146,
+      "user": "IanMayo",
+      "created_at": "2024-01-17T09:20:45Z",
+      "updated_at": "2024-01-17T09:20:45Z",
+      "body": "@lebaphi  - can we please keep knowledge of deltas, and how to create/merge them inside `core-mapping`?",
+      "path": "client/src/Helpers/handle-channel-updates.ts",
+      "diff_hunk": "@@ -111,10 +113,25 @@ export const handleNewMessageData = (\n       channel.messages = []\n     }\n     channel.messages.unshift(payload)\n-  } else {\n+  } else if (payload.messageType === CUSTOM_MESSAGE) {\n     handleNonInfoMessage(res, payload.details.channel, payload, playerId)\n+  } else {\n+    const messageType = get(payload, 'messageType')",
+      "html_url": "https://github.com/serge-web/serge/pull/2768#discussion_r1455048146"
+    },
+    {
+      "id": 1455165361,
+      "user": "IanMayo",
+      "created_at": "2024-01-17T10:18:00Z",
+      "updated_at": "2024-01-17T10:18:00Z",
+      "body": "To do the above, I _think_ we just call `handleNonInfoMessage` (as before), and then handle the new `messages` in `CoreMapping`",
+      "path": "client/src/Helpers/handle-channel-updates.ts",
+      "diff_hunk": "@@ -111,10 +113,25 @@ export const handleNewMessageData = (\n       channel.messages = []\n     }\n     channel.messages.unshift(payload)\n-  } else {\n+  } else if (payload.messageType === CUSTOM_MESSAGE) {\n     handleNonInfoMessage(res, payload.details.channel, payload, playerId)\n+  } else {\n+    const messageType = get(payload, 'messageType')",
+      "html_url": "https://github.com/serge-web/serge/pull/2768#discussion_r1455165361"
+    },
+    {
+      "id": 1455176815,
+      "user": "IanMayo",
+      "created_at": "2024-01-17T10:24:41Z",
+      "updated_at": "2024-01-17T10:24:41Z",
+      "body": "I think I've got it. Our current `delta` handling is in `handleNewMessage`.  That method doesn't get called when we load an existing wargame.\r\nSo, I think the `delta` handling has to happen in `CoreMapping`.  Then it will run on initial load aswell as on new messages.",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -107,11 +109,59 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play\n         details, \n         featureCollection,\n         messageType: CUSTOM_MESSAGE,\n-        _id: timestamp\n+        _id: lastMessage ? lastMessage._id : timestamp\n+      }\n+\n+      if (lastMessage) {\n+        const diffKeyArray: string[] = getObjDifferences(lastMessage, newMessage, [], '')\n+        const diffKeyArray2: string[] = getObjDifferences(newMessage, lastMessage, [], '')\n+        // build message deltas from diff keys array\n+        const delta = {};\n+        [...diffKeyArray, ...diffKeyArray2].forEach(key => {\n+          if (hasIn(newMessage, key)) {\n+            set(delta, key, get(newMessage, key))\n+          }\n+        })\n+        const deltaMessage: MappingMessageDelta = {\n+          _id: new Date().toISOString(),\n+          messageType: MAPPING_MESSAGE_DELTA,\n+          details: {\n+            channel: lastMessage.details.channel,\n+            from: {\n+              force: '',\n+              forceColor: '',\n+              roleId: '',\n+              roleName: '',\n+              iconURL: ''\n+            },\n+            messageType: '',\n+            timestamp: '',\n+            turnNumber: 0\n+          },\n+          since: newMessage._id,\n+          delta\n+        }\n+        postBack(deltaMessage)\n       }\n-      postBack(newMessage as MappingMessage)\n     }\n   }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2768#discussion_r1455176815"
+    },
+    {
+      "id": 1455220188,
+      "user": "lebaphi",
+      "created_at": "2024-01-17T10:45:29Z",
+      "updated_at": "2024-01-17T10:45:29Z",
+      "body": "I see, I will try this 👍 ",
+      "path": "client/src/Helpers/handle-channel-updates.ts",
+      "diff_hunk": "@@ -111,10 +113,25 @@ export const handleNewMessageData = (\n       channel.messages = []\n     }\n     channel.messages.unshift(payload)\n-  } else {\n+  } else if (payload.messageType === CUSTOM_MESSAGE) {\n     handleNonInfoMessage(res, payload.details.channel, payload, playerId)\n+  } else {\n+    const messageType = get(payload, 'messageType')",
+      "html_url": "https://github.com/serge-web/serge/pull/2768#discussion_r1455220188"
+    },
+    {
+      "id": 1458787994,
+      "user": "IanMayo",
+      "created_at": "2024-01-19T10:53:40Z",
+      "updated_at": "2024-01-19T10:53:40Z",
+      "body": "Aah, @lebaphi - there is another bit of logic we can use here.  If there **isn't** a `lastMessage` then we send the whole `newFeatureCollection` as a `MAPPING_MESSAGE`.\r\n\r\nAt some point in the future we will need to consider when we send these whole messages.  But, when do come up with something, we will just have to clear `lastMessage` - and know that the full `featureCollection` will be sent.",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -103,16 +112,23 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play\n         timestamp: timestamp,\n         turnNumber: 1\n       }\n-      const newMessage: MappingMessage = {\n-        details, \n-        featureCollection,\n-        messageType: CUSTOM_MESSAGE,\n-        _id: timestamp\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2768#discussion_r1458787994"
+    }
+  ],
+  "issue_numbers": [
+    2745
+  ],
+  "issues": [
+    {
+      "id": 2064416985,
+      "number": 2745,
+      "title": "Core Mapping - support for generating message deltas",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-03T17:43:34Z",
+      "updated_at": "2024-01-20T15:25:42Z",
+      "closed_at": "2024-01-20T15:25:42Z",
+      "body": "To reduce the size of the MappingMessage objects, we should start working with deltas.\r\n\r\nWe'll support this by `MappingMessage` having either a `featureCollection` or a `featureDelta`.\r\n\r\nWhen the shapes on the map are changed (C, U or D), we should calculate the delta of the feature collection, and send this as a new message for that channel.\r\n\r\nSo, the wargame database will contain an initial `featureCollection` and then a series of `featureDelta` messages.\r\n\r\nNote: let's use this library to generate the diffs: https://github.com/cujojs/jiff\r\n\r\n**Update:** -  unless you prefer a different implementation @lebaphi   We could use one that includes TypeScript definitions, if you prefer that.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/c57e437c-e06a-4d15-ac0d-80d2f8e87f3c"
+  ],
+  "number_of_changed_files": 13,
+  "total_changed_lines": 149
+}

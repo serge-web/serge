@@ -1,0 +1,51 @@
+{
+  "number": 1882,
+  "title": "implement `view as` functionality",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-25T16:52:17Z",
+  "updated_at": "2022-09-25T19:09:19Z",
+  "closed_at": "2022-09-25T19:09:18Z",
+  "merged_at": "2022-09-25T19:09:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1882",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1882/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1882/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1882",
+  "body": "Fixes #1868",
+  "additions": 36,
+  "deletions": 8,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1868
+  ],
+  "issues": [
+    {
+      "id": 1382255940,
+      "number": 1868,
+      "title": "Show all icons/orders for Umpire forces",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-22T11:01:39Z",
+      "updated_at": "2022-09-25T19:09:19Z",
+      "closed_at": "2022-09-25T19:09:19Z",
+      "body": "We need special display modes for the Support Panel for umpire forces.\r\n\r\nWhen we have our `toolbar` for the `SupportMapping`, it should have `View as` icons.\r\n\r\nWhen `view as` is `umpire`, then the tabs should display all forces, and all orders, with a `Force` column (and drop-down filter).\r\n\r\nWhen `view as` is a force, then the tabs should be viewed as they would for that force, without a `Force` column in `Own Forces` and `Orders`.",
+      "labels": [
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 44
+}

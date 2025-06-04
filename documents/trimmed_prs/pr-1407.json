@@ -1,0 +1,134 @@
+{
+  "number": 1407,
+  "title": "1389: Fix PLayerLog marker styles",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-12T04:08:09Z",
+  "updated_at": "2022-03-25T12:32:19Z",
+  "closed_at": "2022-03-25T12:32:18Z",
+  "merged_at": "2022-03-25T12:32:17Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1407",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1407/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1407/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1407",
+  "body": "Fixes #1389 \r\n\r\nFor this issue, I updated:\r\n- increate player log modal width to 50px \r\n- add min width css property for the marker\r\n- in case the text content of the cell is too long, the scroll x auto appear to view all the text if need.\r\n\r\nhttps://user-images.githubusercontent.com/26705621/158003059-1b6691cf-9a27-4fc1-b323-4069f3672f76.mov\r\n\r\n\r\n",
+  "additions": 38,
+  "deletions": 31,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1066924490,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-14T15:13:31Z",
+      "updated_at": "2022-03-14T15:13:31Z",
+      "body": "This is how it looks once last active time hits double digits:\r\n\r\n![Last Active Spacing](https://user-images.githubusercontent.com/85491794/158201810-6a641a4f-f859-4330-8331-17fd6e1833ba.png)\r\n\r\nI think in a game with plenty of players this would end up cluttering the log. Could we maybe reduce a little bit of the \"Role\" tab size? Even in games with long role names, like Papafoxtrot, there seems to be just a little space we could sacrifice for the \"Role\" tab to add to the Last Active: \r\n\r\n![Papafoxtrot Player Log](https://user-images.githubusercontent.com/85491794/158202310-f1e7f8ba-f7c1-46c4-8b1b-6a8bba5ce628.png)\r\n"
+    },
+    {
+      "id": 1066929598,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T15:17:32Z",
+      "updated_at": "2022-03-14T15:17:32Z",
+      "body": "> This is how it looks once last active time hits double digits:\r\n\r\nYes @lebaphi - I think the next steps is to start providing different column widths, please."
+    },
+    {
+      "id": 1075206517,
+      "user": "lebaphi",
+      "created_at": "2022-03-22T13:51:09Z",
+      "updated_at": "2022-03-22T13:51:09Z",
+      "body": "> > This is how it looks once last active time hits double digits:\n> \n> \n> \n> Yes @lebaphi - I think the next steps is to start providing different column widths, please.\n\nsure, it sounds interesting 👍🏻"
+    },
+    {
+      "id": 1078662028,
+      "user": "lebaphi",
+      "created_at": "2022-03-25T05:13:12Z",
+      "updated_at": "2022-03-25T05:13:12Z",
+      "body": "\r\nhttps://user-images.githubusercontent.com/26705621/160058367-3b1a20bc-5854-40db-95da-ca239f257481.mov\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1389
+  ],
+  "issues": [
+    {
+      "id": 1162694389,
+      "number": 1389,
+      "title": "Reactive Online Marker ",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-08T14:01:47Z",
+      "updated_at": "2022-03-25T12:32:18Z",
+      "closed_at": "2022-03-25T12:32:18Z",
+      "body": "The online/offline marker is reactive to the text box next to it. It squeezes or expands depending on if the text box says \"a few seconds ago\" or \"X minutes ago\".\r\n\r\n![A Few Seconds Ago Bug](https://user-images.githubusercontent.com/85491794/157252613-31e51ad2-f81b-4c2c-b04f-d9c9caae55eb.png)\r\n\r\n![A Minute Ago Bug](https://user-images.githubusercontent.com/85491794/157252640-e707434e-1749-4d58-90da-3c7f072f07eb.png)\r\n\r\nCould we make the text box a two-liner so it doesn't impact the marker?\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1061819682,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-08T14:11:41Z",
+          "updated_at": "2022-03-08T14:11:41Z",
+          "body": "Wondering whether it's a font issue? I noticed that the Role and Last Active fonts might not be the same:\r\n\r\n![Role Font Message Channel](https://user-images.githubusercontent.com/85491794/157254456-54ff1ba9-5d49-4c90-a9d9-69790958d4ee.png)\r\n\r\n![Last Active Font Message Channel](https://user-images.githubusercontent.com/85491794/157254491-c93b3caf-ef09-4fad-8068-47538f7863d7.png)\r\n\r\nAlso, apparently, Chrome considers the offline marker as the same element as the text box. Maybe they need to be separate?"
+        },
+        {
+          "id": 1062768412,
+          "user": "IanMayo",
+          "created_at": "2022-03-09T10:20:17Z",
+          "updated_at": "2022-03-09T10:20:17Z",
+          "body": "Another solution is to take more control of the column widths.  I'm sure we can reduce `Force` and `Sent at`. Hmm, or we make the dialog 50px (approx) wider. Then the `Last active` column will fit without squashing the icon."
+        },
+        {
+          "id": 1065799962,
+          "user": "lebaphi",
+          "created_at": "2022-03-12T03:10:10Z",
+          "updated_at": "2022-03-12T03:10:10Z",
+          "body": "I think the simple solution is set the min-width for the marker, it does not touch too much on the component code based 🤔 "
+        },
+        {
+          "id": 1065800858,
+          "user": "lebaphi",
+          "created_at": "2022-03-12T03:16:28Z",
+          "updated_at": "2022-03-12T03:19:32Z",
+          "body": "the marker works well but the text seems to be cut off. we can increase the column width a bit but I wonder if other columns has the long text, so we should support responsive column width here 🤔 \r\n\r\n<img width=\"146\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/158001644-4cd72764-50ee-4433-b1da-abb2023f3c4d.png\">\r\n"
+        },
+        {
+          "id": 1065856326,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-12T10:14:26Z",
+          "updated_at": "2022-03-12T10:15:24Z",
+          "body": "I was playing around with the deployment in #1407 and I noticed that the Message column has the smallest text box info. I thought maybe we could shrink that one, but then I noticed this: \r\n\r\nI sent a message with BLUE 1 CO on the Message Channel (VHF C16):\r\n\r\n![Message Channel Blue 1 CO](https://user-images.githubusercontent.com/85491794/158013886-dbbb2301-7b1f-4818-bdc8-4c6e50301cae.png)\r\n\r\nThe player log seems to show that a message has been sent in \"Chat\", the same as when a message is sent in the general chat:\r\n\r\n![Player Log Message Column Shows Chat instead of VHF C16](https://user-images.githubusercontent.com/85491794/158013898-c0d51061-773d-49d5-b56a-94fe036618eb.png)\r\n\r\nI would assume that when a player sends a message in the channels, it's a different item than the general chat message? \r\nIn this example, should we show \"VHF C16\" in the message column in the player log?"
+        },
+        {
+          "id": 1066604839,
+          "user": "IanMayo",
+          "created_at": "2022-03-14T10:16:46Z",
+          "updated_at": "2022-03-14T10:16:46Z",
+          "body": "I understand the confusion @ShendMikullovci \r\n\r\nWe are displaying the message-type rather than the channel.  So, the game you're looking at has the `VHF C16` and `Admin` both configured to send `Chat` messages.  We _could_ switch to showing the channel name instead, but right now I don't think there is a right answer.  I suggest we live with it for a while and see."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/158201810-6a641a4f-f859-4330-8331-17fd6e1833ba.png",
+    "https://user-images.githubusercontent.com/85491794/158202310-f1e7f8ba-f7c1-46c4-8b1b-6a8bba5ce628.png",
+    "https://user-images.githubusercontent.com/85491794/157252613-31e51ad2-f81b-4c2c-b04f-d9c9caae55eb.png",
+    "https://user-images.githubusercontent.com/85491794/157252640-e707434e-1749-4d58-90da-3c7f072f07eb.png",
+    "https://user-images.githubusercontent.com/85491794/157254456-54ff1ba9-5d49-4c90-a9d9-69790958d4ee.png",
+    "https://user-images.githubusercontent.com/85491794/157254491-c93b3caf-ef09-4fad-8068-47538f7863d7.png",
+    "https://user-images.githubusercontent.com/26705621/158001644-4cd72764-50ee-4433-b1da-abb2023f3c4d.png",
+    "https://user-images.githubusercontent.com/85491794/158013886-dbbb2301-7b1f-4818-bdc8-4c6e50301cae.png",
+    "https://user-images.githubusercontent.com/85491794/158013898-c0d51061-773d-49d5-b56a-94fe036618eb.png"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 69
+}

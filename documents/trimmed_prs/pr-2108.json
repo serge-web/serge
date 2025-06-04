@@ -1,0 +1,63 @@
+{
+  "number": 2108,
+  "title": "Can't read read-only text-boxes and drop-downs because text is white",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-15T05:09:16Z",
+  "updated_at": "2022-11-15T07:56:51Z",
+  "closed_at": "2022-11-15T07:56:50Z",
+  "merged_at": "2022-11-15T07:56:50Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2108",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2108/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2108/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2108",
+  "body": "Fixes #2074 ",
+  "additions": 5,
+  "deletions": 5,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2074
+  ],
+  "issues": [
+    {
+      "id": 1446926409,
+      "number": 2074,
+      "title": "Can't read read-only text-boxes and drop-downs because text is white",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-13T13:27:09Z",
+      "updated_at": "2022-11-15T07:56:51Z",
+      "closed_at": "2022-11-15T07:56:51Z",
+      "body": "In yarn-develop, when we create a new orders object, the disabled fields aren't legible.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/201523976-103e478f-9fd3-4501-9e8d-a9a18e3dc0df.png)\r\n\r\nSteps to reproduce:\r\n- yarn develop\r\n- log in as `mar-`\r\n- create new orders for `Land Resupply`\r\n- fill in line, polygon, line\r\n- the `new orders` form will open (based on <NewMessage>)",
+      "labels": [
+        "bug",
+        "4p9",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1313945518,
+          "user": "IanMayo",
+          "created_at": "2022-11-14T15:35:21Z",
+          "updated_at": "2022-11-14T15:35:21Z",
+          "body": "Aah, the  fix for this issue has introduced a new issue - see below:\r\nWe view these messages in JSON-Editor in two places.  In one place (view existing orders) it's on a white background.  In another place (create new orders) we're on a dark background.\r\n\r\nUnfortunately making changes to `forms.scss` affects both json-editor instances.\r\n\r\nSo, I guess we need to try to apply the colors another way.\r\n\r\nSteps to reproduce the below screenshot:\r\n1. login to game P9-test\r\n2. log in as MTG-1\r\n3. View `My Orders`\r\n4. Expand an orders item. See the below presentation.  \r\nNote: in read-only view we're marking the whole form as `disabled`.  When we're creating a new message, just some fields are marked as `disabled`.  But, it looks like the same CSS styling is applied in each case.\r\n\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/201699922-6d035231-34be-4e0e-8b43-969ec1ec00a3.png)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/201523976-103e478f-9fd3-4501-9e8d-a9a18e3dc0df.png",
+    "https://user-images.githubusercontent.com/1108513/201699922-6d035231-34be-4e0e-8b43-969ec1ec00a3.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 10
+}

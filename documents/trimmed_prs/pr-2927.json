@@ -1,0 +1,200 @@
+{
+  "number": 2927,
+  "title": "2922_Message_response_slowly_when_save_wargam",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-05-04T10:28:05Z",
+  "updated_at": "2024-06-19T09:53:44Z",
+  "closed_at": "2024-05-16T14:21:46Z",
+  "merged_at": "2024-05-16T14:21:46Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2927",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2927/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2927/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2927",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 807,
+  "deletions": 143,
+  "changed_files": 17,
+  "labels": [
+    "bug",
+    "4hat"
+  ],
+  "comments_count": 18,
+  "review_comments_count": 0,
+  "total_comments": 18,
+  "comments_data": [
+    {
+      "id": 2094111256,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-05-04T10:29:07Z",
+      "updated_at": "2024-05-04T10:32:10Z",
+      "body": "Hi @IanMayo , Our CouchDB server is slow because we make too many API calls. For example, when we run the populateWargameList function, it takes a long time because it sends a new API call to the server for each wargame - https://gyazo.com/d7c1ec6083db42c04009a7d732f1d335.\r\n\r\nI tested putting the /wargameList API call on CouchDB, sending all the wargame lists at once in a single API call, and it significantly improved speed. https://gyazo.com/bd0d5ddf3cc3c364fe5799848bfbb111 - https://gyazo.com/9c88278eb784e894a8be15aa7ef8736c\r\n\r\nI've included sample code in this PR for you to review. Please Note that it only works with CouchDB Server"
+    },
+    {
+      "id": 2095574079,
+      "user": "Tristina1788",
+      "created_at": "2024-05-06T09:40:44Z",
+      "updated_at": "2024-05-06T09:40:44Z",
+      "body": "Checking on https://serge-inet.herokuapp.com/, I see the response is still slow."
+    },
+    {
+      "id": 2097784135,
+      "user": "Tristina1788",
+      "created_at": "2024-05-07T08:52:17Z",
+      "updated_at": "2024-05-07T08:52:17Z",
+      "body": "@lilitkarapetyan , @IanMayo   Testing on  https://serge-inet.herokuapp.com/ : I still don't see the improve on speed. So that, the action look messy.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/e749b604-76d7-4087-a5e0-d070025d0946\r\n\r\n"
+    },
+    {
+      "id": 2097800623,
+      "user": "IanMayo",
+      "created_at": "2024-05-07T09:01:03Z",
+      "updated_at": "2024-05-07T09:01:03Z",
+      "body": "> @lilitkarapetyan , @IanMayo Testing on https://serge-inet.herokuapp.com/ : I still don't see the improve on speed. So that, the action look messy.\r\n> \r\n\r\nYes @Tristina1788 - that's a serious delay.  I tend to focus on the player experience more than the game designer, but that delay makes it almost impossible to use."
+    },
+    {
+      "id": 2100405433,
+      "user": "Tristina1788",
+      "created_at": "2024-05-08T11:52:35Z",
+      "updated_at": "2024-05-08T11:52:35Z",
+      "body": "Testing on https://serge-2922-message-resp-svqtsm.herokuapp.com/, I think it has a little improve but it's still slow for playing\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/acac7af3-9180-46ff-97a3-bbbb303a3860\r\n\r\n"
+    },
+    {
+      "id": 2102463475,
+      "user": "IanMayo",
+      "created_at": "2024-05-09T11:13:07Z",
+      "updated_at": "2024-05-09T11:13:07Z",
+      "body": "Hey @Tristina1788 - the performance in this preview is certainly quicker now.  What do you think?"
+    },
+    {
+      "id": 2102483350,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-05-09T11:27:06Z",
+      "updated_at": "2024-05-09T11:30:56Z",
+      "body": "Hello @IanMayo , I optimized all the bad api's, it made it faster, I think Given the size and complexity of the wargame document our provided, it's not surprising that the PUT and GET operation takes a relatively longer time. The document appears to contain nested structures, arrays, and various properties with different data types, which can contribute to the processing time in couchDB."
+    },
+    {
+      "id": 2102527517,
+      "user": "IanMayo",
+      "created_at": "2024-05-09T12:00:07Z",
+      "updated_at": "2024-05-09T12:00:07Z",
+      "body": "> Hello @IanMayo , I optimized all the bad api's, it made it faster, I think Given the size and complexity of the wargame document our provided, it's not surprising that the PUT and GET operation takes a relatively longer time. The document appears to contain nested structures, arrays, and various properties with different data types, which can contribute to the processing time in couchDB.\r\n\r\nThanks for that @lilitkarapetyan - I'm really pleased we're discussing it.  For one wargame, I see the wargame document is about 12Kb.   Do you believe CouchDb is doing some processing of the document when it stores it?  I _thought_ it just saved the whole document.  Hmm, PouchDb matches all CouchDb features, and we've been saving lots of 1Mb files in an instant (when we had lots of templates and assets in theP9 wargame last year)."
+    },
+    {
+      "id": 2102557898,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-05-09T12:20:35Z",
+      "updated_at": "2024-05-09T12:20:35Z",
+      "body": "> > Hello @IanMayo , I optimized all the bad api's, it made it faster, I think Given the size and complexity of the wargame document our provided, it's not surprising that the PUT and GET operation takes a relatively longer time. The document appears to contain nested structures, arrays, and various properties with different data types, which can contribute to the processing time in couchDB.\r\n> \r\n> Thanks for that @lilitkarapetyan - I'm really pleased we're discussing it. For one wargame, I see the wargame document is about 12Kb. Do you believe CouchDb is doing some processing of the document when it stores it? I _thought_ it just saved the whole document. Hmm, PouchDb matches all CouchDb features, and we've been saving lots of 1Mb files in an instant (when we had lots of templates and assets in theP9 wargame last year).\r\n\r\nYou're correct that CouchDB typically stores documents in their raw JSON format without much processing. It preserves the original structure, including nested objects and arrays. However, larger documents can indeed slow down network transfers and storage, as they require more data to send and store."
+    },
+    {
+      "id": 2102567834,
+      "user": "IanMayo",
+      "created_at": "2024-05-09T12:27:39Z",
+      "updated_at": "2024-05-09T12:27:39Z",
+      "body": "> You're correct that CouchDB typically stores documents in their raw JSON format without much processing. It preserves the original structure, including nested objects and arrays. However, larger documents can indeed slow down network transfers and storage, as they require more data to send and store.\r\n\r\nBut, at 12Kb, these don't seem large in Internet scale of things.  As I said, in P9 I think the wargame grew to 1Mb, and was still processed instantly - that's almost a hundred times bigger than what we're looking at here.  I wonder if there is some other cause of the delay.  Could it be the `DigitalOcean` hosting?  Or maybe lots of calls we aren't aware of (maybe via sockets?).\r\n\r\nThe `Network` tab only shows calls to Heroku - it doesn't show calls from there to DigitalOcean."
+    },
+    {
+      "id": 2102625598,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-05-09T13:07:09Z",
+      "updated_at": "2024-05-09T13:07:09Z",
+      "body": "> > You're correct that CouchDB typically stores documents in their raw JSON format without much processing. It preserves the original structure, including nested objects and arrays. However, larger documents can indeed slow down network transfers and storage, as they require more data to send and store.\r\n> \r\n> But, at 12Kb, these don't seem large in Internet scale of things. As I said, in P9 I think the wargame grew to 1Mb, and was still processed instantly - that's almost a hundred times bigger than what we're looking at here. I wonder if there is some other cause of the delay. Could it be the `DigitalOcean` hosting? Or maybe lots of calls we aren't aware of (maybe via sockets?).\r\n> \r\n> The `Network` tab only shows calls to Heroku - it doesn't show calls from there to DigitalOcean.\r\n\r\nWas P9 wargame processing quikly on couchDB ?"
+    },
+    {
+      "id": 2102631304,
+      "user": "IanMayo",
+      "created_at": "2024-05-09T13:10:38Z",
+      "updated_at": "2024-05-09T13:10:38Z",
+      "body": "> Was P9 wargame processing quikly on couchDB ?\r\n\r\nNo, it was on PouchdB.  But, the node server was effectively acting as a CouchDb server - thousands of large and small Serge documents being sent/retrieved etc.  The performance delays were in hugely complex client-side Javascript algorithm code blocks - the network/database stuff was effectively instantaneous.\r\n"
+    },
+    {
+      "id": 2102946350,
+      "user": "Tristina1788",
+      "created_at": "2024-05-09T15:56:42Z",
+      "updated_at": "2024-05-09T15:56:42Z",
+      "body": "> Hey @Tristina1788 - the performance in this preview is certainly quicker now. What do you think?\r\n\r\n@IanMayo , @lilitkarapetyan  It looks much better. But the saving force/ channel when I've created force/Channel still quite slow. It returns the default name after user updated. So it makes user confuse.\r\n\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/038b9676-a586-4ac0-9723-d1281f0d4113\r\n\r\n\r\n"
+    },
+    {
+      "id": 2107681854,
+      "user": "Tristina1788",
+      "created_at": "2024-05-13T14:11:00Z",
+      "updated_at": "2024-05-13T14:11:00Z",
+      "body": "From admin page, when I open wargame 1, exit wargame 1 and open wargame 2. It shows the name of wargame 1 in about1 second then show name of wargame 2. Another saving (saving name game, saving new channel, saving new force) often slow about 1 second \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/d277248c-b41d-443e-acb6-fc49f72f0f81\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2110294309,
+      "user": "Tristina1788",
+      "created_at": "2024-05-14T13:48:11Z",
+      "updated_at": "2024-05-14T13:48:11Z",
+      "body": "> From admin page, when I open wargame 1, exit wargame 1 and open wargame 2. It shows the name of wargame 1 in about1 second then show name of wargame 2. Another saving (saving name game, saving new channel, saving new force) often slow about 1 second\r\n> \r\n>  slow-response.2.mp4\r\n\r\nTesting on https://serge-2922-message-resp-svqtsm.herokuapp.com/,\r\nI think the performance is the same with yesterday."
+    },
+    {
+      "id": 2115326767,
+      "user": "IanMayo",
+      "created_at": "2024-05-16T13:57:32Z",
+      "updated_at": "2024-05-16T13:57:32Z",
+      "body": "Merging this, because it contains some useful performance improvements, though we still have some way to go."
+    },
+    {
+      "id": 2178122382,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-19T08:48:51Z",
+      "updated_at": "2024-06-19T08:49:02Z",
+      "body": "Fixes #2922\r\n"
+    },
+    {
+      "id": 2178261390,
+      "user": "Tristina1788",
+      "created_at": "2024-06-19T09:53:43Z",
+      "updated_at": "2024-06-19T09:53:43Z",
+      "body": "> Merging this, because it contains some useful performance improvements, though we still have some way to go.\r\n\r\n@IanMayo @lilitkarapetyan  Do we need to continue to improve it? We closed this PR and the ticket. If we still need to improve, I can create another ticket for it."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2922
+  ],
+  "issues": [
+    {
+      "id": 2271279778,
+      "number": 2922,
+      "title": "Message response slowly when save wargame",
+      "state": "open",
+      "user": "Tristina1788",
+      "created_at": "2024-04-30T12:00:52Z",
+      "updated_at": "2024-06-19T10:29:06Z",
+      "closed_at": null,
+      "body": "## 🐞 Bug description\r\nMessage response slowly when save wargame and the error shows on network\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Go to https://serge-inet.herokuapp.com/\r\n2. Create new wargame\r\n3. Notice the message shows slowly when save name game name, force, channel also shows the error from Network \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/a7878d0c-c195-4ad2-9677-7a7fde6eebb7)\r\n\r\nNotice :\r\n-  Issue doesn't happend on 'Develop' branch\r\n- Almost of action is slower than normal\r\n## ⚙️ Expected behavior\r\nThe response for action save game should be faster\r\n\r\n## 🖥️ Screencast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/f0d35c2d-bae8-4341-9587-73d8889e8d86\r\n\r\n\r\n\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n- Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n\r\n",
+      "labels": [
+        "bug",
+        "4hat"
+      ],
+      "comments": [
+        {
+          "id": 2178289501,
+          "user": "IanMayo",
+          "created_at": "2024-06-19T10:07:34Z",
+          "updated_at": "2024-06-19T10:07:34Z",
+          "body": "Could you share a screencast showing the current performance please @Tristina1788 ?"
+        },
+        {
+          "id": 2178332664,
+          "user": "Tristina1788",
+          "created_at": "2024-06-19T10:29:05Z",
+          "updated_at": "2024-06-19T10:29:05Z",
+          "body": "> Could you share a screencast showing the current performance please @Tristina1788 ?\r\n\r\n@IanMayo  Here it is : \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/e1a91bea-1094-4d04-aa17-e87745438ff6\r\n\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/a7878d0c-c195-4ad2-9677-7a7fde6eebb7"
+  ],
+  "number_of_changed_files": 17,
+  "total_changed_lines": 950
+}

@@ -1,0 +1,52 @@
+{
+  "number": 2029,
+  "title": "2028 new message tidying",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-09T19:04:36Z",
+  "updated_at": "2022-11-09T20:16:56Z",
+  "closed_at": "2022-11-09T20:16:55Z",
+  "merged_at": "2022-11-09T20:16:55Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2029",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2029/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2029/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2029",
+  "body": "Fixes #2028 ",
+  "additions": 19,
+  "deletions": 8,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2028
+  ],
+  "issues": [
+    {
+      "id": 1442460441,
+      "number": 2028,
+      "title": "Remove `new-message` from `planning-messages-list`.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-09T17:14:08Z",
+      "updated_at": "2022-11-09T20:16:56Z",
+      "closed_at": "2022-11-09T20:16:56Z",
+      "body": "Since we typically want to get spatial data, or to get the assets in a set of orders, it makes more sense to trigger order generation from the planning menu on the map.\r\n\r\nAah, we can't delete it, since we use it for writing the rest of a message.\r\n\r\nBut, we could hide it when we don't have a draft message.",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 27
+}

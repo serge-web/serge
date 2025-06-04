@@ -1,0 +1,61 @@
+{
+  "number": 1342,
+  "title": "delete platform type without saving",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-02-09T07:17:15Z",
+  "updated_at": "2022-02-09T12:15:16Z",
+  "closed_at": "2022-02-09T12:15:15Z",
+  "merged_at": "2022-02-09T12:15:15Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1342",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1342/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1342/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1342",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1333\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 17,
+  "deletions": 1383,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 2,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1033669097,
+      "user": "IanMayo",
+      "created_at": "2022-02-09T11:39:53Z",
+      "updated_at": "2022-02-09T11:39:53Z",
+      "body": "Thanks @lilitkarapetyan , I ❤️  the new version."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 802410938,
+      "user": "IanMayo",
+      "created_at": "2022-02-09T08:57:24Z",
+      "updated_at": "2022-02-09T09:15:54Z",
+      "body": "@lilitkarapetyan - is this specific to PouchDb?  Will it work with RavenDB?\r\n\r\nHmm, the data is only in `_local/settings` until the game has been `Finalized`. Then the newer versions are in the normal collection of documents.\r\n\r\nHmm, I'm still confused. I don't think other tabs have to do their own database access - they just use the API.  The `Forces` tab doesn't do database access - but it doesn't have the issue we're trying to fix here.  Could you have a look and see how `setting-forces` handles it's data.",
+      "path": "packages/components/src/local/organisms/setting-platform-types/index.tsx",
+      "diff_hunk": "@@ -88,8 +89,22 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan\n   }\n \n   const handleDelete = (item: Item): void => {\n+    const db: PouchDB.Database = new PouchDB(databasePath + wargameName + dbSuffix)\n     setSelectedItem(-1)\n-    onDelete && onDelete(item as PlatformType)\n+    db.get(localSettings).then((res: any) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1342#discussion_r802410938"
+    },
+    {
+      "id": 802413305,
+      "user": "IanMayo",
+      "created_at": "2022-02-09T08:59:51Z",
+      "updated_at": "2022-02-09T09:01:45Z",
+      "body": "~~Hmm, @lilitkarapetyan - this feels like a bit of a bad code-smell.  It's only when `SAVE` is clicked that data goes to the database.  So, updating the client state should be enough.~~\r\n\r\n~~Can you help me understand why we have the database round-trip?~~\r\n\r\nAah, sorry - I get it now. We have `Save` for platform-type, not for the full array of platform-types.",
+      "path": "packages/components/src/local/organisms/setting-platform-types/index.tsx",
+      "diff_hunk": "@@ -88,8 +89,22 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan\n   }\n \n   const handleDelete = (item: Item): void => {\n+    const db: PouchDB.Database = new PouchDB(databasePath + wargameName + dbSuffix)",
+      "html_url": "https://github.com/serge-web/serge/pull/1342#discussion_r802413305"
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 1400
+}

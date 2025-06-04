@@ -1,0 +1,81 @@
+{
+  "number": 1151,
+  "title": "Handle undefined Force role name",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-21T05:22:18Z",
+  "updated_at": "2022-03-08T15:28:40Z",
+  "closed_at": "2022-03-08T15:28:39Z",
+  "merged_at": "2022-03-08T15:28:39Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1151",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1151/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1151/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1151",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1144 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\nhttps://user-images.githubusercontent.com/16476120/134115533-f2ad2819-3300-4e85-bf55-fe70e21b3e75.mov\r\n\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 121,
+  "deletions": 2,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 2,
+  "total_comments": 2,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 713111516,
+      "user": "IanMayo",
+      "created_at": "2021-09-21T14:40:36Z",
+      "updated_at": "2021-09-21T14:40:36Z",
+      "body": "Since we refer to \"New Role\" from two places, could you declare it as a global constant, please?  Then we won't have a logic break if one string gets changed but not the other.",
+      "path": "packages/components/src/local/molecules/sortable-list/index.tsx",
+      "diff_hunk": "@@ -124,6 +124,11 @@ export const SortableList: React.FC<PropTypes> = ({\n           }\n         }\n       }\n+      \n+      if (!newValue) {\n+        newValue = \"New Role\" ",
+      "html_url": "https://github.com/serge-web/serge/pull/1151#discussion_r713111516"
+    },
+    {
+      "id": 714479154,
+      "user": "sanjayradadiya",
+      "created_at": "2021-09-23T05:24:22Z",
+      "updated_at": "2021-09-23T05:24:22Z",
+      "body": "Global constant declared for `New Role`",
+      "path": "packages/components/src/local/molecules/sortable-list/index.tsx",
+      "diff_hunk": "@@ -124,6 +124,11 @@ export const SortableList: React.FC<PropTypes> = ({\n           }\n         }\n       }\n+      \n+      if (!newValue) {\n+        newValue = \"New Role\" ",
+      "html_url": "https://github.com/serge-web/serge/pull/1151#discussion_r714479154"
+    }
+  ],
+  "issue_numbers": [
+    1144
+  ],
+  "issues": [
+    {
+      "id": 998891659,
+      "number": 1144,
+      "title": "Force role name update create undefined",
+      "state": "closed",
+      "user": "sanjayradadiya",
+      "created_at": "2021-09-17T03:32:25Z",
+      "updated_at": "2022-03-08T15:28:39Z",
+      "closed_at": "2022-03-08T15:28:39Z",
+      "body": "## 🐞 Bug description\r\n<!-- A clear and concise description of what the bug is. -->\r\nCreate Wargame > Select Force > Roles > Add Role > Select Role name > Press Delete button > Role name will be undefined\r\n\r\n## 🔢 Steps to Reproduce\r\n<!-- \r\nSteps to reproduce the behavior:\r\n1. Go to '...'\r\n2. Click on '....'\r\n3. Scroll down to '....'\r\n4. See error -->\r\n\r\n## ⚙️ Expected behavior\r\n<!-- A clear and concise description of what you expected to happen. -->\r\n\r\n## 🖥️ Screenshots\r\n<!-- If applicable, add screenshots to help explain your problem a good animated screenshot can replace 'steps to reproduce'. -->\r\n\r\nhttps://user-images.githubusercontent.com/16476120/133719804-256516d0-328d-40f9-91e9-d488f3d58083.mov\r\n\r\n## 💻 System information\r\n<!-- Please complete the following information (you can get most of this information from https://mybrowser.fyi/) -->\r\n - Operating System: [e.g. iOS, Windows, etc...]\r\n - Browser [e.g. chrome, safari]\r\n - Browser Version [e.g. 22]\r\n - Browser resolution \r\n - Are cookies enabled\r\n - Is Javascript enabled\r\n - Do you have an ad blocker\r\n\r\n\r\n## 📝 Additional context\r\n<!-- Add any other context about the problem here. For example it might be worth mentioning if you have any chrome extensions which may cause the problem -->\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 921677545,
+          "user": "IanMayo",
+          "created_at": "2021-09-17T10:10:12Z",
+          "updated_at": "2021-09-17T10:10:12Z",
+          "body": "I _think_ it's a bug that it goes to `undefined`.  A user shouldn't see that. "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 123
+}

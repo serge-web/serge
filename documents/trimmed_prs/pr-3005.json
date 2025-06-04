@@ -1,0 +1,50 @@
+{
+  "number": 3005,
+  "title": "Store previous version of message, if edited.",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-10-17T15:07:31Z",
+  "updated_at": "2024-10-18T10:16:01Z",
+  "closed_at": "2024-10-18T10:16:00Z",
+  "merged_at": "2024-10-18T10:15:59Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/3005",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/3005/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/3005/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/3005",
+  "body": "Fixes #3004 \r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 10,
+  "deletions": 4,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    3004
+  ],
+  "issues": [
+    {
+      "id": 2594202723,
+      "number": 3004,
+      "title": "We allow message modifications, but do not store previous versions",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-10-17T09:47:02Z",
+      "updated_at": "2024-10-18T10:16:00Z",
+      "closed_at": "2024-10-18T10:16:00Z",
+      "body": "## 🐞 Amendment description\r\nIn the `collab-message-detail` component we allow users to modify collab-messages.  We store the new state of the `message.message` content in the updated message.  But, an analyst wishes to analyse the changes in the message.\r\n\r\n## 🔗 Affected page\r\n`collab-message-detail\\index.tsx`\r\n\r\n\r\n## 🔢 Current behaviour\r\nOnly the updated message content is stored.\r\n\r\n## ⚙️ Expected behavior\r\n<!-- A clear and concise description of what you expected to happen. -->\r\nA copy of the previous state of the `message.message` should be present in the `feedback` block.\r\n\r\n\r\n## 🖥️ Screenshots\r\n<!-- If applicable, add screenshots to help explain your problem a good animated screenshot can replace 'steps to reproduce'. -->\r\n\r\n## 📝 Additional context\r\n<!-- Add any other context about the problem here. For example it might be worth mentioning if you have any chrome extensions which may cause the problem -->\r\nWe could reduce space if we just stored the JSON diff that represents the change to the message.\r\n",
+      "labels": [
+        "4hat"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 14
+}

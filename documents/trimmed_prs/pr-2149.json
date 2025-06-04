@@ -1,0 +1,298 @@
+{
+  "number": 2149,
+  "title": "New_solution_for_persistent_forms",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-24T12:22:18Z",
+  "updated_at": "2022-12-29T11:22:09Z",
+  "closed_at": "2022-12-29T11:22:08Z",
+  "merged_at": "2022-12-29T11:22:08Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2149",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2149/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2149/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2149",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 254,
+  "deletions": 344,
+  "changed_files": 36,
+  "labels": [
+    "bug",
+    "4watu",
+    "4p9",
+    "T-H"
+  ],
+  "comments_count": 17,
+  "review_comments_count": 10,
+  "total_comments": 27,
+  "comments_data": [
+    {
+      "id": 1326418713,
+      "user": "IanMayo",
+      "created_at": "2022-11-24T12:58:38Z",
+      "updated_at": "2022-11-24T12:58:38Z",
+      "body": "Thanks Lilit.  Data isn't lost, but we still have the flicker.\r\n\r\nCould you investigate an alternate solution please?\r\n\r\nI'm thinking of something like this:\r\n* we only re-create the JSON editor if some test is passed, such as a new item is being edited\r\n\r\nI'm happy to tidy this PR up, and merge it - but the users I spoke to last week are expecting a solution that doesn't involve flicker.  This is what they are used to: when they are instant-messaging with their family, the instant messenger doesn't flicker when a new message is received.  So, they know it is fixable, and so find the flicker annoying."
+    },
+    {
+      "id": 1327035953,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-25T05:29:17Z",
+      "updated_at": "2022-11-25T05:29:17Z",
+      "body": "> Thanks Lilit. Data isn't lost, but we still have the flicker.\r\n> \r\n> Could you investigate an alternate solution please?\r\n> \r\n> I'm thinking of something like this:\r\n> \r\n>     * we only re-create the JSON editor if some test is passed, such as a new item is being edited\r\n> \r\n> \r\n> I'm happy to tidy this PR up, and merge it - but the users I spoke to last week are expecting a solution that doesn't involve flicker. This is what they are used to: when they are instant-messaging with their family, the instant messenger doesn't flicker when a new message is received. So, they know it is fixable, and so find the flicker annoying.\r\n\r\nHello Ian, I don't think the problem is with jsonEditor because by default when we don't have anything created with jsonEditor it flashes again when we get a new message, I will work on that and try to fix the flashing."
+    },
+    {
+      "id": 1327302754,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-25T10:30:59Z",
+      "updated_at": "2022-11-25T10:30:59Z",
+      "body": "I will try improve it so that when updating a message the scrollbar is in the edit area"
+    },
+    {
+      "id": 1341045577,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-07T14:26:34Z",
+      "updated_at": "2022-12-07T14:26:34Z",
+      "body": "I'm still working on this PR"
+    },
+    {
+      "id": 1341205397,
+      "user": "IanMayo",
+      "created_at": "2022-12-07T16:10:50Z",
+      "updated_at": "2022-12-07T16:10:50Z",
+      "body": "Hello Lilit, thanks for keeping this moving.  But, as I said last week, me preferred outcome is to identify a solution that avoids cache-ing data on table updates.  My preferred outcome is that we use state to prevent JSON-Editor (or its react parents) from being refreshed."
+    },
+    {
+      "id": 1342146116,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-08T06:40:34Z",
+      "updated_at": "2022-12-08T06:40:34Z",
+      "body": "> Hello Lilit, thanks for keeping this moving. But, as I said last week, me preferred outcome is to identify a solution that avoids cache-ing data on table updates. My preferred outcome is that we use state to prevent JSON-Editor (or its react parents) from being refreshed.\r\n\r\nHello Ian, okay, I will work on it now "
+    },
+    {
+      "id": 1346276653,
+      "user": "IanMayo",
+      "created_at": "2022-12-12T11:02:16Z",
+      "updated_at": "2022-12-12T11:02:16Z",
+      "body": "Hello @lilitkarapetyan - could you update me on where we are with this issue please?"
+    },
+    {
+      "id": 1346813719,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-12T16:15:19Z",
+      "updated_at": "2022-12-12T16:15:19Z",
+      "body": "I finished it"
+    },
+    {
+      "id": 1348190785,
+      "user": "IanMayo",
+      "created_at": "2022-12-13T11:01:40Z",
+      "updated_at": "2022-12-13T11:01:40Z",
+      "body": "Hello @lilitkarapetyan - I'm keen to merge this (hooray!), but I'm just doing a bit of last-minute testing.  We only use `cacheMessage` in one place, `<MessageCreator>`. This component is used in creating new `Orders` messages in the `Planning` tab.  I've tried changing the value of `cacheMessage` to false in that component - and things still seem to work. \r\n\r\nI've pushed the change. Would you mind double-checking?  \r\n\r\nThat's because if we don't need to use `cacheMessage={true}` anywhere, we can remove a lot of the `expiredStorage` code. "
+    },
+    {
+      "id": 1348259761,
+      "user": "IanMayo",
+      "created_at": "2022-12-13T11:21:49Z",
+      "updated_at": "2022-12-13T12:45:01Z",
+      "body": "Aah, I've found an issue @lilitkarapetyan \r\n\r\nWhen I ask to filter for \"Orders\" that belong to me, the list doesn't update, but when I cancel the filter, the table grows by one (as it re-processes the first element).  I don't think it matters if we lose live edits when a filter is applied/removed, since the user is deliberately changing the contents of the page.\r\nhttps://i.gyazo.com/40eb053789a671fabd3058f4adfdfe67.mp4\r\n"
+    },
+    {
+      "id": 1350419277,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-14T05:28:37Z",
+      "updated_at": "2022-12-14T05:28:37Z",
+      "body": "Hello Ian, I will into it now"
+    },
+    {
+      "id": 1351218444,
+      "user": "IanMayo",
+      "created_at": "2022-12-14T12:13:50Z",
+      "updated_at": "2022-12-14T12:13:50Z",
+      "body": "I'm not sure how this problem arose, but we have a layout issue with the `Orders` tab:\r\n![image](https://user-images.githubusercontent.com/1108513/207592479-d9d7acf4-b5d4-4e49-8f95-bace7c249e1d.png)\r\n"
+    },
+    {
+      "id": 1351321333,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-14T13:06:15Z",
+      "updated_at": "2022-12-14T13:06:15Z",
+      "body": "\r\n\r\n\r\n\r\n> I'm not sure how this problem arose, but we have a layout issue with the `Orders` tab: ![image](https://user-images.githubusercontent.com/1108513/207592479-d9d7acf4-b5d4-4e49-8f95-bace7c249e1d.png)\r\n\r\nOk, I will look into it"
+    },
+    {
+      "id": 1352809248,
+      "user": "IanMayo",
+      "created_at": "2022-12-15T09:51:36Z",
+      "updated_at": "2022-12-15T09:51:36Z",
+      "body": "Hello @lilitkarapetyan - I like this piece of work. Thanks for refactoring out those helpers.\r\n\r\n`json-editor` has a `cacheMessage` prop.  As far as I can see, that is never true.  If I'm right about that, we never call `expiredStorage.setItem` in `json-editor\\index.tsx`.  If that's right, we never need to call `expiredStorage.getItem` or `expiredStorege.removeItem` in `json-editor\\index.tsx`.   If that's right, we don't need to refer to `expiredStorage` in `json-editor\\index.tsx` at all - and we can remove it.\r\n\r\nYes, there are a few _if I'm right_'s above.  Would you mind checking it please?"
+    },
+    {
+      "id": 1352852897,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-15T10:24:42Z",
+      "updated_at": "2022-12-15T10:24:42Z",
+      "body": "> \r\n\r\n\r\n\r\n> Hello @lilitkarapetyan - I like this piece of work. Thanks for refactoring out those helpers.\r\n> \r\n> `json-editor` has a `cacheMessage` prop. As far as I can see, that is never true. If I'm right about that, we never call `expiredStorage.setItem` in `json-editor\\index.tsx`. If that's right, we never need to call `expiredStorage.getItem` or `expiredStorege.removeItem` in `json-editor\\index.tsx`. If that's right, we don't need to refer to `expiredStorage` in `json-editor\\index.tsx` at all - and we can remove it.\r\n> \r\n> Yes, there are a few _if I'm right_'s above. Would you mind checking it please?\r\nHello Ian , Thanks I will check it and remove `expiredStorage` from `JsonEditor`\r\n"
+    },
+    {
+      "id": 1352870521,
+      "user": "IanMayo",
+      "created_at": "2022-12-15T10:39:16Z",
+      "updated_at": "2022-12-15T10:39:16Z",
+      "body": "> Thanks I will check it and remove expiredStorage from JsonEditor\r\n\r\nThe `expiredStorage` fix was a great workaround, that made a monster problem go away.  So, it feels _scary_ to delete it.  But, if we really can remove it, then great :-D"
+    },
+    {
+      "id": 1352871311,
+      "user": "IanMayo",
+      "created_at": "2022-12-15T10:40:01Z",
+      "updated_at": "2022-12-15T10:40:01Z",
+      "body": "Note: this bug should be included in this PR please, @lilitkarapetyan : https://github.com/serge-web/serge/issues/2164"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1031488327,
+      "user": "IanMayo",
+      "created_at": "2022-11-24T13:03:19Z",
+      "updated_at": "2022-11-24T13:03:20Z",
+      "body": "@lilitkarapetyan  - do you remember what the `removePlanning` comment is for?",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -74,19 +73,25 @@ export const JsonEditor: React.FC<Props> = ({\n     return memoryName\n   }\n \n+  const getEditLocalStorgaeid = (): string => `edit-${genLocalStorageId()}`\n+\n   const OnSave = () => {\n     saveMessage && saveMessage()\n     expiredStorage.removeItem(genLocalStorageId())\n+    expiredStorage.removeItem(getEditLocalStorgaeid())\n   }\n \n   const onPopupCancel = (): void => {\n-    expiredStorage.removeItem(genLocalStorageId())\n+    // removePlanning",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1031488327"
+    },
+    {
+      "id": 1031489761,
+      "user": "IanMayo",
+      "created_at": "2022-11-24T13:04:50Z",
+      "updated_at": "2022-11-24T13:04:51Z",
+      "body": "@lilitkarapetyan - we have two methods with similar names (`getEditLocalStorageId` and `genLocalStorageId`).  Can you put in comments to indicate what they are both for, please?",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -74,19 +73,25 @@ export const JsonEditor: React.FC<Props> = ({\n     return memoryName\n   }\n \n+  const getEditLocalStorgaeid = (): string => `edit-${genLocalStorageId()}`",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1031489761"
+    },
+    {
+      "id": 1031500122,
+      "user": "IanMayo",
+      "created_at": "2022-11-24T13:16:26Z",
+      "updated_at": "2022-11-24T13:16:37Z",
+      "body": "@lilitkarapetyan - I tried to understand what was happening in this method before, and couldn't get it.\r\n\r\nMy favourite outcome would be to simplify the API/props for the `json-editor`.  I feel we've got some props that do the same job as each other.  If we can't do that, I'll need better comments on the props, and in the method please.",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -230,12 +235,14 @@ export const JsonEditor: React.FC<Props> = ({\n   }, [disableArrayToolsWithEditor && disabled])\n \n   useLayoutEffect(() => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1031500122"
+    },
+    {
+      "id": 1031501432,
+      "user": "IanMayo",
+      "created_at": "2022-11-24T13:17:49Z",
+      "updated_at": "2022-11-24T13:17:50Z",
+      "body": "Oh dear, `JSON.stringify('edit')` is too complex for me. Won't `JSON.stringify('edit')` just return `\"edit\"` ?",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -263,7 +270,10 @@ export const JsonEditor: React.FC<Props> = ({\n                 : null\n             }\n           </>\n-          : !disabled ? <Button color='secondary' onClick={() => { setBeingEdited(true) }} icon='edit'>Edit</Button>",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1031501432"
+    },
+    {
+      "id": 1032017101,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-25T05:31:55Z",
+      "updated_at": "2022-11-25T05:31:56Z",
+      "body": "Should we delete the chached message ?",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -74,19 +73,25 @@ export const JsonEditor: React.FC<Props> = ({\n     return memoryName\n   }\n \n+  const getEditLocalStorgaeid = (): string => `edit-${genLocalStorageId()}`\n+\n   const OnSave = () => {\n     saveMessage && saveMessage()\n     expiredStorage.removeItem(genLocalStorageId())\n+    expiredStorage.removeItem(getEditLocalStorgaeid())\n   }\n \n   const onPopupCancel = (): void => {\n-    expiredStorage.removeItem(genLocalStorageId())\n+    // removePlanning",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1032017101"
+    },
+    {
+      "id": 1032018713,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-25T05:35:28Z",
+      "updated_at": "2022-11-25T05:35:28Z",
+      "body": "Ok I will add a comment in the code.",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -74,19 +73,25 @@ export const JsonEditor: React.FC<Props> = ({\n     return memoryName\n   }\n \n+  const getEditLocalStorgaeid = (): string => `edit-${genLocalStorageId()}`",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1032018713"
+    },
+    {
+      "id": 1032019437,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-25T05:37:16Z",
+      "updated_at": "2022-11-25T05:37:16Z",
+      "body": "I will look into it.",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -230,12 +235,14 @@ export const JsonEditor: React.FC<Props> = ({\n   }, [disableArrayToolsWithEditor && disabled])\n \n   useLayoutEffect(() => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1032019437"
+    },
+    {
+      "id": 1032066437,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-25T07:17:13Z",
+      "updated_at": "2022-11-25T07:17:13Z",
+      "body": "I don't remember where we use it either, I guess we can remove it from the `jsonEditor`",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -230,12 +235,14 @@ export const JsonEditor: React.FC<Props> = ({\n   }, [disableArrayToolsWithEditor && disabled])\n \n   useLayoutEffect(() => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1032066437"
+    },
+    {
+      "id": 1032276571,
+      "user": "IanMayo",
+      "created_at": "2022-11-25T10:51:33Z",
+      "updated_at": "2022-11-25T10:52:15Z",
+      "body": "Hey @lilitkarapetyan - THIS WORKS PERFECTLY!\r\n\r\nCan you explain how it fixes it, please?",
+      "path": "packages/components/src/local/organisms/planning-messages-list/index.tsx",
+      "diff_hunk": "@@ -54,7 +54,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({\n     }\n   }\n \n-  useEffect(() => {\n+  useLayoutEffect(() => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1032276571"
+    },
+    {
+      "id": 1044562913,
+      "user": "IanMayo",
+      "created_at": "2022-12-09T15:23:27Z",
+      "updated_at": "2022-12-09T15:23:27Z",
+      "body": "Hey @lilitkarapetyan - is this next block where the new magic happens ?",
+      "path": "packages/components/src/local/organisms/planning-messages-list/index.tsx",
+      "diff_hunk": "@@ -4,45 +4,70 @@ import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedAc\n import cx from 'classnames'\n import MaterialTable, { Column } from 'material-table'\n import moment from 'moment'\n-import React, { useEffect, useRef, useState } from 'react'\n-import { Button } from '../../atoms/button'\n+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'\n import JsonEditor from '../../molecules/json-editor'\n import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'\n import { materialIcons } from '../support-panel/helpers/material-icons'\n import { collapseLocation, expandLocation } from './helpers/collapse-location'\n import styles from './styles.module.scss'\n import PropTypes, { OrderRow } from './types/props'\n-\n export const PlanningMessagesList: React.FC<PropTypes> = ({\n   messages, allTemplates, isUmpire, gameDate, customiseTemplate,\n   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,\n   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,\n-  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,\n-  editThisMessage\n+  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose\n }: PropTypes) => {\n   const [rows, setRows] = useState<OrderRow[]>([])\n   const [columns, setColumns] = useState<Column[]>([])\n   const [filter, setFilter] = useState<boolean>(false)\n-  const messageValue = useRef<any>(null)\n   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)\n-\n+  const messageValue = useRef<any>(null)\n   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }\n \n   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)\n \n   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])\n+  const roles: string[] = []\n   useEffect(() => {\n     const showOrdersForAllRoles = !onlyShowMyOrders\n     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)\n     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)\n-    setMyMessages(myRoleMessages)\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2149#discussion_r1044562913"
+    }
+  ],
+  "issue_numbers": [
+    2141
+  ],
+  "issues": [
+    {
+      "id": 1459355984,
+      "number": 2141,
+      "title": "New solution for \"persistent forms\"",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-22T08:12:44Z",
+      "updated_at": "2023-03-03T10:10:44Z",
+      "closed_at": "2023-03-03T10:10:44Z",
+      "body": "For the wargame last week we had the problem where inline JSON-editors (in the Planning Messages component) got wiped when a new message was received.  This was captured in #2116\r\n\r\nThere wasn't a quick/easy fix for this, since the whole list component got replaced on refresh (via `data` prop).\r\n\r\nThe workaround was to push the document to be edited into the `NewMessage` component, which wasn't a child of the list.\r\n\r\nUsers still complained of `flicker` in the form, as it got wiped & reset.\r\n\r\nWe didn't implement the above workaround for the `Adjudication Messages List`.\r\n\r\nSo, the first part of this task is to see if we can make a JSON Editor component that is a `detail` element of a `Material-Table` persistent - so it isn't affected by new messages coming into the table.\r\n\r\n_Maybe_ we can retain the `detail` component in some `useMemo` or `useRef`, and only update the editor if that specific document id is being edited (which it shouldn't ever be).\r\n\r\nIf we can't make the `detail` component persistent, we'll have to switch back to editing existing messages with the `NewMessage` component.  If we do that, we should investigate preventing the flicker that happens when new messages are received in that channel.\r\n\r\nNote: we've adopted `material-table`.  But, the original developers are no longer maintaining it.  _Another_ table component may handle this update issue better. _Maybe_ this RSuite data table may be better for us:\r\nhttps://github.com/rsuite/rsuite-table\r\n",
+      "labels": [
+        "bug",
+        "4watu",
+        "4p9",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1371990710,
+          "user": "IanMayo",
+          "created_at": "2023-01-05T09:43:15Z",
+          "updated_at": "2023-01-05T09:43:15Z",
+          "body": "This currently seems resolved."
+        },
+        {
+          "id": 1453284523,
+          "user": "IanMayo",
+          "created_at": "2023-03-03T10:10:43Z",
+          "updated_at": "2023-03-03T10:10:43Z",
+          "body": "Closed in #2482 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/207592479-d9d7acf4-b5d4-4e49-8f95-bace7c249e1d.png"
+  ],
+  "number_of_changed_files": 36,
+  "total_changed_lines": 598
+}

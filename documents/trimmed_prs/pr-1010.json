@@ -1,0 +1,176 @@
+{
+  "number": 1010,
+  "title": "Provide explanatory message on Endorse or Request Changes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-22T10:44:36Z",
+  "updated_at": "2021-08-24T16:04:57Z",
+  "closed_at": "2021-08-24T16:04:56Z",
+  "merged_at": "2021-08-24T16:04:56Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1010",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1010/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1010/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1010",
+  "body": "Fixes #996 ",
+  "additions": 339,
+  "deletions": 26,
+  "changed_files": 16,
+  "labels": [],
+  "comments_count": 17,
+  "review_comments_count": 0,
+  "total_comments": 17,
+  "comments_data": [
+    {
+      "id": 903278950,
+      "user": "IanMayo",
+      "created_at": "2021-08-22T14:39:03Z",
+      "updated_at": "2021-08-22T14:39:03Z",
+      "body": "Thanks - you may have missed this one bit:\r\n![image](https://user-images.githubusercontent.com/1108513/130359168-d52b9a81-bf70-45b4-93ed-3a4854c9bcfc.png)\r\n\r\nIt's how/where we store the item of feedback.\r\n\r\n(not by changing the existing `feedback` element from `boolean` to `string`)\r\n\r\nHappy to give more advice tomorrow."
+    },
+    {
+      "id": 903287165,
+      "user": "lebaphi",
+      "created_at": "2021-08-22T15:35:30Z",
+      "updated_at": "2021-08-22T15:35:30Z",
+      "body": "> Thanks - you may have missed this one bit:\r\n> ![image](https://user-images.githubusercontent.com/1108513/130359168-d52b9a81-bf70-45b4-93ed-3a4854c9bcfc.png)\r\n> \r\n> It's how/where we store the item of feedback.\r\n> \r\n> (not by changing the existing `feedback` element from `boolean` to `string`)\r\n> \r\n> Happy to give more advice tomorrow.\r\n\r\nahh, we already set the `feedback` in the `message.feedback`, in the `endorse` helper, I see we just produce the message structure like:\r\n```\r\nreturn {\r\n    ...message,\r\n    details: {\r\n      ...message.details,\r\n      collaboration: {\r\n        ...message.details.collaboration,\r\n        status: CollaborativeMessageStates.DocumentPending,\r\n        owner: undefined\r\n      }\r\n    }\r\n  }\r\n```\r\nSo I think if we create a new item `feedback` in the `collaboration` object, will it be redundant?"
+    },
+    {
+      "id": 903291862,
+      "user": "IanMayo",
+      "created_at": "2021-08-22T16:09:02Z",
+      "updated_at": "2021-08-22T16:09:02Z",
+      "body": "`message.feedback`.  That's a boolean flag for if this message is an item of feedback.\r\n\r\nThe _new_ feedback is feedback on the message itself. Yes - confusing 🤣 "
+    },
+    {
+      "id": 903295663,
+      "user": "lebaphi",
+      "created_at": "2021-08-22T16:36:45Z",
+      "updated_at": "2021-08-22T16:36:45Z",
+      "body": "> `message.feedback`. That's a boolean flag for if this message is an item of feedback.\r\n> \r\n> The _new_ feedback is feedback on the message itself. Yes - confusing 🤣\r\n\r\nokay I see, will update 2moro 😆 "
+    },
+    {
+      "id": 903776976,
+      "user": "IanMayo",
+      "created_at": "2021-08-23T13:37:27Z",
+      "updated_at": "2021-08-23T13:37:27Z",
+      "body": "I'm afraid I've made some mods to `coa channel message detail`.  If they're not straightforward to resolve, I'll have a go. "
+    },
+    {
+      "id": 903815355,
+      "user": "lebaphi",
+      "created_at": "2021-08-23T14:16:51Z",
+      "updated_at": "2021-08-23T14:16:51Z",
+      "body": "> I'm afraid I've made some mods to `coa channel message detail`. If they're not straightforward to resolve, I'll have a go.\r\n\r\nresolved @IanMayo "
+    },
+    {
+      "id": 903939994,
+      "user": "IanMayo",
+      "created_at": "2021-08-23T16:46:17Z",
+      "updated_at": "2021-08-23T16:46:17Z",
+      "body": "I've made some changes @lebaphi - I'd appreciate you checking my code.\r\n\r\nCan I ask for a cosmetic change?\r\n\r\nCould you make the top/bottom bars on the dialog a little darker grey?    It wasn't clear where the editable central was when I first saw it:\r\n![image](https://user-images.githubusercontent.com/1108513/130485528-14d796b6-9436-4b4a-be74-3a2de7b41bc2.png)\r\n"
+    },
+    {
+      "id": 904239704,
+      "user": "lebaphi",
+      "created_at": "2021-08-24T01:07:12Z",
+      "updated_at": "2021-08-24T01:07:12Z",
+      "body": "> I've made some changes @lebaphi - I'd appreciate you checking my code.\r\n> \r\n> Can I ask for a cosmetic change?\r\n> \r\n> Could you make the top/bottom bars on the dialog a little darker grey? It wasn't clear where the editable central was when I first saw it:\r\n> ![image](https://user-images.githubusercontent.com/1108513/130485528-14d796b6-9436-4b4a-be74-3a2de7b41bc2.png)\r\n\r\nsure @IanMayo, let me update this 👍 "
+    },
+    {
+      "id": 904271344,
+      "user": "lebaphi",
+      "created_at": "2021-08-24T02:26:05Z",
+      "updated_at": "2021-08-24T02:26:05Z",
+      "body": "<img width=\"525\" alt=\"Screen Shot 2021-08-24 at 9 24 11 AM\" src=\"https://user-images.githubusercontent.com/26705621/130545898-c133b1d8-6735-4847-a6f2-61efebe5da4f.png\">\r\nw\r\n<img width=\"482\" alt=\"Screen Shot 2021-08-24 at 8 57 38 AM\" src=\"https://user-images.githubusercontent.com/26705621/130545903-b3685bd1-db95-42a0-9860-f4d15f7eed14.png\">\r\nwe have 2 versions, which one do you prefer Ian, do you think we need a placeholder (e.g: Typing here...) for the textarea? "
+    },
+    {
+      "id": 904341535,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T05:49:25Z",
+      "updated_at": "2021-08-24T05:49:25Z",
+      "body": "Thanks @lebaphi \r\nLet's go for the one with darker shade at top & bottom.\r\n\r\nYes - a placeholder would be useful - particularly if text was all selected by default, so it got replaced as the user starts typing.  Oh, or if it just disappears once the cursor goes in there - like the placeholder text [here](https://getbootstrap.com/docs/4.0/components/forms/).   Suggest text can be provided as a prop, since for `Request changes` we need detail of changes, but for `Endorse message` it is optional.  So, `Detail of changes` for the first, but `Feedback (optional)` for the second."
+    },
+    {
+      "id": 904364807,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T06:38:25Z",
+      "updated_at": "2021-08-24T06:38:25Z",
+      "body": "Hello @lebaphi - if we can get the UI cosmetics sorted, we can merge this PR, and push ahead with the `Assign to` list.\r\n\r\nNote: I have sneaked in some logic ready for `Create new message`."
+    },
+    {
+      "id": 904674963,
+      "user": "lebaphi",
+      "created_at": "2021-08-24T14:07:27Z",
+      "updated_at": "2021-08-24T14:07:27Z",
+      "body": "updated @IanMayo \r\nNotes: I see you change the way we store the feedback item likes\r\n```\r\nmessage.details.collaboration.feedback.push(feedbackItem)\r\n```\r\nSo I think we don't need to make a change in the `helpers/changers` because we already handle it in\r\n```\r\nreturn {\r\n    ...message,\r\n    details: {\r\n      ...message.details,\r\n      collaboration: {\r\n        ...message.details.collaboration, // <== the 'message.details.collaboration.feedback' in here\r\n        status: CollaborativeMessageStates.DocumentPending,\r\n        owner: undefined\r\n      }\r\n    }\r\n  }\r\n```"
+    },
+    {
+      "id": 904679509,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T14:12:36Z",
+      "updated_at": "2021-08-24T14:12:36Z",
+      "body": "thanks @lebaphi :-)\r\n\r\nWe need to append the new item to the list of existing feedback items _somewhere_.\r\n\r\nIs that already being done somewhere?"
+    },
+    {
+      "id": 904687221,
+      "user": "lebaphi",
+      "created_at": "2021-08-24T14:21:35Z",
+      "updated_at": "2021-08-24T14:21:35Z",
+      "body": "> thanks @lebaphi :-)\r\n> \r\n> We need to append the new item to the list of existing feedback items _somewhere_.\r\n> \r\n> Is that already being done somewhere?\r\n\r\nYep, this line is enough: `message.details.collaboration.feedback.push(feedbackItem)`.\r\n"
+    },
+    {
+      "id": 904687763,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T14:22:13Z",
+      "updated_at": "2021-08-24T14:22:13Z",
+      "body": "> > thanks @lebaphi :-)\r\n> > We need to append the new item to the list of existing feedback items _somewhere_.\r\n> > Is that already being done somewhere?\r\n> \r\n> Yep, this line is enough: `message.details.collaboration.feedback.push(feedbackItem)`.\r\n\r\nOk, so this PR is ready to go?\r\n"
+    },
+    {
+      "id": 904694198,
+      "user": "lebaphi",
+      "created_at": "2021-08-24T14:29:53Z",
+      "updated_at": "2021-08-24T14:29:53Z",
+      "body": "> > > thanks @lebaphi :-)\r\n> > > We need to append the new item to the list of existing feedback items _somewhere_.\r\n> > > Is that already being done somewhere?\r\n> > \r\n> > \r\n> > Yep, this line is enough: `message.details.collaboration.feedback.push(feedbackItem)`.\r\n> \r\n> Ok, so this PR is ready to go?\r\n\r\nYep, go to moon 🚀 "
+    },
+    {
+      "id": 904733522,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T15:16:02Z",
+      "updated_at": "2021-08-24T15:16:02Z",
+      "body": "(closed & re-opened, to try to wake up static analysis)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    996
+  ],
+  "issues": [
+    {
+      "id": 974589530,
+      "number": 996,
+      "title": "Provide explanatory message on Endorse or Request Changes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-19T12:02:15Z",
+      "updated_at": "2021-08-24T16:04:56Z",
+      "closed_at": "2021-08-24T16:04:56Z",
+      "body": "When the `Release manager` either endorses a document, or requests changes on a document, they are able to provide some notes of explanation. See the two `Review changes` items below:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/130064460-79f959a7-eb61-4879-a773-8697fcc480d6.png)\r\n\r\nWe need to modify Serge to allow this additional content to be provided.\r\n\r\nSuggest these changes:\r\n## Dialog\r\n- produce popup dialog, taking title as parameter\r\n- dialog has text-area for explanation to be provided\r\n- dialog has `Cancel` and `Send` buttons\r\n- on `Cancel` nothing happens. On `Send` callback is called.\r\n\r\n## COA Message Detail - UI\r\n- in `channel-coa-message-detail\\index.tsx`\r\n- modify `handleEndors` and `handleRequestChanges` handlers\r\n- popup dialog when handler called\r\n- if dialog cancelled, no further processing\r\n- if dialog `Sent` call existing `requestChanges` or `endors` handlers - passing the new (possibly empty) message to them\r\n\r\n##  COA Message Detail - changes\r\n- modify `requestChanges` and `endors` to take a new `FeedbackItem`, to be stored in the message `CollaboraionDetails`. The `feedback` field can be blank if none was provided, but the item should still be created\r\n\r\nThe above should be tested through the existing `Storybook` for `COA Status Board`\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/130359168-d52b9a81-bf70-45b4-93ed-3a4854c9bcfc.png",
+    "https://user-images.githubusercontent.com/1108513/130485528-14d796b6-9436-4b4a-be74-3a2de7b41bc2.png",
+    "https://user-images.githubusercontent.com/26705621/130545898-c133b1d8-6735-4847-a6f2-61efebe5da4f.png",
+    "https://user-images.githubusercontent.com/26705621/130545903-b3685bd1-db95-42a0-9860-f4d15f7eed14.png",
+    "https://user-images.githubusercontent.com/1108513/130064460-79f959a7-eb61-4879-a773-8697fcc480d6.png"
+  ],
+  "number_of_changed_files": 16,
+  "total_changed_lines": 365
+}

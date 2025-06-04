@@ -1,0 +1,50 @@
+{
+  "number": 2618,
+  "title": "2615 fixed binning",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-11T12:17:58Z",
+  "updated_at": "2023-03-12T09:09:47Z",
+  "closed_at": "2023-03-12T09:09:46Z",
+  "merged_at": "2023-03-12T09:09:46Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2618",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2618/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2618/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2618",
+  "body": "Fixes #2615 ",
+  "additions": 217,
+  "deletions": 94,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2615
+  ],
+  "issues": [
+    {
+      "id": 1619167742,
+      "number": 2615,
+      "title": "Fix area used for binning",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-10T15:31:25Z",
+      "updated_at": "2023-03-12T09:09:48Z",
+      "closed_at": "2023-03-12T09:09:48Z",
+      "body": "We bin the orders, to avoid having to do the expensive \"shape overlaps\" check.  So, only orders in the same bin get compared.\r\n\r\nWe generate the bins according to the area covered by all live orders.\r\n\r\nBut, due to assets moving from \"car parks\" thousands of miles to the side, many bins have barely any content - but there area of the wargame only occupies two bins. \r\n\r\nWe're losing the value of the binning.\r\n\r\nSo, set the coverage of the bin to the rough coverage of the wargame, plus add an \"other\" bin - for orders outside the area.  It's only really blue orders outside the area, so they won't be compared against each other anyway.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 311
+}

@@ -1,0 +1,32 @@
+{
+  "number": 1690,
+  "title": "Improve test for if this is a message",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-25T09:47:00Z",
+  "updated_at": "2022-07-25T10:07:45Z",
+  "closed_at": "2022-07-25T10:07:45Z",
+  "merged_at": "2022-07-25T10:07:45Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1690",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1690/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1690/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1690",
+  "body": "Fixes emergent bug where `most-recent-only` method fails when it encounters a wargame without an `infoType` message marker.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/180748736-be188f05-ed5d-44ef-8cef-9d8d6cc84b2f.png)\r\n",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/180748736-be188f05-ed5d-44ef-8cef-9d8d6cc84b2f.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

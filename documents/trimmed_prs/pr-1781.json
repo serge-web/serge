@@ -1,0 +1,220 @@
+{
+  "number": 1781,
+  "title": "1721: Refactor Admin Channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-13T05:51:16Z",
+  "updated_at": "2022-08-16T17:08:29Z",
+  "closed_at": "2022-08-16T17:08:28Z",
+  "merged_at": "2022-08-16T17:08:28Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1781",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1781/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1781/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1781",
+  "body": "Fixes #1721 ",
+  "additions": 1734,
+  "deletions": 2582,
+  "changed_files": 23,
+  "labels": [],
+  "comments_count": 13,
+  "review_comments_count": 7,
+  "total_comments": 20,
+  "comments_data": [
+    {
+      "id": 1214399907,
+      "user": "IanMayo",
+      "created_at": "2022-08-14T15:20:59Z",
+      "updated_at": "2022-08-14T15:20:59Z",
+      "body": "@lebaphi - we have `createParticipant()` which contains code to determine the channel type, then create the correct type of participant.  But, it is called from our \"type-specific\" classes - so we don't actually need to use \"createParticipant\" - we can let the type-specific classes (`chat.tsx`) create their own participants.\r\n\r\nHere's what I'm trying to do with the refactoring.  I'm trying to reduce the number of modules that deal with all 4 types of channel.   So, in this instance I'd like to avoid `createParticipant` having to handle each channel type.  I'd like to move the functionality into `chat.tsx`, `mapping.tsx`, etc, etc.\r\n"
+    },
+    {
+      "id": 1214403781,
+      "user": "IanMayo",
+      "created_at": "2022-08-14T15:46:04Z",
+      "updated_at": "2022-08-14T15:46:04Z",
+      "body": "I was about to try to do a bit of the refactoring for you, but StoryBook failing for the component:\r\n![image](https://user-images.githubusercontent.com/1108513/184544671-8f075099-5bea-46a6-9469-2164bf4e7229.png)\r\n"
+    },
+    {
+      "id": 1215059212,
+      "user": "lebaphi",
+      "created_at": "2022-08-15T14:11:36Z",
+      "updated_at": "2022-08-15T14:11:36Z",
+      "body": "I've updated @IanMayo "
+    },
+    {
+      "id": 1215103797,
+      "user": "IanMayo",
+      "created_at": "2022-08-15T14:52:39Z",
+      "updated_at": "2022-08-15T14:52:39Z",
+      "body": "> I was about to try to do a bit of the refactoring for you, but StoryBook failing for the component: ![image](https://user-images.githubusercontent.com/1108513/184544671-8f075099-5bea-46a6-9469-2164bf4e7229.png)\r\n\r\nNote: I only get the above issue in `Storybook`. The editor works fine in `develop`.  But, we do need it fixed in `storybook`."
+    },
+    {
+      "id": 1215180180,
+      "user": "lebaphi",
+      "created_at": "2022-08-15T15:36:50Z",
+      "updated_at": "2022-08-15T15:36:50Z",
+      "body": "> > I was about to try to do a bit of the refactoring for you, but StoryBook failing for the component: ![image](https://user-images.githubusercontent.com/1108513/184544671-8f075099-5bea-46a6-9469-2164bf4e7229.png)\n> \n> \n> \n> Note: I only get the above issue in `Storybook`. The editor works fine in `develop`.  But, we do need it fixed in `storybook`.\n\nI fixed it already"
+    },
+    {
+      "id": 1215227501,
+      "user": "IanMayo",
+      "created_at": "2022-08-15T15:56:59Z",
+      "updated_at": "2022-08-15T15:56:59Z",
+      "body": "Thanks for the fix @lebaphi. The story doesn't crash  - but we can't select a new story - the value of `selectedChannelState.channelType` is `undefined`"
+    },
+    {
+      "id": 1216091234,
+      "user": "lebaphi",
+      "created_at": "2022-08-16T03:07:32Z",
+      "updated_at": "2022-08-16T03:12:44Z",
+      "body": "> but we can't select a new story\r\n\r\nDo you mean this issue @IanMayo ? I don't think it's an issue of the channel setting, I also got the same error with another story 🤔 \r\n\r\n<img width=\"774\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/184789286-77e2134d-7e3c-4294-9569-bb76f68af354.png\">\r\n"
+    },
+    {
+      "id": 1216292072,
+      "user": "IanMayo",
+      "created_at": "2022-08-16T08:10:28Z",
+      "updated_at": "2022-08-16T08:10:28Z",
+      "body": "No, @lebaphi , not that one. On each new build of storybook I get that issue (technical debt).\n\nThis is the issue: In current storybook I can't select a channel. The UI reports 'legacy channel', but actually it's looking at an 'undefined' value."
+    },
+    {
+      "id": 1216689031,
+      "user": "lebaphi",
+      "created_at": "2022-08-16T14:08:09Z",
+      "updated_at": "2022-08-16T14:08:09Z",
+      "body": "> No, @lebaphi , not that one. On each new build of storybook I get that issue (technical debt).\r\n> \r\n> This is the issue: In current storybook I can't select a channel. The UI reports 'legacy channel', but actually it's looking at an 'undefined' value.\r\n\r\nokay, let me check this"
+    },
+    {
+      "id": 1216767064,
+      "user": "IanMayo",
+      "created_at": "2022-08-16T15:06:32Z",
+      "updated_at": "2022-08-16T15:06:32Z",
+      "body": "Here is what is rendered in the story:\r\n![image](https://user-images.githubusercontent.com/1108513/184913713-b144a6e1-cb5c-45cb-a96c-1d0ad0716813.png)\r\n\r\nIt's related to how we handle state in the panel."
+    },
+    {
+      "id": 1216769822,
+      "user": "lebaphi",
+      "created_at": "2022-08-16T15:08:41Z",
+      "updated_at": "2022-08-16T15:08:41Z",
+      "body": "Hi @IanMayo , I fixed the storybook issue"
+    },
+    {
+      "id": 1216793290,
+      "user": "IanMayo",
+      "created_at": "2022-08-16T15:26:26Z",
+      "updated_at": "2022-08-16T15:27:28Z",
+      "body": "Hmm, @lebaphi - shouldn't we see the \"Constraints\" panel for the mapping channel?\r\n\r\nIf VHF16 is `chat` then we should have the panel with `hide message authors` toggle?  Hmm, it's ok in the app, but the controls are missing from Storybook@\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/184918439-08750cc1-02c6-4b58-a482-3f39f1816619.png)\r\n"
+    },
+    {
+      "id": 1216882681,
+      "user": "lebaphi",
+      "created_at": "2022-08-16T16:38:18Z",
+      "updated_at": "2022-08-16T16:38:18Z",
+      "body": "yep, we should handle some callbacks function in the story class, it's not an issue of the setting channel. "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 945249539,
+      "user": "IanMayo",
+      "created_at": "2022-08-14T08:20:10Z",
+      "updated_at": "2022-08-14T08:20:11Z",
+      "body": "This is a minor suggestion @lebaphi - but how about declaring each props in the type for that channel?  So, `CollabChannelProps` would be in `collab.tsx`?",
+      "path": "packages/components/src/local/organisms/setting-channels/types/props.d.ts",
+      "diff_hunk": "@@ -24,4 +24,32 @@ export type MessageGroupProps = {\n   value: string[]\n }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/1781#discussion_r945249539"
+    },
+    {
+      "id": 945305741,
+      "user": "IanMayo",
+      "created_at": "2022-08-14T15:23:16Z",
+      "updated_at": "2022-08-14T15:23:16Z",
+      "body": "hello @lebaphi - we have these 4 `isChat` style booleans.  But, the booleans are only used in the `renderChannelContent` method.  Instead, we could just use a `switch` inside `renderChannelContent` - and check the `channelType` value.",
+      "path": "packages/components/src/local/organisms/setting-channels/index.tsx",
+      "diff_hunk": "@@ -66,809 +33,101 @@ export const SettingChannels: React.FC<PropTypes> = ({\n   channels,\n   forces,\n   messageTemplates,\n-  selectedChannel: originalChannel\n+  selectedChannel\n }) => {\n-  const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === originalChannel?.uniqid)\n+  const selectedChannelId = channels.findIndex(({ uniqid }) => uniqid === selectedChannel?.uniqid)\n   const [selectedItem, setSelectedItem] = useState(Math.max(selectedChannelId, 0))\n-  const [selectedChannelState, setSelectedChannelState] = useState<ChannelTypes | undefined>(originalChannel)\n+  const [selectedChannelState, setSelectedChannelState] = useState<ChannelTypes | undefined>(selectedChannel)\n   const [localChannelUpdates, setLocalChannelUpdates] = useState(channels)\n   const anchorRef = useRef<HTMLDivElement>(null)\n   const [open, setOpen] = useState(false)\n-  const [participantKey, confirmRemoveParticipant] = useState<number>(-1)\n-  const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)\n-  const [problems, setProblems] = useState<string>('')\n-  const [isChatAuthorHidden, setChatAuthorHidden] = useState<boolean>(false)\n-\n-  const messageTemplatesOptions: Array<Option> = messageTemplates.map(template => ({\n-    name: template.title,\n-    uniqid: template._id,\n-    value: template\n-  }))\n \n   const isCollab = isCollabChannel(selectedChannelState)\n-  const isChat = selectedChannelState && selectedChannelState.channelType === CHANNEL_CHAT\n-  const isCustom = selectedChannelState && selectedChannelState.channelType === CHANNEL_CUSTOM\n-  const isMapping = selectedChannelState && selectedChannelState.channelType === CHANNEL_MAPPING\n-  const channelAsLegacy = selectedChannelState as any\n-  const isLegacyCollab = channelAsLegacy && channelAsLegacy.format\n-\n-  // representation of channel, in more specific types\n-  const mappingChannel: ChannelMapping | undefined | false = isMapping && selectedChannelState as ChannelMapping\n-\n-  /** init data for collab panel controls */\n-  const messagesValues = getMessagesValues(isCollab, selectedChannelState)\n-  const [messageLocal, setMessageLocal] = useState<MessagesValues>(messagesValues)\n-\n-  useEffect(() => {\n-    /** on changes channel, update the message data local */\n-    setMessageLocal(messagesValues)\n-  }, [selectedChannelState])\n+  const isChat = isChatChannel(selectedChannelState)",
+      "html_url": "https://github.com/serge-web/serge/pull/1781#discussion_r945305741"
+    },
+    {
+      "id": 945308620,
+      "user": "IanMayo",
+      "created_at": "2022-08-14T15:46:44Z",
+      "updated_at": "2022-08-14T15:47:39Z",
+      "body": "Hmm, maybe that's not possible.  I'll look at the code if/when I get chance.\r\n\r\nAah, hold on. The props files would be in the `channels` folder.",
+      "path": "packages/components/src/local/organisms/setting-channels/types/props.d.ts",
+      "diff_hunk": "@@ -24,4 +24,32 @@ export type MessageGroupProps = {\n   value: string[]\n }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/1781#discussion_r945308620"
+    },
+    {
+      "id": 945621779,
+      "user": "lebaphi",
+      "created_at": "2022-08-15T11:06:46Z",
+      "updated_at": "2022-08-15T11:06:46Z",
+      "body": "I'm not clear the purpose of this @IanMayo ?",
+      "path": "packages/components/src/local/organisms/setting-channels/types/props.d.ts",
+      "diff_hunk": "@@ -24,4 +24,32 @@ export type MessageGroupProps = {\n   value: string[]\n }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/1781#discussion_r945621779"
+    },
+    {
+      "id": 945773544,
+      "user": "IanMayo",
+      "created_at": "2022-08-15T14:02:02Z",
+      "updated_at": "2022-08-15T14:02:03Z",
+      "body": "Sure - happy to explain :-)\r\n\r\nThis is the idea..  We have 4 types of channel,  one is mapping.  If we make changes to the mapping channel configs, I hope that only `mapping` specific files would get edited.   Then we _know_ that we can't accidentally break another type of channel. Currently, the `mapping` props are in the same file as the other channel types.  So, adding a new mapping prop, and \"tidying up the file\" could mean that we accidentally change the props for another channel type.  ",
+      "path": "packages/components/src/local/organisms/setting-channels/types/props.d.ts",
+      "diff_hunk": "@@ -24,4 +24,32 @@ export type MessageGroupProps = {\n   value: string[]\n }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/1781#discussion_r945773544"
+    },
+    {
+      "id": 945887688,
+      "user": "lebaphi",
+      "created_at": "2022-08-15T15:43:04Z",
+      "updated_at": "2022-08-15T15:43:04Z",
+      "body": "ah I see what you mean. Yep, the mapping type is in the same file with other channel types but it's a separate type object, we can change it without effects to others. But we can move it into the channel file. I will update",
+      "path": "packages/components/src/local/organisms/setting-channels/types/props.d.ts",
+      "diff_hunk": "@@ -24,4 +24,32 @@ export type MessageGroupProps = {\n   value: string[]\n }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/1781#discussion_r945887688"
+    },
+    {
+      "id": 945902108,
+      "user": "IanMayo",
+      "created_at": "2022-08-15T15:59:26Z",
+      "updated_at": "2022-08-15T16:01:30Z",
+      "body": "You'll see that because I am crazy, I have tried to use generics to declare the props.  To do this I had to switch from `type` to `interfaces`.  This doesn't seem to introduce any compiler warnings, and things seem to work ok.\r\n\r\nIt would still be _neat_ to declare the types in channel-specific files, if we can.  Aah, the `props` for `CustomChannelProps` are only accessed from `custom.tsx` - so I guess we could just declare it in `custom.tsx`.",
+      "path": "packages/components/src/local/organisms/setting-channels/types/props.d.ts",
+      "diff_hunk": "@@ -24,4 +24,32 @@ export type MessageGroupProps = {\n   value: string[]\n }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/1781#discussion_r945902108"
+    }
+  ],
+  "issue_numbers": [
+    1721
+  ],
+  "issues": [
+    {
+      "id": 1328855700,
+      "number": 1721,
+      "title": "Refactor Channels Admin page (modularize)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-04T15:55:34Z",
+      "updated_at": "2022-08-16T17:08:29Z",
+      "closed_at": "2022-08-16T17:08:29Z",
+      "body": "The Channels Admin Page code is quite complex, since it contains custom editors for different types of channel.\r\n\r\nWe should _modularise_ it - by pulling custom implementations into their own file.\r\n\r\nThe benefit of this, is that only files with code for the particular channel type would be edited in one PR, and it makes the file(s) easier to understand.\r\n\r\n_Ideally_ we would define an interface that channel-type editors have to implement, then let the channel editors provide suitable instances.\r\n\r\nI _guess_ the interface would include:\r\n* custom config panels\r\n* convert data to row\r\n* convert row to data\r\n* row headings",
+      "labels": [
+        "Technical Debt"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/184544671-8f075099-5bea-46a6-9469-2164bf4e7229.png",
+    "https://user-images.githubusercontent.com/26705621/184789286-77e2134d-7e3c-4294-9569-bb76f68af354.png",
+    "https://user-images.githubusercontent.com/1108513/184913713-b144a6e1-cb5c-45cb-a96c-1d0ad0716813.png",
+    "https://user-images.githubusercontent.com/1108513/184918439-08750cc1-02c6-4b58-a482-3f39f1816619.png"
+  ],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 4316
+}

@@ -1,0 +1,50 @@
+{
+  "number": 2426,
+  "title": "2394 adjudicator edit",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-16T12:10:51Z",
+  "updated_at": "2023-02-16T14:43:14Z",
+  "closed_at": "2023-02-16T14:43:13Z",
+  "merged_at": "2023-02-16T14:43:13Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2426",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2426/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2426/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2426",
+  "body": "Fixes #2394 ",
+  "additions": 76,
+  "deletions": 58,
+  "changed_files": 10,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2394
+  ],
+  "issues": [
+    {
+      "id": 1584277775,
+      "number": 2394,
+      "title": "Adjudicator can edit orders in adjudication",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-14T14:36:32Z",
+      "updated_at": "2023-02-16T14:43:15Z",
+      "closed_at": "2023-02-16T14:43:14Z",
+      "body": "It's likely that an adjudicator may spot bad timings in an order during adjudication.\r\n\r\nThey should be able to edit order timings.\r\n\r\nAah, this may be because they spot something in an adjudication - so they need to be able to \"Delete\" the adjudication (not \"Skip\" - since that prevents subsequent adjudication).\r\n\r\nNote: if the adjudicator does make an edit, include a JS block to explain what happened (somehow)",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 134
+}

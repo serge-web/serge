@@ -1,0 +1,58 @@
+{
+  "number": 2650,
+  "title": "Investigate outcomes export",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-15T09:53:06Z",
+  "updated_at": "2023-03-15T13:38:30Z",
+  "closed_at": "2023-03-15T13:38:29Z",
+  "merged_at": "2023-03-15T13:38:29Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2650",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2650/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2650/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2650",
+  "body": "Fixes #2649 ",
+  "additions": 11,
+  "deletions": 5,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2649
+  ],
+  "issues": [
+    {
+      "id": 1625107271,
+      "number": 2649,
+      "title": "Outcomes not in export",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-15T09:29:58Z",
+      "updated_at": "2023-03-15T13:38:30Z",
+      "closed_at": "2023-03-15T13:38:30Z",
+      "body": "The export XLS processing includes a world snapshot plus all messages.  But, it doesn't include adjudication outcomes.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1470027214,
+          "user": "IanMayo",
+          "created_at": "2023-03-15T13:37:57Z",
+          "updated_at": "2023-03-15T13:37:57Z",
+          "body": "Bug - we were generating the empty list afresh for each interaction. Fixed in #2650"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 16
+}

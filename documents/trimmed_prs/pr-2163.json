@@ -1,0 +1,218 @@
+{
+  "number": 2163,
+  "title": "2157: Duplicate row feature in JSON-Editor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-14T14:56:18Z",
+  "updated_at": "2022-12-19T15:42:14Z",
+  "closed_at": "2022-12-19T15:42:12Z",
+  "merged_at": "2022-12-19T15:42:12Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2163",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2163/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2163/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2163",
+  "body": "Fixes #2157 ",
+  "additions": 63,
+  "deletions": 41,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 6,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1351761694,
+      "user": "IanMayo",
+      "created_at": "2022-12-14T16:51:45Z",
+      "updated_at": "2022-12-14T16:51:45Z",
+      "body": "Just this one `codacy` error, please @lebaphi \r\n![image](https://user-images.githubusercontent.com/1108513/207657588-5e4fd7f3-ecaf-4c7d-ac17-e259ec829d0a.png)\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1048723093,
+      "user": "IanMayo",
+      "created_at": "2022-12-14T16:53:17Z",
+      "updated_at": "2022-12-14T16:53:17Z",
+      "body": "@lebaphi  - could you explain what problem this next block overcomes, please?",
+      "path": "packages/themes/_btns.scss",
+      "diff_hunk": "@@ -272,3 +272,9 @@ button {\n .btn-hide {\n   display: none !important;\n }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2163#discussion_r1048723093"
+    },
+    {
+      "id": 1049122967,
+      "user": "lebaphi",
+      "created_at": "2022-12-15T01:20:29Z",
+      "updated_at": "2022-12-15T01:20:30Z",
+      "body": "Hi @IanMayo, I just adjusted the button's color when it's disabled for ease of viewing, without this block, this button looks like:\r\n\r\n<img width=\"395\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/207749884-285c41e2-1739-4239-bf6f-69d3da2f932a.png\">\r\n",
+      "path": "packages/themes/_btns.scss",
+      "diff_hunk": "@@ -272,3 +272,9 @@ button {\n .btn-hide {\n   display: none !important;\n }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2163#discussion_r1049122967"
+    },
+    {
+      "id": 1049615949,
+      "user": "IanMayo",
+      "created_at": "2022-12-15T13:03:41Z",
+      "updated_at": "2022-12-15T13:03:41Z",
+      "body": "@lebaphi - is there a reason why we don't make it hidden when disabled?\r\n![image](https://user-images.githubusercontent.com/1108513/207865889-07558b02-40b4-4750-acb7-87049bc130bd.png)\r\n",
+      "path": "packages/themes/_btns.scss",
+      "diff_hunk": "@@ -272,3 +272,9 @@ button {\n .btn-hide {\n   display: none !important;\n }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2163#discussion_r1049615949"
+    },
+    {
+      "id": 1050486887,
+      "user": "lebaphi",
+      "created_at": "2022-12-16T08:31:21Z",
+      "updated_at": "2022-12-16T08:31:21Z",
+      "body": "ah, i think disable should just update the state of the button instead of hiding it, it makes more sense. But if you want to hide this button, it's ok.",
+      "path": "packages/themes/_btns.scss",
+      "diff_hunk": "@@ -272,3 +272,9 @@ button {\n .btn-hide {\n   display: none !important;\n }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2163#discussion_r1050486887"
+    },
+    {
+      "id": 1050531480,
+      "user": "IanMayo",
+      "created_at": "2022-12-16T09:23:12Z",
+      "updated_at": "2022-12-16T09:23:45Z",
+      "body": "Thanks for trying to \"do the right thing\" @lebaphi  .   In this instance, the `Delete` button isn't shown when the form is disabled, so I think it's logical to also not show the `Copy` button:\r\n![screencast](https://i.gyazo.com/42c9dd41ddbe63510f86295a063ecde1.gif)\r\n\r\nSo, ok to remove?",
+      "path": "packages/themes/_btns.scss",
+      "diff_hunk": "@@ -272,3 +272,9 @@ button {\n .btn-hide {\n   display: none !important;\n }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2163#discussion_r1050531480"
+    },
+    {
+      "id": 1050594585,
+      "user": "lebaphi",
+      "created_at": "2022-12-16T10:34:37Z",
+      "updated_at": "2022-12-16T10:34:38Z",
+      "body": "> So, ok to remove?\r\n\r\nsure @IanMayo ",
+      "path": "packages/themes/_btns.scss",
+      "diff_hunk": "@@ -272,3 +272,9 @@ button {\n .btn-hide {\n   display: none !important;\n }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2163#discussion_r1050594585"
+    }
+  ],
+  "issue_numbers": [
+    2157
+  ],
+  "issues": [
+    {
+      "id": 1486740152,
+      "number": 2157,
+      "title": "Duplicate row feature in JSON-Editor",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-12-09T13:12:49Z",
+      "updated_at": "2022-12-19T15:42:13Z",
+      "closed_at": "2022-12-19T15:42:13Z",
+      "body": "For some type of \"Own Asset\" forms, we wish to be able to \"duplicate\" a row.\r\n\r\nThis is done with `enable_array_copy\" in the JSON-Editor.\r\n\r\nTest this, and verify we can see the button.  This is the only time when we want `copy` - so I guess a flag has to _somehow_  come from the template.\r\n\r\nHmm, in one editor (template) we want this `copy` button for some arrays, but not for others.  So, _maybe_ it's a case of a having a flag to enable it at the template level, then hiding the button for all arrays that don't have a particular flag.",
+      "labels": [
+        "enhancement",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1345449180,
+          "user": "lebaphi",
+          "created_at": "2022-12-11T03:49:46Z",
+          "updated_at": "2022-12-11T03:49:46Z",
+          "body": "Hi @IanMayo, https://github.com/jdorn/json-editor/pull/365, I checked this PR has not been merged into master that's why I can't find this option in the docs page official."
+        },
+        {
+          "id": 1345495600,
+          "user": "IanMayo",
+          "created_at": "2022-12-11T08:56:44Z",
+          "updated_at": "2022-12-11T08:56:44Z",
+          "body": ":-( that's not even the main repo for json-editor any more\r\n\r\nCould you create a PR in the new repo please?\r\n\r\nLet's see if they're interested in this feature."
+        },
+        {
+          "id": 1345534914,
+          "user": "lebaphi",
+          "created_at": "2022-12-11T12:00:59Z",
+          "updated_at": "2022-12-11T12:00:59Z",
+          "body": "ah sorry @IanMayo, I found it here https://github.com/json-editor/json-editor 🤣 "
+        },
+        {
+          "id": 1345558901,
+          "user": "lebaphi",
+          "created_at": "2022-12-11T13:45:39Z",
+          "updated_at": "2022-12-11T13:45:39Z",
+          "body": "Hi @IanMayo , with this option enabled, the `Copy Item` appears:\r\n\r\n<img width=\"242\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/206907235-b3cc505e-482b-4f77-845c-9d5477d00966.png\">\r\n\r\n<img width=\"919\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/206907219-03d2e6c4-511a-4d48-8875-916dc224a595.png\">\r\n"
+        },
+        {
+          "id": 1346026621,
+          "user": "IanMayo",
+          "created_at": "2022-12-12T07:44:33Z",
+          "updated_at": "2022-12-12T07:44:33Z",
+          "body": "Thanks @lebaphi , could you also investigate how we can switch it off for most arrays, but just leave it on for one array in a template?"
+        },
+        {
+          "id": 1348357103,
+          "user": "lebaphi",
+          "created_at": "2022-12-13T11:52:04Z",
+          "updated_at": "2022-12-13T11:52:04Z",
+          "body": "Hi @IanMayo, I think we can not do this thing with the default editor at https://github.com/json-editor/json-editor/blob/master/src/editors/array.js except using DOM manipulation, so we can clone a new editor from this, then we easily enable/disable this button."
+        },
+        {
+          "id": 1348395217,
+          "user": "IanMayo",
+          "created_at": "2022-12-13T12:09:30Z",
+          "updated_at": "2022-12-13T12:09:30Z",
+          "body": "Hello @lebaphi - it _looks-like_ the property can be set at the `array` level, in addition to being set at the `json-editor` level:\r\nhttps://github.com/json-editor/json-editor/blob/master/src/editors/array.js#L90"
+        },
+        {
+          "id": 1348412153,
+          "user": "lebaphi",
+          "created_at": "2022-12-13T12:15:37Z",
+          "updated_at": "2022-12-13T12:15:37Z",
+          "body": "ah sure, it works @IanMayo 😂 \r\n\r\n<img width=\"795\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/207315444-b8386583-48ee-4963-8af8-0988dd824623.png\">\r\n"
+        },
+        {
+          "id": 1348435639,
+          "user": "IanMayo",
+          "created_at": "2022-12-13T12:24:57Z",
+          "updated_at": "2022-12-13T12:32:35Z",
+          "body": "Ooh, we're _nearly_ there.  I need the \"Copy\" to work when the array is `\"format\": \"table\"`.  The JS for `editors/table.js` _looks-like_ it supports `copy`, but it doesn't show on the screen.\r\n\r\nNote: we have a reproducible example, by editing `Land--Transit` template in `p9-message-templates.mock.ts` in this story:\r\n![image](https://user-images.githubusercontent.com/1108513/207317368-926d61b6-3964-4e95-88c5-c8cc0b0010d2.png)\r\n\r\nFor `OwnAssets`, if I switch the format off from `table`, then the `copy` button is shown, but not in `table` format.\r\n"
+        },
+        {
+          "id": 1348464337,
+          "user": "IanMayo",
+          "created_at": "2022-12-13T12:37:29Z",
+          "updated_at": "2022-12-13T12:44:12Z",
+          "body": "Ok.  In an up-to-date release, it works:\r\nhttps://is.gd/tEmnHk\r\n\r\nCould you investigate a little further, please?\r\n\r\nI _think_ we're on `1.3.5`, which was released 3.5 years ago:\r\n![image](https://user-images.githubusercontent.com/1108513/207321220-0a8e0da1-21fd-4d7b-8dae-af88ea1f738d.png)\r\n\r\nBut, it _looks-like_ the copy button was added 3 years ago:\r\n![image](https://user-images.githubusercontent.com/1108513/207321301-95afa048-8457-4bfc-819c-335d2ba4bf9a.png)\r\n\r\nSo, _maybe_ our first step is to update `json-editor`.  Would you be willing to take that one @lebaphi ?"
+        },
+        {
+          "id": 1348518152,
+          "user": "lebaphi",
+          "created_at": "2022-12-13T13:14:03Z",
+          "updated_at": "2022-12-13T13:14:44Z",
+          "body": "Hi @IanMayo , it works on the latest version because of this https://github.com/json-editor/json-editor/blob/master/src/editors/table.js#L308, but it doesn't seem to support in our current version. So let me upgrade the json-editor to the latest version."
+        },
+        {
+          "id": 1348727127,
+          "user": "lebaphi",
+          "created_at": "2022-12-13T14:47:49Z",
+          "updated_at": "2022-12-13T14:47:49Z",
+          "body": "Hi @IanMayo , it seems to work on the version 2.8.0. I tested on `yarn storybook`.\r\n\r\nhttps://user-images.githubusercontent.com/26705621/207364673-2a071253-cfcc-4379-b20e-1a2a72c99d18.mov\r\n\r\nIt has a small issue on `yarn develop`, I'm working on this.\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/207657588-5e4fd7f3-ecaf-4c7d-ac17-e259ec829d0a.png",
+    "https://user-images.githubusercontent.com/26705621/207749884-285c41e2-1739-4239-bf6f-69d3da2f932a.png",
+    "https://user-images.githubusercontent.com/1108513/207865889-07558b02-40b4-4750-acb7-87049bc130bd.png",
+    "https://i.gyazo.com/42c9dd41ddbe63510f86295a063ecde1.gif",
+    "https://user-images.githubusercontent.com/26705621/206907235-b3cc505e-482b-4f77-845c-9d5477d00966.png",
+    "https://user-images.githubusercontent.com/26705621/206907219-03d2e6c4-511a-4d48-8875-916dc224a595.png",
+    "https://user-images.githubusercontent.com/26705621/207315444-b8386583-48ee-4963-8af8-0988dd824623.png",
+    "https://user-images.githubusercontent.com/1108513/207317368-926d61b6-3964-4e95-88c5-c8cc0b0010d2.png",
+    "https://user-images.githubusercontent.com/1108513/207321220-0a8e0da1-21fd-4d7b-8dae-af88ea1f738d.png",
+    "https://user-images.githubusercontent.com/1108513/207321301-95afa048-8457-4bfc-819c-335d2ba4bf9a.png"
+  ],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 104
+}

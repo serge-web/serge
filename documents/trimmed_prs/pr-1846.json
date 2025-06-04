@@ -1,0 +1,52 @@
+{
+  "number": 1846,
+  "title": "1777 one step history for other forces",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-13T16:12:14Z",
+  "updated_at": "2022-09-13T17:56:04Z",
+  "closed_at": "2022-09-13T17:56:03Z",
+  "merged_at": "2022-09-13T17:56:03Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1846",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1846/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1846/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1846",
+  "body": "Fixes #1777 ",
+  "additions": 32,
+  "deletions": 22,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1777
+  ],
+  "issues": [
+    {
+      "id": 1337181840,
+      "number": 1777,
+      "title": "Only show one step of history for other forces",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-12T13:03:09Z",
+      "updated_at": "2022-09-13T17:56:04Z",
+      "closed_at": "2022-09-13T17:56:04Z",
+      "body": "Players currently see full history for all visible contacts.\r\n\r\nIf a player sees a target at two locations he doesn't know if its one or two targets.  But, if full history is shown, he can see it's one platform that moved.\r\n\r\nChange rendering so that only one step of history is shown for assets of other forces.",
+      "labels": [
+        "bug",
+        "4watu",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 54
+}

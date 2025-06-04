@@ -1,0 +1,60 @@
+{
+  "number": 2419,
+  "title": "2389 cancel messages",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-15T15:34:31Z",
+  "updated_at": "2023-02-16T15:23:40Z",
+  "closed_at": "2023-02-16T15:23:38Z",
+  "merged_at": "2023-02-16T15:23:38Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2419",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2419/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2419/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2419",
+  "body": "Supports #2389 ",
+  "additions": 54,
+  "deletions": 4,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2389
+  ],
+  "issues": [
+    {
+      "id": 1583976116,
+      "number": 2389,
+      "title": "As a player I wish to be able to delete orders",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-14T11:19:57Z",
+      "updated_at": "2023-02-21T16:30:11Z",
+      "closed_at": "2023-02-21T16:30:11Z",
+      "body": "I've entered a set of orders, but now I wish to cancel them.\n\nNote: since it's not easy to add an `Archive` button into JSON Editor, I've changed the approach. Now umpire staff are able to archive orders documents.\n\nThe functionality is implemented in #2419 , but the implementation of `archiveConfirmed` needs to be finished off, to send the modified messages to the database.\n\nTo reflect the \"time-travelling\" aspect of Serge, we won't delete the document, we'll mark it as cancelled, using the existing `archived` flag in `MessageDetails`.  The client-side will not display cancelled orders. Note: we can't just strip out the cancelled versions of orders, since we would then just display the previous version of the orders.  We need to filter the orders in `PlanningChannel`.\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1433263956,
+          "user": "IanMayo",
+          "created_at": "2023-02-16T15:26:38Z",
+          "updated_at": "2023-02-16T15:26:38Z",
+          "body": "Ok @lilitkarapetyan - I've done my bits, and they are now in develop.\r\n\r\nI now just need some help from you in sending the array of modified (archived) messages, please:\r\n![image](https://user-images.githubusercontent.com/1108513/219410666-1670bb36-e667-4262-9ccb-f1d0845f0b2e.png)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/219410666-1670bb36-e667-4262-9ccb-f1d0845f0b2e.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 58
+}

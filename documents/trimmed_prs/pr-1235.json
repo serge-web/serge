@@ -1,0 +1,73 @@
+{
+  "number": 1235,
+  "title": "1206: Small glitch in the introduction pop-up",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-09T05:39:32Z",
+  "updated_at": "2021-12-09T12:52:41Z",
+  "closed_at": "2021-12-09T12:52:40Z",
+  "merged_at": "2021-12-09T12:52:40Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1235",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1235/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1235/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1235",
+  "body": "Fixes #1206 \r\n<img width=\"353\" alt=\"Screen Shot 2021-12-09 at 12 37 35 PM\" src=\"https://user-images.githubusercontent.com/26705621/145340684-8d13934f-d3c4-433b-b301-ed0d9d371536.png\">\r\n\r\n",
+  "additions": 9,
+  "deletions": 1,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 989818841,
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-09T12:44:47Z",
+      "updated_at": "2021-12-09T12:44:47Z",
+      "body": "Hi guys!\r\n\r\nThe preview looks good but I just checked the game and the glitch seems to be there still. Here are some screenshots from different users: \r\n![Close Tour Glitch 3](https://user-images.githubusercontent.com/85491794/145398779-e3bbdf57-8975-4b5c-ac23-29ffa87351a9.png)\r\n![Close Tour Glitch](https://user-images.githubusercontent.com/85491794/145398785-f7fe4a1c-9404-4391-b785-d85ace23e7de.png)\r\n![Close Tour Glitch 2](https://user-images.githubusercontent.com/85491794/145398787-10327477-2c9d-4837-8db8-23954ecb9e8b.png)\r\n"
+    },
+    {
+      "id": 989821275,
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-09T12:48:17Z",
+      "updated_at": "2021-12-09T12:48:17Z",
+      "body": "Apologies, I didn't see the deployment. Looks great! "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1206
+  ],
+  "issues": [
+    {
+      "id": 1060009243,
+      "number": 1206,
+      "title": "Small glitch in the introduction pop-up",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2021-11-22T11:04:40Z",
+      "updated_at": "2021-12-09T12:52:40Z",
+      "closed_at": "2021-12-09T12:52:40Z",
+      "body": "Seems like the \"CLOSE TOUR\" button appears a little higher than before in the intro pop-up tab.\r\n\r\n\r\n![Small glitch in the intro pop up](https://user-images.githubusercontent.com/85491794/142850511-1cd027f2-0032-42a6-8b1c-a7bf50b843b2.png)\r\n\r\nI suppose adding a new line should lower the button under the text.\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/145340684-8d13934f-d3c4-433b-b301-ed0d9d371536.png",
+    "https://user-images.githubusercontent.com/85491794/145398779-e3bbdf57-8975-4b5c-ac23-29ffa87351a9.png",
+    "https://user-images.githubusercontent.com/85491794/145398785-f7fe4a1c-9404-4391-b785-d85ace23e7de.png",
+    "https://user-images.githubusercontent.com/85491794/145398787-10327477-2c9d-4837-8db8-23954ecb9e8b.png",
+    "https://user-images.githubusercontent.com/85491794/142850511-1cd027f2-0032-42a6-8b1c-a7bf50b843b2.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 10
+}

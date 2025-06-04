@@ -1,0 +1,91 @@
+{
+  "number": 2368,
+  "title": "2129: Drop-down lists for columns in Orders table",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-12T14:31:41Z",
+  "updated_at": "2023-02-12T15:16:02Z",
+  "closed_at": "2023-02-12T15:16:01Z",
+  "merged_at": "2023-02-12T15:16:01Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2368",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2368/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2368/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2368",
+  "body": "Fixes #2129 \r\n\r\n<img width=\"990\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/218317149-bdd1799a-b23a-4256-83ae-93ce1c4fcef5.png\">\r\n",
+  "additions": 5,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2129
+  ],
+  "issues": [
+    {
+      "id": 1453671819,
+      "number": 2129,
+      "title": "Drop-down lists for columns in `Orders` table",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-17T16:54:37Z",
+      "updated_at": "2023-03-12T10:08:43Z",
+      "closed_at": "2023-03-12T10:08:43Z",
+      "body": "For the `Orders` table we just have free-text filters for the columns. Some of these should be drop-down lists - particularly `author/role` and `activities`.\n\nThe code is in `PlanningMessagesList`.  Well ,it's in the call to `genData.toColumn()`.  I can see that we're collating the data for the `lookup`, but they don't seem to work in the app.\n\nCan be tested in this story:\nhttp://localhost:6611/?path=/story/local-organisms-planningmessageslist--default\n\n",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1427614267,
+          "user": "IanMayo",
+          "created_at": "2023-02-13T09:29:50Z",
+          "updated_at": "2023-02-13T09:29:50Z",
+          "body": "Aah, there is a new issue here. \r\n\r\nIf the contents of the table change (such as receiving a new orders object), the drop-downs do not update.  We do not want to replace the full set of columns for the table (since that would lose sort, selection, filter).  But, we do want to change some of the metadata for specific columns.  _Hopefully_ we can do that.  _Hopefully_ we can compare the new metadata with the existing metadata, and only update when necessary.\r\n\r\nSteps to reproduce:  log in as blue player, with game in `planning` phase.\r\n\r\nLook at existing `activities` in the orders, and choose one that isn't currently present (such as air patrol).\r\n\r\nCreate an air-patrol set of orders - enter shapes.  Provide a title for the orders, and `submit`.  The new orders will show on the table. But, the `activity` won't be in the metadata.  So, the activity isn't shown in the table. It also isn't available as the drop-down list for `activity`. \r\n\r\nIf we F5 refresh the page, then the new activity will be `caught` and things will work ok.\r\n\r\nSo, in `planning-messages-list` - I don't think we should call `toColumn` and get all of the columns. That logic should probably be in `planning-messages-list`. If columns are zero, then generate the columns.  Then we get the `role` and `activity` metadata.  Then examine the relevant columns, and update the lookups if they are different to the current ones.\r\n"
+        },
+        {
+          "id": 1427774751,
+          "user": "lebaphi",
+          "created_at": "2023-02-13T11:22:18Z",
+          "updated_at": "2023-02-13T11:22:18Z",
+          "body": "Hi @IanMayo, I see what you mean but I'm not sure we can implement this because the renderer happens at the react library level.\r\n\r\nSo for ease of understanding, react uses the term virtual dom (https://reactjs.org/docs/faq-internals.html) and the Diffing algorithm (https://reactjs.org/docs/reconciliation.html #the -diffing-algorithm), it will compare 2 elements (virtual dom vs internal dom), calculate the changes and update only the changed properties.\r\n\r\nIn development, we can calculate column data changes but to show the changes in UI we have to call setState(columns). We can do this if each column filter is a separate component then we can reduce the scope to render, but the material table requires the whole `columns= {columns}` so we have to set the whole columns (with parts metadata changes). At the library level react will only compute and update the changed properties.\r\n\r\nSo in our situation: \r\n- I think we can store the current filter/sort/select state before updating the new columns and then restoring it.\r\n- find a way to customize the column filter, each column filter is a separate component then we can do what we want."
+        },
+        {
+          "id": 1427796514,
+          "user": "IanMayo",
+          "created_at": "2023-02-13T11:38:11Z",
+          "updated_at": "2023-02-13T11:38:11Z",
+          "body": "Sure - let's try the first one :-)\r\n\r\nI thought we had an example of changing columns `live`, but I can't find it now. I must be mistaken."
+        },
+        {
+          "id": 1427809581,
+          "user": "lebaphi",
+          "created_at": "2023-02-13T11:50:12Z",
+          "updated_at": "2023-02-13T11:50:12Z",
+          "body": "okay, ahh i'm not quite clear about the steps to reproduce. I logged in as blue player and in order tab, I can't find the air patrol 🤔 \r\n\r\n<img width=\"1054\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/218450226-6835438f-933b-4487-87e0-e80ae7e0791c.png\">\r\n\r\n"
+        },
+        {
+          "id": 1431106793,
+          "user": "IanMayo",
+          "created_at": "2023-02-15T10:32:36Z",
+          "updated_at": "2023-02-19T12:40:10Z",
+          "body": "No, not done. I don't think we're updating the drop-down lists after new data is received.\n\nTest using this:\n- log in as blue player, in planning phase\n- create a new set of orders. From the `Order Drawing` drop-down menu select an `Activity` that isn't currently present in teh Orders table\n- the blue form will popup. Give it a date/title and `Submit`.  The new orders will be shown in the table. The drop-down list for `Activity` will not show the new item."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/218317149-bdd1799a-b23a-4256-83ae-93ce1c4fcef5.png",
+    "https://user-images.githubusercontent.com/26705621/218450226-6835438f-933b-4487-87e0-e80ae7e0791c.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 7
+}

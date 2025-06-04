@@ -1,0 +1,97 @@
+{
+  "number": 1519,
+  "title": "1502: Mark All Read Removal",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-21T07:49:26Z",
+  "updated_at": "2022-04-23T20:34:15Z",
+  "closed_at": "2022-04-21T12:10:23Z",
+  "merged_at": "2022-04-21T12:10:23Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1519",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1519/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1519/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1519",
+  "body": "Fixes #1502 ",
+  "additions": 75,
+  "deletions": 71,
+  "changed_files": 10,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 0,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1104835648,
+      "user": "lebaphi",
+      "created_at": "2022-04-21T07:54:54Z",
+      "updated_at": "2022-04-21T07:54:54Z",
+      "body": "\r\nhttps://user-images.githubusercontent.com/26705621/164407029-7c8f3f3f-3139-454f-9062-308673b4724e.mp4\r\n\r\n"
+    },
+    {
+      "id": 1105650378,
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-21T19:07:54Z",
+      "updated_at": "2022-04-21T19:07:54Z",
+      "body": "Love the disappearing button once its been clicked on. Great work @lebaphi !"
+    },
+    {
+      "id": 1105655799,
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-21T19:13:34Z",
+      "updated_at": "2022-04-21T19:13:34Z",
+      "body": "Small problems though. It seems it wasn't merged in the game:\r\n\r\nhttps://user-images.githubusercontent.com/85491794/164535946-f93b5492-2c8a-47e6-a306-c474135eec6d.mp4\r\n\r\nThe chat message was sent twice. Furthermore, there are some issues with the chat envelope not being opened/closed correctly upon clicking, as you can see above. \r\n"
+    },
+    {
+      "id": 1106061091,
+      "user": "IanMayo",
+      "created_at": "2022-04-22T06:35:06Z",
+      "updated_at": "2022-04-22T06:35:06Z",
+      "body": "Good morning @ShendMikullovci - Heroku had a security issue, and isn't accepting automatic deployments from GitHub right now. So, I'm afraid `serge-review` isn't being updated.  If it's not fixed in a couple of days we'll have to find another solution.\r\n\r\nSadly, the video walkthroughs are all you have right now."
+    },
+    {
+      "id": 1107644863,
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-23T20:34:15Z",
+      "updated_at": "2022-04-23T20:34:15Z",
+      "body": "> Sadly, the video walkthroughs are all you have right now.\r\n\r\nIn that case, it looks great!\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1502
+  ],
+  "issues": [
+    {
+      "id": 1202080299,
+      "number": 1502,
+      "title": "Mark All Read Removal",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-12T16:20:18Z",
+      "updated_at": "2022-04-21T12:10:23Z",
+      "closed_at": "2022-04-21T12:10:23Z",
+      "body": "Given that we've added the mark all read button in most of the channels, I suggest we remove the older control: \r\n\r\n![Old Mark All Read](https://user-images.githubusercontent.com/85491794/163008321-d84cb68d-07fd-4c7a-a008-e2989d21d1ed.png)\r\n\r\nAnd we replace it with our icons: \r\n\r\n![Channel Icons](https://user-images.githubusercontent.com/85491794/163008386-f344f5f8-7415-4973-9ee0-59d6d95fc854.png)\r\n\r\nIn cases where filtering and archive are not relevant, we don't include them. \r\n\r\nLet me know your thoughts.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1097807507,
+          "user": "IanMayo",
+          "created_at": "2022-04-13T09:34:44Z",
+          "updated_at": "2022-04-13T09:34:44Z",
+          "body": "Yes, sounds great."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/163008321-d84cb68d-07fd-4c7a-a008-e2989d21d1ed.png",
+    "https://user-images.githubusercontent.com/85491794/163008386-f344f5f8-7415-4973-9ee0-59d6d95fc854.png"
+  ],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 146
+}

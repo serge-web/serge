@@ -1,0 +1,86 @@
+{
+  "number": 1557,
+  "title": "1531 data for per role assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-05-13T16:56:56Z",
+  "updated_at": "2022-05-20T16:01:34Z",
+  "closed_at": "2022-05-20T16:01:33Z",
+  "merged_at": "2022-05-20T16:01:33Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1557",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1557/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1557/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1557",
+  "body": "Supports #1531 - mostly data changes",
+  "additions": 1502,
+  "deletions": 654,
+  "changed_files": 77,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1531
+  ],
+  "issues": [
+    {
+      "id": 1215897229,
+      "number": 1531,
+      "title": "Specify which roles can control which assets",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-26T12:38:55Z",
+      "updated_at": "2022-05-30T16:03:29Z",
+      "closed_at": "2022-05-30T16:03:29Z",
+      "body": "This is a big one.\r\n\r\nCurrently, we assign one role per force with the permission to plan routes for the assets.\r\n\r\nBut, for a future wargame (WATU) we wish to assign one asset per role. We can _currently_ only do that by creating a force for every asset/role.\r\n\r\nAnother way of handling this would be for the Game Designer to indicate which role can control which asset. If no asset is. specified, then that role controls all un-controlled assets for that force.  (this will accommodate our current model).\r\n\r\nThis would also allow control of a large force to be separated by environment, platform-type, or task-group commander.\r\n\r\nSo, I _think_ we would have these changes:\r\n- [x] in the `mapping` channel editor, each row would have: `Force`, `Role`, `Assets`.  The `Assets` drop-down would contain a list of unassigned assets for this force.  It would be multi-select, and include `All` and `None`  entries.\r\n- [x] change to `ChannelMapping` structure to support the above data model\r\n- [x] change to `watuwargame.mock` object to reflect the above data model\r\n- [x] new helper method to return the uniqid's of the assets that this role can control. Note: the method will take the whole `ForceData` object, since it may need to determine which assets are controlled by other roles\r\n- [x] change to `Routes` object to include flags for if a route/asset can be controlled by the current player\r\n- [x] change to `mapping` component for new `controls` logic. \r\n- [x] change to `handleForceDelta` to allow multiple roles to submit planned routes.\r\n- [x] change to `world-state` panel to show which assets have submitted routes (ready for adjudication).\r\n\r\nWe should also come up with a way of showing the current player which asset(s) they can control.  Hmm, maybe wash-out assets that the player can't control?\r\n\r\n** Update **\r\nChange of plan. We have an outstanding feature requirement, to allow player(s) of one force to control assets of another force. The example for this is where `green` assets are actually controlled by `game control` of the `umpire` force. We're going to support this by allowing a `mapping participant` `role` to control assets of another force.  Or, to control all unclaimed assets of another force.\r\n\r\nWe'd support this through some special values in the `controls` column. It would be `controls-all` plus the `force['uniqid']` for the force in question.\r\n\r\nIn doing this, we'd have to look for existing instances of `controlled-by`, since we won't be _giving_ green force assets to `umpire`, we'll be indicating that `game control` can `control-all` for green force.\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1112573476,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-28T19:22:31Z",
+          "updated_at": "2022-04-28T19:22:31Z",
+          "body": ">If no asset is. specified, then that role controls all un-controlled assets for that force.\r\n\r\nCould this end up being problematic upon implementing? Any scenario where we end up with a user that is not supposed to control any assets, controlling all unassigned ones? If so, should we \"force\" GC to specify assets for every role, eventually selecting a \"None\" option for the roles that might not control an asset?\r\n\r\n "
+        },
+        {
+          "id": 1112575736,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-28T19:25:08Z",
+          "updated_at": "2022-04-28T19:25:08Z",
+          "body": "I think it would also be smart to show the role controlling an asset in the force here: \r\n\r\n![Force SC](https://user-images.githubusercontent.com/85491794/165830413-c1361c97-988a-48ef-9a06-e545fd813d18.png)\r\n\r\n"
+        },
+        {
+          "id": 1116289840,
+          "user": "IanMayo",
+          "created_at": "2022-05-03T16:22:14Z",
+          "updated_at": "2022-05-03T16:22:14Z",
+          "body": "I see the logic @ShendMikullovci  - but initially I only see a justification to have \"asset-controller\" in one place.  In the \"Channels Tab\" we're already giving roles different permission/access levels.  That seems the _more_ obvious place to make these changes.  From the `Channels tab` it's relatively quick/easy to let a player control multiple assets.  That would be cumbersome to do from the `Assets` tab."
+        },
+        {
+          "id": 1121115435,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-09T13:38:18Z",
+          "updated_at": "2022-05-09T13:38:18Z",
+          "body": "> That would be cumbersome to do from the `Assets` tab.\r\n\r\nAbsolutely. That's why I suggest it should only be shown there, and not editable. The value I see in that from an experience perspective is that the GC could need that information while reviewing assets.\r\n"
+        },
+        {
+          "id": 1141310011,
+          "user": "IanMayo",
+          "created_at": "2022-05-30T16:03:29Z",
+          "updated_at": "2022-05-30T16:03:29Z",
+          "body": "Now sorted."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/165830413-c1361c97-988a-48ef-9a06-e545fd813d18.png"
+  ],
+  "number_of_changed_files": 77,
+  "total_changed_lines": 2156
+}

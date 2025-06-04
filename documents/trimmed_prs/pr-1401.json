@@ -1,0 +1,132 @@
+{
+  "number": 1401,
+  "title": "1385: Fix message display inconsistency",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-11T15:18:27Z",
+  "updated_at": "2022-03-14T14:44:05Z",
+  "closed_at": "2022-03-14T14:44:04Z",
+  "merged_at": "2022-03-14T14:44:04Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1401",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1401/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1401/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1401",
+  "body": "Fixes #1385 \r\n\r\n<img width=\"250\" alt=\"Screen Shot 2022-03-11 at 10 11 51 PM\" src=\"https://user-images.githubusercontent.com/26705621/157895477-f21add68-17fe-4452-a2a5-324e3b400119.png\">\r\n\r\n",
+  "additions": 248,
+  "deletions": 189,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 9,
+  "review_comments_count": 0,
+  "total_comments": 9,
+  "comments_data": [
+    {
+      "id": 1065214077,
+      "user": "IanMayo",
+      "created_at": "2022-03-11T15:23:36Z",
+      "updated_at": "2022-03-11T15:23:36Z",
+      "body": "looks good. ok with you @ShendMikullovci ? Or do we need the force colour bar on the right of our own messages."
+    },
+    {
+      "id": 1065216233,
+      "user": "lebaphi",
+      "created_at": "2022-03-11T15:25:55Z",
+      "updated_at": "2022-03-11T15:25:55Z",
+      "body": "> looks good. ok with you @ShendMikullovci ? Or do we need the force colour bar on the right of our own messages.\r\n\r\nyeah, I see the legacy logic does not  render the color bar on the right of our own messages, if you want this,  I will update :D"
+    },
+    {
+      "id": 1065294071,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-11T16:48:02Z",
+      "updated_at": "2022-03-11T16:48:02Z",
+      "body": "The design itself looks great. The colors are nice and bold, clearly distinguishable. \r\nA couple of things we could fix: \r\n\r\n1. Own message doesn't need its color bar. However, it might be useful to make it darker:\r\n\r\n![Own Message Screenshot Edited](https://user-images.githubusercontent.com/85491794/157910240-b78cabe4-faa5-45eb-8106-bb6a63f4c24b.png)\r\n\r\nThis way, we fully distinguish the messages and create the necessary me/them dichotomy present in most messaging applications. It doesn't have to be this dark grey either, just grey enough to bring it out from the white background and differentiate it from other force messages.\r\n\r\n2. White is invisible: \r\n\r\n![White Force Color Bar Invisible](https://user-images.githubusercontent.com/85491794/157910599-a6a0662a-a756-40fc-9b24-e5e1b74e2d82.png)\r\n\r\nAs you can see, when viewing from a different force, the White Force color sidebar is virtually invisible. A simple way to fix this that I could think of is maybe adding an outline around the color? That would emphasize the white inside the outline."
+    },
+    {
+      "id": 1065306110,
+      "user": "IanMayo",
+      "created_at": "2022-03-11T17:02:12Z",
+      "updated_at": "2022-03-11T17:02:12Z",
+      "body": "Thanks for that @ShendMikullovci \r\n\r\n1. Own force doesn't need color marker.  Sure, ok.\r\n2. Make own messages slightly darker.  Sure, but as you say - not as dark as your example\r\n3. Border around force color marker.  Yes, good idea.\r\n\r\nI'll leave it with you @lebaphi :-)"
+    },
+    {
+      "id": 1065312367,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-11T17:10:06Z",
+      "updated_at": "2022-03-11T17:10:06Z",
+      "body": "> 2. Make own messages slightly darker.  Sure, but as you say - not as dark as your example\r\n\r\nHere's a better color example: \r\n![Example color](https://user-images.githubusercontent.com/85491794/157914347-8a89c447-5384-4567-b58a-27d0e58d47ce.png)\r\n\r\nColor code: #d9d9d9ff \r\n"
+    },
+    {
+      "id": 1065796914,
+      "user": "lebaphi",
+      "created_at": "2022-03-12T02:52:09Z",
+      "updated_at": "2022-03-12T02:52:09Z",
+      "body": "Hi @IanMayo @ShendMikullovci , I've updated a bit of the UI, I think it's better\r\n\r\n<img width=\"258\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/158000932-49e00562-d0f5-4bb6-ad98-6cfc0bd24b89.png\">\r\n\r\nBut I think we have a issue with message `hasBeenRead`, as you can see the message always bold although I click the button `Mark all as read` 🤔 \r\n"
+    },
+    {
+      "id": 1065857404,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-12T10:22:47Z",
+      "updated_at": "2022-03-12T10:22:47Z",
+      "body": "> Hi @IanMayo @ShendMikullovci , I've updated a bit of the UI, I think it's better\r\n> \r\n> <img alt=\"image\" width=\"258\" src=\"https://user-images.githubusercontent.com/26705621/158000932-49e00562-d0f5-4bb6-ad98-6cfc0bd24b89.png\">\r\n\r\nMuch better. Great work.\r\n\r\n> \r\n> But I think we have a issue with message `hasBeenRead`, as you can see the message always bold although I click the button `Mark all as read` thinking\r\n\r\nApparently, we do. It seems to work for the Insights tab for GC, but not for the messages."
+    },
+    {
+      "id": 1066620738,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T10:33:02Z",
+      "updated_at": "2022-03-14T10:33:14Z",
+      "body": "@lebaphi - could you change the word-wrap so that it doesn't split up words, please?\r\n![image](https://user-images.githubusercontent.com/1108513/158154979-969e594e-8646-4e7c-949a-2d6873887600.png)\r\n"
+    },
+    {
+      "id": 1066624911,
+      "user": "lebaphi",
+      "created_at": "2022-03-14T10:37:32Z",
+      "updated_at": "2022-03-14T10:37:32Z",
+      "body": "> @lebaphi - could you change the word-wrap so that it doesn't split up words, please? ![image](https://user-images.githubusercontent.com/1108513/158154979-969e594e-8646-4e7c-949a-2d6873887600.png)\r\n\r\nokie @IanMayo "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1385
+  ],
+  "issues": [
+    {
+      "id": 1161730574,
+      "number": 1385,
+      "title": "Message Display Inconsistency",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-07T17:45:08Z",
+      "updated_at": "2022-03-14T14:44:04Z",
+      "closed_at": "2022-03-14T14:44:04Z",
+      "body": "Couple of things I wanted to mention: \r\n\r\n![Chat Window Incongruity](https://user-images.githubusercontent.com/85491794/157084387-17d1e90d-01ac-43b3-ac86-0805f9532ce5.png)\r\n\r\nThere's inconsistency in how we display messages on channels vs general chat. In the message channels, older messages move higher up and newer messages occupy immediate lower spaces. This is a general consensus among messaging apps accross the board and I think we should apply it for the general chat as well. Currently, the general chat displays the opposite: old messages down, new messages up.\r\n\r\nAlso, in the general chat as you can see in the screenshot above, it's difficult to visually discern between teams simply based on the 2 colored small squares next to the message. Furthermore, unless the user is viewing their own messages where they see this message cloud type of icon below: ...\r\n\r\n![Own Message General Chat](https://user-images.githubusercontent.com/85491794/157085400-0f130d17-833b-4e87-95b4-187cb4555bd8.png)\r\n\r\n... then the message is indistinguishable from the white background. \r\n\r\nI suggest we grab the same design from the channel messages and apply for the general chat. The grey would help distinguish the messages and the colored sidebar would stand out more than a small colored square. It would look something like this: \r\n\r\n![New General Chat UX](https://user-images.githubusercontent.com/85491794/157088846-7f97c45a-a5f3-4ec5-88ef-6f4831495fec.png)\r\n\r\nLet me know your thoughts.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1061707985,
+          "user": "IanMayo",
+          "created_at": "2022-03-08T12:05:56Z",
+          "updated_at": "2022-03-08T12:05:56Z",
+          "body": "Yes, I'm happy with both impovements."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/157895477-f21add68-17fe-4452-a2a5-324e3b400119.png",
+    "https://user-images.githubusercontent.com/85491794/157910240-b78cabe4-faa5-45eb-8106-bb6a63f4c24b.png",
+    "https://user-images.githubusercontent.com/85491794/157910599-a6a0662a-a756-40fc-9b24-e5e1b74e2d82.png",
+    "https://user-images.githubusercontent.com/85491794/157914347-8a89c447-5384-4567-b58a-27d0e58d47ce.png",
+    "https://user-images.githubusercontent.com/26705621/158000932-49e00562-d0f5-4bb6-ad98-6cfc0bd24b89.png",
+    "https://user-images.githubusercontent.com/1108513/158154979-969e594e-8646-4e7c-949a-2d6873887600.png",
+    "https://user-images.githubusercontent.com/85491794/157084387-17d1e90d-01ac-43b3-ac86-0805f9532ce5.png",
+    "https://user-images.githubusercontent.com/85491794/157085400-0f130d17-833b-4e87-95b4-187cb4555bd8.png",
+    "https://user-images.githubusercontent.com/85491794/157088846-7f97c45a-a5f3-4ec5-88ef-6f4831495fec.png"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 437
+}

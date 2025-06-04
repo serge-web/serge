@@ -1,0 +1,30 @@
+{
+  "number": 2643,
+  "title": "Hotfix sliding time windows",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-13T22:13:12Z",
+  "updated_at": "2023-03-14T13:14:44Z",
+  "closed_at": "2023-03-14T13:14:43Z",
+  "merged_at": "2023-03-14T13:14:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2643",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2643/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2643/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2643",
+  "body": "Use sliding time window, rather than growing one",
+  "additions": 30,
+  "deletions": 28,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 58
+}

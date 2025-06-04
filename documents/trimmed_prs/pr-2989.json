@@ -1,0 +1,197 @@
+{
+  "number": 2989,
+  "title": "2913_Filter_SIDC_should_not_an_edit_field",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-07-01T10:11:35Z",
+  "updated_at": "2024-07-11T16:01:13Z",
+  "closed_at": "2024-07-11T16:01:11Z",
+  "merged_at": "2024-07-11T16:01:11Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2989",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2989/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2989/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2989",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 17,
+  "deletions": 5,
+  "changed_files": 3,
+  "labels": [
+    "4hat"
+  ],
+  "comments_count": 18,
+  "review_comments_count": 0,
+  "total_comments": 18,
+  "comments_data": [
+    {
+      "id": 2199755953,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-01T10:11:59Z",
+      "updated_at": "2024-07-01T10:11:59Z",
+      "body": "Fixes #2913 "
+    },
+    {
+      "id": 2202237659,
+      "user": "Tristina1788",
+      "created_at": "2024-07-02T07:59:58Z",
+      "updated_at": "2024-07-02T07:59:58Z",
+      "body": "@lilitkarapetyan @IanMayo I still can see 'Edit' button on 'SIDC' filter\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/d065b2c6-781b-4515-8341-1c032f4d326f)\r\n"
+    },
+    {
+      "id": 2202666265,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-02T10:21:48Z",
+      "updated_at": "2024-07-02T10:21:48Z",
+      "body": "> @lilitkarapetyan @IanMayo I still can see 'Edit' button on 'SIDC' filter\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/344930946-d065b2c6-781b-4515-8341-1c032f4d326f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTk5MTU5ODIsIm5iZiI6MTcxOTkxNTY4MiwicGF0aCI6Ii8xMDc2OTcwNDQvMzQ0OTMwOTQ2LWQwNjViMmM2LTc4MWItNDUxNS04MzQxLTFjMDMyZjRkMzI2Zi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNzAyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDcwMlQxMDIxMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZDU5MTRkNTU3NTA2NWYyNzYyN2QyMWY3NTI4YTdmZjJkNjQ0OWMxNTkwMGQ4YmRiNThlZGU4YWE2YmJlZjU4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.0iWZOLAfG40-pD81EoL03WUY7zXmUi7VoH7N9hiJXIU)\r\nWe should not see the edit button when using the filter ?\r\n"
+    },
+    {
+      "id": 2202708889,
+      "user": "Tristina1788",
+      "created_at": "2024-07-02T10:43:48Z",
+      "updated_at": "2024-07-02T10:43:48Z",
+      "body": "> > @lilitkarapetyan @IanMayo I still can see 'Edit' button on 'SIDC' filter\r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/344930946-d065b2c6-781b-4515-8341-1c032f4d326f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTk5MTU5ODIsIm5iZiI6MTcxOTkxNTY4MiwicGF0aCI6Ii8xMDc2OTcwNDQvMzQ0OTMwOTQ2LWQwNjViMmM2LTc4MWItNDUxNS04MzQxLTFjMDMyZjRkMzI2Zi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNzAyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDcwMlQxMDIxMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZDU5MTRkNTU3NTA2NWYyNzYyN2QyMWY3NTI4YTdmZjJkNjQ0OWMxNTkwMGQ4YmRiNThlZGU4YWE2YmJlZjU4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.0iWZOLAfG40-pD81EoL03WUY7zXmUi7VoH7N9hiJXIU)\r\n> > We should not see the edit button when using the filter ?\r\n\r\nYes, I think so. We just need to input sidc ID to filter. @IanMayo How do you think?"
+    },
+    {
+      "id": 2205903167,
+      "user": "IanMayo",
+      "created_at": "2024-07-03T11:56:02Z",
+      "updated_at": "2024-07-03T11:56:02Z",
+      "body": "Hello @Tristina1788 - I'm playing in this branch, but there are no features on the `mapping` tab, and when I log in as `Game Designer` I can't add any new features.  I see the new message for the new feature being sent to the server, but they do not get displayed.\r\nDoes it work for you?"
+    },
+    {
+      "id": 2206000656,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-03T12:48:47Z",
+      "updated_at": "2024-07-03T12:48:47Z",
+      "body": "> Hello @Tristina1788 - I'm playing in this branch, but there are no features on the `mapping` tab, and when I log in as `Game Designer` I can't add any new features. I see the new message for the new feature being sent to the server, but they do not get displayed. Does it work for you?\r\n\r\nI will look now"
+    },
+    {
+      "id": 2206003502,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-03T12:50:16Z",
+      "updated_at": "2024-07-03T12:52:03Z",
+      "body": "No, it doesn't work for me, but I think the branch is not the problem."
+    },
+    {
+      "id": 2206031794,
+      "user": "Tristina1788",
+      "created_at": "2024-07-03T13:04:17Z",
+      "updated_at": "2024-07-03T13:04:17Z",
+      "body": "> Hello @Tristina1788 - I'm playing in this branch, but there are no features on the `mapping` tab, and when I log in as `Game Designer` I can't add any new features. I see the new message for the new feature being sent to the server, but they do not get displayed. Does it work for you?\r\n\r\n@IanMayo , @lilitkarapetyan  We need to login by user Red - Red2 to enable create new item( Umpire force doesn't have  permission for create item) \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/ac98bf01-66e6-4b48-9249-620fb108c94c)\r\n\r\n\r\n"
+    },
+    {
+      "id": 2206034645,
+      "user": "Tristina1788",
+      "created_at": "2024-07-03T13:05:39Z",
+      "updated_at": "2024-07-03T13:05:39Z",
+      "body": "@lilitkarapetyan @IanMayo We also have the issue on filter SIDC, it's unable to filter with default SIDC. \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/9f0f9a57-e75c-44a9-8178-317d1b29ecbb\r\n\r\n\r\n"
+    },
+    {
+      "id": 2206054568,
+      "user": "IanMayo",
+      "created_at": "2024-07-03T13:15:55Z",
+      "updated_at": "2024-07-03T13:15:55Z",
+      "body": ">  need to login by user Red - Red2 to enable create new item( Umpire force doesn't have permission for create item)\r\n\r\nYes, working correctly as red player @Tristina1788 :-)\r\n\r\nYes, I also saw that supplying a valid SIDC for the filter does not match with any features.  That's for you, please @lilitkarapetyan "
+    },
+    {
+      "id": 2206269003,
+      "user": "IanMayo",
+      "created_at": "2024-07-03T14:22:39Z",
+      "updated_at": "2024-07-03T14:22:39Z",
+      "body": "> @lilitkarapetyan @IanMayo I still can see 'Edit' button on 'SIDC' filter\r\n> \r\nYes - it's valid to have the `Edit` button on the SIDC filter, to open the dialog used to generate the SIDC filter"
+    },
+    {
+      "id": 2208558627,
+      "user": "Tristina1788",
+      "created_at": "2024-07-04T09:44:34Z",
+      "updated_at": "2024-07-04T09:44:34Z",
+      "body": "@lilitkarapetyan  @IanMayo I think we don't need to remove 'Edit' button as Ian 's comment above\r\n\r\nNow when I filter for sidc which is not default, it also shows the core shape item . And filter with sidc which is default, it shows all items include another sidc.\r\n\r\n=> We should show only the milsym which contains the filter sidc\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/5b8720a6-69fb-474a-ab62-0d26632754aa\r\n\r\n"
+    },
+    {
+      "id": 2217822409,
+      "user": "Tristina1788",
+      "created_at": "2024-07-09T13:58:52Z",
+      "updated_at": "2024-07-09T13:58:52Z",
+      "body": "@lilitkarapetyan @IanMayo Now the filter sidc still don't have 'Edit' button ( we should have this button as Ian's expected).\r\n- Filter sidc with exact code => the result of filter is  the milsym has that code and core shape (Should only show milsym has that code). \r\n- Filter with contains some string sidc code can't work (the filter should show the milsym which contains string in sidc filter) \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/2d9d0578-7c87-4c37-baec-dbe6672b918b\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2219863997,
+      "user": "Tristina1788",
+      "created_at": "2024-07-10T08:22:22Z",
+      "updated_at": "2024-07-10T08:22:22Z",
+      "body": "@lilitkarapetyan @IanMayo Now Sidc filter has 'Edit' button. But 'Id' filter is disabled\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/4bbf6d9a-7811-41d3-a6f6-6fa4e3ce4bae)\r\n\r\n\r\nAnd these below issues are still happened.\r\n\r\n> Filter sidc with exact code => the result of filter is the milsym has that code and core shape (Should only show milsym has that code).\r\n> Filter with contains some string sidc code can't work (the filter should show the milsym which contains string in sidc filter)"
+    },
+    {
+      "id": 2220204873,
+      "user": "IanMayo",
+      "created_at": "2024-07-10T10:59:40Z",
+      "updated_at": "2024-07-10T10:59:40Z",
+      "body": "Ok, I think it's ready for you to re-test, please @Tristina1788 "
+    },
+    {
+      "id": 2220253669,
+      "user": "Tristina1788",
+      "created_at": "2024-07-10T11:20:27Z",
+      "updated_at": "2024-07-10T11:20:27Z",
+      "body": "@lilitkarapetyan @IanMayo Now I can filter Sidc with contains code or equal code. But the 'Id' filter is still disabled. \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/228bc700-b3ca-4cb0-ba04-8186a715b935)\r\n\r\n"
+    },
+    {
+      "id": 2220288695,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-10T11:36:41Z",
+      "updated_at": "2024-07-10T11:39:22Z",
+      "body": "> @lilitkarapetyan @IanMayo Now I can filter Sidc with contains code or equal code. But the 'Id' filter is still disabled.\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/347379120-228bc700-b3ca-4cb0-ba04-8186a715b935.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjA2MTE0OTMsIm5iZiI6MTcyMDYxMTE5MywicGF0aCI6Ii8xMDc2OTcwNDQvMzQ3Mzc5MTIwLTIyOGJjNzAwLWIzY2EtNGNiMC1iYTA0LTgxODZhNzE1YjkzNS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNzEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDcxMFQxMTMzMTNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iNmU0ZGRiMmQxYTM1ODcwYWIwMTRlNDY4ZjUxMjgyMzNlNGI5ZjBiZjcwZTkxMTdkN2Q3ZjdiMmU1MDM5MDFkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.rjH0nazt6SebfxozMgkdBdswgAoz-zFCkQHkQ7Bs6Hw)\r\n\r\nahh it wasn't pushed ;) I added it "
+    },
+    {
+      "id": 2220395097,
+      "user": "Tristina1788",
+      "created_at": "2024-07-10T12:32:15Z",
+      "updated_at": "2024-07-10T12:32:15Z",
+      "body": "@lilitkarapetyan  @IanMayo Now I can filter with contains / equal sidc and 'Edit' to filter custom sidc well. The 'Id' filter is enable to use.\r\n\r\nhttps://app.screencast.com/5aNMCqa9fhRh1\r\n\r\n\r\n It works as expected. So we can close this PR."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2913
+  ],
+  "issues": [
+    {
+      "id": 2243343328,
+      "number": 2913,
+      "title": "Filter 'SIDC' should not an edit field",
+      "state": "open",
+      "user": "Tristina1788",
+      "created_at": "2024-04-15T10:46:48Z",
+      "updated_at": "2024-07-04T09:28:11Z",
+      "closed_at": null,
+      "body": "## 🐞 Bug description\r\nFilter 'SIDC' should not an edit field\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Click on 'Core Mapping' channel\r\n3. Click 'Add' on 'Filter' bar\r\n4. Select 'Sidc'\r\n5. Notice 'Sidc' show as an edit field\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/01fe6913-b4ec-4409-8574-433a52e8a5ea)\r\n\r\n\r\n## ⚙️ Expected behavior\r\n'Sidc' filter should be a textbox without 'Edit' button. And we can input 'SIDC' code for filter.\r\n\r\n## 🖥️ Screenshots\r\n\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n- Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 2208523380,
+          "user": "IanMayo",
+          "created_at": "2024-07-04T09:28:09Z",
+          "updated_at": "2024-07-04T09:28:09Z",
+          "body": "I think the existing implementation is valid @Tristina1788 \r\n\r\nA user can use the `Edit` button to use the dialog to select which SIDC type they want to see filtered. (in addition to providing the raw text value)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/d065b2c6-781b-4515-8341-1c032f4d326f",
+    "https://private-user-images.githubusercontent.com/107697044/344930946-d065b2c6-781b-4515-8341-1c032f4d326f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTk5MTU5ODIsIm5iZiI6MTcxOTkxNTY4MiwicGF0aCI6Ii8xMDc2OTcwNDQvMzQ0OTMwOTQ2LWQwNjViMmM2LTc4MWItNDUxNS04MzQxLTFjMDMyZjRkMzI2Zi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNzAyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDcwMlQxMDIxMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZDU5MTRkNTU3NTA2NWYyNzYyN2QyMWY3NTI4YTdmZjJkNjQ0OWMxNTkwMGQ4YmRiNThlZGU4YWE2YmJlZjU4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.0iWZOLAfG40-pD81EoL03WUY7zXmUi7VoH7N9hiJXIU",
+    "https://github.com/serge-web/serge/assets/107697044/ac98bf01-66e6-4b48-9249-620fb108c94c",
+    "https://github.com/serge-web/serge/assets/107697044/4bbf6d9a-7811-41d3-a6f6-6fa4e3ce4bae",
+    "https://github.com/serge-web/serge/assets/107697044/228bc700-b3ca-4cb0-ba04-8186a715b935",
+    "https://private-user-images.githubusercontent.com/107697044/347379120-228bc700-b3ca-4cb0-ba04-8186a715b935.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjA2MTE0OTMsIm5iZiI6MTcyMDYxMTE5MywicGF0aCI6Ii8xMDc2OTcwNDQvMzQ3Mzc5MTIwLTIyOGJjNzAwLWIzY2EtNGNiMC1iYTA0LTgxODZhNzE1YjkzNS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNzEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDcxMFQxMTMzMTNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iNmU0ZGRiMmQxYTM1ODcwYWIwMTRlNDY4ZjUxMjgyMzNlNGI5ZjBiZjcwZTkxMTdkN2Q3ZjdiMmU1MDM5MDFkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.rjH0nazt6SebfxozMgkdBdswgAoz-zFCkQHkQ7Bs6Hw",
+    "https://github.com/serge-web/serge/assets/107697044/01fe6913-b4ec-4409-8574-433a52e8a5ea"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 22
+}

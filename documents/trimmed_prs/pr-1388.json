@@ -1,0 +1,82 @@
+{
+  "number": 1388,
+  "title": "1383: Messages displayed on the same side for the same force",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-08T10:24:23Z",
+  "updated_at": "2022-03-08T12:50:39Z",
+  "closed_at": "2022-03-08T12:50:38Z",
+  "merged_at": "2022-03-08T12:50:38Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1388",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1388/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1388/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1388",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1383 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 46,
+  "deletions": 614,
+  "changed_files": 20,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1383
+  ],
+  "issues": [
+    {
+      "id": 1160657596,
+      "number": 1383,
+      "title": "Messages displayed on the same side for every player of the same force",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-06T16:44:15Z",
+      "updated_at": "2022-04-12T10:55:48Z",
+      "closed_at": "2022-04-12T10:55:48Z",
+      "body": "I just noticed that messages sent from BLUE CO appear on the right of the window for other Blue players (same for RED CO and other Red players): \r\n\r\n![Message Displayed On The Side for Blue Players](https://user-images.githubusercontent.com/85491794/156932787-01f1470b-f8f7-45eb-bfd9-19c598c620ae.png)\r\n\r\nWas this on purpose? I suppose this would associate the right-handed side to the force rather than to the individual player, but general consensus is that I only view my own messages on the right-hand side of the window. I suggest we follow that since we can clearly distinguish between forces due to colors.",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1060732485,
+          "user": "IanMayo",
+          "created_at": "2022-03-07T14:15:17Z",
+          "updated_at": "2022-03-07T14:15:37Z",
+          "body": "Sure, ok. Good suggestion.  We should check if `selectedRole` matches `details.from.roleId`."
+        },
+        {
+          "id": 1060909584,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-07T16:59:12Z",
+          "updated_at": "2022-03-07T16:59:12Z",
+          "body": "We should apply the same logic for the general chat as well. Same issue there (this time in \"Small Wargame\"):\r\n\r\n![Message Side from my own Force](https://user-images.githubusercontent.com/85491794/157081316-34adc5b9-e608-4a34-a72c-9ec7c5ab0df9.png)\r\n\r\n"
+        },
+        {
+          "id": 1060915894,
+          "user": "IanMayo",
+          "created_at": "2022-03-07T17:05:22Z",
+          "updated_at": "2022-03-07T17:05:22Z",
+          "body": "Yes, agreed.  @lebaphi - we can probably fix this in `storybook` first.  Please ping me if you need different dummy data."
+        },
+        {
+          "id": 1072182319,
+          "user": "IanMayo",
+          "created_at": "2022-03-18T08:40:34Z",
+          "updated_at": "2022-03-18T08:40:34Z",
+          "body": "Closing. Fixed  in #1383"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/156932787-01f1470b-f8f7-45eb-bfd9-19c598c620ae.png",
+    "https://user-images.githubusercontent.com/85491794/157081316-34adc5b9-e608-4a34-a72c-9ec7c5ab0df9.png"
+  ],
+  "number_of_changed_files": 20,
+  "total_changed_lines": 660
+}

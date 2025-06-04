@@ -1,0 +1,117 @@
+{
+  "number": 2795,
+  "title": "2771_Missing_handlers",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-30T09:59:06Z",
+  "updated_at": "2024-01-31T13:27:41Z",
+  "closed_at": "2024-01-31T13:27:40Z",
+  "merged_at": "2024-01-31T13:27:40Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2795",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2795/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2795/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2795",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 135,
+  "deletions": 15,
+  "changed_files": 7,
+  "labels": [
+    "bug",
+    "4p10"
+  ],
+  "comments_count": 4,
+  "review_comments_count": 2,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1916761439,
+      "user": "IanMayo",
+      "created_at": "2024-01-30T12:41:40Z",
+      "updated_at": "2024-01-30T12:41:40Z",
+      "body": "@lilitkarapetyan - the build is failing with this:\r\n```\r\n-----> Build\r\n       Detected both \"build\" and \"heroku-postbuild\" scripts\r\n       Running heroku-postbuild (yarn)\r\n       yarn run v1.22.21\r\n       $ yarn build && yarn build-storybook\r\n       $ cd client && yarn build\r\n       $ rimraf build && vite build && yarn copy-assets && yarn copy-assets-storybook && yarn cleanup\r\nfailed to load config from /tmp/build_ac65015b/client/vite.config.ts\r\nerror during build:\r\nError: Cannot find module 'vite-plugin-node-polyfills'\r\nRequire stack:\r\n- /tmp/build_ac65015b/client/vite.config.ts\r\n- /tmp/build_ac65015b/client/node_modules/vite/dist/node/chunks/dep-3b8eb186.js\r\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1134:15)\r\n    at Module._load (node:internal/modules/cjs/loader:975:27)\r\n    at Module.require (node:internal/modules/cjs/loader:1225:19)\r\n    at require (node:internal/modules/helpers:177:18)\r\n    at Object.<anonymous> (/tmp/build_ac65015b/client/vite.config.ts:44:41)\r\n    at Module._compile (node:internal/modules/cjs/loader:1356:14)\r\n    at _require.extensions.<computed> [as .js] (file:///tmp/build_ac65015b/client/node_modules/vite/dist/node/chunks/dep-3b8eb186.js:66199:24)\r\n    at Module.load (node:internal/modules/cjs/loader:1197:32)\r\n    at Module._load (node:internal/modules/cjs/loader:1013:12)\r\n    at Module.require (node:internal/modules/cjs/loader:1225:19)\r\nerror Command failed with exit code 1.\r\n       info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\r\nerror Command failed with exit code 1.\r\n       info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\r\nerror Command failed with exit code 1.\r\n       info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\r\n-----> Build failed\r\n       \r\n       We're sorry this build is failing! You can troubleshoot common issues here:\r\n       https://devcenter.heroku.com/articles/troubleshooting-node-deploys\r\n```"
+    },
+    {
+      "id": 1918503643,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-31T07:01:02Z",
+      "updated_at": "2024-01-31T07:03:20Z",
+      "body": "> @lilitkarapetyan - the build is failing with this:\r\n> \r\n> ```\r\n> -----> Build\r\n>        Detected both \"build\" and \"heroku-postbuild\" scripts\r\n>        Running heroku-postbuild (yarn)\r\n>        yarn run v1.22.21\r\n>        $ yarn build && yarn build-storybook\r\n>        $ cd client && yarn build\r\n>        $ rimraf build && vite build && yarn copy-assets && yarn copy-assets-storybook && yarn cleanup\r\n> failed to load config from /tmp/build_ac65015b/client/vite.config.ts\r\n> error during build:\r\n> Error: Cannot find module 'vite-plugin-node-polyfills'\r\n> Require stack:\r\n> - /tmp/build_ac65015b/client/vite.config.ts\r\n> - /tmp/build_ac65015b/client/node_modules/vite/dist/node/chunks/dep-3b8eb186.js\r\n>     at Module._resolveFilename (node:internal/modules/cjs/loader:1134:15)\r\n>     at Module._load (node:internal/modules/cjs/loader:975:27)\r\n>     at Module.require (node:internal/modules/cjs/loader:1225:19)\r\n>     at require (node:internal/modules/helpers:177:18)\r\n>     at Object.<anonymous> (/tmp/build_ac65015b/client/vite.config.ts:44:41)\r\n>     at Module._compile (node:internal/modules/cjs/loader:1356:14)\r\n>     at _require.extensions.<computed> [as .js] (file:///tmp/build_ac65015b/client/node_modules/vite/dist/node/chunks/dep-3b8eb186.js:66199:24)\r\n>     at Module.load (node:internal/modules/cjs/loader:1197:32)\r\n>     at Module._load (node:internal/modules/cjs/loader:1013:12)\r\n>     at Module.require (node:internal/modules/cjs/loader:1225:19)\r\n> error Command failed with exit code 1.\r\n>        info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\r\n> error Command failed with exit code 1.\r\n>        info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\r\n> error Command failed with exit code 1.\r\n>        info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\r\n> -----> Build failed\r\n>        \r\n>        We're sorry this build is failing! You can troubleshoot common issues here:\r\n>        https://devcenter.heroku.com/articles/troubleshooting-node-deploys\r\n> ```\r\n\r\nbefore `yarn build`, you run the `yarn` commands ?\r\n"
+    },
+    {
+      "id": 1918746382,
+      "user": "IanMayo",
+      "created_at": "2024-01-31T09:46:19Z",
+      "updated_at": "2024-01-31T09:46:19Z",
+      "body": "> before yarn build, you run the yarn commands ?\r\n\r\nThat was a Heroku build - so I'm sure it does `yarn install`."
+    },
+    {
+      "id": 1918815116,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-31T10:24:45Z",
+      "updated_at": "2024-01-31T10:24:45Z",
+      "body": "> > before yarn build, you run the yarn commands ?\r\n> \r\n> That was a Heroku build - so I'm sure it does `yarn install`.\r\n\r\nI will work on it now."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1471436815,
+      "user": "IanMayo",
+      "created_at": "2024-01-30T15:24:54Z",
+      "updated_at": "2024-01-30T15:24:55Z",
+      "body": "Hello @lilitkarapetyan - are you sure that we don't need handlers for these events?\r\n\r\nAre they being handled somewhere else?  If so, would it be wise to refer to the handler from this file?\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/7bc38128-e42c-437d-9eb9-7f89c3e5cb4c)\r\n",
+      "path": "client/src/ActionsAndReducers/dbWargames/wargames_Reducer.ts",
+      "diff_hunk": "@@ -57,9 +57,7 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes\n \n   if (handler) {\n     handler(newState, action, tab)\n-  } else {\n-    console.warn(`Heandler not defined for a action type: ${action.type}`)\n-  }",
+      "html_url": "https://github.com/serge-web/serge/pull/2795#discussion_r1471436815"
+    },
+    {
+      "id": 1472445167,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-31T08:11:58Z",
+      "updated_at": "2024-01-31T08:11:58Z",
+      "body": "Yes, the handlers for these events are handled in a different part of the codebase.",
+      "path": "client/src/ActionsAndReducers/dbWargames/wargames_Reducer.ts",
+      "diff_hunk": "@@ -57,9 +57,7 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes\n \n   if (handler) {\n     handler(newState, action, tab)\n-  } else {\n-    console.warn(`Heandler not defined for a action type: ${action.type}`)\n-  }",
+      "html_url": "https://github.com/serge-web/serge/pull/2795#discussion_r1472445167"
+    }
+  ],
+  "issue_numbers": [
+    2771
+  ],
+  "issues": [
+    {
+      "id": 2086060047,
+      "number": 2771,
+      "title": "Missing handlers",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-17T12:11:17Z",
+      "updated_at": "2024-01-31T13:29:43Z",
+      "closed_at": "2024-01-31T13:29:42Z",
+      "body": "When we run Serge, it warns that a number of handlers are missing:\r\n![image](https://github.com/serge-web/serge/assets/1108513/802b2421-01e6-42c3-ada9-b86b329c2167)\r\n\r\nWe should:\r\n1. Check the necessary functionality is happening\r\n2. Move the functionality to the handler block, so we can demonstrate handling it (and the error isn't reported)",
+      "labels": [
+        "bug",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1919106478,
+          "user": "IanMayo",
+          "created_at": "2024-01-31T13:29:42Z",
+          "updated_at": "2024-01-31T13:29:42Z",
+          "body": "Fixed in #2795 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/7bc38128-e42c-437d-9eb9-7f89c3e5cb4c",
+    "https://github.com/serge-web/serge/assets/1108513/802b2421-01e6-42c3-ada9-b86b329c2167"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 150
+}

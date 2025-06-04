@@ -1,0 +1,76 @@
+{
+  "number": 835,
+  "title": "fix clean copy bug",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-12T09:08:51Z",
+  "updated_at": "2021-06-18T12:09:34Z",
+  "closed_at": "2021-06-18T12:09:33Z",
+  "merged_at": "2021-06-18T12:09:33Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/835",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/835/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/835/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/835",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\ncloses #827,  #830, #832\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\nFixed Clean Copy bug, but one more bug still there, same crash present for Duplicate\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 153,
+  "deletions": 91,
+  "changed_files": 5,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 1,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 861601050,
+      "user": "IanMayo",
+      "created_at": "2021-06-15T15:31:07Z",
+      "updated_at": "2021-06-15T15:31:07Z",
+      "body": "Hi, there's another issue. If I create a duplicate, I can't save changes to it.\r\n\r\nI did `Duplicate`, then went into the new wargame. When I tried to save a change to the wargame title it threw this error:\r\n![image](https://user-images.githubusercontent.com/1108513/122081517-13ef5400-cdf7-11eb-9f21-485f6fcb293b.png)\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 654340346,
+      "user": "IanMayo",
+      "created_at": "2021-06-18T11:00:36Z",
+      "updated_at": "2021-06-18T11:00:37Z",
+      "body": "@lilitkarapetyan - the `i` is unused. Should we delete it?",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -140,11 +140,11 @@ export const populateWargame = (): Promise<Wargame> => {\n   return fetch(serverPath + 'allDbs')\n     .then((response: Response): Promise<string[]> => response.json())\n     .then((dbs: string[]) => {\n-      const wargameNames: string[] = wargameDbStore.map((db) => db.name)\n+      const wargameNames: string[] = wargameDbStore.map((db) => db.name)      \n       const toCreateDiff: string[] = _.difference(dbs, wargameNames)\n       const toCreate: string[] = _.pull(toCreateDiff, MSG_STORE, MSG_TYPE_STORE, SERGE_INFO, '_replicator', '_users')\n \n-      toCreate.forEach((name) => {\n+      toCreate.forEach((name, i) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/835#discussion_r654340346"
+    }
+  ],
+  "issue_numbers": [
+    827
+  ],
+  "issues": [
+    {
+      "id": 916320541,
+      "number": 827,
+      "title": "Client crash on `Create clean copy`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-09T15:10:14Z",
+      "updated_at": "2021-06-18T12:09:33Z",
+      "closed_at": "2021-06-18T12:09:33Z",
+      "body": "A Game Control is trying to create a duplicate of a wargame from the Admin page.\r\n\r\nThe `Clean copy` process should copy a wargame, but delete all messages, and just have the wargame description, in a non-initiated state.  Note: Ian doesn't think the flaw is in this logic.\r\n\r\nHe used `Clean copy` from a wargame's context menu.\r\n\r\nA blank screen was shown.\r\n\r\nHere is the client-side error log:\r\n![image](https://user-images.githubusercontent.com/1108513/121380244-9f22a280-c93c-11eb-9a5d-50e2f776a09a.png)\r\n\r\nThere is a _chance_ that this issue is related to us starting to append `.sqlite` file suffix to wargames.  When we join a wargame as a player, or when we open a wargame for editing, then the correct filename is found.  But, when we run `Clean Copy` it fails.\r\n\r\nOr, maybe... The duplicate wargame is created, but we try to access it before it is physically available.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/122081517-13ef5400-cdf7-11eb-9f21-485f6fcb293b.png",
+    "https://user-images.githubusercontent.com/1108513/121380244-9f22a280-c93c-11eb-9a5d-50e2f776a09a.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 244
+}

@@ -1,0 +1,135 @@
+{
+  "number": 1020,
+  "title": "Duplicate passcode in wargame forces",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-27T08:41:01Z",
+  "updated_at": "2021-09-01T12:18:36Z",
+  "closed_at": "2021-09-01T12:18:35Z",
+  "merged_at": "2021-09-01T12:18:35Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1020",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1020/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1020/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1020",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1018 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 247,
+  "deletions": 41,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 7,
+  "review_comments_count": 3,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 907037175,
+      "user": "IanMayo",
+      "created_at": "2021-08-27T08:46:45Z",
+      "updated_at": "2021-08-27T08:46:45Z",
+      "body": "Thanks for this @sanjayradadiya  - but can't we do the check earlier?\r\n\r\nWhen we're in the `forces` tab we have the force data object.  So, when the user clicks on `Add role` - we could just repeat:\r\n1. create new role id\r\n2. check if role id already in use\r\n3. if in use, go back to `1`\r\n\r\nI don't think the above would require a database round-trip.  Obvs we'd be in trouble if multiple admins were creating roles, but we don't expect that to happen."
+    },
+    {
+      "id": 907052741,
+      "user": "sanjayradadiya",
+      "created_at": "2021-08-27T09:11:26Z",
+      "updated_at": "2021-08-27T09:11:26Z",
+      "body": "> Thanks for this @sanjayradadiya - but can't we do the check earlier?\r\n> \r\n> When we're in the `forces` tab we have the force data object. So, when the user clicks on `Add role` - we could just repeat:\r\n> \r\n> 1. create new role id\r\n> 2. check if role id already in use\r\n> 3. if in use, go back to `1`\r\n> \r\n> I don't think the above would require a database round-trip. Obvs we'd be in trouble if multiple admins were creating roles, but we don't expect that to happen.\r\n\r\nYes, we can do. \r\nIt will not prevent the below scenario.\r\n1. Duplicate passwords exist and users try to save that force.\r\n"
+    },
+    {
+      "id": 907071065,
+      "user": "IanMayo",
+      "created_at": "2021-08-27T09:41:12Z",
+      "updated_at": "2021-08-27T09:41:12Z",
+      "body": "> Duplicate passwords exist and users try to save that force.\r\n\r\nI think the above logic will prevent duplicate passwords from existing - so we won't have problem saving."
+    },
+    {
+      "id": 907208216,
+      "user": "IanMayo",
+      "created_at": "2021-08-27T13:35:45Z",
+      "updated_at": "2021-08-27T13:35:45Z",
+      "body": "Close & reopen, to wake up static analysis"
+    },
+    {
+      "id": 908179801,
+      "user": "IanMayo",
+      "created_at": "2021-08-30T09:12:47Z",
+      "updated_at": "2021-08-30T09:12:47Z",
+      "body": "I know this is dragging on, but I'm afraid we need a bit more @sanjayradadiya \r\n\r\n1. For create new role, I think we should use `isUniquePasscode` to ensure we're generating a unique code, rather than reporting the duplication to the Game Designer.  For this, we can't use the current `isUniquePasscode`.  If (by accident) there are duplicate pass-codes already in the game, `isUniquePasscode` will keep returning false, even though the newly generated one is actually unique.\r\n2.  When report on the duplicate from the `Save Force` in admin pages, we actually need to provide the `force` and `role` for the duplicate entries, since the duplicate could be in another force.  Note: for this I _think_ we just need to put `force` and `role` into the `dupRoleNames` array\r\n3. In `isUniquePasscode` we only check for duplicates in other forces.  I _think_ we should be checking for a duplicate in the current force, too (so we don't need the `newData.uniqid !== force.uniqid &&` test)"
+    },
+    {
+      "id": 908919467,
+      "user": "sanjayradadiya",
+      "created_at": "2021-08-31T05:49:03Z",
+      "updated_at": "2021-08-31T05:49:03Z",
+      "body": "> I know this is dragging on, but I'm afraid we need a bit more @sanjayradadiya\r\n> \r\n> 1. For create new role, I think we should use `isUniquePasscode` to ensure we're generating a unique code, rather than reporting the duplication to the Game Designer.  For this, we can't use the current `isUniquePasscode`.  If (by accident) there are duplicate pass-codes already in the game, `isUniquePasscode` will keep returning false, even though the newly generated one is actually unique.\r\n> 2. When report on the duplicate from the `Save Force` in admin pages, we actually need to provide the `force` and `role` for the duplicate entries, since the duplicate could be in another force.  Note: for this I _think_ we just need to put `force` and `role` into the `dupRoleNames` array\r\n> 3. In `isUniquePasscode` we only check for duplicates in other forces.  I _think_ we should be checking for a duplicate in the current force, too (so we don't need the `newData.uniqid !== force.uniqid &&` test)\r\n\r\n1. `getUniquePasscode` used to generate password everywhere. force roles has unique password also check at time of Save Force to avoid accidental duplicate passcode.\r\n2. New message set. `Duplicate passcodes for: White-CO, White-Game Control, Red-CO, Red-Game Control`.\r\n3. duplicate passcode check in current force as well as other forces to avoid duplicate passcode which is stored in database."
+    },
+    {
+      "id": 909902685,
+      "user": "sanjayradadiya",
+      "created_at": "2021-09-01T05:26:50Z",
+      "updated_at": "2021-09-01T05:26:50Z",
+      "body": "1. test case for duplicate passcode in current force and other force also.\r\n2. compare passcode for expected value from test case.\r\n3. test case for legacy wargame duplicate passcode."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 697518262,
+      "user": "IanMayo",
+      "created_at": "2021-08-27T15:10:01Z",
+      "updated_at": "2021-08-27T15:10:01Z",
+      "body": "thanks @sanjayradadiya - sorry if it makes the logic more untidy, but we really need to tell the Game Designer which two roles share a password.  So, I guess `isUniquePasscode` needs to return an array of role names that share the pass-code.\r\n\r\nOh, and the message has to be `Duplicate passcode in force roles` - not `Duplicate password in force roles`.\r\n\r\nThanks :-)",
+      "path": "packages/client/src/Views/GameSetupNew.jsx",
+      "diff_hunk": "@@ -122,6 +124,11 @@ const AdminGameSetup = () => {\n     const forceName = newForceData.name\n     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview\n \n+    if (isUniquePasscode(newForceData, forces.forces)) {\n+      dispatch(addNotification('Duplicate password in force roles.', 'warning'))",
+      "html_url": "https://github.com/serge-web/serge/pull/1020#discussion_r697518262"
+    },
+    {
+      "id": 697874815,
+      "user": "sanjayradadiya",
+      "created_at": "2021-08-28T14:09:48Z",
+      "updated_at": "2021-08-28T14:09:49Z",
+      "body": "Message rename to `Duplicate passcode in force role`\r\n\r\nGame Designer will get message `Duplicate passcode in force role CO,Game Control` for sharing same password.\r\n",
+      "path": "packages/client/src/Views/GameSetupNew.jsx",
+      "diff_hunk": "@@ -122,6 +124,11 @@ const AdminGameSetup = () => {\n     const forceName = newForceData.name\n     newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === selectedForceId).overview\n \n+    if (isUniquePasscode(newForceData, forces.forces)) {\n+      dispatch(addNotification('Duplicate password in force roles.', 'warning'))",
+      "html_url": "https://github.com/serge-web/serge/pull/1020#discussion_r697874815"
+    },
+    {
+      "id": 699997623,
+      "user": "IanMayo",
+      "created_at": "2021-09-01T08:29:42Z",
+      "updated_at": "2021-09-01T08:30:03Z",
+      "body": "@sanjayradadiya  - you can probably delete this test. As you said, it's really hard to test for the creation of a unique passcode.\r\n\r\nAh no, let's keep it.  At least it's proving `getUniquePasscode` still works, without any compiler errors.\r\n\r\nActually, I suggest adding: `expect(res).toBeTruthy()`   ... just to check _something_ is returned.\r\n",
+      "path": "packages/helpers/src/tests/get-unique-passcode.spec.ts",
+      "diff_hunk": "@@ -0,0 +1,10 @@\n+import { forces } from '@serge/mocks'\n+import { ForceData } from '@serge/custom-types'\n+import { getUniquePasscode } from '../'\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1020#discussion_r699997623"
+    }
+  ],
+  "issue_numbers": [
+    1018
+  ],
+  "issues": [
+    {
+      "id": 980880863,
+      "number": 1018,
+      "title": "Duplicate passcode in wargame forces",
+      "state": "closed",
+      "user": "sanjayradadiya",
+      "created_at": "2021-08-27T05:12:49Z",
+      "updated_at": "2021-09-01T12:18:35Z",
+      "closed_at": "2021-09-01T12:18:35Z",
+      "body": "## 🐞 Bug description\r\n<!-- A clear and concise description of what the bug is. -->\r\n1. Duplicate password allowed in multiple force in wargame\r\n2. Duplicate password allowed in same force in wargame\r\n![image](https://user-images.githubusercontent.com/16476120/131077246-46049e61-7eae-464e-a535-4dab01f3040e.png)\r\n\r\n\r\n## 🔢 Steps to Reproduce\r\n<!-- \r\nSteps to reproduce the behavior:\r\n1. Go to '...'\r\n2. Click on '....'\r\n3. Scroll down to '....'\r\n4. See error -->\r\n\r\n## ⚙️ Expected behavior\r\n<!-- A clear and concise description of what you expected to happen. -->\r\n\r\n## 🖥️ Screenshots\r\n<!-- If applicable, add screenshots to help explain your problem a good animated screenshot can replace 'steps to reproduce'. -->\r\n\r\n## 💻 System information\r\n<!-- Please complete the following information (you can get most of this information from https://mybrowser.fyi/) -->\r\n - Operating System: [e.g. iOS, Windows, etc...]\r\n - Browser [e.g. chrome, safari]\r\n - Browser Version [e.g. 22]\r\n - Browser resolution \r\n - Are cookies enabled\r\n - Is Javascript enabled\r\n - Do you have an ad blocker\r\n\r\n\r\n## 📝 Additional context\r\n<!-- Add any other context about the problem here. For example it might be worth mentioning if you have any chrome extensions which may cause the problem -->\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/16476120/131077246-46049e61-7eae-464e-a535-4dab01f3040e.png"
+  ],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 288
+}

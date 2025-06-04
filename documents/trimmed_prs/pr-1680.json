@@ -1,0 +1,108 @@
+{
+  "number": 1680,
+  "title": "1675 hide forces in channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-20T10:41:57Z",
+  "updated_at": "2022-07-20T16:29:29Z",
+  "closed_at": "2022-07-20T16:29:28Z",
+  "merged_at": "2022-07-20T16:29:28Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1680",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1680/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1680/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1680",
+  "body": "Supports #1675 \r\n\r\nStill need to include editor in admin pages.",
+  "additions": 214,
+  "deletions": 67,
+  "changed_files": 16,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1675
+  ],
+  "issues": [
+    {
+      "id": 1306141607,
+      "number": 1675,
+      "title": "Allow \"forces in channel\" to be hidden.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-15T15:01:23Z",
+      "updated_at": "2022-07-25T10:01:02Z",
+      "closed_at": "2022-07-21T12:38:37Z",
+      "body": "For some channels, the Game Designer doesn't want channel members to see which forces are in channels.\r\n\r\nThis is because...\r\n\r\nFor this game, \"Red\" can position themselves so they can hear \"Blue\" conversations.  Game Control will move Red in and out of the Blue channel, depending on where they are.  But, they don't want \"Blue\" to know when this is happening.\r\n\r\nWe should handle this through a new setting in the \"Channels\" page, and the setting will apply to all channels.\r\n\r\nThis new attribute \"hideForceMembers\" will sit in \"Player State\", and will be used to determine whether to display the force icons in `ChatMessagesList` and `ChannelMessagesList`\r\n\r\nWe'll need a bit of design first, please @ShendMikullovci .  \r\n\r\nHmm, maybe a cog that's a drop-down menu to the right of the \"Add Channel\" button? The drop-down menu could show a toggle for \"Hide Forces in Channels\"",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1186591839,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-17T19:14:05Z",
+          "updated_at": "2022-07-17T19:14:05Z",
+          "body": "\r\nhttps://user-images.githubusercontent.com/85491794/179421307-d1cf7256-e2ec-492f-a669-54cdf6f0af56.mp4\r\n\r\n"
+        },
+        {
+          "id": 1186592312,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-17T19:17:16Z",
+          "updated_at": "2022-07-17T19:17:16Z",
+          "body": "Here's a screenshot of that for a better view: \r\n\r\n![Hide Forces In Channels](https://user-images.githubusercontent.com/85491794/179421364-d0e55377-bc6b-4a14-8693-801e37e7afd0.png)\r\n\r\nYou'll notice I deleted the \"Actions\" header. The buttons are quite self explanatory. \r\nYou'll also notice I changed the \"Restrict access to specific roles\" to just \"Roles\". The latter header is also quite self explanatory. \r\nThe hidden force in this case (Blue Force) is tinted grey. "
+        },
+        {
+          "id": 1186896851,
+          "user": "IanMayo",
+          "created_at": "2022-07-18T08:10:27Z",
+          "updated_at": "2022-07-18T08:10:27Z",
+          "body": "Hello Shend, this requirement relates to the player pages.  In the admin pages, the Game Designer sees all roles.\r\n\r\nThe handle the changes in \"visibility\" while the game is playing, the Game Controller will delete the `Red Force` from the channel when they are dived, and add them again when they return to periscope death. This functionality is already quite mature.\r\n\r\nAll we need is the toggle for the whole wargame that indicates if forces should be shown in channels.  (we're coming to the end of the budget for this set of packages of work, and there isn't a requirement for per-channel control of visibiltiy)."
+        },
+        {
+          "id": 1189531246,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-19T20:41:58Z",
+          "updated_at": "2022-07-19T20:41:58Z",
+          "body": "I thought of circular menus last night and tried it out. It could do the job well.\r\n\r\nhttps://user-images.githubusercontent.com/85491794/179844494-a5d5aa8b-e478-47a0-a358-e73a323b83f7.mp4\r\n"
+        },
+        {
+          "id": 1189979264,
+          "user": "IanMayo",
+          "created_at": "2022-07-20T08:25:16Z",
+          "updated_at": "2022-07-20T08:25:16Z",
+          "body": "Very stylish.  But, at the moment, it's just one toggle for the whole wargame: \"Show forces in channels\".\r\n\r\nThe Game Control uses the admin pages to add/remove a force (or role) from a channel.  "
+        },
+        {
+          "id": 1190130522,
+          "user": "IanMayo",
+          "created_at": "2022-07-20T10:56:55Z",
+          "updated_at": "2022-07-20T10:57:08Z",
+          "body": "Have added control to support this (bottom right). We'll have to include it in the updated admin pages overview:\r\n![image](https://user-images.githubusercontent.com/1108513/179965841-31bae7d3-fdd7-4158-892e-b614e046d2f1.png)\r\n"
+        },
+        {
+          "id": 1193138337,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-23T14:56:44Z",
+          "updated_at": "2022-07-23T14:56:44Z",
+          "body": "Hi Ian! \r\n\r\nSo, in this case, nobody (no Force) sees anybody in channels? Meaning, everyone is invisible to everyone? "
+        },
+        {
+          "id": 1193838984,
+          "user": "IanMayo",
+          "created_at": "2022-07-25T10:01:02Z",
+          "updated_at": "2022-07-25T10:01:02Z",
+          "body": "When ticked, no Force Icons will be shown at the top of channels.  So, Blue Force will not see Red Force entering or leaving the channel.  Red won't be posting into it, but while a member, it will be able to read messages."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/179421364-d0e55377-bc6b-4a14-8693-801e37e7afd0.png",
+    "https://user-images.githubusercontent.com/1108513/179965841-31bae7d3-fdd7-4158-892e-b614e046d2f1.png"
+  ],
+  "number_of_changed_files": 16,
+  "total_changed_lines": 281
+}

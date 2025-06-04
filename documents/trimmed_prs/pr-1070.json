@@ -1,0 +1,93 @@
+{
+  "number": 1070,
+  "title": "Country not shown for some regions",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-09-04T01:53:18Z",
+  "updated_at": "2022-07-11T13:30:04Z",
+  "closed_at": "2021-09-06T19:24:22Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1070",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1070/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1070/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1070",
+  "body": "Fixes #1036 ",
+  "additions": 8,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 912950213,
+      "user": "IanMayo",
+      "created_at": "2021-09-04T10:30:28Z",
+      "updated_at": "2021-09-04T10:30:28Z",
+      "body": "Could you explain how the fix works please @lebaphi ?\r\n\r\nIt's not _good engineering_ for `json-editor` to know about the structure of both the schema _and_ the message.\r\n\r\nI wonder if there are alternative solutions?"
+    },
+    {
+      "id": 912953916,
+      "user": "lebaphi",
+      "created_at": "2021-09-04T10:58:10Z",
+      "updated_at": "2021-09-04T11:01:28Z",
+      "body": "> Could you explain how the fix works please @lebaphi ?\r\n> \r\n> It's not _good engineering_ for `json-editor` to know about the structure of both the schema _and_ the message.\r\n> \r\n> I wonder if there are alternative solutions?\r\n\r\nyep, I found when I change the drop down, it will trigger this code line:\r\n```\r\nhandleChange(nextEditor.getValue())\r\n```\r\nbut the `nextEditor.getValue()` only return the current selected value on the -> update the `message.LOCATION` schema -> re-render -> lack of data of the schema -> the country dropdown has gone.\r\n\r\nlet say with example for you to get easy understand: \r\n\r\nthe LOCATION schema:\r\n```\r\nLOCATION: {\r\n          title: \"*Location of activities in this turn\",\r\n          type: \"object\",\r\n          properties: {\r\n            region: {\r\n              title: \"Region\",\r\n              type: \"string\",\r\n              enum: [\r\n                \"Asia Pacific\",\r\n                \"Europe\",\r\n                \"Americas\"\r\n              ],\r\n              default: \"Europe\"\r\n            },\r\n            Europe: {\r\n              title: \"Country\",\r\n              type: \"string\",\r\n              enum: [\r\n                \"United Kingdom\",\r\n                \"Germany\"\r\n              ],\r\n              options: {\r\n                dependencies: {\r\n                  region: \"Europe\"\r\n                }\r\n              }\r\n            },\r\n            Americas: {\r\n              title: \"Country\",\r\n              type: \"string\",\r\n              enum: [\r\n                \"United State of America\",\r\n                \"Brazil\"\r\n              ],\r\n              options: {\r\n                dependencies: {\r\n                  region: \"Americas\"\r\n                }\r\n              }\r\n            },\r\n            AsiaPacific: {\r\n              title: \"Country\",\r\n              type: \"string\",\r\n              enum: [\r\n                \"India\",\r\n                \"China\"\r\n              ],\r\n              options: {\r\n                dependencies: {\r\n                  region: \"Asia Pacific\"\r\n                }\r\n              }\r\n            }\r\n          }\r\n        },\r\n```\r\n\r\nthe schema of the `message.LOCATION` in edit mode should be:\r\n```\r\nregion: <selected_value>,\r\nEurope: <selected_value>,\r\nAmericas: <selected_value>,\r\nAsiaPacific: <selected_value>\r\n```\r\nbut currently it is (because it is selecting on the form)\r\n```\r\nregion: <selected_value>,\r\nEurope: <selected_value>,\r\n```\r\nThat is why it does not render other countries dropdown. \r\n\r\nThis fix is only for the `LOCATION` , I think we should have a general solution for this. Maybe when creating a new instance of the Editor, we should verify that all schema's KEYS are available 🤔 "
+    },
+    {
+      "id": 913822227,
+      "user": "IanMayo",
+      "created_at": "2021-09-06T19:24:22Z",
+      "updated_at": "2021-09-06T19:24:22Z",
+      "body": "Closing this issue. We no longer rely on dependent arrays."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1036
+  ],
+  "issues": [
+    {
+      "id": 983892513,
+      "number": 1036,
+      "title": "Country not shown for some regions",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-31T13:55:23Z",
+      "updated_at": "2021-09-07T02:48:39Z",
+      "closed_at": "2021-09-07T02:48:39Z",
+      "body": "Note: this issue can be reproduced by entering the `Papa Foxtrot` game as `Blue Senior`, going into the `Blue COAs` channel, and creating a new COA document.\r\n\r\nWe're using JSON-Schema `dependencies` to make one drop-down control dependent upon the value of another.\r\n\r\nBut, this is breaking when we edit an existing document:\r\n![screencast](https://i.gyazo.com/01efa0c1d029b276bf6cfd47027441b8.gif)\r\n\r\nIt works fine for new documents:\r\n![screencast 2](https://i.gyazo.com/99b8c0adbff6544fd9ed08aea1a52eae.gif)\r\n\r\nAah, note how the control moves to the right for some values.  That _may_ be down to the length of the USA country name. Will experiment.\r\n\r\nNote: resizing the browser window makes the missing control appear:\r\n![screencast 3](https://i.gyazo.com/6701e02da08de7703dcdc13829a18507.gif)",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 910153731,
+          "user": "lebaphi",
+          "created_at": "2021-09-01T10:32:06Z",
+          "updated_at": "2021-09-01T10:32:51Z",
+          "body": "Hi @IanMayo, It seems the dropdown works well on my machine\r\nhttps://user-images.githubusercontent.com/26705621/131655966-aaed414d-8790-43ad-b4fa-ea802cd8d7bd.mov\r\nSo this form was generate by the JSON Editor load the schema \r\n```\r\ncreateEditor(schema)\r\n```\r\n\r\nsample schema \r\n```\r\nLOCATION: {\r\n          title: \"*Location of activities in this turn\",\r\n          type: \"object\",\r\n          properties: {\r\n            region: {\r\n              title: \"Region\",\r\n              type: \"string\",\r\n              enum: [\r\n                \"Asia Pacific\",\r\n                \"Europe\",\r\n                \"Americas\"\r\n              ],\r\n              default: \"Europe\"\r\n            },\r\n            Europe: {\r\n              title: \"Country\",\r\n              type: \"string\",\r\n              enum: [\r\n                \"United Kingdom\",\r\n                \"Germany\"\r\n              ],\r\n              options: {\r\n                dependencies: {\r\n                  region: \"Europe\"\r\n                }\r\n              }\r\n            },\r\n            Americas: {\r\n              title: \"Country\",\r\n              type: \"string\",\r\n              enum: [\r\n                \"United State of America\",\r\n                \"Brazil\"\r\n              ],\r\n              options: {\r\n                dependencies: {\r\n                  region: \"Americas\"\r\n                }\r\n              }\r\n            },\r\n            AsiaPacific: {\r\n              title: \"Country\",\r\n              type: \"string\",\r\n              enum: [\r\n                \"India\",\r\n                \"China\"\r\n              ],\r\n              options: {\r\n                dependencies: {\r\n                  region: \"Asia Pacific\"\r\n                }\r\n              }\r\n            }\r\n          }\r\n        },\r\n```\r\nSo can you check your schema if it matches with the schema above ?\r\n"
+        },
+        {
+          "id": 910179511,
+          "user": "IanMayo",
+          "created_at": "2021-09-01T11:10:30Z",
+          "updated_at": "2021-09-01T11:10:30Z",
+          "body": "Yes, it works when creating a new document. But, it doesn't work when editing one.\r\n\r\nSo, you will `Submit` the one you're looking at.  It will collapse. Then you will `Claim` it, and it will collapse again.  Then, you can edit the existing document - and you should see the second drop-down disappears until the window is resized."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/01efa0c1d029b276bf6cfd47027441b8.gif",
+    "https://i.gyazo.com/99b8c0adbff6544fd9ed08aea1a52eae.gif",
+    "https://i.gyazo.com/6701e02da08de7703dcdc13829a18507.gif"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 9
+}

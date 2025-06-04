@@ -1,0 +1,30 @@
+{
+  "number": 1033,
+  "title": "Hotfix reduce column headers",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-31T12:52:47Z",
+  "updated_at": "2021-08-31T13:48:56Z",
+  "closed_at": "2021-08-31T13:48:56Z",
+  "merged_at": "2021-08-31T13:48:56Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1033",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1033/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1033/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1033",
+  "body": "The headers on the XLS export are quite cumbersome, involving field name duplication, and an unnecessary first field name.\r\n\r\nThis PR simplifies the export, changing:\r\n`MESSAGES_DETAILS DETAILS_COLLABORATION COLLABORATION_STATUS STATUS`\r\nto:\r\n`DETAILS COLLABORATION STATUS`\r\n\r\nIt also drops support for exporting in `.XLS` format, since for some large wargames Excel warned that some data may be missing.  Now we just support exporting in `.XLSX` format.",
+  "additions": 8,
+  "deletions": 19,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 27
+}

@@ -1,0 +1,50 @@
+{
+  "number": 1051,
+  "title": "Display optional columns",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-02T12:09:43Z",
+  "updated_at": "2021-09-03T08:09:19Z",
+  "closed_at": "2021-09-03T08:09:18Z",
+  "merged_at": "2021-09-03T08:09:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1051",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1051/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1051/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1051",
+  "body": "Fixes #1004 ",
+  "additions": 129,
+  "deletions": 48,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1045
+  ],
+  "issues": [
+    {
+      "id": 985329440,
+      "number": 1045,
+      "title": "Simplify collab states",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-01T16:01:50Z",
+      "updated_at": "2021-09-02T10:35:23Z",
+      "closed_at": "2021-09-02T10:35:23Z",
+      "body": "We have separate states for edit and pending for documents or responses:\r\n![image](https://user-images.githubusercontent.com/1108513/131704753-6743a1a2-32fe-4586-81f0-15e6e13f44ef.png)\r\n\r\n\r\nI'm sure we can just have one status. This will reduce the size of the lozenges in the COA Status Board\r\n\r\nThis also means we can combine some of the methods in `changers` and `visibility`.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/131704753-6743a1a2-32fe-4586-81f0-15e6e13f44ef.png"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 177
+}

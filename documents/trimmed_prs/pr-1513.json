@@ -1,0 +1,54 @@
+{
+  "number": 1513,
+  "title": "1477: Display of icons broken in world map panel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-15T11:24:16Z",
+  "updated_at": "2022-04-19T09:21:16Z",
+  "closed_at": "2022-04-19T09:21:15Z",
+  "merged_at": "2022-04-19T09:21:15Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1513",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1513/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1513/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1513",
+  "body": "Fixes #1477 \r\n\r\n<img width=\"996\" alt=\"Screen Shot 2022-04-15 at 6 19 28 PM\" src=\"https://user-images.githubusercontent.com/26705621/163565228-7f2544ca-4af4-4dd6-b86b-e9ba4f8b1483.png\">\r\n\r\n",
+  "additions": 50,
+  "deletions": 36,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1477
+  ],
+  "issues": [
+    {
+      "id": 1191695622,
+      "number": 1477,
+      "title": "Display of icons broken in `world map` panel.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-04T12:14:01Z",
+      "updated_at": "2022-04-19T09:21:15Z",
+      "closed_at": "2022-04-19T09:21:15Z",
+      "body": "\r\n![image](https://user-images.githubusercontent.com/1108513/161540780-5c5673fe-fdda-4c5e-8788-7b87fc8c98d1.png)\r\n\r\nWhen we added formatting for \"view force assets\" in Game Admin page (below), it broken the layout in the World Map panel, with all the text pushed to the right (above).\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/161541088-52084783-9adb-4d4e-891f-c60b567f6d59.png)\r\n\r\nI think both panels use the `asset-icon` component - but we need two different ways of styling it - depending on which version it is.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/163565228-7f2544ca-4af4-4dd6-b86b-e9ba4f8b1483.png",
+    "https://user-images.githubusercontent.com/1108513/161540780-5c5673fe-fdda-4c5e-8788-7b87fc8c98d1.png",
+    "https://user-images.githubusercontent.com/1108513/161541088-52084783-9adb-4d4e-891f-c60b567f6d59.png"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 86
+}

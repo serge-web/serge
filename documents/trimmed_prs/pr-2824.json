@@ -1,0 +1,64 @@
+{
+  "number": 2824,
+  "title": "Umpire item is auto increased for each time switch channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-06T02:55:50Z",
+  "updated_at": "2024-02-06T09:08:44Z",
+  "closed_at": "2024-02-06T09:08:43Z",
+  "merged_at": "2024-02-06T09:08:43Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2824",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2824/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2824/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2824",
+  "body": "Fixes #2790 ",
+  "additions": 22,
+  "deletions": 15,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1929030762,
+      "user": "Tristina1788",
+      "created_at": "2024-02-06T08:43:52Z",
+      "updated_at": "2024-02-06T08:43:52Z",
+      "body": "Checked on branch '2790-items-increased', now switch channel will not increase umpire item as expected. \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/a620612c-86d8-4135-96b2-4e784e5629a3\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2790
+  ],
+  "issues": [
+    {
+      "id": 2105253350,
+      "number": 2790,
+      "title": "Umpire item is auto increased for each time switch channel",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-01-29T11:15:45Z",
+      "updated_at": "2024-02-06T09:08:44Z",
+      "closed_at": "2024-02-06T09:08:44Z",
+      "body": "## 🐞 Bug description\r\nThe number of Point Markers (Umpire item increases each time switch channel.  I _think_ is only an issue after we have added one or more items.  I _suspect_ we are re-adding `deltas` to the current set of features.\r\n\r\n## 🔢 Steps to Reproduce\r\n1. Play game with data wargame-l6nngxlk - wargame Name : P10 Test ( Role: Umpire - Game Designer)\r\n2. Click on channel 'Core Mapping'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/86307a58-5891-45d2-a40b-cb927b00db68)\r\n\r\n4. Switch to another channel\r\n5. Switch again to 'Core Mapping' Channel\r\n6. Notice the Umpire item, it's auto increase (seem the umpire items are double)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/6e4c6f6a-e390-4948-9d2d-e3db0a585a23)\r\n\r\n\r\nMore detail on below screencast\r\n## ⚙️ Expected behavior\r\nShould not auto increase number of Umpire Item for each time switch channel\r\n\r\n## 🖥️ Screencasts\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/822ab509-a068-40b1-8b82-7b4f7da2af19\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n- Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n\r\n",
+      "labels": [
+        "bug",
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/86307a58-5891-45d2-a40b-cb927b00db68",
+    "https://github.com/serge-web/serge/assets/107697044/6e4c6f6a-e390-4948-9d2d-e3db0a585a23"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 37
+}

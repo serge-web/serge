@@ -1,0 +1,67 @@
+{
+  "number": 2906,
+  "title": "Properties should not saved when it was cancel before",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-03-17T04:51:17Z",
+  "updated_at": "2024-03-19T11:47:57Z",
+  "closed_at": "2024-03-19T11:47:56Z",
+  "merged_at": "2024-03-19T11:47:56Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2906",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2906/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2906/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2906",
+  "body": "Fixes #2905 ",
+  "additions": 5,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 2003218712,
+      "user": "Tristina1788",
+      "created_at": "2024-03-18T08:46:57Z",
+      "updated_at": "2024-03-18T08:46:57Z",
+      "body": "@lebaphi , @IanMayo  Tested on '2905-property-save-issue'\r\n\r\n- Now the properties is not fixed after click 'Cancel' \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/620a4e9f-586e-4878-8638-34df9a292bc5\r\n\r\n\r\n- I have another case and we should fix it. The properties on a item should not saved when I click to another item (More details on below steps)\r\n1. Click on a item\r\n2. Update any property of this item\r\n3. Click to another item\r\n4. Update any property and save\r\n5. Notice the property is also saved with first item\r\n\r\nExpected : Should only save for selected item.\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/a28f62e6-05a3-4fa5-a619-312ba90dc9bc\r\n\r\n@IanMayo How do you think?\r\n"
+    },
+    {
+      "id": 2003756414,
+      "user": "Tristina1788",
+      "created_at": "2024-03-18T12:14:59Z",
+      "updated_at": "2024-03-18T12:14:59Z",
+      "body": "@lebaphi , @IanMayo  Now Properties are only saved for selected item as expected. \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/4d1975bb-a9f1-4828-8b14-5528a39aa346\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2905
+  ],
+  "issues": [
+    {
+      "id": 2187760443,
+      "number": 2905,
+      "title": "Properties should not saved when it was cancel before",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-03-15T05:35:15Z",
+      "updated_at": "2024-03-19T11:47:57Z",
+      "closed_at": "2024-03-19T11:47:57Z",
+      "body": "## 🐞 Bug description\r\nProperties is saved when it was cancel before\r\n\r\n## 🔢 Steps to Reproduce\r\n \r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Select a item \r\n3. Update a property of the item\r\n4. Click 'Cancel' on 'Properties' panel\r\n5. Select another item\r\n6. Update a property of item\r\n7. Click 'Save' button\r\n8. Notice the property on first item is also saved\r\n\r\n## ⚙️ Expected behavior\r\nProperties should not saved when it was cancel before\r\n\r\n## 🖥️ Screencast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/5d83dfe2-2c08-4afe-b4dc-5416246ac147\r\n\r\n\r\n\r\n## 💻 System information\r\nBrowser : Chrome\r\nBrowser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 6
+}

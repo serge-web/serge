@@ -1,0 +1,79 @@
+{
+  "number": 987,
+  "title": "Wargame turn presentation change",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-08-06T05:00:25Z",
+  "updated_at": "2021-09-03T16:54:29Z",
+  "closed_at": "2021-08-11T12:29:50Z",
+  "merged_at": null,
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/987",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/987/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/987/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/987",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #955 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 179,
+  "deletions": 43,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 2,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 896785630,
+      "user": "IanMayo",
+      "created_at": "2021-08-11T12:29:50Z",
+      "updated_at": "2021-08-11T12:29:50Z",
+      "body": "Close. Superceded by #990 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 685052181,
+      "user": "IanMayo",
+      "created_at": "2021-08-09T09:44:35Z",
+      "updated_at": "2021-08-09T09:44:35Z",
+      "body": "@sanjayradadiya - I don't like us declaring these constant values twice.  Is it possible to just use the constants declared in `@serge/config` below?",
+      "path": "packages/client/src/consts.js",
+      "diff_hunk": "@@ -48,6 +48,8 @@ export const PLAN_REJECTED = 'rejected'\n export const CHANNEL_RFI_STATUS = 'rfis'\n export const CHANNEL_MAPPING = 'mapping'\n \n+export const NATURAL = 'Natural'",
+      "html_url": "https://github.com/serge-web/serge/pull/987#discussion_r685052181"
+    },
+    {
+      "id": 685052761,
+      "user": "IanMayo",
+      "created_at": "2021-08-09T09:45:32Z",
+      "updated_at": "2021-08-09T09:45:32Z",
+      "body": "@sanjayradadiya - shouldn't we specify that this can take one of the two constants?",
+      "path": "packages/custom-types/wargame-overview.d.ts",
+      "diff_hunk": "@@ -5,6 +5,8 @@ export default interface WargameOverview {\n   name: string,\n   /** high level description of wargame */\n   gameDescription: string,\n+  /** type of turn presentation */\n+  turnPresentation?: string,",
+      "html_url": "https://github.com/serge-web/serge/pull/987#discussion_r685052761"
+    }
+  ],
+  "issue_numbers": [
+    990
+  ],
+  "issues": [
+    {
+      "id": 965993789,
+      "number": 990,
+      "title": "955b turn presentation styles",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-11T05:54:42Z",
+      "updated_at": "2021-08-11T12:27:38Z",
+      "closed_at": "2021-08-11T12:27:37Z",
+      "body": "Fixes #955 \r\nSupercedes #987 \r\n\r\nHere is the logic for this version, @sanjayradadiya:\r\n* game turn increments naturally, as before\r\n* admin pages can be used to modify `turnPresentation` value\r\n* `turnPresentation` is used to determine how to display turn number in UI\r\n\r\nI've only found three locations where turn is rendered:\r\n* `<TurnProgression/>` panel [here](https://serge-955b-turn-present-pppomi.herokuapp.com/storybook/?path=/story/local-molecules-turnprogression--with-phases&args=turnPresentation:Turn-Pairs)\r\n* turn marker in list of chat messages [[here](https://serge-955b-turn-present-pppomi.herokuapp.com/storybook/?path=/story/local-templates-chatmessagesetup--demonstration&args=turnPresentation:Turn-Pairs)]\r\n* turn marker in list of channel/custom messages",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 222
+}

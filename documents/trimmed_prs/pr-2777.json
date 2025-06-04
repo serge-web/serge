@@ -1,0 +1,110 @@
+{
+  "number": 2777,
+  "title": "Support text editing in Core Mapping channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-22T15:13:05Z",
+  "updated_at": "2024-01-31T16:28:56Z",
+  "closed_at": "2024-01-31T16:28:55Z",
+  "merged_at": "2024-01-31T16:28:55Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2777",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2777/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2777/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2777",
+  "body": "Fixes #2761 \r\n\r\nThere is some minor issues but it will work like this I think :D\r\n\r\nhttps://github.com/serge-web/serge/assets/26705621/e5f6b120-eaa3-4473-962c-5da5a048fbfb\r\n\r\n\r\n\r\n",
+  "additions": 113,
+  "deletions": 46,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 1,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1904227980,
+      "user": "IanMayo",
+      "created_at": "2024-01-22T15:19:58Z",
+      "updated_at": "2024-01-22T15:19:58Z",
+      "body": "Yes - I see we're really close.  In the GeoMAN demo, doesn't it start off with being an editable component (so the user immediately types in the text)?  Can we reproduce that?"
+    },
+    {
+      "id": 1904230466,
+      "user": "lebaphi",
+      "created_at": "2024-01-22T15:21:11Z",
+      "updated_at": "2024-01-22T15:21:11Z",
+      "body": "> Yes - I see we're really close. In the GeoMAN demo, doesn't it start off with being an editable component (so the user immediately types in the text)? Can we reproduce that?\r\n\r\nYep, I'm working on this ✌️ "
+    },
+    {
+      "id": 1908316490,
+      "user": "lebaphi",
+      "created_at": "2024-01-24T15:04:56Z",
+      "updated_at": "2024-01-24T15:04:56Z",
+      "body": "Hi @IanMayo, I just pushed the fixes, can you help to check this 😄 "
+    },
+    {
+      "id": 1908391426,
+      "user": "IanMayo",
+      "created_at": "2024-01-24T15:43:10Z",
+      "updated_at": "2024-01-24T15:43:10Z",
+      "body": "Yes, nicely one thank @lebaphi \r\n\r\nThere are a few more requirements recorded in the issue, please."
+    },
+    {
+      "id": 1909914980,
+      "user": "IanMayo",
+      "created_at": "2024-01-25T10:55:48Z",
+      "updated_at": "2024-01-25T10:55:48Z",
+      "body": "Nice progress :-)\r\n\r\nI don't think we need both `TextValue` and `Label`.  If possible, could we just have the `Label` field?\r\n![image](https://github.com/serge-web/serge/assets/1108513/eddba0c4-d591-4739-a113-1dfe6c01a61b)\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1472519645,
+      "user": "IanMayo",
+      "created_at": "2024-01-31T09:15:36Z",
+      "updated_at": "2024-01-31T09:15:36Z",
+      "body": "@hello @lebaphi the `text` element should be of type RENDERER_CORE, rather than RENDERER_MILSYM - since MILSYM is just for entities from the MilSymbol library, please.",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -202,6 +203,24 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play\n           }\n         }\n       }\n+      case 'Text': {\n+        const loc = (e as any).layer._latlng as L.LatLng\n+        return {\n+          type: 'Feature',\n+          properties: {",
+      "html_url": "https://github.com/serge-web/serge/pull/2777#discussion_r1472519645"
+    }
+  ],
+  "issue_numbers": [
+    2761
+  ],
+  "issues": [
+    {
+      "id": 2076290075,
+      "number": 2761,
+      "title": "Support text editing in Core Mapping channel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-11T10:50:01Z",
+      "updated_at": "2024-01-30T16:10:11Z",
+      "closed_at": "2024-01-30T16:10:11Z",
+      "body": "The GeoMan demo page allows text labels to be added:\r\nhttps://www.geoman.io/demo\r\n\r\nOur core-mapping interface doesn't currently support this.\r\n\r\nWe need to add the ability to add and edit text labels, with these changes:\r\n- the origin of the text label should be at the centre of the label, in the demo it appears to be at the top-left\r\n- the padding around the text doesn't seem to be even on all sides, it should be\r\n- we should be able to control the color of the backdrop (via feature properties)\r\n- _maybe_ we should be able to control the font size  (via feature properties)\r\n\r\nhttps://github.com/serge-web/serge/assets/1108513/d180fe5d-7084-405f-87cb-d46eeadbf197\r\n\r\n\r\n",
+      "labels": [
+        "enhancement",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1917383637,
+          "user": "IanMayo",
+          "created_at": "2024-01-30T16:10:11Z",
+          "updated_at": "2024-01-30T16:10:11Z",
+          "body": "This is in hand"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/eddba0c4-d591-4739-a113-1dfe6c01a61b"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 159
+}

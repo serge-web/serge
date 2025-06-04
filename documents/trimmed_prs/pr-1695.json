@@ -1,0 +1,111 @@
+{
+  "number": 1695,
+  "title": "1683: Update Blue Shade",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-27T04:28:41Z",
+  "updated_at": "2022-07-30T10:55:59Z",
+  "closed_at": "2022-07-29T11:18:44Z",
+  "merged_at": "2022-07-29T11:18:44Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1695",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1695/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1695/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1695",
+  "body": "Fixes #1683 \r\n\r\n<img width=\"258\" alt=\"Screen Shot 2022-07-27 at 11 22 40 AM\" src=\"https://user-images.githubusercontent.com/26705621/181161627-1a22e471-91af-4fa1-bd8b-d1b362ea5f3c.png\">\r\n\r\n",
+  "additions": 6,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1196455935,
+      "user": "IanMayo",
+      "created_at": "2022-07-27T09:00:46Z",
+      "updated_at": "2022-07-27T09:00:46Z",
+      "body": "Hey, @lebaphi  - that fade in the Turn Progression panel is stylish.  But, part of me thinks it's too subtle, and another part of me thinks it's unnecessary.\r\n\r\nI'm pretty sure that as we get further down we lose contrast on the white text.  Damn, I've probably wasted too much time on this already 🤣   What do you think @lebaphi  & @ShendMikullovci ?\r\n\r\nZero fade:\r\n![image](https://user-images.githubusercontent.com/1108513/181205693-eacf20c5-c02c-4074-9701-360a30b465ce.png)\r\n\r\n10%:\r\n![image](https://user-images.githubusercontent.com/1108513/181205856-247c1982-96d0-4cde-918e-015c7d11a55d.png)\r\n\r\n20%:\r\n![image](https://user-images.githubusercontent.com/1108513/181205914-8a67493f-3312-4af3-b9e3-1989c40acfe2.png)\r\n\r\n\r\n30%:\r\n![image](https://user-images.githubusercontent.com/1108513/181206004-93797a99-0a96-4a2f-9bed-6d285ebfe0f3.png)\r\n\r\n40%:\r\n![image](https://user-images.githubusercontent.com/1108513/181206076-8cc707e9-a441-4e2d-9c08-b26f35ef8e5b.png)\r\n\r\n50%:\r\n![image](https://user-images.githubusercontent.com/1108513/181206168-fb3cab31-b355-475d-b06d-4eec0a1fa3a8.png)\r\n\r\n60%:\r\n![image](https://user-images.githubusercontent.com/1108513/181206276-9175d9c3-13a6-4fa6-9da7-45623c7943a8.png)\r\n"
+    },
+    {
+      "id": 1196780869,
+      "user": "lebaphi",
+      "created_at": "2022-07-27T13:43:22Z",
+      "updated_at": "2022-07-27T13:43:22Z",
+      "body": "> \r\n\r\nlol, I tried to make the panel color as similar to the tab button color as possible. So imo, 0 or 10% fade is fine @IanMayo :v"
+    },
+    {
+      "id": 1200135218,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-30T10:55:58Z",
+      "updated_at": "2022-07-30T10:55:58Z",
+      "body": "Love the final look. Great work guys!"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1683
+  ],
+  "issues": [
+    {
+      "id": 1313083542,
+      "number": 1683,
+      "title": "Consistent use of blue shade",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-21T11:06:58Z",
+      "updated_at": "2022-07-29T11:18:44Z",
+      "closed_at": "2022-07-29T11:18:44Z",
+      "body": "We appear to be using three shades of dark blue (`a`, `b`, `c` below):\r\n![Screenshot 2022-07-21 at 12 02 34](https://user-images.githubusercontent.com/1108513/180199246-5bb869b3-df80-4e3e-affb-cf95eed3393a.png)\r\n\r\n\r\nThere could be benefit in switching to just one shade.\r\n\r\nOr we could have one shade of dark-blue for _in-game_ (left) and another shade for _out-of-game_ (right) components.  If we do want different shades, to highlight different parts of the game, then I suspect we should:\r\n1. increase the difference between the two shades\r\n2. use the same shades for `b` and `c`.\r\n\r\nWhat do you think, @ShendMikullovci ?\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1193096869,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-23T09:45:25Z",
+          "updated_at": "2022-07-23T09:45:25Z",
+          "body": "I agree. I think a.) should stay, and c.) be turned into a.) to see how it looks. I think b.) should go, since it's not as widely used as a.) and c.) and it's more of a grey blue than navy blue."
+        },
+        {
+          "id": 1193801595,
+          "user": "IanMayo",
+          "created_at": "2022-07-25T09:23:26Z",
+          "updated_at": "2022-07-25T09:23:26Z",
+          "body": "Hmm, do you think there is logic in using styling to differentiate between \"in-game\" and \"out-of-game\" parts of Serge?\r\n\r\nUsing the same shade for A & C at the bottom of the screen loses this differentiation. But, if we are going to differentiate them, then we should probably make the color different greater. "
+        },
+        {
+          "id": 1193825918,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-25T09:47:01Z",
+          "updated_at": "2022-07-25T09:47:01Z",
+          "body": "> Hmm, do you think there is logic in using styling to differentiate between \"in-game\" and \"out-of-game\" parts of Serge?\r\n\r\nThat could definitely be beneficial.\r\n\r\n> Using the same shade for A & C at the bottom of the screen loses this differentiation. \r\n\r\nWhat we could do is remove B and apply C instead. That way we stick to navy blue, but the shade between A and C would still be sufficiently different (I believe).\r\n\r\n"
+        },
+        {
+          "id": 1193841126,
+          "user": "IanMayo",
+          "created_at": "2022-07-25T10:03:10Z",
+          "updated_at": "2022-07-25T10:03:10Z",
+          "body": "Ok. That should be enough for @lebaphi .  Could shade of blue at `c` also be used for `b` please?"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/181161627-1a22e471-91af-4fa1-bd8b-d1b362ea5f3c.png",
+    "https://user-images.githubusercontent.com/1108513/181205693-eacf20c5-c02c-4074-9701-360a30b465ce.png",
+    "https://user-images.githubusercontent.com/1108513/181205856-247c1982-96d0-4cde-918e-015c7d11a55d.png",
+    "https://user-images.githubusercontent.com/1108513/181205914-8a67493f-3312-4af3-b9e3-1989c40acfe2.png",
+    "https://user-images.githubusercontent.com/1108513/181206004-93797a99-0a96-4a2f-9bed-6d285ebfe0f3.png",
+    "https://user-images.githubusercontent.com/1108513/181206076-8cc707e9-a441-4e2d-9c08-b26f35ef8e5b.png",
+    "https://user-images.githubusercontent.com/1108513/181206168-fb3cab31-b355-475d-b06d-4eec0a1fa3a8.png",
+    "https://user-images.githubusercontent.com/1108513/181206276-9175d9c3-13a6-4fa6-9da7-45623c7943a8.png",
+    "https://user-images.githubusercontent.com/1108513/180199246-5bb869b3-df80-4e3e-affb-cf95eed3393a.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 7
+}

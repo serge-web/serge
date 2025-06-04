@@ -1,0 +1,105 @@
+{
+  "number": 1069,
+  "title": "DO NOT MERGE. Playable version of updated json-editor",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-09-03T18:09:29Z",
+  "updated_at": "2023-06-13T13:29:37Z",
+  "closed_at": "2023-06-13T13:29:32Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1069",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1069/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1069/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1069",
+  "body": "Recreate PR, to generate review app.",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1589321953,
+      "user": "IanMayo",
+      "created_at": "2023-06-13T13:29:32Z",
+      "updated_at": "2023-06-13T13:29:32Z",
+      "body": "Close. No longer relevant"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    557
+  ],
+  "issues": [
+    {
+      "id": 754461383,
+      "number": 557,
+      "title": "Upgrade dependencies",
+      "state": "open",
+      "user": "IanMayo",
+      "created_at": "2020-12-01T14:49:35Z",
+      "updated_at": "2021-04-30T09:56:42Z",
+      "closed_at": null,
+      "body": "## 🐞 Amendment description\r\n<!-- A clear and concise description of what the amendment is. -->\r\n\r\nThe version of npm that we're using is out of data:\r\n![image](https://user-images.githubusercontent.com/1108513/100754809-6630d080-33e3-11eb-8556-cc3debb762cc.png)\r\n\r\n\r\nI did `npm update` and it listed a number of libraries that had been deprecated, or replaced with others.\r\n\r\nWe should go through our dependencies & switch to updated, maintained versions.\r\n",
+      "labels": [
+        "Technical Debt"
+      ],
+      "comments": [
+        {
+          "id": 820332200,
+          "user": "IanMayo",
+          "created_at": "2021-04-15T10:56:14Z",
+          "updated_at": "2021-04-15T10:56:14Z",
+          "body": "Assigned issue to @sandro768 \r\n\r\nI appreciate you may not feel able to verify the updates don't break anything - but I'm happy to do that."
+        },
+        {
+          "id": 821442553,
+          "user": "sandro768",
+          "created_at": "2021-04-16T18:38:35Z",
+          "updated_at": "2021-04-16T18:38:35Z",
+          "body": "Have you tried executing the `npm update` in the root of the project? We use Yarn, don't we?"
+        },
+        {
+          "id": 821825550,
+          "user": "IanMayo",
+          "created_at": "2021-04-17T13:49:54Z",
+          "updated_at": "2021-04-17T13:49:54Z",
+          "body": "Hmm, I think I've got confused between `upgrade` and `update`.  `upgrade` works on dependencies, I think `update` updates yarn/npm themselves."
+        },
+        {
+          "id": 821825896,
+          "user": "IanMayo",
+          "created_at": "2021-04-17T13:51:56Z",
+          "updated_at": "2021-04-17T13:51:56Z",
+          "body": "Aah, I've learned a little more.  I ran `yarn upgrade` - and many modules reported that they were now deprecated, and pointed us to alternative modules to use.  \r\n\r\nHere's a sample of the listing:\r\n```\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > eslint-loader@2.1.1: This loader has been deprecated. Please use eslint-webpack-plugin\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > html-webpack-plugin@4.0.0-alpha.2: please switch to a stable version\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > fsevents@1.2.4: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/server > nodemon > chokidar > fsevents@1.2.13: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > webpack-dev-server > chokidar@2.1.8: Chokidar 2 will break on node v14+. Upgrade to chokidar 3 with 15x less dependencies.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-jsonschema-form > core-js@2.6.12: core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > react-app-polyfill > core-js@2.6.4: core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-jsonschema-form > @babel/runtime-corejs2 > core-js@2.6.12: core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > reactstrap > react-popper > popper.js@1.16.1: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1\r\n⠁ is\r\n```"
+        },
+        {
+          "id": 821827244,
+          "user": "IanMayo",
+          "created_at": "2021-04-17T14:00:39Z",
+          "updated_at": "2021-04-17T14:00:39Z",
+          "body": "This looks like a useful tool in this task:\r\nhttps://www.npmjs.com/package/npm-check"
+        },
+        {
+          "id": 829983340,
+          "user": "IanMayo",
+          "created_at": "2021-04-30T09:56:42Z",
+          "updated_at": "2021-04-30T09:56:42Z",
+          "body": "We have a PR that updates the dependencies AND fixes the ESLINT errors that appear after the update:\r\n#677 \r\n\r\nBut, it introduced many, many code changes.  Instead we've adopted the less risky approach of suppressing the errors, so that we can overcome them one category at a time, making more discrete changes that are easier to review/test #686 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/100754809-6630d080-33e3-11eb-8556-cc3debb762cc.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

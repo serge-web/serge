@@ -1,0 +1,216 @@
+{
+  "number": 1019,
+  "title": "991 month turn intervals",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-27T07:35:58Z",
+  "updated_at": "2021-09-15T11:47:33Z",
+  "closed_at": "2021-09-15T11:47:33Z",
+  "merged_at": "2021-09-15T11:47:33Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1019",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1019/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1019/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1019",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nSupports #991 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 138,
+  "deletions": 8,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    991
+  ],
+  "issues": [
+    {
+      "id": 966451587,
+      "number": 991,
+      "title": "As a Game Designer I need to specify turn interval in months/years",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-11T10:45:40Z",
+      "updated_at": "2023-11-13T11:34:41Z",
+      "closed_at": "2023-11-13T11:34:40Z",
+      "body": "Serge currently allows game turn lengths to be specified using days, hours, minutes, seconds:\r\n![image](https://user-images.githubusercontent.com/1108513/129016115-c59b0f9b-feb3-4c25-abb3-630395456901.png)\r\n\r\n\r\nFor larger scale wargames, the interval could be in months or years, such as each turn spanning a two-month period (Jan21-Feb21, then Mar21-Apr21, then May21-Jun-12, etc). Given the changing length of both of these items (in terms of days), we need an alternate way of specifying game turn length.\r\n\r\nSo, I _think_ we need a range of turn length strategies:\r\n* days/hours/minutes\r\n* months\r\n* years\r\n\r\nMonths and years would just take an integer value, using as appropriate in the turn time incrementing.\r\n\r\nI _think_ we need a two-step UI.  First select the turn mode, then enter the value.\r\n\r\nHere is what the data structure will look like, I guess:\r\n```\r\nexport interface MillisecondTurns {\r\n  millis: number\r\n}\r\n\r\nexport interface MonthTurns {\r\n  months: bigInt\r\n}\r\n\r\nexport interface YearTurns {\r\n years: bigInt\r\n}\r\n\r\nexport type GameTurnLength = MillisecondTurns | MonthTurns | YearTurns\r\n\r\n```\r\n\r\nWell, to be backward compatible with our current data, it would be:\r\n```\r\nexport type GameTurnLength = number | MillisecondTurns | MonthTurns | YearTurns\r\n```",
+      "labels": [
+        "wontfix"
+      ],
+      "comments": [
+        {
+          "id": 919969792,
+          "user": "IanMayo",
+          "created_at": "2021-09-15T12:20:32Z",
+          "updated_at": "2021-09-16T09:54:57Z",
+          "body": "Hello @ShendMikullovci \r\nthis is a feature that overlaps with your other design task (#954)\r\n\r\nSo far, the turn-period has been expressed in days, hours, or minutes.  All of these can be represented by a single number (milliseconds) in the software, or via a `DD HH:MM:SS` masked text control.\r\n\r\nBut, in this game they want the turn to move forward 2 months. So, they expect it to step from 1st January to 1st March - **not by 60 days**.  The time period represented by two months changes - so we need a different way of representing that.  While we add `months`, we should probably also support `years`\r\n\r\nSo that's 3 different ways of expressing the turn size:\r\n* Days/Hours/Minutes\r\n* Months\r\n* Years\r\n\r\nI _guess_ we could support this through a drop-down to select the type, then a suitable text field to provide the detail.  Or, a control with three tabs - one for each style. Each tab would contain a suitable edit control - and we'd store the value of the selected tab.\r\n\r\nAah, once the design for this is complete, we can feed it back into #954 \r\n\r\n(I've separated this out because this feature would be useful for the current wargame)"
+        },
+        {
+          "id": 922282898,
+          "user": "ShendMikullovci",
+          "created_at": "2021-09-18T14:18:10Z",
+          "updated_at": "2021-09-18T14:18:10Z",
+          "body": "After our talk, and our joint affinity over the Tabs idea, I decided to give the design a try. This is how the tabs look: \r\n![Format Tab](https://user-images.githubusercontent.com/85491794/133891793-91615945-95d1-46c1-8afd-d511a3a819c5.png)\r\n\r\nDHM Stands for Days/Hours/Minutes. \r\n\r\nHere DHM is the selected mode as you can see by the highlighted DHM rectangle. “Turn Duration” represents the length of the turn in the primary time format, in this example, it would be 1 Day. The format selected to display the desired view of the mode is DAYSDAYS:HOURSHOURS:MINUTESMINUTES. \r\n\r\nOnce we collapse the “Format” drop-down, we see the option to display different formats. “YY/MM/DD HH:MM” is dimmed because it logically seems too long of a time length to display time in years, if we have selected the DHM mode. If we need to account for Months and/or Years, we click on “Months” or “Years” mode to do so.\r\n\r\nRefer to Issue #954 to view it in the “Game Overview” window.\r\n\r\nLet me know what you think!\r\n\r\n"
+        },
+        {
+          "id": 922333643,
+          "user": "IanMayo",
+          "created_at": "2021-09-18T16:08:58Z",
+          "updated_at": "2021-09-18T16:08:58Z",
+          "body": "Thanks @ShendMikullovci - the single integer value is ok for `months` or `years`.  But, for DHM we need a text field with `DD HH MM SS`.\r\n So, a 2 day step would be:\r\n`02 00 00 00`\r\nOr a 30 minute step would be:\r\n`00 00 30 00`\r\nAnd so on."
+        },
+        {
+          "id": 922361715,
+          "user": "ShendMikullovci",
+          "created_at": "2021-09-18T19:33:14Z",
+          "updated_at": "2021-09-18T19:33:14Z",
+          "body": "Noted! Here's how it looks now:\r\n![Format Tab](https://user-images.githubusercontent.com/85491794/133906490-1cf237ef-64d2-415a-8679-8ad711b34351.png)\r\n\r\n![Game Overview Optimization 3 Tab Addition](https://user-images.githubusercontent.com/85491794/133906494-7305618a-a64a-43b2-9fbf-0eb23bedf1fd.png)\r\n\r\n \r\n"
+        },
+        {
+          "id": 922699065,
+          "user": "IanMayo",
+          "created_at": "2021-09-20T07:43:41Z",
+          "updated_at": "2021-09-20T07:43:41Z",
+          "body": "Yes, great. The labels (like \"Turn Duration\") should be _almost_ alongside the control they refers to.\r\n\r\nI _don't think_ we need \"dark mode\" for the new panel.  It's not all that different to the other content."
+        },
+        {
+          "id": 922772842,
+          "user": "ShendMikullovci",
+          "created_at": "2021-09-20T09:41:42Z",
+          "updated_at": "2021-09-20T09:41:42Z",
+          "body": "Noted. Here’s how it looks:\r\n\r\n![Game Overview Optimization 3 Tab Addition](https://user-images.githubusercontent.com/85491794/133982627-0ac8d96e-a865-4f5b-80b8-26c9ea65b353.png)\r\n![Format Tab](https://user-images.githubusercontent.com/85491794/133982633-4fda05a6-b3bc-4d5a-acc9-1a3e7900ec5c.png)\r\n\r\nKept the darkened tab on the DHM option to emphasize the selected mode. Would you like for me to do the designs on the “Months” and “Years” tabs as well? Will this suffice for the developing team?\r\n\r\n"
+        },
+        {
+          "id": 922777272,
+          "user": "IanMayo",
+          "created_at": "2021-09-20T09:49:55Z",
+          "updated_at": "2021-09-20T09:49:55Z",
+          "body": "Yes- it's right to highlight the selected tab.  In the libraries we use the defaults are usually quite sensible - so we normally tend to \"go with the flow\" and accept the default colors.\r\n\r\nAah - yes, it would be useful to see `Months`, since it's a simpler control (just single number)."
+        },
+        {
+          "id": 922787449,
+          "user": "ShendMikullovci",
+          "created_at": "2021-09-20T10:06:08Z",
+          "updated_at": "2021-09-20T10:06:08Z",
+          "body": "Great. There we are: \r\n\r\n![Format Tab Month Mode](https://user-images.githubusercontent.com/85491794/133985619-6735d36d-9af0-4b37-acb6-0ab607aa76b1.png)\r\n\r\n![Game Overview Optimization 3 Tab Addition Month Mode](https://user-images.githubusercontent.com/85491794/133985621-8d1c78d0-72e2-4621-af4f-a540954ea400.png)\r\n\r\n\r\n"
+        },
+        {
+          "id": 1185643062,
+          "user": "IanMayo",
+          "created_at": "2022-07-15T15:14:23Z",
+          "updated_at": "2022-07-15T15:14:23Z",
+          "body": "@ShendMikullovci - we're slowing getting on top of the new feature workload, and can start working on some of the lower priority bits.\r\n\r\nI'd appreciate you giving an update to this UI, please.  I have these observations:\r\n1. for the `In-Game time`  we won't need the \"Years\" tab, since a year is just a multiple of \"Months\".\r\n2. Could you use styling to show which are editable text boxes\r\n3. I don't believe we need any of the underlining"
+        },
+        {
+          "id": 1186290137,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-16T20:55:32Z",
+          "updated_at": "2022-07-16T20:55:32Z",
+          "body": "Gave it a fresher look that matches what we have in the admin pages so far: \r\n\r\n![Overview 1](https://user-images.githubusercontent.com/85491794/179371508-912c5c41-d2bb-4f73-b7a1-c3e5a418d056.png)\r\n\r\n![Overview 2](https://user-images.githubusercontent.com/85491794/179371512-4065d3ce-36a8-43ad-a0b6-86a06de4dbd4.png)\r\n\r\nWhile this layout occupies more space, we'd conserve uniformity here by having features displayed vertically as we do in other admin page tabs. Notice I also increased the tabs' sizes since they are the key navigational buttons to click on the admin page. Notice that I also gave the Save button a lighter blue for visual purposes.\r\n\r\nEditing the features would lead the user to select options through drop-downs or to manually insert them, depending on the item to be edited: \r\n\r\n![Editing Overview](https://user-images.githubusercontent.com/85491794/179371668-c8aeec62-29d1-4697-9288-db9d531fd0b7.png)\r\n\r\n![Editing Overview 2](https://user-images.githubusercontent.com/85491794/179371672-ab0ec92a-f248-45b8-b92a-df25681d9430.png)\r\n\r\n![Editing Overview 3](https://user-images.githubusercontent.com/85491794/179371676-beabceaa-1864-4225-a5de-99c3d6e33f41.png)\r\n\r\nThere's the possibility to have radio buttons instead of the drop-downs to reduce click steps, but I decided to stick to the drop-downs to maintain the same logic we use on other tabs. Let me know if you'd like to see radio buttons instead."
+        },
+        {
+          "id": 1187219032,
+          "user": "IanMayo",
+          "created_at": "2022-07-18T12:01:14Z",
+          "updated_at": "2022-07-18T12:01:14Z",
+          "body": "I see the consistency.  But, as the window gets wider, the label gets further from the control it relates to.  \r\n\r\nI don't think the \"trash\" icon has a meaning in this context, since the fields are always present.  Hmm, if it means \"reset to default\" then the `revert` arrow may be more valid.\r\n\r\nWhile I recognise the meaning of \"Start time\" and \"Current time\" - I can't recall what \"Game Time\" represents. Would you mind checking back, to investigate please? (possibly back in #954 )."
+        },
+        {
+          "id": 1188308025,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-18T21:03:44Z",
+          "updated_at": "2022-07-18T21:03:44Z",
+          "body": "> I see the consistency. But, as the window gets wider, the label gets further from the control it relates to.\r\n\r\nGiven the page is not overloaded with options, the distance shouldn't be an issue. I could of course shrink things and eventually split them into two different windows, but it would break from our current design logic and wouldn't really be too intuitive in my opinion. Let me know if you want me to try.\r\n\r\n> I don't think the \"trash\" icon has a meaning in this context, since the fields are always present. Hmm, if it means \"reset to default\" then the `revert` arrow may be more valid.\r\n\r\nYup, good thinking. Replaced it: \r\n\r\n![Overview new](https://user-images.githubusercontent.com/85491794/179616764-1affd6d8-b858-4e7c-be93-d052218d10cd.png)\r\n\r\n\r\n> While I recognise the meaning of \"Start time\" and \"Current time\" - I can't recall what \"Game Time\" represents. Would you mind checking back, to investigate please? (possibly back in #954 ).\r\n\r\nIt's a sub-header that we used to replace Display Time, containing 4 options (\"Time of Start of Turn\", \"Time of End of Turn\", \"Turn Start and End Times\", \"Do Not Display Times\"). If it's irrelevant, we could replace it with your idea in #1400 : \r\n\r\n> One observation - we need the \"time sent\" in the message. Our current implementation may not be enough. Some wargames span multiple days - so we'd need to display date and time for each message. Hmm, this should probably be a setting in the \"Overview\" panel - since the Game Designer will know if the game is to span whole days or not.\r\n\r\n\r\n\r\n"
+        },
+        {
+          "id": 1188841384,
+          "user": "IanMayo",
+          "created_at": "2022-07-19T09:47:34Z",
+          "updated_at": "2022-07-19T09:47:34Z",
+          "body": ">  I could of course shrink things and eventually split them into two different windows\r\n\r\nHaving two/more columns of properties means more can be reviewed at once, without scrolling.  So, I prefer your general strategy of Sept 2021, but with updated styling/presentation.\r\n\r\n> It's a sub-header that we used to replace Display Time, containing 4 options (\"Time of Start of Turn\", \"Time of End of Turn\", \"Turn Start and End Times\", \"Do Not Display Times\"). If it's irrelevant, we could replace it with your idea in https://github.com/serge-web/serge/issues/1400 :\r\n\r\nBrilliant! Over the weekend I was thinking we needed something like this.  Let's rename \"Game Time\" to \"Display format\"."
+        },
+        {
+          "id": 1189635703,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-19T23:07:39Z",
+          "updated_at": "2022-07-19T23:09:06Z",
+          "body": "Here's one potential look: \r\n\r\n![Overview new](https://user-images.githubusercontent.com/85491794/179863172-e80782c1-7b92-40b5-9060-b32db8110440.png)\r\n\r\nRenamed \"Game Time\" to \"Display Format\". Got me thinking though, isn't the DHM/Months feature just an extension of the format for time we display? If so, shouldn't \"Display Format\" be down there by DHM/Months, or included in, or simply conjoined to them somehow? "
+        },
+        {
+          "id": 1189997649,
+          "user": "IanMayo",
+          "created_at": "2022-07-20T08:42:45Z",
+          "updated_at": "2022-07-20T08:42:45Z",
+          "body": "Layout works for me :-)\r\n\r\nAah, we may be able to re-arrange a little more logically.  The \"DHM/Months\" box is how far forward we move at each Turn.  So, we could move \"Real World Time\" beneath \"In-game time\", and move \"DHM\"  under \"Turns\"."
+        },
+        {
+          "id": 1190848723,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-20T22:57:28Z",
+          "updated_at": "2022-07-20T22:59:40Z",
+          "body": "Good idea! \r\n\r\n![Overview new](https://user-images.githubusercontent.com/85491794/180096809-285c93f1-56f5-4834-92b3-00eec3eadd35.png)\r\n\r\n"
+        },
+        {
+          "id": 1191253540,
+          "user": "IanMayo",
+          "created_at": "2022-07-21T09:22:51Z",
+          "updated_at": "2022-07-21T09:23:00Z",
+          "body": "Not quite - the DHM relates to the turns, so I think we should give DHM a `Turn length` title, and lay out like this:\r\n```\r\nIn-game time         Turn Style\r\nReal World Time      Turn Length\r\n```"
+        },
+        {
+          "id": 1193855065,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-25T10:17:11Z",
+          "updated_at": "2022-07-25T10:17:11Z",
+          "body": "Something like this?:\r\n\r\n![Overview](https://user-images.githubusercontent.com/85491794/180753956-5a4d65bf-357e-4524-bbb7-df9be03e4a37.png)\r\n\r\nAdded the \"access codes\" and \"hide forces\" to the top in smaller fonts, but we can relocate them. Putting them on the bottom right or left felt a little imbalanced.\r\n\r\nI'm starting to like the toggle option for DHM/Months less and less and considering turning into a tab set up. What do you think?"
+        },
+        {
+          "id": 1193861279,
+          "user": "IanMayo",
+          "created_at": "2022-07-25T10:23:49Z",
+          "updated_at": "2022-07-25T10:23:49Z",
+          "body": "> I'm starting to like the toggle option for DHM/Months less and less and considering turning into a tab set up. What do you think?\r\n\r\nYes, I think that putting the two turn length options into tabs with the relevant controls will \"connect\" them together.\r\n\r\n> Added the \"access codes\" and \"hide forces\" to the top in smaller fonts, but we can relocate them. Putting them on the bottom right or left felt a little imbalanced.\r\n\r\nHow about adding them to the \"Game Description and Objectives\" box?  They seem a bit \"homeless\" currently - floating around without a containing box."
+        },
+        {
+          "id": 1193895598,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-25T10:55:12Z",
+          "updated_at": "2022-07-25T10:55:52Z",
+          "body": "https://user-images.githubusercontent.com/85491794/180761158-e4e4b815-a382-4b23-8685-614db3b44580.mp4\r\n\r\n>How about adding them to the \"Game Description and Objectives\" box? They seem a bit \"homeless\" currently - floating around without a containing box.\r\n\r\nAdded them below the Objectives text box."
+        },
+        {
+          "id": 1193928084,
+          "user": "IanMayo",
+          "created_at": "2022-07-25T11:28:53Z",
+          "updated_at": "2022-07-25T11:28:53Z",
+          "body": "Yes, tabs work well for me.  "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/129016115-c59b0f9b-feb3-4c25-abb3-630395456901.png",
+    "https://user-images.githubusercontent.com/85491794/133891793-91615945-95d1-46c1-8afd-d511a3a819c5.png",
+    "https://user-images.githubusercontent.com/85491794/133906490-1cf237ef-64d2-415a-8679-8ad711b34351.png",
+    "https://user-images.githubusercontent.com/85491794/133906494-7305618a-a64a-43b2-9fbf-0eb23bedf1fd.png",
+    "https://user-images.githubusercontent.com/85491794/133982627-0ac8d96e-a865-4f5b-80b8-26c9ea65b353.png",
+    "https://user-images.githubusercontent.com/85491794/133982633-4fda05a6-b3bc-4d5a-acc9-1a3e7900ec5c.png",
+    "https://user-images.githubusercontent.com/85491794/133985619-6735d36d-9af0-4b37-acb6-0ab607aa76b1.png",
+    "https://user-images.githubusercontent.com/85491794/133985621-8d1c78d0-72e2-4621-af4f-a540954ea400.png",
+    "https://user-images.githubusercontent.com/85491794/179371508-912c5c41-d2bb-4f73-b7a1-c3e5a418d056.png",
+    "https://user-images.githubusercontent.com/85491794/179371512-4065d3ce-36a8-43ad-a0b6-86a06de4dbd4.png",
+    "https://user-images.githubusercontent.com/85491794/179371668-c8aeec62-29d1-4697-9288-db9d531fd0b7.png",
+    "https://user-images.githubusercontent.com/85491794/179371672-ab0ec92a-f248-45b8-b92a-df25681d9430.png",
+    "https://user-images.githubusercontent.com/85491794/179371676-beabceaa-1864-4225-a5de-99c3d6e33f41.png",
+    "https://user-images.githubusercontent.com/85491794/179616764-1affd6d8-b858-4e7c-be93-d052218d10cd.png",
+    "https://user-images.githubusercontent.com/85491794/179863172-e80782c1-7b92-40b5-9060-b32db8110440.png",
+    "https://user-images.githubusercontent.com/85491794/180096809-285c93f1-56f5-4834-92b3-00eec3eadd35.png",
+    "https://user-images.githubusercontent.com/85491794/180753956-5a4d65bf-357e-4524-bbb7-df9be03e4a37.png"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 146
+}

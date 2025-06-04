@@ -1,0 +1,144 @@
+{
+  "number": 1836,
+  "title": "1795: Configuration Option Interferes with Channel Label",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-10T08:29:26Z",
+  "updated_at": "2022-09-12T09:32:03Z",
+  "closed_at": "2022-09-11T15:45:59Z",
+  "merged_at": "2022-09-11T15:45:59Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1836",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1836/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1836/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1836",
+  "body": "Fixes #1795 \r\n",
+  "additions": 69,
+  "deletions": 57,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 3,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1242962887,
+      "user": "lebaphi",
+      "created_at": "2022-09-11T13:15:55Z",
+      "updated_at": "2022-09-11T13:16:19Z",
+      "body": "Hi @IanMayo, I removed the new solution we discussed above, now it's back to the old approach and we can delete the selected channel as well, and of course with my fix 😄 "
+    },
+    {
+      "id": 1242991475,
+      "user": "IanMayo",
+      "created_at": "2022-09-11T15:46:55Z",
+      "updated_at": "2022-09-11T15:46:55Z",
+      "body": "Thanks @lebaphi \r\n\r\nDoes this commit look ok?  I've realised I'm checking if a channel is present in two different ways. Do you think one is better than the other?\r\n\r\nhttps://github.com/serge-web/serge/pull/1836/commits/eb5e8c2ef872cf2cbcde8a87bfa4e13c2638c73d"
+    },
+    {
+      "id": 1242993821,
+      "user": "lebaphi",
+      "created_at": "2022-09-11T16:00:55Z",
+      "updated_at": "2022-09-11T16:00:55Z",
+      "body": "I think it is not necessary to check the selected channel value before the switch case, let the switch case handle it in the default block."
+    },
+    {
+      "id": 1243467185,
+      "user": "IanMayo",
+      "created_at": "2022-09-12T09:31:49Z",
+      "updated_at": "2022-09-12T09:32:03Z",
+      "body": "> I think it is not necessary to check the selected channel value before the switch case, let the switch case handle it in the default block.\r\n\r\nGreat, thanks @lebaphi .  I did want to provide a different message if there isn't a channel present - but I've done it as another `case` in the switch:\r\nhttps://github.com/serge-web/serge/pull/1837/files"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 967621796,
+      "user": "IanMayo",
+      "created_at": "2022-09-10T08:50:00Z",
+      "updated_at": "2022-09-10T08:50:00Z",
+      "body": "`selected`\r\n\r\nBut, does this prevent users deleting the one last channel?\r\n\r\n@lebaphi - What's the reason for not being able to delete the selected channel?",
+      "path": "packages/components/src/local/organisms/setting-channels/index.tsx",
+      "diff_hunk": "@@ -166,14 +178,21 @@ export const SettingChannels: React.FC<PropTypes> = ({\n   return (\n     <AdminContent>\n       <LeftSide>\n+        <Dialog\n+          isOpen={deleteSelectedChannel}\n+          header='Error'\n+          content=\"You can't delete selecting channel\"",
+      "html_url": "https://github.com/serge-web/serge/pull/1836#discussion_r967621796"
+    },
+    {
+      "id": 967632974,
+      "user": "lebaphi",
+      "created_at": "2022-09-10T10:38:07Z",
+      "updated_at": "2022-09-10T10:38:07Z",
+      "body": "Hi @IanMayo ,\r\n> But, does this prevent users deleting the one last channel?\r\n\r\nyep it will prevent users deleting the last channel, I will update the fix\r\n\r\n> What's the reason for not being able to delete the selected channel?\r\n\r\nI found the problem is that when we delete the selected channel, the search list is updated with the new channels but the data in the right panel is not, it still shows the deleted channel. We can fix this but it requires more work to debug/refactor the code. I saw some apps with similar behavior (preventing user from deleting selected item) so I decided to use this solution 🤣 ",
+      "path": "packages/components/src/local/organisms/setting-channels/index.tsx",
+      "diff_hunk": "@@ -166,14 +178,21 @@ export const SettingChannels: React.FC<PropTypes> = ({\n   return (\n     <AdminContent>\n       <LeftSide>\n+        <Dialog\n+          isOpen={deleteSelectedChannel}\n+          header='Error'\n+          content=\"You can't delete selecting channel\"",
+      "html_url": "https://github.com/serge-web/serge/pull/1836#discussion_r967632974"
+    },
+    {
+      "id": 967642862,
+      "user": "lebaphi",
+      "created_at": "2022-09-10T12:11:40Z",
+      "updated_at": "2022-09-10T12:11:40Z",
+      "body": "Hi @IanMayo, so what approach do you want to take?",
+      "path": "packages/components/src/local/organisms/setting-channels/index.tsx",
+      "diff_hunk": "@@ -166,14 +178,21 @@ export const SettingChannels: React.FC<PropTypes> = ({\n   return (\n     <AdminContent>\n       <LeftSide>\n+        <Dialog\n+          isOpen={deleteSelectedChannel}\n+          header='Error'\n+          content=\"You can't delete selecting channel\"",
+      "html_url": "https://github.com/serge-web/serge/pull/1836#discussion_r967642862"
+    }
+  ],
+  "issue_numbers": [
+    1795
+  ],
+  "issues": [
+    {
+      "id": 1357690226,
+      "number": 1795,
+      "title": "Configuration Option Interferes with Channel Label",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-08-31T18:14:49Z",
+      "updated_at": "2022-09-11T15:46:00Z",
+      "closed_at": "2022-09-11T15:46:00Z",
+      "body": "https://user-images.githubusercontent.com/85491794/187749960-4e10e7f0-c4bc-4a42-b3f4-c957d63a3e97.mp4\r\n\r\nClicking on Hide Message Authors seems to reset the label of the chat channel.",
+      "labels": [
+        "bug",
+        "4watu",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1233263834,
+          "user": "ShendMikullovci",
+          "created_at": "2022-08-31T18:16:13Z",
+          "updated_at": "2022-08-31T18:17:15Z",
+          "body": "This seems to occur while you are editing the channel attributes before saving. Adding forces to the Participants and Messages also has this effect. Saving at the end doesn't bring back the input label, forcing the user to name the channel again."
+        },
+        {
+          "id": 1233270875,
+          "user": "ShendMikullovci",
+          "created_at": "2022-08-31T18:23:28Z",
+          "updated_at": "2022-08-31T18:23:28Z",
+          "body": "There seems to be a larger pattern of interferences and bugs related to this button: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/187751625-56ddf2b2-18c0-4b2a-b561-f9183018f2ae.mp4\r\n\r\nIt involves disappearing channels and renamed channels, especially when a channel is duplicated."
+        },
+        {
+          "id": 1233271655,
+          "user": "ShendMikullovci",
+          "created_at": "2022-08-31T18:24:19Z",
+          "updated_at": "2022-08-31T18:24:19Z",
+          "body": "Also, side question: Is the display of a little messed up because I'm playing an older version again? Or has something budged? "
+        },
+        {
+          "id": 1233277837,
+          "user": "ShendMikullovci",
+          "created_at": "2022-08-31T18:31:07Z",
+          "updated_at": "2022-08-31T18:31:07Z",
+          "body": "Uploading abd48680-1325-4cc2-bd1c-8e5e4f453b4a.mp4…\r\n\r\nAnother bug where the Hide Message Authors button appears either clicked or unclicked for both Visible and Hidden channels."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 126
+}

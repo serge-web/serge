@@ -1,0 +1,102 @@
+{
+  "number": 1312,
+  "title": "1306: Icon Uniformity Mapping",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-18T14:39:08Z",
+  "updated_at": "2022-01-20T16:49:12Z",
+  "closed_at": "2022-01-20T16:49:11Z",
+  "merged_at": "2022-01-20T16:49:11Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1312",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1312/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1312/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1312",
+  "body": "Fixes #1306 \r\n\r\nHi @ShendMikullovci @IanMayo \r\n\r\n![image](https://user-images.githubusercontent.com/26705621/149958166-af74a302-dce5-4353-8da7-a41f9814f7a8.png)\r\n",
+  "additions": 2,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 0,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1015813862,
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-18T20:36:58Z",
+      "updated_at": "2022-01-18T20:36:58Z",
+      "body": "Hi guys! The screenshot looks good but the deployment link sends me to Papafoxtrot."
+    },
+    {
+      "id": 1016275610,
+      "user": "IanMayo",
+      "created_at": "2022-01-19T10:04:52Z",
+      "updated_at": "2022-01-19T10:04:52Z",
+      "body": "> Hi guys! The screenshot looks good but the deployment link sends me to Papafoxtrot.\r\n\r\nSure. The issue is there there is only one game visible - so Serge takes us directly into that game.\r\n\r\nSo, here's how you can get around the issue:\r\n- log into admin\r\n- change `CmdWk-High data` to be visible (\"Show wargame\" in context menu)\r\n- delete last bit of URL, to go back to Serge home page\r\n- click on \"Play\"\r\n- Select `CmdWk - High data` game\r\n- log in as Game Control\r\n- click on a platform, to view visibility panel"
+    },
+    {
+      "id": 1016414654,
+      "user": "IanMayo",
+      "created_at": "2022-01-19T12:21:21Z",
+      "updated_at": "2022-01-19T12:21:21Z",
+      "body": "Merging, it's a minor fix."
+    },
+    {
+      "id": 1017153470,
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-20T06:14:45Z",
+      "updated_at": "2022-01-20T06:15:07Z",
+      "body": "> > Hi guys! The screenshot looks good but the deployment link sends me to Papafoxtrot.\r\n> \r\n> Sure. The issue is there there is only one game visible - so Serge takes us directly into that game.\r\n> \r\n> So, here's how you can get around the issue:\r\n> \r\n> * log into admin\r\n> * change `CmdWk-High data` to be visible (\"Show wargame\" in context menu)\r\n> * delete last bit of URL, to go back to Serge home page\r\n> * click on \"Play\"\r\n> * Select `CmdWk - High data` game\r\n> * log in as Game Control\r\n> * click on a platform, to view visibility panel\r\n\r\nIt worked. The icons are still squares though:\r\n\r\n![Mapping Screenshot](https://user-images.githubusercontent.com/85491794/150283776-63afebc5-ae25-49bf-87b4-5f9d870077aa.png)\r\n\r\n "
+    },
+    {
+      "id": 1017673610,
+      "user": "IanMayo",
+      "created_at": "2022-01-20T16:16:59Z",
+      "updated_at": "2022-01-20T16:16:59Z",
+      "body": "Ok, in this branch I see circular icons.  \r\n![image](https://user-images.githubusercontent.com/1108513/150377477-1e5896ef-3307-42c1-ab70-ffb98f6fa498.png)\r\n\r\nI'll merge it, and hopefully @ShendMikullovci  will find the circular icons in the main serge-review branch."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1306
+  ],
+  "issues": [
+    {
+      "id": 1105095671,
+      "number": 1306,
+      "title": "Icon Uniformity Mapping",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-16T16:21:33Z",
+      "updated_at": "2022-01-20T16:49:11Z",
+      "closed_at": "2022-01-20T16:49:11Z",
+      "body": "We present square icons in the asset menu on the mapping page: \r\n\r\n![Stick to Circles Instead of Squares for Logo Uniformity](https://user-images.githubusercontent.com/85491794/149668354-66d51fdb-20d8-4041-90ef-937f8960865b.png)\r\n\r\nIt's the only page to my knowledge where we present square icons. \r\nWe should stick to circular icons to maintain force icon uniformity. \r\n",
+      "labels": [
+        "bug",
+        "UX: Low Priority"
+      ],
+      "comments": [
+        {
+          "id": 1014698429,
+          "user": "IanMayo",
+          "created_at": "2022-01-17T16:10:31Z",
+          "updated_at": "2022-01-17T16:10:31Z",
+          "body": "Sure. Can we switch to circular icons for force?"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/149958166-af74a302-dce5-4353-8da7-a41f9814f7a8.png",
+    "https://user-images.githubusercontent.com/85491794/150283776-63afebc5-ae25-49bf-87b4-5f9d870077aa.png",
+    "https://user-images.githubusercontent.com/1108513/150377477-1e5896ef-3307-42c1-ab70-ffb98f6fa498.png",
+    "https://user-images.githubusercontent.com/85491794/149668354-66d51fdb-20d8-4041-90ef-937f8960865b.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 3
+}

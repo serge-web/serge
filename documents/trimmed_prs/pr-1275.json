@@ -1,0 +1,40 @@
+{
+  "number": 1275,
+  "title": "Reapply #1274 fixes to legacy branch",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-12-20T13:43:47Z",
+  "updated_at": "2022-04-07T08:10:09Z",
+  "closed_at": "2021-12-20T13:46:50Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1275",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1275/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1275/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1275",
+  "body": "Fixes #1274 \r\n\r\nThis branch re-applies @lilitkarapetyan 's changes to the relevant legacy branch.\r\n\r\nThere is a remaining issue.  When a duplicate of a message is created, the existing message is removed from the browser.\r\n\r\nA F5 refresh shows the existing message is still in the database, but:\r\n* the initial message has its `Reference` changed to the new message\r\n* as the new message is handled in `handleNonInfoMessage` the code mistakenly thinks there is a previous instance of the message, and it is deleted.",
+  "additions": 149,
+  "deletions": 6,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 997938553,
+      "user": "IanMayo",
+      "created_at": "2021-12-20T13:46:50Z",
+      "updated_at": "2021-12-20T13:46:50Z",
+      "body": "Oops, I've updated this branch to match `develop`. That was a mistake. I don't want to have all the new (untested) features.  Will re-create branch."
+    }
+  ],
+  "review_comments_data": [],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 155
+}

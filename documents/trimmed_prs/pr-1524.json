@@ -1,0 +1,145 @@
+{
+  "number": 1524,
+  "title": "1521: Add SVGInjection",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-04-24T15:19:12Z",
+  "updated_at": "2022-04-26T13:41:29Z",
+  "closed_at": "2022-04-26T13:20:32Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1524",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1524/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1524/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1524",
+  "body": "Fixes #1521\r\n\r\nDetails here https://github.com/iconfu/svg-inject",
+  "additions": 49,
+  "deletions": 61,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 0,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 1108434546,
+      "user": "IanMayo",
+      "created_at": "2022-04-25T11:14:14Z",
+      "updated_at": "2022-04-25T11:14:14Z",
+      "body": "Hello, @lebaphi  - did you consider this modification?\r\nhttps://github.com/serge-web/serge/pull/1521#issuecomment-1105140570"
+    },
+    {
+      "id": 1108535384,
+      "user": "lebaphi",
+      "created_at": "2022-04-25T12:57:33Z",
+      "updated_at": "2022-04-25T12:58:00Z",
+      "body": "> Hello, @lebaphi - did you consider this modification? [#1521 (comment)](https://github.com/serge-web/serge/pull/1521#issuecomment-1105140570)\r\n\r\nHi @IanMayo, yep I found another solution, using sprite file, details https://fontawesome.com/v5/docs/web/advanced/svg-sprites.\r\nSo for this one, we need to combine all SVG files to 1 sprite file -> place this file into the public folder.\r\nI'm trying this :D"
+    },
+    {
+      "id": 1108536663,
+      "user": "IanMayo",
+      "created_at": "2022-04-25T12:59:00Z",
+      "updated_at": "2022-04-25T12:59:00Z",
+      "body": "> > Hello, @lebaphi - did you consider this modification? [#1521 (comment)](https://github.com/serge-web/serge/pull/1521#issuecomment-1105140570)\r\n> \r\n> Hi @IanMayo, yep I found another solution, using sprite file, details https://fontawesome.com/v5/docs/web/advanced/svg-sprites. So for this one, we need to combine all SVG files to 1 sprite file -> place this file into the public folder. I'm trying this :D\r\n\r\nSorry, I don't think this will work. The Game Designer has to be able to provide new icons at runtime."
+    },
+    {
+      "id": 1108547300,
+      "user": "lebaphi",
+      "created_at": "2022-04-25T13:07:19Z",
+      "updated_at": "2022-04-25T13:07:19Z",
+      "body": "> > > Hello, @lebaphi - did you consider this modification? [#1521 (comment)](https://github.com/serge-web/serge/pull/1521#issuecomment-1105140570)\r\n> > \r\n> > \r\n> > Hi @IanMayo, yep I found another solution, using sprite file, details https://fontawesome.com/v5/docs/web/advanced/svg-sprites. So for this one, we need to combine all SVG files to 1 sprite file -> place this file into the public folder. I'm trying this :D\r\n> \r\n> Sorry, I don't think this will work. The Game Designer has to be able to provide new icons at runtime.\r\n\r\nok so we need to load these icons at runtime -> as far as i know we can just load SVG file via its url in `<img...>` or `<object...>` tag but we can't create style it except using DOM manipulation\r\nUse the SVG Inject library to transform the `<img ...>` element with an inline SVG, then we can style it via SCSS."
+    },
+    {
+      "id": 1108549862,
+      "user": "IanMayo",
+      "created_at": "2022-04-25T13:09:10Z",
+      "updated_at": "2022-04-25T13:09:10Z",
+      "body": "> > > > Hello, @lebaphi - did you consider this modification? [#1521 (comment)](https://github.com/serge-web/serge/pull/1521#issuecomment-1105140570)\r\n> > > \r\n> > > \r\n> > > Hi @IanMayo, yep I found another solution, using sprite file, details https://fontawesome.com/v5/docs/web/advanced/svg-sprites. So for this one, we need to combine all SVG files to 1 sprite file -> place this file into the public folder. I'm trying this :D\r\n> > \r\n> > \r\n> > Sorry, I don't think this will work. The Game Designer has to be able to provide new icons at runtime.\r\n> \r\n> ok so we need to load these icons at runtime -> as far as i know we can just load SVG file via its url in `<img...>` or `<object...>` tag but we can't create style it except using DOM manipulation Use the SVG Inject library to transform the `<img ...>` element with an inline SVG, then we can style it via SCSS.\r\n\r\nI'm just double-checking here. If the SVG doesn't have a color, won't it take the `fore-color` from CSS?  It's easy to remove the color from the SVG."
+    },
+    {
+      "id": 1108568946,
+      "user": "IanMayo",
+      "created_at": "2022-04-25T13:24:17Z",
+      "updated_at": "2022-04-25T13:24:17Z",
+      "body": "Hello @lebaphi  - [this](https://onestepcode.com/leaflet-markers-svg-icons/) article appears to cover how to perform CSS styling of SVG icons."
+    },
+    {
+      "id": 1108838827,
+      "user": "lebaphi",
+      "created_at": "2022-04-25T17:19:14Z",
+      "updated_at": "2022-04-25T17:19:14Z",
+      "body": "> Hello @lebaphi  - [this](https://onestepcode.com/leaflet-markers-svg-icons/) article appears to cover how to perform CSS styling of SVG icons.\n\nwell, this article is using the svg code:\n![image](https://user-images.githubusercontent.com/26705621/165140272-a20719e9-65d5-4014-8d36-6c4a9a9d67eb.jpeg)\n\nWe only have the svg url, Im not sure that we can fetch and retrieve the content of the svg file 🤔 let me try this."
+    },
+    {
+      "id": 1109443305,
+      "user": "lebaphi",
+      "created_at": "2022-04-26T07:26:16Z",
+      "updated_at": "2022-04-26T07:26:16Z",
+      "body": "Hi @IanMayo, I updated with new solution 👍 "
+    },
+    {
+      "id": 1109520955,
+      "user": "IanMayo",
+      "created_at": "2022-04-26T08:43:14Z",
+      "updated_at": "2022-04-26T08:43:14Z",
+      "body": "Sorry @lebaphi - I see that in the tutorial they are using named styles for the colors. We can't use that. We have to specify the color at run-time (since the Game Designer may come up with their own set of shades)"
+    },
+    {
+      "id": 1109789664,
+      "user": "IanMayo",
+      "created_at": "2022-04-26T13:20:32Z",
+      "updated_at": "2022-04-26T13:20:32Z",
+      "body": "Closing. @lebaphi came up with another solution in another PR."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1521
+  ],
+  "issues": [
+    {
+      "id": 1210881595,
+      "number": 1521,
+      "title": "1516: New asset styling, for info markers.",
+      "state": "closed",
+      "user": "lebaphi",
+      "created_at": "2022-04-21T11:12:43Z",
+      "updated_at": "2022-04-22T14:16:40Z",
+      "closed_at": "2022-04-22T08:30:04Z",
+      "body": "Supports #1516 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/164446170-7f5439b8-42b5-4fb7-ae86-277af3f29df4.mp4\r\n\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1105140570,
+          "user": "IanMayo",
+          "created_at": "2022-04-21T12:18:43Z",
+          "updated_at": "2022-04-21T12:18:43Z",
+          "body": "There is some trickery going on here @lebaphi .  I'd like to see if we can avoid it,\r\n\r\nThese info markers are different to the asset markers. We can make fresh requirements, if we want to.  What if our requirements are that they don't have a fill color?  Then I _guess_ the browser uses the `foreColor` when rendering."
+        },
+        {
+          "id": 1106468626,
+          "user": "lebaphi",
+          "created_at": "2022-04-22T12:32:50Z",
+          "updated_at": "2022-04-22T12:32:50Z",
+          "body": "yeah, I will find another better solution 👍🏻"
+        },
+        {
+          "id": 1106561916,
+          "user": "IanMayo",
+          "created_at": "2022-04-22T14:16:40Z",
+          "updated_at": "2022-04-22T14:16:40Z",
+          "body": "Thanks :-)\r\n\r\nBut, as I said - I'm happy to consider changes to the image strategy, if that helps."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/165140272-a20719e9-65d5-4014-8d36-6c4a9a9d67eb.jpeg"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 110
+}

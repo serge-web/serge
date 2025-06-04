@@ -1,0 +1,71 @@
+{
+  "number": 2315,
+  "title": "2291b per force asset layers",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-02T09:19:31Z",
+  "updated_at": "2023-02-06T12:23:34Z",
+  "closed_at": "2023-02-06T12:23:33Z",
+  "merged_at": "2023-02-06T12:23:33Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2315",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2315/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2315/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2315",
+  "body": "Fixes #2291 ",
+  "additions": 410,
+  "deletions": 150,
+  "changed_files": 22,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 0,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1413876943,
+      "user": "IanMayo",
+      "created_at": "2023-02-02T14:57:46Z",
+      "updated_at": "2023-02-02T15:00:14Z",
+      "body": "Oh dear @lilitkarapetyan - I've got myself stuck here.\r\n\r\nI've refactored the code so that we now do per-force clustering.  But, when we update the set of assets (after we have filtered the table) I'm sure the re-render leaves the previous icons on the map.\r\n\r\nThe expected behaviour is that when I apply a filter for the sub-type, and only two blue assets are shown in the table, then only two assets should be shown on the map.\r\n\r\nI'm pretty sure that `PlanningForces` is drawing the initial set of 20 icons on page load (`Blue:1` to `Blue:20`, then on each change it is _ALSO_ showing the current set of icons for the current filter (which could be `Blue:377`).\r\n\r\n![screencast](https://i.gyazo.com/730256985a7b7216edf390fd8f4a9ce3.gif)\r\n\r\nVideo also [here](https://i.gyazo.com/730256985a7b7216edf390fd8f4a9ce3.mp4)\r\n\r\nI have a minor worry that we are adding the cluster group to the map too many times (line `91` below), but that doesn't seem related:\r\nhttps://gyazo.com/730256985a7b7216edf390fd8f4a9ce3\r\n\r\n"
+    },
+    {
+      "id": 1418499163,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-06T04:27:31Z",
+      "updated_at": "2023-02-06T04:27:31Z",
+      "body": "> Oh dear @lilitkarapetyan - I've got myself stuck here.\r\n> \r\n> I've refactored the code so that we now do per-force clustering. But, when we update the set of assets (after we have filtered the table) I'm sure the re-render leaves the previous icons on the map.\r\n> \r\n> The expected behaviour is that when I apply a filter for the sub-type, and only two blue assets are shown in the table, then only two assets should be shown on the map.\r\n> \r\n> I'm pretty sure that `PlanningForces` is drawing the initial set of 20 icons on page load (`Blue:1` to `Blue:20`, then on each change it is _ALSO_ showing the current set of icons for the current filter (which could be `Blue:377`).\r\n> \r\n> ![screencast](https://camo.githubusercontent.com/592437ad3edeba1a4e6032494c8901dd561b4425759b2ec152f83c439e3af0a4/68747470733a2f2f692e6779617a6f2e636f6d2f37333032353639383561376237323136656466333930666438663461396365332e676966) [ ![screencast](https://camo.githubusercontent.com/592437ad3edeba1a4e6032494c8901dd561b4425759b2ec152f83c439e3af0a4/68747470733a2f2f692e6779617a6f2e636f6d2f37333032353639383561376237323136656466333930666438663461396365332e676966) ](https://camo.githubusercontent.com/592437ad3edeba1a4e6032494c8901dd561b4425759b2ec152f83c439e3af0a4/68747470733a2f2f692e6779617a6f2e636f6d2f37333032353639383561376237323136656466333930666438663461396365332e676966) [ ](https://camo.githubusercontent.com/592437ad3edeba1a4e6032494c8901dd561b4425759b2ec152f83c439e3af0a4/68747470733a2f2f692e6779617a6f2e636f6d2f37333032353639383561376237323136656466333930666438663461396365332e676966)\r\n> \r\n> Video also [here](https://i.gyazo.com/730256985a7b7216edf390fd8f4a9ce3.mp4)\r\n> \r\n> I have a minor worry that we are adding the cluster group to the map too many times (line `91` below), but that doesn't seem related: https://gyazo.com/730256985a7b7216edf390fd8f4a9ce3\r\n\r\nHello @IanMayo, okay I will investigate it now.\r\n "
+    },
+    {
+      "id": 1418783264,
+      "user": "IanMayo",
+      "created_at": "2023-02-06T09:35:51Z",
+      "updated_at": "2023-02-06T09:35:51Z",
+      "body": "Thanks for the fix @lilitkarapetyan  :-D\r\n\r\nBut, I didn't like `SupportPanel` knowing about the `MarkerCluster`. I was also scared of relying on the array length to trigger updates (since the filters could change, but the number of assets displayed could stay the same).\r\n\r\nBut, you fix helped me to understand the issue (the marker cluster layer getting added too many times).  So, I've come up with this other way of fixing it.  It seems to work properly - since the marker cluster only gets added to the map once.  I had to move the `useMap()` call up into the parent class, but that still works ok.\r\n\r\nDoes this new fix look ok to you?\r\nhttps://github.com/serge-web/serge/pull/2315/files#diff-0cd02d4e329c4ead1df64feffa5033f1d7088832d26603502eb94f3da176f71fR44\r\n\r\nThanks,\r\nIan"
+    },
+    {
+      "id": 1418797241,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-06T09:46:38Z",
+      "updated_at": "2023-02-06T09:46:38Z",
+      "body": "Yes it looks good."
+    },
+    {
+      "id": 1418900951,
+      "user": "IanMayo",
+      "created_at": "2023-02-06T11:04:59Z",
+      "updated_at": "2023-02-06T12:18:46Z",
+      "body": "Oops, I'm mistaken.  My solution isn't deleting the existing icons.  Will investigate further.\r\n\r\nThe issue was we keep on generating new MarkerCluster instances on each re-render.  So, the new fix is to look for an existing marker cluster in the `map` - and re-use that, if present: https://github.com/serge-web/serge/pull/2315/commits/0634e214ffc4e49f80f001aeeb009eb0e61ead4c#diff-0cd02d4e329c4ead1df64feffa5033f1d7088832d26603502eb94f3da176f71fR44"
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://i.gyazo.com/730256985a7b7216edf390fd8f4a9ce3.gif",
+    "https://camo.githubusercontent.com/592437ad3edeba1a4e6032494c8901dd561b4425759b2ec152f83c439e3af0a4/68747470733a2f2f692e6779617a6f2e636f6d2f37333032353639383561376237323136656466333930666438663461396365332e676966"
+  ],
+  "number_of_changed_files": 22,
+  "total_changed_lines": 560
+}

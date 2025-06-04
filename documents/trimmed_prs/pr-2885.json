@@ -1,0 +1,259 @@
+{
+  "number": 2885,
+  "title": "Core Mapping - Measuring Tool",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-22T02:44:23Z",
+  "updated_at": "2024-03-18T15:24:51Z",
+  "closed_at": "2024-03-18T15:24:50Z",
+  "merged_at": "2024-03-18T15:24:50Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2885",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2885/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2885/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2885",
+  "body": "Fixes #2868 ",
+  "additions": 357,
+  "deletions": 30,
+  "changed_files": 17,
+  "labels": [],
+  "comments_count": 24,
+  "review_comments_count": 4,
+  "total_comments": 28,
+  "comments_data": [
+    {
+      "id": 1958560267,
+      "user": "lebaphi",
+      "created_at": "2024-02-22T02:46:23Z",
+      "updated_at": "2024-02-22T02:46:23Z",
+      "body": "![image](https://github.com/serge-web/serge/assets/26705621/869632cd-bc46-4524-9496-fc2b4d269127)\r\n"
+    },
+    {
+      "id": 1958588804,
+      "user": "lebaphi",
+      "created_at": "2024-02-22T03:25:33Z",
+      "updated_at": "2024-02-22T03:25:33Z",
+      "body": "it does not work in storybok, I'm working on it"
+    },
+    {
+      "id": 1958922561,
+      "user": "IanMayo",
+      "created_at": "2024-02-22T08:17:22Z",
+      "updated_at": "2024-02-22T08:17:22Z",
+      "body": "Trouble in deployment for game @lebaphi :\r\n![image](https://github.com/serge-web/serge/assets/1108513/ea192df3-b382-45d7-90d5-c9a42cb6b40f)\r\n\r\nStorybook broken too:\r\n![image](https://github.com/serge-web/serge/assets/1108513/7a81bdb8-edb9-4204-85c4-3dce7097e9ba)\r\n\r\nI guess you haven't added the ruler control to the repo.\r\n\r\n"
+    },
+    {
+      "id": 1958929807,
+      "user": "Tristina1788",
+      "created_at": "2024-02-22T08:22:11Z",
+      "updated_at": "2024-02-22T08:36:58Z",
+      "body": "@IanMayo , @lebaphi  Testing from '2868-measuring-tool', I get the white screen when access from url localhost:8080, but it works fine on localhost:3000\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/ac797fec-92f6-4def-84a9-084156a65e14\r\n\r\n- Measuring tool is still enable when I select another function (such as : create new shape item).\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/d668c5ec-2add-48e0-90fb-635b49ec584e\r\n\r\n- Measuring icon should change to disable icon when I click on icon ( for disable) instead of when I move the pointer out of icon.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/a503c731-2f03-4cac-8cde-9afb2821f20c\r\n\r\n"
+    },
+    {
+      "id": 1959210147,
+      "user": "lebaphi",
+      "created_at": "2024-02-22T11:05:15Z",
+      "updated_at": "2024-02-22T11:05:15Z",
+      "body": "> Trouble in deployment for game @lebaphi : ![image](https://private-user-images.githubusercontent.com/1108513/306918115-ea192df3-b382-45d7-90d5-c9a42cb6b40f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg1OTAxNDUsIm5iZiI6MTcwODU4OTg0NSwicGF0aCI6Ii8xMTA4NTEzLzMwNjkxODExNS1lYTE5MmRmMy1iMzgyLTQ1ZDctOTBkNS1jOWE0MmNiNmI0MGYucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjJUMDgxNzI1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9NzMwMzIyYjEyYWJjOTE2MDYyZWYzNDQzNWFkZjg3ZWY0ZWQyOGY2ZTQxMTJlNTBkNWExNmQyMjU1NTg4NjQzNyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.zDlq4kEa2G89Sgnt7seyGWudUlfQPYvHDAkkYjR38XE)\r\n> \r\n> Storybook broken too: ![image](https://private-user-images.githubusercontent.com/1108513/306918375-7a81bdb8-edb9-4204-85c4-3dce7097e9ba.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg1OTAxNDUsIm5iZiI6MTcwODU4OTg0NSwicGF0aCI6Ii8xMTA4NTEzLzMwNjkxODM3NS03YTgxYmRiOC1lZGI5LTQyMDQtODVjNC0zZGNlNzA5N2U5YmEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjJUMDgxNzI1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YmExNThkYjgxNzExOWIxMzA2MWI2YmYxMTBlMDRiNDk4OGQ4ZmRhZmY1MjBmN2Q3ZjRmNzEwOGE1NDBhY2E2NSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.R4q70YgGosWza18U-tqbI7ZbDZMNKGktldB8YwS57EU)\r\n> \r\n> I guess you haven't added the ruler control to the repo.\r\n\r\nHi @IanMayo , I think the ruler is already in the repo \r\n![image](https://github.com/serge-web/serge/assets/26705621/f76d86be-c737-4b40-8f8b-ce38009a06c3)\r\n"
+    },
+    {
+      "id": 1959220068,
+      "user": "IanMayo",
+      "created_at": "2024-02-22T11:09:44Z",
+      "updated_at": "2024-02-22T11:09:44Z",
+      "body": "> Hi @IanMayo , I think the ruler is already in the repo\r\n\r\nHmm, something else must be causing the Heroku deployment (and storybook) to fail.\r\n"
+    },
+    {
+      "id": 1959613575,
+      "user": "IanMayo",
+      "created_at": "2024-02-22T14:50:44Z",
+      "updated_at": "2024-02-22T14:50:44Z",
+      "body": "That's strange @lebaphi    At the Heroku URL for this PR, it is still breaking:\r\nhttps://serge-2868-measuring-to-a7jsmx.herokuapp.com/?wargame=wargame-l6nngxlk&access=blue-mtg-1"
+    },
+    {
+      "id": 1959619333,
+      "user": "lebaphi",
+      "created_at": "2024-02-22T14:53:39Z",
+      "updated_at": "2024-02-22T14:53:39Z",
+      "body": "> > Hi @IanMayo , I think the ruler is already in the repo\r\n> \r\n> Hmm, something else must be causing the Heroku deployment (and storybook) to fail.\r\n\r\nit seems to work locally (develop & storybook), I'm not sure why it fails on heroku 🤔 "
+    },
+    {
+      "id": 1959757658,
+      "user": "IanMayo",
+      "created_at": "2024-02-22T16:00:49Z",
+      "updated_at": "2024-02-22T16:00:49Z",
+      "body": "Yes, it works locally for storybook and :3000.  We won't be able to review future PRs on Heroku if it's crashing though.\r\n"
+    },
+    {
+      "id": 1960976102,
+      "user": "Tristina1788",
+      "created_at": "2024-02-23T09:18:31Z",
+      "updated_at": "2024-02-23T09:18:31Z",
+      "body": "@lebaphi , @IanMayo  Tested on latest code '2868-measuring-tool' branch, now measuring tool can works as expected. Only issue on localhost:8080 still happens\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/fe2e77e7-4b97-41a1-bb40-7e0bbede086e\r\n\r\n![Core Mapping - Measuring Tool 8080](https://github.com/serge-web/serge/assets/107697044/27d75064-82fd-49fb-8a85-8663325173ac)\r\n\r\n"
+    },
+    {
+      "id": 1985556560,
+      "user": "Tristina1788",
+      "created_at": "2024-03-08T11:48:12Z",
+      "updated_at": "2024-03-08T11:48:12Z",
+      "body": "@lebaphi Check on latest code on '2868-measuring-tool' branch, I still get white screen on http://localhost:8080/\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/49e835de-a691-4fe2-a4bb-15be6737c538)\r\n"
+    },
+    {
+      "id": 1985581102,
+      "user": "lebaphi",
+      "created_at": "2024-03-08T12:07:17Z",
+      "updated_at": "2024-03-08T12:07:17Z",
+      "body": "Hi @Tristina1788, I'm still working on it, I'll let you know when it's ready for testing"
+    },
+    {
+      "id": 1985915630,
+      "user": "lebaphi",
+      "created_at": "2024-03-08T15:39:56Z",
+      "updated_at": "2024-03-08T15:39:56Z",
+      "body": "it works but I think it's not a good solution, it should be fixes in `vite.config.ts` I think, need to investigate more."
+    },
+    {
+      "id": 1985918825,
+      "user": "IanMayo",
+      "created_at": "2024-03-08T15:41:56Z",
+      "updated_at": "2024-03-08T15:41:56Z",
+      "body": "> it works but I think it's not a good solution, it should be fixes in `vite.config.ts` I think, need to investigate more.\r\n\r\nSure, ok."
+    },
+    {
+      "id": 1985958734,
+      "user": "IanMayo",
+      "created_at": "2024-03-08T16:03:15Z",
+      "updated_at": "2024-03-08T16:03:15Z",
+      "body": "> it works but I think it's not a good solution, it should be fixes in `vite.config.ts` I think, need to investigate more.\r\n\r\nSure, it does look scary @lebaphi \r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/89e9780c-a778-4430-ad9a-ba5dd09cc75b)\r\n"
+    },
+    {
+      "id": 1988465545,
+      "user": "IanMayo",
+      "created_at": "2024-03-11T13:38:47Z",
+      "updated_at": "2024-03-11T13:38:47Z",
+      "body": "Could you retest please @Tristina1788 "
+    },
+    {
+      "id": 1990457294,
+      "user": "Tristina1788",
+      "created_at": "2024-03-12T05:05:15Z",
+      "updated_at": "2024-03-12T05:05:15Z",
+      "body": "@IanMayo , @lebaphi  Now it can works on http://localhost:8080/\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/554a8ed4-743d-4c17-bec1-f7cefb78d231)\r\n\r\n- But It found an issue. Measuring line is not clean when I click another function on map. After that I can't enable measuring tool to measure line. (Need to refresh page to use measuring tool)\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/669b8b0b-9e3a-4767-8e35-3bb5e1b5c0a2\r\n\r\n- And we can't use measuring tool with start point is a point in shape. Do you think we have that case or not?\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/cb4a248b-9d67-4a38-91d0-ca4dc880782f\r\n\r\n"
+    },
+    {
+      "id": 1991252312,
+      "user": "IanMayo",
+      "created_at": "2024-03-12T10:07:16Z",
+      "updated_at": "2024-03-12T10:07:16Z",
+      "body": "Yes, @tristina - I guess we need to prevent map-select events when the measuring tool is active.  Can you investigate that please @lebaphi "
+    },
+    {
+      "id": 1996858445,
+      "user": "Tristina1788",
+      "created_at": "2024-03-14T08:34:23Z",
+      "updated_at": "2024-03-14T08:34:50Z",
+      "body": "@lebaphi , @IanMayo  Now  I can use measuring tool with start point is a point in shape.  And measuring line is not showed when select another function as expected\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/8dcdf8e5-dd33-4944-88f6-0b6b3dc797b5\r\n\r\nBut sometimes I have to click 2,3 times to click point on measuring tool. @lebaphi , @IanMayo do you see it when use measuring tool?\r\n\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/6a45861e-7816-4b13-984c-535b126c7db2\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 1999259954,
+      "user": "IanMayo",
+      "created_at": "2024-03-15T09:28:44Z",
+      "updated_at": "2024-03-15T09:28:44Z",
+      "body": "> But sometimes I have to click 2,3 times to click point on measuring tool.  @IanMayo do you see it when use measuring tool?\r\n\r\nI wasn't able to reproduce the issue, but I now have. If I repeatedly click really quickly, the points aren't picked up:\r\n\r\n![screencast](https://i.gyazo.com/89e79a9386acc83c83243969513aa732.gif)\r\n\r\nI don't think this means the feature is _broken_, but it could still be _annoying_.  Could you investigate please @lebaphi - I wonder if it's associated with the introduction of the `delay` command?"
+    },
+    {
+      "id": 2002363301,
+      "user": "lebaphi",
+      "created_at": "2024-03-17T08:36:18Z",
+      "updated_at": "2024-03-17T08:36:18Z",
+      "body": "Hi @IanMayo, I can't reproduce this issue either, `delay` command use to set measurement status (true or false), if true we will prevent clicking on shape/marker, it unrelated to measurement behavior.\r\n![image](https://github.com/serge-web/serge/assets/26705621/63b78db0-73e9-4f96-afc7-bdef5dcc0ade)\r\n"
+    },
+    {
+      "id": 2003325424,
+      "user": "Tristina1788",
+      "created_at": "2024-03-18T09:30:16Z",
+      "updated_at": "2024-03-18T09:30:16Z",
+      "body": "I checked the latest code and everything is good  except this 'sometimes I have to click 2,3 times to click point on measuring tool'. It's still happened on my side."
+    },
+    {
+      "id": 2003744674,
+      "user": "Tristina1788",
+      "created_at": "2024-03-18T12:09:31Z",
+      "updated_at": "2024-03-18T12:09:59Z",
+      "body": "I try to test on Firefox (instead of Chrome as before). And It's much better. I don't know if the issue related to cache or browser."
+    },
+    {
+      "id": 2004210551,
+      "user": "IanMayo",
+      "created_at": "2024-03-18T15:24:33Z",
+      "updated_at": "2024-03-18T15:24:33Z",
+      "body": "Sure, ok @Tristina1788 \r\n\r\nIn that case, I suggest we \"live with it\" for now, and see if a Chrome update fixes it in the near future."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1524708364,
+      "user": "IanMayo",
+      "created_at": "2024-03-14T11:51:17Z",
+      "updated_at": "2024-03-15T09:06:05Z",
+      "body": "we can drop this next debug line, right @lebaphi ?",
+      "path": "client/static/leaflet/ruler/leaflet.ruler.js",
+      "diff_hunk": "@@ -54,6 +54,7 @@\n       this._clickedLatLong = null\n       this._clickedPoints = []\n       this._totalLength = 0",
+      "html_url": "https://github.com/serge-web/serge/pull/2885#discussion_r1524708364"
+    },
+    {
+      "id": 1524980804,
+      "user": "lebaphi",
+      "created_at": "2024-03-14T14:28:18Z",
+      "updated_at": "2024-03-14T14:28:19Z",
+      "body": "yep we can debug this class in devtool @IanMayo ",
+      "path": "client/static/leaflet/ruler/leaflet.ruler.js",
+      "diff_hunk": "@@ -54,6 +54,7 @@\n       this._clickedLatLong = null\n       this._clickedPoints = []\n       this._totalLength = 0",
+      "html_url": "https://github.com/serge-web/serge/pull/2885#discussion_r1524980804"
+    },
+    {
+      "id": 1524983537,
+      "user": "IanMayo",
+      "created_at": "2024-03-14T14:30:03Z",
+      "updated_at": "2024-03-14T14:30:03Z",
+      "body": "Stupid GH comments 🤣 \r\n\r\nI was referring to the console.log on line 57",
+      "path": "client/static/leaflet/ruler/leaflet.ruler.js",
+      "diff_hunk": "@@ -54,6 +54,7 @@\n       this._clickedLatLong = null\n       this._clickedPoints = []\n       this._totalLength = 0",
+      "html_url": "https://github.com/serge-web/serge/pull/2885#discussion_r1524983537"
+    },
+    {
+      "id": 1525654648,
+      "user": "lebaphi",
+      "created_at": "2024-03-15T01:26:56Z",
+      "updated_at": "2024-03-15T01:26:56Z",
+      "body": "ah I see 🤣🤣",
+      "path": "client/static/leaflet/ruler/leaflet.ruler.js",
+      "diff_hunk": "@@ -54,6 +54,7 @@\n       this._clickedLatLong = null\n       this._clickedPoints = []\n       this._totalLength = 0",
+      "html_url": "https://github.com/serge-web/serge/pull/2885#discussion_r1525654648"
+    }
+  ],
+  "issue_numbers": [
+    8080
+  ],
+  "issues": [],
+  "images": [
+    "https://github.com/serge-web/serge/assets/26705621/869632cd-bc46-4524-9496-fc2b4d269127",
+    "https://github.com/serge-web/serge/assets/1108513/ea192df3-b382-45d7-90d5-c9a42cb6b40f",
+    "https://github.com/serge-web/serge/assets/1108513/7a81bdb8-edb9-4204-85c4-3dce7097e9ba",
+    "https://private-user-images.githubusercontent.com/1108513/306918115-ea192df3-b382-45d7-90d5-c9a42cb6b40f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg1OTAxNDUsIm5iZiI6MTcwODU4OTg0NSwicGF0aCI6Ii8xMTA4NTEzLzMwNjkxODExNS1lYTE5MmRmMy1iMzgyLTQ1ZDctOTBkNS1jOWE0MmNiNmI0MGYucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjJUMDgxNzI1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9NzMwMzIyYjEyYWJjOTE2MDYyZWYzNDQzNWFkZjg3ZWY0ZWQyOGY2ZTQxMTJlNTBkNWExNmQyMjU1NTg4NjQzNyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.zDlq4kEa2G89Sgnt7seyGWudUlfQPYvHDAkkYjR38XE",
+    "https://private-user-images.githubusercontent.com/1108513/306918375-7a81bdb8-edb9-4204-85c4-3dce7097e9ba.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg1OTAxNDUsIm5iZiI6MTcwODU4OTg0NSwicGF0aCI6Ii8xMTA4NTEzLzMwNjkxODM3NS03YTgxYmRiOC1lZGI5LTQyMDQtODVjNC0zZGNlNzA5N2U5YmEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjJUMDgxNzI1WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YmExNThkYjgxNzExOWIxMzA2MWI2YmYxMTBlMDRiNDk4OGQ4ZmRhZmY1MjBmN2Q3ZjRmNzEwOGE1NDBhY2E2NSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.R4q70YgGosWza18U-tqbI7ZbDZMNKGktldB8YwS57EU",
+    "https://github.com/serge-web/serge/assets/26705621/f76d86be-c737-4b40-8f8b-ce38009a06c3",
+    "https://github.com/serge-web/serge/assets/107697044/27d75064-82fd-49fb-8a85-8663325173ac",
+    "https://github.com/serge-web/serge/assets/107697044/49e835de-a691-4fe2-a4bb-15be6737c538",
+    "https://github.com/serge-web/serge/assets/1108513/89e9780c-a778-4430-ad9a-ba5dd09cc75b",
+    "https://github.com/serge-web/serge/assets/107697044/554a8ed4-743d-4c17-bec1-f7cefb78d231",
+    "https://i.gyazo.com/89e79a9386acc83c83243969513aa732.gif",
+    "https://github.com/serge-web/serge/assets/26705621/63b78db0-73e9-4f96-afc7-bdef5dcc0ade"
+  ],
+  "number_of_changed_files": 17,
+  "total_changed_lines": 387
+}

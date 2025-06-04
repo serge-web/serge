@@ -1,0 +1,53 @@
+{
+  "number": 1843,
+  "title": "clone messages before reversing them",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-13T12:19:11Z",
+  "updated_at": "2022-09-13T12:51:49Z",
+  "closed_at": "2022-09-13T12:51:48Z",
+  "merged_at": "2022-09-13T12:51:47Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1843",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1843/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1843/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1843",
+  "body": "Fixes #1829 ",
+  "additions": 2,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1829
+  ],
+  "issues": [
+    {
+      "id": 1367554190,
+      "number": 1829,
+      "title": "Issue with chat channel rendering",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-09T09:33:56Z",
+      "updated_at": "2022-09-13T12:51:49Z",
+      "closed_at": "2022-09-13T12:51:49Z",
+      "body": "The `ChatChannel` componnent is used to display both `chat` channels and `custom` channels (the ones with templates).\r\n\r\nI'm logged into `Papa Foxtrot` as `White - Peoples`, and I have `Red & SME` open.  I see a flicker when a message is sent into Game Admin.  I've investigated.\r\n\r\nThe  `ChatChannel` renders twice.  For a `Chat` channel, the first set of messages is in the wrong order.\r\n\r\nSo, we could try to fix the order of the first render.  But, really, we should stop the first render happening.  From tracking the `wargame_api` class, the first render appears to be before the new message has been processed.\r\n\r\nActually, there are 3 renders when I change tab in another tab-stack.  We also get 3 re-renders on ping-server.\r\n\r\nOk. When a message is sent into a channel, we don't need to re-render messages in other channels.  _Maybe_ we can check the length of the messages array.  The list will need to be re-rendered if we mark a message as read/unread, though that doesn't involve a server round-trip.\r\n\r\nAah, I may have the issue. I've just discovered that `reverse` is destructive - I bet that's what is doing it.  I _guess_ we should either start by making a deep copy (https://stackoverflow.com/a/60213352/92441), or produce the reversed array in another way.\r\n",
+      "labels": [
+        "bug",
+        "4watu",
+        "4p9",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 4
+}

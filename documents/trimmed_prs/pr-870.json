@@ -1,0 +1,72 @@
+{
+  "number": 870,
+  "title": "Fix issue of adding new logo",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-24T16:13:59Z",
+  "updated_at": "2021-06-24T16:35:08Z",
+  "closed_at": "2021-06-24T16:35:07Z",
+  "merged_at": "2021-06-24T16:35:07Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/870",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/870/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/870/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/870",
+  "body": "Fixes #860 ",
+  "additions": 1,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 867771842,
+      "user": "IanMayo",
+      "created_at": "2021-06-24T16:16:24Z",
+      "updated_at": "2021-06-24T16:16:24Z",
+      "body": "Thanks @lebaphi \r\n\r\nIs this a temporary workaround for `executable_win.exe`, or is it a permanent fix?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    860
+  ],
+  "issues": [
+    {
+      "id": 927420811,
+      "number": 860,
+      "title": "Can't replace welcome image",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-22T16:21:06Z",
+      "updated_at": "2021-06-24T16:35:07Z",
+      "closed_at": "2021-06-24T16:35:07Z",
+      "body": "The welcome screen includes a configurable logo.\r\n![image](https://user-images.githubusercontent.com/1108513/122963292-0a796500-d37e-11eb-80e3-fb2dca1d46ca.png)\r\n\r\nThe logo can be edited from the Admin Pages:\r\n![image](https://user-images.githubusercontent.com/1108513/122963390-211fbc00-d37e-11eb-93fc-dc47093c9e0d.png)\r\n\r\nA Game Designer has reported that he wasn't able to replace the welcome image.\r\n\r\nHe uploaded the replacement via the Admin pages, but the welcome page just displayed a broken link icon.\r\n\r\n\r\nI was able to modify the image from a `yarn develop` running instance:\r\n![image](https://user-images.githubusercontent.com/1108513/122962788-a9ea2800-d37d-11eb-9a13-e303592d69f4.png)\r\n\r\n\r\n_Maybe_ this is an issue related to deployed (executable) Serge.\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 867423042,
+          "user": "IanMayo",
+          "created_at": "2021-06-24T07:54:18Z",
+          "updated_at": "2021-06-24T07:54:18Z",
+          "body": "Aah, got it.  I encountered the same issue when running Serge from the executable. My _guess_ is that the node backend is trying to write to a folder structure as if it's being run via `yarn start` - but really it needs to write the file into the `serge/img` local folder.  Note:  I tried copying the image by hand into that folder, but I still got `image not found` and the accessible text label was shown instead."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/122963292-0a796500-d37e-11eb-80e3-fb2dca1d46ca.png",
+    "https://user-images.githubusercontent.com/1108513/122963390-211fbc00-d37e-11eb-93fc-dc47093c9e0d.png",
+    "https://user-images.githubusercontent.com/1108513/122962788-a9ea2800-d37d-11eb-9a13-e303592d69f4.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 1
+}

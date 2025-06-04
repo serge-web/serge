@@ -1,0 +1,61 @@
+{
+  "number": 1590,
+  "title": "1589 save asset",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-07T13:31:05Z",
+  "updated_at": "2022-06-30T13:27:26Z",
+  "closed_at": "2022-06-30T13:27:26Z",
+  "merged_at": "2022-06-30T13:27:25Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1590",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1590/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1590/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1590",
+  "body": "Fixes #1589 \r\n\r\nThe `Save` event was pushing a cloned copy of the `forces` object into the database, then using this cloned object in the client state.\r\n\r\nBut, the `selected asset` was an object from the `original` force.  So, when we store changes to that asset, it doesn't change the original.\r\n\r\nNow, when a new `force` is received, we update the `selected item` to point to a valid item.",
+  "additions": 8,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1148683079,
+      "user": "IanMayo",
+      "created_at": "2022-06-07T13:33:22Z",
+      "updated_at": "2022-06-07T15:46:39Z",
+      "body": "@lilitkarapetyan  - could you check this fix is ok please?\r\n\r\nNote: I'm pretty sure its still broken.  I'm pretty sure the problem is when we clone the asset:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/172424193-a7a8df89-62ba-45b8-ba05-83c56faaf238.png)\r\n\r\nCould you investigate, please @lilitkarapetyan ?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1589
+  ],
+  "issues": [
+    {
+      "id": 1263265512,
+      "number": 1589,
+      "title": "Can't always SAVE asset name changes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-07T13:02:51Z",
+      "updated_at": "2022-06-30T13:27:25Z",
+      "closed_at": "2022-06-30T13:27:25Z",
+      "body": "I'm playing around with the `Forces` page in `develop` branch.\r\n\r\nOn most occasions, changing an asset name does not get stored in the database.  It keeps the old name.\r\n\r\nMy _guess_ is that `setSelectedItem` isn't looking at the \"real\" object, but is looking at a `copy`.\r\n\r\n![screencast](https://i.gyazo.com/d82f1fdf0d80fb2d3b62721b4bf5da14.gif)",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/172424193-a7a8df89-62ba-45b8-ba05-83c56faaf238.png",
+    "https://i.gyazo.com/d82f1fdf0d80fb2d3b62721b4bf5da14.gif"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 8
+}

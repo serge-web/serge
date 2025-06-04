@@ -1,0 +1,212 @@
+{
+  "number": 1411,
+  "title": "1397 Update Admin Page Entry Display",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-13T13:37:17Z",
+  "updated_at": "2022-03-15T08:19:41Z",
+  "closed_at": "2022-03-15T08:19:40Z",
+  "merged_at": "2022-03-15T08:19:40Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1411",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1411/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1411/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1411",
+  "body": "Fixes #1397 \r\n\r\n<img width=\"1085\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/158062075-954da494-dab4-4b23-806e-c0b6734c0395.png\">\r\n",
+  "additions": 213,
+  "deletions": 79,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 13,
+  "total_comments": 15,
+  "comments_data": [
+    {
+      "id": 1066639925,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T10:54:48Z",
+      "updated_at": "2022-03-14T10:54:48Z",
+      "body": "@lebaphi the Serge icon on the main welcome page can be specified by the Game Designer in the `Welcome Screen` part of Game Admin.  Does the admin login page use the same logo?\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/158158182-9889b8dc-ba2e-4bec-ae24-1e5771732238.png)\r\n"
+    },
+    {
+      "id": 1066652883,
+      "user": "lebaphi",
+      "created_at": "2022-03-14T11:08:58Z",
+      "updated_at": "2022-03-14T11:08:58Z",
+      "body": "Yes, it uses the same logo @IanMayo , you can see in the code, I used `${serverPath.length}/${gameInfo.imageUrl}` to load this image 😄 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 825812289,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T10:46:03Z",
+      "updated_at": "2022-03-14T10:46:03Z",
+      "body": "Can you explain what this block of code does please @lebaphi ?",
+      "path": "packages/components/src/local/organisms/admin-login/index.spec.tsx",
+      "diff_hunk": "@@ -4,6 +4,11 @@ import renderer from 'react-test-renderer'\n \n import AdminLogin from './index'\n \n+jest.mock('react-redux', () => ({\n+  ...jest.requireActual('react-redux'),\n+  useSelector: jest.fn(() => [])\n+}))\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825812289"
+    },
+    {
+      "id": 825813471,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T10:47:27Z",
+      "updated_at": "2022-03-14T10:47:27Z",
+      "body": "@lebaphi - I don't know if we need to use `memo` here.  The admin page rarely opens, and when it does, there is only one instance of it.\r\n\r\nCan you point me to a page/article that suggests we use `React.memo` everywhere?",
+      "path": "packages/components/src/local/organisms/admin-login/index.tsx",
+      "diff_hunk": "@@ -1,50 +1,65 @@\n-import React, { useState } from 'react'\n-import TextInput from '../../atoms/text-input'\n+import { DEFAULT_SERVER, serverPath } from '@serge/config'\n+import { RootState } from '@serge/custom-types'\n+import React, { useCallback, useMemo, useState } from 'react'\n+import { useSelector } from 'react-redux'\n import Button from '../../atoms/button'\n-\n-/* Import Types */\n-import Props from './types/props'\n-\n-import { DEFAULT_SERVER } from '@serge/config'\n-\n+import TextInput from '../../atoms/text-input'\n /* Import Stylesheet */\n import styles from './styles.module.scss'\n+/* Import Types */\n+import Props from './types/props'\n \n /* Render component */\n export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {\n   // (temporarily) put password in box, to make testing quicker in dev\n   const providePassword = true\n   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')\n+  const gameInfo = useSelector((state: RootState) => state.gameInfo)\n \n-  const setPasswordValue = (target: { value: string }): void => {\n+  const setPasswordValue = useCallback((target: { value: string }): void => {\n     setPassword(target.value)\n-  }\n-  const handleOnKeyPress = (evt: React.KeyboardEvent): void => {\n+  }, [])\n+\n+  const handleOnKeyPress = useCallback((evt: React.KeyboardEvent): void => {\n     if (evt.key === 'Enter') {\n       onSubmit && onSubmit(password)\n     }\n-  }\n+  }, [password])\n+\n+  const logoPath = useMemo(() => {\n+    if (gameInfo.imageUrl) {\n+      return `${serverPath.substring(0, serverPath.length - 1)}${gameInfo.imageUrl}`\n+    }\n+    return ''\n+  }, [gameInfo.imageUrl])\n \n   return (\n     <>\n-      <h2 className={styles['login-form-head']}>Password</h2>\n-      <div style={{ marginBottom: 16 }}>\n-        <TextInput\n-          label=\"Password\"\n-          labelColor=\"common.white\"\n-          value={password}\n-          type=\"password\"\n-          variant=\"filled\"\n-          updateState={setPasswordValue}\n-          onKeyPress={handleOnKeyPress}\n-          fullWidth\n-        />\n-      </div>\n-      <Button color=\"secondary\" onClick={(): void => onSubmit(password)}>\n+      <div className={styles.container}>\n+        <span className={styles.logo}>\n+          <img src={logoPath} />\n+          <p>Serge</p>\n+          <p>Admin Page</p>\n+        </span>\n+\n+        <div className={styles.password}>\n+          <TextInput\n+            label=\"Password\"\n+            labelColor=\"common.white\"\n+            value={password}\n+            type=\"password\"\n+            variant=\"filled\"\n+            updateState={setPasswordValue}\n+            onKeyPress={handleOnKeyPress}\n+            fullWidth\n+          />\n+        </div>\n+        <Button color=\"primary\" onClick={(): void => onSubmit(password)}>\n         Enter\n-      </Button>\n+        </Button>\n+      </div>\n     </>\n   )\n }\n \n-export default AdminLogin\n+export default React.memo(AdminLogin)",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825813471"
+    },
+    {
+      "id": 825814673,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T10:48:52Z",
+      "updated_at": "2022-03-14T10:48:53Z",
+      "body": "Hello @lebaphi - can you explain what this new RootState is for? \r\n\r\nWas it an unstructured `any` in the past?",
+      "path": "packages/custom-types/root-state.ts",
+      "diff_hunk": "@@ -0,0 +1,58 @@\n+import { MessageTypes, Wargame } from '.';\n+\n+export type GameInfo = {\n+  imageUrlSet: boolean;\n+  imageUrl: string;\n+  title: string;\n+  description: string;\n+  showAccessCodes: boolean;\n+}\n+\n+export type Messages = {\n+  isLoading: boolean;\n+  messages: never[];\n+  messagePreviewId: string;\n+  messagePreview: {};\n+}\n+\n+export type UmpireMenu = {\n+  selectedSchemaID: string;\n+  previewSchema: {};\n+}\n+\n+export type ExportItems = {\n+  data: never[];\n+  loader: boolean;\n+}\n+\n+export interface ActivityLogsInterface {\n+  activityTime: string\n+  activityType: string\n+  role: string\n+  wargame: string\n+}\n+\n+export type DBLoadingState = {\n+  loadingMessageTypes: boolean;\n+  loadingWargames: boolean;\n+}\n+\n+export type CurrentModal = {\n+  open: boolean;\n+  modal: string;\n+  data: null;\n+}\n+\n+export type RootState = {",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825814673"
+    },
+    {
+      "id": 825817090,
+      "user": "lebaphi",
+      "created_at": "2022-03-14T10:51:48Z",
+      "updated_at": "2022-03-14T10:51:48Z",
+      "body": "in the `admin-login` component I use a hook `useSelector`, so when implement the unit test with jest, we should mock this hook to make the test passed because the jest will not know what is the `useSelector` is.",
+      "path": "packages/components/src/local/organisms/admin-login/index.spec.tsx",
+      "diff_hunk": "@@ -4,6 +4,11 @@ import renderer from 'react-test-renderer'\n \n import AdminLogin from './index'\n \n+jest.mock('react-redux', () => ({\n+  ...jest.requireActual('react-redux'),\n+  useSelector: jest.fn(() => [])\n+}))\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825817090"
+    },
+    {
+      "id": 825817603,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T10:52:22Z",
+      "updated_at": "2022-03-14T10:52:23Z",
+      "body": "Hello @lebaphi - there is a big change here, but I can't quite see what it happening.  Could you have another go at explaining it please?\r\n\r\nAah, I think I've got it.  The reducers are written in JS rather than TS.   Right?\r\n",
+      "path": "packages/client/src/Store/RootReducer.ts",
+      "diff_hunk": "@@ -0,0 +1,23 @@\n+import { CurrentModal, DBLoadingState, ExportItems, GameInfo, Messages, UmpireMenu } from \"@serge/custom-types\"\n+import { messagesReducer } from \"../ActionsAndReducers/dbMessages/messages_Reducer\"\n+import { exportItems } from \"../ActionsAndReducers/ExportItems/ExportItems_Reducer\"\n+import { loadingDbReducer } from \"../ActionsAndReducers/loadingDb_Reducer\"\n+import { currentModal } from \"../ActionsAndReducers/Modal/Modal_Reducer\"\n+import { notificationReducer } from \"../ActionsAndReducers/Notification/Notification_Reducer\"\n+import { gameInfo } from \"../ActionsAndReducers/sergeInfo/sergeInfo_Reducer\"\n+import { umpireMenuReducer } from \"../ActionsAndReducers/UmpireMenu/umpireMenu_Reducer\"\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825817603"
+    },
+    {
+      "id": 825822558,
+      "user": "lebaphi",
+      "created_at": "2022-03-14T10:58:07Z",
+      "updated_at": "2022-03-14T11:24:47Z",
+      "body": "the `admin-login` component has the callback function `onSubmit`, so we should apply the memoization. You can see here https://dmitripavlutin.com/use-react-memo-wisely/#:~:text=memo()%20wisely.,memoization%20for%20class%2Dbased%20components, and all callback functions should be wrapped in `useCallback` to reduce the component rendering.",
+      "path": "packages/components/src/local/organisms/admin-login/index.tsx",
+      "diff_hunk": "@@ -1,50 +1,65 @@\n-import React, { useState } from 'react'\n-import TextInput from '../../atoms/text-input'\n+import { DEFAULT_SERVER, serverPath } from '@serge/config'\n+import { RootState } from '@serge/custom-types'\n+import React, { useCallback, useMemo, useState } from 'react'\n+import { useSelector } from 'react-redux'\n import Button from '../../atoms/button'\n-\n-/* Import Types */\n-import Props from './types/props'\n-\n-import { DEFAULT_SERVER } from '@serge/config'\n-\n+import TextInput from '../../atoms/text-input'\n /* Import Stylesheet */\n import styles from './styles.module.scss'\n+/* Import Types */\n+import Props from './types/props'\n \n /* Render component */\n export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {\n   // (temporarily) put password in box, to make testing quicker in dev\n   const providePassword = true\n   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')\n+  const gameInfo = useSelector((state: RootState) => state.gameInfo)\n \n-  const setPasswordValue = (target: { value: string }): void => {\n+  const setPasswordValue = useCallback((target: { value: string }): void => {\n     setPassword(target.value)\n-  }\n-  const handleOnKeyPress = (evt: React.KeyboardEvent): void => {\n+  }, [])\n+\n+  const handleOnKeyPress = useCallback((evt: React.KeyboardEvent): void => {\n     if (evt.key === 'Enter') {\n       onSubmit && onSubmit(password)\n     }\n-  }\n+  }, [password])\n+\n+  const logoPath = useMemo(() => {\n+    if (gameInfo.imageUrl) {\n+      return `${serverPath.substring(0, serverPath.length - 1)}${gameInfo.imageUrl}`\n+    }\n+    return ''\n+  }, [gameInfo.imageUrl])\n \n   return (\n     <>\n-      <h2 className={styles['login-form-head']}>Password</h2>\n-      <div style={{ marginBottom: 16 }}>\n-        <TextInput\n-          label=\"Password\"\n-          labelColor=\"common.white\"\n-          value={password}\n-          type=\"password\"\n-          variant=\"filled\"\n-          updateState={setPasswordValue}\n-          onKeyPress={handleOnKeyPress}\n-          fullWidth\n-        />\n-      </div>\n-      <Button color=\"secondary\" onClick={(): void => onSubmit(password)}>\n+      <div className={styles.container}>\n+        <span className={styles.logo}>\n+          <img src={logoPath} />\n+          <p>Serge</p>\n+          <p>Admin Page</p>\n+        </span>\n+\n+        <div className={styles.password}>\n+          <TextInput\n+            label=\"Password\"\n+            labelColor=\"common.white\"\n+            value={password}\n+            type=\"password\"\n+            variant=\"filled\"\n+            updateState={setPasswordValue}\n+            onKeyPress={handleOnKeyPress}\n+            fullWidth\n+          />\n+        </div>\n+        <Button color=\"primary\" onClick={(): void => onSubmit(password)}>\n         Enter\n-      </Button>\n+        </Button>\n+      </div>\n     </>\n   )\n }\n \n-export default AdminLogin\n+export default React.memo(AdminLogin)",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825822558"
+    },
+    {
+      "id": 825827101,
+      "user": "lebaphi",
+      "created_at": "2022-03-14T11:03:39Z",
+      "updated_at": "2022-03-14T11:03:39Z",
+      "body": "yep, in the past we use\r\n```\r\nexport default createStore(combineReducers({\r\n  ....\r\n}), applyMiddleware(...middlewares))\r\n\r\n```\r\n\r\nwe don't define the type the state of the store, so it uses the `DefaultRootState` as default, then all state which select from store will have the `any`.\r\nNow I create an interface for the state, I called it `RootState` with all type  of all reducers. So we can query the state that we want with its property like the image below:\r\n\r\n<img width=\"629\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/158159429-1c4dacc6-e0c6-492b-85cd-dc246bfe7fda.png\">\r\n",
+      "path": "packages/custom-types/root-state.ts",
+      "diff_hunk": "@@ -0,0 +1,58 @@\n+import { MessageTypes, Wargame } from '.';\n+\n+export type GameInfo = {\n+  imageUrlSet: boolean;\n+  imageUrl: string;\n+  title: string;\n+  description: string;\n+  showAccessCodes: boolean;\n+}\n+\n+export type Messages = {\n+  isLoading: boolean;\n+  messages: never[];\n+  messagePreviewId: string;\n+  messagePreview: {};\n+}\n+\n+export type UmpireMenu = {\n+  selectedSchemaID: string;\n+  previewSchema: {};\n+}\n+\n+export type ExportItems = {\n+  data: never[];\n+  loader: boolean;\n+}\n+\n+export interface ActivityLogsInterface {\n+  activityTime: string\n+  activityType: string\n+  role: string\n+  wargame: string\n+}\n+\n+export type DBLoadingState = {\n+  loadingMessageTypes: boolean;\n+  loadingWargames: boolean;\n+}\n+\n+export type CurrentModal = {\n+  open: boolean;\n+  modal: string;\n+  data: null;\n+}\n+\n+export type RootState = {",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825827101"
+    },
+    {
+      "id": 825828737,
+      "user": "lebaphi",
+      "created_at": "2022-03-14T11:05:38Z",
+      "updated_at": "2022-03-14T11:11:03Z",
+      "body": "yep, as you can see all our reducers were written in JS so they don't have a type for it. I created a new class to wrap each old reducer with the new one (in TS file) then we can have a type for it.",
+      "path": "packages/client/src/Store/RootReducer.ts",
+      "diff_hunk": "@@ -0,0 +1,23 @@\n+import { CurrentModal, DBLoadingState, ExportItems, GameInfo, Messages, UmpireMenu } from \"@serge/custom-types\"\n+import { messagesReducer } from \"../ActionsAndReducers/dbMessages/messages_Reducer\"\n+import { exportItems } from \"../ActionsAndReducers/ExportItems/ExportItems_Reducer\"\n+import { loadingDbReducer } from \"../ActionsAndReducers/loadingDb_Reducer\"\n+import { currentModal } from \"../ActionsAndReducers/Modal/Modal_Reducer\"\n+import { notificationReducer } from \"../ActionsAndReducers/Notification/Notification_Reducer\"\n+import { gameInfo } from \"../ActionsAndReducers/sergeInfo/sergeInfo_Reducer\"\n+import { umpireMenuReducer } from \"../ActionsAndReducers/UmpireMenu/umpireMenu_Reducer\"\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825828737"
+    },
+    {
+      "id": 825863570,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T11:50:02Z",
+      "updated_at": "2022-03-14T11:50:02Z",
+      "body": "Thanks @lebaphi - but I think that article says we should avoid using `React.memo` unless we know there is a specific performance issue:\r\n![image](https://user-images.githubusercontent.com/1108513/158166173-6d412ee7-a3e7-4da2-a59b-3150e8c868ef.png)\r\n",
+      "path": "packages/components/src/local/organisms/admin-login/index.tsx",
+      "diff_hunk": "@@ -1,50 +1,65 @@\n-import React, { useState } from 'react'\n-import TextInput from '../../atoms/text-input'\n+import { DEFAULT_SERVER, serverPath } from '@serge/config'\n+import { RootState } from '@serge/custom-types'\n+import React, { useCallback, useMemo, useState } from 'react'\n+import { useSelector } from 'react-redux'\n import Button from '../../atoms/button'\n-\n-/* Import Types */\n-import Props from './types/props'\n-\n-import { DEFAULT_SERVER } from '@serge/config'\n-\n+import TextInput from '../../atoms/text-input'\n /* Import Stylesheet */\n import styles from './styles.module.scss'\n+/* Import Types */\n+import Props from './types/props'\n \n /* Render component */\n export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {\n   // (temporarily) put password in box, to make testing quicker in dev\n   const providePassword = true\n   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')\n+  const gameInfo = useSelector((state: RootState) => state.gameInfo)\n \n-  const setPasswordValue = (target: { value: string }): void => {\n+  const setPasswordValue = useCallback((target: { value: string }): void => {\n     setPassword(target.value)\n-  }\n-  const handleOnKeyPress = (evt: React.KeyboardEvent): void => {\n+  }, [])\n+\n+  const handleOnKeyPress = useCallback((evt: React.KeyboardEvent): void => {\n     if (evt.key === 'Enter') {\n       onSubmit && onSubmit(password)\n     }\n-  }\n+  }, [password])\n+\n+  const logoPath = useMemo(() => {\n+    if (gameInfo.imageUrl) {\n+      return `${serverPath.substring(0, serverPath.length - 1)}${gameInfo.imageUrl}`\n+    }\n+    return ''\n+  }, [gameInfo.imageUrl])\n \n   return (\n     <>\n-      <h2 className={styles['login-form-head']}>Password</h2>\n-      <div style={{ marginBottom: 16 }}>\n-        <TextInput\n-          label=\"Password\"\n-          labelColor=\"common.white\"\n-          value={password}\n-          type=\"password\"\n-          variant=\"filled\"\n-          updateState={setPasswordValue}\n-          onKeyPress={handleOnKeyPress}\n-          fullWidth\n-        />\n-      </div>\n-      <Button color=\"secondary\" onClick={(): void => onSubmit(password)}>\n+      <div className={styles.container}>\n+        <span className={styles.logo}>\n+          <img src={logoPath} />\n+          <p>Serge</p>\n+          <p>Admin Page</p>\n+        </span>\n+\n+        <div className={styles.password}>\n+          <TextInput\n+            label=\"Password\"\n+            labelColor=\"common.white\"\n+            value={password}\n+            type=\"password\"\n+            variant=\"filled\"\n+            updateState={setPasswordValue}\n+            onKeyPress={handleOnKeyPress}\n+            fullWidth\n+          />\n+        </div>\n+        <Button color=\"primary\" onClick={(): void => onSubmit(password)}>\n         Enter\n-      </Button>\n+        </Button>\n+      </div>\n     </>\n   )\n }\n \n-export default AdminLogin\n+export default React.memo(AdminLogin)",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825863570"
+    },
+    {
+      "id": 825869314,
+      "user": "lebaphi",
+      "created_at": "2022-03-14T11:57:20Z",
+      "updated_at": "2022-03-14T11:57:20Z",
+      "body": "Another one @IanMayo 🤣  https://javascript.plainenglish.io/when-and-when-not-to-use-react-memo-e050d3cb1ffc\r\n<img width=\"714\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/158167336-ba71b440-da48-4bd2-82da-85b970ae15fb.png\">\r\n",
+      "path": "packages/components/src/local/organisms/admin-login/index.tsx",
+      "diff_hunk": "@@ -1,50 +1,65 @@\n-import React, { useState } from 'react'\n-import TextInput from '../../atoms/text-input'\n+import { DEFAULT_SERVER, serverPath } from '@serge/config'\n+import { RootState } from '@serge/custom-types'\n+import React, { useCallback, useMemo, useState } from 'react'\n+import { useSelector } from 'react-redux'\n import Button from '../../atoms/button'\n-\n-/* Import Types */\n-import Props from './types/props'\n-\n-import { DEFAULT_SERVER } from '@serge/config'\n-\n+import TextInput from '../../atoms/text-input'\n /* Import Stylesheet */\n import styles from './styles.module.scss'\n+/* Import Types */\n+import Props from './types/props'\n \n /* Render component */\n export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {\n   // (temporarily) put password in box, to make testing quicker in dev\n   const providePassword = true\n   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')\n+  const gameInfo = useSelector((state: RootState) => state.gameInfo)\n \n-  const setPasswordValue = (target: { value: string }): void => {\n+  const setPasswordValue = useCallback((target: { value: string }): void => {\n     setPassword(target.value)\n-  }\n-  const handleOnKeyPress = (evt: React.KeyboardEvent): void => {\n+  }, [])\n+\n+  const handleOnKeyPress = useCallback((evt: React.KeyboardEvent): void => {\n     if (evt.key === 'Enter') {\n       onSubmit && onSubmit(password)\n     }\n-  }\n+  }, [password])\n+\n+  const logoPath = useMemo(() => {\n+    if (gameInfo.imageUrl) {\n+      return `${serverPath.substring(0, serverPath.length - 1)}${gameInfo.imageUrl}`\n+    }\n+    return ''\n+  }, [gameInfo.imageUrl])\n \n   return (\n     <>\n-      <h2 className={styles['login-form-head']}>Password</h2>\n-      <div style={{ marginBottom: 16 }}>\n-        <TextInput\n-          label=\"Password\"\n-          labelColor=\"common.white\"\n-          value={password}\n-          type=\"password\"\n-          variant=\"filled\"\n-          updateState={setPasswordValue}\n-          onKeyPress={handleOnKeyPress}\n-          fullWidth\n-        />\n-      </div>\n-      <Button color=\"secondary\" onClick={(): void => onSubmit(password)}>\n+      <div className={styles.container}>\n+        <span className={styles.logo}>\n+          <img src={logoPath} />\n+          <p>Serge</p>\n+          <p>Admin Page</p>\n+        </span>\n+\n+        <div className={styles.password}>\n+          <TextInput\n+            label=\"Password\"\n+            labelColor=\"common.white\"\n+            value={password}\n+            type=\"password\"\n+            variant=\"filled\"\n+            updateState={setPasswordValue}\n+            onKeyPress={handleOnKeyPress}\n+            fullWidth\n+          />\n+        </div>\n+        <Button color=\"primary\" onClick={(): void => onSubmit(password)}>\n         Enter\n-      </Button>\n+        </Button>\n+      </div>\n     </>\n   )\n }\n \n-export default AdminLogin\n+export default React.memo(AdminLogin)",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825869314"
+    },
+    {
+      "id": 825871627,
+      "user": "lebaphi",
+      "created_at": "2022-03-14T12:00:21Z",
+      "updated_at": "2022-03-14T12:00:21Z",
+      "body": "```\r\nWhen we have pure functional components. Given the same props, such components will remain the same — always rendering the same output.\r\n```\r\nIn case if the state does not changed, using `React.memo()` will help use to avoid the component re-render often I think. So I think it's a good habit.",
+      "path": "packages/components/src/local/organisms/admin-login/index.tsx",
+      "diff_hunk": "@@ -1,50 +1,65 @@\n-import React, { useState } from 'react'\n-import TextInput from '../../atoms/text-input'\n+import { DEFAULT_SERVER, serverPath } from '@serge/config'\n+import { RootState } from '@serge/custom-types'\n+import React, { useCallback, useMemo, useState } from 'react'\n+import { useSelector } from 'react-redux'\n import Button from '../../atoms/button'\n-\n-/* Import Types */\n-import Props from './types/props'\n-\n-import { DEFAULT_SERVER } from '@serge/config'\n-\n+import TextInput from '../../atoms/text-input'\n /* Import Stylesheet */\n import styles from './styles.module.scss'\n+/* Import Types */\n+import Props from './types/props'\n \n /* Render component */\n export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {\n   // (temporarily) put password in box, to make testing quicker in dev\n   const providePassword = true\n   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')\n+  const gameInfo = useSelector((state: RootState) => state.gameInfo)\n \n-  const setPasswordValue = (target: { value: string }): void => {\n+  const setPasswordValue = useCallback((target: { value: string }): void => {\n     setPassword(target.value)\n-  }\n-  const handleOnKeyPress = (evt: React.KeyboardEvent): void => {\n+  }, [])\n+\n+  const handleOnKeyPress = useCallback((evt: React.KeyboardEvent): void => {\n     if (evt.key === 'Enter') {\n       onSubmit && onSubmit(password)\n     }\n-  }\n+  }, [password])\n+\n+  const logoPath = useMemo(() => {\n+    if (gameInfo.imageUrl) {\n+      return `${serverPath.substring(0, serverPath.length - 1)}${gameInfo.imageUrl}`\n+    }\n+    return ''\n+  }, [gameInfo.imageUrl])\n \n   return (\n     <>\n-      <h2 className={styles['login-form-head']}>Password</h2>\n-      <div style={{ marginBottom: 16 }}>\n-        <TextInput\n-          label=\"Password\"\n-          labelColor=\"common.white\"\n-          value={password}\n-          type=\"password\"\n-          variant=\"filled\"\n-          updateState={setPasswordValue}\n-          onKeyPress={handleOnKeyPress}\n-          fullWidth\n-        />\n-      </div>\n-      <Button color=\"secondary\" onClick={(): void => onSubmit(password)}>\n+      <div className={styles.container}>\n+        <span className={styles.logo}>\n+          <img src={logoPath} />\n+          <p>Serge</p>\n+          <p>Admin Page</p>\n+        </span>\n+\n+        <div className={styles.password}>\n+          <TextInput\n+            label=\"Password\"\n+            labelColor=\"common.white\"\n+            value={password}\n+            type=\"password\"\n+            variant=\"filled\"\n+            updateState={setPasswordValue}\n+            onKeyPress={handleOnKeyPress}\n+            fullWidth\n+          />\n+        </div>\n+        <Button color=\"primary\" onClick={(): void => onSubmit(password)}>\n         Enter\n-      </Button>\n+        </Button>\n+      </div>\n     </>\n   )\n }\n \n-export default AdminLogin\n+export default React.memo(AdminLogin)",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825871627"
+    },
+    {
+      "id": 825872856,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T12:01:59Z",
+      "updated_at": "2022-03-14T12:01:59Z",
+      "body": "Sure.  But the `admin page` doesn't re-render a lot.  Hmm, I don't think it even takes any props.  If it does, they won't change.\r\n\r\nSo, this _feels like_ we're adding complexity without justification.",
+      "path": "packages/components/src/local/organisms/admin-login/index.tsx",
+      "diff_hunk": "@@ -1,50 +1,65 @@\n-import React, { useState } from 'react'\n-import TextInput from '../../atoms/text-input'\n+import { DEFAULT_SERVER, serverPath } from '@serge/config'\n+import { RootState } from '@serge/custom-types'\n+import React, { useCallback, useMemo, useState } from 'react'\n+import { useSelector } from 'react-redux'\n import Button from '../../atoms/button'\n-\n-/* Import Types */\n-import Props from './types/props'\n-\n-import { DEFAULT_SERVER } from '@serge/config'\n-\n+import TextInput from '../../atoms/text-input'\n /* Import Stylesheet */\n import styles from './styles.module.scss'\n+/* Import Types */\n+import Props from './types/props'\n \n /* Render component */\n export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {\n   // (temporarily) put password in box, to make testing quicker in dev\n   const providePassword = true\n   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')\n+  const gameInfo = useSelector((state: RootState) => state.gameInfo)\n \n-  const setPasswordValue = (target: { value: string }): void => {\n+  const setPasswordValue = useCallback((target: { value: string }): void => {\n     setPassword(target.value)\n-  }\n-  const handleOnKeyPress = (evt: React.KeyboardEvent): void => {\n+  }, [])\n+\n+  const handleOnKeyPress = useCallback((evt: React.KeyboardEvent): void => {\n     if (evt.key === 'Enter') {\n       onSubmit && onSubmit(password)\n     }\n-  }\n+  }, [password])\n+\n+  const logoPath = useMemo(() => {\n+    if (gameInfo.imageUrl) {\n+      return `${serverPath.substring(0, serverPath.length - 1)}${gameInfo.imageUrl}`\n+    }\n+    return ''\n+  }, [gameInfo.imageUrl])\n \n   return (\n     <>\n-      <h2 className={styles['login-form-head']}>Password</h2>\n-      <div style={{ marginBottom: 16 }}>\n-        <TextInput\n-          label=\"Password\"\n-          labelColor=\"common.white\"\n-          value={password}\n-          type=\"password\"\n-          variant=\"filled\"\n-          updateState={setPasswordValue}\n-          onKeyPress={handleOnKeyPress}\n-          fullWidth\n-        />\n-      </div>\n-      <Button color=\"secondary\" onClick={(): void => onSubmit(password)}>\n+      <div className={styles.container}>\n+        <span className={styles.logo}>\n+          <img src={logoPath} />\n+          <p>Serge</p>\n+          <p>Admin Page</p>\n+        </span>\n+\n+        <div className={styles.password}>\n+          <TextInput\n+            label=\"Password\"\n+            labelColor=\"common.white\"\n+            value={password}\n+            type=\"password\"\n+            variant=\"filled\"\n+            updateState={setPasswordValue}\n+            onKeyPress={handleOnKeyPress}\n+            fullWidth\n+          />\n+        </div>\n+        <Button color=\"primary\" onClick={(): void => onSubmit(password)}>\n         Enter\n-      </Button>\n+        </Button>\n+      </div>\n     </>\n   )\n }\n \n-export default AdminLogin\n+export default React.memo(AdminLogin)",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825872856"
+    },
+    {
+      "id": 825921009,
+      "user": "lebaphi",
+      "created_at": "2022-03-14T13:00:23Z",
+      "updated_at": "2022-03-14T13:00:23Z",
+      "body": "yeah, so we can remove it 😄 ",
+      "path": "packages/components/src/local/organisms/admin-login/index.tsx",
+      "diff_hunk": "@@ -1,50 +1,65 @@\n-import React, { useState } from 'react'\n-import TextInput from '../../atoms/text-input'\n+import { DEFAULT_SERVER, serverPath } from '@serge/config'\n+import { RootState } from '@serge/custom-types'\n+import React, { useCallback, useMemo, useState } from 'react'\n+import { useSelector } from 'react-redux'\n import Button from '../../atoms/button'\n-\n-/* Import Types */\n-import Props from './types/props'\n-\n-import { DEFAULT_SERVER } from '@serge/config'\n-\n+import TextInput from '../../atoms/text-input'\n /* Import Stylesheet */\n import styles from './styles.module.scss'\n+/* Import Types */\n+import Props from './types/props'\n \n /* Render component */\n export const AdminLogin: React.FC<Props> = ({ onSubmit }: Props) => {\n   // (temporarily) put password in box, to make testing quicker in dev\n   const providePassword = true\n   const [password, setPassword] = useState(providePassword ? DEFAULT_SERVER : '')\n+  const gameInfo = useSelector((state: RootState) => state.gameInfo)\n \n-  const setPasswordValue = (target: { value: string }): void => {\n+  const setPasswordValue = useCallback((target: { value: string }): void => {\n     setPassword(target.value)\n-  }\n-  const handleOnKeyPress = (evt: React.KeyboardEvent): void => {\n+  }, [])\n+\n+  const handleOnKeyPress = useCallback((evt: React.KeyboardEvent): void => {\n     if (evt.key === 'Enter') {\n       onSubmit && onSubmit(password)\n     }\n-  }\n+  }, [password])\n+\n+  const logoPath = useMemo(() => {\n+    if (gameInfo.imageUrl) {\n+      return `${serverPath.substring(0, serverPath.length - 1)}${gameInfo.imageUrl}`\n+    }\n+    return ''\n+  }, [gameInfo.imageUrl])\n \n   return (\n     <>\n-      <h2 className={styles['login-form-head']}>Password</h2>\n-      <div style={{ marginBottom: 16 }}>\n-        <TextInput\n-          label=\"Password\"\n-          labelColor=\"common.white\"\n-          value={password}\n-          type=\"password\"\n-          variant=\"filled\"\n-          updateState={setPasswordValue}\n-          onKeyPress={handleOnKeyPress}\n-          fullWidth\n-        />\n-      </div>\n-      <Button color=\"secondary\" onClick={(): void => onSubmit(password)}>\n+      <div className={styles.container}>\n+        <span className={styles.logo}>\n+          <img src={logoPath} />\n+          <p>Serge</p>\n+          <p>Admin Page</p>\n+        </span>\n+\n+        <div className={styles.password}>\n+          <TextInput\n+            label=\"Password\"\n+            labelColor=\"common.white\"\n+            value={password}\n+            type=\"password\"\n+            variant=\"filled\"\n+            updateState={setPasswordValue}\n+            onKeyPress={handleOnKeyPress}\n+            fullWidth\n+          />\n+        </div>\n+        <Button color=\"primary\" onClick={(): void => onSubmit(password)}>\n         Enter\n-      </Button>\n+        </Button>\n+      </div>\n     </>\n   )\n }\n \n-export default AdminLogin\n+export default React.memo(AdminLogin)",
+      "html_url": "https://github.com/serge-web/serge/pull/1411#discussion_r825921009"
+    }
+  ],
+  "issue_numbers": [
+    1397
+  ],
+  "issues": [
+    {
+      "id": 1165361739,
+      "number": 1397,
+      "title": "Admin Page Entry Display",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-10T15:19:05Z",
+      "updated_at": "2022-03-15T08:19:40Z",
+      "closed_at": "2022-03-15T08:19:40Z",
+      "body": "This is our current Admin Page Entry Display: \r\n\r\n![Current Admin Page Entry Page](https://user-images.githubusercontent.com/85491794/157692188-8c792923-e2d1-4d9c-a6fa-5dec22463c73.png)\r\n\r\nIt displays no situational clues for the user to identify what page they are on. \"Password\" is shown twice on the page, which is a little redundant, and with the lack of clues, the user might not know what password we are referring to. \r\n\r\nI suggest the following additions: \r\n\r\n![New Admin Page Entry](https://user-images.githubusercontent.com/85491794/157692574-2b8009ea-d2a2-4a2c-8e83-e618cc964025.png)\r\n\r\nThe SERGE logo with the title below, as well as the name of the page the user is on. The password title is removed and the password text box is aligned to the center of the screen, along with the logo and the two titles below it. I am also considering a small, introduction (most likely one to two sentences) similar to our Welcome Screen. \r\n\r\nAlso, the ENTER button has been turned navy blue since it's an executive button.\r\n\r\nWhat do you guys think?",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1064179904,
+          "user": "IanMayo",
+          "created_at": "2022-03-10T15:24:16Z",
+          "updated_at": "2022-03-10T15:24:16Z",
+          "body": "It has been left a little, since it's only used by the Game Admin - but sure, good suggestions :-)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/158062075-954da494-dab4-4b23-806e-c0b6734c0395.png",
+    "https://user-images.githubusercontent.com/1108513/158158182-9889b8dc-ba2e-4bec-ae24-1e5771732238.png",
+    "https://user-images.githubusercontent.com/26705621/158159429-1c4dacc6-e0c6-492b-85cd-dc246bfe7fda.png",
+    "https://user-images.githubusercontent.com/1108513/158166173-6d412ee7-a3e7-4da2-a59b-3150e8c868ef.png",
+    "https://user-images.githubusercontent.com/26705621/158167336-ba71b440-da48-4bd2-82da-85b970ae15fb.png",
+    "https://user-images.githubusercontent.com/85491794/157692188-8c792923-e2d1-4d9c-a6fa-5dec22463c73.png",
+    "https://user-images.githubusercontent.com/85491794/157692574-2b8009ea-d2a2-4a2c-8e83-e618cc964025.png"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 292
+}

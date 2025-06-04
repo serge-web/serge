@@ -1,0 +1,50 @@
+{
+  "number": 2358,
+  "title": "2341 drop cyber interactions",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-09T21:19:48Z",
+  "updated_at": "2023-02-09T23:39:51Z",
+  "closed_at": "2023-02-09T23:39:50Z",
+  "merged_at": "2023-02-09T23:39:50Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2358",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2358/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2358/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2358",
+  "body": "Fixes #2341",
+  "additions": 66,
+  "deletions": 134,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2341
+  ],
+  "issues": [
+    {
+      "id": 1575670767,
+      "number": 2341,
+      "title": "Clear interactions for Cyber & non-spatial",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-08T08:09:48Z",
+      "updated_at": "2023-02-09T23:39:51Z",
+      "closed_at": "2023-02-09T23:39:51Z",
+      "body": "Cyber is the only activity that doesn't include some kind of location for the activity (check this).\r\n\r\nWe only adjudicate cyber events (start/end).  Clear the `interacts with` flags for Cyber.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 200
+}

@@ -1,0 +1,30 @@
+{
+  "number": 2252,
+  "title": "Hotfix month turns",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-14T15:26:22Z",
+  "updated_at": "2023-01-14T17:04:18Z",
+  "closed_at": "2023-01-14T17:04:18Z",
+  "merged_at": "2023-01-14T17:04:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2252",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2252/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2252/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2252",
+  "body": "Switch to one month turns",
+  "additions": 4,
+  "deletions": 4,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 8
+}

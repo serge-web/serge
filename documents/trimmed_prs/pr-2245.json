@@ -1,0 +1,30 @@
+{
+  "number": 2245,
+  "title": "Hotfix more id changes plus sam range rings",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-12T18:22:15Z",
+  "updated_at": "2023-01-13T13:03:53Z",
+  "closed_at": "2023-01-13T13:03:52Z",
+  "merged_at": "2023-01-13T13:03:52Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2245",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2245/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2245/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2245",
+  "body": "Fixes #2234 \r\n\r\nOther attribute related tidying",
+  "additions": 10903,
+  "deletions": 9854,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 20757
+}

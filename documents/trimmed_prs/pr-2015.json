@@ -1,0 +1,67 @@
+{
+  "number": 2015,
+  "title": "1986 create orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-08T10:54:13Z",
+  "updated_at": "2022-11-08T11:46:12Z",
+  "closed_at": "2022-11-08T11:46:11Z",
+  "merged_at": "2022-11-08T11:46:11Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2015",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2015/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2015/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2015",
+  "body": "Fixes #1986 ",
+  "additions": 3,
+  "deletions": 1,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1986
+  ],
+  "issues": [
+    {
+      "id": 1428452047,
+      "number": 1986,
+      "title": "Transit activity doesn't appear on New Message window",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-10-29T20:55:42Z",
+      "updated_at": "2022-11-08T11:46:12Z",
+      "closed_at": "2022-11-08T11:46:12Z",
+      "body": "[1be906c4-e6a9-4275-b4e4-66bfe9d0fbec.webm](https://user-images.githubusercontent.com/85491794/198851974-ccb2a83e-d72a-41c2-a0fe-f9b7a67b73b8.webm)\r\n\r\nAfter the first successful transit, it doesn't seem to appear on the new message window, even if I hit cancel. Is this the desired outcome?",
+      "labels": [
+        "bug",
+        "4p9",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1296996916,
+          "user": "IanMayo",
+          "created_at": "2022-10-31T12:12:24Z",
+          "updated_at": "2022-10-31T12:12:24Z",
+          "body": "Well spotted, thanks :-)"
+        },
+        {
+          "id": 1305802120,
+          "user": "IanMayo",
+          "created_at": "2022-11-07T15:44:51Z",
+          "updated_at": "2022-11-07T15:44:51Z",
+          "body": "I think I've found a pattern here.  The first new orders request triggers the creation of a new message. But any following orders don't trigger it to open."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 4
+}

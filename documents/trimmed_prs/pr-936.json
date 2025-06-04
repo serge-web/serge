@@ -1,0 +1,129 @@
+{
+  "number": 936,
+  "title": "fix player ui permissions issue",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-15T07:53:50Z",
+  "updated_at": "2021-07-18T06:53:53Z",
+  "closed_at": "2021-07-18T06:53:52Z",
+  "merged_at": "2021-07-18T06:53:52Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/936",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/936/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/936/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/936",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\ncloses #848 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\nUsed find function instead of filter as result we get only first matched \"Participants and messages\" messageTemplates for selected Role\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![изображение](https://user-images.githubusercontent.com/20753599/125792765-b63db1b9-0436-4bc9-b339-52e3f2f24657.png)\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 950,
+  "deletions": 876,
+  "changed_files": 12,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 4,
+  "review_comments_count": 4,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 880685962,
+      "user": "IanMayo",
+      "created_at": "2021-07-15T13:16:03Z",
+      "updated_at": "2021-07-15T13:35:09Z",
+      "body": "@lilitkarapetyan - this is almost certainly a flaw in game design, but I think it's worth removing duplicates from the available templates:\r\n![image](https://user-images.githubusercontent.com/1108513/125794271-15071011-e3c0-4041-a008-405249cbfb1a.png)\r\n\r\n(you can see the wargame, force and role in the above screenshot in order to reproduce the issue).\r\n\r\nWell not exactly a game design flaw - it _could_ have been intentional in some way. Here's the channel design:\r\n![image](https://user-images.githubusercontent.com/1108513/125797021-4e7e2a76-1de1-41b8-9251-ea8c2511c97e.png)\r\n"
+    },
+    {
+      "id": 880930239,
+      "user": "IanMayo",
+      "created_at": "2021-07-15T18:45:21Z",
+      "updated_at": "2021-07-15T18:45:21Z",
+      "body": "@lilitkarapetyan - the original flaw in the logic is still present.  (but thanks for the fixes in this PR :-) ).\r\n\r\nHave provided steps to reproduce in the original Issue: #848 \r\n\r\n"
+    },
+    {
+      "id": 881816579,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-07-17T04:25:59Z",
+      "updated_at": "2021-07-17T04:25:59Z",
+      "body": "> \r\n> \r\n> @lilitkarapetyan - the original flaw in the logic is still present. (but thanks for the fixes in this PR :-) ).\r\n> \r\n> Have provided steps to reproduce in the original Issue: #848\r\n\r\nFixed"
+    },
+    {
+      "id": 881828504,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-07-17T04:57:33Z",
+      "updated_at": "2021-07-17T04:57:33Z",
+      "body": "> \r\n> \r\n> @lilitkarapetyan - this is almost certainly a flaw in game design, but I think it's worth removing duplicates from the available templates:\r\n> ![image](https://user-images.githubusercontent.com/1108513/125794271-15071011-e3c0-4041-a008-405249cbfb1a.png)\r\n> \r\n> (you can see the wargame, force and role in the above screenshot in order to reproduce the issue).\r\n> \r\n> Well not exactly a game design flaw - it _could_ have been intentional in some way. Here's the channel design:\r\n> ![image](https://user-images.githubusercontent.com/1108513/125797021-4e7e2a76-1de1-41b8-9251-ea8c2511c97e.png)\r\n\r\n![изображение](https://user-images.githubusercontent.com/20753599/126026174-46d724b4-2111-4cd8-b1a5-8a6fbb58f509.png)\r\nFixed"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 670440279,
+      "user": "IanMayo",
+      "created_at": "2021-07-15T13:02:21Z",
+      "updated_at": "2021-07-15T13:02:21Z",
+      "body": "You've done really well with this logic @lilitkarapetyan - there's some complex stuff going on.\r\n\r\nIn the next block, it \"looks like\" `chosenTemplates` will contain the templates for all of the participating roles in the channel.  I _think_ it should only contain the templates for _my_ role.  So, `Blue` could have some templates and `White` could have others.",
+      "path": "packages/helpers/src/participant-states.ts",
+      "diff_hunk": "@@ -52,12 +53,19 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und\n \n   const {\n     isParticipant,\n-    participatingRole,\n+    participatingRoles,\n     allRolesIncluded\n   }: CheckParticipantStates = checkParticipantStates(channel, forceId, role, isObserver)\n \n-  if (participatingRole) {\n-    chosenTemplates = participatingRole.templates\n+  if (isParticipant) {",
+      "html_url": "https://github.com/serge-web/serge/pull/936#discussion_r670440279"
+    },
+    {
+      "id": 670457642,
+      "user": "IanMayo",
+      "created_at": "2021-07-15T13:23:41Z",
+      "updated_at": "2021-07-15T13:23:41Z",
+      "body": "No, I was mistaken.  The chosenTemplates is the union of the ways this role can participate in the channel, which is correct :-)",
+      "path": "packages/helpers/src/participant-states.ts",
+      "diff_hunk": "@@ -52,12 +53,19 @@ export const getParticipantStates = (channel: ChannelData, forceId: string | und\n \n   const {\n     isParticipant,\n-    participatingRole,\n+    participatingRoles,\n     allRolesIncluded\n   }: CheckParticipantStates = checkParticipantStates(channel, forceId, role, isObserver)\n \n-  if (participatingRole) {\n-    chosenTemplates = participatingRole.templates\n+  if (isParticipant) {",
+      "html_url": "https://github.com/serge-web/serge/pull/936#discussion_r670457642"
+    },
+    {
+      "id": 671610775,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-07-17T04:59:42Z",
+      "updated_at": "2021-07-17T04:59:42Z",
+      "body": "Log For player ui state update only for dev mode ",
+      "path": "packages/client/src/ActionsAndReducers/playerUi/playerUi_Reducer.ts",
+      "diff_hunk": "@@ -184,6 +181,11 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi\n     default:\n       return newState\n   }",
+      "html_url": "https://github.com/serge-web/serge/pull/936#discussion_r671610775"
+    },
+    {
+      "id": 671610978,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-07-17T05:01:21Z",
+      "updated_at": "2021-07-17T05:01:21Z",
+      "body": "single loop instead of 2 loops",
+      "path": "packages/helpers/src/handle-channel-updates.ts",
+      "diff_hunk": "@@ -195,21 +202,25 @@ export const handleAllInitialChannelMessages = (payload: Array<MessageInfoType |\n     }\n \n     if (isObserver || isParticipant || allRolesIncluded) {\n+      // TODO: define type for force Icons\n+      const forceIcons: any[] = []\n+      const forceColors: string[] = []\n+      for (const { forceUniqid } of channel.participants) {",
+      "html_url": "https://github.com/serge-web/serge/pull/936#discussion_r671610978"
+    }
+  ],
+  "issue_numbers": [
+    848
+  ],
+  "issues": [
+    {
+      "id": 924813964,
+      "number": 848,
+      "title": "Channel memberships update live, but not role permissions",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-18T11:27:53Z",
+      "updated_at": "2021-07-18T06:53:52Z",
+      "closed_at": "2021-07-18T06:53:52Z",
+      "body": "During a game we can make live changes to which channel a user in.\r\n\r\nBut, when we decide channel membership, we only use the role permissions that were loaded when the game started.\r\n\r\nSo, we will need to either:\r\n1. retrieve the `live` role information and pass it to `handleMessageUpdates`\r\n2. update role details on new wargame update\r\n\r\nActually, the second makes more sense - since other parts of the UI will probably need to know the updated role permissions (such as `canSubmitOrders`, `insightViewer` or `rfiManager`)\r\n\r\nSteps to reproduce:\r\n* edit wargame, don't give Game Control permission to release RFIs (RFI Manager)\r\n* log in as `Blue Force` \\ `CO`, create new RFI message in `Blue RFIs`\r\n* log in as `Game control`. Go to `RFIs` channel\r\n* take ownership of new RFI\r\n* provide response\r\n* press `Send for review`\r\n* see no `Release` or `Reject` buttons present\r\n* edit wargame, give Game Control `isRFIManager` permission. Save wargame\r\n* note that `Release` & `Reject` buttons still not present\r\n* refresh page\r\n* note that `Release` & `Reject` buttons now present\r\n\r\nThe issue is that the client received the new `Forces` object when it got saved, but the Player State object didn't get updated.\r\n\r\nI _guess_ that `SET_ROLE` needs to be called when `SET_FORCE` does.  Hmm, maybe not.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/20753599/125792765-b63db1b9-0436-4bc9-b339-52e3f2f24657.png",
+    "https://user-images.githubusercontent.com/1108513/125794271-15071011-e3c0-4041-a008-405249cbfb1a.png",
+    "https://user-images.githubusercontent.com/1108513/125797021-4e7e2a76-1de1-41b8-9251-ea8c2511c97e.png",
+    "https://user-images.githubusercontent.com/20753599/126026174-46d724b4-2111-4cd8-b1a5-8a6fbb58f509.png"
+  ],
+  "number_of_changed_files": 12,
+  "total_changed_lines": 1826
+}

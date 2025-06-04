@@ -1,0 +1,30 @@
+{
+  "number": 1996,
+  "title": "use the workaround from the `client` package for `leaflet.control.select`",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-31T13:12:10Z",
+  "updated_at": "2022-10-31T13:42:33Z",
+  "closed_at": "2022-10-31T13:42:32Z",
+  "merged_at": "2022-10-31T13:42:32Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1996",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1996/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1996/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1996",
+  "body": "The select control wasn't firing an event if the same menu option was selected more than once.\r\n\r\n@lebaphi fixed the issue in our local codebase, in the `client` package\r\n\r\nThis PR reproduces the fix in the `components` package - so that it works in Storybook.",
+  "additions": 2,
+  "deletions": 5,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 7
+}

@@ -1,0 +1,85 @@
+{
+  "number": 2336,
+  "title": "2334 standard areas",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-07T14:15:59Z",
+  "updated_at": "2023-02-10T10:39:42Z",
+  "closed_at": "2023-02-10T10:39:40Z",
+  "merged_at": "2023-02-10T10:39:40Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2336",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2336/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2336/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2336",
+  "body": "Supports #2334 \r\nFixes #2335 ",
+  "additions": 462,
+  "deletions": 21,
+  "changed_files": 21,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1424061247,
+      "user": "IanMayo",
+      "created_at": "2023-02-09T11:49:20Z",
+      "updated_at": "2023-02-09T11:49:20Z",
+      "body": "Thanks for the CSS fix @philb89 \r\n\r\nCould you also apply the fix so it works in Storybook too, please?\r\n\r\nIt's this story, but the `areas` select control still sits under the `Cancel planning` button:\r\nhttp://localhost:6611/?path=/story/local-organisms-planningchannel--with-areas\r\n\r\nI'd also appreciate your help with the other bits, please :-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2334
+  ],
+  "issues": [
+    {
+      "id": 1574106740,
+      "number": 2334,
+      "title": "Players refer to standard areas",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-07T10:53:02Z",
+      "updated_at": "2023-02-12T14:47:50Z",
+      "closed_at": "2023-02-12T14:47:50Z",
+      "body": "As a player I wish to **Select a polygon from an existing list** in order to **refer to standard areas**\r\n\r\nAs players are doing high level planning of the next turn, they start referring to standard areas.\r\n\r\nSome areas may be on land, and some on sea.  The whole current map may be split into, say 10 polygons.\r\n\r\nWhile generating their orders, players may wish to select an existing polygon instead of drawing one.\r\n\r\nSo, we will introduce a `areas` array in the `WargameData` object.  Like the other elements in the `WargameData` object this will have a parent `wrapper` element called `areas` that contains an array of `ArrayData` elements.  These array elements will have these parameters:\r\n```\r\n  // user label for this shape\r\n  name: string\r\n  // which forces use this shape\r\n  usedBy: Array<ForceData['uniqid']>\r\n  // the shape itself (probably a Polygon, but could be line or point)\r\n  feature: GeoJSON.Polygon\r\n``` \r\n\r\nThis will be supported in the `OrderDrawing` and `OrderEditing` pages.\r\n\r\nThe will receive a new prop called `areas: AreaData[]`.  This will have already been filtered by the parent class for this force.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/217224141-dff9db1d-9ba8-4df9-aba1-56d751a4a6e6.png)\r\n\r\nIf the next shape to be drawn is a polygon, then a new drop-down list will appear next to the `Cancel editing` button.  This will contain a list of areas for this force. Selecting one will add that polygon to the set of shapes, and move onto the next one. ",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1420873983,
+          "user": "IanMayo",
+          "created_at": "2023-02-07T14:32:28Z",
+          "updated_at": "2023-02-09T15:42:53Z",
+          "body": "Ok. I've got a long way with this (#2336), but am now stuck. \r\n![screencast](https://i.gyazo.com/99252e01cdc7bd790fe9407d1c7f6ec3.gif)\r\n\r\nI'd appreciate some help with these bits, please @lebaphi :\r\n* [x] For `StandardAreaMenu` move `select` control to the top-left, but place it vertically beneath the `cancel planning` button. Note: if we use `position:topLeft` they get stacked on each other\r\n* [x] In `OrderDrawing`, if player selects item from menu, cancel planning polygon\r\n* [ ] In `OrderDrawing`  generate planning activity using selected polygon\r\n* [x] In `OrderDrawing` it looks like `GeoMan` is intercepting the `StandardAreaMenu` click, and treating it as the start of the polygon\r\n* [ ] Aaah, err, in the current implementation we get a new control each time we create new orders. I'm sure it should be deleted \r\n* [ ] Also try to allow use of `Standard Areas` in `OrderEditing`, too\r\n* [ ] Swap the `Standard Area Menu` popup to use some other icon. Shapes? The letters `S/A`?\r\n\r\nTest from this story: http://localhost:6611/?path=/story/local-organisms-planningchannel--with-areas"
+        },
+        {
+          "id": 1424383678,
+          "user": "lebaphi",
+          "created_at": "2023-02-09T15:33:44Z",
+          "updated_at": "2023-02-09T15:33:44Z",
+          "body": "Hi @IanMayo, I have some questions:\r\n- In OrderDrawing generate planning activity using selected polygon: do you mean we generate a planning activity on planning polygon (not a \"completed\" polygon)?\r\n- Aaah, err, in the current implementation we get a new control each time we create new orders. I'm sure it should be deleted: Can you explain more detail?"
+        },
+        {
+          "id": 1424407131,
+          "user": "IanMayo",
+          "created_at": "2023-02-09T15:46:06Z",
+          "updated_at": "2023-02-09T15:47:56Z",
+          "body": "1.  Currently - when the player finishes the polygon, the `useState` handler for `pendingGeometry` looks at the new shape, and creates a new `res` item, and adds it to the list.  But, if a player clicks one of these existing areas, we should make that `useState` handler create the new geometry from the existing one (provided in the useStandardArea click-handler)\r\n2. If we cancel drawing the polygon, the standard-area-menu is still shown. We should remove it on `Cancel` or after a standard area is selected. Video below.\r\n\r\nVideo: https://i.gyazo.com/afd46cca68e2ad62448ae61dc1083fc2.mp4\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/217224141-dff9db1d-9ba8-4df9-aba1-56d751a4a6e6.png",
+    "https://i.gyazo.com/99252e01cdc7bd790fe9407d1c7f6ec3.gif"
+  ],
+  "number_of_changed_files": 21,
+  "total_changed_lines": 483
+}

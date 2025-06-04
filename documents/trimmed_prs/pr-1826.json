@@ -1,0 +1,85 @@
+{
+  "number": 1826,
+  "title": "1794 legacy channels",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-08T09:44:01Z",
+  "updated_at": "2022-09-08T10:39:09Z",
+  "closed_at": "2022-09-08T10:39:08Z",
+  "merged_at": "2022-09-08T10:39:08Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1826",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1826/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1826/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1826",
+  "body": "Improve messaging around display or `currently-unsupported` channels.",
+  "additions": 71,
+  "deletions": 20,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1794
+  ],
+  "issues": [
+    {
+      "id": 1357683288,
+      "number": 1794,
+      "title": "Weird message in the channels tab/admin page",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-08-31T18:07:41Z",
+      "updated_at": "2022-09-09T10:18:20Z",
+      "closed_at": "2022-09-08T11:18:38Z",
+      "body": "Do you guys recognize this? : \r\n\r\n![Message in Channels Tab](https://user-images.githubusercontent.com/85491794/187748945-5507ef9d-e5cf-4809-949c-8a72d8fc8393.png)\r\n",
+      "labels": [
+        "bug",
+        "4watu",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1240449234,
+          "user": "IanMayo",
+          "created_at": "2022-09-08T09:15:37Z",
+          "updated_at": "2022-09-08T09:16:24Z",
+          "body": "Sure. For some old wargames, we defined the channel in a way we don't now.  It's not worth maintaining the admin pages for these old wargames - so we don't.\r\n\r\nBut, I'll improve the message to include a more detailed explanation of why we aren't providing an editor.\r\n\r\nAah, hold on @ShendMikullovci - are you able to produce steps to reproduce this issue please?"
+        },
+        {
+          "id": 1240579439,
+          "user": "IanMayo",
+          "created_at": "2022-09-08T11:18:33Z",
+          "updated_at": "2022-09-08T11:18:33Z",
+          "body": "Ok, sorted it. We now give better messaging for unrecognised channels.\r\nSelect the `Blue Planning` channel here:\r\nhttps://serge-review.herokuapp.com/storybook/?path=/story/local-organisms-settingchannels--with-planning\r\n"
+        },
+        {
+          "id": 1241201751,
+          "user": "ShendMikullovci",
+          "created_at": "2022-09-08T20:29:49Z",
+          "updated_at": "2022-09-08T20:29:49Z",
+          "body": "Still appears: \r\n\r\n![Weird message 2](https://user-images.githubusercontent.com/85491794/189219716-c1fac40c-ec3f-4f3d-98f5-4a3f4a7176ea.png)\r\n"
+        },
+        {
+          "id": 1241785284,
+          "user": "IanMayo",
+          "created_at": "2022-09-09T10:18:20Z",
+          "updated_at": "2022-09-09T10:18:20Z",
+          "body": "Ok.  Once change #1830 is merged we'll give more diagnostics. That should explain why the chat channel isn't being rendered - we'll need a new screenshot showing the new diagnostic text, please @ShendMikullovci "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/187748945-5507ef9d-e5cf-4809-949c-8a72d8fc8393.png",
+    "https://user-images.githubusercontent.com/85491794/189219716-c1fac40c-ec3f-4f3d-98f5-4a3f4a7176ea.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 91
+}

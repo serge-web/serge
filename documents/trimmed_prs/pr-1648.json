@@ -1,0 +1,69 @@
+{
+  "number": 1648,
+  "title": "1646: Fix issue \"DevTools warning - cannot update a component\"",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-29T14:01:24Z",
+  "updated_at": "2022-07-01T11:13:55Z",
+  "closed_at": "2022-07-01T11:13:54Z",
+  "merged_at": "2022-07-01T11:13:54Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1648",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1648/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1648/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1648",
+  "body": "Fixes #1646 ",
+  "additions": 20,
+  "deletions": 9,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1170024783,
+      "user": "lebaphi",
+      "created_at": "2022-06-29T14:05:13Z",
+      "updated_at": "2022-06-29T14:05:13Z",
+      "body": "\r\nhttps://user-images.githubusercontent.com/26705621/176456394-1aed93e5-73e6-426d-9083-6e2904e7f4fc.mov\r\n\r\n"
+    },
+    {
+      "id": 1171180939,
+      "user": "IanMayo",
+      "created_at": "2022-06-30T12:50:52Z",
+      "updated_at": "2022-06-30T12:50:52Z",
+      "body": "@lilitkarapetyan - when you get chance, could you review this PR please?  \r\n\r\nIs there alternate fix that does things \"the react way\" ?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1646
+  ],
+  "issues": [
+    {
+      "id": 1288406953,
+      "number": 1646,
+      "title": "DevTools warning - cannot update a component",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-29T09:11:38Z",
+      "updated_at": "2022-07-01T11:13:54Z",
+      "closed_at": "2022-07-01T11:13:54Z",
+      "body": "This issue came up in PR #1644 :\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/176399061-0b26c406-7594-42bb-932a-337a68c7c4aa.png)\r\n\r\nWe may have this error in other places too.  It would be good to understand it, in case it causes future runtime issues/fragility.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/176399061-0b26c406-7594-42bb-932a-337a68c7c4aa.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 29
+}

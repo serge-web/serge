@@ -1,0 +1,129 @@
+{
+  "number": 867,
+  "title": "Message format scroll issue",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-24T11:53:43Z",
+  "updated_at": "2021-06-25T16:37:16Z",
+  "closed_at": "2021-06-24T15:18:51Z",
+  "merged_at": "2021-06-24T15:18:51Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/867",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/867/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/867/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/867",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #863 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![image](https://user-images.githubusercontent.com/16476120/123258455-0467bd80-d511-11eb-9de4-9a813fa53876.png)\r\n\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 7,
+  "total_comments": 7,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 657879440,
+      "user": "IanMayo",
+      "created_at": "2021-06-24T11:56:03Z",
+      "updated_at": "2021-06-24T11:56:03Z",
+      "body": "thanks @sanjayradadiya  - but what does the 300px represent?  Is it the height of a particular element?",
+      "path": "packages/themes/_playerUi.scss",
+      "diff_hunk": "@@ -625,7 +625,7 @@\n     color: $primary-triad-color;\n     font-family: \"Open Sans\", sans-serif;\n     font-weight: bold;\n-    max-height: 80vh;\n+    max-height: calc(100vh - 300px);",
+      "html_url": "https://github.com/serge-web/serge/pull/867#discussion_r657879440"
+    },
+    {
+      "id": 657880773,
+      "user": "sanjayradadiya",
+      "created_at": "2021-06-24T11:58:09Z",
+      "updated_at": "2021-06-24T11:58:09Z",
+      "body": "Not particular but mostly its total distance from document top to collapsible panel top",
+      "path": "packages/themes/_playerUi.scss",
+      "diff_hunk": "@@ -625,7 +625,7 @@\n     color: $primary-triad-color;\n     font-family: \"Open Sans\", sans-serif;\n     font-weight: bold;\n-    max-height: 80vh;\n+    max-height: calc(100vh - 300px);",
+      "html_url": "https://github.com/serge-web/serge/pull/867#discussion_r657880773"
+    },
+    {
+      "id": 657881951,
+      "user": "sanjayradadiya",
+      "created_at": "2021-06-24T11:59:56Z",
+      "updated_at": "2021-06-24T11:59:56Z",
+      "body": "![image](https://user-images.githubusercontent.com/16476120/123259148-c7e89180-d511-11eb-9c44-59dcbe9d7bd2.png)\r\n",
+      "path": "packages/themes/_playerUi.scss",
+      "diff_hunk": "@@ -625,7 +625,7 @@\n     color: $primary-triad-color;\n     font-family: \"Open Sans\", sans-serif;\n     font-weight: bold;\n-    max-height: 80vh;\n+    max-height: calc(100vh - 300px);",
+      "html_url": "https://github.com/serge-web/serge/pull/867#discussion_r657881951"
+    },
+    {
+      "id": 657901878,
+      "user": "IanMayo",
+      "created_at": "2021-06-24T12:30:17Z",
+      "updated_at": "2021-06-24T12:30:18Z",
+      "body": "The fix works, but I like to try to avoid \"magic numbers\".  300px isn't the height of the red arrow in your diagram.\r\n\r\nCould you research a little more why the value of 300 works please?",
+      "path": "packages/themes/_playerUi.scss",
+      "diff_hunk": "@@ -625,7 +625,7 @@\n     color: $primary-triad-color;\n     font-family: \"Open Sans\", sans-serif;\n     font-weight: bold;\n-    max-height: 80vh;\n+    max-height: calc(100vh - 300px);",
+      "html_url": "https://github.com/serge-web/serge/pull/867#discussion_r657901878"
+    },
+    {
+      "id": 657902779,
+      "user": "sanjayradadiya",
+      "created_at": "2021-06-24T12:31:33Z",
+      "updated_at": "2021-06-24T12:31:33Z",
+      "body": "yes, sure",
+      "path": "packages/themes/_playerUi.scss",
+      "diff_hunk": "@@ -625,7 +625,7 @@\n     color: $primary-triad-color;\n     font-family: \"Open Sans\", sans-serif;\n     font-weight: bold;\n-    max-height: 80vh;\n+    max-height: calc(100vh - 300px);",
+      "html_url": "https://github.com/serge-web/serge/pull/867#discussion_r657902779"
+    },
+    {
+      "id": 658656503,
+      "user": "sanjayradadiya",
+      "created_at": "2021-06-25T10:15:52Z",
+      "updated_at": "2021-06-25T10:15:52Z",
+      "body": "![Screenshot from June 25, 2021 3_45 PM](https://user-images.githubusercontent.com/16476120/123409947-633e3d00-d5cc-11eb-9589-a72b65a633b4.png)\r\n",
+      "path": "packages/themes/_playerUi.scss",
+      "diff_hunk": "@@ -625,7 +625,7 @@\n     color: $primary-triad-color;\n     font-family: \"Open Sans\", sans-serif;\n     font-weight: bold;\n-    max-height: 80vh;\n+    max-height: calc(100vh - 300px);",
+      "html_url": "https://github.com/serge-web/serge/pull/867#discussion_r658656503"
+    },
+    {
+      "id": 658869108,
+      "user": "IanMayo",
+      "created_at": "2021-06-25T15:52:32Z",
+      "updated_at": "2021-06-25T16:37:16Z",
+      "body": "that's perfect, thanks.\r\n\r\nDocumented here: https://github.com/serge-web/serge/commit/973a97f066a7e7972a50010f4c0ee4fb53fc2cc2",
+      "path": "packages/themes/_playerUi.scss",
+      "diff_hunk": "@@ -625,7 +625,7 @@\n     color: $primary-triad-color;\n     font-family: \"Open Sans\", sans-serif;\n     font-weight: bold;\n-    max-height: 80vh;\n+    max-height: calc(100vh - 300px);",
+      "html_url": "https://github.com/serge-web/serge/pull/867#discussion_r658869108"
+    }
+  ],
+  "issue_numbers": [
+    300
+  ],
+  "issues": [
+    {
+      "id": 559867754,
+      "number": 300,
+      "title": "Can't drag counters on touch screen",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-02-04T17:24:47Z",
+      "updated_at": "2023-11-13T11:34:56Z",
+      "closed_at": "2023-11-13T11:34:56Z",
+      "body": "After the recent addition of a single toggle setting, it's now possible to pan/zoom the map on a touch screen.\r\n\r\nBut, it's still not possible to interact with the markers/counters.\r\n\r\nCould you do some Leaflet research to see how to do this please?\r\n\r\nIdeally, clicking on a counter will trigger it's popup, Red can drag their assets in Turn zero, and the little planning markers can be dragged to plan routes.",
+      "labels": [
+        "wontfix",
+        "User Story",
+        "Mapping"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/16476120/123258455-0467bd80-d511-11eb-9de4-9a813fa53876.png",
+    "https://user-images.githubusercontent.com/16476120/123259148-c7e89180-d511-11eb-9c44-59dcbe9d7bd2.png",
+    "https://user-images.githubusercontent.com/16476120/123409947-633e3d00-d5cc-11eb-9589-a72b65a633b4.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

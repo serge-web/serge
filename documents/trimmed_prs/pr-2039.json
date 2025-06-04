@@ -1,0 +1,64 @@
+{
+  "number": 2039,
+  "title": "2037 material icons",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-10T14:22:55Z",
+  "updated_at": "2022-11-10T14:40:01Z",
+  "closed_at": "2022-11-10T14:40:00Z",
+  "merged_at": "2022-11-10T14:40:00Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2039",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2039/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2039/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2039",
+  "body": "Fixes #2037 \r\n\r\nBut needs checking.",
+  "additions": 83,
+  "deletions": 108,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2037
+  ],
+  "issues": [
+    {
+      "id": 1443751437,
+      "number": 2037,
+      "title": "Material Table icons missing",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-10T11:45:01Z",
+      "updated_at": "2022-11-12T12:26:18Z",
+      "closed_at": "2022-11-12T12:26:18Z",
+      "body": "I'm viewing the `My Orders` tab in  `Planning Channel`.\r\n\r\nFor the left-hand expand/collapse button I just see \"ch\".  For the show filters button I see `fil`, and for the `only show my orders` toggle button I see `oe`.\r\n\r\nI see lots of icons in other parts of the UI - including the ones for `submit lesson learned/feedback` and `Re-play tutorial` buttons just under the time control.\r\n\r\nI guess we need to switch the source library for our icons to use the same as that one.  It does look like `material-table` doesn't mind where the icon comes from:\r\n![image](https://user-images.githubusercontent.com/1108513/201082144-0dea916a-f9e6-4586-ba9a-e1db85e02f3f.png)\r\n\r\nNote: I've found how to swap the icons, but I haven't looked for ones that match what we need ;-)\r\n\r\nWe need these: \r\n![image](https://user-images.githubusercontent.com/1108513/201099670-c427cb37-37ad-474c-a52b-b75a7fdc7783.png)\r\n\r\n\r\nOk, here is how to use a font-awesome icon:\r\n![image](https://user-images.githubusercontent.com/1108513/201098942-9c7cdee8-47ba-46fe-ac82-79cc0b8fb1ee.png)\r\n\r\nAnd here is how it is rendered:\r\n![image](https://user-images.githubusercontent.com/1108513/201099006-ff243be5-d58a-40a4-99c6-1e42957cec6b.png)\r\n\r\n",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1310481998,
+          "user": "IanMayo",
+          "created_at": "2022-11-10T15:39:57Z",
+          "updated_at": "2022-11-10T15:39:57Z",
+          "body": "Need `filter` icon that is shown in header cell when table filters switched on\r\n\r\nAlso - our icons are only single state. The icon stays solid, whether switched on or not. _Somehow_ we need to toggle them in the way `material-table` expects to.\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/201082144-0dea916a-f9e6-4586-ba9a-e1db85e02f3f.png",
+    "https://user-images.githubusercontent.com/1108513/201099670-c427cb37-37ad-474c-a52b-b75a7fdc7783.png",
+    "https://user-images.githubusercontent.com/1108513/201098942-9c7cdee8-47ba-46fe-ac82-79cc0b8fb1ee.png",
+    "https://user-images.githubusercontent.com/1108513/201099006-ff243be5-d58a-40a4-99c6-1e42957cec6b.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 191
+}

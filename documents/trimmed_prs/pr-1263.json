@@ -1,0 +1,50 @@
+{
+  "number": 1263,
+  "title": "1245 save message on early release",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-13T17:23:45Z",
+  "updated_at": "2021-12-16T14:44:09Z",
+  "closed_at": "2021-12-16T14:44:08Z",
+  "merged_at": "2021-12-16T14:44:08Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1263",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1263/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1263/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1263",
+  "body": "Fixes #1245 ",
+  "additions": 270,
+  "deletions": 177,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1245
+  ],
+  "issues": [
+    {
+      "id": 1076947235,
+      "number": 1245,
+      "title": "For Collab Working performing early release doesn't update document",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-12-10T15:11:21Z",
+      "updated_at": "2021-12-16T14:44:08Z",
+      "closed_at": "2021-12-16T14:44:08Z",
+      "body": "If we have suitable permission, when we're editing a document we are still offered the Action button to \"Release\".\r\n\r\nWhen we do this it doesn't update the message, it just makes the status change.\r\n\r\nSo, the \"Release\" action needs to update the message content, too.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 447
+}

@@ -1,0 +1,85 @@
+{
+  "number": 1908,
+  "title": "1888: Support Panel has to share horizontal space with leaflet map",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-30T04:08:48Z",
+  "updated_at": "2022-10-01T06:15:41Z",
+  "closed_at": "2022-10-01T06:15:41Z",
+  "merged_at": "2022-10-01T06:15:41Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1908",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1908/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1908/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1908",
+  "body": "Fixes #1888 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/193188166-6620d81c-385a-46f7-b5ef-4dd1a7976013.mov\r\n\r\n",
+  "additions": 59,
+  "deletions": 12,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1263302566,
+      "user": "IanMayo",
+      "created_at": "2022-09-30T08:57:13Z",
+      "updated_at": "2022-09-30T09:00:02Z",
+      "body": "Hello @philb89 - it's not quite right.   It _looks like_ the map control has been pushed to the right, and now sits underneath `Game Admin`.  When we select two assets - the map should zoom to show both.  But, the right-hand asset is under GAme Admin.  Hmm, no. That's not the case - since the toolbar and attributions are visible.\r\n\r\nDo you have any thoughts @lebaphi ?\r\n\r\nhttps://i.gyazo.com/104c23b7e078ac00ae2b60a42773e1f9.mp4\r\n\r\nAah, maybe this is preventing the map from knowing its new bounds?\r\n![image](https://user-images.githubusercontent.com/1108513/193233983-6c8a563c-588d-430e-a70c-a064793d2347.png)\r\n"
+    },
+    {
+      "id": 1263314409,
+      "user": "IanMayo",
+      "created_at": "2022-09-30T09:08:27Z",
+      "updated_at": "2022-09-30T09:08:27Z",
+      "body": "(have fixed conflicts. pushing now)"
+    },
+    {
+      "id": 1264207853,
+      "user": "lebaphi",
+      "created_at": "2022-10-01T02:49:15Z",
+      "updated_at": "2022-10-01T02:49:15Z",
+      "body": "> Hello @philb89 - it's not quite right. It _looks like_ the map control has been pushed to the right, and now sits underneath `Game Admin`. When we select two assets - the map should zoom to show both. But, the right-hand asset is under GAme Admin. Hmm, no. That's not the case - since the toolbar and attributions are visible.\r\n> \r\n> Do you have any thoughts @lebaphi ?\r\n> \r\n> https://i.gyazo.com/104c23b7e078ac00ae2b60a42773e1f9.mp4\r\n> \r\n> Aah, maybe this is preventing the map from knowing its new bounds? ![image](https://user-images.githubusercontent.com/1108513/193233983-6c8a563c-588d-430e-a70c-a064793d2347.png)\r\n\r\nI think it's a bug, the selected items should be centered on the map, I will check it :D"
+    },
+    {
+      "id": 1264225512,
+      "user": "lebaphi",
+      "created_at": "2022-10-01T03:55:15Z",
+      "updated_at": "2022-10-01T03:55:15Z",
+      "body": "Fixed @IanMayo 😄 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1888
+  ],
+  "issues": [
+    {
+      "id": 1386375313,
+      "number": 1888,
+      "title": "Support Panel has to share horizontal space with leaflet map",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-26T16:21:29Z",
+      "updated_at": "2022-10-01T06:15:41Z",
+      "closed_at": "2022-10-01T06:15:41Z",
+      "body": "Currently the `SupportPanel` sits above the map.\r\n\r\nWhen we select an asset, leaflet `flies` us to the asset, putting in the centre of the screen.\r\n\r\nBut, when the support panel is extended past 1/2 way over the map, this puts the selected asset _underneath_ the support panel - and it can't be seen.\r\n\r\nThere may be a number of solutions to this, but I'd like us to start off by experimenting with sitting the Support Panel and that map in the same space. So, as the user expands the support panel - the map collapses.  In this way - all of the map is visible, and when a player selects and asset - the selected asset will still be positioned in the centre of the visible map.",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/193233983-6c8a563c-588d-430e-a70c-a064793d2347.png"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 71
+}

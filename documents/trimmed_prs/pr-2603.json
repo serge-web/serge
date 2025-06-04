@@ -1,0 +1,50 @@
+{
+  "number": 2603,
+  "title": "Outcomes for friendly forces, fixed assets not in ISTAR",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-09T17:47:07Z",
+  "updated_at": "2023-03-09T22:04:46Z",
+  "closed_at": "2023-03-09T22:04:44Z",
+  "merged_at": "2023-03-09T22:04:44Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2603",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2603/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2603/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2603",
+  "body": "Fixes #2590 \r\nFixes #2585 \r\nFixes #2564 ",
+  "additions": 90,
+  "deletions": 77,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2590
+  ],
+  "issues": [
+    {
+      "id": 1616859661,
+      "number": 2590,
+      "title": "Don't include friendly forces in kinetic outcomes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-09T10:07:10Z",
+      "updated_at": "2023-03-09T22:04:46Z",
+      "closed_at": "2023-03-09T22:04:46Z",
+      "body": "This is similar to #2585 \r\n\r\nWhen blue is running kinetic effect (Strike/TST), we should not suggest outcomes for green assets.  Similar with not suggesting blue assets for green activity.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 167
+}

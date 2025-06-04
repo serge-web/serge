@@ -1,0 +1,178 @@
+{
+  "number": 2710,
+  "title": "2704: implement basic UI for control panel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-12-12T04:08:02Z",
+  "updated_at": "2024-01-02T12:09:29Z",
+  "closed_at": "2024-01-02T12:09:28Z",
+  "merged_at": "2024-01-02T12:09:28Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2710",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2710/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2710/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2710",
+  "body": "Fixes #2704 ",
+  "additions": 432,
+  "deletions": 43,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 0,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 1851897893,
+      "user": "IanMayo",
+      "created_at": "2023-12-12T11:58:09Z",
+      "updated_at": "2023-12-12T11:59:11Z",
+      "body": "~~Grr, I commented earlier, but I cant see them now.~~\r\n\r\n~~1. The color shades in the mockup were just to help discussion. I'm happy for them to take the standard UI template shade (presumably grey)~~\r\n~~2. The `+` icons for the drag handles seem non-standard. I _think_ the standard icon is either a group of dots, or a set of parallel lines.~~\r\n\r\n~~Other than that - I'm quite happy with the progress, and look forward to contributing to the logic when I get chance :-D~~\r\n\r\nAah, the comment is here :-D \r\nhttps://github.com/serge-web/serge/issues/2704#issuecomment-1851762818"
+    },
+    {
+      "id": 1857732517,
+      "user": "IanMayo",
+      "created_at": "2023-12-15T11:33:36Z",
+      "updated_at": "2023-12-15T11:33:36Z",
+      "body": "Thanks for this so-far @philb89 \r\n\r\nCan I suggest a next step?  How about filling in the items in the `list` component from the current set of features?  I'm happy to just show the `label` value in the list, to start with.\r\n\r\nThen we can start to work on auto-generating the filters, and applying them to the list."
+    },
+    {
+      "id": 1857891950,
+      "user": "lebaphi",
+      "created_at": "2023-12-15T13:35:15Z",
+      "updated_at": "2023-12-15T13:35:15Z",
+      "body": "> Thanks for this so-far @philb89\r\n> \r\n> Can I suggest a next step? How about filling in the items in the `list` component from the current set of features? I'm happy to just show the `label` value in the list, to start with.\r\n> \r\n> Then we can start to work on auto-generating the filters, and applying them to the list.\r\n\r\nit sounds great @IanMayo , I'm going to work on this"
+    },
+    {
+      "id": 1859112238,
+      "user": "IanMayo",
+      "created_at": "2023-12-17T10:10:00Z",
+      "updated_at": "2023-12-17T10:10:00Z",
+      "body": "Hey, nice work @lebaphi \r\n\r\nThese are the next steps:\r\n- the \"properties\" panel needs to be responsive to the selected item.  So, we need to look at the properties for the item and show one row per property.  Aah, we also need to look at the properties defined for the channel, to see if it is a text field or an enum, to know whether to show a text field or a drop-down.\r\n- similarly, when the user chooses to add a new field, we need to check for a `property` with that id in the channel, and either show a text box or a drop-down list, that we use to filter the items.  "
+    },
+    {
+      "id": 1860345075,
+      "user": "IanMayo",
+      "created_at": "2023-12-18T12:19:26Z",
+      "updated_at": "2023-12-18T12:20:07Z",
+      "body": "Some linter issues and a CSS-conflict to resolve, please @lebaphi :\r\n![image](https://github.com/serge-web/serge/assets/1108513/3ac927dc-b214-40f3-8f7e-665f0f287c37)\r\n"
+    },
+    {
+      "id": 1860920483,
+      "user": "lebaphi",
+      "created_at": "2023-12-18T16:08:56Z",
+      "updated_at": "2023-12-18T16:08:56Z",
+      "body": "> Some linter issues and a CSS-conflict to resolve, please @lebaphi : ![image](https://private-user-images.githubusercontent.com/1108513/291276732-3ac927dc-b214-40f3-8f7e-665f0f287c37.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDI5MDIzMTAsIm5iZiI6MTcwMjkwMjAxMCwicGF0aCI6Ii8xMTA4NTEzLzI5MTI3NjczMi0zYWM5MjdkYy1iMjE0LTQwZjMtOGY3ZS02NjVmMGYyODdjMzcucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQUlXTkpZQVg0Q1NWRUg1M0ElMkYyMDIzMTIxOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyMzEyMThUMTIyMDEwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9NjNhZmVmNWVjNmVlY2Y1MjQzZmM5Y2YyMDA3YTIwMmEzODFlOTk3NDJkNDBmMGNiMTZmYmViNDUwMzY1ZTBhYyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.hNYpfBg3FV-fsCZPMXFSzzRsRiGMnxjNezG7IDjC5f8)\r\n\r\nYep, I'm working on it @IanMayo "
+    },
+    {
+      "id": 1867571351,
+      "user": "IanMayo",
+      "created_at": "2023-12-22T11:23:39Z",
+      "updated_at": "2023-12-22T11:23:39Z",
+      "body": "There is an issue present where the `id` of `milSymbols` are added to the `attribution` at the bottom of the map. It's present in the normal Storybook, but it's more obvious in the bulk example:\r\n![image](https://github.com/serge-web/serge/assets/1108513/aa0edf70-d48d-4bd0-bfd7-ac320e0b6e2e)\r\n"
+    },
+    {
+      "id": 1867576722,
+      "user": "IanMayo",
+      "created_at": "2023-12-22T11:29:24Z",
+      "updated_at": "2023-12-22T11:29:24Z",
+      "body": "Aah and another thing please @lebaphi - for the `filters` in the top section, could you inspect the  `baseProps` and `additionalProps` for each filter and see if it's possible to provide a drop-down list in the filter?"
+    },
+    {
+      "id": 1870747179,
+      "user": "lebaphi",
+      "created_at": "2023-12-28T01:53:06Z",
+      "updated_at": "2023-12-28T01:53:06Z",
+      "body": "Hi @IanMayo, I just pushed the fixes 😄 "
+    },
+    {
+      "id": 1873948670,
+      "user": "IanMayo",
+      "created_at": "2024-01-02T12:08:56Z",
+      "updated_at": "2024-01-02T12:08:56Z",
+      "body": "> Hi @IanMayo, I just pushed the fixes 😄\r\n\r\nNice work, thanks @lebaphi "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2704
+  ],
+  "issues": [
+    {
+      "id": 2013979302,
+      "number": 2704,
+      "title": "Control panel for Core Mapping",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-11-28T09:11:34Z",
+      "updated_at": "2024-01-02T12:09:29Z",
+      "closed_at": "2024-01-02T12:09:29Z",
+      "body": "We require some general controls for the Core Mapping channel.\n\nHere is a mockup:\nhttps://docs.google.com/presentation/d/1LdTKv9BTrJdnfshJeEz6SpmMML8D_kbNc8emZ-Ugw6Q/edit#slide=id.g29d5206fb52_0_40\n\n(more detail on following slide)\n\nThe aim here is for them not to be focussed on a particular wargame, style of data, or set of properties [*].  So, the UI will largely be build using retrospection from the current features on the map\n\n* [x] create left-hand control panel. It's width (as a %age, I guess) should be persistent\n* [x] create top `Filters` panel.  It should have a `filters` heading.  It should start with zero filters, but should have an `add` button to add a new filter.   The `add` button will popup a list of known properties (I don't yet know where these will come from. Either by doing a \"live\" scan of current data, or on each new update to `features`\n* [x] create central `Items` panel. This will be a list of the currently visible items.  For `MilSymbol` it will show the symbol, for `CoreRenderer` item it will be a generic `shape` icon, shaded using the `color` for that item\n* [x] create lower `properties` panel.   If one item is selected in the `items` listing, show it's properties here.  We're display text-boxes or drop-downs depending on what we can determine from the property.  We won't show properties with a leading underscore.\n\n\n[*] - ok, we'll allow a _few_ predictable properties. `sidc` for MilSymbols and `color` for all features.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1848853119,
+          "user": "lebaphi",
+          "created_at": "2023-12-10T04:16:25Z",
+          "updated_at": "2023-12-10T04:20:05Z",
+          "body": "Hi @IanMayo , the core panel for core mapping was implemented in this commit https://github.com/serge-web/serge/pull/2708/commits/0846832539d77adc7ac5b15a7e5ea9a6a2476304.\r\n\r\nhttps://github.com/serge-web/serge/assets/26705621/561032e4-39b7-4b19-8231-2e52b685924a\r\n\r\n\r\nI think we can merge this PR https://github.com/serge-web/serge/pull/2708 into develop then I can create a new branch for this ticket?"
+        },
+        {
+          "id": 1848908638,
+          "user": "IanMayo",
+          "created_at": "2023-12-10T09:31:17Z",
+          "updated_at": "2023-12-10T09:31:17Z",
+          "body": "> I think we can merge this PR https://github.com/serge-web/serge/pull/2708 into develop then I can create a new branch for this ticket?\r\n\r\nGood plan.  PR now merged."
+        },
+        {
+          "id": 1850247965,
+          "user": "lebaphi",
+          "created_at": "2023-12-11T14:58:28Z",
+          "updated_at": "2023-12-11T14:58:28Z",
+          "body": "> create top Filters panel. It should have a filters heading. It should start with zero filters, but should have an add button to add a new filter. The add button will popup a list of known properties (I don't yet know where these will come from. Either by doing a \"live\" scan of current data, or on each new update to features\r\n\r\nFor this part, I'm thinking about the shape of the Filter component and the logic of how it works\r\n- First we will have a text field to search for items by its properties\r\n- The list of items will be changed based on the results of the filter value\r\n- Clicking on add button opens a popup/modal, it shows all the properties of the current data (just for now), but when we select a property and add, what should it do next according to?\r\n\r\nHow do you think @IanMayo ?"
+        },
+        {
+          "id": 1850274086,
+          "user": "IanMayo",
+          "created_at": "2023-12-11T15:11:17Z",
+          "updated_at": "2023-12-11T15:11:17Z",
+          "body": "Hello @lebaphi  - I tried to mock up the filter component here:\r\nhttps://docs.google.com/presentation/d/1LdTKv9BTrJdnfshJeEz6SpmMML8D_kbNc8emZ-Ugw6Q/edit#slide=id.g29d5206fb52_0_64\r\n\r\nWhen we select a property and add it, a new filter will be shown in the table.  It will have a text box or a drop-down list.  Initially, the text-box will be empty, or the drop-down list will have zero items selected.  That means that filter is currently inactive, and is ignored.  If the user enters some text, or selects an item from the drop-down, that filter becomes active, and we start filtering items accordingly (applying wildcard search if it's a text box)"
+        },
+        {
+          "id": 1851267547,
+          "user": "lebaphi",
+          "created_at": "2023-12-12T04:08:38Z",
+          "updated_at": "2023-12-12T04:28:57Z",
+          "body": "I've implement the basic UI for the control panel @IanMayo \r\n\r\nhttps://github.com/serge-web/serge/assets/26705621/390f40cb-3115-47f1-b27e-d542ed86e500\r\n\r\n"
+        },
+        {
+          "id": 1851762818,
+          "user": "IanMayo",
+          "created_at": "2023-12-12T10:30:09Z",
+          "updated_at": "2023-12-12T10:30:09Z",
+          "body": "Thanks @lebaphi  - that's looking great.\r\n\r\nNote: I only used the color shades in the mock-up to make them easier to refer to in conversation.  I'm happy for the actual implementation to use standard color shades for the UI toolkit (presumably grey).\r\n\r\nNote 2: The `+` markers for the drag handles seems non-standard.  Are you able to use drag markers?   I _think_ that several dots or parallel lines is the most common one.\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/ff35198c-721e-42f0-9268-555c65be385d)\r\n"
+        },
+        {
+          "id": 1858843882,
+          "user": "lebaphi",
+          "created_at": "2023-12-16T15:30:35Z",
+          "updated_at": "2023-12-17T04:36:17Z",
+          "body": "Hi @IanMayo , I just implemented Add Filter modal and properties panel, can you review it? I'm not sure what should we do next with Add filter modal 😄 \r\n\r\nhttps://github.com/serge-web/serge/assets/26705621/b5150c47-fcad-4ba3-b32b-5f0208c58629\r\n\r\n\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/3ac927dc-b214-40f3-8f7e-665f0f287c37",
+    "https://private-user-images.githubusercontent.com/1108513/291276732-3ac927dc-b214-40f3-8f7e-665f0f287c37.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDI5MDIzMTAsIm5iZiI6MTcwMjkwMjAxMCwicGF0aCI6Ii8xMTA4NTEzLzI5MTI3NjczMi0zYWM5MjdkYy1iMjE0LTQwZjMtOGY3ZS02NjVmMGYyODdjMzcucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQUlXTkpZQVg0Q1NWRUg1M0ElMkYyMDIzMTIxOCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyMzEyMThUMTIyMDEwWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9NjNhZmVmNWVjNmVlY2Y1MjQzZmM5Y2YyMDA3YTIwMmEzODFlOTk3NDJkNDBmMGNiMTZmYmViNDUwMzY1ZTBhYyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.hNYpfBg3FV-fsCZPMXFSzzRsRiGMnxjNezG7IDjC5f8",
+    "https://github.com/serge-web/serge/assets/1108513/aa0edf70-d48d-4bd0-bfd7-ac320e0b6e2e",
+    "https://github.com/serge-web/serge/assets/1108513/ff35198c-721e-42f0-9268-555c65be385d"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 475
+}

@@ -1,0 +1,69 @@
+{
+  "number": 1485,
+  "title": "1478 perception by force",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-06T09:08:38Z",
+  "updated_at": "2022-04-13T15:20:28Z",
+  "closed_at": "2022-04-13T15:20:27Z",
+  "merged_at": "2022-04-13T15:20:27Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1485",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1485/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1485/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1485",
+  "body": "Supports #1478 \r\n\r\nI've put quite a lot of work into this PR.  But, now I think we need to reconsider how we manage perceptions, including:\r\n- `<AssetIcon>` should not use css styles for the icon color & image, the values of color and icon should come from the wargame document\r\n- perception data should be passed via the color shade and icon URL\r\n\r\nOnce the above changes are made, the changes for perception should probably be started from fresh",
+  "additions": 543,
+  "deletions": 292,
+  "changed_files": 57,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1096605395,
+      "user": "IanMayo",
+      "created_at": "2022-04-12T11:31:08Z",
+      "updated_at": "2022-04-12T11:31:08Z",
+      "body": "Aah, the SVG path works on localhost, but not on heroku.\r\n\r\nLocalhost:\r\n![image](https://user-images.githubusercontent.com/1108513/162950695-23dec40f-9b12-4479-8dea-08dce66fe805.png)\r\n\r\nHeoku:\r\n![image](https://user-images.githubusercontent.com/1108513/162950755-564f1ae1-fc4b-4da3-9da5-a5f6365ac451.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1478
+  ],
+  "issues": [
+    {
+      "id": 1192825906,
+      "number": 1478,
+      "title": "Move away from force-name in perception management",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-05T08:48:01Z",
+      "updated_at": "2022-07-07T16:08:21Z",
+      "closed_at": "2022-07-07T16:08:21Z",
+      "body": "In perception management, we use force-name a lot.\r\n\r\nWe need to move away from that, since the actual force-name may change.  Instead we have to use force-id.\r\n\r\nLarge parts of this are in:\r\n- findPerceivedAsTypes\r\n- visibility and perception form\r\n- visible to in adjudication form\r\n- perceptions in JSON wargame definitions",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1177863083,
+          "user": "IanMayo",
+          "created_at": "2022-07-07T16:08:21Z",
+          "updated_at": "2022-07-07T16:08:21Z",
+          "body": "Fixed, in #1485 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/162950695-23dec40f-9b12-4479-8dea-08dce66fe805.png",
+    "https://user-images.githubusercontent.com/1108513/162950755-564f1ae1-fc4b-4da3-9da5-a5f6365ac451.png"
+  ],
+  "number_of_changed_files": 57,
+  "total_changed_lines": 835
+}

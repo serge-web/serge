@@ -1,0 +1,52 @@
+{
+  "number": 2023,
+  "title": "2020 show activity",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-09T10:07:54Z",
+  "updated_at": "2022-11-09T11:16:15Z",
+  "closed_at": "2022-11-09T11:16:14Z",
+  "merged_at": "2022-11-09T11:16:13Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2023",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2023/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2023/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2023",
+  "body": "Fixes #2020 ",
+  "additions": 45,
+  "deletions": 15,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2020
+  ],
+  "issues": [
+    {
+      "id": 1441687869,
+      "number": 2020,
+      "title": "In new location control for json-editor, show activity name, not id",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-09T08:55:56Z",
+      "updated_at": "2022-11-09T11:16:15Z",
+      "closed_at": "2022-11-09T11:16:15Z",
+      "body": "We have a workaround for a dedicated location control:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/200784605-e522b250-af18-4428-b600-9202fc51b13d.png)\r\n\r\nBut, it is showing the geometry id, not the full name.  Modify the `mangler` to use the activity name in `collapseLocation`",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/200784605-e522b250-af18-4428-b600-9202fc51b13d.png"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 60
+}

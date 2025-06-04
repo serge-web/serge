@@ -1,0 +1,65 @@
+{
+  "number": 2120,
+  "title": "2116 persistent edit orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-15T19:29:27Z",
+  "updated_at": "2022-11-16T07:22:18Z",
+  "closed_at": "2022-11-16T07:22:17Z",
+  "merged_at": "2022-11-16T07:22:17Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2120",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2120/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2120/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2120",
+  "body": "Attempts to fix #2116",
+  "additions": 193,
+  "deletions": 59,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 1,
+  "total_comments": 1,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 1023479991,
+      "user": "lebaphi",
+      "created_at": "2022-11-16T03:55:56Z",
+      "updated_at": "2022-11-16T03:56:17Z",
+      "body": "```\r\nsetMessageContent(formValue || anyDraft.message)\r\n```",
+      "path": "packages/components/src/local/form-elements/message-creator/index.tsx",
+      "diff_hunk": "@@ -156,15 +167,21 @@ const MessageCreator: React.FC<PropTypes> = ({\n   }\n \n   useEffect(() => {\n+    console.log('draft message', draftMessage, formValue)\n     if (draftMessage) {\n       const anyDraft = draftMessage as any\n       if (anyDraft.message) {\n-        setMessageContent(anyDraft.message)\n+        // see if we have any cached content\n+        if(formValue) {\n+          setMessageContent(formValue)\n+        } else {\n+          setMessageContent(anyDraft.message)\n+        }",
+      "html_url": "https://github.com/serge-web/serge/pull/2120#discussion_r1023479991"
+    }
+  ],
+  "issue_numbers": [
+    2116
+  ],
+  "issues": [
+    {
+      "id": 1449612586,
+      "number": 2116,
+      "title": "Editing current orders collapsed/reset when new orders submitted",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-15T11:16:57Z",
+      "updated_at": "2022-11-16T07:22:18Z",
+      "closed_at": "2022-11-16T07:22:18Z",
+      "body": "We have some `tricks` in place to retain the contents of `json-editor` when there are unrelated changes in the channel.\r\n\r\nWhen a new set of orders (in a new orders template) is being edited, we are able to replace the field contents on component refresh.\r\n\r\nBut, when an existing set of orders are being edited, the contents get lost when someone else from that force creates a new document in the channel.\r\n\r\nWe _could_ use a similar trick to retain content when an existing document is being edited.  But, I'd like us to consider another strategy.  How about we create the `json-editor` using a `createMemo()` call - that is only dependent on a object of state called `currentEditor`, that takes a document `id`.  On expand, we `setCurrentEditor(id)`, then create the memo, which only changes on changes to `currentEditor`. When the editor is saved or cancelled, we do `setCurrentEditor(undefined)` - and that's the only thing that changes the editor component.\r\n\r\nI _think_ the memo would be on the `json-editor` component in `planning messages list`, and on `json-editor` in `message-creator`.\r\n\r\n\r\nVideo: https://i.gyazo.com/143802184fed6c5ac8c0ea7dba6cc106.mp4\r\n",
+      "labels": [
+        "bug",
+        "4p9",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 252
+}

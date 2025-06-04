@@ -1,0 +1,93 @@
+{
+  "number": 838,
+  "title": "Invalid time issue in wargame timings",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-15T15:05:28Z",
+  "updated_at": "2021-06-18T13:23:00Z",
+  "closed_at": "2021-06-18T13:23:00Z",
+  "merged_at": "2021-06-18T13:23:00Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/838",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/838/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/838/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/838",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #795 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 32,
+  "deletions": 5,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 861618379,
+      "user": "IanMayo",
+      "created_at": "2021-06-15T15:53:02Z",
+      "updated_at": "2021-06-15T15:53:02Z",
+      "body": "Thanks. But, I'm still able to clear the time values:\r\n![screencast](https://i.gyazo.com/79eb1a81d46048f7c7fac7eb29cf5235.gif)\r\n\r\nIf the text empty, or the values are all zero, then the previous value should be displayed."
+    },
+    {
+      "id": 863985123,
+      "user": "IanMayo",
+      "created_at": "2021-06-18T11:58:09Z",
+      "updated_at": "2021-06-18T11:58:09Z",
+      "body": "It's possible to use `backspace` to delete a character:\r\n![image](https://user-images.githubusercontent.com/1108513/122557540-d415b000-d034-11eb-82a6-838a391131b3.png)\r\n"
+    },
+    {
+      "id": 863987210,
+      "user": "sanjayradadiya",
+      "created_at": "2021-06-18T12:02:11Z",
+      "updated_at": "2021-06-18T12:02:11Z",
+      "body": "> It's possible to use `backspace` to delete a character:\r\n> ![image](https://user-images.githubusercontent.com/1108513/122557540-d415b000-d034-11eb-82a6-838a391131b3.png)\r\n\r\nSorry, Not understanding your concern here, what needs to be change ?"
+    },
+    {
+      "id": 863990466,
+      "user": "IanMayo",
+      "created_at": "2021-06-18T12:07:26Z",
+      "updated_at": "2021-06-18T12:07:26Z",
+      "body": "I guess it won't store a valid time if it can't parse the string (because) there is a missing character.\r\n\r\nI _think_ it should replace with the last valid value if focus leaves the field when there is a missing character."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    795
+  ],
+  "issues": [
+    {
+      "id": 905476217,
+      "number": 795,
+      "title": "Invalid turn time made planning impossible",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-05-28T14:07:59Z",
+      "updated_at": "2021-06-18T13:23:00Z",
+      "closed_at": "2021-06-18T13:23:00Z",
+      "body": "At one point no force could plan their turns.\r\n\r\nI logged in as the relevant (`Can submit orders`) role for each force, and confirmed it wasn't possible.  It was possible to choose a state, then speed, then click on `Plan Turn`.  But, no planning marker appeared.\r\n\r\nOn investigation, it was, however, possible to plan the turn for an aircraft.\r\n\r\nAircraft can travel an unlimited distance which lead me to thinking the issue could be related to the turn time allowance.\r\n\r\nWhen I opened the Admin Page, I saw that the `Game Turn Time` just contained spaces - no digits at all.\r\n\r\nShortly before the issue arose, I did change the `planning allowance` from `one hour` to `twenty minutes`.  I'm almost certain this interaction caused the issue, but I don't know how.\r\n\r\nIn the admin pages we shouldn't allow the overview to be saved if there aren't recognisable (non-zero) times for game turn and planning allowance.  Plus, in the game we should throw an error if we try to plan a turn but there is a zero turn time.",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 860655458,
+          "user": "IanMayo",
+          "created_at": "2021-06-14T12:46:15Z",
+          "updated_at": "2021-06-14T12:46:15Z",
+          "body": "It was impossible to plan the turn for a ship with a turn time of zero.  I've made a [change](https://github.com/serge-web/serge/pull/833) to popup a warning if this happens during a game.\r\n\r\nBut, we should prevent the `Game controller` from entering a turn time of zero.  So, we should modify the `setting-overview` page so that it isn't possible to enter a zero value (or empty string) for `Wargame turn time` or `Real time planning allowance`.\r\n\r\nIf an empty string (or full set of zeroes) is entered, I suggest we display the previous valid value (which I think is in the `prevOverview` variable.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/121882257-3a829180-cd08-11eb-8858-f1817a693f8a.png)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/79eb1a81d46048f7c7fac7eb29cf5235.gif",
+    "https://user-images.githubusercontent.com/1108513/122557540-d415b000-d034-11eb-82a6-838a391131b3.png",
+    "https://user-images.githubusercontent.com/1108513/121882257-3a829180-cd08-11eb-8858-f1817a693f8a.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 37
+}

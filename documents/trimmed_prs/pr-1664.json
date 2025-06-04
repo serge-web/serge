@@ -1,0 +1,155 @@
+{
+  "number": 1664,
+  "title": "let game designer edit all attributes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-11T16:19:06Z",
+  "updated_at": "2022-07-25T10:24:44Z",
+  "closed_at": "2022-07-13T10:03:30Z",
+  "merged_at": "2022-07-13T10:03:30Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1664",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1664/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1664/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1664",
+  "body": "Fixes #1616",
+  "additions": 4,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 12,
+  "review_comments_count": 0,
+  "total_comments": 12,
+  "comments_data": [
+    {
+      "id": 1183269121,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-13T14:04:30Z",
+      "updated_at": "2022-07-13T14:04:30Z",
+      "body": "Seems to be working correctly. Thanks!"
+    },
+    {
+      "id": 1183276391,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-13T14:10:34Z",
+      "updated_at": "2022-07-13T14:10:34Z",
+      "body": "Update: It's only working one way it seems like.\r\n\r\nhttps://user-images.githubusercontent.com/85491794/178754328-c4aae1c4-c840-431b-856d-53362f3246e2.mp4\r\n\r\n\r\n"
+    },
+    {
+      "id": 1183295138,
+      "user": "IanMayo",
+      "created_at": "2022-07-13T14:26:24Z",
+      "updated_at": "2022-07-13T14:26:24Z",
+      "body": "> Update: It's only working one way it seems like.\r\n\r\nOk. I can't say it was intentionally implemented that way, but what you saw was correct.  If we create several frigates for a force, we may wish to give them different initial values of, for example, fuel.  It would be wrong for editing an instance of an attribute to change the original definition of that value.\r\n\r\nSo, on the `platform types` page the attribute is the `master`. On the `force - assets` page, the attribute is an `instance` of the `master`.\r\n\r\n"
+    },
+    {
+      "id": 1183314898,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-13T14:43:23Z",
+      "updated_at": "2022-07-13T14:43:23Z",
+      "body": "> If we create several frigates for a force, we may wish to give them different initial values of, for example, fuel. It would be wrong for editing an instance of an attribute to change the original definition of that value.\r\n\r\nSure. However, as far as I understand, you can't change instances for ALL frigates within a Force. Only for one of them. \r\nIf _one_ instance is changed in the assets page, it should technically only alter _one_ frigate in the platform types page, correct? Or am I missing something?"
+    },
+    {
+      "id": 1183317396,
+      "user": "IanMayo",
+      "created_at": "2022-07-13T14:45:31Z",
+      "updated_at": "2022-07-13T14:45:31Z",
+      "body": "> If one instance is changed in the assets page, it should technically only alter one frigate in the platform types page, correct? Or am I missing something?\r\n\r\nThe _thing_ on the platform types page is a `template`.  When a new frigate is created in a force, a _copy_ of the `template` for the attributes is added.  When the frigate it edited, it's just the _copy_ that is being edited.  Each frigate has their own copy of the original attribute template."
+    },
+    {
+      "id": 1183321983,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-13T14:49:26Z",
+      "updated_at": "2022-07-13T14:49:26Z",
+      "body": "Hmmm. So what happens to the frigate I edited on the asset page? Which attribute does SERGE consider as the _correct_ one to use? Platform types one (since it's the master page)?"
+    },
+    {
+      "id": 1183324550,
+      "user": "IanMayo",
+      "created_at": "2022-07-13T14:51:36Z",
+      "updated_at": "2022-07-13T14:51:36Z",
+      "body": "When you edit the frigate on the asset page, the attribute value should be stored to the database, and used in the game.\r\n\r\nSo, if the attribute hasn't been edited, it will still have the default value (from the platform types page). But, if it has been edited, it will have the new value."
+    },
+    {
+      "id": 1183326996,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-13T14:53:34Z",
+      "updated_at": "2022-07-13T14:53:34Z",
+      "body": "So, once edited on the Asset page, it will be used In-Game, but will not be shown in Master page?"
+    },
+    {
+      "id": 1183338368,
+      "user": "IanMayo",
+      "created_at": "2022-07-13T15:02:35Z",
+      "updated_at": "2022-07-13T15:02:35Z",
+      "body": "The \"thing\" on the platform-types is unchanged. It's still the master, to be used as a template for new frigates.\r\n\r\nI'm stuggling for a metaphor here , but I'll give it a go :-)\r\n1. I get a ferrari brochure, and like the look of one of them\r\n2. I buy a ferrari, and it looks just like the one in the brochure\r\n3. I fit monster truck wheels on the ferrari, and take it off-road\r\n4. The vehicle in the brochure still has standard tires."
+    },
+    {
+      "id": 1183343110,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-13T15:06:21Z",
+      "updated_at": "2022-07-13T15:06:21Z",
+      "body": "Hilarious yet very clear and comprehensive analogy. "
+    },
+    {
+      "id": 1183344520,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-13T15:07:31Z",
+      "updated_at": "2022-07-13T15:07:31Z",
+      "body": "> The \"thing\" on the platform-types is unchanged. It's still the master, to be used as a template for new frigates.\r\n\r\nThe only thing I'm worried about is any possibility of confusion for GD when they see one value on Platform Types and another on Assets page. That's why I suggested this change.\r\n"
+    },
+    {
+      "id": 1183380616,
+      "user": "IanMayo",
+      "created_at": "2022-07-13T15:39:18Z",
+      "updated_at": "2022-07-13T15:39:18Z",
+      "body": "Will prepare animated infographic of my metaphor, and insert it into the tooltip 🤣  "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1617
+  ],
+  "issues": [
+    {
+      "id": 1277389036,
+      "number": 1617,
+      "title": "Attribute Editing to be Updated Across Tabs",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-06-20T21:09:03Z",
+      "updated_at": "2022-07-20T23:47:11Z",
+      "closed_at": "2022-07-20T23:47:11Z",
+      "body": "Editing attributes in the Forces --> Assets tab, should automatically update the attributes in the Platform Types page. Currently, this isn't the case: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/174677820-2dfa9d5c-0670-4807-995c-f2364d74a8c2.mp4\r\n\r\nIf we are to keep this versatility on editing the attributes (which I'm pro of), the attribute edited on one tab, should be updated on the other.\r\n",
+      "labels": [
+        "bug",
+        "4watu"
+      ],
+      "comments": [
+        {
+          "id": 1184648461,
+          "user": "IanMayo",
+          "created_at": "2022-07-14T16:28:35Z",
+          "updated_at": "2022-07-14T16:28:35Z",
+          "body": "Thanks @ShendMikullovci  - but I'm pretty sure this is handled, if I understand correctly.\r\n\r\nIf the master attribute is edited (in `platform-types`), then when we save the `force`, we check that asset attributes are still valid, and update/add/remove them accordingly:\r\n![screencast](https://i.gyazo.com/b7482adf61111dfd9b882ad5eb5b04f9.gif)"
+        },
+        {
+          "id": 1190879998,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-20T23:47:11Z",
+          "updated_at": "2022-07-20T23:47:11Z",
+          "body": "Closing until further notice."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/b7482adf61111dfd9b882ad5eb5b04f9.gif"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 5
+}

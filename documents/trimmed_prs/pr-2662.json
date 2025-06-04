@@ -1,0 +1,110 @@
+{
+  "number": 2662,
+  "title": "update_stack_heroku_and_node",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-04-04T07:43:55Z",
+  "updated_at": "2023-06-07T11:51:53Z",
+  "closed_at": "2023-06-07T11:51:52Z",
+  "merged_at": "2023-06-07T11:51:51Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2662",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2662/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2662/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2662",
+  "body": "Fixes #2652 ",
+  "additions": 30037,
+  "deletions": 27279,
+  "changed_files": 126,
+  "labels": [],
+  "comments_count": 6,
+  "review_comments_count": 0,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1559166442,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-05-23T12:11:49Z",
+      "updated_at": "2023-05-23T12:42:31Z",
+      "body": "Hello,I'm currently using a Windows operating system on my computer, I have successfully downloaded the` node_sqlite3.node` file for the `Windows 64-bit (win64) `platform. Now, I need assistance in downloading the corresponding file for `Linux` and `macOS ` using `Node version 18.15.0`. Can you please guide me through the process ?"
+    },
+    {
+      "id": 1566973108,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-05-29T11:01:16Z",
+      "updated_at": "2023-05-30T06:17:32Z",
+      "body": "https://gyazo.com/206743600a52ea0bdf371c3e5b6187f1  - The warning message you're seeing is indicating that the source map file (DoubleScrollbar.js.map) for the react-double-scrollbar module cannot be found in the specified path. This warning is related to the source-map-loader module, which is responsible for parsing source maps.  I believe that the 'react-double-scrollbar' library is not supported in Node 18 when using the '@material-table/core' library \r\n![Screenshot (226)](https://github.com/serge-web/serge/assets/20753599/59463160-ee38-451d-95e2-47d056468db8)\r\n\r\nI use this fork until the fix is merged -  \"resolutions\": {\r\n   ` \"react-double-scrollbar\": \"IniterWorker/react-double-scrollbar\",`\r\n    \"@types/react\": \"^16.14.5\",\r\n    \"node-sass\": \"^9.0.0\"\r\n  },"
+    },
+    {
+      "id": 1578137960,
+      "user": "IanMayo",
+      "created_at": "2023-06-06T08:04:38Z",
+      "updated_at": "2023-06-06T08:04:38Z",
+      "body": "(doing close/re-open to try to wake up Build/test validation)"
+    },
+    {
+      "id": 1578141056,
+      "user": "IanMayo",
+      "created_at": "2023-06-06T08:06:38Z",
+      "updated_at": "2023-06-06T08:06:38Z",
+      "body": "Hmm, @lilitkarapetyan - do you know why the second `Build/Test validation` has `16.x`?"
+    },
+    {
+      "id": 1580230977,
+      "user": "IanMayo",
+      "created_at": "2023-06-07T08:52:30Z",
+      "updated_at": "2023-06-07T08:52:30Z",
+      "body": "Thanks for this @lilitkarapetyan .  One thing just jumped into my head.  Have you tried to build and run an executable on the updated version of node?   (`yarn pkg-build`).\r\n"
+    },
+    {
+      "id": 1580243868,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-06-07T09:00:37Z",
+      "updated_at": "2023-06-07T09:02:48Z",
+      "body": "> Thanks for this @lilitkarapetyan . One thing just jumped into my head. Have you tried to build and run an executable on the updated version of node? (`yarn pkg-build`).\r\n\r\nYes, are you experience any problems while running `the yarn pkg-build` cimmand? "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2652
+  ],
+  "issues": [
+    {
+      "id": 1632383882,
+      "number": 2652,
+      "title": "Update stack (Heroku & node)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-20T15:43:58Z",
+      "updated_at": "2023-06-07T11:51:53Z",
+      "closed_at": "2023-06-07T11:51:53Z",
+      "body": "We're currently running on Node-16\r\n\r\nWe should update to a more recent version.\r\n\r\nHeroku is also complaining. (I've fixed Heroku)\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1489955151,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-03-30T09:06:09Z",
+          "updated_at": "2023-03-30T09:06:09Z",
+          "body": "Hello @IanMayo. I have updated the node version of my PC to 18.15.0 (recommended version) and I am now making changes to match this version.\r\n"
+        },
+        {
+          "id": 1489957542,
+          "user": "IanMayo",
+          "created_at": "2023-03-30T09:07:48Z",
+          "updated_at": "2023-03-30T09:07:48Z",
+          "body": "Great, thanks @lilitkarapetyan "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/20753599/59463160-ee38-451d-95e2-47d056468db8"
+  ],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 608
+}

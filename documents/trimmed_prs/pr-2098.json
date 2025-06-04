@@ -1,0 +1,60 @@
+{
+  "number": 2098,
+  "title": "2030 adjudication details",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-14T12:09:49Z",
+  "updated_at": "2022-11-14T12:25:07Z",
+  "closed_at": "2022-11-14T12:25:06Z",
+  "merged_at": "2022-11-14T12:25:06Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2098",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2098/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2098/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2098",
+  "body": "Show more adjudication details.",
+  "additions": 13,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2030
+  ],
+  "issues": [
+    {
+      "id": 1442655066,
+      "number": 2030,
+      "title": "Show more details for adjudicate form",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-09T19:47:43Z",
+      "updated_at": "2023-02-22T08:21:31Z",
+      "closed_at": "2023-02-22T08:21:31Z",
+      "body": "We should provide more of the `orders` detail in the adjudicate form.  Particularly the intent\\description\n\nTo include:\n- health / resources of assets\n- other related assets (MEZ around target)\n- popup dialog with order overview?\n\n\nFor task groups, show name/health of children. Task groups are where an asset includes a `comprising` array of elements.\nFor airfields, show name/health of children. An airfield is when airborne assets have an `a_Airfield` asset id in their attributes.\n",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1439606060,
+          "user": "IanMayo",
+          "created_at": "2023-02-22T08:21:31Z",
+          "updated_at": "2023-02-22T08:21:31Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 14
+}

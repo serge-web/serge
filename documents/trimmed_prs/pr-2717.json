@@ -1,0 +1,60 @@
+{
+  "number": 2717,
+  "title": "Playwright test phase1",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-12-20T15:44:14Z",
+  "updated_at": "2023-12-21T11:54:52Z",
+  "closed_at": "2023-12-21T11:54:51Z",
+  "merged_at": "2023-12-21T11:54:51Z",
+  "author": {
+    "login": "Tristina1788",
+    "html_url": "https://github.com/Tristina1788"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2717",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2717/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2717/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2717",
+  "body": "Add the first phase for automation test with playwright \r\n- Add log console \"Hello world\"\r\n- Verify login passed and failed\r\n- Update readme.md with automation part \r\n\r\n",
+  "additions": 425,
+  "deletions": 2,
+  "changed_files": 12,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 1,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1866055773,
+      "user": "IanMayo",
+      "created_at": "2023-12-21T10:59:04Z",
+      "updated_at": "2023-12-21T10:59:04Z",
+      "body": "The `DeepScan` linter found this issue:\r\n![image](https://github.com/serge-web/serge/assets/1108513/80d6c060-a0e1-4597-a7f6-934c04b3e78c)\r\n\r\nIt's probably worth investigating how we should handle retries when running on CI."
+    },
+    {
+      "id": 1866079284,
+      "user": "Tristina1788",
+      "created_at": "2023-12-21T11:18:18Z",
+      "updated_at": "2023-12-21T11:18:18Z",
+      "body": "> It's probably worth investigating how we should handle retries when running on CI.\r\n\r\nWe can use this config for retry failed test. Sometimes the test maybe failed because of connection or element is slower than expected. It will helps us run again. Now I set it 0 to not take time for retry."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1433799841,
+      "user": "IanMayo",
+      "created_at": "2023-12-21T09:27:09Z",
+      "updated_at": "2023-12-21T09:27:09Z",
+      "body": "Hello @Tristina1788 - this `require` code is commented out.  Should we just delete it, or might we need it in the future?",
+      "path": "e2e/playwright_test/playwright.config.ts",
+      "diff_hunk": "@@ -0,0 +1,90 @@\n+import { defineConfig, devices } from '@playwright/test';\n+\n+/**\n+ * Read environment variables from file.\n+ * https://github.com/motdotla/dotenv\n+ */",
+      "html_url": "https://github.com/serge-web/serge/pull/2717#discussion_r1433799841"
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/80d6c060-a0e1-4597-a7f6-934c04b3e78c"
+  ],
+  "number_of_changed_files": 12,
+  "total_changed_lines": 427
+}

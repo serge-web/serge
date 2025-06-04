@@ -1,0 +1,50 @@
+{
+  "number": 2527,
+  "title": "2525 cannot start route on flashing icon",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-27T18:10:46Z",
+  "updated_at": "2023-02-27T20:21:39Z",
+  "closed_at": "2023-02-27T20:21:37Z",
+  "merged_at": "2023-02-27T20:21:37Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2527",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2527/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2527/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2527",
+  "body": "Partial fix for #2525 ",
+  "additions": 24,
+  "deletions": 9,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2525
+  ],
+  "issues": [
+    {
+      "id": 1601542593,
+      "number": 2525,
+      "title": "Can't start route on asset",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-27T16:38:26Z",
+      "updated_at": "2023-02-28T10:08:38Z",
+      "closed_at": "2023-02-28T10:08:38Z",
+      "body": "I did think this issue was fixed - we needed PlanningForce to re-render if `interactive` changed.\r\n\r\nBut, we still can't start/end a route on some assets.  It may be because the asset is `selected`.  Note: if an asset is `selected` (flashing) or `current` part of the currently selected orders, then it doesn't get clustered, and is `raw`.\r\n\r\nWhen an asset is `clustered`, we can select it.  It's just that we can't when they are `raw`.  We do have the concept of `interactive` - to stop icons taking a click when we're route planning. But, this seems to work for `clustered` assets, and not `raw` assets.\r\n\r\nThe two different types of assets are created in slightly different ways. Maybe there is another cause.\r\n\r\nNote:  I've made a workaround for this, but it's a bit clumsy.    The issue is with markers that have not been clustered are not going \"non-interactive\" when we're planning orders.  From `PlanningForce` it looks like they should, but they remain interactive.    The workaround is to prevent `raw` (non-clustered) asset from ever being interactive. Sadly, this prevents users from clicking to un-select.\r\n\r\nSteps to reproduce:\r\n- zoom in on part of map\r\n- select an asset - it will start to flash\r\n- now go up and plan. set of orders (land-route is easy)\r\n- try to start route on flashing asset.  We can't.  Similarly, we can't end a route on an asset\r\n\r\nAah, I think I've got it.  In React-Leaflet, they don't update the marker when `interactive` changes:\r\nhttps://github.com/PaulLeCam/react-leaflet/blob/master/packages/react-leaflet/src/Marker.tsx\r\n\r\nHave submitted [PR](https://github.com/PaulLeCam/react-leaflet/pull/1064).  I've now introduced a new workaround.  We force `React-leaflet` to ALWAYS create new raw markers  by modifying the `key` - by adding the current time-millis.  In this way the value of `interactive` gets used.\r\n\r\nBut, getting the react-leaflet solution in first is better.\r\n\r\n**Update** I think this workaround is causing more screen updates.  An alternate workaround would be to cache the value of interactive and force a key update when the value of interactive updates.   We _Could_ use some kind of counter but toggling between two states may be enough.\r\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 33
+}

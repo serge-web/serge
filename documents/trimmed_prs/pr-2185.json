@@ -1,0 +1,50 @@
+{
+  "number": 2185,
+  "title": "2117 Provide a heading dropdown",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-25T08:58:21Z",
+  "updated_at": "2022-12-29T17:10:30Z",
+  "closed_at": "2022-12-29T17:10:29Z",
+  "merged_at": "2022-12-29T17:10:29Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2185",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2185/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2185/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2185",
+  "body": "Fixes #2177 \r\n\r\n<img width=\"770\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/209462279-02a4efc6-efc8-4cdd-b952-a6cd7fd02db2.png\">\r\n",
+  "additions": 75,
+  "deletions": 46,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2117
+  ],
+  "issues": [
+    {
+      "id": 1449693365,
+      "number": 2117,
+      "title": "hide time remaining",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-15T12:18:36Z",
+      "updated_at": "2022-11-15T13:26:42Z",
+      "closed_at": "2022-11-15T13:26:41Z",
+      "body": "Drop the time remaining value - it doesn't relate to this game",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/209462279-02a4efc6-efc8-4cdd-b952-a6cd7fd02db2.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 121
+}

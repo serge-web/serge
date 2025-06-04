@@ -1,0 +1,82 @@
+{
+  "number": 2057,
+  "title": "Capture detail expand/collapse in material-table",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-12T03:15:13Z",
+  "updated_at": "2022-11-13T10:02:51Z",
+  "closed_at": "2022-11-13T10:02:50Z",
+  "merged_at": "2022-11-13T10:02:50Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2057",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2057/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2057/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2057",
+  "body": "Fixes #2031 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/201453943-3d8a715d-e2b2-4819-8323-2ab15f382f11.mov\r\n\r\n",
+  "additions": 99,
+  "deletions": 54,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1312425407,
+      "user": "IanMayo",
+      "created_at": "2022-11-12T09:35:58Z",
+      "updated_at": "2022-11-12T09:52:42Z",
+      "body": "Thanks for that @lebaphi - good solution, that didn't involve messing with `material-table` :-)\r\n\r\nOne request:\r\n- could the close event include the row too, please?\r\n\r\nOne question:\r\n- can you explain how the `close` gets triggered?  I don't quite understand it.\r\n\r\nOh, and @lebaphi - I've extended issue #2035 to act on these new detail events."
+    },
+    {
+      "id": 1312459370,
+      "user": "lebaphi",
+      "created_at": "2022-11-12T11:32:05Z",
+      "updated_at": "2022-11-12T11:32:05Z",
+      "body": "> Thanks for that @lebaphi - good solution, that didn't involve messing with `material-table` :-)\n> \n> \n> \n> One request:\n> \n> - could the close event include the row too, please?\n> \n> \n> \n> One question:\n> \n> - can you explain how the `close` gets triggered?  I don't quite understand it.\n> \n> \n> \n> Oh, and @lebaphi - I've extended issue #2035 to act on these new detail events.\n\nHi @IanMayo, it's useEffect with cleanup, more details https://dev.to/otamnitram/react-useeffect-cleanup-how-and-when-to-use-it-2hbm. I will update your request"
+    },
+    {
+      "id": 1312459534,
+      "user": "IanMayo",
+      "created_at": "2022-11-12T11:33:22Z",
+      "updated_at": "2022-11-12T11:33:22Z",
+      "body": "> Hi @IanMayo, it's useEffect with cleanup, more details https://dev.to/otamnitram/react-useeffect-cleanup-how-and-when-to-use-it-2hbm. I will update your request\r\n\r\nLet every day be a school day :-D\r\n"
+    },
+    {
+      "id": 1312459756,
+      "user": "lebaphi",
+      "created_at": "2022-11-12T11:34:59Z",
+      "updated_at": "2022-11-12T11:34:59Z",
+      "body": "> > Hi @IanMayo, it's useEffect with cleanup, more details https://dev.to/otamnitram/react-useeffect-cleanup-how-and-when-to-use-it-2hbm. I will update your request\n> \n> \n> \n> Let every day be a school day :-D\n> \n> \n\n🤣🤣"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2031
+  ],
+  "issues": [
+    {
+      "id": 1442692246,
+      "number": 2031,
+      "title": "Capture detail expand/collapse in `material-table`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-09T20:16:14Z",
+      "updated_at": "2022-11-13T10:02:51Z",
+      "closed_at": "2022-11-13T10:02:51Z",
+      "body": "For the `Orders` and `Adjudication` tables, I wish to show the relevant orders when a detail panel is expanded, and hide it again when it is collapsed.\r\n\r\n@lebaphi managed to extract the currently filtered rows, hopefully he can get into the code again and make the material-table call a callback when a row is expanded or collapsed.",
+      "labels": [
+        "enhancement",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 153
+}

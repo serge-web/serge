@@ -1,0 +1,30 @@
+{
+  "number": 1035,
+  "title": "Hotfix improve coa",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-31T13:38:08Z",
+  "updated_at": "2021-08-31T15:04:14Z",
+  "closed_at": "2021-08-31T15:04:13Z",
+  "merged_at": "2021-08-31T15:04:13Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1035",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1035/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1035/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1035",
+  "body": "Two small improvements to COA template",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 0
+}

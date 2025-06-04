@@ -1,0 +1,109 @@
+{
+  "number": 930,
+  "title": "Added special channel dropdown",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-08T12:59:42Z",
+  "updated_at": "2021-07-15T09:34:51Z",
+  "closed_at": "2021-07-15T09:34:51Z",
+  "merged_at": "2021-07-15T09:34:51Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/930",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/930/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/930/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/930",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #605\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![image](https://user-images.githubusercontent.com/16476120/125665266-c34ab2a8-af1e-4683-8be8-98b991c75c0c.png)\r\n\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 115,
+  "deletions": 17,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 876526882,
+      "user": "IanMayo",
+      "created_at": "2021-07-08T15:18:18Z",
+      "updated_at": "2021-07-08T15:18:18Z",
+      "body": "Thanks @sanjayradadiya  - I know this is still in draft, but there is a rendering issue for the drop-down:\r\n![image](https://user-images.githubusercontent.com/1108513/124947840-19ac1400-e008-11eb-98a6-e8738b69aac9.png)\r\n"
+    },
+    {
+      "id": 880519316,
+      "user": "IanMayo",
+      "created_at": "2021-07-15T08:52:10Z",
+      "updated_at": "2021-07-15T08:52:10Z",
+      "body": "Hello @sanjayradadiya  -  could we please also have a disabled menu item that we can use as a menu header: `Special channels`."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    605
+  ],
+  "issues": [
+    {
+      "id": 809419232,
+      "number": 605,
+      "title": "Minor - UI to add \"Special\" channels.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-02-16T15:40:45Z",
+      "updated_at": "2021-07-15T09:34:51Z",
+      "closed_at": "2021-07-15T09:34:51Z",
+      "body": "Steps to reproduce:\r\n- at home page, go into Admin pages (see below)\r\n- select any wargame\r\n- go to `channels` tab\r\n- here we need UI to create a new `channel` with one of two specific titles\r\n\r\nHere is an example of a set of channels: https://github.com/serge-web/serge/blob/develop/packages/mocks/game-channels.mock.ts\r\n\r\nNote: Admin pages is accessed via \"person\" icon near top-right:\r\n![image](https://user-images.githubusercontent.com/1108513/116691508-c9cf2200-a9b2-11eb-8476-1d5e87ee6ae5.png)\r\n\r\nWe have two \"Special\" channels:\r\n- Mapping - for players that see/use the mapping control\r\n- RFI Status - for players that will be managing/tracking RFIs.\r\n\r\nThe Serge application gives specific UI for these channels when it the current role is in that channel.  It does this by checking if the name matches one of these two strings:\r\n![image](https://user-images.githubusercontent.com/1108513/117003513-dae2a080-acdc-11eb-846e-3a1f8b01e48a.png)\r\n\r\nNote: constants for the two special channels are in `consts.js` file.\r\n\r\nThese channels are currently generated by creating a Channel with the exact correct title.  But, it is fragile to expect the Game Designer to enter those specific strings for the new channel.\r\n\r\nIt would be more robust for Game Designers to be able to indicate if they're creating a \"normal\" channel or one of these \"special\" ones.  \r\n\r\nJust like with \"normal\" channels, in these \"Special\" channels Roles get added (to indicate who sees them). But, for the \"special\" channels but the Game Designer does not indicate which messages (templates) get sent - so the Admin page for these channels could be slightly simpler.\r\n![image](https://user-images.githubusercontent.com/1108513/117004631-2f3a5000-acde-11eb-89eb-e75097148b91.png)\r\n\r\nSomehow - if we have one of these special channels we should hide the `templates` column.\r\n\r\n_Maybe_ the `Add Channel` would become button with drop-down that lets the designer add a \"Special\" channel instead of a standard channel.\r\n![image](https://user-images.githubusercontent.com/1108513/108085011-c6432480-706c-11eb-949f-1df91170f6b8.png)\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 831220095,
+          "user": "sandro768",
+          "created_at": "2021-05-03T12:13:18Z",
+          "updated_at": "2021-05-03T12:13:18Z",
+          "body": "`These channels are currently generated by creating a Channel with the exact correct title.`\r\nThis sentence confuses me. Channels are created from the admin page by clicking `ADD CHANNEL`, aren't they?\r\n\r\nYou've mentioned that `Roles` distinguish special channels from regular ones.\r\nI see 3 channels and all of them seem to have roles. Are they all special?\r\n![image](https://user-images.githubusercontent.com/24352108/116874381-c6cd6f00-ac08-11eb-8d51-261af3bc1451.png)\r\n"
+        },
+        {
+          "id": 831348110,
+          "user": "IanMayo",
+          "created_at": "2021-05-03T15:40:26Z",
+          "updated_at": "2021-05-03T15:40:26Z",
+          "body": "(it's a holiday here today, I'll get back to you tomorrow, @sandro768 )"
+        },
+        {
+          "id": 831914617,
+          "user": "IanMayo",
+          "created_at": "2021-05-04T12:47:37Z",
+          "updated_at": "2021-05-04T12:47:37Z",
+          "body": ">> These channels are currently generated by creating a Channel with the exact correct title.\r\n> This sentence confuses me. Channels are created from the admin page by clicking ADD CHANNEL, aren't they?\r\n\r\nYes. 'ADD CHANNEL', then proviide a specific channel name to get the special channel displayed.\r\n\r\n> You've mentioned that Roles distinguish special channels from regular ones.\r\n> I see 3 channels and all of them seem to have roles. Are they all special?\r\n\r\nNo, it's the specific channel name/title that distinguishes them from regular ones.\r\n\r\n@sandro768 - I've also updated the original description.  Hopefully it all makes sense - but I'm happy to help out further if necessary."
+        },
+        {
+          "id": 868504952,
+          "user": "sanjayradadiya",
+          "created_at": "2021-06-25T13:35:56Z",
+          "updated_at": "2021-06-25T13:35:56Z",
+          "body": "Do we need to maintain specific flag for channel type or something ?"
+        },
+        {
+          "id": 868510131,
+          "user": "IanMayo",
+          "created_at": "2021-06-25T13:44:16Z",
+          "updated_at": "2021-06-25T13:44:16Z",
+          "body": "No. The game looks out for channels called 'RFIs' or 'Mapping' (as in the above code).  But, I don't want to rely on the Game Designer remembering to enter the correct string.  So, we're just providing command buttons to create channels - using these specific names"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/16476120/125665266-c34ab2a8-af1e-4683-8be8-98b991c75c0c.png",
+    "https://user-images.githubusercontent.com/1108513/124947840-19ac1400-e008-11eb-98a6-e8738b69aac9.png",
+    "https://user-images.githubusercontent.com/1108513/116691508-c9cf2200-a9b2-11eb-8476-1d5e87ee6ae5.png",
+    "https://user-images.githubusercontent.com/1108513/117003513-dae2a080-acdc-11eb-846e-3a1f8b01e48a.png",
+    "https://user-images.githubusercontent.com/1108513/117004631-2f3a5000-acde-11eb-89eb-e75097148b91.png",
+    "https://user-images.githubusercontent.com/1108513/108085011-c6432480-706c-11eb-949f-1df91170f6b8.png",
+    "https://user-images.githubusercontent.com/24352108/116874381-c6cd6f00-ac08-11eb-8d51-261af3bc1451.png"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 132
+}

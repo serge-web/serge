@@ -1,0 +1,48 @@
+{
+  "number": 2417,
+  "title": "2398 alternate task group",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-15T14:54:43Z",
+  "updated_at": "2023-02-15T18:42:51Z",
+  "closed_at": "2023-02-15T18:42:50Z",
+  "merged_at": "2023-02-15T18:42:50Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2417",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2417/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2417/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2417",
+  "body": "Fixes #2398 ",
+  "additions": 36930,
+  "deletions": 36172,
+  "changed_files": 12,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2398
+  ],
+  "issues": [
+    {
+      "id": 1584658469,
+      "number": 2398,
+      "title": "Alternate Task Group Strategy",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-14T18:45:06Z",
+      "updated_at": "2023-02-15T18:42:51Z",
+      "closed_at": "2023-02-15T18:42:51Z",
+      "body": "We have these issues related to Task Groups:\r\n* currently preventing `un-select-all` working (though this should be fixable)\r\n* have to generate outcomes for assets,  not the Task Group (dev chore)\r\n* planning challenge in splitting/combining Task Groups (backend maintenance chore)\r\n\r\nI've come up with this alternate strategy - to remove Task Groups as organisational unit - just have the assets in the table. \r\n\r\nThis brings these benefits:\r\n* un-select-all works\r\n* we already generate outcomes for assets in area\r\n* groups don't get split/merged\r\n\r\nTo allow players to manage task groups, we would add optional \"Task Group\" attribute for maritime platforms.  Task Group would be a chooseable column in the assets tab.  So, players can then choose to view TAsk Group column, and sort/filter by it.\r\n\r\nFor an asset to detach from the task group - the players simply give orders to that asset.  Game Admins can edit the `task group` attribute - but that's a much more straight-forward task than moving into out of parent task group - it could even be done via the admin pages.\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 12,
+  "total_changed_lines": 73102
+}

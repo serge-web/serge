@@ -1,0 +1,50 @@
+{
+  "number": 2175,
+  "title": "2165 include spatial assets in interaction",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-20T17:03:34Z",
+  "updated_at": "2022-12-23T16:23:53Z",
+  "closed_at": "2022-12-23T16:23:52Z",
+  "merged_at": "2022-12-23T16:23:52Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2175",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2175/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2175/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2175",
+  "body": "Supports #2165 ",
+  "additions": 15727,
+  "deletions": 8596,
+  "changed_files": 27,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2165
+  ],
+  "issues": [
+    {
+      "id": 1498215139,
+      "number": 2165,
+      "title": "For some activities, include assets in area in interaction",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-12-15T10:52:14Z",
+      "updated_at": "2023-02-11T16:25:59Z",
+      "closed_at": "2023-02-11T16:25:59Z",
+      "body": "For interactions, we include the assets assigned in both activities.\n\nBut, for some activities, we should include all assets in the geometry. Well, all assets for a polygon, ~~plus assets within a buffered region for a point/line~~ (no, just for polygon).\n\nNo, hold on. This is just for `events`.  It's an `event` when we provide the adjudicator with details of all assets physically in that area.\n\nSo, there will be these changes:\n- flag in activity description\n- set flag in the `activity generator` code\n- observe flag in `adjudication messages list`:  check the activities (may only be one), and if they require all assets in area, do a search, and include the data in the adjudication\n- note: if the activity includes multiple polygons, it's just the second one that we do this for\n\nPart of this is in the activities spreadsheet: https://docs.google.com/spreadsheets/d/124oknSmwjnlDXIhcIpBfngMQqtK8nTSOfdmV6VfmY3Y/edit#gid=0",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 27,
+  "total_changed_lines": 24323
+}

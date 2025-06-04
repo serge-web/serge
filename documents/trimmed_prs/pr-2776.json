@@ -1,0 +1,50 @@
+{
+  "number": 2776,
+  "title": "if there is no last message, save the whole mapping message",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-21T03:35:54Z",
+  "updated_at": "2024-01-22T13:57:32Z",
+  "closed_at": "2024-01-22T13:57:31Z",
+  "merged_at": "2024-01-22T13:57:31Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2776",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2776/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2776/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2776",
+  "body": "Fixes #2768 ",
+  "additions": 10,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2745
+  ],
+  "issues": [
+    {
+      "id": 2064416985,
+      "number": 2745,
+      "title": "Core Mapping - support for generating message deltas",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-03T17:43:34Z",
+      "updated_at": "2024-01-20T15:25:42Z",
+      "closed_at": "2024-01-20T15:25:42Z",
+      "body": "To reduce the size of the MappingMessage objects, we should start working with deltas.\r\n\r\nWe'll support this by `MappingMessage` having either a `featureCollection` or a `featureDelta`.\r\n\r\nWhen the shapes on the map are changed (C, U or D), we should calculate the delta of the feature collection, and send this as a new message for that channel.\r\n\r\nSo, the wargame database will contain an initial `featureCollection` and then a series of `featureDelta` messages.\r\n\r\nNote: let's use this library to generate the diffs: https://github.com/cujojs/jiff\r\n\r\n**Update:** -  unless you prefer a different implementation @lebaphi   We could use one that includes TypeScript definitions, if you prefer that.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 11
+}

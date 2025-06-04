@@ -1,0 +1,58 @@
+{
+  "number": 2376,
+  "title": "2326 task group outcomes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-13T11:42:04Z",
+  "updated_at": "2023-02-13T17:47:13Z",
+  "closed_at": "2023-02-13T17:47:11Z",
+  "merged_at": "2023-02-13T17:47:11Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2376",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2376/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2376/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2376",
+  "body": "First step towards reporting Task Group damage for children, not the task group itself.",
+  "additions": 37684,
+  "deletions": 38682,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2326
+  ],
+  "issues": [
+    {
+      "id": 1572511340,
+      "number": 2326,
+      "title": "Task Group outcomes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-06T12:49:08Z",
+      "updated_at": "2023-02-15T18:37:17Z",
+      "closed_at": "2023-02-15T18:37:17Z",
+      "body": "Task Group outcomes apply to the task-group children, not the Task Group itself\r\n\r\nThis should be in the `getNextInteraction` processing.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1431833629,
+          "user": "IanMayo",
+          "created_at": "2023-02-15T18:37:17Z",
+          "updated_at": "2023-02-15T18:37:17Z",
+          "body": "No longer need this, now that we members are at the top level"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 76366
+}

@@ -1,0 +1,61 @@
+{
+  "number": 2440,
+  "title": "2402 hide template name",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-18T17:30:52Z",
+  "updated_at": "2023-02-18T19:07:40Z",
+  "closed_at": "2023-02-18T19:07:39Z",
+  "merged_at": "2023-02-18T19:07:39Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2440",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2440/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2440/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2440",
+  "body": "Fixes #2439 #2412 #2402 #2392 #2311",
+  "additions": 2982,
+  "deletions": 3831,
+  "changed_files": 24,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2402
+  ],
+  "issues": [
+    {
+      "id": 1585488040,
+      "number": 2402,
+      "title": "Confusion from displaying template name at top of JSON-Editor",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-15T09:11:39Z",
+      "updated_at": "2023-02-19T10:50:23Z",
+      "closed_at": "2023-02-19T10:50:22Z",
+      "body": "The JSON-Editor for `new orders` and `edit orders` shows the template name at the top of the form.\r\n\r\nThe template name is computer generated. We shouldn't show it.  Either remove the label, or introduce a prop to tell `json-editor` not to display the template title.\r\n\r\nNote: this also relates to the rehearsal feedback regarding \"info ops not cyber template\".\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/218983857-b455577b-628b-4bf4-9e43-d0a964932562.png)\r\n\r\n",
+      "labels": [
+        "4p9",
+        "Template"
+      ],
+      "comments": [
+        {
+          "id": 1435954678,
+          "user": "IanMayo",
+          "created_at": "2023-02-19T10:50:22Z",
+          "updated_at": "2023-02-19T10:50:22Z",
+          "body": "Fixed in #2440"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/218983857-b455577b-628b-4bf4-9e43-d0a964932562.png"
+  ],
+  "number_of_changed_files": 24,
+  "total_changed_lines": 6813
+}

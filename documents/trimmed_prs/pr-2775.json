@@ -1,0 +1,47 @@
+{
+  "number": 2775,
+  "title": "Checking pr2745",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-20T14:42:33Z",
+  "updated_at": "2024-01-22T02:37:46Z",
+  "closed_at": "2024-01-20T15:25:39Z",
+  "merged_at": "2024-01-20T15:25:39Z",
+  "author": {
+    "login": "Tristina1788",
+    "html_url": "https://github.com/Tristina1788"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2775",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2775/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2775/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2775",
+  "body": "Checking the reason for failed running playwright from PR #2745",
+  "additions": 96,
+  "deletions": 58,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1902124299,
+      "user": "IanMayo",
+      "created_at": "2024-01-20T15:00:07Z",
+      "updated_at": "2024-01-20T15:00:07Z",
+      "body": "Hello @Tristina1788 - thanks for looking into this.  I see the PR includes lots of commits.  I _guess_ that is because you should have done a \"pull\" on develop before branching.  Maybe next time :-D"
+    },
+    {
+      "id": 1902967391,
+      "user": "Tristina1788",
+      "created_at": "2024-01-22T02:37:44Z",
+      "updated_at": "2024-01-22T02:37:44Z",
+      "body": "> Hello @Tristina1788 - thanks for looking into this. I see the PR includes lots of commits. I _guess_ that is because you should have done a \"pull\" on develop before branching. Maybe next time :-D\r\nHi @IanMayo Because I kept the changing from PR #[2775](https://github.com/serge-web/serge/pull/2775) to make sure this PR is fixed by my changed. Thanks for help me merge it.\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "images": [],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 154
+}

@@ -1,0 +1,210 @@
+{
+  "number": 1251,
+  "title": "1243: Message does not collapse when submit",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-12T09:40:46Z",
+  "updated_at": "2021-12-21T09:03:41Z",
+  "closed_at": "2021-12-21T09:03:41Z",
+  "merged_at": "2021-12-21T09:03:40Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1251",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1251/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1251/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1251",
+  "body": "Fixed #1243 ",
+  "additions": 38,
+  "deletions": 198,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 12,
+  "review_comments_count": 2,
+  "total_comments": 14,
+  "comments_data": [
+    {
+      "id": 992250678,
+      "user": "IanMayo",
+      "created_at": "2021-12-13T09:06:20Z",
+      "updated_at": "2021-12-13T09:06:20Z",
+      "body": "Thanks for this @lebaphi \r\n\r\nI don't know if I should be looking for this logic in my code or in your code.\r\n\r\nFor some actions, the editor doesn't collapse.  So, if I'm \"Senior Blue\", in the \"Blue COA 2 \" channel, and I open a message that is \"Pending Review\", then click in \"Claim\" - then the message should stay open.  This is handled in the logic for `collapse` parameter for `handleChange` in `ChannelMessageDetail2\\index.tsx`. \r\n\r\nThe problem is that currently it looks like the message always collapses.  I _guess_ it needs a change to the implementation of `collapseMe` that gets called in the above `handleChange` function."
+    },
+    {
+      "id": 992336508,
+      "user": "lebaphi",
+      "created_at": "2021-12-13T10:48:04Z",
+      "updated_at": "2021-12-13T10:48:04Z",
+      "body": "> Thanks for this @lebaphi\r\n> \r\n> I don't know if I should be looking for this logic in my code or in your code.\r\n> \r\n> For some actions, the editor doesn't collapse. So, if I'm \"Senior Blue\", in the \"Blue COA 2 \" channel, and I open a message that is \"Pending Review\", then click in \"Claim\" - then the message should stay open. This is handled in the logic for `collapse` parameter for `handleChange` in `ChannelMessageDetail2\\index.tsx`.\r\n> \r\n> The problem is that currently it looks like the message always collapses. I _guess_ it needs a change to the implementation of `collapseMe` that gets called in the above `handleChange` function.\r\n\r\nyep, we can change the login in the `collapseMe` function @IanMayo . I think you should look for this login in my code, I did some clean code and update data with the new table. If you want the message is still open, do not call the collapseMe :)"
+    },
+    {
+      "id": 996027008,
+      "user": "IanMayo",
+      "created_at": "2021-12-16T17:27:48Z",
+      "updated_at": "2021-12-16T17:27:48Z",
+      "body": "> I think you should look for this login in my code, I did some clean code and update data with the new table. If you want the message is still open, do not call the collapseMe :)\r\n\r\nI have just tried this @lebaphi , but failed.\r\n\r\nIn this branch, it's the `collapseMe()` parameter passed to `ChannelCOAMessageDetail2`.  It gets called in line 226 of `index.tsx`. But, I don't think I'm receiving a proper implementation of the callback.\r\n\r\nWould you mind having a look please?\r\n\r\nThe call to `collapseMe()` should collapse that row."
+    },
+    {
+      "id": 996555978,
+      "user": "lebaphi",
+      "created_at": "2021-12-17T09:12:59Z",
+      "updated_at": "2021-12-17T09:12:59Z",
+      "body": "Hi @IanMayo , this is the flow:\r\n- it gets called in line 226 at `channel-coa-message-detail-2/index.tsx`\r\n- the `onChangeCallback` in line 185 at `coa-status-board-2/helpers/gen-data.tsx` gets called\r\n- the `toggleSelectedRow` in line 104 at `coa-status-board-2/index.tsx` gets called, it will click and collapse this row :D\r\n\r\nhttps://user-images.githubusercontent.com/26705621/146519322-2e980666-1159-45eb-b3a4-00b82683c8a0.mov\r\n\r\n\r\n"
+    },
+    {
+      "id": 996608873,
+      "user": "IanMayo",
+      "created_at": "2021-12-17T10:27:42Z",
+      "updated_at": "2021-12-17T10:27:42Z",
+      "body": "Thanks for that @lebaphi \r\n\r\nThe logic is that the form only collapses in some cases.  If the user is going to `Claim` the document, then it should remain open - since the user is about to fill it in.\r\n\r\nIt _looks like_ some other process is forcing the panel to close.  \r\n\r\n1. it gets called in line 226 at channel-coa-message-detail-2/index.tsx\r\n2. the onChangeCallback in line 185 at coa-status-board-2/helpers/gen-data.tsx gets called\r\n3. the toggleSelectedRow in line 104 at coa-status-board-2/index.tsx gets called, it will click and collapse this row \r\n\r\nSo, 1, 2, 3 work properly for `Submit for review`.  But, for `Claim`, 1 and 2 don't happen, but `3` does."
+    },
+    {
+      "id": 996644421,
+      "user": "lebaphi",
+      "created_at": "2021-12-17T11:19:15Z",
+      "updated_at": "2021-12-17T11:19:15Z",
+      "body": "thank @IanMayo , I see this issue, let me check it 👍 "
+    },
+    {
+      "id": 996670795,
+      "user": "lebaphi",
+      "created_at": "2021-12-17T12:03:23Z",
+      "updated_at": "2021-12-17T12:03:23Z",
+      "body": "Hi @IanMayo, I pushed the new fix, can you take a look 😄 "
+    },
+    {
+      "id": 996671999,
+      "user": "IanMayo",
+      "created_at": "2021-12-17T12:05:23Z",
+      "updated_at": "2021-12-17T12:05:23Z",
+      "body": "> Hi @IanMayo, I pushed the new fix, can you take a look 😄\r\n\r\nyes, thanks - just waiting for deployment to finish"
+    },
+    {
+      "id": 996678355,
+      "user": "IanMayo",
+      "created_at": "2021-12-17T12:15:45Z",
+      "updated_at": "2021-12-17T12:40:50Z",
+      "body": "Sorry @lebaphi - there's an outstanding issue, and it's a big one 😟 \r\n\r\nIf I open another instance of Serge in another tab, and send a message, the table redraws - including collapse and re-open.  The flicker is quite distracting.\r\n\r\nThis [screencast](https://i.gyazo.com/69aeb857a0cf8f6b40743c80e050d3df.mp4) shows what happens when I send a Game Admin message from another browser tab."
+    },
+    {
+      "id": 996738529,
+      "user": "lebaphi",
+      "created_at": "2021-12-17T13:52:03Z",
+      "updated_at": "2021-12-17T13:52:03Z",
+      "body": "> Sorry @lebaphi - there's an outstanding issue, and it's a big one 😟\r\n> \r\n> If I open another instance of Serge in another tab, and send a message, the table redraws - including collapse and re-open. The flicker is quite distracting.\r\n> \r\n> This [screencast](https://i.gyazo.com/69aeb857a0cf8f6b40743c80e050d3df.mp4) shows what happens when I send a Game Admin message from another browser tab.\r\n\r\nNo worries, I will check it 😄 "
+    },
+    {
+      "id": 997971752,
+      "user": "IanMayo",
+      "created_at": "2021-12-20T14:26:08Z",
+      "updated_at": "2021-12-20T14:26:08Z",
+      "body": "Hello @lebaphi - the above \"flicker\" issue is an important one.  Lilit solved it on previous branches by controlling the `id/key` for the component. I'm happy to ask her to look at this too, if you don't find it an easy fix."
+    },
+    {
+      "id": 998478957,
+      "user": "lebaphi",
+      "created_at": "2021-12-21T05:14:35Z",
+      "updated_at": "2021-12-21T05:14:35Z",
+      "body": "> Hello @lebaphi - the above \"flicker\" issue is an important one. Lilit solved it on previous branches by controlling the `id/key` for the component. I'm happy to ask her to look at this too, if you don't find it an easy fix.\r\n\r\nIt would be great @IanMayo 👍 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 770738026,
+      "user": "IanMayo",
+      "created_at": "2021-12-16T16:56:39Z",
+      "updated_at": "2021-12-16T16:56:39Z",
+      "body": "@lebaphi - I'm nervous of why these blocks of HTML in the snapshot have been removed.\r\n\r\nHave we lost the expand/collapse buttons?",
+      "path": "packages/components/src/local/coa-status-board-2/__snapshots__/index.spec.tsx.snap",
+      "diff_hunk": "@@ -329,45 +326,14 @@ Array [\n           role=\"rowgroup\"\n         >\n           <div\n-            className=\"sc-iwsKbI joYMLE rdt_TableRow\"\n+            className=\"sc-iwsKbI ftNEpz rdt_TableRow\"\n             id=\"row-Blue-3\"\n             onClick={[Function]}\n             onDoubleClick={[Function]}\n             role=\"row\"\n             selected={false}\n             style={Object {}}\n           >",
+      "html_url": "https://github.com/serge-web/serge/pull/1251#discussion_r770738026"
+    },
+    {
+      "id": 771156637,
+      "user": "lebaphi",
+      "created_at": "2021-12-17T07:19:01Z",
+      "updated_at": "2021-12-17T07:19:01Z",
+      "body": "Hi @IanMayo , I just want to make the new table has the same UI with the old table, just click on the row and it will expand the message.",
+      "path": "packages/components/src/local/coa-status-board-2/__snapshots__/index.spec.tsx.snap",
+      "diff_hunk": "@@ -329,45 +326,14 @@ Array [\n           role=\"rowgroup\"\n         >\n           <div\n-            className=\"sc-iwsKbI joYMLE rdt_TableRow\"\n+            className=\"sc-iwsKbI ftNEpz rdt_TableRow\"\n             id=\"row-Blue-3\"\n             onClick={[Function]}\n             onDoubleClick={[Function]}\n             role=\"row\"\n             selected={false}\n             style={Object {}}\n           >",
+      "html_url": "https://github.com/serge-web/serge/pull/1251#discussion_r771156637"
+    }
+  ],
+  "issue_numbers": [
+    104,
+    185,
+    226,
+    1243
+  ],
+  "issues": [
+    {
+      "id": 537671881,
+      "number": 104,
+      "title": "first trial of leaflet/honeycomb",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2019-12-13T17:23:25Z",
+      "updated_at": "2019-12-18T12:54:41Z",
+      "closed_at": "2019-12-18T12:54:37Z",
+      "body": "## 📝 Developer Notes:\r\nThis is a temporary PR, used to track experiments with the honeycomb library\r\n\r\nTo do:\r\n* [ ] convert from degrees to grid id\r\n* [ ] get hex for grid id (map)\r\n* [ ] get polygon for hex cell\r\n* [ ] change polygon fill as mouse moves over cell",
+      "labels": [],
+      "comments": [
+        {
+          "id": 567019557,
+          "user": "IanMayo",
+          "created_at": "2019-12-18T12:54:37Z",
+          "updated_at": "2019-12-18T12:54:37Z",
+          "body": "Closing this branch - because of our breaking build I couldn't get Heroku building, so developed the demonstrator in the gh-pages branch instead."
+        }
+      ]
+    },
+    {
+      "id": 552475782,
+      "number": 185,
+      "title": "Hotfix/render player interface",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-01-20T19:34:57Z",
+      "updated_at": "2020-01-20T20:01:53Z",
+      "closed_at": "2020-01-20T20:01:51Z",
+      "body": "## 🧰 Ticket\r\n#180 \r\n\r\n## 🚀 Overview: \r\nAs the past events load from the database at browser startup, we should be processing map-changing messages.\r\n\r\nWe should also improve our housekeeping as we move through the phases of the game.\r\n\r\n## 🔗 Link to preview\r\n\r\n## 🤔 Reason: \r\nWe need the force-changing messages to be re-handled when we reload an existing game\r\n\r\n## 🔨Work carried out:\r\n\r\n* [x] [fix](https://github.com/serge-web/serge/pull/185/files#diff-7fa0c5bb64e52313fc6720f81a5d4199R381) player reducer \r\n* [x] [only](https://github.com/serge-web/serge/pull/185/files#diff-ec97d2b163d858b1ba6f0a559a76e693R471) put the state title in for planned turns, not the whole state construct\r\n* [x] [correctly](https://github.com/serge-web/serge/pull/185/files#diff-0a51eb891976f5f833898da19be7d824R10) call the `remove()` method for existing perceived state buttons\r\n* [x] [pass](https://github.com/serge-web/serge/pull/185/files#diff-ccc41ae4337546335419540d2769caefR220) the list of existing markers in the clearListeners method\r\n* [x] [inject](https://github.com/serge-web/serge/pull/185/files#diff-ccc41ae4337546335419540d2769caefR322) the force into an asset if necessary, (for convenience)\r\n\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n[If the work is UI related then paste a screenshot of the update here.]\r\n\r\n## 📝 Developer Notes:\r\n[Sometimes, extra notes are needed to add clarity to a PR, add them here]",
+      "labels": [],
+      "comments": []
+    },
+    {
+      "id": 554771122,
+      "number": 226,
+      "title": "5.3 - Perception of other force (asset name)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-01-24T14:35:21Z",
+      "updated_at": "2020-02-03T19:42:04Z",
+      "closed_at": "2020-02-03T19:42:04Z",
+      "body": "As a < Player >, I want < to record the name of a contact > so that < I can refer to it by name >.\r\n\r\nA user pointed out that it was wrong for players to see the name for *Grey* asset.  But, as the game progresses, they may learn the name of assets, either through simulated intelligence briefings, them getting close enough to ID it, or other.\r\n\r\nSo, in the wargame definition, each asset should have a  unique `contact number`, something like `T032`.  The number won't give away which force the asset belongs to.   Players of other forces will only see the contact number.  But, in the **Perception** dialog, they will be able to enter a name.  So, this isn't the actual name - it's just their perception.  Once a player has a perceived name for an asset from another force, we display that name, not the contact number.\r\n\r\nA player can clear the name in the popup, which will make Serge switch back to displaying the contact number.\r\n\r\n# Acceptance criteria\r\n\r\n- [ ] Game running, logged in as player\r\n- [ ] Hover over an asset from another force, see it's contact number\r\n- [ ] Click on asset, popup dialog shows contact number, but has text field for `Name`\r\n- [ ] Player enters name, and presses `Save`\r\n- [ ] The new name is now displayed when hovering over that counter\r\n\r\n# UX\r\nTiny bit of ux, please @clenoble .",
+      "labels": [
+        "User Story"
+      ],
+      "comments": []
+    },
+    {
+      "id": 1076933032,
+      "number": 1243,
+      "title": "Messages don't collapse on `Submit for review`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-12-10T14:57:16Z",
+      "updated_at": "2021-12-21T09:03:40Z",
+      "closed_at": "2021-12-21T09:03:40Z",
+      "body": "In the new Collaborative Editing (`Blue COA 2`) when players Submit a message for review, the message should collapse.\r\n\r\nActually, this may be a feature we've forgotten to implement in the new `react-data-table` component.\r\n\r\nI can see that `toggleRow` is working when we click on a table row.  But we're unable to force the message to close once it has been acted upon.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 236
+}

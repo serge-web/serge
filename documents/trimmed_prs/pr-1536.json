@@ -1,0 +1,101 @@
+{
+  "number": 1536,
+  "title": "1529 Refactor how we save channel & force",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-27T07:44:46Z",
+  "updated_at": "2022-04-28T09:37:42Z",
+  "closed_at": "2022-04-28T09:37:39Z",
+  "merged_at": "2022-04-28T09:37:39Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1536",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1536/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1536/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1536",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1529\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 56,
+  "deletions": 47,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 4,
+  "total_comments": 4,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 859776318,
+      "user": "IanMayo",
+      "created_at": "2022-04-27T13:08:50Z",
+      "updated_at": "2022-04-27T13:08:50Z",
+      "body": "How about we specify `string | ForceData | undefined`\r\n\r\nTo be honest, I don't like the `|` union.  How about we remove usage of strings in there, and just use:\r\n```\r\n  selectedForce?: ForceData\r\n```\r\n\r\nAah, but we **certainly don't** want to store the whole `ForceData` object when we persist to database.",
+      "path": "packages/custom-types/force.d.ts",
+      "diff_hunk": "@@ -6,7 +6,7 @@ export default interface Force {\n   // TODO: we need to constrain what we store below.\n   // I _think_ we're storing a whole force. I'm sure it should be\n   // a force-id\n-  selectedForce: string,\n+  selectedForce: string | { uniqid : string },",
+      "html_url": "https://github.com/serge-web/serge/pull/1536#discussion_r859776318"
+    },
+    {
+      "id": 859776866,
+      "user": "IanMayo",
+      "created_at": "2022-04-27T13:09:23Z",
+      "updated_at": "2022-04-27T13:09:23Z",
+      "body": "Is this fixing a bug @lilitkarapetyan ?",
+      "path": "packages/server/providers/couchdb.js",
+      "diff_hunk": "@@ -90,7 +90,15 @@ const couchDb = (app, io, pouchOptions) => {\n         if (err.status === 409) {\n           return retryUntilWritten(db, doc)\n         } else { // new doc\n-          return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc }))",
+      "html_url": "https://github.com/serge-web/serge/pull/1536#discussion_r859776866"
+    },
+    {
+      "id": 859778152,
+      "user": "IanMayo",
+      "created_at": "2022-04-27T13:10:39Z",
+      "updated_at": "2022-04-27T13:10:39Z",
+      "body": "Hmm, I think the above needs to be `&&`. Both need to be false to be sure it's not the system doc",
+      "path": "packages/server/providers/couchdb.js",
+      "diff_hunk": "@@ -161,7 +169,7 @@ const couchDb = (app, io, pouchOptions) => {\n     remoteDb.allDocs({ include_docs: true, attachments: true })\n       .then(result => {\n         const messages = result.rows.reduce((messages, { doc }) => {\n-          const isNotSystem = doc._id !== wargameSettings\n+          const isNotSystem = doc._id !== wargameSettings || doc._id !== settings",
+      "html_url": "https://github.com/serge-web/serge/pull/1536#discussion_r859778152"
+    },
+    {
+      "id": 860460419,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-04-28T04:07:35Z",
+      "updated_at": "2022-04-28T04:07:36Z",
+      "body": "Yes, this part is for updating \"initial_wargame\" and I added \"settings\" if \"initial_wargame\" doesn't exist.",
+      "path": "packages/server/providers/couchdb.js",
+      "diff_hunk": "@@ -90,7 +90,15 @@ const couchDb = (app, io, pouchOptions) => {\n         if (err.status === 409) {\n           return retryUntilWritten(db, doc)\n         } else { // new doc\n-          return db.put(doc).then(() => res.send({ msg: 'Saved', data: doc }))",
+      "html_url": "https://github.com/serge-web/serge/pull/1536#discussion_r860460419"
+    }
+  ],
+  "issue_numbers": [
+    1529
+  ],
+  "issues": [
+    {
+      "id": 1215877095,
+      "number": 1529,
+      "title": "Refactor how we save channel & force",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-26T12:22:18Z",
+      "updated_at": "2022-05-10T15:49:06Z",
+      "closed_at": "2022-05-10T15:49:06Z",
+      "body": "Our save-channel/save-force logic is complex because it uses `name` to index the channels/forces, but the `name` could change.\r\n\r\nSince that was written, we now index channels. & forces by `uniqid` - so the `saveChannel`\\`saveForce` code in `wargames_api` can be simplified.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/165298879-9b85dc46-cb8e-4d3b-a7e3-dde6a92b3852.png)\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1122570202,
+          "user": "IanMayo",
+          "created_at": "2022-05-10T15:49:06Z",
+          "updated_at": "2022-05-10T15:49:06Z",
+          "body": "Fixed in #1536 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/165298879-9b85dc46-cb8e-4d3b-a7e3-dde6a92b3852.png"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 103
+}

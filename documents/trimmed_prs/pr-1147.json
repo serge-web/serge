@@ -1,0 +1,50 @@
+{
+  "number": 1147,
+  "title": "1146 inner location",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-17T14:00:02Z",
+  "updated_at": "2021-09-17T14:19:54Z",
+  "closed_at": "2021-09-17T14:19:53Z",
+  "merged_at": "2021-09-17T14:19:53Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1147",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1147/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1147/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1147",
+  "body": "Fixes #1146 ",
+  "additions": 5,
+  "deletions": 4,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1146
+  ],
+  "issues": [
+    {
+      "id": 999328425,
+      "number": 1146,
+      "title": "Error displaying some data (maybe RFIs)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-17T13:00:52Z",
+      "updated_at": "2021-09-17T14:19:53Z",
+      "closed_at": "2021-09-17T14:19:53Z",
+      "body": "We have a error that crashes Serge.\r\n\r\n`TypeError: Cannot convert undefined or null to object`.\r\n`at Function.keys`\r\n\r\nI'm pretty sure this at line `78` of `COAStatusBoard\\index.tsx`\r\n\r\nMaybe it's because the LOCATION is missing, or maybe it's because the location in this game looks different to in our game.\r\n\r\nHere is what a location looks like in this game:\r\n```\r\n\"LOCATION\": {\r\n   \"Europe\": [].\r\n   \"Asia\": [ \r\n       { \r\n         \"Country\": \"India\" \r\n       } \r\n    ]\r\n}\r\n```\r\n\r\nHere is what our Locations look like:\r\n```\r\n\"LOCATION\": {\r\n   \"LOCATION\": {\r\n     \"Europe\": [].\r\n     \"Asia\": [ \r\n         { \r\n           \"Country\": \"India\" \r\n         } \r\n      ]\r\n  }\r\n}\r\n```\r\n\r\nThe mistake is in our COA message structure.  We have two levels of COA.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 9
+}

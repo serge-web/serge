@@ -1,0 +1,30 @@
+{
+  "number": 2559,
+  "title": "more debug logging",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-06T16:31:22Z",
+  "updated_at": "2023-03-06T20:29:58Z",
+  "closed_at": "2023-03-06T20:29:57Z",
+  "merged_at": "2023-03-06T20:29:57Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2559",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2559/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2559/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2559",
+  "body": "Interaction generator can't find details for an activity.\r\n\r\nLog more data",
+  "additions": 134,
+  "deletions": 122,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 256
+}

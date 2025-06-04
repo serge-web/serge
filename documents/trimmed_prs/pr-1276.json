@@ -1,0 +1,40 @@
+{
+  "number": 1276,
+  "title": "Duplicate on legacy - DO NOT UPDATE TO DEVELOP",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-20T13:56:00Z",
+  "updated_at": "2021-12-22T13:33:06Z",
+  "closed_at": "2021-12-22T13:33:05Z",
+  "merged_at": "2021-12-22T13:33:05Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1276",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1276/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1276/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1276",
+  "body": "Fixes #1274 \r\n\r\nThis branch re-applies @lilitkarapetyan 's changes to the relevant legacy branch.\r\n\r\nThere is a remaining issue. When a duplicate of a message is created, the existing message is removed from the browser.\r\n\r\nA F5 refresh shows the existing message is still in the database, but:\r\n* during the `duplicate` logic, the initial message has its `Reference` changed to the new message reference\r\n* as the new message is handled in `handleNonInfoMessage` the code mistakenly thinks there is a previous instance of the message, and it is deleted.\r\n\r\nSo,\r\n1. we have `blue-1` in the database with `_id` of `14:54`\r\n2. we click on duplicate\r\n3. `blue-1` is renamed to `blue-2`, still with `_id` of `14:54`\r\n4. the new `blue-2` is received from PouchDb, with `_id` of `14:55`\r\n5. our `new message` reducer checks for existing instances of `blue-2`. It finds the one at `14:54` and deletes it\r\n6. we now just show `blue-2`.  `blue-1` has been removed.\r\n\r\nThe problem is in step `3.`. But,  I can't find where it is happening.",
+  "additions": 146,
+  "deletions": 6,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 999580232,
+      "user": "IanMayo",
+      "created_at": "2021-12-22T13:32:42Z",
+      "updated_at": "2021-12-22T13:32:42Z",
+      "body": "Working perfectly, thanks!"
+    }
+  ],
+  "review_comments_data": [],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 152
+}

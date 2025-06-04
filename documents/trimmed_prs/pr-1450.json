@@ -1,0 +1,152 @@
+{
+  "number": 1450,
+  "title": "1429: Should show the confirm dialog before removing participant",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-24T14:42:29Z",
+  "updated_at": "2022-03-30T14:56:18Z",
+  "closed_at": "2022-03-28T16:17:15Z",
+  "merged_at": "2022-03-28T16:17:15Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1450",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1450/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1450/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1450",
+  "body": "Fix #1429 ",
+  "additions": 110,
+  "deletions": 103,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 12,
+  "review_comments_count": 0,
+  "total_comments": 12,
+  "comments_data": [
+    {
+      "id": 1077704884,
+      "user": "lebaphi",
+      "created_at": "2022-03-24T14:43:09Z",
+      "updated_at": "2022-03-24T14:43:09Z",
+      "body": "<img width=\"903\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/159941678-3b325848-1374-498a-a340-4112c0d69e71.png\">\r\n"
+    },
+    {
+      "id": 1077944376,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-24T18:54:02Z",
+      "updated_at": "2022-03-24T18:54:02Z",
+      "body": "> <img alt=\"image\" width=\"903\" src=\"https://user-images.githubusercontent.com/26705621/159941678-3b325848-1374-498a-a340-4112c0d69e71.png\">\r\n\r\nExcellent. I think our previous pop-up works well: \r\n\r\n![Are you sure delete](https://user-images.githubusercontent.com/85491794/159988527-3b527cca-8864-4690-81f7-596f2b0ec2c4.png)\r\n\r\nThe text here would thus be \r\n\"Delete Permission\r\nAre you sure you want to permanently delete this permission?\"\r\n\r\nIt would be ideal to also have the pop-up show the name of the user whose permission is being deleted, to emphasize the feature. Something like this:\r\n\r\n![Delete Permission](https://user-images.githubusercontent.com/85491794/159989835-22439c16-d39f-41da-9211-87c8a51b213e.png)\r\n\r\n"
+    },
+    {
+      "id": 1078633102,
+      "user": "lebaphi",
+      "created_at": "2022-03-25T04:08:05Z",
+      "updated_at": "2022-03-25T04:08:05Z",
+      "body": "<img width=\"913\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/160052069-73943a29-1714-4a8d-a00d-c7ab1cb6e9c4.png\">\r\n"
+    },
+    {
+      "id": 1079193409,
+      "user": "IanMayo",
+      "created_at": "2022-03-25T16:27:18Z",
+      "updated_at": "2022-03-25T16:27:18Z",
+      "body": "Thanks for moving this forward guys.\r\n\r\nWe need to called it a \"participation\" rather than a \"permission\".  It describes how a role (or group of roles) participate in a channel.  Can you rename the dialog please @lebaphi ?"
+    },
+    {
+      "id": 1079291756,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-25T18:27:47Z",
+      "updated_at": "2022-03-25T18:27:47Z",
+      "body": "> <img alt=\"image\" width=\"913\" src=\"https://user-images.githubusercontent.com/26705621/160052069-73943a29-1714-4a8d-a00d-c7ab1cb6e9c4.png\">\r\n\r\nLooks great! If you could change Permission to Participation like Ian said, and deploy it, that'd be good for me."
+    },
+    {
+      "id": 1079293700,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-25T18:29:55Z",
+      "updated_at": "2022-03-25T18:29:55Z",
+      "body": "I just checked deployment and it looks like you might have accidentally edited the Platform pop-up instead of the Participation one: \r\n\r\n![Permission Platform Bug](https://user-images.githubusercontent.com/85491794/160180428-ee6a2c04-260f-4272-b0f3-cd59f47b041d.png)\r\n\r\n"
+    },
+    {
+      "id": 1079575215,
+      "user": "lebaphi",
+      "created_at": "2022-03-26T02:46:11Z",
+      "updated_at": "2022-03-26T02:46:11Z",
+      "body": "I've updated @ShendMikullovci @IanMayo \r\n\r\n<img width=\"477\" alt=\"Screen Shot 2022-03-26 at 9 45 06 AM\" src=\"https://user-images.githubusercontent.com/26705621/160221878-b1b3a3fb-505f-4f01-a9d5-b3a725b04117.png\">\r\n<img width=\"710\" alt=\"Screen Shot 2022-03-26 at 9 45 17 AM\" src=\"https://user-images.githubusercontent.com/26705621/160221879-f2d2c75c-ca93-4fc8-87ff-d900b68feb2d.png\">\r\n"
+    },
+    {
+      "id": 1079999149,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-27T19:02:32Z",
+      "updated_at": "2022-03-27T19:02:32Z",
+      "body": "Just checked the deployment. The feature is functional. \r\nA couple of things: \r\n\r\n1. It'd be nice to have the same format of pop-up throughout the screens. Both pop-ups dim the background and are centered in the screen to attract maximum attention. I have a small preference over the navy blue pop-up (platform one), though the delete button is less visible there. What do you guys prefer?\r\n2. In the white pop-up, the affirmative button (yes/delete) should be placed on the right and the cancel/no button on the left."
+    },
+    {
+      "id": 1080486991,
+      "user": "lebaphi",
+      "created_at": "2022-03-28T10:40:03Z",
+      "updated_at": "2022-03-28T10:40:03Z",
+      "body": "I prefer the first popup, it looks neat and has a bit of a professional 😄 How to you think @IanMayo ?"
+    },
+    {
+      "id": 1080491895,
+      "user": "IanMayo",
+      "created_at": "2022-03-28T10:45:44Z",
+      "updated_at": "2022-03-28T10:45:44Z",
+      "body": "@ShendMikullovci is right that the buttons are less clear on the darker popup .\r\n\r\nA good _quick fix_ is for us to standardize on the lighter popup (with the white background on the central area).\r\n\r\nLet's do that, please @lebaphi "
+    },
+    {
+      "id": 1080542232,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-28T11:36:59Z",
+      "updated_at": "2022-03-28T11:36:59Z",
+      "body": "> @ShendMikullovci is right that the buttons are less clear on the darker popup .\r\n> \r\n> A good _quick fix_ is for us to standardize on the lighter popup (with the white background on the central area).\r\n> \r\n> Let's do that, please @lebaphi\r\n\r\nExcellent. We should stick to \"Cancel\" (left) and \"Delete\" (right) instead of yes/no for the buttons. Have the delete button in navy blue and the cancel button in grey as usual."
+    },
+    {
+      "id": 1083244896,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-30T14:56:18Z",
+      "updated_at": "2022-03-30T14:56:18Z",
+      "body": "Just checked this. Works great! Thanks guys!"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1429
+  ],
+  "issues": [
+    {
+      "id": 1171298017,
+      "number": 1429,
+      "title": "\"Are You Sure\" pop-up Permissions",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-16T17:01:20Z",
+      "updated_at": "2022-03-28T16:17:15Z",
+      "closed_at": "2022-03-28T16:17:15Z",
+      "body": "![Physical Proximity Edit Pen Garbage Bin](https://user-images.githubusercontent.com/85491794/158646238-62205a57-1f72-4b38-8c8a-40f3ec8907b3.png)\r\n\r\nConsidering the physical proximity of the edit pen to the garbage bin, we should add an \"Are you sure you want to permanently delete this role?\" pop-up when clicking on the garbage bin.\r\n\r\nI've already accidentally deleted a force trying to edit it.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1070779475,
+          "user": "IanMayo",
+          "created_at": "2022-03-17T10:46:35Z",
+          "updated_at": "2022-03-17T10:46:35Z",
+          "body": "One for you, please @lebaphi "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/159941678-3b325848-1374-498a-a340-4112c0d69e71.png",
+    "https://user-images.githubusercontent.com/85491794/159988527-3b527cca-8864-4690-81f7-596f2b0ec2c4.png",
+    "https://user-images.githubusercontent.com/85491794/159989835-22439c16-d39f-41da-9211-87c8a51b213e.png",
+    "https://user-images.githubusercontent.com/26705621/160052069-73943a29-1714-4a8d-a00d-c7ab1cb6e9c4.png",
+    "https://user-images.githubusercontent.com/85491794/160180428-ee6a2c04-260f-4272-b0f3-cd59f47b041d.png",
+    "https://user-images.githubusercontent.com/26705621/160221878-b1b3a3fb-505f-4f01-a9d5-b3a725b04117.png",
+    "https://user-images.githubusercontent.com/26705621/160221879-f2d2c75c-ca93-4fc8-87ff-d900b68feb2d.png",
+    "https://user-images.githubusercontent.com/85491794/158646238-62205a57-1f72-4b38-8c8a-40f3ec8907b3.png"
+  ],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 213
+}

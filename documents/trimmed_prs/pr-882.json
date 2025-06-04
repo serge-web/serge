@@ -1,0 +1,91 @@
+{
+  "number": 882,
+  "title": "Fix message read and mark as read",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-28T15:33:08Z",
+  "updated_at": "2021-06-29T09:00:31Z",
+  "closed_at": "2021-06-29T09:00:30Z",
+  "merged_at": "2021-06-29T09:00:30Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/882",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/882/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/882/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/882",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #879 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 7,
+  "deletions": 5,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 869841587,
+      "user": "IanMayo",
+      "created_at": "2021-06-28T16:47:29Z",
+      "updated_at": "2021-06-28T16:47:29Z",
+      "body": "Hello @sanjayradadiya - thanks for this, you've done a good job.\r\n\r\nThe desired behaviour is for the message-read status to be persistent between sessions. \r\n\r\nSee this old branch: https://serge-dev.herokuapp.com/\r\n\r\nIf you log in as Blue CO, and send the long message, you'll see that if you mark it as read, then refresh the page & log in again, the message is already read."
+    },
+    {
+      "id": 869842911,
+      "user": "sanjayradadiya",
+      "created_at": "2021-06-28T16:49:08Z",
+      "updated_at": "2021-06-28T16:49:08Z",
+      "body": "> Hello @sanjayradadiya - thanks for this, you've done a good job.\n> \n> \n> \n> The desired behaviour is for the message-read status to be persistent between sessions. \n> \n> \n> \n> See this old branch: https://serge-dev.herokuapp.com/\n> \n> \n> \n> If you log in as Blue CO, and send the long message, you'll see that if you mark it as read, then refresh the page & log in again, the message is already read.\n\nThanks for reminding me , i will again look and fix it\n"
+    },
+    {
+      "id": 870413187,
+      "user": "IanMayo",
+      "created_at": "2021-06-29T08:59:33Z",
+      "updated_at": "2021-06-29T08:59:33Z",
+      "body": "@sanjayradadiya - I could do with a fix on this, please."
+    },
+    {
+      "id": 870413435,
+      "user": "IanMayo",
+      "created_at": "2021-06-29T08:59:56Z",
+      "updated_at": "2021-06-29T08:59:56Z",
+      "body": "I'm going to merge this version. We'll have to do the `persistent` fix in another branch."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    879
+  ],
+  "issues": [
+    {
+      "id": 931482766,
+      "number": 879,
+      "title": "\"Mark as read\" / \"Mark all as read\" not working",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-28T11:45:37Z",
+      "updated_at": "2021-06-29T12:57:47Z",
+      "closed_at": "2021-06-29T12:57:47Z",
+      "body": "In formatted messages, once a player has expanded a message, it is marked as read.\r\n\r\nAt the top of a channel, the player is able to mark all messages as read.\r\n\r\nHere is a recording of an old (2019) instance of Serge:\r\n![screencast](https://i.gyazo.com/93612cf85ebf037e03687c5d3555b77f.gif)\r\n\r\nThe UI is still present to trigger these actions, but the messages don't get marked as read.",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 870414163,
+          "user": "IanMayo",
+          "created_at": "2021-06-29T09:01:00Z",
+          "updated_at": "2021-06-29T09:01:00Z",
+          "body": "Re-opening this for @sanjayradadiya  to implement persistent mark-as-read between sessions."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/93612cf85ebf037e03687c5d3555b77f.gif"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 12
+}

@@ -1,0 +1,142 @@
+{
+  "number": 2936,
+  "title": "Update storybook from v6 to v8",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-05-11T15:09:36Z",
+  "updated_at": "2024-05-16T11:23:02Z",
+  "closed_at": "2024-05-16T11:23:01Z",
+  "merged_at": "2024-05-16T11:23:01Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2936",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2936/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2936/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2936",
+  "body": "Fixes #2935 \r\n\r\n<img width=\"1426\" alt=\"image\" src=\"https://github.com/serge-web/serge/assets/26705621/297190f1-34a9-47d2-8318-5fdd97bc91db\">\r\n",
+  "additions": 3420,
+  "deletions": 4976,
+  "changed_files": 67,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 0,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 2106185612,
+      "user": "Tristina1788",
+      "created_at": "2024-05-12T09:37:57Z",
+      "updated_at": "2024-05-12T09:48:04Z",
+      "body": "@lebaphi  @IanMayo  I get this error when running 'yarn build' but seem system still works as normal \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/31a57423-7e22-4b0f-b2e5-4c46ef322526)\r\n\r\nI also see it from the github running for building project. So we can ignore the error?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/24e8fd2d-faf0-4c96-953c-5899b89e3fe5)\r\n\r\nChecking version of story book and now it's updated to 8.x\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e36916d2-b49b-4847-9c43-b08ecdfce57f)\r\n\r\n- I can see some news data on this storybook and also found  errors on some pages\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/a207ea4c-683d-4eb1-950f-f452bb459dc4)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2366c521-3c83-4967-a5c1-3c8e4ab8a71b)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/d6eb0d1a-0c84-4307-8297-2be42ff95b18)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/99a2a2f7-6024-4c8d-b089-5f82d542f5c7)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/f17a31e3-5446-4057-a5a3-760676fbec30)\r\n\r\n....\r\n\r\n@IanMayo  Should I put all error on this PR or I can create another issue for these error? \r\n"
+    },
+    {
+      "id": 2106193327,
+      "user": "lebaphi",
+      "created_at": "2024-05-12T10:06:38Z",
+      "updated_at": "2024-05-12T10:19:17Z",
+      "body": "I think these errors happened in v6 @Tristina1788 @IanMayo , so we can rule them out like we did before.\r\n\r\n<img width=\"1003\" alt=\"Screen Shot 2024-05-12 at 5 04 36 PM\" src=\"https://github.com/serge-web/serge/assets/26705621/9bfcebed-4fdf-4aa9-9044-190e81d88f13\">\r\n<img width=\"1218\" alt=\"Screen Shot 2024-05-12 at 5 03 49 PM\" src=\"https://github.com/serge-web/serge/assets/26705621/21ec3ff7-1e5d-436e-91cd-1aa5f5dff172\">\r\n"
+    },
+    {
+      "id": 2106196775,
+      "user": "Tristina1788",
+      "created_at": "2024-05-12T10:18:42Z",
+      "updated_at": "2024-05-12T10:18:42Z",
+      "body": "> I think these errors happened in v6 @Tristina1788 @IanMayo\r\n> \r\n> <img alt=\"Screen Shot 2024-05-12 at 5 04 36 PM\" width=\"1003\" src=\"https://private-user-images.githubusercontent.com/26705621/329841914-9bfcebed-4fdf-4aa9-9044-190e81d88f13.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTU1MDg3MDEsIm5iZiI6MTcxNTUwODQwMSwicGF0aCI6Ii8yNjcwNTYyMS8zMjk4NDE5MTQtOWJmY2ViZWQtNGZkZi00YWE5LTkwNDQtMTkwZTgxZDg4ZjEzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA1MTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNTEyVDEwMDY0MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTY3OGQxMjczYjgzNWY2OWZlZGFmMDIyYmQzNjg3MDU0NmMyNTBmMjAxODRiOGRkNmZiNmFmYmEyOWFmZWQ5ODEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.59FZKwSk6YGFPUCjFIU-mW_UK49G9vDXeHa9CUFuSgU\"> <img alt=\"Screen Shot 2024-05-12 at 5 03 49 PM\" width=\"1218\" src=\"https://private-user-images.githubusercontent.com/26705621/329841922-21ec3ff7-1e5d-436e-91cd-1aa5f5dff172.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTU1MDg3MDEsIm5iZiI6MTcxNTUwODQwMSwicGF0aCI6Ii8yNjcwNTYyMS8zMjk4NDE5MjItMjFlYzNmZjctMWU1ZC00MzZlLTkxY2QtMWFhNWY1ZGZmMTcyLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA1MTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNTEyVDEwMDY0MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWZkNThkMTViN2E2MDk5YTJhYWI2Njc0ZGM3ZTI4MDQzOTE5MzU2ODNlYmM1MzEwZGIxYzZkYWVlNDM4MmQ3ODUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.3FLs02Jqgra-VLn4zssY_rUXyApOf7g9TSVS6s-KLYM\">\r\n\r\nThey're new parts from storybook 8.x. I don't see it on 6.x\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/fff796fa-0978-40cf-b43f-e73736aabd6c)\r\n"
+    },
+    {
+      "id": 2106200439,
+      "user": "lebaphi",
+      "created_at": "2024-05-12T10:34:28Z",
+      "updated_at": "2024-05-12T10:34:28Z",
+      "body": "> > I think these errors happened in v6 @Tristina1788 @IanMayo\r\n> > <img alt=\"Screen Shot 2024-05-12 at 5 04 36 PM\" width=\"1003\" src=\"https://private-user-images.githubusercontent.com/26705621/329841914-9bfcebed-4fdf-4aa9-9044-190e81d88f13.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTU1MDg3MDEsIm5iZiI6MTcxNTUwODQwMSwicGF0aCI6Ii8yNjcwNTYyMS8zMjk4NDE5MTQtOWJmY2ViZWQtNGZkZi00YWE5LTkwNDQtMTkwZTgxZDg4ZjEzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA1MTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNTEyVDEwMDY0MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTY3OGQxMjczYjgzNWY2OWZlZGFmMDIyYmQzNjg3MDU0NmMyNTBmMjAxODRiOGRkNmZiNmFmYmEyOWFmZWQ5ODEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.59FZKwSk6YGFPUCjFIU-mW_UK49G9vDXeHa9CUFuSgU\"> <img alt=\"Screen Shot 2024-05-12 at 5 03 49 PM\" width=\"1218\" src=\"https://private-user-images.githubusercontent.com/26705621/329841922-21ec3ff7-1e5d-436e-91cd-1aa5f5dff172.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTU1MDg3MDEsIm5iZiI6MTcxNTUwODQwMSwicGF0aCI6Ii8yNjcwNTYyMS8zMjk4NDE5MjItMjFlYzNmZjctMWU1ZC00MzZlLTkxY2QtMWFhNWY1ZGZmMTcyLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA1MTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNTEyVDEwMDY0MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWZkNThkMTViN2E2MDk5YTJhYWI2Njc0ZGM3ZTI4MDQzOTE5MzU2ODNlYmM1MzEwZGIxYzZkYWVlNDM4MmQ3ODUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.3FLs02Jqgra-VLn4zssY_rUXyApOf7g9TSVS6s-KLYM\">\r\n> \r\n> They're new parts from storybook 8.x. I don't see it on 6.x\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/329842650-fff796fa-0978-40cf-b43f-e73736aabd6c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTU1MDk0MjQsIm5iZiI6MTcxNTUwOTEyNCwicGF0aCI6Ii8xMDc2OTcwNDQvMzI5ODQyNjUwLWZmZjc5NmZhLTA5NzgtNDBjZi1iNDNmLWU3MzczNmFhYmQ2Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNTEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDUxMlQxMDE4NDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yMDUyNTc1NGUwNWFkMjE4NWM4MzYxYmRhNjY1Mzk1MGUxNTk5MjYyZjU3ZmFmODZlZTFmMjhjNTFlNTI3YmQ0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.MkxJi4H4wwTPzgpZIvDI6O-yByP9nTa32eSeViL0yZU)\r\n\r\nWe excluded them in version 6 so that's why you can't see it"
+    },
+    {
+      "id": 2106827424,
+      "user": "Tristina1788",
+      "created_at": "2024-05-13T07:17:58Z",
+      "updated_at": "2024-05-13T07:25:11Z",
+      "body": "Sorry, seems I click wrong button make the PR close. So I reopen it."
+    },
+    {
+      "id": 2107323097,
+      "user": "IanMayo",
+      "created_at": "2024-05-13T11:25:33Z",
+      "updated_at": "2024-05-13T11:47:34Z",
+      "body": "Hello @philb89 - I've pulled this branch, done `yarn install` then `yarn storybook`.   When storybook opened, I saw this error:\r\n![image](https://github.com/serge-web/serge/assets/1108513/71d1e3e4-9346-49eb-a93d-16fd00228a96)\r\n\r\nI then scrolled back up the terminal, and found this:\r\n![image](https://github.com/serge-web/serge/assets/1108513/e37c31ca-9e4a-4b0f-91ef-1457b37a5b04)\r\n\r\nThese are in the `devDependencies` section of the root `package.json`. The lines are new for this PR.\r\n\r\nIt _looks-like_ I should delete them.  Any suggestions?"
+    },
+    {
+      "id": 2107369778,
+      "user": "IanMayo",
+      "created_at": "2024-05-13T11:50:33Z",
+      "updated_at": "2024-05-13T11:50:33Z",
+      "body": "Hello @philb89 \r\n\r\n(earlier issue hidden, I hadn't pulled all changes)\r\n\r\n\r\nCurrent issue is that the Heroku build is failing. It works fine locally, but can't find `storybook` on Heroku hosting:\r\n![image](https://github.com/serge-web/serge/assets/1108513/eb9561ac-05d3-4bd5-bed0-5dda243c28c1)\r\n\r\nI _think_ I see possible related changes in `package.json`:\r\n![image](https://github.com/serge-web/serge/assets/1108513/5a11022b-9fb9-49b9-b643-e1f91acc4a9c)\r\n\r\n"
+    },
+    {
+      "id": 2112372625,
+      "user": "Tristina1788",
+      "created_at": "2024-05-15T12:16:56Z",
+      "updated_at": "2024-05-15T12:16:56Z",
+      "body": "Checked on the latest code on this branch, I can deploy local without issue. And Storybook is on version 8.x as expected.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/cc87f780-f5b5-42a4-b8a0-aa95ca6afa67)\r\n"
+    },
+    {
+      "id": 2112407267,
+      "user": "IanMayo",
+      "created_at": "2024-05-15T12:35:22Z",
+      "updated_at": "2024-05-15T12:35:22Z",
+      "body": "Thanks @Tristina1788 - the current issue is that Storybook isn't provided in Heroku.  Being able to review a new feature vai Storybook on Heroku (without having to do a local build) is a really convenient project capability for me."
+    },
+    {
+      "id": 2114963264,
+      "user": "IanMayo",
+      "created_at": "2024-05-16T11:22:43Z",
+      "updated_at": "2024-05-16T11:22:43Z",
+      "body": "> Now Storybook is up and running on Heroku. - https://serge-2935-update-story-2tde1i.herokuapp.com/storybook/\r\n\r\nPerfect, thanks @lilitkarapetyan .\r\n\r\nI'm sure @lebaphi  wants to thank you, too ;-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2935
+  ],
+  "issues": [
+    {
+      "id": 2288037088,
+      "number": 2935,
+      "title": "Update storybook",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-05-09T16:23:33Z",
+      "updated_at": "2024-05-16T11:23:02Z",
+      "closed_at": "2024-05-16T11:23:02Z",
+      "body": "We're on Storybook 6.5. \r\n\r\nStorybook is now on 8.x - which I believe brings performance upgrades.\r\n\r\nWe should upgrade our Storybook version.\r\n\r\nIf it's not easy to upgrade any stories, then it's ok to remove the `-inc` element from the filename, which should prevent them from being processed.\r\n\r\nIf Storybook 8.x has a new model for stories, then we should _try_ to update the current `-inc` stories.  It's ok to remove the `-inc` if they are not easy to fix, but we should convert at least one of them (hopefully core-mapping)",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/26705621/297190f1-34a9-47d2-8318-5fdd97bc91db",
+    "https://github.com/serge-web/serge/assets/107697044/31a57423-7e22-4b0f-b2e5-4c46ef322526",
+    "https://github.com/serge-web/serge/assets/107697044/24e8fd2d-faf0-4c96-953c-5899b89e3fe5",
+    "https://github.com/serge-web/serge/assets/107697044/e36916d2-b49b-4847-9c43-b08ecdfce57f",
+    "https://github.com/serge-web/serge/assets/107697044/a207ea4c-683d-4eb1-950f-f452bb459dc4",
+    "https://github.com/serge-web/serge/assets/107697044/2366c521-3c83-4967-a5c1-3c8e4ab8a71b",
+    "https://github.com/serge-web/serge/assets/107697044/d6eb0d1a-0c84-4307-8297-2be42ff95b18",
+    "https://github.com/serge-web/serge/assets/107697044/99a2a2f7-6024-4c8d-b089-5f82d542f5c7",
+    "https://github.com/serge-web/serge/assets/107697044/f17a31e3-5446-4057-a5a3-760676fbec30",
+    "https://github.com/serge-web/serge/assets/26705621/9bfcebed-4fdf-4aa9-9044-190e81d88f13",
+    "https://github.com/serge-web/serge/assets/26705621/21ec3ff7-1e5d-436e-91cd-1aa5f5dff172",
+    "https://private-user-images.githubusercontent.com/26705621/329841914-9bfcebed-4fdf-4aa9-9044-190e81d88f13.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTU1MDg3MDEsIm5iZiI6MTcxNTUwODQwMSwicGF0aCI6Ii8yNjcwNTYyMS8zMjk4NDE5MTQtOWJmY2ViZWQtNGZkZi00YWE5LTkwNDQtMTkwZTgxZDg4ZjEzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA1MTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNTEyVDEwMDY0MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTY3OGQxMjczYjgzNWY2OWZlZGFmMDIyYmQzNjg3MDU0NmMyNTBmMjAxODRiOGRkNmZiNmFmYmEyOWFmZWQ5ODEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.59FZKwSk6YGFPUCjFIU-mW_UK49G9vDXeHa9CUFuSgU",
+    "https://private-user-images.githubusercontent.com/26705621/329841922-21ec3ff7-1e5d-436e-91cd-1aa5f5dff172.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTU1MDg3MDEsIm5iZiI6MTcxNTUwODQwMSwicGF0aCI6Ii8yNjcwNTYyMS8zMjk4NDE5MjItMjFlYzNmZjctMWU1ZC00MzZlLTkxY2QtMWFhNWY1ZGZmMTcyLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA1MTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNTEyVDEwMDY0MVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWZkNThkMTViN2E2MDk5YTJhYWI2Njc0ZGM3ZTI4MDQzOTE5MzU2ODNlYmM1MzEwZGIxYzZkYWVlNDM4MmQ3ODUmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.3FLs02Jqgra-VLn4zssY_rUXyApOf7g9TSVS6s-KLYM",
+    "https://github.com/serge-web/serge/assets/107697044/fff796fa-0978-40cf-b43f-e73736aabd6c",
+    "https://private-user-images.githubusercontent.com/107697044/329842650-fff796fa-0978-40cf-b43f-e73736aabd6c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTU1MDk0MjQsIm5iZiI6MTcxNTUwOTEyNCwicGF0aCI6Ii8xMDc2OTcwNDQvMzI5ODQyNjUwLWZmZjc5NmZhLTA5NzgtNDBjZi1iNDNmLWU3MzczNmFhYmQ2Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNTEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDUxMlQxMDE4NDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yMDUyNTc1NGUwNWFkMjE4NWM4MzYxYmRhNjY1Mzk1MGUxNTk5MjYyZjU3ZmFmODZlZTFmMjhjNTFlNTI3YmQ0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.MkxJi4H4wwTPzgpZIvDI6O-yByP9nTa32eSeViL0yZU",
+    "https://github.com/serge-web/serge/assets/1108513/71d1e3e4-9346-49eb-a93d-16fd00228a96",
+    "https://github.com/serge-web/serge/assets/1108513/e37c31ca-9e4a-4b0f-91ef-1457b37a5b04",
+    "https://github.com/serge-web/serge/assets/1108513/eb9561ac-05d3-4bd5-bed0-5dda243c28c1",
+    "https://github.com/serge-web/serge/assets/1108513/5a11022b-9fb9-49b9-b643-e1f91acc4a9c",
+    "https://github.com/serge-web/serge/assets/107697044/cc87f780-f5b5-42a4-b8a0-aa95ca6afa67"
+  ],
+  "number_of_changed_files": 67,
+  "total_changed_lines": 8396
+}

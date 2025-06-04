@@ -1,0 +1,82 @@
+{
+  "number": 992,
+  "title": "Feature/update admin pages for collaborative editing 974 player UI",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-12T14:23:08Z",
+  "updated_at": "2021-08-19T10:28:40Z",
+  "closed_at": "2021-08-19T10:28:39Z",
+  "merged_at": "2021-08-19T10:28:39Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/992",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/992/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/992/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/992",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\nIt's minimal version\r\nLeft to do:\r\nadd buttons based on role and chanel type\r\nadd change function for buttons\r\nuse it for client\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 3695,
+  "deletions": 606,
+  "changed_files": 56,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 1,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 898892848,
+      "user": "IanMayo",
+      "created_at": "2021-08-14T13:10:10Z",
+      "updated_at": "2021-08-14T13:10:10Z",
+      "body": "@lilitkarapetyan , is there a build failure? I had compiler trouble yesterday. Back in on Monday."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 691429821,
+      "user": "IanMayo",
+      "created_at": "2021-08-18T16:44:26Z",
+      "updated_at": "2021-08-18T16:44:26Z",
+      "body": "I'm pretty sure we just have one channel here, so we don't need the dictionary.\r\n\r\nWe don't need to include the `channel` in the status board, since the board is just for this channel.",
+      "path": "packages/components/src/local/coa-status-board/index.tsx",
+      "diff_hunk": "@@ -0,0 +1,145 @@\n+import React from 'react'\n+import { DataTable } from '../organisms/data-table'\n+import { Badge } from '../atoms/badge'\n+import { MessageCustom } from '@serge/custom-types/message'\n+import { CollaborativeMessageStates } from '@serge/config'\n+// import { ChannelData } from '@serge/custom-types'\n+\n+/* Import Types */\n+import Props from './types/props'\n+\n+/* Import Stylesheet */\n+import styles from './styles.module.scss'\n+\n+import ChannelCoaMessageDetail from '../molecules/channel-coa-message-detail'\n+\n+/* Render component */\n+export const CoaStatusBoard: React.FC<Props> = ({ rfiMessages, roles, channels, isRFIManager, isUmpire, onChange, role }: Props) => {\n+  // produce dictionary of channels",
+      "html_url": "https://github.com/serge-web/serge/pull/992#discussion_r691429821"
+    }
+  ],
+  "issue_numbers": [
+    974
+  ],
+  "issues": [
+    {
+      "id": 953930664,
+      "number": 974,
+      "title": "Update admin pages for Collaborative Editing",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-27T14:15:22Z",
+      "updated_at": "2021-09-02T16:00:25Z",
+      "closed_at": "2021-09-02T16:00:24Z",
+      "body": "* [ ] Add Special Channel for Collab edit and Collab response\r\n* [ ] New RFI participation toggles\r\n\r\nWe can currently add \"rfi\" and \"mapping\" special channels from the `Settings - Channels` page.\r\n\r\nWe're going to change that - to remove \"rfi\" and add the two separate collaboration channel types:\r\n![image](https://user-images.githubusercontent.com/1108513/127169978-455719a5-b3f7-4238-bbbe-e5ba2b46d16c.png)\r\n\r\nThe channel definition now includes an optional `CollabOptions` item:\r\n![image](https://user-images.githubusercontent.com/1108513/127172047-b071a7ff-0b50-4a32-ae50-aebd24daa21b.png)\r\nNote: adding a \"collaborative working\" channel creates this `CollabOptions` element:\r\n### Collab-Editing\r\n```\r\nconst options: CollabOptions = {\r\n  mode: 'edit',\r\n  returnVerbs: ['Endorse', 'Request Changes'],\r\n  startWithReview : true,\r\n  originatorsSeeChanges: false,\r\n  extraColumns: []\r\n}\r\n```\r\n\r\n### Collab-Response\r\n```\r\nconst options: CollabOptions = {\r\n  mode: 'response',\r\n  returnVerbs: [],\r\n  startWithReview : false,\r\n  originatorsSeeChanges: true,\r\n  extraColumns: []\r\n}\r\n```\r\n\r\nWhen this is a collaborative editing channel, we now have two extra toggles in the participants entry:\r\n![image](https://user-images.githubusercontent.com/1108513/127171052-1f1ed7c9-6423-4cda-81e0-d72ca99e17c7.png)\r\n\r\nWe need to provide edit controls for them (just used Red for mockup, normal text color to be used):\r\n![image](https://user-images.githubusercontent.com/1108513/127171841-9b9fbb14-9d5e-403c-9c41-f5136e26fb60.png)\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 911835244,
+          "user": "IanMayo",
+          "created_at": "2021-09-02T16:00:24Z",
+          "updated_at": "2021-09-02T16:00:24Z",
+          "body": "Closed in #984 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/127169978-455719a5-b3f7-4238-bbbe-e5ba2b46d16c.png",
+    "https://user-images.githubusercontent.com/1108513/127172047-b071a7ff-0b50-4a32-ae50-aebd24daa21b.png",
+    "https://user-images.githubusercontent.com/1108513/127171052-1f1ed7c9-6423-4cda-81e0-d72ca99e17c7.png",
+    "https://user-images.githubusercontent.com/1108513/127171841-9b9fbb14-9d5e-403c-9c41-f5136e26fb60.png"
+  ],
+  "number_of_changed_files": 56,
+  "total_changed_lines": 4301
+}

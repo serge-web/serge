@@ -1,0 +1,109 @@
+{
+  "number": 1995,
+  "title": "Prevent assets being clickable when an activity is being planned",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-30T14:13:50Z",
+  "updated_at": "2022-10-31T11:59:52Z",
+  "closed_at": "2022-10-31T11:59:51Z",
+  "merged_at": "2022-10-31T11:59:51Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1995",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1995/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1995/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1995",
+  "body": "Fixes #1976 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/198883266-843b5632-e8a5-4d18-aabf-a65cea2c0c81.mov\r\n\r\n",
+  "additions": 47,
+  "deletions": 21,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 3,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1296276340,
+      "user": "lebaphi",
+      "created_at": "2022-10-30T14:44:29Z",
+      "updated_at": "2022-10-30T14:44:29Z",
+      "body": "Now we can start drawing everywhere we want, even on the same place of marker, but the path is behind the marker, do you want to make a path on top of the marker? @IanMayo "
+    },
+    {
+      "id": 1296281964,
+      "user": "IanMayo",
+      "created_at": "2022-10-30T15:12:23Z",
+      "updated_at": "2022-10-30T15:12:23Z",
+      "body": "Works perfecly\r\n\r\n> Now we can start drawing everywhere we want, even on the same place of marker, but the path is behind the marker, do you want to make a path on top of the marker? @IanMayo\r\n\r\nThe line being drawn is in front of the marker in the StoryBook.  This looks like the correct behaviour:\r\n![image](https://user-images.githubusercontent.com/1108513/198886204-27c698cc-d78b-46f1-8ad1-c9725ef3f02b.png)\r\n"
+    },
+    {
+      "id": 1296909727,
+      "user": "IanMayo",
+      "created_at": "2022-10-31T10:47:07Z",
+      "updated_at": "2022-10-31T10:47:07Z",
+      "body": "> the path is behind the marker\r\n\r\n@lebaphi - I'm happy to ignore that issue for now."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1008880731,
+      "user": "IanMayo",
+      "created_at": "2022-10-30T15:10:29Z",
+      "updated_at": "2022-10-30T15:13:19Z",
+      "body": "@lebaphi   - since the above `useCallback` doesn't have any props, it won't get called if `selectedAssets` changes.  Am I mistaken\r\n\r\n(this is the first time I've  worked with `useCallback` - so I'm guessing what is happening)\r\n\r\nYes, I've just tested this.   If we select an asset from the `own forces` tab, the map zooms in, but the asset doesn't start flashing.",
+      "path": "packages/components/src/local/organisms/planning-force/index.tsx",
+      "diff_hunk": "@@ -31,26 +28,54 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se\n     setSelectedAssets([...selectedAssets])\n   }\n \n+  const getMarkerOption = useCallback((asset: AssetRow, index: number) => {\n+    const loc: LatLng = asset.position ? asset.position : latLng([0, 0])\n+    const isSelected = selectedAssets.includes(asset.id)\n+\n+    return {\n+      eventHandlers: {\n+        click: (): void => {\n+          if (interactive) {\n+            handleAssetClick(asset.id)\n+          }\n+        }\n+      },\n+      key: `asset-icon-${index}`,\n+      position: loc,\n+      icon: L.divIcon({\n+        iconSize: [30, 30],\n+        html: getAssetIcon(asset, isSelected, false),\n+        className: styles['map-icon']\n+      })\n+    }\n+  }, [])\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1995#discussion_r1008880731"
+    },
+    {
+      "id": 1009004580,
+      "user": "lebaphi",
+      "created_at": "2022-10-31T03:36:21Z",
+      "updated_at": "2022-10-31T03:36:22Z",
+      "body": "ah I just want to memoized the object function, so we don't need to add any props 😄 ",
+      "path": "packages/components/src/local/organisms/planning-force/index.tsx",
+      "diff_hunk": "@@ -31,26 +28,54 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se\n     setSelectedAssets([...selectedAssets])\n   }\n \n+  const getMarkerOption = useCallback((asset: AssetRow, index: number) => {\n+    const loc: LatLng = asset.position ? asset.position : latLng([0, 0])\n+    const isSelected = selectedAssets.includes(asset.id)\n+\n+    return {\n+      eventHandlers: {\n+        click: (): void => {\n+          if (interactive) {\n+            handleAssetClick(asset.id)\n+          }\n+        }\n+      },\n+      key: `asset-icon-${index}`,\n+      position: loc,\n+      icon: L.divIcon({\n+        iconSize: [30, 30],\n+        html: getAssetIcon(asset, isSelected, false),\n+        className: styles['map-icon']\n+      })\n+    }\n+  }, [])\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1995#discussion_r1009004580"
+    },
+    {
+      "id": 1009283491,
+      "user": "IanMayo",
+      "created_at": "2022-10-31T10:56:50Z",
+      "updated_at": "2022-10-31T10:56:51Z",
+      "body": "Without `selectedAssets` as a prop for `useCallback` we do not regenerate the icon to show that some assets are selected:\r\n\r\nhttps://user-images.githubusercontent.com/1108513/198992283-2ddb3468-9153-41a7-8292-2b62d1b8d0c3.mp4\r\n\r\nBy putting `selectedAssets` in for the `useCallback` we do show the pulses for the selected assets:\r\n![screencast](https://i.gyazo.com/71e5d20575b2c13aaf07f54301b624fa.gif)",
+      "path": "packages/components/src/local/organisms/planning-force/index.tsx",
+      "diff_hunk": "@@ -31,26 +28,54 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se\n     setSelectedAssets([...selectedAssets])\n   }\n \n+  const getMarkerOption = useCallback((asset: AssetRow, index: number) => {\n+    const loc: LatLng = asset.position ? asset.position : latLng([0, 0])\n+    const isSelected = selectedAssets.includes(asset.id)\n+\n+    return {\n+      eventHandlers: {\n+        click: (): void => {\n+          if (interactive) {\n+            handleAssetClick(asset.id)\n+          }\n+        }\n+      },\n+      key: `asset-icon-${index}`,\n+      position: loc,\n+      icon: L.divIcon({\n+        iconSize: [30, 30],\n+        html: getAssetIcon(asset, isSelected, false),\n+        className: styles['map-icon']\n+      })\n+    }\n+  }, [])\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1995#discussion_r1009283491"
+    }
+  ],
+  "issue_numbers": [
+    1966
+  ],
+  "issues": [
+    {
+      "id": 1425221050,
+      "number": 1966,
+      "title": "Can't select same `Activity` twice",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-27T08:15:27Z",
+      "updated_at": "2022-10-29T15:02:11Z",
+      "closed_at": "2022-10-29T15:02:11Z",
+      "body": "In the Story for `PlanningChannel` we have the `New Orders` button at the top-left.\r\n\r\nIf we click on `Maritime Transit` it invites us to draw a line.\r\n\r\nBut, if we click on `Maritime Transit` again, the event doesn't fire.\r\n\r\nClicking on a different button does work.\r\n\r\nIt _looks-like_ the issue is inside `L.control.select`. :-(",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/198886204-27c698cc-d78b-46f1-8ad1-c9725ef3f02b.png",
+    "https://i.gyazo.com/71e5d20575b2c13aaf07f54301b624fa.gif"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 68
+}

@@ -1,0 +1,53 @@
+{
+  "number": 1250,
+  "title": "1244: Update JSON Editor title color",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-11T13:34:02Z",
+  "updated_at": "2021-12-13T08:42:18Z",
+  "closed_at": "2021-12-13T08:42:17Z",
+  "merged_at": "2021-12-13T08:42:17Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1250",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1250/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1250/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1250",
+  "body": "Fixes #1244 \r\n<img width=\"418\" alt=\"Screen Shot 2021-12-11 at 8 31 42 PM\" src=\"https://user-images.githubusercontent.com/26705621/145678578-a4fc0e99-0711-4f57-8b01-9a7c34fe9c91.png\">\r\n\r\n",
+  "additions": 4,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1244
+  ],
+  "issues": [
+    {
+      "id": 1076945031,
+      "number": 1244,
+      "title": "Can't see JSON Editor titles",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-12-10T15:09:07Z",
+      "updated_at": "2021-12-13T08:42:17Z",
+      "closed_at": "2021-12-13T08:42:17Z",
+      "body": "The JSON-Editor component shows the form name above the form.\r\n\r\nIt's currently shown in black (`RFI` and `Response` in the below screenshot), and isn't legible:\r\n![Screenshot 2021-12-10 at 15 07 05](https://user-images.githubusercontent.com/1108513/145595682-633d74bb-bd1f-407b-98ee-43c6a1f36c85.png)\r\n\r\nIt looks like the text we're trying to style is in the `h3.span` element\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/145678578-a4fc0e99-0711-4f57-8b01-9a7c34fe9c91.png",
+    "https://user-images.githubusercontent.com/1108513/145595682-633d74bb-bd1f-407b-98ee-43c6a1f36c85.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 4
+}

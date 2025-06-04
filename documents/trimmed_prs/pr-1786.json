@@ -1,0 +1,168 @@
+{
+  "number": 1786,
+  "title": "1716 - track player activity",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-29T17:56:30Z",
+  "updated_at": "2022-09-07T10:04:04Z",
+  "closed_at": "2022-09-07T10:04:03Z",
+  "merged_at": "2022-09-07T10:04:03Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1786",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1786/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1786/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1786",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1716 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 680,
+  "deletions": 252,
+  "changed_files": 61,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 9,
+  "total_comments": 12,
+  "comments_data": [
+    {
+      "id": 1231952649,
+      "user": "IanMayo",
+      "created_at": "2022-08-30T17:22:51Z",
+      "updated_at": "2022-09-01T01:09:37Z",
+      "body": "Hello @lilitkarapetyan  - I've made progress with this in the past couple of hours.  It was failing when It tried to retrieve the `player-logs` from the `wargameDB` array.  I've fixed that, and introduced some stronger typing for different types of interaction.\r\n\r\nBut, Serge is now failing when it tries to send the periodic `server-ping`. Well, I think it's sending the ping, but I think the data is going into the wargame, instead of into the `player-logs` structure.  This means there's something other than a message or an infoType in the wargame documents, and SErge is falling over.\r\n\r\nGood luck with making further progress :-)\r\n\r\n**Note:** the jest snapshots are failing in 7 places. But, they don't fail locally.  Hmmm. I think it's a `yarn install` dependency. Yes, I think that worked ok.\r\n\r\n* [x] Change frontend so that `pingServer` pushes (possibly empty [*]) array of documents to backend\r\n* [x] Change PouchDb backend to rename SQLite `playerlogs` to `playerlogs.sqlite` - so it opens more easily\r\n* [x] Change backend(s) so they push array of player logs (if present) to the `playerlogs` database, rather than into the wargame\r\n* [x] Fix the heartbeat in the `<Version/>` component.\r\n\r\nThe `pingServer` checks the server is alive, in addition to sending activity.  So, if no activity is present, we should still ping the server, with an empty array, as a way of confirming the server is alive.\r\n"
+    },
+    {
+      "id": 1239097262,
+      "user": "IanMayo",
+      "created_at": "2022-09-07T08:49:00Z",
+      "updated_at": "2022-09-07T08:49:00Z",
+      "body": "@lilitkarapetyan  - I've put the read/unread marker into the message cell, like this:\r\n![image](https://user-images.githubusercontent.com/1108513/188834280-340cc77c-f504-4b14-857c-1e10e8003442.png)\r\n\r\nThat means we can simplify the structure used to represent the table.  Is that ok?"
+    },
+    {
+      "id": 1239117523,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-09-07T09:06:44Z",
+      "updated_at": "2022-09-07T09:06:44Z",
+      "body": "\r\n> @lilitkarapetyan - I've put the read/unread marker into the message cell, like this: ![image](https://user-images.githubusercontent.com/1108513/188834280-340cc77c-f504-4b14-857c-1e10e8003442.png)\r\n> \r\n> That means we can simplify the structure used to represent the table. Is that ok?\r\n\r\nYes it's good "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 958741586,
+      "user": "IanMayo",
+      "created_at": "2022-08-30T17:16:59Z",
+      "updated_at": "2022-08-31T10:53:35Z",
+      "body": "It _looks like_ we're pushing the new log to the wargame here.  In the backend, we should be pushing the entries to the `player-logs` database.  But, I don't know if the server is _invisibly_ handling this.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -152,42 +150,50 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch\n   listenNewMessage({ db, name, dispatch })\n }\n \n-export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {\n+export const pingServer = async (wargame: string, role: string, activityTypes: string, activityTimes: string): Promise<any> => {\n   const activityMissing = 'The player has not shown any activity yet'\n-  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)\n-  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)\n-\n-  const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`\n-\n-  return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {\n-    method: 'GET',\n-    headers: {\n-      'Content-Type': 'application/json'\n-    }\n-  })\n-    .then((response: Response): Promise<any> => response.json())\n-    .then((data: any) => {\n-      return data.status\n-    })\n-    .catch((err) => {\n-      console.log(err)\n-      return 'NOT_OK'\n-    })\n-}\n-\n-export const getPlayerActivityLogs = () => {\n-  const url = `${serverPath}playerlog`\n-\n-  return fetch(url, {\n-    method: 'GET',\n-    headers: {\n-      'Content-Type': 'application/json'\n-    }\n-  })\n-    .then((response: Response): Promise<any> => response.json())\n-    .then((data: any) => {\n-      return data\n-    })\n+  const activityTime = activityTimes || activityMissing\n+  const activityType = activityTypes || activityMissing\n+  \n+  if (!wargame) return null\n+  \n+  const { db } = getWargameDbByName(wargame)\n+  return await getPlayerActivityLogs(wargame)\n+    .then(res => {\n+      const newDoc: ActivityLogsInterface[] = deepCopy(res)\n+      const updatedData = newDoc\n+      const findIndex = updatedData.findIndex((playerlog) => playerlog.role === role)\n+      \n+      if (findIndex !== -1) {\n+        const data: ActivityLogsInterface = {\n+          ...updatedData[findIndex],\n+          activityTime: activityTime,\n+          activityType: activityType\n+        }\n+   \n+        const playerlogsUpdate = updatedData[findIndex] = data\n+        db.put(playerlogsUpdate)\n+          .then(() => 'OK')\n+      } else {\n+        const newPlayerlog: ActivityLogsInterface = {\n+          ...dbDefaultPlaylogSettings,\n+          wargame: wargame,\n+          role: role,\n+          activityType: activityType, \n+          activityTime: activityTime\n+        }\n+        \n+        db.put(newPlayerlog)",
+      "html_url": "https://github.com/serge-web/serge/pull/1786#discussion_r958741586"
+    },
+    {
+      "id": 958743579,
+      "user": "IanMayo",
+      "created_at": "2022-08-30T17:19:13Z",
+      "updated_at": "2022-08-30T17:19:13Z",
+      "body": "@lilitkarapetyan - we need to fix the jsdoc for the new property.  This toggle is used elsewhere in Serge to indicate if this player is allowed to see the button that opens the player-log-history.   If we have a new property, we'll need to give it a different name/",
+      "path": "packages/custom-types/player-ui.d.ts",
+      "diff_hunk": "@@ -73,6 +73,7 @@ export default interface PlayerUi {\n   /** whether access codes are displayed for current wargame */\n   showAccessCodes: boolean,\n   /** whether logged in user can view insights & feedback */",
+      "html_url": "https://github.com/serge-web/serge/pull/1786#discussion_r958743579"
+    },
+    {
+      "id": 958744663,
+      "user": "IanMayo",
+      "created_at": "2022-08-30T17:20:25Z",
+      "updated_at": "2022-08-30T17:20:25Z",
+      "body": "@lilit - instead of `activityType` as a string, we now have it as an object that can take its own metadata (such as the id of the message that has been read).",
+      "path": "packages/custom-types/player-log.d.ts",
+      "diff_hunk": "@@ -20,6 +24,43 @@ export interface PlayerLogUI {\n   time?: string\n }\n \n+/** a player has had some interaction with the UI */\n+export interface PlainInteraction {\n+  aType: string\n+}\n+\n+/** a player has marked a message as read */\n+export interface MessageReadInteraction extends PlainInteraction {\n+  aType: typeof MESSAGE_READ_INTERACTION\n+  _id: string\n+}\n+\n+/** a player has marked a message as unread */\n+export interface MessageUnReadInteraction extends PlainInteraction {\n+  aType: typeof MESSAGE_UNREAD_INTERACTION\n+  _id: string\n+}\n+\n+/** a player has read a map annotation */\n+export interface MapAnnotationReadInteraction extends PlainInteraction {\n+  aType: typeof MAP_ANNOTATION_READ_INTERACTION\n+  _id: string\n+}\n+\n+/** union of all types of activity */\n+export type PlayerInteraction = PlainInteraction | MessageReadInteraction | MessageUnReadInteraction | MapAnnotationReadInteraction\n+\n+export interface PlayerLogEntry {\n+  activityTime: string\n+  activityType: PlayerInteraction",
+      "html_url": "https://github.com/serge-web/serge/pull/1786#discussion_r958744663"
+    },
+    {
+      "id": 959387847,
+      "user": "IanMayo",
+      "created_at": "2022-08-31T09:48:33Z",
+      "updated_at": "2022-08-31T09:48:34Z",
+      "body": "@lilitkarapetyan - I think we need a different `put` event signature here, that takes an array of ActivityLogsInterface messages.  Or, I guess we could declare a new type that represents an array of ActivityLogsInterface items.",
+      "path": "packages/client/src/api/db/types.d.ts",
+      "diff_hunk": "@@ -1,13 +1,14 @@\n-import { Message, MessageInfoType, Wargame } from '@serge/custom-types'\n+import { Message, MessageInfoType, Wargame, ActivityLogsInterface } from '@serge/custom-types'\n import DbProvider from '.'\n \n export interface DbProviderInterface {\n   changes: (listener: (doc: Message | Wargame) => void) => void\n   destroy: () => void\n   get: (query: string) => Promise<Wargame | Message | { status: number }>\n-  put: (doc: Wargame | Message) => Promise<Wargame | Message>\n+  put: (doc: Wargame | Message | ActivityLogsInterface) => Promise<Wargame | Message | ActivityLogsInterface>\n   allDocs: () => Promise<Message[]>",
+      "html_url": "https://github.com/serge-web/serge/pull/1786#discussion_r959387847"
+    },
+    {
+      "id": 961491806,
+      "user": "IanMayo",
+      "created_at": "2022-09-02T09:37:24Z",
+      "updated_at": "2022-09-02T09:37:25Z",
+      "body": "@lilitkarapetyan - this code appends the logs to the existing set for this wargame.\r\n\r\nWe don't need to do that.  We can just push all the log items to the `player-log` database.  The server API currently just allows one document to be pushed - so we just need to either switch it to taking an array (and insert them as individual docs), or to use a \"bulk update\" PouchDb API call to push/store all the docs at once.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -152,46 +151,64 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch\n   listenNewMessage({ db, name, dispatch })\n }\n \n-export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {\n-  const activityMissing = 'The player has not shown any activity yet'\n-  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)\n-  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)\n+export const pingServer2 = async (log: ActivityLogsInterface): Promise<string> => { \n+  console.warn('ping server currently commented out') \n+  const items = log.items\n+  const first = items[0]\n \n-  const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`\n+  // TODO: in addition to pushing data to the server, we're also checking the server is still alive\n+  // So, even if the log is empty, we should push an empty list, since we want to get a \n+  // 'success' back from the server\n \n-  return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {\n-    method: 'GET',\n-    headers: {\n-      'Content-Type': 'application/json'\n-    }\n-  })\n-    .then((response: Response): Promise<any> => response.json())\n-    .then((data: any) => {\n-      return data.status\n-    })\n-    .catch((err) => {\n-      console.log(err)\n-      return 'NOT_OK'\n-    })\n-}\n+  // TODO: this method should receive an array of activities.  It should push them all as\n+  // documents to the PlayerLogs database.  We don't extend the existing set of documents,\n+  // we push them as new documents via Couchdb \"bulk push\" call.\n+  const { db } = getWargameDbByName(log.currentDbname)\n \n-export const getPlayerActivityLogs = () => {\n-  const url = `${serverPath}playerlog`\n+  if (!first) return db.putPlayerLogs(first).then(res => res.msg)\n \n-  return fetch(url, {\n-    method: 'GET',\n-    headers: {\n-      'Content-Type': 'application/json'\n-    }\n-  })\n-    .then((response: Response): Promise<any> => response.json())\n-    .then((data: any) => {\n-      return data\n-    })\n-    .catch((err) => {\n-      console.log(err)\n+  const { wargame, role, activityTime, activityType } = first\n+\n+  return await getPlayerActivityLogs(wargame, log.currentDbname)",
+      "html_url": "https://github.com/serge-web/serge/pull/1786#discussion_r961491806"
+    },
+    {
+      "id": 961518766,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-09-02T10:08:35Z",
+      "updated_at": "2022-09-02T10:08:35Z",
+      "body": "Ok, I will work on it",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -152,46 +151,64 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch\n   listenNewMessage({ db, name, dispatch })\n }\n \n-export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {\n-  const activityMissing = 'The player has not shown any activity yet'\n-  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)\n-  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)\n+export const pingServer2 = async (log: ActivityLogsInterface): Promise<string> => { \n+  console.warn('ping server currently commented out') \n+  const items = log.items\n+  const first = items[0]\n \n-  const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`\n+  // TODO: in addition to pushing data to the server, we're also checking the server is still alive\n+  // So, even if the log is empty, we should push an empty list, since we want to get a \n+  // 'success' back from the server\n \n-  return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {\n-    method: 'GET',\n-    headers: {\n-      'Content-Type': 'application/json'\n-    }\n-  })\n-    .then((response: Response): Promise<any> => response.json())\n-    .then((data: any) => {\n-      return data.status\n-    })\n-    .catch((err) => {\n-      console.log(err)\n-      return 'NOT_OK'\n-    })\n-}\n+  // TODO: this method should receive an array of activities.  It should push them all as\n+  // documents to the PlayerLogs database.  We don't extend the existing set of documents,\n+  // we push them as new documents via Couchdb \"bulk push\" call.\n+  const { db } = getWargameDbByName(log.currentDbname)\n \n-export const getPlayerActivityLogs = () => {\n-  const url = `${serverPath}playerlog`\n+  if (!first) return db.putPlayerLogs(first).then(res => res.msg)\n \n-  return fetch(url, {\n-    method: 'GET',\n-    headers: {\n-      'Content-Type': 'application/json'\n-    }\n-  })\n-    .then((response: Response): Promise<any> => response.json())\n-    .then((data: any) => {\n-      return data\n-    })\n-    .catch((err) => {\n-      console.log(err)\n+  const { wargame, role, activityTime, activityType } = first\n+\n+  return await getPlayerActivityLogs(wargame, log.currentDbname)",
+      "html_url": "https://github.com/serge-web/serge/pull/1786#discussion_r961518766"
+    },
+    {
+      "id": 961521887,
+      "user": "IanMayo",
+      "created_at": "2022-09-02T10:12:18Z",
+      "updated_at": "2022-09-02T10:12:18Z",
+      "body": "Aah, @lilitkarapetyan - there is a _knock-on_ change from the above.  \r\n\r\nWe will no longer have a tidy list of activity for the current wargame.  Instead the `player-logs` database will have one lone list of activities.  So, we _may_ need to do some server-side processing to filter the activity for the specified wargame, to only include the newest entry for each role.",
+      "path": "packages/client/src/api/db/types.d.ts",
+      "diff_hunk": "@@ -1,13 +1,14 @@\n-import { Message, MessageInfoType, Wargame } from '@serge/custom-types'\n+import { Message, MessageInfoType, Wargame, ActivityLogsInterface } from '@serge/custom-types'\n import DbProvider from '.'\n \n export interface DbProviderInterface {\n   changes: (listener: (doc: Message | Wargame) => void) => void\n   destroy: () => void\n   get: (query: string) => Promise<Wargame | Message | { status: number }>\n-  put: (doc: Wargame | Message) => Promise<Wargame | Message>\n+  put: (doc: Wargame | Message | ActivityLogsInterface) => Promise<Wargame | Message | ActivityLogsInterface>\n   allDocs: () => Promise<Message[]>",
+      "html_url": "https://github.com/serge-web/serge/pull/1786#discussion_r961521887"
+    },
+    {
+      "id": 961530025,
+      "user": "IanMayo",
+      "created_at": "2022-09-02T10:22:35Z",
+      "updated_at": "2022-09-02T10:22:36Z",
+      "body": "(seem to have lost this comment)\r\n\r\n@lilitkarapetyan - we're making these changes because a scientist wants to download the full history of activities for a wargame - not just the most recent one.  So, on the client we are building up an array of activities, and pushing them all to the server on `pingServer`.   That means `player-log` will grow to have all activites for all roles for all wargames.\r\n\r\nThat's a lot more data.  It also means that when we retrieve the player logs for a wargame, she server needs to only provide the most recent activity (newest `id`) for each role.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -152,46 +151,64 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch\n   listenNewMessage({ db, name, dispatch })\n }\n \n-export const pingServer = (activityDetails: { wargame: string, role: string }): Promise<any> => {\n-  const activityMissing = 'The player has not shown any activity yet'\n-  const activityTime = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TIME}`) || activityMissing)\n-  const activityType = encodeURIComponent(expiredStorage.getItem(`${activityDetails.role}_${ACTIVITY_TYPE}`) || activityMissing)\n+export const pingServer2 = async (log: ActivityLogsInterface): Promise<string> => { \n+  console.warn('ping server currently commented out') \n+  const items = log.items\n+  const first = items[0]\n \n-  const activityUrl = `${activityDetails.wargame || 'missing'}/${activityDetails.role || 'missing'}/${activityTime}/${activityType}`\n+  // TODO: in addition to pushing data to the server, we're also checking the server is still alive\n+  // So, even if the log is empty, we should push an empty list, since we want to get a \n+  // 'success' back from the server\n \n-  return fetch(`${serverPath}healthcheck/${activityUrl}/healthcheck`, {\n-    method: 'GET',\n-    headers: {\n-      'Content-Type': 'application/json'\n-    }\n-  })\n-    .then((response: Response): Promise<any> => response.json())\n-    .then((data: any) => {\n-      return data.status\n-    })\n-    .catch((err) => {\n-      console.log(err)\n-      return 'NOT_OK'\n-    })\n-}\n+  // TODO: this method should receive an array of activities.  It should push them all as\n+  // documents to the PlayerLogs database.  We don't extend the existing set of documents,\n+  // we push them as new documents via Couchdb \"bulk push\" call.\n+  const { db } = getWargameDbByName(log.currentDbname)\n \n-export const getPlayerActivityLogs = () => {\n-  const url = `${serverPath}playerlog`\n+  if (!first) return db.putPlayerLogs(first).then(res => res.msg)\n \n-  return fetch(url, {\n-    method: 'GET',\n-    headers: {\n-      'Content-Type': 'application/json'\n-    }\n-  })\n-    .then((response: Response): Promise<any> => response.json())\n-    .then((data: any) => {\n-      return data\n-    })\n-    .catch((err) => {\n-      console.log(err)\n+  const { wargame, role, activityTime, activityType } = first\n+\n+  return await getPlayerActivityLogs(wargame, log.currentDbname)",
+      "html_url": "https://github.com/serge-web/serge/pull/1786#discussion_r961530025"
+    },
+    {
+      "id": 964564577,
+      "user": "IanMayo",
+      "created_at": "2022-09-07T08:48:02Z",
+      "updated_at": "2022-09-07T10:03:56Z",
+      "body": "I've almost certainly misunderstood this @lilitkarapetyan \r\n\r\nIn the above line, we return `res.msg`.  But, `putPlayerLogs` only returns a `Promise<string>`.  Should it return a structure?\r\n\r\nAah, I do think the `<Version>` component was failing to complete `pingServer` properly, since it always stayed grey. I see it's working now. Is that related to this fix?",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -169,7 +169,7 @@ export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: bo\n   // In addition to pushing data to the server, we're also checking the server is still alive\n   // So, even if the log is empty, we should push an empty list, since still we want to get a \n   // 'success' back from the server\n-  return db.putPlayerLogs(items).then(res => res)\n+  return db.putPlayerLogs(items).then(res => res.msg)\n }",
+      "html_url": "https://github.com/serge-web/serge/pull/1786#discussion_r964564577"
+    }
+  ],
+  "issue_numbers": [
+    1716
+  ],
+  "issues": [
+    {
+      "id": 1328576119,
+      "number": 1716,
+      "title": "Extend player-activity tracking with messages-read (including markers)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-04T12:53:21Z",
+      "updated_at": "2022-09-07T10:04:04Z",
+      "closed_at": "2022-09-07T10:04:04Z",
+      "body": "The clients want to start tracking when players have read messages, for analysis once a game is complete.\r\n\r\nWe currently have \"player activity\" - where Serge remembers the most recent interaction, and sends that to the server every 20 seconds.\r\n\r\nWe store the most recent event for each player on the server, in the `playerLog`.\r\n\r\nI'd like to keep a persistent record of player interactions, but without affecting the Serge wargame.\r\n\r\nSo, I'd like us to make these changes:\r\n\r\n1. modify `setActivityTime` to append the event to a list of pending activities (instead of just storing it)\r\n2.  introduce new event tracking for `marking a message as read` (including per-message tracking in `mark all as read`). Also track the player clicking on an `information marker` (since that's when they effectively read the contents of the message).\r\n3. modify `pingServer` to push all of the events to the server as ,`{event: millis-since-epoch}` (rather than just the most recent one), then flush the list\r\n4. modify the server so that on `healthcheck` receipt, push the json to a text file in a `logs` sub-folder (creating it if necessary).  The file should be named `wargame`-`role`-`date-time`.`json`.\r\n5. Aah, we should be able to switch this off, so we would have a new `Log player interactions` control in the `Overview` admin page, and in the `WargameOverview`structure.\r\n6. introduce new server API call 'GET /$wargame$/logs` to get logs for a wargame.  It will collect all log files for that wargame, zip them up, and return them.\r\n\r\n### Worries\r\n1. I don't quite remember why we're storing the activity in `expiredItem` as a cookie, and not just keep the item(s) in memory\r\n2. the current `healthcheck` call sends a tiny amount of data in the URL.  We could be sending a lot more data in the call - so I guess it may have to be a `put` instead of a `get`.  **Lot more data**: a player may be looking at a channel with a hundred messages, and presses `Mark all as read`. This would be hundreds of data entities.\r\n3. Can we `intercept` the browser tab closing, or being reset?  If we can, it would be good to append a `quitting` event to the activity log, and pushing a `healtcheck` call.\r\n",
+      "labels": [
+        "4watu",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/188834280-340cc77c-f504-4b14-857c-1e10e8003442.png"
+  ],
+  "number_of_changed_files": 61,
+  "total_changed_lines": 932
+}

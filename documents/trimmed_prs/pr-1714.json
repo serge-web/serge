@@ -1,0 +1,30 @@
+{
+  "number": 1714,
+  "title": "Hotfix turning circles for small turns",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-03T16:22:54Z",
+  "updated_at": "2022-08-03T17:13:45Z",
+  "closed_at": "2022-08-03T17:13:45Z",
+  "merged_at": "2022-08-03T17:13:44Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1714",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1714/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1714/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1714",
+  "body": "Hotfixes to fix generation of turning circles for small cell sizes and/or short step times.",
+  "additions": 2924,
+  "deletions": 18,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 2942
+}

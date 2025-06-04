@@ -1,0 +1,61 @@
+{
+  "number": 1552,
+  "title": "1550: Don't get confirm dialog for Submit Orders in Storybook",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-05-11T09:08:48Z",
+  "updated_at": "2022-05-11T09:55:28Z",
+  "closed_at": "2022-05-11T09:55:27Z",
+  "merged_at": "2022-05-11T09:55:27Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1552",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1552/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1552/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1552",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1550\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 7,
+  "deletions": 0,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1550
+  ],
+  "issues": [
+    {
+      "id": 1231082004,
+      "number": 1550,
+      "title": "Don't get `confirm` dialog for `Submit Orders` in Storybook",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-05-10T12:28:51Z",
+      "updated_at": "2022-05-18T13:45:42Z",
+      "closed_at": "2022-05-18T13:45:42Z",
+      "body": "I think we have a `z-index` problem with `StoryBook`.   In the `Storybook` for `index4`, the `Confirm` dialog doesn't get shown.  I've searched from dev tools, and it's in the DOM, but not visible.\r\n\r\nSteps to reproduce:\r\n- `yarn storybook`\r\n- Open Mapping - Small Scale - Natural Earth\r\n- Verify controls indicate we're `umpire force` (or Game Control)  in `adjudication phase`\r\n- Open top-left `Control` tab\r\n- Click on `Accept all routes`\r\n- Click on `Submit New State`\r\n- Observer that we don't see the `Are you sure you wish to submit new state?` dialog\r\n\r\nFailing behaviour in StoryBook:\r\n![stprybook](https://i.gyazo.com/15a23815469356318a4e33ef4dea310c.gif)\r\n\r\nWorking behaviour in develop:\r\n![develop](https://i.gyazo.com/24f9f0e996f0b64defb12ca69e9fd4c5.gif)",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1128647102,
+          "user": "IanMayo",
+          "created_at": "2022-05-17T09:37:55Z",
+          "updated_at": "2022-05-17T09:37:55Z",
+          "body": "Fixed in #1550"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/15a23815469356318a4e33ef4dea310c.gif",
+    "https://i.gyazo.com/24f9f0e996f0b64defb12ca69e9fd4c5.gif"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 7
+}

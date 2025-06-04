@@ -1,0 +1,142 @@
+{
+  "number": 2192,
+  "title": "More fixes for LocationEditor ",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-31T03:57:04Z",
+  "updated_at": "2023-01-09T08:24:07Z",
+  "closed_at": "2023-01-02T11:10:52Z",
+  "merged_at": "2023-01-02T11:10:52Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2192",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2192/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2192/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2192",
+  "body": "Fixes #2183 ",
+  "additions": 148,
+  "deletions": 119,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 5,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 1368788205,
+      "user": "IanMayo",
+      "created_at": "2023-01-02T09:52:18Z",
+      "updated_at": "2023-01-02T10:56:58Z",
+      "body": "hello @philb89 - I'm afraid the \"save location edits\" is broken.  When I edit \"Blue-3 EW Attack\", it's the formatted HTML that gets stored in the saved message, not the GeoJSON.  \r\n\r\n**Update:** No, that's wrong.  Saving an edit works, it's cancelling a location edit that fails.  If I edit EW-Attack, then cancel the location-edit, but still save the updated message, then the plain text gets stored. This is because there is nothing in `pendingLocationData`.  So, the handler for `cancel edit location` should push the original GeoJSON to the save handler.  Experimenting with this.\r\n\r\nNote: The existing solution relied on the `pendingLocationData` state object.    In `PlanningMessagesList`, we used to intercept the `saveMessage`, and replace the location (pretty HTML) data with the stored `pendingLocation` data. Somehow we have lost the code that updates `pendingLocationData`.\r\n\r\nBut, I do think we have  an opportunity for a more robust solution now.  It would work like this:\r\n- location editor component has hidden text component `hiddenStore`.  On load (setValue(), the GeoJSON from `location` gets put into there, before the text area gets written with the human-readable text.  When `Edit` is clicked for the location component, a callback is provided that, when called, updates the contents of `hiddenStore` with the new GeoJSON, and updates the human-readable text.  When `getValue()` is called for location-editor, it returns the GeoJSON from hiddenStore, not the human-readable text.\r\n\r\nThis avoids the need for `pendingLocationData` in the parent classes."
+    },
+    {
+      "id": 1374855069,
+      "user": "lebaphi",
+      "created_at": "2023-01-08T14:55:47Z",
+      "updated_at": "2023-01-08T14:55:47Z",
+      "body": "> hello @philb89 - I'm afraid the \"save location edits\" is broken. When I edit \"Blue-3 EW Attack\", it's the formatted HTML that gets stored in the saved message, not the GeoJSON.\r\n> \r\n> **Update:** No, that's wrong. Saving an edit works, it's cancelling a location edit that fails. If I edit EW-Attack, then cancel the location-edit, but still save the updated message, then the plain text gets stored. This is because there is nothing in `pendingLocationData`. So, the handler for `cancel edit location` should push the original GeoJSON to the save handler. Experimenting with this.\r\n> \r\n> Note: The existing solution relied on the `pendingLocationData` state object. In `PlanningMessagesList`, we used to intercept the `saveMessage`, and replace the location (pretty HTML) data with the stored `pendingLocation` data. Somehow we have lost the code that updates `pendingLocationData`.\r\n> \r\n> But, I do think we have an opportunity for a more robust solution now. It would work like this:\r\n> \r\n> * location editor component has hidden text component `hiddenStore`.  On load (setValue(), the GeoJSON from `location` gets put into there, before the text area gets written with the human-readable text.  When `Edit` is clicked for the location component, a callback is provided that, when called, updates the contents of `hiddenStore` with the new GeoJSON, and updates the human-readable text.  When `getValue()` is called for location-editor, it returns the GeoJSON from hiddenStore, not the human-readable text.\r\n> \r\n> This avoids the need for `pendingLocationData` in the parent classes.\r\n\r\nHi @IanMayo, I wonder if we need `hiddenStore` text element, as you can see in `location-editor.ts` we have `this.locations` variable to store GeoJSON. So when Load(setValue()), I also set GeoJSON from `location` to `this.locations` on line 78, we also work to render GeoJSON in human readable text from code line 81 -> 99, we also return `this.locations` value in getValue() function."
+    },
+    {
+      "id": 1375257074,
+      "user": "IanMayo",
+      "created_at": "2023-01-09T08:24:07Z",
+      "updated_at": "2023-01-09T08:24:07Z",
+      "body": "Yes, @lebaphi - you are right.  We are using `this.locations` instead of `this.hiddenStore`\r\n\r\nSo, if you are suggesting we don't need `hiddenStore`, then I agree :-D"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1059644409,
+      "user": "IanMayo",
+      "created_at": "2022-12-31T13:27:22Z",
+      "updated_at": "2022-12-31T13:27:23Z",
+      "body": "note: I _think_ we receive `coordinate` if there is only one item, e.g. if it's a point rather than a line/polygon",
+      "path": "packages/components/src/local/organisms/planning-channel/index.tsx",
+      "diff_hunk": "@@ -531,17 +531,21 @@ export const PlanningChannel: React.FC<PropTypes> = ({\n     let localBounds: L.LatLngBounds | undefined\n     plans.forEach((plan) => {\n       const geom = plan.geometry.geometry as any\n-      if (geom.coordinates) {\n-        const coords = geom.coordinates as Array<[number, number]>\n-        coords.forEach((val: [number, number]) => {\n-          const pos = L.latLng(val[0], val[1])\n-          localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)\n-        })\n-      } else if (geom.coordinate) {\n-        const val = geom.coordinate as [number, number]\n-        const pos = L.latLng(val[0], val[1])\n-        localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)\n-      }\n+      // currently I saw the geom.coordinates has the same format with geom.coordinate, so I guess there is something wrong with the data",
+      "html_url": "https://github.com/serge-web/serge/pull/2192#discussion_r1059644409"
+    },
+    {
+      "id": 1059651417,
+      "user": "IanMayo",
+      "created_at": "2022-12-31T14:26:50Z",
+      "updated_at": "2022-12-31T14:26:50Z",
+      "body": "@lebaphi - is the above change going to cause lots of linter updates in other files?",
+      "path": "packages/components/.eslintrc.js",
+      "diff_hunk": "@@ -14,6 +14,7 @@ module.exports = {\n     'react'],\n   \"ignorePatterns\": [\"*.scss.d.ts\", '*.snap'],\n   'rules': {\n+    \"space-before-function-paren\": [2, \"never\"],",
+      "html_url": "https://github.com/serge-web/serge/pull/2192#discussion_r1059651417"
+    },
+    {
+      "id": 1059719901,
+      "user": "lebaphi",
+      "created_at": "2023-01-01T08:16:21Z",
+      "updated_at": "2023-01-01T08:16:21Z",
+      "body": "Don't worry @IanMayo, it just disables this rule, doesn't reformat other files",
+      "path": "packages/components/.eslintrc.js",
+      "diff_hunk": "@@ -14,6 +14,7 @@ module.exports = {\n     'react'],\n   \"ignorePatterns\": [\"*.scss.d.ts\", '*.snap'],\n   'rules': {\n+    \"space-before-function-paren\": [2, \"never\"],",
+      "html_url": "https://github.com/serge-web/serge/pull/2192#discussion_r1059719901"
+    },
+    {
+      "id": 1059720986,
+      "user": "lebaphi",
+      "created_at": "2023-01-01T08:26:53Z",
+      "updated_at": "2023-01-01T08:31:08Z",
+      "body": "hmm, can you help to re-check it 🤔 , I think the `geom.coordinates` handles data for all types: `Array of [number, number]` and `[number, number]`\r\n\r\n<img width=\"688\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/210165115-9daae023-705d-4a8c-85b1-5656a870be81.png\">\r\n",
+      "path": "packages/components/src/local/organisms/planning-channel/index.tsx",
+      "diff_hunk": "@@ -531,17 +531,21 @@ export const PlanningChannel: React.FC<PropTypes> = ({\n     let localBounds: L.LatLngBounds | undefined\n     plans.forEach((plan) => {\n       const geom = plan.geometry.geometry as any\n-      if (geom.coordinates) {\n-        const coords = geom.coordinates as Array<[number, number]>\n-        coords.forEach((val: [number, number]) => {\n-          const pos = L.latLng(val[0], val[1])\n-          localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)\n-        })\n-      } else if (geom.coordinate) {\n-        const val = geom.coordinate as [number, number]\n-        const pos = L.latLng(val[0], val[1])\n-        localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)\n-      }\n+      // currently I saw the geom.coordinates has the same format with geom.coordinate, so I guess there is something wrong with the data",
+      "html_url": "https://github.com/serge-web/serge/pull/2192#discussion_r1059720986"
+    },
+    {
+      "id": 1059722641,
+      "user": "lebaphi",
+      "created_at": "2023-01-01T08:42:32Z",
+      "updated_at": "2023-01-01T08:42:32Z",
+      "body": "I cleaned up some code and removed it. So just ignore it.",
+      "path": "packages/components/.eslintrc.js",
+      "diff_hunk": "@@ -14,6 +14,7 @@ module.exports = {\n     'react'],\n   \"ignorePatterns\": [\"*.scss.d.ts\", '*.snap'],\n   'rules': {\n+    \"space-before-function-paren\": [2, \"never\"],",
+      "html_url": "https://github.com/serge-web/serge/pull/2192#discussion_r1059722641"
+    }
+  ],
+  "issue_numbers": [
+    2183
+  ],
+  "issues": [
+    {
+      "id": 1509543262,
+      "number": 2183,
+      "title": "More fixes for LocationEditor",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-12-23T16:42:45Z",
+      "updated_at": "2023-01-02T11:10:53Z",
+      "closed_at": "2023-01-02T11:10:53Z",
+      "body": "Some steps to complete the location editor are recorded [here](https://twitter.com/RishiSunak/status/1605964002143522816)\r\n\r\nCopied below:\r\n\r\nOk, but I _think_ we still need some processing like that.  We need to store the current GeoJSON data in the form (somewhere - maybe in the `location-editor`, or `DOM`), and we need to re-format the GeoJSON in human-readable form. \r\n\r\nWe have these requirements. When the form contains a `location-editor`:\r\n1. store the `PlannedActivityGeometry[]` JS array \r\n2. call a `render` function to convert the array to human readable `<ul>` list, display this as read-only in the `div`\r\n3. provide an `Edit` button, when the form is editable\r\n4. when the `Edit` button is clicked, provide the raw `PlannedActivityGeometry[]` array to the callback\r\n5. when `Save` is clicked during location edit, store the new `PlannedActivityGeometry[]`, and re-do the `Render` function\r\n6. when `Save` is clicked for the JSON-Editor, push the `current` value of of `PlannedActivityGeometry` back into the location field of the results object.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1364458499,
+          "user": "lebaphi",
+          "created_at": "2022-12-24T04:29:55Z",
+          "updated_at": "2022-12-24T04:31:45Z",
+          "body": "Hi @IanMayo, where is the `Save` button in the form, do you mean we will add new button? "
+        },
+        {
+          "id": 1364481903,
+          "user": "IanMayo",
+          "created_at": "2022-12-24T07:52:17Z",
+          "updated_at": "2022-12-24T07:52:17Z",
+          "body": "\"EDit location\" is currently broken, since PlanningChannel is receiving a string of JSON instead of the JSON object.  When \"EDit location\" is working, and the player can drag/edit an existing location we show save/cancel buttons at the top-left of the map.  I think they're a save (floppy disk) and a airplane with a cross through it.\r\n\r\nBut, that's step 5 above.  If we get the previous steps working, it may just be ok."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/210165115-9daae023-705d-4a8c-85b1-5656a870be81.png"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 267
+}

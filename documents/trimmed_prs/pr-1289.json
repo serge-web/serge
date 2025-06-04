@@ -1,0 +1,59 @@
+{
+  "number": 1289,
+  "title": "add download all data button",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-23T09:57:39Z",
+  "updated_at": "2021-12-23T13:31:15Z",
+  "closed_at": "2021-12-23T13:31:15Z",
+  "merged_at": "2021-12-23T13:31:15Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1289",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1289/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1289/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1289",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![download_all_data_button](https://user-images.githubusercontent.com/20753599/147223420-53242406-d6d1-4b4f-8dff-131309f8afb5.png)\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 38,
+  "deletions": 0,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1273
+  ],
+  "issues": [
+    {
+      "id": 1083184804,
+      "number": 1273,
+      "title": "As someone trialling use of Serge I wish to be able to download data from hosted instance in order to retain value",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-12-17T11:52:58Z",
+      "updated_at": "2021-12-23T13:33:04Z",
+      "closed_at": "2021-12-23T13:33:04Z",
+      "body": "The heroku hosted instance is a great facility for experimenting with Serge.\r\n\r\nBut, it's unfortunate that any data created in Heroku will be lost when the instance gets wiped/recreated.\r\n\r\nIf Game Admins were able to download a zip of the `db` folder, then they could commit that data to the branch, and the new data will then be present in that branch.\r\n\r\nNote: I _think_ we need to download the whole `db` folder since we need the `all-wargames` to know which wargames are present, and the `message_types` file  to see any new message templates.\r\n\r\nSince this isn't a player-facing functionality I'm happy to be relaxed about the UI.\r\n\r\nI propose we have a `Download all data` button to the right of `Clear wargames` in the UI below.  Clicking the button will cause `node` to zip up the `packages/server/db` folder, and immediately start to download it.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/146541826-f2f7161c-ae5a-487c-8192-6ce148fc36d6.png)\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1000308496,
+          "user": "IanMayo",
+          "created_at": "2021-12-23T13:33:03Z",
+          "updated_at": "2021-12-23T13:33:03Z",
+          "body": "Fixed in #1289 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/20753599/147223420-53242406-d6d1-4b4f-8dff-131309f8afb5.png",
+    "https://user-images.githubusercontent.com/1108513/146541826-f2f7161c-ae5a-487c-8192-6ce148fc36d6.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 38
+}

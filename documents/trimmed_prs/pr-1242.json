@@ -1,0 +1,52 @@
+{
+  "number": 1242,
+  "title": "1241 fix saving message",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-10T13:22:06Z",
+  "updated_at": "2021-12-10T14:05:41Z",
+  "closed_at": "2021-12-10T14:05:41Z",
+  "merged_at": "2021-12-10T14:05:40Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1242",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1242/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1242/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1242",
+  "body": "Fixes #1241 ",
+  "additions": 18,
+  "deletions": 2,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1241
+  ],
+  "issues": [
+    {
+      "id": 1076667085,
+      "number": 1241,
+      "title": "In Collab Editing, `Save` doesn't save",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-12-10T10:04:04Z",
+      "updated_at": "2021-12-10T14:05:40Z",
+      "closed_at": "2021-12-10T14:05:40Z",
+      "body": "In the collab editor v3, when I'm editing a message, `Save` doesn't save my updates.  `Submit for Review` _does_ save my updates.\r\n![screencast](https://i.gyazo.com/4e604108f44d4a000afff533f4a79cdb.gif)",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/4e604108f44d4a000afff533f4a79cdb.gif"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 20
+}

@@ -1,0 +1,50 @@
+{
+  "number": 2534,
+  "title": "2532 new movement orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-28T14:07:49Z",
+  "updated_at": "2023-02-28T19:51:21Z",
+  "closed_at": "2023-02-28T19:51:19Z",
+  "merged_at": "2023-02-28T19:51:19Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2534",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2534/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2534/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2534",
+  "body": "Fixes #2532 ",
+  "additions": 123,
+  "deletions": 40,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2532
+  ],
+  "issues": [
+    {
+      "id": 1602727226,
+      "number": 2532,
+      "title": "New handling of Transit/Movement orders",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-28T10:05:45Z",
+      "updated_at": "2023-02-28T19:51:20Z",
+      "closed_at": "2023-02-28T19:51:20Z",
+      "body": "For `Transit` orders, there will be a movement event pushed to\r\nadjudication at the end-time for the orders. The recommended outcomes\r\nwill be movement outcomes to put all assets at the destination. If\r\nthis is an air transit order, and the end point is within 10km (?) of\r\nan airfield then the airfield for those assets will be updated.\r\n\r\nFor all other orders, if they include a \"route back\" element, then for\r\nland/maritime orders introduce recommended movement outcomes as above,\r\nbut for air orders, do not generate movement outcomes.\r\n\r\nFor \"Strike\" orders, where targets are selected (but not geographical\r\ntarget area), if the target is an airfield, also offer recommended\r\nhealth (damage) outcomes for air assets assigned to (well, tagged\r\nwith) that airfield.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 163
+}

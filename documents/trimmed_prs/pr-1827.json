@@ -1,0 +1,52 @@
+{
+  "number": 1827,
+  "title": "Improve comment",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-08T11:49:17Z",
+  "updated_at": "2022-09-08T13:36:48Z",
+  "closed_at": "2022-09-08T13:36:47Z",
+  "merged_at": "2022-09-08T13:36:47Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1827",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1827/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1827/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1827",
+  "body": "Fixes #1793 ",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1793
+  ],
+  "issues": [
+    {
+      "id": 1357670817,
+      "number": 1793,
+      "title": "Enum Attribute Info Window",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-08-31T17:54:52Z",
+      "updated_at": "2022-09-08T13:36:52Z",
+      "closed_at": "2022-09-08T13:36:52Z",
+      "body": "Do you guys think it's necessary to add an example parenthesis to the enum value info window, similar to the format info window for numeric attributes? Like this:\r\n\r\n![values for attribute](https://user-images.githubusercontent.com/85491794/187746606-9427b47d-2fd0-4d8c-bc95-e9ab8de4218a.png)\r\n",
+      "labels": [
+        "T-L"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/187746606-9427b47d-2fd0-4d8c-bc95-e9ab8de4218a.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

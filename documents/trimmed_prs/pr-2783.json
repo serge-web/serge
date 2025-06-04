@@ -1,0 +1,75 @@
+{
+  "number": 2783,
+  "title": "2000_Clarify_strategy_for_messageType_two",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-25T12:19:38Z",
+  "updated_at": "2024-01-25T12:49:39Z",
+  "closed_at": "2024-01-25T12:49:38Z",
+  "merged_at": "2024-01-25T12:49:38Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2783",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2783/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2783/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2783",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 83,
+  "deletions": 58,
+  "changed_files": 20,
+  "labels": [
+    "bug",
+    "enhancement",
+    "4watu",
+    "4p9",
+    "T-H",
+    "4p10"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1910093226,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-25T12:20:16Z",
+      "updated_at": "2024-01-25T12:20:16Z",
+      "body": "Fixes #2000 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2000
+  ],
+  "issues": [
+    {
+      "id": 1431087459,
+      "number": 2000,
+      "title": "Clarify strategy for `messageType`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-01T08:50:40Z",
+      "updated_at": "2024-01-25T11:50:32Z",
+      "closed_at": "2024-01-25T11:50:32Z",
+      "body": "In our message definitions, we use `messageType` to represent the type of message:\r\n![image](https://user-images.githubusercontent.com/1108513/199194312-0c936c35-fba7-444d-b0b7-b4be7fd2a586.png)\r\n\r\nBut, when we actually send a message, the `messageType` details gets dropped, and it gets sent as `CUSTOM_MESSAGE`:\r\n![image](https://user-images.githubusercontent.com/1108513/199194451-c7c2ba71-30e6-4117-a014-fe5f31e85127.png)\r\n\r\nNote: we do also have a `messageType` in the `message.details` - but this is being used as the placeholder for the template id to be used to edit the message.  The `MessageDetails` element is common to all message types, but the template only belongs in the `CUSTOM_MESSAGE` structure. So, we should both rename `details.messageType` to `details.templateId` AND we should move the field up into `MessageCustom`\r\n\r\nHere is what I _think_ we have to do:\r\n- simplify `MessageCustom`, since it contains some legacy design decisions:\r\n    - remove `gameTurn` (since its in MessageDetails)\r\n    - remove `feedback`  (since we have custom message type for that)\r\n    - remove `infoType` (since we handle that in `messageType`, too)\r\n    - we should do _something_ with `isOpen` - since that doesn't belong in the database, it's just for this client\r\n- modify `postNewMessage` and `saveMessage` to take a `messageType` field. (Hey, do we need both methods? Can we just use one?)\r\n- modify `postNewMessage` to call `checkReference` if there is a `message.message.reference` field - regardless of the `messageType` (it looks like it is currently doing an extensive `allDocs()` server round-trip before sending every new message)\r\n- avoid two instances of `postNewMessage`.  Do we need both? If we do, one should be renamed to better explain its use.\r\n- modify calls to `saveMessage` to introduce `messageType`\r\n- modify mock/sample data to use correct message type (esp. PT-9 wargame in SQLite)\r\n\r\n",
+      "labels": [
+        "bug",
+        "enhancement",
+        "4watu",
+        "4p9",
+        "T-H",
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/199194312-0c936c35-fba7-444d-b0b7-b4be7fd2a586.png",
+    "https://user-images.githubusercontent.com/1108513/199194451-c7c2ba71-30e6-4117-a014-fe5f31e85127.png"
+  ],
+  "number_of_changed_files": 20,
+  "total_changed_lines": 141
+}

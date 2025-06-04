@@ -1,0 +1,62 @@
+{
+  "number": 2882,
+  "title": "Can not drag the 'Item' panel down when the pointer is higher than 'Add' filter button",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-21T14:54:23Z",
+  "updated_at": "2024-02-22T09:09:13Z",
+  "closed_at": "2024-02-22T09:09:13Z",
+  "merged_at": "2024-02-22T09:09:13Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2882",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2882/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2882/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2882",
+  "body": "Fixes #2850 ",
+  "additions": 7,
+  "deletions": 5,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1958964015,
+      "user": "Tristina1788",
+      "created_at": "2024-02-22T08:44:26Z",
+      "updated_at": "2024-02-22T08:44:26Z",
+      "body": "Tested on '2850-drag-item-issue' , now I can drag as expected.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/66b6fd14-5474-4384-b896-6e42f93d7e82\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2850
+  ],
+  "issues": [
+    {
+      "id": 2132795490,
+      "number": 2850,
+      "title": "Can not drag the 'Item' panel down when the pointer is higher than 'Add' filter button",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-02-13T17:10:21Z",
+      "updated_at": "2024-02-22T09:09:14Z",
+      "closed_at": "2024-02-22T09:09:14Z",
+      "body": "## 🐞 Bug description\r\nCan not drag the 'Item' panel down when the pointer is higher than 'Add' filter button\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Click on channel 'Core Mapping'\r\n3. Drag the 'Items' panel is on top of left panel\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e60541a8-ea0e-4b5c-9965-23f83ab187fd)\r\n\r\n4. Drag the 'Item' panel down\r\n5. Notice when pointer is higher than 'Add' filter button, seem we can't change position of 'Item' panel\r\n\r\nView below screencast for more details\r\n\r\n## ⚙️ Expected behavior\r\nEnable to drag the 'Item' panel down when the pointer is higher than 'Add' filter button\r\n\r\n## 🖥️ Screenshocasts\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/af5aee6b-7aea-46f1-8165-be65534cbf4a\r\n\r\n\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n- Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/e60541a8-ea0e-4b5c-9965-23f83ab187fd"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 12
+}

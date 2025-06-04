@@ -1,0 +1,196 @@
+{
+  "number": 1929,
+  "title": "Cascading menu to trigger creation of new orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-15T14:49:35Z",
+  "updated_at": "2022-10-16T15:16:32Z",
+  "closed_at": "2022-10-16T15:05:44Z",
+  "merged_at": "2022-10-16T15:05:44Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1929",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1929/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1929/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1929",
+  "body": "Fixes #1895 ",
+  "additions": 928,
+  "deletions": 7,
+  "changed_files": 13,
+  "labels": [],
+  "comments_count": 20,
+  "review_comments_count": 0,
+  "total_comments": 20,
+  "comments_data": [
+    {
+      "id": 1279761122,
+      "user": "lebaphi",
+      "created_at": "2022-10-15T14:53:37Z",
+      "updated_at": "2022-10-15T14:53:37Z",
+      "body": "Hi @IanMayo, I think I have integrated the select control successfully, since we don't have any wrapper I import the js and css files in index.html, I also add a type for the Select control but the problem I have must be the control position. As you can see, the library only supports displaying the menu from left to right, not vice versa. So if you put the button on the right side, the menu will be cut off.\r\n\r\nhttps://user-images.githubusercontent.com/26705621/195992896-335db209-fec1-4a01-ae28-63302a05c28a.mov\r\n\r\n"
+    },
+    {
+      "id": 1279793423,
+      "user": "IanMayo",
+      "created_at": "2022-10-15T17:52:01Z",
+      "updated_at": "2022-10-15T17:52:01Z",
+      "body": "> Hi @IanMayo, I think I have integrated the select control successfully, since we don't have any wrapper I import the js and css files in index.html, I also add a type for the Select control but the problem I have must be the control position. As you can see, the library only supports displaying the menu from left to right, not vice versa. So if you put the button on the right side, the menu will be cut off.\r\n\r\nOk, I can live with it being on the left-hand side.  Just one change: we don't need checkboxes for the menu items - clicking a menu item will trigger an event.  So, when a \"branch\" is clicked it will expand, and when a \"leaf\" is clicked the event fires and the menu collapses.\r\n"
+    },
+    {
+      "id": 1279794870,
+      "user": "IanMayo",
+      "created_at": "2022-10-15T17:57:40Z",
+      "updated_at": "2022-10-15T17:57:40Z",
+      "body": "Aah, DeepScan is failing because of errors in `Leaflet.control.select`.  I don't want us to fix third party code.  So, I'd like you to configure the build to exclude these files from testing, please."
+    },
+    {
+      "id": 1279871585,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T02:05:23Z",
+      "updated_at": "2022-10-16T02:05:23Z",
+      "body": "sure @IanMayo "
+    },
+    {
+      "id": 1279900704,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T06:11:21Z",
+      "updated_at": "2022-10-16T06:11:21Z",
+      "body": "\r\nhttps://user-images.githubusercontent.com/26705621/196020969-0c70c1ca-fbb6-4666-87be-bacdf776c054.mov\r\n\r\n"
+    },
+    {
+      "id": 1279923918,
+      "user": "IanMayo",
+      "created_at": "2022-10-16T08:49:26Z",
+      "updated_at": "2022-10-16T08:49:26Z",
+      "body": "Nice work.\r\nTwo things:\r\n1. there is another tier/level above the one in your demo: the Land, Maritime, Air one.\r\n2. We don't show the bottom tier/level (route-in, search, route-out). So, stop at the level of `precision strike`."
+    },
+    {
+      "id": 1279924072,
+      "user": "IanMayo",
+      "created_at": "2022-10-16T08:50:20Z",
+      "updated_at": "2022-10-16T08:50:20Z",
+      "body": "Any idea why Heroku is failing build? It was intermittent,now it seems to always be failing."
+    },
+    {
+      "id": 1279963965,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T12:53:24Z",
+      "updated_at": "2022-10-16T12:53:24Z",
+      "body": "> Any idea why Heroku is failing build? It was intermittent,now it seems to always be failing.\r\n\r\nDo you have a log of the heroku?"
+    },
+    {
+      "id": 1279964785,
+      "user": "IanMayo",
+      "created_at": "2022-10-16T12:58:42Z",
+      "updated_at": "2022-10-16T12:58:42Z",
+      "body": "Log here: will also attach screenshot, since the build always just terminates on the same line:\r\n``` -----> Building on the Heroku-22 stack\r\n-----> Determining which buildpack to use for this app\r\n-----> Node.js app detected\r\n       \r\n-----> Creating runtime environment\r\n       \r\n       NPM_CONFIG_LOGLEVEL=error\r\n       USE_YARN_CACHE=true\r\n       NODE_VERBOSE=false\r\n       NODE_ENV=production\r\n       NODE_MODULES_CACHE=true\r\n       \r\n-----> Installing binaries\r\n       engines.node (package.json):  16.x\r\n       engines.npm (package.json):   unspecified (use default)\r\n       engines.yarn (package.json):  unspecified (use default)\r\n       \r\n       Resolving node version 16.x...\r\n       Downloading and installing node 16.18.0...\r\n       Using default npm version: 8.19.2\r\n       Resolving yarn version 1.22.x...\r\n       Downloading and installing yarn (1.22.19)\r\n       Installed yarn 1.22.19\r\n       \r\n-----> Installing dependencies\r\n       Installing node modules (yarn.lock)\r\n       yarn install v1.22.19\r\n       warning @serge/executable@0.3.0: Invalid bin entry for \"executable\" (in \"@serge/executable\").\r\n       [1/4] Resolving packages...\r\n       [2/4] Fetching packages...\r\n       warning @serge/executable@0.3.0: Invalid bin entry for \"executable\" (in \"@serge/executable\").\r\n       [3/4] Linking dependencies...\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/client > bootstrap@4.6.2\" has unmet peer dependency \"jquery@1.9.1 - 3\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/client > bootstrap@4.6.2\" has unmet peer dependency \"popper.js@^1.16.1\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/client > react-addons-css-transition-group@15.6.2\" has incorrect peer dependency \"react@^15.4.2\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/client > react-font-awesome@1.0.3\" has incorrect peer dependency \"react@~0.11.2\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/client > reactour@1.18.7\" has unmet peer dependency \"react-is@^16.8 || ^17.0.0-0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/client > eslint-config-standard@14.1.1\" has unmet peer dependency \"eslint-plugin-import@>=2.18.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > babel-loader@8.2.5\" has unmet peer dependency \"webpack@>=2\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > css-loader@3.6.0\" has unmet peer dependency \"webpack@^4.0.0 || ^5.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > file-loader@6.2.0\" has unmet peer dependency \"webpack@^4.0.0 || ^5.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-data-table-component@7.4.5\" has unmet peer dependency \"styled-components@>= 4\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-cluster@1.0.3\" has incorrect peer dependency \"react@^17.0.1\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-cluster@1.0.3\" has incorrect peer dependency \"react-dom@^17.0.1\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-cluster@1.0.3\" has incorrect peer dependency \"react-leaflet@^3.0.2\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-geoman-v2@0.2.0\" has incorrect peer dependency \"react@^17.0.0 || ^18.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-geoman-v2@0.2.0\" has incorrect peer dependency \"react-dom@^17.0.0 || ^18.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-geoman-v2@0.2.0\" has incorrect peer dependency \"react-leaflet@^4.0.2\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-v4@4.1.0\" has incorrect peer dependency \"react@^18.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-v4@4.1.0\" has incorrect peer dependency \"react-dom@^18.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-vectorgrid@2.2.1\" has incorrect peer dependency \"leaflet@1.4.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-vectorgrid@2.2.1\" has incorrect peer dependency \"react-leaflet@^1.9.1 || 2.2.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-scrollbar@0.5.6\" has unmet peer dependency \"prop-types@^15.6.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > sass-loader@10.3.1\" has unmet peer dependency \"webpack@^4.36.0 || ^5.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > storybook-addon-react-docgen@1.2.42\" has unmet peer dependency \"@storybook/addons@*\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > storybook-addon-react-docgen@1.2.42\" has unmet peer dependency \"@storybook/components@*\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > storybook-addon-react-docgen@1.2.42\" has unmet peer dependency \"@storybook/core-events@*\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > style-loader@2.0.0\" has unmet peer dependency \"webpack@^4.0.0 || ^5.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > stylelint-config-css-modules@2.3.0\" has unmet peer dependency \"stylelint@11.x - 14.x\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > stylelint-config-standard@20.0.0\" has unmet peer dependency \"stylelint@>=10.1.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > stylelint-css-modules@0.9.0\" has unmet peer dependency \"stylelint@^9.0.0 || ^10.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > @storybook/addon-knobs@6.4.0\" has unmet peer dependency \"@storybook/addons@^6.4.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > @storybook/addon-knobs@6.4.0\" has unmet peer dependency \"@storybook/api@^6.4.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > @storybook/addon-knobs@6.4.0\" has unmet peer dependency \"@storybook/components@^6.4.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > @storybook/addon-knobs@6.4.0\" has unmet peer dependency \"@storybook/core-events@^6.4.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > @storybook/addon-knobs@6.4.0\" has unmet peer dependency \"@storybook/theming@^6.4.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > @storybook/react@6.5.12\" has unmet peer dependency \"require-from-string@^2.0.2\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/executable > @babel/eslint-parser@7.19.1\" has unmet peer dependency \"@babel/core@>=7.11.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/executable > @babel/eslint-parser@7.19.1\" has incorrect peer dependency \"eslint@^7.5.0 || ^8.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-docgen-typescript-loader > @webpack-contrib/schema-utils@1.0.0-beta.0\" has unmet peer dependency \"webpack@^3.0.0 || ^4.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-v4 > @react-leaflet/core@2.1.0\" has incorrect peer dependency \"react@^18.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > react-leaflet-v4 > @react-leaflet/core@2.1.0\" has incorrect peer dependency \"react-dom@^18.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > storybook-readme > vuex@3.6.2\" has unmet peer dependency \"vue@^2.0.0\".\r\n       warning \"workspace-aggregator-38f9e78a-dc75-416a-bb7a-fec3d0947270 > @serge/components > stylelint-config-standard > stylelint-config-recommended@3.0.0\" has unmet peer dependency \"stylelint@>=10.1.0\".\r\n       warning Workspaces can only be enabled in private projects.\r\n       warning Workspaces can only be enabled in private projects.\r\n       warning Workspaces can only be enabled in private projects.\r\n       [4/4] Building fresh packages...\r\n       $ yarn run snyk-protect && husky install\r\n       yarn run v1.22.19\r\n       $ set NODE_OPTIONS=–max_old_space_size=8192 snyk protect\r\n       Done in 0.06s.\r\n       fatal: not a git repository (or any parent up to mount point /)\r\n       Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\r\n       Done in 202.33s.\r\n       \r\n-----> Build\r\n       Detected both \"build\" and \"heroku-postbuild\" scripts\r\n       Running heroku-postbuild (yarn)\r\n       yarn run v1.22.19\r\n       $ yarn build && yarn build-storybook\r\n       $ lerna run build --scope @serge/components --scope @serge/config --scope @serge/helpers --scope @serge/store --scope @serge/client --stream\r\nlerna notice cli v5.6.2\r\nlerna info versioning independent\r\nlerna notice filter including [\"@serge/components\",\"@serge/config\",\"@serge/helpers\",\"@serge/store\",\"@serge/client\"]\r\nlerna info filter [\r\nlerna info filter   '@serge/components',\r\nlerna info filter   '@serge/config',\r\nlerna info filter   '@serge/helpers',\r\nlerna info filter   '@serge/store',\r\nlerna info filter   '@serge/client'\r\nlerna info filter ]\r\nlerna info Executing command in 4 packages: \"yarn run build\"\r\n       @serge/config: $ tsc --pretty\r\n       @serge/helpers: $ tsc --pretty\r\n       @serge/components: $ rimraf build && yarn copy && yarn copy-assets && yarn copy-assets-storybook && tsc && yarn cleanup\r\n       @serge/components: $ copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build\r\n       @serge/components: $ copyfiles -u 4 src/local/asset-icon/counters/*.svg ../client/public/assets/counters\r\n       @serge/components: $ copyfiles -u 4 src/local/asset-icon/counters/*.svg static/assets/counters\r\n       @serge/components: $ rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*\r\n       @serge/client: $ react-scripts --max_old_space_size=8192 build\r\n       @serge/client: Creating an optimized production build...\r\n```\r\n![image](https://user-images.githubusercontent.com/1108513/196036706-a961dce7-0ea8-4110-9293-684a77a8ba9c.png)\r\n"
+    },
+    {
+      "id": 1279964938,
+      "user": "IanMayo",
+      "created_at": "2022-10-16T12:59:43Z",
+      "updated_at": "2022-10-16T12:59:43Z",
+      "body": "> Nice work. Two things:\r\n> \r\n> 1. there is another tier/level above the one in your demo: the Land, Maritime, Air one.\r\n> 2. We don't show the bottom tier/level (route-in, search, route-out). So, stop at the level of `precision strike`.\r\n\r\nThis still needs to be changed too, please."
+    },
+    {
+      "id": 1279965009,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T13:00:13Z",
+      "updated_at": "2022-10-16T13:00:13Z",
+      "body": "> Nice work. Two things:\r\n> \r\n> 1. there is another tier/level above the one in your demo: the Land, Maritime, Air one.\r\n> 2. We don't show the bottom tier/level (route-in, search, route-out). So, stop at the level of `precision strike`.\r\n\r\nI build the menu based on `planningActivities`, you can see we render it in `PlanningActitivityMenu`, interface for data structure:\r\n```\r\nexport type PlanningActitivityMenuType = {\r\n  label: string\r\n  value: string\r\n  items?: PlanningActitivityMenuType[]\r\n}\r\n```\r\nif we don't show the bottom tier/level, we don't set the items for it."
+    },
+    {
+      "id": 1279966317,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T13:07:55Z",
+      "updated_at": "2022-10-16T13:07:55Z",
+      "body": "@IanMayo you meant the build is terminated at this code line `@serge/client: Creating an optimized production build...`?"
+    },
+    {
+      "id": 1279972020,
+      "user": "IanMayo",
+      "created_at": "2022-10-16T13:38:11Z",
+      "updated_at": "2022-10-16T13:38:11Z",
+      "body": "> @IanMayo you meant the build is terminated at this code line `@serge/client: Creating an optimized production build...`?\r\n\r\nYes, always on that line."
+    },
+    {
+      "id": 1279973972,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T13:49:13Z",
+      "updated_at": "2022-10-16T13:49:13Z",
+      "body": "> \r\n\r\nstrangely no errors appear in the log..."
+    },
+    {
+      "id": 1279974522,
+      "user": "IanMayo",
+      "created_at": "2022-10-16T13:52:24Z",
+      "updated_at": "2022-10-16T13:52:24Z",
+      "body": "I know, no clues. Will have to Google it tomorrow. I don't think I can merge though, since it looks like it will break develop branch."
+    },
+    {
+      "id": 1279975399,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T13:57:54Z",
+      "updated_at": "2022-10-16T13:57:54Z",
+      "body": "> I know, no clues. Will have to Google it tomorrow. I don't think I can merge though, since it looks like it will break develop branch.\r\n\r\nYes, I agree, I am looking on that too"
+    },
+    {
+      "id": 1279979761,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T14:21:21Z",
+      "updated_at": "2022-10-16T14:21:21Z",
+      "body": "I've removed all `node_module` and install again, then run\r\n- yarn build\r\n- yarn build-storybook\r\n- yarn lint\r\n\r\nall green, strange 🤔 "
+    },
+    {
+      "id": 1279985668,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T14:55:17Z",
+      "updated_at": "2022-10-16T14:55:17Z",
+      "body": "looks like the Heroku issue has been fixed @IanMayo"
+    },
+    {
+      "id": 1279987375,
+      "user": "IanMayo",
+      "created_at": "2022-10-16T15:03:53Z",
+      "updated_at": "2022-10-16T15:03:53Z",
+      "body": "> looks like the Heroku issue has been fixed @IanMayo\r\n\r\nor it's intermittent, and worked this time by chance 🤣 \r\n"
+    },
+    {
+      "id": 1279989794,
+      "user": "lebaphi",
+      "created_at": "2022-10-16T15:16:32Z",
+      "updated_at": "2022-10-16T15:16:32Z",
+      "body": "> > looks like the Heroku issue has been fixed @IanMayo\n> \n> \n> \n> or it's intermittent, and worked this time by chance 🤣 \n> \n> \n\nmaybe 😂 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    202
+  ],
+  "issues": [
+    {
+      "id": 553747124,
+      "number": 202,
+      "title": "Bug in storing planned route",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-01-22T19:30:49Z",
+      "updated_at": "2020-01-23T11:22:30Z",
+      "closed_at": "2020-01-23T11:22:30Z",
+      "body": "**Describe the bug**\r\nA player can plan a turn using a number of discrete steps.  But, when we store that route, we're just storing the direct route from the start cell to the end cell.\r\n\r\n**To Reproduce**\r\nSteps to reproduce the behavior:\r\n1. Enter game as Player, instruct mobile platform to travel at more than 10 kts (maybe need to be Blue Frigate to do that)\r\n\r\n**Expected behavior**\r\nThe route should he represented as the series of discrete steps\r\n\r\n**Screenshots**\r\n![Animation of selecting route](https://i.gyazo.com/a63ca8e684836d226418b83d44ee252a.gif)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/196036706-a961dce7-0ea8-4110-9293-684a77a8ba9c.png",
+    "https://i.gyazo.com/a63ca8e684836d226418b83d44ee252a.gif"
+  ],
+  "number_of_changed_files": 13,
+  "total_changed_lines": 935
+}

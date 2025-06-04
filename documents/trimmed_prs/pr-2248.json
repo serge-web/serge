@@ -1,0 +1,119 @@
+{
+  "number": 2248,
+  "title": "2236: Dynamically regenerate sub-type based upon filtered type data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-14T06:19:30Z",
+  "updated_at": "2023-01-14T11:33:59Z",
+  "closed_at": "2023-01-14T11:33:58Z",
+  "merged_at": "2023-01-14T11:33:58Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2248",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2248/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2248/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2248",
+  "body": "Fixes #2236 ",
+  "additions": 72,
+  "deletions": 22,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2236
+  ],
+  "issues": [
+    {
+      "id": 1529255374,
+      "number": 2236,
+      "title": "Dynamically regenerate `sub-type` based upon filtered `type` data",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-11T15:30:57Z",
+      "updated_at": "2023-02-21T18:08:21Z",
+      "closed_at": "2023-02-21T18:08:21Z",
+      "body": "In the `Assets` tab, we can now filter by `Platform Type` and `Sub-Type`.  Well, it's in #2235 \r\n\r\nBoth a currently drop-downs containing all of the values found in the data.  But, the sub-types column contains all values - even those which are no longer relevant.\r\n\r\nWe may/may-not wish to this for other columns in the future, but I'd like `sub-type` drop-down to only contain the relevant.\r\n\r\nThis could either be through:\r\n1. When we load the data, store sub-types with the platform-type they're found under.  Then once we've filtered on platform-type, we can get the selected platform-type values, and filter sub-type to only show those\r\n2. When a filter has been applied, run through the visible rows and collate a list of unique sub-types\r\n\r\nOk, I think the answer here is that the filters should be created from the current set of rows, not from the parent dataset (of assets).  So, in PlanningAssets we already have the callback for `onVisibleRowsChange`. I think this needs to trigger the update of the filter lists.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1381851688,
+          "user": "IanMayo",
+          "created_at": "2023-01-13T13:29:11Z",
+          "updated_at": "2023-01-13T13:29:11Z",
+          "body": "Hello @lebaphi - the Sqlite database for `P9 TEST` now includes the `a_Type` data:\r\n![image](https://user-images.githubusercontent.com/1108513/212330990-f969bd72-1f6a-4883-a4c4-7d0fb6e9a4c5.png)\r\n"
+        },
+        {
+          "id": 1381921947,
+          "user": "lebaphi",
+          "created_at": "2023-01-13T14:17:34Z",
+          "updated_at": "2023-01-13T14:17:34Z",
+          "body": "thank @IanMayo , could you add more details on this issue? I'm a bit confuse of \"sub-types column contains all values\" on this image, It seems the sub-type cell has the relevant value of the type cell value 🤔 \r\n<img width=\"853\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/212340071-cf925af6-b97c-40b5-b1c7-88238e715951.png\">\r\n"
+        },
+        {
+          "id": 1381938905,
+          "user": "IanMayo",
+          "created_at": "2023-01-13T14:32:32Z",
+          "updated_at": "2023-01-13T14:32:32Z",
+          "body": "Sure - that's completely fine.  Part of the confusion is the dummy data I'm generating.  \r\n\r\nFor these assets, we have type and sub-type.\r\n\r\nSo, it's like we have `platform-type` of `car` and `truck`.\r\n\r\nFor `car` we have sub-types of `sedan`, `SUV`, `convertible`, `station wagon` and `minivan`.\r\n\r\nFor `truck` we have sub-types of `pickup`, `RV`, `18-wheeler`, `box van` and `flat-bed`\r\n\r\nSerge is currently showing the full-list of all sub-types, regardless of what `type` filters have been applied.  \r\n\r\nSee how we're filtering for `Ship`.  Ideally - the sub-type would only show the sub-types of `Ship`:\r\n![image](https://user-images.githubusercontent.com/1108513/212344522-64268213-bb5c-479b-8d55-5eafd0641758.png)\r\n\r\n\r\nWhat the users would like, is that if a `Car` has been selected for `type`, then only the sub-types of car are shown in the `sub-type`.\r\n\r\nIf two `type` filters have been applied, then we show the `sub-types` for both of those two types.\r\n\r\nWe _could_ do this by analysing the type/sub-type data in advance.  But, a _possibly easier_ method could be to run an event after type-filters have been modified.  The event loops through all the current rows, finds the unique list of sub-types, and offers these as the choices.\r\n\r\nHope this helps :-)\r\n\r\n(you're right that the sub-types currently contain the type name - that's just the way I generated the mock data).\r\n\r\n"
+        },
+        {
+          "id": 1381949519,
+          "user": "lebaphi",
+          "created_at": "2023-01-13T14:40:19Z",
+          "updated_at": "2023-01-13T14:40:19Z",
+          "body": "Thank @IanMayo, how can I get this screen? \r\n\r\n![image](https://user-images.githubusercontent.com/26705621/212346109-41db154a-82b6-48ed-a173-d22267d78f88.png)\r\n"
+        },
+        {
+          "id": 1381953478,
+          "user": "IanMayo",
+          "created_at": "2023-01-13T14:42:05Z",
+          "updated_at": "2023-01-13T14:42:05Z",
+          "body": "1. run `yarn develop`\r\n2. go to this URL:  `http://localhost:3000/?wargame=wargame-l6nngxlk&access=blue-mtg-1`\r\n3. switch to the `My Forces` tab in the `Planning` channel"
+        },
+        {
+          "id": 1381963975,
+          "user": "lebaphi",
+          "created_at": "2023-01-13T14:46:43Z",
+          "updated_at": "2023-01-13T14:46:43Z",
+          "body": "that is what I'm confusing, I don't see these dropdowns in the table header 🤔 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/212347606-4a04bdff-1133-4193-a0a4-464137131c13.mov\r\n\r\n"
+        },
+        {
+          "id": 1381966585,
+          "user": "IanMayo",
+          "created_at": "2023-01-13T14:47:52Z",
+          "updated_at": "2023-01-13T14:47:52Z",
+          "body": "Oh, you have to switch on the column filters -  using the `filters` icon at the top-right."
+        },
+        {
+          "id": 1381970685,
+          "user": "lebaphi",
+          "created_at": "2023-01-13T14:49:40Z",
+          "updated_at": "2023-01-13T14:49:40Z",
+          "body": "ahh I see, sorry I lost my memory on this 🤣 "
+        },
+        {
+          "id": 1429679282,
+          "user": "IanMayo",
+          "created_at": "2023-02-14T12:34:51Z",
+          "updated_at": "2023-02-14T12:34:51Z",
+          "body": "We seem to have lost this feature - possibly as a result of \"don't lose filters on new data\".  \r\n\r\nIt would really help users if when a filter is applied, the other drop-down lists were restricted to the displayed data. This _Shouldn't_ be a lot of processing - since there is already a filter applied. So, we need to listen for the \"filter applied\" event.  Aah, we already do that for the `selection changed` handling."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/212330990-f969bd72-1f6a-4883-a4c4-7d0fb6e9a4c5.png",
+    "https://user-images.githubusercontent.com/26705621/212340071-cf925af6-b97c-40b5-b1c7-88238e715951.png",
+    "https://user-images.githubusercontent.com/1108513/212344522-64268213-bb5c-479b-8d55-5eafd0641758.png",
+    "https://user-images.githubusercontent.com/26705621/212346109-41db154a-82b6-48ed-a173-d22267d78f88.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 94
+}

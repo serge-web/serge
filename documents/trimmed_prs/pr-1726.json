@@ -1,0 +1,51 @@
+{
+  "number": 1726,
+  "title": "1718 edit attributes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-04T17:59:55Z",
+  "updated_at": "2022-08-05T07:39:59Z",
+  "closed_at": "2022-08-05T07:39:58Z",
+  "merged_at": "2022-08-05T07:39:58Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1726",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1726/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1726/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1726",
+  "body": "Supports #1718 \r\nFixes #1722\r\n\r\nLots of fixes around attribute editing.",
+  "additions": 580,
+  "deletions": 481,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1718
+  ],
+  "issues": [
+    {
+      "id": 1328687660,
+      "number": 1718,
+      "title": "Player can't edit attributes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-04T14:01:55Z",
+      "updated_at": "2022-08-05T15:52:03Z",
+      "closed_at": "2022-08-05T15:52:03Z",
+      "body": "In the WATU-Playtest wargame, there are some editable attributes on the blue platforms.\r\n\r\nThey're set to be edited by the player.\r\n\r\nBut, they aren't editable, they're locked :-(\r\n\r\nNote: haven't been able to reproduce this. We do appear to have an issue (#1728) with z-index of the popup combo-box on the modal attribute editor. ",
+      "labels": [
+        "bug",
+        "4watu"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 1061
+}

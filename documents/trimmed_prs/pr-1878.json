@@ -1,0 +1,54 @@
+{
+  "number": 1878,
+  "title": "1877 mapping control",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-25T08:50:04Z",
+  "updated_at": "2022-09-25T13:39:50Z",
+  "closed_at": "2022-09-25T13:39:49Z",
+  "merged_at": "2022-09-25T13:39:49Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1878",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1878/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1878/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1878",
+  "body": "Fixes #1877 ",
+  "additions": 78,
+  "deletions": 37,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1877
+  ],
+  "issues": [
+    {
+      "id": 1384733888,
+      "number": 1877,
+      "title": "Add 'Home' button to SupportMapping control bar - which restores to original bounds.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-24T16:27:54Z",
+      "updated_at": "2022-09-25T13:39:50Z",
+      "closed_at": "2022-09-25T13:39:50Z",
+      "body": "Users in the `SupportMapping` map panel need a button to zoom out to the full map extent.\r\n\r\nThat's the original `bounds` that gets passed in at the start.\r\n\r\nWe can _probably_ copy the implementation we used for the original `Mapping` component:\r\n![image](https://user-images.githubusercontent.com/1108513/192108725-20c69526-7c4b-438c-8be9-72e13d45ac06.png)\r\n\r\nHmm, we can _probably_ re-use the `MapControl`.  That would be _sensible_.\r\n",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/192108725-20c69526-7c4b-438c-8be9-72e13d45ac06.png"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 115
+}

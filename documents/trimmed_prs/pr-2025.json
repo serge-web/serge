@@ -1,0 +1,144 @@
+{
+  "number": 2025,
+  "title": "create_new_reference_messages_server_side",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-09T11:22:33Z",
+  "updated_at": "2022-11-10T13:21:13Z",
+  "closed_at": "2022-11-10T13:21:12Z",
+  "merged_at": "2022-11-10T13:21:12Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2025",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2025/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2025/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2025",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 117,
+  "deletions": 45,
+  "changed_files": 10,
+  "labels": [
+    "4p9"
+  ],
+  "comments_count": 8,
+  "review_comments_count": 1,
+  "total_comments": 9,
+  "comments_data": [
+    {
+      "id": 1309902947,
+      "user": "IanMayo",
+      "created_at": "2022-11-10T07:55:20Z",
+      "updated_at": "2022-11-10T07:55:20Z",
+      "body": "@lilitkarapetyan  - how would you feel about storing `counter` in `message.details` rather than `message.message`?\r\n\r\nIf it's in `message.message` then `json-editor` will try to render a control for it - so we'll always have to hide it via `display:none`.  We also don't have much of a schema for `message.message`.  We can add `counter?: number` to `message.details` though."
+    },
+    {
+      "id": 1309911164,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-10T08:03:40Z",
+      "updated_at": "2022-11-10T08:03:40Z",
+      "body": "Hello Ian, I think it's a good idea message.message will only have information about the json-editor form value "
+    },
+    {
+      "id": 1309923348,
+      "user": "IanMayo",
+      "created_at": "2022-11-10T08:15:05Z",
+      "updated_at": "2022-11-10T08:15:05Z",
+      "body": "> Hello Ian, I think it's a good idea message.message will only have information about the json-editor form value\r\n\r\nI have just pushed a typescript interface change to this branch,  to introduce the `details.counter`. Are you happy to make the change to using it?"
+    },
+    {
+      "id": 1309960934,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-10T08:52:18Z",
+      "updated_at": "2022-11-10T08:52:18Z",
+      "body": "> > Hello Ian, I think it's a good idea message.message will only have information about the json-editor form value\r\n> \r\n> I have just pushed a typescript interface change to this branch, to introduce the `details.counter`. Are you happy to make the change to using it?\r\n\r\nYes sure thanks for the change."
+    },
+    {
+      "id": 1310113762,
+      "user": "IanMayo",
+      "created_at": "2022-11-10T11:02:40Z",
+      "updated_at": "2022-11-10T11:02:40Z",
+      "body": "Nice work @lilitkarapetyan \r\n\r\nCould you do some testing against `yarn develop` - and check that DB-Browser shows the data updating how we'd expect.\r\n\r\nAah, the data in `wargame-l6nngxlk.sqlite` won't be how Serge is expecting it.  It would be useful for me to keep those messages in the game though.   Hmm, I do have code to generate messages. I could modify it to generate valid `counter` and `Reference` numbers.  If I do that, we could push the messages into `sqlite`.\r\n\r\nOk. Right. What are we going to do ;-)\r\n\r\nOk. Could you just check that things _roughly_ work correctly in DB-Browser?  The first message won't find an existing `message.detail.counter` - so it will become `Blue-1`.  If that happens, then it's ok.  But, if you then modify that `message.detail.counter` to have a value of `20` - then new messages should get handled properly - becoming `Blue-21`, and so on."
+    },
+    {
+      "id": 1310147126,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-10T11:32:16Z",
+      "updated_at": "2022-11-10T11:32:16Z",
+      "body": "> Nice work @lilitkarapetyan\r\n> \r\n> Could you do some testing against `yarn develop` - and check that DB-Browser shows the data updating how we'd expect.\r\n> \r\n> Aah, the data in `wargame-l6nngxlk.sqlite` won't be how Serge is expecting it. It would be useful for me to keep those messages in the game though. Hmm, I do have code to generate messages. I could modify it to generate valid `counter` and `Reference` numbers. If I do that, we could push the messages into `sqlite`.\r\n> \r\n> Ok. Right. What are we going to do ;-)\r\n> \r\n> Ok. Could you just check that things _roughly_ work correctly in DB-Browser? The first message won't find an existing `message.detail.counter` - so it will become `Blue-1`. If that happens, then it's ok. But, if you then modify that `message.detail.counter` to have a value of `20` - then new messages should get handled properly - becoming `Blue-21`, and so on.\r\nThanks, I will try with value 20 now\r\n"
+    },
+    {
+      "id": 1310219298,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-10T12:36:35Z",
+      "updated_at": "2022-11-10T12:36:35Z",
+      "body": "I tested it, it works without problems"
+    },
+    {
+      "id": 1310220057,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-10T12:37:20Z",
+      "updated_at": "2022-11-10T12:37:20Z",
+      "body": "You can test it `P9 Test` in the `BLUE RFI` channel of the game."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1017811170,
+      "user": "IanMayo",
+      "created_at": "2022-11-09T11:24:07Z",
+      "updated_at": "2022-11-09T11:24:07Z",
+      "body": "@lilitkarapetyan - I'm sure we only need to do this if `message.message.Reference` is present.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -682,36 +682,19 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu\n   return db.put(feedback).catch(rejectDefault)\n }\n \n-const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails) => {\n+const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails): Promise<MessageCustom> => {\n   // eslint-disable-next-line no-async-promise-executor\n   return new Promise(async (resolve): Promise<void> => {\n     if (message.details.messageType !== 'Chat') {\n       // default value for message counter\n+      ",
+      "html_url": "https://github.com/serge-web/serge/pull/2025#discussion_r1017811170"
+    }
+  ],
+  "issue_numbers": [
+    2009
+  ],
+  "issues": [
+    {
+      "id": 1435816843,
+      "number": 2009,
+      "title": "Create new reference messages server-side",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-04T09:54:31Z",
+      "updated_at": "2022-11-11T06:52:20Z",
+      "closed_at": "2022-11-11T06:52:20Z",
+      "body": "Currently, before we send a new message of any type other than chat, we do this in `checkReference`:\r\n- get all docs\r\n- filter for documents from this force, with a `.message.counter` field\r\n- find the highest value of counter\r\n- find all messages for this id\r\n\r\nRetrieving all documents from the database seems an expensive process.\r\n\r\nIs it possible to perform the above server-side?  \r\n\r\nSomething like:  `http://serge/wargame-23423/counter/force-red`\r\n\r\nThe processing would be almost the same, but it would happen in node.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1308266141,
+          "user": "lilitkarapetyan",
+          "created_at": "2022-11-09T06:16:36Z",
+          "updated_at": "2022-11-09T06:16:36Z",
+          "body": "Hello Ian, yes it is possible"
+        },
+        {
+          "id": 1308266693,
+          "user": "lilitkarapetyan",
+          "created_at": "2022-11-09T06:17:16Z",
+          "updated_at": "2022-11-09T06:17:16Z",
+          "body": "I am working on it now."
+        },
+        {
+          "id": 1311297879,
+          "user": "IanMayo",
+          "created_at": "2022-11-11T06:52:20Z",
+          "updated_at": "2022-11-11T06:52:20Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 162
+}

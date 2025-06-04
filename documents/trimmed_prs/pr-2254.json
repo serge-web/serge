@@ -1,0 +1,117 @@
+{
+  "number": 2254,
+  "title": "2253 persistent tables",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-01-14T17:09:22Z",
+  "updated_at": "2023-01-15T13:48:19Z",
+  "closed_at": "2023-01-15T13:48:13Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2254",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2254/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2254/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2254",
+  "body": "Fixes #2253 ",
+  "additions": 133,
+  "deletions": 149,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1383155297,
+      "user": "IanMayo",
+      "created_at": "2023-01-15T13:48:13Z",
+      "updated_at": "2023-01-15T13:48:13Z",
+      "body": "Close. Duplicate of #2256 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2253,
+    2256
+  ],
+  "issues": [
+    {
+      "id": 1533342938,
+      "number": 2253,
+      "title": "Material table - filters reset on change tab",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-14T16:23:24Z",
+      "updated_at": "2023-01-15T14:28:18Z",
+      "closed_at": "2023-01-15T14:28:18Z",
+      "body": "Our material tables aren't persistent.  They are only \"alive\" when their tab is alive.\r\n\r\nThis means that when we change to another tab, and then return, any filters have been lost.\r\n\r\nI _think_ we should get around this by storing the state of the filters for each table in the parent `SupportPanel` class (unless there is a better solution).\r\n\r\nSo, for example, `planning-assets` will have props for `filters` and `setFilters()`.   When it loads, if `filters` is empty, it will generate its columns object, and store either the columns or the currently applied filters in the parent via `setFilters`.  When the player changes tab, and comes back again, it will receive the stored value of `fliters` - and the original set of filters will be restored.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    },
+    {
+      "id": 1533812356,
+      "number": 2256,
+      "title": "2253: Material table - filters reset on change tab",
+      "state": "closed",
+      "user": "lebaphi",
+      "created_at": "2023-01-15T13:19:38Z",
+      "updated_at": "2023-01-15T14:28:18Z",
+      "closed_at": "2023-01-15T14:28:17Z",
+      "body": "Fixes #2253 ",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1383152169,
+          "user": "IanMayo",
+          "created_at": "2023-01-15T13:34:10Z",
+          "updated_at": "2023-01-15T13:34:10Z",
+          "body": "Oops @lebaphi  - we've both worked on this issue.  I have this PR for it:\r\nhttps://github.com/serge-web/serge/pull/2254\r\n\r\nI _think_ we've both taken the same strategy. Would you mind checking mine, please?"
+        },
+        {
+          "id": 1383152885,
+          "user": "lebaphi",
+          "created_at": "2023-01-15T13:37:58Z",
+          "updated_at": "2023-01-15T13:37:58Z",
+          "body": "> Oops @lebaphi - we've both worked on this issue. I have this PR for it: #2254\r\n> \r\n> I _think_ we've both taken the same strategy. Would you mind checking mine, please?\r\n\r\nHi @IanMayo , yes we've both taken the same strategy 🤣 "
+        },
+        {
+          "id": 1383153118,
+          "user": "lebaphi",
+          "created_at": "2023-01-15T13:39:07Z",
+          "updated_at": "2023-01-15T13:39:07Z",
+          "body": "But I have updated the fix for the subtypes filter on `custom-filter-row.tsx`"
+        },
+        {
+          "id": 1383153203,
+          "user": "IanMayo",
+          "created_at": "2023-01-15T13:39:33Z",
+          "updated_at": "2023-01-15T13:39:33Z",
+          "body": "> Hi @IanMayo , yes we've both taken the same strategy 🤣\r\n\r\nYours is neater.  I'll pull over a couple of my extra changes and merge it."
+        },
+        {
+          "id": 1383154884,
+          "user": "IanMayo",
+          "created_at": "2023-01-15T13:46:13Z",
+          "updated_at": "2023-01-15T13:46:13Z",
+          "body": "> if (asset.attributes && ((filter.length && filter.includes(asset.platformTypeId)) || !filter.length)) {\r\n\r\nCould you explain how the above line works please?"
+        },
+        {
+          "id": 1383156604,
+          "user": "lebaphi",
+          "created_at": "2023-01-15T13:54:15Z",
+          "updated_at": "2023-01-15T13:54:15Z",
+          "body": "> > if (asset.attributes && ((filter.length && filter.includes(asset.platformTypeId)) || !filter.length)) {\r\n> \r\n> Could you explain how the above line works please?\r\n\r\nhi @IanMayo, that means we build a subTypes list base on corresponding selected platformType or build all subTypes if no platformType is selected"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 282
+}

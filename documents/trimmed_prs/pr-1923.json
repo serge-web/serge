@@ -1,0 +1,74 @@
+{
+  "number": 1923,
+  "title": "1862: Fix lints for Drawing Tool branch",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-11T04:14:34Z",
+  "updated_at": "2022-10-11T19:59:10Z",
+  "closed_at": "2022-10-11T19:59:09Z",
+  "merged_at": "2022-10-11T19:59:09Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1923",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1923/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1923/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1923",
+  "body": null,
+  "additions": 27324,
+  "deletions": 31487,
+  "changed_files": 159,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1274233786,
+      "user": "IanMayo",
+      "created_at": "2022-10-11T07:43:01Z",
+      "updated_at": "2022-10-11T07:43:01Z",
+      "body": "Thanks @lebaphi - it looks like we need to use a special \"trick\" to sort the id of the elements:\r\n![image](https://user-images.githubusercontent.com/1108513/195026623-9b33f717-b8e3-4061-b60b-bdcd52916f59.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1862
+  ],
+  "issues": [
+    {
+      "id": 1380808618,
+      "number": 1862,
+      "title": "Provide drawing tools for new orders",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-21T11:56:03Z",
+      "updated_at": "2022-10-12T08:07:39Z",
+      "closed_at": "2022-10-12T08:07:39Z",
+      "body": "In the `Planning Channel`, players will trigger the creation of some `Orders` objects by selecting the type of new orders, then be lead through drawing a feature on the map.  Once the feature has been drawn the relevant `Orders` template will open, with the spatial data filled.\r\n\r\nWe'll use `leaflet.draw` for this feature.\r\n\r\nFor this we'll need these capabilities:\r\n1. Leaflet map, with toolbar\r\n2. Popup menu on toolbar, to select one of `A. Transit`, `B. Point Effect`,  and `C. Area Effect`.  These will trigger the drawing of `a. Polyline`, `b. Marker`, `c. Polygon`.  \r\n3. Once the user has finished creating the feature, a popup dialog will open, letting them choose one of `Maritime`, `Land`, `Air` and `Other`.  Then, create and open the relevant template.  Note: the new feature will be stored in a `leaflet.draw` layer.  Once the template has been saved, the feature will be moved from the `leaflet.draw` layer to the existing `Orders` layer.\r\n4. Users should be able to edit the spatial data for selected orders documents. So, we'll need a special `Edit` icon next to the `Spatial` field in the editor.  When this is clicked, the feature will be moved from the `Orders` layer to the `leaflet.draw` layer, and put into edit mode - to let the player drag the corners/nodes\r\n\r\n**Note:** `leaflet.draw hasn't been updated for years, and may not work with leaflet 2.0.   leaflet-geoman looks like it is better maintained: https://geoman.io/leaflet-geoman\r\n\r\n**Update:** I've made some progress in this in `map-draw-activity`, but have now got stuck.  I tried to introduce `react-leaflet-geoman-v2` via `yarn add` in `packages/components`.  It compiled ok, but threw an error when running `storybook`:\r\n![image](https://user-images.githubusercontent.com/1108513/193409361-4c133cb5-45af-43f2-a21f-e89f70b017ea.png)\r\n\r\nI could with some support in adding the `<FeatureGroup><GeomanControls>` element as demonstrated here:\r\nhttps://github.com/TurtIeSocks/react-leaflet-geoman.   I guess we would have to position it at the \"bottomright\" instead, since our existing toolbar is at the top right.\r\n\r\nI'm pretty sure that will go into `PlanningChannel`\r\n",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1274492099,
+          "user": "IanMayo",
+          "created_at": "2022-10-11T10:47:32Z",
+          "updated_at": "2022-10-11T10:47:32Z",
+          "body": "@lebaphi  is (almost) on top of integrating the drawing tools.\r\n\r\nHere is the flow of how we show/manage the geometries as they are drawn.\r\n\r\n![drawing flow](https://docs.google.com/drawings/d/e/2PACX-1vT1xB5kFxCRpIPACPRCyNt-X4eErND5DW5Fi2d0J4Ou-4uj_JztKoKXAr6-c9MihOsX9fJFBAM9Rjpf/pub?w=960&h=720)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/195026623-9b33f717-b8e3-4061-b60b-bdcd52916f59.png",
+    "https://user-images.githubusercontent.com/1108513/193409361-4c133cb5-45af-43f2-a21f-e89f70b017ea.png",
+    "https://docs.google.com/drawings/d/e/2PACX-1vT1xB5kFxCRpIPACPRCyNt-X4eErND5DW5Fi2d0J4Ou-4uj_JztKoKXAr6-c9MihOsX9fJFBAM9Rjpf/pub?w=960&h=720"
+  ],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 930
+}

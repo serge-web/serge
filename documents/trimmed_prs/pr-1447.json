@@ -1,0 +1,49 @@
+{
+  "number": 1447,
+  "title": "Allow players from multiple timezones",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-23T17:48:56Z",
+  "updated_at": "2022-03-29T14:56:42Z",
+  "closed_at": "2022-03-29T14:56:41Z",
+  "merged_at": "2022-03-29T14:56:41Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1447",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1447/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1447/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1447",
+  "body": "Fixes #1321 \r\n\r\nWhen we create a date, we ensure it is always created from UTC.  When we display a date, we ensure it is always presented as UTC.\r\n\r\nThe approach taken in this PR has been to move the data-handling into two helper functions (`newDate()` and `formatDate()`). Within these functions we can centrally control the timezone related aspects.",
+  "additions": 117,
+  "deletions": 58,
+  "changed_files": 23,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1076658493,
+      "user": "IanMayo",
+      "created_at": "2022-03-23T18:08:53Z",
+      "updated_at": "2022-03-23T18:08:53Z",
+      "body": "Hello @lilitkarapetyan  & @lebaphi - feedback on what I've done here is quite welcome :-)\r\n"
+    },
+    {
+      "id": 1077849700,
+      "user": "IanMayo",
+      "created_at": "2022-03-24T17:10:57Z",
+      "updated_at": "2022-03-24T17:10:57Z",
+      "body": "Aah, @lebaphi  and @lilitkarapetyan - I could do with you helping me with checking the timezones, please.\r\n\r\nI'm keen to check that all timezones see the same values for time.  In that way, one player can refer to \"the message sent at 16:30\" - and someone in another timezone sees the correct time.\r\n\r\nSo, could you please go into the Heroku deployment for this PR, then go into the game titled `Cloudant-Test` as a `Blue` player, and see if you get the message timestamps:\r\n\r\nThe Blue-Chat message should show as being sent at `17:07` and the most recent Admin-Chat should be at `14:04` - as shown below.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/159972035-a9800291-88cc-4802-bb2a-c51c3910a895.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/159972035-a9800291-88cc-4802-bb2a-c51c3910a895.png"
+  ],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 175
+}

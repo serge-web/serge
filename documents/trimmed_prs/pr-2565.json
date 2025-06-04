@@ -1,0 +1,133 @@
+{
+  "number": 2565,
+  "title": "2558_Improved_select_control_for_asset_lists",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-03-07T08:41:54Z",
+  "updated_at": "2023-06-13T13:08:14Z",
+  "closed_at": "2023-06-13T13:08:09Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2565",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2565/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2565/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2565",
+  "body": "Fixes #2558 ",
+  "additions": 107,
+  "deletions": 2,
+  "changed_files": 13,
+  "labels": [
+    "4p9"
+  ],
+  "comments_count": 10,
+  "review_comments_count": 0,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 1458173196,
+      "user": "IanMayo",
+      "created_at": "2023-03-07T13:28:37Z",
+      "updated_at": "2023-03-07T13:28:37Z",
+      "body": "Hello @lilitkarapetyan - thanks for this.\r\n\r\nI tried to use it in a real game, but the new control isn't appearing. \r\n\r\nI've modified the wargame to specify `selectize` for the `Maritime--Patrol` template, so it looks like this:\r\n![image](https://user-images.githubusercontent.com/1108513/223435824-d59fca07-c074-4b96-8640-e5ade6a7650d.png)\r\n\r\nI've pushed this updated wargame to the branch.\r\n\r\nSteps to reproduce:\r\n- log in as blue player, in planning phase\r\n- select a blue asset\r\n- select the `Maritime` -- `Patrol` orders\r\n- draw the necessary lines & shapes\r\n- the Maritime Patrol template will open\r\n- `Own Assets` should use `selectize`"
+    },
+    {
+      "id": 1461361487,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-09T06:22:29Z",
+      "updated_at": "2023-03-09T06:22:29Z",
+      "body": "Hello , I will work on it now."
+    },
+    {
+      "id": 1461628963,
+      "user": "IanMayo",
+      "created_at": "2023-03-09T09:16:23Z",
+      "updated_at": "2023-03-09T09:16:23Z",
+      "body": "Nice work. I've tried the current control, but it only shows the first two matching elements:\r\n![image](https://user-images.githubusercontent.com/1108513/223973505-db9db04c-3a71-4b7a-9405-27222f074c05.png)\r\n\r\nIs it configurable to show more possible answers?"
+    },
+    {
+      "id": 1461663995,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-09T09:36:59Z",
+      "updated_at": "2023-03-09T09:36:59Z",
+      "body": "> \r\n\r\nYes, I am working on it now."
+    },
+    {
+      "id": 1462128092,
+      "user": "IanMayo",
+      "created_at": "2023-03-09T14:08:23Z",
+      "updated_at": "2023-03-09T14:16:01Z",
+      "body": "@lilitkarapetyan  - when I run this on the Heroku deployment, and I create \"maritime patrol\", I don't get selectize.  I see you have a commit to \"update wargamedb\".  Is there a chance that this change has removed the custom template I created for `maritime patrol`\r\n\r\nHmm I don't see `selectize` for maritime-patrol in storybook either:\r\n![image](https://user-images.githubusercontent.com/1108513/224051995-908a2319-8e0a-474f-9114-8db6bd78d6ef.png)\r\n"
+    },
+    {
+      "id": 1463491154,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-10T09:06:31Z",
+      "updated_at": "2023-03-10T09:06:31Z",
+      "body": "\r\n\r\n\r\n\r\n> @lilitkarapetyan - when I run this on the Heroku deployment, and I create \"maritime patrol\", I don't get selectize. I see you have a commit to \"update wargamedb\". Is there a chance that this change has removed the custom template I created for `maritime patrol`\r\n> \r\n> Hmm I don't see `selectize` for maritime-patrol in storybook either: ![image](https://user-images.githubusercontent.com/1108513/224051995-908a2319-8e0a-474f-9114-8db6bd78d6ef.png)\r\n\r\nNo I didn't update the wargames doc yesterday I just added the one you made"
+    },
+    {
+      "id": 1465812807,
+      "user": "IanMayo",
+      "created_at": "2023-03-13T09:44:22Z",
+      "updated_at": "2023-03-13T09:44:22Z",
+      "body": "The list is extended - great.\r\n\r\nBut, I the \"text input\" box isn't there - so users can't start typing in the name to get to the item of interest:\r\n![image](https://user-images.githubusercontent.com/1108513/224664697-d7a31256-1edb-440f-8f33-f961c9cc6559.png)\r\n\r\nIn testing it, I've seen that \"Land - Strike\" uses the Selectize control - that's quicker to open than \"Land Patrol\", since it doesn't require shapes."
+    },
+    {
+      "id": 1469360205,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-15T05:27:27Z",
+      "updated_at": "2023-03-15T05:27:27Z",
+      "body": "I'll take a look at it."
+    },
+    {
+      "id": 1470226071,
+      "user": "IanMayo",
+      "created_at": "2023-03-15T15:23:22Z",
+      "updated_at": "2023-03-15T15:23:22Z",
+      "body": "@lilitkarapetyan  - I still don't see the box where I can start typing the item name into:\r\n<img width=\"221\" alt=\"image\" src=\"https://user-images.githubusercontent.com/1108513/225357441-5ab21bed-9f12-4934-b8cf-81baf068cf8f.png\">\r\n"
+    },
+    {
+      "id": 1471319469,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-16T05:03:58Z",
+      "updated_at": "2023-03-16T05:05:14Z",
+      "body": "Hello @IanMayo. I have checked and it works. You can write in the selection area.\r\n![Screenshot_2](https://user-images.githubusercontent.com/20753599/225519719-2b372d15-0619-4ff9-895a-cbdcc60fdd60.png)\r\n\r\nI have also checked with \"View deployment\" button.\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2558
+  ],
+  "issues": [
+    {
+      "id": 1611625509,
+      "number": 2558,
+      "title": "Improved `<select>` control for asset lists",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-06T15:06:53Z",
+      "updated_at": "2023-11-13T11:34:02Z",
+      "closed_at": "2023-11-13T11:34:02Z",
+      "body": "Players are complaining about how difficult it is to find assets in the \"own force\" and \"opp force\" assets lists.\r\n\r\nThey would like to be able to search for the asset they need.\r\n\r\nThe `json-editor` page lists several components that can be used for the `select` control: https://github.com/json-editor/json-editor#optional-requirements\r\n\r\nWe should find one that works with our snapshot of JSON-editor, and change the template to use it.\r\n\r\nI guess these are the requirements\r\n- allow user to start typing asset name, show matching entries\r\n- only allow single selection\r\n- allow for separate array item `value` and `label`.\r\n\r\nThese are probably the steps:\r\n1. Find working example of third-party select control \r\n2. Integrate new control into story:\r\n    a. `New Message` - `Land Activity` has a suitable control\r\n    b. Open the above story, and find the `JustLandActivity` story\r\n    c. Find the `Land Activity` template that is used in this story .  It's in `planning-message-templates.mock.ts`.  The select control with separate value and label starts at line `935`.\r\n    d. Push the branch to a PR, so Ian can show the deployed version to the players\r\n3. Ian can then update real templates to use this new control ",
+      "labels": [
+        "wontfix",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/223435824-d59fca07-c074-4b96-8640-e5ade6a7650d.png",
+    "https://user-images.githubusercontent.com/1108513/223973505-db9db04c-3a71-4b7a-9405-27222f074c05.png",
+    "https://user-images.githubusercontent.com/1108513/224051995-908a2319-8e0a-474f-9114-8db6bd78d6ef.png",
+    "https://user-images.githubusercontent.com/1108513/224664697-d7a31256-1edb-440f-8f33-f961c9cc6559.png",
+    "https://user-images.githubusercontent.com/1108513/225357441-5ab21bed-9f12-4934-b8cf-81baf068cf8f.png",
+    "https://user-images.githubusercontent.com/20753599/225519719-2b372d15-0619-4ff9-895a-cbdcc60fdd60.png"
+  ],
+  "number_of_changed_files": 13,
+  "total_changed_lines": 109
+}

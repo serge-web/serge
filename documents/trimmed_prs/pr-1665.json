@@ -1,0 +1,69 @@
+{
+  "number": 1665,
+  "title": "introduce image showing assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-11T16:19:46Z",
+  "updated_at": "2022-07-13T09:36:25Z",
+  "closed_at": "2022-07-13T09:36:24Z",
+  "merged_at": "2022-07-13T09:36:23Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1665",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1665/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1665/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1665",
+  "body": "Fixes #1599 \r\nFixes #1547 ",
+  "additions": 2,
+  "deletions": 2,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1599
+  ],
+  "issues": [
+    {
+      "id": 1271424799,
+      "number": 1599,
+      "title": "Channel Intro Issues",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-06-14T22:20:24Z",
+      "updated_at": "2023-11-13T11:58:17Z",
+      "closed_at": "2023-11-13T11:58:17Z",
+      "body": "1. Step 1: The step refers to channels as \"the game channels in the left\" but they occupy a very central part of the screen, and I fear the dimming of the right hand side is not quite intuitive. I'd say we call it the center of the screen.\r\n\r\n![Center Screen](https://user-images.githubusercontent.com/85491794/173698888-fce7c409-5859-4bcd-8c27-bfd5ff49e64c.png)\r\n\r\n2. Did we want to include animation for step 3 (dragging and dropping channels/vertical bars to show users how to do it?)?",
+      "labels": [
+        "wontfix",
+        "4watu"
+      ],
+      "comments": [
+        {
+          "id": 1183293185,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-13T14:24:46Z",
+          "updated_at": "2022-07-13T14:24:46Z",
+          "body": "I don't see how the fix for #1547 through #1665 closes this issue?"
+        },
+        {
+          "id": 1183299777,
+          "user": "IanMayo",
+          "created_at": "2022-07-13T14:30:21Z",
+          "updated_at": "2022-07-13T14:30:35Z",
+          "body": "Aah.  The fix at #1665 amends the tour text.\r\n![image](https://user-images.githubusercontent.com/1108513/178758930-aa982cda-81ba-44c6-93d8-6c2cd66e5246.png)\r\n\r\n\r\nWe don't (yet) have the animation for dragging bars. Re-opening."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/173698888-fce7c409-5859-4bcd-8c27-bfd5ff49e64c.png",
+    "https://user-images.githubusercontent.com/1108513/178758930-aa982cda-81ba-44c6-93d8-6c2cd66e5246.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 4
+}

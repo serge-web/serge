@@ -1,0 +1,286 @@
+{
+  "number": 2970,
+  "title": "Core mapping - Admin Page",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-06-03T08:13:16Z",
+  "updated_at": "2024-08-05T07:49:03Z",
+  "closed_at": "2024-08-05T07:49:02Z",
+  "merged_at": "2024-08-05T07:49:02Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2970",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2970/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2970/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2970",
+  "body": "Fixes #2971 ",
+  "additions": 1708,
+  "deletions": 218,
+  "changed_files": 30,
+  "labels": [],
+  "comments_count": 30,
+  "review_comments_count": 0,
+  "total_comments": 30,
+  "comments_data": [
+    {
+      "id": 2144742140,
+      "user": "IanMayo",
+      "created_at": "2024-06-03T09:38:32Z",
+      "updated_at": "2024-06-03T09:38:32Z",
+      "body": "Hello @lebaphi - the PlayWright testing is currently failing for this.  That's quite understandable, since so much as changed.\r\n\r\nSo, I suggest we (well, you ;-) ) change the CI workflow to comment out the PlayWright testing until this branch is mature, then we will reinstate it."
+    },
+    {
+      "id": 2146936446,
+      "user": "Tristina1788",
+      "created_at": "2024-06-04T08:36:05Z",
+      "updated_at": "2024-06-04T08:36:05Z",
+      "body": "I can see 'Core Mapping' from admin page of game 'P10-Test' . But we still in implementing, so I don't check more on this.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/fcf21761-563a-4fc8-91a6-6d6c756bdd3a)\r\n"
+    },
+    {
+      "id": 2146987225,
+      "user": "IanMayo",
+      "created_at": "2024-06-04T09:00:25Z",
+      "updated_at": "2024-06-04T09:00:25Z",
+      "body": "Nice work so far @lebaphi 😀 "
+    },
+    {
+      "id": 2149131006,
+      "user": "Tristina1788",
+      "created_at": "2024-06-05T07:55:56Z",
+      "updated_at": "2024-06-05T07:55:56Z",
+      "body": "@IanMayo Do you think we should change the 'Delete' icon to '...' icon. And we can have 2 actions (Delete / Duplicate) for each renderer . So that, we can create duplicated renderer and edit properties which we want to change. So it save time for creating.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/cd87e73f-d38b-4fbb-8373-a1a8b630b1bb)\r\n"
+    },
+    {
+      "id": 2149157002,
+      "user": "IanMayo",
+      "created_at": "2024-06-05T08:08:03Z",
+      "updated_at": "2024-06-05T08:08:03Z",
+      "body": "> @IanMayo Do you think we should change the 'Delete' icon to '...' icon. And we can have 2 actions (Delete / Duplicate) for each renderer . So that, we can create duplicated renderer and edit properties which we want to change. So it save time for creating.\r\n\r\nThanks @Tristina1788 - that's a good idea, but we currently only have the two renderers and don't expect them to be duplicated. Let's defer the suggestion for the future.\r\n\r\n"
+    },
+    {
+      "id": 2149231148,
+      "user": "Tristina1788",
+      "created_at": "2024-06-05T08:44:41Z",
+      "updated_at": "2024-06-05T10:56:21Z",
+      "body": "@IanMayo @lebaphi  \r\n- We need 'Core Mapping' on this dropdown list on 'Add Channel' dropdown list.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/eb2c333e-4577-456c-ab80-64fd5290edaa)\r\n\r\n- The confirm popup should show when user click on 'Delete' property of renderer.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2856766c-b403-4f8a-bde3-b821eba9db3d)\r\n\r\n- We should not limit Max Native Zoom/ Max Zoom/ Min Zoom from 1 -> 20. These values should have value > 0 and don't have max number. **Ian here: Actually, can we allow 0 to 20 (inc) - that's the reasonable max range of zoom levels for a Leaflet Map**\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e92f452c-00f3-43de-88ea-8872efb69352)\r\n\r\n- We don't have 'Others' on 'Edit Property' and 'Icon' property doesn't have upload button to change icon\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/28cc84e9-721f-4963-b85a-8c4d49e3962f)\r\n\r\n- Should we have input name of renderer? Currently we have 2 types 'Core', 'MilSym' . If we have same name for renderers. It make admin don't know which renderer he want to update. \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/35c96440-7d30-4dac-85c0-23a1105a8881)\r\n\r\n- In 'Participants' , roles don't shows any value in dropdown list to select\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/8b3e5715-088c-4c49-872e-59566fde69aa)\r\n\r\n- I can't update 'Edit props' to 'True'\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/dd7344c0-e553-44b1-8635-cee836cc9828\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2151954617,
+      "user": "Tristina1788",
+      "created_at": "2024-06-06T10:37:24Z",
+      "updated_at": "2024-06-06T10:37:24Z",
+      "body": "@lebaphi @IanMayo \r\n- Now I can update 'Edit props' to 'True'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/4e84bae3-2f96-4215-97b8-690b81e1f9b5)\r\n\r\n- Confirm popup show when user click on 'Delete' property of renderer as expected\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/b268eeef-8c33-4883-adcb-55f7cd88a26c)\r\n"
+    },
+    {
+      "id": 2158134191,
+      "user": "Tristina1788",
+      "created_at": "2024-06-10T11:49:20Z",
+      "updated_at": "2024-06-10T11:49:36Z",
+      "body": "@lebaphi  @IanMayo We should remove column 'Icon'. And we still don't have the way to update 'Others' because it's not in edit form\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/524a53eb-91bf-4db4-ba9b-5f2c76fc317a)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/cb9d5ed1-3829-4a7a-a0bc-9ca78d34730c)\r\n\r\n- Create new Core Mapping channel make the default core mapping channel lose data\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/e5421b40-06f5-47e2-ac08-61134d9f14b2\r\n\r\n- We should have the way to add 'Participants' . \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/b76e22a1-4d3a-4b04-8250-f892a5eeff44)\r\n\r\n"
+    },
+    {
+      "id": 2158215023,
+      "user": "IanMayo",
+      "created_at": "2024-06-10T12:28:59Z",
+      "updated_at": "2024-06-10T12:28:59Z",
+      "body": "I've just done some testing @lebaphi - it's looking good.   Note: for the `EnumProperty` the game designer needs to provide a list of values (`choices`), and for `NumberProperty` there should be an optional `Format` attribute that controls how the numbers are shown.\r\n\r\nOh, and there should be a `lines` attribute for a `StringProperty`.\r\n\r\nFor string and enum properties there should be a string `default` attribute, and a numeric one for number properties."
+    },
+    {
+      "id": 2160367764,
+      "user": "Tristina1788",
+      "created_at": "2024-06-11T10:15:41Z",
+      "updated_at": "2024-06-11T10:15:41Z",
+      "body": "@lebaphi User role with 'View Props' = false, 'Edit/Remove Feature' = false, 'Move/Resize Feature' = false, user still can see props and edit/remove , move/resize feature \r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/a87874e6-2db5-4a00-95f7-e028da710e31\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2160395510,
+      "user": "IanMayo",
+      "created_at": "2024-06-11T10:30:52Z",
+      "updated_at": "2024-06-11T10:30:52Z",
+      "body": "> @lebaphi User role with 'View Props' = false, 'Edit/Remove Feature' = false, 'Move/Resize Feature' = false, user still can see props and edit/remove , move/resize feature\r\n\r\nThanks for the @Tristina1788 .  I'll start off on the failure to use the props permission.  The mapping permissions may require some trickery we haven't done before (allowing a user to move features from one force but not the other)."
+    },
+    {
+      "id": 2167694113,
+      "user": "Tristina1788",
+      "created_at": "2024-06-14T10:05:12Z",
+      "updated_at": "2024-06-14T10:05:12Z",
+      "body": "@lebaphi  @IanMayo The list roles in force is not correct\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/9b2d010d-551c-4ef7-af10-969ecce1e496)\r\n\r\n- The name of collumns are not correct \r\n \r\n![image](https://github.com/serge-web/serge/assets/107697044/88d2c8be-1c35-4a59-bc1e-995fbc7ec1fd)\r\n\r\n"
+    },
+    {
+      "id": 2168069023,
+      "user": "IanMayo",
+      "created_at": "2024-06-14T13:34:30Z",
+      "updated_at": "2024-06-14T13:34:30Z",
+      "body": "> @lebaphi @IanMayo The list roles in force is not correct\r\n\r\nYes, we should show the role `name`, rather than `id`"
+    },
+    {
+      "id": 2168381499,
+      "user": "IanMayo",
+      "created_at": "2024-06-14T16:35:12Z",
+      "updated_at": "2024-06-14T16:35:12Z",
+      "body": "Hello @lebaphi - for the mapping channel editor in the admin pages, the text inside the badges/lozenges is really small.  I know you had to do that to fit them in the UI.  But, it is possible to trim down the whitespace padding in the badge, so the text can be a little larger?\r\n![image](https://github.com/serge-web/serge/assets/1108513/2e141e4b-b672-4fcd-92e7-dd204422a21b)\r\n"
+    },
+    {
+      "id": 2173285761,
+      "user": "Tristina1788",
+      "created_at": "2024-06-17T12:36:19Z",
+      "updated_at": "2024-06-17T12:51:45Z",
+      "body": "@lebaphi @IanMayo  I get white screen after updating properties of renderer.\r\n\r\nSteps :\r\n1. Update a property of a renderer\r\n2. Logout and login gameplay \r\n3. Click on renderer which has updated for renderer\r\n4. Notice the white screen\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/4b4253c9-840a-4321-ba53-852d7dde756d\r\n\r\n- Zoom numbers are reverted after changing another field\r\n\r\nStesp: \r\n1. Update Max Native Zoom = 1\r\n2. Update Max Zoom = 2\r\n3. Notice Max Native Zoom is reverted to original value (12)\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/466a1301-d30e-46c2-b250-bac906801a11\r\n"
+    },
+    {
+      "id": 2180282212,
+      "user": "Tristina1788",
+      "created_at": "2024-06-20T09:55:29Z",
+      "updated_at": "2024-06-20T09:55:29Z",
+      "body": "@lebaphi @IanMayo \r\n\r\n-  Now 'Zoom numbers are reverted after changing another field' is fixed. I can update these values as expected.\r\n\r\n- Role get correct names\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/70c3ae06-3893-4342-a11b-f11fa3ae8739)\r\n\r\n- Create new renderer and I get white screen in gameplay : \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/6f566818-56b2-4a1c-acf2-b797461652fd\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2180538785,
+      "user": "IanMayo",
+      "created_at": "2024-06-20T12:22:29Z",
+      "updated_at": "2024-06-20T12:22:29Z",
+      "body": "@Tristina1788 - the `new renderer` issue should be fixed in my last commit."
+    },
+    {
+      "id": 2180722982,
+      "user": "Tristina1788",
+      "created_at": "2024-06-20T13:36:27Z",
+      "updated_at": "2024-06-20T13:36:27Z",
+      "body": "> @Tristina1788 - the `new renderer` issue should be fixed in my last commit.\r\n\r\n@IanMayo  Yes, the issue on new renderer is fixed now : https://app.screencast.com/NwfECxUDvz7v6\r\n"
+    },
+    {
+      "id": 2180779782,
+      "user": "IanMayo",
+      "created_at": "2024-06-20T13:58:33Z",
+      "updated_at": "2024-06-20T13:58:33Z",
+      "body": "So is this ready to go @Tristina1788 ?"
+    },
+    {
+      "id": 2182243153,
+      "user": "Tristina1788",
+      "created_at": "2024-06-21T08:15:14Z",
+      "updated_at": "2024-06-21T08:15:14Z",
+      "body": "@IanMayo  @lebaphi  We still have some issues here : \r\n\r\n- We should not limit zoom value from 1->20 , it should be the number > 0  and don't have limit for max\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/11789547-4975-46ce-a7af-5d03436e98b7)\r\n\r\n- Participants is not shows all Force of game. I think we should have button 'Add' , so that we can add more force and  if we delele participants then want to add again.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/34f3a161-b98e-4fd4-8a83-3b7faabab8d7)\r\n\r\n- Subject participants should be Force /Role instead of Force\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e77b17c8-0b0b-478c-8cc1-17403c5c8223)\r\n\r\n- We should have space from shape of text \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/21948854-e4fc-4a2b-b688-2719e938a7ca)\r\n\r\n\r\n- Should we have tool-tip or any way for user understand the short word for type permissions?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/f1fa6c4c-8260-4471-b6c7-22e80c352b5a)\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2182366833,
+      "user": "lebaphi",
+      "created_at": "2024-06-21T09:21:33Z",
+      "updated_at": "2024-06-21T10:12:51Z",
+      "body": "> We should not limit zoom value from 1->20 , it should be the number > 0 and don't have limit for max\r\n\r\nif so, i think we shouldn't use dropdown list, it should be input text. What do you think @IanMayo @Tristina1788 ?"
+    },
+    {
+      "id": 2182598597,
+      "user": "Tristina1788",
+      "created_at": "2024-06-21T11:47:22Z",
+      "updated_at": "2024-06-21T11:47:22Z",
+      "body": "@lebaphi @IanMayo\r\n\r\n- Create new 'Core Mapping' channel , seem it gets same data with 'Core Mapping' default channel. But after click another channel, the new 'Core Mapping' channel return empty data.\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/cf82f01c-9605-4b47-96ea-e3323a183cdf\r\n\r\n- Update permissions from admin page and the tools is lost some functions from gameplay\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/db62f6be-3f33-421c-96a8-320c0a709130\r\n\r\n- The color on core shape is darker after add new renderer 'Core'\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/0c1f9e38-da68-4678-8a03-03692fdd813e\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2184945517,
+      "user": "lebaphi",
+      "created_at": "2024-06-23T11:06:14Z",
+      "updated_at": "2024-06-23T11:06:14Z",
+      "body": "![image](https://github.com/serge-web/serge/assets/26705621/a19240c3-cd5b-4504-85e1-1896f8dc7393)\r\n\r\n=> the channel data does not have the green force, so we don't display it here\r\n\r\n![image](https://github.com/serge-web/serge/assets/26705621/efcc3d1d-e35b-47c6-aa55-890971555e9f)\r\n\r\n=> some participants does not have role, so what do you think @IanMayo ?\r\n\r\n![image](https://github.com/serge-web/serge/assets/26705621/8a27c2be-8bd5-4e87-83fa-9e1cad615ebc)\r\n\r\n=> We can add tooltip and @IanMayo can design details for each permission, but only admins can access this page and I think admin are the one who understand what these permissions mean, do we need more tooltip?\r\n\r\n![image](https://github.com/serge-web/serge/assets/26705621/421f2489-2f78-456e-90db-392482b8981d)\r\n\r\n=> this is because you are adding 2 core renderers => it renders 2 times. Should we allow to add 2 renderers which has the same kind @IanMayo ?"
+    },
+    {
+      "id": 2185623936,
+      "user": "Tristina1788",
+      "created_at": "2024-06-24T05:15:57Z",
+      "updated_at": "2024-06-24T05:15:57Z",
+      "body": "> ![image](https://private-user-images.githubusercontent.com/26705621/342059480-a19240c3-cd5b-4504-85e1-1896f8dc7393.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTkyMDYyMzksIm5iZiI6MTcxOTIwNTkzOSwicGF0aCI6Ii8yNjcwNTYyMS8zNDIwNTk0ODAtYTE5MjQwYzMtY2Q1Yi00NTA0LTg1ZTEtMTg5NmY4ZGM3MzkzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA2MjQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNjI0VDA1MTIxOVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQxZWFiOGQ2OWYxMTE3NzVjZTVlYTUyMTMwMDM2OTY4NDY3MTIzNzExNTYxNzJkNzU1YWRkYjIyNTU2MTg2MTcmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.5DAFHxMdq8WiPBPxxdqHVky2iya7zYslknYJo69q9D0)\r\n> \r\n> => the channel data does not have the green force, so we don't display it here\r\n\r\n@lebaphi @IanMayo I think 'Force' should get from 'Force' tab . So it should has all force or enable to add all force. How do you think?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/7018ebd1-912d-4f2a-b7e7-8a4f1c4afa00)\r\n"
+    },
+    {
+      "id": 2185782950,
+      "user": "Tristina1788",
+      "created_at": "2024-06-24T07:16:33Z",
+      "updated_at": "2024-06-24T07:16:33Z",
+      "body": "@lebaphi @IanMayo \r\n\r\n- Zoom should only able to input number\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/578a9b10-1302-4a97-962e-e684dbaf7557)\r\n\r\n- 'Update permissions from admin page and the tools is lost some functions from gameplay' : it 's fixed\r\n\r\n- Label of property 's render is show wrong\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2450eb30-278d-4dde-889c-7887a9df1d47)\r\n\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/10b4880c-7380-4ff4-a418-e3d0b3cafe61)\r\n\r\n\r\n"
+    },
+    {
+      "id": 2187840411,
+      "user": "lebaphi",
+      "created_at": "2024-06-25T02:36:37Z",
+      "updated_at": "2024-06-25T02:36:37Z",
+      "body": "> > ![image](https://private-user-images.githubusercontent.com/26705621/342059480-a19240c3-cd5b-4504-85e1-1896f8dc7393.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTkyMDYyMzksIm5iZiI6MTcxOTIwNTkzOSwicGF0aCI6Ii8yNjcwNTYyMS8zNDIwNTk0ODAtYTE5MjQwYzMtY2Q1Yi00NTA0LTg1ZTEtMTg5NmY4ZGM3MzkzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA2MjQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNjI0VDA1MTIxOVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQxZWFiOGQ2OWYxMTE3NzVjZTVlYTUyMTMwMDM2OTY4NDY3MTIzNzExNTYxNzJkNzU1YWRkYjIyNTU2MTg2MTcmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.5DAFHxMdq8WiPBPxxdqHVky2iya7zYslknYJo69q9D0)\r\n> > => the channel data does not have the green force, so we don't display it here\r\n> \r\n> @lebaphi @IanMayo I think 'Force' should get from 'Force' tab . So it should has all force or enable to add all force. How do you think?\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/342210032-7018ebd1-912d-4f2a-b7e7-8a4f1c4afa00.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTkyODMwNjAsIm5iZiI6MTcxOTI4Mjc2MCwicGF0aCI6Ii8xMDc2OTcwNDQvMzQyMjEwMDMyLTcwMThlYmQxLTkxMmQtNGYyYS1iN2U3LThhNGYxYzRhZmEwMC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjI1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYyNVQwMjMyNDBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03NjU4M2UyODE0MWNmMTFkMjQ1NTNkMjNhOTYxNDhlNWQ1NzE4OTdhNzRmOTkyNmRiNTMyYmZiZTUwMjY1ZDZiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.Xi6YV4XEr8A1IEjvusJQ7GKdwDooJShLyQ3Mmw0mZDU)\r\n\r\nit should be the force in channel participant I think"
+    },
+    {
+      "id": 2194415702,
+      "user": "Tristina1788",
+      "created_at": "2024-06-27T11:15:57Z",
+      "updated_at": "2024-06-27T11:15:57Z",
+      "body": "@lebaphi  @IanMayo \r\n\r\n- Now Zoom only able to input number\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/8c4c9aae-6906-411a-b12e-604785eeb0da)\r\n\r\n- We have 'Add' for adding participant. But in 'Adding' form, new force don't show its role (Notice : update form can show its role)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/77ef6973-c104-4a70-8a77-42aa451ff439)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/143cadb9-cc00-4039-9f6d-10bf63ed0b49)\r\n\r\n- Subject and permission don't show name of Force \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/659b7524-cb21-4fb5-90ba-019bc4df7aef)\r\n\r\n- Label of property 's renderer show correctly . But coremapping doesn't show property 'Enum'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/57b3d695-fb5e-4176-aad7-764fa2c039aa)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/89a1e7b9-c284-4bf6-b03b-fcfe5a61f6ff)\r\n\r\n- Property with 'Editable' = false, still can edit from mapping\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/8e463175-3722-42d9-8e29-91f4c25e265f\r\n\r\n\r\n-  Create new 'Core Mapping' when user in 'Properties' tab, it still keeps same value with exist coreMapping channel until click \r\nto another tab\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/97e78b61-58d0-4125-89d2-c1f6a0723fbb\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2198481938,
+      "user": "Tristina1788",
+      "created_at": "2024-06-30T08:34:09Z",
+      "updated_at": "2024-06-30T08:34:09Z",
+      "body": "@IanMayo @lebaphi \r\n\r\n- Now issue `We have 'Add' for adding participant. But in 'Adding' form, new force don't show its role (Notice : update form can show its role)` is fixed\r\n- Created new participant and login game play with this user and draw a shape. It will make the exist shape / core are dissapeared.\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/b167d202-7dd3-4da7-8af8-70cc7eca41c2\r\n\r\n- Property enum can be showed as expected. But we should guide them how to create option by Note or tool tip (exapmle :  input option and enter to create a new option )\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2aac8141-0e73-4dbd-8c97-2acbcaee6415)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/f3ab366d-bbc3-4c52-8e44-226b06dd1b24)\r\n\r\n- Participant can show name of force\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/7166811a-59a2-4e4a-86d0-9caaab472541)\r\n\r\n- The renderer shows on gameplay is not correct with config for exist properties (force, important, phase) of renderer ( Example : properties 'Force' of 'Core' has 'editable' = false. But from UI it shows as 'Editable' =true. After update another infors on this properties (ex : Descritpion), gameplay can show correct with properties (Editable from game play is false)\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/46fee2fd-e094-4702-b003-00e2ed6869a7\r\n\r\n- Update property 'Editable' of 'Turn' to false but gameplay always show as 'Editable' = true\r\n\r\n\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2199920827,
+      "user": "Tristina1788",
+      "created_at": "2024-07-01T11:41:05Z",
+      "updated_at": "2024-07-01T11:41:05Z",
+      "body": "@IanMayo @lebaphi\r\n- The exist properties of Core/ MilSym don't get from its properties. (Notice description to know where it gets properties)\r\nExample : \r\n- Category, size : gets properties from MilSym\r\n- Force, Important, Phase, Turn : gets properties from Core\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/54297dd8-d7a9-4a46-8eb5-eab78b583f36\r\n\r\n\r\n\r\n- Force dropdown list for Force properties should gets from 'Force' tab instead of input as enum values. @IanMayo @lebaphi How do you think? Because we can input incorrect name of Force and it will get invalid force to select.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/ac2fea8d-c418-4562-9295-e6a3c5b070a5)\r\n"
+    },
+    {
+      "id": 2200391815,
+      "user": "lebaphi",
+      "created_at": "2024-07-01T14:58:00Z",
+      "updated_at": "2024-07-01T15:01:04Z",
+      "body": ">Force dropdown list for Force properties should gets from 'Force' tab instead of input as enum values. @IanMayo @lebaphi How do you think? Because we can input incorrect name of Force and it will get invalid force to select.\r\n\r\nThis dropdown list is used for admin users to add or remove options for enum properties (we don't have this feature in the design), so we should not add constraints to it I think. What do you think? @IanMayo  "
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/fcf21761-563a-4fc8-91a6-6d6c756bdd3a",
+    "https://github.com/serge-web/serge/assets/107697044/cd87e73f-d38b-4fbb-8373-a1a8b630b1bb",
+    "https://github.com/serge-web/serge/assets/107697044/eb2c333e-4577-456c-ab80-64fd5290edaa",
+    "https://github.com/serge-web/serge/assets/107697044/2856766c-b403-4f8a-bde3-b821eba9db3d",
+    "https://github.com/serge-web/serge/assets/107697044/e92f452c-00f3-43de-88ea-8872efb69352",
+    "https://github.com/serge-web/serge/assets/107697044/28cc84e9-721f-4963-b85a-8c4d49e3962f",
+    "https://github.com/serge-web/serge/assets/107697044/35c96440-7d30-4dac-85c0-23a1105a8881",
+    "https://github.com/serge-web/serge/assets/107697044/8b3e5715-088c-4c49-872e-59566fde69aa",
+    "https://github.com/serge-web/serge/assets/107697044/4e84bae3-2f96-4215-97b8-690b81e1f9b5",
+    "https://github.com/serge-web/serge/assets/107697044/b268eeef-8c33-4883-adcb-55f7cd88a26c",
+    "https://github.com/serge-web/serge/assets/107697044/524a53eb-91bf-4db4-ba9b-5f2c76fc317a",
+    "https://github.com/serge-web/serge/assets/107697044/cb9d5ed1-3829-4a7a-a0bc-9ca78d34730c",
+    "https://github.com/serge-web/serge/assets/107697044/b76e22a1-4d3a-4b04-8250-f892a5eeff44",
+    "https://github.com/serge-web/serge/assets/107697044/9b2d010d-551c-4ef7-af10-969ecce1e496",
+    "https://github.com/serge-web/serge/assets/107697044/88d2c8be-1c35-4a59-bc1e-995fbc7ec1fd",
+    "https://github.com/serge-web/serge/assets/1108513/2e141e4b-b672-4fcd-92e7-dd204422a21b",
+    "https://github.com/serge-web/serge/assets/107697044/70c3ae06-3893-4342-a11b-f11fa3ae8739",
+    "https://github.com/serge-web/serge/assets/107697044/11789547-4975-46ce-a7af-5d03436e98b7",
+    "https://github.com/serge-web/serge/assets/107697044/34f3a161-b98e-4fd4-8a83-3b7faabab8d7",
+    "https://github.com/serge-web/serge/assets/107697044/e77b17c8-0b0b-478c-8cc1-17403c5c8223",
+    "https://github.com/serge-web/serge/assets/107697044/21948854-e4fc-4a2b-b688-2719e938a7ca",
+    "https://github.com/serge-web/serge/assets/107697044/f1fa6c4c-8260-4471-b6c7-22e80c352b5a",
+    "https://github.com/serge-web/serge/assets/26705621/a19240c3-cd5b-4504-85e1-1896f8dc7393",
+    "https://github.com/serge-web/serge/assets/26705621/efcc3d1d-e35b-47c6-aa55-890971555e9f",
+    "https://github.com/serge-web/serge/assets/26705621/8a27c2be-8bd5-4e87-83fa-9e1cad615ebc",
+    "https://github.com/serge-web/serge/assets/26705621/421f2489-2f78-456e-90db-392482b8981d",
+    "https://private-user-images.githubusercontent.com/26705621/342059480-a19240c3-cd5b-4504-85e1-1896f8dc7393.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTkyMDYyMzksIm5iZiI6MTcxOTIwNTkzOSwicGF0aCI6Ii8yNjcwNTYyMS8zNDIwNTk0ODAtYTE5MjQwYzMtY2Q1Yi00NTA0LTg1ZTEtMTg5NmY4ZGM3MzkzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA2MjQlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNjI0VDA1MTIxOVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTQxZWFiOGQ2OWYxMTE3NzVjZTVlYTUyMTMwMDM2OTY4NDY3MTIzNzExNTYxNzJkNzU1YWRkYjIyNTU2MTg2MTcmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.5DAFHxMdq8WiPBPxxdqHVky2iya7zYslknYJo69q9D0",
+    "https://github.com/serge-web/serge/assets/107697044/7018ebd1-912d-4f2a-b7e7-8a4f1c4afa00",
+    "https://github.com/serge-web/serge/assets/107697044/578a9b10-1302-4a97-962e-e684dbaf7557",
+    "https://github.com/serge-web/serge/assets/107697044/2450eb30-278d-4dde-889c-7887a9df1d47",
+    "https://github.com/serge-web/serge/assets/107697044/10b4880c-7380-4ff4-a418-e3d0b3cafe61",
+    "https://private-user-images.githubusercontent.com/107697044/342210032-7018ebd1-912d-4f2a-b7e7-8a4f1c4afa00.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTkyODMwNjAsIm5iZiI6MTcxOTI4Mjc2MCwicGF0aCI6Ii8xMDc2OTcwNDQvMzQyMjEwMDMyLTcwMThlYmQxLTkxMmQtNGYyYS1iN2U3LThhNGYxYzRhZmEwMC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjI1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYyNVQwMjMyNDBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03NjU4M2UyODE0MWNmMTFkMjQ1NTNkMjNhOTYxNDhlNWQ1NzE4OTdhNzRmOTkyNmRiNTMyYmZiZTUwMjY1ZDZiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.Xi6YV4XEr8A1IEjvusJQ7GKdwDooJShLyQ3Mmw0mZDU",
+    "https://github.com/serge-web/serge/assets/107697044/8c4c9aae-6906-411a-b12e-604785eeb0da",
+    "https://github.com/serge-web/serge/assets/107697044/77ef6973-c104-4a70-8a77-42aa451ff439",
+    "https://github.com/serge-web/serge/assets/107697044/143cadb9-cc00-4039-9f6d-10bf63ed0b49",
+    "https://github.com/serge-web/serge/assets/107697044/659b7524-cb21-4fb5-90ba-019bc4df7aef",
+    "https://github.com/serge-web/serge/assets/107697044/57b3d695-fb5e-4176-aad7-764fa2c039aa",
+    "https://github.com/serge-web/serge/assets/107697044/89a1e7b9-c284-4bf6-b03b-fcfe5a61f6ff",
+    "https://github.com/serge-web/serge/assets/107697044/2aac8141-0e73-4dbd-8c97-2acbcaee6415",
+    "https://github.com/serge-web/serge/assets/107697044/f3ab366d-bbc3-4c52-8e44-226b06dd1b24",
+    "https://github.com/serge-web/serge/assets/107697044/7166811a-59a2-4e4a-86d0-9caaab472541",
+    "https://github.com/serge-web/serge/assets/107697044/ac2fea8d-c418-4562-9295-e6a3c5b070a5"
+  ],
+  "number_of_changed_files": 30,
+  "total_changed_lines": 1926
+}

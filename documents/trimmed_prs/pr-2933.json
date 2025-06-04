@@ -1,0 +1,71 @@
+{
+  "number": 2933,
+  "title": "Define mapping participants, include sample data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-05-09T15:54:49Z",
+  "updated_at": "2024-05-16T09:17:13Z",
+  "closed_at": "2024-05-16T09:17:12Z",
+  "merged_at": "2024-05-16T09:17:12Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2933",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2933/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2933/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2933",
+  "body": "Fixes #2931 \r\n\r\n**Note:** still need to change the permissions into per-force",
+  "additions": 115,
+  "deletions": 15,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 2114634636,
+      "user": "Tristina1788",
+      "created_at": "2024-05-16T09:11:27Z",
+      "updated_at": "2024-05-16T09:11:27Z",
+      "body": "@IanMayo  I see some shape has force 'f-Red' but the color is pink. I think it's better if it has red color\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/bbe9fff6-dd97-4a29-a788-dc43510a7b93)\r\n\r\n\r\n- When I update propertiy 'Force' of the shape to 'f-green', the color of shape is pink. => It should green color.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/cae878e9-070e-4a6f-8fbb-6cdcb889af3a)\r\n"
+    },
+    {
+      "id": 2114652675,
+      "user": "IanMayo",
+      "created_at": "2024-05-16T09:15:48Z",
+      "updated_at": "2024-05-16T09:15:48Z",
+      "body": "> @IanMayo I see some shape has force 'f-Red' but the color is pink. I think it's better if it has red color\r\n\r\nThanks @Tristina1788 - but that doesn't seem related to this PR.  Could you create it as a fresh issue please?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2931
+  ],
+  "issues": [
+    {
+      "id": 2287224955,
+      "number": 2931,
+      "title": "Design mapping permissions model",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-05-09T08:57:23Z",
+      "updated_at": "2024-05-16T09:17:13Z",
+      "closed_at": "2024-05-16T09:17:13Z",
+      "body": "We (Ian) will need to design the permissions data model for editing mapping data. Roles will have some combination of [Add/Delete], [Move/Resize], [Edit all props], [Edit user editable props]. Umpire permissions apply to shapes of all forces, other forces only control their own.",
+      "labels": [
+        "4p10",
+        "4hat"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/bbe9fff6-dd97-4a29-a788-dc43510a7b93",
+    "https://github.com/serge-web/serge/assets/107697044/cae878e9-070e-4a6f-8fbb-6cdcb889af3a"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 130
+}

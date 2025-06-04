@@ -1,0 +1,30 @@
+{
+  "number": 2298,
+  "title": "2260b perceived location",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-26T13:27:23Z",
+  "updated_at": "2023-01-26T14:00:41Z",
+  "closed_at": "2023-01-26T14:00:40Z",
+  "merged_at": "2023-01-26T14:00:39Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2298",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2298/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2298/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2298",
+  "body": "Supports #2260 \r\nFixes #2259 ",
+  "additions": 1692,
+  "deletions": 393,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 2085
+}

@@ -1,0 +1,30 @@
+{
+  "number": 2325,
+  "title": "Hotfix sub type for op for",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-06T12:28:35Z",
+  "updated_at": "2023-02-06T14:23:26Z",
+  "closed_at": "2023-02-06T14:23:25Z",
+  "merged_at": "2023-02-06T14:23:24Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2325",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2325/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2325/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2325",
+  "body": "We weren't showing drop-down filter for op-for assets, making target designation more difficult",
+  "additions": 6,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 6
+}

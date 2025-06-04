@@ -1,0 +1,110 @@
+{
+  "number": 1554,
+  "title": "1553: Fix scss changed does not recompile src code",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-05-12T12:46:41Z",
+  "updated_at": "2022-05-13T11:53:07Z",
+  "closed_at": "2022-05-13T11:53:06Z",
+  "merged_at": "2022-05-13T11:53:06Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1554",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1554/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1554/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1554",
+  "body": "Fixes #1153 \r\n\r\nSo my solution is:\r\n- Clone `node-sass-chokidar` from https://github.com/michaelwayman/node-sass-chokidar/tree/release\r\n- Edit `package.json`, increase version of `node-sass` to latest\r\n- Using pkg to package this project to executable file then we can use as the way we want.\r\n\r\nTested on MacOs\r\n\r\nhttps://user-images.githubusercontent.com/26705621/168073061-3c8fd844-8cfd-459e-9bc7-569d57679b74.mov\r\n\r\n\r\n",
+  "additions": 9,
+  "deletions": 4,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 2,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1125061665,
+      "user": "IanMayo",
+      "created_at": "2022-05-12T14:25:00Z",
+      "updated_at": "2022-05-12T14:25:00Z",
+      "body": "Thanks for this solution @lebaphi \r\n\r\nIf I can, I'd like to avoid a binary dependency.  Have you checked if `dart-scss` would meet our requirements?\r\nhttps://sass-lang.com/documentation/cli/dart-sass"
+    },
+    {
+      "id": 1125087570,
+      "user": "lebaphi",
+      "created_at": "2022-05-12T14:47:23Z",
+      "updated_at": "2022-05-12T15:00:52Z",
+      "body": "> Thanks for this solution @lebaphi\r\n> \r\n> If I can, I'd like to avoid a binary dependency. Have you checked if `dart-scss` would meet our requirements? https://sass-lang.com/documentation/cli/dart-sass\r\n\r\nyep I've checked but got no luck, I also thought current solution is not good enough because the binary size is too big. Need to reduce the file size or find another better"
+    },
+    {
+      "id": 1125164685,
+      "user": "lebaphi",
+      "created_at": "2022-05-12T15:56:15Z",
+      "updated_at": "2022-05-12T15:56:15Z",
+      "body": "@IanMayo I think the last commit is the best solution 😄 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 871466585,
+      "user": "IanMayo",
+      "created_at": "2022-05-12T14:40:12Z",
+      "updated_at": "2022-05-12T14:40:12Z",
+      "body": "@lebaphi - I think `build` just does a single build.  I thought that `develop` did the _watch_ on the codebase.",
+      "path": "package.json",
+      "diff_hunk": "@@ -36,7 +37,7 @@\n     \"lint\": \"lerna run lint --stream\",\n     \"storybook\": \"lerna run storybook --scope @serge/components --stream\",\n     \"build-storybook\": \"lerna run build-storybook --scope @serge/components --stream\",\n-    \"build\": \"lerna run build --scope @serge/components --scope @serge/config --scope @serge/helpers --scope @serge/store --scope @serge/client --stream\",\n+    \"build\": \"yarn sass-watcher & lerna run build --scope @serge/components --scope @serge/config --scope @serge/helpers --scope @serge/store --scope @serge/client --stream\",",
+      "html_url": "https://github.com/serge-web/serge/pull/1554#discussion_r871466585"
+    },
+    {
+      "id": 871473446,
+      "user": "lebaphi",
+      "created_at": "2022-05-12T14:46:11Z",
+      "updated_at": "2022-05-12T14:46:12Z",
+      "body": "@IanMayo it runs the script `sass-watcher` to copy the binary to `node_modules/.bin/`, does not watch :D",
+      "path": "package.json",
+      "diff_hunk": "@@ -36,7 +37,7 @@\n     \"lint\": \"lerna run lint --stream\",\n     \"storybook\": \"lerna run storybook --scope @serge/components --stream\",\n     \"build-storybook\": \"lerna run build-storybook --scope @serge/components --stream\",\n-    \"build\": \"lerna run build --scope @serge/components --scope @serge/config --scope @serge/helpers --scope @serge/store --scope @serge/client --stream\",\n+    \"build\": \"yarn sass-watcher & lerna run build --scope @serge/components --scope @serge/config --scope @serge/helpers --scope @serge/store --scope @serge/client --stream\",",
+      "html_url": "https://github.com/serge-web/serge/pull/1554#discussion_r871473446"
+    }
+  ],
+  "issue_numbers": [
+    1553
+  ],
+  "issues": [
+    {
+      "id": 1233878590,
+      "number": 1553,
+      "title": "SCSS file changed does not recompile",
+      "state": "closed",
+      "user": "lebaphi",
+      "created_at": "2022-05-12T12:02:20Z",
+      "updated_at": "2022-05-17T14:20:59Z",
+      "closed_at": "2022-05-17T14:20:59Z",
+      "body": null,
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1128646109,
+          "user": "IanMayo",
+          "created_at": "2022-05-17T09:36:51Z",
+          "updated_at": "2022-05-17T09:36:51Z",
+          "body": "Is this fixed in #1554 @lebaphi ?"
+        },
+        {
+          "id": 1128933656,
+          "user": "lebaphi",
+          "created_at": "2022-05-17T14:20:59Z",
+          "updated_at": "2022-05-17T14:20:59Z",
+          "body": "Yes, it was fixed @IanMayo 😄 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 13
+}

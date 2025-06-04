@@ -1,0 +1,91 @@
+{
+  "number": 897,
+  "title": "remove listener adding on error",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-01T10:10:52Z",
+  "updated_at": "2021-07-01T15:06:20Z",
+  "closed_at": "2021-07-01T15:06:19Z",
+  "merged_at": "2021-07-01T15:06:19Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/897",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/897/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/897/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/897",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#874\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\nI was unable to get the error. But I guess that part triggering on errors and adding new listener\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 6,
+  "deletions": 6,
+  "changed_files": 1,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 0,
+  "review_comments_count": 1,
+  "total_comments": 1,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 662346468,
+      "user": "IanMayo",
+      "created_at": "2021-07-01T14:35:15Z",
+      "updated_at": "2021-07-01T14:35:15Z",
+      "body": "Hello @lilitkarapetyan - is it ok if we log this error?",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -122,11 +121,12 @@ export const listenNewMessage = ({ db, name, dispatch }: ListenNewMessageType):\n         dispatch(setLatestWargameMessage(doc))\n       }\n     })()\n-  }).on('error', (_err) => {\n+  }).on('error', (err) => {\n+    console.log('error on listen for new message', err)",
+      "html_url": "https://github.com/serge-web/serge/pull/897#discussion_r662346468"
+    }
+  ],
+  "issue_numbers": [
+    874
+  ],
+  "issues": [
+    {
+      "id": 930313712,
+      "number": 874,
+      "title": "On first login, messages appear to get sent twice",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-25T16:10:23Z",
+      "updated_at": "2021-09-10T12:48:46Z",
+      "closed_at": "2021-09-10T12:48:45Z",
+      "body": "When we first login, any messages we send appear in the channel twice.\r\n\r\nIf we refresh the page, the messages are only displayed once, and we see that the issue is in rendering, rather than the message getting sent twice (since we see there is now only one copy).\r\n\r\n![screencast](https://i.gyazo.com/d240ad4c51322f3851935f45a23dbb90.gif)\r\n\r\nNote, I've looked at the network tab in Dev tools. It shows that we've registered twice to listen for `_changes`:\r\n![image](https://user-images.githubusercontent.com/1108513/123454022-021c6680-d5d8-11eb-957e-9bd3f428ae0d.png)\r\n\r\nIf I refresh the page, then we only register once for `_changes:`:\r\n![image](https://user-images.githubusercontent.com/1108513/123454158-27a97000-d5d8-11eb-963e-7265e3aaa198.png)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 872797056,
+          "user": "IanMayo",
+          "created_at": "2021-07-02T07:53:26Z",
+          "updated_at": "2021-07-02T07:53:38Z",
+          "body": "_Hopefully_ fixed in #897 \r\n\r\nWill reopen if it fails test."
+        },
+        {
+          "id": 885556503,
+          "user": "IanMayo",
+          "created_at": "2021-07-23T10:48:58Z",
+          "updated_at": "2021-07-23T11:20:26Z",
+          "body": "Aah, the fix here has had an impact.\r\n\r\nThe fix removed a listener.  But now, when a game first loads, it does not hear new messages.   Once the page has been refreshed, the listener works.\r\n\r\nNote: this issue is difficult to reproduce.  It certainly happens - including reports from users who are not seeing new messages.  But, after an F5 refresh it is difficult to make the issue occur\r\n\r\nSteps to reproduce:\r\n* Open this Serge instance: https://serge-review.herokuapp.com\r\n* Click `Play` button\r\n* Open game titled `CmdWk - High Data`\r\n* Login as `White-Game Control`\r\n* Create message in `BLUE RFI` channel\r\n* Senf message\r\n* Note that message is not displayed.  \r\n* Press F5 (refresh)\r\n* Note that message is displayed\r\n* Also note that new sent messages are now displayed"
+        },
+        {
+          "id": 916878941,
+          "user": "IanMayo",
+          "created_at": "2021-09-10T12:48:45Z",
+          "updated_at": "2021-09-10T12:48:45Z",
+          "body": "Fixed. We now always receive updates, and don't get any duplication."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/d240ad4c51322f3851935f45a23dbb90.gif",
+    "https://user-images.githubusercontent.com/1108513/123454022-021c6680-d5d8-11eb-957e-9bd3f428ae0d.png",
+    "https://user-images.githubusercontent.com/1108513/123454158-27a97000-d5d8-11eb-963e-7265e3aaa198.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 12
+}

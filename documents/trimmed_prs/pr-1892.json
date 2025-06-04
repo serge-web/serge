@@ -1,0 +1,61 @@
+{
+  "number": 1892,
+  "title": "1887 highlight selected item",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-26T17:41:56Z",
+  "updated_at": "2022-09-26T18:24:37Z",
+  "closed_at": "2022-09-26T18:24:36Z",
+  "merged_at": "2022-09-26T18:24:36Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1892",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1892/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1892/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1892",
+  "body": "Supports #1887",
+  "additions": 4,
+  "deletions": 4,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1887
+  ],
+  "issues": [
+    {
+      "id": 1386346604,
+      "number": 1887,
+      "title": "Make selected item(s) stand out more",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-26T16:06:43Z",
+      "updated_at": "2022-09-30T09:22:10Z",
+      "closed_at": "2022-09-30T09:22:10Z",
+      "body": "When an item is selected, we render it in a circular icon, and provide a white border.\r\n\r\nThis isn't clear enough to the analysts that saw it today.\r\n\r\nCould we experiment with a solid black border?",
+      "labels": [
+        "spatial",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1258392754,
+          "user": "IanMayo",
+          "created_at": "2022-09-26T17:42:03Z",
+          "updated_at": "2022-09-27T12:32:26Z",
+          "body": "I've made a PR #1887 to make a slight improvement to this, but this is much better:\r\nhttps://github.com/mapshakers/leaflet-icon-pulse\r\n\r\n![pulse](https://user-images.githubusercontent.com/1108513/192344853-97330b49-9ef5-4bde-b80d-ee7028d76420.gif)\r\n\r\nNote: _hopefully_ we'll configure the pulsing icon to only show the pulse - not the central icon.\r\n\r\nI _guess_ we'll modify `PlanningForce` to have two markers if the asset is selected.  If it is selected, we'll display the normal `AssetIcon` plus a pulse icon.\r\n\r\nHmm, I've just looked at the source code for `leaflet-icon-pulse`.  It looks like it's just a css effect, so maybe we don't need the plugin - we just copy/apply the CSS via a `selected` class.\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/192344853-97330b49-9ef5-4bde-b80d-ee7028d76420.gif"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 8
+}

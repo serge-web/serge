@@ -1,0 +1,50 @@
+{
+  "number": 2351,
+  "title": "2299 improve export",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-09T17:33:52Z",
+  "updated_at": "2023-02-09T18:42:26Z",
+  "closed_at": "2023-02-09T18:42:24Z",
+  "merged_at": "2023-02-09T18:42:24Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2351",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2351/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2351/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2351",
+  "body": "Fixes #2299 ",
+  "additions": 30,
+  "deletions": 45,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2299
+  ],
+  "issues": [
+    {
+      "id": 1558250844,
+      "number": 2299,
+      "title": "Export to CSV improvements",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-26T14:41:47Z",
+      "updated_at": "2023-02-09T18:42:26Z",
+      "closed_at": "2023-02-09T18:42:26Z",
+      "body": "The first version is out there, in `handleExport`.\n\nI've spotted some issues, and scientists have made some requests:\n- [x] provide tooltip to button\n- [x] remove duplicate xlsx in generated filename\n- [x] filename should use game-date at time of export, not current time\n- [x] some composite objects are being presented as `\"[object Object]\"`.  These need to be spotted in the XLSX, and unpacked at the parse stage\n- [ ] move the game forward through a few turns and re-do export, so scientists can consider changing values of things like health ",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 75
+}

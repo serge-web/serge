@@ -1,0 +1,121 @@
+{
+  "number": 1298,
+  "title": "[1278] Update filter for collab channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-13T13:08:18Z",
+  "updated_at": "2022-01-24T12:15:43Z",
+  "closed_at": "2022-01-24T12:15:43Z",
+  "merged_at": "2022-01-24T12:15:42Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1298",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1298/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1298/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1298",
+  "body": null,
+  "additions": 30,
+  "deletions": 28,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 5,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 1013039704,
+      "user": "IanMayo",
+      "created_at": "2022-01-14T11:29:29Z",
+      "updated_at": "2022-01-14T11:29:29Z",
+      "body": "I'm not sure about the general idea here @lebaphi .\r\n\r\nIf we filter the channels so that only collab-channels are seen, we can't see the other channel types (such as chat or mapping).\r\n\r\nThat's not an option.  But, what are you proposing here?"
+    },
+    {
+      "id": 1013048242,
+      "user": "lebaphi",
+      "created_at": "2022-01-14T11:42:49Z",
+      "updated_at": "2022-01-14T11:42:49Z",
+      "body": "> I'm not sure about the general idea here @lebaphi .\r\n> \r\n> If we filter the channels so that only collab-channels are seen, we can't see the other channel types (such as chat or mapping).\r\n> \r\n> That's not an option. But, what are you proposing here?\r\n\r\nHi @IanMayo, the idea is do the filter to show all the valid channels in the admin controls page. In the past I see we show a un support message when clicking on the legacy channel data, so we can do a filter here then the legacy channel won’t show up in the admin controls page. We should update the filter condition, I think it’s not enough 😉"
+    },
+    {
+      "id": 1013049585,
+      "user": "IanMayo",
+      "created_at": "2022-01-14T11:45:01Z",
+      "updated_at": "2022-01-14T11:45:01Z",
+      "body": "> We should update the filter condition, I think it’s not enough 😉\r\n\r\nAhh, ok. I see.  The _actual_ answer is to delete the legacy channel. I should have done that :-)\r\n\r\nBut, I _think_ we will still have a problem where switching between `chat` and `collab` channels can still show the wrong columns.\r\n"
+    },
+    {
+      "id": 1013053351,
+      "user": "lebaphi",
+      "created_at": "2022-01-14T11:51:34Z",
+      "updated_at": "2022-01-14T11:51:46Z",
+      "body": "> Ahh, ok. I see. The actual answer is to delete the legacy channel. I should have done that :-)\r\n\r\nIf we can delete the legacy data, it would be ok. I though to make it work with the legacy data in the old user machine :D"
+    },
+    {
+      "id": 1013063091,
+      "user": "lebaphi",
+      "created_at": "2022-01-14T12:06:30Z",
+      "updated_at": "2022-01-14T12:06:30Z",
+      "body": "> But, I think we will still have a problem where switching between chat and collab channels can still show the wrong columns.\r\n\r\nI will check it out @IanMayo "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 784706229,
+      "user": "IanMayo",
+      "created_at": "2022-01-14T09:52:56Z",
+      "updated_at": "2022-01-14T09:52:57Z",
+      "body": "Hello @lebaphi  - do you recognise what this commented out block is doing?  It was failing at runtime. I couldn't see what it was doing, so commented it out.  That may have been a silly thing to do 😉 ",
+      "path": "packages/components/src/local/organisms/setting-channels/index.tsx",
+      "diff_hunk": "@@ -152,14 +147,7 @@ export const SettingChannels: React.FC<PropTypes> = ({\n       setLocalChannelUpdates(localChannelUpdates)\n     }\n \n-    const handleChangeRow = (nextItems: Array<RowItem>, /* _itKey: number, */ participant: CoreParticipant): Array<RowItem> => {\n-      // TODO: this next block was failing, because the [2] item was empty. Find out what the code",
+      "html_url": "https://github.com/serge-web/serge/pull/1298#discussion_r784706229"
+    },
+    {
+      "id": 784716843,
+      "user": "IanMayo",
+      "created_at": "2022-01-14T10:08:08Z",
+      "updated_at": "2022-01-14T10:08:08Z",
+      "body": "yes, this is more neat 🤣 ",
+      "path": "packages/components/src/local/organisms/setting-channels/index.tsx",
+      "diff_hunk": "@@ -194,9 +182,14 @@ export const SettingChannels: React.FC<PropTypes> = ({\n       return dParts.map((participant, participantKey) => {\n         const handleSaveRow = (row: Array<RowItem>): void => {\n           const nextParticipants = [...data.participants]\n-          nextParticipants[participantKey] = isCollab\n-            ? rowToParticipantCollab(forces, row, participant as ParticipantCollab) : isChat ? rowToParticipantChat(forces, row, participant as ParticipantChat)\n-              : rowToParticipantCustom(messageTemplatesOptions, forces, row, participant as ParticipantCustom)\n+          if (isCollab) {",
+      "html_url": "https://github.com/serge-web/serge/pull/1298#discussion_r784716843"
+    },
+    {
+      "id": 784780805,
+      "user": "IanMayo",
+      "created_at": "2022-01-14T11:47:07Z",
+      "updated_at": "2022-01-14T11:47:07Z",
+      "body": "hmm, doesn't `map` return a new array?  The returned results aren't being processed here. Shouldn't it be a `foreach` array function call?\r\n(please teach me better JS :-D ).",
+      "path": "packages/client/src/Views/GameSetupNew.jsx",
+      "diff_hunk": "@@ -202,8 +205,11 @@ const AdminGameSetup = () => {\n       const template = forceTemplate\n       template.name = id\n       template.uniqid = id\n-      template.roles.map(role => role.roleId = getUniquePasscode(forces.forces, \"p\"))\n-      await dispatch(saveForce(currentWargame, id, template, id))\n+      template.roles.map(role => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1298#discussion_r784780805"
+    },
+    {
+      "id": 784782559,
+      "user": "lebaphi",
+      "created_at": "2022-01-14T11:50:03Z",
+      "updated_at": "2022-01-14T11:50:03Z",
+      "body": "I just fix the lint checking :D \r\n![image](https://user-images.githubusercontent.com/26705621/149510987-844a8368-c3f7-408e-9f68-8a412200a4ca.png)\r\n",
+      "path": "packages/client/src/Views/GameSetupNew.jsx",
+      "diff_hunk": "@@ -202,8 +205,11 @@ const AdminGameSetup = () => {\n       const template = forceTemplate\n       template.name = id\n       template.uniqid = id\n-      template.roles.map(role => role.roleId = getUniquePasscode(forces.forces, \"p\"))\n-      await dispatch(saveForce(currentWargame, id, template, id))\n+      template.roles.map(role => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1298#discussion_r784782559"
+    },
+    {
+      "id": 790642534,
+      "user": "IanMayo",
+      "created_at": "2022-01-24T11:14:21Z",
+      "updated_at": "2022-01-24T11:14:21Z",
+      "body": "I'm going to remove the above block @lebaphi  - the correct fix is to remove (delete) channels in legacy formats. I'll (try) to modify the UI to show a \"legacy channel\" warning snippet when one is encountered. This will lead me/us to fix the data in the wargame definition.",
+      "path": "packages/client/src/Views/GameSetupNew.jsx",
+      "diff_hunk": "@@ -55,6 +56,11 @@ const AdminGameSetup = () => {\n     channels\n   } = data\n   const tabs = Object.keys(data)\n+\n+  // filter out all legacy channels\n+  const allChannels = channels.channels\n+  channels.channels = allChannels.filter(channel => !channel.format || !LEGACY_CHANNEL.includes(channel.format))",
+      "html_url": "https://github.com/serge-web/serge/pull/1298#discussion_r790642534"
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/149510987-844a8368-c3f7-408e-9f68-8a412200a4ca.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 58
+}

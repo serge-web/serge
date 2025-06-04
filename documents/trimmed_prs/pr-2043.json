@@ -1,0 +1,52 @@
+{
+  "number": 2043,
+  "title": "2040 tile layer",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-10T18:42:05Z",
+  "updated_at": "2022-11-10T18:55:00Z",
+  "closed_at": "2022-11-10T18:54:59Z",
+  "merged_at": "2022-11-10T18:54:59Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2043",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2043/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2043/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2043",
+  "body": "Fixes #2040",
+  "additions": 26,
+  "deletions": 10,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2040
+  ],
+  "issues": [
+    {
+      "id": 1444117104,
+      "number": 2040,
+      "title": "SupportPlanning needs to take tile layer location from channel definition",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-10T15:33:35Z",
+      "updated_at": "2022-11-10T18:55:00Z",
+      "closed_at": "2022-11-10T18:55:00Z",
+      "body": "The tile source is currently hard-coded in `MapConstraints.tsx`\r\n\r\nWe're going to be using another tile source. We may have to fiddle around with the folder location.  We can't do this if it is hard-coded.  So, we'll have to take it from the database definition.",
+      "labels": [
+        "bug",
+        "4p9",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 36
+}

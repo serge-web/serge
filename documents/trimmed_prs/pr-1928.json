@@ -1,0 +1,122 @@
+{
+  "number": 1928,
+  "title": "use JsonEditor in MessageCreator",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-14T15:58:04Z",
+  "updated_at": "2022-10-24T12:58:47Z",
+  "closed_at": "2022-10-24T12:11:38Z",
+  "merged_at": "2022-10-24T12:11:38Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1928",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1928/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1928/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1928",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1867\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 299,
+  "deletions": 400,
+  "changed_files": 20,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 2,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1279188032,
+      "user": "IanMayo",
+      "created_at": "2022-10-14T15:59:44Z",
+      "updated_at": "2022-10-14T15:59:44Z",
+      "body": "Thanks @lilitkarapetyan - DeepScan has found a couple of small problems."
+    },
+    {
+      "id": 1279213274,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-10-14T16:22:15Z",
+      "updated_at": "2022-10-14T16:22:15Z",
+      "body": "> Thanks @lilitkarapetyan - DeepScan has found a couple of small problems.\r\n\r\nI will fix the problems"
+    },
+    {
+      "id": 1282063434,
+      "user": "IanMayo",
+      "created_at": "2022-10-18T09:09:13Z",
+      "updated_at": "2022-10-18T09:53:03Z",
+      "body": "Thanks @lilitkarapetyan  - I've re-enabled the `story` for `json-editor`, so I can check the date support.  But, nothing is shown.\r\n\r\nOne other thing.  We still have instances where `JSONEditor()` is called.  I hope these are legacy code that we can delete.  Aah, `json-schema-editor` can probably stay, since that's a very specialised use of the JSONEditor.  Here are the other instances:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/196388016-95af5e35-94a9-4292-9548-cdc9334a6147.png)\r\n\r\n\r\nSo, two changes, please:\r\n1. Get the story working\r\n2. Remove other calls to `JsonEditor()` - to be sure we're just using the one component."
+    },
+    {
+      "id": 1282152131,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-10-18T10:11:53Z",
+      "updated_at": "2022-10-18T10:11:53Z",
+      "body": "> Thanks @lilitkarapetyan - I've re-enabled the `story` for `json-editor`, so I can check the date support. But, nothing is shown.\r\n> \r\n> One other thing. We still have instances where `JSONEditor()` is called. I hope these are legacy code that we can delete. Aah, `json-schema-editor` can probably stay, since that's a very specialised use of the JSONEditor. Here are the other instances:\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/196388016-95af5e35-94a9-4292-9548-cdc9334a6147.png)\r\n> \r\n> So, two changes, please:\r\n> \r\n>     1. Get the story working\r\n> \r\n>     2. Remove other calls to `JsonEditor()` - to be sure we're just using the one component.\r\nHello Ian, I will work on it \r\n"
+    },
+    {
+      "id": 1283918651,
+      "user": "IanMayo",
+      "created_at": "2022-10-19T12:16:15Z",
+      "updated_at": "2022-10-19T12:16:15Z",
+      "body": "Hello @lilitkarapetyan ,  `MessageCreator` takes a prop called `customizeTemplate`.  This modifies the template, potentially setting default values, or populating drop-downs.\r\n\r\nHere is an example of `customizeTemplate` from `SupportPanel`:\r\n![image](https://user-images.githubusercontent.com/1108513/196687981-30916174-fcf4-4d00-a4fd-c8d4de1da26d.png)\r\n\r\nIf one is supplied, we need to apply the `customizeTemplate` function to the selected template in `MessageCreator`."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 995914751,
+      "user": "IanMayo",
+      "created_at": "2022-10-14T16:01:23Z",
+      "updated_at": "2022-10-14T16:01:24Z",
+      "body": "@lilitkarapetyan  - it looks like we're losing a block of functionality here.    I guess we have to move these custom editors, and custom validators to `JSON-Editor`.  Aah, unless they are there already :-)",
+      "path": "packages/components/src/local/form-elements/message-creator/index.tsx",
+      "diff_hunk": "@@ -113,153 +108,30 @@ const MessageCreator: React.FC<PropTypes> = ({\n \n   const onPopupConfirm = (event: MouseEvent<HTMLButtonElement>): void => {\n     setConfirmIsOpen(false)\n+    setClearName(messageOption)\n     clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])\n-    editor && editor.destroy()\n     onCancel && onCancel(event)\n   }\n \n-  const destroyEditor = (editorObject: Editor | null): void => {\n-    if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }\n-  }\n-\n   useEffect(() => {\n-    if (!schema) {\n-      destroyEditor(editor)\n-    }\n+    const privateValues: string | undefined = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)\n+    setPrivateValue(privateValues)\n+    \n     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {\n-      destroyEditor(editor)\n       setSelectedSchema(schema)\n     }\n \n-    if (schema && schema.type) {\n-      if (editor && (editor.ready || !editor.destroyed)) return\n-      createEditor(schema)\n-    }\n-\n-    return (): void => {\n-      destroyEditor(editor)\n-    }\n   }, [schema, messageOption, confirmIsOpen])\n \n-  useEffect(() => {\n-    const formValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(messageOption)\n-    const privateValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)\n-    setPrivateValue(privateValue)\n-\n-    const valueTimer = setTimeout(() => {\n-      if (formValue) return editor && editor.setValue(formValue)\n-    }, 10)\n-\n-    return (): void => clearTimeout(valueTimer)\n-  }, [editor])\n-\n-  /**\n-   * helper function to for validation Datetime or Date or Time props of json\n-   */\n-  const configCommonValidation = (",
+      "html_url": "https://github.com/serge-web/serge/pull/1928#discussion_r995914751"
+    },
+    {
+      "id": 995927085,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-10-14T16:16:12Z",
+      "updated_at": "2022-10-14T16:16:13Z",
+      "body": "I will work on it",
+      "path": "packages/components/src/local/form-elements/message-creator/index.tsx",
+      "diff_hunk": "@@ -113,153 +108,30 @@ const MessageCreator: React.FC<PropTypes> = ({\n \n   const onPopupConfirm = (event: MouseEvent<HTMLButtonElement>): void => {\n     setConfirmIsOpen(false)\n+    setClearName(messageOption)\n     clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])\n-    editor && editor.destroy()\n     onCancel && onCancel(event)\n   }\n \n-  const destroyEditor = (editorObject: Editor | null): void => {\n-    if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }\n-  }\n-\n   useEffect(() => {\n-    if (!schema) {\n-      destroyEditor(editor)\n-    }\n+    const privateValues: string | undefined = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)\n+    setPrivateValue(privateValues)\n+    \n     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {\n-      destroyEditor(editor)\n       setSelectedSchema(schema)\n     }\n \n-    if (schema && schema.type) {\n-      if (editor && (editor.ready || !editor.destroyed)) return\n-      createEditor(schema)\n-    }\n-\n-    return (): void => {\n-      destroyEditor(editor)\n-    }\n   }, [schema, messageOption, confirmIsOpen])\n \n-  useEffect(() => {\n-    const formValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(messageOption)\n-    const privateValue = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)\n-    setPrivateValue(privateValue)\n-\n-    const valueTimer = setTimeout(() => {\n-      if (formValue) return editor && editor.setValue(formValue)\n-    }, 10)\n-\n-    return (): void => clearTimeout(valueTimer)\n-  }, [editor])\n-\n-  /**\n-   * helper function to for validation Datetime or Date or Time props of json\n-   */\n-  const configCommonValidation = (",
+      "html_url": "https://github.com/serge-web/serge/pull/1928#discussion_r995927085"
+    }
+  ],
+  "issue_numbers": [
+    1867
+  ],
+  "issues": [
+    {
+      "id": 1382217524,
+      "number": 1867,
+      "title": "Use <JsonEditor> in <MessageCreator>",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-22T10:30:03Z",
+      "updated_at": "2022-10-24T12:59:01Z",
+      "closed_at": "2022-10-24T12:59:01Z",
+      "body": "I've modified `<JsonEditor>` to allow external modules to modify the template.  This allows, for example, the dropdown list of assets in a form to be created from the actual assets in the game.\r\n\r\nBut, `<MessageCreator>` uses it's own `new JSONEditor()` code to create the editor control.\r\n\r\nWe should switch this class to use `<JsonEditor>` instead.\r\n\r\nNote: when we do this, we will need to modify `<JsonEditor>` to make the `messageContent` and `messageId` optional.  When `messageId` is missing, we should provide a `_.uniqueID` value for it in `JsonEditor`.  **Update:** - hold on, we probably won't create the `_,.uniqId` - because that comes from PouchDb when we push the new document.",
+      "labels": [
+        "Technical Debt",
+        "4p9",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1288996511,
+          "user": "IanMayo",
+          "created_at": "2022-10-24T12:59:01Z",
+          "updated_at": "2022-10-24T12:59:01Z",
+          "body": "Fixed in #1928 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/196388016-95af5e35-94a9-4292-9548-cdc9334a6147.png",
+    "https://user-images.githubusercontent.com/1108513/196687981-30916174-fcf4-4d00-a4fd-c8d4de1da26d.png"
+  ],
+  "number_of_changed_files": 20,
+  "total_changed_lines": 699
+}

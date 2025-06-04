@@ -1,0 +1,30 @@
+{
+  "number": 1222,
+  "title": "Refactor json editor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-11-26T18:18:33Z",
+  "updated_at": "2021-11-29T14:00:32Z",
+  "closed_at": "2021-11-29T14:00:31Z",
+  "merged_at": "2021-11-29T14:00:31Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1222",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1222/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1222/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1222",
+  "body": "The current json editor knows too much about the structure of `message` objects.\r\n\r\nRefactor the `props`, so we can pass in different types of data.",
+  "additions": 133,
+  "deletions": 70,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 203
+}

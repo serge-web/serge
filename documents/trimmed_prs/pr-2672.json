@@ -1,0 +1,30 @@
+{
+  "number": 2672,
+  "title": "Serge Admin Issues",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-05-06T05:02:40Z",
+  "updated_at": "2023-05-19T09:16:22Z",
+  "closed_at": "2023-05-19T09:16:21Z",
+  "merged_at": "2023-05-19T09:16:21Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2672",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2672/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2672/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2672",
+  "body": "Fixes #2671 \r\n\r\n- [x] While adding a new force, under the roles tab, the key icon is not clickable\r\n- [x] While adding a new force, under the roles tab, the user is unable to delete a role before saving the force.\r\n- [x] The user is unable to completely remove the role name while renaming it.\r\n- [x] Roles access toggle are still enabled even after umpire toggle is off\r\n- [ ] Default force selected for new channel, but roles not displayed until deselect and reselect force: _**Unable to reproduce**_\r\n- [ ] Saving a new channel with \"restricted access\" and \"template\" field in the Participants and Messages table only removes the \"template\" field if the table is not saved first: _**Unable to reproduce**_",
+  "additions": 137,
+  "deletions": 254,
+  "changed_files": 16,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 16,
+  "total_changed_lines": 391
+}

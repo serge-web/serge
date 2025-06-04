@@ -1,0 +1,50 @@
+{
+  "number": 2217,
+  "title": "2205 opfor assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-04T20:13:44Z",
+  "updated_at": "2023-01-05T09:42:33Z",
+  "closed_at": "2023-01-05T09:42:32Z",
+  "merged_at": "2023-01-05T09:42:32Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2217",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2217/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2217/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2217",
+  "body": "Fixes #2205",
+  "additions": 7017,
+  "deletions": 4356,
+  "changed_files": 20,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2205
+  ],
+  "issues": [
+    {
+      "id": 1517764122,
+      "number": 2205,
+      "title": "Update planning messages for consistency across strike and others.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-03T18:24:54Z",
+      "updated_at": "2023-01-05T09:42:33Z",
+      "closed_at": "2023-01-05T09:42:33Z",
+      "body": "For most activities (templates) we store the ids & number for own assets, and the the id for op-for assets.\r\n\r\nFor STRIKE activities we store different own/opp asset data.  For own assets we id, number, missileType, for op-for we store id and number.\r\n\r\nWe store both of the above under one PlanningMessage type.\r\n\r\nWe can fix this by switching the op-for to be a table of asset ids.  It will cosmetically look the same to the player, but we'll have a consistent structure.\r\n\r\nNote: we'll also have to update the customiser, to generate asset ids in the same way for own and op-for assets.\r\n\r\nAlso, capture a couple of new orders, and check that we render/hide the fields as relevant.\r\n\r\n* [x] update planning message type\r\n* [x] generate new mock messages (bulk and plain set)\r\n* [x] put new messages into SQLite database",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 20,
+  "total_changed_lines": 11373
+}

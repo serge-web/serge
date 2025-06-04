@@ -1,0 +1,122 @@
+{
+  "number": 2708,
+  "title": "Add new drawn entities to our FeatureCollection",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-12-01T14:46:51Z",
+  "updated_at": "2023-12-10T09:30:40Z",
+  "closed_at": "2023-12-10T09:30:39Z",
+  "merged_at": "2023-12-10T09:30:39Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2708",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2708/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2708/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2708",
+  "body": "Fixes #2694 ",
+  "additions": 647,
+  "deletions": 72,
+  "changed_files": 21,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 4,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 1837101426,
+      "user": "IanMayo",
+      "created_at": "2023-12-02T09:23:01Z",
+      "updated_at": "2023-12-02T09:23:01Z",
+      "body": "Nice work @lebaphi \r\n\r\nI think the next thing to sort out is to update `features` when something is moved.  I suspect only the `leaflet` object gets updated."
+    },
+    {
+      "id": 1839925076,
+      "user": "lebaphi",
+      "created_at": "2023-12-05T03:09:01Z",
+      "updated_at": "2023-12-05T03:09:01Z",
+      "body": "@IanMayo I pushed the changes to update the onChange listener, there is a small problem that when you drag a marker to change its coordinates then create a new marker, the old marker moves back to the old position"
+    },
+    {
+      "id": 1840595355,
+      "user": "IanMayo",
+      "created_at": "2023-12-05T11:36:04Z",
+      "updated_at": "2023-12-05T11:36:04Z",
+      "body": "> @IanMayo I pushed the changes to update the onChange listener, there is a small problem that when you drag a marker to change its coordinates then create a new marker, the old marker moves back to the old position\r\n\r\nSure. That looks like a sign that we're not updating the `Feature` on GeoMan drag events.  Leaflet is maintaining it's own `private` copy of the data, that gets loaded into a GeoJSON layer.  We need to intercept these events, change our `features`, then re-generate the  GeoJSON layer.\r\n\r\nI'll have a play..."
+    },
+    {
+      "id": 1848908346,
+      "user": "IanMayo",
+      "created_at": "2023-12-10T09:30:14Z",
+      "updated_at": "2023-12-10T09:30:14Z",
+      "body": "Merging  - so tidy  development can continue.   There remains an outstanding issue related to deleting markers."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1413826763,
+      "user": "IanMayo",
+      "created_at": "2023-12-04T12:50:06Z",
+      "updated_at": "2023-12-04T12:50:06Z",
+      "body": "Hello @lebaphi - I guess the above line is removing the new item from the GeoMan data since it is going to \"arrive\" via an updated `features` prop.  But, I _think_ we have to _wipe_ the GeoMan data on each `features` update - so it should not be necessary to `remove` the layer above.",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/map-controls.tsx",
+      "diff_hunk": "@@ -30,9 +85,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange }) => {\n       snappingOption: true\n     }}\n     globalOptions={{}}\n-    onCreate={e => onCreate(e as unknown as PM.ChangeEventHandler)}\n-    onChange={e => onChange(e as unknown as PM.ChangeEventHandler)}\n-\n+    onCreate={e => map.removeLayer(e.layer)}",
+      "html_url": "https://github.com/serge-web/serge/pull/2708#discussion_r1413826763"
+    },
+    {
+      "id": 1413828592,
+      "user": "IanMayo",
+      "created_at": "2023-12-04T12:51:46Z",
+      "updated_at": "2023-12-04T12:51:47Z",
+      "body": "@lebaphi - do you know when `change` is fired?  I don't think I can trigger it.",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -36,22 +38,120 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {\n     }\n   }, [channel])\n   \n+  const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {\n+    const shapeType = (e as any).shape\n+    // console.log(e)\n+    switch (shapeType) {\n+      case 'Line': {\n+        const locs = (e as any).layer._latlngs as L.LatLng[]\n+        const reverseLocs = locs.map((item: L.LatLng) => {\n+          return [item.lng, item.lat]\n+        })\n+        const props: CoreProperties = {\n+          id: (e as any).layer._leaflet_id,\n+          _type: RENDERER_CORE,\n+          phase: Phase.Planning,\n+          label: 'Headquarters Building',\n+          turn: 1,\n+          force: 'f-red',\n+          category: 'Civilian',\n+          color: '#CCF'\n+        }\n+        return {\n+          type: 'Feature',\n+          properties: props,\n+          geometry: {\n+            coordinates: reverseLocs,\n+            type: 'LineString'\n+          }\n+        }\n+      }\n+      case 'Polygon':\n+      case 'Rectangle': {\n+        const locs = (e as any).layer._latlngs as L.LatLng[][]\n+        const reverseLocs = locs[0].map((item: L.LatLng) => {\n+          return [item.lng, item.lat]\n+        })\n+        const props: CoreProperties = {\n+          id: (e as any).layer._leaflet_id,\n+          _type: RENDERER_CORE,\n+          phase: Phase.Planning,\n+          label: 'Headquarters Building',\n+          turn: 1,\n+          force: 'f-red',\n+          category: 'Civilian',\n+          color: '#CCF'\n+        }\n+        return {\n+          type: 'Feature',\n+          properties: props,\n+          geometry: {\n+            coordinates: [reverseLocs],\n+            type: 'Polygon'\n+          }\n+        }\n+      }\n+      case 'Marker': {\n+        const loc = (e as any).layer._latlng as L.LatLng\n+        return {\n+          type: 'Feature',\n+          properties: {\n+            id: (e as any).layer._leaflet_id,\n+            _type: RENDERER_MILSYM,\n+            phase: Phase.Planning,\n+            label: 'Headquarters Building',\n+            turn: 1,\n+            force: 'f-red',\n+            sidc: 'SFG-UCI----D',\n+            category: 'Civilian',\n+            size: 'M'\n+          },\n+          geometry: {\n+            coordinates: [loc.lng, loc.lat],\n+            type: 'Point'\n+          }\n+        }\n+      }\n+      default: {\n+        console.warn('Feature creator not present for ' + shapeType)\n+        return null\n+      }\n+    }\n+  }\n+\n   const onCreate = (e: PM.ChangeEventHandler) => {\n-    console.log('onCreate Event Fired', e)\n+    const feature = mapEventToFeatures(e)\n+    if (feature && features && features.features) {\n+      const found = features.features.find(f => f.properties?.id === feature.properties?.id)\n+      if (!found) {\n+        features.features.push(feature)\n+        setFeatures(cloneDeep(features))\n+        console.log('features: ', features.features)\n+      }\n+    }  \n   }\n \n-  const onChange = (e: PM.ChangeEventHandler) => {\n-    console.log('onChange Event Fired', e)\n+  const onChange = (id: number, latlng: LatLng[]) => {\n+    console.log('onChange Event Fired', id, latlng)",
+      "html_url": "https://github.com/serge-web/serge/pull/2708#discussion_r1413828592"
+    },
+    {
+      "id": 1414722782,
+      "user": "lebaphi",
+      "created_at": "2023-12-05T01:17:40Z",
+      "updated_at": "2023-12-05T01:17:40Z",
+      "body": "okay, I will remove this line",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/map-controls.tsx",
+      "diff_hunk": "@@ -30,9 +85,7 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onChange }) => {\n       snappingOption: true\n     }}\n     globalOptions={{}}\n-    onCreate={e => onCreate(e as unknown as PM.ChangeEventHandler)}\n-    onChange={e => onChange(e as unknown as PM.ChangeEventHandler)}\n-\n+    onCreate={e => map.removeLayer(e.layer)}",
+      "html_url": "https://github.com/serge-web/serge/pull/2708#discussion_r1414722782"
+    },
+    {
+      "id": 1414726689,
+      "user": "lebaphi",
+      "created_at": "2023-12-05T01:18:50Z",
+      "updated_at": "2023-12-05T01:18:50Z",
+      "body": "Actually, I'm trying to listen the onChange callback when dragging marker/features but got no luck 😄 ",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -36,22 +38,120 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, bounds }) => {\n     }\n   }, [channel])\n   \n+  const mapEventToFeatures = (e: PM.ChangeEventHandler): Feature | null => {\n+    const shapeType = (e as any).shape\n+    // console.log(e)\n+    switch (shapeType) {\n+      case 'Line': {\n+        const locs = (e as any).layer._latlngs as L.LatLng[]\n+        const reverseLocs = locs.map((item: L.LatLng) => {\n+          return [item.lng, item.lat]\n+        })\n+        const props: CoreProperties = {\n+          id: (e as any).layer._leaflet_id,\n+          _type: RENDERER_CORE,\n+          phase: Phase.Planning,\n+          label: 'Headquarters Building',\n+          turn: 1,\n+          force: 'f-red',\n+          category: 'Civilian',\n+          color: '#CCF'\n+        }\n+        return {\n+          type: 'Feature',\n+          properties: props,\n+          geometry: {\n+            coordinates: reverseLocs,\n+            type: 'LineString'\n+          }\n+        }\n+      }\n+      case 'Polygon':\n+      case 'Rectangle': {\n+        const locs = (e as any).layer._latlngs as L.LatLng[][]\n+        const reverseLocs = locs[0].map((item: L.LatLng) => {\n+          return [item.lng, item.lat]\n+        })\n+        const props: CoreProperties = {\n+          id: (e as any).layer._leaflet_id,\n+          _type: RENDERER_CORE,\n+          phase: Phase.Planning,\n+          label: 'Headquarters Building',\n+          turn: 1,\n+          force: 'f-red',\n+          category: 'Civilian',\n+          color: '#CCF'\n+        }\n+        return {\n+          type: 'Feature',\n+          properties: props,\n+          geometry: {\n+            coordinates: [reverseLocs],\n+            type: 'Polygon'\n+          }\n+        }\n+      }\n+      case 'Marker': {\n+        const loc = (e as any).layer._latlng as L.LatLng\n+        return {\n+          type: 'Feature',\n+          properties: {\n+            id: (e as any).layer._leaflet_id,\n+            _type: RENDERER_MILSYM,\n+            phase: Phase.Planning,\n+            label: 'Headquarters Building',\n+            turn: 1,\n+            force: 'f-red',\n+            sidc: 'SFG-UCI----D',\n+            category: 'Civilian',\n+            size: 'M'\n+          },\n+          geometry: {\n+            coordinates: [loc.lng, loc.lat],\n+            type: 'Point'\n+          }\n+        }\n+      }\n+      default: {\n+        console.warn('Feature creator not present for ' + shapeType)\n+        return null\n+      }\n+    }\n+  }\n+\n   const onCreate = (e: PM.ChangeEventHandler) => {\n-    console.log('onCreate Event Fired', e)\n+    const feature = mapEventToFeatures(e)\n+    if (feature && features && features.features) {\n+      const found = features.features.find(f => f.properties?.id === feature.properties?.id)\n+      if (!found) {\n+        features.features.push(feature)\n+        setFeatures(cloneDeep(features))\n+        console.log('features: ', features.features)\n+      }\n+    }  \n   }\n \n-  const onChange = (e: PM.ChangeEventHandler) => {\n-    console.log('onChange Event Fired', e)\n+  const onChange = (id: number, latlng: LatLng[]) => {\n+    console.log('onChange Event Fired', id, latlng)",
+      "html_url": "https://github.com/serge-web/serge/pull/2708#discussion_r1414726689"
+    }
+  ],
+  "issue_numbers": [
+    2694
+  ],
+  "issues": [
+    {
+      "id": 1998974675,
+      "number": 2694,
+      "title": "MilSymbol",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-11-17T12:09:36Z",
+      "updated_at": "2023-12-10T09:30:40Z",
+      "closed_at": "2023-12-10T09:30:40Z",
+      "body": "Add the ability to drop new [MilSymbol](https://github.com/spatialillusions/milsymbol) items onto the Leaflet map.\r\n\r\nThese do not need to be configurable (yet). Any symbol will do.\r\n\r\nOk @lebaphi - I think we're ready for this one.\r\n\r\nWhen geoman wants to `add a point` we need to:\r\n* intercept the call\r\n* add the extra metadata to look like a MilSymbol feature (like in the other mock data)\r\n* add the item to the `features` array\r\n* re-render `features`",
+      "labels": [
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 21,
+  "total_changed_lines": 719
+}

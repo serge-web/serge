@@ -1,0 +1,182 @@
+{
+  "number": 2814,
+  "title": "2799_Core_Mapping_Health_Indicator",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-01T12:09:19Z",
+  "updated_at": "2024-02-07T09:53:16Z",
+  "closed_at": "2024-02-07T09:53:16Z",
+  "merged_at": "2024-02-07T09:53:16Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2814",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2814/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2814/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2814",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 185,
+  "deletions": 40,
+  "changed_files": 15,
+  "labels": [
+    "enhancement",
+    "4p10"
+  ],
+  "comments_count": 14,
+  "review_comments_count": 0,
+  "total_comments": 14,
+  "comments_data": [
+    {
+      "id": 1921185664,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-01T12:10:50Z",
+      "updated_at": "2024-02-01T12:11:22Z",
+      "body": "fixes #2799 "
+    },
+    {
+      "id": 1921190157,
+      "user": "IanMayo",
+      "created_at": "2024-02-01T12:13:34Z",
+      "updated_at": "2024-02-01T12:14:05Z",
+      "body": "Thanks @lilitkarapetyan - any chance of a screenshot of the new marker?\r\n\r\n(I'm too impatient to wait for the deployment 🤣 )"
+    },
+    {
+      "id": 1921194828,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-01T12:16:25Z",
+      "updated_at": "2024-02-01T15:15:24Z",
+      "body": "> Thanks @lilitkarapetyan - any chance of a screenshot of the new marker?\r\n> \r\n> (I'm too impatient to wait for the deployment 🤣 )\r\n\r\n![screenshot](https://gyazo.com/bdfb9e2ee08ac97f7cfadd04fdb57500.png)"
+    },
+    {
+      "id": 1921205120,
+      "user": "IanMayo",
+      "created_at": "2024-02-01T12:22:27Z",
+      "updated_at": "2024-02-01T12:22:27Z",
+      "body": "Nice start. Are you able to make these changes please?\r\n- could the line move outside the symbol, so it's beneath it?\r\n- the line appears to have rounded ends.  Could they be square, so it's a proper rectangle?"
+    },
+    {
+      "id": 1922868054,
+      "user": "Tristina1788",
+      "created_at": "2024-02-02T05:38:14Z",
+      "updated_at": "2024-02-02T05:38:14Z",
+      "body": "@IanMayo  Do you think the all items on map should show Health Indicator? Some items are missing Health Indicator from map although from Items panel still has Health Indicator .\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/7092b973-faaa-4030-9522-3daeb695ccbe)\r\n"
+    },
+    {
+      "id": 1922889296,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-02T05:57:18Z",
+      "updated_at": "2024-02-02T05:57:18Z",
+      "body": "> Nice start. Are you able to make these changes please?\r\n> \r\n>     * could the line move outside the symbol, so it's beneath it?\r\n> \r\n>     * the line appears to have rounded ends.  Could they be square, so it's a proper rectangle?\r\n\r\n\r\n\r\n> Nice start. Are you able to make these changes please?\r\n> \r\n>     * could the line move outside the symbol, so it's beneath it?\r\n> \r\n>     * the line appears to have rounded ends.  Could they be square, so it's a proper rectangle?\r\n\r\nHello @IanMayo , yes I will make those changes"
+    },
+    {
+      "id": 1929170739,
+      "user": "IanMayo",
+      "created_at": "2024-02-06T10:04:15Z",
+      "updated_at": "2024-02-06T10:04:15Z",
+      "body": "> @IanMayo Do you think the all items on map should show Health Indicator? Some items are missing Health Indicator from map although from Items panel still has Health Indicator .\r\n\r\nHello @Tristina1788 - no the plain shapes do not require a health indicator."
+    },
+    {
+      "id": 1929291088,
+      "user": "Tristina1788",
+      "created_at": "2024-02-06T11:10:27Z",
+      "updated_at": "2024-02-06T11:10:27Z",
+      "body": "> > @IanMayo Do you think the all items on map should show Health Indicator? Some items are missing Health Indicator from map although from Items panel still has Health Indicator .\r\n> \r\n> Hello @Tristina1788 - no the plain shapes do not require a health indicator.\r\n\r\nBut the items for plain shapes still show health indicator in left panel.  We should not draw health indicator for them?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/0a4c8880-85c1-4c78-b4cf-19f05c01e115)\r\n"
+    },
+    {
+      "id": 1929312360,
+      "user": "IanMayo",
+      "created_at": "2024-02-06T11:21:19Z",
+      "updated_at": "2024-02-06T12:31:04Z",
+      "body": "Thanks @Tristina1788 \r\n\r\nThere could be a couple of underlying issues:\r\n1. The underlying data may be inconsistent (shapes having health properties, when they shouldn't)\r\n2. We should not be trying to show a military symbol for a shape - that's why it's an upside down question mark.\r\n\r\nI'll investigate.\r\n\r\nUpdate: to be fixed in #2827 "
+    },
+    {
+      "id": 1929427439,
+      "user": "IanMayo",
+      "created_at": "2024-02-06T12:30:03Z",
+      "updated_at": "2024-02-06T12:30:03Z",
+      "body": "Thanks @lilitkarapetyan - are you able to resolve the conflicts please?"
+    },
+    {
+      "id": 1929472069,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-06T12:57:26Z",
+      "updated_at": "2024-02-06T12:57:26Z",
+      "body": "> Thanks @lilitkarapetyan - are you able to resolve the conflicts please?\r\n\r\nYes I will solve it "
+    },
+    {
+      "id": 1931491946,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-07T08:10:49Z",
+      "updated_at": "2024-02-07T08:15:30Z",
+      "body": "Hello @IanMayo, Upon clicking 'Show symbol labels,' the dashed line directing towards 'health' relocates to the center of the name (svg). it is true? - https://gyazo.com/e1e5f7b9ff555206c5b889a2e96e27f4"
+    },
+    {
+      "id": 1931548640,
+      "user": "Tristina1788",
+      "created_at": "2024-02-07T08:47:46Z",
+      "updated_at": "2024-02-07T08:47:46Z",
+      "body": "Checking on branch `2799_Core_Mapping_Health_Indicator` , now the health indicator is not show for shape. \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/abff3ec3-4427-4e07-9f49-63232be8f744)\r\n\r\n\r\nBut I can't create the item with shape (Draw Polyline, Draw Polygons, Draw Circle, Text). @lilitkarapetyan Could you check again\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/ceb4d326-8b19-42de-8f00-f1ab57d8ea32)\r\n\r\nMore details on video  :\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/976bc386-4054-4727-ac5d-9f83cadb1d1f\r\n\r\n\r\n"
+    },
+    {
+      "id": 1931560297,
+      "user": "Tristina1788",
+      "created_at": "2024-02-07T08:55:01Z",
+      "updated_at": "2024-02-07T08:55:01Z",
+      "body": "> Checking on branch `2799_Core_Mapping_Health_Indicator` , now the health indicator is not show for shape.\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/302914986-abff3ec3-4427-4e07-9f49-63232be8f744.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDcyOTU5NjYsIm5iZiI6MTcwNzI5NTY2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzAyOTE0OTg2LWFiZmYzZWMzLTQ0MjctNGUwNy05ZjQ5LTYzMjMyYmU4Zjc0NC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwN1QwODQ3NDZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZDExMTk4YzJlNGI3ZTA3ODI0ZGRlNmY4YjQxOWRiNzM0NmJhMWVhM2M5YzZiYWE4ZDVlMDcwMTYyNTI0MWNkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.ygQeXfw5uvq-WrovvFMpNjDRzmn-IZMMIk77LHBYFyc)\r\n> \r\n> But I can't create the item with shape (Draw Polyline, Draw Polygons, Draw Circle, Text). @lilitkarapetyan Could you check again\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/302914547-ceb4d326-8b19-42de-8f00-f1ab57d8ea32.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDcyOTU5NjYsIm5iZiI6MTcwNzI5NTY2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzAyOTE0NTQ3LWNlYjRkMzI2LThiMTktNDJkZS04ZjAwLWYxYWI1N2Q4ZWEzMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwN1QwODQ3NDZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZDMyODdiZDc3MDM2ZDczOTE0MTBhYzg0MmU0NzhhMDdlNDI3MjE4NGJjYWVjMzQ0ZjgwZTQxOTZiNzNiMmYzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.1avkkto5E00m3eK1mdwHYNALBZuUumeASjhVXcuK0_g)\r\n> \r\n> More details on video :\r\n> \r\n>  cannot-draw-items.mp4\r\n\r\n@IanMayo  I've checked again on branch 'develop' and the issue is also happened. So I think the issue from merge develop to this branch."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2799,
+    2827
+  ],
+  "issues": [
+    {
+      "id": 2107842606,
+      "number": 2799,
+      "title": "Core Mapping - Health Indicator",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-30T13:16:13Z",
+      "updated_at": "2024-02-08T06:48:46Z",
+      "closed_at": "2024-02-08T06:48:46Z",
+      "body": "The clients want a the MilSymbol icons to have a `Health` indicator.\r\n\r\nThis will be a horizontal bar rendered beneath the icon.  I _guess_ it would be 10px high, and 20px beneath the bottom of the MilSymbol\r\n\r\nI _thought_ I'd seen support for this in the [Milsymbol](https://github.com/spatialillusions/milsymbol) library, but I can't find anything.\r\n\r\nI think we need to modify our renderer to include a horizontal bar beneath the icon.\r\n\r\nAah, I've got it.  We have the bar if the `feature` has a `health` property.  We'll expect this to go from 0 to 100.  0 is red (255,0,0), and 100 is green (0, 255,0).  We'll calculate the color to fill the from the health field.",
+      "labels": [
+        "enhancement",
+        "4p10"
+      ],
+      "comments": []
+    },
+    {
+      "id": 2120592008,
+      "number": 2827,
+      "title": "Show generic \"shape\" symbol for core shapes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-02-06T11:50:31Z",
+      "updated_at": "2024-02-09T15:40:06Z",
+      "closed_at": "2024-02-09T15:40:06Z",
+      "body": "For generic shapes we show an upside-down question mark:\r\n![image](https://github.com/serge-web/serge/assets/1108513/ed1e9a84-715f-42a3-9fd5-acc5dd863bd8)\r\n\r\nThis is because we are trying to show a MilSymbol:\r\n![image](https://github.com/serge-web/serge/assets/1108513/04280a1f-2f2b-40fa-973b-93fd92b61fe5)\r\n\r\nInstead, we should only try to show a MilSymbol where `_type` property is `MilSymRenderer`:\r\n```\r\n \"_type\": \"MilSymRenderer\"\r\n```\r\n\r\nFor `CoreRenderer`, we should show a generic `shape` icon (the `shapes` icon from FontAwesome).\r\n\r\nNote: this will also resolve the issue of mistakenly trying to show health indicator for core shapes: https://github.com/serge-web/serge/pull/2814#issuecomment-1929291088",
+      "labels": [
+        "Mapping",
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://gyazo.com/bdfb9e2ee08ac97f7cfadd04fdb57500.png",
+    "https://github.com/serge-web/serge/assets/107697044/7092b973-faaa-4030-9522-3daeb695ccbe",
+    "https://github.com/serge-web/serge/assets/107697044/0a4c8880-85c1-4c78-b4cf-19f05c01e115",
+    "https://github.com/serge-web/serge/assets/107697044/abff3ec3-4427-4e07-9f49-63232be8f744",
+    "https://github.com/serge-web/serge/assets/107697044/ceb4d326-8b19-42de-8f00-f1ab57d8ea32",
+    "https://private-user-images.githubusercontent.com/107697044/302914986-abff3ec3-4427-4e07-9f49-63232be8f744.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDcyOTU5NjYsIm5iZiI6MTcwNzI5NTY2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzAyOTE0OTg2LWFiZmYzZWMzLTQ0MjctNGUwNy05ZjQ5LTYzMjMyYmU4Zjc0NC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwN1QwODQ3NDZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hZDExMTk4YzJlNGI3ZTA3ODI0ZGRlNmY4YjQxOWRiNzM0NmJhMWVhM2M5YzZiYWE4ZDVlMDcwMTYyNTI0MWNkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.ygQeXfw5uvq-WrovvFMpNjDRzmn-IZMMIk77LHBYFyc",
+    "https://private-user-images.githubusercontent.com/107697044/302914547-ceb4d326-8b19-42de-8f00-f1ab57d8ea32.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDcyOTU5NjYsIm5iZiI6MTcwNzI5NTY2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzAyOTE0NTQ3LWNlYjRkMzI2LThiMTktNDJkZS04ZjAwLWYxYWI1N2Q4ZWEzMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMjA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDIwN1QwODQ3NDZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZDMyODdiZDc3MDM2ZDczOTE0MTBhYzg0MmU0NzhhMDdlNDI3MjE4NGJjYWVjMzQ0ZjgwZTQxOTZiNzNiMmYzJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.1avkkto5E00m3eK1mdwHYNALBZuUumeASjhVXcuK0_g",
+    "https://github.com/serge-web/serge/assets/1108513/ed1e9a84-715f-42a3-9fd5-acc5dd863bd8",
+    "https://github.com/serge-web/serge/assets/1108513/04280a1f-2f2b-40fa-973b-93fd92b61fe5"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 225
+}

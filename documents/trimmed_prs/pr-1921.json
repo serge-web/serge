@@ -1,0 +1,44 @@
+{
+  "number": 1921,
+  "title": "Bump snyk from 1.520.0 to 1.996.0",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-10-06T19:08:04Z",
+  "updated_at": "2022-10-12T08:08:38Z",
+  "closed_at": "2022-10-12T08:08:37Z",
+  "merged_at": null,
+  "author": {
+    "login": "dependabot[bot]",
+    "html_url": "https://github.com/apps/dependabot"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1921",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1921/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1921/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1921",
+  "body": "Bumps [snyk](https://github.com/snyk/snyk) from 1.520.0 to 1.996.0.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/snyk/snyk/releases\">snyk's releases</a>.</em></p>\n<blockquote>\n<h2>v1.996.0</h2>\n<h1><a href=\"https://github.com/snyk/snyk/compare/v1.995.0...v1.996.0\">1.996.0</a> (2022-09-01)</h1>\n<h3>Bug Fixes</h3>\n<ul>\n<li>bump golang plugin version (<a href=\"https://github.com/snyk/snyk/commit/8893f81c39ee66dc61454a6f9e0036dccd8d3b81\">8893f81</a>)</li>\n</ul>\n<h3>Features</h3>\n<ul>\n<li>add --var-file support (<a href=\"https://github.com/snyk/snyk/commit/537372d26b05ca5c0f6a73fa6a6be3438e6c78fc\">537372d</a>)</li>\n</ul>\n<h2>v1.995.0</h2>\n<h1><a href=\"https://github.com/snyk/snyk/compare/v1.994.0...v1.995.0\">1.995.0</a> (2022-08-31)</h1>\n<h3>Bug Fixes</h3>\n<ul>\n<li>matching configurations error on gradle version catalog (<a href=\"https://github.com/snyk/snyk/commit/20dcdae8d097cc798a46df39b903cf00f9111e8c\">20dcdae</a>)</li>\n</ul>\n<h2>v1.994.0</h2>\n<h1><a href=\"https://github.com/snyk/snyk/compare/v1.993.0...v1.994.0\">1.994.0</a> (2022-08-31)</h1>\n<h3>Bug Fixes</h3>\n<ul>\n<li>more IaC error codes (<a href=\"https://github.com/snyk/snyk/commit/e0227c389d0215b52d28b4b0c43322f81503458f\">e0227c3</a>)</li>\n</ul>\n<h3>Features</h3>\n<ul>\n<li>add custom severities to iac test config (<a href=\"https://github.com/snyk/snyk/commit/9d865740e2c9e95425516f817fb2be566f007253\">9d86574</a>)</li>\n<li>add ignore count in the experimental version of iac test (<a href=\"https://github.com/snyk/snyk/commit/d390ca2332d31895e35d9c72f357e57ced3bb9c9\">d390ca2</a>)</li>\n<li>Added support for depth-detection (<a href=\"https://github.com/snyk/snyk/commit/8cf181582031466702aecd4cc0e39f64408dcef3\">8cf1815</a>)</li>\n</ul>\n<h2>v1.993.0</h2>\n<h1><a href=\"https://github.com/snyk/snyk/compare/v1.992.0...v1.993.0\">1.993.0</a> (2022-08-29)</h1>\n<h3>Features</h3>\n<ul>\n<li>add scan flag support (<a href=\"https://github.com/snyk/snyk/commit/53951fcae8b804ba7d93caac7adbac2f3aad48bc\">53951fc</a>)</li>\n</ul>\n<h2>v1.992.0</h2>\n<h1><a href=\"https://github.com/snyk/snyk/compare/v1.991.0...v1.992.0\">1.992.0</a> (2022-08-25)</h1>\n<h3>Bug Fixes</h3>\n<!-- raw HTML omitted -->\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/snyk/cli/commit/f614f803c9b024e42108cbed835abfc4eb667a8e\"><code>f614f80</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/snyk/snyk/issues/3803\">#3803</a> from snyk/fix/bump-golang-plugin-version</li>\n<li><a href=\"https://github.com/snyk/cli/commit/d779654100d475d9705af608c4fc78b67de11af6\"><code>d779654</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/snyk/snyk/issues/3620\">#3620</a> from snyk/chore/cliv2_support_alpine</li>\n<li><a href=\"https://github.com/snyk/cli/commit/8893f81c39ee66dc61454a6f9e0036dccd8d3b81\"><code>8893f81</code></a> fix: bump golang plugin version</li>\n<li><a href=\"https://github.com/snyk/cli/commit/d2fd08805502951a51da73c9e7eb732d66fa596e\"><code>d2fd088</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/snyk/snyk/issues/3792\">#3792</a> from snyk/feat/add-var-file-support</li>\n<li><a href=\"https://github.com/snyk/cli/commit/544b0f16f63175a10abd32a66a3d00cb890c5ee8\"><code>544b0f1</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/snyk/snyk/issues/3800\">#3800</a> from snyk/chore/capsule-doesnt-exist</li>\n<li><a href=\"https://github.com/snyk/cli/commit/537372d26b05ca5c0f6a73fa6a6be3438e6c78fc\"><code>537372d</code></a> feat: add --var-file support</li>\n<li><a href=\"https://github.com/snyk/cli/commit/581ebb88075678fa74474c5a4e4f413785172727\"><code>581ebb8</code></a> chore: handle GOOS alpine in Makefile</li>\n<li><a href=\"https://github.com/snyk/cli/commit/424289d01ffcb702780633f63812d52570c0eb60\"><code>424289d</code></a> chore: remove code ownership from Capsule</li>\n<li><a href=\"https://github.com/snyk/cli/commit/9717d2acc73a177aeec4330017e95d1c4f55edba\"><code>9717d2a</code></a> Merge pull request <a href=\"https://github-redirect.dependabot.com/snyk/snyk/issues/3793\">#3793</a> from snyk/fix/bump-gradle-plugin-version</li>\n<li><a href=\"https://github.com/snyk/cli/commit/20dcdae8d097cc798a46df39b903cf00f9111e8c\"><code>20dcdae</code></a> fix: matching configurations error on gradle version catalog</li>\n<li>Additional commits viewable in <a href=\"https://github.com/snyk/snyk/compare/v1.520.0...v1.996.0\">compare view</a></li>\n</ul>\n</details>\n<details>\n<summary>Maintainer changes</summary>\n<p>This version was pushed to npm by <a href=\"https://www.npmjs.com/~snyk-admin\">snyk-admin</a>, a new releaser for snyk since your current version.</p>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=snyk&package-manager=npm_and_yarn&previous-version=1.520.0&new-version=1.996.0)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language\n- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language\n- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language\n- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language\n\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/serge-web/serge/network/alerts).\n\n</details>",
+  "additions": 29129,
+  "deletions": 30586,
+  "changed_files": 1,
+  "labels": [
+    "dependencies"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1275761587,
+      "user": "dependabot[bot]",
+      "created_at": "2022-10-12T08:08:35Z",
+      "updated_at": "2022-10-12T08:08:35Z",
+      "body": "Looks like snyk is up-to-date now, so this is no longer needed."
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=snyk&package-manager=npm_and_yarn&previous-version=1.520.0&new-version=1.996.0"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 59715
+}

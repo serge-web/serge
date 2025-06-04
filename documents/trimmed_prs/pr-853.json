@@ -1,0 +1,59 @@
+{
+  "number": 853,
+  "title": "Add button for tutorial, move heartbeat icon",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-19T05:55:41Z",
+  "updated_at": "2021-06-19T17:02:34Z",
+  "closed_at": "2021-06-19T17:02:34Z",
+  "merged_at": "2021-06-19T17:02:34Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/853",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/853/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/853/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/853",
+  "body": "Fixed #846 ",
+  "additions": 68,
+  "deletions": 43,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    846
+  ],
+  "issues": [
+    {
+      "id": 924790650,
+      "number": 846,
+      "title": "Add button for tutorial, move heartbeat icon",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-18T10:57:35Z",
+      "updated_at": "2021-06-21T14:37:36Z",
+      "closed_at": "2021-06-21T14:37:36Z",
+      "body": "We show the walkthrough for new users, but they can't trigger it later on.  How to re-open the walkthrough is covered in #840 \r\n\r\nWe will add a `Tutorial` button to the player interface.  It will use the `book-open` fontawesome icon used in #840.  The icon will go in the place of the current `heartbeat` icon.\r\n\r\nThe `heartbeat` icon will move down to the bottom-left version details.  The icon will go to the left of the `App` text here:\r\n![image](https://user-images.githubusercontent.com/1108513/122540582-b2123280-d020-11eb-895b-c249cc8e57c9.png)\r\n\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 864957282,
+          "user": "IanMayo",
+          "created_at": "2021-06-21T11:26:18Z",
+          "updated_at": "2021-06-21T11:26:18Z",
+          "body": "Re-opening, please @lebaphi \r\n\r\nOn the `develop` branch, on the `admin` page we're currently showing two heartbeats (there's one at the top of the page).\r\n\r\n_Maybe_ you need to do a file-search for the font-awesome icon - just to check there aren't any others.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/122754599-c9088d00-d28b-11eb-84dc-d9a1289075e0.png)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/122540582-b2123280-d020-11eb-895b-c249cc8e57c9.png",
+    "https://user-images.githubusercontent.com/1108513/122754599-c9088d00-d28b-11eb-84dc-d9a1289075e0.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 111
+}

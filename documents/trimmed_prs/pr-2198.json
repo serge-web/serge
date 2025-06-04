@@ -1,0 +1,50 @@
+{
+  "number": 2198,
+  "title": "2189 location outcome",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-02T13:28:22Z",
+  "updated_at": "2023-01-02T16:20:50Z",
+  "closed_at": "2023-01-02T16:20:50Z",
+  "merged_at": "2023-01-02T16:20:49Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2198",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2198/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2198/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2198",
+  "body": "Fixes #2189 ",
+  "additions": 9020,
+  "deletions": 924,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2189
+  ],
+  "issues": [
+    {
+      "id": 1514549754,
+      "number": 2189,
+      "title": "(temporarily) allow entry of movement location via text",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-12-30T14:09:31Z",
+      "updated_at": "2023-01-02T16:20:50Z",
+      "closed_at": "2023-01-02T16:20:50Z",
+      "body": "We (eventually) need to integrate the new movement editor into the adjucation outcomes movement table.\r\n\r\nIn the interrim, modify the template to accept a string, validate it as a floating point pair, store as new location",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 9944
+}

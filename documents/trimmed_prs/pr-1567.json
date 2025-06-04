@@ -1,0 +1,42 @@
+{
+  "number": 1567,
+  "title": "Fix Message Templates",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-05-25T06:31:03Z",
+  "updated_at": "2022-06-07T16:06:37Z",
+  "closed_at": "2022-06-07T16:06:36Z",
+  "merged_at": "2022-06-07T16:06:36Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1567",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1567/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1567/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1567",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 5,
+  "deletions": 5,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1136936100,
+      "user": "IanMayo",
+      "created_at": "2022-05-25T08:17:07Z",
+      "updated_at": "2022-05-25T08:17:07Z",
+      "body": "@lilitkarapetyan - I think there's still some wasted whitespace around the message template editor:\r\n![image](https://user-images.githubusercontent.com/1108513/170215284-b42a7a1e-58fb-434c-a234-8d58818dfec3.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/170215284-b42a7a1e-58fb-434c-a234-8d58818dfec3.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 10
+}

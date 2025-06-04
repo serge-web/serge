@@ -1,0 +1,98 @@
+{
+  "number": 2861,
+  "title": "Can not sort at 'Last Msg' column on 'Player Logs' table",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-18T06:02:43Z",
+  "updated_at": "2024-04-29T08:49:43Z",
+  "closed_at": "2024-04-29T08:49:43Z",
+  "merged_at": "2024-04-29T08:49:43Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2861",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2861/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2861/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2861",
+  "body": "Fixes #2855 ",
+  "additions": 11,
+  "deletions": 6,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 6,
+  "review_comments_count": 0,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1951821061,
+      "user": "Tristina1788",
+      "created_at": "2024-02-19T07:02:53Z",
+      "updated_at": "2024-02-19T07:02:53Z",
+      "body": "Checking on '2855-sort-player-logs' branch, issue sorting on 'Last Msg' is still happened\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/06006634-60ce-4800-b6d2-47305839b549\r\n\r\n@lebaphi Could you check again?"
+    },
+    {
+      "id": 1952179298,
+      "user": "IanMayo",
+      "created_at": "2024-02-19T10:45:38Z",
+      "updated_at": "2024-02-19T10:45:38Z",
+      "body": "Yes, @lebaphi - this is still breaking.  It is breaking because the `sort()` method is receiving a react fragment, which doesn't not support the `toLowerCase()` method.\r\n\r\nHere I output the value of `str1` before the `.toLowercase()` method gets called:\r\n![image](https://github.com/serge-web/serge/assets/1108513/97512d3b-4ea1-4642-9a5b-6d144bd2bf23)\r\n"
+    },
+    {
+      "id": 2042413647,
+      "user": "Tristina1788",
+      "created_at": "2024-04-08T10:37:41Z",
+      "updated_at": "2024-04-08T10:37:41Z",
+      "body": "> Checking on '2855-sort-player-logs' branch, issue sorting on 'Last Msg' is still happened\r\n> \r\n>  Can.not.sort.at.Last.Msg.mp4 \r\n> @lebaphi Could you check again?\r\n\r\n@IanMayo The issue still happens on my testing."
+    },
+    {
+      "id": 2042997927,
+      "user": "lebaphi",
+      "created_at": "2024-04-08T15:02:14Z",
+      "updated_at": "2024-04-08T15:02:14Z",
+      "body": "> Ok @lebaphi - it seems this issue is still present: [#2861 (comment)](https://github.com/serge-web/serge/pull/2861#issuecomment-1952179298)\r\n\r\nokay, I'm looking on this @IanMayo "
+    },
+    {
+      "id": 2044540963,
+      "user": "Tristina1788",
+      "created_at": "2024-04-09T09:20:58Z",
+      "updated_at": "2024-04-09T09:20:58Z",
+      "body": "@lebaphi @IanMayo Now I can sort column  on 'Player Logs' without issue\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/839c022d-32e5-497b-8d5b-daa44327df81\r\n\r\n"
+    },
+    {
+      "id": 2082133304,
+      "user": "Tristina1788",
+      "created_at": "2024-04-29T08:19:24Z",
+      "updated_at": "2024-04-29T08:19:24Z",
+      "body": "@IanMayo I think it was done. Should we merge to develop and close it?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2855
+  ],
+  "issues": [
+    {
+      "id": 2135851225,
+      "number": 2855,
+      "title": "Can not sort at 'Last Msg' column on 'Player Logs' table",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-02-15T07:45:56Z",
+      "updated_at": "2024-04-29T08:49:44Z",
+      "closed_at": "2024-04-29T08:49:44Z",
+      "body": "## 🐞 Bug description\r\nCan not sort at 'Last Msg' column on 'Player Logs' table\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Click on icon 'Player log'\r\n3. Click 'Sort' icon at 'Last Msg' column \r\n4.  Notice it direct to white screen\r\n\r\nView below screencast for more detail\r\n\r\nNote : Issue is also happened with 'Sent at' column\r\n![image](https://github.com/serge-web/serge/assets/107697044/6b129fc1-0c8f-4bd6-bcd3-e3c85f0409de)\r\n\r\n\r\n## ⚙️ Expected behavior\r\nEnable to sort for 'Last Msg' column and will not direct to white screen\r\n\r\n## 🖥️ Screencasts\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/f8fde8d8-54a9-4a62-b2a6-97e6f227983a\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n- Browser Version : Version 120.0.6099.111\r\n\r\n## 📝 Additional context\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/97512d3b-4ea1-4642-9a5b-6d144bd2bf23",
+    "https://github.com/serge-web/serge/assets/107697044/6b129fc1-0c8f-4bd6-bcd3-e3c85f0409de"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 17
+}

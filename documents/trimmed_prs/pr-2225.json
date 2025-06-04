@@ -1,0 +1,44 @@
+{
+  "number": 2225,
+  "title": "Bump json5 from 1.0.1 to 1.0.2",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-01-08T02:42:09Z",
+  "updated_at": "2023-01-13T13:09:56Z",
+  "closed_at": "2023-01-13T13:09:53Z",
+  "merged_at": null,
+  "author": {
+    "login": "dependabot[bot]",
+    "html_url": "https://github.com/apps/dependabot"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2225",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2225/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2225/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2225",
+  "body": "Bumps [json5](https://github.com/json5/json5) from 1.0.1 to 1.0.2.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/json5/json5/releases\">json5's releases</a>.</em></p>\n<blockquote>\n<h2>v1.0.2</h2>\n<ul>\n<li>Fix: Properties with the name <code>__proto__</code> are added to objects and arrays. (<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/199\">#199</a>) This also fixes a prototype pollution vulnerability reported by Jonathan Gregson! (<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/295\">#295</a>). This has been backported to v1. (<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/298\">#298</a>)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/json5/json5/blob/main/CHANGELOG.md\">json5's changelog</a>.</em></p>\n<blockquote>\n<h3>Unreleased [<a href=\"https://github.com/json5/json5/tree/main\">code</a>, <a href=\"https://github.com/json5/json5/compare/v2.2.3...HEAD\">diff</a>]</h3>\n<h3>v2.2.3 [<a href=\"https://github.com/json5/json5/tree/v2.2.3\">code</a>, <a href=\"https://github.com/json5/json5/compare/v2.2.2...v2.2.3\">diff</a>]</h3>\n<ul>\n<li>Fix: json5@2.2.3 is now the 'latest' release according to npm instead of\nv1.0.2. (<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/299\">#299</a>)</li>\n</ul>\n<h3>v2.2.2 [<a href=\"https://github.com/json5/json5/tree/v2.2.2\">code</a>, <a href=\"https://github.com/json5/json5/compare/v2.2.1...v2.2.2\">diff</a>]</h3>\n<ul>\n<li>Fix: Properties with the name <code>__proto__</code> are added to objects and arrays.\n(<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/199\">#199</a>) This also fixes a prototype pollution vulnerability reported by\nJonathan Gregson! (<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/295\">#295</a>).</li>\n</ul>\n<h3>v2.2.1 [<a href=\"https://github.com/json5/json5/tree/v2.2.1\">code</a>, <a href=\"https://github.com/json5/json5/compare/v2.2.0...v2.2.1\">diff</a>]</h3>\n<ul>\n<li>Fix: Removed dependence on minimist to patch CVE-2021-44906. (<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/266\">#266</a>)</li>\n</ul>\n<h3>v2.2.0 [<a href=\"https://github.com/json5/json5/tree/v2.2.0\">code</a>, <a href=\"https://github.com/json5/json5/compare/v2.1.3...v2.2.0\">diff</a>]</h3>\n<ul>\n<li>New: Accurate and documented TypeScript declarations are now included. There\nis no need to install <code>@types/json5</code>. (<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/236\">#236</a>, <a href=\"https://github-redirect.dependabot.com/json5/json5/issues/244\">#244</a>)</li>\n</ul>\n<h3>v2.1.3 [<a href=\"https://github.com/json5/json5/tree/v2.1.3\">code</a>, <a href=\"https://github.com/json5/json5/compare/v2.1.2...v2.1.3\">diff</a>]</h3>\n<ul>\n<li>Fix: An out of memory bug when parsing numbers has been fixed. (<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/228\">#228</a>,\n<a href=\"https://github-redirect.dependabot.com/json5/json5/issues/229\">#229</a>)</li>\n</ul>\n<h3>v2.1.2 [<a href=\"https://github.com/json5/json5/tree/v2.1.2\">code</a>, <a href=\"https://github.com/json5/json5/compare/v2.1.1...v2.1.2\">diff</a>]</h3>\n<!-- raw HTML omitted -->\n</blockquote>\n<p>... (truncated)</p>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/json5/json5/commit/a62db1e51e1031d92ac260f5bb38bbed1fdbc754\"><code>a62db1e</code></a> 1.0.2</li>\n<li><a href=\"https://github.com/json5/json5/commit/e0c23fe458a77c0b2cdb271376be5d8d0908133c\"><code>e0c23fe</code></a> docs: update CHANGELOG for v1.0.2</li>\n<li><a href=\"https://github.com/json5/json5/commit/62a65408408d40aeea14c7869ed327acead12972\"><code>62a6540</code></a> fix: add <strong>proto</strong> to objects and arrays</li>\n<li>See full diff in <a href=\"https://github.com/json5/json5/compare/v1.0.1...v1.0.2\">compare view</a></li>\n</ul>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=json5&package-manager=npm_and_yarn&previous-version=1.0.1&new-version=1.0.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot use these labels` will set the current labels as the default for future PRs for this repo and language\n- `@dependabot use these reviewers` will set the current reviewers as the default for future PRs for this repo and language\n- `@dependabot use these assignees` will set the current assignees as the default for future PRs for this repo and language\n- `@dependabot use this milestone` will set the current milestone as the default for future PRs for this repo and language\n\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/serge-web/serge/network/alerts).\n\n</details>",
+  "additions": 3,
+  "deletions": 3,
+  "changed_files": 1,
+  "labels": [
+    "dependencies"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1381830611,
+      "user": "dependabot[bot]",
+      "created_at": "2023-01-13T13:09:56Z",
+      "updated_at": "2023-01-13T13:09:56Z",
+      "body": "OK, I won't notify you again about this release, but will get in touch when a new version is available. If you'd rather skip all updates until the next major or minor version, let me know by commenting `@dependabot ignore this major version` or `@dependabot ignore this minor version`.\n\nIf you change your mind, just re-open this PR and I'll resolve any conflicts on it."
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=json5&package-manager=npm_and_yarn&previous-version=1.0.1&new-version=1.0.2"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 6
+}

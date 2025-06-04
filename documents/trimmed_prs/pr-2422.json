@@ -1,0 +1,50 @@
+{
+  "number": 2422,
+  "title": "2411 list events and interactions",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-15T19:53:07Z",
+  "updated_at": "2023-02-15T20:50:44Z",
+  "closed_at": "2023-02-15T20:50:43Z",
+  "merged_at": "2023-02-15T20:50:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2422",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2422/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2422/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2422",
+  "body": "Fixes #2411 ",
+  "additions": 75,
+  "deletions": 17,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2411
+  ],
+  "issues": [
+    {
+      "id": 1585696795,
+      "number": 2411,
+      "title": "For `Get Count of remaining` output a list of events/interactions to the console.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-15T11:31:53Z",
+      "updated_at": "2023-02-15T20:50:44Z",
+      "closed_at": "2023-02-15T20:50:44Z",
+      "body": "For `Get count of interactions` we do generate the full list of events and interactions, but we only show the count on the screen.\r\n\r\nIt would be trivial to output them to a table in the console - in case adjudicators wish to look ahead.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 92
+}

@@ -1,0 +1,139 @@
+{
+  "number": 2501,
+  "title": "2366: When adding a Standard Area to a planning order - show the area",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-24T07:35:52Z",
+  "updated_at": "2023-02-26T15:03:53Z",
+  "closed_at": "2023-02-26T15:03:51Z",
+  "merged_at": "2023-02-26T15:03:51Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2501",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2501/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2501/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2501",
+  "body": "Fixes #2366 ",
+  "additions": 45,
+  "deletions": 19,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 12,
+  "review_comments_count": 0,
+  "total_comments": 12,
+  "comments_data": [
+    {
+      "id": 1443187207,
+      "user": "IanMayo",
+      "created_at": "2023-02-24T08:49:54Z",
+      "updated_at": "2023-02-24T08:49:54Z",
+      "body": "Hey - this is scary stuff @philb89  - well done :-)\r\n\r\nCan you explain why we need two copies of `leaflet.select.js`?  Is it just for storybook to work?"
+    },
+    {
+      "id": 1443250157,
+      "user": "IanMayo",
+      "created_at": "2023-02-24T09:07:38Z",
+      "updated_at": "2023-02-24T09:07:38Z",
+      "body": "Ooh, we're not quite there.\r\n\r\nI just started to create orders for Land > Patrol.  I drew the `route out`, selected a standard area (which appeared on the map :-) ), but then it didn't invite me to draw the `route back`.  This _used_ to work.\r\n\r\nI think we need to create a `pendingGeometries` object to move things forward, and `onCreate` used to handle that."
+    },
+    {
+      "id": 1443744292,
+      "user": "lebaphi",
+      "created_at": "2023-02-24T14:17:20Z",
+      "updated_at": "2023-02-24T14:17:20Z",
+      "body": "> Hey - this is scary stuff @philb89 - well done :-)\r\n> \r\n> Can you explain why we need two copies of `leaflet.select.js`? Is it just for storybook to work?\r\n\r\nHi @IanMayo, I update the leaflet.select.js to support new property `showSelectedIcon: true`\r\n\r\n<img width=\"197\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/221200636-58a03efd-072b-46c1-929e-c7f40184ead8.png\">\r\n\r\nthen we can determine which area is selecting."
+    },
+    {
+      "id": 1443746573,
+      "user": "lebaphi",
+      "created_at": "2023-02-24T14:19:11Z",
+      "updated_at": "2023-02-24T14:19:11Z",
+      "body": "> Ooh, we're not quite there.\r\n> \r\n> I just started to create orders for Land > Patrol. I drew the `route out`, selected a standard area (which appeared on the map :-) ), but then it didn't invite me to draw the `route back`. This _used_ to work.\r\n> \r\n> I think we need to create a `pendingGeometries` object to move things forward, and `onCreate` used to handle that.\r\n\r\nah sorry, I think I forgot to uncomment these lines 🤣 "
+    },
+    {
+      "id": 1443762152,
+      "user": "IanMayo",
+      "created_at": "2023-02-24T14:32:26Z",
+      "updated_at": "2023-02-24T14:33:13Z",
+      "body": "> then we can determine which area is selecting\r\n\r\nI noticed the change.  I'm pretty sure we don't need to display the radio button.  We're treating this as a \"command button\" menu - that ends with a click.  We're not providing it to allow a user to investigate a tree of data.\r\n\r\nAlso:\r\n> Can you explain why we need two copies of leaflet.select.js? Is it just for storybook to work?"
+    },
+    {
+      "id": 1443773911,
+      "user": "lebaphi",
+      "created_at": "2023-02-24T14:39:59Z",
+      "updated_at": "2023-02-24T14:39:59Z",
+      "body": "> > then we can determine which area is selecting\r\n> \r\n> I noticed the change. I'm pretty sure we don't need to display the radio button. We're treating this as a \"command button\" menu - that ends with a click. We're not providing it to allow a user to investigate a tree of data.\r\n> \r\n> Also:\r\n> \r\n> > Can you explain why we need two copies of leaflet.select.js? Is it just for storybook to work?\r\n\r\nokay, let me update"
+    },
+    {
+      "id": 1444290499,
+      "user": "IanMayo",
+      "created_at": "2023-02-24T19:11:36Z",
+      "updated_at": "2023-02-24T19:11:36Z",
+      "body": "One remaining issue, please.\r\n\r\nThe new rectangle is left drawn on the map when we finish creating the shapes.  I think we need to (optionally) remember it in state, and delete it when we finish.\r\n\r\nDemo:  https://i.gyazo.com/ff89650eea2207523dc874c55fda21a6.mp4"
+    },
+    {
+      "id": 1445033866,
+      "user": "IanMayo",
+      "created_at": "2023-02-25T08:55:47Z",
+      "updated_at": "2023-02-25T09:07:22Z",
+      "body": "Aah, hold on. There is a remaining issue.  We need to remove the `Standard Area` select control when the standard area has been selected.\r\n\r\nDemo here: https://i.gyazo.com/01a67d7620e6c037fb74acd3d2537621.mp4\r\n\r\nCould you also check that the `standard areas control` and the `standard polygon` are removed if the player `Cancels` planning the orders?"
+    },
+    {
+      "id": 1445058144,
+      "user": "lebaphi",
+      "created_at": "2023-02-25T11:15:13Z",
+      "updated_at": "2023-02-25T11:15:13Z",
+      "body": "> Changes requested [here](https://github.com/serge-web/serge/pull/2501#issuecomment-1445033866) please.\n\nsure @IanMayo, I will update after dinner 👍🏻"
+    },
+    {
+      "id": 1445137318,
+      "user": "IanMayo",
+      "created_at": "2023-02-25T15:00:39Z",
+      "updated_at": "2023-02-25T15:00:39Z",
+      "body": "Working fine :-)"
+    },
+    {
+      "id": 1445142476,
+      "user": "IanMayo",
+      "created_at": "2023-02-25T15:29:08Z",
+      "updated_at": "2023-02-25T15:29:08Z",
+      "body": "Sorry @lebaphi -  I think this still isn't quite right.  As soon as we have planned the polygon (either by selecting a standard area, or drawing a polygon) - then the standard-areas menu should disappear. I know we don't want it there when the `route back` line is being drawn.  The logic to control this is in the `standardPolygons` state.  When this is zero or undefined, the we should not show the standard area menu.  Looking at it another way, we should only show the standard area menu when `standardPolygons` is contains items."
+    },
+    {
+      "id": 1445383747,
+      "user": "IanMayo",
+      "created_at": "2023-02-26T15:03:41Z",
+      "updated_at": "2023-02-26T15:03:41Z",
+      "body": "Working perfectly :-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2366
+  ],
+  "issues": [
+    {
+      "id": 1581252963,
+      "number": 2366,
+      "title": "When adding a `Standard Area` to a planning order - show the area",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-12T13:08:01Z",
+      "updated_at": "2023-02-26T15:03:52Z",
+      "closed_at": "2023-02-26T15:03:52Z",
+      "body": "For polygons in orders, players can either add them by drawing them, or add them from the drop-down list.\n\nIf they draw them, they are able to see the shape on the map.  But, if they select it from the list it isn't shown.\n\nIt would be good if _Somehow_ we could add the new shape to the drawing layer - so it gets drawn and the player can review what they are doing.  It also helps the player plan their `route back`.\n\nWe _probably_ have to push the `Layer` for the new shape into the GeoMan layer in `OrderDrawing`.   Hmm, if we do that, _maybe_ we no longer need to insert the shape ourselves - maybe the `GeoMan`  handler will jump onto it.\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/221200636-58a03efd-072b-46c1-929e-c7f40184ead8.png"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 64
+}

@@ -1,0 +1,83 @@
+{
+  "number": 1738,
+  "title": "1696: Delete assets when Platform-Type removed",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-07T02:13:03Z",
+  "updated_at": "2022-08-08T15:33:18Z",
+  "closed_at": "2022-08-08T15:33:17Z",
+  "merged_at": "2022-08-08T15:33:17Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1738",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1738/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1738/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1738",
+  "body": "Fixes #1696 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/183272118-9c503c38-e8f9-4ee4-bcc6-1cf3b79a3657.mp4\r\n\r\n\r\n",
+  "additions": 78,
+  "deletions": 22,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 2,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1207430916,
+      "user": "IanMayo",
+      "created_at": "2022-08-07T15:24:44Z",
+      "updated_at": "2022-08-07T15:24:44Z",
+      "body": "One DeepScan issue please @lebaphi :\r\n![image](https://user-images.githubusercontent.com/1108513/183298324-39789569-1bef-471d-9dae-8a57c0d0d81d.png)\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 940158007,
+      "user": "IanMayo",
+      "created_at": "2022-08-08T12:02:13Z",
+      "updated_at": "2022-08-08T12:02:13Z",
+      "body": "Shouldn't this be:\r\n`if (platformTypeUsed.length === 0)` ?\r\n\r\n",
+      "path": "packages/client/src/Components/Modals/DeleteConfirmation.tsx",
+      "diff_hunk": "@@ -1,34 +1,61 @@\n import { Confirm } from '@serge/components'\n-import { RootState, ForceData, ModalData, RoleType, PlatformType, IconOption } from '@serge/custom-types'\n+import { Asset, ForceData, IconOption, ModalData, PlatformType, PlatformTypeData, RoleType, RootState } from '@serge/custom-types'\n import '@serge/themes/App.scss'\n-import React from 'react'\n+import React, { useEffect, useState } from 'react'\n import { useDispatch, useSelector } from 'react-redux'\n import {\n   clearWargames,\n-  deletePlatformType,\n   deleteAnnotation,\n   deleteSelectedAsset,\n   deleteSelectedChannel,\n   deleteSelectedForce,\n-  deleteSelectedRole\n+  deleteSelectedRole,\n+  updateForcesAndDeletePlatformType\n } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'\n import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'\n \n+type PlatformTypeCount = {\n+  force: ForceData\n+  asset: Asset\n+}\n+\n const DeleteModal = () => {\n   const dispatch = useDispatch()\n   const currentModal = useSelector((state: RootState) => state.currentModal)\n   const wargame = useSelector((state: RootState) => state.wargame)\n-  \n+  const { type, data, customMessages } = currentModal.data as ModalData\n+  const [message, setMessage] = useState<string>(customMessages && customMessages.message)\n+\n   if (!currentModal.data) {\n     return <></>\n   }\n \n+  const countPlatformTypeUsed = (): PlatformTypeCount[] => {\n+    return wargame.data.forces.forces.reduce((result, force) => {\n+      const platformTypeId = (data as PlatformTypeData).uniqid\n+      force.assets?.filter(asset => {\n+        if (asset.platformTypeId === platformTypeId) {\n+          result.push({ force, asset })\n+        }\n+      })\n+      return result\n+    }, [] as PlatformTypeCount[])\n+  }\n+\n+  useEffect(() => {\n+    if (type === 'platformType') {\n+      const platformTypeUsed = countPlatformTypeUsed()\n+      if (platformTypeUsed) {",
+      "html_url": "https://github.com/serge-web/serge/pull/1738#discussion_r940158007"
+    },
+    {
+      "id": 940159826,
+      "user": "IanMayo",
+      "created_at": "2022-08-08T12:04:24Z",
+      "updated_at": "2022-08-08T12:04:25Z",
+      "body": "Aah no, I misinterpreted the logic.",
+      "path": "packages/client/src/Components/Modals/DeleteConfirmation.tsx",
+      "diff_hunk": "@@ -1,34 +1,61 @@\n import { Confirm } from '@serge/components'\n-import { RootState, ForceData, ModalData, RoleType, PlatformType, IconOption } from '@serge/custom-types'\n+import { Asset, ForceData, IconOption, ModalData, PlatformType, PlatformTypeData, RoleType, RootState } from '@serge/custom-types'\n import '@serge/themes/App.scss'\n-import React from 'react'\n+import React, { useEffect, useState } from 'react'\n import { useDispatch, useSelector } from 'react-redux'\n import {\n   clearWargames,\n-  deletePlatformType,\n   deleteAnnotation,\n   deleteSelectedAsset,\n   deleteSelectedChannel,\n   deleteSelectedForce,\n-  deleteSelectedRole\n+  deleteSelectedRole,\n+  updateForcesAndDeletePlatformType\n } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'\n import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'\n \n+type PlatformTypeCount = {\n+  force: ForceData\n+  asset: Asset\n+}\n+\n const DeleteModal = () => {\n   const dispatch = useDispatch()\n   const currentModal = useSelector((state: RootState) => state.currentModal)\n   const wargame = useSelector((state: RootState) => state.wargame)\n-  \n+  const { type, data, customMessages } = currentModal.data as ModalData\n+  const [message, setMessage] = useState<string>(customMessages && customMessages.message)\n+\n   if (!currentModal.data) {\n     return <></>\n   }\n \n+  const countPlatformTypeUsed = (): PlatformTypeCount[] => {\n+    return wargame.data.forces.forces.reduce((result, force) => {\n+      const platformTypeId = (data as PlatformTypeData).uniqid\n+      force.assets?.filter(asset => {\n+        if (asset.platformTypeId === platformTypeId) {\n+          result.push({ force, asset })\n+        }\n+      })\n+      return result\n+    }, [] as PlatformTypeCount[])\n+  }\n+\n+  useEffect(() => {\n+    if (type === 'platformType') {\n+      const platformTypeUsed = countPlatformTypeUsed()\n+      if (platformTypeUsed) {",
+      "html_url": "https://github.com/serge-web/serge/pull/1738#discussion_r940159826"
+    }
+  ],
+  "issue_numbers": [
+    1696
+  ],
+  "issues": [
+    {
+      "id": 1319462990,
+      "number": 1696,
+      "title": "Delete assets when Platform-Type removed",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-27T12:03:36Z",
+      "updated_at": "2022-08-08T15:33:18Z",
+      "closed_at": "2022-08-08T15:33:18Z",
+      "body": "In `Small Wargame` we have platform-types, and assets.  Assets have a (non-editable) platform-type.\r\n\r\nIf we delete a platform-type that is used by one or more assets the \"Forces - Assets\" table falls over - since the platform isn't found.\r\n\r\nSo, when the user requests to delete a platform-type we should:\r\n1. Count how many assets are of that type\r\n2. Warn the player that \"4 Assets of this type will be also be deleted\"\r\n3. If the player confirms, delete the assets as well as the platform type",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/183298324-39789569-1bef-471d-9dae-8a57c0d0d81d.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 100
+}

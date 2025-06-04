@@ -1,0 +1,83 @@
+{
+  "number": 921,
+  "title": "Make icon for overflow menu more vivid",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-03T10:48:13Z",
+  "updated_at": "2021-07-05T11:45:49Z",
+  "closed_at": "2021-07-05T11:45:48Z",
+  "merged_at": "2021-07-05T11:45:48Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/921",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/921/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/921/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/921",
+  "body": "Fixes #907 ",
+  "additions": 7,
+  "deletions": 3,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 873387256,
+      "user": "lebaphi",
+      "created_at": "2021-07-03T10:48:33Z",
+      "updated_at": "2021-07-03T10:49:20Z",
+      "body": "<img width=\"138\" alt=\"Screen Shot 2021-07-03 at 5 44 41 PM\" src=\"https://user-images.githubusercontent.com/26705621/124351842-dd9f3a80-dc26-11eb-9c1d-ff599aff551a.png\">\r\nThe new icon, bigger and brighter 50% :D"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    907
+  ],
+  "issues": [
+    {
+      "id": 935124998,
+      "number": 907,
+      "title": "Make icon for overflow menu more vivid",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-01T18:52:42Z",
+      "updated_at": "2021-07-07T11:05:23Z",
+      "closed_at": "2021-07-07T11:05:23Z",
+      "body": "Some (older) users didn't spot the tab overflow menu (`>>`). \r\n\r\nIt's dark-grey on dark-blue.\r\n![image](https://user-images.githubusercontent.com/1108513/124175705-d56bc180-daa5-11eb-9f74-e84e9421e773.png)\r\n\r\nWe should probably make it a bit larger, and a lighter shade of grey.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 874075582,
+          "user": "IanMayo",
+          "created_at": "2021-07-05T12:30:05Z",
+          "updated_at": "2021-07-05T12:30:05Z",
+          "body": "Re-opening.\r\n\r\n@lebaphi - actually, could you make the maximise button more vivid too.\r\n\r\nAs I discussed in #920  - there could be situations when maximise could be useful.  Plus, the issue that #920 fixes may not have happened if the maximise button was more visible."
+        },
+        {
+          "id": 874076374,
+          "user": "lebaphi",
+          "created_at": "2021-07-05T12:31:28Z",
+          "updated_at": "2021-07-05T12:31:28Z",
+          "body": "oka @IanMayo 👌 "
+        },
+        {
+          "id": 875511669,
+          "user": "IanMayo",
+          "created_at": "2021-07-07T11:05:23Z",
+          "updated_at": "2021-07-07T11:05:23Z",
+          "body": "Sorted, in #926 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/124351842-dd9f3a80-dc26-11eb-9c1d-ff599aff551a.png",
+    "https://user-images.githubusercontent.com/1108513/124175705-d56bc180-daa5-11eb-9f74-e84e9421e773.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 10
+}

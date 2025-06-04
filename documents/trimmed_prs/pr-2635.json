@@ -1,0 +1,50 @@
+{
+  "number": 2635,
+  "title": "Remove flatpickr workaround now game in GMT",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-13T13:25:21Z",
+  "updated_at": "2023-03-13T14:54:45Z",
+  "closed_at": "2023-03-13T14:54:43Z",
+  "merged_at": "2023-03-13T14:54:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2635",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2635/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2635/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2635",
+  "body": "Fixes #2634 ",
+  "additions": 9,
+  "deletions": 5,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2634
+  ],
+  "issues": [
+    {
+      "id": 1621469202,
+      "number": 2634,
+      "title": "Date-time control is an hour out",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-13T13:14:18Z",
+      "updated_at": "2023-03-13T14:54:45Z",
+      "closed_at": "2023-03-13T14:54:45Z",
+      "body": "We did have an issue where the flatpickr date control offsets the time by an hour - since it uses the locale format.\r\n\r\nA fix was inserted to resolve this. #2478 \r\n\r\nBut, the game has now moved into November, and daylight savings time is in place.  So, we're an hour out.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 14
+}

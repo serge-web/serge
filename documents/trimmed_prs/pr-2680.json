@@ -1,0 +1,124 @@
+{
+  "number": 2680,
+  "title": "Fix Serge failing to open on port 3000",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-06-14T19:20:54Z",
+  "updated_at": "2023-11-15T10:39:12Z",
+  "closed_at": "2023-11-15T10:39:08Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2680",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2680/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2680/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2680",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 951,
+  "deletions": 627,
+  "changed_files": 13,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 7,
+  "review_comments_count": 0,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1598474151,
+      "user": "IanMayo",
+      "created_at": "2023-06-20T09:56:32Z",
+      "updated_at": "2023-06-20T09:56:32Z",
+      "body": "Hello @lilitkarapetyan - I've pulled the branch, done `yarn install`, `yarn build`,  `rm -rf packages/components/build`, and `yarn dev`, but I still get runtime errors:\r\n![image](https://github.com/serge-web/serge/assets/1108513/a5532de8-c1bf-419c-adf1-bec9d2c52cff)\r\n"
+    },
+    {
+      "id": 1598537818,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-06-20T10:44:48Z",
+      "updated_at": "2023-06-20T10:44:48Z",
+      "body": "> \r\n\r\nIf you pulled from my branch, there's no need to delete the build folder. Simply run `yarn(install)`, `yarn build` followed by `yarn dev` and you shouldn't encounter any errors - https://gyazo.com/9a2b8ae48b1fe382241b48d0b2c8ac2d"
+    },
+    {
+      "id": 1598615180,
+      "user": "IanMayo",
+      "created_at": "2023-06-20T11:40:31Z",
+      "updated_at": "2023-06-20T11:40:31Z",
+      "body": "> > \r\n> \r\n> If you pulled from my branch, there's no need to delete the build folder. Simply run `yarn(install)`, `yarn build` followed by `yarn dev` and you shouldn't encounter any errors - https://gyazo.com/9a2b8ae48b1fe382241b48d0b2c8ac2d\r\n\r\nI still get build errors: https://i.gyazo.com/8fc2fcefc7fb2e7e99938b265cbc8cfc.mp4"
+    },
+    {
+      "id": 1598640647,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-06-20T12:00:19Z",
+      "updated_at": "2023-06-20T12:00:19Z",
+      "body": "> > > \r\n> > \r\n> > \r\n> > If you pulled from my branch, there's no need to delete the build folder. Simply run `yarn(install)`, `yarn build` followed by `yarn dev` and you shouldn't encounter any errors - https://gyazo.com/9a2b8ae48b1fe382241b48d0b2c8ac2d\r\n> \r\n> I still get build errors: https://i.gyazo.com/8fc2fcefc7fb2e7e99938b265cbc8cfc.mp4\r\n\r\nHave you tried running the commands 'yarn cache clean' or 'rm -r node_modules ?"
+    },
+    {
+      "id": 1598663407,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-06-20T12:16:42Z",
+      "updated_at": "2023-06-20T12:16:42Z",
+      "body": "Okay, I performed some tests and encountered the issue again."
+    },
+    {
+      "id": 1600470497,
+      "user": "IanMayo",
+      "created_at": "2023-06-21T09:05:13Z",
+      "updated_at": "2023-06-21T09:05:13Z",
+      "body": "Still have the runtime failure, I'm afraid:\r\n![image](https://github.com/serge-web/serge/assets/1108513/3889080e-eede-4955-b255-cb44d5993d8c)\r\n"
+    },
+    {
+      "id": 1812220324,
+      "user": "IanMayo",
+      "created_at": "2023-11-15T10:39:09Z",
+      "updated_at": "2023-11-15T10:39:09Z",
+      "body": "Close. Overtaken by move to monolith."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    3000
+  ],
+  "issues": [
+    {
+      "id": 2413496855,
+      "number": 3000,
+      "title": "Cannot delete shapes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-07-17T12:29:34Z",
+      "updated_at": "2024-07-18T07:24:46Z",
+      "closed_at": "2024-07-18T07:24:46Z",
+      "body": "In our current test wargame, the Game Designer has lots of mapping permissions.\r\n\r\nWhen playing as Game Designer, with the map in `Remove Layers` mode it is possible to delete MilSymbols, but not Shapes.\r\n\r\nInstead of being deleted, the shapes become `selected`:\r\n\r\nHmm,  I've just tried to record a video, but the error seems intermittent.  Could you please investigate further @Tristina1788 ?\r\n\r\n![screencast](https://i.gyazo.com/47f50dd00e12ec0b1dedb0ac58ca30e0.gif)",
+      "labels": [
+        "bug",
+        "4hat"
+      ],
+      "comments": [
+        {
+          "id": 2235298006,
+          "user": "Tristina1788",
+          "created_at": "2024-07-18T04:17:00Z",
+          "updated_at": "2024-07-18T04:17:00Z",
+          "body": "@IanMayo Currently we only enable to delete one item for one time although the 'Remove' tool is still highlight as ticket ['Delete Layer' function should enable to delete multi layers](https://github.com/serge-web/serge/issues/2794)"
+        },
+        {
+          "id": 2235810140,
+          "user": "IanMayo",
+          "created_at": "2024-07-18T07:24:46Z",
+          "updated_at": "2024-07-18T07:24:46Z",
+          "body": "Close. Duplicate of #2794 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/a5532de8-c1bf-419c-adf1-bec9d2c52cff",
+    "https://github.com/serge-web/serge/assets/1108513/3889080e-eede-4955-b255-cb44d5993d8c",
+    "https://i.gyazo.com/47f50dd00e12ec0b1dedb0ac58ca30e0.gif"
+  ],
+  "number_of_changed_files": 13,
+  "total_changed_lines": 1578
+}

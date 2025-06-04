@@ -1,0 +1,84 @@
+{
+  "number": 2529,
+  "title": "Adjudicate_Tab_not_getting_updates",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-28T08:13:49Z",
+  "updated_at": "2023-02-28T14:16:06Z",
+  "closed_at": "2023-02-28T14:16:04Z",
+  "merged_at": "2023-02-28T14:16:04Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2529",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2529/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2529/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2529",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 25,
+  "deletions": 14,
+  "changed_files": 1,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1447885332,
+      "user": "IanMayo",
+      "created_at": "2023-02-28T09:56:06Z",
+      "updated_at": "2023-02-28T09:56:06Z",
+      "body": "Thanks @lilitkarapetyan  - but this isn't quite right.\r\n\r\nWhile the panel knows about `planningMessages` - it's the `adjudicationMessages` that it displays - and it's these messages that we have to track.  So, I'm pretty sure we don't need to worry about `planningMessage` updates.  It's the `interactionMessages` that we need to handle carefully."
+    },
+    {
+      "id": 1447935643,
+      "user": "IanMayo",
+      "created_at": "2023-02-28T10:29:30Z",
+      "updated_at": "2023-02-28T10:29:30Z",
+      "body": "@lilitkarapetyan - I've attempted an update.\r\n\r\nCould you check it please?\r\n\r\nSteps to test:\r\n- login as Game Control and Adjudicator 1\r\n- as Game Control, move game to `Adjudication` (if necessary)\r\n- as Game Control, click on `Get Next Interaction` - when the form loads, start to type some data into a field\r\n- as Adjudicator 1, click on `Get Next Interaction`, write some data into the form and `Submit`.\r\n- check the content of the Game Control form isn't lost."
+    },
+    {
+      "id": 1448011687,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-28T11:24:00Z",
+      "updated_at": "2023-02-28T11:24:00Z",
+      "body": "Okay now.\r\n\r\n> \r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2510
+  ],
+  "issues": [
+    {
+      "id": 1599096165,
+      "number": 2510,
+      "title": "Adjudicate Tab - not getting updates",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-24T18:15:08Z",
+      "updated_at": "2023-03-01T09:57:21Z",
+      "closed_at": "2023-03-01T09:57:20Z",
+      "body": "We have code in the adjudicate tab to prevent data being lost.  But, it is preventing new adjudications from being displayed.  The umpire has to `refresh` the page to get the new adjudication. \r\n\r\nFix the implementation so that:\r\n1.  On \"Get next\", new adjudications are displayed\r\n2. Live form data isn't lost if another user gets an adjudication\r\n3. \"Only show live adjudcation\" button works\r\n\r\nOk, `1` and `3` are fixed, but I'm pretty sure this has broken `2`.\r\n\r\nI suggest we implement a workaround like the one in `planning messages list`:\r\n* [ ] set `message being edited flag` when the form editor cache is updated\r\n* [ ] if messages object updates while message being edited, put into pending array\r\n* [ ] on form `save` or `cancel`, do message handling, then update data with pending messages (if there are any)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1449744631,
+          "user": "IanMayo",
+          "created_at": "2023-03-01T09:57:20Z",
+          "updated_at": "2023-03-01T09:57:20Z",
+          "body": "Fixed in #2529"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 39
+}

@@ -1,0 +1,151 @@
+{
+  "number": 995,
+  "title": "complex wargame",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-16T14:32:32Z",
+  "updated_at": "2021-08-25T16:21:45Z",
+  "closed_at": "2021-08-25T16:21:44Z",
+  "merged_at": "2021-08-25T16:21:44Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/995",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/995/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/995/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/995",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #988 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 11,
+  "review_comments_count": 0,
+  "total_comments": 11,
+  "comments_data": [
+    {
+      "id": 900099656,
+      "user": "IanMayo",
+      "created_at": "2021-08-17T08:27:51Z",
+      "updated_at": "2021-08-17T08:28:39Z",
+      "body": "Thanks @sanjayradadiya - nice start\r\n\r\nI see other forces need to be added to the `Blue RFI` and `Red RFI` channels.  Note: `Red` are also present in `Blue RFI`.\r\n\r\nAlso note: when all members of a force are present in a channel, it is better to leave the `Roles` column blank - this will ensure that any other new roles in that force are present in the channel."
+    },
+    {
+      "id": 904569186,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T11:50:10Z",
+      "updated_at": "2021-08-24T11:50:10Z",
+      "body": "Aah, I see we still have some unnecessary restrictions:\r\n![image](https://user-images.githubusercontent.com/1108513/130611291-1a7d00f2-a30e-4c3d-b329-e73932c0344a.png)\r\n\r\nFor the second Blue role, we can just leave the `role` blank - which will include all rows (including any future blue ones).\r\n\r\nCould you switch to this way of specifying it please?"
+    },
+    {
+      "id": 904584394,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T12:13:56Z",
+      "updated_at": "2021-08-24T12:13:56Z",
+      "body": "Oops, unclear requirements from me:\r\n![image](https://user-images.githubusercontent.com/1108513/130614225-2bc310c0-832b-4770-84ff-83b3158a9cbf.png)\r\n\r\nThose with `create` ability will only be able to create `RFIs` OR `COAs` - depending on the type of channel it is. So, in the `BLUE RFI` channel, `Blue` will be able to create an `RFI` - but not a COA, etc, etc.\r\n\r\nDefinition of `create` improved:\r\n![image](https://user-images.githubusercontent.com/1108513/130614346-34f07c61-0bc4-4333-9315-1b893badeecb.png)\r\n"
+    },
+    {
+      "id": 904611940,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T12:51:02Z",
+      "updated_at": "2021-08-24T12:51:02Z",
+      "body": "All of red need to be able to submit (create) a COA:\r\n![image](https://user-images.githubusercontent.com/1108513/130619287-6c7dd0ce-4fcc-4e0e-b484-e540928971eb.png)\r\n"
+    },
+    {
+      "id": 904612661,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T12:52:00Z",
+      "updated_at": "2021-08-24T12:52:00Z",
+      "body": "`Rainbox` force should be `Rainbow` - sorry, my mistake."
+    },
+    {
+      "id": 904613590,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T12:53:17Z",
+      "updated_at": "2021-08-24T12:53:17Z",
+      "body": "Rainbow messages are: chat, SME comment, and Request Infrastructure.  Not `PFT RFI`.\r\n![image](https://user-images.githubusercontent.com/1108513/130619606-148152b3-fcb3-4344-8ed8-73d002bfb6b9.png)\r\n\r\nAbove example from `Blue & SME`."
+    },
+    {
+      "id": 904701150,
+      "user": "sanjayradadiya",
+      "created_at": "2021-08-24T14:38:22Z",
+      "updated_at": "2021-08-24T14:38:22Z",
+      "body": "> Aah, I see we still have some unnecessary restrictions:\r\n> ![image](https://user-images.githubusercontent.com/1108513/130611291-1a7d00f2-a30e-4c3d-b329-e73932c0344a.png)\r\n> \r\n> For the second Blue role, we can just leave the `role` blank - which will include all rows (including any future blue ones).\r\n> \r\n> Could you switch to this way of specifying it please?\r\n\r\nYes, All Roles applied for Blue role."
+    },
+    {
+      "id": 904702532,
+      "user": "sanjayradadiya",
+      "created_at": "2021-08-24T14:39:57Z",
+      "updated_at": "2021-08-24T14:39:57Z",
+      "body": "> Rainbow messages are: chat, SME comment, and Request Infrastructure. Not `PFT RFI`.\r\n> ![image](https://user-images.githubusercontent.com/1108513/130619606-148152b3-fcb3-4344-8ed8-73d002bfb6b9.png)\r\n> \r\n> Above example from `Blue & SME`.\r\n\r\nPFT RFI template changed to SME Comment."
+    },
+    {
+      "id": 904703275,
+      "user": "sanjayradadiya",
+      "created_at": "2021-08-24T14:40:51Z",
+      "updated_at": "2021-08-24T14:40:51Z",
+      "body": "> `Rainbox` force should be `Rainbow` - sorry, my mistake.\r\n\r\nRainbox force name changed to Rainbow."
+    },
+    {
+      "id": 904713307,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T14:52:57Z",
+      "updated_at": "2021-08-24T14:52:57Z",
+      "body": "Oops, spotted another one :-)\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/130639083-76185a54-29e7-47b7-964d-c2aac57e3578.png)\r\n\r\nOnly Red should be able to create messages in `Red RFI`.  The other participants should have templates `empty` please.  We're using the presence of a custom template as the marker for `create` permission."
+    },
+    {
+      "id": 904753514,
+      "user": "IanMayo",
+      "created_at": "2021-08-24T15:40:24Z",
+      "updated_at": "2021-08-24T15:40:24Z",
+      "body": "Oh dear, please don't be cross with me @sanjayradadiya \r\n\r\nThe `RFI` templates actually need to be `PFT RFI`.  Sorry.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/130647139-70dff21a-8b3c-443c-b774-8866ef212ec3.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    988
+  ],
+  "issues": [
+    {
+      "id": 963930644,
+      "number": 988,
+      "title": "As a stakeholder I wish to review a complex wargame",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-09T12:09:51Z",
+      "updated_at": "2021-08-25T16:21:44Z",
+      "closed_at": "2021-08-25T16:21:44Z",
+      "body": "The players are planning a complex wargame that will run for several months.\r\n\r\nThe wargame includes many forces and players.\r\n\r\nWe should create a mock version of the wargame to help the players verify that Serge is meeting their requirement.\r\n\r\nI have documented the forces/roles/channel membership here: https://docs.google.com/spreadsheets/d/1WHCPC6rdqwVNYPQxUIoGfTWaBx0xEl-SjN05JrD6Dno/edit?usp=sharing\r\n\r\nThe wargame should also have these characteristics:\r\n* name: `Papa Foxtrot`\r\n* turn presentation: `Turn-pair-letters` (this is a new format: `0.a, 0.b, 1.a, 1.b`\r\n* turn size: `Two months` (once we allow this in UI. For now we'll use a period of 60 days).\r\n\r\n(please feel free to comment with questions)",
+      "labels": [],
+      "comments": [
+        {
+          "id": 901720497,
+          "user": "IanMayo",
+          "created_at": "2021-08-19T08:34:38Z",
+          "updated_at": "2021-08-19T09:21:49Z",
+          "body": "@sanjayradadiya - one user is keen to see what messages sent via the COA template look like.  So, I know it won't be the \"real\" COA channel - but could you create the `COA` template in the repo, then add the `COA` template to the `Blue COA` channel please?  \r\n\r\nThen they can:\r\n* login as blue player\r\n* build complex COA message\r\n* go to admin\r\n* export wargame \r\n* view CSV for COA messages \r\n* start writing code to parse/exploit COAs"
+        },
+        {
+          "id": 901869542,
+          "user": "IanMayo",
+          "created_at": "2021-08-19T12:22:06Z",
+          "updated_at": "2021-08-19T12:22:06Z",
+          "body": "Aah, actually @sanjayradadiya  now that the PR is merged we can create the `real` channels, with `real` participant attributes.\r\n\r\nPlease switch to the new strategy.  Thanks!"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/130611291-1a7d00f2-a30e-4c3d-b329-e73932c0344a.png",
+    "https://user-images.githubusercontent.com/1108513/130614225-2bc310c0-832b-4770-84ff-83b3158a9cbf.png",
+    "https://user-images.githubusercontent.com/1108513/130614346-34f07c61-0bc4-4333-9315-1b893badeecb.png",
+    "https://user-images.githubusercontent.com/1108513/130619287-6c7dd0ce-4fcc-4e0e-b484-e540928971eb.png",
+    "https://user-images.githubusercontent.com/1108513/130619606-148152b3-fcb3-4344-8ed8-73d002bfb6b9.png",
+    "https://user-images.githubusercontent.com/1108513/130639083-76185a54-29e7-47b7-964d-c2aac57e3578.png",
+    "https://user-images.githubusercontent.com/1108513/130647139-70dff21a-8b3c-443c-b774-8866ef212ec3.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 0
+}

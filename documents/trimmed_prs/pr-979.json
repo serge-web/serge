@@ -1,0 +1,48 @@
+{
+  "number": 979,
+  "title": "966 collaboration controller",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-29T13:47:53Z",
+  "updated_at": "2021-07-31T15:07:55Z",
+  "closed_at": "2021-07-31T15:07:54Z",
+  "merged_at": "2021-07-31T15:07:54Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/979",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/979/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/979/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/979",
+  "body": "Fixes #966 \r\n\r\nDevelop controller class to contain logic associated with Collaborative Editing\r\n",
+  "additions": 2105,
+  "deletions": 252,
+  "changed_files": 56,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    966
+  ],
+  "issues": [
+    {
+      "id": 953039147,
+      "number": 966,
+      "title": "Testable Controller for collaborative working",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-26T15:43:38Z",
+      "updated_at": "2021-07-31T15:07:54Z",
+      "closed_at": "2021-07-31T15:07:54Z",
+      "body": "As a maintainer I want to put `collaborative editing` into testable controller.\r\n\r\nThere is quite a lot of functionality in collaborative data editing.\r\n\r\nIt would be easier to test this if it was in pure code.\r\n\r\nTo include:\r\n* [x] configure controller using channel details\r\n* [x] for current role, which template(s) are available?  (empty for none)\r\n* [x] for current role, am I participating in this channel?\r\n* [x] for current role, can I view channel as an observer? \r\n* [x] for current role, can I release a message?\r\n* [x] for current force, can I see in-progress changes?\r\n* [x] for current role, what commands are displayed for message of this state?\r\n* [x] for current role, can I see this message? (test for unallocated, allocated, released)\r\n* [x] who can have messages in this channel assigned to them?\r\n* [x] what is initial state for this new message?\r\n* [ ] apply this command to this message\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 56,
+  "total_changed_lines": 2357
+}

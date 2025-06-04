@@ -1,0 +1,49 @@
+{
+  "number": 1313,
+  "title": "problem_with_flicker_on_update_for_new_table_control_#1277",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-19T05:29:16Z",
+  "updated_at": "2022-01-26T15:08:11Z",
+  "closed_at": "2022-01-26T15:08:11Z",
+  "merged_at": "2022-01-26T15:08:11Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1313",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1313/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1313/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1313",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 25,
+  "deletions": 13,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1017400638,
+      "user": "IanMayo",
+      "created_at": "2022-01-20T11:25:18Z",
+      "updated_at": "2022-01-20T11:25:38Z",
+      "body": "Steps to reproduce in-channel flicker issue.\r\n1. Open serge, log into \"Papa-Foxtrot\" as log in as \"Blue - POLAD\". \r\n2. Go to \"Blue COA\" channel.\r\n3. Click on a COA that is `Pending Review`\r\n4. Click on `Claim` - it will open in editor.  Make slight modification to COA name.\r\n5. Open serge in another window. log into `Papa-Foxtrot` as \"Blue - Senior Blue\". \r\n6. Go to \"Blue COA\" channel\r\n7. Open COA that is `Pending Review`\r\n8. Click on `Claim` - and notice the `POLAD` window flicker/redraw. \r\n\r\n![Recording](https://i.gyazo.com/203d60b4b722d4100f6e521a36edf911.gif)"
+    },
+    {
+      "id": 1022048937,
+      "user": "IanMayo",
+      "created_at": "2022-01-26T10:07:21Z",
+      "updated_at": "2022-01-26T10:07:21Z",
+      "body": "Thanks @lilitkarapetyan - there remains [one issue](https://github.com/serge-web/serge/runs/4948383980?check_suite_focus=true#step:6:2229).  I tried to resolve it by re-creating the `jest snapshot`, but that didn't fix it."
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://i.gyazo.com/203d60b4b722d4100f6e521a36edf911.gif"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 38
+}

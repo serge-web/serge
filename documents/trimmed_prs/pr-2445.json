@@ -1,0 +1,74 @@
+{
+  "number": 2445,
+  "title": "2172 large numbers of assets - DO NOT MERGE",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-02-19T12:42:12Z",
+  "updated_at": "2023-06-13T13:09:42Z",
+  "closed_at": "2023-06-13T13:09:36Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2445",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2445/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2445/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2445",
+  "body": "This is a demo branch that includes 3000 assets.",
+  "additions": 124495,
+  "deletions": 34968,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2172
+  ],
+  "issues": [
+    {
+      "id": 1504326953,
+      "number": 2172,
+      "title": "Increase volume of mock assets",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-12-20T10:25:40Z",
+      "updated_at": "2023-02-27T09:41:54Z",
+      "closed_at": "2023-02-27T09:41:53Z",
+      "body": "There are some performance issues with large numbers of assets (it can take a second or so to make them all appear when `Select all` is selected).\r\n\r\nHmm, part of this issue _could_ be that we're re-downloading all of the SVG, rather than cache-ing them.\r\n\r\nProduce a higher volume of blue and red assets, so we can investigate performance.\r\n\r\nTry 2500 and 3000 assets",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1400483193,
+          "user": "IanMayo",
+          "created_at": "2023-01-23T14:53:32Z",
+          "updated_at": "2023-02-01T09:31:46Z",
+          "body": "Ok.  The users have asked if we can support 5k assets in the wargame.\r\n\r\nI tried generating that many, and Serge died.\r\n\r\nWe should look at the assorted parts of Serge, and see which ones cannot handle 5k .   For `<PlanningAssets>` we have a story that generates 2000 assets (`bulk`).   We should investigate where material-table is falling over.  Number editable here:\r\n![image](https://user-images.githubusercontent.com/1108513/216004305-494ec6e5-016e-407c-b5d3-b723da8ab240.png)\r\n\r\nThe issue _may_ be in how we prepare the `type/sub-type` data.  _Maybe_ we should be getting the sub-type data by collating a list of the sub-types for the rows currently present in the table.  _Maybe_ we should only bother producing `sub-type` data if the table has already been filtered.\r\n\r\nNote: I'm currently pushing a PR that also generates high volumes of messages for the `<PlanningMessageList>` story.\r\n"
+        },
+        {
+          "id": 1436013767,
+          "user": "IanMayo",
+          "created_at": "2023-02-19T15:10:48Z",
+          "updated_at": "2023-02-19T15:10:48Z",
+          "body": "Trial with 3000 assets in #2445 "
+        },
+        {
+          "id": 1446010710,
+          "user": "IanMayo",
+          "created_at": "2023-02-27T09:41:53Z",
+          "updated_at": "2023-02-27T09:41:53Z",
+          "body": "Working with client data. The `MaterialTable` was the issue"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/216004305-494ec6e5-016e-407c-b5d3-b723da8ab240.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 159463
+}

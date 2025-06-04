@@ -1,0 +1,56 @@
+{
+  "number": 1514,
+  "title": "1499: Asset Tab Mapping Minimization/Maximization",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-16T04:27:26Z",
+  "updated_at": "2022-04-19T09:59:26Z",
+  "closed_at": "2022-04-19T09:59:26Z",
+  "merged_at": "2022-04-19T09:59:25Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1514",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1514/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1514/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1514",
+  "body": "Fixes #1499 ",
+  "additions": 14,
+  "deletions": 14,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1499
+  ],
+  "issues": [
+    {
+      "id": 1200251574,
+      "number": 1499,
+      "title": "Asset Tab Mapping Minimization/Maximization",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-11T16:52:06Z",
+      "updated_at": "2022-04-19T09:59:26Z",
+      "closed_at": "2022-04-19T09:59:26Z",
+      "body": "Hey guys! I noticed that the user can only maximize the asset window by clicking on the closed tab: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/160863656-4ded1c6b-e0f6-4750-b52d-6bd35fe6b5bf.mp4\r\n\r\nAs you can see, if I minimize by clicking Visibility, I can only maximize by clicking Control (and vice versa). The user should be able to open the window by clicking on either tab (Visibility or Control).\r\n\r\n_Originally posted by @ShendMikullovci in https://github.com/serge-web/serge/issues/1452#issuecomment-1083238650_",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1096553791,
+          "user": "IanMayo",
+          "created_at": "2022-04-12T10:39:43Z",
+          "updated_at": "2022-04-12T10:39:43Z",
+          "body": "Well spotted @ShendMikullovci  :-)"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 28
+}

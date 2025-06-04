@@ -1,0 +1,175 @@
+{
+  "number": 1195,
+  "title": "Change pouch db to ravendb",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-10-27T14:05:45Z",
+  "updated_at": "2022-03-21T19:30:20Z",
+  "closed_at": "2022-03-21T19:30:19Z",
+  "merged_at": "2022-03-21T19:30:19Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1195",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1195/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1195/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1195",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\nLink for ignore conflict files in heroku \r\n\r\nhttps://docs.codacy.com/repositories-configure/ignoring-files/\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 24753,
+  "deletions": 494,
+  "changed_files": 1158,
+  "labels": [],
+  "comments_count": 11,
+  "review_comments_count": 6,
+  "total_comments": 17,
+  "comments_data": [
+    {
+      "id": 954776540,
+      "user": "IanMayo",
+      "created_at": "2021-10-29T14:10:12Z",
+      "updated_at": "2021-10-29T14:10:12Z",
+      "body": "Note: I have connected to remote hosted RavenDb using this code:\r\n![image](https://user-images.githubusercontent.com/1108513/139449829-13f0621a-41a3-4710-ad4b-bb8218979176.png)\r\n\r\nI can provide the certificate"
+    },
+    {
+      "id": 954786456,
+      "user": "IanMayo",
+      "created_at": "2021-10-29T14:23:09Z",
+      "updated_at": "2021-10-29T14:23:09Z",
+      "body": "There appears to be an issue related to the server round-trip time.  I make a wargame change, and press `Save Overview`. If I then make a change (such as adding a user), the change gets lost when the page updates on new document received.\r\n\r\n![screencast](https://i.gyazo.com/dc4e7d21787e495ab6d0f74c79dbad3b.gif)"
+    },
+    {
+      "id": 954822282,
+      "user": "IanMayo",
+      "created_at": "2021-10-29T15:11:10Z",
+      "updated_at": "2021-10-29T15:11:10Z",
+      "body": "One other thing.  I _Think_ it's worth introducing a `messages` collection. It will keep the data (slightly) easier to navigate in the management app.  We currently have one collection per document:\r\n![image](https://user-images.githubusercontent.com/1108513/139459259-75e57aa1-71bb-423d-9487-899c6d7626f5.png)\r\n\r\n"
+    },
+    {
+      "id": 956077146,
+      "user": "IanMayo",
+      "created_at": "2021-11-01T09:36:16Z",
+      "updated_at": "2021-11-01T09:36:16Z",
+      "body": "@lilitkarapetyan - there are some outstanding comments, including refactoring into two separate database instances.\r\n\r\n_If_ we end up having to try _another_ backend technology - then having each instance in its own class will keep things easier to maintain, IMHO."
+    },
+    {
+      "id": 957456503,
+      "user": "IanMayo",
+      "created_at": "2021-11-02T12:31:38Z",
+      "updated_at": "2021-11-02T12:31:38Z",
+      "body": "@lilitkarapetyan - separating the two database implementation almost how I expected.  But, I think we still don't need the `db\\index.tsx` module.  I _think_ that in `server.js` we could check the value of `DB_TYPE` and either create an instance of PouchDb or RavenDB - stored into an object of type `DbProviderInterface `.  (Note: that approach may be more `Java`-like than `Javascript`-like)"
+    },
+    {
+      "id": 957480948,
+      "user": "IanMayo",
+      "created_at": "2021-11-02T12:43:09Z",
+      "updated_at": "2021-11-02T12:43:09Z",
+      "body": "@lilitkarapetyan - could we tell the user if the backend database isn't found?  Now that we're not building it into `nodejs` it's more likely that there could be a problem.  So, we should tell the user about it.\r\n\r\nI _guess_ we could handle this via a heartbeat response, but I'm pretty sure we do database calls at the start of the app - when we may be able to tell the user about the issue. "
+    },
+    {
+      "id": 982751902,
+      "user": "IanMayo",
+      "created_at": "2021-11-30T15:35:38Z",
+      "updated_at": "2021-11-30T15:35:38Z",
+      "body": "@lilitkarapetyan - I think we have some unresolved issues for this.\r\n\r\n1. did you mean to add the empty `.env` file\r\n2. where do we provide the Raven URL?  I presume this PR is connecting to an Internet-hosted instance\r\n3.  most of our users will run Serge on a PC without an Internet connection.  Ideally, I'd like to distribute Serge with an embedded RavenDB instance that gets started alongside (well, just before) Serge\r\n\r\nCould you look into the above too, please :-)\r\n"
+    },
+    {
+      "id": 990977038,
+      "user": "IanMayo",
+      "created_at": "2021-12-10T13:31:55Z",
+      "updated_at": "2021-12-10T13:31:55Z",
+      "body": "@lilitkarapetyan - I think we're going to have trouble distributing RavenDB within the Serge release - partly because of the licensing issue.\r\n\r\nIt is _really convenient_ for people interested in Serge to be able to just download the app and run it.\r\n\r\nSo, I _currently_ think we should continue to support PouchDb by _default_, but allow a user to upgrade to using RavenDB if they wish to.  We'll need to provide a way of telling Serge which database to use.  Maybe accept command-line parameter?  Then provide two `.bat` files - one indicates PouchDb and the other indicates RavenDB.\r\n\r\nWhat do you think?"
+    },
+    {
+      "id": 993178711,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-12-14T05:44:06Z",
+      "updated_at": "2021-12-14T05:44:06Z",
+      "body": "We can do it with command line, also in release version can be\r\ngame-puchdb-x64.exe\r\ngame-ravendb-x64.exe\r\ngame-pouchdb.sh\r\n..."
+    },
+    {
+      "id": 1031547003,
+      "user": "IanMayo",
+      "created_at": "2022-02-07T14:47:30Z",
+      "updated_at": "2022-02-07T14:47:30Z",
+      "body": "Hello @lilitkarapetyan - I'm pretty sure we're going to need `RavenDB` for an Internet-based wargame next month.\r\n\r\nWe'll host the game in Heroku, but will need RavenDB to make the data persistent (rather than getting wiped after an hour of unuse).\r\n\r\nI did just look at solving the conflicts, but struggled. I'd appreciate you doing that, please."
+    },
+    {
+      "id": 1040235891,
+      "user": "IanMayo",
+      "created_at": "2022-02-15T12:51:38Z",
+      "updated_at": "2022-02-15T12:51:38Z",
+      "body": "Hello @lilitkarapetyan - I _think_ that we need SQLite to be the default database.  That's so the `heroku` deployment still works.  It also runs without the RavenDB instance needing to be `initialised` with a RavenDB login."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 739162702,
+      "user": "IanMayo",
+      "created_at": "2021-10-29T11:44:01Z",
+      "updated_at": "2021-10-29T11:44:01Z",
+      "body": "`.sqlite` is the suffix for SQLite databases, I guess we don't create a physical file for `RavenDB` databases.",
+      "path": "packages/config/src/globals.ts",
+      "diff_hunk": "@@ -108,3 +108,14 @@ export const serverPath = (\n export const databasePath = `${serverPath}db/`\n export const iconUploaderPath = `${serverPath}saveIcon`\n export const hiddenPrefix = '_#_'\n+\n+// PouchDb paths\n+export const allDbs = 'allDbs'\n+\n+// RavenDb paths\n+export const rdbPrefix = 'ravendb/'\n+export const socketPath = 'http://localhost:4000'\n+export const replicate = 'replicate/'\n+export const deletePath = 'delete/'\n+export const dbSuffix = '.sqlite'",
+      "html_url": "https://github.com/serge-web/serge/pull/1195#discussion_r739162702"
+    },
+    {
+      "id": 739168441,
+      "user": "IanMayo",
+      "created_at": "2021-10-29T11:53:25Z",
+      "updated_at": "2021-10-29T11:53:26Z",
+      "body": "@lilitkarapetyan - I _think_ that a tidier version of this would be to create two instances of `DbProviderInterface`.  One implements PouchDb, and the other implements RavenDb.\r\n\r\nThey would be created in separate files, and each one will only know about its own database API.\r\n\r\nThis `index.tsx` file would create an instance of the specified DbProviderInterface.",
+      "path": "packages/client/src/api/db/index.tsx",
+      "diff_hunk": "@@ -0,0 +1,253 @@\n+import { \n+  COUNTER_MESSAGE,\n+  ERROR_THROTTLE,\n+  serverPath,\n+  databasePath,\n+  rdbPrefix,\n+  socketPath,\n+  replicate,\n+  deletePath,\n+  dbSuffix,\n+  localSettings,\n+  allDbs\n+ } from '@serge/config'\n+import { Message, Wargame } from '@serge/custom-types'\n+import PouchDB from 'pouchdb'\n+import { ProviderTypeType, ProviderRavenDB, ProviderPouchDB } from './types'\n+import { io } from \"socket.io-client\"\n+\n+export const POUCH_DB = 'pouchdb'\n+export const RAVEN_DB = 'ravendb'\n+const defaultProvider = RAVEN_DB\n+\n+export const availableProviders: ProviderTypeType[] = [POUCH_DB, RAVEN_DB]\n+\n+export interface DbProviderInterface {\n+  changes: (listener: (doc: Message | Wargame) => void) => void\n+  setMaxListeners: (maxListeners: number) => void\n+  destroy: () => void\n+  get: (query: string) => Promise<Wargame | Message>\n+  put: (doc: Wargame | Message) => Promise<Wargame | Message>\n+  allDocs: (include_docs: boolean, descending: boolean) => Promise<Message[]>\n+  replicate: (newDb: string) => Promise<DbProvider>\n+  name: string,\n+}\n+\n+interface RavenFetchData {\n+  msg: string,\n+  data: Wargame | Message\n+}\n+interface RavenFetchDataArray {\n+  msg: string,\n+  data: (Wargame | Message)[]\n+}\n+\n+type initPDB = (n: string) => PouchDB.Database<Message | Wargame>\n+const initPouchDbDefault: initPDB = (databasePath: string) => new PouchDB(databasePath)\n+\n+export class DbProvider implements DbProviderInterface {",
+      "html_url": "https://github.com/serge-web/serge/pull/1195#discussion_r739168441"
+    },
+    {
+      "id": 739169794,
+      "user": "IanMayo",
+      "created_at": "2021-10-29T11:55:38Z",
+      "updated_at": "2021-10-29T11:55:39Z",
+      "body": "`availableProviders` isn't used.",
+      "path": "packages/client/src/api/db/index.tsx",
+      "diff_hunk": "@@ -0,0 +1,253 @@\n+import { \n+  COUNTER_MESSAGE,\n+  ERROR_THROTTLE,\n+  serverPath,\n+  databasePath,\n+  rdbPrefix,\n+  socketPath,\n+  replicate,\n+  deletePath,\n+  dbSuffix,\n+  localSettings,\n+  allDbs\n+ } from '@serge/config'\n+import { Message, Wargame } from '@serge/custom-types'\n+import PouchDB from 'pouchdb'\n+import { ProviderTypeType, ProviderRavenDB, ProviderPouchDB } from './types'\n+import { io } from \"socket.io-client\"\n+\n+export const POUCH_DB = 'pouchdb'\n+export const RAVEN_DB = 'ravendb'\n+const defaultProvider = RAVEN_DB\n+\n+export const availableProviders: ProviderTypeType[] = [POUCH_DB, RAVEN_DB]",
+      "html_url": "https://github.com/serge-web/serge/pull/1195#discussion_r739169794"
+    },
+    {
+      "id": 739172472,
+      "user": "IanMayo",
+      "created_at": "2021-10-29T12:00:05Z",
+      "updated_at": "2021-10-29T12:00:05Z",
+      "body": "Hmm, if we do end up with two separate instances of `DbProviderInterface` it would be _neat_ to put these types into the two separate instances.\r\n\r\nHere is my _ideal goal_.  `PouchDb` will only be mentioned in the Pouchdb isntance of DbProviderInterface and `RavenDb` will be mentioned in the `RavenDb` instanceof DbProviderInterface.",
+      "path": "packages/client/src/api/db/types.d.ts",
+      "diff_hunk": "@@ -0,0 +1,50 @@\n+import { Message, Wargame } from \"@serge/custom-types\"\n+import PouchDB from 'pouchdb'\n+import  RavenDB  from 'ravendb'\n+import { Socket } from \"socket.io-client\"\n+import { POUCH_DB, RAVEN_DB } from \".\"\n+\n+export interface ProviderPouchDB {",
+      "html_url": "https://github.com/serge-web/serge/pull/1195#discussion_r739172472"
+    },
+    {
+      "id": 739961789,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-11-01T05:16:12Z",
+      "updated_at": "2021-11-01T05:16:12Z",
+      "body": "In case if we will compleatly remove pouch db we dont need it, currently you can switch databases \r\nhttps://github.com/serge-web/serge/pull/1195/files#diff-66c5602cae11b6d25bdcb24fc3ff243a6a94346e857b2e5cd7211fc1101189c3R21",
+      "path": "packages/config/src/globals.ts",
+      "diff_hunk": "@@ -108,3 +108,14 @@ export const serverPath = (\n export const databasePath = `${serverPath}db/`\n export const iconUploaderPath = `${serverPath}saveIcon`\n export const hiddenPrefix = '_#_'\n+\n+// PouchDb paths\n+export const allDbs = 'allDbs'\n+\n+// RavenDb paths\n+export const rdbPrefix = 'ravendb/'\n+export const socketPath = 'http://localhost:4000'\n+export const replicate = 'replicate/'\n+export const deletePath = 'delete/'\n+export const dbSuffix = '.sqlite'",
+      "html_url": "https://github.com/serge-web/serge/pull/1195#discussion_r739961789"
+    },
+    {
+      "id": 740070012,
+      "user": "IanMayo",
+      "created_at": "2021-11-01T09:33:37Z",
+      "updated_at": "2021-11-01T09:33:37Z",
+      "body": "Sure @lilitkarapetyan - but this constant is under the `RavenDb` section - it should be under the `PouchDb` section.",
+      "path": "packages/config/src/globals.ts",
+      "diff_hunk": "@@ -108,3 +108,14 @@ export const serverPath = (\n export const databasePath = `${serverPath}db/`\n export const iconUploaderPath = `${serverPath}saveIcon`\n export const hiddenPrefix = '_#_'\n+\n+// PouchDb paths\n+export const allDbs = 'allDbs'\n+\n+// RavenDb paths\n+export const rdbPrefix = 'ravendb/'\n+export const socketPath = 'http://localhost:4000'\n+export const replicate = 'replicate/'\n+export const deletePath = 'delete/'\n+export const dbSuffix = '.sqlite'",
+      "html_url": "https://github.com/serge-web/serge/pull/1195#discussion_r740070012"
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/139449829-13f0621a-41a3-4710-ad4b-bb8218979176.png",
+    "https://i.gyazo.com/dc4e7d21787e495ab6d0f74c79dbad3b.gif",
+    "https://user-images.githubusercontent.com/1108513/139459259-75e57aa1-71bb-423d-9487-899c6d7626f5.png"
+  ],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 1066
+}

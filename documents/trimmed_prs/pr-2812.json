@@ -1,0 +1,82 @@
+{
+  "number": 2812,
+  "title": "Core Mapping - Double-click to select",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-01T03:02:09Z",
+  "updated_at": "2024-02-01T14:11:30Z",
+  "closed_at": "2024-02-01T14:11:29Z",
+  "merged_at": "2024-02-01T14:11:29Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2812",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2812/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2812/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2812",
+  "body": "Fixes #2810 \r\n\r\nHi @IanMayo, currently I think we can support click event listener because the marker does not support double click event.",
+  "additions": 22,
+  "deletions": 8,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 2,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1920999503,
+      "user": "IanMayo",
+      "created_at": "2024-02-01T10:29:23Z",
+      "updated_at": "2024-02-01T10:29:23Z",
+      "body": "> Hi @IanMayo, currently I think we can support click event listener because the marker does not support double click event.\r\n\r\nSure - single-click is fine."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1474184026,
+      "user": "IanMayo",
+      "created_at": "2024-02-01T10:16:54Z",
+      "updated_at": "2024-02-01T10:16:54Z",
+      "body": "are you ok with this simplification @lebaphi ?",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -320,10 +320,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play\n     }\n   }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/2812#discussion_r1474184026"
+    },
+    {
+      "id": 1474527169,
+      "user": "lebaphi",
+      "created_at": "2024-02-01T14:03:09Z",
+      "updated_at": "2024-02-01T14:03:09Z",
+      "body": "> are you ok with this simplification @lebaphi ?\r\n\r\nsure, it's completely fine @IanMayo ",
+      "path": "client/src/Components/local/atoms/core-mapping/index.tsx",
+      "diff_hunk": "@@ -320,10 +320,6 @@ const CoreMapping: React.FC<PropTypes> = ({ messages, channel, playerForce, play\n     }\n   }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/2812#discussion_r1474527169"
+    }
+  ],
+  "issue_numbers": [
+    2810
+  ],
+  "issues": [
+    {
+      "id": 2110066900,
+      "number": 2810,
+      "title": "Core Mapping - Double-click to select",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-31T13:12:20Z",
+      "updated_at": "2024-02-01T14:11:30Z",
+      "closed_at": "2024-02-01T14:11:30Z",
+      "body": "Users can use filter(s) to get to features of interest, then select them and edit their properties.\r\n\r\nIt would be useful to be able to click on a feature on the map, and it be selected in the mapping bar.",
+      "labels": [
+        "Mapping",
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 30
+}

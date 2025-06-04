@@ -1,0 +1,99 @@
+{
+  "number": 1128,
+  "title": "Region of chat channel not visible",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-13T14:23:11Z",
+  "updated_at": "2021-09-13T15:54:39Z",
+  "closed_at": "2021-09-13T15:54:38Z",
+  "merged_at": "2021-09-13T15:54:38Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1128",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1128/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1128/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1128",
+  "body": "Fixed #1111 ",
+  "additions": 17,
+  "deletions": 15,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1111
+  ],
+  "issues": [
+    {
+      "id": 991151437,
+      "number": 1111,
+      "title": "Region of chat channel not visible",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-08T13:39:18Z",
+      "updated_at": "2021-09-13T15:54:38Z",
+      "closed_at": "2021-09-13T15:54:38Z",
+      "body": "I'm playing as a White Force player who can see Blue Chat, but is not a member of it.\r\n\r\nThe period at the bottom of the channel is empty.\r\n\r\nSteps to reproduce:\r\n* log in as blue player\r\n* create 6 chat message in Blue Chat\r\n* log in as White force player\r\n* examine Blue Chat channel - see space at bottom of channel\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/132519949-03edf349-4799-472e-ae39-022c0ea2a6bd.png)\r\n\r\nNote: the missing area is the same dimensions as the chat controls:\r\n![image](https://user-images.githubusercontent.com/1108513/132521408-6810b71b-3838-4aa5-9f05-10c38f4f5b0f.png)\r\n\r\nI've just realised that as a non-member of a channel (White viewing Blue RFI), there is a missing space at the bottom of the column where the `New message` button would be:\r\n![image](https://user-images.githubusercontent.com/1108513/132524394-c05380ac-4c16-4fca-ac6a-340506edbf40.png)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 918073825,
+          "user": "lebaphi",
+          "created_at": "2021-09-13T10:53:36Z",
+          "updated_at": "2021-09-13T10:54:17Z",
+          "body": "Hi @IanMayo, I found the root cause that make the chat region invisible:\r\n\r\n`client/src/Components/ChatChannel.tsx`\r\n```\r\n        state.channels[channelId].observing === false &&\r\n        <div className=\"new-message-creator wrap new-message-orderable\" ref={chatMessageRef}>\r\n          <div className=\"chat-message-container\">\r\n            <ChatEntryForm turnNumber={state.currentTurn} from={selectedForce} isUmpire={!!isUmpire} channel={channelId} role={state.selectedRole} roleName={state.selectedRoleName} postBack={messageHandler} />\r\n          </div>\r\n        </div>\r\n```\r\nin your case, the `state.channels[channelId].observing  = true` so the `ChatEntryForm` does not render. I'm not sure if it is right business 🤔 "
+        },
+        {
+          "id": 918076206,
+          "user": "IanMayo",
+          "created_at": "2021-09-13T10:57:18Z",
+          "updated_at": "2021-09-13T10:57:18Z",
+          "body": "Yeah - player that is \"observing\" a channel can view the content, but not write messages into it.\r\n\r\nBut, in the above it's checking for `not observing`. \r\n\r\nIt isn't an issue that the chat region is invisible. It's an issue that the space is still allocated to it.  See how the scroll bar only covers ~ 2/3 of the height of the channel."
+        },
+        {
+          "id": 918079069,
+          "user": "lebaphi",
+          "created_at": "2021-09-13T11:01:46Z",
+          "updated_at": "2021-09-13T11:02:08Z",
+          "body": "Ahh, I see this issue is the scrollbar here, the chat area height should be full of the page, right?\r\n![image](https://user-images.githubusercontent.com/26705621/133072439-64449dae-ffc2-4482-aa32-57a2e336cf45.png)\r\n"
+        },
+        {
+          "id": 918079844,
+          "user": "IanMayo",
+          "created_at": "2021-09-13T11:02:39Z",
+          "updated_at": "2021-09-13T11:02:39Z",
+          "body": "Yes.  In this instance, if the full height was available, we may not even need the scroll bar."
+        },
+        {
+          "id": 918248450,
+          "user": "lebaphi",
+          "created_at": "2021-09-13T14:25:58Z",
+          "updated_at": "2021-09-13T14:35:28Z",
+          "body": "Hi @IanMayo , for this one\r\n```\r\nI've just realised that as a non-member of a channel (White viewing Blue RFI), there is a missing space at the bottom of the column where the New message button would be:\r\n```\r\nif a non-member of the channel, the bottom should have more space where the new message would be, something like:\r\n\r\n<img width=\"771\" alt=\"Screen Shot 2021-09-13 at 9 34 45 PM\" src=\"https://user-images.githubusercontent.com/26705621/133103245-516fb13f-361c-4f03-a62a-8358e547e539.png\">\r\n"
+        },
+        {
+          "id": 918268471,
+          "user": "IanMayo",
+          "created_at": "2021-09-13T14:46:14Z",
+          "updated_at": "2021-09-13T14:46:14Z",
+          "body": "I don't think this applies to the COA or RFI channels.\r\n\r\nCorrect - if a non-member, the messages in the channel should occupy the full height. Space shouldn't be reserved for a component that isn't visible."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/132519949-03edf349-4799-472e-ae39-022c0ea2a6bd.png",
+    "https://user-images.githubusercontent.com/1108513/132521408-6810b71b-3838-4aa5-9f05-10c38f4f5b0f.png",
+    "https://user-images.githubusercontent.com/1108513/132524394-c05380ac-4c16-4fca-ac6a-340506edbf40.png",
+    "https://user-images.githubusercontent.com/26705621/133072439-64449dae-ffc2-4482-aa32-57a2e336cf45.png",
+    "https://user-images.githubusercontent.com/26705621/133103245-516fb13f-361c-4f03-a62a-8358e547e539.png"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 32
+}

@@ -1,0 +1,149 @@
+{
+  "number": 2132,
+  "title": "Move `forces` into its own document in database",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-11-18T12:35:58Z",
+  "updated_at": "2023-11-15T11:53:12Z",
+  "closed_at": "2023-11-15T10:33:06Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2132",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2132/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2132/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2132",
+  "body": "Fixes #2465 ",
+  "additions": 391,
+  "deletions": 143,
+  "changed_files": 29,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 16,
+  "review_comments_count": 0,
+  "total_comments": 16,
+  "comments_data": [
+    {
+      "id": 1319940723,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-18T12:36:22Z",
+      "updated_at": "2022-11-18T12:36:22Z",
+      "body": "I'm still working on this PR"
+    },
+    {
+      "id": 1320309214,
+      "user": "IanMayo",
+      "created_at": "2022-11-18T17:19:28Z",
+      "updated_at": "2022-11-18T17:19:28Z",
+      "body": "Thanks for this @lilitkarapetyan - it looks good.  I have one question: will it work with a _legacy_ SQLite database, where the data is _all_ in the `wargame` document?   For the wargame that ran this week, I may still need to be able open/show the game state in Serge."
+    },
+    {
+      "id": 1321524606,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-21T06:33:33Z",
+      "updated_at": "2022-11-21T06:33:33Z",
+      "body": "Hello Ian, no it won't work with the old SQLite database, but can I make it work with the old database as well "
+    },
+    {
+      "id": 1321937006,
+      "user": "IanMayo",
+      "created_at": "2022-11-21T11:48:28Z",
+      "updated_at": "2022-11-21T11:48:28Z",
+      "body": "> Hello Ian, no it won't work with the old SQLite database, but can I make it work with the old database as well\r\n\r\nHere is the challenge @lilitkarapetyan :\r\n* from the game last week we have a large body of test data.  It uses the current \"model\" of having a really large `wargame` document\r\n* the clients and I would like to run more tests against this data, including testing how adjudication should work.  So, I'll be running new versions of `Serge` software against that database file\r\n\r\nSo, I can think of these options:\r\n1. update their SQLite database to separate out the two documents, then use updated Serge. Aah, there are actually several versions of the wargame document - and I've have to update all of them.\r\n2. keep this PR open until we/they have finished testing the data (about 2 months, I guess). But, no-one likes a PR sitting around.\r\n3. make this PR support their database format, but \"retire\" this legacy support when they have finished testing. Note: this isn't all that difficult.  The database will _either_ be in the new format or the old format.  So, `newState` will either receive an object with all the data, or it will receive just the `wargame`, plus a separate document of `settings`, which it will put into `newState`.\r\n\r\nWhat do you think @lilitkarapetyan  - do you have a favourite option?\r\n"
+    },
+    {
+      "id": 1322079187,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-21T13:38:04Z",
+      "updated_at": "2022-11-21T13:38:04Z",
+      "body": "> > Hello Ian, no it won't work with the old SQLite database, but can I make it work with the old database as well\r\n> \r\n> Here is the challenge @lilitkarapetyan :\r\n> \r\n>     * from the game last week we have a large body of test data.  It uses the current \"model\" of having a really large `wargame` document\r\n> \r\n>     * the clients and I would like to run more tests against this data, including testing how adjudication should work.  So, I'll be running new versions of `Serge` software against that database file\r\n> \r\n> \r\n> So, I can think of these options:\r\n> \r\n>     1. update their SQLite database to separate out the two documents, then use updated Serge. Aah, there are actually several versions of the wargame document - and I've have to update all of them.\r\n> \r\n>     2. keep this PR open until we/they have finished testing the data (about 2 months, I guess). But, no-one likes a PR sitting around.\r\n> \r\n>     3. make this PR support their database format, but \"retire\" this legacy support when they have finished testing. Note: this isn't all that difficult.  The database will _either_ be in the new format or the old format.  So, `newState` will either receive an object with all the data, or it will receive just the `wargame`, plus a separate document of `settings`, which it will put into `newState`.\r\n> \r\n> \r\n> What do you think @lilitkarapetyan - do you have a favourite option?\r\n\r\nDoes that mean we are going to complete this PR as originally planned or do we have to wait until they/we finish testing the data ?"
+    },
+    {
+      "id": 1322091480,
+      "user": "IanMayo",
+      "created_at": "2022-11-21T13:47:02Z",
+      "updated_at": "2022-11-21T13:47:02Z",
+      "body": "Hello @lilitkarapetyan - if we choose options 1 or 3, we implement this PR.  If we choose option 2, we pause this PR.\r\n\r\nDo you have a preferred option?"
+    },
+    {
+      "id": 1322119591,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-21T14:08:02Z",
+      "updated_at": "2022-11-21T14:08:02Z",
+      "body": "I think the second version will be good because we will have more time to study and check the data, this is an important change"
+    },
+    {
+      "id": 1322120534,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-21T14:08:48Z",
+      "updated_at": "2022-11-21T14:08:48Z",
+      "body": "of the other two options, I would prefer the first"
+    },
+    {
+      "id": 1322123360,
+      "user": "IanMayo",
+      "created_at": "2022-11-21T14:11:07Z",
+      "updated_at": "2022-11-21T14:11:07Z",
+      "body": "So, option 2 (`keep this PR open`) is your favourite solution @lilitkarapetyan ?"
+    },
+    {
+      "id": 1322135872,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-21T14:20:37Z",
+      "updated_at": "2022-11-21T14:20:37Z",
+      "body": "Well,  it's not my favorite, but I think it's the best solution in this case because we're going to make an important change to our project."
+    },
+    {
+      "id": 1322136645,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-21T14:21:13Z",
+      "updated_at": "2022-11-21T14:21:13Z",
+      "body": "we can also do with the first option "
+    },
+    {
+      "id": 1422680686,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-08T14:25:23Z",
+      "updated_at": "2023-02-08T14:25:23Z",
+      "body": "I haven't finished."
+    },
+    {
+      "id": 1423962489,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-09T10:30:01Z",
+      "updated_at": "2023-02-09T10:30:01Z",
+      "body": "Hello @IanMayo, can you check this PR ?"
+    },
+    {
+      "id": 1424155150,
+      "user": "IanMayo",
+      "created_at": "2023-02-09T12:58:50Z",
+      "updated_at": "2023-02-09T12:58:50Z",
+      "body": "Hello @lilitkarapetyan - These are a set steps to force wargame changes.  They cause new versions of the `Forces` document to be created.  The updates appear to be working properly.\r\n\r\n1. run `yarn develop`\r\n2. login as game control: http://localhost:3000/?wargame=wargame-l6nngxlk&access=umpire\r\n3. open `Adjudications` tab\r\n4. click on `Get next`, a new `Interaction` will be created (this is a new document in SQLite, too)\r\n5. make panel wide enough to see form, and scroll down the form to the `Health outcomes`\r\n6. modify the health of `Red:22` to `0`\r\n7. move back up to the `Perception Outcomes`\r\n8. add a new row\r\n9. select Asset `Red:22`, provide `dolphin` as the `Name`\r\n10. scroll down to bottom, click on `Submit Adjudication`\r\n11. switch to `Orders` tab\r\n12. type `Red:22` into search box, `Red:22` should be at the top of the listing\r\n13. it does now who a health of `0`"
+    },
+    {
+      "id": 1425891810,
+      "user": "IanMayo",
+      "created_at": "2023-02-10T14:32:56Z",
+      "updated_at": "2023-02-10T14:32:56Z",
+      "body": "Aah, the GameAdmin pages don't work, since they still expect to find a `Forces` object the `wargame` object in `RootState`.  \r\n![image](https://user-images.githubusercontent.com/1108513/218117444-3812bb99-2366-41bf-b03c-02d9a2d3c9d1.png)\r\n\r\n\r\nI guess we need to either change RootState (to put in the ForceData[] array, or need to put the `ForceData[]` array into the `wargame` object for `RootState`.  The first one seems like better engineering."
+    },
+    {
+      "id": 1812205818,
+      "user": "IanMayo",
+      "created_at": "2023-11-15T10:33:06Z",
+      "updated_at": "2023-11-15T10:33:06Z",
+      "body": "Closing this PR.  It's no longer relevant after our switch to `core-mapping`"
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/218117444-3812bb99-2366-41bf-b03c-02d9a2d3c9d1.png"
+  ],
+  "number_of_changed_files": 29,
+  "total_changed_lines": 534
+}

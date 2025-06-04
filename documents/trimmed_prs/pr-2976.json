@@ -1,0 +1,343 @@
+{
+  "number": 2976,
+  "title": "2947_We_need_to_fix_some_remaining_Issues_on_collab_channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-06-11T10:09:24Z",
+  "updated_at": "2024-07-24T08:09:26Z",
+  "closed_at": "2024-07-24T08:09:25Z",
+  "merged_at": "2024-07-24T08:09:24Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2976",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2976/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2976/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2976",
+  "body": "Fixes #2947 \r\nFixes #2939 \r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 167,
+  "deletions": 82,
+  "changed_files": 20,
+  "labels": [
+    "4hat"
+  ],
+  "comments_count": 6,
+  "review_comments_count": 0,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 2178103968,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-19T08:41:34Z",
+      "updated_at": "2024-06-19T08:41:34Z",
+      "body": "fixes #2947 "
+    },
+    {
+      "id": 2180690323,
+      "user": "IanMayo",
+      "created_at": "2024-06-20T13:26:33Z",
+      "updated_at": "2024-06-20T13:26:33Z",
+      "body": "Is this ready to go @Tristina1788 ?  Does it fix the problems in the linked issues?\r\n"
+    },
+    {
+      "id": 2181849204,
+      "user": "Tristina1788",
+      "created_at": "2024-06-21T02:08:24Z",
+      "updated_at": "2024-06-21T08:16:32Z",
+      "body": "> Is this ready to go @Tristina1788 ? Does it fix the problems in the linked issues?\r\n\r\n@IanMayo We still have these issues on this https://github.com/serge-web/serge/issues/2947#issuecomment-2173454617 .  Could you help to confirm we should fix these issues on this PR or not?"
+    },
+    {
+      "id": 2205917737,
+      "user": "IanMayo",
+      "created_at": "2024-07-03T12:04:14Z",
+      "updated_at": "2024-07-12T12:43:56Z",
+      "body": "> > Is this ready to go @Tristina1788 ? Does it fix the problems in the linked issues?\r\n> \r\n> @IanMayo We still have these issues on this [#2947 (comment)](https://github.com/serge-web/serge/issues/2947#issuecomment-2173454617) . Could you help to confirm we should fix these issues on this PR or not?\r\n\r\nYes @Tristina1788 - those are valid issues, that I would like fixed in this PR, please @lilitkarapetyan  \r\n\r\nExcept: \r\n> And in 'Terminology' part, I can't select value of Request Changes / Approve/ Release. Is this ok for now?\r\n\r\nIt is ok to delete and re-add the modified value, instead of needing to edit it."
+    },
+    {
+      "id": 2244717942,
+      "user": "IanMayo",
+      "created_at": "2024-07-23T09:31:52Z",
+      "updated_at": "2024-07-23T09:31:52Z",
+      "body": "@Tristina1788 - can we have a final check of this PR please?"
+    },
+    {
+      "id": 2244856131,
+      "user": "Tristina1788",
+      "created_at": "2024-07-23T10:36:02Z",
+      "updated_at": "2024-07-23T10:36:02Z",
+      "body": "> @Tristina1788 - can we have a final check of this PR please?\r\n\r\n@IanMayo  I checked and comment here : https://github.com/serge-web/serge/issues/2947#issuecomment-2238735606"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2947
+  ],
+  "issues": [
+    {
+      "id": 2302247342,
+      "number": 2947,
+      "title": "We need to fix some remaining Issues on collab channel",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-05-17T09:29:45Z",
+      "updated_at": "2024-07-24T08:09:26Z",
+      "closed_at": "2024-07-24T08:09:25Z",
+      "body": "## 🐞 Bug description\r\nWe need to fix some remaining Issues on collab channel\r\n\r\n## 🔢 Steps to Reproduce\r\n\r\n1. Create a basic game with some force and some channels\r\n2. Login from admin page\r\n3. Click on dropdown of button 'Add Channel'\r\n4. Select 'Collab Edit' to create first collab channel\r\n5. Create permission for this channel \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/3e5d1879-8565-4101-a093-3d7bab7beabc)\r\n\r\n6. Notice we have some issue below in wargame play\r\n\r\n- Text 'Chat' and 'Response' are hard to see. And When message still haven't had response yet, it shows as the white long button. It makes user don't know what it is\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/c351a09b-9ea4-47cc-be74-e912cb94082e)\r\n\r\nExpected :  Text 'Chat' and 'Response' should be bold and white color as 'Feedback' text. And when message doesn't have response, we should not show that part.\r\n\r\n- With this permission, Message with status 'InProgress' (Edit), user role 'CanSubmitForReview'should has button 'Submit for review', 'Save'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/3c74c33e-509e-473a-b627-86695a1ae002)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/19eba9f3-9765-4d59-be43-5f379d38e0b1)\r\n\r\n- Message with status 'InProgress' (Edit), user role 'CanApproved' should has button 'Save', 'Submit for review'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/4b2a1a17-576a-4439-ae21-61123d2846e4)\r\n\r\n- Message with status 'InProgress' (Edit), user role 'CanRelease' should has button 'Save', 'Submit for review', 'Release'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/0f04066c-acd1-444e-a329-2f34cd75b76c)\r\n\r\n- Message with status 'InProgress' (Edit), user role 'CanUnClaim' should has button 'Save', 'Submit for review', 'Release','Unclaim\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2d702c88-8a03-4701-b105-f7604fb025fa)\r\n\r\n- I think we have 2 status 'Pending' and 'Review' but now I see it has 'Pending Review'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/b6239b77-843a-4780-b6ca-3a9afb93bea3)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/9537490a-3953-488e-a3dc-8606b0727c07)\r\n\r\n=> What is the correct one? \r\n\r\n- The UI is quite messing and it's hard to follow the action\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/5014ae6d-c6e6-444b-a10a-a682ea9225ee\r\n\r\n- 'Assign' button is not stable. I have to try click many time to make it work.\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/140e718d-fc7c-412a-b1d4-a5ebcf5a2cfc\r\n\r\n- No action happens when approve for message which in status 'Pending Review'\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/95e855ab-2e26-4316-bb73-315488237ba7\r\n\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 2160017494,
+          "user": "lilitkarapetyan",
+          "created_at": "2024-06-11T07:41:42Z",
+          "updated_at": "2024-06-11T07:41:42Z",
+          "body": "> ## 🐞 Bug description\r\n> \r\n> We need to fix some remaining Issues on collab channel\r\n> ## 🔢 Steps to Reproduce\r\n> \r\n>     1. Create a basic game with some force and some channels\r\n> \r\n>     2. Login from admin page\r\n> \r\n>     3. Click on dropdown of button 'Add Channel'\r\n> \r\n>     4. Select 'Collab Edit' to create first collab channel\r\n> \r\n>     5. Create permission for this channel\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/331538569-3e5d1879-8565-4101-a093-3d7bab7beabc.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM4NTY5LTNlNWQxODc5LTg1NjUtNDEwMS1hMDkzLTNkN2JhYjdiZWFiYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hOGZlODczMGQ2OWYxMWRhM2VhNWUzYjk1NGZkMTA0NzNlOTgyMjFlMjhlMjAxYzEyNWEwOTI2ZmQyNzU5NTJmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.I-8pKfwWemwmHKlLj60HbFoUJ_BE9gnHem79s-7ElN0)\r\n> \r\n>     6. Notice we have some issue below in wargame play\r\n> \r\n> \r\n>     * Text 'Chat' and 'Response' are hard to see. And When message still haven't had response yet, it shows as the white long button. It makes user don't know what it is\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/331536631-c351a09b-9ea4-47cc-be74-e912cb94082e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM2NjMxLWMzNTFhMDliLTllYTQtNDdjYy1iZTc0LWU5MTJjYjk0MDgyZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01YTJmOTA4YzA3M2Y5NzdlMzk2ZDE1NDg5NzVlZTY2Y2UyYmVlMmZhNTFmNWI1NzVmZmVmZTY5OTdlNTI0NjdiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.qajyYvNhWCnFNEszvOuKYphh1FpziKcNSOYCye9s4PA)\r\n> \r\n> Expected : Text 'Chat' and 'Response' should be bold and white color as 'Feedback' text. And when message doesn't have response, we should not show that part.\r\n> \r\n>     * With this permission, Message with status 'InProgress' (Edit), user role 'CanSubmitForReview'should has button 'Submit for review', 'Save'\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/331537013-3c74c33e-509e-473a-b627-86695a1ae002.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3MDEzLTNjNzRjMzNlLTUwOWUtNDczYS1iNjI3LTg2Njk1YTFhZTAwMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNzUwYzMxMzk3Y2Y1YTcxMTU4NGJmYmNlMDJhZmM2MWI1ZmVlNDEzYjQ3NTE2MmU2ZDRiODhhMjU0OTFkNjc0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.SFFnyWZjMePMVoXaL43Z5Wb87LH8N7keHO19n98zq4U)\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/331537360-19eba9f3-9765-4d59-be43-5f379d38e0b1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3MzYwLTE5ZWJhOWYzLTk3NjUtNGQ1OS1iZTQzLTVmMzc5ZDM4ZTBiMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NDQ5YzA2ZTY4NmZlYjdlOGIzZmVlNjhlNjcyYzFhYjI2M2UyOGU4NjRiYWFjMGJmNjgwNjJiNjBlNGRkMjQwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.zBhOHKjm2YH90eirOKQ-K1r7RUQLHn7p1FDLR5KFjso)\r\n> \r\n>     * Message with status 'InProgress' (Edit), user role 'CanApproved' should has button 'Save', 'Submit for review'\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/331537492-4b2a1a17-576a-4439-ae21-61123d2846e4.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3NDkyLTRiMmExYTE3LTU3NmEtNDQzOS1hZTIxLTYxMTIzZDI4NDZlNC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02YWFmMGQ2NGRmYTc5ZGRlNWIwNTRhMDcxMzYwOTZmMTJiZTBiNDA1NTY1NDQxZTc1MTAzNmRhNWY1ZmI3MjI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.kpWxvS2AbEN9jZGyb7u0cm3ifX9di_RBZ4OTJdiniG4)\r\n> \r\n>     * Message with status 'InProgress' (Edit), user role 'CanRelease' should has button 'Save', 'Submit for review', 'Release'\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/331537619-0f04066c-acd1-444e-a329-2f34cd75b76c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3NjE5LTBmMDQwNjZjLWFjZDEtNDQ0ZS1hMzI5LTJmMzRjZDc1Yjc2Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZWU5YWNjZDgyOGFlODY1N2QzYzlkY2Q5YWUwNjNhMTg5NjVkOWEwZjQ3NDk5NmM5NGYzYThmMDA3ZDYxNzI0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.j77aFm8j-4ovKUZasbghMhdRgbTBuyEvKcxUG3Y8w0k)\r\n> \r\n>     * Message with status 'InProgress' (Edit), user role 'CanUnClaim' should has button 'Save', 'Submit for review', 'Release','Unclaim\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/331537755-2d702c88-8a03-4701-b105-f7604fb025fa.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3NzU1LTJkNzAyYzg4LThhMDMtNDcwMS1iMTA1LWY3NjA0ZmIwMjVmYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mOWRjNmQyMDljNTFkZmQzNjEwNjZhZDFmNDA4YTNkYzVkOTdmZDc1ZGEzOGUwMzIwODc4MzU2MjA5YjRlZDQ0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.M2SnzZTD0wNIVgYFx8sRv_yNmmt-7dznbohK_2X6yD4)\r\n> \r\nHi, I checked it. I thinks when the user clicks the `Calm` button and starts (In progress), they can do the actions mentioed."
+        },
+        {
+          "id": 2160135841,
+          "user": "lilitkarapetyan",
+          "created_at": "2024-06-11T08:41:32Z",
+          "updated_at": "2024-06-11T08:41:32Z",
+          "body": "> > ## 🐞 Bug description\r\n> > We need to fix some remaining Issues on collab channel\r\n> > ## 🔢 Steps to Reproduce\r\n> > ```\r\n> > 1. Create a basic game with some force and some channels\r\n> > \r\n> > 2. Login from admin page\r\n> > \r\n> > 3. Click on dropdown of button 'Add Channel'\r\n> > \r\n> > 4. Select 'Collab Edit' to create first collab channel\r\n> > \r\n> > 5. Create permission for this channel\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/331538569-3e5d1879-8565-4101-a093-3d7bab7beabc.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM4NTY5LTNlNWQxODc5LTg1NjUtNDEwMS1hMDkzLTNkN2JhYjdiZWFiYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hOGZlODczMGQ2OWYxMWRhM2VhNWUzYjk1NGZkMTA0NzNlOTgyMjFlMjhlMjAxYzEyNWEwOTI2ZmQyNzU5NTJmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.I-8pKfwWemwmHKlLj60HbFoUJ_BE9gnHem79s-7ElN0)\r\n> > ```\r\n> > 6. Notice we have some issue below in wargame play\r\n> > \r\n> > \r\n> > * Text 'Chat' and 'Response' are hard to see. And When message still haven't had response yet, it shows as the white long button. It makes user don't know what it is\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/331536631-c351a09b-9ea4-47cc-be74-e912cb94082e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM2NjMxLWMzNTFhMDliLTllYTQtNDdjYy1iZTc0LWU5MTJjYjk0MDgyZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01YTJmOTA4YzA3M2Y5NzdlMzk2ZDE1NDg5NzVlZTY2Y2UyYmVlMmZhNTFmNWI1NzVmZmVmZTY5OTdlNTI0NjdiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.qajyYvNhWCnFNEszvOuKYphh1FpziKcNSOYCye9s4PA)\r\n> > Expected : Text 'Chat' and 'Response' should be bold and white color as 'Feedback' text. And when message doesn't have response, we should not show that part.\r\n> > ```\r\n> > * With this permission, Message with status 'InProgress' (Edit), user role 'CanSubmitForReview'should has button 'Submit for review', 'Save'\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/331537013-3c74c33e-509e-473a-b627-86695a1ae002.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3MDEzLTNjNzRjMzNlLTUwOWUtNDczYS1iNjI3LTg2Njk1YTFhZTAwMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNzUwYzMxMzk3Y2Y1YTcxMTU4NGJmYmNlMDJhZmM2MWI1ZmVlNDEzYjQ3NTE2MmU2ZDRiODhhMjU0OTFkNjc0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.SFFnyWZjMePMVoXaL43Z5Wb87LH8N7keHO19n98zq4U)\r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/331537360-19eba9f3-9765-4d59-be43-5f379d38e0b1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3MzYwLTE5ZWJhOWYzLTk3NjUtNGQ1OS1iZTQzLTVmMzc5ZDM4ZTBiMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NDQ5YzA2ZTY4NmZlYjdlOGIzZmVlNjhlNjcyYzFhYjI2M2UyOGU4NjRiYWFjMGJmNjgwNjJiNjBlNGRkMjQwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.zBhOHKjm2YH90eirOKQ-K1r7RUQLHn7p1FDLR5KFjso)\r\n> > ```\r\n> > * Message with status 'InProgress' (Edit), user role 'CanApproved' should has button 'Save', 'Submit for review'\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/331537492-4b2a1a17-576a-4439-ae21-61123d2846e4.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3NDkyLTRiMmExYTE3LTU3NmEtNDQzOS1hZTIxLTYxMTIzZDI4NDZlNC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02YWFmMGQ2NGRmYTc5ZGRlNWIwNTRhMDcxMzYwOTZmMTJiZTBiNDA1NTY1NDQxZTc1MTAzNmRhNWY1ZmI3MjI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.kpWxvS2AbEN9jZGyb7u0cm3ifX9di_RBZ4OTJdiniG4)\r\n> > ```\r\n> > * Message with status 'InProgress' (Edit), user role 'CanRelease' should has button 'Save', 'Submit for review', 'Release'\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/331537619-0f04066c-acd1-444e-a329-2f34cd75b76c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3NjE5LTBmMDQwNjZjLWFjZDEtNDQ0ZS1hMzI5LTJmMzRjZDc1Yjc2Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZWU5YWNjZDgyOGFlODY1N2QzYzlkY2Q5YWUwNjNhMTg5NjVkOWEwZjQ3NDk5NmM5NGYzYThmMDA3ZDYxNzI0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.j77aFm8j-4ovKUZasbghMhdRgbTBuyEvKcxUG3Y8w0k)\r\n> > ```\r\n> > * Message with status 'InProgress' (Edit), user role 'CanUnClaim' should has button 'Save', 'Submit for review', 'Release','Unclaim\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/331537755-2d702c88-8a03-4701-b105-f7604fb025fa.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3NzU1LTJkNzAyYzg4LThhMDMtNDcwMS1iMTA1LWY3NjA0ZmIwMjVmYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mOWRjNmQyMDljNTFkZmQzNjEwNjZhZDFmNDA4YTNkYzVkOTdmZDc1ZGEzOGUwMzIwODc4MzU2MjA5YjRlZDQ0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.M2SnzZTD0wNIVgYFx8sRv_yNmmt-7dznbohK_2X6yD4)\r\n> \r\n> Hi @Tristina1788 , I checked it. I thinks when the user clicks the `Calm` button and starts (In progress), they can do the actions mentioed.\r\n\r\n"
+        },
+        {
+          "id": 2160434774,
+          "user": "Tristina1788",
+          "created_at": "2024-06-11T10:47:09Z",
+          "updated_at": "2024-06-11T10:47:09Z",
+          "body": "@lilitkarapetyan This is the permission for state 'InProgress' (Edit)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/8d7e8ab1-113f-4b26-9654-3085d98f29a4)\r\n\r\nAnd user Blue - Co1 can have these permission but the new user role / Blue- Co2 (with same config permission) is not\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/f17f03d8-436a-440b-aff3-2eef9a81fa2d)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/ab56cde3-57cc-4ea6-b2bf-7d1da5b4ab95)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/54c7e046-0f39-4853-9c81-7de2183fec5b)\r\n\r\n\r\n\r\n\r\n"
+        },
+        {
+          "id": 2160446560,
+          "user": "IanMayo",
+          "created_at": "2024-06-11T10:53:30Z",
+          "updated_at": "2024-06-11T10:53:30Z",
+          "body": "Hello @Tristina1788 - isn't the `CO 1` role being given extra operations because they currently \"own\" the document?   If one user has `claimed` a message and are editing, we can't allow another user to do anything to it.  Some users can `un-claim`  a message, which then means others can apply operations onto it."
+        },
+        {
+          "id": 2160454933,
+          "user": "Tristina1788",
+          "created_at": "2024-06-11T10:58:24Z",
+          "updated_at": "2024-06-11T10:58:24Z",
+          "body": "> Hello @Tristina1788 - isn't the `CO 1` role being given extra operations because they currently \"own\" the document? If one user has `claimed` a message and are editing, we can't allow another user to do anything to it. Some users can `un-claim` a message, which then means others can apply operations onto it.\r\n\r\nYeah, seem it works this way. I try to use another user with same permission, clam the message and it can shows the expected permissions. I'm checking more."
+        },
+        {
+          "id": 2160638530,
+          "user": "Tristina1788",
+          "created_at": "2024-06-11T12:29:03Z",
+          "updated_at": "2024-06-11T12:29:03Z",
+          "body": "> Hello @Tristina1788 - isn't the `CO 1` role being given extra operations because they currently \"own\" the document? If one user has `claimed` a message and are editing, we can't allow another user to do anything to it. Some users can `un-claim` a message, which then means others can apply operations onto it.\r\n\r\n@IanMayo  But another status (example : Pending Review) user is not an owner , still have permissions list on chart. So only 'InProgress' need be an owner to have permissions?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/09d553f1-14e8-4686-8454-e18f0ba5f907)\r\n"
+        },
+        {
+          "id": 2160762392,
+          "user": "IanMayo",
+          "created_at": "2024-06-11T13:24:55Z",
+          "updated_at": "2024-06-11T13:24:55Z",
+          "body": "Well, I \"think\" this is the logic.  If a message has an owner, then only that owner can change it (regardless of the permissions of other roles).  But, if it doesn't have an owner, players are given the relevant set of permissions."
+        },
+        {
+          "id": 2160772022,
+          "user": "IanMayo",
+          "created_at": "2024-06-11T13:28:42Z",
+          "updated_at": "2024-06-11T13:28:42Z",
+          "body": "Hello @Tristina1788 - to ensure you are testing the newest code, you should move to your testing/feedback to this PR please: #2976 "
+        },
+        {
+          "id": 2162527833,
+          "user": "lilitkarapetyan",
+          "created_at": "2024-06-12T09:20:29Z",
+          "updated_at": "2024-06-12T09:20:29Z",
+          "body": "> * 'Assign' button is not stable. I have to try click many time to make it work.\r\n\r\nAfter you select the button, you need to clicik it. - https://gyazo.com/9e67dac081df9540a798c6e0f0a2bc53"
+        },
+        {
+          "id": 2162628969,
+          "user": "Tristina1788",
+          "created_at": "2024-06-12T10:10:59Z",
+          "updated_at": "2024-06-12T10:10:59Z",
+          "body": "> > * 'Assign' button is not stable. I have to try click many time to make it work.\r\n> \r\n> After you select the button, you need to clicik it. - https://gyazo.com/9e67dac081df9540a798c6e0f0a2bc53\r\n\r\n@lilitkarapetyan  With this way I can assign user well. But I think it's not normal way for user. They often think just select user and don't think about click again on that button to make the assignment can do action. @IanMayo How do you think?"
+        },
+        {
+          "id": 2162660161,
+          "user": "Tristina1788",
+          "created_at": "2024-06-12T10:27:44Z",
+          "updated_at": "2024-06-12T10:27:44Z",
+          "body": "@lilitkarapetyan The text is hard to see.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2adc8e52-85dc-46ed-9eff-4ee210bd316e)\r\n\r\n- We have 2 scroll bars but seem the right one is not useful . (More details on this screencast : https://app.screencast.com/Ft4cPultQhcAP)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/8495dfda-71c5-489f-99ff-9b65424bf0c9)\r\n"
+        },
+        {
+          "id": 2162664044,
+          "user": "IanMayo",
+          "created_at": "2024-06-12T10:30:03Z",
+          "updated_at": "2024-06-12T10:30:03Z",
+          "body": "> @lilitkarapetyan With this way I can assign user well. But I think it's not normal way for user. They often think just select user and don't think about click again on that button to make the assignment can do action. @IanMayo How do you think?\r\n\r\nGood point @Tristina1788 .  Would it be hard to implement it in @Tristina1788 's way, @lilitkarapetyan ?"
+        },
+        {
+          "id": 2162730257,
+          "user": "Tristina1788",
+          "created_at": "2024-06-12T11:05:21Z",
+          "updated_at": "2024-06-12T11:05:21Z",
+          "body": "- I can't open content message after update channel with option 'Additional data' = true . I try to update it as original ('Additional data' = false) but I still can't open content message.\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/372a8879-c5dc-4fa8-b3f2-95eeacbaf4c1\r\n\r\n"
+        },
+        {
+          "id": 2162735978,
+          "user": "IanMayo",
+          "created_at": "2024-06-12T11:08:35Z",
+          "updated_at": "2024-06-12T11:08:35Z",
+          "body": "> * I can't open content message after update channel with option 'Additional data' = true . I try to update it as original ('Additional data' = false) but I still can't open content message.\r\n> \r\n\r\nWhen @lilitkarapetyan tries to reproduce this I expect she will learn that we need to check if the field is present before trying to render the message."
+        },
+        {
+          "id": 2162757179,
+          "user": "Tristina1788",
+          "created_at": "2024-06-12T11:19:39Z",
+          "updated_at": "2024-06-12T11:19:39Z",
+          "body": "> * I can't open content message after update channel with option 'Additional data' = true . I try to update it as original ('Additional data' = false) but I still can't open content message.\r\n> \r\n>  cannot_open_message_after_change_and_revert_Additionaldata_.mp4\r\n\r\nWe don't have 'location' in the message from UI. I don't know if it can get any where else. But At least, it should can be opened message after I reverted the config for 'Additional data' . \r\nNow I don't have anyway to open message and need to revert server/DB file. "
+        },
+        {
+          "id": 2162810405,
+          "user": "lilitkarapetyan",
+          "created_at": "2024-06-12T11:49:48Z",
+          "updated_at": "2024-06-12T11:49:48Z",
+          "body": "> > @lilitkarapetyan With this way I can assign user well. But I think it's not normal way for user. They often think just select user and don't think about click again on that button to make the assignment can do action. @IanMayo How do you think?\r\n> \r\n> Good point @Tristina1788 . Would it be hard to implement it in @Tristina1788 's way, @lilitkarapetyan ?\r\n\r\nI don't think it will be difficult"
+        },
+        {
+          "id": 2162830731,
+          "user": "IanMayo",
+          "created_at": "2024-06-12T12:00:22Z",
+          "updated_at": "2024-06-12T12:00:22Z",
+          "body": "> > > @lilitkarapetyan With this way I can assign user well. But I think it's not normal way for user. They often think just select user and don't think about click again on that button to make the assignment can do action. @IanMayo How do you think?\r\n> > \r\n> > \r\n> > Good point @Tristina1788 . Would it be hard to implement it in @Tristina1788 's way, @lilitkarapetyan ?\r\n> \r\n> I don't think it will be difficult\r\n\r\nGreat - let's go for it, please."
+        },
+        {
+          "id": 2165208349,
+          "user": "Tristina1788",
+          "created_at": "2024-06-13T10:08:14Z",
+          "updated_at": "2024-06-13T10:08:14Z",
+          "body": "@lilitkarapetyan \r\n`The text is hard to see.` => It's fixed and better. But with me, the text 'Threat' is not good. It's not the same style with another text. @IanMayo  How do you think about it?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/9c19e6c6-6b6c-4479-9b3e-975b1127196c)\r\n\r\n- The redundant scroll bar is removed as expected\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/867505c6-b199-4092-834e-435e424e5840)\r\n\r\n- Now I can click assign user by select user as expected \r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/f1971c7f-36ed-4e1c-acda-43d932684188\r\n\r\n"
+        },
+        {
+          "id": 2165217469,
+          "user": "IanMayo",
+          "created_at": "2024-06-13T10:12:21Z",
+          "updated_at": "2024-06-13T10:12:21Z",
+          "body": "Any remaining issues @Tristina1788 ?"
+        },
+        {
+          "id": 2165329418,
+          "user": "Tristina1788",
+          "created_at": "2024-06-13T11:03:47Z",
+          "updated_at": "2024-06-13T11:03:47Z",
+          "body": "> * I can't open content message after update channel with option 'Additional data' = true . I try to update it as original ('Additional data' = false) but I still can't open content message.\r\n> \r\n>  cannot_open_message_after_change_and_revert_Additionaldata_.mp4\r\n\r\n@IanMayo  We still have this issue. Will we fix it on this ticket?\r\n\r\n- Get white screen when click on 'Sort' of Owner column\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/72f2b321-217e-4239-b2c7-ea7cf9388f5a)\r\n"
+        },
+        {
+          "id": 2165352972,
+          "user": "IanMayo",
+          "created_at": "2024-06-13T11:15:07Z",
+          "updated_at": "2024-06-13T11:15:07Z",
+          "body": "Yes please @Tristina1788  - I'd like @lilitkarapetyan to fix it in this issue.  Hmm, or are you reporting two issues in that comment?"
+        },
+        {
+          "id": 2165399788,
+          "user": "Tristina1788",
+          "created_at": "2024-06-13T11:35:41Z",
+          "updated_at": "2024-06-13T12:10:47Z",
+          "body": "> Yes please @Tristina1788 - I'd like @lilitkarapetyan to fix it in this issue. Hmm, or are you reporting two issues in that comment?\r\n\r\n@IanMayo  Yes, theye 're 2 issues: \r\n\r\n1. I can't open content message after update channel with option 'Additional data' = true . I try to update it as original ('Additional data' = false) but I still can't open content message. \r\n=> This issue also happens when I update config to 'Unallocated' option\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/7c704605-8979-4e97-bf85-fbbd958b87bc)\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/8d6bb1bd-9566-41ad-809c-a96d42dabb3a\r\n\r\n\r\n\r\n\r\n2. Get white screen when click on 'Sort' of Owner column\r\n\r\nAnd I also need your confirm on this. Do you feel this text 'Threat' is ok? With me, it's quite not good because it looks different style with another text on message.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/8d7070a6-c65c-460a-8fd5-b752f715b8aa)\r\n"
+        },
+        {
+          "id": 2165764617,
+          "user": "Tristina1788",
+          "created_at": "2024-06-13T14:00:45Z",
+          "updated_at": "2024-06-13T14:00:45Z",
+          "body": "@lilitkarapetyan  @IanMayo Now the text 'Threat' is better on table but it's not good on form 'New message'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/f3daabb7-79ce-4c45-9dfd-a12d85ebe1da)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/c97f4ea9-ef6a-4b09-8ee6-f0648c4f4332)\r\n\r\n- I can sort 'Owner' without issue, but the function sorting is not correct. It's not follow a->z desc/ascs ( Sorting on 'Updated' is also not good, it should be sort as date time instead of a->z) :  https://app.screencast.com/qWTD8YoXqzEJ8\r\n\r\n"
+        },
+        {
+          "id": 2165797848,
+          "user": "IanMayo",
+          "created_at": "2024-06-13T14:13:08Z",
+          "updated_at": "2024-06-13T14:13:08Z",
+          "body": "Yes @Tristina1788 - the `Threat` title is not clear.  I'm sure @lilitkarapetyan can solve it via CSS."
+        },
+        {
+          "id": 2167606738,
+          "user": "Tristina1788",
+          "created_at": "2024-06-14T09:15:35Z",
+          "updated_at": "2024-06-14T09:15:35Z",
+          "body": "@lilitkarapetyan  Now the text 'Threat' is good on table and on 'New message'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/22a2d82c-a7ed-4716-a572-1ac6b0994117)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/c617f51a-e0d1-4f64-ad19-193652c13a87)\r\n\r\n"
+        },
+        {
+          "id": 2173454617,
+          "user": "Tristina1788",
+          "created_at": "2024-06-17T13:52:34Z",
+          "updated_at": "2024-06-17T13:52:34Z",
+          "body": "@lilitkarapetyan  @IanMayo  Now I can send message after update channel with option 'Additional data' = true or update config to 'Unallocated' option as expected.\r\n\r\nAnd I find one issue with new channel collab. It shows 'Chat' as default of template in Collab channel. But from game play, it doesn't show input text . I have to remove 'Chat' template and re-select it, then it can work as normal. \r\n=> The default template should be fine to send message\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/98b13747-1305-41e0-9a1a-8fe253b21051\r\n\r\n- And in 'Terminology' part, I can't select value of `Request Changes` / `Approve`/ `Release`. Is this ok for now? @IanMayo \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/4fc8bdeb-a281-42fa-b80b-bffa45e39b4a)\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/a2b32356-c658-40c3-96c6-2b15e461c872\r\n\r\n"
+        },
+        {
+          "id": 2230287340,
+          "user": "Tristina1788",
+          "created_at": "2024-07-16T08:11:06Z",
+          "updated_at": "2024-07-16T08:54:24Z",
+          "body": "@IanMayo  @lilitkarapetyan \r\n- \"With new channel collab. It shows 'Chat' as default of template in Collab channel. \" => It's fixed by don't have default template on new collab channel. \r\n\r\n![image](https://github.com/user-attachments/assets/a3169e15-2dd7-40a5-a7f1-735a72201263)\r\n\r\n- ''Terminology' part, I can't select value of Request Changes / Approve/ Release after removing' => The issue is not fixed.\r\n- I can sort 'Owner' without issue, but the function sorting is not correct. It's not follow a->z desc/ascs ( Sorting on 'Updated' is also not good, it should be sort as date time instead of a->z)  => It's not fixed"
+        },
+        {
+          "id": 2238735606,
+          "user": "Tristina1788",
+          "created_at": "2024-07-19T09:18:57Z",
+          "updated_at": "2024-07-19T09:19:50Z",
+          "body": "@lilitkarapetyan @IanMayo Now I can sort column datetime ( ID, Updated) as dateTime as expected.\r\n\r\n''Terminology' part, I can't select value of Request Changes / Approve/ Release after removing' => The issue is not fixed."
+        },
+        {
+          "id": 2244882050,
+          "user": "IanMayo",
+          "created_at": "2024-07-23T10:48:12Z",
+          "updated_at": "2024-07-23T10:48:26Z",
+          "body": "> @lilitkarapetyan @IanMayo Now I can sort column datetime ( ID, Updated) as dateTime as expected.\r\n> \r\n> ''Terminology' part, I can't select value of Request Changes / Approve/ Release after removing' => The issue is not fixed.\r\n\r\nHere is how I did it @Tristina1788 :\r\nhttps://i.gyazo.com/2a20f9c6726a0acbed016c701a8d33a7.mp4"
+        },
+        {
+          "id": 2244933130,
+          "user": "Tristina1788",
+          "created_at": "2024-07-23T11:06:19Z",
+          "updated_at": "2024-07-23T11:06:19Z",
+          "body": "> > @lilitkarapetyan @IanMayo Now I can sort column datetime ( ID, Updated) as dateTime as expected.\r\n> > ''Terminology' part, I can't select value of Request Changes / Approve/ Release after removing' => The issue is not fixed.\r\n> \r\n> Here is how I did it @Tristina1788 : https://i.gyazo.com/2a20f9c6726a0acbed016c701a8d33a7.mp4\r\n\r\n@IanMayo  How user remember which template to input (I think they don't notice the name before delete) . And with that we can can input all name, that's not the exist template from system? "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/3e5d1879-8565-4101-a093-3d7bab7beabc",
+    "https://github.com/serge-web/serge/assets/107697044/c351a09b-9ea4-47cc-be74-e912cb94082e",
+    "https://github.com/serge-web/serge/assets/107697044/3c74c33e-509e-473a-b627-86695a1ae002",
+    "https://github.com/serge-web/serge/assets/107697044/19eba9f3-9765-4d59-be43-5f379d38e0b1",
+    "https://github.com/serge-web/serge/assets/107697044/4b2a1a17-576a-4439-ae21-61123d2846e4",
+    "https://github.com/serge-web/serge/assets/107697044/0f04066c-acd1-444e-a329-2f34cd75b76c",
+    "https://github.com/serge-web/serge/assets/107697044/2d702c88-8a03-4701-b105-f7604fb025fa",
+    "https://github.com/serge-web/serge/assets/107697044/b6239b77-843a-4780-b6ca-3a9afb93bea3",
+    "https://github.com/serge-web/serge/assets/107697044/9537490a-3953-488e-a3dc-8606b0727c07",
+    "https://private-user-images.githubusercontent.com/107697044/331538569-3e5d1879-8565-4101-a093-3d7bab7beabc.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM4NTY5LTNlNWQxODc5LTg1NjUtNDEwMS1hMDkzLTNkN2JhYjdiZWFiYy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1hOGZlODczMGQ2OWYxMWRhM2VhNWUzYjk1NGZkMTA0NzNlOTgyMjFlMjhlMjAxYzEyNWEwOTI2ZmQyNzU5NTJmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.I-8pKfwWemwmHKlLj60HbFoUJ_BE9gnHem79s-7ElN0",
+    "https://private-user-images.githubusercontent.com/107697044/331536631-c351a09b-9ea4-47cc-be74-e912cb94082e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM2NjMxLWMzNTFhMDliLTllYTQtNDdjYy1iZTc0LWU5MTJjYjk0MDgyZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01YTJmOTA4YzA3M2Y5NzdlMzk2ZDE1NDg5NzVlZTY2Y2UyYmVlMmZhNTFmNWI1NzVmZmVmZTY5OTdlNTI0NjdiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.qajyYvNhWCnFNEszvOuKYphh1FpziKcNSOYCye9s4PA",
+    "https://private-user-images.githubusercontent.com/107697044/331537013-3c74c33e-509e-473a-b627-86695a1ae002.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3MDEzLTNjNzRjMzNlLTUwOWUtNDczYS1iNjI3LTg2Njk1YTFhZTAwMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNzUwYzMxMzk3Y2Y1YTcxMTU4NGJmYmNlMDJhZmM2MWI1ZmVlNDEzYjQ3NTE2MmU2ZDRiODhhMjU0OTFkNjc0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.SFFnyWZjMePMVoXaL43Z5Wb87LH8N7keHO19n98zq4U",
+    "https://private-user-images.githubusercontent.com/107697044/331537360-19eba9f3-9765-4d59-be43-5f379d38e0b1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3MzYwLTE5ZWJhOWYzLTk3NjUtNGQ1OS1iZTQzLTVmMzc5ZDM4ZTBiMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NDQ5YzA2ZTY4NmZlYjdlOGIzZmVlNjhlNjcyYzFhYjI2M2UyOGU4NjRiYWFjMGJmNjgwNjJiNjBlNGRkMjQwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.zBhOHKjm2YH90eirOKQ-K1r7RUQLHn7p1FDLR5KFjso",
+    "https://private-user-images.githubusercontent.com/107697044/331537492-4b2a1a17-576a-4439-ae21-61123d2846e4.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3NDkyLTRiMmExYTE3LTU3NmEtNDQzOS1hZTIxLTYxMTIzZDI4NDZlNC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02YWFmMGQ2NGRmYTc5ZGRlNWIwNTRhMDcxMzYwOTZmMTJiZTBiNDA1NTY1NDQxZTc1MTAzNmRhNWY1ZmI3MjI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.kpWxvS2AbEN9jZGyb7u0cm3ifX9di_RBZ4OTJdiniG4",
+    "https://private-user-images.githubusercontent.com/107697044/331537619-0f04066c-acd1-444e-a329-2f34cd75b76c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3NjE5LTBmMDQwNjZjLWFjZDEtNDQ0ZS1hMzI5LTJmMzRjZDc1Yjc2Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZWU5YWNjZDgyOGFlODY1N2QzYzlkY2Q5YWUwNjNhMTg5NjVkOWEwZjQ3NDk5NmM5NGYzYThmMDA3ZDYxNzI0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.j77aFm8j-4ovKUZasbghMhdRgbTBuyEvKcxUG3Y8w0k",
+    "https://private-user-images.githubusercontent.com/107697044/331537755-2d702c88-8a03-4701-b105-f7604fb025fa.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTgwMDMwNjYsIm5iZiI6MTcxODAwMjc2NiwicGF0aCI6Ii8xMDc2OTcwNDQvMzMxNTM3NzU1LTJkNzAyYzg4LThhMDMtNDcwMS1iMTA1LWY3NjA0ZmIwMjVmYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjEwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYxMFQwNjU5MjZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mOWRjNmQyMDljNTFkZmQzNjEwNjZhZDFmNDA4YTNkYzVkOTdmZDc1ZGEzOGUwMzIwODc4MzU2MjA5YjRlZDQ0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.M2SnzZTD0wNIVgYFx8sRv_yNmmt-7dznbohK_2X6yD4",
+    "https://github.com/serge-web/serge/assets/107697044/8d7e8ab1-113f-4b26-9654-3085d98f29a4",
+    "https://github.com/serge-web/serge/assets/107697044/f17f03d8-436a-440b-aff3-2eef9a81fa2d",
+    "https://github.com/serge-web/serge/assets/107697044/ab56cde3-57cc-4ea6-b2bf-7d1da5b4ab95",
+    "https://github.com/serge-web/serge/assets/107697044/54c7e046-0f39-4853-9c81-7de2183fec5b",
+    "https://github.com/serge-web/serge/assets/107697044/09d553f1-14e8-4686-8454-e18f0ba5f907",
+    "https://github.com/serge-web/serge/assets/107697044/2adc8e52-85dc-46ed-9eff-4ee210bd316e",
+    "https://github.com/serge-web/serge/assets/107697044/8495dfda-71c5-489f-99ff-9b65424bf0c9",
+    "https://github.com/serge-web/serge/assets/107697044/9c19e6c6-6b6c-4479-9b3e-975b1127196c",
+    "https://github.com/serge-web/serge/assets/107697044/867505c6-b199-4092-834e-435e424e5840",
+    "https://github.com/serge-web/serge/assets/107697044/72f2b321-217e-4239-b2c7-ea7cf9388f5a",
+    "https://github.com/serge-web/serge/assets/107697044/7c704605-8979-4e97-bf85-fbbd958b87bc",
+    "https://github.com/serge-web/serge/assets/107697044/8d7070a6-c65c-460a-8fd5-b752f715b8aa",
+    "https://github.com/serge-web/serge/assets/107697044/f3daabb7-79ce-4c45-9dfd-a12d85ebe1da",
+    "https://github.com/serge-web/serge/assets/107697044/c97f4ea9-ef6a-4b09-8ee6-f0648c4f4332",
+    "https://github.com/serge-web/serge/assets/107697044/22a2d82c-a7ed-4716-a572-1ac6b0994117",
+    "https://github.com/serge-web/serge/assets/107697044/c617f51a-e0d1-4f64-ad19-193652c13a87",
+    "https://github.com/serge-web/serge/assets/107697044/4fc8bdeb-a281-42fa-b80b-bffa45e39b4a",
+    "https://github.com/user-attachments/assets/a3169e15-2dd7-40a5-a7f1-735a72201263"
+  ],
+  "number_of_changed_files": 20,
+  "total_changed_lines": 249
+}

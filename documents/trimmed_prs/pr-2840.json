@@ -1,0 +1,84 @@
+{
+  "number": 2840,
+  "title": "2837 show id field",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-09T12:36:38Z",
+  "updated_at": "2024-02-12T16:22:00Z",
+  "closed_at": "2024-02-12T09:14:44Z",
+  "merged_at": "2024-02-12T09:14:44Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2840",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2840/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2840/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2840",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\nFixes #2837 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 10,
+  "deletions": 7,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1937757568,
+      "user": "Tristina1788",
+      "created_at": "2024-02-11T13:38:38Z",
+      "updated_at": "2024-02-11T13:38:52Z",
+      "body": "@IanMayo  Checking on this branch . ID field in 'Properties' pannel is showed as disabled now (It's good for that) but filter 'ID' should not disable. So that user can filter with 'ID'.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/46a788da-8106-4b31-a4a3-5e2f6c35e25a)\r\n"
+    },
+    {
+      "id": 1938274433,
+      "user": "IanMayo",
+      "created_at": "2024-02-12T09:05:43Z",
+      "updated_at": "2024-02-12T09:05:43Z",
+      "body": "> @IanMayo Checking on this branch . ID field in 'Properties' pannel is showed as disabled now (It's good for that) but filter 'ID' should not disable. So that user can filter with 'ID'.\r\n> \r\n\r\nwell spotted @Tristina1788 "
+    },
+    {
+      "id": 1938288487,
+      "user": "IanMayo",
+      "created_at": "2024-02-12T09:15:30Z",
+      "updated_at": "2024-02-12T09:15:30Z",
+      "body": "I've messed up merging this branch @Tristina1788  - but could you give it a check anyway?  (on `develop`)."
+    },
+    {
+      "id": 1939070715,
+      "user": "Tristina1788",
+      "created_at": "2024-02-12T16:21:59Z",
+      "updated_at": "2024-02-12T16:21:59Z",
+      "body": "> I've messed up merging this branch @Tristina1788 - but could you give it a check anyway? (on `develop`).\r\n\r\nI've checked on branch 'develop'. And it works as expected now."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2837
+  ],
+  "issues": [
+    {
+      "id": 2126774037,
+      "number": 2837,
+      "title": "Should not shows 'Filter' for properties which not shows on 'Properties' of item",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-02-09T09:34:04Z",
+      "updated_at": "2024-02-12T09:14:45Z",
+      "closed_at": "2024-02-12T09:14:45Z",
+      "body": "## 🐞 Bug description\r\nShould not shows 'Filter' for properties which not shows on 'Properties' of item\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Click on channel 'Core Mapping'\r\n3. Filter with 'ID' \r\n4. Notice no properties ID on item, but it still gets result for filter 'ID'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/195a4959-dd5c-4f7a-9394-373bf984dbb0)\r\n\r\n## ⚙️ Expected behavior\r\nFilter should only show properties which shows on 'Properties' panel\r\n\r\n## 🖥️ Screenshots\r\n\r\n\r\n## 💻 System information\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/46a788da-8106-4b31-a4a3-5e2f6c35e25a",
+    "https://github.com/serge-web/serge/assets/107697044/195a4959-dd5c-4f7a-9394-373bf984dbb0"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 17
+}

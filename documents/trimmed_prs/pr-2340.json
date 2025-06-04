@@ -1,0 +1,50 @@
+{
+  "number": 2340,
+  "title": "2337 Repair-time for damaged assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-07T18:42:59Z",
+  "updated_at": "2023-02-08T15:33:26Z",
+  "closed_at": "2023-02-08T15:33:25Z",
+  "merged_at": "2023-02-08T15:33:25Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2340",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2340/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2340/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2340",
+  "body": "Fixes #2337 ",
+  "additions": 395,
+  "deletions": 207,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2337
+  ],
+  "issues": [
+    {
+      "id": 1574641255,
+      "number": 2337,
+      "title": "Handle time to repair, plus repair",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-07T16:29:44Z",
+      "updated_at": "2023-02-08T15:33:27Z",
+      "closed_at": "2023-02-08T15:33:27Z",
+      "body": "We need the concept of repairable damaged assets in the game.\r\n\r\nFor this, in adjudication umpires will indicate the condition (health) of an asset, plus how many days to repair an it - if it is repairable.  The `Days to repair` drop-down will contain `n/a` (not repairable, default), or a number of days: `1`, `2`, `3`.\r\n\r\nSerge will calculate when the repairs will be complete, and store this in \"a_Repair_Complete\" date-time attribute for that asset. \r\n\r\nWhile handling adjudication outcomes SERGE will interrupt the process to see if any assets should have been repaired by the time of the end of the interaction.  If any should have been repaired by this time, a special \"health\" outcome will be injected to the adjudication.  As the outcomes are then formally processed, the health outcome will be handled by restoring the asset to 100% health, and the `a_Repair_Complete` attribute will be removed.\r\n\r\nSeparate to that process, if an adjudication outcome for an asset gives a new time to repair, then the `a_Repair_Complete` date will be updated to the new date.  Alternatively, if a new `health` outcome for that asset is `n/a` then the `a_Repair_Complete` value will be cleared.\r\n\r\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 602
+}

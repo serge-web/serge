@@ -1,0 +1,53 @@
+{
+  "number": 2307,
+  "title": "2305: Reduce white-space in \"Perception Outcomes\" form",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-31T15:42:16Z",
+  "updated_at": "2023-01-31T19:08:21Z",
+  "closed_at": "2023-01-31T19:08:20Z",
+  "merged_at": "2023-01-31T19:08:20Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2307",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2307/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2307/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2307",
+  "body": "Fixes #2305 \r\n\r\n<img width=\"1134\" alt=\"Screen Shot 2023-01-31 at 10 35 42 PM\" src=\"https://user-images.githubusercontent.com/26705621/215806798-966989fe-dd6d-40f5-adca-4e7754f96da0.png\">\r\n",
+  "additions": 21,
+  "deletions": 0,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2305
+  ],
+  "issues": [
+    {
+      "id": 1562861718,
+      "number": 2305,
+      "title": "Reduce white-space in \"Perception Outcomes\" form",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-30T17:25:36Z",
+      "updated_at": "2023-01-31T19:08:21Z",
+      "closed_at": "2023-01-31T19:08:21Z",
+      "body": "We use tables to let the umpire enter multiple outcomes from an interaction:\r\n![Screenshot 2023-01-30 at 16 42 52](https://user-images.githubusercontent.com/1108513/215549571-641ed286-84dc-40d0-aaff-32a85d12f30b.png)\r\n\r\nBut, for perception there are lots of columns, and it's difficult to see all of the text.\r\n\r\nCan we reduce the whitespace?\r\n\r\nIt would be good to reduce:\r\n- the left& right padding in the drop-down lists\r\n- the padding between the columns\r\n- the padding around the table\r\n\r\nI've tried to highlight these in red in the above attachment.\r\n\r\nGet the form using this story:\r\nhttp://localhost:6611/?path=/story/local-organisms-adjudicationmessageslist--one-open-interaction\r\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/215806798-966989fe-dd6d-40f5-adca-4e7754f96da0.png",
+    "https://user-images.githubusercontent.com/1108513/215549571-641ed286-84dc-40d0-aaff-32a85d12f30b.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 21
+}

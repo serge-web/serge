@@ -1,0 +1,50 @@
+{
+  "number": 2540,
+  "title": "2536 per force template data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-01T16:45:50Z",
+  "updated_at": "2023-03-01T18:20:25Z",
+  "closed_at": "2023-03-01T18:20:24Z",
+  "merged_at": "2023-03-01T18:20:24Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2540",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2540/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2540/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2540",
+  "body": "Fixes #2536 \r\nFixes #2509 ",
+  "additions": 1510,
+  "deletions": 3086,
+  "changed_files": 21,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2536
+  ],
+  "issues": [
+    {
+      "id": 1603689670,
+      "number": 2536,
+      "title": "Store some template data in state objects",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-28T19:35:37Z",
+      "updated_at": "2023-03-01T18:20:25Z",
+      "closed_at": "2023-03-01T18:20:25Z",
+      "body": "For some templates, we store long lists of per-force items, such as `missile types` and `cyber cards`.\r\n\r\nWhere we have per-force data, it requires per-force versions of each template.  The templates are verbose, and this will increase the size of  the wargame document.\r\n\r\nAn alternate strategy would be to just store short dummy lists in the templates,  store per-force dropdown data somewhere else in the wargame document (like we do for areas), and to inject inject the correct per-force listing when we do `customise template` (like we do for own-force and opp-force assets).",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 21,
+  "total_changed_lines": 4596
+}

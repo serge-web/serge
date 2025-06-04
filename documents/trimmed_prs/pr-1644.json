@@ -1,0 +1,93 @@
+{
+  "number": 1644,
+  "title": "Fix issue style run time error",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-28T13:52:02Z",
+  "updated_at": "2022-06-29T09:09:39Z",
+  "closed_at": "2022-06-29T09:09:39Z",
+  "merged_at": "2022-06-29T09:09:38Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1644",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1644/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1644/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1644",
+  "body": "Fixes #1642 ",
+  "additions": 31,
+  "deletions": 34,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 3,
+  "total_comments": 3,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 908511497,
+      "user": "IanMayo",
+      "created_at": "2022-06-28T13:53:45Z",
+      "updated_at": "2022-06-28T13:53:46Z",
+      "body": "well, I wasn't expecting it to be this simple 🤣 \r\n\r\nDoes the UI for this form still look ok @lebaphi  ?",
+      "path": "packages/components/src/local/form-elements/rcb/index.tsx",
+      "diff_hunk": "@@ -16,10 +16,7 @@ const buildStyles = (options: any[]): any => {\n   const opts = {}\n   options.forEach((option, idx) => {\n     opts[`root-${idx}`] = {}",
+      "html_url": "https://github.com/serge-web/serge/pull/1644#discussion_r908511497"
+    },
+    {
+      "id": 908525103,
+      "user": "lebaphi",
+      "created_at": "2022-06-28T14:04:18Z",
+      "updated_at": "2022-06-28T14:04:36Z",
+      "body": "Yep, it works fine @IanMayo but I see other error when loading the page on first time.\r\n\r\nhttps://user-images.githubusercontent.com/26705621/176198455-3d4f1511-f731-4a8e-a916-ab086235de38.mov\r\n\r\n\r\n",
+      "path": "packages/components/src/local/form-elements/rcb/index.tsx",
+      "diff_hunk": "@@ -16,10 +16,7 @@ const buildStyles = (options: any[]): any => {\n   const opts = {}\n   options.forEach((option, idx) => {\n     opts[`root-${idx}`] = {}",
+      "html_url": "https://github.com/serge-web/serge/pull/1644#discussion_r908525103"
+    },
+    {
+      "id": 909389294,
+      "user": "IanMayo",
+      "created_at": "2022-06-29T09:09:04Z",
+      "updated_at": "2022-06-29T09:09:04Z",
+      "body": "Ok, I see a few errors:\r\n\r\n* `Warning: Cannot update a component` - yes, it would be good to fix this.  I'll create an issue for it.\r\n* `[Violation] 'message' handler` - I don't know much about this\r\n* `HEAD http://localhost:3000/assets/couners/unk` - Yes, this may be an issue.  I'll investigate.",
+      "path": "packages/components/src/local/form-elements/rcb/index.tsx",
+      "diff_hunk": "@@ -16,10 +16,7 @@ const buildStyles = (options: any[]): any => {\n   const opts = {}\n   options.forEach((option, idx) => {\n     opts[`root-${idx}`] = {}",
+      "html_url": "https://github.com/serge-web/serge/pull/1644#discussion_r909389294"
+    }
+  ],
+  "issue_numbers": [
+    1642
+  ],
+  "issues": [
+    {
+      "id": 1287088576,
+      "number": 1642,
+      "title": "Runtime style error",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-28T09:51:02Z",
+      "updated_at": "2022-06-29T09:09:38Z",
+      "closed_at": "2022-06-29T09:09:38Z",
+      "body": "In the debug console we're displaying a warning for `rcb` elements:\r\n![image](https://user-images.githubusercontent.com/1108513/176149574-f6039d07-1bc4-47a2-a86d-0ccb7c0e0a1f.png)\r\n\r\nIt doesn't really bother me, but it's cluttering the console.\r\n\r\nSteps to reproduce:\r\n* run wargame\r\n* log into `small-wargame` as `White` - `Game Control`.\r\n* click on an information marker\r\n* warning appears on console",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1168671616,
+          "user": "IanMayo",
+          "created_at": "2022-06-28T12:41:28Z",
+          "updated_at": "2022-06-28T12:41:28Z",
+          "body": "These warnings are making it difficult to debug issue #1628.  Ian should revisit that once this issue is complete."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/176149574-f6039d07-1bc4-47a2-a86d-0ccb7c0e0a1f.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 65
+}

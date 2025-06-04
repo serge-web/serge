@@ -1,0 +1,176 @@
+{
+  "number": 1438,
+  "title": "1430: Clean channels on delete role or force",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-21T12:03:46Z",
+  "updated_at": "2022-03-29T11:10:40Z",
+  "closed_at": "2022-03-29T11:10:39Z",
+  "merged_at": "2022-03-29T11:10:39Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1438",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1438/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1438/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1438",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1430\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 209,
+  "deletions": 15,
+  "changed_files": 12,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 10,
+  "total_comments": 12,
+  "comments_data": [
+    {
+      "id": 1076087785,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-03-23T08:37:05Z",
+      "updated_at": "2022-03-23T08:37:05Z",
+      "body": "> Ooh, I'll need a helping hand here @lilitkarapetyan.\r\n> \r\n> We return either an updated wargame, or an updated set of roles?\r\n> \r\n> Why is that?\r\n\r\nAn updated wargame is returned if roles do not exist, updated roles are returned when updated roles are migrated for live updates."
+    },
+    {
+      "id": 1076304156,
+      "user": "IanMayo",
+      "created_at": "2022-03-23T12:09:41Z",
+      "updated_at": "2022-03-23T12:09:41Z",
+      "body": "Hello @lilitkarapetyan - I could do with your support, please.\r\n\r\nI've re-written the code to delete roles (and channel participations), and given it some test coverage.\r\n\r\nBut, we now just return the updated `wargame`.  I would appreciate you checking it, please.  I'll also need some support in handing the \"two different returns\", please."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 831073610,
+      "user": "IanMayo",
+      "created_at": "2022-03-21T12:56:58Z",
+      "updated_at": "2022-03-21T12:56:58Z",
+      "body": "For the filter test above, shouldn't the logical test be `===` ?",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -534,6 +534,34 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>\n     forces.splice(forceIndex, 1)\n     updatedData.forces.forces = forces\n     updatedData.channels.complete = calcComplete(forces)\n+    updatedData.channels.channels.filter((v: any) => v.participants = forces)",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r831073610"
+    },
+    {
+      "id": 831087701,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-03-21T13:10:48Z",
+      "updated_at": "2022-03-21T13:10:48Z",
+      "body": "Here we just change assign `forces` instead `v.participiants`",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -534,6 +534,34 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>\n     forces.splice(forceIndex, 1)\n     updatedData.forces.forces = forces\n     updatedData.channels.complete = calcComplete(forces)\n+    updatedData.channels.channels.filter((v: any) => v.participants = forces)",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r831087701"
+    },
+    {
+      "id": 831173438,
+      "user": "IanMayo",
+      "created_at": "2022-03-21T14:30:52Z",
+      "updated_at": "2022-03-21T14:30:52Z",
+      "body": "Ah, so instead of doing a `filter`, we're actually doing a `forEach`. Right?",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -534,6 +534,34 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>\n     forces.splice(forceIndex, 1)\n     updatedData.forces.forces = forces\n     updatedData.channels.complete = calcComplete(forces)\n+    updatedData.channels.channels.filter((v: any) => v.participants = forces)",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r831173438"
+    },
+    {
+      "id": 831984207,
+      "user": "IanMayo",
+      "created_at": "2022-03-22T09:59:25Z",
+      "updated_at": "2022-03-22T09:59:25Z",
+      "body": "@lilitkarapetyan - there is a mistake in the below code.  It is setting `roles` for every force - they all get given the new set of roles.  So, if I delete a `blue` role, the new list of roles gets stored for `white` and `red`, too.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -509,6 +511,34 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>\n     forces.splice(forceIndex, 1)\n     updatedData.forces.forces = forces\n     updatedData.channels.complete = calcComplete(forces)\n+    updatedData.channels.channels.forEach((v) => (v.participants as CoreParticipant[] | ForceData[]) = forces)\n+    if (forces.length === 0) {\n+      updatedData.channels = { \n+      name: 'Channels',\n+      channels: [],\n+      selectedChannel: '',\n+      complete: false,\n+      dirty: false\n+      }\n+    }\n+    return updateWargame({ ...res, data: updatedData }, dbName)\n+  })\n+}\n+\n+export const deleteRolesParticipations = (dbName: string, roles: Role[]): Promise<Wargame> => {\n+  return getLatestWargameRevision(dbName).then((res) => {\n+    const newDoc: Wargame = deepCopy(res)\n+    const updatedData = newDoc.data",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r831984207"
+    },
+    {
+      "id": 832004263,
+      "user": "IanMayo",
+      "created_at": "2022-03-22T10:20:32Z",
+      "updated_at": "2022-03-22T10:20:33Z",
+      "body": "Steps to reproduce:\r\n- login as admin\r\n- open `Small wargame`\r\n- open `forces`\r\n- open `White` then `roles`\r\n- view 4 roles\r\n- now open `Blue-1` roles\r\n- delete `CT5-B5`\r\n- click `Save Force`\r\n- view `White` then `roles\r\n- now see there is just the `CO` role for `White` (there should be 4 of them)\r\n- also see it's the same single role for `Red`, too.\r\n\r\nIMHO, `deleteRolesParticipations` should receive a `force-id` and `role-id` - so it can remove the correct `role` from the correct `force`.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -509,6 +511,34 @@ export const deleteForce = (dbName: string, forceName: string): Promise<Wargame>\n     forces.splice(forceIndex, 1)\n     updatedData.forces.forces = forces\n     updatedData.channels.complete = calcComplete(forces)\n+    updatedData.channels.channels.forEach((v) => (v.participants as CoreParticipant[] | ForceData[]) = forces)\n+    if (forces.length === 0) {\n+      updatedData.channels = { \n+      name: 'Channels',\n+      channels: [],\n+      selectedChannel: '',\n+      complete: false,\n+      dirty: false\n+      }\n+    }\n+    return updateWargame({ ...res, data: updatedData }, dbName)\n+  })\n+}\n+\n+export const deleteRolesParticipations = (dbName: string, roles: Role[]): Promise<Wargame> => {\n+  return getLatestWargameRevision(dbName).then((res) => {\n+    const newDoc: Wargame = deepCopy(res)\n+    const updatedData = newDoc.data",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r832004263"
+    },
+    {
+      "id": 833089147,
+      "user": "IanMayo",
+      "created_at": "2022-03-23T10:19:45Z",
+      "updated_at": "2022-03-23T10:19:46Z",
+      "body": "@lilitkarapetyan - I'm trying to tidy the logic here.  The above `deleteRolesParticipations` returns two different types of result, which gets handled in two different ways.  (`handleChange` and `setCurrentWargame`).  Can you explain why there are to different paths followed?",
+      "path": "packages/client/src/ActionsAndReducers/dbWargames/wargames_ActionCreators.js",
+      "diff_hunk": "@@ -337,10 +337,8 @@ export const deleteSelectedAsset = (data) => {\n \r\n export const deleteSelectedRole = (dbName, data) => {\r\n   return async (dispatch) => {\r\n-    await data.roles.splice(data.key, 1)\r\n-    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles)\r\n-    data.handleChange(data.roles)\r\n-    dispatch(setCurrentWargame(wargame))\r\n+    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)\r\n+    _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))\r\n     dispatch(addNotification('Role deleted.', 'warning'))\r",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r833089147"
+    },
+    {
+      "id": 833099619,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-03-23T10:30:54Z",
+      "updated_at": "2022-03-23T10:30:54Z",
+      "body": "HandleChange for real-time update roles, setCurrentWargame for live update wargame. They are needed to work properly.",
+      "path": "packages/client/src/ActionsAndReducers/dbWargames/wargames_ActionCreators.js",
+      "diff_hunk": "@@ -337,10 +337,8 @@ export const deleteSelectedAsset = (data) => {\n \r\n export const deleteSelectedRole = (dbName, data) => {\r\n   return async (dispatch) => {\r\n-    await data.roles.splice(data.key, 1)\r\n-    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles)\r\n-    data.handleChange(data.roles)\r\n-    dispatch(setCurrentWargame(wargame))\r\n+    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)\r\n+    _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))\r\n     dispatch(addNotification('Role deleted.', 'warning'))\r",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r833099619"
+    },
+    {
+      "id": 833171153,
+      "user": "IanMayo",
+      "created_at": "2022-03-23T11:54:28Z",
+      "updated_at": "2022-03-23T11:54:28Z",
+      "body": "i think I need to understand this a bit more.  We only call `deleteSelectedRole` from one place. What are the two separate paths? \r\n\r\nI've rewritten `deleteRolesParticipations`, but it is always returning the updated wargame.",
+      "path": "packages/client/src/ActionsAndReducers/dbWargames/wargames_ActionCreators.js",
+      "diff_hunk": "@@ -337,10 +337,8 @@ export const deleteSelectedAsset = (data) => {\n \r\n export const deleteSelectedRole = (dbName, data) => {\r\n   return async (dispatch) => {\r\n-    await data.roles.splice(data.key, 1)\r\n-    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles)\r\n-    data.handleChange(data.roles)\r\n-    dispatch(setCurrentWargame(wargame))\r\n+    const wargame = await wargamesApi.deleteRolesParticipations(dbName, data.roles, data.key)\r\n+    _.isArray(wargame) ? await data.handleChange(wargame) : dispatch(setCurrentWargame(wargame))\r\n     dispatch(addNotification('Role deleted.', 'warning'))\r",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r833171153"
+    },
+    {
+      "id": 836453850,
+      "user": "IanMayo",
+      "created_at": "2022-03-28T13:50:59Z",
+      "updated_at": "2022-03-28T13:50:59Z",
+      "body": "Can you explain what the above line is doing?\r\n\r\n`forces` is the full list of forces in the game.\r\n\r\nWe don't put the full list of forces into the `participants` of every channel.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -503,11 +505,31 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =\n     const updatedData = newDoc.data\n     const forces = updatedData.forces.forces\n     updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)\n-    updatedData.channels.complete = calcComplete(forces)\n+    updatedData.channels.channels.forEach((v) => (v.participants as CoreParticipant[] | ForceData[]) = forces)",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r836453850"
+    },
+    {
+      "id": 837071981,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-03-29T05:37:19Z",
+      "updated_at": "2022-03-29T05:37:19Z",
+      "body": "The participant assigns a value to each channel each time, at the moment it can be seen in the console that it is also transferred to the mapping\r\n![mapping participant](https://user-images.githubusercontent.com/20753599/160540688-a083e85e-9acb-4b5e-98d5-098c74e415fd.PNG)",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -503,11 +505,31 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =\n     const updatedData = newDoc.data\n     const forces = updatedData.forces.forces\n     updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)\n-    updatedData.channels.complete = calcComplete(forces)\n+    updatedData.channels.channels.forEach((v) => (v.participants as CoreParticipant[] | ForceData[]) = forces)",
+      "html_url": "https://github.com/serge-web/serge/pull/1438#discussion_r837071981"
+    }
+  ],
+  "issue_numbers": [
+    1430
+  ],
+  "issues": [
+    {
+      "id": 1172218486,
+      "number": 1430,
+      "title": "Clean channels on delete role or force",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-03-17T10:49:09Z",
+      "updated_at": "2022-07-04T10:49:21Z",
+      "closed_at": "2022-07-04T10:49:21Z",
+      "body": "We popup a dialog when deleting a role or force.\r\n\r\nIf the Game Designer \"commits\" to the change then we should clean that role/force out of the channel definitions as follows:\r\n- if a force is being deleted, delete `participations` for that force in any channel.  If there are no remaining participations, delete the channel.\r\n- if a role is being deleted, delete that role from any participations for that force in any channel.  If there are no remaining roles for the participation, delete the participation. If there are no remaining participations, delete the channel.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1173668879,
+          "user": "IanMayo",
+          "created_at": "2022-07-04T10:49:21Z",
+          "updated_at": "2022-07-04T10:49:21Z",
+          "body": "Fixed in #1438 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/20753599/160540688-a083e85e-9acb-4b5e-98d5-098c74e415fd.PNG"
+  ],
+  "number_of_changed_files": 12,
+  "total_changed_lines": 224
+}

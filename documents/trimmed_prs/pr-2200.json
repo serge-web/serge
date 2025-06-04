@@ -1,0 +1,50 @@
+{
+  "number": 2200,
+  "title": "2199 synchronise with",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-02T16:21:12Z",
+  "updated_at": "2023-01-02T16:54:07Z",
+  "closed_at": "2023-01-02T16:54:06Z",
+  "merged_at": "2023-01-02T16:54:06Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2200",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2200/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2200/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2200",
+  "body": "Fixes #2199 ",
+  "additions": 99,
+  "deletions": 22,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2199
+  ],
+  "issues": [
+    {
+      "id": 1516473226,
+      "number": 2199,
+      "title": "SynchronisedWith should just offer live orders for current force",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-02T14:49:39Z",
+      "updated_at": "2023-01-02T16:54:07Z",
+      "closed_at": "2023-01-02T16:54:07Z",
+      "body": "A player can indicate that one set of orders are synchronised with another.\r\n\r\nHmm, they should only receive a list of orders that are \"live\" in the current turn.\r\n\r\nFor this to work, the UI will need to know the start and end times of the current turn. Suspect this should be state in `PlanningChannel` that updates on `turnNumber` or `gameDate`, then calculates that turn end time, and stores that in state.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 121
+}

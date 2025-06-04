@@ -1,0 +1,75 @@
+{
+  "number": 1449,
+  "title": "1426: Fix additional data bug",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-24T14:30:20Z",
+  "updated_at": "2022-03-24T17:07:08Z",
+  "closed_at": "2022-03-24T17:07:07Z",
+  "merged_at": "2022-03-24T17:07:07Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1449",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1449/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1449/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1449",
+  "body": "Fixes #1426 ",
+  "additions": 20,
+  "deletions": 5,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1077692648,
+      "user": "lebaphi",
+      "created_at": "2022-03-24T14:31:27Z",
+      "updated_at": "2022-03-24T14:31:27Z",
+      "body": "\r\nhttps://user-images.githubusercontent.com/26705621/159939192-b4a839fb-1c43-4b2e-95f7-1c66e2ece8ab.mov\r\n\r\n"
+    },
+    {
+      "id": 1077771632,
+      "user": "IanMayo",
+      "created_at": "2022-03-24T15:44:06Z",
+      "updated_at": "2022-03-24T15:44:06Z",
+      "body": "That's a strange one @lebaphi - it looks like it never did work properly. It's a good job @ShendMikullovci spotted it :-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1426
+  ],
+  "issues": [
+    {
+      "id": 1171272633,
+      "number": 1426,
+      "title": "Additional Data Tab Bug",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-16T16:38:44Z",
+      "updated_at": "2022-03-24T17:07:07Z",
+      "closed_at": "2022-03-24T17:07:07Z",
+      "body": "Small bug on the additional data tab for Collab Edit': \r\n\r\nhttps://user-images.githubusercontent.com/85491794/158641434-f7802f73-08f7-48ab-b46d-839e4d3c11e0.mp4\r\n\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1077557400,
+          "user": "IanMayo",
+          "created_at": "2022-03-24T12:06:50Z",
+          "updated_at": "2022-03-24T12:06:50Z",
+          "body": "Valid bug. One for you, please @lebaphi ."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 25
+}

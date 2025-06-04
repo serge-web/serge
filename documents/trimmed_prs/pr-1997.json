@@ -1,0 +1,67 @@
+{
+  "number": 1997,
+  "title": "1987 losing target pin",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-31T13:14:22Z",
+  "updated_at": "2022-10-31T13:44:19Z",
+  "closed_at": "2022-10-31T13:44:18Z",
+  "merged_at": "2022-10-31T13:44:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1997",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1997/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1997/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1997",
+  "body": "Fixes #1987 \r\n\r\nWell, it actually introduces a workaround.\r\n\r\nThe issue is that GeoMan registers a new `onCreate` method on each re-rendering.\r\n\r\nI don't know if the issue is in GeoMan or `react-leaflet-geoman`\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/199016165-276211f0-e363-4a4c-8da1-285f55ef2956.png)\r\n",
+  "additions": 22,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1987
+  ],
+  "issues": [
+    {
+      "id": 1428454509,
+      "number": 1987,
+      "title": "Complex steps end up breaking activity (Precision Strike)",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-10-29T21:02:51Z",
+      "updated_at": "2022-10-31T20:36:35Z",
+      "closed_at": "2022-10-31T13:44:19Z",
+      "body": "The more steps I include in a Precision strike, the higher the chances of the feature missing the target pin and route out: \r\n\r\n[eef1e8da-497e-448e-9835-187a0ae8edd4.webm](https://user-images.githubusercontent.com/85491794/198852203-b67413e9-e244-463a-b87f-afab51a9700b.webm)\r\n\r\nP.S. Notice that the Precision Strike shows as Land Activity. ",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1297114298,
+          "user": "IanMayo",
+          "created_at": "2022-10-31T13:44:53Z",
+          "updated_at": "2022-10-31T13:44:53Z",
+          "body": "Hello @ShendMikullovci - this is ready for re-test on `serge-sql`, please.  I'm pretty sure I've fixed it."
+        },
+        {
+          "id": 1297653318,
+          "user": "ShendMikullovci",
+          "created_at": "2022-10-31T20:36:34Z",
+          "updated_at": "2022-10-31T20:36:34Z",
+          "body": "Seems to work fine now. Thanks Ian!"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/199016165-276211f0-e363-4a4c-8da1-285f55ef2956.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 23
+}

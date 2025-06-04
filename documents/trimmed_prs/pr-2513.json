@@ -1,0 +1,51 @@
+{
+  "number": 2513,
+  "title": "Zoom to perceived bounds of current assets, not actual bounds",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-25T11:04:58Z",
+  "updated_at": "2023-02-25T12:08:03Z",
+  "closed_at": "2023-02-25T12:08:02Z",
+  "merged_at": "2023-02-25T12:08:02Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2513",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2513/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2513/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2513",
+  "body": "Fixes #2512 ",
+  "additions": 28,
+  "deletions": 25,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2512
+  ],
+  "issues": [
+    {
+      "id": 1599661806,
+      "number": 2512,
+      "title": "Zoom to current - should use perceived bounds",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-25T11:02:11Z",
+      "updated_at": "2023-02-25T12:08:03Z",
+      "closed_at": "2023-02-25T12:08:03Z",
+      "body": "When we have a `current orders`, or `current assets` - then we zoom in on their extent.\r\n\r\nBut, we should be zooming to the perceived bounds of the assets involved, not the actual bounds",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 53
+}

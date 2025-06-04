@@ -1,0 +1,69 @@
+{
+  "number": 1237,
+  "title": "1212: Read/Unread color button",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-09T06:06:47Z",
+  "updated_at": "2021-12-09T16:39:27Z",
+  "closed_at": "2021-12-09T16:39:26Z",
+  "merged_at": "2021-12-09T16:39:26Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1237",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1237/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1237/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1237",
+  "body": "Fixes #1212 ",
+  "additions": 1,
+  "deletions": 34,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 989693983,
+      "user": "IanMayo",
+      "created_at": "2021-12-09T10:01:20Z",
+      "updated_at": "2021-12-09T10:01:20Z",
+      "body": "Can we have a screenshot please @lebaphi ?"
+    },
+    {
+      "id": 989891324,
+      "user": "lebaphi",
+      "created_at": "2021-12-09T14:14:53Z",
+      "updated_at": "2021-12-09T14:14:53Z",
+      "body": "Hi @IanMayo , the screenshots below: :D\r\n<img width=\"581\" alt=\"Screen Shot 2021-12-09 at 9 14 08 PM\" src=\"https://user-images.githubusercontent.com/26705621/145412349-4f9797b9-ea2c-4fcb-b533-8e15654b017f.png\">\r\n<img width=\"583\" alt=\"Screen Shot 2021-12-09 at 9 14 00 PM\" src=\"https://user-images.githubusercontent.com/26705621/145412381-066fa46a-38f6-4d3b-90ed-a075f0aec354.png\">\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1212
+  ],
+  "issues": [
+    {
+      "id": 1060445880,
+      "number": 1212,
+      "title": "Read/Unread colors and buttons",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2021-11-22T18:01:46Z",
+      "updated_at": "2021-12-09T16:39:26Z",
+      "closed_at": "2021-12-09T16:39:26Z",
+      "body": "Currently, we display the status (read/unread) of a message in 2 ways:\r\n\r\n- **UNREAD** badge  highlighted in yellow in the message tab\r\n- Unopened envelope icon on the right hand side of the message tab\r\n\r\nThe \"UNREAD\" badge is redundant and should be removed. It would be nice to take the same yellow color used for the \"UNREAD\" badge and use it for the unopened envelope icon. \r\n\r\n![Unread color](https://user-images.githubusercontent.com/85491794/142912087-15c2fc56-b612-4bd8-aedf-d17ec07f51fd.png)\r\n\r\n\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/145412349-4f9797b9-ea2c-4fcb-b533-8e15654b017f.png",
+    "https://user-images.githubusercontent.com/26705621/145412381-066fa46a-38f6-4d3b-90ed-a075f0aec354.png",
+    "https://user-images.githubusercontent.com/85491794/142912087-15c2fc56-b612-4bd8-aedf-d17ec07f51fd.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 35
+}

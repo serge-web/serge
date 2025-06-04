@@ -1,0 +1,99 @@
+{
+  "number": 981,
+  "title": "977: Drop passcode in role, use role-id",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-30T08:00:50Z",
+  "updated_at": "2021-07-30T13:01:54Z",
+  "closed_at": "2021-07-30T13:01:53Z",
+  "merged_at": "2021-07-30T13:01:53Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/981",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/981/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/981/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/981",
+  "body": "Fixes #977 ",
+  "additions": 217,
+  "deletions": 650,
+  "changed_files": 26,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 889716846,
+      "user": "lebaphi",
+      "created_at": "2021-07-30T08:06:16Z",
+      "updated_at": "2021-07-30T08:06:16Z",
+      "body": "HI @IanMayo , I remember that we want to do this https://github.com/serge-web/serge/issues/812#issuecomment-871275356. Do you think we should make changes to this PR?"
+    },
+    {
+      "id": 889731978,
+      "user": "IanMayo",
+      "created_at": "2021-07-30T08:30:45Z",
+      "updated_at": "2021-07-30T08:35:53Z",
+      "body": "Thanks for spotting that @lebaphi - nice work :-)\r\n\r\nLet's cover that in a separate issue/PR, please.   Actually, I _think_ it's partially implemented, but it's currently broken.  Hmm. Let's not make any changes in `Settings - Channels` because @lilitkarapetyan has a large branch open on it.  Issue for broken roles in #982"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    977,
+    982
+  ],
+  "issues": [
+    {
+      "id": 955009572,
+      "number": 977,
+      "title": "Drop passcode in role, use role-id",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-28T16:00:14Z",
+      "updated_at": "2021-07-30T13:01:53Z",
+      "closed_at": "2021-07-30T13:01:53Z",
+      "body": "We've added role-id for roles.\r\n\r\nWe can now drop the `password` - and use `roleid` in every place that was used.  I can think of:\r\n* [x] Password box for `forces` admin page\r\n* [x] Injecting the password in the quick-login links on the welcome page\r\n* [x] Checking the password is valid for a user at login page\r\n* [x] Short-cutting into the app via the `access` parameter in the URL\r\n\r\nWe should lastly remove `password` from the `Role` object.",
+      "labels": [],
+      "comments": []
+    },
+    {
+      "id": 956531872,
+      "number": 982,
+      "title": "Assigning roles in Settings - Channels not working",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-30T08:34:12Z",
+      "updated_at": "2021-08-26T17:04:14Z",
+      "closed_at": "2021-08-26T17:04:14Z",
+      "body": "Two visible issues:\r\n1. when we try to assign a role, only the first value gets added\r\n2. when we store the changes to the database, `null` values are inserted.\r\n\r\n## Wrongly selecting first role\r\n![screencast](https://i.gyazo.com/7b8b4c7d85d26da2ac5fd1fabba4131d.gif)\r\n\r\n## Nulls in database\r\n![image](https://user-images.githubusercontent.com/1108513/127625612-d318745a-5fb9-4c05-96e1-9bcfd8fd471a.png)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 889860933,
+          "user": "IanMayo",
+          "created_at": "2021-07-30T12:30:18Z",
+          "updated_at": "2021-08-02T16:04:34Z",
+          "body": "Ok, after investigating this, I'm pretty sure it's when we encounter a legacy wargame (such as `CmdWeek High Data` that either uses `password` and not `roleId` for roles, or which stores the whole `Role` object in the `roles` part of the participant element."
+        },
+        {
+          "id": 906585914,
+          "user": "IanMayo",
+          "created_at": "2021-08-26T17:04:09Z",
+          "updated_at": "2021-08-26T17:04:09Z",
+          "body": "This is fixed."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/7b8b4c7d85d26da2ac5fd1fabba4131d.gif",
+    "https://user-images.githubusercontent.com/1108513/127625612-d318745a-5fb9-4c05-96e1-9bcfd8fd471a.png"
+  ],
+  "number_of_changed_files": 26,
+  "total_changed_lines": 867
+}

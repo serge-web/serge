@@ -1,0 +1,287 @@
+{
+  "number": 940,
+  "title": "Fixed default date entry in json editor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-16T13:32:42Z",
+  "updated_at": "2021-07-27T09:37:47Z",
+  "closed_at": "2021-07-27T09:37:46Z",
+  "merged_at": "2021-07-27T09:37:46Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/940",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/940/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/940/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/940",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #916 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![image (13)](https://user-images.githubusercontent.com/16476120/125956058-d33e80f0-eb38-4070-af3c-63738bd830ac.png)\r\n\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\ndefault date introduces to JSON editor template and format will be dd/mm/yyyy hh:mm with validation using flatpickr calendar.\r\n\r\nflatpickr calendar uses the \"window\" object during initialization in the library itself which is generated issues for admin message template preview. avoid this issue window.flatpickr object set to undefined in JsonCreator component.\r\n\r\nflatpickr property modified in code such as wrap,time_24hr,dateFormat which will be replaced once we changed this property in database for message template.\r\n\r\n",
+  "additions": 124,
+  "deletions": 2,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 9,
+  "review_comments_count": 14,
+  "total_comments": 23,
+  "comments_data": [
+    {
+      "id": 881538113,
+      "user": "IanMayo",
+      "created_at": "2021-07-16T15:36:53Z",
+      "updated_at": "2021-07-16T15:36:53Z",
+      "body": "Hello @sanjayradadiya  a jest snapshot failed.\r\n\r\nI don't know how familiar you are with them.  We have a snapshot in the repo that gets compared with the rendered code.  In this case the rendered `rfi-status-board` doesn't match the snapshot.  \r\n\r\nHmm, but your PR should not have changed how the status board gets rendered.  Could you have a look at the logging, and see if you can understand why the rendered code doesn't match?\r\nhttps://github.com/serge-web/serge/pull/940/checks?check_run_id=3086635185"
+    },
+    {
+      "id": 881539612,
+      "user": "IanMayo",
+      "created_at": "2021-07-16T15:39:17Z",
+      "updated_at": "2021-07-16T15:39:17Z",
+      "body": "Good start. But, it's showing the current date.  It should show the current `gameTurnTime`. In this game it's\r\n (\r\n![image](https://user-images.githubusercontent.com/1108513/125973282-ee8ac2bd-3930-48b1-ba85-5f720c9744d0.png)\r\n\r\nhttps://serge-916-inclusion-of--plpcil.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev"
+    },
+    {
+      "id": 883270582,
+      "user": "IanMayo",
+      "created_at": "2021-07-20T10:08:08Z",
+      "updated_at": "2021-07-20T10:08:08Z",
+      "body": "One more thing, please @sanjayradadiya - it is several data types that need to be given the default value:\r\nhttps://github.com/serge-web/serge/issues/916#issuecomment-877081843"
+    },
+    {
+      "id": 884664344,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-22T05:27:00Z",
+      "updated_at": "2021-07-22T05:27:00Z",
+      "body": "![image](https://user-images.githubusercontent.com/16476120/126591421-512bee31-5a81-4d20-a6fd-491bfabd4f6b.png)\r\n![image](https://user-images.githubusercontent.com/16476120/126592937-6c5ae650-cb74-4ad2-b874-039a87b77a72.png)\r\n\r\nIntroduce default date and time of gameTurnTime for JSON schema editor."
+    },
+    {
+      "id": 884932925,
+      "user": "IanMayo",
+      "created_at": "2021-07-22T13:56:07Z",
+      "updated_at": "2021-07-22T13:56:07Z",
+      "body": "Aah, I missed one item @sanjayradadiya - you need to look out for `datetime` as well as `datetime-local`, `date`, and `time`:\r\nhttps://github.com/json-editor/json-editor#format"
+    },
+    {
+      "id": 886589075,
+      "user": "IanMayo",
+      "created_at": "2021-07-26T10:45:32Z",
+      "updated_at": "2021-07-26T10:45:32Z",
+      "body": "@sanjayradadiya - we still have a bit to do here, please:\r\nhttps://github.com/serge-web/serge/pull/940#issuecomment-884932925"
+    },
+    {
+      "id": 886779659,
+      "user": "IanMayo",
+      "created_at": "2021-07-26T15:01:06Z",
+      "updated_at": "2021-07-26T15:01:21Z",
+      "body": "Hello @sanjayradadiya   - I've modified the `weather` template in `TallMsg` to include a range of date and datetime control types.  You'll need to pull the branch to get the new `weather` template.\r\n\r\n`datetime-local` is working, but not `datetime`.   No popup appears.  The others all work fine :-)\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/127011479-9f9f3256-1368-46cf-861c-186f124693e1.png)\r\n\r\n"
+    },
+    {
+      "id": 887233888,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-27T06:01:25Z",
+      "updated_at": "2021-07-27T06:01:25Z",
+      "body": "> Hello @sanjayradadiya - I've modified the `weather` template in `TallMsg` to include a range of date and datetime control types. You'll need to pull the branch to get the new `weather` template.\r\n> \r\n> `datetime-local` is working, but not `datetime`. No popup appears. The others all work fine :-)\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/127011479-9f9f3256-1368-46cf-861c-186f124693e1.png)\r\n\r\nHTML5 supports only date, time, datetime-local which is mentioned in the below link.\r\n\thttps://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local\r\n\r\n@json-editor/json-editor has mentioned datetime and datetime-local in the below link.\r\n\thttps://github.com/json-editor/json-editor#format\r\n\r\nboth datetime and datetime-local are pointed to the same format like \"datetime-local\" mentioned in the below link. they didn't use \"datetime\" format anywhere.\r\n\tCode: https://github.com/json-editor/json-editor/blob/master/docs/datetime.html#L156\r\n\tView: https://json-editor.github.io/json-editor/datetime.html"
+    },
+    {
+      "id": 887315930,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T08:24:59Z",
+      "updated_at": "2021-07-27T08:24:59Z",
+      "body": "Hey, well-researched @sanjayradadiya  :-)\r\n\r\nCould you remove the (mistaken) support for `datetime` in the PR please, and I'll get it merged?"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 672261994,
+      "user": "IanMayo",
+      "created_at": "2021-07-19T12:42:48Z",
+      "updated_at": "2021-07-19T12:42:48Z",
+      "body": "@sanjayradadiya - could you expand this comment a little please?\r\n\r\n(Or reply to this comment with more explanation if that's easier :-) )",
+      "path": "packages/client/src/Components/JsonCreator.jsx",
+      "diff_hunk": "@@ -18,7 +18,15 @@ class JsonCreator extends Component {\n       selectedSchema: ''\n     };\n   }\n-\n+  \n+  /*\n+  ** avoid loading of flatpickr load in Message template screen for admin",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r672261994"
+    },
+    {
+      "id": 672264190,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-19T12:46:01Z",
+      "updated_at": "2021-07-19T12:46:01Z",
+      "body": "flatpickr calendar uses the \"window\" object during initialization in the library itself which is generated issues for admin message template preview. avoid this issue window.flatpickr object set to undefined in JsonCreator component.",
+      "path": "packages/client/src/Components/JsonCreator.jsx",
+      "diff_hunk": "@@ -18,7 +18,15 @@ class JsonCreator extends Component {\n       selectedSchema: ''\n     };\n   }\n-\n+  \n+  /*\n+  ** avoid loading of flatpickr load in Message template screen for admin",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r672264190"
+    },
+    {
+      "id": 672264195,
+      "user": "IanMayo",
+      "created_at": "2021-07-19T12:46:02Z",
+      "updated_at": "2021-07-19T12:46:02Z",
+      "body": "@sanjayradadiya - this looks like it loops through the top level properties in the schema.\r\n\r\nBut, the date may be in a child object.  So, I think we actually need to \"walk\" the schema if the property is of `\"type\": \"object\"`:\r\n![image](https://user-images.githubusercontent.com/1108513/126161729-f6b8ec71-a3cd-45d9-8048-734098be71c9.png)\r\n\r\n",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -83,6 +85,41 @@ const MessageCreator: React.FC<Props> = (props) => {\n   }, [props])\n \n   const createEditor = (schema: any) => {\n+    /*\n+    ** Render Default datetime entries in template of json for type datetime-local",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r672264195"
+    },
+    {
+      "id": 672266824,
+      "user": "IanMayo",
+      "created_at": "2021-07-19T12:49:24Z",
+      "updated_at": "2021-07-19T12:49:24Z",
+      "body": "Aah, I see, thanks.",
+      "path": "packages/client/src/Components/JsonCreator.jsx",
+      "diff_hunk": "@@ -18,7 +18,15 @@ class JsonCreator extends Component {\n       selectedSchema: ''\n     };\n   }\n-\n+  \n+  /*\n+  ** avoid loading of flatpickr load in Message template screen for admin",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r672266824"
+    },
+    {
+      "id": 674796135,
+      "user": "IanMayo",
+      "created_at": "2021-07-22T13:29:36Z",
+      "updated_at": "2021-07-22T13:29:37Z",
+      "body": "@sanjayradadiya  - we to string comparison above, then we do it again in the switch block in `configCommonProps `\r\n\r\nI'm pretty sure we can remove this `if` construct, can't we?",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"dateFormat\":\"d/m/Y\",\n+        }}\n+        return prop\n+      case \"time\":\n+        prop.default = moment(gameDate).format(\"HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"H:i\",\n+        }}\n+        return prop\n+      default:\n+        return prop\n+    }\n+  }\n+\n+  /**\n+   * Render Default datetime entries in template of json for type datetime-local\n+   */\n+  const configDateTimeLocal = (schema: any) => {\n+    if(!schema || !schema.properties){\n+      return\n+    }\n+    Object.keys(schema.properties).forEach(key => {\n+      let prop = schema.properties[key]\n+      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r674796135"
+    },
+    {
+      "id": 674797560,
+      "user": "IanMayo",
+      "created_at": "2021-07-22T13:31:16Z",
+      "updated_at": "2021-07-22T13:31:16Z",
+      "body": "in the above line, we pass in an array of items.  Will this still work with the `configDateTimeLocal` method?  (it looks like that only processes one line at a time)",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"dateFormat\":\"d/m/Y\",\n+        }}\n+        return prop\n+      case \"time\":\n+        prop.default = moment(gameDate).format(\"HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"H:i\",\n+        }}\n+        return prop\n+      default:\n+        return prop\n+    }\n+  }\n+\n+  /**\n+   * Render Default datetime entries in template of json for type datetime-local\n+   */\n+  const configDateTimeLocal = (schema: any) => {\n+    if(!schema || !schema.properties){\n+      return\n+    }\n+    Object.keys(schema.properties).forEach(key => {\n+      let prop = schema.properties[key]\n+      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){\n+        prop = configCommonProps(prop)\n+      }\n+      \n+      if(prop.type === 'object'){\n+        configDateTimeLocal(prop)\n+      }else if(prop.type === 'array'){\n+        configDateTimeLocal(prop.items)",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r674797560"
+    },
+    {
+      "id": 674815299,
+      "user": "IanMayo",
+      "created_at": "2021-07-22T13:51:43Z",
+      "updated_at": "2021-07-22T13:51:43Z",
+      "body": "@sanjayradadiya  - doesn't line 106 overwrite any changes made in line 104?\r\n\r\n(same in other catch blocks)",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        ",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r674815299"
+    },
+    {
+      "id": 675303735,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-23T04:43:53Z",
+      "updated_at": "2021-07-23T04:43:54Z",
+      "body": "Yes, you are right.\r\nI have two options at that time.\r\n1) function should be called every time irrespective of format\r\n2) function should be called only if we have format datetime or date or time\r\nI choose option 2 and I will change it to option 1.",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"dateFormat\":\"d/m/Y\",\n+        }}\n+        return prop\n+      case \"time\":\n+        prop.default = moment(gameDate).format(\"HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"H:i\",\n+        }}\n+        return prop\n+      default:\n+        return prop\n+    }\n+  }\n+\n+  /**\n+   * Render Default datetime entries in template of json for type datetime-local\n+   */\n+  const configDateTimeLocal = (schema: any) => {\n+    if(!schema || !schema.properties){\n+      return\n+    }\n+    Object.keys(schema.properties).forEach(key => {\n+      let prop = schema.properties[key]\n+      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r675303735"
+    },
+    {
+      "id": 676533434,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-26T11:51:12Z",
+      "updated_at": "2021-07-26T11:51:12Z",
+      "body": "https://github.com/serge-web/serge/blob/develop/packages/client/src/Schemas/DailyIntentions.json#L3\r\nhttps://github.com/serge-web/serge/blob/develop/packages/client/src/Schemas/DailyIntentions.json#L15\r\n\r\nDaily Intension schema template has type array and object as \"properties\" which will work in both cases.",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"dateFormat\":\"d/m/Y\",\n+        }}\n+        return prop\n+      case \"time\":\n+        prop.default = moment(gameDate).format(\"HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"H:i\",\n+        }}\n+        return prop\n+      default:\n+        return prop\n+    }\n+  }\n+\n+  /**\n+   * Render Default datetime entries in template of json for type datetime-local\n+   */\n+  const configDateTimeLocal = (schema: any) => {\n+    if(!schema || !schema.properties){\n+      return\n+    }\n+    Object.keys(schema.properties).forEach(key => {\n+      let prop = schema.properties[key]\n+      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){\n+        prop = configCommonProps(prop)\n+      }\n+      \n+      if(prop.type === 'object'){\n+        configDateTimeLocal(prop)\n+      }else if(prop.type === 'array'){\n+        configDateTimeLocal(prop.items)",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r676533434"
+    },
+    {
+      "id": 676538246,
+      "user": "IanMayo",
+      "created_at": "2021-07-26T11:58:42Z",
+      "updated_at": "2021-07-26T11:58:42Z",
+      "body": "Yes, but don't we need to provide iterator for `array`?",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"dateFormat\":\"d/m/Y\",\n+        }}\n+        return prop\n+      case \"time\":\n+        prop.default = moment(gameDate).format(\"HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"H:i\",\n+        }}\n+        return prop\n+      default:\n+        return prop\n+    }\n+  }\n+\n+  /**\n+   * Render Default datetime entries in template of json for type datetime-local\n+   */\n+  const configDateTimeLocal = (schema: any) => {\n+    if(!schema || !schema.properties){\n+      return\n+    }\n+    Object.keys(schema.properties).forEach(key => {\n+      let prop = schema.properties[key]\n+      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){\n+        prop = configCommonProps(prop)\n+      }\n+      \n+      if(prop.type === 'object'){\n+        configDateTimeLocal(prop)\n+      }else if(prop.type === 'array'){\n+        configDateTimeLocal(prop.items)",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r676538246"
+    },
+    {
+      "id": 676549354,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-26T12:16:23Z",
+      "updated_at": "2021-07-26T12:16:23Z",
+      "body": "![image](https://user-images.githubusercontent.com/16476120/126986653-422b19ac-6ae6-4a00-8007-7165f794af22.png)\r\n![image](https://user-images.githubusercontent.com/16476120/126986733-3299a170-a4a2-44f7-b698-e32ca59d0bb0.png)\r\n\r\nJson Schema Editor specification mentioned that {\"type\":\"array\"} will take array in \"items.properties\" which is ultimately an object which is mentioned in image 1.",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"dateFormat\":\"d/m/Y\",\n+        }}\n+        return prop\n+      case \"time\":\n+        prop.default = moment(gameDate).format(\"HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"H:i\",\n+        }}\n+        return prop\n+      default:\n+        return prop\n+    }\n+  }\n+\n+  /**\n+   * Render Default datetime entries in template of json for type datetime-local\n+   */\n+  const configDateTimeLocal = (schema: any) => {\n+    if(!schema || !schema.properties){\n+      return\n+    }\n+    Object.keys(schema.properties).forEach(key => {\n+      let prop = schema.properties[key]\n+      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){\n+        prop = configCommonProps(prop)\n+      }\n+      \n+      if(prop.type === 'object'){\n+        configDateTimeLocal(prop)\n+      }else if(prop.type === 'array'){\n+        configDateTimeLocal(prop.items)",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r676549354"
+    },
+    {
+      "id": 676552111,
+      "user": "IanMayo",
+      "created_at": "2021-07-26T12:20:31Z",
+      "updated_at": "2021-07-26T12:20:31Z",
+      "body": "Aah, I see.  That's fine then :-D",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"dateFormat\":\"d/m/Y\",\n+        }}\n+        return prop\n+      case \"time\":\n+        prop.default = moment(gameDate).format(\"HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"H:i\",\n+        }}\n+        return prop\n+      default:\n+        return prop\n+    }\n+  }\n+\n+  /**\n+   * Render Default datetime entries in template of json for type datetime-local\n+   */\n+  const configDateTimeLocal = (schema: any) => {\n+    if(!schema || !schema.properties){\n+      return\n+    }\n+    Object.keys(schema.properties).forEach(key => {\n+      let prop = schema.properties[key]\n+      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){\n+        prop = configCommonProps(prop)\n+      }\n+      \n+      if(prop.type === 'object'){\n+        configDateTimeLocal(prop)\n+      }else if(prop.type === 'array'){\n+        configDateTimeLocal(prop.items)",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r676552111"
+    },
+    {
+      "id": 676624922,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-26T13:53:30Z",
+      "updated_at": "2021-07-26T13:53:30Z",
+      "body": "option 2 changed to option 1 in latest commit.",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"dateFormat\":\"d/m/Y\",\n+        }}\n+        return prop\n+      case \"time\":\n+        prop.default = moment(gameDate).format(\"HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        \n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"H:i\",\n+        }}\n+        return prop\n+      default:\n+        return prop\n+    }\n+  }\n+\n+  /**\n+   * Render Default datetime entries in template of json for type datetime-local\n+   */\n+  const configDateTimeLocal = (schema: any) => {\n+    if(!schema || !schema.properties){\n+      return\n+    }\n+    Object.keys(schema.properties).forEach(key => {\n+      let prop = schema.properties[key]\n+      if(prop.format === 'datetime-local' || prop.format === 'date' || prop.format === 'time'){",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r676624922"
+    },
+    {
+      "id": 676627984,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-26T13:56:48Z",
+      "updated_at": "2021-07-26T13:56:49Z",
+      "body": "yes, it's overwriting. changes related to this problem were applied in the latest commit.",
+      "path": "packages/client/src/Components/MessageCreator/MessageCreator.tsx",
+      "diff_hunk": "@@ -82,7 +85,129 @@ const MessageCreator: React.FC<Props> = (props) => {\n     }\n   }, [props])\n \n+  /**\n+   * helper function to render default Datetime or Date or Time props of json\n+   */\n+  const configCommonProps = (prop: any) => {\n+    switch (prop.format) {\n+      case \"datetime-local\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY HH:mm\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        prop.options = {\"flatpickr\": {\n+          \"wrap\":false,\n+          \"time_24hr\": true,\n+          \"dateFormat\":\"d/m/Y H:i\",\n+        }}\n+        return prop\n+      case \"date\":\n+        prop.default = moment(gameDate).format(\"DD/MM/YYYY\")\n+        prop.options !== undefined ? prop.options.flatpickr = flatpickr(\".calendar\") : prop.options = {}\n+        ",
+      "html_url": "https://github.com/serge-web/serge/pull/940#discussion_r676627984"
+    }
+  ],
+  "issue_numbers": [
+    104,
+    106
+  ],
+  "issues": [
+    {
+      "id": 537671881,
+      "number": 104,
+      "title": "first trial of leaflet/honeycomb",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2019-12-13T17:23:25Z",
+      "updated_at": "2019-12-18T12:54:41Z",
+      "closed_at": "2019-12-18T12:54:37Z",
+      "body": "## 📝 Developer Notes:\r\nThis is a temporary PR, used to track experiments with the honeycomb library\r\n\r\nTo do:\r\n* [ ] convert from degrees to grid id\r\n* [ ] get hex for grid id (map)\r\n* [ ] get polygon for hex cell\r\n* [ ] change polygon fill as mouse moves over cell",
+      "labels": [],
+      "comments": [
+        {
+          "id": 567019557,
+          "user": "IanMayo",
+          "created_at": "2019-12-18T12:54:37Z",
+          "updated_at": "2019-12-18T12:54:37Z",
+          "body": "Closing this branch - because of our breaking build I couldn't get Heroku building, so developed the demonstrator in the gh-pages branch instead."
+        }
+      ]
+    },
+    {
+      "id": 539584097,
+      "number": 106,
+      "title": "Tiled images",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2019-12-18T10:14:39Z",
+      "updated_at": "2019-12-18T14:35:39Z",
+      "closed_at": "2019-12-18T14:35:38Z",
+      "body": "## 🧰 Ticket\r\nn/a - infrastructure\r\n\r\n## 🚀 Overview: \r\nSwitch background image to using tiles, to improve startup speed\r\n\r\n## 🔨Work carried out:\r\n* [x] switch to tiled image\r\n* [x] tidy hex cell presentation\r\n* [x] correct image offset\r\n\r\n\r\n## 🖥️ Screenshot\r\n[If the work is UI related then paste a screenshot of the update here.]\r\n![image](https://user-images.githubusercontent.com/1108513/71077351-298ea980-217f-11ea-8488-c51c7e798aaf.png)\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/16476120/125956058-d33e80f0-eb38-4070-af3c-63738bd830ac.png",
+    "https://user-images.githubusercontent.com/1108513/125973282-ee8ac2bd-3930-48b1-ba85-5f720c9744d0.png",
+    "https://user-images.githubusercontent.com/16476120/126591421-512bee31-5a81-4d20-a6fd-491bfabd4f6b.png",
+    "https://user-images.githubusercontent.com/16476120/126592937-6c5ae650-cb74-4ad2-b874-039a87b77a72.png",
+    "https://user-images.githubusercontent.com/1108513/127011479-9f9f3256-1368-46cf-861c-186f124693e1.png",
+    "https://user-images.githubusercontent.com/1108513/126161729-f6b8ec71-a3cd-45d9-8048-734098be71c9.png",
+    "https://user-images.githubusercontent.com/16476120/126986653-422b19ac-6ae6-4a00-8007-7165f794af22.png",
+    "https://user-images.githubusercontent.com/16476120/126986733-3299a170-a4a2-44f7-b698-e32ca59d0bb0.png",
+    "https://user-images.githubusercontent.com/1108513/71077351-298ea980-217f-11ea-8488-c51c7e798aaf.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 126
+}

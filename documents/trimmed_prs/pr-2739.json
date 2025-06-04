@@ -1,0 +1,52 @@
+{
+  "number": 2739,
+  "title": "2733 Hotfix remove link to open page as role",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-02T12:55:01Z",
+  "updated_at": "2024-01-02T13:55:09Z",
+  "closed_at": "2024-01-02T13:55:08Z",
+  "merged_at": "2024-01-02T13:55:08Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2739",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2739/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2739/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2739",
+  "body": "Fixes #2733 \r\n\r\n",
+  "additions": 4,
+  "deletions": 17,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2733
+  ],
+  "issues": [
+    {
+      "id": 2058359242,
+      "number": 2733,
+      "title": "The screen is blink when click role on right bottom panel",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2023-12-28T12:06:33Z",
+      "updated_at": "2024-01-02T13:55:09Z",
+      "closed_at": "2024-01-02T13:55:09Z",
+      "body": "## 🐞 Bug description\r\nWhen I click role on right bottom panel, screen is blink\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Start a game with any role \r\n2. In the screen game play, click role on right bottom panel\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/8f19c089-c1dd-44aa-b9b5-9a69eab94bd1)\r\n\r\n3.  Notice screen is blink \r\n\r\nSee below screencast for more details \r\n\r\n## ⚙️ Expected behavior\r\nScreen should not blink when click anywhere\r\n\r\n## 🖥️ Screencast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/da95b4c4-f893-46ed-8c44-a3faf4a531ce\r\n\r\n\r\n\r\n## 💻 System information\r\n<!-- Please complete the following information (you can get most of this information from https://mybrowser.fyi/) -->\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/8f19c089-c1dd-44aa-b9b5-9a69eab94bd1"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 21
+}

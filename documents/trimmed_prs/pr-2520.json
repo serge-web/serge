@@ -1,0 +1,50 @@
+{
+  "number": 2520,
+  "title": "2473 inject outcomes into order detail",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-25T18:58:59Z",
+  "updated_at": "2023-02-26T19:13:07Z",
+  "closed_at": "2023-02-26T19:13:06Z",
+  "merged_at": "2023-02-26T19:13:06Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2520",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2520/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2520/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2520",
+  "body": "Fixes #2473 ",
+  "additions": 6309,
+  "deletions": 1244,
+  "changed_files": 38,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2473
+  ],
+  "issues": [
+    {
+      "id": 1595311352,
+      "number": 2473,
+      "title": "Inject interaction outcomes into start of order message detail",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-22T15:26:39Z",
+      "updated_at": "2023-02-26T19:13:07Z",
+      "closed_at": "2023-02-26T19:13:07Z",
+      "body": "When we expand a set of orders in the `PlanningMessageList` - we should show a list of outcomes that relate to this orders object.\r\n\r\nShow this data:\r\n- my per-force narrative feedback from this interaction\r\n- health changes to own assets from this interaction\r\n- my new perception changes of op-for from this interaction\r\n- new location of own assets from this interaction",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 38,
+  "total_changed_lines": 7553
+}

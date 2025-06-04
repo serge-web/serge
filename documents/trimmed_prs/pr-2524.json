@@ -1,0 +1,84 @@
+{
+  "number": 2524,
+  "title": "2515 planning messages list not updated on message archived",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-27T12:45:02Z",
+  "updated_at": "2023-02-27T19:46:41Z",
+  "closed_at": "2023-02-27T19:46:39Z",
+  "merged_at": "2023-02-27T19:46:39Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2524",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2524/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2524/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2524",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 7,
+  "deletions": 5,
+  "changed_files": 2,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 0,
+  "review_comments_count": 2,
+  "total_comments": 2,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 1118707322,
+      "user": "IanMayo",
+      "created_at": "2023-02-27T13:02:35Z",
+      "updated_at": "2023-02-27T13:02:36Z",
+      "body": "@lilit, is it worth doing `return e.message && e.message.Reference` - just in case there is some document without a `message` child?",
+      "path": "packages/components/src/local/organisms/planning-channel/index.tsx",
+      "diff_hunk": "@@ -711,9 +711,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({\n   useEffect(() => {\n     // drop the turn markers\n     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>\n-\n-    const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessages.filter((message) => !message.details.archived)\n-",
+      "html_url": "https://github.com/serge-web/serge/pull/2524#discussion_r1118707322"
+    },
+    {
+      "id": 1118731397,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-27T13:25:29Z",
+      "updated_at": "2023-02-27T13:25:30Z",
+      "body": "I think yes",
+      "path": "packages/components/src/local/organisms/planning-channel/index.tsx",
+      "diff_hunk": "@@ -711,9 +711,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({\n   useEffect(() => {\n     // drop the turn markers\n     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>\n-\n-    const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessages.filter((message) => !message.details.archived)\n-",
+      "html_url": "https://github.com/serge-web/serge/pull/2524#discussion_r1118731397"
+    }
+  ],
+  "issue_numbers": [
+    2515
+  ],
+  "issues": [
+    {
+      "id": 1599677309,
+      "number": 2515,
+      "title": "Planning Messages List not updated on Message Archived",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-25T11:31:13Z",
+      "updated_at": "2023-03-01T09:58:17Z",
+      "closed_at": "2023-03-01T09:58:17Z",
+      "body": "I'm logged in twice, once as `blue mtg-1` and once as `adjudicator-1`.\r\n\r\nWhen I archive a message, the blue player messages list doesn't update to remove the archived message.\r\n\r\nSteps to reproduce:\r\n- log in as a blue player, switch to `Orders` tab. Check you can see `Blue-3`\r\n- login as adjudictor\r\n- switch to orders tab\r\n- select order titled `Blue-3`\r\n- select `Archive` from top-right\r\n- confirm archive\r\n- note that `Blue-3` remains visible for blue player\r\n\r\n**Note:** I've tried to trace this.  The updated set of messages gets through `planning-channel`, but `support-panel` doesn't seem to update.",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1449747124,
+          "user": "IanMayo",
+          "created_at": "2023-03-01T09:58:16Z",
+          "updated_at": "2023-03-01T09:58:16Z",
+          "body": "Fixed in #2524 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 12
+}

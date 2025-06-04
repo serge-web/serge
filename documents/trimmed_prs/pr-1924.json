@@ -1,0 +1,63 @@
+{
+  "number": 1924,
+  "title": "1914 pull out more controls from map control",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-11T14:19:15Z",
+  "updated_at": "2022-10-12T14:55:19Z",
+  "closed_at": "2022-10-12T14:55:18Z",
+  "merged_at": "2022-10-12T14:55:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1924",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1924/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1924/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1924",
+  "body": "Fixes #1914 ",
+  "additions": 208,
+  "deletions": 213,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1276256465,
+      "user": "IanMayo",
+      "created_at": "2022-10-12T14:16:56Z",
+      "updated_at": "2022-10-12T14:16:56Z",
+      "body": "Seems to be an issue with the build. Maybe it's timing out."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1914
+  ],
+  "issues": [
+    {
+      "id": 1392709305,
+      "number": 1914,
+      "title": "Refactor `mapping` controls out of `MapControl`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-30T16:53:16Z",
+      "updated_at": "2022-10-12T14:55:19Z",
+      "closed_at": "2022-10-12T14:55:19Z",
+      "body": "The `MapControl` class still has loads of functionality that is specific to the `mapping` component.\r\n\r\nRefactor the controls out - to leave it as thin as possible\r\n\r\n**Update:** I've done this for `support-mapping`, I just need to do it for `mapping`.",
+      "labels": [
+        "Technical Debt",
+        "spatial",
+        "4watu",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 421
+}

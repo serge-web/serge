@@ -1,0 +1,96 @@
+{
+  "number": 961,
+  "title": "Introduce toggle for isUmpire in Force design UI",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-24T12:29:57Z",
+  "updated_at": "2021-07-26T15:10:56Z",
+  "closed_at": "2021-07-26T15:10:55Z",
+  "merged_at": "2021-07-26T15:10:55Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/961",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/961/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/961/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/961",
+  "body": "Fixes #938 ",
+  "additions": 183,
+  "deletions": 61,
+  "changed_files": 21,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 886048245,
+      "user": "lebaphi",
+      "created_at": "2021-07-24T12:41:42Z",
+      "updated_at": "2021-07-24T12:41:42Z",
+      "body": "Hi @IanMayo , I added the toggle for `isUmpire` flag and change the relevant places. \r\n![image](https://user-images.githubusercontent.com/26705621/126868686-3f32a63b-1c1d-41cc-aa85-16743a5ed82f.png)\r\nI also plan to remove the `UMPIRE_FORCE` const but it is used in some places and the purpose of using does not related to determining this force is umpire or not, like this one `/serge/packages/components/src/local/mapping/index.tsx`, code line 246.\r\n![image](https://user-images.githubusercontent.com/26705621/126868718-227b90d8-261c-4275-a5c8-47043ba5580e.png)\r\nSo I decide to leave it 🤔 "
+    },
+    {
+      "id": 886581095,
+      "user": "IanMayo",
+      "created_at": "2021-07-26T10:32:59Z",
+      "updated_at": "2021-07-26T10:32:59Z",
+      "body": "> So I decide to leave it 🤔\r\n\r\nYes - correct.  For all of the `mapping` components we can keep the existing logic."
+    },
+    {
+      "id": 886717449,
+      "user": "lebaphi",
+      "created_at": "2021-07-26T13:46:05Z",
+      "updated_at": "2021-07-26T13:46:05Z",
+      "body": "> Hello @lebaphi could you fix the use of `.umpire` in these two places please?\r\n> [630f1ca](https://github.com/serge-web/serge/commit/630f1ca41a1882e4827b1ea02dcf6bdebc8a5acc)\r\n\r\nFixed @IanMayo "
+    },
+    {
+      "id": 886723113,
+      "user": "lebaphi",
+      "created_at": "2021-07-26T13:53:07Z",
+      "updated_at": "2021-07-26T13:53:07Z",
+      "body": "It seems the build has failed, let me check this 🤔 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    246
+  ],
+  "issues": [
+    {
+      "id": 555481070,
+      "number": 246,
+      "title": "Bugfix - show correct turn markers",
+      "state": "closed",
+      "user": "lm93547",
+      "created_at": "2020-01-27T10:26:34Z",
+      "updated_at": "2020-01-27T14:19:17Z",
+      "closed_at": "2020-01-27T14:19:16Z",
+      "body": "## 🧰 Ticket\r\nInclude missing turn markers, and correct logic for which markers to display.\r\n\r\nCreating a clean branch of the turn markers for the clean PR to develop\r\n\r\n## 🚀 Overview: \r\n[A summary of what you did in no more than one paragraph]\r\n1. use the command `git pull origin/develop` (this will put you into a temp branch from develop) (weird because `git pull origin develop` pulls a different branch (with 5 pending changes) \r\n2. use the command `git checkout -b *branch-name*` to create a new branch \r\n3. Make the clean branched changes",
+      "labels": [],
+      "comments": [
+        {
+          "id": 578688276,
+          "user": "cypress[bot]",
+          "created_at": "2020-01-27T10:38:12Z",
+          "updated_at": "2020-01-27T13:44:07Z",
+          "body": "\n<p align=\"center\">\n  <br />\n  <img src=\"https://assets.cypress.io/github-pr-comment-icons/cypress-logo.png\" height=\"32\" />\n</p>\n\n---\n\n### Test summary\n<a href=\"https://dashboard.cypress.io/projects/rinvt1/runs/572/specs\"><img src=\"https://assets.cypress.io/github-pr-comment-icons/green-check-mark.png\" width=\"14\" height=\"14\" title=\"Passed\" /></a> <b title=\"Passed\">2</b>  &bull; <a href=\"https://dashboard.cypress.io/projects/rinvt1/runs/572/failures\"><img src=\"https://assets.cypress.io/github-pr-comment-icons/red-x.png\" width=\"14\" height=\"14\" title=\"Failed\" /></a> <b title=\"Failed\">0</b>  &bull; <img src=\"https://assets.cypress.io/github-pr-comment-icons/gray-circle.png\" width=\"14\" height=\"14\" title=\"Tests that did not run due to a developer annotating a test with .skip\" /> <b title=\"Pending\">0</b> &bull; <img src=\"https://assets.cypress.io/github-pr-comment-icons/yellow-triangle.png\" width=\"14\" height=\"14\" title=\"Tests that did not run due to a failure in a mocha hook\" /> <b title=\"Skipped\">0</b>\n\n---\n\n### Run details\n| | |\n| --- | --- |\n| **Project** | Serge end-to-end testing |\n| **Status** | Passed |\n| **Commit** | dd8a810380 |\n| **Started** | Jan 27, 2020 1:37 PM |\n| **Ended** | Jan 27, 2020 1:44 PM |\n| **Duration** | 06:07 <a href=\"https://on.cypress.io/parallelization\" title=\"Enable parallelization to reduce run duration\">💡</a> |\n| **OS** | Linux Ubuntu Linux - 16.04 |\n| **Browser** | Electron 78 <img src=\"https://cdnjs.cloudflare.com/ajax/libs/browser-logos/48.0.4/electron/electron_32x32.png\" width=\"16\" height=\"16\" /> |\n\n[View run in Cypress Dashboard ➡️](https://dashboard.cypress.io/projects/rinvt1/runs/572/specs)\n\n\n\n---\n\nThis comment has been generated by **cypress-bot** as a result of this project's GitHub integration settings. You can manage this integration in [this project's settings in the Cypress Dashboard](https://dashboard.cypress.io/projects/rinvt1/settings)\n\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/126868686-3f32a63b-1c1d-41cc-aa85-16743a5ed82f.png",
+    "https://user-images.githubusercontent.com/26705621/126868718-227b90d8-261c-4275-a5c8-47043ba5580e.png",
+    "https://assets.cypress.io/github-pr-comment-icons/cypress-logo.png",
+    "https://assets.cypress.io/github-pr-comment-icons/green-check-mark.png",
+    "https://assets.cypress.io/github-pr-comment-icons/red-x.png",
+    "https://assets.cypress.io/github-pr-comment-icons/gray-circle.png",
+    "https://assets.cypress.io/github-pr-comment-icons/yellow-triangle.png",
+    "https://cdnjs.cloudflare.com/ajax/libs/browser-logos/48.0.4/electron/electron_32x32.png"
+  ],
+  "number_of_changed_files": 21,
+  "total_changed_lines": 244
+}

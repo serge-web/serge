@@ -1,0 +1,66 @@
+{
+  "number": 2538,
+  "title": "enter_location_for_movement_outcomes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-01T11:59:06Z",
+  "updated_at": "2023-03-01T17:30:06Z",
+  "closed_at": "2023-03-01T17:30:04Z",
+  "merged_at": "2023-03-01T17:30:04Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2538",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2538/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2538/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2538",
+  "body": "Fixes #2107 ",
+  "additions": 15,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [
+    "enhancement",
+    "4p9",
+    "T-M"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1450139256,
+      "user": "IanMayo",
+      "created_at": "2023-03-01T13:15:37Z",
+      "updated_at": "2023-03-01T13:15:37Z",
+      "body": "thanks @lilitkarapetyan  - I've made a change, to show the cursor location, rather than my location 🤣 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2107
+  ],
+  "issues": [
+    {
+      "id": 1448709746,
+      "number": 2107,
+      "title": "Enter location for `movement` outcomes (right-click handler)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-14T20:32:45Z",
+      "updated_at": "2023-03-01T17:30:06Z",
+      "closed_at": "2023-03-01T17:30:06Z",
+      "body": "One of the potential outcomes of an interaction is a `movement` - it's particularly valuable in `Transit` activities.\n\n**Note:** we have a temporary workaround for this, in #2198 / #2189 \n\nHere is an alternate way of supporting this:\n- a right-click on the map silently stores the lat/long in an array on the clipboard.  This can then be pasted into the box\n\nIf we can't write to the clipboard (because our app won't be running on an `https` connection - so the browser won't allow clipboard access), then let the user copy it themselves by making the right-click handler popup the coords in an alert:\n- https://stackoverflow.com/a/6055620/92441\n\n**Note:** it _looks-like_ this is how we catch events with `React-LEaflet`: https://react-leaflet.js.org/docs/api-map/",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 17
+}

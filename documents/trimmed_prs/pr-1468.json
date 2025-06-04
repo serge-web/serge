@@ -1,0 +1,30 @@
+{
+  "number": 1468,
+  "title": "Hotfix/inconsistent game data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-29T14:56:23Z",
+  "updated_at": "2022-03-30T08:02:42Z",
+  "closed_at": "2022-03-30T08:02:41Z",
+  "merged_at": "2022-03-30T08:02:41Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1468",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1468/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1468/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1468",
+  "body": "At least one of the `cloudant` wargames are in an inconsistent state.\r\n\r\nThis PR makes Serge more robust when faced with inconsistent data - which then allowed the inconsistencies to be resolved.",
+  "additions": 22,
+  "deletions": 1,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 23
+}

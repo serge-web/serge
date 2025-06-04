@@ -1,0 +1,50 @@
+{
+  "number": 2609,
+  "title": "don't return all in area for ISTAR, don't gen random event for ISTAR",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-10T12:12:00Z",
+  "updated_at": "2023-03-10T12:50:57Z",
+  "closed_at": "2023-03-10T12:50:56Z",
+  "merged_at": "2023-03-10T12:50:56Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2609",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2609/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2609/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2609",
+  "body": "Fixes #2607 \r\n",
+  "additions": 11,
+  "deletions": 29,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2607
+  ],
+  "issues": [
+    {
+      "id": 1618836276,
+      "number": 2607,
+      "title": "Don't return \"all in area\" for ISTAR",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-10T11:34:56Z",
+      "updated_at": "2023-03-10T12:50:57Z",
+      "closed_at": "2023-03-10T12:50:57Z",
+      "body": "ISTAR currently runs a detection model, to give some perception outcomes, then it returns all assets in the area - so the umpire can delete those not necessary.\r\n\r\nStop it from returning all in the area - we have some huge ISTAR boxes, and they are returning many, many rows/",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 40
+}

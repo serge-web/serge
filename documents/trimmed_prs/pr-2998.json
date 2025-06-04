@@ -1,0 +1,84 @@
+{
+  "number": 2998,
+  "title": "2845 pan to selection",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2024-07-16T16:16:31Z",
+  "updated_at": "2024-07-17T09:40:01Z",
+  "closed_at": "2024-07-16T16:39:19Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2998",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2998/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2998/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2998",
+  "body": "Fixes #2845 ",
+  "additions": 76,
+  "deletions": 4,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 2231370722,
+      "user": "IanMayo",
+      "created_at": "2024-07-16T16:39:19Z",
+      "updated_at": "2024-07-16T16:39:19Z",
+      "body": "Drop this, it was already fixed in #2983 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2845,
+    2983
+  ],
+  "issues": [
+    {
+      "id": 2130270574,
+      "number": 2845,
+      "title": "Mapping - pan to selected feature",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-02-12T14:35:47Z",
+      "updated_at": "2024-07-16T16:38:56Z",
+      "closed_at": "2024-07-16T16:38:56Z",
+      "body": "When we select an item in the left-hand mapping bar, we should pan the map so that the feature is in the centre.\r\n\r\n**Improvement:** when an item is double-clicked in the mapping bar pan to it.  Don't pan if it is just being selected.\r\n\r\nSince the `onselect` method in the mapping component only receives and id (and not the element itself) I _guess_ we could add an optional `point` to the `onSelect` method in the Mapping component.\r\n\r\nThe left-hand bar would create a shape for the feature, ask `turf` to provide the centre of that shape, and pass that.",
+      "labels": [
+        "enhancement",
+        "Mapping",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 2231370061,
+          "user": "IanMayo",
+          "created_at": "2024-07-16T16:38:56Z",
+          "updated_at": "2024-07-16T16:38:56Z",
+          "body": "Closed in #2983 "
+        }
+      ]
+    },
+    {
+      "id": 2349030215,
+      "number": 2983,
+      "title": "As a player I wish the map to pan to a particular feature",
+      "state": "closed",
+      "user": "lebaphi",
+      "created_at": "2024-06-12T15:10:19Z",
+      "updated_at": "2024-06-12T16:16:51Z",
+      "closed_at": "2024-06-12T16:16:51Z",
+      "body": "Fixes #2977 ",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 80
+}

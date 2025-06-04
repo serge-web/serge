@@ -1,0 +1,30 @@
+{
+  "number": 1365,
+  "title": "Hotfix h3 hull function",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-01T16:38:08Z",
+  "updated_at": "2022-03-03T16:19:40Z",
+  "closed_at": "2022-03-03T16:19:40Z",
+  "merged_at": "2022-03-03T16:19:40Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1365",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1365/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1365/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1365",
+  "body": "Hotfix - switch to (theoretically) faster performing h3 hull function.\r\n\r\nTested. Previous `turf` related hull function took 25 millis, h3 version takes 4 millis.  With larger sets of cells `turn` functiion took 40 millis, h3 performance remained consistent.",
+  "additions": 94,
+  "deletions": 385,
+  "changed_files": 10,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 479
+}

@@ -1,0 +1,74 @@
+{
+  "number": 2500,
+  "title": "Channel_editor_in_Admin_Pages",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-02-24T06:25:41Z",
+  "updated_at": "2023-11-15T10:37:02Z",
+  "closed_at": "2023-11-15T10:36:28Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2500",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2500/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2500/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2500",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 1895,
+  "deletions": 21,
+  "changed_files": 15,
+  "labels": [
+    "bug",
+    "4watu"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1812213697,
+      "user": "IanMayo",
+      "created_at": "2023-11-15T10:36:28Z",
+      "updated_at": "2023-11-15T10:36:28Z",
+      "body": "Overtaken by move to monolith."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2353
+  ],
+  "issues": [
+    {
+      "id": 1578381070,
+      "number": 2353,
+      "title": "Channel editor in Admin Pages",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-09T18:15:45Z",
+      "updated_at": "2024-06-19T08:43:52Z",
+      "closed_at": "2024-06-19T08:43:52Z",
+      "body": "If a wargame contains its own templates, then it is these templates that should be offered in the Channel Editor\r\n\r\nThe editor is currently showing the contents of the `messageTypes.sqlite` database:\r\n![image](https://user-images.githubusercontent.com/1108513/217901993-93c9a27e-3695-4bbe-8b9a-1463bc37465d.png)\r\n",
+      "labels": [
+        "bug",
+        "4watu"
+      ],
+      "comments": [
+        {
+          "id": 1880884625,
+          "user": "IanMayo",
+          "created_at": "2024-01-08T12:12:17Z",
+          "updated_at": "2024-01-08T12:12:17Z",
+          "body": "Could you check this please @lilitkarapetyan ?"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/217901993-93c9a27e-3695-4bbe-8b9a-1463bc37465d.png"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 1916
+}

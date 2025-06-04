@@ -1,0 +1,133 @@
+{
+  "number": 969,
+  "title": "Swap templates",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-27T09:57:52Z",
+  "updated_at": "2021-07-27T13:48:02Z",
+  "closed_at": "2021-07-27T13:48:01Z",
+  "merged_at": "2021-07-27T13:48:01Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/969",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/969/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/969/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/969",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\ncloses #869\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\nDefine types: For all project templates defined as `any` type\r\nUpdate tests\r\nConvert Reducer and Actions to TS\r\nNew object of message TypesByKey and remove loop findes\r\nCurrently participant templates have only _id and title fields (same fields have old version if templates, so old version will works too)\r\n\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![изображение](https://user-images.githubusercontent.com/20753599/127140480-4d3ebd72-bf84-4f6a-8c29-2c0d718b87b3.png)\r\n![изображение](https://user-images.githubusercontent.com/20753599/127140942-3dd5fd48-29aa-49bd-b497-a962d465d808.png)\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 510,
+  "deletions": 314,
+  "changed_files": 33,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 6,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 887391867,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T10:17:47Z",
+      "updated_at": "2021-07-27T10:17:47Z",
+      "body": "Great piece of work, thanks @lilitkarapetyan \r\n\r\nIs it backwards compatible for our existing wargames?"
+    },
+    {
+      "id": 887473845,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T12:34:13Z",
+      "updated_at": "2021-07-27T12:34:13Z",
+      "body": "Hello @lilitkarapetyan - one last question, please.\r\n\r\nWhy do we store template `title` _and_ `_id`?  Do we ever access the title?  Aah, is it used for rendering the list of channels in admin?"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 677311784,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T10:12:56Z",
+      "updated_at": "2021-07-27T10:12:57Z",
+      "body": "@lilitkarapetyan - we have two elements with very similar names here.   Can you explain the difference between them please?",
+      "path": "packages/custom-types/message-types.d.ts",
+      "diff_hunk": "@@ -0,0 +1,12 @@\n+import { TemplateBody } from \"./template\";\n+\n+export interface TemplateBodysByKey { [property: string]: TemplateBody }\n+\n+interface MessageTypes {",
+      "html_url": "https://github.com/serge-web/serge/pull/969#discussion_r677311784"
+    },
+    {
+      "id": 677316064,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-07-27T10:19:20Z",
+      "updated_at": "2021-07-27T10:47:33Z",
+      "body": "TemplateBody[] - it's array of templates. if you want get some template from there you need to do loop find\r\nTemplateBodysByKey - it's object of templates. if you want to get some template from there you need to do TemplateBodysByKey[yourTemplateId] and you will get it without any loop findes",
+      "path": "packages/custom-types/message-types.d.ts",
+      "diff_hunk": "@@ -0,0 +1,12 @@\n+import { TemplateBody } from \"./template\";\n+\n+export interface TemplateBodysByKey { [property: string]: TemplateBody }\n+\n+interface MessageTypes {",
+      "html_url": "https://github.com/serge-web/serge/pull/969#discussion_r677316064"
+    },
+    {
+      "id": 677336882,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T10:52:16Z",
+      "updated_at": "2021-07-27T10:52:16Z",
+      "body": "I should have been more clear 🤣 \r\n\r\nI was talking about `loadingDb` and `isLoading` in the next two lines.",
+      "path": "packages/custom-types/message-types.d.ts",
+      "diff_hunk": "@@ -0,0 +1,12 @@\n+import { TemplateBody } from \"./template\";\n+\n+export interface TemplateBodysByKey { [property: string]: TemplateBody }\n+\n+interface MessageTypes {",
+      "html_url": "https://github.com/serge-web/serge/pull/969#discussion_r677336882"
+    },
+    {
+      "id": 677348424,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T11:10:48Z",
+      "updated_at": "2021-07-27T11:11:04Z",
+      "body": "is this actually `templatesByKey` rather than `messagesByKey`?  It looks like a list of templates, rather than a list of messages.",
+      "path": "packages/client/src/ActionsAndReducers/dbMessageTypes/messageTypes_Reducer.ts",
+      "diff_hunk": "@@ -0,0 +1,32 @@\n+import * as ActionConstant from '@serge/config'\n+import copyState from '../../Helpers/copyStateHelper'\n+import { MessageTypes, MessageTypesActionTypes } from '@serge/custom-types'\n+\n+const initialState: MessageTypes = {\n+  loadingDb: false,\n+  isLoading: false,\n+  messages: [],\n+  messagesByKey: {}",
+      "html_url": "https://github.com/serge-web/serge/pull/969#discussion_r677348424"
+    },
+    {
+      "id": 677352012,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T11:16:30Z",
+      "updated_at": "2021-07-27T11:16:30Z",
+      "body": "Hmm I think that `messages` should also be `templates`.\r\n\r\nAah, it's short for _message-types_, which are also called _templates_.  Could we switch to `templates`, to avoid confusion with lists of messages?",
+      "path": "packages/client/src/ActionsAndReducers/dbMessageTypes/messageTypes_Reducer.ts",
+      "diff_hunk": "@@ -0,0 +1,32 @@\n+import * as ActionConstant from '@serge/config'\n+import copyState from '../../Helpers/copyStateHelper'\n+import { MessageTypes, MessageTypesActionTypes } from '@serge/custom-types'\n+\n+const initialState: MessageTypes = {\n+  loadingDb: false,\n+  isLoading: false,\n+  messages: [],\n+  messagesByKey: {}",
+      "html_url": "https://github.com/serge-web/serge/pull/969#discussion_r677352012"
+    },
+    {
+      "id": 677359197,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T11:27:35Z",
+      "updated_at": "2021-07-27T11:27:35Z",
+      "body": "Here is an example of where we could get confusion:\r\n![image](https://user-images.githubusercontent.com/1108513/127146254-f04ea59b-6ea6-44c0-be67-8d3675a3cd7b.png)\r\n",
+      "path": "packages/client/src/ActionsAndReducers/dbMessageTypes/messageTypes_Reducer.ts",
+      "diff_hunk": "@@ -0,0 +1,32 @@\n+import * as ActionConstant from '@serge/config'\n+import copyState from '../../Helpers/copyStateHelper'\n+import { MessageTypes, MessageTypesActionTypes } from '@serge/custom-types'\n+\n+const initialState: MessageTypes = {\n+  loadingDb: false,\n+  isLoading: false,\n+  messages: [],\n+  messagesByKey: {}",
+      "html_url": "https://github.com/serge-web/serge/pull/969#discussion_r677359197"
+    }
+  ],
+  "issue_numbers": [
+    869
+  ],
+  "issues": [
+    {
+      "id": 929221958,
+      "number": 869,
+      "title": "Swap templates for templateIds in channels",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-24T13:18:20Z",
+      "updated_at": "2021-07-27T13:48:01Z",
+      "closed_at": "2021-07-27T13:48:01Z",
+      "body": "Early in the project we took a design decision to store the template definitions in the `channel` objects.  This means the `wargame` document contains all the data it needs.\r\n\r\nBut, we have a wargame with lots of long formatted messages. meaning the `channels` part of the wargame document is 34,000 lines long!\r\n\r\nThis can make the time to transmit (and parse) the wargame document longer, which could introduce the chance of `collisions` - which would crash SQLite.\r\n\r\nThere is also the down-side that if a message template layout is updated, the change isn't reflected in the wargame - since it will just use the version in place when the channel was created.\r\n\r\nSo, we should switch from storing the template to storing the template id (plus possibly the template name).  Storing the name means we can use a single template for different message types if the layout is the same.\r\n\r\nIf possible, I would like to keep some backward compatibility.  So, we can read/display wargames from the period when the wargame contained the template.  But, the game should ignore the template definition in the wargame and use the one from the `message-types` database.",
+      "labels": [
+        "enhancement",
+        "Technical Debt"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/20753599/127140480-4d3ebd72-bf84-4f6a-8c29-2c0d718b87b3.png",
+    "https://user-images.githubusercontent.com/20753599/127140942-3dd5fd48-29aa-49bd-b497-a962d465d808.png",
+    "https://user-images.githubusercontent.com/1108513/127146254-f04ea59b-6ea6-44c0-be67-8d3675a3cd7b.png"
+  ],
+  "number_of_changed_files": 33,
+  "total_changed_lines": 824
+}

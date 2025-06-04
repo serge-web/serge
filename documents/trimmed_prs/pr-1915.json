@@ -1,0 +1,30 @@
+{
+  "number": 1915,
+  "title": "1862b drawing editor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-01T12:19:49Z",
+  "updated_at": "2022-10-04T09:58:33Z",
+  "closed_at": "2022-10-04T09:58:32Z",
+  "merged_at": "2022-10-04T09:58:32Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1915",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1915/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1915/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1915",
+  "body": "Supports #1862 \r\n\r\nCollates data ready for inclusion of drawing editor.  Note: in this branch the mock drawing editor is a child of the map-control (toolbar).\r\n\r\nBut, from `react-leaflet-geoman`, it looks like it should actually be a child of the map itself.",
+  "additions": 202,
+  "deletions": 1,
+  "changed_files": 10,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 203
+}

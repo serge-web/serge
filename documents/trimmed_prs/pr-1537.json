@@ -1,0 +1,69 @@
+{
+  "number": 1537,
+  "title": "1534: Update to Leaflet 1.8",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-27T10:22:27Z",
+  "updated_at": "2022-04-27T13:01:45Z",
+  "closed_at": "2022-04-27T13:01:45Z",
+  "merged_at": "2022-04-27T13:01:45Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1537",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1537/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1537/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1537",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1534\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 5,
+  "deletions": 33,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 1,
+  "total_comments": 1,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 859676662,
+      "user": "IanMayo",
+      "created_at": "2022-04-27T11:20:59Z",
+      "updated_at": "2022-04-27T11:21:00Z",
+      "body": "@lilitkarapetyan  - I _think_ we only refer to `leaflet` from the `packages/components` package.   Do we need these 4 `leaflet` requirements in `packages/client`",
+      "path": "packages/client/package.json",
+      "diff_hunk": "@@ -34,7 +34,7 @@\n     \"honeycomb-grid\": \"^3.1.3\",\n     \"jest-mock-console\": \"^1.0.0\",\n     \"json-metaschema\": \"^1.2.0\",\n-    \"leaflet\": \"^1.6.0\",\n+    \"leaflet\": \"^1.8.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/1537#discussion_r859676662"
+    }
+  ],
+  "issue_numbers": [
+    1534
+  ],
+  "issues": [
+    {
+      "id": 1216159513,
+      "number": 1534,
+      "title": "Update to Leaflet 1.8",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-26T15:50:50Z",
+      "updated_at": "2022-05-10T15:49:51Z",
+      "closed_at": "2022-05-10T15:49:51Z",
+      "body": "We're currently using Leaflet 1.6 (Nov 19). This was superceded by 1.7.1 in Sep 20, and by 1.8 in April 2022.\r\n\r\nWe should update Leaflet to Version 1.8 - making note of breaking changes in both 1.7.1 and 1.8.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1122571835,
+          "user": "IanMayo",
+          "created_at": "2022-05-10T15:49:50Z",
+          "updated_at": "2022-05-10T15:49:50Z",
+          "body": "Fixed in #1537 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 38
+}

@@ -1,0 +1,52 @@
+{
+  "number": 2193,
+  "title": "2128: Paging of tables in support panel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-31T04:54:39Z",
+  "updated_at": "2022-12-31T14:33:48Z",
+  "closed_at": "2022-12-31T14:33:48Z",
+  "merged_at": "2022-12-31T14:33:48Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2193",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2193/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2193/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2193",
+  "body": "Fixes #2128 \r\n",
+  "additions": 787,
+  "deletions": 35,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2128
+  ],
+  "issues": [
+    {
+      "id": 1453667498,
+      "number": 2128,
+      "title": "Paging of tables in support panel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-17T16:51:40Z",
+      "updated_at": "2022-12-31T14:33:48Z",
+      "closed_at": "2022-12-31T14:33:48Z",
+      "body": "The tables of assets and orders are really long.\r\n\r\nWe should (re-) introduce the paging control for `material-table` objects.   I guess we would start with 20 items. Aah, if we include selector for how many rows to show, we can learn if there is a useful default page size.",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-L"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 822
+}

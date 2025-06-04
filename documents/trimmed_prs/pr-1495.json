@@ -1,0 +1,251 @@
+{
+  "number": 1495,
+  "title": "1490 asset icon",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-08T16:12:42Z",
+  "updated_at": "2022-04-13T12:35:47Z",
+  "closed_at": "2022-04-13T11:42:04Z",
+  "merged_at": "2022-04-13T11:42:04Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1495",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1495/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1495/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1495",
+  "body": "Fixes #1490",
+  "additions": 200,
+  "deletions": 256,
+  "changed_files": 34,
+  "labels": [],
+  "comments_count": 20,
+  "review_comments_count": 5,
+  "total_comments": 25,
+  "comments_data": [
+    {
+      "id": 1094167312,
+      "user": "lebaphi",
+      "created_at": "2022-04-10T03:25:57Z",
+      "updated_at": "2022-04-10T03:25:57Z",
+      "body": "Hi @IanMayo, when I tried \r\n```\r\nreturn (\r\n    <div className={styles.main}>\r\n      <h2>{children}</h2>\r\n      <div className={styles.icon}>\r\n        {/* <div className={iconClassname} /> */}\r\n        <GetIcon icType={platformType} color={forceColor} isSelected={false} imageSrc={icon} />\r\n      </div>\r\n    </div>\r\n  )\r\n ```\r\nThe icon seems to load properly, is it right? 🤔 \r\n<img width=\"227\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/162600109-7b1d0222-b7fb-49f7-b60f-63ca0e0ca3fd.png\">\r\n"
+    },
+    {
+      "id": 1095071715,
+      "user": "IanMayo",
+      "created_at": "2022-04-11T13:44:36Z",
+      "updated_at": "2022-04-11T14:42:52Z",
+      "body": "The `<TitleWithIcon>` component is used with the `plan turn form`.\r\n\r\nI'm playing with this game/role: `/?wargame=wargame-kzod28lc&access=rks5zfzd6`\r\n\r\nHere is when I click on the right-hand ship: \r\n![image](https://user-images.githubusercontent.com/1108513/162752692-db014492-b806-4a12-96d9-aac6edeeb704.png)\r\n\r\nIf I switch to `<GetIcon>`, I see no icon at all:\r\n![image](https://user-images.githubusercontent.com/1108513/162752910-1d2ba048-7f57-48b1-84c2-06909a18dc6f.png)\r\n"
+    },
+    {
+      "id": 1096518107,
+      "user": "IanMayo",
+      "created_at": "2022-04-12T10:20:04Z",
+      "updated_at": "2022-04-12T10:20:04Z",
+      "body": "Ok @lebaphi - I've removed the instances of using CSS for the icon type.  \r\n\r\nAs you'll see from [Storybook](https://serge-1490-asset-icon-2qkdx6gs.herokuapp.com/storybook/?path=/story/local-mapping-smallscale--natural-earth) lots of icons are now missing.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/162939186-b49db4a9-7d52-4b47-b7ce-d2cb2b29cc85.png)\r\n\r\n\r\nI _guess_ the first fix is for `<GetIcon/>`, then `<TitleWithIcon>`."
+    },
+    {
+      "id": 1096968483,
+      "user": "IanMayo",
+      "created_at": "2022-04-12T16:54:18Z",
+      "updated_at": "2022-04-12T16:54:18Z",
+      "body": "I prefer the behaviour when push fails if a snapshot doesn't match.  We had instances where UI changes _slipped-through_ because the snapshot silently got updated."
+    },
+    {
+      "id": 1097490319,
+      "user": "lebaphi",
+      "created_at": "2022-04-13T02:35:30Z",
+      "updated_at": "2022-04-13T02:35:30Z",
+      "body": "> I prefer the behaviour when push fails if a snapshot doesn't match. We had instances where UI changes _slipped-through_ because the snapshot silently got updated.\r\n\r\nokay, I will remove it 👍 "
+    },
+    {
+      "id": 1097714049,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T08:36:07Z",
+      "updated_at": "2022-04-13T08:36:07Z",
+      "body": "You've done some great work here @lebaphi \r\n\r\n`storybook` is still broken though.  It's trying to get SVG icons from these locations:\r\n![image](https://user-images.githubusercontent.com/1108513/163134638-73ff5cae-083f-4cb2-828e-d656d03ed377.png)\r\n\r\n`develop` gets them from these locations:\r\n![image](https://user-images.githubusercontent.com/1108513/163135462-8cfd48f1-8a07-4a1d-adc6-4be4a4e67c37.png)\r\n"
+    },
+    {
+      "id": 1097841693,
+      "user": "lebaphi",
+      "created_at": "2022-04-13T09:57:05Z",
+      "updated_at": "2022-04-13T09:57:05Z",
+      "body": "> You've done some great work here @lebaphi\r\n> \r\n> `storybook` is still broken though. It's trying to get SVG icons from these locations: ![image](https://user-images.githubusercontent.com/1108513/163134638-73ff5cae-083f-4cb2-828e-d656d03ed377.png)\r\n> \r\n> `develop` gets them from these locations: ![image](https://user-images.githubusercontent.com/1108513/163135462-8cfd48f1-8a07-4a1d-adc6-4be4a4e67c37.png)\r\n\r\nstrange, storybook used the old url, it should work as it should be 🤔 "
+    },
+    {
+      "id": 1097843619,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T09:58:32Z",
+      "updated_at": "2022-04-13T10:08:56Z",
+      "body": "> strange, storybook used the old url, it should work as it should be 🤔\r\n\r\nwill do fresh build and restart, just in case.\r\n\r\nNo, @lebaphi - I still get the same path."
+    },
+    {
+      "id": 1097860244,
+      "user": "lebaphi",
+      "created_at": "2022-04-13T10:10:46Z",
+      "updated_at": "2022-04-13T10:10:46Z",
+      "body": "> /?wargame=wargame-kzod28lc&access=rks5zfzd6\r\n\r\nI've checked it here, it we run storybook, it should use the original path\r\n```\r\n if (process.env.STORYBOOK) {\r\n      return `/static/media/src/local/asset-icon/counters/${url}`\r\n    }\r\n    return `/assets/counters/${url}`\r\n```"
+    },
+    {
+      "id": 1097905840,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T10:48:58Z",
+      "updated_at": "2022-04-13T10:48:58Z",
+      "body": "Thanks @lebaphi  - good fix. The copied svgs don't need to be included in the commit, do they?"
+    },
+    {
+      "id": 1097910318,
+      "user": "lebaphi",
+      "created_at": "2022-04-13T10:54:41Z",
+      "updated_at": "2022-04-13T10:54:41Z",
+      "body": "> Thanks @lebaphi - good fix. The copied svgs don't need to be included in the commit, do they?\r\n\r\nyes it's up to you @IanMayo ,  I see we already have a `static` folder so committing these svgs into this is fine for me"
+    },
+    {
+      "id": 1097911895,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T10:56:44Z",
+      "updated_at": "2022-04-13T10:56:44Z",
+      "body": "Can we just have the one version in `asset-icon/counters` please?\r\n\r\nWe can sort out the version that `info-marker` requires in the future."
+    },
+    {
+      "id": 1097918359,
+      "user": "lebaphi",
+      "created_at": "2022-04-13T11:04:52Z",
+      "updated_at": "2022-04-13T11:04:52Z",
+      "body": "> Can we just have the one version in `asset-icon/counters` please?\r\n> \r\n> We can sort out the version that `info-marker` requires in the future.\r\n\r\nThe svgs should be in the `public` (develop) or in the `static` (storybook) then we can use `fetch', otherwise we can only use css to import these svgs."
+    },
+    {
+      "id": 1097919740,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T11:06:35Z",
+      "updated_at": "2022-04-13T11:06:35Z",
+      "body": "> The svgs should be in the `public` (develop) or in the `static` (storybook) then we can use `fetch', otherwise we can only use css to import these svgs.\r\n\r\nYes, but `yarn` copies them into those two places.   So, we don't need them checked into the repo, they are `build artefacts`."
+    },
+    {
+      "id": 1097928459,
+      "user": "lebaphi",
+      "created_at": "2022-04-13T11:16:53Z",
+      "updated_at": "2022-04-13T11:16:53Z",
+      "body": "> > The svgs should be in the `public` (develop) or in the `static` (storybook) then we can use `fetch', otherwise we can only use css to import these svgs.\r\n> \r\n> Yes, but `yarn` copies them into those two places. So, we don't need them checked into the repo, they are `build artefacts`.\r\n\r\nhmm, I also thought there should be a folder to store assets, but the problem is that assets can only be stored in public or static, if we save assets in `public` and start storybook (which loads assets in `static`), assets will not load properly."
+    },
+    {
+      "id": 1097932578,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T11:21:41Z",
+      "updated_at": "2022-04-13T11:21:41Z",
+      "body": "> hmm, I also thought there should be a folder to store assets, but the problem is that assets can only be stored in public or static, if we save assets in public and start storybook (which loads assets in static), assets will not load properly.\r\n\r\nWe can only run `yarn storybook` if we have already run `yarn build`. `yarn build` copies the files to the two public locations.   That means we don't need to commit need to commit the copies in the public locations.  Right?"
+    },
+    {
+      "id": 1097934913,
+      "user": "lebaphi",
+      "created_at": "2022-04-13T11:24:18Z",
+      "updated_at": "2022-04-13T11:24:18Z",
+      "body": "> > hmm, I also thought there should be a folder to store assets, but the problem is that assets can only be stored in public or static, if we save assets in public and start storybook (which loads assets in static), assets will not load properly.\r\n> \r\n> We can only run `yarn storybook` if we have already run `yarn build`. `yarn build` copies the files to the two public locations. That means we don't need to commit need to commit the copies in the public locations. Right?\r\n\r\nyep, we don't need to commit these svgs in 2 places, run `yarn build` will do it for us 😄 I will remove it "
+    },
+    {
+      "id": 1097939493,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T11:29:42Z",
+      "updated_at": "2022-04-13T11:29:42Z",
+      "body": "Great, thanks @lebaphi :-)"
+    },
+    {
+      "id": 1097943071,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T11:33:25Z",
+      "updated_at": "2022-04-13T11:41:41Z",
+      "body": "Oops, one last thought @lebaphi   We have `<GetIcon>` defined in `asset-icon/index.tsx`.  But, we don't use it in `asset-icon/index.tsx`.  Do you think we can modify `asset-icon/index.tsx` so it uses `<GetIcon>` ?\r\n\r\nSorry, @lebaphi - I'm growing the requirement here :-(\r\n\r\nCould we do some refactoring to make `<GetIcon>` testable? \r\n\r\nHold on, not now. Let's get it merged. I'll create a separate issue."
+    },
+    {
+      "id": 1097998909,
+      "user": "lebaphi",
+      "created_at": "2022-04-13T12:35:47Z",
+      "updated_at": "2022-04-13T12:35:47Z",
+      "body": "great @IanMayo 👍🏻"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 846288395,
+      "user": "IanMayo",
+      "created_at": "2022-04-08T16:14:19Z",
+      "updated_at": "2022-04-08T16:14:19Z",
+      "body": "Hello @lebaphi - this is where I have got stuck. This component currently uses CSS-classes to specify the icon svg path. But, we have to move to taking that from the data.  I've collated the data here, but can't get the icon to show.\r\n\r\nIt can be tested from the `storybook` for the component.",
+      "path": "packages/components/src/local/form-elements/title-with-icon/index.tsx",
+      "diff_hunk": "@@ -8,8 +8,11 @@ import PropTypes from './types/props'\n import styles from './styles.module.scss'\n \n /* Render component */\n-export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, platformType }) => {\n+export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, platformType, icon }) => {\n   const iconClassname = getIconClassname(forceColor.toLowerCase(), platformType)\n+  console.log('title with icon', forceColor, platformType, icon, iconClassname)\n+  // TODO: switch from using `iconClassname` to using the `icon` field in <GetIcon",
+      "html_url": "https://github.com/serge-web/serge/pull/1495#discussion_r846288395"
+    },
+    {
+      "id": 846356422,
+      "user": "lebaphi",
+      "created_at": "2022-04-08T17:49:47Z",
+      "updated_at": "2022-04-08T17:49:47Z",
+      "body": "Hi @IanMayo, I will check it 😉",
+      "path": "packages/components/src/local/form-elements/title-with-icon/index.tsx",
+      "diff_hunk": "@@ -8,8 +8,11 @@ import PropTypes from './types/props'\n import styles from './styles.module.scss'\n \n /* Render component */\n-export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, platformType }) => {\n+export const TitleWithIcon: React.FC<PropTypes> = ({ children, forceColor, platformType, icon }) => {\n   const iconClassname = getIconClassname(forceColor.toLowerCase(), platformType)\n+  console.log('title with icon', forceColor, platformType, icon, iconClassname)\n+  // TODO: switch from using `iconClassname` to using the `icon` field in <GetIcon",
+      "html_url": "https://github.com/serge-web/serge/pull/1495#discussion_r846356422"
+    },
+    {
+      "id": 848625179,
+      "user": "IanMayo",
+      "created_at": "2022-04-12T16:15:20Z",
+      "updated_at": "2022-04-12T16:15:20Z",
+      "body": "@lebaphi - I don't think these next lines should have been commented out",
+      "path": ".husky/pre-push",
+      "diff_hunk": "@@ -1,6 +1,6 @@\n #!/bin/sh\n . \"$(dirname \"$0\")/_/husky.sh\"\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/1495#discussion_r848625179"
+    },
+    {
+      "id": 848626796,
+      "user": "IanMayo",
+      "created_at": "2022-04-12T16:17:01Z",
+      "updated_at": "2022-04-12T16:17:01Z",
+      "body": "No, we shouldn't be appending `-u` here. Jest is there to show us when something has changed.  Having `-u` will _hide_ any changes.",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -6,15 +6,16 @@\n   \"main\": \"build/index.js\",\n   \"scripts\": {\n     \"storybook\": \"start-storybook -s ./static -p 6611\",\n-    \"build\": \"rimraf build && yarn copy && tsc && yarn cleanup\",\n+    \"build\": \"rimraf build && yarn copy && yarn copy-assets && tsc && yarn cleanup\",\n     \"watch\": \"run-p watch:*\",\n     \"watch:ts\": \"tsc --watch\",\n     \"watch:style\": \"node-sass-chokidar ./src -o ./build --watch --ext scss\",\n     \"copy\": \"copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build\",\n+    \"copy-assets\": \"copyfiles -u 4 src/local/asset-icon/counters/*.svg ../client/public/assets/counters\",\n     \"cleanup\": \"rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*\",\n     \"test\": \"run-p test:*\",\n     \"test:ts\": \"tsc --pretty\",\n-    \"test:unit\": \"jest --passWithNoTests\",\n+    \"test:unit\": \"jest --passWithNoTests -u\",",
+      "html_url": "https://github.com/serge-web/serge/pull/1495#discussion_r848626796"
+    },
+    {
+      "id": 848653827,
+      "user": "lebaphi",
+      "created_at": "2022-04-12T16:47:33Z",
+      "updated_at": "2022-04-12T16:47:34Z",
+      "body": "it does not hide any changes @IanMayo, it just automatically updates the snapshot with new changes and we can view it in the git 😄",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -6,15 +6,16 @@\n   \"main\": \"build/index.js\",\n   \"scripts\": {\n     \"storybook\": \"start-storybook -s ./static -p 6611\",\n-    \"build\": \"rimraf build && yarn copy && tsc && yarn cleanup\",\n+    \"build\": \"rimraf build && yarn copy && yarn copy-assets && tsc && yarn cleanup\",\n     \"watch\": \"run-p watch:*\",\n     \"watch:ts\": \"tsc --watch\",\n     \"watch:style\": \"node-sass-chokidar ./src -o ./build --watch --ext scss\",\n     \"copy\": \"copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build\",\n+    \"copy-assets\": \"copyfiles -u 4 src/local/asset-icon/counters/*.svg ../client/public/assets/counters\",\n     \"cleanup\": \"rimraf build/vendor && rimraf build/local/**/mocks && rimraf build/local/**/*.stories.* && rimraf build/local/**/*.spec.*\",\n     \"test\": \"run-p test:*\",\n     \"test:ts\": \"tsc --pretty\",\n-    \"test:unit\": \"jest --passWithNoTests\",\n+    \"test:unit\": \"jest --passWithNoTests -u\",",
+      "html_url": "https://github.com/serge-web/serge/pull/1495#discussion_r848653827"
+    }
+  ],
+  "issue_numbers": [
+    1490
+  ],
+  "issues": [
+    {
+      "id": 1195695386,
+      "number": 1490,
+      "title": "Create icons using props not css-class",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-07T08:26:11Z",
+      "updated_at": "2022-04-13T11:42:04Z",
+      "closed_at": "2022-04-13T11:42:04Z",
+      "body": "The icon and color for `AssetIcon` components are largely formatted using CSS-Styles.\r\n\r\nThis means they must be hard-coded within the game source code. But, the Game Designer is actually meant to create them in the Game Admin pages.\r\n\r\nSo, AssetIcon should format the icon using props, not css-styles.\r\n\r\nThe perception-management code should change, to allow this. Specifically, it should move away from providing CSS classes, instead provide actual color hexes and icon URLs.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/162600109-7b1d0222-b7fb-49f7-b60f-63ca0e0ca3fd.png",
+    "https://user-images.githubusercontent.com/1108513/162752692-db014492-b806-4a12-96d9-aac6edeeb704.png",
+    "https://user-images.githubusercontent.com/1108513/162752910-1d2ba048-7f57-48b1-84c2-06909a18dc6f.png",
+    "https://user-images.githubusercontent.com/1108513/162939186-b49db4a9-7d52-4b47-b7ce-d2cb2b29cc85.png",
+    "https://user-images.githubusercontent.com/1108513/163134638-73ff5cae-083f-4cb2-828e-d656d03ed377.png",
+    "https://user-images.githubusercontent.com/1108513/163135462-8cfd48f1-8a07-4a1d-adc6-4be4a4e67c37.png"
+  ],
+  "number_of_changed_files": 34,
+  "total_changed_lines": 456
+}

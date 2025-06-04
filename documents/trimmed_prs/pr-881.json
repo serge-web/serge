@@ -1,0 +1,70 @@
+{
+  "number": 881,
+  "title": "Fix delay issue",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-28T15:23:48Z",
+  "updated_at": "2021-06-29T08:59:05Z",
+  "closed_at": "2021-06-29T08:59:04Z",
+  "merged_at": "2021-06-29T08:59:04Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/881",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/881/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/881/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/881",
+  "body": "Fixed #877 ",
+  "additions": 4,
+  "deletions": 6,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 869835935,
+      "user": "IanMayo",
+      "created_at": "2021-06-28T16:38:53Z",
+      "updated_at": "2021-06-28T16:38:53Z",
+      "body": "Hello @lebaphi  - could you explain what the issue was please?"
+    },
+    {
+      "id": 870406712,
+      "user": "IanMayo",
+      "created_at": "2021-06-29T08:50:34Z",
+      "updated_at": "2021-06-29T08:50:34Z",
+      "body": "Aah, @lebaphi - I think I understand it.\r\n\r\nRendering Serge was taking several seconds.  We were asking for two re-renders, now we're not.\r\n\r\nThe fact that Serge rendering is (almost) instanstaneous fixes the issue, but it's right to remove the renders."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    877
+  ],
+  "issues": [
+    {
+      "id": 931453170,
+      "number": 877,
+      "title": "Delay in choosing new message format",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-28T11:09:00Z",
+      "updated_at": "2021-06-29T08:59:04Z",
+      "closed_at": "2021-06-29T08:59:04Z",
+      "body": "Some players can send multiple types of message into a channel (will provide link with demo: https://serge-review.herokuapp.com/?wargame=wargame-kq9ozhe6&access=pkq9oxs4h).\r\n\r\nThe choices of message type are in a combo-box at the top of the `New Message` dialog.  When switching between message types there can be a delay of up to 4 seconds for the new message template to open.\r\n\r\n![screencast](https://i.gyazo.com/449cd44e87ecb421fef69585ecafa60e.gif)\r\n\r\nI don't recall this happening in past wargames (around a year ago). Here is a recording of a build from December 19:\r\n![screencast 2](https://i.gyazo.com/c1dae638fbd67dbe1f6a8108ca0ba701.gif)\r\n\r\nWe should investigate the cause of the delay.\r\n\r\nI've just checked the `network` tab in `developer tools`, and the delay isn't because of a server round-trip.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/449cd44e87ecb421fef69585ecafa60e.gif",
+    "https://i.gyazo.com/c1dae638fbd67dbe1f6a8108ca0ba701.gif"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 10
+}

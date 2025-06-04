@@ -1,0 +1,121 @@
+{
+  "number": 1627,
+  "title": "1622 edit channel - phase 1 (workaround)",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-22T10:37:06Z",
+  "updated_at": "2022-06-22T12:13:07Z",
+  "closed_at": "2022-06-22T12:13:06Z",
+  "merged_at": "2022-06-22T12:13:06Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1627",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1627/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1627/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1627",
+  "body": "Supports #1622 \r\n\r\nWell, it prevents the crash, though channel changes aren't propagated.",
+  "additions": 391,
+  "deletions": 329,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1622
+  ],
+  "issues": [
+    {
+      "id": 1278240607,
+      "number": 1622,
+      "title": "Client crash on creation of new channel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-21T10:31:42Z",
+      "updated_at": "2022-06-27T12:52:17Z",
+      "closed_at": "2022-06-27T12:52:17Z",
+      "body": "A game is live.\r\n\r\nThe Game Designer just added a channel, into which he put all forces.  When he clicked on \"Save channel\", Serge blue-screened.  Other logged in clients also blue-screened.  A refresh cleared the issue.\r\n\r\nBut, I couldn't reproduce the issue on a development machine. Maybe I wasn't creating a channel with the same constraints.\r\n\r\nFor further investigation.",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1161698223,
+          "user": "IanMayo",
+          "created_at": "2022-06-21T12:43:29Z",
+          "updated_at": "2022-06-21T12:43:29Z",
+          "body": "Was able to reproduce channel.\r\n\r\n- Add channel (traditional/normal type)\r\n- Add all forces to channel\r\n- Save channel\r\n\r\nThis error shown on console:\r\n```\r\nTypeError: Cannot read properties of undefined (reading 'channel')\r\nat t.default (handle-channel-updates.ts:317:47)\r\nat er (handleWargameChanges.ts:20:34)\r\nat dr (pllayerUI_reducer.ts:170:34) \r\n```\r\n\r\nNote: the above handle-channel-updates may not match the current `develop` branch, since `develop` now includes the fix to avoid duplicate messages."
+        },
+        {
+          "id": 1161705226,
+          "user": "IanMayo",
+          "created_at": "2022-06-21T12:50:06Z",
+          "updated_at": "2022-06-21T12:55:55Z",
+          "body": "Line 317 doesn't relate to an obvious instance of `channel` in the source code.\r\n\r\nThe `channel` variable in this method is the index value in `allChannels.forEach`.  That suggests that _somehow_ there is an empty channel in the list of channels.  _Maybe_ we need to drop out of the loop if the channel is empty. _Maybe_ we need to understand how/why there is an empty channel in the listing.\r\n\r\nSo, output each `channel` as we process it, but don't fall over if it's empty."
+        },
+        {
+          "id": 1161726770,
+          "user": "IanMayo",
+          "created_at": "2022-06-21T13:09:38Z",
+          "updated_at": "2022-06-21T13:09:38Z",
+          "body": "Have learned some more. The game that was breaking was at \"Turn 0 - Adjudication\", and contained no messages at all so far.\r\n\r\nOnce I'd moved forward a single turn to \"Turn 1 - Planning Phase\", the crash didn't happen.\r\n\r\nThe issue was not related to messages.  In a game at turn 0, with a single message, the crash still happens."
+        },
+        {
+          "id": 1161737126,
+          "user": "IanMayo",
+          "created_at": "2022-06-21T13:17:59Z",
+          "updated_at": "2022-06-21T13:17:59Z",
+          "body": "Ok, steps to reproduce:\r\n- create new wargame\r\n- add a new force \"Blue\", leave it with default role \"CO\"\r\n- add a new force \"Red\", leave it with default role \"CO\"\r\n- add a new channel \"All chat\", put white and blue into it\r\n- in player window, login as Blue\r\n- in Admin window, remove Red from channel. Save channel. See blue screen appear"
+        },
+        {
+          "id": 1162805149,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-22T08:26:39Z",
+          "updated_at": "2022-06-22T08:26:39Z",
+          "body": "> * add a new channel \"All chat\", put white and blue into it\r\n\r\nIt crashes for me when I click on the channel tab (#1615), so I can't reproduce this. "
+        },
+        {
+          "id": 1164634731,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-23T16:38:08Z",
+          "updated_at": "2022-06-23T16:38:08Z",
+          "body": "Here's me doing the steps in Small Wargame: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/175350374-828f8363-4100-4795-9bd0-b1aabc63bb20.mp4\r\n\r\nDoesn't crash. Had to refresh the browser in order for the channel to appear. \r\n"
+        },
+        {
+          "id": 1164635771,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-23T16:39:16Z",
+          "updated_at": "2022-06-23T16:40:40Z",
+          "body": "> Here's me doing the steps in Small Wargame:\r\n> Shend.s.Channel.mp4\r\n> \r\n> Doesn't crash. Had to refresh the browser in order for the channel to appear.\r\n\r\nUpdate: Player tab crashed when I deleted the channel in the Admin tab. Cleared up after refreshing."
+        },
+        {
+          "id": 1164760744,
+          "user": "IanMayo",
+          "created_at": "2022-06-23T18:56:43Z",
+          "updated_at": "2022-06-23T18:56:43Z",
+          "body": "Hello @ShendMikullovci - I've tested the \"edit channel\" functionality, and merged the PR.\r\n\r\nBut, I missed your feedback that something was crashing.\r\n\r\nEarlier today it was crashing on update, but I fixed it.\r\n\r\nAnyway - I welcome you trying to reproduce your steps on the current `develop` branch."
+        },
+        {
+          "id": 1166493336,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-26T10:56:06Z",
+          "updated_at": "2022-06-26T18:00:18Z",
+          "body": "> add a new channel \"All chat\", put white and blue into it\r\n\r\nHere's me repeating these steps: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/175810889-37c3aba2-d3d6-4184-b193-f22126b5b4d8.mp4\r\n\r\nNotice how I encounter problems adding Forces to the Channels in the Channel Tab (original issue #1414).\r\n\r\nOtherwise, the page doesn't seem to be crashing. The Force only disappears once the Channel has been saved in the Admin Page (which is good). \r\nOne weird little thing is that when I created the wargame, it immediately landed on the Channel Tab, which has never happened before. You can see it in the beginning of the video."
+        },
+        {
+          "id": 1167314855,
+          "user": "IanMayo",
+          "created_at": "2022-06-27T12:52:17Z",
+          "updated_at": "2022-06-27T12:52:17Z",
+          "body": "Issue resolved, and tested."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 720
+}

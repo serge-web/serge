@@ -1,0 +1,53 @@
+{
+  "number": 1779,
+  "title": "Fixes for clear turns and popup close button",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-12T15:50:22Z",
+  "updated_at": "2022-08-12T16:16:26Z",
+  "closed_at": "2022-08-12T16:16:26Z",
+  "merged_at": "2022-08-12T16:16:26Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1779",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1779/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1779/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1779",
+  "body": "Fixes #1769\r\nFixes #1765 ",
+  "additions": 18,
+  "deletions": 12,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1769
+  ],
+  "issues": [
+    {
+      "id": 1337130121,
+      "number": 1769,
+      "title": "B1 orders ignored",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-12T12:10:55Z",
+      "updated_at": "2022-08-12T16:16:26Z",
+      "closed_at": "2022-08-12T16:16:26Z",
+      "body": "Mark created orders for his assets, and submitted them. \r\n\r\nWhen he went into adjudication, but the new routes weren't there - they were still the original ones.\r\n\r\nThe other player's new routes were present.  Did Mark fail to click \"Submit Routes\"?\r\n\r\nIssue happens on Mark's PC for other assets.   Mark was able to submit adjudication.  Seems sensitive to Mark's laptop: UNC3019\r\n\r\nOk.  We shouldn't have \"Clear turn from xxx\" for the previous history location.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/184364551-bd34e13f-985d-4881-8aa5-9e4230e786ed.png)\r\n\r\n",
+      "labels": [
+        "bug",
+        "4watu"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/184364551-bd34e13f-985d-4881-8aa5-9e4230e786ed.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 30
+}

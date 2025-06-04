@@ -1,0 +1,120 @@
+{
+  "number": 1488,
+  "title": "1486: Heroku instance not working",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-06T10:05:29Z",
+  "updated_at": "2022-04-08T16:11:57Z",
+  "closed_at": "2022-04-08T12:24:18Z",
+  "merged_at": "2022-04-08T12:24:18Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1488",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1488/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1488/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1488",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1486\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 7,
+  "deletions": 5,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 2,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1090485728,
+      "user": "IanMayo",
+      "created_at": "2022-04-06T16:49:12Z",
+      "updated_at": "2022-04-06T16:49:12Z",
+      "body": "Sorry @lilitkarapetyan - I think I've broken your branch.\r\n\r\nBack tomorrow.\r\n\r\n![Screenshot 2022-04-06 at 17 48 39](https://user-images.githubusercontent.com/1108513/162026311-9d33e5d6-4111-4790-9e1e-2838ce4d45be.png)\r\n "
+    },
+    {
+      "id": 1092980818,
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-08T15:12:49Z",
+      "updated_at": "2022-04-08T15:12:49Z",
+      "body": "> Working fine.\r\n\r\nNot for me. So far, I can only access deployments, but can't launch the game or the admin page on my own."
+    },
+    {
+      "id": 1092992915,
+      "user": "IanMayo",
+      "created_at": "2022-04-08T15:19:25Z",
+      "updated_at": "2022-04-08T15:19:25Z",
+      "body": "Oh, sorry :-(. Back on it :-)"
+    },
+    {
+      "id": 1093050590,
+      "user": "IanMayo",
+      "created_at": "2022-04-08T16:11:57Z",
+      "updated_at": "2022-04-08T16:11:57Z",
+      "body": "Pretty sure we have an issue here @lilitkarapetyan \r\n\r\nWhen I run `serge-review` Serge can't see the database files:\r\n![image](https://user-images.githubusercontent.com/1108513/162480878-f03bf464-e9d9-4253-a479-9e7ee5e91846.png)\r\n\r\nHere is the Heroku log:\r\n```\r\nfdf630565adb fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=10ms status=200 bytes=405 protocol=https\r\n2022-04-08T16:10:43.494703+00:00 heroku[router]: at=info method=GET path=\"/static/js/main.e2dcc27b.chunk.js\" host=serge-review.herokuapp.com request_id=9dee820e-18b3-4a8b-8027-26b04cc819ed fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=16ms status=200 bytes=632601 protocol=https\r\n2022-04-08T16:10:43.600475+00:00 heroku[router]: at=info method=GET path=\"/static/js/2.ba901882.chunk.js\" host=serge-review.herokuapp.com request_id=3a0ba74e-f028-4d31-9cc4-66d2d6a91dd0 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=92ms status=200 bytes=7071864 protocol=https\r\n2022-04-08T16:10:44.101473+00:00 heroku[router]: at=info method=GET path=\"/static/css/main.3aea5249.chunk.css.map\" host=serge-review.herokuapp.com request_id=99e33ddd-10e7-464b-902e-ba135ba1229b fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=16ms status=200 bytes=1138371 protocol=https\r\n2022-04-08T16:10:44.140887+00:00 heroku[router]: at=info method=GET path=\"/static/css/2.8665f657.chunk.css.map\" host=serge-review.herokuapp.com request_id=ddd1eaf0-4b42-4be4-accf-ffaec1d8fa75 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=13ms status=200 bytes=1019621 protocol=https\r\n2022-04-08T16:10:49.204785+00:00 heroku[router]: at=info method=GET path=\"/static/js/2.ba901882.chunk.js.map\" host=serge-review.herokuapp.com request_id=1019f85f-80b0-4037-9688-95d269ee5db0 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=292ms status=200 bytes=17952019 protocol=https\r\n2022-04-08T16:10:49.230029+00:00 heroku[router]: at=info method=GET path=\"/static/js/main.e2dcc27b.chunk.js.map\" host=serge-review.herokuapp.com request_id=36ad4f64-d755-4d59-b7c0-9ab038353e19 fwd=\"86.167.241.208\" dyno=web.1 connect=3ms service=113ms status=200 bytes=2136504 protocol=https\r\n2022-04-08T16:10:49.640673+00:00 heroku[router]: at=info method=GET path=\"/static/media/OpenSans-Bold.f9fc9780.woff\" host=serge-review.herokuapp.com request_id=13266755-ffe4-4eba-8479-cc67d75929c9 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=2ms status=200 bytes=21006 protocol=https\r\n2022-04-08T16:10:49.626408+00:00 heroku[router]: at=info method=GET path=\"/static/media/OpenSans-Regular.c8ffdeb3.woff\" host=serge-review.herokuapp.com request_id=c44362ef-a5b9-4570-ae9d-8ce3147c82f2 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=1ms status=200 bytes=21026 protocol=https\r\n2022-04-08T16:11:05.785584+00:00 heroku[router]: at=info method=GET path=\"/manifest.json\" host=serge-review.herokuapp.com request_id=7761bd58-8efb-465b-a62c-ba0dfbfea45d fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=5ms status=304 bytes=291 protocol=https\r\n2022-04-08T16:11:19.559410+00:00 heroku[router]: at=error code=H12 desc=\"Request timeout\" method=GET path=\"/serge_info/_local/settings\" host=serge-review.herokuapp.com request_id=3701c7bc-9f67-4b85-840a-0ad03437fdec fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=30000ms status=503 bytes=0 protocol=https\r\n2022-04-08T16:11:19.596449+00:00 heroku[router]: at=error code=H12 desc=\"Request timeout\" method=GET path=\"/serge_info/_local/settings\" host=serge-review.herokuapp.com request_id=2c33a734-71c9-4e88-a4f5-b77e444b6516 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=30000ms status=503 bytes=0 protocol=https\r\n2022-04-08T16:11:19.818442+00:00 heroku[router]: at=error code=H12 desc=\"Request timeout\" method=GET path=\"/serge_info/_local/settings\" host=serge-review.herokuapp.com request_id=53939c70-a093-4a7f-942f-dbbd732c28e7 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=30000ms status=503 bytes=0 protocol=https\r\n2022-04-08T16:11:19.873382+00:00 heroku[router]: at=error code=H12 desc=\"Request timeout\" method=GET path=\"/serge_info/_local/settings\" host=serge-review.herokuapp.com request_id=882d16fa-b723-4ed0-9b04-96a27840520b fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=30000ms status=503 bytes=0 protocol=https\r\n2022-04-08T16:11:19.868335+00:00 heroku[router]: at=info method=GET path=\"/static/media/OpenSans-Semibold.dc95b864.woff\" host=serge-review.herokuapp.com request_id=2e285d76-681b-4109-895d-117690dd7787 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=2ms status=200 bytes=21126 protocol=https\r\n2022-04-08T16:11:19.887246+00:00 heroku[router]: at=info method=GET path=\"/favicon.ico\" host=serge-review.herokuapp.com request_id=b5682c62-594b-4089-9301-66528fb2cc42 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=4ms status=200 bytes=15739 protocol=https\r\n2022-04-08T16:11:20.078763+00:00 heroku[router]: at=info method=GET path=\"/healthcheck/missing/missing/The%20player%20has%20not%20shown%20any%20activity%20yet/The%20player%20has%20not%20shown%20any%20activity%20yet/healthcheck\" host=serge-review.herokuapp.com request_id=a00578f7-1555-4811-9e65-0b28654dfea8 fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=2ms status=304 bytes=204 protocol=https\r\n2022-04-08T16:11:21.973263+00:00 heroku[router]: at=error code=H12 desc=\"Request timeout\" method=GET path=\"/message_types\" host=serge-review.herokuapp.com request_id=5095ad81-ddc0-4d04-b598-c13f0eed1c2b fwd=\"86.167.241.208\" dyno=web.1 connect=0ms service=30000ms status=503 bytes=0 protocol=https\r\n```"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 843753798,
+      "user": "IanMayo",
+      "created_at": "2022-04-06T10:08:14Z",
+      "updated_at": "2022-04-06T10:08:14Z",
+      "body": "@lilitkarapetyan - this will work for Heroku, and for a dev machine.  But, when Serge is running on a LAN, we can't hard-code `localhost`. ",
+      "path": "packages/config/src/globals.ts",
+      "diff_hunk": "@@ -131,7 +131,7 @@ export const hiddenPrefix = '_#_'\n \n export const clearAll = 'clearAll'\n export const allDbs = 'allDbs'\n-export const socketPath = origin.replace('3000', '4000')\n+export const socketPath = 'http://localhost:4000'",
+      "html_url": "https://github.com/serge-web/serge/pull/1488#discussion_r843753798"
+    },
+    {
+      "id": 846040388,
+      "user": "IanMayo",
+      "created_at": "2022-04-08T12:00:25Z",
+      "updated_at": "2022-04-08T12:00:25Z",
+      "body": "@lilitkarapetyan - we can drop the `IBM_xxx` variables, can't we?",
+      "path": "packages/server/server.js",
+      "diff_hunk": "@@ -32,10 +30,10 @@ const runServer = (\n   const fs = require('fs')\n   const cors = require('cors')\n   const app = express()\n-  const http = require('http').createServer(app)\n   const { Server } = require('socket.io')\n+  const http = require('http').createServer(app)\n   let { IBM_URL, IBM_API } = process.env\n-  const io = new Server(IBM_URL && IBM_API ? http : 4000, { cors: { origin: '*' } })\n+  const io = new Server(process.env.PORT ? http : 4000, { cors: { origin: '*' } })\n \n   if (!IBM_URL || !IBM_API) {",
+      "html_url": "https://github.com/serge-web/serge/pull/1488#discussion_r846040388"
+    }
+  ],
+  "issue_numbers": [
+    1486
+  ],
+  "issues": [
+    {
+      "id": 1194322168,
+      "number": 1486,
+      "title": "Heroku instance not working",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-06T09:19:28Z",
+      "updated_at": "2022-07-04T10:47:45Z",
+      "closed_at": "2022-07-04T10:47:45Z",
+      "body": "I've cleared the `Heroku` environment variables for IBM API and URL.  But, the hosted instance is still falling over. It appears it's unable to create the `socket.io` that we use for fast connections.\r\n\r\nI'm pretty sure the issue is in this code:\r\n```\r\n  const http = require('http').createServer(app)\r\n  const { Server } = require('socket.io')\r\n  let { IBM_URL, IBM_API } = process.env\r\n  const io = new Server(IBM_URL && IBM_API ? http : 4000, { cors: { origin: '*' } })\r\n```\r\n\r\n@lilitkarapetyan  said this:\r\n```\r\nWe need only 4000 port anywhere instead of http\r\n\r\nAnd we can delete http and instead it use app in server.js\r\n```",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1092999467,
+          "user": "IanMayo",
+          "created_at": "2022-04-08T15:22:43Z",
+          "updated_at": "2022-04-08T15:22:43Z",
+          "body": "@lilitkarapetyan - hmm, things seemed to work ok in the PR branch, but now `serge-review` can't connect to a database.  I've asked it to re-deploy, just in case that fixes it."
+        },
+        {
+          "id": 1173667290,
+          "user": "IanMayo",
+          "created_at": "2022-07-04T10:47:45Z",
+          "updated_at": "2022-07-04T10:47:45Z",
+          "body": "All working now, after Heroku magically restored their GitHub integration."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/162026311-9d33e5d6-4111-4790-9e1e-2838ce4d45be.png",
+    "https://user-images.githubusercontent.com/1108513/162480878-f03bf464-e9d9-4253-a479-9e7ee5e91846.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 12
+}

@@ -1,0 +1,134 @@
+{
+  "number": 2884,
+  "title": "support wild card searches for label & id",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-22T02:32:59Z",
+  "updated_at": "2024-02-23T11:55:18Z",
+  "closed_at": "2024-02-23T11:55:18Z",
+  "merged_at": "2024-02-23T11:55:17Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2884",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2884/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2884/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2884",
+  "body": "Fixes #2849 ",
+  "additions": 9,
+  "deletions": 6,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 1,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1958840068,
+      "user": "Tristina1788",
+      "created_at": "2024-02-22T07:15:28Z",
+      "updated_at": "2024-02-22T07:15:28Z",
+      "body": "Checking on branch '2849-wildcard-search' , now Wildcard search for `label` and `id` as expected\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/a59fb8c5-24dd-4d8f-92af-78946fe27590\r\n\r\n"
+    },
+    {
+      "id": 1961090271,
+      "user": "Tristina1788",
+      "created_at": "2024-02-23T10:37:03Z",
+      "updated_at": "2024-02-23T10:37:03Z",
+      "body": "@IanMayo  @lebaphi  As we discussed, the label should be `ID/Label` . Now the filter is still label 'WildCard'. Should we fix it on this PR or another ticket for it?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/39efca1f-d356-40a2-af70-2795a72ff539)\r\n"
+    },
+    {
+      "id": 1961189309,
+      "user": "Tristina1788",
+      "created_at": "2024-02-23T11:49:23Z",
+      "updated_at": "2024-02-23T11:49:23Z",
+      "body": "@IanMayo  Now the label is changed as expected\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/287e2572-f759-4adc-8379-a7f00c1be7a2)\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1498833077,
+      "user": "IanMayo",
+      "created_at": "2024-02-22T08:19:56Z",
+      "updated_at": "2024-02-22T08:19:56Z",
+      "body": "Hello @lebaphi - how about defining the regex outside the `forEach` loop?",
+      "path": "client/src/Components/local/atoms/mapping-panel/index.tsx",
+      "diff_hunk": "@@ -184,11 +184,12 @@ export const MappingPanel: React.FC<MappingPanelProps> = ({ onClose, features, e\n         const propertyValue = get(f.properties, filterKey, '').toString().toLowerCase()\n         const searchKey = selectedFiltersProps[filterKey].value.toLowerCase()\n         if (filterKey === 'Wildcard' && searchKey) {\n-          // search wildcard by label\n+          // search wildcard by label & id\n           const label = get(f.properties, 'label', '').toString().toLowerCase()\n+          const id = get(f.properties, 'id', '').toString().toLowerCase()\n           try {\n             const rgex = new RegExp(searchKey)",
+      "html_url": "https://github.com/serge-web/serge/pull/2884#discussion_r1498833077"
+    }
+  ],
+  "issue_numbers": [
+    2849
+  ],
+  "issues": [
+    {
+      "id": 2132770189,
+      "number": 2849,
+      "title": "'Wild card' is on Filter although it 's not in any properties of item",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-02-13T16:55:21Z",
+      "updated_at": "2024-02-23T11:55:18Z",
+      "closed_at": "2024-02-23T11:55:18Z",
+      "body": "## 🐞 Bug description\r\n'Wild card' is on Filter although it 's not in any properties of item\r\n\r\n**Update from Ian:** the wild-card filter searches through the `label` field.  We should change it so that it does a wildcard search through the `label` *and* `id` fields - since in use there can be some very similar labels, so id is the quickest route to finding an element.\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Click on channel 'Core Mapping'\r\n3. Add filter 'Wild Cart'\r\n4. Notice it can return some items\r\n5. Click on item at step4\r\n6. Notice no item has properties 'Wild Card', seem it gets from label\r\n\r\n## ⚙️ Expected behavior\r\n`Wild card' is not on Filter because of it 's not in any properties of item. \r\n\r\n## 🖥️ Screenshots\r\n![image](https://github.com/serge-web/serge/assets/107697044/8df70888-2466-42fe-b070-dd760cc5cc18)\r\n\r\n\r\n## 💻 System information\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1943486715,
+          "user": "IanMayo",
+          "created_at": "2024-02-14T10:35:13Z",
+          "updated_at": "2024-02-14T10:35:13Z",
+          "body": "This is intended behaviour.  It is a full-text-search across all fields.\r\n\r\nOk @Tristina1788 ?"
+        },
+        {
+          "id": 1944015970,
+          "user": "Tristina1788",
+          "created_at": "2024-02-14T15:03:25Z",
+          "updated_at": "2024-02-14T15:03:25Z",
+          "body": "> This is intended behaviour. It is a full-text-search across all fields.\r\n> \r\n> Ok @Tristina1788 ?\r\n\r\n@IanMayo  Seem filter 'Wildcard' is only searched for 'Label' properties. I try to search 'Id' of an item but filter 'WildCard' doen't return any item.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/674e9011-1f0c-42eb-aa25-12d96a86431e)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/67a5b6ae-7b1f-4463-8cad-145d22ee4681)\r\n"
+        },
+        {
+          "id": 1956808292,
+          "user": "lebaphi",
+          "created_at": "2024-02-21T14:44:35Z",
+          "updated_at": "2024-02-21T14:44:35Z",
+          "body": "Hi @IanMayo and @Tristina1788, so do you want the Wildcard to search on all fields instead of `label` and `id`? If so, does it overlap in functionality with other filters?"
+        },
+        {
+          "id": 1957024564,
+          "user": "IanMayo",
+          "created_at": "2024-02-21T15:48:28Z",
+          "updated_at": "2024-02-21T15:50:10Z",
+          "body": "Hmm, I'm ok with `id` and `label`.  The other text fields tend to be drop-downs, so it's easier to search using the specific filter for that field.\r\n\r\nAah, but maybe there's a ux improvement.  Can we name it a bit better?  Any thoughts @Tristina1788 \r\n\r\nIt's a wildcard search, and it covers the `id` and `label` fields."
+        },
+        {
+          "id": 1958831383,
+          "user": "Tristina1788",
+          "created_at": "2024-02-22T07:07:51Z",
+          "updated_at": "2024-02-22T07:07:51Z",
+          "body": "> Hmm, I'm ok with `id` and `label`. The other text fields tend to be drop-downs, so it's easier to search using the specific filter for that field.\r\n> \r\n> Aah, but maybe there's a ux improvement. Can we name it a bit better? Any thoughts @Tristina1788\r\n> \r\n> It's a wildcard search, and it covers the `id` and `label` fields.\r\n\r\nHow do you think about 'ID/Label' ?"
+        },
+        {
+          "id": 1958934379,
+          "user": "IanMayo",
+          "created_at": "2024-02-22T08:25:00Z",
+          "updated_at": "2024-02-22T08:25:00Z",
+          "body": "> How do you think about 'ID/Label' \r\n\r\n@lebaphi - do you know if it's possible to have `ID/Label` plus a search icon as the label?  I think we need some extra _clue_ that it's a wildcard/regexp search."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/39efca1f-d356-40a2-af70-2795a72ff539",
+    "https://github.com/serge-web/serge/assets/107697044/287e2572-f759-4adc-8379-a7f00c1be7a2",
+    "https://github.com/serge-web/serge/assets/107697044/8df70888-2466-42fe-b070-dd760cc5cc18",
+    "https://github.com/serge-web/serge/assets/107697044/674e9011-1f0c-42eb-aa25-12d96a86431e",
+    "https://github.com/serge-web/serge/assets/107697044/67a5b6ae-7b1f-4463-8cad-145d22ee4681"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 15
+}

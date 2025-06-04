@@ -1,0 +1,40 @@
+{
+  "number": 1067,
+  "title": "trial stack upgrade",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-09-03T16:23:00Z",
+  "updated_at": "2022-05-10T10:09:26Z",
+  "closed_at": "2022-05-10T10:09:22Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1067",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1067/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1067/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1067",
+  "body": "Trial upgrading the Heroku stack from 18 to 20, to see if it overcomes the intermittent build timeout issue",
+  "additions": 3,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1122191884,
+      "user": "IanMayo",
+      "created_at": "2022-05-10T10:09:22Z",
+      "updated_at": "2022-05-10T10:09:22Z",
+      "body": "It didn't overcome the intermittent build issue. We overcame that by reducing the number of storybook tests."
+    }
+  ],
+  "review_comments_data": [],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 3
+}

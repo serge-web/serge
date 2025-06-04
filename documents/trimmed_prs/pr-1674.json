@@ -1,0 +1,700 @@
+{
+  "number": 1674,
+  "title": "1635: General chat redesign",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-15T11:14:58Z",
+  "updated_at": "2022-07-25T10:03:37Z",
+  "closed_at": "2022-07-22T16:07:57Z",
+  "merged_at": "2022-07-22T16:07:57Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1674",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1674/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1674/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1674",
+  "body": "Fixes #1635 \r\n\r\n<img width=\"254\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/179212733-07a4384b-931f-4969-8832-6ca7933758a3.png\">\r\n\r\n",
+  "additions": 470,
+  "deletions": 279,
+  "changed_files": 18,
+  "labels": [],
+  "comments_count": 22,
+  "review_comments_count": 0,
+  "total_comments": 22,
+  "comments_data": [
+    {
+      "id": 1185490226,
+      "user": "IanMayo",
+      "created_at": "2022-07-15T12:19:37Z",
+      "updated_at": "2022-07-15T12:21:51Z",
+      "body": "Nicely done @lebaphi \r\n\r\n1. The icon next to the `wargame title` is an `exit` button - which should take the player back to the `select game` / `select role` view, please.\r\n2. I think we can get rid of the horizontal line beneath the wargame title.  The block below is in a different colour, so we already know they're different elements."
+    },
+    {
+      "id": 1185554580,
+      "user": "lebaphi",
+      "created_at": "2022-07-15T13:36:48Z",
+      "updated_at": "2022-07-15T13:36:48Z",
+      "body": "I've updated @IanMayo "
+    },
+    {
+      "id": 1185625824,
+      "user": "IanMayo",
+      "created_at": "2022-07-15T14:54:57Z",
+      "updated_at": "2022-07-15T14:54:57Z",
+      "body": "Thanks @lebaphi \r\n\r\nOne more item. There's an extra \"Planning\" in the turn panel:\r\n![image](https://user-images.githubusercontent.com/1108513/179248782-ffcedc84-b36b-43db-8cd6-845c78e53698.png)\r\n\r\nAaah, hold on, that's not the issue.  I realise what @ShendMikullovci intended.  The box should contain the two words \"Planning\" and \"Adjudication\".   The \"current\" one will be shown in highlight, and the other darker.  So, if you play as \"White - Game Control\", you can click on \"Start next phase\" and the panel will cycle between the two states.\r\n"
+    },
+    {
+      "id": 1186152953,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-16T11:01:24Z",
+      "updated_at": "2022-07-16T11:01:24Z",
+      "body": "Hi guys! Looks much smoother already. Couple of things: \r\n\r\n1. The screen seems to be outlined now: \r\n\r\n![Outline](https://user-images.githubusercontent.com/85491794/179351572-0452d057-4df6-4b26-9d71-802a1cf62ebc.png)\r\n\r\nI'm not sure if this effect was intended. Kind of gave me the feeling that I was sharing the screen on Zoom or like my screen was being recorded. \r\n\r\n2. The features on the right hand side seem to be very tightly joined together: \r\n\r\n![Space](https://user-images.githubusercontent.com/85491794/179351683-4f114174-e5de-4597-bb70-288b5fcdfe41.png)\r\n\r\nThe area in red is quite squeezed in while the area in orange occupies too much unnecessary space. We could gain quite a bit of space by shrinking the chat length and redistributing the features, spacing them out and giving them some more leg room.\r\n\r\n3. Start New Phase button could do in light blue, to attract attention as key button for this screen.\r\n4. The tabs could do a better job depicting their function if they were squared onto the chat itself. Nothing too fancy, simply making them the same size as the chat box. It could look something like this: \r\n\r\n![Chat Tabs](https://user-images.githubusercontent.com/85491794/179352144-22b75104-4e0b-48ec-8589-73a89ea7ea9a.png)\r\n\r\n5. The Read/Unread button seems to only be marking messages as read, but not unread. \r\n"
+    },
+    {
+      "id": 1187089037,
+      "user": "IanMayo",
+      "created_at": "2022-07-18T11:06:46Z",
+      "updated_at": "2022-07-18T11:06:46Z",
+      "body": "1. Well spotted @ShendMikullovci - I hadn't seen that.   @lebaphi - there is a thin grey line around the edge of the app (left side in following screenshot):\r\n![new border](https://user-images.githubusercontent.com/1108513/179497198-81912c45-fadd-449b-9cf2-4c5c37191fa2.png)\r\n2. You are on a tall screen.  In the past 2 wargames, players have sat in a meeting room, all looking at a projector version on a screen.  The projectors available are quite low resolution - so Serge really fills the screen. That is partly why the \"out-of-game\" component is so narrow.  The only way for Serge to work on a low resolution is to squash the controls together, but let other controls expand to fill the remaining space.\r\n3. `Start new phase`.  Only the Game Control sees this button.  If it was lighter, it would lose contrast, since the letters are white, and the background is white.  Is there a precedent for a light-blue button anywhere else in the app?  Another option is to use a larger text.\r\n4. Yes, I see your point. I guess they don't have to exactly fill the space, but the left-hand of \"Insights\" should certainly align with the left of the panel.  So, IMHO the right-hand of the tabs doesn't have to align - since we don't do that in the \"in-game\" messages:\r\n![image](https://user-images.githubusercontent.com/1108513/179498495-4486e337-0ff8-4634-9590-87ea9331f6bb.png)\r\n5. Yes, well spotted. Could you record this as a separate issue please, it's something that was already broken, and doesn't relate to these UI updates.\r\n "
+    },
+    {
+      "id": 1188770214,
+      "user": "lebaphi",
+      "created_at": "2022-07-19T08:41:58Z",
+      "updated_at": "2022-07-19T08:41:58Z",
+      "body": "@IanMayo @ShendMikullovci , for the issue 5, I only see the button `Mark All As Read`, that's why we only have one icon to mark all message as read.\r\n\r\n<img width=\"345\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/179707285-7699a668-2bd7-4840-bef2-abdca7beddce.png\">\r\n"
+    },
+    {
+      "id": 1188883733,
+      "user": "IanMayo",
+      "created_at": "2022-07-19T10:28:18Z",
+      "updated_at": "2022-07-19T10:28:18Z",
+      "body": "Hello @lebaphi - one more item:\r\nhttps://github.com/serge-web/serge/pull/1674#issuecomment-1185625824"
+    },
+    {
+      "id": 1189641872,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-19T23:19:09Z",
+      "updated_at": "2022-07-19T23:19:09Z",
+      "body": "> 3. `Start new phase`.  Only the Game Control sees this button.  If it was lighter, it would lose contrast, since the letters are white, and the background is white.  Is there a precedent for a light-blue button anywhere else in the app?  Another option is to use a larger text.\r\n\r\nOh, my bad. The blue I'm referring to is the one I used in the latest designs of #991 (\"Save Overview\" button), #1400 (\"Start New Phase\" button), etc. It's HEX is 1A65D7. It doesn't lose contrast in white (actually ends up popping out more) and it doesn't blend in with our dark blue backgrounds. \r\n\r\n> 4. Yes, I see your point. I guess they don't have to exactly fill the space, but the left-hand of \"Insights\" should certainly align with the left of the panel.  So, IMHO the right-hand of the tabs doesn't have to align - since we don't do that in the \"in-game\" messages:\r\n>    ![image](https://user-images.githubusercontent.com/1108513/179498495-4486e337-0ff8-4634-9590-87ea9331f6bb.png)\r\n\r\nI understand. However, the general chat tabs and in-game channel tabs are two different features that serve very different purposes. They've also been clearly presented as different (through the intro steps), which is why a different display logic would apply to each. That's why I think it's important to treat the chat as such. "
+    },
+    {
+      "id": 1189642348,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-19T23:19:58Z",
+      "updated_at": "2022-07-19T23:19:58Z",
+      "body": "> @IanMayo @ShendMikullovci , for the issue 5, I only see the button `Mark All As Read`, that's why we only have one icon to mark all message as read.\r\n> \r\n> <img alt=\"image\" width=\"345\" src=\"https://user-images.githubusercontent.com/26705621/179707285-7699a668-2bd7-4840-bef2-abdca7beddce.png\">\r\n\r\nI'll include animations for buttons that have double-use from now on."
+    },
+    {
+      "id": 1189651167,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-19T23:37:30Z",
+      "updated_at": "2022-07-19T23:38:51Z",
+      "body": "> > @IanMayo @ShendMikullovci , for the issue 5, I only see the button `Mark All As Read`, that's why we only have one icon to mark all message as read.\r\n> > <img alt=\"image\" width=\"345\" src=\"https://user-images.githubusercontent.com/26705621/179707285-7699a668-2bd7-4840-bef2-abdca7beddce.png\">\r\n> \r\n> I'll include animations for buttons that have double-use from now on.\r\n\r\nHere's the animation for that @lebaphi :\r\nhttps://user-images.githubusercontent.com/85491794/179865778-2c033009-4ba4-4692-889e-5ee54eeb02cb.mp4\r\n\r\nAs you can see, hitting on the \"Mark Read\" button removes the notification counter and the bold effect on the messages. Hitting on \"Mark Unread\" brings back the counter and the bold effect.\r\n"
+    },
+    {
+      "id": 1190019570,
+      "user": "IanMayo",
+      "created_at": "2022-07-20T09:04:02Z",
+      "updated_at": "2022-07-20T09:04:02Z",
+      "body": "Nice work, thanks @lebaphi \r\n\r\nI _think_ we should de-highlight the \"not current phase\" label.  The current one is larger, but I the non-current one is the same size & color as the \"Phase\" label.  IMHO it should be 50% transparent, or something like that...\r\n\r\nWhat do you think @ShendMikullovci ?\r\n![screencase](https://i.gyazo.com/a5d6480571178ed85528bf98745b88e7.gif)"
+    },
+    {
+      "id": 1190281772,
+      "user": "lebaphi",
+      "created_at": "2022-07-20T13:22:47Z",
+      "updated_at": "2022-07-20T13:22:47Z",
+      "body": "I've updated @IanMayo \r\n<img width=\"209\" alt=\"Screen Shot 2022-07-20 at 8 19 53 PM\" src=\"https://user-images.githubusercontent.com/26705621/179992873-c24a0c80-dfd0-424f-bbb1-adc6ea2c7598.png\">\r\n<img width=\"206\" alt=\"Screen Shot 2022-07-20 at 8 22 26 PM\" src=\"https://user-images.githubusercontent.com/26705621/179992892-a3b8b334-61da-41dc-9d5c-8d136a4163f5.png\">\r\n\r\n"
+    },
+    {
+      "id": 1190347468,
+      "user": "IanMayo",
+      "created_at": "2022-07-20T14:18:58Z",
+      "updated_at": "2022-07-20T14:18:58Z",
+      "body": "Hi @lebaphi - I'm just testing new phase presentation.\r\n\r\nIt looks good. But, I have a minor vertical alignment issue with this wargame:\r\n![image](https://user-images.githubusercontent.com/1108513/180005315-6970fee8-6cbf-4705-bec9-ba7e0172938d.png)\r\n\r\n\r\nI _guess_ the `h3` and the `fontawesomeicon` need to be vertically aligned in the middle of the parent box."
+    },
+    {
+      "id": 1190353082,
+      "user": "IanMayo",
+      "created_at": "2022-07-20T14:23:39Z",
+      "updated_at": "2022-07-20T14:34:53Z",
+      "body": "Oh dear @ShendMikullovci - I think I've just come up with a scary issue.\r\n\r\n`START NEW PHASE` is below 3 buttons and above 2 tab buttons.  A bad mouse click for any of them could accidentally trigger a step to a new phase - throwing away routes currently being planned.\r\n\r\nBut, if we move the button to above the \"turn marker\" box, it's only near to the \"return to welcome page\" button - which isn't expected to be used very often at all.  Aah, or we could put it back inside the \"turn marker\" box. If it was above the \"Current time\" label, there is a \"buffer\" between the 3 action buttons and the next step button.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/180005889-3183f0c1-dab8-4081-be51-21409687b726.png)\r\n\r\nNote: if we do put \"next phase\" button inside \"turn marker\" box, we'll need a different shade.  @ShendMikullovci has already suggested shade to use:\r\n![image](https://user-images.githubusercontent.com/1108513/180009100-92f191cf-3d61-4eed-bc6e-c41987ba7d3a.png)\r\n\r\n"
+    },
+    {
+      "id": 1190486540,
+      "user": "IanMayo",
+      "created_at": "2022-07-20T16:18:36Z",
+      "updated_at": "2022-07-20T16:18:36Z",
+      "body": "After endless linter fixes, I've pushed a version with \"Start Next Phase\" back inside the Turn Progression box:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/180032103-127c4ffd-7c91-4035-a0c2-dd509c5bbeb9.png)\r\n\r\nSo, @lebaphi - I think the only remaining issue is the \"Welcome page\" icon alignment: https://github.com/serge-web/serge/pull/1674#issuecomment-1190347468"
+    },
+    {
+      "id": 1190877561,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-20T23:43:47Z",
+      "updated_at": "2022-07-21T00:10:30Z",
+      "body": "Thanks guys! \r\n\r\nLove the dimming of the inactive phase. The button inside the box works as well, helps us avoid that accident hopefully. \r\n\r\nCouple of things I wanted to address: \r\n\r\n1. Could we have rounder corners for the action buttons please? It smoothes out the entire look and makes them look more like actual buttons. \r\n2. I also noticed the button reacts by changing colors upon hover. I don't think that's necessary. A simple dropshadow could do the trick as well:\r\n\r\nhttps://user-images.githubusercontent.com/85491794/180098662-5cdb98ef-d224-4273-bbb6-2d04db25007c.mp4\r\n\r\n3. The turn box could do with some rounder corners as well and the same color as the \"Game Admin\" chat tab. Now that I think of it, why did we settle on the turn box not covering the width of the chat? @lebaphi could be right by putting an outline between the chat and the screen and we might have rushed our hand telling him to remove it...\r\n\r\nEssentially, the right hand side has had two main issues regarding visibility: It blends in with the screen (unless we use bright colors) and it blends with itself (chat blends in with upper features/buttons). This latter issue is even more important because the chat and the features that happen to be above it are actually completely unrelated. By placing an outline, we make that dichotomy: \r\n\r\n![New Screen](https://user-images.githubusercontent.com/85491794/180100546-8a5bc895-2d76-4ce5-ae90-1d5fc1181ca7.png)\r\n\r\nHere, the time box (+ features) and the chat are visibly separate from the channels (which maintains our conscious intent on separating them). But more importantly, the time box (+ features) and the chat are _visibly separate from each other_. Our current display doesn't really emphasize that. In this design, every element takes up its adequate spot and is equally visible (I feel like?). The reason why I left the 3 buttons outside of the box (namely, Feedback, Player Log and Intro) is because we want to avoid the user accidentally clicking Start New Phase. This visual separation reduces that risk. What do you guys think?"
+    },
+    {
+      "id": 1191295588,
+      "user": "IanMayo",
+      "created_at": "2022-07-21T10:05:21Z",
+      "updated_at": "2022-07-21T10:05:21Z",
+      "body": "> Rounder corners\r\n\r\nYes please @lebaphi - let's have rounder corners for the whole \"turn progression\" box, and the \"Start new phase\" button.\r\n\r\n> I also noticed the button reacts by changing colors upon hover. I don't think that's necessary. A simple dropshadow could do the trick as well:\r\n\r\nI've just done some investigating.  I didn't think we had hover action on any other buttons, but it seems most of the `Submit` buttons do change color on hover (I think it's a standard shading that comes with our Material UI toolkit).  The hover shadow is probably too subtle for many Serge users.  So, I think it's right to stick with the hover - we've just got to find the right color.\r\n\r\n@ShendMikullovci - there is a gap between the bottom of `Game Admin` and the `New admin message` box.  I don't think this is right, since the `new admin message` box is a part of `Game Admin` - and it's not present for the `Insights` tab."
+    },
+    {
+      "id": 1193091301,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-23T09:03:01Z",
+      "updated_at": "2022-07-23T09:03:01Z",
+      "body": "> @ShendMikullovci - there is a gap between the bottom of `Game Admin` and the `New admin message` box. I don't think this is right, since the `new admin message` box is a part of `Game Admin` - and it's not present for the `Insights` tab.\r\n\r\nHi Ian! You're right. That's because the tabs lack the curvature to make them visually connected to the chat. My bad, lost focus on that. Here we go: \r\n\r\n![Rounded + Connected tabs](https://user-images.githubusercontent.com/85491794/180598307-ce82adcc-3f10-4ee9-96fb-5bca6fb02089.png)\r\n\r\n"
+    },
+    {
+      "id": 1193096203,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-23T09:40:31Z",
+      "updated_at": "2022-07-23T09:40:31Z",
+      "body": "This got me thinking about the design for the player end. They don't have access to an insights tab, so how would the chat look for them? \r\n\r\nCouple of ideas: \r\n\r\n![Chat Looks for Players](https://user-images.githubusercontent.com/85491794/180598966-729cb94a-33dc-4e60-aa88-fb76f88ce533.png)\r\n\r\nTab look: The tab is expanded to fit accross the chat window, with the side curvature included. One problem with this is that you can argue that essentially, it's not a tab, since there's no other tabs next to it. Instead, it's more of a header. \r\n\r\nHeader 1: Same size without curvature on the bottom placed in the same spot on the X/Y axis. \r\n\r\nHeader 2: Larger size (to touch the top of the chat) placed in the same spot on the X/Y axis. For Header 1 and 2 you can argue that the color is inappropriate, since for GC we use the navy blue to indicate the opened tab (which has been clicked on). Players' side doesn't present the option to click (since there's no Insights or other tab to click on).\r\n\r\nHeader 3: Same as Header 2, except white. Problem here is that it would be laying on top of a white background. Tried a grey one and it's just plain ugly.\r\n\r\nWe could also go with a no-tab look: \r\n\r\n![No Tab Chat](https://user-images.githubusercontent.com/85491794/180599826-ed0499b7-fa42-4899-9b78-d08b257fd98a.png)\r\n\r\n1st one only has a long underline, similar to the title of a wargame in the admin pages. The 2nd one only underlines the title of the chat. \r\n\r\nLet me know what you guys think!"
+    },
+    {
+      "id": 1193774134,
+      "user": "IanMayo",
+      "created_at": "2022-07-25T08:57:22Z",
+      "updated_at": "2022-07-25T08:57:22Z",
+      "body": "Hello @ShendMikullovci - thanks for considering this.\r\n\r\nRight now, the single-tab issue isn't a great worry.  There _may_ be games where the player is only a member of one channel - so there will only be one tab on the left-hand side.  That's not an issue.\r\n\r\nMy issue with your designs above remains.  The \"new message\" box has to be a _child_ of the `Game Admin` component. That's because it isn't present when viewing `Game Insights`.  So, there should not be a space between the list of messages Game Admin messages and the new message box.  The box will not be present for \"Insights\".\r\n\r\nThe current layout suggests the new message box isn't directly related to \"Game Admin\" messages."
+    },
+    {
+      "id": 1193829693,
+      "user": "ShendMikullovci",
+      "created_at": "2022-07-25T09:50:55Z",
+      "updated_at": "2022-07-25T09:50:55Z",
+      "body": "Oh! Something like this you mean?: \r\n\r\n![Chat Message Without Box](https://user-images.githubusercontent.com/85491794/180749561-9d2d0700-8624-463a-9edf-23d07a43cb8a.png)\r\n\r\n"
+    },
+    {
+      "id": 1193841556,
+      "user": "IanMayo",
+      "created_at": "2022-07-25T10:03:37Z",
+      "updated_at": "2022-07-25T10:03:37Z",
+      "body": "Yes - that solves the issue."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    991,
+    1400,
+    1635
+  ],
+  "issues": [
+    {
+      "id": 966451587,
+      "number": 991,
+      "title": "As a Game Designer I need to specify turn interval in months/years",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-11T10:45:40Z",
+      "updated_at": "2023-11-13T11:34:41Z",
+      "closed_at": "2023-11-13T11:34:40Z",
+      "body": "Serge currently allows game turn lengths to be specified using days, hours, minutes, seconds:\r\n![image](https://user-images.githubusercontent.com/1108513/129016115-c59b0f9b-feb3-4c25-abb3-630395456901.png)\r\n\r\n\r\nFor larger scale wargames, the interval could be in months or years, such as each turn spanning a two-month period (Jan21-Feb21, then Mar21-Apr21, then May21-Jun-12, etc). Given the changing length of both of these items (in terms of days), we need an alternate way of specifying game turn length.\r\n\r\nSo, I _think_ we need a range of turn length strategies:\r\n* days/hours/minutes\r\n* months\r\n* years\r\n\r\nMonths and years would just take an integer value, using as appropriate in the turn time incrementing.\r\n\r\nI _think_ we need a two-step UI.  First select the turn mode, then enter the value.\r\n\r\nHere is what the data structure will look like, I guess:\r\n```\r\nexport interface MillisecondTurns {\r\n  millis: number\r\n}\r\n\r\nexport interface MonthTurns {\r\n  months: bigInt\r\n}\r\n\r\nexport interface YearTurns {\r\n years: bigInt\r\n}\r\n\r\nexport type GameTurnLength = MillisecondTurns | MonthTurns | YearTurns\r\n\r\n```\r\n\r\nWell, to be backward compatible with our current data, it would be:\r\n```\r\nexport type GameTurnLength = number | MillisecondTurns | MonthTurns | YearTurns\r\n```",
+      "labels": [
+        "wontfix"
+      ],
+      "comments": [
+        {
+          "id": 919969792,
+          "user": "IanMayo",
+          "created_at": "2021-09-15T12:20:32Z",
+          "updated_at": "2021-09-16T09:54:57Z",
+          "body": "Hello @ShendMikullovci \r\nthis is a feature that overlaps with your other design task (#954)\r\n\r\nSo far, the turn-period has been expressed in days, hours, or minutes.  All of these can be represented by a single number (milliseconds) in the software, or via a `DD HH:MM:SS` masked text control.\r\n\r\nBut, in this game they want the turn to move forward 2 months. So, they expect it to step from 1st January to 1st March - **not by 60 days**.  The time period represented by two months changes - so we need a different way of representing that.  While we add `months`, we should probably also support `years`\r\n\r\nSo that's 3 different ways of expressing the turn size:\r\n* Days/Hours/Minutes\r\n* Months\r\n* Years\r\n\r\nI _guess_ we could support this through a drop-down to select the type, then a suitable text field to provide the detail.  Or, a control with three tabs - one for each style. Each tab would contain a suitable edit control - and we'd store the value of the selected tab.\r\n\r\nAah, once the design for this is complete, we can feed it back into #954 \r\n\r\n(I've separated this out because this feature would be useful for the current wargame)"
+        },
+        {
+          "id": 922282898,
+          "user": "ShendMikullovci",
+          "created_at": "2021-09-18T14:18:10Z",
+          "updated_at": "2021-09-18T14:18:10Z",
+          "body": "After our talk, and our joint affinity over the Tabs idea, I decided to give the design a try. This is how the tabs look: \r\n![Format Tab](https://user-images.githubusercontent.com/85491794/133891793-91615945-95d1-46c1-8afd-d511a3a819c5.png)\r\n\r\nDHM Stands for Days/Hours/Minutes. \r\n\r\nHere DHM is the selected mode as you can see by the highlighted DHM rectangle. “Turn Duration” represents the length of the turn in the primary time format, in this example, it would be 1 Day. The format selected to display the desired view of the mode is DAYSDAYS:HOURSHOURS:MINUTESMINUTES. \r\n\r\nOnce we collapse the “Format” drop-down, we see the option to display different formats. “YY/MM/DD HH:MM” is dimmed because it logically seems too long of a time length to display time in years, if we have selected the DHM mode. If we need to account for Months and/or Years, we click on “Months” or “Years” mode to do so.\r\n\r\nRefer to Issue #954 to view it in the “Game Overview” window.\r\n\r\nLet me know what you think!\r\n\r\n"
+        },
+        {
+          "id": 922333643,
+          "user": "IanMayo",
+          "created_at": "2021-09-18T16:08:58Z",
+          "updated_at": "2021-09-18T16:08:58Z",
+          "body": "Thanks @ShendMikullovci - the single integer value is ok for `months` or `years`.  But, for DHM we need a text field with `DD HH MM SS`.\r\n So, a 2 day step would be:\r\n`02 00 00 00`\r\nOr a 30 minute step would be:\r\n`00 00 30 00`\r\nAnd so on."
+        },
+        {
+          "id": 922361715,
+          "user": "ShendMikullovci",
+          "created_at": "2021-09-18T19:33:14Z",
+          "updated_at": "2021-09-18T19:33:14Z",
+          "body": "Noted! Here's how it looks now:\r\n![Format Tab](https://user-images.githubusercontent.com/85491794/133906490-1cf237ef-64d2-415a-8679-8ad711b34351.png)\r\n\r\n![Game Overview Optimization 3 Tab Addition](https://user-images.githubusercontent.com/85491794/133906494-7305618a-a64a-43b2-9fbf-0eb23bedf1fd.png)\r\n\r\n \r\n"
+        },
+        {
+          "id": 922699065,
+          "user": "IanMayo",
+          "created_at": "2021-09-20T07:43:41Z",
+          "updated_at": "2021-09-20T07:43:41Z",
+          "body": "Yes, great. The labels (like \"Turn Duration\") should be _almost_ alongside the control they refers to.\r\n\r\nI _don't think_ we need \"dark mode\" for the new panel.  It's not all that different to the other content."
+        },
+        {
+          "id": 922772842,
+          "user": "ShendMikullovci",
+          "created_at": "2021-09-20T09:41:42Z",
+          "updated_at": "2021-09-20T09:41:42Z",
+          "body": "Noted. Here’s how it looks:\r\n\r\n![Game Overview Optimization 3 Tab Addition](https://user-images.githubusercontent.com/85491794/133982627-0ac8d96e-a865-4f5b-80b8-26c9ea65b353.png)\r\n![Format Tab](https://user-images.githubusercontent.com/85491794/133982633-4fda05a6-b3bc-4d5a-acc9-1a3e7900ec5c.png)\r\n\r\nKept the darkened tab on the DHM option to emphasize the selected mode. Would you like for me to do the designs on the “Months” and “Years” tabs as well? Will this suffice for the developing team?\r\n\r\n"
+        },
+        {
+          "id": 922777272,
+          "user": "IanMayo",
+          "created_at": "2021-09-20T09:49:55Z",
+          "updated_at": "2021-09-20T09:49:55Z",
+          "body": "Yes- it's right to highlight the selected tab.  In the libraries we use the defaults are usually quite sensible - so we normally tend to \"go with the flow\" and accept the default colors.\r\n\r\nAah - yes, it would be useful to see `Months`, since it's a simpler control (just single number)."
+        },
+        {
+          "id": 922787449,
+          "user": "ShendMikullovci",
+          "created_at": "2021-09-20T10:06:08Z",
+          "updated_at": "2021-09-20T10:06:08Z",
+          "body": "Great. There we are: \r\n\r\n![Format Tab Month Mode](https://user-images.githubusercontent.com/85491794/133985619-6735d36d-9af0-4b37-acb6-0ab607aa76b1.png)\r\n\r\n![Game Overview Optimization 3 Tab Addition Month Mode](https://user-images.githubusercontent.com/85491794/133985621-8d1c78d0-72e2-4621-af4f-a540954ea400.png)\r\n\r\n\r\n"
+        },
+        {
+          "id": 1185643062,
+          "user": "IanMayo",
+          "created_at": "2022-07-15T15:14:23Z",
+          "updated_at": "2022-07-15T15:14:23Z",
+          "body": "@ShendMikullovci - we're slowing getting on top of the new feature workload, and can start working on some of the lower priority bits.\r\n\r\nI'd appreciate you giving an update to this UI, please.  I have these observations:\r\n1. for the `In-Game time`  we won't need the \"Years\" tab, since a year is just a multiple of \"Months\".\r\n2. Could you use styling to show which are editable text boxes\r\n3. I don't believe we need any of the underlining"
+        },
+        {
+          "id": 1186290137,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-16T20:55:32Z",
+          "updated_at": "2022-07-16T20:55:32Z",
+          "body": "Gave it a fresher look that matches what we have in the admin pages so far: \r\n\r\n![Overview 1](https://user-images.githubusercontent.com/85491794/179371508-912c5c41-d2bb-4f73-b7a1-c3e5a418d056.png)\r\n\r\n![Overview 2](https://user-images.githubusercontent.com/85491794/179371512-4065d3ce-36a8-43ad-a0b6-86a06de4dbd4.png)\r\n\r\nWhile this layout occupies more space, we'd conserve uniformity here by having features displayed vertically as we do in other admin page tabs. Notice I also increased the tabs' sizes since they are the key navigational buttons to click on the admin page. Notice that I also gave the Save button a lighter blue for visual purposes.\r\n\r\nEditing the features would lead the user to select options through drop-downs or to manually insert them, depending on the item to be edited: \r\n\r\n![Editing Overview](https://user-images.githubusercontent.com/85491794/179371668-c8aeec62-29d1-4697-9288-db9d531fd0b7.png)\r\n\r\n![Editing Overview 2](https://user-images.githubusercontent.com/85491794/179371672-ab0ec92a-f248-45b8-b92a-df25681d9430.png)\r\n\r\n![Editing Overview 3](https://user-images.githubusercontent.com/85491794/179371676-beabceaa-1864-4225-a5de-99c3d6e33f41.png)\r\n\r\nThere's the possibility to have radio buttons instead of the drop-downs to reduce click steps, but I decided to stick to the drop-downs to maintain the same logic we use on other tabs. Let me know if you'd like to see radio buttons instead."
+        },
+        {
+          "id": 1187219032,
+          "user": "IanMayo",
+          "created_at": "2022-07-18T12:01:14Z",
+          "updated_at": "2022-07-18T12:01:14Z",
+          "body": "I see the consistency.  But, as the window gets wider, the label gets further from the control it relates to.  \r\n\r\nI don't think the \"trash\" icon has a meaning in this context, since the fields are always present.  Hmm, if it means \"reset to default\" then the `revert` arrow may be more valid.\r\n\r\nWhile I recognise the meaning of \"Start time\" and \"Current time\" - I can't recall what \"Game Time\" represents. Would you mind checking back, to investigate please? (possibly back in #954 )."
+        },
+        {
+          "id": 1188308025,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-18T21:03:44Z",
+          "updated_at": "2022-07-18T21:03:44Z",
+          "body": "> I see the consistency. But, as the window gets wider, the label gets further from the control it relates to.\r\n\r\nGiven the page is not overloaded with options, the distance shouldn't be an issue. I could of course shrink things and eventually split them into two different windows, but it would break from our current design logic and wouldn't really be too intuitive in my opinion. Let me know if you want me to try.\r\n\r\n> I don't think the \"trash\" icon has a meaning in this context, since the fields are always present. Hmm, if it means \"reset to default\" then the `revert` arrow may be more valid.\r\n\r\nYup, good thinking. Replaced it: \r\n\r\n![Overview new](https://user-images.githubusercontent.com/85491794/179616764-1affd6d8-b858-4e7c-be93-d052218d10cd.png)\r\n\r\n\r\n> While I recognise the meaning of \"Start time\" and \"Current time\" - I can't recall what \"Game Time\" represents. Would you mind checking back, to investigate please? (possibly back in #954 ).\r\n\r\nIt's a sub-header that we used to replace Display Time, containing 4 options (\"Time of Start of Turn\", \"Time of End of Turn\", \"Turn Start and End Times\", \"Do Not Display Times\"). If it's irrelevant, we could replace it with your idea in #1400 : \r\n\r\n> One observation - we need the \"time sent\" in the message. Our current implementation may not be enough. Some wargames span multiple days - so we'd need to display date and time for each message. Hmm, this should probably be a setting in the \"Overview\" panel - since the Game Designer will know if the game is to span whole days or not.\r\n\r\n\r\n\r\n"
+        },
+        {
+          "id": 1188841384,
+          "user": "IanMayo",
+          "created_at": "2022-07-19T09:47:34Z",
+          "updated_at": "2022-07-19T09:47:34Z",
+          "body": ">  I could of course shrink things and eventually split them into two different windows\r\n\r\nHaving two/more columns of properties means more can be reviewed at once, without scrolling.  So, I prefer your general strategy of Sept 2021, but with updated styling/presentation.\r\n\r\n> It's a sub-header that we used to replace Display Time, containing 4 options (\"Time of Start of Turn\", \"Time of End of Turn\", \"Turn Start and End Times\", \"Do Not Display Times\"). If it's irrelevant, we could replace it with your idea in https://github.com/serge-web/serge/issues/1400 :\r\n\r\nBrilliant! Over the weekend I was thinking we needed something like this.  Let's rename \"Game Time\" to \"Display format\"."
+        },
+        {
+          "id": 1189635703,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-19T23:07:39Z",
+          "updated_at": "2022-07-19T23:09:06Z",
+          "body": "Here's one potential look: \r\n\r\n![Overview new](https://user-images.githubusercontent.com/85491794/179863172-e80782c1-7b92-40b5-9060-b32db8110440.png)\r\n\r\nRenamed \"Game Time\" to \"Display Format\". Got me thinking though, isn't the DHM/Months feature just an extension of the format for time we display? If so, shouldn't \"Display Format\" be down there by DHM/Months, or included in, or simply conjoined to them somehow? "
+        },
+        {
+          "id": 1189997649,
+          "user": "IanMayo",
+          "created_at": "2022-07-20T08:42:45Z",
+          "updated_at": "2022-07-20T08:42:45Z",
+          "body": "Layout works for me :-)\r\n\r\nAah, we may be able to re-arrange a little more logically.  The \"DHM/Months\" box is how far forward we move at each Turn.  So, we could move \"Real World Time\" beneath \"In-game time\", and move \"DHM\"  under \"Turns\"."
+        },
+        {
+          "id": 1190848723,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-20T22:57:28Z",
+          "updated_at": "2022-07-20T22:59:40Z",
+          "body": "Good idea! \r\n\r\n![Overview new](https://user-images.githubusercontent.com/85491794/180096809-285c93f1-56f5-4834-92b3-00eec3eadd35.png)\r\n\r\n"
+        },
+        {
+          "id": 1191253540,
+          "user": "IanMayo",
+          "created_at": "2022-07-21T09:22:51Z",
+          "updated_at": "2022-07-21T09:23:00Z",
+          "body": "Not quite - the DHM relates to the turns, so I think we should give DHM a `Turn length` title, and lay out like this:\r\n```\r\nIn-game time         Turn Style\r\nReal World Time      Turn Length\r\n```"
+        },
+        {
+          "id": 1193855065,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-25T10:17:11Z",
+          "updated_at": "2022-07-25T10:17:11Z",
+          "body": "Something like this?:\r\n\r\n![Overview](https://user-images.githubusercontent.com/85491794/180753956-5a4d65bf-357e-4524-bbb7-df9be03e4a37.png)\r\n\r\nAdded the \"access codes\" and \"hide forces\" to the top in smaller fonts, but we can relocate them. Putting them on the bottom right or left felt a little imbalanced.\r\n\r\nI'm starting to like the toggle option for DHM/Months less and less and considering turning into a tab set up. What do you think?"
+        },
+        {
+          "id": 1193861279,
+          "user": "IanMayo",
+          "created_at": "2022-07-25T10:23:49Z",
+          "updated_at": "2022-07-25T10:23:49Z",
+          "body": "> I'm starting to like the toggle option for DHM/Months less and less and considering turning into a tab set up. What do you think?\r\n\r\nYes, I think that putting the two turn length options into tabs with the relevant controls will \"connect\" them together.\r\n\r\n> Added the \"access codes\" and \"hide forces\" to the top in smaller fonts, but we can relocate them. Putting them on the bottom right or left felt a little imbalanced.\r\n\r\nHow about adding them to the \"Game Description and Objectives\" box?  They seem a bit \"homeless\" currently - floating around without a containing box."
+        },
+        {
+          "id": 1193895598,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-25T10:55:12Z",
+          "updated_at": "2022-07-25T10:55:52Z",
+          "body": "https://user-images.githubusercontent.com/85491794/180761158-e4e4b815-a382-4b23-8685-614db3b44580.mp4\r\n\r\n>How about adding them to the \"Game Description and Objectives\" box? They seem a bit \"homeless\" currently - floating around without a containing box.\r\n\r\nAdded them below the Objectives text box."
+        },
+        {
+          "id": 1193928084,
+          "user": "IanMayo",
+          "created_at": "2022-07-25T11:28:53Z",
+          "updated_at": "2022-07-25T11:28:53Z",
+          "body": "Yes, tabs work well for me.  "
+        }
+      ]
+    },
+    {
+      "id": 1166373295,
+      "number": 1400,
+      "title": "Large numbers of forces",
+      "state": "open",
+      "user": "IanMayo",
+      "created_at": "2022-03-11T12:41:29Z",
+      "updated_at": "2023-11-15T10:46:51Z",
+      "closed_at": null,
+      "body": "For the next wargame, the Game Designer wants lots of people driving ships.\r\n\r\nSince we have one \"driver\" per force, that means we have lots of forces.  So, lots of Blue Forces with one player each, and lots of Red Forces with one player each.\r\n\r\nThis could introduce problems in these areas:\r\n* In the mapping window Umpire forces can choose which force to view the map as.  This will become a really tall list once we have 20 forces. So, if there are a large number of forces it should turn into a drop-down list\r\n* In the \"Perception\" dialog the Game Controller specifies which forces can see an asset.  Once we have more than, say, 6 forces we should switch to a drop-down list of toggles, one per force.\r\n* In the Message Channel for `custom` messages we show an icon for each member force at the top. This may need to scroll/wrap once there are a lot of them\r\n* Since all blue forces will have a similar shade, it may become difficult to spot which are a players own asset(s).  So, we could do with introducing some other styling for \"own\" assets on the map.\r\n* We currently use color to to indicate which force a message comes from.  But. if there are lots of blue forces we will need the force name in the message somewhere.\r\n\r\nWe probably need to create a wargame with, say, 10 blue forces and 5 red forces, and see where the bottlenecks/problems arise.",
+      "labels": [
+        "wontfix"
+      ],
+      "comments": [
+        {
+          "id": 1065079188,
+          "user": "IanMayo",
+          "created_at": "2022-03-11T12:42:04Z",
+          "updated_at": "2022-03-11T12:42:04Z",
+          "body": "@ShendMikullovci - I could do with your support in this, please - both in spotting the issues, and in coming up with solutions to them."
+        },
+        {
+          "id": 1065297831,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-11T16:52:17Z",
+          "updated_at": "2022-03-11T16:52:17Z",
+          "body": "Sounds very exciting! I'll do some research on the consensus among strategy wargames and get back to you ASAP."
+        },
+        {
+          "id": 1065324614,
+          "user": "IanMayo",
+          "created_at": "2022-03-11T17:25:07Z",
+          "updated_at": "2022-03-11T17:25:07Z",
+          "body": "Aah, a related fix, please @lebaphi   For the admin pages that have a list of entries, the height of the left-hand column is smaller than it could be.  This will be a pain if/when we have lots of forces.  It already can't show all of the platform types.\r\n\r\nSo, the admin pages with a list of entries should use the full height of the left-hand column.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/157916566-36f86883-9bf4-46db-9584-6f11e464af85.png)\r\n"
+        },
+        {
+          "id": 1065329226,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-11T17:30:42Z",
+          "updated_at": "2022-03-11T17:30:42Z",
+          "body": "> ... the height of the left-hand column is smaller than it could be. \r\n\r\nThis is also relevant for the Game Selection Page : \r\n\r\n![Game Selection Page](https://user-images.githubusercontent.com/85491794/157917551-5b9b11d5-86a6-47f7-9b2b-818c37732d25.png)\r\n\r\nIf we could show the entire list of the games we host, we'd eliminate the scrollbar entirely and the screen would look smoother and more fluid."
+        },
+        {
+          "id": 1071756314,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-17T23:02:33Z",
+          "updated_at": "2022-03-17T23:02:33Z",
+          "body": "Quite a few things not allowing me to advance with this issue. First, the wargames seem to only be saved for a short period of time, even after having been initiated. Coming back to the game, I find that I've lost all of my progress. Furthermore, the admin page is often dysfunctional, with the channel page presenting most bugs so far. \r\nHere's a recap: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/158907995-bf887e47-7465-44c5-9ae9-b20f012517c2.mp4\r\n\r\n"
+        },
+        {
+          "id": 1072205643,
+          "user": "IanMayo",
+          "created_at": "2022-03-18T08:54:57Z",
+          "updated_at": "2022-03-18T08:54:57Z",
+          "body": "Hello @ShendMikullovci  - sorry if losing the created game is frustrating.\r\n\r\nOne shortcoming of our `heroku` hosting is that it wipes the data after 30 minutes of inactivity.\r\n\r\nThanks to @lilitkarapetyan we'll soon have a _persistent_ database.  So, while Heroku will still get wiped, we won't be storing our data in Heroku, Serge will be storing its data in an IBM database that doesn't get wiped.\r\n\r\nYou're right - the channels are quite broken.  @lilitkarapetyan - could you work on the `admin - channels` page please?"
+        },
+        {
+          "id": 1185660394,
+          "user": "IanMayo",
+          "created_at": "2022-07-15T15:34:38Z",
+          "updated_at": "2022-07-15T15:34:38Z",
+          "body": "Hello @ShendMikullovci - today I learned the WATU wargame is going to use one force per player/asset, in order to allow the visibility status on a per-ship basis (we currently only allow per-force).\r\n\r\nCould you do some fresh inspection on where the issues are, and how we can potentially overcome them?\r\n\r\nOne thought. Here is the game admin column:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/179256579-146a7884-e4f7-440b-8e36-8c9a027446d4.png)\r\n\r\nIt shows we have a message from Blue. But, we may have, say, 10 blue forces.  So, I think we have to include \"Blue-2\" vertically in the blue tab.  Aaah, or we just include it in the message as plain text somewhere.  Aah yes, in your Game Admin redesign you did have the role as plain text. Maybe it would be `Force - Role`.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/179256973-c8574f08-3f81-4cdd-a40e-c395cddf58e8.png)\r\n\r\n"
+        },
+        {
+          "id": 1186142113,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-16T10:12:22Z",
+          "updated_at": "2022-07-16T10:12:22Z",
+          "body": "Hi Ian! How many Forces are we talking about approximatively? Are all of these Forces going to have their own logo/icon? "
+        },
+        {
+          "id": 1186170180,
+          "user": "IanMayo",
+          "created_at": "2022-07-16T12:18:49Z",
+          "updated_at": "2022-07-16T12:19:33Z",
+          "body": "8 forces for the test, maybe 20 for the real game.\n\nProbably not an icon per force. May have to rely on abbreviated name (letters)."
+        },
+        {
+          "id": 1186296300,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-16T21:23:42Z",
+          "updated_at": "2022-07-16T21:23:42Z",
+          "body": "We could also show messages something like the Messenger app:\r\n\r\n![Chat Messages Alternative](https://user-images.githubusercontent.com/85491794/179372191-86e49d45-3202-4215-bc65-43cbd81859aa.png)\r\n\r\nHere, on the left, we have our current message layout. As you can see, the only association between the force and their color is made on the left of the message chip where we use color to indicate the force sending the message. We also include the force and role inside the message chip, eating up some space in there. \r\n\r\nMessenger uses a design similar to the right hand side. The picture (or in our case, logo/icon) on the left, next to the message chip. The curvature of the chips adapts to the quantity of the messages to emphasize the message comes from the same person, and avoid repeating the picture (logo/icon) multiple times. Here, force and role are _outside_ of the message chip, leaving all the space to the content being sent. \r\n\r\nThe benefits this could have for us are a start to decoupling from this connection we've made between force - color. We could add the force label inside the logo/icon or color sphere. The role would always be shown above the message that's been sent out.\r\nIn a game like WATU, where a large number of forces will be operating, without all of them having logos/icons, this might be a good alternative. And it's pretty standard!"
+        },
+        {
+          "id": 1187248069,
+          "user": "IanMayo",
+          "created_at": "2022-07-18T12:13:14Z",
+          "updated_at": "2022-07-18T12:13:14Z",
+          "body": "Thanks for that fresh thought.\r\n\r\nOne observation - we need the \"time sent\" in the message.  Our current implementation may not be enough. Some wargames span multiple days - so we'd need to display date _and_ time for each message. Hmm, this should probably be a setting in the \"Overview\" panel - since the Game Designer will know if the game is to span whole days or not.\r\n\r\nThe pattern of curves for multiple messages is an interesting one.  It's a real advantage when one role sends multiple messages - less when conversation flow bounces between 2 or more players.\r\n\r\nIt \"happens\" that \"RED 2\" neatly spans two rows in your example, but once the force is named \"BLUE 2\" it may not work as well - unless we consciously trim the force name.\r\n\r\nIt does _feel_ that putting force, role and date-time in 3 corners of the shape spreads them around (to reduce change for word-wrap or overlap), and puts them in predictable locations."
+        },
+        {
+          "id": 1188291443,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-18T20:44:14Z",
+          "updated_at": "2022-07-18T20:45:02Z",
+          "body": "![Chat New](https://user-images.githubusercontent.com/85491794/179613475-b1fb1f6f-0210-4e28-9f40-56844c51db6d.png)\r\n\r\nAdded the time stamp inside the message and Force + Role above it. A logo to the side of the message to maintain awareness.\r\nIt looks and feels much more like a chat window here. Also, the messages would be separated depending on when they've been sent (date wise).\r\n\r\n>The pattern of curves for multiple messages is an interesting one. It's a real advantage when one role sends multiple messages -\r\n\r\nYes, the idea behind it is to make multiple messages from the same person more compact to keep context as well as use up less space. Whenever the conversation flow bounces between 2 or more people having sent singular messages, the message chips don't curve.\r\n\r\n>Hmm, this should probably be a setting in the \"Overview\" panel - since the Game Designer will know if the game is to span whole days or not.\r\n\r\nWhat exactly? Specifying game duration? "
+        },
+        {
+          "id": 1188859118,
+          "user": "IanMayo",
+          "created_at": "2022-07-19T10:05:54Z",
+          "updated_at": "2022-07-19T10:05:54Z",
+          "body": "> > Hmm, this should probably be a setting in the \"Overview\" panel - since the Game Designer will know if the game is to span whole days or not.\r\n> What exactly? Specifying game duration?\r\n\r\nI was referring to whether date was shown against each message. But, your \"new day\" marker does the job perfectly well.  I know it feels excessive, but I think we do need the year in there.  The last wargame did span 2021/2022."
+        },
+        {
+          "id": 1189621435,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-19T22:43:04Z",
+          "updated_at": "2022-07-19T22:43:04Z",
+          "body": "> I know it feels excessive, but I think we do need the year in there. The last wargame did span 2021/2022.\r\n\r\nHaha! That's the reason I didn't add it in the first place. Here we go: \r\n\r\n![Chat New](https://user-images.githubusercontent.com/85491794/179860629-acdea9b0-72cb-42c8-a826-cdc4f6abdcc1.png)\r\n\r\n"
+        },
+        {
+          "id": 1189983427,
+          "user": "IanMayo",
+          "created_at": "2022-07-20T08:29:13Z",
+          "updated_at": "2022-07-20T08:29:13Z",
+          "body": "Thanks Shend.  Would you propose that we extend this strategy to \"Chat channels\" in the left-hand side of the UI? I think it could work.\r\nBut, originally I think there was some conscious intention to style the \"Game Admin\" channel differently, as a visual reminder that it's \"out of game\" messages on the right, and \"in game\" messages on the left."
+        },
+        {
+          "id": 1190844459,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-20T22:50:04Z",
+          "updated_at": "2022-07-20T22:50:04Z",
+          "body": "> Thanks Shend. Would you propose that we extend this strategy to \"Chat channels\" in the left-hand side of the UI? I think it could work. But, originally I think there was some conscious intention to style the \"Game Admin\" channel differently, as a visual reminder that it's \"out of game\" messages on the right, and \"in game\" messages on the left.\r\n\r\nI think if it's absolutely necessary, then yes. We could format the date/time differently (use numbers only). Though I do agree with you that it goes against our conscious intention to style them differently. We can also try and see how it feels to look at them."
+        },
+        {
+          "id": 1191251059,
+          "user": "IanMayo",
+          "created_at": "2022-07-21T09:20:36Z",
+          "updated_at": "2022-07-21T09:20:36Z",
+          "body": "One query on the layout @ShendMikullovci \r\n\r\nShouldn't there be a _right-angle_ corner on the right of the adjacent messages, too?\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/180178629-73c14f96-cb8a-4118-80eb-d0e9ac98a5bc.png)\r\n"
+        },
+        {
+          "id": 1193139414,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-23T15:04:06Z",
+          "updated_at": "2022-07-23T15:04:43Z",
+          "body": "> One query on the layout @ShendMikullovci\r\n> \r\n> Shouldn't there be a _right-angle_ corner on the right of the adjacent messages, too?\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/180178629-73c14f96-cb8a-4118-80eb-d0e9ac98a5bc.png)\r\n\r\nThe reason Messenger went with only the left side curving is because that's the \"identity\" side, meaning that's the side that pertains to the interlocuter or the person we're talking to. That way, we perceive not only that the messages are tied together (part of a larger context) but also that they are tied to 1 person (so we wouldn't have to repeat the icon with every message, we'd either keep it by the 1st message or drop it down to the last one).\r\n\r\nSo, I think we should stick to only the left side having angle curvature."
+        },
+        {
+          "id": 1193837393,
+          "user": "IanMayo",
+          "created_at": "2022-07-25T09:59:22Z",
+          "updated_at": "2022-07-25T09:59:22Z",
+          "body": "Sure, ok."
+        }
+      ]
+    },
+    {
+      "id": 1283962082,
+      "number": 1635,
+      "title": "General Chat Redesign ",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-06-24T16:46:22Z",
+      "updated_at": "2022-07-25T11:56:03Z",
+      "closed_at": "2022-07-25T11:56:03Z",
+      "body": "I thought of redesigning the general chat, since we've encountered multiple issues in implementing new features (main menu button #1609), bugs (#1619), or improving UI for current features (#1580). \r\n\r\nCame up with this: \r\n\r\n![New General Chat Opened](https://user-images.githubusercontent.com/85491794/175574524-d94d332b-eae4-417f-ad77-7fbb509207d3.png)\r\n\r\nThe title of the wargame at the top on the right hand side, accompanied by user's role and force. On the left of the label, the force icon. \r\nObjectives would appear by clicking on the Force icon, similarly to our current layout. The difference here would be:\r\n\r\n1. Bottom of the screen is reserved for messaging (both on the left hand side for channels, and for the right hand side for chatting), as we are used to in most messaging apps.\r\n2. It reinforces the Z pattern that our layouts try to encourage: \r\n\r\n![Z Pattern Example](https://user-images.githubusercontent.com/85491794/175577400-3b2a3a8b-dcdb-41bf-9664-6ee4e0044869.png)\r\n\r\nHere, the user would naturally encounter information following the usual Left-Right, Top-Bottom route.\r\n\r\nHome button, would be added next to the Insights, Player Log and Intro buttons. \r\nThe Turn and Phase information also gain importance and centrality here, considering they are crucial info for GC. The action button in light blue against a white background for clarity and presence. \r\n\r\nFurthermore, the chat would become collapsible to give GC the ability to reduce information load: In a busy game, it would be harmful for GC to be distracted by messages from the right hand side, especially if they are redundant. \r\nThe tabs remain similar, with the exception of their appearance: they look like Google Chrome tabs. My girlfriend accidentally stumbled upon an open SERGE Screen and asked me what she was looking at. She then let me know that Insights/Game Admin didn't look like tabs at all. I realized she might be right...\r\nThe \"Mark All Read\" button gets replaced by our usual envelope to maintain uniformity and consistency. All of this gives the chat a much more \"chat\"-y feel. \r\n\r\nWhen collapsed, it would look like this: \r\n\r\n![Uploading General Chat Collapsed.png…]()\r\n\r\nReducing information load dramatically and giving a clean look. GC would still have a marker on the chat to remind them of accumulating messages on the chat bar at the bottom right.\r\n\r\nExpanded, it would look like this: \r\n\r\n![General Chat Expanded](https://user-images.githubusercontent.com/85491794/175602797-5a2361d4-14f1-40f4-b926-8ab09fcf5573.png)\r\n\r\nHere, GC can view older messages without having to scroll upwards. If messaging is important or task-specific, the user can expand the chat to increase focus. Bold text and message chip for new, unseen messages, that remains bold for a specific time.\r\n\r\nI think this would improve game flow, all the while solving some issues we've encountered concerning our current UI.\r\nLet me know what you think.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1167282353,
+          "user": "IanMayo",
+          "created_at": "2022-06-27T12:19:14Z",
+          "updated_at": "2022-06-27T12:19:27Z",
+          "body": "I'm ok with redesign in general.  But, I do think information is easier to spot if it's in a box.  Lots of SERGE stuff is free text, but parts of the right-hand column are facts/status indicators.  So, for the \"Turn number\" field, I'd quite like a box with \"Turn\" along the top, and a large number/label beneath it.  This makes it quicker to scan the UI & determine the turn number.  Same for Force/Role, to be honest.  I don't think there have been instances when I've need to double-check which force a player is in, but I have to double-check (or take note of) their role lots of times.  Having it at the bottom-right of the screen means I can spot it really quicly.\r\n\r\nOne partially unrelated item.  New players may not be familiar with the rotation between \"planning\" and \"adjudication\".  _Maybe_ we should stack the terms up, and use highlighting (and/or a flag indicator) to indicate which phase we are in.\r\n\r\nFully support making admin/insights look more like tabs, but not that only Game Control typically has the \"insights\" tab - so there is no switching involved for other players.\r\n\r\nNote: I don't see the design for the collapsed game admin panel.  I _think_ all players should see Game Admin all the time.  When it contains something like \"Adjudication is running over, so next phase will start 15 minutes late. Please grab a coffee.\"  Messages like these shouldn't be hidden."
+        },
+        {
+          "id": 1169247304,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-28T21:10:56Z",
+          "updated_at": "2022-06-28T21:10:56Z",
+          "body": "> \r\n\r\nLove the turntable idea! \r\nI know we can spot Force/Role quickly when placed below but I'm not sure that's the case for our users. If there's no value in them having that information available quickly, then sure we can place it below. The other issue with placing the Force/Role text labels below is that it goes against virtually every messaging app/chat setup. \r\n\r\nHere's another look: \r\n\r\n![New General Chat](https://user-images.githubusercontent.com/85491794/176288559-815abcd9-f858-44ae-9274-3b8f9c76d7eb.png)\r\n\r\nWhat do you think?\r\n\r\n"
+        },
+        {
+          "id": 1169708873,
+          "user": "IanMayo",
+          "created_at": "2022-06-29T08:51:44Z",
+          "updated_at": "2022-06-29T08:51:44Z",
+          "body": ">  The other issue with placing the Force/Role text labels below is that it goes against virtually every messaging app/chat setup.\r\n\r\nHmm, maybe it fits in with a RPG interface, where status data is placed around the edge of the screen, including top and bottom.\r\n\r\nI like the turn number & phase.  The current time and \"start new phase\" are linked to this information. Are you able to integrate these two extra fields into your design.  Note: only the Game Controller has \"Start new phase\" - so most people won't have that button visible.\r\n\r\nOne last thing. The `insights` and `Game admin` tabs are upside down.  The style you've used is for when they're vertically below the page they relate to.\r\n\r\nThe 4 icons are neatly displayed in the line, but they have quite different purposes.  The home button is certainly a bigger effect than the others.  Hmm, since the Home button means \"leave this game\" - maybe there is logic in putting it to the right of the wargame title.  Hmm, you may have suggested this earlier, but in the context of \"leave this game\", maybe an exit icon would be more logical?"
+        },
+        {
+          "id": 1173884007,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-04T14:27:35Z",
+          "updated_at": "2022-07-04T14:27:35Z",
+          "body": "> > The other issue with placing the Force/Role text labels below is that it goes against virtually every messaging app/chat setup.\r\n> \r\n> Hmm, maybe it fits in with a RPG interface, where status data is placed around the edge of the screen, including top and bottom.\r\n\r\nDoubt it. Haven't really seen role/team labels on the bottom right corner anywhere.\r\n\r\n> I like the turn number & phase. The current time and \"start new phase\" are linked to this information. Are you able to integrate these two extra fields into your design. Note: only the Game Controller has \"Start new phase\" - so most people won't have that button visible.\r\n> \r\n> One last thing. The `insights` and `Game admin` tabs are upside down. The style you've used is for when they're vertically below the page they relate to.\r\n\r\nThat was on purpose. I've changed them to tabs that are similar to Mozilla's.\r\n\r\n> The 4 icons are neatly displayed in the line, but they have quite different purposes. The home button is certainly a bigger effect than the others. Hmm, since the Home button means \"leave this game\" - maybe there is logic in putting it to the right of the wargame title. Hmm, you may have suggested this earlier, but in the context of \"leave this game\", maybe an exit icon would be more logical?\r\n\r\nThis display would force us to put the shut down button on the top right, which is also counter-intuitive and not consensus. \r\n\r\nHere's how it would look: \r\n\r\n![COA PAGE](https://user-images.githubusercontent.com/85491794/177174584-c641e436-5907-45f6-88ec-a2d3ed40d4c0.png)\r\n\r\n"
+        },
+        {
+          "id": 1173903139,
+          "user": "IanMayo",
+          "created_at": "2022-07-04T14:47:11Z",
+          "updated_at": "2022-07-04T14:50:37Z",
+          "body": "Afternoon @ShendMikullovci  - thanks for the update.\r\n\r\n> > > The other issue with placing the Force/Role text labels below is that it goes against virtually every messaging app/chat setup.\r\n\r\n> > Hmm, maybe it fits in with a RPG interface, where status data is placed around the edge of the screen, including top and bottom.\r\n\r\n> Doubt it. Haven't really seen role/team labels on the bottom right corner anywhere.\r\n\r\nNo, I don't have that level of familiarity.  But, there is the \"best practice\" where the status information is spread around the edge of the screen/content. In this way, the player's eye goes to a specific place, where they will just find one category of information. This is contrast with collecting the status information together, so the player still has to extract the information of interest out of the other info there.  Here's an example (the white highlights aren't mine).\r\n![image](https://user-images.githubusercontent.com/1108513/177176692-1dab6d57-99cb-49d0-8de2-e994f72cb608.png)\r\n\r\n\r\n> > I like the turn number & phase. The current time and \"start new phase\" are linked to this information. Are you able to integrate these two extra fields into your design. Note: only the Game Controller has \"Start new phase\" - so most people won't have that button visible.\r\n\r\n> > One last thing. The `insights` and `Game admin` tabs are upside down. The style you've used is for when they're vertically below the page they relate to.\r\n> \r\n> That was on purpose. I've changed them to tabs that are similar to Mozilla's.\r\n\r\nTabs on pages are a Skeuomorphism, to model tabs on separate pages in a file. So the \"wider\" section of the tab attaches to the subject of that information:\r\n![image](https://user-images.githubusercontent.com/1108513/177176930-97efe363-7d36-4c35-9d16-f8a3bca7a51d.png)\r\n\r\nHere are Chrome tabs:\r\n![image](https://user-images.githubusercontent.com/1108513/177177729-7246991f-4494-48f3-a710-d27f1688bb6b.png)\r\n\r\n \r\n> > The 4 icons are neatly displayed in the line, but they have quite different purposes. The home button is certainly a bigger effect than the others. Hmm, since the Home button means \"leave this game\" - maybe there is logic in putting it to the right of the wargame title. Hmm, you may have suggested this earlier, but in the context of \"leave this game\", maybe an exit icon would be more logical?\r\n\r\n> This display would force us to put the shut down button on the top right, which is also counter-intuitive and not consensus.\r\n \r\n> Here's how it would look:\r\n\r\n> ![COA PAGE](https://user-images.githubusercontent.com/85491794/177174584-c641e436-5907-45f6-88ec-a2d3ed40d4c0.png)\r\n\r\nThis button won't be Shut Down, since the game will still be running. It _could_ be `Exit`, or `Home`. The top-left of the screen is the standard place for a home button, but we can't afford to lose any space in that area.   I still see the logic in associating it with `Ian's wargame` - since it's an interaction at the `whole wargame` level.\r\n\r\n_Maybe_ an `Exit` icon in line with the wargame title, with a confirm dialog before going back to the home page?\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/177178176-ad7b5fd0-df2d-43c2-8e2a-de65c4b29692.png)\r\n"
+        },
+        {
+          "id": 1173953876,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-04T15:45:20Z",
+          "updated_at": "2022-07-04T15:45:20Z",
+          "body": "> Tabs on pages are a Skeuomorphism, to model tabs on separate pages in a file. So the \"wider\" section of the tab attaches to the subject of that information: ![image](https://user-images.githubusercontent.com/1108513/177176930-97efe363-7d36-4c35-9d16-f8a3bca7a51d.png)\r\n> \r\n> Here are Chrome tabs: ![image](https://user-images.githubusercontent.com/1108513/177177729-7246991f-4494-48f3-a710-d27f1688bb6b.png)\r\n\r\nThe tabs on a browser or paper file are physically connected to the page or file under them. In our case, the tabs would have to connect to the (channel) page itself as well. It'd have to look something like this: \r\n\r\n![New Tabs](https://user-images.githubusercontent.com/85491794/177186633-36866224-64dd-4471-9561-cb99f0b72266.png)\r\n\r\nThe exit button looks good to me."
+        },
+        {
+          "id": 1173966783,
+          "user": "IanMayo",
+          "created_at": "2022-07-04T16:02:12Z",
+          "updated_at": "2022-07-04T16:02:12Z",
+          "body": "Yes, the blur at the bottom of the current tab button does seem to disconnect them from the relevant channel.   I'll invite @lebaphi to try to give our channel tabs rounded tops - like in your mockup.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/177189053-2e64b56c-edbd-4bd5-84f6-157e91f60186.png)\r\n\r\nSo @lebaphi - could you please:\r\n1. Please don't fade the _Electric-blue_ tab border as it does down towards the channel\r\n2. Please round the top corners of the tabs"
+        },
+        {
+          "id": 1173993523,
+          "user": "lebaphi",
+          "created_at": "2022-07-04T16:37:17Z",
+          "updated_at": "2022-07-04T16:37:17Z",
+          "body": "okay @IanMayo "
+        },
+        {
+          "id": 1174593879,
+          "user": "lebaphi",
+          "created_at": "2022-07-05T04:23:14Z",
+          "updated_at": "2022-07-05T04:23:14Z",
+          "body": "how about this @IanMayo @ShendMikullovci \r\n\r\n<img width=\"201\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/177248991-890bbf0c-7c40-4c95-a374-1ace120246d4.png\">\r\n"
+        },
+        {
+          "id": 1174767490,
+          "user": "IanMayo",
+          "created_at": "2022-07-05T08:25:16Z",
+          "updated_at": "2022-07-05T08:26:11Z",
+          "body": "I've modified it a bit, so we have a border for un-selected tabs, too:\r\n![image](https://user-images.githubusercontent.com/1108513/177284422-11056098-13e3-4262-82c3-673d101050a6.png)\r\n\r\nThis has also increased the contrast between the text and the tab, which I think makes it more legible."
+        },
+        {
+          "id": 1175086949,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-05T13:52:14Z",
+          "updated_at": "2022-07-05T13:52:14Z",
+          "body": "> I've modified it a bit, so we have a border for un-selected tabs, too: ![image](https://user-images.githubusercontent.com/1108513/177284422-11056098-13e3-4262-82c3-673d101050a6.png)\r\n> \r\n> This has also increased the contrast between the text and the tab, which I think makes it more legible.\r\n\r\nLove the look. \r\nThe bug with the file body disappearing once the channel is maximised is still there: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/177343802-492f43a9-fd7e-4c59-92a1-3e6e75074389.mp4\r\n\r\n\r\n"
+        },
+        {
+          "id": 1175088924,
+          "user": "IanMayo",
+          "created_at": "2022-07-05T13:53:54Z",
+          "updated_at": "2022-07-05T13:53:54Z",
+          "body": "Sorry @ShendMikullovci - I missed that bug. Could you file it as a new issue please? That will stop it _falling through the cracks_."
+        },
+        {
+          "id": 1175089648,
+          "user": "IanMayo",
+          "created_at": "2022-07-05T13:54:28Z",
+          "updated_at": "2022-07-05T13:54:28Z",
+          "body": "Re-opening.  This issue is far from closed :-D"
+        },
+        {
+          "id": 1180577244,
+          "user": "IanMayo",
+          "created_at": "2022-07-11T15:48:21Z",
+          "updated_at": "2022-07-13T14:39:03Z",
+          "body": "Ok, I'm breaking the implementation of this into 5 phases:\r\n![178303776-8d0e13f9-bd17-4cca-82a1-966d37321f66](https://user-images.githubusercontent.com/1108513/178304771-a3a1a7dc-c0f5-4549-a194-af7567721dc6.png)\r\n\r\n**Note: we're doing Step 3 first, it's avoids re-working. **\r\n\r\n3- Create panel of Game controls: 3 buttons, plus \"Start new phase\" button\r\n1-  Wargame title, with \"Return to welcome page\" link. \r\n2- Game status, including turn, phase, current date-time\r\n4- Updated chat/insights panel. Note: the tabs in the mockup are upside down.  The rounded corners should be at the top two corners\r\n5- Updated role/force panel\r\n\r\nTo allow for review, and to keep the size of the PR down, I'd like it to be submitted as 5 PRs, please.  \r\n"
+        },
+        {
+          "id": 1183298203,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-13T14:28:58Z",
+          "updated_at": "2022-07-13T14:28:58Z",
+          "body": "Hi Ian! Great idea. Let's keep in mind that the exit button is taking the spot of the intro/feedback and player log buttons so in the meantime, where are those buttons going to be located? "
+        },
+        {
+          "id": 1183303080,
+          "user": "IanMayo",
+          "created_at": "2022-07-13T14:33:15Z",
+          "updated_at": "2022-07-13T14:33:15Z",
+          "body": "Ahh, well spotted. Will improve steps. "
+        },
+        {
+          "id": 1192733309,
+          "user": "IanMayo",
+          "created_at": "2022-07-22T16:15:08Z",
+          "updated_at": "2022-07-23T10:33:56Z",
+          "body": "Re-open. There are some pending items, please @lebaphi \r\n\r\n* [x] Make the `START NEW PHASE` button full-width inside the turn control\r\n* [x] Make `START NEW PHASE` have more rounded corners\r\n* [x] Make  \"turn control component\" have more rounded corners\r\n* [ ] Make the \"Exit\" icon vertically aligned with the game title (allowing for two-line game title, too). See image below.\r\n\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/180483569-2c07127c-41c2-42b3-b308-35f50ebec919.png)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/179212733-07a4384b-931f-4969-8832-6ca7933758a3.png",
+    "https://user-images.githubusercontent.com/1108513/179248782-ffcedc84-b36b-43db-8cd6-845c78e53698.png",
+    "https://user-images.githubusercontent.com/85491794/179351572-0452d057-4df6-4b26-9d71-802a1cf62ebc.png",
+    "https://user-images.githubusercontent.com/85491794/179351683-4f114174-e5de-4597-bb70-288b5fcdfe41.png",
+    "https://user-images.githubusercontent.com/85491794/179352144-22b75104-4e0b-48ec-8589-73a89ea7ea9a.png",
+    "https://user-images.githubusercontent.com/1108513/179497198-81912c45-fadd-449b-9cf2-4c5c37191fa2.png",
+    "https://user-images.githubusercontent.com/1108513/179498495-4486e337-0ff8-4634-9590-87ea9331f6bb.png",
+    "https://user-images.githubusercontent.com/26705621/179707285-7699a668-2bd7-4840-bef2-abdca7beddce.png",
+    "https://i.gyazo.com/a5d6480571178ed85528bf98745b88e7.gif",
+    "https://user-images.githubusercontent.com/26705621/179992873-c24a0c80-dfd0-424f-bbb1-adc6ea2c7598.png",
+    "https://user-images.githubusercontent.com/26705621/179992892-a3b8b334-61da-41dc-9d5c-8d136a4163f5.png",
+    "https://user-images.githubusercontent.com/1108513/180005315-6970fee8-6cbf-4705-bec9-ba7e0172938d.png",
+    "https://user-images.githubusercontent.com/1108513/180005889-3183f0c1-dab8-4081-be51-21409687b726.png",
+    "https://user-images.githubusercontent.com/1108513/180009100-92f191cf-3d61-4eed-bc6e-c41987ba7d3a.png",
+    "https://user-images.githubusercontent.com/1108513/180032103-127c4ffd-7c91-4035-a0c2-dd509c5bbeb9.png",
+    "https://user-images.githubusercontent.com/85491794/180100546-8a5bc895-2d76-4ce5-ae90-1d5fc1181ca7.png",
+    "https://user-images.githubusercontent.com/85491794/180598307-ce82adcc-3f10-4ee9-96fb-5bca6fb02089.png",
+    "https://user-images.githubusercontent.com/85491794/180598966-729cb94a-33dc-4e60-aa88-fb76f88ce533.png",
+    "https://user-images.githubusercontent.com/85491794/180599826-ed0499b7-fa42-4899-9b78-d08b257fd98a.png",
+    "https://user-images.githubusercontent.com/85491794/180749561-9d2d0700-8624-463a-9edf-23d07a43cb8a.png",
+    "https://user-images.githubusercontent.com/1108513/129016115-c59b0f9b-feb3-4c25-abb3-630395456901.png",
+    "https://user-images.githubusercontent.com/85491794/133891793-91615945-95d1-46c1-8afd-d511a3a819c5.png",
+    "https://user-images.githubusercontent.com/85491794/133906490-1cf237ef-64d2-415a-8679-8ad711b34351.png",
+    "https://user-images.githubusercontent.com/85491794/133906494-7305618a-a64a-43b2-9fbf-0eb23bedf1fd.png",
+    "https://user-images.githubusercontent.com/85491794/133982627-0ac8d96e-a865-4f5b-80b8-26c9ea65b353.png",
+    "https://user-images.githubusercontent.com/85491794/133982633-4fda05a6-b3bc-4d5a-acc9-1a3e7900ec5c.png",
+    "https://user-images.githubusercontent.com/85491794/133985619-6735d36d-9af0-4b37-acb6-0ab607aa76b1.png",
+    "https://user-images.githubusercontent.com/85491794/133985621-8d1c78d0-72e2-4621-af4f-a540954ea400.png",
+    "https://user-images.githubusercontent.com/85491794/179371508-912c5c41-d2bb-4f73-b7a1-c3e5a418d056.png",
+    "https://user-images.githubusercontent.com/85491794/179371512-4065d3ce-36a8-43ad-a0b6-86a06de4dbd4.png",
+    "https://user-images.githubusercontent.com/85491794/179371668-c8aeec62-29d1-4697-9288-db9d531fd0b7.png",
+    "https://user-images.githubusercontent.com/85491794/179371672-ab0ec92a-f248-45b8-b92a-df25681d9430.png",
+    "https://user-images.githubusercontent.com/85491794/179371676-beabceaa-1864-4225-a5de-99c3d6e33f41.png",
+    "https://user-images.githubusercontent.com/85491794/179616764-1affd6d8-b858-4e7c-be93-d052218d10cd.png",
+    "https://user-images.githubusercontent.com/85491794/179863172-e80782c1-7b92-40b5-9060-b32db8110440.png",
+    "https://user-images.githubusercontent.com/85491794/180096809-285c93f1-56f5-4834-92b3-00eec3eadd35.png",
+    "https://user-images.githubusercontent.com/85491794/180753956-5a4d65bf-357e-4524-bbb7-df9be03e4a37.png",
+    "https://user-images.githubusercontent.com/1108513/157916566-36f86883-9bf4-46db-9584-6f11e464af85.png",
+    "https://user-images.githubusercontent.com/85491794/157917551-5b9b11d5-86a6-47f7-9b2b-818c37732d25.png",
+    "https://user-images.githubusercontent.com/1108513/179256579-146a7884-e4f7-440b-8e36-8c9a027446d4.png",
+    "https://user-images.githubusercontent.com/1108513/179256973-c8574f08-3f81-4cdd-a40e-c395cddf58e8.png",
+    "https://user-images.githubusercontent.com/85491794/179372191-86e49d45-3202-4215-bc65-43cbd81859aa.png",
+    "https://user-images.githubusercontent.com/85491794/179613475-b1fb1f6f-0210-4e28-9f40-56844c51db6d.png",
+    "https://user-images.githubusercontent.com/85491794/179860629-acdea9b0-72cb-42c8-a826-cdc4f6abdcc1.png",
+    "https://user-images.githubusercontent.com/1108513/180178629-73c14f96-cb8a-4118-80eb-d0e9ac98a5bc.png",
+    "https://user-images.githubusercontent.com/85491794/175574524-d94d332b-eae4-417f-ad77-7fbb509207d3.png",
+    "https://user-images.githubusercontent.com/85491794/175577400-3b2a3a8b-dcdb-41bf-9664-6ee4e0044869.png",
+    "https://user-images.githubusercontent.com/85491794/175602797-5a2361d4-14f1-40f4-b926-8ab09fcf5573.png",
+    "https://user-images.githubusercontent.com/85491794/176288559-815abcd9-f858-44ae-9274-3b8f9c76d7eb.png",
+    "https://user-images.githubusercontent.com/85491794/177174584-c641e436-5907-45f6-88ec-a2d3ed40d4c0.png",
+    "https://user-images.githubusercontent.com/1108513/177176692-1dab6d57-99cb-49d0-8de2-e994f72cb608.png",
+    "https://user-images.githubusercontent.com/1108513/177176930-97efe363-7d36-4c35-9d16-f8a3bca7a51d.png",
+    "https://user-images.githubusercontent.com/1108513/177177729-7246991f-4494-48f3-a710-d27f1688bb6b.png",
+    "https://user-images.githubusercontent.com/1108513/177178176-ad7b5fd0-df2d-43c2-8e2a-de65c4b29692.png",
+    "https://user-images.githubusercontent.com/85491794/177186633-36866224-64dd-4471-9561-cb99f0b72266.png",
+    "https://user-images.githubusercontent.com/1108513/177189053-2e64b56c-edbd-4bd5-84f6-157e91f60186.png",
+    "https://user-images.githubusercontent.com/26705621/177248991-890bbf0c-7c40-4c95-a374-1ace120246d4.png",
+    "https://user-images.githubusercontent.com/1108513/177284422-11056098-13e3-4262-82c3-673d101050a6.png",
+    "https://user-images.githubusercontent.com/1108513/178304771-a3a1a7dc-c0f5-4549-a194-af7567721dc6.png",
+    "https://user-images.githubusercontent.com/1108513/180483569-2c07127c-41c2-42b3-b308-35f50ebec919.png"
+  ],
+  "number_of_changed_files": 18,
+  "total_changed_lines": 749
+}

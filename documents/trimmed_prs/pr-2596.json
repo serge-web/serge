@@ -1,0 +1,68 @@
+{
+  "number": 2596,
+  "title": "2595 interaction performance",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-09T12:01:30Z",
+  "updated_at": "2023-03-09T16:02:18Z",
+  "closed_at": "2023-03-09T16:02:17Z",
+  "merged_at": "2023-03-09T16:02:17Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2596",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2596/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2596/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2596",
+  "body": "Supports #2595 ",
+  "additions": 61,
+  "deletions": 36,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1462321457,
+      "user": "IanMayo",
+      "created_at": "2023-03-09T16:02:08Z",
+      "updated_at": "2023-03-09T16:02:08Z",
+      "body": "Interaction processing has speeded up due to removing lots of activity interactions.  But, the diagnostics in this issue should be useful."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2595
+  ],
+  "issues": [
+    {
+      "id": 1617033805,
+      "number": 2595,
+      "title": "Performance logging",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-09T11:35:37Z",
+      "updated_at": "2023-03-09T16:42:07Z",
+      "closed_at": "2023-03-09T16:42:07Z",
+      "body": "* remove logging for linePolygon interactions\r\n* insert time logging around get next interaction",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1462387637,
+          "user": "IanMayo",
+          "created_at": "2023-03-09T16:42:07Z",
+          "updated_at": "2023-03-09T16:42:07Z",
+          "body": "Done"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 97
+}

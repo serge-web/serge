@@ -1,0 +1,100 @@
+{
+  "number": 1392,
+  "title": "1386: Deleting a new channel deletes other channel too",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-09T12:12:19Z",
+  "updated_at": "2022-03-10T08:43:47Z",
+  "closed_at": "2022-03-10T08:43:46Z",
+  "merged_at": "2022-03-10T08:43:46Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1392",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1392/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1392/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1392",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1386\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 10,
+  "deletions": 24,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 3,
+  "total_comments": 3,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 822917320,
+      "user": "IanMayo",
+      "created_at": "2022-03-09T17:42:54Z",
+      "updated_at": "2022-03-09T17:42:55Z",
+      "body": "@lilitkarapetyan - in this new way of doing it, where does `template.uniqid` get set ?",
+      "path": "packages/client/src/Views/GameSetupNew.jsx",
+      "diff_hunk": "@@ -233,22 +232,11 @@ const AdminGameSetup = () => {\n     }))\n   }\n \n-  const onCreateChannel = (buttonText) => {\n+  const onCreateChannel = (id, createdChannel) => {\n     if (channels.dirty) {\n       dispatch(modalAction.open('unsavedChannel', 'create-new'))\n     } else {\n-      let id = `channel-${uniqid.time()}`\n-      if (buttonText && (buttonText === CHANNEL_MAPPING || buttonText === CHANNEL_RFI_STATUS)) {\n-        id = buttonText\n-      }\n-      dispatch(addNewChannel({ name: id, uniqid: id }))\n-      dispatch(setSelectedChannel({ name: id, uniqid: id }))\n-\n-      const template = channelTemplate\n-      template.name = id\n-      template.uniqid = id\n-",
+      "html_url": "https://github.com/serge-web/serge/pull/1392#discussion_r822917320"
+    },
+    {
+      "id": 823393532,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-03-10T06:45:25Z",
+      "updated_at": "2022-03-10T06:45:25Z",
+      "body": "This function was added up to this point but not used, the working one was in `packages/client/src/local/organisms/settings-channels/helpers/createChannel.ts`.\r\nAnd everything works also only with the ability to save.",
+      "path": "packages/client/src/Views/GameSetupNew.jsx",
+      "diff_hunk": "@@ -233,22 +232,11 @@ const AdminGameSetup = () => {\n     }))\n   }\n \n-  const onCreateChannel = (buttonText) => {\n+  const onCreateChannel = (id, createdChannel) => {\n     if (channels.dirty) {\n       dispatch(modalAction.open('unsavedChannel', 'create-new'))\n     } else {\n-      let id = `channel-${uniqid.time()}`\n-      if (buttonText && (buttonText === CHANNEL_MAPPING || buttonText === CHANNEL_RFI_STATUS)) {\n-        id = buttonText\n-      }\n-      dispatch(addNewChannel({ name: id, uniqid: id }))\n-      dispatch(setSelectedChannel({ name: id, uniqid: id }))\n-\n-      const template = channelTemplate\n-      template.name = id\n-      template.uniqid = id\n-",
+      "html_url": "https://github.com/serge-web/serge/pull/1392#discussion_r823393532"
+    },
+    {
+      "id": 823472531,
+      "user": "IanMayo",
+      "created_at": "2022-03-10T08:42:22Z",
+      "updated_at": "2022-03-10T08:42:23Z",
+      "body": "Aah, great = thanks :-)",
+      "path": "packages/client/src/Views/GameSetupNew.jsx",
+      "diff_hunk": "@@ -233,22 +232,11 @@ const AdminGameSetup = () => {\n     }))\n   }\n \n-  const onCreateChannel = (buttonText) => {\n+  const onCreateChannel = (id, createdChannel) => {\n     if (channels.dirty) {\n       dispatch(modalAction.open('unsavedChannel', 'create-new'))\n     } else {\n-      let id = `channel-${uniqid.time()}`\n-      if (buttonText && (buttonText === CHANNEL_MAPPING || buttonText === CHANNEL_RFI_STATUS)) {\n-        id = buttonText\n-      }\n-      dispatch(addNewChannel({ name: id, uniqid: id }))\n-      dispatch(setSelectedChannel({ name: id, uniqid: id }))\n-\n-      const template = channelTemplate\n-      template.name = id\n-      template.uniqid = id\n-",
+      "html_url": "https://github.com/serge-web/serge/pull/1392#discussion_r823472531"
+    }
+  ],
+  "issue_numbers": [
+    1386
+  ],
+  "issues": [
+    {
+      "id": 1162426255,
+      "number": 1386,
+      "title": "Deleting a new channel deletes other channel too",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-03-08T09:33:12Z",
+      "updated_at": "2022-07-04T10:49:39Z",
+      "closed_at": "2022-07-04T10:49:38Z",
+      "body": "I just created a new channel.\r\n\r\nWhen I went to delete it, it deleted another channel too:\r\n![recording](https://i.gyazo.com/7f2b536344553e85f470515bd7c6bbc1.gif)",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1061838309,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-08T14:30:26Z",
+          "updated_at": "2022-03-08T14:30:26Z",
+          "body": "Just noticed this. It happens in Small Wargame, Local Wargame and Tall MSG only."
+        },
+        {
+          "id": 1173669154,
+          "user": "IanMayo",
+          "created_at": "2022-07-04T10:49:38Z",
+          "updated_at": "2022-07-04T10:49:38Z",
+          "body": "Fixed in #1392 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/7f2b536344553e85f470515bd7c6bbc1.gif"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 34
+}

@@ -1,0 +1,198 @@
+{
+  "number": 1595,
+  "title": "Windows & Linux executables failing",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-14T06:50:11Z",
+  "updated_at": "2022-06-17T15:46:46Z",
+  "closed_at": "2022-06-17T15:46:45Z",
+  "merged_at": "2022-06-17T15:46:45Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1595",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1595/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1595/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1595",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1592 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 3,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 13,
+  "review_comments_count": 1,
+  "total_comments": 14,
+  "comments_data": [
+    {
+      "id": 1154817605,
+      "user": "IanMayo",
+      "created_at": "2022-06-14T07:27:36Z",
+      "updated_at": "2022-06-14T09:26:59Z",
+      "body": "Thanks @lilitkarapetyan - I was expecting you to have to stick in the '.node' files for Marcos/Linux too.  I \"think\" this PR will only provide executables for windows \r\n\r\nHere is the lib file for macos:\r\n[node_sqlite3.node_macos.zip](https://github.com/serge-web/serge/files/8897672/node_sqlite3.node_macos.zip)\r\n\r\nHere is the lib file for ubuntu: \r\n[node_sqlite3.node_linux.zip](https://github.com/serge-web/serge/files/8898409/node_sqlite3.node_linux.zip)\r\n\r\nHere is the executable running on linux:\r\n![image](https://user-images.githubusercontent.com/1108513/173544159-2f8c9925-0b37-49ca-b336-85d8f04545b1.png)\r\n"
+    },
+    {
+      "id": 1155073920,
+      "user": "IanMayo",
+      "created_at": "2022-06-14T11:44:00Z",
+      "updated_at": "2022-06-14T11:44:00Z",
+      "body": "I've checked out the branch on macos, run `yarn install`, then `yarn build`, then `yarn pkg-build`.   But, when I copy the windows executable to ms-windows, it fails like this:\r\n![image](https://user-images.githubusercontent.com/1108513/173569387-9d7a8e27-59f1-4808-8626-df8139fc1817.png)\r\n "
+    },
+    {
+      "id": 1155120459,
+      "user": "lebaphi",
+      "created_at": "2022-06-14T12:30:03Z",
+      "updated_at": "2022-06-14T12:30:03Z",
+      "body": "@IanMayo This one works for macos arm64 architecture 👍 \r\nWe should create a new folder under `packages/executable/sqlite3.nodes` for arm64, then update the `packages/executable/helpers/pkhCopyCrossPlatforms.js` too.\r\n\r\n[node_sqlite3.node.macos_arm64zip.zip](https://github.com/serge-web/serge/files/8899684/node_sqlite3.node.macos_arm64zip.zip)\r\n"
+    },
+    {
+      "id": 1155123759,
+      "user": "IanMayo",
+      "created_at": "2022-06-14T12:32:57Z",
+      "updated_at": "2022-06-14T12:32:57Z",
+      "body": "> @IanMayo This one works for macos arm64 architecture 👍 We should create a new folder under `packages/executable/sqlite3.nodes` for arm64, then update the `packages/executable/helpers/pkhCopyCrossPlatforms.js` too.\r\n\r\nCould you make that change, in this PR please @lebaphi ?  That's because @lilitkarapetyan wouldn't be able to test that `arm64` is working correctly.\r\n"
+    },
+    {
+      "id": 1155166035,
+      "user": "lebaphi",
+      "created_at": "2022-06-14T13:10:39Z",
+      "updated_at": "2022-06-14T13:10:39Z",
+      "body": "sure @IanMayo "
+    },
+    {
+      "id": 1156265102,
+      "user": "IanMayo",
+      "created_at": "2022-06-15T10:01:46Z",
+      "updated_at": "2022-06-15T10:01:46Z",
+      "body": "Hello @lebaphi , one more change, please.\r\n![image](https://user-images.githubusercontent.com/1108513/173800974-36db54aa-f7bb-4a75-8908-1ace96dbe768.png)\r\n\r\nWe create two files called `executable-macos`. Could the first one be called `executable-macos-arm64` please?"
+    },
+    {
+      "id": 1156277246,
+      "user": "IanMayo",
+      "created_at": "2022-06-15T10:13:23Z",
+      "updated_at": "2022-06-15T10:13:23Z",
+      "body": "Hello @lilitkarapetyan - I get this error when I run the current built executable on MS-Windows:\r\n![image](https://user-images.githubusercontent.com/1108513/173803404-094c66d0-aef2-4b67-a5d4-fba4e5203f2e.png)\r\n\r\nCould you please check if it works for you?"
+    },
+    {
+      "id": 1156340584,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-06-15T11:15:02Z",
+      "updated_at": "2022-06-15T11:15:02Z",
+      "body": "I have win64 installed and it works without errors."
+    },
+    {
+      "id": 1156530369,
+      "user": "IanMayo",
+      "created_at": "2022-06-15T14:14:56Z",
+      "updated_at": "2022-06-15T14:14:56Z",
+      "body": "> I have win64 installed and it works without errors.\r\n\r\nOk. It ran fine on a Windows VM on Intel Macos.  It failed on Windows VM on ARM Macos."
+    },
+    {
+      "id": 1157259376,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-06-16T05:49:38Z",
+      "updated_at": "2022-06-16T05:49:38Z",
+      "body": "> \r\nHi Ian,\r\nDo you use win32 or win64 on  ARM Macos?"
+    },
+    {
+      "id": 1157389823,
+      "user": "IanMayo",
+      "created_at": "2022-06-16T08:36:41Z",
+      "updated_at": "2022-06-16T08:36:41Z",
+      "body": "> Do you use win32 or win64 on ARM Macos?\r\n\r\nAah, it _looks like_ the problem could be that it's 64-Bit ARM version of windows :-(\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/174028667-051965f1-26ea-4910-a60c-f3e29853c30e.png)\r\n\r\nThat's certainly not a target we formally need to support.\r\n"
+    },
+    {
+      "id": 1157415153,
+      "user": "IanMayo",
+      "created_at": "2022-06-16T09:03:03Z",
+      "updated_at": "2022-06-16T09:03:03Z",
+      "body": "I am probably worrying over nothing, but.\r\n\r\nIn this line I don't see a target for `macos-arm64`.  Can @lilitkarapetyan or @lebaphi explain why it isn't there?\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/174034036-93157500-c265-4124-82a6-930d26d6f2b5.png)\r\n\r\nOne more thing, for @lebaphi:\r\nCould you change the build description so it's clear which is `executable-macos` and which is `executable-macos-arm64`?  I did try to do this myself, but broke the build.  The reason for this, is that I want it to be quite clear where errors occur.\r\n![image](https://user-images.githubusercontent.com/1108513/174034460-8839e919-bcdf-4a9e-b3e0-5457a2647df1.png)\r\n"
+    },
+    {
+      "id": 1157711091,
+      "user": "lebaphi",
+      "created_at": "2022-06-16T14:14:40Z",
+      "updated_at": "2022-06-16T14:14:40Z",
+      "body": "> I am probably worrying over nothing, but.\r\n> \r\n> In this line I don't see a target for `macos-arm64`. Can @lilitkarapetyan or @lebaphi explain why it isn't there?\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/174034036-93157500-c265-4124-82a6-930d26d6f2b5.png)\r\n> \r\n> One more thing, for @lebaphi: Could you change the build description so it's clear which is `executable-macos` and which is `executable-macos-arm64`? I did try to do this myself, but broke the build. The reason for this, is that I want it to be quite clear where errors occur. ![image](https://user-images.githubusercontent.com/1108513/174034460-8839e919-bcdf-4a9e-b3e0-5457a2647df1.png)\r\n\r\nHi @IanMayo, executable for mac os can run on intel chip and arm64 chip, so we just need to build 1 version and use for both. Only sqlite3.node file needs to be built with its correct architecture."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 896878238,
+      "user": "IanMayo",
+      "created_at": "2022-06-14T14:14:08Z",
+      "updated_at": "2022-06-14T14:14:08Z",
+      "body": "@lebaphi  - the logic can be simplified if you change the order a little.\r\n\r\nIf you test for arm64 first, you just need to test for `macos` in the following test",
+      "path": "packages/executable/helpers/pkhCopyCrossPlatforms.js",
+      "diff_hunk": "@@ -98,8 +105,10 @@ Promise.all(promises).then(() => {\n     let outputPath = `${zipPath}/SERGE_${getDate()}`\n     if (dir.indexOf('linux') !== -1) {\n       outputPath += '_linux.zip'\n-    } else if (dir.indexOf('macos') !== -1) {\n+    } else if (dir.indexOf('macos') !== -1 && dir.indexOf('macos-arm64') === -1) {",
+      "html_url": "https://github.com/serge-web/serge/pull/1595#discussion_r896878238"
+    }
+  ],
+  "issue_numbers": [
+    1592
+  ],
+  "issues": [
+    {
+      "id": 1264751637,
+      "number": 1592,
+      "title": "Windows & Linux executables failing",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-08T13:26:37Z",
+      "updated_at": "2022-06-17T15:46:45Z",
+      "closed_at": "2022-06-17T15:46:45Z",
+      "body": "I've run `yarn pkg-build` on the `develop` branch.  I then copied the Windows executable to a `Windows 11` Virtual machine.\r\n\r\nWhen I run the executable from `Windows Explorer` it silently fails.\r\n\r\nWhen I run it from Command Prompt, it fails with this error:\r\n![image](https://user-images.githubusercontent.com/1108513/172627836-c488a566-1613-4335-94d0-bbf6bd9a04e8.png)\r\n\r\nThe users are planning on running a wargame next week, and are keen on getting a test-able version on their network.\r\n\r\nOoops, it's also failing on Linuex:\r\n![image](https://user-images.githubusercontent.com/1108513/172630857-6381c215-e44a-460a-aaf0-a25d9a59e0cb.png)\r\n\r\nNote: I also downloaded a CI build from this PR, and it failed with the same error:\r\nhttps://github.com/serge-web/serge/actions/runs/2455919188\r\n\r\nOk. I ran the CI build on an old Windows 10 PC, and got this error. It gives more detail:\r\n![image](https://user-images.githubusercontent.com/1108513/172825342-5d2b77e4-4091-4c81-8edc-81fc4d0ad6f3.png)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1153666512,
+          "user": "IanMayo",
+          "created_at": "2022-06-13T09:06:16Z",
+          "updated_at": "2022-06-13T09:06:16Z",
+          "body": "Here's a recording of the issue on MS-Windows:\r\n![screencast](https://i.gyazo.com/4f9b6365964da0742c1bdf8d8a8d7dc3.gif)\r\n"
+        },
+        {
+          "id": 1154111336,
+          "user": "IanMayo",
+          "created_at": "2022-06-13T16:09:31Z",
+          "updated_at": "2022-06-13T16:09:31Z",
+          "body": "Ok, @lebaphi resolved it:\r\n\r\n> I think the root cause is the node_sqlite3.node file is not consistent with node 16, \r\n> because it was build with node 14 (in executable/sqlite3.nodes)\r\n> so we need to copy the new one which consistent with node 16 then it will work\r\n\r\nPhi can produce `sqlite3.node` files for `macos` and `linux`, and hopefully @lilitkarapetyan will produce one for `windows`.\r\n\r\n@lebaphi - if you zip up the `.node` files and attach them to this issue, then @lilitkarapetyan  can include them in a PR."
+        },
+        {
+          "id": 1154667975,
+          "user": "lebaphi",
+          "created_at": "2022-06-14T03:25:57Z",
+          "updated_at": "2022-06-14T03:25:57Z",
+          "body": "@IanMayo I just have the file for Macos, I think @lilitkarapetyan has files for windows and linux 👍 \r\n\r\n[node_sqlite3.node_macos.zip](https://github.com/serge-web/serge/files/8896112/node_sqlite3.node_macos.zip)\r\n"
+        },
+        {
+          "id": 1154930401,
+          "user": "IanMayo",
+          "created_at": "2022-06-14T09:17:35Z",
+          "updated_at": "2022-06-14T09:18:01Z",
+          "body": "Thanks @lebaphi - I'm just finishing the linux version.  I'll pass it to @lilitkarapetyan  in her Pull Request."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/173544159-2f8c9925-0b37-49ca-b336-85d8f04545b1.png",
+    "https://user-images.githubusercontent.com/1108513/173569387-9d7a8e27-59f1-4808-8626-df8139fc1817.png",
+    "https://user-images.githubusercontent.com/1108513/173800974-36db54aa-f7bb-4a75-8908-1ace96dbe768.png",
+    "https://user-images.githubusercontent.com/1108513/173803404-094c66d0-aef2-4b67-a5d4-fba4e5203f2e.png",
+    "https://user-images.githubusercontent.com/1108513/174028667-051965f1-26ea-4910-a60c-f3e29853c30e.png",
+    "https://user-images.githubusercontent.com/1108513/174034036-93157500-c265-4124-82a6-930d26d6f2b5.png",
+    "https://user-images.githubusercontent.com/1108513/174034460-8839e919-bcdf-4a9e-b3e0-5457a2647df1.png",
+    "https://user-images.githubusercontent.com/1108513/172627836-c488a566-1613-4335-94d0-bbf6bd9a04e8.png",
+    "https://user-images.githubusercontent.com/1108513/172630857-6381c215-e44a-460a-aaf0-a25d9a59e0cb.png",
+    "https://user-images.githubusercontent.com/1108513/172825342-5d2b77e4-4091-4c81-8edc-81fc4d0ad6f3.png",
+    "https://i.gyazo.com/4f9b6365964da0742c1bdf8d8a8d7dc3.gif"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 0
+}

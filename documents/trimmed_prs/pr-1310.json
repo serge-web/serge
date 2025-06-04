@@ -1,0 +1,79 @@
+{
+  "number": 1310,
+  "title": "1303: Fix issue Insights & Intro Buttons CMDWK-HIGH DATA",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-18T13:40:35Z",
+  "updated_at": "2022-01-19T12:18:03Z",
+  "closed_at": "2022-01-19T12:18:03Z",
+  "merged_at": "2022-01-19T12:18:02Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1310",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1310/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1310/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1310",
+  "body": "Fixes #1303 ",
+  "additions": 18,
+  "deletions": 9,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1015425110,
+      "user": "IanMayo",
+      "created_at": "2022-01-18T13:43:54Z",
+      "updated_at": "2022-01-18T13:43:54Z",
+      "body": "Can we have before/after screenshot please @lebaphi ?"
+    },
+    {
+      "id": 1015428053,
+      "user": "lebaphi",
+      "created_at": "2022-01-18T13:47:29Z",
+      "updated_at": "2022-01-18T13:47:29Z",
+      "body": "Hi @ShendMikullovci @IanMayo , can you have a look at this :D\r\n\r\nBefore:\r\n\r\n![image](https://user-images.githubusercontent.com/26705621/149949198-cbba2d59-de5d-4621-afcb-f7609f190563.png)\r\n\r\nAfter:\r\n\r\n![image](https://user-images.githubusercontent.com/26705621/149949151-5803b816-15bb-4494-bf9a-57b31fce35af.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1303
+  ],
+  "issues": [
+    {
+      "id": 1105093022,
+      "number": 1303,
+      "title": "Insights & Intro Buttons CMDWK-HIGH DATA",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-16T16:12:05Z",
+      "updated_at": "2022-01-19T12:18:02Z",
+      "closed_at": "2022-01-19T12:18:02Z",
+      "body": "It seems the buttons for the Insights box and Intro pop-up have been glued together in the game. \r\n\r\n![Insights and Intro Button Bug](https://user-images.githubusercontent.com/85491794/149667978-b2f40028-bef2-4b62-8023-2780df383feb.png)\r\n \r\nCould we space them out like in Papafoxtrot?",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1014697908,
+          "user": "IanMayo",
+          "created_at": "2022-01-17T16:09:58Z",
+          "updated_at": "2022-01-17T16:09:58Z",
+          "body": "Yes, we need to provide minimum width value for these tables.\r\n\r\nHmm, to be honest, the limited resolution of a specific projector forced us to compress the width of the Admin panel.   If/when we restore the width of the Game Admin channel the icons will get more space again."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/149949198-cbba2d59-de5d-4621-afcb-f7609f190563.png",
+    "https://user-images.githubusercontent.com/26705621/149949151-5803b816-15bb-4494-bf9a-57b31fce35af.png",
+    "https://user-images.githubusercontent.com/85491794/149667978-b2f40028-bef2-4b62-8023-2780df383feb.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 27
+}

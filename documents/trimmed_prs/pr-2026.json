@@ -1,0 +1,62 @@
+{
+  "number": 2026,
+  "title": "2022 save geometry",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-09T12:56:10Z",
+  "updated_at": "2022-11-09T19:03:46Z",
+  "closed_at": "2022-11-09T19:03:45Z",
+  "merged_at": "2022-11-09T19:03:45Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2026",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2026/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2026/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2026",
+  "body": "Fixes #2022 ",
+  "additions": 128,
+  "deletions": 66,
+  "changed_files": 13,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1308789508,
+      "user": "IanMayo",
+      "created_at": "2022-11-09T13:45:47Z",
+      "updated_at": "2022-11-09T13:45:47Z",
+      "body": "I have an issue with a callback. @lebaphi  is helping me.  Here are steps to reproduce:\r\n\r\nhttps://user-images.githubusercontent.com/1108513/200845844-dbebd2ac-4b94-4df7-b677-a08ee0c7b35f.mp4\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2022
+  ],
+  "issues": [
+    {
+      "id": 1441696953,
+      "number": 2022,
+      "title": "Need to implement `Save Geometry`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-09T09:01:59Z",
+      "updated_at": "2022-11-09T19:03:46Z",
+      "closed_at": "2022-11-09T19:03:46Z",
+      "body": "We're allowing users to edit a geometry.  But, we still need to implement `Save`.\r\n\r\nWe `eventually` have to edit the live object in the `json-editor`.  But, it's significant that we're storing the GeoJSON in `hiddenStore`.  When users to `modifyForSave` it takes this GeoJSON and stores it.  If we _slide_ the edited value into there, we'll store the new geometry.",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 13,
+  "total_changed_lines": 194
+}

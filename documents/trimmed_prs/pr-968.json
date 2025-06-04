@@ -1,0 +1,274 @@
+{
+  "number": 968,
+  "title": "Introduce uniqid for Role",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-27T07:34:32Z",
+  "updated_at": "2021-07-28T11:25:05Z",
+  "closed_at": "2021-07-28T11:25:04Z",
+  "merged_at": "2021-07-28T11:25:04Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/968",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/968/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/968/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/968",
+  "body": "Supports #812 ",
+  "additions": 116,
+  "deletions": 31,
+  "changed_files": 25,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 17,
+  "total_comments": 17,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 677279691,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T09:28:20Z",
+      "updated_at": "2021-07-27T09:28:20Z",
+      "body": "@lebaphi - elsewhere in the app we use the `uniqid` library: https://github.com/adamhalasz/uniqid/\r\n\r\nThe above would be replaced with `uniqid.time('r')`",
+      "path": "packages/components/src/local/organisms/setting-forces/settings-force-roles/index.tsx",
+      "diff_hunk": "@@ -98,6 +98,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce }) => {\n \n   const handleCreateRole = (): void => {\n     const roles: Array<Role> = [...data.roles, {\n+      roleId: 'r' + Math.random().toString(36).substring(4), // make id more uniq",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677279691"
+    },
+    {
+      "id": 677280993,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T09:30:07Z",
+      "updated_at": "2021-07-27T09:30:07Z",
+      "body": "@lebaphi - I _think_ it would be healthy for the three `roleId` values in this data were unique.",
+      "path": "packages/mocks/atlantic-forces.mock.ts",
+      "diff_hunk": "@@ -309,6 +310,7 @@ export const forces: ForceData[] = [\n     \"overview\": \"Blue force.\",\n     \"roles\": [\n       {\n+        \"roleId\": \"r12345CO\",",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677280993"
+    },
+    {
+      "id": 677420180,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T12:53:59Z",
+      "updated_at": "2021-07-27T12:54:00Z",
+      "body": "I could do with some help here please, @lebaphi \r\n\r\nThis happens as we're loading a game. We see if the roleId is missing. If it is missing, we create the roleId for that role, then we push the forces to the database.\r\n\r\nDo we need to worry about multiple players updating the roles at the same time, and getting a conflict?",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677420180"
+    },
+    {
+      "id": 677507440,
+      "user": "lebaphi",
+      "created_at": "2021-07-27T14:29:42Z",
+      "updated_at": "2021-07-27T14:29:42Z",
+      "body": "Hi @IanMayo , I just wonder if multiple users adding the new role or updating the role at the same time, how do we deal with conflicts?",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677507440"
+    },
+    {
+      "id": 677512730,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T14:35:12Z",
+      "updated_at": "2021-07-27T14:35:12Z",
+      "body": "Aah, we don't want to allow multiple admins to create roles at the same time - I _Think_ that's to be treated as a training issue.  The issue is when multiple players load an old wargame at the same time, and separately try to generate the roleId entries.",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677512730"
+    },
+    {
+      "id": 677521373,
+      "user": "lebaphi",
+      "created_at": "2021-07-27T14:44:12Z",
+      "updated_at": "2021-07-27T14:44:12Z",
+      "body": "ah okay, so I think we need to handle the conflict error for this thing, no worries 😙",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677521373"
+    },
+    {
+      "id": 677523246,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T14:46:15Z",
+      "updated_at": "2021-07-27T14:46:15Z",
+      "body": "I don't know for sure - I'm just thinking it through with you.",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677523246"
+    },
+    {
+      "id": 677523788,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T14:46:51Z",
+      "updated_at": "2021-07-27T14:46:51Z",
+      "body": "Let me look at the network traffic & see how long it takes to process with two players logged in.  If it's well under a second, then I don't think the conflict will happen.",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677523788"
+    },
+    {
+      "id": 677530638,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T14:53:26Z",
+      "updated_at": "2021-07-27T14:53:27Z",
+      "body": "It _seems to take 0.91ms to run - so I don't think there will be conflicts.",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677530638"
+    },
+    {
+      "id": 677541150,
+      "user": "lebaphi",
+      "created_at": "2021-07-27T15:04:18Z",
+      "updated_at": "2021-07-27T15:04:18Z",
+      "body": "yep, it seems unlikely to occur, but if you want to make sure there is no conflict, I think we should handle the conflict error, if it does, just update this document again https://pouchdb.com/guides/conflicts.html",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677541150"
+    },
+    {
+      "id": 677545603,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T15:09:05Z",
+      "updated_at": "2021-07-27T15:09:05Z",
+      "body": "Oh yeah - PouchDb will tell us if there is a conflict. Yes, in this instance I think we should just `put` it again.",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677545603"
+    },
+    {
+      "id": 677565131,
+      "user": "lebaphi",
+      "created_at": "2021-07-27T15:30:12Z",
+      "updated_at": "2021-07-27T15:30:12Z",
+      "body": "cool, I will update soon 👍🏻",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r677565131"
+    },
+    {
+      "id": 678130720,
+      "user": "IanMayo",
+      "created_at": "2021-07-28T09:24:21Z",
+      "updated_at": "2021-07-28T09:24:21Z",
+      "body": "Hello @lebaphi - I could do with closing this soon please, since in my code I want to use `roleId` instead of `name`.\r\n\r\nIf you're not ready to handle the conflict today, then let's merge the PR and solve it as another issue.",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r678130720"
+    },
+    {
+      "id": 678197000,
+      "user": "lebaphi",
+      "created_at": "2021-07-28T11:01:30Z",
+      "updated_at": "2021-07-28T11:01:30Z",
+      "body": "HI @IanMayo , okay you can merge this PR first, then I can have another PR to resolve the conflict issue later.",
+      "path": "packages/client/src/Store/PlayerUi.tsx",
+      "diff_hunk": "@@ -21,6 +24,21 @@ export const usePlayerUiState = (): PlayerUi => {\n   if (context === undefined) {\n     throw new Error('usePlayerUiState must be used within a PlayerStateContext.Provider')\n   }\n+  //process roleid for the legacy data",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r678197000"
+    },
+    {
+      "id": 678201164,
+      "user": "IanMayo",
+      "created_at": "2021-07-28T11:08:06Z",
+      "updated_at": "2021-07-28T11:12:44Z",
+      "body": "@lebaphi - shouldn't `uniqid` be added to the `package.json` for `packages\\client` ?",
+      "path": "package.json",
+      "diff_hunk": "@@ -13,7 +13,8 @@\n     \"@types/react-flatpickr\": \"^3.8.4\",\n     \"lerna\": \"^3.16.4\",\n     \"npm-run-all\": \"^4.1.5\",\n-    \"snyk\": \"^1.298.1\"\n+    \"snyk\": \"^1.298.1\",\n+    \"uniqid\": \"^5.3.0\"",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r678201164"
+    },
+    {
+      "id": 678203204,
+      "user": "lebaphi",
+      "created_at": "2021-07-28T11:11:13Z",
+      "updated_at": "2021-07-28T11:11:26Z",
+      "body": "hi @IanMayo, I don't add `snyk `, just add `uniqid `, it shows the code changes :D",
+      "path": "package.json",
+      "diff_hunk": "@@ -13,7 +13,8 @@\n     \"@types/react-flatpickr\": \"^3.8.4\",\n     \"lerna\": \"^3.16.4\",\n     \"npm-run-all\": \"^4.1.5\",\n-    \"snyk\": \"^1.298.1\"\n+    \"snyk\": \"^1.298.1\",\n+    \"uniqid\": \"^5.3.0\"",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r678203204"
+    },
+    {
+      "id": 678207472,
+      "user": "IanMayo",
+      "created_at": "2021-07-28T11:18:19Z",
+      "updated_at": "2021-07-28T11:18:19Z",
+      "body": "It's ok. I'm pretty sure I can remove it, since the dependency is already in the `client` package.",
+      "path": "package.json",
+      "diff_hunk": "@@ -13,7 +13,8 @@\n     \"@types/react-flatpickr\": \"^3.8.4\",\n     \"lerna\": \"^3.16.4\",\n     \"npm-run-all\": \"^4.1.5\",\n-    \"snyk\": \"^1.298.1\"\n+    \"snyk\": \"^1.298.1\",\n+    \"uniqid\": \"^5.3.0\"",
+      "html_url": "https://github.com/serge-web/serge/pull/968#discussion_r678207472"
+    }
+  ],
+  "issue_numbers": [
+    812
+  ],
+  "issues": [
+    {
+      "id": 909390514,
+      "number": 812,
+      "title": "Introduce uniqid for Role",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-02T11:17:57Z",
+      "updated_at": "2021-08-19T13:28:00Z",
+      "closed_at": "2021-08-19T13:27:59Z",
+      "body": "We currently use the role title as the identifier when referred to from channel definitions.\r\n\r\nBut, the role title can be renamed, which would break the logic.\r\n\r\nInstead, when creating a role a persistent uniqid should be generated, which would handle role name changes.\r\n\r\n**Update:** Aah, actually we already create a unique id with each role - the passcode/password. So, we could rename `password` to `roleId`\r\n\r\n* [x] Change `Role` type by renaming `password` to introduce `RoleId` (`role.d.ts`)\r\n* [x] Change to `Channels` page, to store roleId for channel participations, rather than role name (but still display human-readable name in UI).  \r\n* [x] Change to welcome page, to work with role-id values rather than role name \r\n* [x] Identify locations where `role-name` still used, and work through them.   One will be the `reducer` than handles new wargame.  It will have to retrieve the role data for the current user, then set `observer`, `canSubmitOrders`, `isRFIManager`.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 865928617,
+          "user": "IanMayo",
+          "created_at": "2021-06-22T12:09:40Z",
+          "updated_at": "2021-06-22T12:09:40Z",
+          "body": "@lebaphi  said:\r\n> so how can we deal with the legacy roles?\r\n> it does not include the roleId\r\n\r\n@ian said:\r\n> Sure. I suggest we use a method: getRole(). We pass it the forces plus the force and role-name and\r\n>  role-id. If there > is a role-id, we retrieve the Role from Forces. If there isn't, we use force and \r\n> role-name and use them to get the Role from `Forces.\r\n> The method would sit in helpers package.\r\n> Note: for the second scenario, we need to use force and role, since CO may be present in multiple forces.\r\n\r\nBut, we would not use the helper each time we needed to get the role details.   I suggest it's neater to update the `PlayerUIState` when the wargame/force/role are updated.  Then we only handle it in onnce.\r\n\r\nDoes that sound right @sanjayradadiya .  Can you identify where we should put this logic please?"
+        },
+        {
+          "id": 865929945,
+          "user": "sanjayradadiya",
+          "created_at": "2021-06-22T12:11:25Z",
+          "updated_at": "2021-06-22T12:11:25Z",
+          "body": "Sure, I will check and update here"
+        },
+        {
+          "id": 866630467,
+          "user": "IanMayo",
+          "created_at": "2021-06-23T08:15:34Z",
+          "updated_at": "2021-06-23T08:15:34Z",
+          "body": "@lebaphi  said:\r\n> currently, the selectedRole is the role name, and we use it to find the role (in the selected forces) somewhere in the code, I just wonder why we don't store the selectedRole as the role object from the beginning, so we will reduce to find the role by role name or role id also?\r\n\r\nYes - that's exactly what I was thinking of.  Is that right @sanjayradadiya ?"
+        },
+        {
+          "id": 867351497,
+          "user": "lebaphi",
+          "created_at": "2021-06-24T05:41:57Z",
+          "updated_at": "2021-06-24T05:41:57Z",
+          "body": "> @lebaphi said:\r\n> \r\n> > currently, the selectedRole is the role name, and we use it to find the role (in the selected forces) somewhere in the code, I just wonder why we don't store the selectedRole as the role object from the beginning, so we will reduce to find the role by role name or role id also?\r\n> \r\n> Yes - that's exactly what I was thinking of. Is that right @sanjayradadiya ?\r\n\r\nif this is okay, I will go with it. Because of adding the `roleId`, we need to change a lot of files and need a solution to deal with the legacy roles. By storing a role object from the begining, I think we don't need to add a roleId 🤔 "
+        },
+        {
+          "id": 871256688,
+          "user": "sanjayradadiya",
+          "created_at": "2021-06-30T09:48:45Z",
+          "updated_at": "2021-06-30T09:48:45Z",
+          "body": "> > @lebaphi said:\r\n> > > currently, the selectedRole is the role name, and we use it to find the role (in the selected forces) somewhere in the code, I just wonder why we don't store the selectedRole as the role object from the beginning, so we will reduce to find the role by role name or role id also?\r\n> > \r\n> > \r\n> > Yes - that's exactly what I was thinking of. Is that right @sanjayradadiya ?\r\n> \r\n> if this is okay, I will go with it. Because of adding the `roleId`, we need to change a lot of files and need a solution to deal with the legacy roles. By storing a role object from the begining, I think we don't need to add a roleId 🤔\r\n\r\nI did this same thing before like whenever game loaded i was checking for role id and if not exists then creating id and save that id inside db and after all dispatch update wargame will replace roleid everywhere."
+        },
+        {
+          "id": 871275356,
+          "user": "IanMayo",
+          "created_at": "2021-06-30T10:15:19Z",
+          "updated_at": "2021-06-30T10:15:19Z",
+          "body": "Yes, thanks @sanjayradadiya \r\n\r\nThis task extends further than the player UI.   I want us to create and store a unique Role-Id right from when the role is created in the game admin pages into the wargame document.   Also, when we define channels, I want us to store the role role-id in the channel, not the whole role object.  We currently store the whole role in there, which doesn't allow for role name or permissions to change.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/123943675-4cb13080-d994-11eb-9b65-26bdb3b91cae.png)\r\n\r\nShould be:\r\n![image](https://user-images.githubusercontent.com/1108513/123943847-6eaab300-d994-11eb-99e0-5073a2ad508a.png)\r\n"
+        },
+        {
+          "id": 901915953,
+          "user": "IanMayo",
+          "created_at": "2021-08-19T13:27:59Z",
+          "updated_at": "2021-08-19T13:27:59Z",
+          "body": "This is done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/123943675-4cb13080-d994-11eb-9b65-26bdb3b91cae.png",
+    "https://user-images.githubusercontent.com/1108513/123943847-6eaab300-d994-11eb-99e0-5073a2ad508a.png"
+  ],
+  "number_of_changed_files": 25,
+  "total_changed_lines": 147
+}

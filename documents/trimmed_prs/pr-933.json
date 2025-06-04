@@ -1,0 +1,158 @@
+{
+  "number": 933,
+  "title": "Introduce \"Mark message as unread\"",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-10T07:33:40Z",
+  "updated_at": "2021-07-12T11:42:25Z",
+  "closed_at": "2021-07-12T11:42:24Z",
+  "merged_at": "2021-07-12T11:42:24Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/933",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/933/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/933/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/933",
+  "body": "Fixes #903 ",
+  "additions": 150,
+  "deletions": 61,
+  "changed_files": 19,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 877628581,
+      "user": "IanMayo",
+      "created_at": "2021-07-10T12:15:22Z",
+      "updated_at": "2021-07-10T12:15:22Z",
+      "body": "Thanks for this @lebaphi \r\n\r\nYou are aware that the vertical line should be semi-transparent for read messages.  @ShendMikullovci  also requested that the unread messages have a lighter background, as in the screenshot here:\r\nhttps://github.com/serge-web/serge/issues/903#issuecomment-873046940\r\n\r\nAny other feedback @ShendMikullovci ?  Here's a link into a game:\r\nhttps://serge-903-mark-message--omqycc.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev\r\n"
+    },
+    {
+      "id": 877769334,
+      "user": "IanMayo",
+      "created_at": "2021-07-11T09:30:15Z",
+      "updated_at": "2021-07-11T09:30:15Z",
+      "body": "One last bit. please @lebaphi :\r\n>  @ShendMikullovci  also requested that the unread messages have a lighter background, as in the screenshot here:\r\nhttps://github.com/serge-web/serge/issues/903#issuecomment-873046940"
+    },
+    {
+      "id": 877770677,
+      "user": "lebaphi",
+      "created_at": "2021-07-11T09:43:02Z",
+      "updated_at": "2021-07-11T09:43:02Z",
+      "body": "> One last bit. please @lebaphi :\r\n> \r\n> > @ShendMikullovci  also requested that the unread messages have a lighter background, as in the screenshot here:\r\n> > [#903 (comment)](https://github.com/serge-web/serge/issues/903#issuecomment-873046940)\r\n\r\nah okay, will update now"
+    },
+    {
+      "id": 877958402,
+      "user": "lebaphi",
+      "created_at": "2021-07-12T04:20:09Z",
+      "updated_at": "2021-07-12T04:20:09Z",
+      "body": "done @IanMayo 👍 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    903
+  ],
+  "issues": [
+    {
+      "id": 935100182,
+      "number": 903,
+      "title": "Introduce `Mark message as unread`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-01T18:15:20Z",
+      "updated_at": "2021-07-12T11:42:24Z",
+      "closed_at": "2021-07-12T11:42:24Z",
+      "body": "While some players skim through all new messages, they may wish to highlight some that still require some action from them.\r\n\r\nThey could do this if we offered `mark message as unread` support.  This would clear the `read` cookie for that message.\r\n\r\nA Natural UI element for this would be the dark-blue `Read` indicator.  Clicking on it would collapse the message, and clear the read flag:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/124171578-a9017680-daa0-11eb-99ca-68816081c90e.png)\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 872465686,
+          "user": "IanMayo",
+          "created_at": "2021-07-01T18:37:48Z",
+          "updated_at": "2021-07-01T18:37:48Z",
+          "body": "@lebaphi - I welcome @ShendMikullovci contributing his thoughts on this user interaction.\r\n\r\nA _playable_ version of the above wargame is here:  https://serge-review.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev\r\n\r\nI have a _slight_ worry that the dark blue circle is a small click target, plus is a \"hidden interaction\" - there aren't any visual clues that the user can mark as unread by clicking it.  We _could_ include this guidance in the intro walkthrough - but I feel we can't rely on that."
+        },
+        {
+          "id": 872888554,
+          "user": "ShendMikullovci",
+          "created_at": "2021-07-02T10:18:10Z",
+          "updated_at": "2021-07-02T10:18:10Z",
+          "body": "Great feature. The first thing that came to mind was the Gmail feature for read and unread emails. Gmail highlights unread emails to a bright grey and the read ones are kept in a dimmer and darker shade of grey, similar to our feature with lighter and brighter blue messages for the unread messages, and dimmer for the read ones. \r\nGmail also suggests a “Mark as Read/Unread” button for each email: \r\n![GMAIL UNREAD MESSAGE FEATURE](https://user-images.githubusercontent.com/85491794/124259929-63d85580-db2f-11eb-89e5-a06d44af517f.png)\r\n\r\nThe button is an open envelope to mark the email as read, and a closed one to mark it as unread. It’s a comprehensive, simple, and straightforward way to keep track of your inbox.\r\n\r\nIt could be beneficial to add a similar feature to SERGE. I went through our Icon library and found the following: \r\n![READ-UNREAD MESSAGE FEATURE ENVELOPPE ICON](https://user-images.githubusercontent.com/85491794/124259975-70f54480-db2f-11eb-8696-120c85a32243.png)\r\n\r\nIt could also be interesting to use bold colors for the unopened messages, to highlight their importance and direct attention, and dimmed colors for the opened ones to reduce attentional clutter.\r\nAn important thing to consider is, once we would add this feature if we’d keep the “UNREAD” feature alongside the envelope icon. It could add unnecessary clutter to the visual display.\r\n\r\nAn alternative set of icons could be the following:\r\n![READ-UNREAD MESSAGE FEATURE COMMENT ICON](https://user-images.githubusercontent.com/85491794/124260032-81a5ba80-db2f-11eb-912e-9c9170f9021b.png)\r\n\r\nWe could use the same logic with these different comment icons, keeping the bright, bold colors for the unread messages, and the dimmer ones for the read ones. This comment icon fits the description as well, given that it’s commonly used to indicate chat or chatrooms across apps online. \r\n\r\nHowever, the term “chat” has a more social, almost recreational ring to it so it’s important to know beforehand what kind of messages would be circulating in order to know whether the comment icon would match the importance and seriousness of the messages.\r\n\r\nLet me know what you guys think."
+        },
+        {
+          "id": 872905332,
+          "user": "IanMayo",
+          "created_at": "2021-07-02T10:47:20Z",
+          "updated_at": "2021-07-02T10:47:20Z",
+          "body": "That's a fantastic idea @ShendMikullovci \r\n\r\nWe could replace the light/dark blue circles with the open/closed message marker.\r\n\r\n@ShendMikullovci - you'll see that messages 2 and 4 in the screenshot are shown in more suppressed colors.\r\n\r\nIf you have some other formatting strategy in mind, I'm happy to hear it."
+        },
+        {
+          "id": 873046940,
+          "user": "ShendMikullovci",
+          "created_at": "2021-07-02T14:37:29Z",
+          "updated_at": "2021-07-02T14:37:29Z",
+          "body": "Yes, messages 2 and 4 illustrate this principle. \r\nA detail that might go a long way is to dim the white segment on the side of the read messages like so:\r\n![READ MESSAGES GREY SIDE SEGMENT](https://user-images.githubusercontent.com/85491794/124290442-b88dc780-db53-11eb-9521-a64bb88079c5.png)\r\n\r\nThis further emphasizes the bright/dim logic and brings more attention to unread messages. \r\nCoupled with the envelope/comment icon (depending on which we select), the side segments would switch colors depending on the state (read/unread) the user decides to leave the message in."
+        },
+        {
+          "id": 873061392,
+          "user": "ShendMikullovci",
+          "created_at": "2021-07-02T14:57:28Z",
+          "updated_at": "2021-07-02T14:57:28Z",
+          "body": "It would look something like this: \r\n![MESSAGE READ UNREAD](https://user-images.githubusercontent.com/85491794/124293042-86319980-db56-11eb-811c-14649c6af3f7.png)\r\n\r\nP.S. Excuse the ugly icons, I suck at coding. "
+        },
+        {
+          "id": 873151666,
+          "user": "lebaphi",
+          "created_at": "2021-07-02T17:27:46Z",
+          "updated_at": "2021-07-02T17:28:32Z",
+          "body": "agree, the icons don't look polished @ShendMikullovci 😂"
+        },
+        {
+          "id": 874721860,
+          "user": "IanMayo",
+          "created_at": "2021-07-06T12:36:30Z",
+          "updated_at": "2021-07-06T12:36:46Z",
+          "body": "Hello @lebaphi - yes, I endorse @ShendMikullovci 's design thoughts:\r\n1. For `read` messages, make the side-bar semi-transparent.  60%?\r\n2. Display `unread` and `read` markers, using `envelope` and `envelope-open`.  `Read` marker has `Click here to mark as unread` tooltip.  Clicking on a `Read` marker switches message to `Unread` status."
+        },
+        {
+          "id": 877588580,
+          "user": "lebaphi",
+          "created_at": "2021-07-10T07:39:20Z",
+          "updated_at": "2021-07-10T07:39:20Z",
+          "body": "Hi @IanMayo , do you mean to make this sidebar more transparent for `read` messages ?\r\n![image](https://user-images.githubusercontent.com/26705621/125155839-83edc180-e18c-11eb-95ae-b4c44e19f351.png)\r\n"
+        },
+        {
+          "id": 877604301,
+          "user": "IanMayo",
+          "created_at": "2021-07-10T09:22:36Z",
+          "updated_at": "2021-07-10T09:22:36Z",
+          "body": "Yes, the vertical line."
+        },
+        {
+          "id": 877752201,
+          "user": "lebaphi",
+          "created_at": "2021-07-11T07:01:57Z",
+          "updated_at": "2021-07-11T07:01:57Z",
+          "body": "@Fixed @IanMayo 👍 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/124171578-a9017680-daa0-11eb-99ca-68816081c90e.png",
+    "https://user-images.githubusercontent.com/85491794/124259929-63d85580-db2f-11eb-89e5-a06d44af517f.png",
+    "https://user-images.githubusercontent.com/85491794/124259975-70f54480-db2f-11eb-8696-120c85a32243.png",
+    "https://user-images.githubusercontent.com/85491794/124260032-81a5ba80-db2f-11eb-912e-9c9170f9021b.png",
+    "https://user-images.githubusercontent.com/85491794/124290442-b88dc780-db53-11eb-9521-a64bb88079c5.png",
+    "https://user-images.githubusercontent.com/85491794/124293042-86319980-db56-11eb-811c-14649c6af3f7.png",
+    "https://user-images.githubusercontent.com/26705621/125155839-83edc180-e18c-11eb-95ae-b4c44e19f351.png"
+  ],
+  "number_of_changed_files": 19,
+  "total_changed_lines": 211
+}

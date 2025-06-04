@@ -1,0 +1,51 @@
+{
+  "number": 2454,
+  "title": "2403 more template changes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-20T16:19:43Z",
+  "updated_at": "2023-02-20T16:44:13Z",
+  "closed_at": "2023-02-20T16:44:11Z",
+  "merged_at": "2023-02-20T16:44:11Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2454",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2454/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2454/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2454",
+  "body": "Fixes #2403 ",
+  "additions": 7827,
+  "deletions": 8202,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2403
+  ],
+  "issues": [
+    {
+      "id": 1585489663,
+      "number": 2403,
+      "title": "Template changes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-15T09:12:46Z",
+      "updated_at": "2023-02-20T16:44:13Z",
+      "closed_at": "2023-02-20T16:44:13Z",
+      "body": "**Hold on this until stakeholders have reviewed templates document**\r\n\r\nTemplates in the Air domain include a checkbox for `A to A`. This caused some confusion, and should be replaced with `Air to Air`\r\n\r\nNote: I have email from Giles with lists of values to use.\r\n\r\nWhile I'm in the templates, I should also make these changes:\r\n- drop-down lists in domain templates for:\r\n    - [x] Posture \r\n    - [x] Emcon state\r\n    - [x] Rules of Engagement\r\n    - [x] Supports High Level?\r\n    - [x] Activity Card ?   (should\r\n- [x] Remove `Search rate` from ISTAR template\r\n- [x] Remove `transit speed` and `duration` from `Transit` template\r\n- [x] Move `Activity Description` higher in the template.\r\n- [x] Remove `target type` from Strike\r\n- [x] Remove `Observation method` from `ISTAR`\r\n- [x] Remove `Search Rate` from `ISTAR`\r\n- [x] Remove `Outcomes from a set of orders` from Adjudication Template",
+      "labels": [
+        "4p9",
+        "Template"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 16029
+}

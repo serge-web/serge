@@ -1,0 +1,50 @@
+{
+  "number": 2347,
+  "title": "2342 generate assets, activities, templates, orders for green data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-09T11:09:24Z",
+  "updated_at": "2023-02-09T13:15:01Z",
+  "closed_at": "2023-02-09T13:14:59Z",
+  "merged_at": "2023-02-09T13:14:59Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2347",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2347/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2347/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2347",
+  "body": "Fixes #2342",
+  "additions": 48884,
+  "deletions": 30442,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2342
+  ],
+  "issues": [
+    {
+      "id": 1575952747,
+      "number": 2342,
+      "title": "Generate Green data",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-08T11:30:34Z",
+      "updated_at": "2023-02-09T13:15:01Z",
+      "closed_at": "2023-02-09T13:15:01Z",
+      "body": "We expect to receive Green assets in the next play-test\r\n\r\nWe also need to generate Green activities, templates, platform-types\r\n\r\nDo this via P9-generate templates.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 79326
+}

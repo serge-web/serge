@@ -1,0 +1,143 @@
+{
+  "number": 871,
+  "title": "Deprecated library fixes",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-06-25T12:57:54Z",
+  "updated_at": "2022-05-10T10:07:24Z",
+  "closed_at": "2022-05-10T10:07:21Z",
+  "merged_at": null,
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/871",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/871/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/871/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/871",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #854 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\nPlease review this thread\r\nhttps://github.com/serge-web/serge/pull/871/files#r658745999",
+  "additions": 91,
+  "deletions": 84,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 7,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 1122189912,
+      "user": "IanMayo",
+      "created_at": "2022-05-10T10:07:21Z",
+      "updated_at": "2022-05-10T10:07:21Z",
+      "body": "Close this. Other PRs have resolved these issues."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 658745999,
+      "user": "sanjayradadiya",
+      "created_at": "2021-06-25T13:01:50Z",
+      "updated_at": "2021-06-25T13:18:27Z",
+      "body": "test cases was breaking due to react-16 adapter so we needed adapter for react version 17 and that is not available in market as this is perfectly new version.\r\n\r\nso i just used this suggestion and added temporary package which will solve our issues after upgrades and later on whenever exact package release officially then we just need to update it.\r\n\r\nhttps://stackoverflow.com/a/64597067/6536418",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -51,13 +51,13 @@\n     \"@types/vfile-message\": \"^2.0.0\",\n     \"@typescript-eslint/eslint-plugin\": \"^2.20.0\",\n     \"@typescript-eslint/parser\": \"^2.20.0\",\n+    \"@wojtekmaj/enzyme-adapter-react-17\": \"^0.6.2\",\n     \"babel-loader\": \"^8.0.6\",\n     \"classnames\": \"^2.2.6\",\n     \"copyfiles\": \"^2.2.0\",\n     \"css-loader\": \"^3.4.2\",\n     \"css-modules-typescript-loader\": \"^4.0.0\",\n     \"enzyme\": \"^3.11.0\",\n-    \"enzyme-adapter-react-16\": \"^1.15.2\",",
+      "html_url": "https://github.com/serge-web/serge/pull/871#discussion_r658745999"
+    },
+    {
+      "id": 663931827,
+      "user": "IanMayo",
+      "created_at": "2021-07-05T13:27:54Z",
+      "updated_at": "2021-07-05T13:27:54Z",
+      "body": "Thanks @sanjayradadiya \r\n\r\nCould you add a comment in `package.json` next to the dependency, including a link to the Stack Overflow issue please?  Could you also create a GitHub issue in this repo explaining that we need to switch back to the proper adapter?",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -51,13 +51,13 @@\n     \"@types/vfile-message\": \"^2.0.0\",\n     \"@typescript-eslint/eslint-plugin\": \"^2.20.0\",\n     \"@typescript-eslint/parser\": \"^2.20.0\",\n+    \"@wojtekmaj/enzyme-adapter-react-17\": \"^0.6.2\",\n     \"babel-loader\": \"^8.0.6\",\n     \"classnames\": \"^2.2.6\",\n     \"copyfiles\": \"^2.2.0\",\n     \"css-loader\": \"^3.4.2\",\n     \"css-modules-typescript-loader\": \"^4.0.0\",\n     \"enzyme\": \"^3.11.0\",\n-    \"enzyme-adapter-react-16\": \"^1.15.2\",",
+      "html_url": "https://github.com/serge-web/serge/pull/871#discussion_r663931827"
+    },
+    {
+      "id": 664422381,
+      "user": "IanMayo",
+      "created_at": "2021-07-06T10:10:43Z",
+      "updated_at": "2021-07-06T10:10:43Z",
+      "body": "Hello @sanjayradadiya - I'm keeping this PR open as a reminder that we need the above comment/documentation sorted.\r\n\r\nOnce you've done it I can merge the PR :-)",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -51,13 +51,13 @@\n     \"@types/vfile-message\": \"^2.0.0\",\n     \"@typescript-eslint/eslint-plugin\": \"^2.20.0\",\n     \"@typescript-eslint/parser\": \"^2.20.0\",\n+    \"@wojtekmaj/enzyme-adapter-react-17\": \"^0.6.2\",\n     \"babel-loader\": \"^8.0.6\",\n     \"classnames\": \"^2.2.6\",\n     \"copyfiles\": \"^2.2.0\",\n     \"css-loader\": \"^3.4.2\",\n     \"css-modules-typescript-loader\": \"^4.0.0\",\n     \"enzyme\": \"^3.11.0\",\n-    \"enzyme-adapter-react-16\": \"^1.15.2\",",
+      "html_url": "https://github.com/serge-web/serge/pull/871#discussion_r664422381"
+    },
+    {
+      "id": 674228042,
+      "user": "IanMayo",
+      "created_at": "2021-07-21T18:26:12Z",
+      "updated_at": "2021-07-21T18:26:13Z",
+      "body": "This PR still needs some attention from you, please @sanjayradadiya ",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -51,13 +51,13 @@\n     \"@types/vfile-message\": \"^2.0.0\",\n     \"@typescript-eslint/eslint-plugin\": \"^2.20.0\",\n     \"@typescript-eslint/parser\": \"^2.20.0\",\n+    \"@wojtekmaj/enzyme-adapter-react-17\": \"^0.6.2\",\n     \"babel-loader\": \"^8.0.6\",\n     \"classnames\": \"^2.2.6\",\n     \"copyfiles\": \"^2.2.0\",\n     \"css-loader\": \"^3.4.2\",\n     \"css-modules-typescript-loader\": \"^4.0.0\",\n     \"enzyme\": \"^3.11.0\",\n-    \"enzyme-adapter-react-16\": \"^1.15.2\",",
+      "html_url": "https://github.com/serge-web/serge/pull/871#discussion_r674228042"
+    },
+    {
+      "id": 674461476,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-22T02:35:34Z",
+      "updated_at": "2021-07-22T02:35:34Z",
+      "body": "Ahh, okay",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -51,13 +51,13 @@\n     \"@types/vfile-message\": \"^2.0.0\",\n     \"@typescript-eslint/eslint-plugin\": \"^2.20.0\",\n     \"@typescript-eslint/parser\": \"^2.20.0\",\n+    \"@wojtekmaj/enzyme-adapter-react-17\": \"^0.6.2\",\n     \"babel-loader\": \"^8.0.6\",\n     \"classnames\": \"^2.2.6\",\n     \"copyfiles\": \"^2.2.0\",\n     \"css-loader\": \"^3.4.2\",\n     \"css-modules-typescript-loader\": \"^4.0.0\",\n     \"enzyme\": \"^3.11.0\",\n-    \"enzyme-adapter-react-16\": \"^1.15.2\",",
+      "html_url": "https://github.com/serge-web/serge/pull/871#discussion_r674461476"
+    },
+    {
+      "id": 674468453,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-22T03:04:18Z",
+      "updated_at": "2021-07-22T03:04:18Z",
+      "body": "Please check this issue documentation here for sure\r\n\r\nhttps://github.com/serge-web/serge/issues/950",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -51,13 +51,13 @@\n     \"@types/vfile-message\": \"^2.0.0\",\n     \"@typescript-eslint/eslint-plugin\": \"^2.20.0\",\n     \"@typescript-eslint/parser\": \"^2.20.0\",\n+    \"@wojtekmaj/enzyme-adapter-react-17\": \"^0.6.2\",\n     \"babel-loader\": \"^8.0.6\",\n     \"classnames\": \"^2.2.6\",\n     \"copyfiles\": \"^2.2.0\",\n     \"css-loader\": \"^3.4.2\",\n     \"css-modules-typescript-loader\": \"^4.0.0\",\n     \"enzyme\": \"^3.11.0\",\n-    \"enzyme-adapter-react-16\": \"^1.15.2\",",
+      "html_url": "https://github.com/serge-web/serge/pull/871#discussion_r674468453"
+    },
+    {
+      "id": 674622300,
+      "user": "IanMayo",
+      "created_at": "2021-07-22T09:03:48Z",
+      "updated_at": "2021-07-22T09:03:49Z",
+      "body": "Nicely done, thanks @sanjayradadiya ",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -51,13 +51,13 @@\n     \"@types/vfile-message\": \"^2.0.0\",\n     \"@typescript-eslint/eslint-plugin\": \"^2.20.0\",\n     \"@typescript-eslint/parser\": \"^2.20.0\",\n+    \"@wojtekmaj/enzyme-adapter-react-17\": \"^0.6.2\",\n     \"babel-loader\": \"^8.0.6\",\n     \"classnames\": \"^2.2.6\",\n     \"copyfiles\": \"^2.2.0\",\n     \"css-loader\": \"^3.4.2\",\n     \"css-modules-typescript-loader\": \"^4.0.0\",\n     \"enzyme\": \"^3.11.0\",\n-    \"enzyme-adapter-react-16\": \"^1.15.2\",",
+      "html_url": "https://github.com/serge-web/serge/pull/871#discussion_r674622300"
+    }
+  ],
+  "issue_numbers": [
+    854
+  ],
+  "issues": [
+    {
+      "id": 925369467,
+      "number": 854,
+      "title": "Avoid deprecated library",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-19T10:53:45Z",
+      "updated_at": "2023-11-13T11:34:38Z",
+      "closed_at": "2023-11-13T11:34:38Z",
+      "body": "When the app runs in the dev mode (:3000), we get this warning:\r\n![image](https://user-images.githubusercontent.com/1108513/122639994-dd665180-d0f4-11eb-8222-04c9bc51e799.png)\r\n\r\nHere's the link: https://developer.chrome.com/blog/enabling-shared-array-buffer/\r\n\r\nI don't really understand it, but am concerned something may break next month.\r\n\r\nWe should investigate the issue, and see if it's in our code (and we fix it), or an upstream dependancy (so we update dependency).",
+      "labels": [
+        "bug",
+        "wontfix"
+      ],
+      "comments": [
+        {
+          "id": 868437664,
+          "user": "sanjayradadiya",
+          "created_at": "2021-06-25T11:39:15Z",
+          "updated_at": "2021-06-25T11:39:15Z",
+          "body": "@IanMayo I just see this solution and its working after upgrade react and react-dom version.\r\n\r\nhttps://stackoverflow.com/a/66763874/6536418\r\n\r\n![image](https://user-images.githubusercontent.com/16476120/123419609-0ba5ce80-d5d8-11eb-8c17-027ee86bf239.png)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/122639994-dd665180-d0f4-11eb-8222-04c9bc51e799.png",
+    "https://user-images.githubusercontent.com/16476120/123419609-0ba5ce80-d5d8-11eb-8c17-027ee86bf239.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 175
+}

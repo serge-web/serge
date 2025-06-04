@@ -1,0 +1,189 @@
+{
+  "number": 2186,
+  "title": "Cluster map marker icons",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-12-27T04:50:38Z",
+  "updated_at": "2023-11-15T11:52:23Z",
+  "closed_at": "2023-01-26T09:28:43Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2186",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2186/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2186/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2186",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1906 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 190,
+  "deletions": 27,
+  "changed_files": 6,
+  "labels": [
+    "spatial",
+    "4p9"
+  ],
+  "comments_count": 4,
+  "review_comments_count": 10,
+  "total_comments": 14,
+  "comments_data": [
+    {
+      "id": 1367971231,
+      "user": "IanMayo",
+      "created_at": "2022-12-30T15:25:33Z",
+      "updated_at": "2022-12-30T15:25:33Z",
+      "body": "Ok, we're pausing this, until we've updated `react` to 18 on `develop`."
+    },
+    {
+      "id": 1379298460,
+      "user": "IanMayo",
+      "created_at": "2023-01-11T18:16:15Z",
+      "updated_at": "2023-01-11T18:16:15Z",
+      "body": "Thanks @lilitkarapetyan - but codacy is complaining:\r\n![image](https://user-images.githubusercontent.com/1108513/211885836-d9a1af32-fcc8-4198-857d-8639fa3ebf9d.png)\r\n"
+    },
+    {
+      "id": 1379839798,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-01-12T05:35:47Z",
+      "updated_at": "2023-01-12T05:35:47Z",
+      "body": "> Thanks @lilitkarapetyan - but codacy is complaining: ![image](https://user-images.githubusercontent.com/1108513/211885836-d9a1af32-fcc8-4198-857d-8639fa3ebf9d.png)\r\n\r\nHello Ian, I will fix it now"
+    },
+    {
+      "id": 1404742454,
+      "user": "IanMayo",
+      "created_at": "2023-01-26T09:28:43Z",
+      "updated_at": "2023-01-26T09:28:43Z",
+      "body": "Drop this PR. We used a different clustering library in the end"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1057663969,
+      "user": "IanMayo",
+      "created_at": "2022-12-27T12:55:57Z",
+      "updated_at": "2022-12-27T12:55:57Z",
+      "body": "@lilitkarapetyan - Is there a specific reason/dependency for dropping react-leaflet back to v3?",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -96,7 +96,7 @@\n     \"react-leaflet\": \"^2.6.1\",\n     \"react-leaflet-cluster\": \"1.0.3\",\n     \"react-leaflet-geoman-v2\": \"^0.2.0\",\n-    \"react-leaflet-v4\": \"npm:react-leaflet@4.1.0\",\n+    \"react-leaflet-v3\": \"npm:react-leaflet@3.1.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1057663969"
+    },
+    {
+      "id": 1057664896,
+      "user": "IanMayo",
+      "created_at": "2022-12-27T12:57:45Z",
+      "updated_at": "2022-12-27T12:58:45Z",
+      "body": "The GitHub repo suggests v4 is now the pre-requisite:\r\n![image](https://user-images.githubusercontent.com/1108513/209670008-23efa4f9-98c8-491c-be87-6c53bcc5f6a9.png)\r\n\r\nhttps://github.com/akursat/react-leaflet-cluster",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -96,7 +96,7 @@\n     \"react-leaflet\": \"^2.6.1\",\n     \"react-leaflet-cluster\": \"1.0.3\",\n     \"react-leaflet-geoman-v2\": \"^0.2.0\",\n-    \"react-leaflet-v4\": \"npm:react-leaflet@4.1.0\",\n+    \"react-leaflet-v3\": \"npm:react-leaflet@3.1.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1057664896"
+    },
+    {
+      "id": 1058066355,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-28T05:25:48Z",
+      "updated_at": "2022-12-28T05:25:48Z",
+      "body": "Hello @IanMayo - The `\"react-leaflet-cluster\"` in  `\"react\": \"^16.12.0\"`  version is not working. We need to decrease `“react-leaflet\": 3.1.0\"` , to be able to work with `react-leaflet-cluster` and so that is why I decrease `react-leaflet ` version `3.1.0` to be able to work with `react-leaflet-cluster` in `react 16.12.0` version.",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -96,7 +96,7 @@\n     \"react-leaflet\": \"^2.6.1\",\n     \"react-leaflet-cluster\": \"1.0.3\",\n     \"react-leaflet-geoman-v2\": \"^0.2.0\",\n-    \"react-leaflet-v4\": \"npm:react-leaflet@4.1.0\",\n+    \"react-leaflet-v3\": \"npm:react-leaflet@3.1.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1058066355"
+    },
+    {
+      "id": 1058068050,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-28T05:31:25Z",
+      "updated_at": "2022-12-28T05:31:25Z",
+      "body": "Or we can try to increase the react version 18+",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -96,7 +96,7 @@\n     \"react-leaflet\": \"^2.6.1\",\n     \"react-leaflet-cluster\": \"1.0.3\",\n     \"react-leaflet-geoman-v2\": \"^0.2.0\",\n-    \"react-leaflet-v4\": \"npm:react-leaflet@4.1.0\",\n+    \"react-leaflet-v3\": \"npm:react-leaflet@3.1.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1058068050"
+    },
+    {
+      "id": 1058072240,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-28T05:45:20Z",
+      "updated_at": "2022-12-28T05:45:20Z",
+      "body": "I think I need to update `react version` to `18+ ` to be able to work with version` “react-leaflet-cluster: 4.0.1”` without problems.",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -96,7 +96,7 @@\n     \"react-leaflet\": \"^2.6.1\",\n     \"react-leaflet-cluster\": \"1.0.3\",\n     \"react-leaflet-geoman-v2\": \"^0.2.0\",\n-    \"react-leaflet-v4\": \"npm:react-leaflet@4.1.0\",\n+    \"react-leaflet-v3\": \"npm:react-leaflet@3.1.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1058072240"
+    },
+    {
+      "id": 1058203009,
+      "user": "IanMayo",
+      "created_at": "2022-12-28T09:44:15Z",
+      "updated_at": "2022-12-28T09:44:15Z",
+      "body": "Hey, I was just thinking: \"is now the right time to update to React 18?\"",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -96,7 +96,7 @@\n     \"react-leaflet\": \"^2.6.1\",\n     \"react-leaflet-cluster\": \"1.0.3\",\n     \"react-leaflet-geoman-v2\": \"^0.2.0\",\n-    \"react-leaflet-v4\": \"npm:react-leaflet@4.1.0\",\n+    \"react-leaflet-v3\": \"npm:react-leaflet@3.1.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1058203009"
+    },
+    {
+      "id": 1058204974,
+      "user": "IanMayo",
+      "created_at": "2022-12-28T09:45:51Z",
+      "updated_at": "2022-12-28T09:45:51Z",
+      "body": "> I think I need to update `react version` to `18+ ` to be able to work with version` “react-leaflet-cluster: 4.0.1”` without problems.\n\nYes, let's try updating to 18, please.\n\nDo you think we should update in a fresh branch off `develop`?",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -96,7 +96,7 @@\n     \"react-leaflet\": \"^2.6.1\",\n     \"react-leaflet-cluster\": \"1.0.3\",\n     \"react-leaflet-geoman-v2\": \"^0.2.0\",\n-    \"react-leaflet-v4\": \"npm:react-leaflet@4.1.0\",\n+    \"react-leaflet-v3\": \"npm:react-leaflet@3.1.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1058204974"
+    },
+    {
+      "id": 1058812791,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-29T08:34:35Z",
+      "updated_at": "2022-12-29T08:34:35Z",
+      "body": "Okay, I will update react version to 18+",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -96,7 +96,7 @@\n     \"react-leaflet\": \"^2.6.1\",\n     \"react-leaflet-cluster\": \"1.0.3\",\n     \"react-leaflet-geoman-v2\": \"^0.2.0\",\n-    \"react-leaflet-v4\": \"npm:react-leaflet@4.1.0\",\n+    \"react-leaflet-v3\": \"npm:react-leaflet@3.1.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1058812791"
+    },
+    {
+      "id": 1058813138,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-12-29T08:35:16Z",
+      "updated_at": "2022-12-29T08:35:16Z",
+      "body": "I think yes",
+      "path": "packages/components/package.json",
+      "diff_hunk": "@@ -96,7 +96,7 @@\n     \"react-leaflet\": \"^2.6.1\",\n     \"react-leaflet-cluster\": \"1.0.3\",\n     \"react-leaflet-geoman-v2\": \"^0.2.0\",\n-    \"react-leaflet-v4\": \"npm:react-leaflet@4.1.0\",\n+    \"react-leaflet-v3\": \"npm:react-leaflet@3.1.0\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1058813138"
+    },
+    {
+      "id": 1065802564,
+      "user": "IanMayo",
+      "created_at": "2023-01-10T13:45:46Z",
+      "updated_at": "2023-01-10T13:45:46Z",
+      "body": "sorry @lilitkarapetyan , I don't like us hard-coding a particular region in our code. We'll almost certainly not use this region for any future wargame.",
+      "path": "packages/components/src/local/organisms/planning-force/index.tsx",
+      "diff_hunk": "@@ -1,14 +1,27 @@\n import cx from 'classnames'\n import L, { LatLng, latLng } from 'leaflet'\n-import React, { useCallback } from 'react'\n+import React, { useCallback, useState, useEffect } from 'react'\n import * as ReactDOMServer from 'react-dom/server'\n-import { LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'\n+import { LayerGroup, Marker, useMap, Tooltip } from 'react-leaflet-v4'\n import AssetIcon from '../../asset-icon'\n import { AssetRow } from '../planning-assets/types/props'\n+import { BBox, GeoJsonProperties } from 'geojson'\n+import 'leaflet/dist/leaflet.css'\n import styles from './styles.module.scss'\n+import useSupercluster from 'use-supercluster'\n+import { PointFeature } from 'supercluster'\n import PropTypes from './types/props'\n \n export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {\n+  const [bounds, setBounds] = useState([",
+      "html_url": "https://github.com/serge-web/serge/pull/2186#discussion_r1065802564"
+    }
+  ],
+  "issue_numbers": [
+    1906
+  ],
+  "issues": [
+    {
+      "id": 1391090732,
+      "number": 1906,
+      "title": "Cluster map marker icons",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-29T15:44:13Z",
+      "updated_at": "2023-01-23T13:40:47Z",
+      "closed_at": "2023-01-23T13:40:47Z",
+      "body": "We're expecting lots of asset icons in the game.\r\n\r\nWe may need to cluster them.\r\n\r\nThis looks like the most active `react` clustering library:\r\nhttps://www.npmjs.com/package/react-leaflet-cluster\r\n\r\nI don't have much experience in Leaflet clustering, so part of this is for @lilitkarapetyan  to explore what is possible, and if necessary, offer options for how clustering is implemented.\r\n\r\nI _expect_ this will be a feature within `PlanningForces`.",
+      "labels": [
+        "spatial",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/211885836-d9a1af32-fcc8-4198-857d-8639fa3ebf9d.png",
+    "https://user-images.githubusercontent.com/1108513/209670008-23efa4f9-98c8-491c-be87-6c53bcc5f6a9.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 217
+}

@@ -1,0 +1,225 @@
+{
+  "number": 2293,
+  "title": "Server API call",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-25T07:30:23Z",
+  "updated_at": "2023-01-31T17:05:56Z",
+  "closed_at": "2023-01-31T17:05:54Z",
+  "merged_at": "2023-01-31T17:05:54Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2293",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2293/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2293/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2293",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 334,
+  "deletions": 49,
+  "changed_files": 31,
+  "labels": [
+    "4p9"
+  ],
+  "comments_count": 7,
+  "review_comments_count": 11,
+  "total_comments": 18,
+  "comments_data": [
+    {
+      "id": 1403215197,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T07:45:22Z",
+      "updated_at": "2023-01-25T07:45:22Z",
+      "body": "Thanks @lilitkarapetyan ,\r\na couple of extra bits, please:\r\n- include the turn number in each row\r\n- make it return a unique list of entries (de-dupe)\r\n- provide a client side API call to get this data (wargame API?)\r\n- Call the client side API from Adjudicate Messages List component on gameDate state change,  and output the results to console"
+    },
+    {
+      "id": 1403241601,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-01-25T08:17:25Z",
+      "updated_at": "2023-01-25T08:17:25Z",
+      "body": "> \r\n\r\nOkay Ian, I will work on it now"
+    },
+    {
+      "id": 1406783395,
+      "user": "IanMayo",
+      "created_at": "2023-01-27T16:55:56Z",
+      "updated_at": "2023-01-27T16:55:56Z",
+      "body": "Ok @lilitkarapetyan - I just logged in as `game designer` and stepped forward a few turns. This is what I received:\r\n```\r\n{\r\n  \"msg\": \"ok\",\r\n  \"data\": [\r\n    {\r\n      \"gameDate\": \"2022-05-01T00:00:00+00:00\",\r\n      \"gameTurnTime\": {\r\n        \"millis\": 259200000,\r\n        \"unit\": \"millis\"\r\n      },\r\n      \"gameTurn\": 1,\r\n      \"_id\": \"2022-09-25T19:29:28.917Z\"\r\n    },\r\n    {\r\n      \"gameDate\": \"2022-05-04T01:00\",\r\n      \"gameTurnTime\": {\r\n        \"millis\": 259200000,\r\n        \"unit\": \"millis\"\r\n      },\r\n      \"gameTurn\": 2,\r\n      \"_id\": \"2023-01-27T16:52:38.201Z\"\r\n    },\r\n    {\r\n      \"gameDate\": \"2022-05-04T01:00\",\r\n      \"gameTurnTime\": {\r\n        \"millis\": 259200000,\r\n        \"unit\": \"millis\"\r\n      },\r\n      \"gameTurn\": 2,\r\n      \"_id\": \"2023-01-27T16:52:44.042Z\"\r\n    }\r\n  ]\r\n}\r\n```\r\n\r\nI see we get two message for each turn (one for when we switch to adjudication, the other when we switch to planning).  I think we should remove the `_id` field, and de-dupe them. That will give us the information we require."
+    },
+    {
+      "id": 1408493523,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-01-30T11:59:36Z",
+      "updated_at": "2023-01-30T11:59:36Z",
+      "body": "Hello Ian, I'm still making cgenges."
+    },
+    {
+      "id": 1409957466,
+      "user": "IanMayo",
+      "created_at": "2023-01-31T08:30:58Z",
+      "updated_at": "2023-01-31T08:30:58Z",
+      "body": "Thanks for the update Lilit - and for passing the data objects to the right place.\r\n\r\nBut, in the `TurnPeriod` object, I don't think we need `phase` or `_id`.   Plus, once these fields are removed, we need to remove duplicates from the dataset.  In a _real_ wargame, as the umpires are adjudicating the turns, there will be lots of updates to the wargame document.  These will clutter up the list with unnecessary duplicates."
+    },
+    {
+      "id": 1409997676,
+      "user": "IanMayo",
+      "created_at": "2023-01-31T09:05:41Z",
+      "updated_at": "2023-01-31T09:05:41Z",
+      "body": "Thanks @lilitkarapetyan  - we now just need the de-duplicate.\r\n\r\nNow that we have removed `phase` and `_id`, can you see how the same `turn-2` message in two times?\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/215716055-c22cd844-a49a-4918-8552-05542bba5b48.png)\r\n"
+    },
+    {
+      "id": 1410030755,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-01-31T09:27:44Z",
+      "updated_at": "2023-01-31T09:27:44Z",
+      "body": "> \r\n\r\nYes"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1086704989,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T14:24:19Z",
+      "updated_at": "2023-01-25T14:24:19Z",
+      "body": "@lilitkarapetyan - can you remind me why we do `not-equal` for `wargameSettings`?  At the start of the game, this is a valid description of game time and game turn length.",
+      "path": "packages/server/providers/pouchdb.js",
+      "diff_hunk": "@@ -181,6 +181,36 @@ const pouchDb = (app, io, pouchOptions) => {\n       .catch(() => res.send([]))\n   })\n \n+  app.get('/:wargame/turns', (req, res) => {\n+    const databaseName = checkSqliteExists(req.params.wargame)\n+\n+    if (!databaseName) {\n+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })\n+    }\n+\n+    const db = new PouchDB(databaseName, pouchOptions)\n+\n+    db.find({",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086704989"
+    },
+    {
+      "id": 1086708629,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T14:27:09Z",
+      "updated_at": "2023-01-31T17:05:42Z",
+      "body": "@lilitkarapetyan -  I think this should return an array of TurnPeriod objects, please.",
+      "path": "packages/client/src/api/db/index.tsx",
+      "diff_hunk": "@@ -137,6 +136,18 @@ export class DbProvider implements DbProviderInterface {\n     })\n   }\n \n+  getTurnPeriods (): Promise<TurnPeriod> {",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086708629"
+    },
+    {
+      "id": 1086709146,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T14:27:33Z",
+      "updated_at": "2023-01-31T17:05:42Z",
+      "body": "can we de-dupe the array before returning it, please @lilitkarapetyan ?",
+      "path": "packages/server/providers/pouchdb.js",
+      "diff_hunk": "@@ -181,6 +181,36 @@ const pouchDb = (app, io, pouchOptions) => {\n       .catch(() => res.send([]))\n   })\n \n+  app.get('/:wargame/turns', (req, res) => {\n+    const databaseName = checkSqliteExists(req.params.wargame)\n+\n+    if (!databaseName) {\n+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })\n+    }\n+\n+    const db = new PouchDB(databaseName, pouchOptions)\n+\n+    db.find({\n+      selector: {\n+        messageType: INFO_MESSAGE,\n+        _id: { $ne: wargameSettings }\n+      },\n+      fields: ['data', '_id', 'gameTurn']\n+    }).then((result) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086709146"
+    },
+    {
+      "id": 1086743867,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T14:55:08Z",
+      "updated_at": "2023-01-31T17:05:42Z",
+      "body": "Note: @lilitkarapetyan - I think this should be returning an array of TurnPeriods\r\n\r\nOh, and hopefully the actual `TurnPeriod[]` data, not `Promise<TurnPeriod[]>`\r\n\r\nOh, and a better method name would be `getTurnPeriods`",
+      "path": "packages/client/src/ActionsAndReducers/playerUi/playerUi_ActionCreators.ts",
+      "diff_hunk": "@@ -147,6 +147,10 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur\n   }\n }\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086743867"
+    },
+    {
+      "id": 1086747968,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T14:58:21Z",
+      "updated_at": "2023-01-31T17:05:42Z",
+      "body": "@lilitkarapetyan - how about we intercept the call up at `factory.tsx` and inject the wargame at that point?\r\n\r\nThen we don't need to pass the `gameDate` or `currentWargame` around.\r\n\r\nAah, I think the method should be called `getTurnPeriods`, rather than `onTurnPeriods`.",
+      "path": "packages/components/src/local/organisms/support-panel/types/props.d.ts",
+      "diff_hunk": "@@ -35,6 +35,7 @@ export default interface PropTypes {\n   saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void\n   getCachedNewMessagevalue?: (value: string) => string\n   clearCachedNewMessage?: (data: string[]) => void\n+  onTurnPeriods?: (gameDate: string, currentWargame: string) => void",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086747968"
+    },
+    {
+      "id": 1086766911,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T15:13:21Z",
+      "updated_at": "2023-01-31T17:05:42Z",
+      "body": "the above comment should go _before_ `onTurnPeriods`, please.",
+      "path": "packages/components/src/local/organisms/adjudication-messages-list/types/props.d.ts",
+      "diff_hunk": "@@ -90,6 +96,11 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' |\n   /** descriptions of platform types (used for perception drop-down) */\n   platformTypes: PlatformTypeData[]\n \n+  onTurnPeriods?: (gameDate: string, currentWargame: string) => void\n+  /**\n+   * get the turnaround periods data\n+  */\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086766911"
+    },
+    {
+      "id": 1086767693,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T15:13:57Z",
+      "updated_at": "2023-01-31T17:05:42Z",
+      "body": "as specified before, if we intercept `onTurnPeriods` in `factory.tsx` we can insert the wargame name at that point.",
+      "path": "packages/components/src/local/organisms/support-panel/index.tsx",
+      "diff_hunk": "@@ -469,6 +470,8 @@ export const SupportPanel: React.FC<PropTypes> = ({\n                   onMarkAllAsRead={onReadAll}\n                   mapPostBack={mapPostBack}\n                   channel={channel}",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086767693"
+    },
+    {
+      "id": 1086769044,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T15:14:54Z",
+      "updated_at": "2023-01-31T17:05:43Z",
+      "body": "this method doesn't need the `getData` parameter.  It just needs the wargame name.\r\n\r\nPlus, should it return the actual `TurnPeriod[]` instead of `Promise<TurnPeriod[]>",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -890,3 +890,14 @@ export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption)\n     return updateWargame({ ...res, data: updatedData }, dbName)\n   })\n }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086769044"
+    },
+    {
+      "id": 1086770001,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T15:15:33Z",
+      "updated_at": "2023-01-31T17:05:43Z",
+      "body": "We also need to de-dupe the TurnPeriod array in this implementation, please",
+      "path": "packages/server/providers/couchdb.js",
+      "diff_hunk": "@@ -236,6 +236,36 @@ const couchDb = (app, io, pouchOptions) => {\n       .catch(() => res.send([]))\n   })\n \n+  app.get('/:wargame/turns', (req, res) => {\n+    const databaseName = checkSqliteExists(req.params.wargame)\n+\n+    if (!databaseName) {\n+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })\n+    }\n+\n+    const db = new CouchDB(couchDbURL(databaseName))\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086770001"
+    },
+    {
+      "id": 1086773912,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T15:18:35Z",
+      "updated_at": "2023-01-31T17:05:43Z",
+      "body": "I _don't_think_ we need an `_id` in the above type.  It's not coming directly from a PouchDb document, so I don't think we have an _id to use.",
+      "path": "packages/custom-types/turn-period.d.ts",
+      "diff_hunk": "@@ -0,0 +1,8 @@\n+import { GameTurnLength } from \"./turn-length\";\n+\n+export interface TurnPeriod {\n+  gameTurnTime: GameTurnLength,\n+  gameDate: string,\n+  gameTurn: number,\n+  _id?: string\n+}",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1086773912"
+    },
+    {
+      "id": 1087452465,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-01-26T05:35:07Z",
+      "updated_at": "2023-01-26T05:35:08Z",
+      "body": "Hello Ian, I will add it.\r\n",
+      "path": "packages/server/providers/pouchdb.js",
+      "diff_hunk": "@@ -181,6 +181,36 @@ const pouchDb = (app, io, pouchOptions) => {\n       .catch(() => res.send([]))\n   })\n \n+  app.get('/:wargame/turns', (req, res) => {\n+    const databaseName = checkSqliteExists(req.params.wargame)\n+\n+    if (!databaseName) {\n+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })\n+    }\n+\n+    const db = new PouchDB(databaseName, pouchOptions)\n+\n+    db.find({",
+      "html_url": "https://github.com/serge-web/serge/pull/2293#discussion_r1087452465"
+    }
+  ],
+  "issue_numbers": [
+    2194
+  ],
+  "issues": [
+    {
+      "id": 1516226913,
+      "number": 2194,
+      "title": "Server API call for `getTurnPeriods`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-02T10:09:39Z",
+      "updated_at": "2023-01-31T19:54:24Z",
+      "closed_at": "2023-01-31T19:54:24Z",
+      "body": "Turns can be of varying length, with the length changing during a game.\r\n\r\nFor _replay_ of previous turns, we need to find which events were \"live\" during that turn.  We can't use `turnNumber`, since a `planningMessage` may cover multiple turns.  So, while we display drop-down of \"Turn 0\", \"Turn 1\", etc, - behind the scenes, the front-end has to convert this to something like \"Turn 0 [2022/12/03-2022/12/04]\", \"Turn 1 [2022/12/05-2022/12/14]\"\r\n\r\nSo, we need to be able to generate a table of the start/end times for each turn.\r\n\r\nWe can determine this data by going back through the wargame documents.  Do this in this way:\r\n1. Find all wargame documents \r\n2. Loop through wargame documents\r\n3. For each wargame document with `phase` value of `adjudication`, store the `data.overview.gameDate` and `gameTurn`\r\n4. Collate unique table of turn number against gameDate (ISO String)\r\n5. Return table as array.\r\n\r\nSuggest the API looks like this: `/:wargame/turns`",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1410975841,
+          "user": "IanMayo",
+          "created_at": "2023-01-31T19:54:23Z",
+          "updated_at": "2023-01-31T19:54:23Z",
+          "body": "Fixed in #2293"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/215716055-c22cd844-a49a-4918-8552-05542bba5b48.png"
+  ],
+  "number_of_changed_files": 31,
+  "total_changed_lines": 383
+}

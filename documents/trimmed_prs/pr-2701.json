@@ -1,0 +1,103 @@
+{
+  "number": 2701,
+  "title": "2697 initial renderers",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-11-23T10:46:14Z",
+  "updated_at": "2023-11-24T18:17:55Z",
+  "closed_at": "2023-11-24T18:17:54Z",
+  "merged_at": "2023-11-24T18:17:54Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2701",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2701/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2701/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2701",
+  "body": "Supports #2697 \r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/8faa20c4-1545-47cb-8edf-31faeea9fe1a)\r\n",
+  "additions": 144,
+  "deletions": 11,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 1,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1824247187,
+      "user": "IanMayo",
+      "created_at": "2023-11-23T11:15:51Z",
+      "updated_at": "2023-11-23T15:06:05Z",
+      "body": "Could you help me out with these improvements please @lebaphi: \r\n* [x] we're missing the icon for `marker-shadow.png` (see console)\r\n* [ ] I don't want to re-create the array of renderers on each new message/features update. Do you think we can supply the `features` object down in the TSX? \r\n![image](https://github.com/serge-web/serge/assets/1108513/16801e01-2e84-4935-966e-bdc1c75eebe2)\r\n* [x] our two renderers are going to override some GeoJSON behaviours.  Currently, they just have distinct `filter` behaviours.  But, I don't want that logic in this class.  I'd like it in two child classes, in a `renderers` sub-folder. Could you refactor it please?  I _guess_ each class could **extend** `GeoJSON`."
+    },
+    {
+      "id": 1824586904,
+      "user": "lebaphi",
+      "created_at": "2023-11-23T15:07:37Z",
+      "updated_at": "2023-11-23T15:07:37Z",
+      "body": "Hi @IanMayo , I pushed a small changes of creating some renderer classes, can you review it :D\r\n> I don't want to re-create the array of renderers on each new message/features update. Do you think we can supply the features object down in the TSX?\r\n\r\nyep, I think so."
+    },
+    {
+      "id": 1824596501,
+      "user": "IanMayo",
+      "created_at": "2023-11-23T15:14:17Z",
+      "updated_at": "2023-11-23T15:14:17Z",
+      "body": "Thanks for the refactoring. It's almost what I was looking for.  But, I'd like to avoid re-creating the renderers when we get a new message (features).  Really, we only need to generate the renderers on a `channel` update.\r\n\r\nIs there a way where we pass the `features` object down in the TSX?  Then we're not re-creating the renderer, we're just updating a prop.\r\n"
+    },
+    {
+      "id": 1825200329,
+      "user": "lebaphi",
+      "created_at": "2023-11-24T06:24:03Z",
+      "updated_at": "2023-11-24T06:31:45Z",
+      "body": "> Thanks for the refactoring. It's almost what I was looking for. But, I'd like to avoid re-creating the renderers when we get a new message (features). Really, we only need to generate the renderers on a `channel` update.\r\n> \r\n> Is there a way where we pass the `features` object down in the TSX? Then we're not re-creating the renderer, we're just updating a prop.\r\n\r\nI've updated code a bit, hope this is version that you were looking for @IanMayo "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1403519805,
+      "user": "IanMayo",
+      "created_at": "2023-11-23T15:23:36Z",
+      "updated_at": "2023-11-23T15:31:47Z",
+      "body": "Hello @lebaphi - in the next line, why don't we just pass `features` with the constructor.  We wouldn't need `from` then.  Or is this a programming practice that's new to me?\r\n\r\n>  return new CoreRenderer().from(features)\r\n\r\n(though it doesn't matter if we pass features in the TSX at the end of `core-mapping`.",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/core-renderer-helper.tsx",
+      "diff_hunk": "@@ -0,0 +1,18 @@\n+import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'\n+import { RENDERER_CORE, RENDERER_MILSYM } from 'src/custom-types'\n+import { CoreRenderer } from '../renderers/core-renderer'\n+import { MilSymbolRenderer } from '../renderers/milsymbol-renderer'\n+import { ICoreRenderer } from '../renderers/I-core-renderer'\n+\n+export class CoreRendererHelper {  \n+  static from (type: string, features: FeatureCollection<Geometry, GeoJsonProperties>): ICoreRenderer {\n+    switch (type) {\n+      case RENDERER_CORE:",
+      "html_url": "https://github.com/serge-web/serge/pull/2701#discussion_r1403519805"
+    }
+  ],
+  "issue_numbers": [
+    2697
+  ],
+  "issues": [
+    {
+      "id": 2004445234,
+      "number": 2697,
+      "title": "TSX API for Core Mapping",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-11-21T14:45:40Z",
+      "updated_at": "2023-11-24T18:20:30Z",
+      "closed_at": "2023-11-24T18:20:30Z",
+      "body": "Come up with TSX API for the mapping component.\r\n\r\nConsider:\r\n- things it has to know about: \r\n    - current force/role\r\n    - current turn\r\n    - current phase\r\n    - FeatureCollection \r\n    - channel definition\r\n    - ForceStyle data (names/colors)\r\n- things it must provide:\r\n    - list of asset ids/names ",
+      "labels": [
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1825978131,
+          "user": "IanMayo",
+          "created_at": "2023-11-24T18:20:27Z",
+          "updated_at": "2023-11-24T18:20:27Z",
+          "body": "Done,for now."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/8faa20c4-1545-47cb-8edf-31faeea9fe1a",
+    "https://github.com/serge-web/serge/assets/1108513/16801e01-2e84-4935-966e-bdc1c75eebe2"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 155
+}

@@ -1,0 +1,109 @@
+{
+  "number": 1651,
+  "title": "1618: Attribute Features out of Alignment ",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-05T03:50:29Z",
+  "updated_at": "2022-07-05T12:49:23Z",
+  "closed_at": "2022-07-05T12:49:22Z",
+  "merged_at": "2022-07-05T12:49:22Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1651",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1651/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1651/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1651",
+  "body": "Fixes #1618 \r\n\r\n<img width=\"975\" alt=\"Screen Shot 2022-07-05 at 10 45 34 AM\" src=\"https://user-images.githubusercontent.com/26705621/177245996-12f4642f-d2c3-4420-ae53-ba2307adfe3d.png\">\r\n\r\n",
+  "additions": 43,
+  "deletions": 13,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 6,
+  "review_comments_count": 0,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1174848241,
+      "user": "IanMayo",
+      "created_at": "2022-07-05T09:39:19Z",
+      "updated_at": "2022-07-05T09:39:19Z",
+      "body": "Thanks @lebaphi - but the layout doesn't work as the window gets wider.\r\n![gif](https://i.gyazo.com/9f68b320ae284fbb948f7fdae446804b.gif)\r\n\r\nI'm probably being old fashioned, but I _guess_ it all needs to be in table."
+    },
+    {
+      "id": 1174857268,
+      "user": "lebaphi",
+      "created_at": "2022-07-05T09:48:10Z",
+      "updated_at": "2022-07-05T09:51:08Z",
+      "body": "> Thanks @lebaphi - but the layout doesn't work as the window gets wider. ![gif](https://camo.githubusercontent.com/4debdd376ca653abaf0d7b310f9d41439085cb909f9341b48d920055c875d18e/68747470733a2f2f692e6779617a6f2e636f6d2f39663638623332306165323834666262393438663766646165343436383034622e676966) [ ](https://camo.githubusercontent.com/4debdd376ca653abaf0d7b310f9d41439085cb909f9341b48d920055c875d18e/68747470733a2f2f692e6779617a6f2e636f6d2f39663638623332306165323834666262393438663766646165343436383034622e676966) ![gif](https://camo.githubusercontent.com/4debdd376ca653abaf0d7b310f9d41439085cb909f9341b48d920055c875d18e/68747470733a2f2f692e6779617a6f2e636f6d2f39663638623332306165323834666262393438663766646165343436383034622e676966) [ ](https://camo.githubusercontent.com/4debdd376ca653abaf0d7b310f9d41439085cb909f9341b48d920055c875d18e/68747470733a2f2f692e6779617a6f2e636f6d2f39663638623332306165323834666262393438663766646165343436383034622e676966)\r\n> \r\n> I'm probably being old fashioned, but I _guess_ it all needs to be in table.\r\n\r\nYes, if it be in the table, everything goes well. The issue is the way we implement this component: content (reuse SortableList) and the header in separate places:\r\n\r\n<img width=\"775\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/177300462-9aa2356d-4f10-4f5c-aa3f-846e03c12f42.png\">\r\n\r\nSo there is 2 solutions for this:\r\n- Refactor this component using table (style might inconsistent with others)\r\n- Keep using SortableList and try to sync position of the icon header by CSS\r\n\r\nI decided to go with 2), let me play more with this :D"
+    },
+    {
+      "id": 1174948235,
+      "user": "IanMayo",
+      "created_at": "2022-07-05T11:25:09Z",
+      "updated_at": "2022-07-05T11:25:09Z",
+      "body": "> I decided to go with 2), let me play more with this :D\r\n\r\nSure, ok.\r\n\r\nIn the longer term, I'm happy for us to switch to an off-the-shelf component."
+    },
+    {
+      "id": 1174950068,
+      "user": "IanMayo",
+      "created_at": "2022-07-05T11:27:25Z",
+      "updated_at": "2022-07-05T11:27:25Z",
+      "body": "Thanks @lebaphi \r\n\r\nI'll check the fix once the deployment is ready.  But, the workaround does seem a little _fragile_.  I look forward to finding an off-the-shelf data table component.\r\n"
+    },
+    {
+      "id": 1174982987,
+      "user": "lebaphi",
+      "created_at": "2022-07-05T12:07:05Z",
+      "updated_at": "2022-07-05T12:07:05Z",
+      "body": "okay, I will try with table now 😄"
+    },
+    {
+      "id": 1174984432,
+      "user": "IanMayo",
+      "created_at": "2022-07-05T12:08:44Z",
+      "updated_at": "2022-07-05T12:08:44Z",
+      "body": "> okay, I will try with table now 😄\r\n\r\nNo, don't worry @lebaphi .  I don't want to invest effort in the workaround if we're going to (eventually) move to an off-the-shelf component."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1618
+  ],
+  "issues": [
+    {
+      "id": 1277390360,
+      "number": 1618,
+      "title": "Attribute Features out of Alignment",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-06-20T21:10:43Z",
+      "updated_at": "2022-07-05T12:49:22Z",
+      "closed_at": "2022-07-05T12:49:22Z",
+      "body": "In the downloadable version, the features of the attribute box seem to have left alignment with their respective text boxes/toggles:\r\n\r\n![Attribute out of alignment](https://user-images.githubusercontent.com/85491794/174678068-794a229f-a56f-4991-b688-4f65cd132e3f.png)\r\n\r\nIt'd be nice if we could realign them.",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1173698233,
+          "user": "IanMayo",
+          "created_at": "2022-07-04T11:19:45Z",
+          "updated_at": "2022-07-04T11:19:45Z",
+          "body": "@lebaphi  - could you center-align these icons on their columns please?"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/177245996-12f4642f-d2c3-4420-ae53-ba2307adfe3d.png",
+    "https://i.gyazo.com/9f68b320ae284fbb948f7fdae446804b.gif",
+    "https://camo.githubusercontent.com/4debdd376ca653abaf0d7b310f9d41439085cb909f9341b48d920055c875d18e/68747470733a2f2f692e6779617a6f2e636f6d2f39663638623332306165323834666262393438663766646165343436383034622e676966",
+    "https://user-images.githubusercontent.com/26705621/177300462-9aa2356d-4f10-4f5c-aa3f-846e03c12f42.png",
+    "https://user-images.githubusercontent.com/85491794/174678068-794a229f-a56f-4991-b688-4f65cd132e3f.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 56
+}

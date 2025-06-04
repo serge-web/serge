@@ -1,0 +1,70 @@
+{
+  "number": 1117,
+  "title": "optional edited data saviing, fix render issue",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-09-09T10:21:26Z",
+  "updated_at": "2021-09-09T12:45:30Z",
+  "closed_at": "2021-09-09T12:15:56Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1117",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1117/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1117/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1117",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 8,
+  "deletions": 7,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 916037112,
+      "user": "IanMayo",
+      "created_at": "2021-09-09T12:15:56Z",
+      "updated_at": "2021-09-09T12:15:56Z",
+      "body": "Closing. Higher level fix in development, that avoid use of rnd() keys in data-table, and prevents flickering."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1104
+  ],
+  "issues": [
+    {
+      "id": 990771511,
+      "number": 1104,
+      "title": "COA text typed since last lost focus is lost on re-render.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-08T06:37:46Z",
+      "updated_at": "2021-09-09T10:19:27Z",
+      "closed_at": "2021-09-09T10:19:27Z",
+      "body": "This relates to the issue where `json-editor` is being refreshed when focus changes, or a new message is received.\r\n\r\nWe cache the text in the editor, and replace that text in the re-render process.\r\n\r\nBut, we only cache the text on lose focus.  This still means some text can be lost.\r\n\r\n![screencast](https://i.gyazo.com/ad23b9f564f0606ad485ffcaa47e3fd2.gif)",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 915957347,
+          "user": "IanMayo",
+          "created_at": "2021-09-09T10:19:27Z",
+          "updated_at": "2021-09-09T10:19:27Z",
+          "body": "Fixed in #1106 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/ad23b9f564f0606ad485ffcaa47e3fd2.gif"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 15
+}

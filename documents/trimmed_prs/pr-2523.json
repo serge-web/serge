@@ -1,0 +1,60 @@
+{
+  "number": 2523,
+  "title": "2506 sidc type",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-27T10:04:01Z",
+  "updated_at": "2023-02-27T10:29:48Z",
+  "closed_at": "2023-02-27T10:29:47Z",
+  "merged_at": "2023-02-27T10:29:47Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2523",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2523/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2523/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2523",
+  "body": "Supports #2506 ",
+  "additions": 32615,
+  "deletions": 32770,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2506
+  ],
+  "issues": [
+    {
+      "id": 1598733081,
+      "number": 2506,
+      "title": "Specify sub-type by SIDC code",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-24T14:25:30Z",
+      "updated_at": "2023-03-09T10:11:16Z",
+      "closed_at": "2023-03-09T10:11:16Z",
+      "body": "SERGE currently takes the SIDC ( Symbol IDentification Codes) coding from the platform-types data.\r\n\r\nHere is an example of an SIDC code:\r\n![image](https://user-images.githubusercontent.com/1108513/221203148-62d7681e-73cc-4aab-a837-357e48221e11.png)\r\n\r\nWe're going to extend this, so that (optionally) the SIDC code can be specified via a per-asset attribute.\r\n\r\nThe optional attribute will be named \"a_SIDC\".\r\n\r\nWhen provided, this icon will be used instead of the one specified in platform-types.   The a_SIDC attribute will not be shown in the \"Attributes\" column of the My Forces tab.\r\n\r\nHere is the reference for the set of symbols in use: https://www.spatialillusions.com/milsymbol/docs/milsymbol-2525b-ch2.html\r\n\r\nThe values will not need to be provided directly to me, but will be included in the data dump.\r\n\r\n* [ ] add a_SIDC to all platform types, as string\r\n* [ ] hide a_SIDC from attribute renderer in planning assets\r\n* [ ] when creating AssetRow, use a_SIDC (when present) instead of string from platform-type\r\n* [ ] **Note:** perceivedType now needs to support this full list of types. That suggests these actually become platform-types. Try to avoid that.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1461723319,
+          "user": "IanMayo",
+          "created_at": "2023-03-09T10:11:16Z",
+          "updated_at": "2023-03-09T10:11:16Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/221203148-62d7681e-73cc-4aab-a837-357e48221e11.png"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 65385
+}

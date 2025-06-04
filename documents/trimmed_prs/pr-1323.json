@@ -1,0 +1,122 @@
+{
+  "number": 1323,
+  "title": "1246 Delete Platform Type",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-26T14:30:17Z",
+  "updated_at": "2022-01-31T22:06:12Z",
+  "closed_at": "2022-01-27T11:14:21Z",
+  "merged_at": "2022-01-27T11:14:20Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1323",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1323/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1323/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1323",
+  "body": "Fixes #1246 \r\n\r\nHi @IanMayo @ShendMikullovci , please have a look on the demo below:\r\n\r\nhttps://user-images.githubusercontent.com/26705621/151181607-0b3e975c-b69b-43d8-8d48-b0ef2788ce14.mov\r\n\r\n\r\n",
+  "additions": 132,
+  "deletions": 23,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 9,
+  "review_comments_count": 0,
+  "total_comments": 9,
+  "comments_data": [
+    {
+      "id": 1022344526,
+      "user": "IanMayo",
+      "created_at": "2022-01-26T16:02:53Z",
+      "updated_at": "2022-01-26T16:02:53Z",
+      "body": "Thanks @lebaphi - but I'm afraid we need confirmation on delete. The Game Designer may have put a lot of effort into a designing a platform-type, so we don't want to lose that investment of time by accident."
+    },
+    {
+      "id": 1022634359,
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-26T21:49:19Z",
+      "updated_at": "2022-01-26T21:49:19Z",
+      "body": "Looks excellent @lebaphi. As for the confirmation, I suppose a simple pop-up asking \"Are you sure you want to permanently delete this asset?\" would do."
+    },
+    {
+      "id": 1022800463,
+      "user": "lebaphi",
+      "created_at": "2022-01-27T03:01:04Z",
+      "updated_at": "2022-01-27T03:01:04Z",
+      "body": "Hi @IanMayo @ShendMikullovci plz take a 👀 \r\n\r\n<img width=\"953\" alt=\"Screen Shot 2022-01-27 at 9 45 53 AM\" src=\"https://user-images.githubusercontent.com/26705621/151284251-eb6d84ef-87b9-4250-b987-ea4d1051223a.png\">\r\n"
+    },
+    {
+      "id": 1024019734,
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-28T09:07:39Z",
+      "updated_at": "2022-01-28T09:09:10Z",
+      "body": "> Hi @IanMayo @ShendMikullovci plz take a eyes\r\n> \r\n> <img alt=\"Screen Shot 2022-01-27 at 9 45 53 AM\" width=\"953\" src=\"https://user-images.githubusercontent.com/26705621/151284251-eb6d84ef-87b9-4250-b987-ea4d1051223a.png\">\r\n\r\nExcellent! Thanks @lebaphi! Can you just put the delete button on the right, and the cancel button on the left please?"
+    },
+    {
+      "id": 1024248765,
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-28T13:57:54Z",
+      "updated_at": "2022-01-28T13:57:54Z",
+      "body": "Update: The button doesn't seem to be working for me.\r\n\r\nhttps://user-images.githubusercontent.com/85491794/151559298-439d7bb3-9b0c-418e-8126-fdd1f6d1746a.mp4\r\n\r\n\r\n"
+    },
+    {
+      "id": 1024919766,
+      "user": "lebaphi",
+      "created_at": "2022-01-29T14:13:32Z",
+      "updated_at": "2022-01-29T14:13:43Z",
+      "body": "Hi @ShendMikullovci, I think you should `Save` the platform first then you can `Delete` it 😄 "
+    },
+    {
+      "id": 1025227619,
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-30T20:48:01Z",
+      "updated_at": "2022-01-30T20:48:01Z",
+      "body": "> Hi @ShendMikullovci, I think you should `Save` the platform first then you can `Delete` it smile\r\n\r\nMy bad. All good."
+    },
+    {
+      "id": 1025537709,
+      "user": "IanMayo",
+      "created_at": "2022-01-31T09:29:31Z",
+      "updated_at": "2022-01-31T09:29:31Z",
+      "body": "It does seem a problem that a newly created platform-type can't be deleted.\r\n\r\nIt's not intuitive that a player must save the item before deleting it.  I guess the newly created platform-type is inconsistent in some way.  @lebaphi - could you investigate the issue please?\r\n\r\n If a Game Designer accidentally creates two rather than one, he can't delete either of them until they have been saved.  Actually -  if multiple ones are created, i _think_ that deleting one deletes all of them.  \r\n \r\n ![screencast](https://i.gyazo.com/66daef3ad7f1899828f8bab4445e4441.gif)"
+    },
+    {
+      "id": 1026258899,
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-31T22:06:12Z",
+      "updated_at": "2022-01-31T22:06:12Z",
+      "body": "> It does seem a problem that a newly created platform-type can't be deleted.\r\n> \r\n> It's not intuitive that a player must save the item before deleting it. I guess the newly created platform-type is inconsistent in some way. @lebaphi - could you investigate the issue please?\r\n> \r\n> If a Game Designer accidentally creates two rather than one, he can't delete either of them until they have been saved. Actually - if multiple ones are created, i _think_ that deleting one deletes all of them.\r\n> \r\n> ![screencast](https://camo.githubusercontent.com/478507df66651891a2f781904b8d69f1c00f4c6e0ed2089b5e4c07693a9dcbde/68747470733a2f2f692e6779617a6f2e636f6d2f36366461656633616437663138393938323866386261623434343565343434312e676966)\r\n\r\nWhile I agree it would be easier to have the platform saved automatically, we could also have a pop-up asking whether the user is sure they want to delete, similar to other features we introduced it to."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1246
+  ],
+  "issues": [
+    {
+      "id": 1077107274,
+      "number": 1246,
+      "title": "Can't delete Platform from the Admin Page",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-10T18:12:13Z",
+      "updated_at": "2022-01-27T11:14:21Z",
+      "closed_at": "2022-01-27T11:14:21Z",
+      "body": "There's no delete button once a user creates a platform on the admin page.\r\n![Can't delete platform](https://user-images.githubusercontent.com/85491794/145621384-db746e1f-af2c-496f-8a69-809ffcc99499.png)\r\n\r\nI would assume it's important to be able to delete a platform from the game if necessary.\r\n\r\nI suggest we stick to feature we use the channel delete feature (next to the channel title there's a delete button next to the duplicate button): \r\n![Channel Delete Feature](https://user-images.githubusercontent.com/85491794/145621693-63db252f-a998-4ff1-9e80-bdf8289d7e78.png)\r\n\r\nLet me know what you all think.\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/151284251-eb6d84ef-87b9-4250-b987-ea4d1051223a.png",
+    "https://i.gyazo.com/66daef3ad7f1899828f8bab4445e4441.gif",
+    "https://camo.githubusercontent.com/478507df66651891a2f781904b8d69f1c00f4c6e0ed2089b5e4c07693a9dcbde/68747470733a2f2f692e6779617a6f2e636f6d2f36366461656633616437663138393938323866386261623434343565343434312e676966",
+    "https://user-images.githubusercontent.com/85491794/145621384-db746e1f-af2c-496f-8a69-809ffcc99499.png",
+    "https://user-images.githubusercontent.com/85491794/145621693-63db252f-a998-4ff1-9e80-bdf8289d7e78.png"
+  ],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 155
+}

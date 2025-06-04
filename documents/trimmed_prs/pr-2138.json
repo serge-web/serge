@@ -1,0 +1,100 @@
+{
+  "number": 2138,
+  "title": "Add ruler control to map",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-19T09:49:53Z",
+  "updated_at": "2022-11-19T14:24:28Z",
+  "closed_at": "2022-11-19T14:24:27Z",
+  "merged_at": "2022-11-19T14:24:27Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2138",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2138/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2138/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2138",
+  "body": "Fixes #2133 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/202845077-8f79e4e9-eef9-48fb-95ba-3937f16c2d12.mov\r\n\r\n\r\n",
+  "additions": 532,
+  "deletions": 19,
+  "changed_files": 19,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 2,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1320848375,
+      "user": "IanMayo",
+      "created_at": "2022-11-19T09:55:29Z",
+      "updated_at": "2022-11-19T09:55:29Z",
+      "body": "thanks @lebaphi  - works well.\r\n\r\nThe \"New Orders\" popup button appears at the top left (when the current player is a Blue Player, and we're in `Planning Mode`.   So, could this new button appear with the other buttons on the top right-hand side?  Otherwise we'll have to have it at the bottom-left or bottom-right."
+    },
+    {
+      "id": 1320854672,
+      "user": "lebaphi",
+      "created_at": "2022-11-19T10:30:03Z",
+      "updated_at": "2022-11-19T10:30:03Z",
+      "body": "> thanks @lebaphi - works well.\r\n> \r\n> The \"New Orders\" popup button appears at the top left (when the current player is a Blue Player, and we're in `Planning Mode`. So, could this new button appear with the other buttons on the top right-hand side? Otherwise we'll have to have it at the bottom-left or bottom-right.\r\n\r\nsure @IanMayo , let me update"
+    },
+    {
+      "id": 1320885336,
+      "user": "lebaphi",
+      "created_at": "2022-11-19T13:24:18Z",
+      "updated_at": "2022-11-19T13:24:18Z",
+      "body": "The ruler now is in the bottom right 😄 \r\n\r\n<img width=\"1437\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/202852874-8729f42e-75eb-42f9-b4c0-b0bec04861a7.png\">\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1027066037,
+      "user": "IanMayo",
+      "created_at": "2022-11-19T09:56:41Z",
+      "updated_at": "2022-11-19T09:56:41Z",
+      "body": "hello @lebaphi  - can you teach me what this fix does please?",
+      "path": "packages/components/src/local/organisms/planning-assets/index.tsx",
+      "diff_hunk": "@@ -71,7 +71,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({\n     components={{\n       Body: (props): React.ReactElement => {\n         if (props.columns.length && onVisibleRowsChange) {\n-          onVisibleRowsChange(props.renderData)",
+      "html_url": "https://github.com/serge-web/serge/pull/2138#discussion_r1027066037"
+    },
+    {
+      "id": 1027070678,
+      "user": "lebaphi",
+      "created_at": "2022-11-19T10:29:12Z",
+      "updated_at": "2022-11-19T10:29:12Z",
+      "body": "I think this hook calls immediately when the PlanningChannel is rendering -> reports an error, add setTimeout to make sure the PlanningChannel loads fully, then we call this hook",
+      "path": "packages/components/src/local/organisms/planning-assets/index.tsx",
+      "diff_hunk": "@@ -71,7 +71,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({\n     components={{\n       Body: (props): React.ReactElement => {\n         if (props.columns.length && onVisibleRowsChange) {\n-          onVisibleRowsChange(props.renderData)",
+      "html_url": "https://github.com/serge-web/serge/pull/2138#discussion_r1027070678"
+    }
+  ],
+  "issue_numbers": [
+    2133
+  ],
+  "issues": [
+    {
+      "id": 1455389378,
+      "number": 2133,
+      "title": "Add ruler control to map",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-18T16:05:18Z",
+      "updated_at": "2022-11-19T14:24:28Z",
+      "closed_at": "2022-11-19T14:24:28Z",
+      "body": "Lots of players this week wanted to measure distances on the map.\r\n\r\nWe should add a leaflet measure control.  I can't find a react component to do it, but there's a way of doing it (similar to what @philb89 ) has done before here:\r\nhttps://stackoverflow.com/questions/67746299/react-leaflet-measurement-ruler-plugin\r\n\r\nAnd here is a control that looks easy to use:\r\nhttps://github.com/gokertanrisever/leaflet-ruler",
+      "labels": [
+        "enhancement",
+        "spatial",
+        "4p9",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/202852874-8729f42e-75eb-42f9-b4c0-b0bec04861a7.png"
+  ],
+  "number_of_changed_files": 19,
+  "total_changed_lines": 551
+}

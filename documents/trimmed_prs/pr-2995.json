@@ -1,0 +1,62 @@
+{
+  "number": 2995,
+  "title": "2994_Server-side_processing_should_check_document_has_id_before_PUT_o…",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-07-11T07:02:23Z",
+  "updated_at": "2024-07-11T09:32:42Z",
+  "closed_at": "2024-07-11T09:30:18Z",
+  "merged_at": "2024-07-11T09:30:18Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2995",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2995/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2995/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2995",
+  "body": "…peratio\r\n\r\nFiex #2994 \r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 9,
+  "deletions": 0,
+  "changed_files": 2,
+  "labels": [
+    "bug",
+    "4hat"
+  ],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2994
+  ],
+  "issues": [
+    {
+      "id": 2400754745,
+      "number": 2994,
+      "title": "Server-side processing should check document has `_id` before `PUT` operation",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-07-10T13:22:44Z",
+      "updated_at": "2024-07-11T09:32:56Z",
+      "closed_at": "2024-07-11T09:32:56Z",
+      "body": "The `PUT` operation in our Swagger API requires an `_id` parameter, to know where to put the document to.\r\n\r\nBut, if the field is missing, the server gets stuck in a loop.\r\n\r\nSo, both of our backends should check that the `_id` field is present, and throw an error if missing.",
+      "labels": [
+        "bug",
+        "4hat"
+      ],
+      "comments": [
+        {
+          "id": 2222468367,
+          "user": "IanMayo",
+          "created_at": "2024-07-11T09:32:56Z",
+          "updated_at": "2024-07-11T09:32:56Z",
+          "body": "Closed in #2995 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 9
+}

@@ -1,0 +1,146 @@
+{
+  "number": 1708,
+  "title": "1703: Refactor RCB into separate classes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-31T04:20:22Z",
+  "updated_at": "2022-08-03T10:07:39Z",
+  "closed_at": "2022-08-03T10:07:38Z",
+  "merged_at": "2022-08-03T10:07:38Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1708",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1708/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1708/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1708",
+  "body": "Fixes #1703\r\n\r\nI have 2 small questions:\r\n- Do we need to remove rcb component?\r\n- Do we support Radio button in new Forces component?",
+  "additions": 835,
+  "deletions": 891,
+  "changed_files": 35,
+  "labels": [],
+  "comments_count": 6,
+  "review_comments_count": 5,
+  "total_comments": 11,
+  "comments_data": [
+    {
+      "id": 1200376145,
+      "user": "IanMayo",
+      "created_at": "2022-07-31T08:21:50Z",
+      "updated_at": "2022-07-31T08:21:50Z",
+      "body": "1. Yes, let's throw RCB in the garbage bin.\r\n2. We only need check boxes for Forces, not radio buttons (it is always multi select)."
+    },
+    {
+      "id": 1201256879,
+      "user": "IanMayo",
+      "created_at": "2022-08-01T14:09:11Z",
+      "updated_at": "2022-08-01T14:09:11Z",
+      "body": "One last thing, please @lebaphi \r\n\r\nI'd like to trim down the props a bit more, please.  We allow both `number` or `string` values for `radio-buttons` and `check-boxes`.  Could you have a look at where these components are used, and check if both number and string are used?   If either isn't used for one component - could we remove it from the props?"
+    },
+    {
+      "id": 1202733967,
+      "user": "lebaphi",
+      "created_at": "2022-08-02T14:48:39Z",
+      "updated_at": "2022-08-02T14:48:39Z",
+      "body": "> One last thing, please @lebaphi\r\n> \r\n> I'd like to trim down the props a bit more, please. We allow both `number` or `string` values for `radio-buttons` and `check-boxes`. Could you have a look at where these components are used, and check if both number and string are used? If either isn't used for one component - could we remove it from the props?\r\n\r\n@IanMayo currently only the Forces component is used and the options data are all strings, so I removed the number props in this components already."
+    },
+    {
+      "id": 1202821386,
+      "user": "IanMayo",
+      "created_at": "2022-08-02T15:26:46Z",
+      "updated_at": "2022-08-02T15:30:56Z",
+      "body": "Hey @lebaphi - it looks like the `CheckBoxes` component isn't used anywhere now. We can delete it :-)\r\n\r\nOh dear - I may be going mad here. It looks like `RadioButtons` isn't used anywhere either 😨 \r\n\r\nCould you double-check that, and delete both classes if they aren't used anywhere please."
+    },
+    {
+      "id": 1202963607,
+      "user": "lebaphi",
+      "created_at": "2022-08-02T16:32:56Z",
+      "updated_at": "2022-08-02T16:32:56Z",
+      "body": "> Hey @lebaphi - it looks like the `CheckBoxes` component isn't used anywhere now. We can delete it :-)\n> \n> \n> \n> Oh dear - I may be going mad here. It looks like `RadioButtons` isn't used anywhere either 😨 \n> \n> \n> \n> Could you double-check that, and delete both classes if they aren't used anywhere please.\n\nyep, that is what Im thinking, they are not used anywhere so we should delete it."
+    },
+    {
+      "id": 1203068397,
+      "user": "IanMayo",
+      "created_at": "2022-08-02T18:22:15Z",
+      "updated_at": "2022-08-02T18:22:15Z",
+      "body": "\r\n> yep, that is what Im thinking, they are not used anywhere so we should delete it.\r\n\r\nGreat. If you can delete them next time you're working - I can test the new Forces List control in the Serge panels."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 934539489,
+      "user": "IanMayo",
+      "created_at": "2022-08-01T13:36:59Z",
+      "updated_at": "2022-08-01T13:36:59Z",
+      "body": "can we provide type information for the `data` parameter please?  I guess it's going to be a string or a number.",
+      "path": "packages/components/src/local/form-elements/checkboxes/types/props.d.ts",
+      "diff_hunk": "@@ -15,26 +11,19 @@ export default interface PropTypes {\n   /**\n    * The list of options available to the form section\n    */\n-  options: Array<string | number | FormOption>\n+  options: (string | number)[]\n   /**\n    * The value to set the 'checked' parameter to\n    */\n   value: string | number | Array<string | number>\n-  /**\n-   * An option to display the force colours in the label ('colour' must be present in options)\n-   */\n-  force?: boolean\n   /**\n    * Sets the onChange state on a parent\n    */\n-  updateState?: any\n-  /**\n-   * Whether to use compact format (esp for list of color shades)\n-   */\n-  compact?: boolean\n+  onChange?: (data: any) => void",
+      "html_url": "https://github.com/serge-web/serge/pull/1708#discussion_r934539489"
+    },
+    {
+      "id": 934540589,
+      "user": "IanMayo",
+      "created_at": "2022-08-01T13:37:43Z",
+      "updated_at": "2022-08-01T13:37:44Z",
+      "body": "could you check what gets passed in data please?  I don't know if it's a `SelectOption` or the index of the selected items.",
+      "path": "packages/components/src/local/form-elements/forces/types/props.d.ts",
+      "diff_hunk": "@@ -0,0 +1,31 @@\n+import { SelectOption } from '@serge/custom-types'\n+\n+export default interface PropTypes {\n+  /**\n+   * The label to show on the form section\n+   */\n+  label?: string\n+  /**\n+   * The name of the input, if no input is selected, label is used instead.\n+   * Should match the value of 'populate' that should be updated in state.\n+   */\n+  name?: string\n+  /**\n+   * The list of options available to the form section\n+   */\n+  options: SelectOption[]\n+  /**\n+   * The value to set the 'checked' parameter to\n+   */\n+  value: string | string[]\n+  /**\n+   * Sets the onChange state on a parent\n+   */\n+  onChange?: (data: any) => void",
+      "html_url": "https://github.com/serge-web/serge/pull/1708#discussion_r934540589"
+    },
+    {
+      "id": 934542997,
+      "user": "IanMayo",
+      "created_at": "2022-08-01T13:39:24Z",
+      "updated_at": "2022-08-01T13:39:24Z",
+      "body": "Hmm, I'm pretty sure this API will work better if this is the index numbers of the `SelectOption`?  Or, we should (somehow) indicate which `SelectOption` field it is, like `SelectOption['name']`.",
+      "path": "packages/components/src/local/form-elements/forces/types/props.d.ts",
+      "diff_hunk": "@@ -0,0 +1,31 @@\n+import { SelectOption } from '@serge/custom-types'\n+\n+export default interface PropTypes {\n+  /**\n+   * The label to show on the form section\n+   */\n+  label?: string\n+  /**\n+   * The name of the input, if no input is selected, label is used instead.\n+   * Should match the value of 'populate' that should be updated in state.\n+   */\n+  name?: string\n+  /**\n+   * The list of options available to the form section\n+   */\n+  options: SelectOption[]\n+  /**\n+   * The value to set the 'checked' parameter to\n+   */\n+  value: string | string[]",
+      "html_url": "https://github.com/serge-web/serge/pull/1708#discussion_r934542997"
+    },
+    {
+      "id": 934544465,
+      "user": "IanMayo",
+      "created_at": "2022-08-01T13:40:28Z",
+      "updated_at": "2022-08-01T13:40:28Z",
+      "body": "The `value` parameter seems to loosely defined for me - it could cause complexity in rendering the component.  Can we force it to be an array, even if it's just one item?",
+      "path": "packages/components/src/local/form-elements/checkboxes/types/props.d.ts",
+      "diff_hunk": "@@ -15,26 +11,19 @@ export default interface PropTypes {\n   /**\n    * The list of options available to the form section\n    */\n-  options: Array<string | number | FormOption>\n+  options: (string | number)[]\n   /**\n    * The value to set the 'checked' parameter to\n    */\n   value: string | number | Array<string | number>",
+      "html_url": "https://github.com/serge-web/serge/pull/1708#discussion_r934544465"
+    },
+    {
+      "id": 935657012,
+      "user": "lebaphi",
+      "created_at": "2022-08-02T14:19:28Z",
+      "updated_at": "2022-08-02T14:44:18Z",
+      "body": "it should be an array of name (string[]) of selected items @IanMayo. I think it should be better if it's an array of an id of selected items.",
+      "path": "packages/components/src/local/form-elements/forces/types/props.d.ts",
+      "diff_hunk": "@@ -0,0 +1,31 @@\n+import { SelectOption } from '@serge/custom-types'\n+\n+export default interface PropTypes {\n+  /**\n+   * The label to show on the form section\n+   */\n+  label?: string\n+  /**\n+   * The name of the input, if no input is selected, label is used instead.\n+   * Should match the value of 'populate' that should be updated in state.\n+   */\n+  name?: string\n+  /**\n+   * The list of options available to the form section\n+   */\n+  options: SelectOption[]\n+  /**\n+   * The value to set the 'checked' parameter to\n+   */\n+  value: string | string[]\n+  /**\n+   * Sets the onChange state on a parent\n+   */\n+  onChange?: (data: any) => void",
+      "html_url": "https://github.com/serge-web/serge/pull/1708#discussion_r935657012"
+    }
+  ],
+  "issue_numbers": [
+    1703
+  ],
+  "issues": [
+    {
+      "id": 1321981662,
+      "number": 1703,
+      "title": "Refactor RCB into separate classes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-29T09:20:38Z",
+      "updated_at": "2022-08-03T10:07:39Z",
+      "closed_at": "2022-08-03T10:07:39Z",
+      "body": "The RCB component is quite fragile, and has experienced a number of bugs.\r\n\r\nPart of the fragility may be that it supports both Radio boxes and Check-boxes, which represent their data in different ways.  The props (especially update state handler) are poorly defined.   Oh, and there is \"special handling\" for lists of forces where colors are provided for the values.\r\n\r\nSplit into three components (one for RadioButtons, and one for CheckBoxes, one for Forces), and cover props (especially input data and change handler) with Typescript definitions.",
+      "labels": [
+        "Technical Debt"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 35,
+  "total_changed_lines": 1726
+}

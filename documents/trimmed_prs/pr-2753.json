@@ -1,0 +1,76 @@
+{
+  "number": 2753,
+  "title": "2743: introduce new mapping channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-08T05:09:34Z",
+  "updated_at": "2024-01-13T16:15:50Z",
+  "closed_at": "2024-01-13T16:15:49Z",
+  "merged_at": "2024-01-13T16:15:49Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2753",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2753/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2753/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2753",
+  "body": "Fixes #2743 ",
+  "additions": 410,
+  "deletions": 84,
+  "changed_files": 22,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1880627510,
+      "user": "IanMayo",
+      "created_at": "2024-01-08T09:17:39Z",
+      "updated_at": "2024-01-08T09:17:39Z",
+      "body": "Nice start, thanks @lebaphi \r\n\r\nWe have some contrast issues now that the component is running inside Serge:\r\n![image](https://github.com/serge-web/serge/assets/1108513/715fb3ac-2339-40e9-9128-c523d95dd4b7)\r\n"
+    },
+    {
+      "id": 1880675223,
+      "user": "IanMayo",
+      "created_at": "2024-01-08T09:50:34Z",
+      "updated_at": "2024-01-08T09:50:34Z",
+      "body": "Hello @lebaphi  - we also need to integrate the message sending.  \r\n\r\nSo, it _looks-like_ we'll pass a handler to `CoreMapping`.  Then `CoreMapping` will catch changes to the `featureCollection` and send details to the handler.   The `CoreMappingChannel` handler will then send out the new message in `saveMessage` - just like the `ChatChannel` does."
+    },
+    {
+      "id": 1884703812,
+      "user": "IanMayo",
+      "created_at": "2024-01-10T11:50:49Z",
+      "updated_at": "2024-01-10T11:50:49Z",
+      "body": "Hello @lebaphi  - I did have a go at fixing the conflict, but I got it wrong.  Hopefully you will do better."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2743
+  ],
+  "issues": [
+    {
+      "id": 2064359555,
+      "number": 2743,
+      "title": "Core Mapping - Introduce new mapping channel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-03T17:00:58Z",
+      "updated_at": "2024-01-13T16:15:50Z",
+      "closed_at": "2024-01-13T16:15:50Z",
+      "body": "We have our new core-mapping component.\r\n\r\nThe `story` for it includes mock channel data and mock messages.\r\n\r\nI have modified database `l6nngxlk` to include a mapping channel and a mapping message that contains features.\r\n\r\nNow we can modify `factory.tsx` to show a `MappingChannel` when the channel is of type `CHANNEL_MAPPING`.\r\n\r\nThe `MappingChannel` should pass all messages for this channel to the `CoreMapping` component, for them to be displayed.\r\n\r\nThis issue just covers the creation of the mapping channel, which will contain an instance of `CoreMapping` - and show the data from `l6nngxlk` wargame.  I _guess_ that `CollabChannel` is a good starting point for this new component.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/715fb3ac-2339-40e9-9128-c523d95dd4b7"
+  ],
+  "number_of_changed_files": 22,
+  "total_changed_lines": 494
+}

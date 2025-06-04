@@ -1,0 +1,228 @@
+{
+  "number": 2984,
+  "title": "2975 design templates with multiple items per row",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-06-19T06:48:27Z",
+  "updated_at": "2024-07-03T14:05:58Z",
+  "closed_at": "2024-07-03T14:05:56Z",
+  "merged_at": "2024-07-03T14:05:56Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2984",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2984/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2984/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2984",
+  "body": "Fixes #2975 \r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 72,
+  "deletions": 6,
+  "changed_files": 4,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 16,
+  "review_comments_count": 2,
+  "total_comments": 18,
+  "comments_data": [
+    {
+      "id": 2178205451,
+      "user": "IanMayo",
+      "created_at": "2024-06-19T09:29:15Z",
+      "updated_at": "2024-06-19T09:29:15Z",
+      "body": "@lilitkarapetyan - could you include a video of editing a template to put them in one row, and then the player seeing that template please?"
+    },
+    {
+      "id": 2178231227,
+      "user": "Tristina1788",
+      "created_at": "2024-06-19T09:42:01Z",
+      "updated_at": "2024-06-19T09:42:01Z",
+      "body": "@lilitkarapetyan  @IanMayo Now I can adjust for size field but I still don't see anywhere to config multiple fields on same row : https://app.screencast.com/89TPv8aLW4GcQ"
+    },
+    {
+      "id": 2178298609,
+      "user": "IanMayo",
+      "created_at": "2024-06-19T10:10:02Z",
+      "updated_at": "2024-06-19T10:10:02Z",
+      "body": "> @lilitkarapetyan @IanMayo Now I can adjust for size field but I still don't see anywhere to config multiple fields on same row : https://app.screencast.com/89TPv8aLW4GcQ\r\n\r\nYes @Tristina1788 , we're part way there :-D. Note: you _should_ be able to verify the layout from the \"template preview\" tab of the template editor."
+    },
+    {
+      "id": 2178489712,
+      "user": "IanMayo",
+      "created_at": "2024-06-19T11:43:43Z",
+      "updated_at": "2024-06-19T11:43:43Z",
+      "body": "@lilitkarapetyan - can you check one thing please?   When we are designing the template, and we switch to `preview`, and then back to `edit` - can you check the original attribute name is there?"
+    },
+    {
+      "id": 2180142216,
+      "user": "Tristina1788",
+      "created_at": "2024-06-20T08:43:10Z",
+      "updated_at": "2024-06-20T08:43:10Z",
+      "body": "> @lilitkarapetyan - can you check one thing please? When we are designing the template, and we switch to `preview`, and then back to `edit` - can you check the original attribute name is there?\r\n\r\nIs that about params of element? Seem it's ok on my checking : https://app.screencast.com/9gWnCx4du8aJn"
+    },
+    {
+      "id": 2180477456,
+      "user": "Tristina1788",
+      "created_at": "2024-06-20T11:47:30Z",
+      "updated_at": "2024-06-20T11:47:30Z",
+      "body": "@lilitkarapetyan @IanMayo Now I can see multiple fields are on the same row. But how to make any field is not same row? Seem now all fields are same rows until no left space.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/cacd12ca-78b1-4b05-8a9e-ff1d06607d55)\r\n"
+    },
+    {
+      "id": 2180537198,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-20T12:21:39Z",
+      "updated_at": "2024-06-20T12:37:57Z",
+      "body": "> @lilitkarapetyan @IanMayo Now I can see multiple fields are on the same row. But how to make any field is not same row? Seem now all fields are same rows until no left space.\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/341397934-cacd12ca-78b1-4b05-8a9e-ff1d06607d55.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTg4ODYzMTYsIm5iZiI6MTcxODg4NjAxNiwicGF0aCI6Ii8xMDc2OTcwNDQvMzQxMzk3OTM0LWNhY2QxMmNhLTc4YjEtNGIwNS04YTllLWZmMWQwNjYwN2Q1NS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYyMFQxMjIwMTZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04ODY3ZDNmMGY2NjBkOTgzNjliMDY2MzBiZTBhMWYxZmE0ZTBhMzIyOGZiNzk3NGMxYWQyNWFjOWNhZjdiZjViJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.VcTDYsBM9HbNAUc7lUWrlj91mU4rgbHfotrsHrR6oTI)\r\n\r\nYou need to change the column size.\r\nahh, the size of the input field does not increase completely. I will investigate now"
+    },
+    {
+      "id": 2182328402,
+      "user": "Tristina1788",
+      "created_at": "2024-06-21T09:01:09Z",
+      "updated_at": "2024-06-21T09:01:09Z",
+      "body": "@lilitkarapetyan  @IanMayo I still don't have the way to put the item down to new line as my expected . Currently the new item will be down to new line when the total size of items are 12. \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/7ed9d9b0-6f5e-4380-9d87-e35d893a8b94)\r\n\r\n@lilitkarapetyan Can you guide me the way to have the form below ( I draw form by paint, not from our form builder) \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/fd0746a8-cc5f-4f65-910d-160670fb46a3)\r\n"
+    },
+    {
+      "id": 2182384499,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-21T09:32:03Z",
+      "updated_at": "2024-06-21T09:32:03Z",
+      "body": "> @lilitkarapetyan @IanMayo I still don't have the way to put the item down to new line as my expected . Currently the new item will be down to new line when the total size of items are 12.\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/341706576-7ed9d9b0-6f5e-4380-9d87-e35d893a8b94.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTg5NjIxNzQsIm5iZiI6MTcxODk2MTg3NCwicGF0aCI6Ii8xMDc2OTcwNDQvMzQxNzA2NTc2LTdlZDlkOWIwLTZmNWUtNDM4MC05ZDg3LWUzNWQ4OTNhOGI5NC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYyMVQwOTI0MzRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNjY5MmNlN2E2ZGM5Njg2MjA2NTExZmIwNjAwMWU3YTUwMjliM2Q5MDYwNTBjYzAyMTdmNmNiMGYzYzdhOGE5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.Kc9syLIOem2NsrjBm7pkMk-6wQddElSBNFb8jnUOV_A)\r\n> \r\n> @lilitkarapetyan Can you guide me the way to have the form below ( I draw form by paint, not from our form builder)\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/341707327-fd0746a8-cc5f-4f65-910d-160670fb46a3.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTg5NjIxNzQsIm5iZiI6MTcxODk2MTg3NCwicGF0aCI6Ii8xMDc2OTcwNDQvMzQxNzA3MzI3LWZkMDc0NmE4LWNjNWYtNGY2NS05MTBkLTE2MDY3MGZiNDZhMy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYyMVQwOTI0MzRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zZTRiY2MzMjRjMDVlZjVkNDFiYzhiNTlkNDdmM2YxZDQyYmFiYmJjY2M2NjUzN2YzNTVmNjhhMjNiM2MzZDM3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.4CcA5Ml8poBA4Os_Sw44oxobesIiu7q9YQYNCVnF9HM)\r\n\r\nWen you adjust the with of column from 1 to 12 (0% to 100%). if the items cannot fit in one row, the item on the right moves down to the next row.\r\n"
+    },
+    {
+      "id": 2182388707,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-21T09:34:39Z",
+      "updated_at": "2024-06-21T09:35:42Z",
+      "body": "this lib we are using doesn't have taht feature by default, I added it myself"
+    },
+    {
+      "id": 2182391914,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-21T09:36:36Z",
+      "updated_at": "2024-06-21T09:36:36Z",
+      "body": "> This lib we are using doesn't have taht feature by default, I added it myself\r\n\r\n"
+    },
+    {
+      "id": 2185907209,
+      "user": "Tristina1788",
+      "created_at": "2024-06-24T08:25:25Z",
+      "updated_at": "2024-06-24T08:25:25Z",
+      "body": "> > This lib we are using doesn't have taht feature by default, I added it myself\r\n\r\n@lilitkarapetyan  I think we need to improve for user can custom about the size of input field and  input field in the new line when he want.  @IanMayo How do you think"
+    },
+    {
+      "id": 2205915073,
+      "user": "IanMayo",
+      "created_at": "2024-07-03T12:02:52Z",
+      "updated_at": "2024-07-03T12:02:52Z",
+      "body": "Let me understand how things work:\r\n- the form designer specifies the field width, in 12ths.\r\n- the fields get laid out with the specified width, wrapping to new line once the value goes past 12.\r\nIs that right @lilitkarapetyan \r\n\r\nThat seems ok for me @Tristina1788 ."
+    },
+    {
+      "id": 2206055583,
+      "user": "Tristina1788",
+      "created_at": "2024-07-03T13:16:25Z",
+      "updated_at": "2024-07-03T13:16:25Z",
+      "body": "> Let me understand how things work:\r\n> \r\n> * the form designer specifies the field width, in 12ths.\r\n> * the fields get laid out with the specified width, wrapping to new line once the value goes past 12.\r\n>   Is that right @lilitkarapetyan\r\n> \r\n> That seems ok for me @Tristina1788 .\r\n\r\n@IanMayo I mean we can't custom it whatever we want. Example we can't create this below form. Is this ok? \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/aaa0e31d-0253-4e83-ad10-6dfd12e02004)\r\n"
+    },
+    {
+      "id": 2206065954,
+      "user": "IanMayo",
+      "created_at": "2024-07-03T13:21:32Z",
+      "updated_at": "2024-07-03T13:21:32Z",
+      "body": "> > Let me understand how things work:\r\n> > \r\n> > * the form designer specifies the field width, in 12ths.\r\n> > * the fields get laid out with the specified width, wrapping to new line once the value goes past 12.\r\n> >   Is that right @lilitkarapetyan\r\n> > \r\n> > That seems ok for me @Tristina1788 .\r\n> \r\n> @IanMayo I mean we can't custom it whatever we want. Example we can't create this below form. Is this ok?\r\n> \r\n\r\nAaah, I see. We can't create layout that has white-space to the right of the controls. The main problem for game designers is in creating a really compact form that still contains all of the fields. I don't believe there is the case where the designer wants to introduce white-space.\r\n\r\nThe inability to insert white space is not an issue for me.  If that is the only remaining issue then I'm happy to go with this solution."
+    },
+    {
+      "id": 2206076660,
+      "user": "Tristina1788",
+      "created_at": "2024-07-03T13:26:41Z",
+      "updated_at": "2024-07-03T13:26:41Z",
+      "body": "> > > Let me understand how things work:\r\n> > > \r\n> > > * the form designer specifies the field width, in 12ths.\r\n> > > * the fields get laid out with the specified width, wrapping to new line once the value goes past 12.\r\n> > >   Is that right @lilitkarapetyan\r\n> > > \r\n> > > That seems ok for me @Tristina1788 .\r\n> > \r\n> > \r\n> > @IanMayo I mean we can't custom it whatever we want. Example we can't create this below form. Is this ok?\r\n> \r\n> Aaah, I see. We can't create layout that has white-space to the right of the controls. The main problem for game designers is in creating a really compact form that still contains all of the fields. I don't believe there is the case where the designer wants to introduce white-space.\r\n> \r\n> The inability to insert white space is not an issue for me. If that is the only remaining issue then I'm happy to go with this solution.\r\n\r\nYeah, so It's ok to close this PR."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1645840151,
+      "user": "IanMayo",
+      "created_at": "2024-06-19T09:57:34Z",
+      "updated_at": "2024-06-19T09:57:35Z",
+      "body": "@lilitkarapetyan - could you insert a comment explaining what this does please? \r\n\r\nIn the comment, please provide a before/after example showing what has changed.",
+      "path": "client/src/Components/local/molecules/json-editor/helpers/mapColumnToClassName.ts",
+      "diff_hunk": "@@ -0,0 +1,26 @@\n+type UiSchema = Record<string, any>;\n+\n+const mapColumnToClassName = (uiSchema: UiSchema): UiSchema => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2984#discussion_r1645840151"
+    },
+    {
+      "id": 1645840623,
+      "user": "IanMayo",
+      "created_at": "2024-06-19T09:57:57Z",
+      "updated_at": "2024-06-19T09:57:57Z",
+      "body": "(minor typo in word `column`)",
+      "path": "client/src/Components/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -148,10 +149,11 @@ export const JsonEditor: React.FC<Props> = ({\n       const modSchema = gameDate ? configDateTimeLocal(jsonSchema, gameDate) : jsonSchema\n       const customizedSchema = modSchema\n       const schemaWithTitle = title ? { ...customizedSchema, title } : customizedSchema\n+      const cloumnToClassName = mapColumnToClassName(uischema)",
+      "html_url": "https://github.com/serge-web/serge/pull/2984#discussion_r1645840623"
+    }
+  ],
+  "issue_numbers": [
+    100,
+    2975
+  ],
+  "issues": [
+    {
+      "id": 536572284,
+      "number": 100,
+      "title": "5.1.7 - Submit orders (mock)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2019-12-11T19:34:40Z",
+      "updated_at": "2020-01-15T10:52:35Z",
+      "closed_at": "2020-01-15T10:52:34Z",
+      "body": "As a < **player** >, I want to < **submit my orders** > so that < **my forces move towards my tactical objectives** >.\n\n# Acceptance criteria\n\nSetup: load game, play as red/blue, produce some planned routes for my platforms\n\n- [ ] When I press submit, the 'Orders' message is sent\n\n# UX\n_Maybe_ it's just a Send button\n\n# Notes\nIan to produce example of message format.\n\n# Infrastructure\nIn this phase this will be implemented by providing a drop-down list that contains a set of JSON messages that were predefined in our source code. ",
+      "labels": [
+        "User Story"
+      ],
+      "comments": [
+        {
+          "id": 574606430,
+          "user": "IanMayo",
+          "created_at": "2020-01-15T10:52:34Z",
+          "updated_at": "2020-01-15T10:52:34Z",
+          "body": "We can drop this, we're close to real orders being sent around"
+        }
+      ]
+    },
+    {
+      "id": 2335318950,
+      "number": 2975,
+      "title": "Design templates with multiple items per row",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-06-05T09:05:14Z",
+      "updated_at": "2024-08-07T12:16:07Z",
+      "closed_at": "2024-08-07T12:16:07Z",
+      "body": "Frequently, templates can be made more compact by putting multiple items in one row.\r\n\r\nOur RJSFB template page allows controls to have a width/columns parameter.\r\n\r\nBut, it is ignored when rendered.\r\n\r\nInvestigate how to use the `column` parameter and allow multiple items per row.  I'm pretty sure this is about RJSF rather than RJSFB.  There are issues in the repo that refer to columns, though the solutions seem sensitive to which UI library is in use.",
+      "labels": [
+        "4hat"
+      ],
+      "comments": [
+        {
+          "id": 2273332603,
+          "user": "IanMayo",
+          "created_at": "2024-08-07T12:16:07Z",
+          "updated_at": "2024-08-07T12:16:07Z",
+          "body": "Fixed in #2984 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/cacd12ca-78b1-4b05-8a9e-ff1d06607d55",
+    "https://private-user-images.githubusercontent.com/107697044/341397934-cacd12ca-78b1-4b05-8a9e-ff1d06607d55.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTg4ODYzMTYsIm5iZiI6MTcxODg4NjAxNiwicGF0aCI6Ii8xMDc2OTcwNDQvMzQxMzk3OTM0LWNhY2QxMmNhLTc4YjEtNGIwNS04YTllLWZmMWQwNjYwN2Q1NS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYyMFQxMjIwMTZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04ODY3ZDNmMGY2NjBkOTgzNjliMDY2MzBiZTBhMWYxZmE0ZTBhMzIyOGZiNzk3NGMxYWQyNWFjOWNhZjdiZjViJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.VcTDYsBM9HbNAUc7lUWrlj91mU4rgbHfotrsHrR6oTI",
+    "https://github.com/serge-web/serge/assets/107697044/7ed9d9b0-6f5e-4380-9d87-e35d893a8b94",
+    "https://github.com/serge-web/serge/assets/107697044/fd0746a8-cc5f-4f65-910d-160670fb46a3",
+    "https://private-user-images.githubusercontent.com/107697044/341706576-7ed9d9b0-6f5e-4380-9d87-e35d893a8b94.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTg5NjIxNzQsIm5iZiI6MTcxODk2MTg3NCwicGF0aCI6Ii8xMDc2OTcwNDQvMzQxNzA2NTc2LTdlZDlkOWIwLTZmNWUtNDM4MC05ZDg3LWUzNWQ4OTNhOGI5NC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYyMVQwOTI0MzRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNjY5MmNlN2E2ZGM5Njg2MjA2NTExZmIwNjAwMWU3YTUwMjliM2Q5MDYwNTBjYzAyMTdmNmNiMGYzYzdhOGE5JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.Kc9syLIOem2NsrjBm7pkMk-6wQddElSBNFb8jnUOV_A",
+    "https://private-user-images.githubusercontent.com/107697044/341707327-fd0746a8-cc5f-4f65-910d-160670fb46a3.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTg5NjIxNzQsIm5iZiI6MTcxODk2MTg3NCwicGF0aCI6Ii8xMDc2OTcwNDQvMzQxNzA3MzI3LWZkMDc0NmE4LWNjNWYtNGY2NS05MTBkLTE2MDY3MGZiNDZhMy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwNjIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDYyMVQwOTI0MzRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zZTRiY2MzMjRjMDVlZjVkNDFiYzhiNTlkNDdmM2YxZDQyYmFiYmJjY2M2NjUzN2YzNTVmNjhhMjNiM2MzZDM3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.4CcA5Ml8poBA4Os_Sw44oxobesIiu7q9YQYNCVnF9HM",
+    "https://github.com/serge-web/serge/assets/107697044/aaa0e31d-0253-4e83-ad10-6dfd12e02004"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 78
+}

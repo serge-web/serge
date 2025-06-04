@@ -1,0 +1,70 @@
+{
+  "number": 925,
+  "title": "Make fixed width for game admin panel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-06T10:56:04Z",
+  "updated_at": "2021-07-06T14:18:39Z",
+  "closed_at": "2021-07-06T14:18:38Z",
+  "merged_at": "2021-07-06T14:18:37Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/925",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/925/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/925/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/925",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #792\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    792
+  ],
+  "issues": [
+    {
+      "id": 905454941,
+      "number": 792,
+      "title": "Make Game Admin panel resizable",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-05-28T13:55:09Z",
+      "updated_at": "2021-07-06T14:18:38Z",
+      "closed_at": "2021-07-06T14:18:38Z",
+      "body": "The Game Control was using a twin monitor setup to view/control the game.\r\n\r\nWe were able to stretch the window to fill both screens.  But, then the Game Admin panel consumed around 40% of the right-hand screen.\r\n\r\nSo, we should either switch the Game Admin panel from using a  %age to using a fixed number of pixels, or we should make the Game Admin panel resizable by the user.\r\n\r\nThe first option is probably the least disruptive.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 872476037,
+          "user": "IanMayo",
+          "created_at": "2021-07-01T18:54:55Z",
+          "updated_at": "2021-07-01T18:54:55Z",
+          "body": "For this phase - let's make the Game Admin panel fixed width. For now let's make it 350px wide."
+        },
+        {
+          "id": 874568413,
+          "user": "sanjayradadiya",
+          "created_at": "2021-07-06T08:30:41Z",
+          "updated_at": "2021-07-06T08:30:41Z",
+          "body": "can you just show me the actual issue In the screenshot here ? @IanMayo "
+        },
+        {
+          "id": 874583326,
+          "user": "IanMayo",
+          "created_at": "2021-07-06T08:53:20Z",
+          "updated_at": "2021-07-06T08:53:20Z",
+          "body": "Sorry Sanjay - I'm on Macox, and I can't make browser span both screens.\r\n\r\nI can describe it though.  Since the GameAdmin area on the right-hand of the screen is configured to take a %age of the horizontal space, as we expanded the browser to fill both screens, the GameAdmin wasted a lot of horizontal space. But, if we make it fixed width, then that won't happen."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

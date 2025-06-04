@@ -1,0 +1,118 @@
+{
+  "number": 2073,
+  "title": "Marker missing for edit orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-13T02:51:16Z",
+  "updated_at": "2022-11-13T12:35:40Z",
+  "closed_at": "2022-11-13T11:42:02Z",
+  "merged_at": "2022-11-13T11:42:02Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2073",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2073/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2073/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2073",
+  "body": "Fixes #2034 ",
+  "additions": 29,
+  "deletions": 22,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 2,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1312625609,
+      "user": "lebaphi",
+      "created_at": "2022-11-13T02:53:49Z",
+      "updated_at": "2022-11-13T02:53:49Z",
+      "body": "Hi @IanMayo , I think this solution will fix the issue of marker icon on OrderDrawing component too, please help me to verify it :D "
+    },
+    {
+      "id": 1312678692,
+      "user": "IanMayo",
+      "created_at": "2022-11-13T09:03:56Z",
+      "updated_at": "2022-11-13T09:03:56Z",
+      "body": "The fix works for \"edit orders\". \r\n\r\nBut, \"draw new orders\" is broken:\r\n- run game\r\n- log in as `Mar 1`\r\n- click on button to create new orders\r\n- select `Maritime` - `Precision Strike`\r\n- Draw route in (line)\r\n- The marker isn't shown for `Target Location`"
+    },
+    {
+      "id": 1312685090,
+      "user": "lebaphi",
+      "created_at": "2022-11-13T09:31:26Z",
+      "updated_at": "2022-11-13T09:31:26Z",
+      "body": "okay I will check this 👍🏻"
+    },
+    {
+      "id": 1312698331,
+      "user": "lebaphi",
+      "created_at": "2022-11-13T10:37:56Z",
+      "updated_at": "2022-11-13T10:37:56Z",
+      "body": "Hi @IanMayo , I reverted the changes for OrderDrawing component, I think it works now 😂 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1020866283,
+      "user": "IanMayo",
+      "created_at": "2022-11-13T09:00:41Z",
+      "updated_at": "2022-11-13T11:40:49Z",
+      "body": "oh dear, @lebaphi - I've made lots of use of `moment` in the last few days.   Was this to overcome a specific issue? I may have to apply the fix in lots of places.",
+      "path": "packages/components/src/local/organisms/support-panel/helpers/customise-date.ts",
+      "diff_hunk": "@@ -41,7 +41,7 @@ export const getDateSlots = (gameTime: number, gameTurnTime: TurnLengthType): Ar\n   const res: TimeSlot[] = []\n   const formatStr = smallSteps ? shortFormat : longFormat\n   for (let time = gameTime; time < finishTime; time += timeStep) {",
+      "html_url": "https://github.com/serge-web/serge/pull/2073#discussion_r1020866283"
+    },
+    {
+      "id": 1020895488,
+      "user": "lebaphi",
+      "created_at": "2022-11-13T12:35:39Z",
+      "updated_at": "2022-11-13T12:35:40Z",
+      "body": "Hi @IanMayo, I think we should use moment.utc(...) for this one\r\n```\r\nconst tNow = moment.utc(time)\r\n```\r\nthe unit test failed on my machine 😄 ",
+      "path": "packages/components/src/local/organisms/support-panel/helpers/customise-date.ts",
+      "diff_hunk": "@@ -41,7 +41,7 @@ export const getDateSlots = (gameTime: number, gameTurnTime: TurnLengthType): Ar\n   const res: TimeSlot[] = []\n   const formatStr = smallSteps ? shortFormat : longFormat\n   for (let time = gameTime; time < finishTime; time += timeStep) {",
+      "html_url": "https://github.com/serge-web/serge/pull/2073#discussion_r1020895488"
+    }
+  ],
+  "issue_numbers": [
+    2034
+  ],
+  "issues": [
+    {
+      "id": 1442724117,
+      "number": 2034,
+      "title": "Marker missing for edit orders",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-09T20:46:00Z",
+      "updated_at": "2022-11-13T11:42:03Z",
+      "closed_at": "2022-11-13T11:42:03Z",
+      "body": "@lebaphi created a fix for showing the geoman marker for drawing  new points.\r\n\r\nWhen we edit an existing shape, it doesn't show an marker - the icon isn't found.\r\n\r\nI've tried to [copy](https://github.com/serge-web/serge/pull/2033/commits/78f667a12ecbf87f2e7a78403d5d555099d8b56e) the code, but it still doesn't work.\r\n\r\nhttps://user-images.githubusercontent.com/1108513/200938014-9b793104-4209-40e3-b505-76eeefd09068.mp4\r\n\r\n\r\nSteps to reproduce:\r\n* open storybook:  https://serge-sql.herokuapp.com/storybook/?path=/story/local-organisms-planningchannel--default\r\n* open `orders` tab\r\n* expand to view all rows\r\n* find row with `point` in the `Activity`\r\n* expand the row\r\n* click on the `Edit` button in `Location`\r\n* you'll see the marker isn't present\r\n",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1312365358,
+          "user": "lebaphi",
+          "created_at": "2022-11-12T04:59:03Z",
+          "updated_at": "2022-11-12T04:59:03Z",
+          "body": "Hi @IanMayo , I can not reproduce this issue on this story, when I click the Edit button, it shows nothing"
+        },
+        {
+          "id": 1312443374,
+          "user": "IanMayo",
+          "created_at": "2022-11-12T10:00:00Z",
+          "updated_at": "2022-11-12T10:00:00Z",
+          "body": "Hello @lebaphi - sorry.  The orders are still over Australia. If you drag the map you'll see them, but they get pushed back off the map.  I'll regenerate the orders for europe."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 51
+}

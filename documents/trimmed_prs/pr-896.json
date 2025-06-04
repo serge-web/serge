@@ -1,0 +1,81 @@
+{
+  "number": 896,
+  "title": "Form editor gets reset on UI refresh",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-01T09:38:32Z",
+  "updated_at": "2021-07-05T11:22:38Z",
+  "closed_at": "2021-07-05T11:22:37Z",
+  "merged_at": "2021-07-05T11:22:37Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/896",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/896/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/896/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/896",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #892 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 6,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 872267151,
+      "user": "IanMayo",
+      "created_at": "2021-07-01T13:53:48Z",
+      "updated_at": "2021-07-01T13:53:48Z",
+      "body": "Thanks for this @sanjayradadiya \r\n\r\nJust to help my react education - could you explain how the fix works please?\r\n\r\nEither in here as a comment, or in JS-comments, please?"
+    },
+    {
+      "id": 872325673,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-01T15:08:06Z",
+      "updated_at": "2021-07-01T15:08:06Z",
+      "body": "> Thanks for this @sanjayradadiya \n> \n> \n> \n> Just to help my react education - could you explain how the fix works please?\n> \n> \n> \n> Either in here as a comment, or in JS-comments, please?\n\nSure, mostly i just prevent temple selection from reset while chat input occurred in right tab so i just capture template in prev object so i can ensure that component is render first time and second time we will prevent from value reset to zero position."
+    },
+    {
+      "id": 872330507,
+      "user": "IanMayo",
+      "created_at": "2021-07-01T15:14:08Z",
+      "updated_at": "2021-07-01T15:16:05Z",
+      "body": "> Sure, mostly i just prevent temple selection from reset while chat input occurred in right tab so i just capture template in prev object so i can ensure that component is render first time and second time we will prevent from value reset to zero position.\r\n\r\nI see we never use the value of `prevTemplates` - we we're just using it as a flag to indicate this isn't the first time the page has been rendered for this set of data.  Right?\r\n\r\nAah, and is there a ready why we don't use `usePrevious` from react-hooks?"
+    },
+    {
+      "id": 872885389,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-02T10:12:57Z",
+      "updated_at": "2021-07-02T10:12:57Z",
+      "body": "> > Sure, mostly i just prevent temple selection from reset while chat input occurred in right tab so i just capture template in prev object so i can ensure that component is render first time and second time we will prevent from value reset to zero position.\r\n> \r\n> I see we never use the value of `prevTemplates` - we we're just using it as a flag to indicate this isn't the first time the page has been rendered for this set of data. Right?\r\n> \r\n> Aah, and is there a ready why we don't use `usePrevious` from react-hooks?\r\n\r\nwe had already used `usePrevious` to check like page is render first time or its getting loaded second time , if we maintain other any kind of flag inside that component then it causing the same issue because its value get also reset while re-rending"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    892
+  ],
+  "issues": [
+    {
+      "id": 933654596,
+      "number": 892,
+      "title": "Form editor gets reset on UI refresh",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-30T12:28:21Z",
+      "updated_at": "2021-07-05T11:22:37Z",
+      "closed_at": "2021-07-05T11:22:37Z",
+      "body": "If a user is in a formatted message editor, the editor gets reset each time a new message is received.\r\n\r\nSteps to reproduce:\r\n* enter game `Tall Msg`\r\n* login as game admin\r\n* expand` new message` form\r\n*  select `daily intentions` message type\r\n* write `4` as `turn`\r\n* write `have a party` as overall intentions\r\n* put cursor in Game Admin (on right hand side)\r\n* enter `test message`, press send.\r\n* note that different template is now displayed.  When changing back to `Daily intentions` all the text is gone.\r\n\r\nNote: we should only close/recreate the JSONEditor if the user no longer has access to that template type.\r\n\r\nThis should probably be implemented after #893 ",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 8
+}

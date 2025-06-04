@@ -1,0 +1,61 @@
+{
+  "number": 1088,
+  "title": "Provide correct role name to message sender",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-06T17:21:44Z",
+  "updated_at": "2021-09-06T18:21:32Z",
+  "closed_at": "2021-09-06T18:21:24Z",
+  "merged_at": "2021-09-06T18:21:24Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1088",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1088/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1088/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1088",
+  "body": "Fixes #1080",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1080
+  ],
+  "issues": [
+    {
+      "id": 989228075,
+      "number": 1080,
+      "title": "Chat-only channel:  sender force/role not shown",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-06T14:25:09Z",
+      "updated_at": "2021-09-06T18:21:44Z",
+      "closed_at": "2021-09-06T18:21:44Z",
+      "body": "We need to show player force/role badges in chat channel:\r\n![image](https://user-images.githubusercontent.com/1108513/132231513-03d1a265-01ea-4200-909f-0d1cdf046b10.png)\r\n\r\nThe chat message should include a force/role badge, like in other channels:\r\n![image](https://user-images.githubusercontent.com/1108513/132231594-9db82ef0-04a1-45c9-8c06-05f24e7dcba8.png)\r\n\r\nIt should probably go to the right of the time label.\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 913801644,
+          "user": "IanMayo",
+          "created_at": "2021-09-06T18:21:44Z",
+          "updated_at": "2021-09-06T18:21:44Z",
+          "body": "Fixed in #1088 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/132231513-03d1a265-01ea-4200-909f-0d1cdf046b10.png",
+    "https://user-images.githubusercontent.com/1108513/132231594-9db82ef0-04a1-45c9-8c06-05f24e7dcba8.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

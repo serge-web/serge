@@ -1,0 +1,50 @@
+{
+  "number": 2308,
+  "title": "2288 c2 c4 status",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-31T17:46:47Z",
+  "updated_at": "2023-01-31T20:09:47Z",
+  "closed_at": "2023-01-31T20:09:46Z",
+  "merged_at": "2023-01-31T20:09:46Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2308",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2308/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2308/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2308",
+  "body": "Fixes #2288 ",
+  "additions": 33838,
+  "deletions": 12223,
+  "changed_files": 21,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2288
+  ],
+  "issues": [
+    {
+      "id": 1554892798,
+      "number": 2288,
+      "title": "C2/C4 status & handler",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-24T12:26:51Z",
+      "updated_at": "2023-01-31T20:09:47Z",
+      "closed_at": "2023-01-31T20:09:47Z",
+      "body": "We wish to introduce C4 as a health outcome.\r\n\r\n* [x] rename Health Outcome to State outcome\r\n* [x] introduce C4 status for all platform types\r\n* [x] introduce C4 drop-down to health outcome, to allow C4 status to be specified\r\n* [x] modify adjudicate handler to update C4 state\r\n* [x] c2/ew/cyber \"start\" event should degrade C4\r\n* [x] c2/ew/cyber \"end\" event should restore C4\r\n\r\nRelates to: #2271, #2174 \r\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 21,
+  "total_changed_lines": 46061
+}

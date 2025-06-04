@@ -1,0 +1,395 @@
+{
+  "number": 1558,
+  "title": "1522 Information Marker",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-05-14T14:46:23Z",
+  "updated_at": "2022-05-23T11:07:34Z",
+  "closed_at": "2022-05-23T11:07:34Z",
+  "merged_at": "2022-05-23T11:07:33Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1558",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1558/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1558/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1558",
+  "body": "Fixes #1522 ",
+  "additions": 301,
+  "deletions": 114,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 11,
+  "review_comments_count": 3,
+  "total_comments": 14,
+  "comments_data": [
+    {
+      "id": 1127772083,
+      "user": "IanMayo",
+      "created_at": "2022-05-16T14:49:11Z",
+      "updated_at": "2022-05-16T14:49:11Z",
+      "body": "Hello @lebaphi -  I'm just finishing a branch/PR that renders the \"radius\" polygons for the Information Markers:\r\nhttps://github.com/serge-web/serge/pull/1559\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/168620619-70392e1b-c51c-4b01-88a1-fbf620f04c59.png)\r\n\r\n\r\nOnce it's done, you should merge it into this branch, so you can check the \"radius\" edit is working properly\r\n"
+    },
+    {
+      "id": 1127858839,
+      "user": "lebaphi",
+      "created_at": "2022-05-16T16:06:34Z",
+      "updated_at": "2022-05-16T16:06:34Z",
+      "body": "okay @IanMayo , Im done the form marker side, Im working on the Marker Icons tab in Admin side."
+    },
+    {
+      "id": 1127870454,
+      "user": "IanMayo",
+      "created_at": "2022-05-16T16:17:08Z",
+      "updated_at": "2022-05-16T16:17:08Z",
+      "body": "Ok.  can we do the admin page in a separate PR please?\r\n\r\nNote: @ShendMikullovci & I have agreed the UX.  The `label` and `icon` fields will be editable from the form:\r\nhttps://github.com/serge-web/serge/issues/1522#issuecomment-1127461065"
+    },
+    {
+      "id": 1128345209,
+      "user": "lebaphi",
+      "created_at": "2022-05-17T02:45:56Z",
+      "updated_at": "2022-05-17T02:45:56Z",
+      "body": "Hi @IanMayo , it works\r\n\r\nhttps://user-images.githubusercontent.com/26705621/168715628-950246f6-ce39-4ed4-bd67-947026a8ebf8.mov\r\n\r\n\r\n"
+    },
+    {
+      "id": 1128630757,
+      "user": "IanMayo",
+      "created_at": "2022-05-17T09:21:35Z",
+      "updated_at": "2022-05-17T09:21:35Z",
+      "body": "That video is great, thanks @lebaphi .\r\n\r\nI've realised we've missed something. We don't have the color editor in there. Have added thoughts here: https://github.com/serge-web/serge/issues/1522#issuecomment-1128630359"
+    },
+    {
+      "id": 1129815805,
+      "user": "IanMayo",
+      "created_at": "2022-05-18T10:01:46Z",
+      "updated_at": "2022-05-18T10:01:46Z",
+      "body": "Thanks @lebaphi  - note: it is also missing the ability to change the `icon`.  The list of icons should come from `data.annotationIcons` - and show both the icon name and the image in the drop-down."
+    },
+    {
+      "id": 1130250506,
+      "user": "lebaphi",
+      "created_at": "2022-05-18T16:47:14Z",
+      "updated_at": "2022-05-18T16:47:14Z",
+      "body": "I think we need the BE ready first then we can go back to update the list of icon 😉"
+    },
+    {
+      "id": 1131509839,
+      "user": "IanMayo",
+      "created_at": "2022-05-19T10:18:04Z",
+      "updated_at": "2022-05-19T10:18:04Z",
+      "body": "Hello @lebaphi  - I've just looked at the code.  The component is receiving the list of icons (`formdata.populate.icons`).  So, I don't think we need any back-end changes.  I think this PR can be modified to include the drop-down list of icons, and the popup color editor."
+    },
+    {
+      "id": 1131723738,
+      "user": "IanMayo",
+      "created_at": "2022-05-19T13:54:36Z",
+      "updated_at": "2022-05-19T13:54:36Z",
+      "body": "Ok.  The marker form now has color & icon.\r\n\r\nI haven't been able to connect to the popup color editor we use in the `settings-forces` admin page.\r\n\r\nSo, could you please:\r\n- connect up color editing\r\n- get the layout closer to what @ShendMikullovci specified"
+    },
+    {
+      "id": 1131932864,
+      "user": "IanMayo",
+      "created_at": "2022-05-19T16:27:58Z",
+      "updated_at": "2022-05-19T16:27:58Z",
+      "body": "Oops @lebaphi , code changes in `componentSelector` mean that the UI crashes when we click on an asset that wants to open the `adjudicate turn form`.  The error is _something_ to do with the `useStyles` in `componentSelector.tsx`.  It's called from the `<RCB>` component in adjudicate-turn-form.\r\n\r\nCould you investigate this please?  The fix looks really tricky. If you can't solve it, we'll have to find another way of specifying the color of check-boxes.\r\n\r\n![screencast](https://i.gyazo.com/841790d916296276aace06412a65c773.gif)"
+    },
+    {
+      "id": 1131996883,
+      "user": "lebaphi",
+      "created_at": "2022-05-19T17:35:05Z",
+      "updated_at": "2022-05-19T17:35:05Z",
+      "body": "no worries @IanMayo , I will take care it for you 😉"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 873547849,
+      "user": "IanMayo",
+      "created_at": "2022-05-16T10:04:22Z",
+      "updated_at": "2022-05-16T10:04:23Z",
+      "body": "@lebaphi - do you know why the class name is being provided twice?",
+      "path": "packages/components/src/local/adjudicate-turn-form/__snapshots__/index.spec.tsx.snap",
+      "diff_hunk": "@@ -121,7 +121,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `\n         className=\"container main-container align-right\"\n       >\n         <section\n-          className=\"input-container\"\n+          className=\"input-container input-container\"",
+      "html_url": "https://github.com/serge-web/serge/pull/1558#discussion_r873547849"
+    },
+    {
+      "id": 873700086,
+      "user": "lebaphi",
+      "created_at": "2022-05-16T13:03:09Z",
+      "updated_at": "2022-05-16T13:03:10Z",
+      "body": "@IanMayo I'm not sure, it's auto generated by jest 🤔 ",
+      "path": "packages/components/src/local/adjudicate-turn-form/__snapshots__/index.spec.tsx.snap",
+      "diff_hunk": "@@ -121,7 +121,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `\n         className=\"container main-container align-right\"\n       >\n         <section\n-          className=\"input-container\"\n+          className=\"input-container input-container\"",
+      "html_url": "https://github.com/serge-web/serge/pull/1558#discussion_r873700086"
+    },
+    {
+      "id": 873720670,
+      "user": "IanMayo",
+      "created_at": "2022-05-16T13:22:41Z",
+      "updated_at": "2022-05-16T13:22:41Z",
+      "body": "Sorry, of course it is. Let's not worry about it.",
+      "path": "packages/components/src/local/adjudicate-turn-form/__snapshots__/index.spec.tsx.snap",
+      "diff_hunk": "@@ -121,7 +121,7 @@ exports[`AdjudicateTurnForm renders correctly 1`] = `\n         className=\"container main-container align-right\"\n       >\n         <section\n-          className=\"input-container\"\n+          className=\"input-container input-container\"",
+      "html_url": "https://github.com/serge-web/serge/pull/1558#discussion_r873720670"
+    }
+  ],
+  "issue_numbers": [
+    1522
+  ],
+  "issues": [
+    {
+      "id": 1210921126,
+      "number": 1522,
+      "title": "UX for Information Markers",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-21T11:47:35Z",
+      "updated_at": "2023-11-13T11:34:45Z",
+      "closed_at": "2023-11-13T11:34:45Z",
+      "body": "The `Game Controller` can now add and edit info markers.  Background [here](https://docs.google.com/presentation/d/1AOGfEQuSYsRyvAYUe4_x3E_bvu15KJ8KpzqDyDAMh-Q/edit#slide=id.g113e814bd03_0_0)\r\n\r\nThe form will probably be similar to the Perception Form:\r\n![image](https://user-images.githubusercontent.com/1108513/164452342-a981c38f-b7d0-495d-9381-5626273903b9.png)\r\n\r\n\r\nHere is the flow:\r\n- If logged in as Game Controller, an `Add information marker` icon is shown in the map-control-bar (see below)\r\n- When this button is clicked, a new marker is placed at the centre of the current view\r\n- Once added, the marker is selected, and the `Edit marker form` is shown.\r\n- This form allows the Game Controller to change these properties:\r\n    - label\r\n    - description (text-area)\r\n    - icon (from drop-down list. These aren't platform-types, they are a separate list that are maintained in a new Game Admin tab)\r\n    - visible to (list of check-boxes, one per force)\r\n    - radius (integer, default value zero)\r\n    - Color (this may be the color of a force, or any other color - since the Game Control may specify that icons of particular color relate to same subjects, such as `marine mammals`, `civilian interactions`, `weather features`)\r\n- Once edits are complete, the Game Controller clicks on `Save`\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/164451485-987d3b9f-5229-4b02-927c-2ef483a0dcda.png)\r\n",
+      "labels": [
+        "wontfix"
+      ],
+      "comments": [
+        {
+          "id": 1105686490,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-21T19:46:14Z",
+          "updated_at": "2022-04-21T19:46:14Z",
+          "body": ">   * icon (from drop-down list. These aren't platform-types, they are a separate list that are maintained in a new Game Admin tab)\r\n\r\nWhat icons would these be? Similar to the ones we've discussed in #1339 ?"
+        },
+        {
+          "id": 1105808908,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-21T22:08:42Z",
+          "updated_at": "2022-04-21T22:08:42Z",
+          "body": "> The `Game Controller` can now add and edit info markers. Background [here](https://docs.google.com/presentation/d/1AOGfEQuSYsRyvAYUe4_x3E_bvu15KJ8KpzqDyDAMh-Q/edit#slide=id.g113e814bd03_0_0)\r\n\r\nWas just reading the slides and I noticed that you had initially requested a draggable marker displayed on the map. While it's a necessary feature, could we include an \"undo movement\" feature for that? I can already see cases of accidentally dragging the pin to a different location and needing it to go back. A simple CTRL + Z maybe? That way we could also show it in the \"planned steps\" or \"history\". "
+        },
+        {
+          "id": 1106185935,
+          "user": "IanMayo",
+          "created_at": "2022-04-22T08:28:06Z",
+          "updated_at": "2022-04-22T08:28:31Z",
+          "body": "> > * icon (from drop-down list. These aren't platform-types, they are a separate list that are maintained in a new Game Admin tab)\r\n> \r\n> What icons would these be? Similar to the ones we've discussed in #1339 ?\r\n\r\nDuh - yes, those icons.  Sorry @ShendMikullovci - I'd forgotten that you had already done the design for this form.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/164649342-7f45ce75-3e44-4d45-9e26-c4fcfe789daf.png)\r\n\r\nAaah, not quite.  We need fields for color and radius, as described above.\r\n\r\nThe presentation includes some examples of the icons that could be used for Information Markers.  I'll get our artist to create some, to get the clients started, and to help in reviewing the feature."
+        },
+        {
+          "id": 1106204249,
+          "user": "IanMayo",
+          "created_at": "2022-04-22T08:49:37Z",
+          "updated_at": "2022-04-22T08:49:37Z",
+          "body": "@ShendMikullovci - I've realised we also need UI for a Game Admin page where the Game Controller can maintain the information marker icons.  They'll need to be able to upload/change the SVG file for an icon (like they do for a `force`), and specify the name/title of the icon."
+        },
+        {
+          "id": 1106341414,
+          "user": "IanMayo",
+          "created_at": "2022-04-22T10:21:27Z",
+          "updated_at": "2022-04-22T10:21:27Z",
+          "body": ">  I can already see cases of accidentally dragging the pin to a different location and needing it to go back\r\n\r\nThe way it has been implemented, this is actually less likely. First the Game Control has to click on the marker to select it, then it becomes draggable.  So, for now I think we're ok without `ctrl-z` undo."
+        },
+        {
+          "id": 1108945007,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-25T19:17:36Z",
+          "updated_at": "2022-04-25T19:17:36Z",
+          "body": "Here's an idea for the in-game design: \r\n\r\n![Info Marker UX](https://user-images.githubusercontent.com/85491794/165157643-5f24c32a-2f77-4825-8fd4-e37e712dbd25.png)\r\n\r\nWe maintain uniformity by keeping the structure of the perception form. Label on the top left, icon on the top right.\r\n\r\nThe description follows the label and icon, in its own white cloud (white = editable, as usual). \r\n\r\nI took the liberty of changing our visibility display where we provide the forces in clickable circles. The circles that have been clicked are outlined in white, making the info marker thus visible to those forces.\r\n\r\nAdded color and radius to their own little grey cloud. Both editable for GC. \r\nSide question: Would radius and color as variables be shown for players outside of GC/Umpire? I'm not sure if there's value to that.\r\n\r\nCancel and Save buttons in their adequate colors. Save is emboldened for emphasis, Cancel is italicized and slim."
+        },
+        {
+          "id": 1108953553,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-25T19:26:45Z",
+          "updated_at": "2022-04-25T19:26:45Z",
+          "body": "As for the admin page, here's a design idea: \r\n\r\n![Info Marker Admin Page](https://user-images.githubusercontent.com/85491794/165159905-e394aaaf-794c-4fd1-a1f0-0f5d56db2a36.png)\r\n\r\nWanted to maintain uniformity here as well with the rest of the admin pages. \r\n\r\nCouple of things I changed are:\r\n1. \"Change Icon\" & \"Change Color\" should behave like \"Add Speed\" or \"Add Condition\" buttons: Light grey on standby, Bold grey on hover.\r\n2. Using the visibility design from the in-game design, instead of using the usual game channel row. This introduces a difference between the two pages and I'm OK with not going forward with it, but I think it's more important to link force color to info markers as much as we can, due to their emphasis on the mapping page.\r\n\r\nLet me know your thoughts."
+        },
+        {
+          "id": 1109492797,
+          "user": "IanMayo",
+          "created_at": "2022-04-26T08:15:45Z",
+          "updated_at": "2022-04-26T08:45:47Z",
+          "body": "Thanks for those @ShendMikullovci .\r\n\r\nPopup dialog first:\r\n- when we have lots of forces, we can't just rely on colors. But, we've had to solve that elsewhere already. We already have `visible-to` editor. That gives a compact list of names & colors. We will modify that control to present a drop-down menu if there are more than, say 6 forces.  \r\n- color is presented to the players as the visible color of the icon. Radius will be displayed as a semi-transparent shaded area beneath the icon. They could count the rings in the radius if they wanted to.\r\n- I think that _by-default_ we should allow two lines for the `description` box, just to demonstrate to the Game Designer that it can be a multi-line entry.\r\n- Aah, one tricky issue. The color could either be the color of a force (where the event relates to one force), or any custom color (if the Game Designer comes up with colors for different types of concept). So, I think we need some kind of   fancy solution.   _Maybe_ a drop-down list of forces, plus `custom`.  When `custom` is selected, the adjacent free-form color selector is used.\r\n\r\nNow the admin page:\r\n- I _Don't-think_ we need an admin page for `information-markers`, all maintenance can be done from the mapping page.\r\n- But, we do need an admin page for `annotation-icons` (or maybe `marker-icons`).  This is where the game designer adds icons for new annotations.  It just needs name and icon.\r\n"
+        },
+        {
+          "id": 1112588976,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-28T19:41:33Z",
+          "updated_at": "2022-04-28T19:41:33Z",
+          "body": ">Radius will be displayed as a semi-transparent shaded area beneath the icon. They could count the rings in the radius if they wanted to.\r\n\r\nCan you clarify this? What rings? How large is the area? \r\n\r\n>Aah, one tricky issue. The color could either be the color of a force (where the event relates to one force)\r\n\r\nThat's what I thought the color would represent initially. The \"custom\" idea sounds like a valid solution, as long as color really is a necessary component for the markers. How crucial is it? \r\n\r\n>I Don't-think we need an admin page for information-markers, all maintenance can be done from the mapping page.\r\nBut, we do need an admin page for annotation-icons (or maybe marker-icons). This is where the game designer adds icons for new annotations. It just needs name and icon.\r\n\r\nSorry, I thought you meant a fresh admin page when you mentioned this: \r\n\r\n>icon (from drop-down list. These aren't platform-types, they are a separate list that are maintained in a new Game Admin tab)\r\n"
+        },
+        {
+          "id": 1113456129,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-29T15:36:01Z",
+          "updated_at": "2022-04-29T15:36:01Z",
+          "body": "Here's an idea for the pop-up:\r\n\r\n![Info Markers Pop-up](https://user-images.githubusercontent.com/85491794/165976791-0bd4166f-770b-4225-ad90-a1bfb116b67f.png)\r\n\r\nForce names in their appropriate color presented in check-boxes. Color is removed from the pop-up since it only pertains to the icon. Essentially, the icon shown opposite the label could be in different colors I suppose.\r\nNot really sure I understand the radius yet, so I stuck to the value design. Let me know how we could modify this.\r\n"
+        },
+        {
+          "id": 1113469335,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-29T15:49:58Z",
+          "updated_at": "2022-04-29T15:49:58Z",
+          "body": "As for the Admin Page for the Markers, I thought we should stick to the design flow we present for other pages:\r\n\r\n![Admin Page Markers](https://user-images.githubusercontent.com/85491794/165977548-9e2c9b37-7169-496f-a189-d3437b5b88e1.png)\r\n\r\nHere, I chose to center the elements a little since they're on a virtually empty page.\r\n\r\nI also had the idea of marker categories: I realized that the user might need several markers of the same category (for example, different markers to for weather annotations). We could present them with the possibility of creating marker categories, presented in a similar way to assets in the forces page: \r\n\r\n![Marker Categories 1](https://user-images.githubusercontent.com/85491794/165979043-2ba35706-76ff-4369-b26b-46174d1752e1.png)\r\n\r\nSimilar to the list of assets, we show a list of markers relevant to a category. Hitting Add New Marker would open the following window: \r\n\r\n![Marker Categories 2](https://user-images.githubusercontent.com/85491794/165979442-ac3c357a-db56-4442-ae29-5a7208597d78.png)\r\n\r\nThe user could then add the icon, the description and the label to the marker. \r\n\r\nLet me know your thoughts."
+        },
+        {
+          "id": 1116304601,
+          "user": "IanMayo",
+          "created_at": "2022-05-03T16:37:04Z",
+          "updated_at": "2022-05-03T16:37:04Z",
+          "body": "## Marker editor\r\n* I find the blue, red and pink text labels lack contrast. I'd be happier to stick with \"normal\" colored labels for the forces, but to have the checkbox in the relevant shade.  The square checkbox outline would still be legible.\r\n*  I'm pretty sure the force labels should be left-aligned\r\n* The `radius` refers to the number of additional cells this event relates to. It's an integer. A zero value means there is not an additional shaded outline behind the event marker.   If the event is \"ship on fire (Smoke)\", it may be that the marker has a central location, but the semi-transparent block behind it extends out for a further 2 cells in each direction - so it has a `radius` of `2`.\r\n\r\n## Marker Icons panel\r\n* Sure, simple centered icon is fine.  Maybe we should use luxury of whitespace to include more guidance on the page - such as drag/drop in a new image file to update the icon\r\n* Right now we don't need categories. I think we just have 7 icons for the markers\r\n* We don't have the `description` on this page.  That is not specified when the Umpire has put the marker into the game. So, these are `icons`. The entities that get added to the game are `Map Annotations` (which can include a marker)."
+        },
+        {
+          "id": 1121109274,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-09T13:32:52Z",
+          "updated_at": "2022-05-09T13:33:37Z",
+          "body": "> * I'd be happier to stick with \"normal\" colored labels for the forces, but to have the checkbox in the relevant shade.  The square checkbox outline would still be legible.\r\n\r\nGreat idea. Wasn't sure if that could be done to be honest... \r\nHere's a look: \r\n\r\n![Info Markers Pop-up New](https://user-images.githubusercontent.com/85491794/167420885-0831177b-1e52-488d-ac7b-bbdec6c124fc.png)\r\n \r\n> ## Marker Icons panel\r\n> * Sure, simple centered icon is fine.  Maybe we should use luxury of whitespace to include more guidance on the page - such as drag/drop in a new image file to update the icon\r\n\r\nGiven that the \"Change Icon\" feature is already present in this format for forces, I suggest we stick to this way of presenting it. We could have the cursor reveal a line of text or two when hovering over the icon and feature like so: \r\n\r\n![Admin Page Markers New](https://user-images.githubusercontent.com/85491794/167421127-f383cbae-3887-4f5c-b7b7-9c2540d1a511.png)\r\n\r\nLet me know what you think."
+        },
+        {
+          "id": 1122548983,
+          "user": "IanMayo",
+          "created_at": "2022-05-10T15:31:22Z",
+          "updated_at": "2022-05-10T15:33:48Z",
+          "body": "Hello @ShendMikullovci - I have a new question.  In `Adjudication phase` - all marker changes get `grouped up`, and processed on `Submit new State of World`.  But, in `Planning Phase`, changes to info markers are sent out immediately. This is useful in case the umpire has forgotten to make a marker visible to one force, or if they need to change the label/description.\r\n\r\nThis issue is about that second version.  Currently, if umpire selects a Marker, and drags it, then the message gets sent out instantly to all players.  If the icon is changed, this is another update.\r\n\r\nThis may be a mistake. The umpire may wish to change the location _And_ the icon.  This would allow this UX:\r\n- click marker to select\r\n- edit panel displayed\r\n- umpire can drag marker\r\n- umpire either drags marker, or edits panel, (or both)\r\n- umpire clicks on `Save` - and new marker location/icon/label sent out immediately\r\n\r\nThe above strategy means that only one update get sent out."
+        },
+        {
+          "id": 1124294047,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-11T21:04:46Z",
+          "updated_at": "2022-05-11T21:05:56Z",
+          "body": "I was thinking about this and realized that the label and icon don't look editable at all so I decided to go at it again and play with shadows:\r\n\r\n![Info Markers Shadowed Label and Icon](https://user-images.githubusercontent.com/85491794/167946850-a04e503b-f0cf-476a-b966-026f9965cd69.png)\r\n\r\nThe shadow sort of brings them out of the display, and is a recurring theme on most clickable objects on screens so it should be intuitive for the users. I also realized that since we can't really use colors as easily as we thought to distinguish the markers from other elements, shadows could be our way around that problem.\r\n\r\nThe only UX issue I have here is that clicking the marker now leads to two functions: \r\n1. Relocation\r\n2. Editing\r\n\r\nThese are two fairly different processes that may interfere with one another. Can we have the marker selected for relocation in one click, and have the edit panel displayed only after a double click? That way, if the user only wants to move the marker, they don't have to deal with the edit panel and can simply click once and move the marker around. Double clicking to edit also places more intention in the action."
+        },
+        {
+          "id": 1124654940,
+          "user": "IanMayo",
+          "created_at": "2022-05-12T07:57:45Z",
+          "updated_at": "2022-05-12T07:59:13Z",
+          "body": "Thanks @ShendMikullovci,\r\nI'm not convinced that the shadow suggests to the player that something is editable.\r\n\r\nHow about we display the label and icon in their editable form?  So, the label \"field\" is shown with an underline plus a cursor, and the icon is shown with a drop-down menu (to allow switching to another icon).  The other fields on the panel are displayed in their \"being edited\" format - but currently for the first two the player must click-to-edit. By starting off in the edit form we demonstrate that they are editable.\r\n\r\nFor the other issue \"different processes for editing a marker\", I'm not sure that they are different.  Once a marker is clicked, it becomes editable - either by the form or by dragging.  Clicking on \"Save\" will save any changes - either by dragging or by editing the form."
+        },
+        {
+          "id": 1126670009,
+          "user": "lebaphi",
+          "created_at": "2022-05-14T08:22:34Z",
+          "updated_at": "2022-05-14T08:22:34Z",
+          "body": "Hi @IanMayo and @ShendMikullovci , do we finalize this feature? 😄 "
+        },
+        {
+          "id": 1127385438,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-16T08:32:14Z",
+          "updated_at": "2022-05-16T08:32:14Z",
+          "body": "> How about we display the label and icon in their editable form? So, the label \"field\" is shown with an underline plus a cursor, and the icon is shown with a drop-down menu (to allow switching to another icon). \r\n\r\nLet's give it a go! I'll get on the dropdown design.\r\n\r\n> Once a marker is clicked, it becomes editable - either by the form or by dragging. Clicking on \"Save\" will save any changes - either by dragging or by editing the form.\r\n\r\nYes, but do we intend for the form to pop up every time the marker is clicked? That's where I suggested we have the form only pop up after the marker is _double clicked_, that way the form only occupies visual space when necessary. \r\nSingle clicks = relocation (the marker would highlight but the form wouldn't appear), double clicks = data editing (the form would appear taking up visual space in the map). \r\n\r\n"
+        },
+        {
+          "id": 1127440402,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-16T09:27:54Z",
+          "updated_at": "2022-05-16T09:27:54Z",
+          "body": "Here's some ideas on how the drop-down can look:\r\n\r\n![Dropdowns](https://user-images.githubusercontent.com/85491794/168561864-98b81a44-e3d8-40b5-ba7a-2d8e0b8cca47.png)\r\n\r\nGranted, some of the icons might be self-explanatory and need no label, I thought it could still be valuable. After all, we should reduce as much quantity of information from the user's working memory as possible.\r\n\r\nHere's how they would look in the form:\r\n\r\n![Info Marker Icon Drop Down](https://user-images.githubusercontent.com/85491794/168562105-20fcb59f-6a45-4301-a657-2a147cce1267.png)\r\n\r\n![Info Marker Icon Drop Down 2](https://user-images.githubusercontent.com/85491794/168562135-1389ab3c-c5e0-4fc1-981b-cec90fa71bbb.png)\r\n\r\nI also added the downward arrow on top of the underscore like we do for other drop-downs to maintain uniformity and reinforce editability. \r\n\r\nLet me know what you think."
+        },
+        {
+          "id": 1127454870,
+          "user": "IanMayo",
+          "created_at": "2022-05-16T09:43:08Z",
+          "updated_at": "2022-05-16T09:43:08Z",
+          "body": "Thanks @ShendMikullovci :-)\r\n\r\nYes, names alongside the icons would be useful. I expect @lebaphi will handle this, but for the Label, the underline should span the full width of the control (rather than the width of the current text)."
+        },
+        {
+          "id": 1127461065,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-16T09:49:55Z",
+          "updated_at": "2022-05-16T09:49:55Z",
+          "body": "> but for the Label, the underline should span the full width of the control (rather than the width of the current text).\r\n\r\nNicely spotted. \r\n\r\n![Info Marker Drop Down Final](https://user-images.githubusercontent.com/85491794/168566419-4d4d6e84-19e4-4d9b-b8c9-66b54243c3fd.png)\r\n"
+        },
+        {
+          "id": 1128630359,
+          "user": "IanMayo",
+          "created_at": "2022-05-17T09:21:10Z",
+          "updated_at": "2022-05-17T09:21:10Z",
+          "body": "I've just realised that we can't edit the color of the marker in this form.\r\n\r\nI propose we do this in two phases.  \r\n\r\n1. Add a new \"color\" panel, which includes the popup color editor we use in the \"Force\" admin page.\r\n2. @ShendMikullovci designs a new control that (somehow 😉 ) allows the Game Controller to choose either a force color or one of a palette of colors. Probably a drop-down combo box.\r\n\r\nIf we get \"1\" done first, then we can get the feature tested, including on the backend.\r\n\r\nFor phase 2, I've moved away from a free color choice.  My guess is that the Game Controller may wish to use a set of colors to represent different things, `red/amber/green` for level of threat, for example.  If can be difficult to get the same shade of amber for multiple icons via a color editor.  The fixed palette means the Game Controller can design a set of meanings to different colors.\r\n"
+        },
+        {
+          "id": 1129994128,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-18T13:06:31Z",
+          "updated_at": "2022-05-18T13:06:31Z",
+          "body": "> 1. Add a new \"color\" panel, which includes the popup color editor we use in the \"Force\" admin page.\r\n> 2. @ShendMikullovci designs a new control that (somehow wink ) allows the Game Controller to choose either a force color or one of a palette of colors. Probably a drop-down combo box.\r\n\r\nHow about a fill icon? \r\n\r\n![Fill Icon Black White Background](https://user-images.githubusercontent.com/85491794/169043783-933f9f5e-ed5f-4d7a-a498-db2192029ad8.png)\r\n\r\nI thought of putting it on the header of the form next to the icon feature, since that's how we present it in the admin page as well. Here's how it looks:\r\n\r\n![Info Marker Fill Feature](https://user-images.githubusercontent.com/85491794/169044737-870732a0-b9b4-488a-b46b-5054a01c0ee4.png)\r\n\r\nClicking on it or the color rectangle pops up the new, more modest color editor: \r\n\r\n![Info Marker Fill Feature 2a](https://user-images.githubusercontent.com/85491794/169045319-5d09ac33-2642-4379-bb2c-07cb891556ff.png)\r\n\r\nHere, we only show the Force colors currently in use, and a preset of general colors. \r\n\r\nWhat do you think?\r\n"
+        },
+        {
+          "id": 1129995910,
+          "user": "IanMayo",
+          "created_at": "2022-05-18T13:08:09Z",
+          "updated_at": "2022-05-18T13:08:09Z",
+          "body": "Sure, nice design @ShendMikullovci .\r\n\r\nI'm _tempted_ to try to include the force-name in the colors.  Sometimes there will be multiple blue forces, each with a different shade of blue."
+        },
+        {
+          "id": 1129997140,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-18T13:09:15Z",
+          "updated_at": "2022-05-18T13:09:15Z",
+          "body": "> Sure, nice design @ShendMikullovci .\r\n> \r\n> I'm _tempted_ to try to include the force-name in the colors. Sometimes there will be multiple blue forces, each with a different shade of blue.\r\n\r\nThought of it too but assumed you wouldn't want to take up space. I'll add them right away."
+        },
+        {
+          "id": 1130013933,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-18T13:24:00Z",
+          "updated_at": "2022-05-18T13:24:00Z",
+          "body": "There:\r\n\r\n![Info Marker Fill Feature 2a](https://user-images.githubusercontent.com/85491794/169048878-8f82df21-4a16-4e91-800b-8471719b9b4f.png)\r\n\r\nP.S. I also suggest we add the fill icon underneath the admin pages color editor rectangle. Currently it just looks like a blank rectangle and gives the user no indication on its service."
+        },
+        {
+          "id": 1134725300,
+          "user": "IanMayo",
+          "created_at": "2022-05-23T14:07:18Z",
+          "updated_at": "2022-05-23T14:07:18Z",
+          "body": "I'm re-opening this. We're most of the way there.\r\n\r\nBut, could you modify it so that we show the picture as well as the name for the icons please @lebaphi ?"
+        },
+        {
+          "id": 1139464816,
+          "user": "IanMayo",
+          "created_at": "2022-05-27T09:54:02Z",
+          "updated_at": "2022-05-31T13:46:23Z",
+          "body": "Hello @lilitkarapetyan  - we do still need the admin page to edit the Marker Icons, please:\r\nhttps://github.com/serge-web/serge/issues/1522#issuecomment-1121109274\r\n\r\nNote: since we have an initial, default set of icons, I suggest we declare these in the `default wargame` document for `create new wargame`.  This initial set of values can be seen here:\r\nhttps://github.com/serge-web/serge/blob/develop/packages/mocks/watu-wargame-mock.ts#L1263\r\n\r\n(oops, specific line number may change once I merge next PR)"
+        },
+        {
+          "id": 1173666441,
+          "user": "IanMayo",
+          "created_at": "2022-07-04T10:46:57Z",
+          "updated_at": "2022-07-04T10:46:57Z",
+          "body": "Hello @ShendMikullovci - when you get chance, could you do a review of where we've got to with this?\r\n\r\nYou should be able to test it from this link: https://serge-review.herokuapp.com/\r\n\r\nThe functionality is certainly the most important - that the features/capabilities you specified are in there."
+        },
+        {
+          "id": 1173763437,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-04T12:28:54Z",
+          "updated_at": "2022-07-04T12:28:54Z",
+          "body": "> Hello @ShendMikullovci - when you get chance, could you do a review of where we've got to with this?\r\n> \r\n> You should be able to test it from this link: https://serge-review.herokuapp.com/\r\n> \r\n> The functionality is certainly the most important - that the features/capabilities you specified are in there.\r\n\r\nIt seems to be working well. However, clicking on the marker from a player tab doesn't show the bottom left panel and collapses the top left: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/177154977-bd450bfe-5f69-46a7-9865-d58987c71414.mp4\r\n\r\n\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/168620619-70392e1b-c51c-4b01-88a1-fbf620f04c59.png",
+    "https://i.gyazo.com/841790d916296276aace06412a65c773.gif",
+    "https://user-images.githubusercontent.com/1108513/164452342-a981c38f-b7d0-495d-9381-5626273903b9.png",
+    "https://user-images.githubusercontent.com/1108513/164451485-987d3b9f-5229-4b02-927c-2ef483a0dcda.png",
+    "https://user-images.githubusercontent.com/1108513/164649342-7f45ce75-3e44-4d45-9e26-c4fcfe789daf.png",
+    "https://user-images.githubusercontent.com/85491794/165157643-5f24c32a-2f77-4825-8fd4-e37e712dbd25.png",
+    "https://user-images.githubusercontent.com/85491794/165159905-e394aaaf-794c-4fd1-a1f0-0f5d56db2a36.png",
+    "https://user-images.githubusercontent.com/85491794/165976791-0bd4166f-770b-4225-ad90-a1bfb116b67f.png",
+    "https://user-images.githubusercontent.com/85491794/165977548-9e2c9b37-7169-496f-a189-d3437b5b88e1.png",
+    "https://user-images.githubusercontent.com/85491794/165979043-2ba35706-76ff-4369-b26b-46174d1752e1.png",
+    "https://user-images.githubusercontent.com/85491794/165979442-ac3c357a-db56-4442-ae29-5a7208597d78.png",
+    "https://user-images.githubusercontent.com/85491794/167420885-0831177b-1e52-488d-ac7b-bbdec6c124fc.png",
+    "https://user-images.githubusercontent.com/85491794/167421127-f383cbae-3887-4f5c-b7b7-9c2540d1a511.png",
+    "https://user-images.githubusercontent.com/85491794/167946850-a04e503b-f0cf-476a-b966-026f9965cd69.png",
+    "https://user-images.githubusercontent.com/85491794/168561864-98b81a44-e3d8-40b5-ba7a-2d8e0b8cca47.png",
+    "https://user-images.githubusercontent.com/85491794/168562105-20fcb59f-6a45-4301-a657-2a147cce1267.png",
+    "https://user-images.githubusercontent.com/85491794/168562135-1389ab3c-c5e0-4fc1-981b-cec90fa71bbb.png",
+    "https://user-images.githubusercontent.com/85491794/168566419-4d4d6e84-19e4-4d9b-b8c9-66b54243c3fd.png",
+    "https://user-images.githubusercontent.com/85491794/169043783-933f9f5e-ed5f-4d7a-a498-db2192029ad8.png",
+    "https://user-images.githubusercontent.com/85491794/169044737-870732a0-b9b4-488a-b46b-5054a01c0ee4.png",
+    "https://user-images.githubusercontent.com/85491794/169045319-5d09ac33-2642-4379-bb2c-07cb891556ff.png",
+    "https://user-images.githubusercontent.com/85491794/169048878-8f82df21-4a16-4e91-800b-8471719b9b4f.png"
+  ],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 415
+}

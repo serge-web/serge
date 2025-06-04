@@ -1,0 +1,30 @@
+{
+  "number": 2257,
+  "title": "Hotfix more interactions",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-15T15:23:22Z",
+  "updated_at": "2023-01-15T20:55:33Z",
+  "closed_at": "2023-01-15T20:55:33Z",
+  "merged_at": "2023-01-15T20:55:33Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2257",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2257/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2257/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2257",
+  "body": "More progress on generating interactions",
+  "additions": 9830,
+  "deletions": 10245,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 20075
+}

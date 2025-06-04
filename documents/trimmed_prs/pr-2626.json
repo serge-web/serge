@@ -1,0 +1,50 @@
+{
+  "number": 2626,
+  "title": "2623 player summary of previous turn",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-12T22:16:15Z",
+  "updated_at": "2023-03-12T23:08:44Z",
+  "closed_at": "2023-03-12T23:08:43Z",
+  "merged_at": "2023-03-12T23:08:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2626",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2626/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2626/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2626",
+  "body": "Fixes #2623 ",
+  "additions": 182,
+  "deletions": 41,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2623
+  ],
+  "issues": [
+    {
+      "id": 1620463814,
+      "number": 2623,
+      "title": "Player summary of previous outcomes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-12T18:27:57Z",
+      "updated_at": "2023-03-12T23:08:44Z",
+      "closed_at": "2023-03-12T23:08:44Z",
+      "body": "We have the list of adjudications in the planning page.\r\n\r\nWe could add a button to give a summary of outcomes from the previous turn.\r\n\r\nWe would use the same popup table we use for the `Count remaining interactions`.\r\n\r\nThe table would show health outcomes for friendly assets, the opp-force assets.  \r\n\r\n|Asset|Health|C4|Orders|Activity|\r\n|------|----|-----|----|-----|\r\n|Diamond|0|25|Red-1|Sea Patrol|\r\n|Richmond|0|25|Blue-23|ASW Barrier|",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 223
+}

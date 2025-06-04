@@ -1,0 +1,198 @@
+{
+  "number": 1465,
+  "title": "1412: Copy, Duplicate & Select Features",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-29T08:47:22Z",
+  "updated_at": "2022-03-30T14:27:01Z",
+  "closed_at": "2022-03-30T13:15:43Z",
+  "merged_at": "2022-03-30T13:15:43Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1465",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1465/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1465/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1465",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1412\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 514,
+  "deletions": 381,
+  "changed_files": 18,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 3,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1083052283,
+      "user": "IanMayo",
+      "created_at": "2022-03-30T12:01:17Z",
+      "updated_at": "2022-03-30T12:01:17Z",
+      "body": "@lilitkarapetyan - could you have a look over my changes please/"
+    },
+    {
+      "id": 1083076530,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-03-30T12:26:14Z",
+      "updated_at": "2022-03-30T12:26:14Z",
+      "body": "> @lilitkarapetyan - could you have a look over my changes please/\r\n\r\nWorks great"
+    },
+    {
+      "id": 1083209150,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-30T14:27:01Z",
+      "updated_at": "2022-03-30T14:27:01Z",
+      "body": "Just reviewed this. Works well on the Platform page. I can't save the forces for some reason so I can't try the feature on the Forces page. "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 837394652,
+      "user": "IanMayo",
+      "created_at": "2022-03-29T12:05:42Z",
+      "updated_at": "2022-03-29T12:06:25Z",
+      "body": "@lilitkarapetyan - on the next two lines we find the index of the platform, then duplicate the array item at that index.\r\n\r\nIs there a reason why we're not using the single-line `platformTypes.find`? \r\n\r\nAah, do we get the index so we can push the duplicate entry in on the next row in the list?",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -386,6 +386,29 @@ export const deletePlatformType = (dbName: string, platformType: PlatformType):\n   })\n }\n \n+export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {\n+  return getLatestWargameRevision(dbName).then((res) => {\n+    const newDoc: Wargame = deepCopy(res)\n+    const updatedData = newDoc.data\n+    const platformTypes = updatedData.platformTypes && updatedData.platformTypes.platformTypes || []",
+      "html_url": "https://github.com/serge-web/serge/pull/1465#discussion_r837394652"
+    },
+    {
+      "id": 837396009,
+      "user": "IanMayo",
+      "created_at": "2022-03-29T12:07:25Z",
+      "updated_at": "2022-03-29T12:07:25Z",
+      "body": "Hmm, the whole block of code could go inside this `if`.  Then you won't need `updatedData.platformTypes &&` at line 393",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -386,6 +386,29 @@ export const deletePlatformType = (dbName: string, platformType: PlatformType):\n   })\n }\n \n+export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {\n+  return getLatestWargameRevision(dbName).then((res) => {\n+    const newDoc: Wargame = deepCopy(res)\n+    const updatedData = newDoc.data\n+    const platformTypes = updatedData.platformTypes && updatedData.platformTypes.platformTypes || []\n+    const platformTypeIndex = platformTypes.findIndex((platformType) => platformType.name === currentPlatformType.name)\n+    const duplicatedPlatformType = deepCopy(platformTypes[platformTypeIndex])\n+    const uniq = uniqid.time()\n+\n+    duplicatedPlatformType.name = `${duplicatedPlatformType.name}-${uniq}`\n+\n+    platformTypes.splice(platformTypeIndex, 0, duplicatedPlatformType)\n+\n+    if (updatedData.platformTypes) {",
+      "html_url": "https://github.com/serge-web/serge/pull/1465#discussion_r837396009"
+    },
+    {
+      "id": 837404271,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-03-29T12:17:05Z",
+      "updated_at": "2022-03-29T12:17:05Z",
+      "body": "I did this to not change the duplication logic and it works like duplicating channels.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -386,6 +386,29 @@ export const deletePlatformType = (dbName: string, platformType: PlatformType):\n   })\n }\n \n+export const duplicatePlatformType = (dbName: string, currentPlatformType: PlatformType): Promise<Wargame> => {\n+  return getLatestWargameRevision(dbName).then((res) => {\n+    const newDoc: Wargame = deepCopy(res)\n+    const updatedData = newDoc.data\n+    const platformTypes = updatedData.platformTypes && updatedData.platformTypes.platformTypes || []",
+      "html_url": "https://github.com/serge-web/serge/pull/1465#discussion_r837404271"
+    }
+  ],
+  "issue_numbers": [
+    393,
+    1412
+  ],
+  "issues": [
+    {
+      "id": 606236270,
+      "number": 393,
+      "title": "add map ref for childrens and hide/show grid coords on zoomend",
+      "state": "closed",
+      "user": "lilitkarapetyan",
+      "created_at": "2020-04-24T11:13:40Z",
+      "updated_at": "2020-04-24T15:09:18Z",
+      "closed_at": "2020-04-24T15:08:42Z",
+      "body": "## 🧰 Issue\r\ncloses #377\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\nhttps://deploy-preview-393--serge-storybook.netlify.app/\r\n\r\n## 🤔 Reason: \r\nI dont like the beta package https://github.com/auto-mat/leaflet-zoom-show-hide\r\nSo I think the \"The 'legacy' way of doing this\" is more suitable.\r\nI had done the function with one can forward some props to child component, and for Mapping component childrens I had added mapRef variable (P.S.: I am not able to get it works with standar react ref types and had used `any` type) \r\n\r\n## 🖥️ Screenshot\r\nI had found some issues connected with coords \r\nP.S this screenshot was done before the issue was fixed.\r\n\r\n![2020-04-24_12-41-14](https://user-images.githubusercontent.com/20753599/80206838-1f554e00-863e-11ea-869c-c43d2a0fd134.png)\r\n\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 618959965,
+          "user": "IanMayo",
+          "created_at": "2020-04-24T11:38:22Z",
+          "updated_at": "2020-04-24T12:16:13Z",
+          "body": "@lilitkarapetyan  - the code fails when I change the grid-cell size:\r\nhttps://deploy-preview-393--serge-storybook.netlify.app/?path=/story/local-mapping--with-grid\r\n\r\n![recording](https://i.gyazo.com/30845f1f8a9669fa0ebdf392527f732d.gif)"
+        },
+        {
+          "id": 618969444,
+          "user": "IanMayo",
+          "created_at": "2020-04-24T12:03:48Z",
+          "updated_at": "2020-04-24T12:03:48Z",
+          "body": "Thanks for spotting the label issue @lilitkarapetyan . Reported here: https://github.com/serge-web/serge/issues/394"
+        },
+        {
+          "id": 618981611,
+          "user": "IanMayo",
+          "created_at": "2020-04-24T12:33:12Z",
+          "updated_at": "2020-04-24T12:33:12Z",
+          "body": "@foxleigh81 - I can't really tell if @lilitkarapetyan  is using our _standard_ way of passing data.  Would you mind having a look?  Part of my things that `mapRef` should be in the context."
+        },
+        {
+          "id": 619048682,
+          "user": "lilitkarapetyan",
+          "created_at": "2020-04-24T14:34:57Z",
+          "updated_at": "2020-04-24T14:34:57Z",
+          "body": "leaflet-zoom-show-hide\r\n2 year no updates \r\nbeta version\r\nisn't popular one\r\nI dont think we need it just for one (or few) zoom checkings"
+        },
+        {
+          "id": 619069503,
+          "user": "foxleigh81",
+          "created_at": "2020-04-24T15:09:18Z",
+          "updated_at": "2020-04-24T15:09:18Z",
+          "body": "> leaflet-zoom-show-hide\r\n> 2 year no updates\r\n> beta version\r\n> isn't popular one\r\n> I dont think we need it just for one (or few) zoom checkings\r\n\r\nYeah, good enough reasons for me :) Thank you. It's good to capture thoughts like this on PR's in case we need to reference them in the future :)"
+        }
+      ]
+    },
+    {
+      "id": 1167712037,
+      "number": 1412,
+      "title": "Copy, Duplicate & Select Features",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-13T22:28:42Z",
+      "updated_at": "2022-04-11T17:03:39Z",
+      "closed_at": "2022-04-11T17:03:39Z",
+      "body": "In an effort to make a wargame for #1400, I realized a couple of things: \r\n\r\n1. For a game that requires a large number of forces (as well as platforms & assets), we could largely improve the UX for the GC by adding a Copy and Duplicate feature. Here's how it would essentially look:\r\n\r\n![Duplicate Feature Idea](https://user-images.githubusercontent.com/85491794/158081504-f865443f-9567-44b1-af53-da0f9484e47a.png)\r\n\r\nAs the mouse hovers over the platform, we get a \"...\" button next to the garbage bin. Clicking on it opens a dropdown list with Copy & Duplicate as optional features. Here, clicking on Copy would create a new platform with the same TITLE followed by a \"(2)\" to avoid confusion, and the same ICON (in case the user wishes to create 2 or more platforms for the same Force with the same name and icon but different variables). On the other hand, clicking on duplicate creates a new platform fully identical to the original one, with identical variables and with a \"(2)\" following the title. It should allow the GC to quickly add a big number of forces, platforms (and even channels, if we decide to add it there).\r\n\r\n2. As I encountered the various bugs I've listed in our issue list, I realized that having the possibility to delete multiple platforms would be very useful. Having to click on the bin, then confirm the deletion every time, for a higher number of elements, takes a very long time for a task as simple. If we could add a Select feature, where the user could select and delete multiple channels, that would eliminate this problem. Here's how it would look:\r\n\r\n![Select Feature](https://user-images.githubusercontent.com/85491794/158081715-a46cafb4-f8d9-4613-a9c8-30eb777726fa.png)\r\n\r\nOnce a platform is selected, the small squares to the left of each platform appear, giving the possibility to select more of them. Also, next to the Create button (view #1396 for my opinion on this particular button and more) a bin button appears as well as the usual \"Select All\" checkbox. Clicking on the bin would delete the selected platform. Clicking on select all would obviously select all the platforms available, making it easier to delete them by group.\r\n\r\nP.S. I also thought about a selection-and-multiple-duplication feature, but I don't know how relevant that would be for our client. \r\n\r\nLet me know what you guys think.",
+      "labels": [
+        "UX: Low Priority"
+      ],
+      "comments": [
+        {
+          "id": 1066666461,
+          "user": "IanMayo",
+          "created_at": "2022-03-14T11:23:52Z",
+          "updated_at": "2022-03-14T11:24:55Z",
+          "body": "Thanks for that @ShendMikullovci \r\n\r\nLast things first:  I don't think we need to support bulk-delete.  The Game Designer puts a lot of effort into designing platforms, I think it will be fairly rare that they delete them.\r\n\r\nFor this coming wargame, it's the large number of `Forces` that we need to think about.  I'm sure the Game Designer will wish to duplicate forces - good suggestion.  They may also wish to duplicate platform-type, since a lot of effort goes into defining a platform-type. \r\n\r\nBut, I have trouble separating `Copy` and `Duplicate` (note: for `copy` the game designer may be expecting a `paste` operation.  I don't expect the Game Designer to understand the difference between these two.  So, let's try and think of an action that works for both `platform-type` and `force`.\r\n\r\nWe could show `Duplicate` icon (`clone` - see below) alongside the `delete` icon for the items in the list of `platform-types`, `forces` and channels. \r\n\r\nIt performs this duplicate operation:\r\n* platform-types:  full copy of platform type, but with counter added to end of platform-type-name\r\n* force: full copy of force & assets.  Counter added to force name. Uniq ids for force & assets generated.  Asset names unchanged.\r\n* channel: full copy of channel & participants.  New uniq ids for channel & subscription id's.  Counter added to channel name.\r\n\r\n`clone` icon:\r\n![image](https://user-images.githubusercontent.com/1108513/158162524-2117c6b5-bb9a-429f-b8ee-7399aa978ac4.png)\r\n"
+        },
+        {
+          "id": 1066844926,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-14T14:13:43Z",
+          "updated_at": "2022-03-14T14:13:43Z",
+          "body": "Love the clone icon. \r\n\r\n> I don't think we need to support bulk-delete. The Game Designer puts a lot of effort into designing platforms, I think it will be fairly rare that they delete them.\r\n\r\nExcellent. We eliminate the dropdown entirely. \r\n\r\n> We could show `Duplicate` icon (`clone` - see below) alongside the `delete` icon for the items in the list of `platform-types`, `forces` and channels.\r\n> \r\n> It performs this duplicate operation:\r\n> \r\n> * platform-types:  full copy of platform type, but with counter added to end of platform-type-name\r\n> * force: full copy of force & assets.  Counter added to force name. Uniq ids for force & assets generated.  Asset names unchanged.\r\n> * channel: full copy of channel & participants.  New uniq ids for channel & subscription id's.  Counter added to channel name.\r\n\r\nHere's how that would look: \r\n\r\n![Clone Feature](https://user-images.githubusercontent.com/85491794/158190162-19cd0b00-0b28-42b0-8cb1-c03cab2611f5.png)\r\n\r\nMuch simpler, cleaner look with only the clone icon showing next to the bin when the mouse hovers over the element.\r\n"
+        },
+        {
+          "id": 1077539242,
+          "user": "IanMayo",
+          "created_at": "2022-03-24T11:44:51Z",
+          "updated_at": "2022-03-24T11:44:51Z",
+          "body": "Support this improvement. Giving it relatively low priority - since it's a convenience for the Game Designer."
+        },
+        {
+          "id": 1081768494,
+          "user": "IanMayo",
+          "created_at": "2022-03-29T11:44:18Z",
+          "updated_at": "2022-03-29T11:44:18Z",
+          "body": "@lilitkarapetyan  - could you include \"clone\" for forces too, please.  Note: this will have to copy all of the roles in the force, but remember to create new (unique) role id's."
+        },
+        {
+          "id": 1095308530,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-11T17:03:39Z",
+          "updated_at": "2022-04-11T17:03:39Z",
+          "body": "This has been implemented."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/20753599/80206838-1f554e00-863e-11ea-869c-c43d2a0fd134.png",
+    "https://i.gyazo.com/30845f1f8a9669fa0ebdf392527f732d.gif",
+    "https://user-images.githubusercontent.com/85491794/158081504-f865443f-9567-44b1-af53-da0f9484e47a.png",
+    "https://user-images.githubusercontent.com/85491794/158081715-a46cafb4-f8d9-4613-a9c8-30eb777726fa.png",
+    "https://user-images.githubusercontent.com/1108513/158162524-2117c6b5-bb9a-429f-b8ee-7399aa978ac4.png",
+    "https://user-images.githubusercontent.com/85491794/158190162-19cd0b00-0b28-42b0-8cb1-c03cab2611f5.png"
+  ],
+  "number_of_changed_files": 18,
+  "total_changed_lines": 895
+}

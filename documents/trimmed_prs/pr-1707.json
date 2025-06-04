@@ -1,0 +1,103 @@
+{
+  "number": 1707,
+  "title": "Updating couchDb for live wargame",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-29T17:30:29Z",
+  "updated_at": "2022-08-02T03:53:52Z",
+  "closed_at": "2022-08-01T15:47:27Z",
+  "merged_at": "2022-08-01T15:47:27Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1707",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1707/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1707/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1707",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 19,
+  "deletions": 13,
+  "changed_files": 5,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 2,
+  "review_comments_count": 2,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1201266928,
+      "user": "IanMayo",
+      "created_at": "2022-08-01T14:16:53Z",
+      "updated_at": "2022-08-01T14:16:53Z",
+      "body": "Hello @lilitkarapetyan - I think I've [fixed](https://github.com/serge-web/serge/pull/1707/commits/a1ac8f76b2a98b86919080ec06794c14ca9c4ee2) the remaining issue.\r\n\r\nWould you mind checking it looks a valid fix?"
+    },
+    {
+      "id": 1201985300,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-08-02T03:53:52Z",
+      "updated_at": "2022-08-02T03:53:52Z",
+      "body": "> Hello @lilitkarapetyan - I think I've [fixed](https://github.com/serge-web/serge/pull/1707/commits/a1ac8f76b2a98b86919080ec06794c14ca9c4ee2) the remaining issue.\r\n> \r\n> Would you mind checking it looks a valid fix?\r\n\r\nHi Ian, it works fine, I think you fixed the rest of the issue."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 933488336,
+      "user": "IanMayo",
+      "created_at": "2022-07-29T17:38:48Z",
+      "updated_at": "2022-07-29T17:38:48Z",
+      "body": "But @lilit - at the start of the game, there is just the `initial_wargame` document.  That one _is_ the `latest`.",
+      "path": "packages/server/providers/couchdb.js",
+      "diff_hunk": "@@ -185,16 +185,16 @@ const couchDb = (app, io, pouchOptions) => {\n       res.status(404).send({ msg: 'Wrong Wargame Name', data: null })\n     }\n \n-    const db = new PouchDB(databaseName, pouchOptions)\n+    const db = new CouchDB(couchDbURL(databaseName))\n \n     db.find({\n       selector: {\n         messageType: INFO_MESSAGE,\n-        _id: { $ne: wargameSettings }\n+        _id: { $ne: wargameSettings, $gte: null }",
+      "html_url": "https://github.com/serge-web/serge/pull/1707#discussion_r933488336"
+    },
+    {
+      "id": 933528348,
+      "user": "IanMayo",
+      "created_at": "2022-07-29T18:33:07Z",
+      "updated_at": "2022-07-29T18:51:49Z",
+      "body": "Issue resolved! \r\n\r\nWe only get the `latest` if the wargame has been initiated.  It's working fine :-)\r\n\r\nHold on, no.  I clicked on \"Initiate wargame\" in the admin pages, then came back to the player page and clicked \"Start new phase\".  The phase didn't move forward, but the player UI doesn't change. _Maybe_ we're correctly creating a new document ,but we're still displaying \"initial_wargame\"?  Will investigate more on Monday",
+      "path": "packages/server/providers/couchdb.js",
+      "diff_hunk": "@@ -185,16 +185,16 @@ const couchDb = (app, io, pouchOptions) => {\n       res.status(404).send({ msg: 'Wrong Wargame Name', data: null })\n     }\n \n-    const db = new PouchDB(databaseName, pouchOptions)\n+    const db = new CouchDB(couchDbURL(databaseName))\n \n     db.find({\n       selector: {\n         messageType: INFO_MESSAGE,\n-        _id: { $ne: wargameSettings }\n+        _id: { $ne: wargameSettings, $gte: null }",
+      "html_url": "https://github.com/serge-web/serge/pull/1707#discussion_r933528348"
+    }
+  ],
+  "issue_numbers": [
+    1699
+  ],
+  "issues": [
+    {
+      "id": 1321253035,
+      "number": 1699,
+      "title": "CouchDb not updating for live wargame",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-28T17:18:58Z",
+      "updated_at": "2022-08-04T13:08:15Z",
+      "closed_at": "2022-08-04T13:08:15Z",
+      "body": "I had some issues with the CouchDb backed in today's wargame. Well, we couldn't play the game - because the wargame wouldn't update.\r\n\r\nIt _looks like_ this is the issue.\r\n\r\n**Setup:** CouchDb has a wargame. It just has one document `initial_wargame` - this is typical of un-initialised wargame, during design phase.\r\n![image](https://user-images.githubusercontent.com/1108513/181596324-92f25340-bac6-49f2-b894-18071cb379b8.png)\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/181596610-17b123f9-a9c9-49ed-8fef-b3221fc36979.png)\r\n\r\nWe make an admin edit, save it, re-load the wargame, and we see our change.\r\n\r\n![screencast](https://i.gyazo.com/e7237574c212d5d660d492eacdd9c753.gif)\r\n\r\n(you can mangle this data, I have safe copy).\r\n\r\nIf we then `initiate` wargame, when we make changes - each change should be produced as a new document.  They are produced as new documents, but the Serge Admin pages are still loading the `initial_wargame` document, and trying to view/edit that document.\r\n\r\n\r\nhttps://user-images.githubusercontent.com/1108513/181598317-ec740b62-ea5c-4215-935e-640a3c15d60a.mp4\r\n\r\n\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/181597629-6ef72dae-9815-4324-8272-41a24643f3f9.png)\r\n\r\nI _think_ this is an issue with the `latest` API end-point.  \r\n\r\nSo, I think this is the problem:\r\n* Admin pages isn't retrieving latest document for display. It's retrieving `initial_wargame` - and modifying that\r\n* Admin pages isn't retrieving latest document when making a change. (I _guess_ admin gets most recent and applies change to it, rather than using the in-memory one).  It's retrieving `initial_wargame` - and modifying that \r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1205233395,
+          "user": "IanMayo",
+          "created_at": "2022-08-04T13:08:15Z",
+          "updated_at": "2022-08-04T13:08:15Z",
+          "body": "With hindsight, I think the issue here was that client was stopping listening.  It seems ok now."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/181596324-92f25340-bac6-49f2-b894-18071cb379b8.png",
+    "https://user-images.githubusercontent.com/1108513/181596610-17b123f9-a9c9-49ed-8fef-b3221fc36979.png",
+    "https://i.gyazo.com/e7237574c212d5d660d492eacdd9c753.gif",
+    "https://user-images.githubusercontent.com/1108513/181597629-6ef72dae-9815-4324-8272-41a24643f3f9.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 32
+}

@@ -1,0 +1,286 @@
+{
+  "number": 2669,
+  "title": "Add_pouchdb_server",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-04-19T13:14:24Z",
+  "updated_at": "2023-05-11T09:19:59Z",
+  "closed_at": "2023-05-11T09:19:58Z",
+  "merged_at": "2023-05-11T09:19:58Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2669",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2669/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2669/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2669",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 56,
+  "deletions": 4,
+  "changed_files": 6,
+  "labels": [
+    "enhancement",
+    "4watu",
+    "4p9"
+  ],
+  "comments_count": 11,
+  "review_comments_count": 0,
+  "total_comments": 11,
+  "comments_data": [
+    {
+      "id": 1514717976,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-19T13:15:41Z",
+      "updated_at": "2023-04-19T13:15:41Z",
+      "body": "1. Installation - `npm install -g pouchdb-server`   "
+    },
+    {
+      "id": 1514719668,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-19T13:16:51Z",
+      "updated_at": "2023-04-19T13:16:51Z",
+      "body": "2. Usage:\r\nAfter installing PouchDB Server, you can start the server and access your PouchDB database through a web interface. Follow the steps below to run PouchDB Server and access your database.\r\n\r\nOpen a terminal or command prompt.\r\n\r\nNavigate to the directory where PouchDB Server project is located. For example:\r\n\r\n`cd @serge/server:`"
+    },
+    {
+      "id": 1514722278,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-19T13:18:42Z",
+      "updated_at": "2023-04-19T13:18:42Z",
+      "body": "3. Run the following command to start the server:\r\n\r\n`yarn run pouchdb-sqllite`"
+    },
+    {
+      "id": 1514722988,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-19T13:19:10Z",
+      "updated_at": "2023-04-19T13:19:10Z",
+      "body": "This command will start the PouchDB Server and enable you to access your database through a web interface at `http://localhost:5984/_utils/`."
+    },
+    {
+      "id": 1514726130,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-19T13:21:15Z",
+      "updated_at": "2023-04-19T13:21:15Z",
+      "body": "You can now create and manage `PouchDB ` databases using the web interface."
+    },
+    {
+      "id": 1515069147,
+      "user": "IanMayo",
+      "created_at": "2023-04-19T16:57:45Z",
+      "updated_at": "2023-04-19T16:57:45Z",
+      "body": "Thanks for that @lilitkarapetyan . Do you think it's feasible for us to switch to using `pouchdb-server` as our whole backend for Serge?  "
+    },
+    {
+      "id": 1515813868,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-20T07:02:18Z",
+      "updated_at": "2023-04-20T07:02:18Z",
+      "body": "Hello @IanMayo, I think is feasible Switching to `PouchDB Server` as our whole backend for Serge. \r\n\r\nThe `PouchDB server` provides a RESTful API that allows you to interact with `PouchDB` databases, including those stored in `SQLite`. It also provides a web interface for managing databases and supports various storage systems, including` LevelDB`, `SQLite`, and `CouchDB`."
+    },
+    {
+      "id": 1515852346,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-20T07:28:03Z",
+      "updated_at": "2023-04-20T07:28:03Z",
+      "body": "here are some limitation of `pouchdb server`\r\n\r\n1. No support for sharding: PouchDB-server is designed to be a single-server solution, which means it cannot handle large datasets that require sharding across multiple servers.\r\n\r\n2. Limited scalability: While PouchDB-server can handle a moderate amount of data, it may struggle to scale beyond a certain point, making it less suitable for large-scale applications.\r\n\r\n3. No built-in security features: PouchDB-server does not come with built-in security features, such as authentication and authorization, which can leave your data vulnerable to attacks.\r\n\r\n4. No automatic backup and recovery: PouchDB-server does not have a built-in mechanism for automatic backup and recovery, which means you'll need to set up your own backup and recovery strategy.\r\n\r\n5. Limited query capabilities: While PouchDB-server does support basic query functionality, it is not as powerful as other databases, which may make it less suitable for applications that require complex querying.\r\n\r\nLimited query support: PouchDB Server uses MapReduce indexing, which may be limiting compared to traditional relational databases in terms of querying capabilities. Complex queries may be difficult to implement and may require add"
+    },
+    {
+      "id": 1534601214,
+      "user": "IanMayo",
+      "created_at": "2023-05-04T11:26:20Z",
+      "updated_at": "2023-05-04T11:43:20Z",
+      "body": "@lilitkarapetyan - codacy is complaining about an escape in the Regex.  But, I think we should stick with the original code, and include a comment to suppress `no-useless-escape` for that block of code.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/236194093-6a29a123-654b-4979-999f-4e1ad2bf1e63.png)\r\n"
+    },
+    {
+      "id": 1541635992,
+      "user": "IanMayo",
+      "created_at": "2023-05-10T09:09:42Z",
+      "updated_at": "2023-05-10T09:09:42Z",
+      "body": "Thanks for this Lilit. \r\n\r\nCould we have a Button in the Admin page to open the Fauxton UI?  We would get a new `Database` link on the left-hand menu here:\r\n![image](https://github.com/serge-web/serge/assets/1108513/215f5438-21a6-494f-80f6-6f57dedc5645)\r\n"
+    },
+    {
+      "id": 1543357670,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-05-11T05:24:32Z",
+      "updated_at": "2023-05-11T06:11:17Z",
+      "body": "\r\n\r\n> Thanks for this Lilit.\r\n> \r\n> Could we have a Button in the Admin page to open the Fauxton UI? We would get a new `Database` link on the left-hand menu here: ![image](https://user-images.githubusercontent.com/1108513/237339765-215f5438-21a6-494f-80f6-6f57dedc5645.png)\r\n\r\nHello @IanMayo , yes I will work on it."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2665
+  ],
+  "issues": [
+    {
+      "id": 1655290379,
+      "number": 2665,
+      "title": "Add `pouchdb-server`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-04-05T09:48:20Z",
+      "updated_at": "2023-11-13T10:30:34Z",
+      "closed_at": "2023-11-13T10:30:34Z",
+      "body": "We have got into trouble by making edits to SQLite.  It appears that it's ok to delete rows, or change JSON,  but we're unable to insert rows.\r\n\r\nAn alternate way of doing this would be to make edits using PouchDb itself. It is possible for the fauxton UI to sit on a PouchDb database - which gives view/edit capabilities, plus mango queries.\r\n\r\n_Maybe_ the best route is to integrate the express PouchDb wrapper in our app: https://github.com/pouchdb/pouchdb-server#express-pouchdb\r\n\r\nOr _Maybe_ we wrap our existing PouchDb in the wrapper: https://github.com/pouchdb/pouchdb-server#using-your-own-pouchdb",
+      "labels": [
+        "enhancement",
+        "4watu",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1520113613,
+          "user": "IanMayo",
+          "created_at": "2023-04-24T12:59:26Z",
+          "updated_at": "2023-04-24T12:59:26Z",
+          "body": "Thanks for your research in #2669 @lilitkarapetyan \r\n\r\nCould you now produce a list of tasks that will have to be done for us to move over to `pouchdb-server`.  I'm would like to understand the size of the task."
+        },
+        {
+          "id": 1522848299,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-04-26T06:19:34Z",
+          "updated_at": "2023-04-26T06:26:28Z",
+          "body": "> Thanks for your research in #2669 @lilitkarapetyan\r\n> \r\n> Could you now produce a list of tasks that will have to be done for us to move over to `pouchdb-server`. I'm would like to understand the size of the task.\r\n\r\nTo move over to `pouchdb-server`, the following tasks will need to be done.\r\n\r\n1. Set up a server that will host line the `pouchDB-server` instance.\r\n\r\n2.Install and configure the ` pouchdb-server` package - This involves installing the `pouchdb-server` package on the server and configuring it based on the requirements of the application.\r\n\r\n3. Replace the code that uses ` pouchDB` in the application with code that uses` pouchDB-server` - This involves modifying the code that uses `pouchDB `in the application to use the `pouchdb-server` package instead.\r\n\r\n4. Create databases on the `pouchdb-Server` instance that correspond to the databases used in the application.\r\n\r\n5. Replicate the data from the existing databases to the newly created databases on the `pouchdb-server` instance.\r\n\r\n6. Test the application with the new `pouchdb-server` backend to ensure that it functions as expected - This involves testing the application with the new `pouchdb-server` backend to ensure that it works correctly and does not introduce any new issues."
+        },
+        {
+          "id": 1522930220,
+          "user": "IanMayo",
+          "created_at": "2023-04-26T07:36:52Z",
+          "updated_at": "2023-04-26T07:36:52Z",
+          "body": "Thanks @lilitkarapetyan \r\n\r\n> 1. Set up a server that will host line the pouchDB-server instance.\r\n\r\nNo, we'll just be running it in the local instance, won't we?\r\n\r\n> 2.Install and configure the  pouchdb-server package - This involves installing the pouchdb-server package on the server and configuring it based on the requirements of the application.\r\n\r\nNo, we'll either install and run `pouchdb-server` via `npm`, or we will add `express-pouchdb` to our existing server code.\r\n\r\n> 3. Replace the code that uses  pouchDB in the application with code that uses pouchDB-server - This involves modifying the code that uses pouchDB in the application to use the pouchdb-server package instead.\r\n\r\nAre you referring to server-side or client-side code here @lilitkarapetyan?   I'm sure we'll still need some serge-specific server-side code.\r\n\r\nHmm, since `pouchdb-server` is meant to be `couchdb` compliant, I wonder if this means we will be able to drop the `pouchdb.js` module, and just use the `couchdb` one for local and remote databases?"
+        },
+        {
+          "id": 1522956055,
+          "user": "IanMayo",
+          "created_at": "2023-04-26T07:58:37Z",
+          "updated_at": "2023-04-26T07:58:37Z",
+          "body": "Hello @lilitkarapetyan - I've just looked in `pouchdb.js`.  I see we are already using `express-pouchdb`:\r\n![image](https://user-images.githubusercontent.com/1108513/234508161-215d83d7-6348-44d7-9cc9-d00a52419736.png)\r\n\r\nDoesn't this mean we're already doing what I was proposing?\r\n\r\nHmm, if one `aim` of this issue is to be able to use `fauxton` for database maintenance, it looks like we just replace the above call with this:\r\n![image](https://user-images.githubusercontent.com/1108513/234508897-53683a0e-3f5c-4bcf-b4ad-003eeb90e993.png)\r\n"
+        },
+        {
+          "id": 1522970300,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-04-26T08:08:28Z",
+          "updated_at": "2023-04-26T08:08:28Z",
+          "body": "> No, we'll just be running it in the local instance, won't we?\r\n\r\nYes, you're correct. If you're using pouchdb-server locally, you won't need to set up a separate server to host it. You can simply run it on your local machine."
+        },
+        {
+          "id": 1523010505,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-04-26T08:37:58Z",
+          "updated_at": "2023-04-26T10:30:02Z",
+          "body": "> Hello @lilitkarapetyan - I've just looked in `pouchdb.js`. I see we are already using `express-pouchdb`: ![image](https://user-images.githubusercontent.com/1108513/234508161-215d83d7-6348-44d7-9cc9-d00a52419736.png)\r\n> \r\n> Doesn't this mean we're already doing what I was proposing?\r\n> \r\n> Hmm, if one `aim` of this issue is to be able to use `fauxton` for database maintenance, it looks like we just replace the above call with this: ![image](https://user-images.githubusercontent.com/1108513/234508897-53683a0e-3f5c-4bcf-b4ad-003eeb90e993.png)\r\n\r\nYes, that code sets up an instance of the PouchDB Server with the minimum configuration required to use Fauxton as a debugging tool. By setting the mode option to minimumForPouchDB and including the routes/fauxton route in the overrideMode option, it creates an HTTP API with a minimal interface and includes the Fauxton interface for database maintenance and debugging. \r\n\r\nHowever, it's important to note that SQLite is not a supported backend for PouchDB Server, so you won't be able to edit SQLite databases directly with this configuration.\r\n"
+        },
+        {
+          "id": 1523025056,
+          "user": "IanMayo",
+          "created_at": "2023-04-26T08:48:38Z",
+          "updated_at": "2023-04-26T08:48:38Z",
+          "body": "> However, it's important to note that SQLite is not a supported backend for PouchDB Server, so you won't be able to edit SQLite databases directly with this configuration. Instead, you'll need to use a supported backend such as CouchDB or MemDOWN.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/234521884-460ead86-fd61-49db-bc0a-ea6cf5487cba.png)\r\n\r\nIs everythink ok with you @lilitkarapetyan ?"
+        },
+        {
+          "id": 1523026369,
+          "user": "IanMayo",
+          "created_at": "2023-04-26T08:49:39Z",
+          "updated_at": "2023-04-26T08:49:39Z",
+          "body": "> > No, we'll just be running it in the local instance, won't we?\r\n> \r\n> Yes, you're correct. If you're using pouchdb-server locally, you won't need to set up a separate server to host it. You can simply run it on your local machine.\r\n\r\nYou know the project currently already runs a PouchDb backend within node, don't you?  This issue is a minor change to our existing infrastructure."
+        },
+        {
+          "id": 1523042611,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-04-26T09:00:46Z",
+          "updated_at": "2023-04-26T09:00:46Z",
+          "body": "> > > No, we'll just be running it in the local instance, won't we?\r\n> > \r\n> > \r\n> > Yes, you're correct. If you're using pouchdb-server locally, you won't need to set up a separate server to host it. You can simply run it on your local machine.\r\n> \r\n> You know the project currently already runs a PouchDb backend within node, don't you? This issue is a minor change to our existing infrastructure.\r\n\r\nyes\r\n"
+        },
+        {
+          "id": 1523092314,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-04-26T09:30:02Z",
+          "updated_at": "2023-04-26T09:30:02Z",
+          "body": "> Hmm, since `pouchdb-server` is meant to be `couchdb` compliant, I wonder if this means we will be able to drop the `pouchdb.js` module, and just use the `couchdb` one for local and remote databases?\r\n\r\nI think we can use the CouchDB module for local and remote databases"
+        },
+        {
+          "id": 1523093813,
+          "user": "IanMayo",
+          "created_at": "2023-04-26T09:31:07Z",
+          "updated_at": "2023-04-26T09:31:07Z",
+          "body": "@lilitkarapetyan - do you agree that we can keep the SQLite backend?"
+        },
+        {
+          "id": 1523112864,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-04-26T09:43:55Z",
+          "updated_at": "2023-04-26T09:43:55Z",
+          "body": "ahh no, we still need to use PouchDB to work with local databases."
+        },
+        {
+          "id": 1523117790,
+          "user": "IanMayo",
+          "created_at": "2023-04-26T09:47:32Z",
+          "updated_at": "2023-04-26T09:47:32Z",
+          "body": "@lilitkarapetyan - do you agree that we can keep the SQLite backend in PouchDB?"
+        },
+        {
+          "id": 1523132947,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-04-26T09:58:26Z",
+          "updated_at": "2023-04-26T10:03:03Z",
+          "body": " @lilitkarapetyan - do you agree that we can keep the SQLite backend in PouchDB?\r\n\r\nyes\r\n![Screenshot (197)](https://user-images.githubusercontent.com/20753599/234542370-87fd3319-a38c-4d75-be9e-068083d4a392.png)\r\n"
+        },
+        {
+          "id": 1523182659,
+          "user": "IanMayo",
+          "created_at": "2023-04-26T10:25:31Z",
+          "updated_at": "2023-04-26T10:25:31Z",
+          "body": "Hello @lilitkarapetyan - could you explain your point/issue please?"
+        },
+        {
+          "id": 1523223622,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-04-26T10:58:09Z",
+          "updated_at": "2023-04-26T10:58:09Z",
+          "body": "  \r\n![234508897-53683a0e-3f5c-4bcf-b4ad-003eeb90e993](https://user-images.githubusercontent.com/20753599/234555082-82e3021d-91fe-4a2f-a2e0-dd9ad4235b21.png)\r\nwith the `pouchdb-adapter-node-websql` adapter, we be able to use a `SQLite `database with `PouchDB`, and therefore with the express-pouchdb module that you mentioned. However, keep in mind that the Fauxton debugging tool that comes with express-pouchdb is designed specifically for use with `PouchDB`, and may not be able to provide the same level of visibility and control over a `SQLite `database.\r\n"
+        },
+        {
+          "id": 1523229216,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-04-26T11:02:27Z",
+          "updated_at": "2023-04-26T11:02:27Z",
+          "body": "To use a SQLite database with express-pouchdb, would need to use the pouchdb-adapter-node-websql adapter. This adapter provides a WebSQL implementation that can be used with Node.js and PouchDB.\r\n\r\nHowever, it's important to note that Fauxton, which comes with express-pouchdb, is a web-based user interface specifically designed for PouchDB. It provides tools for managing and querying PouchDB databases, but it may not be optimized for working with other types of databases, such as SQLite.\r\n\r\nSo while we should be able to use express-pouchdb and Fauxton with a SQLite database via the pouchdb-adapter-node-websql adapter, wemay not get the same level of visibility and control over the database as you would with a tool that is specifically designed for SQLite."
+        },
+        {
+          "id": 1523269974,
+          "user": "IanMayo",
+          "created_at": "2023-04-26T11:35:30Z",
+          "updated_at": "2023-04-26T11:36:59Z",
+          "body": "1. You've provided a screenshot of our current code.   \r\n2. Our current code stores data in SQLite\r\n3. Our current code uses `express-pouchdb`, which seems to be the main component of `pouchdb-server`\r\n4. It should be a trivial change to add fauxton support to our current code\r\n\r\nI didn't realise we were already using `express-pouchdb`.  Could you please have another attempt at creating a list of tasks required to add `fauxton` support to Serge?"
+        },
+        {
+          "id": 1554169554,
+          "user": "IanMayo",
+          "created_at": "2023-05-19T07:35:58Z",
+          "updated_at": "2023-05-19T07:35:58Z",
+          "body": "Fixed in #2669 "
+        },
+        {
+          "id": 1807889600,
+          "user": "IanMayo",
+          "created_at": "2023-11-13T10:30:34Z",
+          "updated_at": "2023-11-13T10:30:34Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/236194093-6a29a123-654b-4979-999f-4e1ad2bf1e63.png",
+    "https://github.com/serge-web/serge/assets/1108513/215f5438-21a6-494f-80f6-6f57dedc5645",
+    "https://user-images.githubusercontent.com/1108513/237339765-215f5438-21a6-494f-80f6-6f57dedc5645.png",
+    "https://user-images.githubusercontent.com/1108513/234508161-215d83d7-6348-44d7-9cc9-d00a52419736.png",
+    "https://user-images.githubusercontent.com/1108513/234508897-53683a0e-3f5c-4bcf-b4ad-003eeb90e993.png",
+    "https://user-images.githubusercontent.com/1108513/234521884-460ead86-fd61-49db-bc0a-ea6cf5487cba.png",
+    "https://user-images.githubusercontent.com/20753599/234542370-87fd3319-a38c-4d75-be9e-068083d4a392.png",
+    "https://user-images.githubusercontent.com/20753599/234555082-82e3021d-91fe-4a2f-a2e0-dd9ad4235b21.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 60
+}

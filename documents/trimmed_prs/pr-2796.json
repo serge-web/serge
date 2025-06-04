@@ -1,0 +1,62 @@
+{
+  "number": 2796,
+  "title": "'Filter Out' button in Core mapping should not overlap the text",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-30T10:24:37Z",
+  "updated_at": "2024-01-30T14:47:22Z",
+  "closed_at": "2024-01-30T14:47:21Z",
+  "merged_at": "2024-01-30T14:47:21Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2796",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2796/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2796/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2796",
+  "body": "Fixes #2787 \r\n\r\n![image](https://github.com/serge-web/serge/assets/26705621/79258323-8ca5-4d16-bc3b-aa8d535a4e69)\r\n",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2787
+  ],
+  "issues": [
+    {
+      "id": 2103887635,
+      "number": 2787,
+      "title": "'Filter Out' button in Core mapping should not overlap the text",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-01-28T00:36:54Z",
+      "updated_at": "2024-01-30T14:47:22Z",
+      "closed_at": "2024-01-30T14:47:22Z",
+      "body": "## 🐞 Bug description\r\nIn 'Core Mapping', notice the 'Filter Out' button is overlap the text version and date time\r\n\r\n## 🔢 Steps to Reproduce\r\n1. Play game with data wargame-l6nngxlk\r\n2. Click on channel 'Core Mapping'\r\n3. Notice the button 'Filter Out' is is overlap the text version and date time\r\n![image](https://github.com/serge-web/serge/assets/107697044/f632cc8d-c093-49ac-8bf0-b7a841968458)\r\n\r\n## ⚙️ Expected behavior\r\nThe button should not overlap the text. It's better to move up a little like this : \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/84f76f03-b805-4060-ae76-d693a65b6145)\r\n\r\n## 🖥️ Screenshots\r\n\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n- Browser Version : Version 120.0.6099.111\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1914585021,
+          "user": "IanMayo",
+          "created_at": "2024-01-29T12:22:21Z",
+          "updated_at": "2024-01-29T12:22:21Z",
+          "body": "Aah, now that we have moved the zoom in/out buttons to the bottom-right. we can move the `filter-out` button to the top-left, which will fix this.\r\n\r\nCould you do that please @lebaphi ?"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/26705621/79258323-8ca5-4d16-bc3b-aa8d535a4e69",
+    "https://github.com/serge-web/serge/assets/107697044/f632cc8d-c093-49ac-8bf0-b7a841968458",
+    "https://github.com/serge-web/serge/assets/107697044/84f76f03-b805-4060-ae76-d693a65b6145"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

@@ -1,0 +1,170 @@
+{
+  "number": 2822,
+  "title": "2811_Core_Mapping_show_label_next_to_MilSymbol",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-05T09:37:03Z",
+  "updated_at": "2024-02-06T12:25:21Z",
+  "closed_at": "2024-02-06T12:25:20Z",
+  "merged_at": "2024-02-06T12:25:20Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2822",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2822/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2822/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2822",
+  "body": "Fixes #2811 \r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 59,
+  "deletions": 8,
+  "changed_files": 6,
+  "labels": [
+    "Mapping",
+    "4p9"
+  ],
+  "comments_count": 6,
+  "review_comments_count": 7,
+  "total_comments": 13,
+  "comments_data": [
+    {
+      "id": 1926573458,
+      "user": "IanMayo",
+      "created_at": "2024-02-05T09:39:52Z",
+      "updated_at": "2024-02-05T09:39:52Z",
+      "body": "Any chance of a screenshot @lilitkarapetyan ?"
+    },
+    {
+      "id": 1926590922,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-05T09:49:39Z",
+      "updated_at": "2024-02-05T09:49:39Z",
+      "body": "> Any chance of a screenshot @lilitkarapetyan ?\r\n\r\nhttps://gyazo.com/a381d6b04fc1f6863a902897f05f90b6"
+    },
+    {
+      "id": 1926601601,
+      "user": "IanMayo",
+      "created_at": "2024-02-05T09:55:29Z",
+      "updated_at": "2024-02-05T09:55:29Z",
+      "body": "> > Any chance of a screenshot @lilitkarapetyan ?\r\n> \r\n> https://gyazo.com/a381d6b04fc1f6863a902897f05f90b6\r\n\r\nOoh yes!  Are you able to make the text bold?  It's slightly difficult to read against the complex background."
+    },
+    {
+      "id": 1926606100,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-05T09:57:50Z",
+      "updated_at": "2024-02-05T09:57:50Z",
+      "body": "> > > Any chance of a screenshot @lilitkarapetyan ?\r\n> > \r\n> > \r\n> > https://gyazo.com/a381d6b04fc1f6863a902897f05f90b6\r\n> \r\n> Ooh yes! Are you able to make the text bold? It's slightly difficult to read against the complex background.\r\n \r\nYes I will work on it now"
+    },
+    {
+      "id": 1928887336,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-06T06:51:41Z",
+      "updated_at": "2024-02-06T06:51:41Z",
+      "body": "Yes, it's right \r\n\r\n> Looking good @lilitkarapetyan\r\n> \r\n> We can remove the debug line (console.print), right?\r\n\r\n\r\n\r\n> Looking good @lilitkarapetyan\r\n> \r\n> We can remove the debug line (console.print), right?\r\n\r\nHello @IanMayo , yes it's right I will remove it, now, I've included a toggle button example. Clicking it will reveal the associated text (https://gyazo.com/43e36a5905dc3cc93ca17c937683c2f7) . I will add now."
+    },
+    {
+      "id": 1929077498,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-06T09:12:07Z",
+      "updated_at": "2024-02-06T09:12:07Z",
+      "body": "fixes #2811 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1479449017,
+      "user": "IanMayo",
+      "created_at": "2024-02-06T09:17:54Z",
+      "updated_at": "2024-02-06T09:17:54Z",
+      "body": "Hello @lilitkarapetyan - this next block is commented out.  Is it because you have found two ways of hiding/revealing text labels, and have implemented the \"other one\", but left this hear just in case we need it?",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/map-controls.tsx",
+      "diff_hunk": "@@ -8,10 +8,43 @@ import AssetIcon from 'src/Components/local/asset-icon'\n import styles from '../styles.module.scss'\n import { GeomanControlProps } from '../types/props'\n \n-const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {\n+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {\n   const map = useMap()\n \n   const initMapListener = () => {\n+    let layersVisible = true \n+    map.pm.Toolbar.createCustomControl({\n+      name: 'showLayersText',\n+      block: 'custom',\n+      className: 'control-icon leaflet-pm-icon-text',\n+      title: 'Show layers Text',\n+      afterClick: () => {\n+        onShowLabels(layersVisible)\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2822#discussion_r1479449017"
+    },
+    {
+      "id": 1479459136,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-06T09:24:49Z",
+      "updated_at": "2024-02-06T09:24:49Z",
+      "body": "Hello @ian, Yes",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/map-controls.tsx",
+      "diff_hunk": "@@ -8,10 +8,43 @@ import AssetIcon from 'src/Components/local/asset-icon'\n import styles from '../styles.module.scss'\n import { GeomanControlProps } from '../types/props'\n \n-const MapControls: React.FC<GeomanControlProps> = ({ onCreate }) => {\n+const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) => {\n   const map = useMap()\n \n   const initMapListener = () => {\n+    let layersVisible = true \n+    map.pm.Toolbar.createCustomControl({\n+      name: 'showLayersText',\n+      block: 'custom',\n+      className: 'control-icon leaflet-pm-icon-text',\n+      title: 'Show layers Text',\n+      afterClick: () => {\n+        onShowLabels(layersVisible)\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2822#discussion_r1479459136"
+    },
+    {
+      "id": 1479460699,
+      "user": "IanMayo",
+      "created_at": "2024-02-06T09:25:52Z",
+      "updated_at": "2024-02-06T09:25:52Z",
+      "body": "but @lilitkarapetyan  this *should* have toggle behaviour, since we're switching on and off the symbol labels.",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/map-controls.tsx",
+      "diff_hunk": "@@ -40,8 +40,9 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =\n \n         layersVisible = !layersVisible \n       },\n-\n-      toggle: true\n+      \n+      // Set toggle to false to indicate that this custom control does not have a toggle functionality",
+      "html_url": "https://github.com/serge-web/serge/pull/2822#discussion_r1479460699"
+    },
+    {
+      "id": 1479522644,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-06T10:11:06Z",
+      "updated_at": "2024-02-06T10:11:06Z",
+      "body": "switching to true results in the loss of the layer name when transiting to deferent symbols (https://gyazo.com/f4bcf1eede84994a3b88ebef2f572c58) that's right ?",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/map-controls.tsx",
+      "diff_hunk": "@@ -40,8 +40,9 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =\n \n         layersVisible = !layersVisible \n       },\n-\n-      toggle: true\n+      \n+      // Set toggle to false to indicate that this custom control does not have a toggle functionality",
+      "html_url": "https://github.com/serge-web/serge/pull/2822#discussion_r1479522644"
+    },
+    {
+      "id": 1479524298,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-06T10:12:26Z",
+      "updated_at": "2024-02-06T10:12:27Z",
+      "body": "I can investigate it",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/map-controls.tsx",
+      "diff_hunk": "@@ -40,8 +40,9 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =\n \n         layersVisible = !layersVisible \n       },\n-\n-      toggle: true\n+      \n+      // Set toggle to false to indicate that this custom control does not have a toggle functionality",
+      "html_url": "https://github.com/serge-web/serge/pull/2822#discussion_r1479524298"
+    },
+    {
+      "id": 1479544688,
+      "user": "IanMayo",
+      "created_at": "2024-02-06T10:28:01Z",
+      "updated_at": "2024-02-06T10:28:01Z",
+      "body": "I'm a couple of commits behind you Lilit, but it seems ok to me:\r\nhttps://i.gyazo.com/8426bcfa1615adb5d19a2d9de51dcc82.mp4",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/map-controls.tsx",
+      "diff_hunk": "@@ -40,8 +40,9 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =\n \n         layersVisible = !layersVisible \n       },\n-\n-      toggle: true\n+      \n+      // Set toggle to false to indicate that this custom control does not have a toggle functionality",
+      "html_url": "https://github.com/serge-web/serge/pull/2822#discussion_r1479544688"
+    },
+    {
+      "id": 1479561674,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-06T10:40:51Z",
+      "updated_at": "2024-02-06T10:40:51Z",
+      "body": "Thank you for checking, @IanMayo. ",
+      "path": "client/src/Components/local/atoms/core-mapping/helper/map-controls.tsx",
+      "diff_hunk": "@@ -40,8 +40,9 @@ const MapControls: React.FC<GeomanControlProps> = ({ onCreate, onShowLabels }) =\n \n         layersVisible = !layersVisible \n       },\n-\n-      toggle: true\n+      \n+      // Set toggle to false to indicate that this custom control does not have a toggle functionality",
+      "html_url": "https://github.com/serge-web/serge/pull/2822#discussion_r1479561674"
+    }
+  ],
+  "issue_numbers": [
+    2811
+  ],
+  "issues": [
+    {
+      "id": 2110085445,
+      "number": 2811,
+      "title": "Core Mapping - show label next to MilSymbol",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-31T13:20:51Z",
+      "updated_at": "2024-02-06T12:25:21Z",
+      "closed_at": "2024-02-06T12:25:21Z",
+      "body": "At some zoom levels users may wish to see the names/labels for the MilSymbol markers.\r\n\r\n_Maybe_ we should provide a toggle button.\r\n\r\nBut, to start off with, we need to learn how to do this.  Investigate [MilSymbol](https://www.spatialillusions.com/milsymbol/) to find out how to provide a text label on the right-hand side. I'm pretty sure it fits into something called \"additional text\".\r\n\r\nOnce we've got that working, we can work on how/when to display it.",
+      "labels": [
+        "Mapping",
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 67
+}

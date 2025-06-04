@@ -1,0 +1,153 @@
+{
+  "number": 1302,
+  "title": "[1296] Implement UI for table of active players",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-16T02:12:06Z",
+  "updated_at": "2022-01-21T15:41:34Z",
+  "closed_at": "2022-01-21T15:41:33Z",
+  "merged_at": "2022-01-21T15:41:33Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1302",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1302/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1302/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1302",
+  "body": "Fixes #1296 #1297",
+  "additions": 773,
+  "deletions": 257,
+  "changed_files": 32,
+  "labels": [],
+  "comments_count": 11,
+  "review_comments_count": 2,
+  "total_comments": 13,
+  "comments_data": [
+    {
+      "id": 1013803513,
+      "user": "lebaphi",
+      "created_at": "2022-01-16T03:31:28Z",
+      "updated_at": "2022-01-16T04:11:26Z",
+      "body": "Hi @IanMayo, I just had a draft PR for this, I have comments:\r\n- I couldn't find the name of the player log icon, so I temporarily selected `faAddressBook` for it\r\n- I'm not sure how to make a message like `Edit RFI` or `COA Release`?\r\n- The first time you will see it shows the loading process is a bit long because `SERVER_PING_INTERVAL = 20000`, after that it won't take long.\r\n- Do you think we should add something like `Refresh in <number> s` or adding a refresh icon then when fetching new data, we will have an animation then the UX is more friendly I think?\r\nhttps://user-images.githubusercontent.com/26705621/149646130-4a5222f9-dbee-4e52-b96d-6a443409d0c1.mp4\r\n\r\n"
+    },
+    {
+      "id": 1013894757,
+      "user": "lebaphi",
+      "created_at": "2022-01-16T15:18:44Z",
+      "updated_at": "2022-01-16T15:18:44Z",
+      "body": "with refresh icon :D\r\n\r\nhttps://user-images.githubusercontent.com/26705621/149665993-9bb06e58-0682-4b1f-a658-3ce7de53f200.mov\r\n\r\n"
+    },
+    {
+      "id": 1014602443,
+      "user": "IanMayo",
+      "created_at": "2022-01-17T14:27:02Z",
+      "updated_at": "2022-01-17T14:27:02Z",
+      "body": "Thanks @lebaphi \r\n> I couldn't find the name of the player log icon, so I temporarily selected faAddressBook for it\r\n\r\nSure, ok. \r\n\r\n> I'm not sure how to make a message like Edit RFI or COA Release?\r\n\r\nSure.  So, just take the current role id, and find the message `from` that role in the playerLog in PlayerUIState\r\n\r\n> The first time you will see it shows the loading process is a bit long because SERVER_PING_INTERVAL = 20000, after that it won't take long.\r\n\r\nSure, ok.\r\n\r\n> Do you think we should add something like Refresh in <number> s or adding a refresh icon then when fetching new data, we will have an animation then the UX is more friendly I think?\r\n\r\nYes, I think the refresh button should be ok."
+    },
+    {
+      "id": 1014632464,
+      "user": "IanMayo",
+      "created_at": "2022-01-17T15:01:20Z",
+      "updated_at": "2022-01-17T15:01:20Z",
+      "body": "Thanks @lebaphi \r\nDo we need the data to be organised in tabs, such as \"Overview\"?  Have any other tabs been discussed."
+    },
+    {
+      "id": 1015375683,
+      "user": "lebaphi",
+      "created_at": "2022-01-18T12:44:38Z",
+      "updated_at": "2022-01-18T12:44:38Z",
+      "body": "> Thanks @lebaphi Do we need the data to be organised in tabs, such as \"Overview\"? Have any other tabs been discussed.\r\n\r\nYou mean we should sort the data by status or send at?"
+    },
+    {
+      "id": 1015382723,
+      "user": "lebaphi",
+      "created_at": "2022-01-18T12:54:17Z",
+      "updated_at": "2022-01-18T12:58:08Z",
+      "body": "> Sure. So, just take the current role id, and find the message from that role in the playerLog in PlayerUIState\r\n\r\nI tried but it seems `undefined`, the current role id does not exists in the `playerLog`, so I set string `N/A` for those cases :D"
+    },
+    {
+      "id": 1015386447,
+      "user": "IanMayo",
+      "created_at": "2022-01-18T12:59:14Z",
+      "updated_at": "2022-01-18T12:59:14Z",
+      "body": "> > Sure. So, just take the current role id, and find the message from that role in the playerLog in PlayerUIState\r\n> \r\n> I tried but it seems `undefined`, the current role id does not exists in the `playerLog` 🤔\r\n\r\nAah, ok.  Will check when I'm back at my desk tomorrow.  My problem ;-)"
+    },
+    {
+      "id": 1015414883,
+      "user": "IanMayo",
+      "created_at": "2022-01-18T13:31:05Z",
+      "updated_at": "2022-01-18T13:31:05Z",
+      "body": "> > Thanks @lebaphi Do we need the data to be organised in tabs, such as \"Overview\"? Have any other tabs been discussed.\r\n> \r\n> You mean we should sort the data by status or send at?\r\n\r\nNo. In the React UI, the table is in a set of tabs, with the current tab being called \"Overview\".  We don't need a set of tabs.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/149946601-855a9939-8645-4f69-83e2-16265d68286c.png)\r\n"
+    },
+    {
+      "id": 1015436875,
+      "user": "lebaphi",
+      "created_at": "2022-01-18T13:58:00Z",
+      "updated_at": "2022-01-18T13:58:00Z",
+      "body": "> > > Thanks @lebaphi Do we need the data to be organised in tabs, such as \"Overview\"? Have any other tabs been discussed.\r\n> > \r\n> > \r\n> > You mean we should sort the data by status or send at?\r\n> \r\n> No. In the React UI, the table is in a set of tabs, with the current tab being called \"Overview\". We don't need a set of tabs.\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/149946601-855a9939-8645-4f69-83e2-16265d68286c.png)\r\n\r\nah, I tried to reuse the `Tabs` component from `@serge/components`:\r\n```\r\n<Tabs activeTab={activeTab} onChange={onTabChanged} tabs={playerLogTabs} />\r\n```\r\nand this component need to input an array of tab to initialize, that is why I create an array with 1 item `overview`"
+    },
+    {
+      "id": 1017693857,
+      "user": "IanMayo",
+      "created_at": "2022-01-20T16:36:01Z",
+      "updated_at": "2022-01-20T16:36:01Z",
+      "body": "Hello @lebaphi - I've progressed this a little more, and played with the layout a bit:\r\n![image](https://user-images.githubusercontent.com/1108513/150360796-722991d9-8d56-40b5-bfc5-937bc8eb363f.png)\r\n\r\nI have a remaining data issue.  When the panel loads, it gets the `playerLog` from `PlayerUI`.\r\n\r\nThis object contains the most recent message sent by each role.\r\n\r\nBut, the object doesn't get updated when new messages are processed.   I tried retrieving the value within the `refresh` method but that threw an `invalid use of hooks` error.\r\n\r\nWould you mind trying to sort this for me please?\r\n\r\nWhen it's fixed, sending a message from another user (in another window) should show up in the player log on the next update/.\r\n\r\n"
+    },
+    {
+      "id": 1018232268,
+      "user": "lebaphi",
+      "created_at": "2022-01-21T06:55:57Z",
+      "updated_at": "2022-01-21T06:55:57Z",
+      "body": "> Hello @lebaphi - I've progressed this a little more, and played with the layout a bit: ![image](https://user-images.githubusercontent.com/1108513/150360796-722991d9-8d56-40b5-bfc5-937bc8eb363f.png)\r\n> \r\n> I have a remaining data issue. When the panel loads, it gets the `playerLog` from `PlayerUI`.\r\n> \r\n> This object contains the most recent message sent by each role.\r\n> \r\n> But, the object doesn't get updated when new messages are processed. I tried retrieving the value within the `refresh` method but that threw an `invalid use of hooks` error.\r\n> \r\n> Would you mind trying to sort this for me please?\r\n> \r\n> When it's fixed, sending a message from another user (in another window) should show up in the player log on the next update/.\r\n\r\nsure @IanMayo, I will check it now"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 786082755,
+      "user": "IanMayo",
+      "created_at": "2022-01-17T14:58:29Z",
+      "updated_at": "2022-01-17T14:58:29Z",
+      "body": "can you remove the blank lines please @lebaphi ?",
+      "path": "packages/client/src/ActionsAndReducers/PlayerLog/PlayerLog_Reducer.ts",
+      "diff_hunk": "@@ -0,0 +1,18 @@\n+import * as ActionConstant from '@serge/config'\n+import { PLayerLogAction, PlayerLogPayload } from './PlayerLog_types'\n+\n+const initialState: PlayerLogPayload = {\n+  wargame: '',\n+  role: ''\n+}\n+\n+export const addPlayerLogReducer = (state = initialState, action: PLayerLogAction) => {\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1302#discussion_r786082755"
+    },
+    {
+      "id": 786715840,
+      "user": "lebaphi",
+      "created_at": "2022-01-18T12:43:42Z",
+      "updated_at": "2022-01-18T12:43:42Z",
+      "body": "updated",
+      "path": "packages/client/src/ActionsAndReducers/PlayerLog/PlayerLog_Reducer.ts",
+      "diff_hunk": "@@ -0,0 +1,18 @@\n+import * as ActionConstant from '@serge/config'\n+import { PLayerLogAction, PlayerLogPayload } from './PlayerLog_types'\n+\n+const initialState: PlayerLogPayload = {\n+  wargame: '',\n+  role: ''\n+}\n+\n+export const addPlayerLogReducer = (state = initialState, action: PLayerLogAction) => {\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1302#discussion_r786715840"
+    }
+  ],
+  "issue_numbers": [
+    1296
+  ],
+  "issues": [
+    {
+      "id": 1101430396,
+      "number": 1296,
+      "title": "Implement UI for table of active players",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-01-13T09:27:43Z",
+      "updated_at": "2022-01-21T15:41:33Z",
+      "closed_at": "2022-01-21T15:41:33Z",
+      "body": "This is to implement the component to view the table of active players:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/149301863-5870f122-80f4-4c73-ac80-38d5b7a652c4.png)\r\n\r\nThe development of the above UI is discussed: #1218\r\n\r\n1. The component will be displayed in a popup dialog\r\n2. When open, the component will refresh every 5 seconds\r\n3. The data for the columns comes from here:\r\n    a. The list of messages (and ages) comes from `playerLog` in the `PlayerUIState`\r\n    b. The time since last logged in comes from the `\\playerlog` REST end-point on the server\r\n    c. The list of players is the _union_ of all of the roles returned by the above two sources\r\n4. The red/green bullet at the left of the `Role` items is green if there is a `playerlog` entry for that role within the last minute\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/149946601-855a9939-8645-4f69-83e2-16265d68286c.png",
+    "https://user-images.githubusercontent.com/1108513/150360796-722991d9-8d56-40b5-bfc5-937bc8eb363f.png",
+    "https://user-images.githubusercontent.com/1108513/149301863-5870f122-80f4-4c73-ac80-38d5b7a652c4.png"
+  ],
+  "number_of_changed_files": 32,
+  "total_changed_lines": 1030
+}

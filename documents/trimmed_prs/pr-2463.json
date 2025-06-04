@@ -1,0 +1,60 @@
+{
+  "number": 2463,
+  "title": "2355 \"synch with\" data - only show own",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-21T16:40:58Z",
+  "updated_at": "2023-02-21T18:54:59Z",
+  "closed_at": "2023-02-21T18:54:58Z",
+  "merged_at": "2023-02-21T18:54:58Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2463",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2463/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2463/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2463",
+  "body": "Fixes #2355 ",
+  "additions": 15,
+  "deletions": 10,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2355
+  ],
+  "issues": [
+    {
+      "id": 1578444843,
+      "number": 2355,
+      "title": "SynchroniseWith should only offer own-force missions live in current turn",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-09T19:10:37Z",
+      "updated_at": "2023-02-21T16:15:07Z",
+      "closed_at": "2023-02-21T16:15:07Z",
+      "body": "The synch-with drop-down is showing missions for both forces.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/217913890-ff5ebb5d-1b26-49a7-99c9-a8e1dda0ca90.png)\r\n\r\n\r\nOnly show for own force, and only those live in current turn.  It's probably worth showing reference number AND the title.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1438749233,
+          "user": "IanMayo",
+          "created_at": "2023-02-21T16:15:07Z",
+          "updated_at": "2023-02-21T16:15:07Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/217913890-ff5ebb5d-1b26-49a7-99c9-a8e1dda0ca90.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 25
+}

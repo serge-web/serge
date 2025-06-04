@@ -1,0 +1,50 @@
+{
+  "number": 2251,
+  "title": "2250 manual intervention",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-14T12:23:19Z",
+  "updated_at": "2023-01-14T14:50:20Z",
+  "closed_at": "2023-01-14T14:50:19Z",
+  "merged_at": "2023-01-14T14:50:19Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2251",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2251/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2251/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2251",
+  "body": "First part of solution for #2250 ",
+  "additions": 125,
+  "deletions": 16,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2250
+  ],
+  "issues": [
+    {
+      "id": 1533223453,
+      "number": 2250,
+      "title": "Manually generate interaction",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-14T11:36:35Z",
+      "updated_at": "2023-01-17T16:48:18Z",
+      "closed_at": "2023-01-17T16:48:18Z",
+      "body": "We have logic to generate interactions.\r\n\r\nBut, game-players are wary that an interaction may fall between the cracks - so they want to be able to generate one manually.\r\n\r\nSo, we need to add a new popup form to `AdjudicationMessagesList`.  The popup form will let the adjudicator provide some data.\r\n\r\nThe layout of the form is provided here: https://docs.google.com/presentation/d/185IQEG_yy3_16B3nDjqKWsGaigb2I54_IhqeVa0T-RY/edit#slide=id.g1d4daf1b3ae_0_0\r\n\r\nThis will be a collaborative piece of work:\r\n- Ian can handle collating the data [1]\r\n- Ian can provide the `Submit` handler [2]\r\n- @lebaphi will create the form, please.  I _guess_ this will be something like the existing `CustomDialog`, but in the `helpers` sub-folder of `adjudication-messages-list`.\r\n\r\nI don't really know how we do the form, or get the data in/out - so could to with @lebaphi  support on it.  Aah, hold on - I have a better understanding now.  The component will take these props:\r\n```\r\nexport type Props = {\r\n   // data to use to populate controls\r\n   data: ManualInteractionData\r\n   // close handler\r\n   onClose: { (): void }\r\n   // save handler, provides data from form controls\r\n   onSave: { (data: ManualInteractionResults): void }\r\n}\r\n```\r\n\r\nNote: I've started my bits, in #2251 \r\n\r\n[1] See the `manualDialog` object\r\n[2] See the `handleManualInteraction` method",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 141
+}

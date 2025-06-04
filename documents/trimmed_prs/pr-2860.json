@@ -1,0 +1,63 @@
+{
+  "number": 2860,
+  "title": "'Rotate layers' lose points on items when select a item",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-18T05:14:29Z",
+  "updated_at": "2024-02-19T10:45:56Z",
+  "closed_at": "2024-02-19T10:45:55Z",
+  "merged_at": "2024-02-19T10:45:55Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2860",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2860/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2860/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2860",
+  "body": "Fixes #2848 ",
+  "additions": 3,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1951554292,
+      "user": "Tristina1788",
+      "created_at": "2024-02-19T01:44:20Z",
+      "updated_at": "2024-02-19T01:44:20Z",
+      "body": "Checking on branch '2848-remove-rotate-btn', now the button 'Rotate layers' is removed as expected.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2465b18d-980f-4ab9-960e-8abce219629a)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2848
+  ],
+  "issues": [
+    {
+      "id": 2130595899,
+      "number": 2848,
+      "title": "'Rotate layers' lose points on items when select a item",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-02-12T17:17:16Z",
+      "updated_at": "2024-02-19T10:45:56Z",
+      "closed_at": "2024-02-19T10:45:56Z",
+      "body": "## 🐞 Bug description\r\n'Rotate layers' lose points on items when select a item\r\n\r\n**From Ian:** @lebaphi - let's remove the `Rotate layers` button, please.  It's not a feature we require.\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Click on channel 'Core Mapping'\r\n3. select 'Rotate Layers'\r\n4. Notice each items has many points for rotate function\r\n5. Select a item\r\n6. Notice  points on items are dissapear\r\n\r\nView below screencast for more details\r\n## ⚙️ Expected behavior\r\n'Points on items (for 'Rotate Layers' function )should not dissapear when select a item\r\n## 🖥️ Screencast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/5dc19cdf-205f-4521-a66c-684053ca9923\r\n\r\n\r\n## 💻 System information\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context",
+      "labels": [
+        "bug",
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/2465b18d-980f-4ab9-960e-8abce219629a"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 5
+}

@@ -1,0 +1,92 @@
+{
+  "number": 2691,
+  "title": "2689_Refactoring_strip_out_mapping",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-11-17T06:22:54Z",
+  "updated_at": "2023-12-18T12:14:58Z",
+  "closed_at": "2023-12-18T12:14:57Z",
+  "merged_at": "2023-12-18T12:14:57Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2691",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2691/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2691/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2691",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 618,
+  "deletions": 234347,
+  "changed_files": 714,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 2,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1857635257,
+      "user": "IanMayo",
+      "created_at": "2023-12-15T10:28:33Z",
+      "updated_at": "2023-12-15T10:28:33Z",
+      "body": "I'm going through code inspection @lilitkarapetyan  - and it's looking really good.\r\n\r\nThere are lots of commented out sections.  I'm happy for you to delete these, together with files that end up empty.\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1425226008,
+      "user": "IanMayo",
+      "created_at": "2023-12-13T11:32:01Z",
+      "updated_at": "2023-12-13T11:32:01Z",
+      "body": "hello @lilitkarapetyan - then ext method `/turns` doesn't seem related to mapping.  Are you sure it's right to delete it?",
+      "path": "server/providers/couchdb.js",
+      "diff_hunk": "@@ -250,42 +250,6 @@ const couchDb = (app, io, pouchOptions) => {\n       .catch(() => res.send([]))\n   })\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/2691#discussion_r1425226008"
+    },
+    {
+      "id": 1425227669,
+      "user": "IanMayo",
+      "created_at": "2023-12-13T11:33:35Z",
+      "updated_at": "2023-12-13T11:33:35Z",
+      "body": "@lilitkarapetyan - can't we remove some mapping related package dependencies?  I'm thinking about `leaflet` and `geoman`.  We'll almost certainly re-introduce them in the future, but removing them now will help double-check that we have deleted all mapping related content.",
+      "path": "client/package.json",
+      "diff_hunk": "@@ -173,7 +173,8 @@\n     \"vite-plugin-svgr\": \"^3.2.0\",\n     \"vite-tsconfig-paths\": \"^4.2.0\",\n     \"whatwg-fetch\": \"^3.6.1\",\n-    \"xml-js\": \"^1.6.11\"\n+    \"xml-js\": \"^1.6.11\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2691#discussion_r1425227669"
+    }
+  ],
+  "issue_numbers": [
+    2689
+  ],
+  "issues": [
+    {
+      "id": 1990343514,
+      "number": 2689,
+      "title": "Refactoring - strip out mapping",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-11-13T10:19:45Z",
+      "updated_at": "2024-01-08T12:06:03Z",
+      "closed_at": "2024-01-08T12:06:03Z",
+      "body": "Now that we have a persistent (locked) branch containing the P9 mapping, we're going to strip back all of the mapping functionality.\r\n\r\nThis will include code in these areas:\r\n- `mapPostback` in `factory.tsx`\r\n- `postNewMapMessage` in `wargames_api`\r\n- `PLANNING_MESSAGE`, `INTERACTION_MESSAGE`, `// series of constants used for `messageType` when sending map events` in `globals.ts`\r\n- `Asset.ts` in `CustomTypes`\r\n\r\nIt will also include all mapping components:\r\n- `Components/local/mapping`\r\n\r\nFrom the main wargame object, we will delete these elements:\r\n![image](https://github.com/serge-web/serge/assets/1108513/ccff0b83-233a-4a66-a902-a360ee98d150)\r\n\r\n* remove `assets` from `ForceData`",
+      "labels": [
+        "Technical Debt",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1880875450,
+          "user": "IanMayo",
+          "created_at": "2024-01-08T12:06:03Z",
+          "updated_at": "2024-01-08T12:06:03Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/ccff0b83-233a-4a66-a902-a360ee98d150"
+  ],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 7125
+}

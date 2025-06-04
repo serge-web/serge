@@ -1,0 +1,113 @@
+{
+  "number": 2750,
+  "title": "2728_can_not_play_game_with_role_game_control",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-04T12:58:22Z",
+  "updated_at": "2024-01-11T10:27:00Z",
+  "closed_at": "2024-01-05T09:36:02Z",
+  "merged_at": "2024-01-05T09:36:02Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2750",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2750/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2750/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2750",
+  "body": "Fixes #2728\r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 21,
+  "deletions": 10,
+  "changed_files": 4,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1877178714,
+      "user": "IanMayo",
+      "created_at": "2024-01-04T14:23:55Z",
+      "updated_at": "2024-01-04T14:57:04Z",
+      "body": "Hello @lilitkarapetyan  - I just tried to reproduce @Tristina1788 steps in the deployment for this PR, as follows:\r\n- go into admin pages\r\n- edit wargame `P10 test`\r\n- add a custom channel (click on a `Add channel`)\r\n- name the channel as `Umpire notes`\r\n- specify a `Request infra` template for `umpire` forces\r\n- save the channel\r\n- go back to player login page\r\n- login as `Game Designer`\r\n- close the `tour` popup\r\n- game crashes, white screen.  Console log below.\r\n\r\nNote: in this wargame, we're taking the template(s) from inside the wargame document, not the separate `message_types.sqlite` file.\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/52c36571-968a-4109-8568-180ba8520e7f)\r\n"
+    },
+    {
+      "id": 1886807302,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-11T10:26:58Z",
+      "updated_at": "2024-01-11T10:26:58Z",
+      "body": "Fixes #2729  Fixes #2728"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2728,
+    2729
+  ],
+  "issues": [
+    {
+      "id": 2056365175,
+      "number": 2728,
+      "title": "Can't play game with role 'Game control' with channel has config with template",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2023-12-26T12:25:39Z",
+      "updated_at": "2024-01-05T09:36:03Z",
+      "closed_at": "2024-01-05T09:36:03Z",
+      "body": "## 🐞 Bug description\r\nSetup new game with channel using template. Notice play game with role 'Game Control' will show white screen and can't play game anymore\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Login app as admin\r\n2. Create a new game\r\n3. From 'Forces' tab, create some forces ( White, Blue, Red)\r\n4. From 'Channels' tab, create channel 1 with some participant rows which using template > Save Channel\r\n5.  Go to 'game play' page\r\n6. Select wargame is the game which is created above\r\n7. Select role 'Game Control' \r\n8. Click 'Enter'\r\n9. Notice it shows white screen and can not play game\r\n\r\nNote: The issue is not happened when channels don't have any participants using template\r\nSee below screencast for more details\r\n\r\n## ⚙️ Expected behavior\r\nShould show the screen for playing game\r\n\r\n## 🖥️ Screencasts\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/e9ae606a-fab3-4829-a200-e76061dcbf8a\r\n\r\n\r\n## 💻 System information\r\nBrowser : Chrome\r\nBrowser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n@lilitkarapetyan - I suspect this is another \"template not found\" issue. Could it be related to the refactoring when we reduced the complexity of `participant states`?\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1877055414,
+          "user": "lilitkarapetyan",
+          "created_at": "2024-01-04T12:57:13Z",
+          "updated_at": "2024-01-04T12:57:13Z",
+          "body": "Hello @Tristina1788 - No, I think it cannot be related to the changes made."
+        }
+      ]
+    },
+    {
+      "id": 2057276643,
+      "number": 2729,
+      "title": "No input field for ' NEW MESSAGE' in game play page ",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2023-12-27T11:44:58Z",
+      "updated_at": "2024-01-31T01:43:45Z",
+      "closed_at": "2024-01-31T01:43:45Z",
+      "body": "## 🐞 Bug description\r\nPlay a game with White - Game Control, I don't see the input field for 'NEW MESSAGE' part\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Create a basic game as this diagram\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/20433cf8-7b2c-467d-aab4-d94e22f2c87c)\r\n\r\n2. Go to 'game play' page\r\n4. Select wargame is the game which is created from step1\r\n5. Select role White - Game Control\r\n6. Click 'Enter'\r\n7. Close the guide\r\n8. Click 'NEW MESSAGE' to open this part\r\n9. Notice no input field for input message\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/efb769f3-8ff7-4206-9496-e85d9944b8bd)\r\n\r\n## ⚙️ Expected behavior\r\n'NEW MESSAGE' should show the input field for input message\r\n\r\n## 🖥️ Screenshots\r\n\r\n\r\n## 💻 System information\r\n<!-- Please complete the following information (you can get most of this information from https://mybrowser.fyi/) -->\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n## 📝 Additional context\r\n<!-- Add any other context about the problem here. For example it might be worth mentioning if you have any chrome extensions which may cause the problem -->\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1880886356,
+          "user": "IanMayo",
+          "created_at": "2024-01-08T12:13:33Z",
+          "updated_at": "2024-01-08T12:13:33Z",
+          "body": "Is this still an issue @Tristina1788 ?"
+        },
+        {
+          "id": 1918210890,
+          "user": "Tristina1788",
+          "created_at": "2024-01-31T01:43:45Z",
+          "updated_at": "2024-01-31T01:43:45Z",
+          "body": "> Is this still an issue @Tristina1788 ?\r\n\r\nIt works as expected now. So I close the ticket.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/0baeb3d4-666c-4d2c-9db5-2da20b32d233)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/52c36571-968a-4109-8568-180ba8520e7f",
+    "https://github.com/serge-web/serge/assets/107697044/20433cf8-7b2c-467d-aab4-d94e22f2c87c",
+    "https://github.com/serge-web/serge/assets/107697044/efb769f3-8ff7-4206-9496-e85d9944b8bd",
+    "https://github.com/serge-web/serge/assets/107697044/0baeb3d4-666c-4d2c-9db5-2da20b32d233"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 31
+}

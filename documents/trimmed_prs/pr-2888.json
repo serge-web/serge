@@ -1,0 +1,75 @@
+{
+  "number": 2888,
+  "title": "Allow de-select of mapping feature",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-24T14:13:11Z",
+  "updated_at": "2024-02-26T11:21:54Z",
+  "closed_at": "2024-02-26T11:21:54Z",
+  "merged_at": "2024-02-26T11:21:54Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2888",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2888/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2888/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2888",
+  "body": "Fixes #2873 ",
+  "additions": 40,
+  "deletions": 9,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1963685386,
+      "user": "Tristina1788",
+      "created_at": "2024-02-26T09:36:54Z",
+      "updated_at": "2024-02-26T09:36:54Z",
+      "body": "Tested on '2873-allow-deselect' , now I can deselect by click on map. It works as expected.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/f88c3806-4767-45df-a300-65399d5a94c6\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2873
+  ],
+  "issues": [
+    {
+      "id": 2144814592,
+      "number": 2873,
+      "title": "Allow de-select of mapping feature",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-02-20T16:41:36Z",
+      "updated_at": "2024-02-26T11:21:55Z",
+      "closed_at": "2024-02-26T11:21:55Z",
+      "body": "A user selected a feature, and it started pulsing.\r\n\r\nHe wanted to de-select it, but it wasn't possible. It was only possible to select something else instead.\r\n\r\nIf a user clicks on `nothing`, clear the selection.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1962215853,
+          "user": "lebaphi",
+          "created_at": "2024-02-24T02:07:51Z",
+          "updated_at": "2024-02-24T02:07:51Z",
+          "body": "I think user can click the Cancel button @IanMayo "
+        },
+        {
+          "id": 1962305783,
+          "user": "IanMayo",
+          "created_at": "2024-02-24T09:08:25Z",
+          "updated_at": "2024-02-24T09:08:25Z",
+          "body": "Aah yes. This user wanted to clear the selection using the map.  He _expected_ the selection to clear by clicking on _nothing_ on the map.\r\n\r\nCould you investigate it please?"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 49
+}

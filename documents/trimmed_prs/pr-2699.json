@@ -1,0 +1,32 @@
+{
+  "number": 2699,
+  "title": "try hotfix for build error",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-11-23T09:24:10Z",
+  "updated_at": "2023-11-23T09:51:19Z",
+  "closed_at": "2023-11-23T09:51:18Z",
+  "merged_at": "2023-11-23T09:51:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2699",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2699/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2699/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2699",
+  "body": "Try to fix import error that could be breaking build.\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/b1b5eb75-8ad5-4b3e-bddc-e63f0b2a4282)\r\n",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/b1b5eb75-8ad5-4b3e-bddc-e63f0b2a4282"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

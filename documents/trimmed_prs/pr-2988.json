@@ -1,0 +1,77 @@
+{
+  "number": 2988,
+  "title": "2938_Open_a_wargame_should_show_Overview_tab_at_begining_from_admin_page",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-06-27T15:17:09Z",
+  "updated_at": "2024-07-02T13:22:50Z",
+  "closed_at": "2024-07-02T13:22:47Z",
+  "merged_at": "2024-07-02T13:22:47Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2988",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2988/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2988/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2988",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 5,
+  "deletions": 2,
+  "changed_files": 3,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 2195026358,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-27T15:31:06Z",
+      "updated_at": "2024-06-27T15:31:06Z",
+      "body": "Fixes #2938"
+    },
+    {
+      "id": 2196331440,
+      "user": "Tristina1788",
+      "created_at": "2024-06-28T07:42:43Z",
+      "updated_at": "2024-06-28T07:42:43Z",
+      "body": "@lilitkarapetyan  @IanMayo Now open a wargame, it will show overview tab at begining as expected\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/15ef9c72-dd54-4d4e-ac00-62935d1b7b1e\r\n\r\nSo, we can close it.\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2938
+  ],
+  "issues": [
+    {
+      "id": 2291232264,
+      "number": 2938,
+      "title": "Open a wargame should show 'Overview' tab at begining from admin page",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-05-12T08:54:03Z",
+      "updated_at": "2024-08-01T11:25:51Z",
+      "closed_at": "2024-08-01T11:25:51Z",
+      "body": "## 🐞 Bug description\r\nWhen we open a wargame and change to 'Channel' tab, then if we exit this wargame and open another wargame, it will open Channel tab instead of 'Overview' tab\r\n\r\n## 🔢 Steps to Reproduce\r\n1. Go to admin page\r\n2. Open a wargame and select 'Channel' / 'Force' tab\r\n3. Exit wargame\r\n4. Open another wargame and notice the wargame show 'Channel' / 'Force' tab\r\n\r\n## ⚙️ Expected behavior\r\nOpen a wargame should show 'Overview' tab at begining from admin page\r\n\r\n## 🖥️ Screencast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/52366f3c-3a0f-4b6d-a036-013054f72b2f\r\n\r\n\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n- Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 2262753216,
+          "user": "Tristina1788",
+          "created_at": "2024-08-01T10:59:02Z",
+          "updated_at": "2024-08-01T10:59:02Z",
+          "body": "@IanMayo We 're done on this ticket. So we can close it."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 7
+}

@@ -1,0 +1,30 @@
+{
+  "number": 1352,
+  "title": "1291b collate data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-02-22T16:20:01Z",
+  "updated_at": "2022-02-22T16:45:01Z",
+  "closed_at": "2022-02-22T16:45:01Z",
+  "merged_at": "2022-02-22T16:45:01Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1352",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1352/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1352/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1352",
+  "body": "Supports #1291 \r\n\r\nThis PR refactors some of the attribute support, moving data formatting into a testable helper function.",
+  "additions": 120,
+  "deletions": 101,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 221
+}

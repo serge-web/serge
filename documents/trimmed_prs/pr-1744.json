@@ -1,0 +1,53 @@
+{
+  "number": 1744,
+  "title": "1742 view of orientation data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-10T10:17:23Z",
+  "updated_at": "2022-08-10T10:59:44Z",
+  "closed_at": "2022-08-10T10:59:43Z",
+  "merged_at": "2022-08-10T10:59:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1744",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1744/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1744/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1744",
+  "body": "Fixes #1742",
+  "additions": 45,
+  "deletions": 9,
+  "changed_files": 22,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1742
+  ],
+  "issues": [
+    {
+      "id": 1333260750,
+      "number": 1742,
+      "title": "Don't show ASDIC direction for assets player doesn't control",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-09T13:28:23Z",
+      "updated_at": "2022-08-10T10:59:44Z",
+      "closed_at": "2022-08-10T10:59:44Z",
+      "body": "While I'm playing as Game Control, I'm viewing the map as a red player would:\r\n![image](https://user-images.githubusercontent.com/1108513/183658974-bd19de8f-5079-442b-a5bb-c7d956ea8db0.png)\r\n\r\n\r\nAs a red player I should not know the orientation data for assets I don't control.  In the above example REd would not know which direction the ASDIC is facing in.",
+      "labels": [
+        "bug",
+        "4watu"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/183658974-bd19de8f-5079-442b-a5bb-c7d956ea8db0.png"
+  ],
+  "number_of_changed_files": 22,
+  "total_changed_lines": 54
+}

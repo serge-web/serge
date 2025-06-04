@@ -1,0 +1,50 @@
+{
+  "number": 2554,
+  "title": "correctly cancel op box",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-03-06T12:09:49Z",
+  "updated_at": "2023-03-06T12:10:02Z",
+  "closed_at": "2023-03-06T12:09:55Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2554",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2554/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2554/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2554",
+  "body": "Closing. Duplicate of #2553 ",
+  "additions": 5,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2537
+  ],
+  "issues": [
+    {
+      "id": 1603702484,
+      "number": 2537,
+      "title": "Process when player cancels creating orders using standard area",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-28T19:46:30Z",
+      "updated_at": "2023-03-06T13:41:57Z",
+      "closed_at": "2023-03-06T13:41:57Z",
+      "body": "A user said:\r\n\r\n> If you start plotting an order, at the section where you need to plot an area, then select an area of operation from the premade list, then cancel the order, the op box remains persistent on the map. \r\n> Moreover, if you attempt the process again to try and remove the box, all that happens is another op boxes appears on top of the previous, reducing transparency\r\n\r\nSo.  We already handle the **Cancel** click (the one with the aircraft icon).  When we do Cancel - we need to remove/clear the rectangle **Layer** we injected into GeoMan.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 6
+}
