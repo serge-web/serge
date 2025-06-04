@@ -181,7 +181,7 @@ function processPRFile(file) {
     console.error('Error reading PR file', file, ':', error.message)
     resolve()
   }
-}
+})
 }
 
 // Main module
@@ -225,3 +225,4 @@ var CommentAppender = (function() {
 
 // Run the script
 processAllPRs()
+})()
