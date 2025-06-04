@@ -29,10 +29,9 @@ async function runPostItemScript() {
     await page.locator('.docs-homescreen-grid-item-thumbnail').first().click();
     await page.getByRole('tab', { name: 'Pages' }).click();
     // get `input` field with a value of `Blog`
-    const blogInput= await page.locator('input[value="Blog"]').first();
+    const blogInput= await page.locator('input[value="Blog"]');
     console.log('blogInput', blogInput)
     // click the blogInput
-    await blogInput.click();
     await page.getByLabel('Blog. Child pages available.').getByLabel('Page actions').click();
     await page.getByText('Add subpage').click();
     await page.getByLabel('Name', { exact: true }).fill('tmp-title');
