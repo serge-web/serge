@@ -1,0 +1,250 @@
+{
+  "number": 1657,
+  "title": "1579 UX for Mapping Constraints",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-07T13:33:46Z",
+  "updated_at": "2022-07-11T13:57:07Z",
+  "closed_at": "2022-07-11T13:57:06Z",
+  "merged_at": "2022-07-11T13:57:06Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1657",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1657/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1657/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1657",
+  "body": "Fixes #1579 \r\n\r\n<img width=\"953\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/177786295-daadee44-7da5-47cc-9b28-5d6f4f708106.png\">\r\n",
+  "additions": 215,
+  "deletions": 106,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 11,
+  "review_comments_count": 0,
+  "total_comments": 11,
+  "comments_data": [
+    {
+      "id": 1177810570,
+      "user": "IanMayo",
+      "created_at": "2022-07-07T15:38:28Z",
+      "updated_at": "2022-07-07T15:38:28Z",
+      "body": "Thanks @lebaphi \r\n\r\nCouple of things:\r\n- could you make the new panel collapsible. It should start off as collapsed.  Once collapsed a \"text overview\" label should be provided.  I can fill in the details if you give me a placeholder.  There should be a visible \"collapse\" control that closes/expands the new panel.  We use a `+` icon for this elsewhere.\r\n- could you reduce the overall space required?\r\n- the text fields are currently 3x the font height. Removing the `margin` from the formControl makes it all a lot smaller\r\n- for the TileLayer, could you add a \"memo\" font-awesome icon for the \"attribution\"?  Then the triangle is just used for the tile-layer control "
+    },
+    {
+      "id": 1177920648,
+      "user": "lebaphi",
+      "created_at": "2022-07-07T16:49:04Z",
+      "updated_at": "2022-07-07T16:49:04Z",
+      "body": "sure @IanMayo "
+    },
+    {
+      "id": 1179110200,
+      "user": "lebaphi",
+      "created_at": "2022-07-08T15:24:16Z",
+      "updated_at": "2022-07-08T15:24:16Z",
+      "body": "Hi @IanMayo , I've updated 😄 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/178022460-6daa37bc-d601-4607-a494-6a08450f9fd7.mp4\r\n\r\n"
+    },
+    {
+      "id": 1179114356,
+      "user": "IanMayo",
+      "created_at": "2022-07-08T15:27:59Z",
+      "updated_at": "2022-07-08T15:27:59Z",
+      "body": "Nice work. Could you put a text label in the accordion, under the title? \r\nI'll put some summary text in it (such as the corners of the bounding box)."
+    },
+    {
+      "id": 1179129843,
+      "user": "lebaphi",
+      "created_at": "2022-07-08T15:42:19Z",
+      "updated_at": "2022-07-08T15:42:19Z",
+      "body": "I've updated\r\n\r\n<img width=\"965\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/178025550-ae18a906-3bb3-4828-bbd7-24dd0cf3bcfd.png\">\r\n"
+    },
+    {
+      "id": 1179154681,
+      "user": "IanMayo",
+      "created_at": "2022-07-08T16:08:54Z",
+      "updated_at": "2022-07-08T16:08:54Z",
+      "body": "> I've updated\r\n\r\nLooks perfect, thanks :-)"
+    },
+    {
+      "id": 1179188971,
+      "user": "IanMayo",
+      "created_at": "2022-07-08T16:51:34Z",
+      "updated_at": "2022-07-08T16:51:34Z",
+      "body": "Ok. For the 4 text fields, it would be good if they were wider. So, could they please expand to consume the remaining horizontal space?\r\nThat won't work for the h3 resolution, so could that be moved to the bottom of the first column please?\r\n\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/178035991-64c4fda3-3fc9-43b7-963b-f7941bc96173.png)\r\n"
+    },
+    {
+      "id": 1179464104,
+      "user": "lebaphi",
+      "created_at": "2022-07-09T02:38:24Z",
+      "updated_at": "2022-07-09T02:47:06Z",
+      "body": "Hi @IanMayo , I've updated, for the H3, I think we should keep its wide as the same as the others in the first column 🤔 \r\n\r\n<img width=\"969\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/178088794-86918d2b-9aec-4a79-bc52-ccce5c1773ed.png\">\r\n\r\n"
+    },
+    {
+      "id": 1180147890,
+      "user": "IanMayo",
+      "created_at": "2022-07-11T09:04:32Z",
+      "updated_at": "2022-07-11T09:04:32Z",
+      "body": "The new layout works well, thanks. I need to give some more detail on what some of the fields mean.  Could you give each field icon a \"more info\" icon, like we do in other panels?\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/178228715-410b4258-c509-49a1-94f7-aa49c670040c.png)\r\n"
+    },
+    {
+      "id": 1180314537,
+      "user": "lebaphi",
+      "created_at": "2022-07-11T11:51:22Z",
+      "updated_at": "2022-07-11T11:51:22Z",
+      "body": "okay @IanMayo "
+    },
+    {
+      "id": 1180318221,
+      "user": "IanMayo",
+      "created_at": "2022-07-11T11:55:29Z",
+      "updated_at": "2022-07-11T11:55:29Z",
+      "body": "> The new layout works well, thanks. I need to give some more detail on what some of the fields mean. Could you give each field icon a \"more info\" icon, like we do in other panels?\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/178228715-410b4258-c509-49a1-94f7-aa49c670040c.png)\r\n\r\nOops, forget that please @lebaphi .  I've done it myself - I'm just writing the guidance now.\r\n![image](https://user-images.githubusercontent.com/1108513/178258705-2d8a6973-a546-4efa-ba76-f7ce85d0485e.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1579
+  ],
+  "issues": [
+    {
+      "id": 1253518652,
+      "number": 1579,
+      "title": "UX for mapping constraints",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-05-31T08:27:52Z",
+      "updated_at": "2022-07-27T08:47:41Z",
+      "closed_at": "2022-07-27T08:47:41Z",
+      "body": "While it has been hard-coded in the games so far, we need to allow the Game Designer to specify the constraints on the mapping.\r\n\r\nThese are the fields we require for the mapping:\r\n* **Bounds**: These are the top-left and bottom-right corners of the map to show. It should be two pairs of values, taking - say a number of degrees, with up to two decimal places (e.g. `12.25`)\r\n* **H3 Resolution**: this is the hex cell grid size to use for the [H3 grid](https://h3geo.org/docs/core-library/restable/) (integer, from 1 to 10)\r\n* **Tile Layer**: URL of path to where backdrop tile images may be found\r\n* **minZoom**: the minimum zoom level, preventing the player from zooming out any further. (integer, from 1 to 12)\r\n* **maxZoom**: the most a player can zoom in\r\n* **maxNativeZoom**: the limit of zoom on the backdrop tiles. After this limit is reached, the smaller one will get zoomed appropriately\r\n* **gridCellURL**:  path to file where grid cell styles can be retrieved.  So, for each cell there will be a style such as \"1 - Land\", \"4 - Storm Areas\", \"12 - Fishing Area\"\r\n* **polygonAreasURL**:  for areas covering huge areas, plotting a simple set of polygons for each terrain type (land, deep-water, etc) is quicker than plotting all of the discrete hexes.  A scientist was able to do the clustering for his hex cells, and provide it here - which made the task of rendering such a large area much easier.\r\n\r\nWe have some existing thoughts on this, and the overall layout of \"Overview\" in #991 & #1425. We should consolidate the existing designs controls with new controls for the above set of fields.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1142418047,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-31T17:31:26Z",
+          "updated_at": "2022-05-31T17:31:26Z",
+          "body": "I'm afraid I'm not sure what all of these controls represent in the game. Could you clarify further please?\r\n\r\nI do have an idea on how to present them though. I thought of adapting the \"Platform Types\" display to minimize space consumption. Since this is mostly about controls relative to proportion, we can use icons that are self-explanatory. \r\nHere's an idea: \r\n\r\n![Mapping Constraints](https://user-images.githubusercontent.com/85491794/171236393-682ed632-a079-4c48-9dd7-b2cd5f8007d5.png)\r\n\r\nThe bounds represented by the corner icons, the 3 zoom types and H3 resolution (?) next to their own value integers. \r\n\r\nUpon hovering, we'd show a small description of the icons.\r\n\r\nLet me know your thoughts."
+        },
+        {
+          "id": 1142424531,
+          "user": "IanMayo",
+          "created_at": "2022-05-31T17:38:58Z",
+          "updated_at": "2022-05-31T17:38:58Z",
+          "body": "aah, good point. I did imagine these controls going on the overview tab. But, since they only apply to mapping, they could go in the top half of the mapping channel editor.\n\nFor collaborative editing, we have controls at the top of the page - so we would follow that model."
+        },
+        {
+          "id": 1142526611,
+          "user": "ShendMikullovci",
+          "created_at": "2022-05-31T18:49:35Z",
+          "updated_at": "2022-05-31T18:49:35Z",
+          "body": "It does look better: \r\n\r\n![Mapping Constraints](https://user-images.githubusercontent.com/85491794/171262774-929c426d-5790-4e60-998f-4e6aa1488a62.png)\r\n\r\nCould you explain these please?: \r\n\r\n- H3 Resolution: this is the hex cell grid size to use for the [H3 grid](https://h3geo.org/docs/core-library/restable/) (integer, from 1 to 10)\r\n\r\n- Tile Layer: URL of path to where backdrop tile images may be found\r\n\r\n- gridCellURL: path to file where grid cell styles can be retrieved. So, for each cell there will be a style such as \"1 - Land\", \"4 - Storm Areas\", \"12 - Fishing Area\"\r\n\r\n- polygonAreasURL: for areas covering huge areas, plotting a simple set of polygons for each terrain type (land, deep-water, etc) is quicker than plotting all of the discrete hexes. A scientist was able to do the clustering for his hex cells, and provide it here - which made the task of rendering such a large area much easier.\r\n\r\nWhat is their use concretely, so I know how to think of and design them?"
+        },
+        {
+          "id": 1143356822,
+          "user": "IanMayo",
+          "created_at": "2022-06-01T09:26:53Z",
+          "updated_at": "2022-06-01T09:26:53Z",
+          "body": "> H3 Resolution: this is the hex cell grid size to use for the [H3 grid](https://h3geo.org/docs/core-library/restable/) (integer, from 1 to 10)\r\n\r\nThe Game Designer chooses the size of hexagonal cell for the game.  This will be decided on the level of detail for the game.  In a past wargame they were 36 mile (50km?) cells, with each turn taking one week.  In another game they were 8km cells, with each turn taking 30 minutes. In the next game they may be 1km cells, with a 5 minute time step.  These are all decisions for the Game Designer.  Hmm, I guess that instead of a drop-down of 1 to 12, the label could include the cell radius, so like `5 (4.5km radius)`.  More background on H3 mapping [here](https://eng.uber.com/h3/)\r\n\r\n> Tile Layer: URL of path to where backdrop tile images may be found\r\n\r\nThis is a path to the folder containing the pyramid of images that make up the backdrop. Read more [here](https://www.researchgate.net/figure/Sketch-map-of-image-pyramid-structure_fig2_311423420).  These get created outside Serge. The Game Designer will follow instructions to copy them into a specific folder in the SErge installation, then provide the path in this box, like \"data\\atlantic_2022`\r\n\r\n> gridCellURL: path to file where grid cell styles can be retrieved. So, for each cell there will be a style such as \"1 - Land\", \"4 - Storm Areas\", \"12 - Fishing Area\"\r\n\r\nDepending on the wargame, the Game Designer may want to provide different types of cells. They will certainly want to provide \"land\" or \"sea\" - to allow proper routing of ships. But, they may also want to highlight areas of deep/shallow water, areas with high levels of fishing activity, or others.  This will be developed in a data-file containing a list of \"a22342adfdsff\" H3 cell references, then showing the cell-type for that cell.\r\n\r\n> polygonAreasURL: for areas covering huge areas, plotting a simple set of polygons for each terrain type (land, deep-water, etc) is quicker than plotting all of the discrete hexes. A scientist was able to do the clustering for his hex cells, and provide it here - which made the task of rendering such a large area much easier.\r\n\r\nThis is another Game Designer provided datafile. It allows quicker plotting of large areas of ocean.  The Game Designer runs some maths on the \"gridCellURL\" datafile (above), and comes up with a simpler set of regions.  For example, there may be a polygon around the edge of a patch of dark water, or land.  Serge can plot this much quicker than shading lots of individual hexagons.  As we zoom in, we may switch to shading individual hexes instead (since there are fewer of them).\r\n\r\nI hope the above guidance helps."
+        },
+        {
+          "id": 1143731448,
+          "user": "IanMayo",
+          "created_at": "2022-06-01T15:07:47Z",
+          "updated_at": "2022-06-01T15:07:47Z",
+          "body": "Here are the types of control I think we need:\r\n\r\n* **Bounds**: 4 text boxes, in two pairs.  Will allow for 5-6 digits  (e.g. `12.25`)\r\n* **H3 Resolution**: text box, with up/down buttons, 1 to 12\r\n* **minZoom**: text box, with up/down buttons, 1 to 12\r\n* **maxZoom**: text box, with up/down buttons, 1 to 12\r\n* **maxNativeZoom**: text box, with up/down buttons, 1 to 12\r\n* **Tile Layer**: text box\r\n* **gridCellURL**:  text box\r\n* **polygonAreasURL**: text box"
+        },
+        {
+          "id": 1144136604,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-01T21:06:59Z",
+          "updated_at": "2022-06-01T21:06:59Z",
+          "body": "Here's an idea:\r\n\r\n![Mapping Constraints](https://user-images.githubusercontent.com/85491794/171499705-4a99435c-7f57-450f-9c42-69e6ab7850ad.png)\r\n\r\n- Bounds: Four corner icons on the left. All on the same cloud. Text boxes next to each.\r\n- H3: Hexagon icon, next to a text box with Up/Down buttons for the values.\r\n- Zooms: Empty Spyglass is Max Native, Plus Spyglass (Zoom In) is Max Zoom, Minus Spyglass (Zoom Out) is Min Zoom. \r\n- Tile Layer: Triangle icon. Looked up a free Pyramid icon to match the description in the article you sent but they're only pro version. \r\n- GridCell: Grid icon, with a longer text box to contain the entire URL (suppose it's a longer text?)\r\n- Polygon: Polygon icon, with text box.\r\n\r\nWe can also opt for a more vertical look: \r\n\r\n![Mapping Constraints Vertical](https://user-images.githubusercontent.com/85491794/171501845-3a20ba27-4ea9-4758-a5ce-304e1322a769.png)\r\n\r\nSmall preference over the vertical one. Let me know your thoughts.\r\n"
+        },
+        {
+          "id": 1147609937,
+          "user": "IanMayo",
+          "created_at": "2022-06-06T15:57:39Z",
+          "updated_at": "2022-06-06T15:57:39Z",
+          "body": "Thanks for that work @ShendMikullovci .\r\n\r\nFor the top-left and bottom-right coordinates, they are naturally grouped into top-left / bottom-right pairs of latitude/longitude text boxes.   My guess is that we could represent this in a grid layout.  The rows start with the top-left and bottom-right icons you found.  Above the columns would be  icons (or text-labels) for latitude and longitude:\r\n```\r\n        [Lat] [Long]\r\n[TL]    [   ]  [   ]\r\n[BR]    [   ]  [   ]\r\n```\r\n\r\nFor the other shape labels - I'm afraid that even though the \"Game Designer\" is a \"Power-user\", I don't think they will guess what the fields represent. I think we need the full text label. The extra icon could be provided _aswell_, if you think that will still help.\r\n\r\nTile / Grid / Polygon text boxes would all be a similar length. Here are examples of _real_ values in these fields:\r\n![image](https://user-images.githubusercontent.com/1108513/172198112-f88c8707-3293-4631-a3dc-8935df7ba78e.png)\r\n\r\n"
+        },
+        {
+          "id": 1153238804,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-12T17:20:13Z",
+          "updated_at": "2022-06-12T17:20:13Z",
+          "body": "Thanks for the feedback.\r\n\r\nThe reasoning behind the icons was to limit space consumption. Here's one with the icons and respective title labels.\r\n\r\n![Mapping Constraints](https://user-images.githubusercontent.com/85491794/173245187-ce8ea901-3b02-4e43-bede-9bdafbb926af.png)\r\n\r\nHere, the user would be forced to scroll down for Participants and Messages."
+        },
+        {
+          "id": 1173750067,
+          "user": "IanMayo",
+          "created_at": "2022-07-04T12:15:16Z",
+          "updated_at": "2022-07-04T12:15:16Z",
+          "body": "Hello @lebaphi - I'd like to get you started on this, please.\r\n\r\nThe new UI (above) will be in the `Mapping Channel` editor, and provide the data necessary for `MappingConstraints` object in `ChannelMapping`.  The `Proportions and Constraints` section should be collapsible.  So, once the constraints are sorted the Game Designer can choose to collapse it, and concentrate on the participants.\r\n\r\nHmm, actually - by default let's have this new panel collapsed. But, when collapsed it should show some summary text. If you include the 3 `Zoom levels` in the summary, I will work on a way to show as much info as possible, while still being legible.\r\n\r\nThe `Small wargame` game can be used for testing it."
+        },
+        {
+          "id": 1173994076,
+          "user": "lebaphi",
+          "created_at": "2022-07-04T16:38:03Z",
+          "updated_at": "2022-07-04T16:38:03Z",
+          "body": "okay @IanMayo 👍🏻"
+        },
+        {
+          "id": 1183308980,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-13T14:38:18Z",
+          "updated_at": "2022-07-13T14:38:18Z",
+          "body": "Hi guys! Thanks for your work here.\r\n\r\n![New Proportions](https://user-images.githubusercontent.com/85491794/178759636-9bf18cfe-ec80-4267-9640-4d537d90e226.png)\r\n\r\nCouple of things: \r\n\r\n1. Why are \"Bounds, Tiles, Cells\" mentioned in the collapsible tab for Proportions and Constraints? Seems to me it overcrowds the tab a little and makes the title hard to read.\r\n2. Can we stick to outlined, instead of filled icons? I believe it would look smoother. The pitch black is a little tough on the eyes and is not a color we usually use. I suggest our usual grey for neutrality.\r\n3. Can we increase the size of the zoom icons (all three) to match the sizes of the other icons. They're a little tougher to spot than the others.\r\n4. None of the sentences in the info panels shown when clicking on the (!) marker have periods at the end. I suggest we add periods.\r\n5. Can one of you explain what the @ (Tile layer attribution string) is? \r\n\r\nThanks!"
+        },
+        {
+          "id": 1183313601,
+          "user": "IanMayo",
+          "created_at": "2022-07-13T14:42:15Z",
+          "updated_at": "2022-07-13T14:42:15Z",
+          "body": "I can answer some :-)\r\n\r\n1 - these are ticks to show if the essential items have been provided. The Game Designer can check the mapping is in order without expanding to view the contents.\r\n4 - sure\r\n5. For some sets of background mapping (OpenStreetMap or Google Maps) the original providers want users to give an attribution string, to acknowledge (or _give credit to_) the provider."
+        },
+        {
+          "id": 1183320176,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-13T14:47:53Z",
+          "updated_at": "2022-07-13T14:47:53Z",
+          "body": "> 1 - these are ticks to show if the essential items have been provided. The Game Designer can check the mapping is in order without expanding to view the contents. \r\n\r\nOh, OK. Can we have it shown like this? :\r\n\r\n![Bounds tiles and cells](https://user-images.githubusercontent.com/85491794/178762850-b60f4836-fd8a-49c2-b9f5-5b5184c99e61.png)\r\n\r\nEasily accessible information, without interferring with the tab title. Leveling them together also puts them on the same eye-line making it easy to spot both.\r\n\r\n> 5. For some sets of background mapping (OpenStreetMap or Google Maps) the original providers want users to give an attribution string, to acknowledge (or _give credit to_) the provider.\r\n\r\nOK. Thanks!\r\n"
+        },
+        {
+          "id": 1183323041,
+          "user": "IanMayo",
+          "created_at": "2022-07-13T14:50:18Z",
+          "updated_at": "2022-07-13T14:50:18Z",
+          "body": "> Oh, OK. Can we have it shown like this? :\r\n\r\nYes, good suggestion."
+        },
+        {
+          "id": 1194241748,
+          "user": "IanMayo",
+          "created_at": "2022-07-25T15:43:57Z",
+          "updated_at": "2022-07-25T15:43:57Z",
+          "body": "One small task for @lebaphi , please.\r\n\r\nCould you please change the collapsible item in the \"Mapping\" channel so the tick boxes are right-aligned, like this:\r\n![image](https://user-images.githubusercontent.com/1108513/180819569-67fe54ff-5ab3-4b83-9d6f-10e868b0094c.png)\r\n\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/177786295-daadee44-7da5-47cc-9b28-5d6f4f708106.png",
+    "https://user-images.githubusercontent.com/26705621/178025550-ae18a906-3bb3-4828-bbd7-24dd0cf3bcfd.png",
+    "https://user-images.githubusercontent.com/1108513/178035991-64c4fda3-3fc9-43b7-963b-f7941bc96173.png",
+    "https://user-images.githubusercontent.com/26705621/178088794-86918d2b-9aec-4a79-bc52-ccce5c1773ed.png",
+    "https://user-images.githubusercontent.com/1108513/178228715-410b4258-c509-49a1-94f7-aa49c670040c.png",
+    "https://user-images.githubusercontent.com/1108513/178258705-2d8a6973-a546-4efa-ba76-f7ce85d0485e.png",
+    "https://user-images.githubusercontent.com/85491794/171236393-682ed632-a079-4c48-9dd7-b2cd5f8007d5.png",
+    "https://user-images.githubusercontent.com/85491794/171262774-929c426d-5790-4e60-998f-4e6aa1488a62.png",
+    "https://user-images.githubusercontent.com/85491794/171499705-4a99435c-7f57-450f-9c42-69e6ab7850ad.png",
+    "https://user-images.githubusercontent.com/85491794/171501845-3a20ba27-4ea9-4758-a5ce-304e1322a769.png",
+    "https://user-images.githubusercontent.com/1108513/172198112-f88c8707-3293-4631-a3dc-8935df7ba78e.png",
+    "https://user-images.githubusercontent.com/85491794/173245187-ce8ea901-3b02-4e43-bede-9bdafbb926af.png",
+    "https://user-images.githubusercontent.com/85491794/178759636-9bf18cfe-ec80-4267-9640-4d537d90e226.png",
+    "https://user-images.githubusercontent.com/85491794/178762850-b60f4836-fd8a-49c2-b9f5-5b5184c99e61.png",
+    "https://user-images.githubusercontent.com/1108513/180819569-67fe54ff-5ab3-4b83-9d6f-10e868b0094c.png"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 321
+}

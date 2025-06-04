@@ -1,0 +1,136 @@
+{
+  "number": 1491,
+  "title": "1459: Update message template chip style with More-Info component",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-07T10:48:46Z",
+  "updated_at": "2022-04-11T16:14:19Z",
+  "closed_at": "2022-04-11T11:19:31Z",
+  "merged_at": "2022-04-11T11:19:31Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1491",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1491/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1491/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1491",
+  "body": "Fixes #1459 ",
+  "additions": 25,
+  "deletions": 14,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 7,
+  "review_comments_count": 0,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1091775699,
+      "user": "IanMayo",
+      "created_at": "2022-04-07T13:59:42Z",
+      "updated_at": "2022-04-07T14:00:00Z",
+      "body": "Thanks @lebaphi , but this solution actually makes the problem worse 🤣 \r\n\r\n![image](https://user-images.githubusercontent.com/1108513/162216439-5c32d5c9-ed59-4e6a-b602-d74245710bbb.png)\r\n\r\nThe information marker takes up space that actually leaves less space for the title.  \r\n\r\nThe requirement is for the Game Designer to be able to know which `Verbs` a channel is configured to use.\r\nIn my opinion, we can meet this requirement by providing the full verb in the standard HTML tooltip `title` attribute.\r\n"
+    },
+    {
+      "id": 1091830503,
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-07T14:44:52Z",
+      "updated_at": "2022-04-07T14:44:52Z",
+      "body": "Hi guys! Thanks for advancing with this. While I like the idea of the info marker, I agree with Ian in that it eats up a little bit of space. It'd be nice if the GC could see the terms without having to click on them. If we could achieve that, then the info marker could stay as long as we figure out a way to not have it eat up as much space."
+    },
+    {
+      "id": 1092378708,
+      "user": "lebaphi",
+      "created_at": "2022-04-08T02:22:03Z",
+      "updated_at": "2022-04-08T02:22:03Z",
+      "body": "I agree, but if the term is too long, we can't display it even without infor marker, so as @IanMayo said, we can provide the full verb in the standard HTML tooltip title attribute."
+    },
+    {
+      "id": 1092420643,
+      "user": "lebaphi",
+      "created_at": "2022-04-08T04:06:46Z",
+      "updated_at": "2022-04-08T04:06:46Z",
+      "body": "Small updated\r\n\r\nhttps://user-images.githubusercontent.com/26705621/162360517-e53cad4d-b7a5-47cf-8160-719ced90c013.mp4\r\n\r\n"
+    },
+    {
+      "id": 1092529113,
+      "user": "IanMayo",
+      "created_at": "2022-04-08T07:17:18Z",
+      "updated_at": "2022-04-08T07:19:45Z",
+      "body": "Thanks @lebaphi - but can we simplify it further please?  If you remove the 'i' marker, more of the verb is displayed, and the Game Designer is more likely to be able to read the whole verb.  As a fall-back the verb can be put in the existing [hover tooltip](https://www.w3schools.com/css/css_tooltip.asp) for the component `<span title='A long verb attribute'>A long ver...</span>`"
+    },
+    {
+      "id": 1094163794,
+      "user": "lebaphi",
+      "created_at": "2022-04-10T02:49:11Z",
+      "updated_at": "2022-04-10T02:49:11Z",
+      "body": "I make some changes @IanMayo @ShendMikullovci 😄 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/162599058-5f09c333-ade8-4532-8b9f-3205553f66bb.mp4\r\n\r\n"
+    },
+    {
+      "id": 1095258873,
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-11T16:14:18Z",
+      "updated_at": "2022-04-11T16:14:18Z",
+      "body": "Just checked. Looks excellent @lebaphi ! Thanks!"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1459
+  ],
+  "issues": [
+    {
+      "id": 1181169625,
+      "number": 1459,
+      "title": "Message Templates Chips Too Large For Text Box",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-25T19:11:30Z",
+      "updated_at": "2022-04-11T11:19:31Z",
+      "closed_at": "2022-04-11T11:19:31Z",
+      "body": "Some of the longer text chips are too large for the text box: \r\n\r\n![Request for Information Cut off](https://user-images.githubusercontent.com/85491794/160186164-51a7bf95-69e9-4880-b1cb-e0246d8e57e5.png)\r\n\r\n![Request for Support Cut off](https://user-images.githubusercontent.com/85491794/160186191-8ae4f511-2b6a-4ccc-a537-31cf549f9415.png)\r\n\r\n![Weather Forecast tight chip](https://user-images.githubusercontent.com/85491794/160186223-9d7feea1-dd66-4259-acbb-1d21611b89ef.png)\r\n\r\nLengthening the text box for just a couple of more pixels should do it. Also, the word \"information\" can be abbreviated to \"info\".\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1079360698,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-25T19:19:10Z",
+          "updated_at": "2022-03-25T19:20:03Z",
+          "body": "Another solution could be expandable chips. Found this online: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/160186898-7d71fe6b-7e09-41df-9bff-850bd5ea31e0.mp4\r\n\r\nThis could be useful since we use chips not only for message templates (where we present the available options) but also for our Add-Terms (Request Changes, Approve, Release). Similarly, the user can't view the entirety of the terms in those features: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/160187316-e65c63c0-9858-4e71-ad21-4a2be638459a.mp4\r\n\r\nEven abbreviated terms end up being quite spacious if they contain more than 1 word."
+        },
+        {
+          "id": 1090477227,
+          "user": "IanMayo",
+          "created_at": "2022-04-06T16:39:35Z",
+          "updated_at": "2022-04-06T16:39:35Z",
+          "body": "@lebaphi - are you able to check that we assign tooltip for the message template names?\r\n\r\nThat may help when the badge is wider than the space available."
+        },
+        {
+          "id": 1091002306,
+          "user": "lebaphi",
+          "created_at": "2022-04-07T02:06:03Z",
+          "updated_at": "2022-04-07T02:06:03Z",
+          "body": "sure @IanMayo "
+        },
+        {
+          "id": 1091555292,
+          "user": "lebaphi",
+          "created_at": "2022-04-07T10:40:59Z",
+          "updated_at": "2022-04-07T10:40:59Z",
+          "body": "We can place the more-info icon on the top right of the name (as default) but:\r\n-  We need to increase the chip height then we have more space to display the icon \r\n-  If the name it too long, the icon may be cut off so we need to handle the max name width based on the chip width. I think it's unnecessary.\r\nSo I found another solution to put the more-info icon as the video below, how do you think @IanMayo @ShendMikullovci ?\r\n\r\nhttps://user-images.githubusercontent.com/26705621/162180584-eb694384-6442-4cdf-b913-005722998177.mp4\r\n\r\n\r\n\r\n\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/162216439-5c32d5c9-ed59-4e6a-b602-d74245710bbb.png",
+    "https://user-images.githubusercontent.com/85491794/160186164-51a7bf95-69e9-4880-b1cb-e0246d8e57e5.png",
+    "https://user-images.githubusercontent.com/85491794/160186191-8ae4f511-2b6a-4ccc-a537-31cf549f9415.png",
+    "https://user-images.githubusercontent.com/85491794/160186223-9d7feea1-dd66-4259-acbb-1d21611b89ef.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 39
+}

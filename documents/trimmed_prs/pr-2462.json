@@ -1,0 +1,59 @@
+{
+  "number": 2462,
+  "title": "Assorted UI fixes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-21T15:41:26Z",
+  "updated_at": "2023-02-21T17:46:52Z",
+  "closed_at": "2023-02-21T17:46:51Z",
+  "merged_at": "2023-02-21T17:46:51Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2462",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2462/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2462/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2462",
+  "body": "Fixes #2438  (column width for op-for names)\r\nFixes #2456 (update map constraints to match in-game ones)\r\nFixes #2457 (hide labels by default)\r\n",
+  "additions": 8,
+  "deletions": 5,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2438
+  ],
+  "issues": [
+    {
+      "id": 1589168474,
+      "number": 2438,
+      "title": "Display red asset names",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-17T10:54:21Z",
+      "updated_at": "2023-02-21T17:46:52Z",
+      "closed_at": "2023-02-21T17:46:52Z",
+      "body": "Because of the array of attributes, the blue rows are quite tall.  This allows sufficient word wrap for the whole name to be seen.\r\n\r\nIn the OpFor table, attributes aren't displayed.",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1438260775,
+          "user": "IanMayo",
+          "created_at": "2023-02-21T10:48:07Z",
+          "updated_at": "2023-02-21T10:48:07Z",
+          "body": "_maybe_ we should remove the constraints on the name column, so it can grow according to space available."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 13
+}

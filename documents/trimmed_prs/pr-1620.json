@@ -1,0 +1,69 @@
+{
+  "number": 1620,
+  "title": "remove duplicated elements from array",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-06-21T08:55:34Z",
+  "updated_at": "2022-06-21T11:13:53Z",
+  "closed_at": "2022-06-21T11:13:48Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1620",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1620/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1620/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1620",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 2,
+  "deletions": 1,
+  "changed_files": 2,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1161512846,
+      "user": "IanMayo",
+      "created_at": "2022-06-21T09:42:42Z",
+      "updated_at": "2022-06-21T09:42:42Z",
+      "body": "@lilitkarapetyan - what do you think about lodash finding the unique ids?\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/174769691-b86abed4-c477-4d2d-a56f-3d2fc6fdb6c1.png)\r\n"
+    },
+    {
+      "id": 1161603800,
+      "user": "IanMayo",
+      "created_at": "2022-06-21T11:13:48Z",
+      "updated_at": "2022-06-21T11:13:48Z",
+      "body": "Using other fix, in #1621 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1621
+  ],
+  "issues": [
+    {
+      "id": 1278230242,
+      "number": 1621,
+      "title": "Only add a message to a channel if it isn't already present",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-21T10:22:46Z",
+      "updated_at": "2022-06-21T11:13:16Z",
+      "closed_at": "2022-06-21T11:13:15Z",
+      "body": "Workaround for #1620",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/174769691-b86abed4-c477-4d2d-a56f-3d2fc6fdb6c1.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 3
+}

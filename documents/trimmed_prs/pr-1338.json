@@ -1,0 +1,30 @@
+{
+  "number": 1338,
+  "title": "upgrade node-fetch vulnerability",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-02-07T12:47:35Z",
+  "updated_at": "2022-02-07T14:03:23Z",
+  "closed_at": "2022-02-07T14:03:22Z",
+  "merged_at": "2022-02-07T14:03:22Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1338",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1338/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1338/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1338",
+  "body": "Alternate implementation of #1337 ",
+  "additions": 1,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 3
+}

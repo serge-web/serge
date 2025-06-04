@@ -1,0 +1,30 @@
+{
+  "number": 2965,
+  "title": "Update test automation for working template and develop",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-05-30T11:00:24Z",
+  "updated_at": "2024-05-30T12:57:12Z",
+  "closed_at": "2024-05-30T12:57:12Z",
+  "merged_at": "2024-05-30T12:57:11Z",
+  "author": {
+    "login": "Tristina1788",
+    "html_url": "https://github.com/Tristina1788"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2965",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2965/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2965/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2965",
+  "body": "Currently PR https://github.com/serge-web/serge/pull/2897 is using another template with develop code. So we need to update automation for passing on both branch.",
+  "additions": 35,
+  "deletions": 22,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 57
+}

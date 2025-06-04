@@ -1,0 +1,106 @@
+{
+  "number": 932,
+  "title": "Reduce transparency of channels",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-09T12:57:01Z",
+  "updated_at": "2021-08-09T10:48:33Z",
+  "closed_at": "2021-08-09T10:48:33Z",
+  "merged_at": "2021-08-09T10:48:33Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/932",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/932/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/932/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/932",
+  "body": "Fixes #927 ",
+  "additions": 78,
+  "deletions": 1,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 7,
+  "review_comments_count": 0,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 877170608,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T13:02:51Z",
+      "updated_at": "2021-07-09T13:02:51Z",
+      "body": "Thanks @lebaphi . In the future could you put some description of the issue into the branch name too, please.  It helps us to navigate the repo.\r\n![image](https://user-images.githubusercontent.com/1108513/125081799-533f5680-e0be-11eb-9279-7a5d7fa6905d.png)\r\n"
+    },
+    {
+      "id": 877189169,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T13:30:29Z",
+      "updated_at": "2021-07-09T13:30:29Z",
+      "body": "Not quite there yet @lebaphi \r\n\r\nThe `below` tabs and are still visible, which could make a player try to click on them:\r\n![image](https://user-images.githubusercontent.com/1108513/125085059-15dcc800-e0c2-11eb-8ef9-d4566353f135.png)\r\n"
+    },
+    {
+      "id": 877242466,
+      "user": "lebaphi",
+      "created_at": "2021-07-09T14:47:00Z",
+      "updated_at": "2021-07-09T14:47:00Z",
+      "body": "> Not quite there yet @lebaphi\r\n> \r\n> The `below` tabs and are still visible, which could make a player try to click on them:\r\n> ![image](https://user-images.githubusercontent.com/1108513/125085059-15dcc800-e0c2-11eb-8ef9-d4566353f135.png)\r\n\r\nHi @IanMayo , it's just a draft PR, so I can hide the content of the tab is below the maximize tab (mapping tab). I think we can add some CSS to hide the tab header but it still does not work 🤔 \r\n![image](https://user-images.githubusercontent.com/26705621/125096069-f9ab4c00-e0fe-11eb-9c9a-e0df878ed45a.png)\r\n \r\n![image](https://user-images.githubusercontent.com/26705621/125096198-19db0b00-e0ff-11eb-88a1-8204343942bb.png)\r\n"
+    },
+    {
+      "id": 894641883,
+      "user": "lebaphi",
+      "created_at": "2021-08-07T11:24:33Z",
+      "updated_at": "2021-08-07T11:24:33Z",
+      "body": "Hi @IanMayo , I think it's ready to test 👍 "
+    },
+    {
+      "id": 895062924,
+      "user": "IanMayo",
+      "created_at": "2021-08-09T09:05:59Z",
+      "updated_at": "2021-08-09T09:05:59Z",
+      "body": "Thanks @lebaphi \r\n\r\nThe deployed version works perfectly :-)\r\n\r\nWith the change to `factory.tsx`, do we still need the changes to `tabRender`? \r\n\r\nIf other tabs aren't being rendered, it doesn't seem necessary to change the CSS/z-order."
+    },
+    {
+      "id": 895117708,
+      "user": "lebaphi",
+      "created_at": "2021-08-09T10:34:50Z",
+      "updated_at": "2021-08-09T10:34:50Z",
+      "body": "> Thanks @lebaphi\r\n> \r\n> The deployed version works perfectly :-)\r\n> \r\n> With the change to `factory.tsx`, do we still need the changes to `tabRender`?\r\n> \r\n> If other tabs aren't being rendered, it doesn't seem necessary to change the CSS/z-order.\r\n\r\nHi @IanMayo, yes we still need the changes in tabRender, because the changes in factory does not render the node content, but the node header and and minimize button and the background color is still rendered. We need to hide it in the tabRender too."
+    },
+    {
+      "id": 895124291,
+      "user": "IanMayo",
+      "created_at": "2021-08-09T10:48:00Z",
+      "updated_at": "2021-08-09T10:48:00Z",
+      "body": "> > Thanks @lebaphi\r\n> > The deployed version works perfectly :-)\r\n> > With the change to `factory.tsx`, do we still need the changes to `tabRender`?\r\n> > If other tabs aren't being rendered, it doesn't seem necessary to change the CSS/z-order.\r\n> \r\n> Hi @IanMayo, yes we still need the changes in tabRender, because the changes in factory does not render the node content, but the node header and and minimize button and the background color is still rendered. We need to hide it in the tabRender too.\r\n\r\nPerfect answer, thanks :-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    927
+  ],
+  "issues": [
+    {
+      "id": 938056717,
+      "number": 927,
+      "title": "Reduce transparency of channels",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-06T16:13:05Z",
+      "updated_at": "2021-08-09T10:48:33Z",
+      "closed_at": "2021-08-09T10:48:33Z",
+      "body": "Ian realised that `maximise view` could be a useful tool for players keeping track of lots of channels.\r\n\r\nBut, the semi-transparent channels show the content underneath, which gives a confused UI.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/124633598-539cdf00-de7d-11eb-8b53-21ba42d0a075.png)\r\n\r\nWe should reduce the transparency of channels, so the channels behind the maximised one are less (or not) visible.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/125081799-533f5680-e0be-11eb-9279-7a5d7fa6905d.png",
+    "https://user-images.githubusercontent.com/1108513/125085059-15dcc800-e0c2-11eb-8ef9-d4566353f135.png",
+    "https://user-images.githubusercontent.com/26705621/125096069-f9ab4c00-e0fe-11eb-9c9a-e0df878ed45a.png",
+    "https://user-images.githubusercontent.com/26705621/125096198-19db0b00-e0ff-11eb-88a1-8204343942bb.png",
+    "https://user-images.githubusercontent.com/1108513/124633598-539cdf00-de7d-11eb-8b53-21ba42d0a075.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 79
+}

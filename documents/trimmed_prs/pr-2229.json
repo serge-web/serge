@@ -1,0 +1,68 @@
+{
+  "number": 2229,
+  "title": "2227 strike interaction",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-10T10:58:03Z",
+  "updated_at": "2023-01-11T13:46:58Z",
+  "closed_at": "2023-01-11T13:46:57Z",
+  "merged_at": "2023-01-11T13:46:57Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2229",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2229/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2229/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2229",
+  "body": "Supports #2227 ",
+  "additions": 10798,
+  "deletions": 10451,
+  "changed_files": 32,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1378777464,
+      "user": "IanMayo",
+      "created_at": "2023-01-11T13:46:42Z",
+      "updated_at": "2023-01-11T13:46:42Z",
+      "body": "Part-way implementation.\r\n\r\nMerging, so other work (#2233) can develop based upon this."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2227
+  ],
+  "issues": [
+    {
+      "id": 1525247515,
+      "number": 2227,
+      "title": "Generate STRIKE interaction",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-09T09:48:04Z",
+      "updated_at": "2023-01-14T17:35:17Z",
+      "closed_at": "2023-01-14T17:35:17Z",
+      "body": "We've identified the need for `short-circuit` interactions.\r\n\r\nThese aren't subject to the normal interaction generation, but are when an activity needs it's own adjudication - where it has a game outcome that is independent of other activities (ISTAR, Strike, EW, Movement, others).\r\n\r\nProvide a first sample of this - via a STRIKE interaction.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1382866085,
+          "user": "IanMayo",
+          "created_at": "2023-01-14T17:35:17Z",
+          "updated_at": "2023-01-14T17:35:17Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 32,
+  "total_changed_lines": 21249
+}

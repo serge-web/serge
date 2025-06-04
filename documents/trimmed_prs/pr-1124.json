@@ -1,0 +1,132 @@
+{
+  "number": 1124,
+  "title": "1109: When reading a Collaborative Working document I would like to see all text",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-11T08:25:27Z",
+  "updated_at": "2021-09-13T10:30:26Z",
+  "closed_at": "2021-09-13T10:30:25Z",
+  "merged_at": "2021-09-13T10:30:25Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1124",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1124/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1124/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1124",
+  "body": "Fixes #1109 ",
+  "additions": 27,
+  "deletions": 4,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 11,
+  "review_comments_count": 0,
+  "total_comments": 11,
+  "comments_data": [
+    {
+      "id": 917373455,
+      "user": "IanMayo",
+      "created_at": "2021-09-11T09:15:03Z",
+      "updated_at": "2021-09-11T09:15:20Z",
+      "body": "We have an empty/unused area at the bottom of large text blocks:\r\n![image](https://user-images.githubusercontent.com/1108513/132942879-10eba515-69dc-4a0c-8df0-e8bf8c0cc76d.png)\r\n"
+    },
+    {
+      "id": 917374949,
+      "user": "lebaphi",
+      "created_at": "2021-09-11T09:26:53Z",
+      "updated_at": "2021-09-11T09:28:34Z",
+      "body": "> We have an empty/unused area at the bottom of large text blocks:\r\n> ![image](https://user-images.githubusercontent.com/1108513/132942879-10eba515-69dc-4a0c-8df0-e8bf8c0cc76d.png)\r\n\r\n\r\n\r\n> We have an empty/unused area at the bottom of large text blocks:\r\n> ![image](https://user-images.githubusercontent.com/1108513/132942879-10eba515-69dc-4a0c-8df0-e8bf8c0cc76d.png)\r\n\r\nYep I see it @IanMayo, I can get all the texterea elements then set height for each one but I found the json editor provides an option to do that thing at https://github.com/json-editor/json-editor#editor-options, `expand_height`. So I decide to use the built-in options instead of handling it manual."
+    },
+    {
+      "id": 917379985,
+      "user": "IanMayo",
+      "created_at": "2021-09-11T10:05:11Z",
+      "updated_at": "2021-09-11T10:05:11Z",
+      "body": "Sorry @lebaphi  - were you suggesting another strategy, or explaining what you did?\r\n\r\nAre you able to remove that extra vertical space?"
+    },
+    {
+      "id": 917380445,
+      "user": "lebaphi",
+      "created_at": "2021-09-11T10:08:52Z",
+      "updated_at": "2021-09-11T10:08:52Z",
+      "body": "> Sorry @lebaphi - were you suggesting another strategy, or explaining what you did?\r\n> \r\n> Are you able to remove that extra vertical space?\r\n\r\nHi @IanMayo, I just explain we have 2 ways to do this, first one is handle it by javascript, and he second one is using the built-in option. So I choose the second one but we got an issue of the space. So let me try with the first one, it may not \"official\" but the result will be the same to what we did when adding the prop `fitContent` to the TextArea component."
+    },
+    {
+      "id": 917380677,
+      "user": "IanMayo",
+      "created_at": "2021-09-11T10:10:32Z",
+      "updated_at": "2021-09-11T10:10:32Z",
+      "body": "Good strategy - thanks :-)\r\n\r\nI wonder if we're doing some styling that is _breaking_ the `expand height` in json-editor."
+    },
+    {
+      "id": 917381525,
+      "user": "lebaphi",
+      "created_at": "2021-09-11T10:17:10Z",
+      "updated_at": "2021-09-11T10:24:22Z",
+      "body": "> Good strategy - thanks :-)\r\n> \r\n> I wonder if we're doing some styling that is _breaking_ the `expand height` in json-editor.\r\n\r\nI think nope, because we just try to set the height of only the textarea element like the built-in option does. But we will test it careful before release, so no worries :)"
+    },
+    {
+      "id": 917924211,
+      "user": "lebaphi",
+      "created_at": "2021-09-13T07:38:52Z",
+      "updated_at": "2021-09-13T07:38:52Z",
+      "body": "Hi @IanMayo, I updated with the first approach, handle by javascript\r\n![image](https://user-images.githubusercontent.com/26705621/133043017-0ca68daf-2921-46ed-9090-4a783df7f5ba.png)\r\n"
+    },
+    {
+      "id": 918025907,
+      "user": "lebaphi",
+      "created_at": "2021-09-13T09:53:28Z",
+      "updated_at": "2021-09-13T09:53:28Z",
+      "body": "> I don't see them in your screenshots, but on the `deployment` version scroll-bars still appears to the right of tall text-areas.\r\n> I _guess_ we can remove them with CSS when we're in `read-only` mode.\r\n\r\nweird, did you try to clear cache?"
+    },
+    {
+      "id": 918027313,
+      "user": "IanMayo",
+      "created_at": "2021-09-13T09:55:16Z",
+      "updated_at": "2021-09-13T09:55:16Z",
+      "body": "I get the below screenshot on this branch:\r\nhttps://serge-1109-whole-paragr-3yzivh.herokuapp.com/?wargame=wargame-kskl1i3t&access=pkskl17tha\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/133063818-2a066462-4778-4b63-87fa-23c8b773d6cc.png)\r\n"
+    },
+    {
+      "id": 918030398,
+      "user": "lebaphi",
+      "created_at": "2021-09-13T09:59:17Z",
+      "updated_at": "2021-09-13T09:59:17Z",
+      "body": "> I get the below screenshot on this branch:\r\n> https://serge-1109-whole-paragr-3yzivh.herokuapp.com/?wargame=wargame-kskl1i3t&access=pkskl17tha\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/133063818-2a066462-4778-4b63-87fa-23c8b773d6cc.png)\r\n\r\nah I know why lol, the height fit the content but need more a bit to get the scrollbar gone."
+    },
+    {
+      "id": 918057468,
+      "user": "lebaphi",
+      "created_at": "2021-09-13T10:27:42Z",
+      "updated_at": "2021-09-13T10:27:42Z",
+      "body": "scrollbar disappears @IanMayo 👍"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1109
+  ],
+  "issues": [
+    {
+      "id": 991099437,
+      "number": 1109,
+      "title": "When reading a Collaborative Working document I would like to see all text",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-08T12:46:13Z",
+      "updated_at": "2021-09-13T10:30:25Z",
+      "closed_at": "2021-09-13T10:30:25Z",
+      "body": "The JSON-Editor control shows text-area blocks with a scroll-bar.\r\n\r\nThis means people viewing the document have to use scroll-bars to view large blocks of text.\r\n\r\nIt would be better if the whole paragraph was displayed\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/132942879-10eba515-69dc-4a0c-8df0-e8bf8c0cc76d.png",
+    "https://user-images.githubusercontent.com/26705621/133043017-0ca68daf-2921-46ed-9090-4a783df7f5ba.png",
+    "https://user-images.githubusercontent.com/1108513/133063818-2a066462-4778-4b63-87fa-23c8b773d6cc.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 31
+}

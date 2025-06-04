@@ -1,0 +1,63 @@
+{
+  "number": 2413,
+  "title": "2401: Outline missing for text box in chat area",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-15T13:02:27Z",
+  "updated_at": "2023-02-15T14:54:28Z",
+  "closed_at": "2023-02-15T14:54:26Z",
+  "merged_at": "2023-02-15T14:54:26Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2413",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2413/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2413/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2413",
+  "body": "Fixes #2401 ",
+  "additions": 44,
+  "deletions": 45,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1431414470,
+      "user": "IanMayo",
+      "created_at": "2023-02-15T13:59:53Z",
+      "updated_at": "2023-02-15T13:59:53Z",
+      "body": "Sure, fine :-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2401
+  ],
+  "issues": [
+    {
+      "id": 1585479811,
+      "number": 2401,
+      "title": "Outline missing for text box in chat area",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-15T09:06:31Z",
+      "updated_at": "2023-02-15T14:54:28Z",
+      "closed_at": "2023-02-15T14:54:28Z",
+      "body": "We have a text-box at the bottom of the `Game Admin` panel on the right hand side.  \r\n\r\nSince it lacks a border, it isn't clear that it's there:\r\n![image](https://user-images.githubusercontent.com/1108513/218982265-342e6794-aac2-4fa8-8d51-e4bc0e66ac1a.png)\r\n\r\nI expect the outline got removed to solve a presentation issue in another component.  So, this fix should target this specific text control (to avoid breaking the other component)",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/218982265-342e6794-aac2-4fa8-8d51-e4bc0e66ac1a.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 89
+}

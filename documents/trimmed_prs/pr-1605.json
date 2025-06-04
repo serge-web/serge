@@ -1,0 +1,86 @@
+{
+  "number": 1605,
+  "title": "1603: Fix issue can not save welcome page logo",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-17T02:12:45Z",
+  "updated_at": "2022-06-17T14:15:58Z",
+  "closed_at": "2022-06-17T14:15:57Z",
+  "merged_at": "2022-06-17T14:15:57Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1605",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1605/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1605/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1605",
+  "body": "Fixes #1603 \r\n\r\n\r\n\r\nhttps://user-images.githubusercontent.com/26705621/174212502-91ea082c-171f-4fe9-b1dc-135acca1aefd.mov\r\n\r\n\r\n\r\n",
+  "additions": 11,
+  "deletions": 20,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 3,
+  "total_comments": 3,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 900064098,
+      "user": "IanMayo",
+      "created_at": "2022-06-17T12:20:00Z",
+      "updated_at": "2022-06-17T12:20:00Z",
+      "body": "@lebaphi - could you explain why these lines are commented out please?\r\n\r\nShouldn't we just delete them?",
+      "path": "packages/server/server.js",
+      "diff_hunk": "@@ -149,15 +149,6 @@ const runServer = (\n     fs.writeFile(image, req.body, err => console.log(err))\n \n     res.status(200).send({ path: imagePath })\n-    // const buff = Buffer.from(req.body, 'utf8').toString()",
+      "html_url": "https://github.com/serge-web/serge/pull/1605#discussion_r900064098"
+    },
+    {
+      "id": 900078941,
+      "user": "lebaphi",
+      "created_at": "2022-06-17T12:40:05Z",
+      "updated_at": "2022-06-17T12:40:06Z",
+      "body": "I don't comment out them @IanMayo, I've seen it here before and I just removed them to clean up the code",
+      "path": "packages/server/server.js",
+      "diff_hunk": "@@ -149,15 +149,6 @@ const runServer = (\n     fs.writeFile(image, req.body, err => console.log(err))\n \n     res.status(200).send({ path: imagePath })\n-    // const buff = Buffer.from(req.body, 'utf8').toString()",
+      "html_url": "https://github.com/serge-web/serge/pull/1605#discussion_r900078941"
+    },
+    {
+      "id": 900083151,
+      "user": "IanMayo",
+      "created_at": "2022-06-17T12:45:53Z",
+      "updated_at": "2022-06-17T12:45:53Z",
+      "body": "Sorry - I misinterpreted the PR.  Yes, I see you removed them :-)",
+      "path": "packages/server/server.js",
+      "diff_hunk": "@@ -149,15 +149,6 @@ const runServer = (\n     fs.writeFile(image, req.body, err => console.log(err))\n \n     res.status(200).send({ path: imagePath })\n-    // const buff = Buffer.from(req.body, 'utf8').toString()",
+      "html_url": "https://github.com/serge-web/serge/pull/1605#discussion_r900083151"
+    }
+  ],
+  "issue_numbers": [
+    1603
+  ],
+  "issues": [
+    {
+      "id": 1273286804,
+      "number": 1603,
+      "title": "Unable to change Welcome Image",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-16T09:17:21Z",
+      "updated_at": "2022-06-17T14:15:57Z",
+      "closed_at": "2022-06-17T14:15:57Z",
+      "body": "From the `Welcome` tab of the admin pages, the Game Designer can change the welcome image logo:\r\n![image](https://user-images.githubusercontent.com/1108513/174037264-cdf864d4-e305-4f75-9533-64cb6f1b963c.png)\r\n\r\n\r\nWhen I try to add an SVG or PNG image, I get this error in the node console:\r\n![image](https://user-images.githubusercontent.com/1108513/174037059-4c56af85-1762-41e1-8686-951dafd85fb8.png)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/174037264-cdf864d4-e305-4f75-9533-64cb6f1b963c.png",
+    "https://user-images.githubusercontent.com/1108513/174037059-4c56af85-1762-41e1-8686-951dafd85fb8.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 31
+}

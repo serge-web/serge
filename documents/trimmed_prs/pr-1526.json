@@ -1,0 +1,189 @@
+{
+  "number": 1526,
+  "title": "1259 Admin Page Step Cursor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-26T09:33:33Z",
+  "updated_at": "2022-04-26T13:19:09Z",
+  "closed_at": "2022-04-26T13:19:09Z",
+  "merged_at": "2022-04-26T13:19:08Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1526",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1526/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1526/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1526",
+  "body": "Fixes #1259 ",
+  "additions": 1,
+  "deletions": 569,
+  "changed_files": 25,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1109617030,
+      "user": "lebaphi",
+      "created_at": "2022-04-26T10:18:07Z",
+      "updated_at": "2022-04-26T10:18:07Z",
+      "body": "removed @IanMayo @ShendMikullovci 👍 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1259
+  ],
+  "issues": [
+    {
+      "id": 1078653367,
+      "number": 1259,
+      "title": "Admin Page Step Cursor",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-13T15:15:54Z",
+      "updated_at": "2022-04-26T13:19:09Z",
+      "closed_at": "2022-04-26T13:19:09Z",
+      "body": "There's a cursor on the top right-hand side of the screen on the admin page that reacts to the user switching the pages:\r\n![Step Cursor Admin Page](https://user-images.githubusercontent.com/85491794/145837791-c8c1274a-ef78-4e1a-b69b-82d7bd804666.png)\r\n\r\nThe \"Platform Types\" page is not included in the cursor. \r\n\r\nI also noticed that the \"Forces\" page is shown as a green icon on the cursor. Is there an explicit reason?\r\n\r\nI suggest the green icon moves steps along with the pages as the user skips ahead. ",
+      "labels": [],
+      "comments": [
+        {
+          "id": 995021478,
+          "user": "IanMayo",
+          "created_at": "2021-12-15T17:46:13Z",
+          "updated_at": "2021-12-15T17:46:13Z",
+          "body": "Yes - good suggestion, thanks @ShendMikullovci "
+        },
+        {
+          "id": 996686105,
+          "user": "lebaphi",
+          "created_at": "2021-12-17T12:29:03Z",
+          "updated_at": "2021-12-17T12:29:03Z",
+          "body": "Hi @IanMayo @ShendMikullovci , I just look into the code and found something:\r\n\r\n> The \"Platform Types\" page is not included in the cursor.\r\n<img width=\"355\" alt=\"Screen Shot 2021-12-17 at 7 19 39 PM\" src=\"https://user-images.githubusercontent.com/26705621/146543974-a6420e3f-be69-420f-9749-aa3c4accece7.png\">\r\n\r\nIt's because the `wargame.data` has only 3 items, so I think the tab rendered should based on the size of the wargame data.\r\n\r\n> I also noticed that the \"Forces\" page is shown as a green icon on the cursor. Is there an explicit reason?\r\n<img width=\"507\" alt=\"Screen Shot 2021-12-17 at 7 26 42 PM\" src=\"https://user-images.githubusercontent.com/26705621/146544598-6832d914-404b-4953-96d0-05cee0c6fe2c.png\">\r\n\r\nAs you can see here, each cursor we have 2 property: `active` and `complete`, so I think the green icon means `complete = true`.\r\n\r\nHow do you think?\r\n\r\n"
+        },
+        {
+          "id": 996766125,
+          "user": "IanMayo",
+          "created_at": "2021-12-17T14:31:03Z",
+          "updated_at": "2021-12-17T14:31:03Z",
+          "body": "Thanks for that @lebaphi \r\nI'm pretty sure we should create a default `PlatformTypes` object with a new wargame.\r\n\r\nI'll look into it.\r\n\r\nYes - I agree that a green circle means there is data for that item.  "
+        },
+        {
+          "id": 997427181,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-19T17:09:58Z",
+          "updated_at": "2021-12-19T17:09:58Z",
+          "body": "So, the green circle means the page has started to be filled in? "
+        },
+        {
+          "id": 997786922,
+          "user": "IanMayo",
+          "created_at": "2021-12-20T10:16:49Z",
+          "updated_at": "2021-12-20T10:17:30Z",
+          "body": "Hello @ShendMikullovci - I think the green circle means that page has sufficient data for a wargame.  But, that's a challenging test to define.  So, \"page started\" may be easier to define/implement.  So, we have at least one force, one channel, etc."
+        },
+        {
+          "id": 999549911,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-22T12:44:25Z",
+          "updated_at": "2021-12-22T12:44:25Z",
+          "body": "I suggest adding another step in the cursor to include the \"Forces\" tab."
+        },
+        {
+          "id": 1022259559,
+          "user": "lebaphi",
+          "created_at": "2022-01-26T14:39:30Z",
+          "updated_at": "2022-01-26T14:39:30Z",
+          "body": "Hi @IanMayo @ShendMikullovci , so what is the final decision for this item?"
+        },
+        {
+          "id": 1022262181,
+          "user": "IanMayo",
+          "created_at": "2022-01-26T14:42:18Z",
+          "updated_at": "2022-01-26T16:04:33Z",
+          "body": "Yes, we should certainly add the 4th step to the process (my guess is that it will represent `platform types`).\r\n\r\nWe (or I) should come up with the logic to test if a tab is complete. i.e. Has enough detail to run a wargame.  I'll try to do that in here.\r\n\r\n* **Overview**:  nothing required\r\n* **Platform Types**:  none-required\r\n* **Forces**: one required (note: the white/umpire force is created by default, which will make this \"true\")\r\n* **Channels**:  none-required\r\n\r\nOk, so I don't think we have realistic tests for if a page is complete.  Maybe drop the \"green\" marker for a completed page @ShendMikullovci ?"
+        },
+        {
+          "id": 1022639205,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-26T21:56:28Z",
+          "updated_at": "2022-01-26T21:56:28Z",
+          "body": "Yes, that sounds good. Is there a specific reason why we have selected green as the color to mark an incomplete page? Green usually has completion associations."
+        },
+        {
+          "id": 1023027675,
+          "user": "IanMayo",
+          "created_at": "2022-01-27T09:47:49Z",
+          "updated_at": "2022-01-27T09:47:49Z",
+          "body": "I _think_ the intention was that green represented a completed page.  But, since I don't think we can decide if a page is complete or not, I think we have to drop the highlight completely.\r\n\r\nI'm quite happy to be corrected @ShendMikullovci  :-)"
+        },
+        {
+          "id": 1024063808,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T10:05:38Z",
+          "updated_at": "2022-01-28T10:07:08Z",
+          "body": "> I _think_ the intention was that green represented a completed page. But, since I don't think we can decide if a page is complete or not, I think we have to drop the highlight completely.\r\n> \r\n> I'm quite happy to be corrected @ShendMikullovci :-)\r\n\r\nWe might not be able to show a completed page, but we can show an incomplete one. If we still would like to show an incomplete page, we could show it as a red marker to attract attention. Once the page is completed, the red marker would disappear. As for orientation, we could have a thicker outline on the marker of the page the user is on (complete or not) to show where the user is among the pages. "
+        },
+        {
+          "id": 1024161800,
+          "user": "IanMayo",
+          "created_at": "2022-01-28T12:19:08Z",
+          "updated_at": "2022-01-28T12:19:08Z",
+          "body": "Aah, that's a conundrum :-D. If we can't tell if a page is complete, I _don't think_ we can tell if a page is incomplete.\r\n\r\nTo be honest, I think we can remove the whole component.   We can't realistically measure progress through the process of creating a wargame there isn't much point in providing an illustration of it.  Or, do you think it still brings benefit @ShendMikullovci ?"
+        },
+        {
+          "id": 1024213001,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T13:15:49Z",
+          "updated_at": "2022-01-28T13:15:49Z",
+          "body": "> Aah, that's a conundrum :-D. If we can't tell if a page is complete, I _don't think_ we can tell if a page is incomplete.\r\n> \r\n> To be honest, I think we can remove the whole component. We can't realistically measure progress through the process of creating a wargame there isn't much point in providing an illustration of it. Or, do you think it still brings benefit @ShendMikullovci ?\r\n\r\nWhatever you think is best. It's a rather low priority detail. Unless you think it could be a problem for an admin to get lost in data, I don't think it brings much benefit. "
+        },
+        {
+          "id": 1024217581,
+          "user": "IanMayo",
+          "created_at": "2022-01-28T13:18:47Z",
+          "updated_at": "2022-01-28T13:18:47Z",
+          "body": "New action for @lebaphi :  **Delete the top-right progress cursor in admin pages**"
+        },
+        {
+          "id": 1096892339,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-12T15:41:59Z",
+          "updated_at": "2022-04-12T15:41:59Z",
+          "body": "Only the green dot has been deleted, not the entire cursor. If we decide to maintain the cursor, I suggest we use a slightly bolder outline for the active steps."
+        },
+        {
+          "id": 1109564820,
+          "user": "lebaphi",
+          "created_at": "2022-04-26T09:25:20Z",
+          "updated_at": "2022-04-26T09:25:20Z",
+          "body": "Hi @IanMayo , @ShendMikullovci \r\nI just though if we need this progress indicator. I find we often use a progress indicator in a container or a carousel when there are many items and we don't know where we are, so we can see the indicator.\r\n\r\nIn our case this is the tab container and using it together with the progress indicator, is it superfluous?\r\n\r\nhttps://user-images.githubusercontent.com/26705621/165267548-e1f01536-700a-490f-a9ad-980fa808f828.mp4\r\n\r\n"
+        },
+        {
+          "id": 1109582774,
+          "user": "IanMayo",
+          "created_at": "2022-04-26T09:42:54Z",
+          "updated_at": "2022-04-26T09:42:54Z",
+          "body": "Hello @lebaphi - I don't think we need the progress indicator.  The Game Designer doesn't have to complete the pages in order, and for most of the pages, an empty page is \"acceptable\" for a wargame, particularly if the wargame is still being designed.\r\n\r\nLet's delete the whole control, please.\r\n\r\n\r\n"
+        },
+        {
+          "id": 1109606065,
+          "user": "lebaphi",
+          "created_at": "2022-04-26T10:06:48Z",
+          "updated_at": "2022-04-26T10:06:48Z",
+          "body": "> Hello @lebaphi - I don't think we need the progress indicator. The Game Designer doesn't have to complete the pages in order, and for most of the pages, an empty page is \"acceptable\" for a wargame, particularly if the wargame is still being designed.\r\n> \r\n> Let's delete the whole control, please.\r\n\r\nyep, I think we should remove this control too"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/145837791-c8c1274a-ef78-4e1a-b69b-82d7bd804666.png",
+    "https://user-images.githubusercontent.com/26705621/146543974-a6420e3f-be69-420f-9749-aa3c4accece7.png",
+    "https://user-images.githubusercontent.com/26705621/146544598-6832d914-404b-4953-96d0-05cee0c6fe2c.png"
+  ],
+  "number_of_changed_files": 25,
+  "total_changed_lines": 570
+}

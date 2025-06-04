@@ -1,0 +1,112 @@
+{
+  "number": 2446,
+  "title": "2416: Persistent Planning Channel layout/status",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-19T13:08:48Z",
+  "updated_at": "2023-02-20T03:22:43Z",
+  "closed_at": "2023-02-19T18:33:31Z",
+  "merged_at": "2023-02-19T18:33:31Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2446",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2446/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2446/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2446",
+  "body": "Fixes #2416 \r\n\r\n* [x] Current tab\r\n* [x] Current width of support panel\r\n* For tables:\r\n    * [x] Currently visible columns\r\n    * [ ] Whether filters are shown\r\n    * [ ] Which filters are applied\r\n    * [ ] Sort on any columns",
+  "additions": 93,
+  "deletions": 17,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 2,
+  "total_comments": 2,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 1111288052,
+      "user": "IanMayo",
+      "created_at": "2023-02-19T17:25:44Z",
+      "updated_at": "2023-02-19T17:25:44Z",
+      "body": "@lebaphi - could you change these constants by putting `serge.planning` at the front of the string?  \r\n\r\nThat may help us navigate the cookies in the future.",
+      "path": "packages/config/src/globals.ts",
+      "diff_hunk": "@@ -191,4 +191,12 @@ export const CONTROL_ALL = 'control-all:'\n  * @param event - name of event that just happened\n  */\n export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'\n-export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'\n\\ No newline at end of file\n+export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'\n+\n+export const SUPPORT_PANEL_LAYOUT = {",
+      "html_url": "https://github.com/serge-web/serge/pull/2446#discussion_r1111288052"
+    },
+    {
+      "id": 1111421490,
+      "user": "lebaphi",
+      "created_at": "2023-02-20T03:22:42Z",
+      "updated_at": "2023-02-20T03:22:43Z",
+      "body": "sure @IanMayo, I will update in part 2 of this PR 😄 ",
+      "path": "packages/config/src/globals.ts",
+      "diff_hunk": "@@ -191,4 +191,12 @@ export const CONTROL_ALL = 'control-all:'\n  * @param event - name of event that just happened\n  */\n export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'\n-export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'\n\\ No newline at end of file\n+export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'\n+\n+export const SUPPORT_PANEL_LAYOUT = {",
+      "html_url": "https://github.com/serge-web/serge/pull/2446#discussion_r1111421490"
+    }
+  ],
+  "issue_numbers": [
+    2416
+  ],
+  "issues": [
+    {
+      "id": 1585990178,
+      "number": 2416,
+      "title": "Persistent Planning Channel layout/status",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-15T14:48:22Z",
+      "updated_at": "2023-11-13T11:33:59Z",
+      "closed_at": "2023-11-13T11:33:59Z",
+      "body": "It would be great if we could make these aspects of the PlanningChannel persistent between browser reloads (via storing as cookies, like we do for page layout):\n* [x] Current tab\n* [x] Current width of support panel\n* For tables:\n    * [x] Currently visible columns\n    * [x] Whether filters are shown\n    * [x] Which filters are applied\n    * [x] Sort on any columns\n    * [x] Number of rows visible\n    * [x] Current turn number (_think_ this is stored in `ChannelPlanning` - so it would probably be stored/retrieved from there)\n\nNote: I'd like the key to start with `serge.planning` and be suffixed with the current role-id (`selectedRoleId` - passed down from `SupportPanel` if necessary)",
+      "labels": [
+        "wontfix",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1441839375,
+          "user": "IanMayo",
+          "created_at": "2023-02-23T13:52:14Z",
+          "updated_at": "2023-02-24T09:39:14Z",
+          "body": "Re-opening, it would be useful to remember the number of rows visible too, please.\n\nAah, and to include the role-name in the keys for filters.  We _may_ get an instance where the player switches to another role, and we try to restore filter settings that don't work for the new role - including trying to display a tab that the current user doesn't see (only umpires see the adjudication tab)"
+        },
+        {
+          "id": 1445295336,
+          "user": "IanMayo",
+          "created_at": "2023-02-26T08:16:55Z",
+          "updated_at": "2023-02-26T08:16:55Z",
+          "body": "Aah, @lebaphi  - I think we still need to include the role-id in the filters, please, as described above."
+        },
+        {
+          "id": 1455975446,
+          "user": "lebaphi",
+          "created_at": "2023-03-06T11:39:34Z",
+          "updated_at": "2023-03-06T11:39:34Z",
+          "body": "Hi @IanMayo , about this item:\r\n> Number of rows visible\r\n\r\nCan you explain more about this scenario? when do we need to use it?"
+        },
+        {
+          "id": 1455995402,
+          "user": "IanMayo",
+          "created_at": "2023-03-06T11:53:45Z",
+          "updated_at": "2023-03-06T11:53:45Z",
+          "body": "Hello @lebaphi - at the bottom of the material table, the players can use the drop-down to choose how many rows to view.  It would be useful if the value of this was persistent.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/223103035-013adfe4-3882-4398-abf7-48eb0307a367.png)\r\n"
+        },
+        {
+          "id": 1461852894,
+          "user": "lebaphi",
+          "created_at": "2023-03-09T11:29:49Z",
+          "updated_at": "2023-03-09T11:29:49Z",
+          "body": "Hi @IanMayo, the last item fixed 👍 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/223103035-013adfe4-3882-4398-abf7-48eb0307a367.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 110
+}

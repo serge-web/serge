@@ -1,0 +1,52 @@
+{
+  "number": 2480,
+  "title": "2476 gr minor items",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-22T18:05:52Z",
+  "updated_at": "2023-02-22T19:33:44Z",
+  "closed_at": "2023-02-22T19:33:43Z",
+  "merged_at": "2023-02-22T19:33:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2480",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2480/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2480/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2480",
+  "body": "Fix collection of minor UI issues, as reported by GR\r\n\r\nIncluding this one:\r\nFixes #2476 ",
+  "additions": 509,
+  "deletions": 30,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2476
+  ],
+  "issues": [
+    {
+      "id": 1595494614,
+      "number": 2476,
+      "title": "On zoom to view units, units right on the edge of screen",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-22T17:16:15Z",
+      "updated_at": "2023-02-22T19:33:44Z",
+      "closed_at": "2023-02-22T19:33:44Z",
+      "body": "![image](https://user-images.githubusercontent.com/1108513/220704729-8ddea8b2-04ce-4729-a116-6566139f2061.png)\r\n\r\nThis is in `<PlanningChannel>` , and it's in the state handler for `currentAssetIds` and `currentOrders`",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/220704729-8ddea8b2-04ce-4729-a116-6566139f2061.png"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 539
+}

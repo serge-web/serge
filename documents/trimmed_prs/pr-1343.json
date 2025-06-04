@@ -1,0 +1,51 @@
+{
+  "number": 1343,
+  "title": "1341 h3 mapping",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-02-09T17:43:15Z",
+  "updated_at": "2022-02-21T14:06:55Z",
+  "closed_at": "2022-02-21T14:06:54Z",
+  "merged_at": "2022-02-21T14:06:54Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1343",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1343/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1343/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1343",
+  "body": "Fixes #1341 ",
+  "additions": 1623,
+  "deletions": 455,
+  "changed_files": 68,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1341
+  ],
+  "issues": [
+    {
+      "id": 1127448929,
+      "number": 1341,
+      "title": "Switch to H3 hex grid",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-02-08T16:01:21Z",
+      "updated_at": "2022-02-21T14:06:54Z",
+      "closed_at": "2022-02-21T14:06:54Z",
+      "body": "We currently use the `honeycomb` library for hex-cell support.\r\n\r\nBut, this library does not understand global map projections - so it can only really be used on a locally flat Earth.\r\n\r\nHowever, the h3 library from Uber supports geographic projections out of the box, and would be better suited to large-scale wargames.\r\n\r\n* [x] include h3 (with TypeScript wrappers) in the build\r\n* [x] add new coordinate data types - to store h3 coords in parallel with honeycomb coords\r\n* [x] create new map bounds data type that gives data required for h3 (bounds, resolution, origin)\r\n* [x] add new wargame bounds to existing Atlantic test data\r\n* [x] switch hex grid rendering to h3 rendering\r\n* [x] modify `mapping\\index.tsx` to use new h3 logic\r\n* [x] modify `hex-grid\\index.tsx` to use new h3 logic\r\n* [x] modify atlantic wargame to introduce coords for new grid system\r\n* [x] modify `canCombineWith` to use h3 cell comparison\r\n* [x] check atlantic wargame runs\r\n* [x] deprecate old hex grid & grid definition logic\r\n* [ ] load new h3 layer data (terrain-type)\r\n* [ ] load new h3 polygon data\r\n* [x] Provide wargame covering small area\r\n\r\n## To-do items\r\n* [x] Fix `can-combine-with` tests\r\n* [ ] Put back `hex-grid\\index.ts` tests for terrain",
+      "labels": [
+        "spatial",
+        "Mapping"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 68,
+  "total_changed_lines": 2078
+}

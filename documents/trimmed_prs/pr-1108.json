@@ -1,0 +1,88 @@
+{
+  "number": 1108,
+  "title": "remove spaces countries list",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-08T11:46:51Z",
+  "updated_at": "2021-09-13T08:46:30Z",
+  "closed_at": "2021-09-13T08:46:30Z",
+  "merged_at": "2021-09-13T08:46:29Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1108",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1108/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1108/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1108",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nfixes #1076 \r\n![image](https://user-images.githubusercontent.com/16476120/132503730-ce6ea546-42a2-45a4-be29-91759dc14d0a.png)\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 31,
+  "deletions": 6,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 915320686,
+      "user": "IanMayo",
+      "created_at": "2021-09-08T15:05:01Z",
+      "updated_at": "2021-09-08T15:05:01Z",
+      "body": "Thanks - are we able to drop the rectangles?"
+    },
+    {
+      "id": 917016254,
+      "user": "sanjayradadiya",
+      "created_at": "2021-09-10T15:57:37Z",
+      "updated_at": "2021-09-10T15:57:37Z",
+      "body": "> Thanks - are we able to drop the rectangles?\r\n\r\n![image](https://user-images.githubusercontent.com/16476120/132882600-284fe49b-54f4-44fb-8d12-953c1d9ffe7c.png)\r\n![image](https://user-images.githubusercontent.com/16476120/132882647-51c3418c-7b05-40a3-8d28-53e8a5e2a487.png)\r\n"
+    },
+    {
+      "id": 917033800,
+      "user": "IanMayo",
+      "created_at": "2021-09-10T16:20:36Z",
+      "updated_at": "2021-09-10T16:20:36Z",
+      "body": "Could we experiment with dropping the array numbering labels?  `Europe 1`, `Europe 2`, ...\r\n\r\n_Ideally_ via those `json-editor` properties, but otherwise via CSS."
+    },
+    {
+      "id": 917374400,
+      "user": "sanjayradadiya",
+      "created_at": "2021-09-11T09:22:15Z",
+      "updated_at": "2021-09-11T09:22:15Z",
+      "body": "> Could we experiment with dropping the array numbering labels? `Europe 1`, `Europe 2`, ...\r\n> \r\n> _Ideally_ via those `json-editor` properties, but otherwise via CSS.\r\n\r\n![image](https://user-images.githubusercontent.com/16476120/132943040-dc0c3b30-fea5-46ad-a7a4-d61891709e57.png)\r\n![image](https://user-images.githubusercontent.com/16476120/132943052-73b7d23f-932e-4403-b3c1-259a13efe881.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1076
+  ],
+  "issues": [
+    {
+      "id": 989219394,
+      "number": 1076,
+      "title": "Reduce wasted space in Countries List",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-06T14:15:34Z",
+      "updated_at": "2021-09-13T08:46:29Z",
+      "closed_at": "2021-09-13T08:46:29Z",
+      "body": "In the COA form, there is some wasted space around the Countries list - particularly when the form is disabled.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/132230279-f661d95e-5c3b-44fb-bcc8-5fff153ec715.png)\r\n\r\nCould we introduce some CSS to remove the wasted components/white space for arrays when the component is disabled?\r\n\r\nSteps to reproduce:\r\n* play as Blue > Blue Senior\r\n* switch to Blue COA tab\r\n* create new COA message, including one or more countries.\r\n* `Submit` the message\r\n* expand the message - read-only view of countries should be shown.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/16476120/132503730-ce6ea546-42a2-45a4-be29-91759dc14d0a.png",
+    "https://user-images.githubusercontent.com/16476120/132882600-284fe49b-54f4-44fb-8d12-953c1d9ffe7c.png",
+    "https://user-images.githubusercontent.com/16476120/132882647-51c3418c-7b05-40a3-8d28-53e8a5e2a487.png",
+    "https://user-images.githubusercontent.com/16476120/132943040-dc0c3b30-fea5-46ad-a7a4-d61891709e57.png",
+    "https://user-images.githubusercontent.com/16476120/132943052-73b7d23f-932e-4403-b3c1-259a13efe881.png",
+    "https://user-images.githubusercontent.com/1108513/132230279-f661d95e-5c3b-44fb-bcc8-5fff153ec715.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 37
+}

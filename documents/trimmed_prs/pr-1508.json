@@ -1,0 +1,52 @@
+{
+  "number": 1508,
+  "title": "1505 umpire view of assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-14T11:16:11Z",
+  "updated_at": "2022-04-14T15:38:42Z",
+  "closed_at": "2022-04-14T15:38:41Z",
+  "merged_at": "2022-04-14T15:38:41Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1508",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1508/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1508/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1508",
+  "body": "Fixes #1505 ",
+  "additions": 81,
+  "deletions": 102,
+  "changed_files": 21,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1505
+  ],
+  "issues": [
+    {
+      "id": 1203431259,
+      "number": 1505,
+      "title": "Assets not shown for umpire force",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-13T15:04:14Z",
+      "updated_at": "2022-04-14T15:38:41Z",
+      "closed_at": "2022-04-14T15:38:41Z",
+      "body": "A member of umpire force should be able to see all assets.\r\n\r\nIt's not happening:\r\n![image](https://user-images.githubusercontent.com/1108513/163210879-33bebfc8-117c-4c49-89e6-3c3c7d9350c3.png)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/163210879-33bebfc8-117c-4c49-89e6-3c3c7d9350c3.png"
+  ],
+  "number_of_changed_files": 21,
+  "total_changed_lines": 183
+}

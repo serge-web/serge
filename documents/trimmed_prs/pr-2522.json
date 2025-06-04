@@ -1,0 +1,59 @@
+{
+  "number": 2522,
+  "title": "2181 debriefing continued",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-27T09:00:38Z",
+  "updated_at": "2023-02-27T09:57:33Z",
+  "closed_at": "2023-02-27T09:57:31Z",
+  "merged_at": "2023-02-27T09:57:31Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2522",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2522/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2522/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2522",
+  "body": "Supports #2181 ",
+  "additions": 217,
+  "deletions": 134,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2181
+  ],
+  "issues": [
+    {
+      "id": 1509242606,
+      "number": 2181,
+      "title": "Review events of last turn",
+      "state": "open",
+      "user": "IanMayo",
+      "created_at": "2022-12-23T11:34:55Z",
+      "updated_at": "2024-01-30T16:06:59Z",
+      "closed_at": null,
+      "body": "KW and I had a chat about how SERGE could support the \"Start of day debrief\".\r\n\r\nThis is only to be implemented if we have time before the wargame.\r\n\r\nThe point of the debrief is to update players on what happened in the previous turn.  The review is at multiple levels:\r\n- a senior player may be interested in the overall summary of events, including contributions to high level effects\r\n- a junior player may be interested in the detail of the outcomes of activities they had planned\r\n\r\nThe `time-control` could contribute to this, in this way:\r\n- in `planning` phase, player can see custom view of `Adjudications panel`.  This contains a list of interactions that include activities for the current player force.  For the items listed, the panel also includes details of the outcomes of interactions across all forces (especially the per-force feedback).\r\n- the list can optionally be filtered to only show `important` interactions - that is, interactions that umpire has flagged as `important` during adjudication.\r\n- as the player drags the time control, a moving time window displays different data:  the icon changes (outcomes) that are in visible interactions in that time window.  Different colored pulses could indicate which type of outcome has impacted the asset (damage, perception, movement, other attribute)\r\n\r\nNote: to determine the time period of the previous turn, we require the new API as recorded in #2194 \r\n\r\nAs a separate feature, we could include interaction narratives in the orders panel. We'd do that in this way:\r\n- when an order detail is being expanded, scan down through interactions to find any that relate to that set of orders.   Then, if there are any force-specific feedback notes, include them in an `interactions` table at the start of the orders document.  This is addressed in #2473 \r\n- The above force-specific feedback notes _could_ be displayed in the adjudications table when the player is de-briefing on yesterday's orders.",
+      "labels": [
+        "4p9",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1445441821,
+          "user": "IanMayo",
+          "created_at": "2023-02-26T19:16:43Z",
+          "updated_at": "2023-02-26T19:16:51Z",
+          "body": "Not closed"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 351
+}

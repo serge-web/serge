@@ -1,0 +1,30 @@
+{
+  "number": 1729,
+  "title": "Hotfix ts in client package",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-05T09:32:46Z",
+  "updated_at": "2022-09-08T11:46:08Z",
+  "closed_at": "2022-09-08T11:46:07Z",
+  "merged_at": "2022-09-08T11:46:07Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1729",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1729/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1729/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1729",
+  "body": "While extending a unit test I realised they weren't being run in `packages/client`.\r\n\r\nI did some fiddling to get `jest` to compile/run `ts` unit tests, but struggled.\r\n\r\nWhile running `tsc` I got some compile errors in `ts` tests, and fixed them.  But, I wasn't able to get `jest` to compile/run  unit tests in `ts` files.  I was falling over at type definitions - so I hadn't got it right.\r\n\r\nOnce we've got `jest` running the tests, I'm happy to step back in and fix any broken tests.  We should then modify the `package.json` so that the unit tests run in a build/test process.",
+  "additions": 2615,
+  "deletions": 3644,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 6259
+}

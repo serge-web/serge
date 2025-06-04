@@ -1,0 +1,165 @@
+{
+  "number": 1239,
+  "title": "1216: Do not show a popup when deleting node",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-09T16:21:19Z",
+  "updated_at": "2021-12-13T17:22:24Z",
+  "closed_at": "2021-12-13T17:22:23Z",
+  "merged_at": "2021-12-13T17:22:23Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1239",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1239/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1239/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1239",
+  "body": "Fixws #1216 ",
+  "additions": 9,
+  "deletions": 4,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 0,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 990573191,
+      "user": "lebaphi",
+      "created_at": "2021-12-10T03:16:42Z",
+      "updated_at": "2021-12-10T03:16:42Z",
+      "body": "> The pop-up is still there in the deployment. I tried it with Senior Blue and it appeared same as the first time.\r\n\r\nCan you tried https://serge-1216-popup-replac-ze9c0a.herokuapp.com/?wargame=wargame-kskl1i3t&access=pkskl17tha, Blue 5, `Add Europe` and `Delete Europe`, the popup does not appear in my side."
+    },
+    {
+      "id": 990779644,
+      "user": "IanMayo",
+      "created_at": "2021-12-10T09:35:23Z",
+      "updated_at": "2021-12-10T09:35:23Z",
+      "body": "Hello @lebaphi - I don't see the popup.\r\n\r\nCould you also modify the options so we don't have the \"Delete Last ...\" button please? It doesn't make sense in this context.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/145551758-9a08637e-aa5a-43ed-9964-6344c4ea469a.png)\r\n"
+    },
+    {
+      "id": 991115093,
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-10T16:30:10Z",
+      "updated_at": "2021-12-10T16:30:10Z",
+      "body": "> > The pop-up is still there in the deployment. I tried it with Senior Blue and it appeared same as the first time.\r\n> \r\n> Can you tried https://serge-1216-popup-replac-ze9c0a.herokuapp.com/?wargame=wargame-kskl1i3t&access=pkskl17tha, Blue 5, `Add Europe` and `Delete Europe`, the popup does not appear in my side.\r\n\r\nIt still appeared. And the \"Delete Last Europe\" remains on the tab after Europe is deleted."
+    },
+    {
+      "id": 991148674,
+      "user": "IanMayo",
+      "created_at": "2021-12-10T17:14:53Z",
+      "updated_at": "2021-12-10T17:14:53Z",
+      "body": "Hmm, I'm not getting it popup:\r\n![screencast](https://i.gyazo.com/dc365c64ec477e7c7a146747ca62490b.gif)\r\n\r\nCould you do a \"hard-reset\" (probably something like ctrl-f5) and try again please @ShendMikullovci ?\r\n\r\nAah, the `last row` button is still there because @lebaphi hasn't made any changes since I made that request."
+    },
+    {
+      "id": 991182088,
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-10T18:04:09Z",
+      "updated_at": "2021-12-10T18:04:09Z",
+      "body": "Yes, this one is fine (except the small Delete Last Europe bug). However, the pop-up shows up in the New Message tab for COAs (before they are sent out)."
+    },
+    {
+      "id": 991567854,
+      "user": "lebaphi",
+      "created_at": "2021-12-11T09:19:30Z",
+      "updated_at": "2021-12-11T09:20:05Z",
+      "body": "I've updated for both issues (remove last delete button and disable popup in new mail form). But I see in `New Message` form, there is only `Delete Last...' button. What do you think? @IanMayo @ShendMikullovci"
+    },
+    {
+      "id": 991571953,
+      "user": "IanMayo",
+      "created_at": "2021-12-11T09:30:33Z",
+      "updated_at": "2021-12-11T09:30:33Z",
+      "body": "Aah, yes - is that json-editor in a different component?"
+    },
+    {
+      "id": 992333303,
+      "user": "lebaphi",
+      "created_at": "2021-12-13T10:43:44Z",
+      "updated_at": "2021-12-13T10:43:44Z",
+      "body": "> Aah, yes - is that json-editor in a different component?\r\n\r\nyep, so I decide to keep the button `Delete last...` because this form does not have the `Delete...` button :D "
+    },
+    {
+      "id": 992349106,
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-13T11:04:50Z",
+      "updated_at": "2021-12-13T11:04:50Z",
+      "body": "The pop-up doesn't appear anymore on the New COAs nor on released ones. Thanks, @lebaphi !\r\n\r\nThe \"Delete Last\" button still appears on the screen after deleting last Europe/Asia:\r\n![Delete Last Europe - Asia](https://user-images.githubusercontent.com/85491794/145801341-89219f4b-cf74-4e6f-8277-bd47f91e6731.png)\r\n\r\n"
+    },
+    {
+      "id": 992529887,
+      "user": "lebaphi",
+      "created_at": "2021-12-13T14:22:25Z",
+      "updated_at": "2021-12-13T14:22:25Z",
+      "body": "> The pop-up doesn't appear anymore on the New COAs nor on released ones. Thanks, @lebaphi !\r\n> \r\n> The \"Delete Last\" button still appears on the screen after deleting last Europe/Asia: ![Delete Last Europe - Asia](https://user-images.githubusercontent.com/85491794/145801341-89219f4b-cf74-4e6f-8277-bd47f91e6731.png)\r\n\r\nHi @ShendMikullovci, I have seen this but the button is handled by json editor library. we can't re implement its instead using the options they provide"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1216
+  ],
+  "issues": [
+    {
+      "id": 1060469344,
+      "number": 1216,
+      "title": "Browser Pop-up to be replaced",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2021-11-22T18:28:14Z",
+      "updated_at": "2021-12-14T05:59:11Z",
+      "closed_at": "2021-12-14T05:59:11Z",
+      "body": "In [this bug](https://github.com/serge-web/serge/issues/1207#issue-1060018927), I noticed that when I click on the delete button, a browser pop-up asking if I am sure I want to delete appears:\r\n\r\n![Browser Pop-Up](https://user-images.githubusercontent.com/85491794/142915442-0015e0f6-fc0e-4ba7-a29d-a6d888eb9024.png)\r\n\r\nIt would be better if the pop-up was in-game rather than a browser pop-up. We could use the same model of the pop-up we get in the admin page when we try to delete a channel: \r\n\r\n\r\n![In-game delete pop-up](https://user-images.githubusercontent.com/85491794/142915558-d41a0e30-d3b2-480e-86e1-72a28fe4fec5.png)\r\n ",
+      "labels": [],
+      "comments": [
+        {
+          "id": 989957138,
+          "user": "lebaphi",
+          "created_at": "2021-12-09T15:27:35Z",
+          "updated_at": "2021-12-09T15:31:13Z",
+          "body": "Yep, I've seen this before, I'm not sure we can replace it since it's a builtin method in the JSON Editor library and it runs synchronously. If we want to make it work with react modal, it should be run asynchronously because it has to wait until react modal closes to get the result.\r\n![image](https://user-images.githubusercontent.com/26705621/145424614-7583bd27-aba7-4fa8-ae8c-7f2b7a0bf828.png)\r\n"
+        },
+        {
+          "id": 989968438,
+          "user": "IanMayo",
+          "created_at": "2021-12-09T15:40:17Z",
+          "updated_at": "2021-12-09T15:40:17Z",
+          "body": "What @lebaphi was saying to @ShendMikullovci  was that it's hard to replace the form-based editor popup with our own.\r\n\r\nBut, there are two kinds of delete.\r\n1. Shend's first screenshot is deleting a country name from a Course-of-Action\r\n2. Shend's second screenshot is deleting a channel from the Game Admin pages.\r\n\r\nIn case (1) we can't change the popup. But, it's a very low risk delete operation.  Not a lot of effort will have been invested in adding the country.  I propose we config the editor to not display a warning before deleting a country.\r\n\r\nIn case (2) there is an investment in effort in creating the channel, so it's right to display a confirmation. Fortunately, in that location we are able to display a Serge-flavoured one.\r\n\r\n@ShendMikullovci - do you think it's ok to remove the delete warning for array (list) elements in the form-based editor?\r\n\r\nIf one day we realise forms have got so complex that there could be lost effort in deleting an array item - then I suggest at that point we offer a fix to the JSON-Editor team, to allow their popup to be over-ridden."
+        },
+        {
+          "id": 989975022,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-09T15:47:45Z",
+          "updated_at": "2021-12-09T15:47:45Z",
+          "body": "In that case, removing the browser pop-up entirely would work as well. You're right, adding a country is low risk and low effort operationally. Shouldn't have huge cognitive costs. The only worry with removing the pop-up would be the case where the button is accidentally clicked on and the user didn't see what they deleted (low probability of happening really, but in a loaded screen it's not impossible).\r\n\r\nI say we go with it and follow up if the issue comes up later."
+        },
+        {
+          "id": 989990389,
+          "user": "IanMayo",
+          "created_at": "2021-12-09T16:04:34Z",
+          "updated_at": "2021-12-09T16:04:34Z",
+          "body": "Great. In that case, @lebaphi - could you configure the editor to not show the delete warning please?\r\n![image](https://user-images.githubusercontent.com/1108513/145431958-1a3e7bdf-290b-48b3-8b6e-ebd67a799c30.png)\r\n"
+        },
+        {
+          "id": 989998262,
+          "user": "lebaphi",
+          "created_at": "2021-12-09T16:13:04Z",
+          "updated_at": "2021-12-09T16:13:04Z",
+          "body": "okay @IanMayo 👍 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/145551758-9a08637e-aa5a-43ed-9964-6344c4ea469a.png",
+    "https://i.gyazo.com/dc365c64ec477e7c7a146747ca62490b.gif",
+    "https://user-images.githubusercontent.com/85491794/145801341-89219f4b-cf74-4e6f-8277-bd47f91e6731.png",
+    "https://user-images.githubusercontent.com/85491794/142915442-0015e0f6-fc0e-4ba7-a29d-a6d888eb9024.png",
+    "https://user-images.githubusercontent.com/85491794/142915558-d41a0e30-d3b2-480e-86e1-72a28fe4fec5.png",
+    "https://user-images.githubusercontent.com/26705621/145424614-7583bd27-aba7-4fa8-ae8c-7f2b7a0bf828.png",
+    "https://user-images.githubusercontent.com/1108513/145431958-1a3e7bdf-290b-48b3-8b6e-ebd67a799c30.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 13
+}

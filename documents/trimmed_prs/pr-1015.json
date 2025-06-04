@@ -1,0 +1,98 @@
+{
+  "number": 1015,
+  "title": "When Collaborative Working I need to be able to assign a message to someone",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-08-26T08:22:02Z",
+  "updated_at": "2021-08-27T07:34:17Z",
+  "closed_at": "2021-08-26T14:45:22Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1015",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1015/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1015/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1015",
+  "body": "Fixes #997 ",
+  "additions": 432,
+  "deletions": 25,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 3,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 906333105,
+      "user": "IanMayo",
+      "created_at": "2021-08-26T11:41:31Z",
+      "updated_at": "2021-08-26T11:41:31Z",
+      "body": "Hi, one request please :-)\r\n\r\nCould the role be un-selected to start with please?  Plus, the button can't be clicked until a role is assigned.\r\n\r\nHave in the role as `Pending` to start with will make it clear something still has to happen."
+    },
+    {
+      "id": 906477265,
+      "user": "IanMayo",
+      "created_at": "2021-08-26T14:45:22Z",
+      "updated_at": "2021-08-26T14:45:22Z",
+      "body": "Closing this PR. The changes have been manually applied in this branch: `feature/edit_response_in_collab_channel_1000` in PR #1012 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 696583389,
+      "user": "IanMayo",
+      "created_at": "2021-08-26T12:32:41Z",
+      "updated_at": "2021-08-26T12:32:42Z",
+      "body": "Hi @lebaphi -  can you teach my why we put `Assign to` in state?  Can't we just specify it in the component props for `splitButton` ?",
+      "path": "packages/components/src/local/molecules/channel-coa-message-detail/index.tsx",
+      "diff_hunk": "@@ -49,13 +50,14 @@ const labelFactory = (id: string, label: string): React.ReactNode => (\n type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'\n \n /* Render component */\n-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {\n+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {\n   const [value, setValue] = useState(message.message.Request || '[message empty]')\n   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')\n   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')\n   const [open, setOpenDialog] = useState<boolean>(false)\n   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')\n   const [placeHolder, setPlaceHolder] = useState<string>('')\n+  const [assignBtnLabel] = useState<string>('Assign to')",
+      "html_url": "https://github.com/serge-web/serge/pull/1015#discussion_r696583389"
+    },
+    {
+      "id": 696608152,
+      "user": "lebaphi",
+      "created_at": "2021-08-26T13:03:51Z",
+      "updated_at": "2021-08-26T13:03:51Z",
+      "body": "ahh, in case if we want to use the label dynamically, just need to add the setAssingLabel function to change it :D\r\n```\r\n<SplitButton\r\n      label={assignBtnLabel}\r\n      ....\r\n/>\r\n```",
+      "path": "packages/components/src/local/molecules/channel-coa-message-detail/index.tsx",
+      "diff_hunk": "@@ -49,13 +50,14 @@ const labelFactory = (id: string, label: string): React.ReactNode => (\n type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'\n \n /* Render component */\n-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {\n+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {\n   const [value, setValue] = useState(message.message.Request || '[message empty]')\n   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')\n   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')\n   const [open, setOpenDialog] = useState<boolean>(false)\n   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')\n   const [placeHolder, setPlaceHolder] = useState<string>('')\n+  const [assignBtnLabel] = useState<string>('Assign to')",
+      "html_url": "https://github.com/serge-web/serge/pull/1015#discussion_r696608152"
+    },
+    {
+      "id": 696636139,
+      "user": "IanMayo",
+      "created_at": "2021-08-26T13:35:19Z",
+      "updated_at": "2021-08-26T13:35:19Z",
+      "body": "Ok, thanks.",
+      "path": "packages/components/src/local/molecules/channel-coa-message-detail/index.tsx",
+      "diff_hunk": "@@ -49,13 +50,14 @@ const labelFactory = (id: string, label: string): React.ReactNode => (\n type ActionType = 'edit-endorse' | 'edit-requestChanges' | 'respond-requestChanges'\n \n /* Render component */\n-export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages }) => {\n+export const ChannelCoaMessageDetail: React.FC<Props> = ({ message, onChange, isUmpire, role, channel, canCollaborate, canReleaseMessages, assignees = [] }) => {\n   const [value, setValue] = useState(message.message.Request || '[message empty]')\n   const [answer, setAnswer] = useState((message.details.collaboration && message.details.collaboration.response) || '')\n   const [privateMessage, setPrivateMessage] = useState<string>(message.details.privateMessage || '')\n   const [open, setOpenDialog] = useState<boolean>(false)\n   const [dialogTitle, setDialogTitle] = useState<string>('Feedback')\n   const [placeHolder, setPlaceHolder] = useState<string>('')\n+  const [assignBtnLabel] = useState<string>('Assign to')",
+      "html_url": "https://github.com/serge-web/serge/pull/1015#discussion_r696636139"
+    }
+  ],
+  "issue_numbers": [
+    1012
+  ],
+  "issues": [
+    {
+      "id": 978976936,
+      "number": 1012,
+      "title": "Feature/edit response in collab channel 1000",
+      "state": "closed",
+      "user": "lilitkarapetyan",
+      "created_at": "2021-08-25T10:25:00Z",
+      "updated_at": "2021-08-26T16:20:23Z",
+      "closed_at": "2021-08-26T16:20:22Z",
+      "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nCloses #1000\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\nAdded the ability to change response in Collaborative Editing and move Json Editor to component side\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+      "labels": [
+        "enhancement"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 457
+}

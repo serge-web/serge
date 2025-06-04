@@ -1,0 +1,30 @@
+{
+  "number": 1830,
+  "title": "give more detail on un-rendered channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-09T10:12:53Z",
+  "updated_at": "2022-09-09T10:30:27Z",
+  "closed_at": "2022-09-09T10:30:26Z",
+  "merged_at": "2022-09-09T10:30:26Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1830",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1830/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1830/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1830",
+  "body": "More diagnostics to help with #1794 ",
+  "additions": 2,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 4
+}

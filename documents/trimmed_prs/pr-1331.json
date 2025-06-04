@@ -1,0 +1,221 @@
+{
+  "number": 1331,
+  "title": "1329 Add column filter for react table",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-29T13:47:48Z",
+  "updated_at": "2022-02-04T16:16:55Z",
+  "closed_at": "2022-02-04T16:16:55Z",
+  "merged_at": "2022-02-04T16:16:54Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1331",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1331/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1331/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1331",
+  "body": "Fixes #1329 ",
+  "additions": 581,
+  "deletions": 1035,
+  "changed_files": 22,
+  "labels": [],
+  "comments_count": 18,
+  "review_comments_count": 4,
+  "total_comments": 22,
+  "comments_data": [
+    {
+      "id": 1024944439,
+      "user": "IanMayo",
+      "created_at": "2022-01-29T16:41:00Z",
+      "updated_at": "2022-01-29T16:41:00Z",
+      "body": "@lebaphi - did you consider changing/extending the react component itself?"
+    },
+    {
+      "id": 1025058889,
+      "user": "lebaphi",
+      "created_at": "2022-01-30T03:18:18Z",
+      "updated_at": "2022-01-30T03:18:18Z",
+      "body": "> @lebaphi - did you consider changing/extending the react component itself?\r\n\r\nyep @IanMayo , I try to make the function work first and then make it as a new component that extends the react-table component."
+    },
+    {
+      "id": 1025602754,
+      "user": "IanMayo",
+      "created_at": "2022-01-31T10:43:56Z",
+      "updated_at": "2022-01-31T10:43:56Z",
+      "body": "Thanks @lebaphi - could we have a filter on \"From\" and \"Owner\" for the \"Blue COA\", and \"From\" for the \"Blue RFI\" please?\r\n\r\nHmm, maybe the collab-options needs to have a data element that lists the columns that should have a filter available.  Or, maybe it's possible to use introspection to decide if the column is suited to a column filter."
+    },
+    {
+      "id": 1025614731,
+      "user": "IanMayo",
+      "created_at": "2022-01-31T10:59:49Z",
+      "updated_at": "2022-01-31T10:59:49Z",
+      "body": "Just had a play - nice UI :-)\r\n\r\n1. Could the filter icon be modified in columns that have a filter applied?  I can't see a different icon that works, so I guess we can only play with size or color.\r\n![image](https://user-images.githubusercontent.com/1108513/151781778-7b9852a6-cb82-4dfd-9324-7bfb095ade3d.png)\r\n\r\nMaybe make the standard filter icon one pixel smaller than the current size, and the \"filter applied\" icon one pixel larger than the current size?  Could you do an experiment with that please?\r\n\r\nOr, when applied, we use the light-clue color that's used in `Mark all as read` at the top of the channel?  Could we have an experiment with that too, please?"
+    },
+    {
+      "id": 1025756596,
+      "user": "IanMayo",
+      "created_at": "2022-01-31T13:47:43Z",
+      "updated_at": "2022-01-31T13:47:43Z",
+      "body": "Have deleted my earlier comment.\r\n\r\nI've implemented the successive filters change, and I realise we need to keep all the filter options if we're going to allow the player to extend the set of matches."
+    },
+    {
+      "id": 1025778082,
+      "user": "IanMayo",
+      "created_at": "2022-01-31T14:11:21Z",
+      "updated_at": "2022-01-31T14:11:21Z",
+      "body": "Thanks for the update @lebaphi \r\n\r\nCould you have a go at the formatting to indicate which columns have a filter applied?"
+    },
+    {
+      "id": 1025787149,
+      "user": "lebaphi",
+      "created_at": "2022-01-31T14:19:54Z",
+      "updated_at": "2022-01-31T14:19:54Z",
+      "body": "> Thanks for the update @lebaphi\r\n> \r\n> Could you have a go at the formatting to indicate which columns have a filter applied?\r\n\r\nCan you have more detail @IanMayo , you mean the column have a filter applied will have the brighter color and the rest are more grey or something like that?"
+    },
+    {
+      "id": 1025790915,
+      "user": "IanMayo",
+      "created_at": "2022-01-31T14:23:11Z",
+      "updated_at": "2022-01-31T14:23:11Z",
+      "body": "> > Thanks for the update @lebaphi\r\n> > Could you have a go at the formatting to indicate which columns have a filter applied?\r\n> \r\n> Can you have more detail @IanMayo , you mean the column have a filter applied will have the brighter color and the rest are more grey or something like that?\r\n\r\nSure - I was imagining we would apply some formatting to the filter icon in columns that have a filter applied.  So - the formatting is just for the icon."
+    },
+    {
+      "id": 1026016476,
+      "user": "IanMayo",
+      "created_at": "2022-01-31T17:17:38Z",
+      "updated_at": "2022-01-31T17:19:02Z",
+      "body": "Happy with new filter icon shading.\r\n\r\nThink I just have this remaining issue.  We don't refresh the filter values enough. \r\n\r\nI'm in `Blue COA 2` channel, playing as `Blue-Senior`:\r\n* for `State` I have `In progress` and `Pending review`.  \r\n* if I expand a `Pending Review` and `Release` it, then it goes to `Released`.  \r\n\r\nBut, the items in the drop-down list for `State` don't change to include `Released`.\r\n\r\nAah, one other thing.  The filters are cleared when a new message (COA) is received.  We should re-run the filters on the new data.  This does mean that a new message may not be visible - but that is the intended behaviour.  Note: even though the messages do not get filtered, the `filter` icon is still shown in white.  I _guess_ we just need to re-run the `getFilteredRows()` method."
+    },
+    {
+      "id": 1027145785,
+      "user": "IanMayo",
+      "created_at": "2022-02-01T18:16:24Z",
+      "updated_at": "2022-02-01T18:16:24Z",
+      "body": "@lebaphi  - we have a heroku build failure. I've attached a copy of it.  Hopefully you can recognise the issue.\r\n[build log.txt](https://github.com/serge-web/serge/files/7980944/build.log.txt)\r\n\r\n"
+    },
+    {
+      "id": 1028093290,
+      "user": "lebaphi",
+      "created_at": "2022-02-02T16:02:12Z",
+      "updated_at": "2022-02-02T16:33:07Z",
+      "body": "> @lebaphi - we have a heroku build failure. I've attached a copy of it. Hopefully you can recognise the issue. [build log.txt](https://github.com/serge-web/serge/files/7980944/build.log.txt)\r\n\r\nHi @IanMayo , it seems the build has an issue with the sass-loader version, I found some one has the issue with the same log with us but different version of the `sass-loader`. I'm not sure why this issue happened while we don't change the `package.json` file 🤔 "
+    },
+    {
+      "id": 1028118454,
+      "user": "IanMayo",
+      "created_at": "2022-02-02T16:27:01Z",
+      "updated_at": "2022-02-02T16:27:01Z",
+      "body": "> Hi @IanMayo , it seems the build has an issue with the sass-loader version, I found the some one has the issue with the same log with us but different version of the `sass-loader`. I'm not sure why this issue happened while we don't change the `package.json` file 🤔\r\n\r\nYes, it appears the bug is present on `develop` and being pulled into PRs.  I _guess_ it could be an update to an external dependency."
+    },
+    {
+      "id": 1028582291,
+      "user": "lebaphi",
+      "created_at": "2022-02-03T04:06:29Z",
+      "updated_at": "2022-02-03T04:06:29Z",
+      "body": "Hi @IanMayo, I updated the filter logic, could you check it 😉"
+    },
+    {
+      "id": 1028732929,
+      "user": "IanMayo",
+      "created_at": "2022-02-03T08:43:00Z",
+      "updated_at": "2022-02-03T08:43:00Z",
+      "body": "> Hi @IanMayo, I updated the filter logic, could you check it 😉\r\n\r\nThanks. Have replied [here](https://github.com/serge-web/serge/pull/1331/commits/a1a2b6743597f8d180e214d2c0780fb9f701aea1#r798332556)"
+    },
+    {
+      "id": 1030016038,
+      "user": "lebaphi",
+      "created_at": "2022-02-04T14:07:20Z",
+      "updated_at": "2022-02-04T14:07:20Z",
+      "body": "> I'm probably being silly here. But, won't the above do a comparison with the string `${row[col]}`?\r\n\r\n```\r\nreturn rows.filter(row => {\r\n      // see if this value is in the acceptable values\r\n      return acceptableValues.some(({ label, col }) => label.trim() === `${row[col]}`.trim())\r\n    })\r\n```\r\nso the logic: \r\n- we have the array acceptableValues: `{ label: string, col: string }[]`, e.g: [ {label: 'Closed', col: 'status'}, {label: 'Not Closed', col: 'status'} ]\r\n- we filter all rows, then loop `acceptableValues` array and check each row if has `row[col] === label` => return `Passed`. e.g: if row['status'] === 'Closed' => return `Passed` and continue with the next row.\r\n\r\nSo what is your concern @IanMayo ?"
+    },
+    {
+      "id": 1030029027,
+      "user": "IanMayo",
+      "created_at": "2022-02-04T14:16:38Z",
+      "updated_at": "2022-02-04T14:16:38Z",
+      "body": "Hello @lebaphi \r\n\r\nYou have:\r\n```\r\n label.trim() === `${row[col]}`.trim())\r\n```\r\nShouldn't it be this (without the quotes around `${row[col]}`.\r\n```\r\n label.trim() === ${row[col]}.trim())\r\n```\r\n\r\nMy guess is that the test is against the text string `\"${row[col]}\"` rather than the contents of  `${row[col]}`"
+    },
+    {
+      "id": 1030109394,
+      "user": "lebaphi",
+      "created_at": "2022-02-04T15:47:10Z",
+      "updated_at": "2022-02-04T15:47:10Z",
+      "body": "> Hello @lebaphi\r\n> \r\n> You have:\r\n> \r\n> ```\r\n>  label.trim() === `${row[col]}`.trim())\r\n> ```\r\n> \r\n> Shouldn't it be this (without the quotes around `${row[col]}`.\r\n> \r\n> ```\r\n>  label.trim() === ${row[col]}.trim())\r\n> ```\r\n> \r\n> My guess is that the test is against the text string `\"${row[col]}\"` rather than the contents of `${row[col]}`\r\n\r\nahh, I just cast it to string, it called template string in Js https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals?retiredLocale=vi, we can not use ${...} without the quotes ` ` 😄 "
+    },
+    {
+      "id": 1030134166,
+      "user": "IanMayo",
+      "created_at": "2022-02-04T16:14:30Z",
+      "updated_at": "2022-02-04T16:14:30Z",
+      "body": "> ahh, I just cast it to string,\r\n\r\nPerfect, thanks for the lesson ;-)"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 796851999,
+      "user": "IanMayo",
+      "created_at": "2022-02-01T17:51:11Z",
+      "updated_at": "2022-02-01T17:51:12Z",
+      "body": "Ooh @lebaphi, this is good & clever \"js-array\" code.  But, I'm worried about the logic.  I may have this wrong, but if the user selects \"Closed\" in the \"Status\" column, it will check for \"Closed\" in other columns.  Aaah, is it doing a compare for every field in every row with the flattened list?\r\n\r\nThat's quite inefficient if the player has, for example, just asked to see \"Status\":\"Pending\" messages.\r\n\r\nHappy to discuss :-)",
+      "path": "packages/components/src/local/react-table/index.tsx",
+      "diff_hunk": "@@ -135,17 +151,11 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {\n    * @returns Row[]\n    */\n   const getFilteredRows = (appliedFilter: { col: string, filter: CellFilter[] }[]): Row[] => {\n-    let filtered = rows\n-    appliedFilter.forEach((filter: { col: string, filter: CellFilter[] }) => {\n-      // collate list of acceptable values\n-      const acceptableValues: string[] = filter.filter.map(f => f.label)\n-      // update set of filtered rows\n-      filtered = filtered.filter((row: Row) => {\n-        // see if this value is in the acceptable values\n-        return acceptableValues.includes(row[filter.col])\n-      })\n+    const acceptableValues: string[] = flattenDeep(appliedFilter.map(filter => filter.filter.map(f => f.label)))",
+      "html_url": "https://github.com/serge-web/serge/pull/1331#discussion_r796851999"
+    },
+    {
+      "id": 797417082,
+      "user": "lebaphi",
+      "created_at": "2022-02-02T09:32:21Z",
+      "updated_at": "2022-02-02T09:32:33Z",
+      "body": "Yeah, I see what you mean, I will update a bit the logic, thank @IanMayo  👍 ",
+      "path": "packages/components/src/local/react-table/index.tsx",
+      "diff_hunk": "@@ -135,17 +151,11 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {\n    * @returns Row[]\n    */\n   const getFilteredRows = (appliedFilter: { col: string, filter: CellFilter[] }[]): Row[] => {\n-    let filtered = rows\n-    appliedFilter.forEach((filter: { col: string, filter: CellFilter[] }) => {\n-      // collate list of acceptable values\n-      const acceptableValues: string[] = filter.filter.map(f => f.label)\n-      // update set of filtered rows\n-      filtered = filtered.filter((row: Row) => {\n-        // see if this value is in the acceptable values\n-        return acceptableValues.includes(row[filter.col])\n-      })\n+    const acceptableValues: string[] = flattenDeep(appliedFilter.map(filter => filter.filter.map(f => f.label)))",
+      "html_url": "https://github.com/serge-web/serge/pull/1331#discussion_r797417082"
+    },
+    {
+      "id": 798332556,
+      "user": "IanMayo",
+      "created_at": "2022-02-03T08:42:35Z",
+      "updated_at": "2022-02-03T08:42:35Z",
+      "body": " I _may_ be mistaken, but...   If the `acceptable` value is `Closed` , and the row status is `Not Closed`, then `includes` means it will be a match won't it?\r\n\r\nPlease correct me if I'm wrong, but using `===` seems better because:\r\n* only exact matches pass the test\r\n* it _may_ be quicker, since it's just comparing the hash, rather than a character by character comparison.",
+      "path": "packages/components/src/local/react-table/index.tsx",
+      "diff_hunk": "@@ -150,11 +150,11 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {\n    * @param appliedFilter: { col: string, filter: CellFilter[] }[]\n    * @returns Row[]\n    */\n-  const getFilteredRows = (appliedFilters: { col: string, filter: CellFilter[] }[]): Row[] => {\n-    const acceptableValues: string[] = flattenDeep(appliedFilters.map(filter => filter.filter.map(f => f.label)))\n+  const getFilteredRows = (appliedFilter: { col: string, filter: CellFilter[] }[]): Row[] => {\n+    const acceptableValues: { label: string, col: string }[] = flattenDeep(appliedFilter.map(filter => filter.filter.map(f => ({ label: f.label, col: filter.col }))))\n     return rows.filter(row => {\n       // see if this value is in the acceptable values\n-      return Object.keys(row).some(key => acceptableValues.includes(row[key]))\n+      return acceptableValues.some(({ label, col }) => label.includes(row[col]))",
+      "html_url": "https://github.com/serge-web/serge/pull/1331#discussion_r798332556"
+    },
+    {
+      "id": 799411734,
+      "user": "lebaphi",
+      "created_at": "2022-02-04T12:10:49Z",
+      "updated_at": "2022-02-04T12:10:58Z",
+      "body": "> value is Closed , and the row status is Not Closed\r\n\r\nahh, okay @IanMayo, in this case we should use `===`, I will updated it 👍 ",
+      "path": "packages/components/src/local/react-table/index.tsx",
+      "diff_hunk": "@@ -150,11 +150,11 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {\n    * @param appliedFilter: { col: string, filter: CellFilter[] }[]\n    * @returns Row[]\n    */\n-  const getFilteredRows = (appliedFilters: { col: string, filter: CellFilter[] }[]): Row[] => {\n-    const acceptableValues: string[] = flattenDeep(appliedFilters.map(filter => filter.filter.map(f => f.label)))\n+  const getFilteredRows = (appliedFilter: { col: string, filter: CellFilter[] }[]): Row[] => {\n+    const acceptableValues: { label: string, col: string }[] = flattenDeep(appliedFilter.map(filter => filter.filter.map(f => ({ label: f.label, col: filter.col }))))\n     return rows.filter(row => {\n       // see if this value is in the acceptable values\n-      return Object.keys(row).some(key => acceptableValues.includes(row[key]))\n+      return acceptableValues.some(({ label, col }) => label.includes(row[col]))",
+      "html_url": "https://github.com/serge-web/serge/pull/1331#discussion_r799411734"
+    }
+  ],
+  "issue_numbers": [
+    1329
+  ],
+  "issues": [
+    {
+      "id": 1117172961,
+      "number": 1329,
+      "title": "React table column filter",
+      "state": "closed",
+      "user": "lebaphi",
+      "created_at": "2022-01-28T09:18:17Z",
+      "updated_at": "2022-02-04T16:16:54Z",
+      "closed_at": "2022-02-04T16:16:54Z",
+      "body": "In our custom-created table we had a column filter, our own version of this:\r\n![image](https://user-images.githubusercontent.com/1108513/151531526-08260884-712a-448c-96b4-ca2cb6d217f2.png)\r\n\r\nWe've switched to the react data table component, but it doesn't have a column filter. There is a [feature request](https://github.com/jbetancur/react-data-table-component/issues/994) for a column filter.\r\n\r\nThis issue covers the effort to look at the react-data-table-component sources, and to decide if it is feasible to add a column filter.  \r\n\r\nI _imagine_ the API looking like this: by setting a \"filterValues\" field to \"strings\", the table would provide a context menu in the column header that shows a list of unique values in that column. The user selects values of interest, and then Apply.  (Note: in the future a \"numeric\" option could also be added, which allows the user to provide a filter range for numeric data).\r\n\r\nIf it does look possible we would submit a PR to the `react-data-table-component` project.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/151781778-7b9852a6-cb82-4dfd-9324-7bfb095ade3d.png",
+    "https://user-images.githubusercontent.com/1108513/151531526-08260884-712a-448c-96b4-ca2cb6d217f2.png"
+  ],
+  "number_of_changed_files": 22,
+  "total_changed_lines": 1616
+}

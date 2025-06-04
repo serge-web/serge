@@ -1,0 +1,154 @@
+{
+  "number": 1494,
+  "title": "1269: Update Type Uniformity",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-08T09:25:13Z",
+  "updated_at": "2022-04-08T11:38:52Z",
+  "closed_at": "2022-04-08T11:38:50Z",
+  "merged_at": "2022-04-08T11:38:49Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1494",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1494/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1494/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1494",
+  "body": "Fixes #1269 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/162407021-3090ac5d-3795-4127-a36d-28095cbd4ea2.mp4\r\n\r\n\r\n",
+  "additions": 1081,
+  "deletions": 113,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1269
+  ],
+  "issues": [
+    {
+      "id": 1082223584,
+      "number": 1269,
+      "title": "1215: Font Size and Type Uniformity",
+      "state": "closed",
+      "user": "lebaphi",
+      "created_at": "2021-12-16T13:53:36Z",
+      "updated_at": "2022-07-11T14:58:30Z",
+      "closed_at": "2022-07-11T14:58:29Z",
+      "body": "Fixes #1215 ",
+      "labels": [],
+      "comments": [
+        {
+          "id": 995838432,
+          "user": "lebaphi",
+          "created_at": "2021-12-16T13:54:03Z",
+          "updated_at": "2021-12-16T13:54:03Z",
+          "body": "<img width=\"967\" alt=\"Screen Shot 2021-12-16 at 8 46 29 PM\" src=\"https://user-images.githubusercontent.com/26705621/146384685-0888357d-c456-49b8-8aaa-23dca1f815da.png\">\r\n"
+        },
+        {
+          "id": 995875546,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-16T14:36:42Z",
+          "updated_at": "2021-12-16T14:36:42Z",
+          "body": "That's excellent @lebaphi. If you could apply the same font and color to \"Show Archived\" feature as well, please. Thank you! "
+        },
+        {
+          "id": 996434796,
+          "user": "lebaphi",
+          "created_at": "2021-12-17T04:46:52Z",
+          "updated_at": "2021-12-17T04:46:52Z",
+          "body": "> That's excellent @lebaphi. If you could apply the same font and color to \"Show Archived\" feature as well, please. Thank you!\r\n\r\nsure @ShendMikullovci 👍 "
+        },
+        {
+          "id": 996437260,
+          "user": "lebaphi",
+          "created_at": "2021-12-17T04:54:49Z",
+          "updated_at": "2021-12-17T04:54:49Z",
+          "body": "Please help to review it @ShendMikullovci :D\r\n![image](https://user-images.githubusercontent.com/26705621/146491050-a41e8b0c-a0a1-480c-a7e1-85317727b48c.png)\r\n"
+        },
+        {
+          "id": 996600705,
+          "user": "IanMayo",
+          "created_at": "2021-12-17T10:15:39Z",
+          "updated_at": "2021-12-17T10:15:39Z",
+          "body": "There may be an issue with the use of case in the controls, but @ShendMikullovci is going to consider that separately, in this issue: https://github.com/serge-web/serge/issues/1238"
+        },
+        {
+          "id": 997426753,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-19T17:07:40Z",
+          "updated_at": "2021-12-19T17:07:40Z",
+          "body": "The color looks great. As for the font size, I think sticking to 12px capitalized fonts would be good. I'd have to see it, however, considering how the \"MARK ALL READ\" came out, it looks promising. I'll provide a mean count shortly."
+        },
+        {
+          "id": 1017718387,
+          "user": "IanMayo",
+          "created_at": "2022-01-20T17:01:07Z",
+          "updated_at": "2022-01-20T17:01:07Z",
+          "body": "I've just run this branch.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/150386046-776c7792-43a7-411e-b665-c2b03c47add1.png)\r\n\r\nIn my opinion it looks like the controls at the top of the channel are disabled.\r\n\r\nAre you able to contribute any further @ShendMikullovci ?"
+        },
+        {
+          "id": 1020586284,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-24T21:54:53Z",
+          "updated_at": "2022-01-24T21:54:53Z",
+          "body": "> I've just run this branch.\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/150386046-776c7792-43a7-411e-b665-c2b03c47add1.png)\r\n> \r\n> In my opinion it looks like the controls at the top of the channel are disabled.\r\n> \r\n> Are you able to contribute any further @ShendMikullovci ?\r\n\r\nI think it appears to be disabled due to the lack of size uniformity. If we could get the font at the same size and only have initials capitalized, it should look smoother. If not, we can also go with a lighter gray."
+        },
+        {
+          "id": 1021005902,
+          "user": "IanMayo",
+          "created_at": "2022-01-25T09:56:44Z",
+          "updated_at": "2022-01-25T09:56:44Z",
+          "body": "Yes, @ShendMikullovci - I agree that the controls are inconsistent.\r\n\r\ni've just been googling \"toggle or switch\" - and it appears a \"Switch\" control would be more suited to \"Show archived lessons\".  I _think_ we also need to make \"Mark all as read\" look more like a button.   I propose we give \"Mark all as read\" a border.  I also propose (as Shend said) we make the case consistent for both.\r\n\r\nLet's remove the `Filter` control.  We really need per-column drop-down filters and `order` controls.  @lebaphi is going to experiment with this in the `Player log table` feature.\r\n\r\nCould you produce an updated UI please @ShendMikullovci ?\r\n\r\nNote: I know @ShendMikullovci is trying to reduce the visual clutter, but I'm pretty sure we can't use grey for these controls, since it's the standard way of indicating something is disabled:\r\n![image](https://user-images.githubusercontent.com/1108513/150954297-623ec968-0b61-4cb7-91f3-e06b4a7a23df.png)\r\n\r\nI _guess_ another way of reducing the clutter would be to use smaller/simpler controls.  _Maybe_ we can come up with icons for \"Show archived\" and \"Mark all as read\" - with tooltips to give further explanation.\r\n\r\n"
+        },
+        {
+          "id": 1021664800,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-25T22:22:17Z",
+          "updated_at": "2022-01-25T22:22:17Z",
+          "body": "I'm very much pro turning these features into buttons. I had a go at it: \r\n\r\n![Inbox Icons](https://user-images.githubusercontent.com/85491794/151068816-b4c7eb4c-b4f3-418b-a5d1-3fff8d69574f.png)\r\n\r\n3 icons for all 3 features. The search \"spyglass\" icon is switched to a funnel icon since it more appropriately matches the term \"filter\". The archive button (middle) is the standard button for most messaging apps and is easily recognizable. Finally, the mark-read button we've used previously to maintain uniformity. \r\nIn this screenshot, none of the features would be active.\r\n\r\nIn the screenshot below, all 3 features are active: \r\n\r\n![Inbox Icons 2](https://user-images.githubusercontent.com/85491794/151069326-225d5c28-7d7b-47b3-9dff-cfeb0efb51f7.png)\r\n\r\nHere, the user has selected to mark all messages as read (sorry that I couldn't do it for a better illustration, bug), has selected to show archived (thus archive button is filled) and has clicked on the filter button to type what they're searching for. \r\nPersonally, I'd consider using terms like \"search\" or \"sort\" for the latter feature. \r\n"
+        },
+        {
+          "id": 1061727737,
+          "user": "IanMayo",
+          "created_at": "2022-03-08T12:30:08Z",
+          "updated_at": "2022-03-08T12:30:08Z",
+          "body": "@lebaphi  - could you also work on the move to icons that @ShendMikullovci suggested above please?"
+        },
+        {
+          "id": 1061991207,
+          "user": "lebaphi",
+          "created_at": "2022-03-08T16:54:44Z",
+          "updated_at": "2022-03-08T16:54:44Z",
+          "body": "> @lebaphi - could you also work on the move to icons that @ShendMikullovci suggested above please?\r\n\r\nsure @IanMayo 😁"
+        },
+        {
+          "id": 1092973360,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-08T15:09:23Z",
+          "updated_at": "2022-04-08T15:09:23Z",
+          "body": "Hi guys! Just checked this. The icons look great. We could do with 2 small improvements:\r\n\r\n1. The \"MARK ALL READ\" button should also mark all unread.\r\n2. The buttons, when not activated, should be dimmer in color, that way once one is activated, it stands out in white next to the dim grey ones."
+        },
+        {
+          "id": 1112533310,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-28T18:32:24Z",
+          "updated_at": "2022-04-28T18:32:24Z",
+          "body": "I see I've been requested for a review here. The error is still relevant. I'll check as soon as it's fixed."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/146384685-0888357d-c456-49b8-8aaa-23dca1f815da.png",
+    "https://user-images.githubusercontent.com/26705621/146491050-a41e8b0c-a0a1-480c-a7e1-85317727b48c.png",
+    "https://user-images.githubusercontent.com/1108513/150386046-776c7792-43a7-411e-b665-c2b03c47add1.png",
+    "https://user-images.githubusercontent.com/1108513/150954297-623ec968-0b61-4cb7-91f3-e06b4a7a23df.png",
+    "https://user-images.githubusercontent.com/85491794/151068816-b4c7eb4c-b4f3-418b-a5d1-3fff8d69574f.png",
+    "https://user-images.githubusercontent.com/85491794/151069326-225d5c28-7d7b-47b3-9dff-cfeb0efb51f7.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 1194
+}

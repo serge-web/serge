@@ -1,0 +1,52 @@
+{
+  "number": 1692,
+  "title": "1691 New h3 polygon cell styling",
+  "state": "open",
+  "merged": false,
+  "created_at": "2022-07-26T12:25:31Z",
+  "updated_at": "2022-09-21T08:28:40Z",
+  "closed_at": null,
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1692",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1692/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1692/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1692",
+  "body": "Fixes #1691 ",
+  "additions": 10383,
+  "deletions": 43,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1691
+  ],
+  "issues": [
+    {
+      "id": 1317052720,
+      "number": 1691,
+      "title": "As a player I wish to see styling that indicates the terrain-type (or other) for cells",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-25T16:02:21Z",
+      "updated_at": "2023-11-13T11:34:20Z",
+      "closed_at": "2023-11-13T11:34:20Z",
+      "body": "We're using H3 mapping for background context.\r\n\r\nIt is possible to generate data-files indicating which terrain type applies to a cell.\r\n\r\nThere are two approaches to using this data:\r\n1.  We load an array for each cell, then style the cell appropriately\r\n2. We load the styling for all cells, then generate polygons of contiguous cells, and style these polygons\r\n\r\nThe second approach requires some up-front processing, but it has a significant performance improvement, since individual hexes are typically not rendered - but the outer edge of groups of hexes.",
+      "labels": [
+        "wontfix",
+        "4watu",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 10426
+}

@@ -1,0 +1,182 @@
+{
+  "number": 2285,
+  "title": "1977: Adopt alternate symbol generator",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-21T02:49:32Z",
+  "updated_at": "2023-01-31T17:55:25Z",
+  "closed_at": "2023-01-31T17:55:24Z",
+  "merged_at": "2023-01-31T17:55:24Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2285",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2285/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2285/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2285",
+  "body": "Fixes #1977 \r\n\r\nHi @IanMayo, I introduce new component `SymbolAssetIcon` which uses new library `milsymbol`, usage in `collate-assets.tsx`, line 154, this is just basic usage.\r\n\r\n<img width=\"358\" alt=\"Screen Shot 2023-01-21 at 9 35 52 AM\" src=\"https://user-images.githubusercontent.com/26705621/213840609-abaeb42c-4077-4d9e-90c8-1a87943b7233.png\">\r\n\r\n",
+  "additions": 328,
+  "deletions": 80,
+  "changed_files": 22,
+  "labels": [],
+  "comments_count": 17,
+  "review_comments_count": 0,
+  "total_comments": 17,
+  "comments_data": [
+    {
+      "id": 1399425095,
+      "user": "IanMayo",
+      "created_at": "2023-01-22T07:59:49Z",
+      "updated_at": "2023-01-22T07:59:49Z",
+      "body": "Thanks @lebaphi - it looks suprisingly simple.\r\n\r\nCould you prove we can use these icons the map too, please?  So, when you select the yellow asset in the table,it will pan to it on the map, and we should see the yellow icon there too, p!ease."
+    },
+    {
+      "id": 1399509012,
+      "user": "IanMayo",
+      "created_at": "2023-01-22T14:45:37Z",
+      "updated_at": "2023-01-22T15:26:32Z",
+      "body": "Great, it works.  I _guess_ the change we need is in `<AssetIcon>`, since those icons are used in both forms and on the map.\r\n\r\nThe current `just change one asset` strategy is fine :-)\r\n\r\nI guess other steps are that I need to introduce a new property for the `PlatformTypeData` class - for the `milSymbol` to use for that type of platform.\r\n\r\nNote: I'm just pushing a commit that starts to use `sidc` codes stored in the `platform-type` data.  I'm also looking on UpWork for an `expert` who can help us generate the SIDC codes."
+    },
+    {
+      "id": 1399524657,
+      "user": "lebaphi",
+      "created_at": "2023-01-22T15:44:12Z",
+      "updated_at": "2023-01-22T15:44:12Z",
+      "body": "> I guess other steps are that I need to introduce a new property for the PlatformTypeData class - for the milSymbol to use for that type of platform.\r\n\r\nYes @IanMayo \r\n\r\n<img width=\"840\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/213924828-58fd4375-464f-4e02-9029-f513ef16e40d.png\">\r\n\r\nIt seems that the new component `SymbolAssetIcon` does not work as the AssetIcon does, but it works when I call directly from the img tag. I'm still investigating. \r\n"
+    },
+    {
+      "id": 1400080395,
+      "user": "IanMayo",
+      "created_at": "2023-01-23T09:59:46Z",
+      "updated_at": "2023-01-23T09:59:46Z",
+      "body": "Aah, @lebaphi -  I've started to look for someone on UpWork who understands the SIDC codes. But, instead, is it possible to create the icons using plain-English words for the force color, icon type, health, etc?\r\n\r\n(I think I saw an example like that)\r\n\r\nThat would avoid the need to understand SIDC."
+    },
+    {
+      "id": 1400334083,
+      "user": "lebaphi",
+      "created_at": "2023-01-23T13:23:58Z",
+      "updated_at": "2023-01-23T13:23:58Z",
+      "body": "> Aah, @lebaphi - I've started to look for someone on UpWork who understands the SIDC codes. But, instead, is it possible to create the icons using plain-English words for the force color, icon type, health, etc?\r\n> \r\n> (I think I saw an example like that)\r\n> \r\n> That would avoid the need to understand SIDC.\r\n\r\nHi @IanMayo , does it help ? https://spatialillusions.com/milsymbol/docs/milsymbol-2525c.html#heading-11"
+    },
+    {
+      "id": 1400401352,
+      "user": "IanMayo",
+      "created_at": "2023-01-23T14:02:58Z",
+      "updated_at": "2023-01-23T14:02:58Z",
+      "body": "> Hi @IanMayo , does it help ? https://spatialillusions.com/milsymbol/docs/milsymbol-2525c.html#heading-11\r\n\r\nWow, that's a monster document!\r\n\r\nYes, that's the kind of thing I/we need.\r\n\r\nI can't see how we create a icon using \"HAWK\" - it seems we need that full SIDC.\r\n\r\nAah, but we may need to modify the call to provide force - I think that may be affiliation.  Could you try experimenting with providing an SIDC, but then providing a modifier option to color the force?  Blue is `friendly`, Red is `hostile`, and Green is `neutral`.  \r\n\r\nIt would also be useful to learn how to use the `Condition` [options](https://spatialillusions.com/milsymbol/docs/milsymbol-2525c.html#heading-3) - so we can use the lib to indicate dead/damaged, etc."
+    },
+    {
+      "id": 1400423406,
+      "user": "lebaphi",
+      "created_at": "2023-01-23T14:17:12Z",
+      "updated_at": "2023-01-23T14:17:12Z",
+      "body": "> > Hi @IanMayo , does it help ? https://spatialillusions.com/milsymbol/docs/milsymbol-2525c.html#heading-11\r\n> \r\n> Wow, that's a monster document!\r\n> \r\n> Yes, that's the kind of thing I/we need.\r\n> \r\n> I can't see how we create a icon using \"HAWK\" - it seems we need that full SIDC.\r\n> \r\n> Aah, but we may need to modify the call to provide force - I think that may be affiliation. Could you try experimenting with providing an SIDC, but then providing a modifier option to color the force? Blue is `friendly`, Red is `hostile`, and Green is `neutral`.\r\n> \r\n> It would also be useful to learn how to use the `Condition` [options](https://spatialillusions.com/milsymbol/docs/milsymbol-2525c.html#heading-3) - so we can use the lib to indicate dead/damaged, etc.\r\n\r\nokay, let me check 👌 "
+    },
+    {
+      "id": 1400449739,
+      "user": "IanMayo",
+      "created_at": "2023-01-23T14:36:10Z",
+      "updated_at": "2023-01-23T14:36:10Z",
+      "body": "Aah, I think I can work out the codes from looking at the sources here:\r\nhttps://spatialillusions.com/milsymbol/docs/milsymbol-APP6b.html\r\n\r\nThe second letter is the affiliation (force).  So, 'F' for Friend, 'H' for Hostile, 'N' for Neutral.\r\n\r\nAah, the fourth letter is the condition:  `C` for ok, `D` for damaged, `X` for destroyed.\r\n\r\nProgress!!\r\n\r\n"
+    },
+    {
+      "id": 1400600161,
+      "user": "IanMayo",
+      "created_at": "2023-01-23T16:07:36Z",
+      "updated_at": "2023-01-23T16:07:36Z",
+      "body": "Hold on, let me simplify the task :-D\r\n\r\nI'd like you to concentrate on finding out how we display the icon on the Leaflet map, please.  This seems to be a demo of how to do it in Leafet:\r\nhttps://www.spatialillusions.com/milsymbol/example.html#leaflet-divicons\r\n\r\n_Hopefully_ we'll only need the milSymbol code in one place.\r\n\r\nOnce we've got that done, I'll concentrate on all that SIDC stuff.\r\n"
+    },
+    {
+      "id": 1403280925,
+      "user": "IanMayo",
+      "created_at": "2023-01-25T08:57:22Z",
+      "updated_at": "2023-01-25T08:57:22Z",
+      "body": "Hey, looking good @philb89 \r\n\r\nNow that we have proven it is possible,  could you have a look and a think about if we can simplify/refactor the implementation\r\n\r\nAlso, since it's essentially just plain text, is it an option to create a dictionary (cache) of symbols?  I guess the index would be `sidc` + `stringify(options)`. That would give a performance increase with lots of icons."
+    },
+    {
+      "id": 1405149027,
+      "user": "lebaphi",
+      "created_at": "2023-01-26T15:06:57Z",
+      "updated_at": "2023-01-26T15:06:57Z",
+      "body": "Hi @IanMayo, I think we are caching the icon by using useMemo at this ine 🤔 \r\n\r\n<img width=\"817\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/214871087-9bfc6b95-56aa-41f0-8d73-42d19ea842d7.png\">\r\n"
+    },
+    {
+      "id": 1405159109,
+      "user": "IanMayo",
+      "created_at": "2023-01-26T15:13:32Z",
+      "updated_at": "2023-01-26T15:15:45Z",
+      "body": "> Hi @IanMayo, I think we are caching the icon by using useMemo at this line 🤔\r\n\r\nYes, that cache's individual symbols - to speed up rendering. But, we still create lots and lots of symbols.\r\n\r\nA cache would work like this\r\n\r\nCurrently:\r\n- we need a symbol for [sidc, options]\r\n- we create a symbol for [sidc, options]\r\n\r\nProposed:\r\n- we need a symbol for [sidc, options]\r\n- we ask cache for symbol for [sidc, options]\r\n- cache looks checks in dictionary for entry with key [sidc, options]\r\n    - if found\r\n        - return it\r\n    - else \r\n        - create symbol for [sidc, options] \r\n        - store it with key [sidc, options]\r\n        - return it\r\n\r\nThere may only be, say 40 different symbols in the game (changing for sidc and color) - even though there could be several thousand assets in the game.\r\n\r\nNote: we would probably still use the `useMemo` you provided above, to help render speed."
+    },
+    {
+      "id": 1407364846,
+      "user": "IanMayo",
+      "created_at": "2023-01-28T10:07:19Z",
+      "updated_at": "2023-01-28T10:08:33Z",
+      "body": "I may be mistaken @lebaphi  - but it looks like we create the cache in two places: support-panel and planning-channel.   I _guess_ we should only create it once.\r\nOops, `new LRU` appears in three places."
+    },
+    {
+      "id": 1407376660,
+      "user": "lebaphi",
+      "created_at": "2023-01-28T11:15:26Z",
+      "updated_at": "2023-01-28T11:15:26Z",
+      "body": "> I may be mistaken @lebaphi - but it looks like we create the cache in two places: support-panel and planning-channel. I _guess_ we should only create it once. Oops, `new LRU` appears in three places.\r\n\r\nHi @IanMayo, I think there is a place :D I tested and the cache is only initialized once"
+    },
+    {
+      "id": 1408515722,
+      "user": "IanMayo",
+      "created_at": "2023-01-30T12:15:57Z",
+      "updated_at": "2023-01-30T12:15:57Z",
+      "body": "Thanks for this @philb89 \r\n\r\nI'm just having a play.  We have these options:\r\n![image](https://user-images.githubusercontent.com/1108513/215473216-1d5cecfa-3842-422b-871c-3a324a3f8c4f.png)\r\n\r\nIf `sizeCalculation` always return `1`, then the `maxEntrySize` value is ignored.\r\n\r\nAlso:\r\n![image](https://user-images.githubusercontent.com/1108513/215473930-8874a1ed-32c7-4d5d-b66c-e884eb27b57f.png)\r\n\r\nHow about we cache the results of `icon.toDataURL()` instead of the symbol?  I've tried doing `stringify(xx).length` on `icon` and on `icon.toDataURL()`.  The size of the icon is 3-4k, and the size of the dataURL is 0.8-2k.  So, we'd use less memory, and reduce the browser processing requirement (since we only to `.toDataURL()` once per symbol."
+    },
+    {
+      "id": 1408525685,
+      "user": "lebaphi",
+      "created_at": "2023-01-30T12:23:46Z",
+      "updated_at": "2023-01-30T12:23:46Z",
+      "body": "> Thanks for this @philb89\r\n> \r\n> I'm just having a play. We have these options: ![image](https://user-images.githubusercontent.com/1108513/215473216-1d5cecfa-3842-422b-871c-3a324a3f8c4f.png)\r\n> \r\n> If `sizeCalculation` always return `1`, then the `maxEntrySize` value is ignored.\r\n> \r\n> Also: ![image](https://user-images.githubusercontent.com/1108513/215473930-8874a1ed-32c7-4d5d-b66c-e884eb27b57f.png)\r\n> \r\n> How about we cache the results of `icon.toDataURL()` instead of the symbol? I've tried doing `stringify(xx).length` on `icon` and on `icon.toDataURL()`. The size of the icon is 3-4k, and the size of the dataURL is 0.8-2k. So, we'd use less memory, and reduce the browser processing requirement (since we only to `.toDataURL()` once per symbol.\r\n\r\nHi @IanMayo ,yes we can store `icon.toDataURL()` instead of symbol, it will reduce memory size. I just thought caching the symbol would give us more control over the icon."
+    },
+    {
+      "id": 1409079355,
+      "user": "IanMayo",
+      "created_at": "2023-01-30T18:04:36Z",
+      "updated_at": "2023-01-31T15:44:18Z",
+      "body": "Hello @philb89 - if you switch to the cacheing the DATA URL, we can merge this tomorrow, and I'll try to come up with SCIDs for all of our platform types.\r\n\r\n(Sorry guys, I tagged Lilit, I should have tagged Phi. Now fixed)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1977
+  ],
+  "issues": [
+    {
+      "id": 1427357374,
+      "number": 1977,
+      "title": "Adopt alternate symbol generator",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-28T14:35:08Z",
+      "updated_at": "2023-01-31T17:55:25Z",
+      "closed_at": "2023-01-31T17:55:25Z",
+      "body": "An open-source project exists that renders NATO mapping symbols as SVG: https://github.com/spatialillusions/milsymbol\r\n\r\nThis could greatly open up the range of asset/entity symbols available to Serge game designers.\r\n\r\nBut, it's a broad change. We should only do it outside a game work-up period.\r\n\r\n@lebaphi - I'd like us to do a trial of this alternate component, please.  There's lots of logic in how we create each icon type, and add the `adornments`, but I can provide that input once we've established if it is workable or not.\r\n\r\nI _guess_ one way of doing this is to modify `AssetIcon` so that for some icon type, we provide a MilSymbol instead of the  existing `imageSrc`",
+      "labels": [
+        "User Story",
+        "spatial",
+        "Mapping",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/213840609-abaeb42c-4077-4d9e-90c8-1a87943b7233.png",
+    "https://user-images.githubusercontent.com/26705621/213924828-58fd4375-464f-4e02-9029-f513ef16e40d.png",
+    "https://user-images.githubusercontent.com/26705621/214871087-9bfc6b95-56aa-41f0-8d73-42d19ea842d7.png",
+    "https://user-images.githubusercontent.com/1108513/215473216-1d5cecfa-3842-422b-871c-3a324a3f8c4f.png",
+    "https://user-images.githubusercontent.com/1108513/215473930-8874a1ed-32c7-4d5d-b66c-e884eb27b57f.png"
+  ],
+  "number_of_changed_files": 22,
+  "total_changed_lines": 408
+}

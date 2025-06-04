@@ -1,0 +1,40 @@
+{
+  "number": 2964,
+  "title": "update automation to work with develop branch and template branch",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2024-05-30T10:10:16Z",
+  "updated_at": "2024-05-30T11:01:16Z",
+  "closed_at": "2024-05-30T11:01:16Z",
+  "merged_at": null,
+  "author": {
+    "login": "Tristina1788",
+    "html_url": "https://github.com/Tristina1788"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2964",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2964/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2964/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2964",
+  "body": "Currently PR #2897 is using another template with develop code. So we need to update automation for passing on both branch.",
+  "additions": 35,
+  "deletions": 22,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 2139305509,
+      "user": "Tristina1788",
+      "created_at": "2024-05-30T11:01:16Z",
+      "updated_at": "2024-05-30T11:01:16Z",
+      "body": "I can't revert DB file although I don't change it. So close this PR."
+    }
+  ],
+  "review_comments_data": [],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 57
+}

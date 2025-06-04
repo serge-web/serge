@@ -1,0 +1,50 @@
+{
+  "number": 1037,
+  "title": "1017 update cmdweek",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-31T16:35:48Z",
+  "updated_at": "2021-08-31T16:54:36Z",
+  "closed_at": "2021-08-31T16:54:35Z",
+  "merged_at": "2021-08-31T16:54:35Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1037",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1037/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1037/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1037",
+  "body": "Update legacy wargames to match new role & template strategies (using id rather than copy of object).\r\n\r\nFixes #1017 ",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1017
+  ],
+  "issues": [
+    {
+      "id": 980432896,
+      "number": 1017,
+      "title": "CmdWk game database passcode field change",
+      "state": "closed",
+      "user": "sanjayradadiya",
+      "created_at": "2021-08-26T16:25:57Z",
+      "updated_at": "2021-08-31T16:54:35Z",
+      "closed_at": "2021-08-31T16:54:35Z",
+      "body": "## 🐞 Bug description\r\n<!-- A clear and concise description of what the bug is. -->\r\nCmdWk game database password field change to roleId.\r\nRefer : [977: Drop passcode in role, use role-id](https://github.com/serge-web/serge/pull/981)\r\n\"roles\": [\r\n        {\r\n            \"canSubmitPlans\": true,\r\n            \"isGameControl\": true,\r\n            \"isInsightViewer\": true,\r\n            \"isObserver\": true,\r\n            \"isRFIManager\": false,\r\n            \"name\": \"Game Control\",\r\n            \"password\": \"pkoiqu5ev\",\r\n            \"roleId\": \"rkstyto9r\"\r\n        }\r\n]\r\n\r\n## 🔢 Steps to Reproduce\r\n<!-- \r\nSteps to reproduce the behavior:\r\n1. Go to '...'\r\n2. Click on '....'\r\n3. Scroll down to '....'\r\n4. See error -->\r\n\r\n## ⚙️ Expected behavior\r\n<!-- A clear and concise description of what you expected to happen. -->\r\n\r\n## 🖥️ Screenshots\r\n<!-- If applicable, add screenshots to help explain your problem a good animated screenshot can replace 'steps to reproduce'. -->\r\n\r\n## 💻 System information\r\n<!-- Please complete the following information (you can get most of this information from https://mybrowser.fyi/) -->\r\n - Operating System: [e.g. iOS, Windows, etc...]\r\n - Browser [e.g. chrome, safari]\r\n - Browser Version [e.g. 22]\r\n - Browser resolution \r\n - Are cookies enabled\r\n - Is Javascript enabled\r\n - Do you have an ad blocker\r\n\r\n\r\n## 📝 Additional context\r\n<!-- Add any other context about the problem here. For example it might be worth mentioning if you have any chrome extensions which may cause the problem -->\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 0
+}

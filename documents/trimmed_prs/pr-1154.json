@@ -1,0 +1,85 @@
+{
+  "number": 1154,
+  "title": "Unread message count 1086",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-21T17:02:38Z",
+  "updated_at": "2021-09-23T08:49:55Z",
+  "closed_at": "2021-09-23T08:49:55Z",
+  "merged_at": "2021-09-23T08:49:55Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1154",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1154/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1154/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1154",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 2574,
+  "deletions": 2141,
+  "changed_files": 35,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 924903257,
+      "user": "IanMayo",
+      "created_at": "2021-09-22T12:55:56Z",
+      "updated_at": "2021-09-22T12:55:56Z",
+      "body": "Blue experience in Blue RFI Channel:\r\n* create new RIF, submit\r\n* message shows as \"unread\" for all blue players\r\n* blue opens message, goes to \"read\"\r\n* as White update/edit response, message stays as \"read\"\r\n* when answer is Released, message goes to unread.\r\n\r\nSolution offered here:\r\n![image](https://user-images.githubusercontent.com/1108513/134347414-c8ee5a66-bfee-4abc-8b9a-69dd92c303f1.png)\r\n"
+    },
+    {
+      "id": 924933665,
+      "user": "IanMayo",
+      "created_at": "2021-09-22T13:30:59Z",
+      "updated_at": "2021-09-22T13:49:28Z",
+      "body": "This **is just in Storybook, not develop**, but it falls over on `Submit`:\r\n![screencast](https://i.gyazo.com/144237b654de9350a626d33da53e280c.gif)"
+    },
+    {
+      "id": 925196142,
+      "user": "IanMayo",
+      "created_at": "2021-09-22T18:42:54Z",
+      "updated_at": "2021-09-22T18:42:54Z",
+      "body": "Thanks for the last commit @lilitkarapetyan - but I'm actively trying to get rid of the old RFI STatus Board (https://github.com/serge-web/serge/issues/1053).  The \"collab-response\" part of the new Collab Working (CoaStatusBoard) is more effective and more configurable than the old RFI STatus Board."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1086
+  ],
+  "issues": [
+    {
+      "id": 989319459,
+      "number": 1086,
+      "title": "Collab working documents not being marked as read",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-06T16:31:00Z",
+      "updated_at": "2021-10-18T07:47:30Z",
+      "closed_at": "2021-10-18T07:47:30Z",
+      "body": "We have concept of \"Message has been read\" in _normal_ message channels (such as \"Blue & SME\" if playing as blue).   We also now support this in `Chat Channels`\r\n\r\nWe also need to support it in Collab Working channels. Currently, messages in those channels never get `read`\r\n\r\nCollab Working channels are unusual, since one message/document can have a series of versions (with different `_id`s) - though the player only sees the most recent.  The handler above the channel ensures only the newest is displayed (old versions are filtered out).\r\n\r\nOnce the old versions have been filtered out, we can count the messages that are unread.  We can track `read/unread` using the `_id`.  A new version of a message won't have been read - so it gets included in the count.\r\n\r\nBut, when a message is expanded, we mark that `_id` as read - and the counter updates.\r\n\r\nI propose we replace the `+` and `-` at the left of the collapsed message with open/closed envelopes.  A new (unread) message will be shown with a  blue (?) closed envelope.   Once expanded, the envelope switches to grey/open.  When collapsed it remains grey/open.\r\n\r\nWe'll need a `Mark all as read` at the top of the channel, too.\r\n\r\nAn \"unread\" marker is shown for messages that haven't been read.  Once open, a player can click on the envelope to mark the message as unread.\r\n\r\nWe don't (yet) have this concept in Collaborative Working documents.\r\n\r\n`Unread` will relate to each new update to a document.\r\n\r\nAah, we _may_ have an issue for RFIs.  The Blue player sends the RFI, then sees no updates until it is `Finalised`.  So if a player is in a channel, but has no collaborative permissions, then the `_id` will have to be `message.reference` for all states except `finalised` - which will be `message.reference` + 'finalised`.  This will ensure that the RFI answer is shown as unread.",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 945456048,
+          "user": "IanMayo",
+          "created_at": "2021-10-18T07:47:30Z",
+          "updated_at": "2021-10-18T07:47:30Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/134347414-c8ee5a66-bfee-4abc-8b9a-69dd92c303f1.png",
+    "https://i.gyazo.com/144237b654de9350a626d33da53e280c.gif"
+  ],
+  "number_of_changed_files": 35,
+  "total_changed_lines": 4715
+}

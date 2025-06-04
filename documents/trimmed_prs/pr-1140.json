@@ -1,0 +1,51 @@
+{
+  "number": 1140,
+  "title": "1125: Reduce space taken up by version information",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-16T07:31:26Z",
+  "updated_at": "2021-09-16T08:54:00Z",
+  "closed_at": "2021-09-16T08:54:00Z",
+  "merged_at": "2021-09-16T08:53:59Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1140",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1140/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1140/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1140",
+  "body": "Fixes #1125 \r\n\r\n![image](https://user-images.githubusercontent.com/26705621/133569621-4c3632fb-abaa-4594-88cd-3c0bace149c5.png)\r\n",
+  "additions": 7,
+  "deletions": 5,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1125
+  ],
+  "issues": [
+    {
+      "id": 993793113,
+      "number": 1125,
+      "title": "Reduce space taken up by version information",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-11T09:10:32Z",
+      "updated_at": "2021-09-16T08:53:59Z",
+      "closed_at": "2021-09-16T08:53:59Z",
+      "body": "The version & heartbeat info at the bottom left partially obscures the `New Message` button.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/132942707-08d62d36-006a-40f3-b442-a5d986686b38.png)\r\n\r\n\r\nWe can drop the `App: @serge/client` bit.  We can also shorten `Version` to `V`. We can also drio the `Build` word.\r\n\r\nSo, it will just be:  \r\n:heart:  V:0.3.3 2021-09-11 08:48:32\r\n\r\n(well a bit more space between the heart & the V - I can't force it in markdown).",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/133569621-4c3632fb-abaa-4594-88cd-3c0bace149c5.png",
+    "https://user-images.githubusercontent.com/1108513/132942707-08d62d36-006a-40f3-b442-a5d986686b38.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 12
+}

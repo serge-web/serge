@@ -1,0 +1,133 @@
+{
+  "number": 1367,
+  "title": "1362: Update asset attribute when saving force",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-03T14:59:45Z",
+  "updated_at": "2022-03-08T16:52:56Z",
+  "closed_at": "2022-03-08T11:59:54Z",
+  "merged_at": "2022-03-08T11:59:54Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1367",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1367/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1367/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1367",
+  "body": "Fixes #1362 ",
+  "additions": 394,
+  "deletions": 83,
+  "changed_files": 18,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 2,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1059037568,
+      "user": "lebaphi",
+      "created_at": "2022-03-04T10:30:04Z",
+      "updated_at": "2022-03-04T10:30:04Z",
+      "body": "Hi @IanMayo , I refactored a bit our dialog, I create a new component called `CustomDialog` which allows us to easily display a modal and easily customize its style. I also updated the `Confirm` dialog to use `CustomDialog` internally. Now all dialogs will have consistent style.\r\n\r\n- Show an error when validate an asset failed\r\n<img width=\"397\" alt=\"Screen Shot 2022-03-04 at 5 16 03 PM\" src=\"https://user-images.githubusercontent.com/26705621/156746111-551fcdbe-f56a-4703-8131-65daf314eade.png\">\r\n\r\n- New confirm dialog (wrap Custom Dialog inside)\r\n<img width=\"398\" alt=\"Screen Shot 2022-03-04 at 5 15 01 PM\" src=\"https://user-images.githubusercontent.com/26705621/156746118-5f1ce2d8-ebdd-463b-ae17-b7ab3822358b.png\">\r\n"
+    },
+    {
+      "id": 1059218968,
+      "user": "IanMayo",
+      "created_at": "2022-03-04T14:39:33Z",
+      "updated_at": "2022-03-04T14:39:33Z",
+      "body": "Hello @lebaphi - I've made some changes, but couldn't quite get things working.\r\n\r\nIf the attributes of a force asset don't match the platform-type, the Game Designer is unable to fix that with the current UI.\r\n\r\nBut, if they don't match - it's quite simple to fix any problems: we can remove extra attributes, and insert missing ones.   I've implemented the code to that.  It also puts a message up if changes had to be made. \r\n\r\nBut, the UI doesn't update, we still see the previous (partially wrong) set of attributes - would you mind investigating what is going wrong please?\r\n\r\nNote: I've been testing with `NORT` on force `blue-1`."
+    },
+    {
+      "id": 1060722931,
+      "user": "IanMayo",
+      "created_at": "2022-03-07T14:05:49Z",
+      "updated_at": "2022-03-07T14:05:49Z",
+      "body": "Thanks @lebaphi \r\n\r\nOne change.  We have the `player can edit` flag.  We ignore that flag when we're in the Game Admin pages.  The Game Designer can change any attribute.  So - we can use the dialog, but we need to use a special flag when the editor is being used from the game admin pages.  Suggested the flag (prop) is called `userIsAdmin`."
+    },
+    {
+      "id": 1060884967,
+      "user": "IanMayo",
+      "created_at": "2022-03-07T16:33:08Z",
+      "updated_at": "2022-03-07T16:33:08Z",
+      "body": "I'm pretty sure we're still missing one feature @lebaphi :\r\n- when we add a new asset, it should get the attributes from the parent `platform-type`, including the default values (when present), otherwise zero."
+    },
+    {
+      "id": 1061703157,
+      "user": "IanMayo",
+      "created_at": "2022-03-08T11:59:46Z",
+      "updated_at": "2022-03-08T11:59:46Z",
+      "body": "> I'm pretty sure we're still missing one feature @lebaphi :\r\n> \r\n> * when we add a new asset, it should get the attributes from the parent `platform-type`, including the default values (when present), otherwise zero.\r\n\r\n@lebaphi - I fixed this, in this commit: https://github.com/serge-web/serge/pull/1367/commits/8a08158f1db21e0c5308861cca3f7a10895f6670"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 820812148,
+      "user": "IanMayo",
+      "created_at": "2022-03-07T15:23:09Z",
+      "updated_at": "2022-03-07T15:23:10Z",
+      "body": "Good thinking @lebaphi  - could you do this improved processing please?",
+      "path": "packages/components/src/local/organisms/setting-forces/index.tsx",
+      "diff_hunk": "@@ -115,9 +115,21 @@ export const SettingForces: React.FC<PropTypes> = ({\n       })\n \n       // show message\n-      attributeErrors.length > 0 && toggleModal('The attributes for some assets did not match with type details. These fixes have been applied: ' + attributeErrors.join())\n+      const attrsbuteErrorList = attributeErrors.reduce((html, item) => {\n+        html += `<li>${item}</li>`\n+        return html\n+      }, '')\n+      attributeErrors.length > 0 && toggleModal(`The attributes for some assets did not match with type details. These fixes have been applied: <br/> ${attrsbuteErrorList}`)\n \n       if (onSave) {\n+        forcesData.some(force => {\n+          if (force.uniqid === selectedForce.uniqid) {\n+            // TODO: should loop each asset and assign only the `attributeValues` for each one instead of assign the whole asset to force?",
+      "html_url": "https://github.com/serge-web/serge/pull/1367#discussion_r820812148"
+    },
+    {
+      "id": 821867199,
+      "user": "lebaphi",
+      "created_at": "2022-03-08T16:52:56Z",
+      "updated_at": "2022-03-08T16:52:57Z",
+      "body": "okay @IanMayo , I will fix it in another PR 👍🏻",
+      "path": "packages/components/src/local/organisms/setting-forces/index.tsx",
+      "diff_hunk": "@@ -115,9 +115,21 @@ export const SettingForces: React.FC<PropTypes> = ({\n       })\n \n       // show message\n-      attributeErrors.length > 0 && toggleModal('The attributes for some assets did not match with type details. These fixes have been applied: ' + attributeErrors.join())\n+      const attrsbuteErrorList = attributeErrors.reduce((html, item) => {\n+        html += `<li>${item}</li>`\n+        return html\n+      }, '')\n+      attributeErrors.length > 0 && toggleModal(`The attributes for some assets did not match with type details. These fixes have been applied: <br/> ${attrsbuteErrorList}`)\n \n       if (onSave) {\n+        forcesData.some(force => {\n+          if (force.uniqid === selectedForce.uniqid) {\n+            // TODO: should loop each asset and assign only the `attributeValues` for each one instead of assign the whole asset to force?",
+      "html_url": "https://github.com/serge-web/serge/pull/1367#discussion_r821867199"
+    }
+  ],
+  "issue_numbers": [
+    1362
+  ],
+  "issues": [
+    {
+      "id": 1154187474,
+      "number": 1362,
+      "title": "Two features missing in `attributes`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-02-28T14:53:41Z",
+      "updated_at": "2022-03-08T11:59:54Z",
+      "closed_at": "2022-03-08T11:59:54Z",
+      "body": "I've just realised we are missing two capabilities related to `attributes`. They are both in the admin pages.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/156004067-a3655fad-5dcc-45f2-9e76-67e9169893c9.png)\r\n\r\n\r\n1. When adding a new `asset` to a `force`, lookup the `attributes` for that `platform-type` and add the relevant `attributes` to the new `asset`. An `asset` is added to a force by dragging one of the platform-type icons into the `List of assets` section.\r\n2. Before allowing a `SAVE FORCE`, do a check that the `attributes` are correct for each asset. Specifically, do this:\r\n    a. Find the platform-type for the asset\r\n    b. Check that each attribute is present on the asset\r\n    c. Check that no extra attributes are present on the asset\r\n    d. Popup a warning if anything is wrong.  The dialog should include the asset name(s) and what the problem is.\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1056984563,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-02T14:22:45Z",
+          "updated_at": "2022-03-02T14:22:45Z",
+          "body": "Great idea!"
+        },
+        {
+          "id": 1058131968,
+          "user": "lebaphi",
+          "created_at": "2022-03-03T15:03:35Z",
+          "updated_at": "2022-03-03T15:03:35Z",
+          "body": "Hi @IanMayo , I pushed a new PR for this issue 1, we can save force with the asset attributes. I just wonder about the issue 2.\r\nHow can the user can save force with extra asset attributes, I see we allow the user to edit the current attribute value, not to add more attribute 🤔 "
+        },
+        {
+          "id": 1058192581,
+          "user": "IanMayo",
+          "created_at": "2022-03-03T15:57:46Z",
+          "updated_at": "2022-03-03T15:57:46Z",
+          "body": "It's if the Game Designer changes the attributes for that `platform type` while still designing the game.  The may remove an attribute for `fishing vessel`, but he has already created some instances of `fishing vessel` - so we do some tidying up for him."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/156746111-551fcdbe-f56a-4703-8131-65daf314eade.png",
+    "https://user-images.githubusercontent.com/26705621/156746118-5f1ce2d8-ebdd-463b-ae17-b7ab3822358b.png",
+    "https://user-images.githubusercontent.com/1108513/156004067-a3655fad-5dcc-45f2-9e76-67e9169893c9.png"
+  ],
+  "number_of_changed_files": 18,
+  "total_changed_lines": 477
+}

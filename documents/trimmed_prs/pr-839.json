@@ -1,0 +1,61 @@
+{
+  "number": 839,
+  "title": "Walkthrough Experience",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-15T16:56:47Z",
+  "updated_at": "2021-06-16T15:16:13Z",
+  "closed_at": "2021-06-16T15:16:12Z",
+  "merged_at": "2021-06-16T15:16:12Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/839",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/839/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/839/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/839",
+  "body": "Fixes #823 ",
+  "additions": 5,
+  "deletions": 1,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    823
+  ],
+  "issues": [
+    {
+      "id": 915143809,
+      "number": 823,
+      "title": "Walkthrough Experiece",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2021-06-08T14:56:27Z",
+      "updated_at": "2021-06-16T15:16:12Z",
+      "closed_at": "2021-06-16T15:16:12Z",
+      "body": "🐞 Some minor issues on the Walkthrough part that should be addressed. \r\n\r\n![INTRO TIP - DRAG AND DROP](https://user-images.githubusercontent.com/85491794/121206861-17c02b00-c879-11eb-9497-5cff1f8057cd.png)\r\n\r\nIn this screen, for a new user like myself, it was difficult to understand what tab I'm supposed to drag and where I'm supposed to drop it. It would help if, similar to the other Intro tips, the surrounding irrelevant area would dim in color and brightness, and the relevant tab that can be dragged & dropped be lit up to capture the players' attention.  \r\n\r\n**From Ian:** we won't know the name/label of the top-left tab, since they can change for each game.  But, we could try to find the first displayed tab, and highlight that.\r\n\r\n![INTRO TIP - GAME PHASE PANEL](https://user-images.githubusercontent.com/85491794/121207506-9fa63500-c879-11eb-8c4e-d90b2319e0c3.png)\r\n\r\nIn this screen, the tip suggests that the panel on the top right indicates the phases of the game, but the panel itself is dim. Brightening the right-hand panel while maintaining the surrounding area dark would efficiently direct the players' attention to the relevant area.\r\n\r\n**From Ian:** Yes - we should try to highlight the Game Control panel at the top-right.  The tutorial is _probably_ trying to do that, but the control ID may have changed when we switched to _components_.\r\n\r\n![INTRO TIP - OUT OF GAME MESSAGES AND QUESTIONS](https://user-images.githubusercontent.com/85491794/121207962-ff9cdb80-c879-11eb-9a11-e9c1c36fb48b.png)\r\n\r\nIn this screen, I didn't understand where to actually type the out-of-game message/questions. Indicate the area where the message is to be typed by brightening that area.\r\n\r\n**From Ian:** Again - we just need to highlight the Game-Admin channel on the right-hand side.\r\n\r\n![INTRO TIP - TARGET ICON](https://user-images.githubusercontent.com/85491794/121208200-2d822000-c87a-11eb-91e5-d82cecc614ab.png)\r\n\r\nIn this screen, it would be better to show the target icons using the same brightness technique as for the previous screens.\r\n\r\n**From Ian:** Yes, we should highlight the area at the bottom-right of the screen.\r\n\r\nI'm at your disposal for any further information or clarifications.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 857616024,
+          "user": "IanMayo",
+          "created_at": "2021-06-09T11:28:18Z",
+          "updated_at": "2021-06-09T11:28:18Z",
+          "body": "Ian > check issue is self-describing\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/121206861-17c02b00-c879-11eb-9497-5cff1f8057cd.png",
+    "https://user-images.githubusercontent.com/85491794/121207506-9fa63500-c879-11eb-8c4e-d90b2319e0c3.png",
+    "https://user-images.githubusercontent.com/85491794/121207962-ff9cdb80-c879-11eb-9a11-e9c1c36fb48b.png",
+    "https://user-images.githubusercontent.com/85491794/121208200-2d822000-c87a-11eb-91e5-d82cecc614ab.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 6
+}

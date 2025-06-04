@@ -1,0 +1,66 @@
+{
+  "number": 1920,
+  "title": "1919 browser overlaps",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-05T19:40:52Z",
+  "updated_at": "2022-10-13T08:35:54Z",
+  "closed_at": "2022-10-13T08:35:54Z",
+  "merged_at": "2022-10-13T08:35:54Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1920",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1920/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1920/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1920",
+  "body": "Supports #1919 ",
+  "additions": 28203,
+  "deletions": 2931,
+  "changed_files": 24,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1919
+  ],
+  "issues": [
+    {
+      "id": 1395971958,
+      "number": 1919,
+      "title": "Investigate browser performance with overlapping orders",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-04T09:50:32Z",
+      "updated_at": "2022-11-07T14:55:48Z",
+      "closed_at": "2022-11-07T14:55:48Z",
+      "body": "Clients are considering technologies for game adjudication.\r\n\r\nThe algorithmic challenge is in checking if lots and lots of shapes/polygons overlap with each other.\r\n\r\nDo some trials of performance - to see what happens",
+      "labels": [
+        "spatial",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1277245882,
+          "user": "IanMayo",
+          "created_at": "2022-10-13T08:36:32Z",
+          "updated_at": "2022-10-13T08:36:32Z",
+          "body": "Still some edge cases to resolve (time aspect for polylines)"
+        },
+        {
+          "id": 1305733843,
+          "user": "IanMayo",
+          "created_at": "2022-11-07T14:55:47Z",
+          "updated_at": "2022-11-07T14:55:47Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 24,
+  "total_changed_lines": 31134
+}

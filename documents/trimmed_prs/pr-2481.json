@@ -1,0 +1,30 @@
+{
+  "number": 2481,
+  "title": "Hotfix allow current assets to be undefined",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-22T19:13:18Z",
+  "updated_at": "2023-02-22T20:05:23Z",
+  "closed_at": "2023-02-22T20:05:22Z",
+  "merged_at": "2023-02-22T20:05:22Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2481",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2481/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2481/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2481",
+  "body": "Two issues:\r\n1. When we expanded an orders with zero assets, all assets remained on screen.  This was because we were only filtering to current selection if it was a non-zero length list.  Instead, we use `undefined` to mean `no filter applied`, and a zero-length list to mean `this set of orders requires the display of zero assets\r\n2. When we were expanding an orders item, the map only focussed on those orders if Serge opened on the Orders tab.  The handler just had the initial state of `activeTab`. So instead, we moved the processing into `state`. ",
+  "additions": 67,
+  "deletions": 54,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 121
+}

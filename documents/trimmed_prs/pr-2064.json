@@ -1,0 +1,52 @@
+{
+  "number": 2064,
+  "title": "2062 time dropdown in template",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-12T13:40:08Z",
+  "updated_at": "2022-11-12T16:12:13Z",
+  "closed_at": "2022-11-12T16:12:12Z",
+  "merged_at": "2022-11-12T16:12:12Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2064",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2064/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2064/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2064",
+  "body": "Fixes #2062",
+  "additions": 189,
+  "deletions": 292,
+  "changed_files": 16,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2062
+  ],
+  "issues": [
+    {
+      "id": 1446397142,
+      "number": 2062,
+      "title": "Workaround for `flatpickr`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-12T10:57:31Z",
+      "updated_at": "2022-11-12T16:12:13Z",
+      "closed_at": "2022-11-12T16:12:13Z",
+      "body": "While the `flatpickr` control works in json-editor on the json-editor repo, it doesn't work properly in Serge.\r\n\r\nIn particular, the options don't appear to get passed to it, meaning:\r\n- it doesn't include the time edit controls\r\n- we can provide any of the other `flatpickr` functions, such as only offering particular dates/times.\r\n\r\nWe need a workaround.  I propose this.  We introduce a new `customise template` method, which receives the current game time and turn length.  If the turn length is under one weeks, provide a drop-down menu of 2-hour time steps, otherwise provide a drop-down menu of whole-day steps.",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 16,
+  "total_changed_lines": 481
+}

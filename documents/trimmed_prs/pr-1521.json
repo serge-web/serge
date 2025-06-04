@@ -1,0 +1,92 @@
+{
+  "number": 1521,
+  "title": "1516: New asset styling, for info markers.",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-21T11:12:43Z",
+  "updated_at": "2022-04-22T14:16:40Z",
+  "closed_at": "2022-04-22T08:30:04Z",
+  "merged_at": "2022-04-22T08:30:04Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1521",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1521/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1521/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1521",
+  "body": "Supports #1516 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/164446170-7f5439b8-42b5-4fb7-ae86-277af3f29df4.mp4\r\n\r\n\r\n",
+  "additions": 31,
+  "deletions": 4,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1105140570,
+      "user": "IanMayo",
+      "created_at": "2022-04-21T12:18:43Z",
+      "updated_at": "2022-04-21T12:18:43Z",
+      "body": "There is some trickery going on here @lebaphi .  I'd like to see if we can avoid it,\r\n\r\nThese info markers are different to the asset markers. We can make fresh requirements, if we want to.  What if our requirements are that they don't have a fill color?  Then I _guess_ the browser uses the `foreColor` when rendering."
+    },
+    {
+      "id": 1106468626,
+      "user": "lebaphi",
+      "created_at": "2022-04-22T12:32:50Z",
+      "updated_at": "2022-04-22T12:32:50Z",
+      "body": "yeah, I will find another better solution 👍🏻"
+    },
+    {
+      "id": 1106561916,
+      "user": "IanMayo",
+      "created_at": "2022-04-22T14:16:40Z",
+      "updated_at": "2022-04-22T14:16:40Z",
+      "body": "Thanks :-)\r\n\r\nBut, as I said - I'm happy to consider changes to the image strategy, if that helps."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1516
+  ],
+  "issues": [
+    {
+      "id": 1208411327,
+      "number": 1516,
+      "title": "New asset styling, for info markers.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-19T13:58:33Z",
+      "updated_at": "2022-04-26T16:46:01Z",
+      "closed_at": "2022-04-26T16:46:01Z",
+      "body": "We are going to have one \"pool\" of SVG markers.  But, we need to give different styling to `map icons` and `info markers`.  Here the left-hand question mark is an `info marker`.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/164017041-783a83a2-7754-469b-a2af-fa216fccb528.png)\r\n\r\nI propose we introduce a new styling for info markers:\r\n- force-shade colors, as present\r\n- white filled circle, with outer circle and icon SVG in force color\r\n\r\nHere are mockups:\r\n![image](https://user-images.githubusercontent.com/1108513/164020707-51962ead-c341-46ad-bb91-4f30a5a39ec2.png)\r\n\r\nI only expect to see changes to the `<InfoMarker>` class.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1105688735,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-21T19:48:44Z",
+          "updated_at": "2022-04-21T19:48:44Z",
+          "body": "Hi Ian! I like the idea of the outlined icons. However, I was looking at our current mapping channels and I think the shape of our markers is going to have to change in order to stick out from the assets. Circles could be problematic, especially since we'll also use colors for the markers themselves. They may easily be confused. \r\n\r\nI found the following icons that might be interesting to consider: \r\n\r\n![Pin Question Mark Icon](https://user-images.githubusercontent.com/85491794/164539464-c885af5a-fa3f-496d-86bf-0b04bd0b3932.png)\r\n\r\nI liked this one since it brings us back to the idea of the \"pin\" marker. The question mark is also widely associated to features related to help, information, and knowledge. \r\n\r\nI also found the exclamation point version: \r\n\r\n![Pin Exclamation Point](https://user-images.githubusercontent.com/85491794/164539729-21d2fcd6-6233-4ba5-80ea-03351b3c9cf2.png)\r\n\r\nDepending on how we want to present these markers, this one could also work. It has a more immediate pull due to the association of the exclamation point with urgency, caution, or danger. It could also distinguish it from the unknown assets that we show with a question mark. \r\n\r\nWhat do you think?\r\n"
+        },
+        {
+          "id": 1106338598,
+          "user": "IanMayo",
+          "created_at": "2022-04-22T10:17:47Z",
+          "updated_at": "2022-04-22T10:17:47Z",
+          "body": "Nice thinking @ShendMikullovci   Good suggestion.   Essentially, it's just about getting an SVG shape for the eye-drop, then drawing the custom marker over the top.\r\n\r\nIt does introduce one issue. For our circles, the \"origin\" for the marker is the centre of the circle. So, the circle is drawn at the centre of the shape.  But, the standard origin for the eye-drop is the bottom point.  This introduces some maths that we've struggled with in the past.\r\n\r\nI'm sure it's solve-able, but it's a complication I don't want to get distracted with right now.\r\n\r\nSo, I support the request, but am marking it as low-priority for now."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/164017041-783a83a2-7754-469b-a2af-fa216fccb528.png",
+    "https://user-images.githubusercontent.com/1108513/164020707-51962ead-c341-46ad-bb91-4f30a5a39ec2.png",
+    "https://user-images.githubusercontent.com/85491794/164539464-c885af5a-fa3f-496d-86bf-0b04bd0b3932.png",
+    "https://user-images.githubusercontent.com/85491794/164539729-21d2fcd6-6233-4ba5-80ea-03351b3c9cf2.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 35
+}

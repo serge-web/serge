@@ -1,0 +1,75 @@
+{
+  "number": 2719,
+  "title": "Reduce_complexity_participant_states_ts",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-12-21T13:39:09Z",
+  "updated_at": "2023-12-22T10:58:06Z",
+  "closed_at": "2023-12-22T10:58:05Z",
+  "merged_at": "2023-12-22T10:58:05Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2719",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2719/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2719/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2719",
+  "body": "Fixes #2714 \r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 220,
+  "deletions": 216,
+  "changed_files": 5,
+  "labels": [
+    "Technical Debt",
+    "4p10"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1867537823,
+      "user": "IanMayo",
+      "created_at": "2023-12-22T10:50:11Z",
+      "updated_at": "2023-12-22T10:50:11Z",
+      "body": "Nice work @lilitkarapetyan  - we've reduced the complexity from 17 down to 9!\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/a5a259bb-50e9-4a9c-9521-52a56b966e85)\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/8a9846ba-549c-4639-996b-020ec47e8e51)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2714
+  ],
+  "issues": [
+    {
+      "id": 2046455535,
+      "number": 2714,
+      "title": "Reduce complexity - participant-states.ts",
+      "state": "open",
+      "user": "IanMayo",
+      "created_at": "2023-12-18T11:27:23Z",
+      "updated_at": "2023-12-22T12:05:36Z",
+      "closed_at": null,
+      "body": "I wish us to reduce some complex methods.\r\n\r\nparticipant-states.ts contains a complex method.\r\n\r\nI'd like these methods to be refactored into smaller modular units. I'd like these smaller methods to be covered by unit testing.",
+      "labels": [
+        "Technical Debt",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1867609478,
+          "user": "IanMayo",
+          "created_at": "2023-12-22T12:05:36Z",
+          "updated_at": "2023-12-22T12:05:36Z",
+          "body": "Re-open:  @IanMayo to investigate re-writing some of the code with simpler logic."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/a5a259bb-50e9-4a9c-9521-52a56b966e85",
+    "https://github.com/serge-web/serge/assets/1108513/8a9846ba-549c-4639-996b-020ec47e8e51"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 436
+}

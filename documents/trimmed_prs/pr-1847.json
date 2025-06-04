@@ -1,0 +1,52 @@
+{
+  "number": 1847,
+  "title": "1774 introduce clone marker capability",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-13T17:56:23Z",
+  "updated_at": "2022-09-14T09:12:33Z",
+  "closed_at": "2022-09-14T09:12:33Z",
+  "merged_at": "2022-09-14T09:12:33Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1847",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1847/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1847/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1847",
+  "body": "Fixes #1774 ",
+  "additions": 91,
+  "deletions": 18,
+  "changed_files": 13,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1774
+  ],
+  "issues": [
+    {
+      "id": 1337149388,
+      "number": 1774,
+      "title": "Duplicate marker would be useful",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-12T12:30:50Z",
+      "updated_at": "2022-09-14T09:12:35Z",
+      "closed_at": "2022-09-14T09:12:35Z",
+      "body": "Umpire is adding a number of Info Markers, to give rough area of target(s).  There's a fair amount of re-typing.  \r\n\r\nIt would be quicker if Info Marker had \"Duplicate\" button.  The button should put a copy of the marker in the same cell - the umpire can then move the duplicate to the new location.",
+      "labels": [
+        "spatial",
+        "4watu",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 13,
+  "total_changed_lines": 109
+}

@@ -1,0 +1,51 @@
+{
+  "number": 1614,
+  "title": "1613 handle corrupted sqlite",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-20T16:02:54Z",
+  "updated_at": "2022-06-20T16:29:19Z",
+  "closed_at": "2022-06-20T16:29:19Z",
+  "merged_at": "2022-06-20T16:29:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1614",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1614/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1614/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1614",
+  "body": "Filter the loaded list of wargames, to skip any corrupt ones",
+  "additions": 14,
+  "deletions": 4,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1613
+  ],
+  "issues": [
+    {
+      "id": 1277066024,
+      "number": 1613,
+      "title": "Handle corrupted SQLite files",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-20T15:05:54Z",
+      "updated_at": "2023-11-13T11:58:18Z",
+      "closed_at": "2023-11-13T11:58:18Z",
+      "body": "some SQLite databases have been corrupted.  An example of this is `wargame-koiquada.sqlite`.  When it is opened in `DB Browser for SQLite` it contains just one table: `sqlite_sequence`.\r\n\r\nThis table is empty. The other 6 tables used by PouchDb are missing.  But. the database file still has a substantial size: 212Kb.  That is larger than other substantial databases, such as `wargame-kzod28lc.sqlite`.\r\n\r\nIan will try and mangle a database so it looks like the pattern we're seeing.  If we can't spot the trend, hopefully we can robustly handle the situation when it arises.",
+      "labels": [
+        "bug",
+        "wontfix"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 18
+}

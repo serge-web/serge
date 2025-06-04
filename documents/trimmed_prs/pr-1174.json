@@ -1,0 +1,72 @@
+{
+  "number": 1174,
+  "title": "Show warning message on cancel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-29T13:42:59Z",
+  "updated_at": "2021-10-01T08:52:37Z",
+  "closed_at": "2021-10-01T08:52:36Z",
+  "merged_at": "2021-10-01T08:52:36Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1174",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1174/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1174/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1174",
+  "body": "Fixes #1170 ",
+  "additions": 217,
+  "deletions": 61,
+  "changed_files": 16,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 930817150,
+      "user": "IanMayo",
+      "created_at": "2021-09-30T06:14:35Z",
+      "updated_at": "2021-09-30T06:14:35Z",
+      "body": "@lebaphi -- we only need to show the dialog in one situation. So, we need to use a prop to control if the dialog is shown.\r\n\r\n> Note: this will probably go into the NewMessage logic. But, we should add a prop to indicate whether to show the warning on Cancel --since there are lots of times when the form is simple and we don't need to check."
+    },
+    {
+      "id": 930998924,
+      "user": "lebaphi",
+      "created_at": "2021-09-30T08:13:38Z",
+      "updated_at": "2021-09-30T08:13:38Z",
+      "body": "> @lebaphi -- we only need to show the dialog in one situation. So, we need to use a prop to control if the dialog is shown.\r\n> \r\n> > Note: this will probably go into the NewMessage logic. But, we should add a prop to indicate whether to show the warning on Cancel --since there are lots of times when the form is simple and we don't need to check.\r\n\r\nYep @IanMayo, I create a new component `Confirm` to handle dialog, input the `isOpen` prop to control if the dialog is shown. Another changes is to make the code clean."
+    },
+    {
+      "id": 931499496,
+      "user": "IanMayo",
+      "created_at": "2021-09-30T16:58:13Z",
+      "updated_at": "2021-09-30T16:58:13Z",
+      "body": "> Another changes is to make the code clean.\r\n\r\nI'll leave you to tidy that code @lebaphi "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1170
+  ],
+  "issues": [
+    {
+      "id": 1009843253,
+      "number": 1170,
+      "title": "Warning message on use of `Cancel`.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-28T14:39:07Z",
+      "updated_at": "2021-10-01T08:52:36Z",
+      "closed_at": "2021-10-01T08:52:36Z",
+      "body": "A user believes that quite a long COA document was lost when he pressed `Submit`.  That was frustrating.\r\n\r\nA colleague suspects he actually pressed `Cancel`. \r\n\r\nWe should popup a dialog check the user is sure they wish to `Cancel` the document.\r\n\r\nThis is specific to the `COAStatusBoard`, really.\r\n\r\n*Note:* this will probably go into the NewMessage logic. But, we should add a prop to indicate whether to show the warning on Cancel --since there are lots of times when the form is simple and we don't need to check.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 16,
+  "total_changed_lines": 278
+}

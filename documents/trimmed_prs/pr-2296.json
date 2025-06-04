@@ -1,0 +1,70 @@
+{
+  "number": 2296,
+  "title": "2294 collate data for export",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-25T18:39:01Z",
+  "updated_at": "2023-01-26T13:26:42Z",
+  "closed_at": "2023-01-26T13:26:40Z",
+  "merged_at": "2023-01-26T13:26:40Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2296",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2296/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2296/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2296",
+  "body": "Backend processing for #2294 \r\n\r\nActually, I've put the UI in there, too. Well, at least some of it.",
+  "additions": 222,
+  "deletions": 3,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1405006073,
+      "user": "IanMayo",
+      "created_at": "2023-01-26T13:26:34Z",
+      "updated_at": "2023-01-26T13:26:34Z",
+      "body": "Great, thanks @lilitkarapetyan  - I think we have some tidying to do, but this will let them get started."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2294
+  ],
+  "issues": [
+    {
+      "id": 1556528809,
+      "number": 2294,
+      "title": "As a data-scientist I wish to produce reports based upon SERGE data",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-25T12:01:28Z",
+      "updated_at": "2023-02-13T07:44:43Z",
+      "closed_at": "2023-02-13T07:44:43Z",
+      "body": "This task is to develop 3 new export buttons in Serge.  \r\n\r\n**Change of plan**:  actually, it will be easier to export the data from within the client side of the game, since the data is all already present there.  So, if the current player is from an `umpire` force (`force.umpire === true`), we add an `export` button (`faFileExport`) to the existing buttons in the turn overview panel:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/214620892-13df493e-3d0f-4712-8bae-dce447b1049b.png)\r\n\r\nThis trigger the data to be collated (via a call to `handleExport`), and the `.xlsx` will start to download.  Note: I've done the non-UI processing in this branch #2296. I just need @lilitkarapetyan  to do convert the data to a multi-sheet Excel workbook, and handle the download button.  This is in `GameChannels.tsx`, in the method `generateFile` in branch `2294_collate_data_for_export` in PR #2296\r\n\r\n* **Assets**: one row per asset, with these columns: \r\n    * uniqId\r\n    * name\r\n    * force-name\r\n    * platform-type-name\r\n    * sub-type (from attributes)\r\n    * health\r\n    * C2-state (from attributes)\r\n    * location\r\n    * other attributes\r\n    * turn-number\r\n    * turn start/end date\r\n* **Adjudication Outcomes**:  this is the set of completed (details.interaction.complete === true) interaction messages. It will have 3 worksheets (`Perception`, `Health`, `Movement`), with some common columns, then type-specific fields:\r\n    * Common \r\n        *  document id,\r\n        * order1-name (lookup from details.interaction.order1)\r\n        * order2-name\r\n        * start time (details.interaction.startTime)\r\n        * end time (details.interaction.endTime)\r\n        * event (details.interaction.event)\r\n    * Type specific (one per tab)\r\n        * perception outcome fields _or_\r\n        * health outcome fields _or_\r\n        * movement outcome fields\r\n* **Other Messages** one row per message, with one worksheet per message-type\r\n    * document id,\r\n    * title\r\n    * channel (details.channel)\r\n    * from-force (details.from.forceName)\r\n    * from-role (details.from.roleName)\r\n    * messageType (details.messageType)\r\n    * timeStamp (details.timeStamp)\r\n    * turnNumber (details.turnNumber)\r\n    * one column per field for the contents of the `message.message` body, including arrays when necessary \r\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1427484454,
+          "user": "IanMayo",
+          "created_at": "2023-02-13T07:44:43Z",
+          "updated_at": "2023-02-13T07:44:43Z",
+          "body": "Solution delivered."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/214620892-13df493e-3d0f-4712-8bae-dce447b1049b.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 225
+}

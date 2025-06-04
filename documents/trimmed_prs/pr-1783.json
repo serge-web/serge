@@ -1,0 +1,230 @@
+{
+  "number": 1783,
+  "title": "1748: Create Orders Component",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-22T15:20:25Z",
+  "updated_at": "2022-09-01T17:40:56Z",
+  "closed_at": "2022-09-01T17:40:55Z",
+  "merged_at": "2022-09-01T17:40:55Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1783",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1783/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1783/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1783",
+  "body": "Fixes #1748 ",
+  "additions": 3354,
+  "deletions": 726,
+  "changed_files": 41,
+  "labels": [],
+  "comments_count": 16,
+  "review_comments_count": 0,
+  "total_comments": 16,
+  "comments_data": [
+    {
+      "id": 1222576139,
+      "user": "IanMayo",
+      "created_at": "2022-08-22T16:10:53Z",
+      "updated_at": "2022-08-22T16:10:53Z",
+      "body": "would love to see a screenshot, please."
+    },
+    {
+      "id": 1223433474,
+      "user": "lebaphi",
+      "created_at": "2022-08-23T02:08:47Z",
+      "updated_at": "2022-08-23T02:13:26Z",
+      "body": "Hi @IanMayo , I just added some dummy data to test this component\r\n\r\n<img width=\"1426\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/186053021-975d1cc9-9786-4d36-a6e9-81e5d80ceb5d.png\">\r\n"
+    },
+    {
+      "id": 1223578036,
+      "user": "IanMayo",
+      "created_at": "2022-08-23T05:48:46Z",
+      "updated_at": "2022-08-23T05:48:46Z",
+      "body": "dummy data: perfect 😊"
+    },
+    {
+      "id": 1226815234,
+      "user": "IanMayo",
+      "created_at": "2022-08-25T06:05:27Z",
+      "updated_at": "2022-08-25T06:15:34Z",
+      "body": "Thanks for that @lebaphi .  The mock data isn't in the branch, is it?  (I can't see it)\r\n\r\nThe `storybook` could use the `p9.mock.ts` dataset to get a list of messages to display.  (will work on better sample data when I'm back next week)."
+    },
+    {
+      "id": 1226820712,
+      "user": "IanMayo",
+      "created_at": "2022-08-25T06:13:38Z",
+      "updated_at": "2022-08-25T06:13:38Z",
+      "body": "@lebaphi - I don't think I'll be properly able to review this until I'm back in the office on Monday (or even Tuesday, since Monday is an official holiday).\r\n\r\nBut. it would be great if you could get started on #1749 . We're using the same table control,  but with expanding `parent-child` triangle when one `asset` _comprises_ several others."
+    },
+    {
+      "id": 1227340784,
+      "user": "lebaphi",
+      "created_at": "2022-08-25T14:30:26Z",
+      "updated_at": "2022-08-25T14:30:26Z",
+      "body": "> Thanks for that @lebaphi .  The mock data isn't in the branch, is it?  (I can't see it)\n> \n> \n> \n> The `storybook` could use the `p9.mock.ts` dataset to get a list of messages to display.  (will work on better sample data when I'm back next week).\n\nyep I don't push the function to generate the mock data, I just show you how the messages are display in this table"
+    },
+    {
+      "id": 1227341574,
+      "user": "lebaphi",
+      "created_at": "2022-08-25T14:31:02Z",
+      "updated_at": "2022-08-25T14:31:02Z",
+      "body": "> @lebaphi - I don't think I'll be properly able to review this until I'm back in the office on Monday (or even Tuesday, since Monday is an official holiday).\n> \n> \n> \n> But. it would be great if you could get started on #1749 . We're using the same table control,  but with expanding `parent-child` triangle when one `asset` _comprises_ several others.\n\nsure @IanMayo, Im working on it"
+    },
+    {
+      "id": 1229408365,
+      "user": "IanMayo",
+      "created_at": "2022-08-28T08:40:51Z",
+      "updated_at": "2022-08-28T08:40:51Z",
+      "body": "Hello @lebaphi - I've added some sample data to the story.\r\n\r\nAs the next step, I'd like you to implement the \"Expand\" functionality, please. So, when the player clicks on a message, it will expand to show the detail of the `message.message` using a disabled `json-editor`, like we did for `CollabStatusBoard`.\r\n\r\nI would also like to have drop-down filter menus on the `Role` and `Status` columns.  like the `Birth-place` column here: https://material-table.com/#/docs/features/filtering"
+    },
+    {
+      "id": 1229729640,
+      "user": "lebaphi",
+      "created_at": "2022-08-29T03:52:42Z",
+      "updated_at": "2022-08-29T03:52:42Z",
+      "body": "okay @IanMayo "
+    },
+    {
+      "id": 1231392915,
+      "user": "IanMayo",
+      "created_at": "2022-08-30T09:15:24Z",
+      "updated_at": "2022-08-30T14:29:10Z",
+      "body": "Hello @lebaphi,\r\nthe `PlanningMessagesList` and `Orders` components both seem quite _thin_.   Is it possible to pull the `Orders` functionality back up into `PlanningMessagesList`?\r\n\r\nHmm. I'm happy to work on the \"drop-down\" filters, but I'll wait until we've done the above refactoring."
+    },
+    {
+      "id": 1231708302,
+      "user": "IanMayo",
+      "created_at": "2022-08-30T13:57:59Z",
+      "updated_at": "2022-08-30T14:28:07Z",
+      "body": "Hello @lebaphi - I've had a \"big push\" with this today.  \r\n\r\nWe'll use the `<NewMessage/>` control to create new messages in the \"My Orders\" panel, but I need to get that refactored into the `components` package from the `client` package before we can do that.  I've created an issue for @lilitkarapetyan to work on that, #1787 \r\n\r\nBut, we can still try to sort out the `detail` view, that shows existing messages in the `JsonEditor` control - just like with `CollabStatusBoard`. [Here is](https://serge-1748-order-compon-x7qdto.herokuapp.com/storybook/?path=/story/local-collabstatusboard--collaborative-edit-release-manager) a playable link.\r\n\r\nThe code to do that is in `CollabMessageDetail`."
+    },
+    {
+      "id": 1231766860,
+      "user": "lebaphi",
+      "created_at": "2022-08-30T14:42:43Z",
+      "updated_at": "2022-08-30T14:42:43Z",
+      "body": "Hi @IanMayo, I will be back in 2moro, I got sick for a few days ago, maybe i have covid even though i got 4 doses of vaccine. No worries"
+    },
+    {
+      "id": 1234317046,
+      "user": "lebaphi",
+      "created_at": "2022-09-01T13:55:43Z",
+      "updated_at": "2022-09-01T13:55:57Z",
+      "body": "Hi @IanMayo , it seems that the latest change in 'develop' breaks the UI of the support panel component\r\n\r\n<img width=\"432\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/187931559-438d12b2-0da6-4ad2-aa1e-bed1b91f318f.png\">\r\n"
+    },
+    {
+      "id": 1234358973,
+      "user": "IanMayo",
+      "created_at": "2022-09-01T14:26:48Z",
+      "updated_at": "2022-09-01T14:26:48Z",
+      "body": "Oops, I bet it was me.  I've done lots of changes.\r\n\r\nThese two planning PRs are getting large. I'm going to try to merge/resolve them tomorrow morning (if not today). \r\n\r\nIt would be great if you could still investigate the `detail` view of orders, please."
+    },
+    {
+      "id": 1234490778,
+      "user": "lebaphi",
+      "created_at": "2022-09-01T16:08:58Z",
+      "updated_at": "2022-09-01T16:08:58Z",
+      "body": "I resolved it already:D"
+    },
+    {
+      "id": 1234538891,
+      "user": "IanMayo",
+      "created_at": "2022-09-01T16:53:27Z",
+      "updated_at": "2022-09-01T16:53:27Z",
+      "body": "@lebaphi - I'm going to merge this, so at least `SupportPanel` can be stable. Then we can work on smaller PRs that don't bring conflicts."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1748,
+    1749,
+    1787
+  ],
+  "issues": [
+    {
+      "id": 1334498773,
+      "number": 1748,
+      "title": "C. Create orders component",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-10T11:43:29Z",
+      "updated_at": "2022-09-01T17:40:56Z",
+      "closed_at": "2022-09-01T17:40:56Z",
+      "body": "Use table component to display list of messages.  A _placeholder_ for this has been created as `Planning-Messages-List`.\r\n\r\nSuggest this component: https://github.com/mbrn/material-table\r\n\r\nProps (all from state):\r\n* channel id (to be used when sending new message)\r\n* messages for this channel (duh)\r\n* player role (to be used when sending new message)\r\n* player force (to filter messages)\r\n* isUmpire (if true, include drop-down at top of channel to choose `view-as` force)\r\n* templates for this wargame (used to render message _detail_, and for creating new messages).\r\n\r\nComponent will run \"map\" on messages to produced reduced array suitable for rendering.  The reduce function will extract the fields displayed below.\r\n\r\nDisplay one row per message, initially (*) with these headers:\r\n* id\r\n* title\r\n* from-role\r\n* status\r\n* start date\r\n* finish date\r\n\r\n(*) Users to provide exact fields in early Sept.\r\n\r\nPage should have `sort` on id, title, start-date, finish-date. Page should have `filter` on `status`.\r\n\r\nIt should be possible for players to expand messages, to read the detail (presented using the JSON-Editor with the relevant template - like how we did for `COA Status Board`).\r\n\r\nHave mocked up how a player may view their orders here:\r\n![image](https://user-images.githubusercontent.com/1108513/187191841-8059b2f6-f16a-4c78-a180-8c5ea84b972f.png)\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1219025536,
+          "user": "lebaphi",
+          "created_at": "2022-08-18T04:24:45Z",
+          "updated_at": "2022-08-18T04:24:45Z",
+          "body": "Hi @IanMayo , should I work on this ticket now or wait for the mockup to be available?"
+        },
+        {
+          "id": 1219108923,
+          "user": "IanMayo",
+          "created_at": "2022-08-18T06:59:10Z",
+          "updated_at": "2022-08-18T06:59:10Z",
+          "body": "let's get started please. The columns are just a detail, let's learn about integrating the table component."
+        }
+      ]
+    },
+    {
+      "id": 1334507702,
+      "number": 1749,
+      "title": "D. Create PlanningAssets component",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-10T11:51:39Z",
+      "updated_at": "2022-09-01T16:27:16Z",
+      "closed_at": "2022-09-01T16:27:16Z",
+      "body": "Create a component that shows a table of assets.\r\n\r\nA `renderer` method (passed in as prop) will take an `Asset` object and return a `string[]` of table cells.\r\n\r\nProps (all from state):\r\n* ForceData[] (source data)\r\n* PlayerForce - display data for that force\r\n* isUmpire - if true, included drop-down for umpire to choose `view-as` force\r\n\r\nThe component should receive a `forces` object, `player-force` value and `renderer` method in `props`.\r\n\r\nIf `player-force` is provided, only show assets of that force.  If no `player-force` provided, show all assets.  The renderer method will either return the real values (when looking at own force) or `perceived` values (when looking at other forces).\r\n\r\nUse this table component:\r\nhttps://github.com/mbrn/material-table\r\n\r\nWhere an asset `comprises` other assets, the `children` assets should be grouped beneath the parent.\r\n\r\nTest data is present in `p9.mock.ts`, developed in support of #1745 \r\n\r\nHave attempted to mockup of how a player may see \"own\" and \"other\" assets:\r\n![image](https://user-images.githubusercontent.com/1108513/187191691-dcdf8088-3fb3-4255-8824-caf8ef2c8a90.png)\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1228521701,
+          "user": "lebaphi",
+          "created_at": "2022-08-26T13:55:36Z",
+          "updated_at": "2022-08-26T14:00:29Z",
+          "body": "Hi @IanMayo \r\n\r\n<img width=\"395\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/186919225-70f01727-d8be-4370-b2e0-ca61bf59c44a.png\">\r\n\r\nThis is an asset in the P9 mock data, so how do you think we will process data in render function? which fields to be displayed in the table?"
+        },
+        {
+          "id": 1228529796,
+          "user": "IanMayo",
+          "created_at": "2022-08-26T14:02:47Z",
+          "updated_at": "2022-08-26T14:03:04Z",
+          "body": "Let's show these columns, please:\r\n- ID (Contact Id)\r\n- Name\r\n- Condition\r\n- Status\r\n- Platform-Type"
+        }
+      ]
+    },
+    {
+      "id": 1355757790,
+      "number": 1787,
+      "title": "Refactor NewMessage to be component based",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-30T13:16:27Z",
+      "updated_at": "2022-09-13T09:49:05Z",
+      "closed_at": "2022-09-13T09:49:05Z",
+      "body": "We currently only use `<NewMessage/>` from the `client` package, where it is stored.\r\n\r\nBut, I need to access it from the `components` package. So, we should refactor it to match the structure of our `components`, and create a story/spec to test it.\r\n\r\nIf possible, we should refactor `MessageCreator` to the new `Component` model at the same time.\r\n\r\nIt looks like both elements are already TypeScript, we just need to match our new way of building things.\r\n\r\nWe could (temporarily) call the new version `<NewMessage2/>` during testing. Once it's accepted, we drop the existing `NewMessage` and rename `NewMessage2` to `NewMessage`.",
+      "labels": [
+        "4p9",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/186053021-975d1cc9-9786-4d36-a6e9-81e5d80ceb5d.png",
+    "https://user-images.githubusercontent.com/26705621/187931559-438d12b2-0da6-4ad2-aa1e-bed1b91f318f.png",
+    "https://user-images.githubusercontent.com/1108513/187191841-8059b2f6-f16a-4c78-a180-8c5ea84b972f.png",
+    "https://user-images.githubusercontent.com/1108513/187191691-dcdf8088-3fb3-4255-8824-caf8ef2c8a90.png",
+    "https://user-images.githubusercontent.com/26705621/186919225-70f01727-d8be-4370-b2e0-ca61bf59c44a.png"
+  ],
+  "number_of_changed_files": 41,
+  "total_changed_lines": 4080
+}

@@ -1,0 +1,52 @@
+{
+  "number": 2322,
+  "title": "2142 orders in turn",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-03T15:35:51Z",
+  "updated_at": "2023-02-06T16:42:45Z",
+  "closed_at": "2023-02-06T16:42:43Z",
+  "merged_at": "2023-02-06T16:42:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2322",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2322/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2322/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2322",
+  "body": "Fixes #2142 ",
+  "additions": 315,
+  "deletions": 116,
+  "changed_files": 20,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2142
+  ],
+  "issues": [
+    {
+      "id": 1459496391,
+      "number": 2142,
+      "title": "Don't filter by turn but by orders \"live\" in this turn",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-22T09:40:06Z",
+      "updated_at": "2023-02-06T16:42:46Z",
+      "closed_at": "2023-02-06T16:42:46Z",
+      "body": "For Orders and Adjudications we offer a \"filter for this turn\" dropdown.  This filters for orders created in that turn.\r\n\r\nBut. it should filter by orders that are \"live\" in that turn.  So, orders which start on or before the turn end AND which end on or after turn start.\r\n\r\nThis will be easier to navigate once we're showing the turn start/end in the Turn Overview.\r\n\r\nNote: we should also filter the events passed to the `TimeLine` using this strategy\r\n\r\nNote: we'll have to pass the turn start and end time to SupportPanel, in order to do this.",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 20,
+  "total_changed_lines": 431
+}

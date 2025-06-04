@@ -1,0 +1,51 @@
+{
+  "number": 2461,
+  "title": "2460 assets disappear on new orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-21T15:24:37Z",
+  "updated_at": "2023-02-21T16:04:41Z",
+  "closed_at": "2023-02-21T16:04:39Z",
+  "merged_at": "2023-02-21T16:04:39Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2461",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2461/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2461/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2461",
+  "body": "Fixes #2460 ",
+  "additions": 6,
+  "deletions": 3,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2460
+  ],
+  "issues": [
+    {
+      "id": 1593658206,
+      "number": 2460,
+      "title": "Assets disappear from map when new orders sent",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-21T15:14:59Z",
+      "updated_at": "2023-02-21T16:04:41Z",
+      "closed_at": "2023-02-21T16:04:41Z",
+      "body": "\r\n*I had two tabs open (one logged in as Blue Sub-Surface and the other as red Land & Fires).\r\n*In both I had expanded own forces to show 2,000.\r\n*In each I had expanded other forces to show 2,000 and then filtered to not show green.\r\n*In both, on own forces, I had filtered the unit selection to only show ISTAR.\r\n*I then selected a Red ISTAR asset, selected Air-ISTAR from the orders selection, plotted fairly generic and non-overlapping routes/polygons as required.\r\n*When the orders template popped open I called it 'Red ISTAR I', set the start time to 1st May 12:05, and the end time to 3rd May 12:05.\r\n*I then hit submit and *poof*.",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 9
+}

@@ -1,0 +1,50 @@
+{
+  "number": 2633,
+  "title": "2632 red see opp for range rings",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-13T11:59:53Z",
+  "updated_at": "2023-03-13T12:56:20Z",
+  "closed_at": "2023-03-13T12:56:18Z",
+  "merged_at": "2023-03-13T12:56:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2633",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2633/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2633/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2633",
+  "body": "Fixes #2632 ",
+  "additions": 2,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2632
+  ],
+  "issues": [
+    {
+      "id": 1621318019,
+      "number": 2632,
+      "title": "Red not seeing opp-for range rings",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-13T11:43:18Z",
+      "updated_at": "2023-03-13T12:56:20Z",
+      "closed_at": "2023-03-13T12:56:20Z",
+      "body": "Red should be able to see op-force range rings.  They can't",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 4
+}

@@ -1,0 +1,222 @@
+{
+  "number": 1139,
+  "title": "1102: Reduce bundle size",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-09-16T06:55:15Z",
+  "updated_at": "2023-11-15T10:35:55Z",
+  "closed_at": "2023-11-15T10:35:51Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1139",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1139/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1139/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1139",
+  "body": "Fixes #1102 \r\n\r\nbefore:\r\n<img width=\"1030\" alt=\"before\" src=\"https://user-images.githubusercontent.com/26705621/133564433-6d7dc2ac-40b7-40fc-9ff7-b4d5b589d076.png\">\r\n\r\nafter:\r\n<img width=\"545\" alt=\"after\" src=\"https://user-images.githubusercontent.com/26705621/133564462-0bf8a0f2-40e5-402f-90f9-df6981f15928.png\">\r\n",
+  "additions": 27,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 19,
+  "review_comments_count": 0,
+  "total_comments": 19,
+  "comments_data": [
+    {
+      "id": 920636471,
+      "user": "lebaphi",
+      "created_at": "2021-09-16T07:09:43Z",
+      "updated_at": "2021-09-21T04:52:43Z",
+      "body": "I updated some config in webpack, try to split the chunk file to smaller part if its size is too big (then browser) can load in parallel. Also make some improve in build process (build in parallel, don't need to included the source map in production mode).\r\nI take a look on removing the redundant component like `RLI Status Board` but I can't find where it is, did you mean the `RFI Status Board` @IanMayo ?"
+    },
+    {
+      "id": 923623708,
+      "user": "lebaphi",
+      "created_at": "2021-09-21T04:55:59Z",
+      "updated_at": "2021-09-21T04:55:59Z",
+      "body": "The Heroku got an error on deploying, can you help me to check the error @IanMayo ?"
+    },
+    {
+      "id": 923800004,
+      "user": "IanMayo",
+      "created_at": "2021-09-21T09:26:42Z",
+      "updated_at": "2021-09-21T09:26:42Z",
+      "body": "> The Heroku got an error on deploying, can you help me to check the error @IanMayo ?\r\n\r\nHello @lebaphi, it looks like it timed out while compiling StoryBook:\r\n![image](https://user-images.githubusercontent.com/1108513/134146672-69d63e62-20cc-4a4e-97a6-1f2a93cefbd6.png)\r\n"
+    },
+    {
+      "id": 923807967,
+      "user": "IanMayo",
+      "created_at": "2021-09-21T09:37:08Z",
+      "updated_at": "2021-09-21T09:37:22Z",
+      "body": "> I take a look on removing the redundant component like `RLI Status Board` but I can't find where it is, did you mean the `RFI Status Board` @IanMayo ?\r\n\r\nYes, this issue: https://github.com/serge-web/serge/issues/1053\r\n"
+    },
+    {
+      "id": 923846589,
+      "user": "lebaphi",
+      "created_at": "2021-09-21T10:27:10Z",
+      "updated_at": "2021-09-21T10:27:10Z",
+      "body": "> > The Heroku got an error on deploying, can you help me to check the error @IanMayo ?\r\n> \r\n> Hello @lebaphi, it looks like it timed out while compiling StoryBook:\r\n> ![image](https://user-images.githubusercontent.com/1108513/134146672-69d63e62-20cc-4a4e-97a6-1f2a93cefbd6.png)\r\n\r\nhmm, I tried to run the command `yarn build-storybook` on my machine, it only takes 3m30s - 3m45s. But sometimes it takes ~7min on the Heroku and the build failed. So I think we have to do some build improvement to speed it up."
+    },
+    {
+      "id": 923861463,
+      "user": "IanMayo",
+      "created_at": "2021-09-21T10:47:36Z",
+      "updated_at": "2021-09-21T10:47:36Z",
+      "body": "> But sometimes it takes ~7min on the Heroku and the build failed. So I think we have to do some build improvement to speed it up.\r\n\r\nYes, I agree.  I think your comment mentioned running things in parallel - though maybe StoryBook can't do that.  Heroku commented on the performance issue [here](https://github.com/serge-web/serge/issues/983)"
+    },
+    {
+      "id": 923888617,
+      "user": "lebaphi",
+      "created_at": "2021-09-21T11:25:41Z",
+      "updated_at": "2021-09-21T11:26:08Z",
+      "body": "> > But sometimes it takes ~7min on the Heroku and the build failed. So I think we have to do some build improvement to speed it up.\r\n> \r\n> Yes, I agree. I think your comment mentioned running things in parallel - though maybe StoryBook can't do that. Heroku commented on the performance issue [here](https://github.com/serge-web/serge/issues/983)\r\n\r\nI think we can reduce time on other packages for the time of storybook :D. I found something at https://dev.to/rivertwilight/use-esbuild-to-speed-up-your-creat-react-app-project-2375 but not sure if we get it work, at least we can reduce ~20sec on the packages client 🤔 "
+    },
+    {
+      "id": 923899651,
+      "user": "IanMayo",
+      "created_at": "2021-09-21T11:41:07Z",
+      "updated_at": "2021-09-21T11:41:07Z",
+      "body": "I guess that _Temporarily_ we could remove a large block of storybook tests, at least until we find a better solution.\r\n\r\nThe storybook tests only tend to be used for new feature.\r\n\r\nWe'd do it by renaming them. Shall we try it?"
+    },
+    {
+      "id": 923921701,
+      "user": "lebaphi",
+      "created_at": "2021-09-21T12:10:22Z",
+      "updated_at": "2021-09-21T12:10:22Z",
+      "body": "> I guess that _Temporarily_ we could remove a large block of storybook tests, at least until we find a better solution.\r\n> \r\n> The storybook tests only tend to be used for new feature.\r\n> \r\n> We'd do it by renaming them. Shall we try it?\r\n\r\nI think we should not delete tests because it is not only used for new feature but also when we fix bug or make change somewhere we also need those tests to verify it's not broken others."
+    },
+    {
+      "id": 923932590,
+      "user": "IanMayo",
+      "created_at": "2021-09-21T12:23:01Z",
+      "updated_at": "2021-09-21T12:23:01Z",
+      "body": "Oh @lebaphi - I'm not proposing deleting all tests - just the storybook stories. I don't think the StoryBook tests give us any regression testing - they're only usable by humans.  The unit tests and jest snapshots are what helps us ensure old code doesn't get broken by new code.\r\n"
+    },
+    {
+      "id": 924941367,
+      "user": "lebaphi",
+      "created_at": "2021-09-22T13:40:20Z",
+      "updated_at": "2021-09-22T13:40:20Z",
+      "body": "> Oh @lebaphi - I'm not proposing deleting all tests - just the storybook stories. I don't think the StoryBook tests give us any regression testing - they're only usable by humans. The unit tests and jest snapshots are what helps us ensure old code doesn't get broken by new code.\r\n\r\nHi @IanMayo, so if we are going to delete all storybook stories, I think we can modify the `.storybook/main.js` like:\r\n```\r\nmodule.exports = {\r\nstories: [],\r\n.....\r\n```\r\nI tried with `yarn build-storybook`, it takes ~20sec instead of ~250s before, but `yarn storybook` will show nothing."
+    },
+    {
+      "id": 924949061,
+      "user": "IanMayo",
+      "created_at": "2021-09-22T13:48:44Z",
+      "updated_at": "2021-09-22T13:48:44Z",
+      "body": "I was hoping for a way to just include some stories - such as the one being edited. I guess we could modify `main.js` to include:\r\n ```\r\n      '../src/**/*.stories-inc.mdx',\r\n      '../src/**/*.stories-inc.@(tsx)'\r\n```\r\n\r\nThat will cancel all stories, but we can use that format for a new component in development."
+    },
+    {
+      "id": 925509152,
+      "user": "lebaphi",
+      "created_at": "2021-09-23T05:04:09Z",
+      "updated_at": "2021-09-23T05:04:09Z",
+      "body": "Hi @IanMayo, I pushed the change and it includes some Webpack config improvements."
+    },
+    {
+      "id": 1055289013,
+      "user": "IanMayo",
+      "created_at": "2022-03-01T10:42:41Z",
+      "updated_at": "2022-03-01T10:42:41Z",
+      "body": "@lebaphi - when you get chance, could you have another look at the changes in this PR, and verify they are still correct?"
+    },
+    {
+      "id": 1055576224,
+      "user": "lebaphi",
+      "created_at": "2022-03-01T15:40:31Z",
+      "updated_at": "2022-03-01T15:40:31Z",
+      "body": "> @lebaphi - when you get chance, could you have another look at the changes in this PR, and verify they are still correct?\r\n\r\nokay 👍🏻"
+    },
+    {
+      "id": 1079085034,
+      "user": "lebaphi",
+      "created_at": "2022-03-25T14:31:03Z",
+      "updated_at": "2022-03-25T14:31:03Z",
+      "body": "Hi @IanMayo, I checked and it works well."
+    },
+    {
+      "id": 1205266293,
+      "user": "IanMayo",
+      "created_at": "2022-08-04T13:34:39Z",
+      "updated_at": "2022-08-04T13:34:39Z",
+      "body": "Hello @lebaphi \r\n\r\nThis is another PR that we should probably get merged.  Would you mind having a look at the changes, and verifying they are still valid please?\r\n\r\nPromise I'll merge it this time ;-)"
+    },
+    {
+      "id": 1589316323,
+      "user": "IanMayo",
+      "created_at": "2023-06-13T13:26:31Z",
+      "updated_at": "2023-06-13T13:26:31Z",
+      "body": "Reconsider this once we've moved to monolith #1720 "
+    },
+    {
+      "id": 1812212192,
+      "user": "IanMayo",
+      "created_at": "2023-11-15T10:35:51Z",
+      "updated_at": "2023-11-15T10:35:51Z",
+      "body": "Overtaken by our dropping mapping modules."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1102,
+    1720
+  ],
+  "issues": [
+    {
+      "id": 990282568,
+      "number": 1102,
+      "title": "Reduce bundle size",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-07T19:31:14Z",
+      "updated_at": "2023-11-13T11:34:41Z",
+      "closed_at": "2023-11-13T11:34:41Z",
+      "body": "The webpack build process warns our distributable files are too large.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/132400292-3faf6e37-87ae-4ce4-bfb3-252f1c41853b.png)\r\n\r\nMost usage of Serge is on a LAN, but even on Heroku it seems to load quickly enough.  Well, at least I think it does - I've always thought the initial delay was the Heroku instance spinning up.\r\n\r\nCan we tidily reduce the size of the packages by splitting them up?  At least (I guess) they'll be downloaded in parallel.\r\n\r\nWe could probably also split up the distribution.  We don't need to deliver `admin` _and_ `player` to the client browser.  In lots of cases the huge `mapping` components aren't required.\r\n\r\nWith the above exercise, we could also ditch some unused code/components.  `RLI Status Board` is certainly one instance of this, but there are probably old `client` modules, too.",
+      "labels": [
+        "wontfix"
+      ],
+      "comments": []
+    },
+    {
+      "id": 1328846202,
+      "number": 1720,
+      "title": "Move back to monolith",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-04T15:47:23Z",
+      "updated_at": "2023-11-13T11:52:00Z",
+      "closed_at": "2023-11-13T11:51:59Z",
+      "body": "Early in the project lifetime we moved from a monolith to a mono-repo\r\n\r\nBut, except for the (very-small) server-side component it really is just one app.    It is also built, distributed, and run as one app.\r\n\r\nWe should consider returning to a monolith repo.\r\n\r\n### Pros\r\n- It would avoid the multiple version numbers spread across the repo\r\n- simpler build process\r\n- simpler architecture\r\n\r\n### Cons\r\n- could be a lot of effort\r\n- we will lose ability to run `build` on just one component (`helpers` rebuilds really quickly)",
+      "labels": [
+        "Technical Debt"
+      ],
+      "comments": [
+        {
+          "id": 1589289341,
+          "user": "IanMayo",
+          "created_at": "2023-06-13T13:13:12Z",
+          "updated_at": "2023-06-13T13:13:12Z",
+          "body": "Once this is done, do #1731 "
+        },
+        {
+          "id": 1808014806,
+          "user": "IanMayo",
+          "created_at": "2023-11-13T11:51:59Z",
+          "updated_at": "2023-11-13T11:51:59Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/133564433-6d7dc2ac-40b7-40fc-9ff7-b4d5b589d076.png",
+    "https://user-images.githubusercontent.com/26705621/133564462-0bf8a0f2-40e5-402f-90f9-df6981f15928.png",
+    "https://user-images.githubusercontent.com/1108513/134146672-69d63e62-20cc-4a4e-97a6-1f2a93cefbd6.png",
+    "https://user-images.githubusercontent.com/1108513/132400292-3faf6e37-87ae-4ce4-bfb3-252f1c41853b.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 27
+}

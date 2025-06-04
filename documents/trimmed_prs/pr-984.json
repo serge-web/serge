@@ -1,0 +1,103 @@
+{
+  "number": 984,
+  "title": "Feature/update admin pages for collaborative editing 974",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-07-30T13:58:04Z",
+  "updated_at": "2021-09-02T08:52:30Z",
+  "closed_at": "2021-08-27T12:03:11Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/984",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/984/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/984/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/984",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nCloses #974\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\nAdded two types of channel for game designers in the admin panel\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 558,
+  "deletions": 194,
+  "changed_files": 23,
+  "labels": [
+    "enhancement"
+  ],
+  "comments_count": 5,
+  "review_comments_count": 0,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 889971607,
+      "user": "IanMayo",
+      "created_at": "2021-07-30T15:31:49Z",
+      "updated_at": "2021-07-30T15:31:49Z",
+      "body": "I know it's only a draft, but here's some feedback.  We have duplicated `Add channel` buttons:\r\n![image](https://user-images.githubusercontent.com/1108513/127676352-1b55be48-9745-4384-8b55-0f7d5b86f230.png)\r\n"
+    },
+    {
+      "id": 889974976,
+      "user": "IanMayo",
+      "created_at": "2021-07-30T15:37:20Z",
+      "updated_at": "2021-07-30T15:37:20Z",
+      "body": "One other thing.  The \"new participant\" row doesn't match the full set of controls:\r\n![image](https://user-images.githubusercontent.com/1108513/127677070-acbca026-8a75-4336-b7db-d23805af0165.png)\r\n"
+    },
+    {
+      "id": 892486849,
+      "user": "IanMayo",
+      "created_at": "2021-08-04T08:55:35Z",
+      "updated_at": "2021-08-04T08:55:35Z",
+      "body": "One small item of feedback, please @lilitkarapetyan \r\n\r\nWhen we `Add` a new collab channel, could the popup menu collapse please?  Currently, the new channel is created, but it is hidden beneath the `Add` popup menu."
+    },
+    {
+      "id": 893455944,
+      "user": "IanMayo",
+      "created_at": "2021-08-05T13:22:14Z",
+      "updated_at": "2021-08-05T13:22:14Z",
+      "body": "@lilitkarapetyan - this is still showing as Draft. Is it ready for merge?"
+    },
+    {
+      "id": 906994199,
+      "user": "IanMayo",
+      "created_at": "2021-08-27T07:35:15Z",
+      "updated_at": "2021-08-27T07:35:15Z",
+      "body": "@lilitkarapetyan - we can close/delete this branch, right?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    974
+  ],
+  "issues": [
+    {
+      "id": 953930664,
+      "number": 974,
+      "title": "Update admin pages for Collaborative Editing",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-27T14:15:22Z",
+      "updated_at": "2021-09-02T16:00:25Z",
+      "closed_at": "2021-09-02T16:00:24Z",
+      "body": "* [ ] Add Special Channel for Collab edit and Collab response\r\n* [ ] New RFI participation toggles\r\n\r\nWe can currently add \"rfi\" and \"mapping\" special channels from the `Settings - Channels` page.\r\n\r\nWe're going to change that - to remove \"rfi\" and add the two separate collaboration channel types:\r\n![image](https://user-images.githubusercontent.com/1108513/127169978-455719a5-b3f7-4238-bbbe-e5ba2b46d16c.png)\r\n\r\nThe channel definition now includes an optional `CollabOptions` item:\r\n![image](https://user-images.githubusercontent.com/1108513/127172047-b071a7ff-0b50-4a32-ae50-aebd24daa21b.png)\r\nNote: adding a \"collaborative working\" channel creates this `CollabOptions` element:\r\n### Collab-Editing\r\n```\r\nconst options: CollabOptions = {\r\n  mode: 'edit',\r\n  returnVerbs: ['Endorse', 'Request Changes'],\r\n  startWithReview : true,\r\n  originatorsSeeChanges: false,\r\n  extraColumns: []\r\n}\r\n```\r\n\r\n### Collab-Response\r\n```\r\nconst options: CollabOptions = {\r\n  mode: 'response',\r\n  returnVerbs: [],\r\n  startWithReview : false,\r\n  originatorsSeeChanges: true,\r\n  extraColumns: []\r\n}\r\n```\r\n\r\nWhen this is a collaborative editing channel, we now have two extra toggles in the participants entry:\r\n![image](https://user-images.githubusercontent.com/1108513/127171052-1f1ed7c9-6423-4cda-81e0-d72ca99e17c7.png)\r\n\r\nWe need to provide edit controls for them (just used Red for mockup, normal text color to be used):\r\n![image](https://user-images.githubusercontent.com/1108513/127171841-9b9fbb14-9d5e-403c-9c41-f5136e26fb60.png)\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 911835244,
+          "user": "IanMayo",
+          "created_at": "2021-09-02T16:00:24Z",
+          "updated_at": "2021-09-02T16:00:24Z",
+          "body": "Closed in #984 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/127676352-1b55be48-9745-4384-8b55-0f7d5b86f230.png",
+    "https://user-images.githubusercontent.com/1108513/127677070-acbca026-8a75-4336-b7db-d23805af0165.png",
+    "https://user-images.githubusercontent.com/1108513/127169978-455719a5-b3f7-4238-bbbe-e5ba2b46d16c.png",
+    "https://user-images.githubusercontent.com/1108513/127172047-b071a7ff-0b50-4a32-ae50-aebd24daa21b.png",
+    "https://user-images.githubusercontent.com/1108513/127171052-1f1ed7c9-6423-4cda-81e0-d72ca99e17c7.png",
+    "https://user-images.githubusercontent.com/1108513/127171841-9b9fbb14-9d5e-403c-9c41-f5136e26fb60.png"
+  ],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 752
+}

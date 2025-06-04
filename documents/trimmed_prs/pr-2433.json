@@ -1,0 +1,50 @@
+{
+  "number": 2433,
+  "title": "2404 reveal orders without geometry",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-16T18:42:47Z",
+  "updated_at": "2023-02-16T20:03:34Z",
+  "closed_at": "2023-02-16T20:03:33Z",
+  "merged_at": "2023-02-16T20:03:33Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2433",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2433/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2433/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2433",
+  "body": "Fixes #2404 ",
+  "additions": 18,
+  "deletions": 8,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2404
+  ],
+  "issues": [
+    {
+      "id": 1585510405,
+      "number": 2404,
+      "title": "Show area for Order with assets, but no Location",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-15T09:27:12Z",
+      "updated_at": "2023-02-16T20:03:34Z",
+      "closed_at": "2023-02-16T20:03:34Z",
+      "body": "The `Strike` and `Cyber` / `Activity` templates can have assets assigned, but not a location.\r\n\r\nWhen such an orders (or interaction referring to those orders) is selected, zoom onto a region containing the assets involved.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 26
+}

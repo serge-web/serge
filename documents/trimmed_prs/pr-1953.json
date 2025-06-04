@@ -1,0 +1,75 @@
+{
+  "number": 1953,
+  "title": "1933: Issue - orders not getting down to PlanningMessagesList",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-23T03:43:48Z",
+  "updated_at": "2022-10-24T12:35:11Z",
+  "closed_at": "2022-10-24T12:35:10Z",
+  "merged_at": "2022-10-24T12:35:10Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1953",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1953/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1953/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1953",
+  "body": "Fixes #1933 ",
+  "additions": 1,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1288035864,
+      "user": "IanMayo",
+      "created_at": "2022-10-23T07:21:52Z",
+      "updated_at": "2022-10-23T07:21:52Z",
+      "body": "Thanks for this @lebaphi - can you help me out by explaining what was happening?"
+    },
+    {
+      "id": 1288050690,
+      "user": "lebaphi",
+      "created_at": "2022-10-23T08:29:27Z",
+      "updated_at": "2022-10-23T08:42:29Z",
+      "body": "> Thanks for this @lebaphi - can you help me out by explaining what was happening?\r\n\r\nHi @IanMayo, ideally we don't want to re-render the SupportPanel component if the props don't change, but we have a problem at the `areEqual` function`!isEqual(prevProps, nextProps) `, it shouldn't have `!`, since props is an object we should do a deep comparison, there are 2 ways to do this:\r\n- using `isEqual(obj1, obj2)`: in lodash docs says it's deep comparison but I don't see this, the result returns false\r\n- JSON.stringify (prevProps) === JSON.stringify (nextProps): it works, the component does not re-render if the props don't change."
+    },
+    {
+      "id": 1288811004,
+      "user": "IanMayo",
+      "created_at": "2022-10-24T10:35:11Z",
+      "updated_at": "2022-10-24T10:35:44Z",
+      "body": "> Hi @IanMayo, ideally we don't want to re-render the SupportPanel component if the props don't change, but we have a problem at the `areEqual` function`!isEqual(prevProps, nextProps) `, it shouldn't have `!`, since props is an object we should do a deep comparison, there are 2 ways to do this:\r\n\r\nHmm, @lebaphi - is there a chance that we're modifying an immutable array object higher up in the code?  So, while the array contents changed, the array object itself stayed the same - so react didn't recognise the change.\r\n\r\n@lilitkarapetyan - is that a problem that happens with react state hooks?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1933
+  ],
+  "issues": [
+    {
+      "id": 1411735497,
+      "number": 1933,
+      "title": "Issue - orders not getting down to `PlanningMessagesList`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-17T14:57:37Z",
+      "updated_at": "2022-10-24T12:35:11Z",
+      "closed_at": "2022-10-24T12:35:11Z",
+      "body": "In the `SupportPanel` component, we have a child `PlanningMessagesList` - which will show the list of planning messages (orders).\r\n\r\nBut, that object is always empty.   This _may_ be related to the fact that we only render this table when the tab is active, but I _think_ it should receive the data when it gets rendered.\r\n\r\nClearly there is something about `state` that I don't understand :-)\r\n\r\nThis will be `Done` when `messages` in `PlanningMessagesList` has a non-empty `messages` object.\r\n\r\nThe code can be tested from any of the `PlanningChannel` stories in `StoryBook`.",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 3
+}

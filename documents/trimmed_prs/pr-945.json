@@ -1,0 +1,30 @@
+{
+  "number": 945,
+  "title": "Hotfix introduce rfis",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-19T14:04:48Z",
+  "updated_at": "2021-07-20T08:56:33Z",
+  "closed_at": "2021-07-20T08:56:33Z",
+  "merged_at": "2021-07-20T08:56:33Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/945",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/945/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/945/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/945",
+  "body": "Introduce some RFI messages into the `CMDWK-HIGH-DATA` wargame, to create reproducible sample for #944 ",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 0
+}

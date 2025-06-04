@@ -1,0 +1,90 @@
+{
+  "number": 1543,
+  "title": "1542: Update node to 16",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-28T09:45:38Z",
+  "updated_at": "2022-05-05T12:54:26Z",
+  "closed_at": "2022-05-05T12:54:26Z",
+  "merged_at": "2022-05-05T12:54:26Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1543",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1543/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1543/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1543",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1542\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 6756,
+  "deletions": 7039,
+  "changed_files": 127,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1113411583,
+      "user": "IanMayo",
+      "created_at": "2022-04-29T14:49:15Z",
+      "updated_at": "2022-04-29T15:02:10Z",
+      "body": "I can see this is a pain @lilitkarapetyan .\r\n\r\nWe've removed `node-sass`, but the `yarn install` i still failing when it tries to compile `node-sass` 🤣 \r\n\r\nNote: I've removed more instances of `node-sass` from `components/package.json`:\r\n![image](https://user-images.githubusercontent.com/1108513/165971008-63eaca0b-632c-4294-8db7-13dea3a7fe05.png)\r\n\r\nIt has moved the build forward. Now I'm just stuck with `gyp: No Xcode or CLT version detected!`.   I'll do some googling."
+    },
+    {
+      "id": 1113437423,
+      "user": "IanMayo",
+      "created_at": "2022-04-29T15:16:27Z",
+      "updated_at": "2022-04-29T15:16:27Z",
+      "body": "Ok, @lilitkarapetyan - I've removed node-sass, but that is causing the build to break.  Maybe we need to move to dart-sass?\r\n\r\nhttps://itnext.io/the-css-preprocessor-dilemma-node-sass-or-dart-sass-32a0a096572"
+    },
+    {
+      "id": 1115989098,
+      "user": "IanMayo",
+      "created_at": "2022-05-03T11:24:03Z",
+      "updated_at": "2022-05-03T11:24:03Z",
+      "body": "@lilitkarapetyan - it does look like we need to change our `sass` library:\r\nhttps://stackoverflow.com/a/70171361/92441\r\n\r\nThat may make the current `node-sass` _magically go away_ :-)"
+    },
+    {
+      "id": 1116004720,
+      "user": "IanMayo",
+      "created_at": "2022-05-03T11:43:07Z",
+      "updated_at": "2022-05-03T11:43:07Z",
+      "body": "Sorry @lilitkarapetyan - the newest commit doesn't build on my PC:\r\n![image](https://user-images.githubusercontent.com/1108513/166446714-4a7f74d3-ea45-4aaa-bd0d-1d0463e1ba31.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1542
+  ],
+  "issues": [
+    {
+      "id": 1218409817,
+      "number": 1542,
+      "title": "Update node to 16",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-28T08:50:16Z",
+      "updated_at": "2022-05-06T15:49:51Z",
+      "closed_at": "2022-05-06T15:49:51Z",
+      "body": "For another project I wanted to use `yarn create react-app`.  But, it doesn't support our old version of node (`14`).\r\n\r\nWhen I tried to update my local node to 16 (the current LTS), Serge wouldn't build because it requires node `14`.  I updated the version in the top-level `package.json` to 16, but then `sass` failed.\r\n\r\nThis issue is to update the Serge requirement of node to `16`, and resolve dependency problems which follow that.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1119759683,
+          "user": "IanMayo",
+          "created_at": "2022-05-06T15:49:51Z",
+          "updated_at": "2022-05-06T15:49:51Z",
+          "body": "Fixed, in #1543 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/165971008-63eaca0b-632c-4294-8db7-13dea3a7fe05.png",
+    "https://user-images.githubusercontent.com/1108513/166446714-4a7f74d3-ea45-4aaa-bd0d-1d0463e1ba31.png"
+  ],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 3083
+}

@@ -1,0 +1,58 @@
+{
+  "number": 2277,
+  "title": "2219 next interaction",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-19T10:44:19Z",
+  "updated_at": "2023-01-24T12:22:15Z",
+  "closed_at": "2023-01-24T12:22:14Z",
+  "merged_at": "2023-01-24T12:22:14Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2277",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2277/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2277/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2277",
+  "body": "More progress on generating next interaction",
+  "additions": 1133,
+  "deletions": 525,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2219
+  ],
+  "issues": [
+    {
+      "id": 1520427497,
+      "number": 2219,
+      "title": "New implementation of Generate Next Interaction",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-05T09:46:46Z",
+      "updated_at": "2023-02-08T15:50:47Z",
+      "closed_at": "2023-02-08T15:50:46Z",
+      "body": "* [ ] start time\r\n* [ ] short-circuit (placeholder)\r\n* [ ] special orders (placeholder)\r\n* [ ] introduce new speed values, re-generate data\r\n* [ ] calculate window\r\n* [ ] orders in window (& loop)\r\n* [ ] check for interactions (interactsWith, temporal, spatial)\r\n* [ ] return list",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1422837797,
+          "user": "IanMayo",
+          "created_at": "2023-02-08T15:50:46Z",
+          "updated_at": "2023-02-08T15:50:46Z",
+          "body": "Done. Any remaining bits will be done as separate issues."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 1658
+}

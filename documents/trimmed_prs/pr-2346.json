@@ -1,0 +1,30 @@
+{
+  "number": 2346,
+  "title": "Hotfix updated orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-08T12:22:49Z",
+  "updated_at": "2023-02-08T14:25:11Z",
+  "closed_at": "2023-02-08T14:25:10Z",
+  "merged_at": "2023-02-08T14:25:10Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2346",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2346/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2346/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2346",
+  "body": "Orders in test data were missing timings.\r\n\r\nProvide new set of orders.",
+  "additions": 21,
+  "deletions": 4,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 25
+}

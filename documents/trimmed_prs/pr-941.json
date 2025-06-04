@@ -1,0 +1,100 @@
+{
+  "number": 941,
+  "title": "As a Game Control, I wish to be able to hide games",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-17T12:07:52Z",
+  "updated_at": "2021-07-19T10:24:09Z",
+  "closed_at": "2021-07-19T10:24:08Z",
+  "merged_at": "2021-07-19T10:24:08Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/941",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/941/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/941/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/941",
+  "body": "Fixes #900 ",
+  "additions": 1523,
+  "deletions": 1336,
+  "changed_files": 28,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 2,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 882013085,
+      "user": "IanMayo",
+      "created_at": "2021-07-18T07:26:22Z",
+      "updated_at": "2021-07-18T07:26:22Z",
+      "body": "Thanks for this @lebaphi :-)\r\n\r\nI've put a note in Slack about future PRs (not this one) - about helping my by trying to keep them focussed on the new feature - and include bulk linter/tidying for separate PRs."
+    },
+    {
+      "id": 882019695,
+      "user": "lebaphi",
+      "created_at": "2021-07-18T08:23:50Z",
+      "updated_at": "2021-07-18T08:23:50Z",
+      "body": "> Aah, I do have a change request, please @lebaphi\r\n> \r\n> In Game Admin, I reduced the games down to just one.\r\n> \r\n> When I refreshed the Player UI, just one game was shown.\r\n> \r\n> But, we've introduced the logic where if just one game is present, the UI _loads_ that game (#873).\r\n> \r\n> Could you investigate what that isn't happening, please?\r\n\r\nokay @IanMayo "
+    },
+    {
+      "id": 882020060,
+      "user": "lebaphi",
+      "created_at": "2021-07-18T08:26:39Z",
+      "updated_at": "2021-07-18T08:26:39Z",
+      "body": "@IanMayo I removed some code refactoring that does not relate to this feature. So it's easier for you to review. We may have another PR to do the code refactor or clean code."
+    },
+    {
+      "id": 882021024,
+      "user": "lebaphi",
+      "created_at": "2021-07-18T08:33:41Z",
+      "updated_at": "2021-07-18T08:33:41Z",
+      "body": "> > Aah, I do have a change request, please @lebaphi\r\n> > In Game Admin, I reduced the games down to just one.\r\n> > When I refreshed the Player UI, just one game was shown.\r\n> > But, we've introduced the logic where if just one game is present, the UI _loads_ that game (#873).\r\n> > Could you investigate what that isn't happening, please?\r\n> \r\n> okay @IanMayo\r\n\r\nFixed @IanMayo "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 672142414,
+      "user": "IanMayo",
+      "created_at": "2021-07-19T09:33:09Z",
+      "updated_at": "2021-07-19T09:33:09Z",
+      "body": "Hello @lebaphi - this test shouldn't fail, should it?\r\n\r\nThe hidden wargame shouldn't be listed, so it can't be present as `currentWargame`, can it.\r\n\r\nI _guess_ this is handling some edge case.  Based on it being an edge case, I suggest the notification at line 21 below be changed to:\r\n`Error: hidden wargame should not be available. Not opening.`",
+      "path": "packages/client/src/Views/PlayerUi/PlayerUi.tsx",
+      "diff_hunk": "@@ -78,6 +79,10 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData\n \n \n   const handleCheckPassword = (pass: string): void => {\n+    if (currentWargame.startsWith(hiddenPrefix)) {",
+      "html_url": "https://github.com/serge-web/serge/pull/941#discussion_r672142414"
+    },
+    {
+      "id": 672150794,
+      "user": "lebaphi",
+      "created_at": "2021-07-19T09:45:01Z",
+      "updated_at": "2021-07-19T09:45:01Z",
+      "body": "Hi @IanMayo, the hidden wargame shouldn't be listed, right. This handles the case:\r\n- in the client-side, the user loads the list of 3 games\r\n- at this time on the server-side, the admin hide 1 of 3 games\r\n- in the client-side, the user does not reload the page and chooses the hidden game then press enter.\r\n\r\n=> we should handle this case and show an error message. I will update the error message.",
+      "path": "packages/client/src/Views/PlayerUi/PlayerUi.tsx",
+      "diff_hunk": "@@ -78,6 +79,10 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, loadData\n \n \n   const handleCheckPassword = (pass: string): void => {\n+    if (currentWargame.startsWith(hiddenPrefix)) {",
+      "html_url": "https://github.com/serge-web/serge/pull/941#discussion_r672150794"
+    }
+  ],
+  "issue_numbers": [
+    900
+  ],
+  "issues": [
+    {
+      "id": 935050904,
+      "number": 900,
+      "title": "As a Game Control, I wish to be able to hide games",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-01T17:10:09Z",
+      "updated_at": "2021-07-19T10:24:08Z",
+      "closed_at": "2021-07-19T10:24:08Z",
+      "body": "A game control may be working with a number of wargames, and may choose to hide some snapshots (or old games) from the players - to ensure the players go into the correct wargame.\r\n\r\nThe list of games in the admin page could have a checkbox to indicate which ones are presented to players.\r\n\r\nI _guess_ we would store this in the `pouchdb_all_dbs` collection.  The alternative is to have a `visible` element in the wargame, but we'd have to load/parse all the wargames in order to show the welcome page.\r\n\r\nThis requires a degree of familiarity with PouchDb.\r\n\r\nSadly it looks like it isn't possible via `_all_dbs`.  I suspect we could only achieve this via a custom table of databases.\r\n\r\nI guess an alternate strategy is to use a leading underscore as a `hidden` marker.  So, we rename hidden games to have a leading underscore. That's not all that bad - since we won't be expecting users to load/play a hidden game.\r\n\r\nSo, in the admin UI we could provide a `visible` checkbox in the wargame listing.  Clicking this checkbox (or eye icon) would (secretly) add/remove a leading underscore for that wargame.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 28,
+  "total_changed_lines": 2859
+}

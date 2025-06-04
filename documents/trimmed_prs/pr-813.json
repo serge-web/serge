@@ -1,0 +1,90 @@
+{
+  "number": 813,
+  "title": "Feature/two icon drag drop issues 784",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-06-02T13:15:20Z",
+  "updated_at": "2023-11-15T11:51:14Z",
+  "closed_at": "2023-11-15T10:32:06Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/813",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/813/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/813/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/813",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\ncloses #784\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\nWhen dragged, the item being dragged was magnetic. Plugin have no option to turn off magnetizing. I added check do do not fire change (onSet) callback when dragged item outside of dropzone\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 52,
+  "deletions": 7,
+  "changed_files": 6,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 853121989,
+      "user": "IanMayo",
+      "created_at": "2021-06-02T15:24:44Z",
+      "updated_at": "2021-06-02T15:25:32Z",
+      "body": "@lilitkarapetyan - the fix isn't working for me.  \r\n![screencast](https://i.gyazo.com/022f94d4319c620ea02c7c6b2c3b3a87.gif)\r\n\r\n1. I can't move any members of the `Task Group` to the root level.\r\n2. I have two SSN instances in the same cell.  I can't combine them into a `Task Group`.\r\n\r\nI can attach a copy of the wargame with the ships all in the same cell:\r\n[wargame-koiquada.sqlite.zip](https://github.com/serge-web/serge/files/6585661/wargame-koiquada.sqlite.zip)\r\n"
+    },
+    {
+      "id": 1812203431,
+      "user": "IanMayo",
+      "created_at": "2023-11-15T10:32:06Z",
+      "updated_at": "2023-11-15T10:32:06Z",
+      "body": "Closing this PR.  It's no longer relevant after our switch to monolith."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    784
+  ],
+  "issues": [
+    {
+      "id": 902723092,
+      "number": 784,
+      "title": "Two icon drag/drop issues",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-05-26T17:30:42Z",
+      "updated_at": "2023-11-13T11:35:04Z",
+      "closed_at": "2023-11-13T11:35:04Z",
+      "body": "We have two issues related to moving platforms into / onto others.\r\n\r\nThere are two actions:\r\n* **Hosting** this is like a helicopter being put onto a ship\r\n* **Comprising** this is like two ships becoming a team (a task group)\r\n\r\nBoth are only allowed when the platforms are in the same cell.  This bit is working well.\r\n\r\nI've modified your implementation - so there is a more green shade when the operation is allowable.\r\n\r\nA new requirement means we should not let a `Task Group` _host_ another platform.  The task group is just the name of an organisation - so you can't put a helicopter onto it, for example.\r\n\r\nIn this example, SSN2 cannot be placed onto SSN3.  The drop-target is shown in Red.  But, if I still drop it, it gets added to `CTF-300`.  If something is dropped on a disabled drop-zone, nothing should happen.\r\n\r\n![screenshot](https://i.gyazo.com/c098690e38c1ff0038a3cc15c9cc368b.gif)\r\n\r\nSecond issue.\r\n\r\nI drag `SSN1` over `CTF 300` . I should be allowed to drop it onto CTF-300 (comprising), but not to the `Move onto` drop-zone.  The `move onto` drop-zone is shown as red.  But, I can still drop onto it.  When I do, it gets added as `comprising`.  I think that nothing should happen.\r\n\r\n![screenshot](https://i.gyazo.com/bcde6022fe7ce7fa60dced03a7d02346.gif)\r\n\r\nThe above interactions can be produced in this deployment: \r\nhttps://serge-demo-task-group-d-ekn98z.herokuapp.com/?wargame=wargame-koiquada&access=pkoiqzx9e\r\n\r\nThe deployment is from this branch: `demo_task_group_drag`",
+      "labels": [
+        "bug",
+        "wontfix",
+        "Mapping"
+      ],
+      "comments": [
+        {
+          "id": 874059314,
+          "user": "IanMayo",
+          "created_at": "2021-07-05T12:04:21Z",
+          "updated_at": "2021-07-05T12:04:21Z",
+          "body": "Closed in #813 "
+        },
+        {
+          "id": 874060406,
+          "user": "IanMayo",
+          "created_at": "2021-07-05T12:05:56Z",
+          "updated_at": "2021-07-05T12:05:56Z",
+          "body": "Issue #813 not closed."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/022f94d4319c620ea02c7c6b2c3b3a87.gif",
+    "https://i.gyazo.com/c098690e38c1ff0038a3cc15c9cc368b.gif",
+    "https://i.gyazo.com/bcde6022fe7ce7fa60dced03a7d02346.gif"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 59
+}

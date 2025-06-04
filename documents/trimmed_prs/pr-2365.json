@@ -1,0 +1,50 @@
+{
+  "number": 2365,
+  "title": "2338 reorganise activities",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-12T12:14:54Z",
+  "updated_at": "2023-02-12T12:50:16Z",
+  "closed_at": "2023-02-12T12:50:15Z",
+  "merged_at": "2023-02-12T12:50:15Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2365",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2365/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2365/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2365",
+  "body": "Fixes #2338 ",
+  "additions": 9485,
+  "deletions": 10059,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2338
+  ],
+  "issues": [
+    {
+      "id": 1574646739,
+      "number": 2338,
+      "title": "Reorganise activities to create more top-level items",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-07T16:33:18Z",
+      "updated_at": "2023-02-12T12:50:16Z",
+      "closed_at": "2023-02-12T12:50:16Z",
+      "body": "We currently have these top level activities:\r\n- Maritime\r\n- Land\r\n- Air\r\n- Cyber/Space\r\n\r\nWe need these top level activities:\r\n- Maritime\r\n- Land\r\n- Air\r\n- SOF\r\n- Cyber\r\n- Space\r\n- Info Ops\r\n\r\nThe last 3 will just contain a single `Activity` template.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 19544
+}

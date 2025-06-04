@@ -1,0 +1,105 @@
+{
+  "number": 1280,
+  "title": "1234 server player log",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-22T12:07:37Z",
+  "updated_at": "2022-01-11T18:04:54Z",
+  "closed_at": "2022-01-11T18:04:53Z",
+  "merged_at": "2022-01-11T18:04:52Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1280",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1280/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1280/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1280",
+  "body": "Supports #1234 \r\n\r\nProvides server components to support providing player log.",
+  "additions": 84,
+  "deletions": 10,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 1,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1010224408,
+      "user": "IanMayo",
+      "created_at": "2022-01-11T18:04:41Z",
+      "updated_at": "2022-01-11T18:04:41Z",
+      "body": "Merging this branch - to stop it diverging too much"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 782041455,
+      "user": "IanMayo",
+      "created_at": "2022-01-11T11:07:50Z",
+      "updated_at": "2022-01-11T11:07:51Z",
+      "body": "Thanks @lilitkarapetyan  - I can see how this works.   @lebaphi  also suggested doing it this way.  Is there really not a way of getting role/wargame from the client state?",
+      "path": "packages/client/src/Views/Version.jsx",
+      "diff_hunk": "@@ -45,6 +45,32 @@ const Version = ({ showNotification, notifications, hideNotification, wargameId,\n     }\n   }, [serverStatus, serverPingTime])\n \n+  const getRoleByQuery = () => {\n+    let result = null\n+    let tmp = []\n+    window.location.search\n+      .substr(1)\n+      .split('&')\n+      .forEach((item) => {\n+        tmp = item.split('=')\n+        if (tmp[0] === 'access') result = decodeURIComponent(tmp[1])\n+      })\n+    return result\n+  }\n+\n+  const getDbByQuery = () => {\n+    let result = null\n+    let tmp = []\n+    window.location.search\n+      .substr(1)\n+      .split('&')\n+      .forEach((item) => {\n+        tmp = item.split('=')\n+        if (tmp[0] === 'wargame') result = decodeURIComponent(tmp[1])\n+      })\n+    return result\n+  }\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/1280#discussion_r782041455"
+    }
+  ],
+  "issue_numbers": [
+    1234
+  ],
+  "issues": [
+    {
+      "id": 1074665052,
+      "number": 1234,
+      "title": "Data changes for player log",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-12-08T17:46:50Z",
+      "updated_at": "2022-09-08T17:50:07Z",
+      "closed_at": "2022-09-08T17:50:06Z",
+      "body": "This supports #1218\r\n\r\nWe wish to display a log of active users. The log will display:\r\n* red/green for if they have sent heartbeat request in last minute\r\n* force & role-name\r\n* name of last message sent\r\n* elapsed time since last message sent\r\n\r\nTo support this data, the backend will track the heartbeat call.  No data will be permanently stored, this will just be an in-memory data object.  Data will be lost if the server is restarted.\r\n\r\nThese changes will be made:\r\n* change client `heartbeat` call to include wargame-id, force-id, role-id\r\n* embed new functionality in `healthcheck` handler:\r\n    * extract force id, role id, wargame id from call\r\n    * if fields present check for `wargame` entry in `log` dictionary\r\n    * if not present, create it\r\n    * retrieve role-id entry from wargame-log dictionary\r\n    * set current date-time for that entry\r\n\r\nThe `last message sent` data will be collated in this way:\r\n* on initial connection to the server, the existing set of documents are `get` by the client\r\n    * for each message, retrieve the sender\r\n    * retrieve the `role-messages` entry in the `log` dictionary\r\n    * if not present, create it\r\n    * store the message-type and date-time for that entry\r\n    * overwrite existing entries if necessary\r\n* also apply the above logic for new messages \r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 989227233,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-08T21:50:33Z",
+          "updated_at": "2021-12-08T21:50:33Z",
+          "body": "I would just like to note that I believe it'd be better to stick to green/grey instead of green/red to display the availability of the players. Grey demands less attentional resources, is standard among messaging apps where the feature is most used and we'd avoid the potential priming of the players towards the grey of the heartbeat icon on the bottom of the screen."
+        },
+        {
+          "id": 989657288,
+          "user": "IanMayo",
+          "created_at": "2021-12-09T09:15:32Z",
+          "updated_at": "2021-12-09T09:15:32Z",
+          "body": "Thanks for contributing @ShendMikullovci :-)\r\n\r\nIf the game facilitator is looking out for someone with an issue (or is absent) then wouldn't it be easier to scan the data for a red marker, rather than a grey one (or maybe scanning for the absence of a green marker)?\r\n\r\nIn this case it does seem significant enough to use a red _warning_ marker."
+        },
+        {
+          "id": 989825137,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-09T12:53:23Z",
+          "updated_at": "2021-12-09T12:53:23Z",
+          "body": "From a cognitive standpoint, I don't think red would be significantly more salient in this specific case (though I can't say for sure without experimenting). I suggested we use grey because you had described a playing situation to me once where one (or more) player(s) went out to lunch without notifying anyone. In that case, there's not software issue to handle, but only a matter of availability. Here, the user would scan the log to view if all players are active or how many are/aren't. \r\n\r\nHowever, you make a good point in saying that IF they were to look for someone with an issue, then a grey marker seems inadequate. A red warning marker (e.g., a red exclamation point) would be fitting for that case."
+        },
+        {
+          "id": 1005911591,
+          "user": "IanMayo",
+          "created_at": "2022-01-05T17:09:28Z",
+          "updated_at": "2022-01-05T17:09:28Z",
+          "body": "Hmm, I've got stuck on this.\r\n\r\nWhen the client sends the `healthcheck` I also want to send the current `wargame-id` and `role-id` for the current player.  But, I can't retrieve them in `app.jsx` - so I've temporarily hard-coded them [here](https://github.com/serge-web/serge/pull/1280/files#diff-c98b247b04d17ae8f6620e6d46ec1d80a8bf083ed059d0023339de2691d6da62R11). \r\n\r\nI did try to use `usePlayerUiState` but I got an error.\r\n\r\nCould you help me out in the `1234_server_player_log` branch please @lilitkarapetyan ?\r\n\r\nNote: An alternate strategy would be to retrieve them in `version\\index.tsx` "
+        },
+        {
+          "id": 1241041494,
+          "user": "IanMayo",
+          "created_at": "2022-09-08T17:50:06Z",
+          "updated_at": "2022-09-08T17:50:06Z",
+          "body": "Thi is done."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 94
+}

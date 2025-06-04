@@ -1,0 +1,53 @@
+{
+  "number": 1132,
+  "title": "default date set COA template",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-14T04:39:54Z",
+  "updated_at": "2021-09-14T08:33:12Z",
+  "closed_at": "2021-09-14T08:33:11Z",
+  "merged_at": "2021-09-14T08:33:11Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1132",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1132/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1132/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1132",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nfixes #1114 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![image](https://user-images.githubusercontent.com/16476120/133195941-0c59355b-e037-4a44-b85e-187f3271604c.png)\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 103,
+  "deletions": 62,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1114
+  ],
+  "issues": [
+    {
+      "id": 991224658,
+      "number": 1114,
+      "title": "Use game current time as default date in JSON-Editor for Force Elements in COAs",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-08T14:48:38Z",
+      "updated_at": "2021-09-14T08:33:11Z",
+      "closed_at": "2021-09-14T08:33:11Z",
+      "body": "We do set the default date for date controls in retrieved JSON-editors.\r\n\r\nBut, when the date is within an array I looks like we aren't able to set the default date.\r\n\r\nI _think_ we need to intercept the `add-row` function (or register a handler), like below.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/132664455-431f4dd4-77bd-4dd3-8dd4-08de29e2086e.png)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/16476120/133195941-0c59355b-e037-4a44-b85e-187f3271604c.png",
+    "https://user-images.githubusercontent.com/1108513/132664455-431f4dd4-77bd-4dd3-8dd4-08de29e2086e.png"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 165
+}

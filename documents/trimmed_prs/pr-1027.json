@@ -1,0 +1,146 @@
+{
+  "number": 1027,
+  "title": "1001: As participant in Collaborative Working, I need to see the feedback history for a message",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-08-29T07:37:28Z",
+  "updated_at": "2021-08-30T15:02:38Z",
+  "closed_at": "2021-08-30T14:41:42Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1027",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1027/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1027/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1027",
+  "body": "Fixes #1001 ",
+  "additions": 88,
+  "deletions": 7,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 0,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 907745977,
+      "user": "lebaphi",
+      "created_at": "2021-08-29T07:42:26Z",
+      "updated_at": "2021-08-29T07:43:31Z",
+      "body": "![image](https://user-images.githubusercontent.com/26705621/131242688-260d11fa-97a8-47c6-8a3c-b4b47ddbd442.png)\r\n\r\nExpanded:\r\n![image](https://user-images.githubusercontent.com/26705621/131242696-82436a46-8610-4de5-a66c-15a65a91b2aa.png)\r\n"
+    },
+    {
+      "id": 908143282,
+      "user": "IanMayo",
+      "created_at": "2021-08-30T08:17:38Z",
+      "updated_at": "2021-08-30T08:17:38Z",
+      "body": "Thanks. Could you include date/time and author for each feedback item too, please?"
+    },
+    {
+      "id": 908165856,
+      "user": "lebaphi",
+      "created_at": "2021-08-30T08:53:41Z",
+      "updated_at": "2021-08-30T08:53:41Z",
+      "body": "> Thanks. Could you include date/time and author for each feedback item too, please?\r\n\r\nsure Ian 👍 "
+    },
+    {
+      "id": 908191940,
+      "user": "lebaphi",
+      "created_at": "2021-08-30T09:30:09Z",
+      "updated_at": "2021-08-30T09:30:09Z",
+      "body": "Updated 👍 \r\n![image](https://user-images.githubusercontent.com/26705621/131318415-ac08a242-fba4-43fd-9aac-4f878ef8197a.png)\r\n"
+    },
+    {
+      "id": 908401172,
+      "user": "IanMayo",
+      "created_at": "2021-08-30T14:41:42Z",
+      "updated_at": "2021-08-30T14:41:42Z",
+      "body": "Merged in #1026 \r\nhttps://github.com/serge-web/serge/pull/1026/commits/0466c34f5034f436c1d10791e3f82943078cae1f\r\n\r\n![demo](https://i.gyazo.com/3bebe6cfdd05d75b4cb20e6a0a5c97d1.gif)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1001,
+    1026
+  ],
+  "issues": [
+    {
+      "id": 974641065,
+      "number": 1001,
+      "title": "As participant in Collaborative Working, I need to see the feedback history for a message",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-19T13:03:27Z",
+      "updated_at": "2021-08-31T14:05:53Z",
+      "closed_at": "2021-08-31T14:05:53Z",
+      "body": "If I am being asked to modify a document (or it has been endorsed), then I need to view the feedback provided.\r\n\r\nI certainly need to view the most recent feedback, and optionally previous items too.\r\n\r\nThe `Channel COA message detail` component should be extended to show the feedback on a message - with date and author.\r\n\r\nI _guess_ this could be a block at the bottom of the control.  I should see the most recent feedback item, with a collapsed set of rows beneath it.  A `more` button/link should expand the feedback.\r\n\r\nI _guess_ this feedback block should _steal_ vertical space, and the JSON-Editor (enabled or disabled) should get scroll-bars when necessary.  Hmm, no. That's wrong. The status board can be of infinite length.  So, the JSON-editor can always be full height. It's the channel that has scroll bars.\r\n\r\n![mockups](https://docs.google.com/drawings/d/e/2PACX-1vS6VPxX4oPSXeiqOQmTbR5nzeKpRHj0BhUr3ZCcTuol246Ax7_HvoCHDxeZEzobWOuW_gKB-c2TLUAQ/pub?w=1065&h=638)",
+      "labels": [],
+      "comments": [
+        {
+          "id": 906384198,
+          "user": "IanMayo",
+          "created_at": "2021-08-26T12:57:40Z",
+          "updated_at": "2021-08-26T12:57:40Z",
+          "body": "Hi @lebaphi - this will be your next task please.\r\n\r\nI'm just creating a PR with feedback in the mock items - so you have something to display."
+        },
+        {
+          "id": 909270358,
+          "user": "IanMayo",
+          "created_at": "2021-08-31T14:05:36Z",
+          "updated_at": "2021-08-31T14:05:36Z",
+          "body": "Fixed in #1027 "
+        }
+      ]
+    },
+    {
+      "id": 981814543,
+      "number": 1026,
+      "title": "Create new document in collaborative working channel 998",
+      "state": "closed",
+      "user": "lilitkarapetyan",
+      "created_at": "2021-08-28T11:42:01Z",
+      "updated_at": "2021-08-30T16:18:19Z",
+      "closed_at": "2021-08-30T16:18:19Z",
+      "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n #988\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 907630853,
+          "user": "IanMayo",
+          "created_at": "2021-08-28T14:03:35Z",
+          "updated_at": "2021-08-28T14:03:35Z",
+          "body": "One change please (Which I can fix on Monday if you aren't able to).\r\n\r\nFor the old \"RFI Messges\" board, we looked for RFI messages in all channels, and collated them together.\r\n\r\nBut for the new collaborative working status board - it replaces a normal channel.  So, the Game Designer creates a special \"Collab Editing\" channel in the admin pages, called (for example) \"Blue COAs\".  Then in the client, when we're creating the tabs if it's a \"Collab Editing\" channel - we show the new status board for that channel, instead of the old list of messages.\r\n\r\nHope this makes sense :-)\r\n\r\nAs I said - I can change this on Monday, if you aren't able to."
+        },
+        {
+          "id": 908258243,
+          "user": "IanMayo",
+          "created_at": "2021-08-30T11:17:00Z",
+          "updated_at": "2021-08-30T11:21:23Z",
+          "body": "We have an issue with `New Message` scrolling up with the JSON-Editor message.\r\n\r\n![screencast](https://i.gyazo.com/cdd41a3a40ac46eb08612dc024f39d4e.gif)\r\n\r\nAah, it's actually sliding up with the whole channel:\r\n\r\n![screencast 2](https://i.gyazo.com/9541d9ca1851dbd5cafa4def1e8e821a.gif)"
+        },
+        {
+          "id": 908409445,
+          "user": "IanMayo",
+          "created_at": "2021-08-30T14:52:27Z",
+          "updated_at": "2021-08-30T14:52:27Z",
+          "body": "Aah, I've got another issue, please @lilitkarapetyan.\r\n\r\nThe `Assign to` menu is being shown behind the json-editor:\r\n![image](https://user-images.githubusercontent.com/1108513/131358802-9252d300-ec08-4996-932b-bcb4105ecd37.png)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/131242688-260d11fa-97a8-47c6-8a3c-b4b47ddbd442.png",
+    "https://user-images.githubusercontent.com/26705621/131242696-82436a46-8610-4de5-a66c-15a65a91b2aa.png",
+    "https://user-images.githubusercontent.com/26705621/131318415-ac08a242-fba4-43fd-9aac-4f878ef8197a.png",
+    "https://i.gyazo.com/3bebe6cfdd05d75b4cb20e6a0a5c97d1.gif",
+    "https://docs.google.com/drawings/d/e/2PACX-1vS6VPxX4oPSXeiqOQmTbR5nzeKpRHj0BhUr3ZCcTuol246Ax7_HvoCHDxeZEzobWOuW_gKB-c2TLUAQ/pub?w=1065&h=638",
+    "https://i.gyazo.com/cdd41a3a40ac46eb08612dc024f39d4e.gif",
+    "https://i.gyazo.com/9541d9ca1851dbd5cafa4def1e8e821a.gif",
+    "https://user-images.githubusercontent.com/1108513/131358802-9252d300-ec08-4996-932b-bcb4105ecd37.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 95
+}

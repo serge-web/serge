@@ -1,0 +1,66 @@
+{
+  "number": 986,
+  "title": "Feature/985 early collab working",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-08-02T16:05:05Z",
+  "updated_at": "2021-08-27T08:38:45Z",
+  "closed_at": "2021-08-27T08:38:22Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/986",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/986/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/986/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/986",
+  "body": "Supports #985 \r\n\r\nSee task list in #985 ",
+  "additions": 3656,
+  "deletions": 74,
+  "changed_files": 25,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 907032196,
+      "user": "IanMayo",
+      "created_at": "2021-08-27T08:38:22Z",
+      "updated_at": "2021-08-27T08:38:22Z",
+      "body": "Close - Lilit did it her own way 🤣 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    985
+  ],
+  "issues": [
+    {
+      "id": 956883803,
+      "number": 985,
+      "title": "Early steps in Collaborative Editing UI",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-30T16:00:55Z",
+      "updated_at": "2021-08-26T17:00:30Z",
+      "closed_at": "2021-08-26T17:00:29Z",
+      "body": "Supports #960 \r\n\r\n* [x] Copy existing RFI Status Board components, renaming `RFI Status` to `Collab Working`\r\n* [x] Copy existing RFIMessageDetail components\r\n* [x] Use new `format` property to determine channel type\r\n* [ ] create suitable `CollaborationController` entity\r\n* [ ] (rough) logic to drive `CollaborationController` logic\r\n* [ ] test-drive with different roles (probably via different instances in StoryBook)\r\n* [ ] Allow user to create new document if controller provides templates\r\n* [ ] Show correct roles for `Assign-to`\r\n* [ ] Use JSON-editor for collab working\r\n* [ ] Allow JSON-editor to be editable for `collab-edit` channels\r\n* [ ] Make JSON-editor read-only for `collab-RFI` channels\r\n* [ ] Provide `Response` field for `collab-RFI` channels\r\n* [ ] Invite user to provide (optional) feedback when requesting edits\r\n* [ ] Test flow through message states",
+      "labels": [],
+      "comments": [
+        {
+          "id": 906583253,
+          "user": "IanMayo",
+          "created_at": "2021-08-26T17:00:29Z",
+          "updated_at": "2021-08-26T17:00:29Z",
+          "body": "Done, in #1012 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 25,
+  "total_changed_lines": 3730
+}

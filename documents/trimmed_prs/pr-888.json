@@ -1,0 +1,105 @@
+{
+  "number": 888,
+  "title": "Feature/876 client large form crash",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-29T09:53:23Z",
+  "updated_at": "2021-06-30T14:35:12Z",
+  "closed_at": "2021-06-30T14:35:12Z",
+  "merged_at": "2021-06-30T14:35:11Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/888",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/888/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/888/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/888",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\ncloses #876\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 12,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    876
+  ],
+  "issues": [
+    {
+      "id": 931406881,
+      "number": 876,
+      "title": "\"Random\" client crash while entering large form",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-28T10:14:11Z",
+      "updated_at": "2021-07-21T18:18:17Z",
+      "closed_at": "2021-07-21T18:18:16Z",
+      "body": "A number of users have to complete a form that has around 6 textarea fields.\r\n\r\nAt a random point in time (at a moment when they may not actually be typing) the Serge client crashes, leaving them with a plain blue screen.\r\n\r\nLooking at the console in developer tools, it's clear the issue is in the `json-editor` component.\r\n\r\n```\r\nUncaught TypeError. \"Cannot ready type 'Property' of null\" - jsoneditor.js:5361\r\nUncaught TypeError. \"Cannot ready type 'remove_empty_properties_' of null\" - jsoneditor.js:3558\r\n```\r\n\r\nI've looked at the JS code at that point, and it's when the JS is referring to the schema.   It looks like the schema is null.\r\n\r\nThe above is a challenging issue.\r\n\r\nBut, we may be able to address the \"Random\" aspect.  It may actually be related to the heartbeat.\r\n\r\nI think that last week I learned that the whole UI re-renders on the heartbeat.  This is unnecessary.\r\n\r\nCould we please isolate the heart-beat so that only the heart icon gets re-rendered?",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 869602846,
+          "user": "lilitkarapetyan",
+          "created_at": "2021-06-28T11:23:31Z",
+          "updated_at": "2021-06-28T11:23:31Z",
+          "body": "\"I think that last week I learned that the whole UI re-renders on the heartbeat. This is unnecessary.\" - I can do heartbeat with pure css "
+        },
+        {
+          "id": 869608032,
+          "user": "IanMayo",
+          "created_at": "2021-06-28T11:32:24Z",
+          "updated_at": "2021-06-28T11:32:24Z",
+          "body": "Yes please Lilit.  I _think_ it's already in CSS.  It's just that the CSS modification is performed as part of a re-render."
+        },
+        {
+          "id": 869613147,
+          "user": "sanjayradadiya",
+          "created_at": "2021-06-28T11:41:56Z",
+          "updated_at": "2021-06-28T11:42:12Z",
+          "body": "Instead of updating in redux we need to directly call to api and get the result and based on that re-render the version component only  "
+        },
+        {
+          "id": 869619943,
+          "user": "IanMayo",
+          "created_at": "2021-06-28T11:54:22Z",
+          "updated_at": "2021-06-28T11:54:22Z",
+          "body": "Ok, thanks @sanjayradadiya \r\n\r\nSo if we update in redux, the whole UI has to re-render?  I thought react/redux was _intelligent_ in what got re-rendered?"
+        },
+        {
+          "id": 869620615,
+          "user": "sanjayradadiya",
+          "created_at": "2021-06-28T11:55:33Z",
+          "updated_at": "2021-06-28T12:02:45Z",
+          "body": "Yeah, it should be but that will only occurred in pure component or React.memo \r\n\r\n![image](https://user-images.githubusercontent.com/16476120/123633172-80764400-d836-11eb-971f-d501106fa5b6.png)\r\n\r\nMay be i was updating `serverPingTime` in all call so it is get update all time in redux"
+        },
+        {
+          "id": 872489973,
+          "user": "IanMayo",
+          "created_at": "2021-07-01T19:17:00Z",
+          "updated_at": "2021-07-02T11:25:25Z",
+          "body": "I did some investigating yesterday.  \r\n\r\nI saw that while most of the call stack was in `jsoneditor`, the only line in the call stack from our code was `editor.destroy()` at line 63. \r\n\r\nHere is what was at line 63:\r\n![image](https://user-images.githubusercontent.com/1108513/124177819-a60a8400-daa8-11eb-9575-5db269c2c10b.png)\r\n\r\nI know the implementation has moved on from the above code, but I'm still worried about some multi-threaded issue related to `editor.destroy()`.  Is it an option for to wrap our usage of `editor.destroy()` in a try/catch block, and to log the errors?"
+        },
+        {
+          "id": 884393852,
+          "user": "IanMayo",
+          "created_at": "2021-07-21T18:18:16Z",
+          "updated_at": "2021-07-21T18:18:16Z",
+          "body": "Ok, the issue has gone away.\r\n\r\nWe now don't re-render the form on new data - since we actually want to keep what the user entered so far."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/16476120/123633172-80764400-d836-11eb-971f-d501106fa5b6.png",
+    "https://user-images.githubusercontent.com/1108513/124177819-a60a8400-daa8-11eb-9575-5db269c2c10b.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 13
+}

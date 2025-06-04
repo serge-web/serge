@@ -1,0 +1,86 @@
+{
+  "number": 1471,
+  "title": "1454 mapping participants",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-30T13:19:43Z",
+  "updated_at": "2022-03-30T14:28:04Z",
+  "closed_at": "2022-03-30T14:28:02Z",
+  "merged_at": "2022-03-30T14:28:02Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1471",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1471/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1471/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1471",
+  "body": "Fixes #1454 ",
+  "additions": 97,
+  "deletions": 5,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1454
+  ],
+  "issues": [
+    {
+      "id": 1180009975,
+      "number": 1454,
+      "title": "Mapping Channel Participant Issue",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-24T20:17:44Z",
+      "updated_at": "2022-04-11T16:48:01Z",
+      "closed_at": "2022-04-11T16:48:00Z",
+      "body": "So far, the main issue that is not allowing me to advance with #1400 lies in the mapping channel in the admin page: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/160002518-35b32ad9-86e3-474f-bb55-2aa02d1624cb.mp4\r\n\r\nAs you can see, adding the forces onto the mapping channel doesn't work. I've tried a variety of methods to see if I can bypass the bug but so far I don't have anything.\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1080626006,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-28T13:06:40Z",
+          "updated_at": "2022-03-28T13:06:40Z",
+          "body": "This bug seems to only be relevant for the mapping page so far. I can add permissions/participations with no problem for collab editing and chat channels."
+        },
+        {
+          "id": 1083215934,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-30T14:32:35Z",
+          "updated_at": "2022-03-30T14:32:35Z",
+          "body": "Just reviewed. Works great! Thanks, @IanMayo!"
+        },
+        {
+          "id": 1083232142,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-30T14:45:08Z",
+          "updated_at": "2022-03-30T14:45:08Z",
+          "body": "Update: The bug has reappeared\r\n\r\nhttps://user-images.githubusercontent.com/85491794/160862633-77bd2e83-607d-43df-b02d-2c33fc333f31.mp4\r\n"
+        },
+        {
+          "id": 1083242083,
+          "user": "IanMayo",
+          "created_at": "2022-03-30T14:53:47Z",
+          "updated_at": "2022-03-30T14:53:47Z",
+          "body": "Oops."
+        },
+        {
+          "id": 1095294111,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-11T16:48:00Z",
+          "updated_at": "2022-04-11T16:48:00Z",
+          "body": "This seems to have been fixed. Thanks!"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 102
+}

@@ -1,0 +1,30 @@
+{
+  "number": 2117,
+  "title": "hide time remaining",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-15T12:18:36Z",
+  "updated_at": "2022-11-15T13:26:42Z",
+  "closed_at": "2022-11-15T13:26:41Z",
+  "merged_at": "2022-11-15T13:26:41Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2117",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2117/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2117/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2117",
+  "body": "Drop the time remaining value - it doesn't relate to this game",
+  "additions": 9,
+  "deletions": 10,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 19
+}

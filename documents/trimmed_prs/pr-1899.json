@@ -1,0 +1,93 @@
+{
+  "number": 1899,
+  "title": "1886: Select assets from the map",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-27T11:09:08Z",
+  "updated_at": "2022-09-29T12:36:48Z",
+  "closed_at": "2022-09-29T12:36:48Z",
+  "merged_at": "2022-09-29T12:36:48Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1899",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1899/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1899/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1899",
+  "body": "Fixes #1886 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/192509598-69cfb548-7ae8-47b9-882f-067e79e23d46.mov\r\n\r\n",
+  "additions": 278,
+  "deletions": 173,
+  "changed_files": 29,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1259381593,
+      "user": "IanMayo",
+      "created_at": "2022-09-27T11:45:11Z",
+      "updated_at": "2022-09-27T11:45:11Z",
+      "body": "@lebaphi - some compiler issues for you to fix. please:\r\n![image](https://user-images.githubusercontent.com/1108513/192516823-6c69c086-530c-4ac4-b73b-4d3195d926d5.png)\r\n"
+    },
+    {
+      "id": 1259597935,
+      "user": "IanMayo",
+      "created_at": "2022-09-27T14:32:46Z",
+      "updated_at": "2022-09-27T14:32:46Z",
+      "body": "Hello @lebaphi \r\n\r\nThanks for this. IMHO, we only need to put the marker at the centre of the map if we have selected it from the table.  If we've selected it on the map - we don't expect it to jump away when we click it.\r\n\r\nSo, I think we need a (slightly) separate handler for the MaterialTables. When they modified `selectedItems` we and there's only one item we change the map position.  But, if the handler has come from `SupportMapping` then we don't change the position.\r\n\r\nI'm dying to get my hands dirty with your code - since it has now become quite familiar to me.  But, I'm onsite again tomorrow morning - so I won't be able to until tomorrow afternoon, at the earliest."
+    },
+    {
+      "id": 1259626211,
+      "user": "IanMayo",
+      "created_at": "2022-09-27T14:52:47Z",
+      "updated_at": "2022-09-27T14:57:22Z",
+      "body": "@lebaphi  - I've seen that `selectedItems`  is being passed to `adjudication messages list`.\r\n\r\nWe have two concepts:  `Assets` (ships, aircraft, etc) and `Orders` (the Orders document is a set of instructions).  So, on `Own Forces` and `Op Forces` we have `Assets`, and on `My Orders` and `Adjudication` we have `Orders`.\r\n\r\nI now realise that `selectedItems`  is too vague. We actually need two separate _State_ objects: `selectedAssets` and `selectedOrders`.  \r\n\r\nSo, could you switch this PR to `selectedAssets` please? \r\n\r\nHmm, we should also introduce `selectedOrders` - which is the state object that is shown/modified in the `My Orders` and `Adjudication` tabs, please.\r\n\r\nAah, one other thing.  When I select an asset on the map,  I see the icons refresh.  I've just checked the `Network` tab - and I see we're re-downloading the SVGs.  We really need to cache them in the browser.  Could you fix that too, please?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1886
+  ],
+  "issues": [
+    {
+      "id": 1386339677,
+      "number": 1886,
+      "title": "Select assets from the map",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-26T16:03:23Z",
+      "updated_at": "2022-09-27T11:45:46Z",
+      "closed_at": "2022-09-27T11:45:46Z",
+      "body": "We can currently only select assets from the table.\r\n\r\nPlayers should be able to select assets from the map, too.\r\n\r\nNote: currently the `Own Assets` and `OpFor Assets` tables are multi-select.\r\n\r\nWe should support this on the map, via the `ctrl` key.  So, if the player clicks on an asset - it should become the new single selected item.  If they hold down the `ctrl` key, the asset should be added to the current selection.\r\n\r\nNote: we will also have to modify the `Own Forces` and `Opp Forces` tables - so that their items get marked as selected with triggered from the map.\r\n\r\nI _suspect_ that `SupportMapping` will have to be modified to introduce `setSelectedItems()` and `selectedItems` props.  These will be passed down to `PlanningForces` in order that the onClick` handler for the markers can either replace the selected items with the new one, or to add the new item to the list (`ctrl` held down).\r\n\r\nThe `selectedItems` and `setSelectedItems` will sit in `PlanningChannel` - replacing `selectedItem` and `setSelectedItem`.",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1259344154,
+          "user": "lebaphi",
+          "created_at": "2022-09-27T11:09:04Z",
+          "updated_at": "2022-09-27T11:09:04Z",
+          "body": "> We should support this on the map, via the ctrl key. So, if the player clicks on an asset - it should become the new single selected item. If they hold down the ctrl key, the asset should be added to the current selection.\r\n\r\nfor this requirement I update it with a different approach: click on the asset -> mark it selected, click it again -> deselect it. I think this way of working will be more convenient for users, just click instead of holding the ctrl key @IanMayo "
+        },
+        {
+          "id": 1259382286,
+          "user": "IanMayo",
+          "created_at": "2022-09-27T11:45:46Z",
+          "updated_at": "2022-09-27T11:45:46Z",
+          "body": "> for this requirement I update it with a different approach: click on the asset -> mark it selected, click it again -> deselect it. I think this way of working will be more convenient for users, just click instead of holding the ctrl key @IanMayo\r\n\r\nThat's completely fine, let's give it a go :-)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/192516823-6c69c086-530c-4ac4-b73b-4d3195d926d5.png"
+  ],
+  "number_of_changed_files": 29,
+  "total_changed_lines": 451
+}

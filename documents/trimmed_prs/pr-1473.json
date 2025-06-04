@@ -1,0 +1,77 @@
+{
+  "number": 1473,
+  "title": "1463: Update fix for issue Clickable Force Field",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-30T16:09:14Z",
+  "updated_at": "2022-04-05T09:45:21Z",
+  "closed_at": "2022-04-05T09:45:20Z",
+  "merged_at": "2022-04-05T09:45:20Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1473",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1473/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1473/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1473",
+  "body": "Fixes #1463 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/160881008-d9cd72c8-8ec9-4cff-aea2-53e5f7f797a5.mov\r\n\r\n\r\n",
+  "additions": 66,
+  "deletions": 98,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1463
+  ],
+  "issues": [
+    {
+      "id": 1183406336,
+      "number": 1463,
+      "title": "Clickable Force Field ",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-28T13:01:26Z",
+      "updated_at": "2022-04-05T09:45:20Z",
+      "closed_at": "2022-04-05T09:45:20Z",
+      "body": "Currently, the text boxes for Forces in the admin page react as the mouse hovers over them by showing the garbage bin. This is a great feature since it allows the user to delete a Force without having to click on it. However, the animation makes the user think that the entire field is clickable. Unfortunately, the user can only open the force when they click on the actual force title. \r\n\r\nhttps://user-images.githubusercontent.com/85491794/160403297-b90afd39-fb40-40d5-90fb-3f2033e85de7.mp4\r\n\r\nIt would be more intuitive for the force to open up wherever the user clicks inside the text box.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1082098677,
+          "user": "IanMayo",
+          "created_at": "2022-03-29T16:29:44Z",
+          "updated_at": "2022-03-29T16:29:44Z",
+          "body": "One for you please, @lebaphi "
+        },
+        {
+          "id": 1083224551,
+          "user": "IanMayo",
+          "created_at": "2022-03-30T14:39:35Z",
+          "updated_at": "2022-03-30T14:39:35Z",
+          "body": "Hello @lebaphi - actually @ShendMikullovci wanted something different.\r\n\r\nHe wanted the whole of the list item to be the click-target, not just the text value.\r\n\r\nSo, could you switch back the cursor please, and change the UI so that the whole row is the click-target please?"
+        },
+        {
+          "id": 1083241248,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-30T14:52:59Z",
+          "updated_at": "2022-03-30T14:52:59Z",
+          "body": "I guess the cursor can stay, since the entire row will be clickable? "
+        },
+        {
+          "id": 1083288218,
+          "user": "lebaphi",
+          "created_at": "2022-03-30T15:27:41Z",
+          "updated_at": "2022-03-30T15:27:41Z",
+          "body": "sure, I will update as this way 😄 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 164
+}

@@ -1,0 +1,30 @@
+{
+  "number": 2290,
+  "title": "Hotfix trial adjudication",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-24T18:15:03Z",
+  "updated_at": "2023-01-25T14:05:05Z",
+  "closed_at": "2023-01-25T14:05:04Z",
+  "merged_at": "2023-01-25T14:05:04Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2290",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2290/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2290/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2290",
+  "body": "Improvements to support adjudication workshop, including:\r\n- provide transit outcomes\r\n- prevent `selected` markers from being clustered",
+  "additions": 244,
+  "deletions": 127,
+  "changed_files": 12,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 12,
+  "total_changed_lines": 371
+}

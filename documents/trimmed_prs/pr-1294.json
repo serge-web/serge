@@ -1,0 +1,175 @@
+{
+  "number": 1294,
+  "title": "Rafactor participants & channels",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-10T10:07:20Z",
+  "updated_at": "2022-01-13T11:13:21Z",
+  "closed_at": "2022-01-13T11:13:20Z",
+  "merged_at": "2022-01-13T11:13:20Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1294",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1294/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1294/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1294",
+  "body": "Extends work in #1278 \r\nCreate PR for branch, to make it easier to review @lebaphi 's suggested changes.\r\n\r\n",
+  "additions": 848,
+  "deletions": 5265,
+  "changed_files": 120,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 12,
+  "total_comments": 15,
+  "comments_data": [
+    {
+      "id": 1010036306,
+      "user": "lebaphi",
+      "created_at": "2022-01-11T14:48:31Z",
+      "updated_at": "2022-01-11T14:48:31Z",
+      "body": "Hi @IanMayo , I just play a bit and found 2 issues as this video below:\r\n- Does not prevent accessing to the legacy channel\r\n- After saving channel collab, it  show wrong  admin controls page :D\r\n\r\nhttps://user-images.githubusercontent.com/26705621/148963932-c5f8e85d-33ab-40ea-8283-1371082e8644.mov\r\n\r\n"
+    },
+    {
+      "id": 1010039841,
+      "user": "IanMayo",
+      "created_at": "2022-01-11T14:52:10Z",
+      "updated_at": "2022-01-11T14:52:10Z",
+      "body": "> Hi @IanMayo , I just play a bit and found 2 issues as this video below:\r\n> \r\n> * Does not prevent accessing to the legacy channel\r\n> * After saving channel collab, it  show wrong  admin controls page :D\r\n> \r\n\r\nWow, thanks for that. On it!\r\n\r\n"
+    },
+    {
+      "id": 1010223659,
+      "user": "IanMayo",
+      "created_at": "2022-01-11T18:03:49Z",
+      "updated_at": "2022-01-11T18:03:49Z",
+      "body": "Ok. We now don't try to render the legacy channel.\r\n\r\nI've had a look at what the channel _appears_ to lose it's \"collaborative editing\" controls on save.   It's saving the correct value, so that's not the cause.\r\n\r\nBut, it does seem to be rendering the wrong channel after the `Save` operation.\r\n\r\nTomorrow, would you mind trying to investigate it please @lebaphi ?\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 781049807,
+      "user": "IanMayo",
+      "created_at": "2022-01-10T10:15:44Z",
+      "updated_at": "2022-01-10T10:15:45Z",
+      "body": "Hello @lebaphi - I'm pretty sure we can just delete/deprecate this component, and any custom children it has. The data model doesn't work for it, but it has been superceded by `coa-status-board-2`.  Deleting it will prevent us wasting time in having to fix/maintain compiler issues.",
+      "path": "packages/components/src/local/coa-status-board/index.tsx",
+      "diff_hunk": "@@ -28,10 +28,10 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel,\n   const [filteredRows, setFilterdRows] = useState<Row[]>([])\n   const [inFilterMode, setFilterMode] = useState<boolean>(false)\n \n-  const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781049807"
+    },
+    {
+      "id": 781051102,
+      "user": "IanMayo",
+      "created_at": "2022-01-10T10:17:28Z",
+      "updated_at": "2022-01-10T10:17:28Z",
+      "body": "The test results here have been changed. But, are you confident the new test results are correct?  If you're not sure - then please create a `/TODO: check test results` - so we know the logic is still valid.",
+      "path": "packages/components/src/local/molecules/channel-coa-message-detail-2/helpers/visibility.spec.ts",
+      "diff_hunk": "@@ -100,13 +103,13 @@ describe('Visibility tests', () => {\n     expect(userCanSeeCollab(coaChannel, blueLogs)).toBeFalsy()\n \n     // white user in collab channel with collab rights\n-    expect(userCanSeeCollab(rfiChannel, whiteUmpire)).toBeTruthy()\n+    expect(userCanSeeCollab(rfiChannel, whiteUmpire)).toBeFalsy()",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781051102"
+    },
+    {
+      "id": 781052134,
+      "user": "IanMayo",
+      "created_at": "2022-01-10T10:18:51Z",
+      "updated_at": "2022-01-10T10:24:45Z",
+      "body": "If you switch to `ParticipantCollab` instead of `CoreParticipant` then the below logic can still be done using the `viewUnreleasedVersions` property.  Aah, the `_channel` parameter won't be `ChannelData`, it will be `ChannelCollab`.  That will make the types easier.",
+      "path": "packages/components/src/local/molecules/channel-coa-message-detail-2/helpers/visibility.ts",
+      "diff_hunk": "@@ -37,19 +38,19 @@ const isThisChannel = (channel: ChannelData, channelType: SpecialChannelTypes):\n /** whether this user can see the collaborative aspects of this channel */\n export const userCanSeeCollab = (_channel: ChannelData, _role: ForceRole): boolean => {\n   const parts = _channel.participants\n-  return !!parts.find((part: Participant) => {\n+  return !!parts.find((part: CoreParticipant) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781052134"
+    },
+    {
+      "id": 781057993,
+      "user": "IanMayo",
+      "created_at": "2022-01-10T10:26:48Z",
+      "updated_at": "2022-01-10T10:27:36Z",
+      "body": "This should be `ParticipantCollab`. The `if` structure should create the correct channel type - which in turn will create the correct participant type (well, I think it will).",
+      "path": "packages/components/src/local/organisms/setting-channels/helpers/createChannel.ts",
+      "diff_hunk": "@@ -35,15 +36,16 @@ const createChannel = (\n       format === SpecialChannelTypes.CHANNEL_COLLAB_RESPONSE\n     ) {\n       // create new participant\n-      const participant: Participant = {\n+      const participant: ParticipantCustom = {",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781057993"
+    },
+    {
+      "id": 781059994,
+      "user": "IanMayo",
+      "created_at": "2022-01-10T10:29:35Z",
+      "updated_at": "2022-01-10T10:29:36Z",
+      "body": "I think the _correct_ route is for us to deprecate `ChannelData` - that will prevent us having to maintain it in this way.",
+      "path": "packages/custom-types/channel-data.d.ts",
+      "diff_hunk": "@@ -22,7 +22,7 @@ export default interface ChannelData {\n   /** name of this channel */\n   name: string,\n   /** list of participants for this channel */",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781059994"
+    },
+    {
+      "id": 781065478,
+      "user": "IanMayo",
+      "created_at": "2022-01-10T10:37:17Z",
+      "updated_at": "2022-01-10T10:37:17Z",
+      "body": "Hmm, I don't like this class. I _think_ it should have a child member that stores an object of `ChannelTypes`.  Then we will still have access to the channel description (including participants), and collab-options if it's a `ChannelCollab`.",
+      "path": "packages/custom-types/channel-ui.d.ts",
+      "diff_hunk": "@@ -12,14 +12,14 @@ export default interface ChannelData {\n   templates?: TemplateBody[],\r\n   messages?: Array<MessageChannel>,\r\n   name: string,\r\n-  participants: Array<Participant>\r",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781065478"
+    },
+    {
+      "id": 781066065,
+      "user": "IanMayo",
+      "created_at": "2022-01-10T10:38:06Z",
+      "updated_at": "2022-01-10T10:38:06Z",
+      "body": "Yes, I see this change.  But, our _model_ is that the Game Designer selects a permission, and the role has all permission levels up to that one.",
+      "path": "packages/custom-types/participant.d.ts",
+      "diff_hunk": "@@ -64,5 +64,5 @@ export interface ParticipantCollab extends CoreParticipant {\n   // participant views un-released documents\n   viewUnreleasedVersions: boolean\n   // level of access for the participant\n-  permission: CollaborativePermission\n+  permission: number[]",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781066065"
+    },
+    {
+      "id": 781067580,
+      "user": "IanMayo",
+      "created_at": "2022-01-10T10:39:47Z",
+      "updated_at": "2022-01-10T10:43:15Z",
+      "body": "Soon, this will get tidier, as we introduce \"Add > Chat Channel\" to the admin page, which will create an instance of `ChannelChat`.  A custom editor page will look like `Channel-Custom`, but it won't have the templates drop-down.\r\n\r\nHave covered the above in https://github.com/serge-web/serge/issues/1295",
+      "path": "packages/helpers/src/is-chat-channel.ts",
+      "diff_hunk": "@@ -1,14 +1,19 @@\n-import { Participant, ChannelData } from '@serge/custom-types'\r\n+import { PARTICIPANT_CUSTOM } from '@serge/config'\r\n+import { ChannelData } from '@serge/custom-types'\r\n+import { CoreParticipant, ParticipantCustom } from '@serge/custom-types/participant'\r\n \r\n const isChatChannel = (channel: ChannelData): boolean => {\r",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781067580"
+    },
+    {
+      "id": 781122067,
+      "user": "IanMayo",
+      "created_at": "2022-01-10T11:45:49Z",
+      "updated_at": "2022-01-10T11:45:49Z",
+      "body": "Drop this comment - I'm deleting the component.",
+      "path": "packages/components/src/local/coa-status-board/index.tsx",
+      "diff_hunk": "@@ -28,10 +28,10 @@ export const CoaStatusBoard: React.FC<Props> = ({ templates, messages, channel,\n   const [filteredRows, setFilterdRows] = useState<Row[]>([])\n   const [inFilterMode, setFilterMode] = useState<boolean>(false)\n \n-  const myParticipations = channel.participants.filter((p) => p.force === role.forceName && ((p.roles.includes(role.roleId)) || p.roles.length === 0))",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781122067"
+    },
+    {
+      "id": 781225069,
+      "user": "lebaphi",
+      "created_at": "2022-01-10T14:12:34Z",
+      "updated_at": "2022-01-10T14:12:34Z",
+      "body": "The data has been changed, we removed the `canCollaborate` property in the participant, so I think the test is not valid. I just updated the test to make it passed, let you delete it 😄 ",
+      "path": "packages/components/src/local/molecules/channel-coa-message-detail-2/helpers/visibility.spec.ts",
+      "diff_hunk": "@@ -100,13 +103,13 @@ describe('Visibility tests', () => {\n     expect(userCanSeeCollab(coaChannel, blueLogs)).toBeFalsy()\n \n     // white user in collab channel with collab rights\n-    expect(userCanSeeCollab(rfiChannel, whiteUmpire)).toBeTruthy()\n+    expect(userCanSeeCollab(rfiChannel, whiteUmpire)).toBeFalsy()",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781225069"
+    },
+    {
+      "id": 781227628,
+      "user": "lebaphi",
+      "created_at": "2022-01-10T14:15:39Z",
+      "updated_at": "2022-01-10T14:15:40Z",
+      "body": "yep, I think so 👍 ",
+      "path": "packages/custom-types/channel-data.d.ts",
+      "diff_hunk": "@@ -22,7 +22,7 @@ export default interface ChannelData {\n   /** name of this channel */\n   name: string,\n   /** list of participants for this channel */",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781227628"
+    },
+    {
+      "id": 781229956,
+      "user": "lebaphi",
+      "created_at": "2022-01-10T14:18:20Z",
+      "updated_at": "2022-01-10T14:18:21Z",
+      "body": "sure @IanMayo, update it back to `CollaborativePermission ` and we should verify the admin form again to make sure the Select permission works correctly :D",
+      "path": "packages/custom-types/participant.d.ts",
+      "diff_hunk": "@@ -64,5 +64,5 @@ export interface ParticipantCollab extends CoreParticipant {\n   // participant views un-released documents\n   viewUnreleasedVersions: boolean\n   // level of access for the participant\n-  permission: CollaborativePermission\n+  permission: number[]",
+      "html_url": "https://github.com/serge-web/serge/pull/1294#discussion_r781229956"
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 5282
+}

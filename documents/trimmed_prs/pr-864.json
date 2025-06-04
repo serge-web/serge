@@ -1,0 +1,53 @@
+{
+  "number": 864,
+  "title": "introduce new game, with taller weather message",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-23T16:55:40Z",
+  "updated_at": "2021-06-23T16:56:01Z",
+  "closed_at": "2021-06-23T16:56:00Z",
+  "merged_at": "2021-06-23T16:56:00Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/864",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/864/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/864/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/864",
+  "body": "Introduce test data, sufficient to drive issue #863 ",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    863
+  ],
+  "issues": [
+    {
+      "id": 928438762,
+      "number": 863,
+      "title": "Can't view top of very tall message formats (needs scroll)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-23T16:26:16Z",
+      "updated_at": "2021-06-24T15:18:51Z",
+      "closed_at": "2021-06-24T15:18:51Z",
+      "body": "It's possible to create a message format that is taller than the space available.\r\n\r\nA scroll-bar ensures all fields can be accessed. But, it can be impossible to scroll to the top of the message editor (necessary to collapse the panel).\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/123135310-8d1b2680-d449-11eb-8b7e-02fb54f3970b.png)\r\n\r\nIf the window can't be made any taller (due to being on low res laptop), the only option is to shrink the panel, so the collapse arrow becomes visible:\r\n![image](https://user-images.githubusercontent.com/1108513/123135576-dff4de00-d449-11eb-8ce7-9c536777ff24.png)\r\n\r\nSteps to reproduce issue:\r\n* open Serge\r\n* enter game titled `tall msg`\r\n* login as Game Control\r\n* start to enter a new message",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/123135310-8d1b2680-d449-11eb-8b7e-02fb54f3970b.png",
+    "https://user-images.githubusercontent.com/1108513/123135576-dff4de00-d449-11eb-8ce7-9c536777ff24.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 0
+}

@@ -1,0 +1,50 @@
+{
+  "number": 2364,
+  "title": "2320 multi turn orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-12T11:30:06Z",
+  "updated_at": "2023-02-12T12:09:19Z",
+  "closed_at": "2023-02-12T12:09:18Z",
+  "merged_at": "2023-02-12T12:09:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2364",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2364/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2364/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2364",
+  "body": "Fixes #2320",
+  "additions": 89,
+  "deletions": 36,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2320
+  ],
+  "issues": [
+    {
+      "id": 1569846156,
+      "number": 2320,
+      "title": "Test multi-turn orders - including events",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-03T13:29:20Z",
+      "updated_at": "2023-02-12T12:09:19Z",
+      "closed_at": "2023-02-12T12:09:19Z",
+      "body": "We wish to allow players to provide orders that span multiple turns.\r\n\r\nModify order generator to create a few orders that span multiple turns.\r\n\r\nGenerate suitable mock data to test order filtering methods.\r\n\r\nCheck that orders get correctly filtered when `Show orders for turn` drop-down is used.\r\n\r\nAah, this also affects get next interaction.  We only handle `start` and `end` if they occur during this turn.\r\n\r\nWhen the start time for this order is before the current turn time, we don't generate an event. Same for if the end time is after the end of the turn.\r\n\r\nBut, if it generates a random time event, we should create an event for sometime in the current turn.\r\n\r\nTo allow random time events in multiple turns, we should include the turn number in the event id",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 125
+}

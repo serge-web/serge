@@ -1,0 +1,30 @@
+{
+  "number": 990,
+  "title": "955b turn presentation styles",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-11T05:54:42Z",
+  "updated_at": "2021-08-11T12:27:38Z",
+  "closed_at": "2021-08-11T12:27:37Z",
+  "merged_at": "2021-08-11T12:27:37Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/990",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/990/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/990/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/990",
+  "body": "Fixes #955 \r\nSupercedes #987 \r\n\r\nHere is the logic for this version, @sanjayradadiya:\r\n* game turn increments naturally, as before\r\n* admin pages can be used to modify `turnPresentation` value\r\n* `turnPresentation` is used to determine how to display turn number in UI\r\n\r\nI've only found three locations where turn is rendered:\r\n* `<TurnProgression/>` panel [here](https://serge-955b-turn-present-pppomi.herokuapp.com/storybook/?path=/story/local-molecules-turnprogression--with-phases&args=turnPresentation:Turn-Pairs)\r\n* turn marker in list of chat messages [[here](https://serge-955b-turn-present-pppomi.herokuapp.com/storybook/?path=/story/local-templates-chatmessagesetup--demonstration&args=turnPresentation:Turn-Pairs)]\r\n* turn marker in list of channel/custom messages",
+  "additions": 302,
+  "deletions": 40,
+  "changed_files": 31,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 31,
+  "total_changed_lines": 342
+}

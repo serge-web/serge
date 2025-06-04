@@ -1,0 +1,60 @@
+{
+  "number": 2613,
+  "title": "delay_on_opening_empty_orders_form",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-10T13:27:19Z",
+  "updated_at": "2023-03-10T15:32:59Z",
+  "closed_at": "2023-03-10T15:23:55Z",
+  "merged_at": "2023-03-10T15:23:55Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2613",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2613/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2613/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2613",
+  "body": "Fixes #2547 \r\n\r\nOooh, this seems exciting @lilitkarapetyan  :-)",
+  "additions": 11,
+  "deletions": 7,
+  "changed_files": 1,
+  "labels": [
+    "4p9"
+  ],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2547
+  ],
+  "issues": [
+    {
+      "id": 1608420727,
+      "number": 2547,
+      "title": "Delay on opening empty orders form",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-03T10:56:59Z",
+      "updated_at": "2023-03-12T17:46:31Z",
+      "closed_at": "2023-03-12T17:46:31Z",
+      "body": "When Serge is opening an empty orders document, there is a 5 second delay.\r\n\r\nFor the real game there are 2700 assets.\r\n\r\nThe delay _could_ be from:\r\n- collating the really long lists of \"own asset\" and \"opp assets\" for the drop-downs using `customiseAssets`\r\n- multiple unnecessary screen updates\r\n\r\nSteps to reproduce:\r\n- log in as blue player, in planning phase\r\n- click on `Plan new activity` button at top-left of screen\r\n- select `Land` then `Strike` \r\n- observe delay before new json-editor opens",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1465257719,
+          "user": "IanMayo",
+          "created_at": "2023-03-12T17:46:31Z",
+          "updated_at": "2023-03-12T17:46:31Z",
+          "body": "Fixed in #2613 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 18
+}

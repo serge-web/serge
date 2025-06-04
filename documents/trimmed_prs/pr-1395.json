@@ -1,0 +1,219 @@
+{
+  "number": 1395,
+  "title": "1378: Fix minors issues",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-09T15:12:48Z",
+  "updated_at": "2022-03-11T17:49:55Z",
+  "closed_at": "2022-03-11T17:49:55Z",
+  "merged_at": "2022-03-11T17:49:54Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1395",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1395/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1395/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1395",
+  "body": "Fix #1378 ",
+  "additions": 20,
+  "deletions": 15,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 15,
+  "review_comments_count": 0,
+  "total_comments": 15,
+  "comments_data": [
+    {
+      "id": 1063043598,
+      "user": "IanMayo",
+      "created_at": "2022-03-09T15:30:44Z",
+      "updated_at": "2022-03-09T15:30:44Z",
+      "body": "Thanks @lebaphi - could we have some screenshots or screen-recordings of the changes please?\r\n"
+    },
+    {
+      "id": 1063047192,
+      "user": "lebaphi",
+      "created_at": "2022-03-09T15:34:19Z",
+      "updated_at": "2022-03-09T15:34:19Z",
+      "body": "Yep, here it is @IanMayo 😄 \r\nhttps://user-images.githubusercontent.com/26705621/157474619-ddb3ff74-8620-4046-93a7-a2bdd9405231.mov\r\n\r\n"
+    },
+    {
+      "id": 1063184082,
+      "user": "IanMayo",
+      "created_at": "2022-03-09T17:36:50Z",
+      "updated_at": "2022-03-09T17:36:50Z",
+      "body": "Could you play with this Pull Request please @ShendMikullovci ?  (`View deployment` above)"
+    },
+    {
+      "id": 1063213233,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-09T18:09:13Z",
+      "updated_at": "2022-03-09T18:09:13Z",
+      "body": "> Could you play with this Pull Request please @ShendMikullovci ? (`View deployment` above)\r\n\r\nSure. The deployment is taking me to the game though, not the admin page."
+    },
+    {
+      "id": 1063219290,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-09T18:16:16Z",
+      "updated_at": "2022-03-09T18:16:16Z",
+      "body": "> Yep, here it is @IanMayo smile https://user-images.githubusercontent.com/26705621/157474619-ddb3ff74-8620-4046-93a7-a2bdd9405231.mov\r\n\r\nThe link won't open for some reason :( "
+    },
+    {
+      "id": 1063238017,
+      "user": "IanMayo",
+      "created_at": "2022-03-09T18:37:43Z",
+      "updated_at": "2022-03-09T18:37:43Z",
+      "body": "> > Could you play with this Pull Request please @ShendMikullovci ? (`View deployment` above)\n> \n> Sure. The deployment is taking me to the game though, not the admin page.\n\nFrom the game welcome page, you go into admin using one of the buttons at the top right."
+    },
+    {
+      "id": 1064144148,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-10T14:50:11Z",
+      "updated_at": "2022-03-10T14:50:11Z",
+      "body": "> > > Could you play with this Pull Request please @ShendMikullovci ? (`View deployment` above)\r\n> > \r\n> > \r\n> > Sure. The deployment is taking me to the game though, not the admin page.\r\n> \r\n> From the game welcome page, you go into admin using one of the buttons at the top right.\r\n\r\n![Deployment Error](https://user-images.githubusercontent.com/85491794/157686199-f8bf49db-98d5-4f53-b762-ef9780d7d360.png)\r\n\r\nI don't think we're talking about the same screen? Is the link good?"
+    },
+    {
+      "id": 1064146517,
+      "user": "IanMayo",
+      "created_at": "2022-03-10T14:52:27Z",
+      "updated_at": "2022-03-10T14:52:27Z",
+      "body": "Aah @ShendMikullovci - the links are on the previous page:\r\n![image](https://user-images.githubusercontent.com/1108513/157687565-50527bfb-7c70-421b-857a-981a6a85b5ab.png)\r\n"
+    },
+    {
+      "id": 1064149413,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-10T14:55:18Z",
+      "updated_at": "2022-03-10T14:55:18Z",
+      "body": "I never get that page when I click on the deployment link. Can you just copy paste the link here maybe?"
+    },
+    {
+      "id": 1064178668,
+      "user": "IanMayo",
+      "created_at": "2022-03-10T15:23:08Z",
+      "updated_at": "2022-03-10T15:23:08Z",
+      "body": "> I never get that page when I click on the deployment link. Can you just copy paste the link here maybe?\r\n\r\nWhen I click on `View deployment` (above) it takes me to that page."
+    },
+    {
+      "id": 1064187145,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-10T15:30:59Z",
+      "updated_at": "2022-03-10T15:30:59Z",
+      "body": "> > I never get that page when I click on the deployment link. Can you just copy paste the link here maybe?\r\n> \r\n> When I click on `View deployment` (above) it takes me to that page.\r\n\r\nAs you can see, it turns into the game page before I can click on the icons for some reason: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/157695573-6189c5db-cfc6-4dee-9101-703855672cd0.mp4\r\n\r\n\r\n"
+    },
+    {
+      "id": 1064196536,
+      "user": "IanMayo",
+      "created_at": "2022-03-10T15:40:03Z",
+      "updated_at": "2022-03-10T15:40:03Z",
+      "body": "Hmm, I see the button(s) at 0:16 in the video. Could it have got pushed up the page when the Serge icon loaded?"
+    },
+    {
+      "id": 1064236535,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-10T16:17:50Z",
+      "updated_at": "2022-03-10T16:17:50Z",
+      "body": "> Hmm, I see the button(s) at 0:16 in the video. Could it have got pushed up the page when the Serge icon loaded?\r\n\r\nI can't go higher on the page. Seems like the button disappeared under the chrome taskbar and can't be accessed. @lebaphi 's MP4 link won't open either IDK why. Could you guys provide screenshots? Or try to directly upload the video? Usually the github video players work great."
+    },
+    {
+      "id": 1064257322,
+      "user": "IanMayo",
+      "created_at": "2022-03-10T16:29:54Z",
+      "updated_at": "2022-03-10T16:29:54Z",
+      "body": "In that case I think you need to reduce the zoom on the browser page (or zoom out)."
+    },
+    {
+      "id": 1065305448,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-11T17:01:23Z",
+      "updated_at": "2022-03-11T17:01:23Z",
+      "body": "Sorry for all the hassle guys. Everything looks perfect. Great job @lebaphi !"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1378
+  ],
+  "issues": [
+    {
+      "id": 1160315463,
+      "number": 1378,
+      "title": "New Platform UX issues",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-05T10:56:52Z",
+      "updated_at": "2022-03-11T17:49:55Z",
+      "closed_at": "2022-03-11T17:49:54Z",
+      "body": "Multiple things here: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/156880045-6baf8503-d52c-45c0-953a-0484e1da9611.mp4\r\n\r\n1. The issue with adding elements (#1372) persists with New Platforms as well.\r\n\r\n2. When I create a New Platform, it pops up at the bottom of the screen. Could we have it pop up at the top? In a wargame with plenty of platforms, it adds another step of scrolling down to find the newly created platform for the user that is unnecessary. \r\n\r\n3. If I accidentally hit Delete on the New Platform, the element display page behaves like I confirmed the deletion. Once I hit cancel, the elements don't reappear, and I'm forced to click on New Platform again to view the elements. These are all extra steps that prolong the game creation process. If we could have the screen stay still behind the \"Are you sure?\" pop-up and only disappear once the deletion is confirmed, that'd be great.\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1060735641,
+          "user": "IanMayo",
+          "created_at": "2022-03-07T14:18:20Z",
+          "updated_at": "2022-03-07T14:18:20Z",
+          "body": "Some for you, please @lebaphi "
+        },
+        {
+          "id": 1062785510,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-09T10:40:08Z",
+          "updated_at": "2022-03-09T10:40:08Z",
+          "body": "> 2. When I create a New Platform, it pops up at the bottom of the screen. Could we have it pop up at the top? In a wargame with plenty of platforms, it adds another step of scrolling down to find the newly created platform for the user that is unnecessary.\r\n\r\nhttps://user-images.githubusercontent.com/85491794/157425186-215d5f61-c44b-427f-95f5-9480b00a3cc3.mp4\r\n\r\nI noticed that creating a platform or force, pops up the new element under the previous one. On the other hand, creating a channel pops the new channel on top. Essentially, if we could make platform and force creation behave like channel creation, that'd be great! "
+        },
+        {
+          "id": 1063029857,
+          "user": "lebaphi",
+          "created_at": "2022-03-09T15:18:33Z",
+          "updated_at": "2022-03-09T15:22:13Z",
+          "body": "Hi @IanMayo @ShendMikullovci , on fixing some ux issues, I found another one:\r\n\r\nhttps://user-images.githubusercontent.com/26705621/157471136-d248110a-73b1-4424-ab20-220081e2fbbf.mov\r\n\r\nAs you can see when adding multiple channels without saving, on clicking the button Save Channel, only the last channel was saved.\r\nSo do you think we should do the same behavior like platform types, force (save item after adding) or keep the current adding behavior but fix the issue of saving channels ?\r\n\r\n"
+        },
+        {
+          "id": 1063039589,
+          "user": "IanMayo",
+          "created_at": "2022-03-09T15:26:52Z",
+          "updated_at": "2022-03-09T15:26:52Z",
+          "body": "> So do you think we should do the same behavior like platform types, force (save item after adding) or keep the current adding behavior but fix the issue of saving channels ?\r\n\r\nI don't like the force-safe.  I'd like the save to just happen on `Save channel`.  But, we do need to remember other saved channels.\r\n\r\nAah, I've got it.  This should be `Save channels`.  It's the full set of channels that we save.  Similarly, it should be `Save platform types` - since the contents of the whole tab that are being saved."
+        },
+        {
+          "id": 1063041850,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-09T15:29:04Z",
+          "updated_at": "2022-03-09T15:29:04Z",
+          "body": "> Hi @IanMayo @ShendMikullovci , on fixing some ux issues, I found another one:\r\n\r\nNicely spotted! I think \"logically\" this bug makes sense because essentially, the user is saving the channel that they are on. \r\nHowever, what if they wanted to keep multiple channels and edit them as they go? This is solved by having the channel automatically saved after adding. \r\n\r\nAnother way to go here would be forcing the user to save the first New Channel before being able to create newer ones. This, however, would probably slow element creation down a little. "
+        },
+        {
+          "id": 1063044795,
+          "user": "lebaphi",
+          "created_at": "2022-03-09T15:31:54Z",
+          "updated_at": "2022-03-09T15:31:54Z",
+          "body": "> Another way to go here would be forcing the user to save the first New Channel before being able to create newer ones\r\n\r\nI'm prefer this one 😄 "
+        },
+        {
+          "id": 1063054667,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-09T15:41:16Z",
+          "updated_at": "2022-03-09T15:41:16Z",
+          "body": "Essentially, it depends on the cost of accidentally forgetting an unedited \"New Channel\". How much does it impact the game if GC accidentally adds this to the game:\r\n\r\n![New Channel](https://user-images.githubusercontent.com/85491794/157475692-339f5860-bd62-4cd7-a990-ba976fd76d09.png)\r\n \r\nIf it has little to no impact, then should we bother restricting the user to save every new channel and add extra work for you guys? \r\n\r\nFrom a UX perspective, I do have to say it's neater. "
+        },
+        {
+          "id": 1063183374,
+          "user": "IanMayo",
+          "created_at": "2022-03-09T17:36:06Z",
+          "updated_at": "2022-03-09T17:36:06Z",
+          "body": "Here's my understanding/position:\r\n\r\nOur tabs are `Channels`, `Platform types`, etc.  So, it does seem like we have the `Channels` tab open until we finish editing channels. At that point the player can choose to commit their changes (`Save channels`) or drop the changes and switch to another tab.  Along the way, the user may wish to save channel changes \"so far\".\r\n\r\nSo, I believe for each tab, we need to start off by taking a copy of the relevant collection of data (`channels`).  It's that copy that is modified with the tab. When the user clicks on `Save channels` we update (_store_) the whole set of channels into the wargame.\r\n\r\nBut, if the user clicks to another tab, we let them choose whether to save the copy (commit it), or drop the changed copy (lose changes)."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/157686199-f8bf49db-98d5-4f53-b762-ef9780d7d360.png",
+    "https://user-images.githubusercontent.com/1108513/157687565-50527bfb-7c70-421b-857a-981a6a85b5ab.png",
+    "https://user-images.githubusercontent.com/85491794/157475692-339f5860-bd62-4cd7-a990-ba976fd76d09.png"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 35
+}

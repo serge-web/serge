@@ -1,0 +1,106 @@
+{
+  "number": 2703,
+  "title": "Add React Geoman controls",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-11-26T11:11:07Z",
+  "updated_at": "2023-11-29T15:03:27Z",
+  "closed_at": "2023-11-28T10:14:32Z",
+  "merged_at": "2023-11-28T10:14:32Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2703",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2703/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2703/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2703",
+  "body": "Fixes https://github.com/serge-web/serge/issues/2693\r\n\r\n![image](https://github.com/serge-web/serge/assets/26705621/2b53cfc0-3d1e-4916-96e3-c5fa910a8903)\r\n\r\n",
+  "additions": 163,
+  "deletions": 45,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 6,
+  "review_comments_count": 0,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1827527156,
+      "user": "IanMayo",
+      "created_at": "2023-11-27T10:07:41Z",
+      "updated_at": "2023-11-27T10:07:41Z",
+      "body": "Thanks for this @lebaphi \r\n\r\nAs a next step, could you try to add new element(s) to the `features` object and re-render?\r\n\r\nA point will have type `milSymRenderer` (using the same SIDC as our existing sample object), and other shapes will have `coreRenderer` type data.\r\n\r\nI'm not fully sure how to do the above, but am happy to help out if you put in some of the infrastructure for me."
+    },
+    {
+      "id": 1827958333,
+      "user": "lebaphi",
+      "created_at": "2023-11-27T14:36:18Z",
+      "updated_at": "2023-11-27T14:36:18Z",
+      "body": "I think it's quite simple @IanMayo , here is what I did with new code changes :D\r\n\r\n![image](https://github.com/serge-web/serge/assets/26705621/ed63b78c-8f2c-44ec-924c-5c3a0f2b7d69)\r\n"
+    },
+    {
+      "id": 1828030590,
+      "user": "IanMayo",
+      "created_at": "2023-11-27T15:14:33Z",
+      "updated_at": "2023-11-27T15:14:33Z",
+      "body": "Yes, that was easy.\r\n\r\nI meant to say - can you modify the app so that if we add a point/shape using GeoMan that it gets added to the list of features and re-rendered.\r\n"
+    },
+    {
+      "id": 1829474994,
+      "user": "IanMayo",
+      "created_at": "2023-11-28T09:57:24Z",
+      "updated_at": "2023-11-28T09:57:24Z",
+      "body": "Remaining items moved to separate issues"
+    },
+    {
+      "id": 1832055419,
+      "user": "lebaphi",
+      "created_at": "2023-11-29T14:57:02Z",
+      "updated_at": "2023-11-29T14:57:02Z",
+      "body": "> Remaining items moved to separate issues\r\n\r\nCan you add the link of that item here? @IanMayo "
+    },
+    {
+      "id": 1832068852,
+      "user": "IanMayo",
+      "created_at": "2023-11-29T15:03:25Z",
+      "updated_at": "2023-11-29T15:03:25Z",
+      "body": "> > Remaining items moved to separate issues\r\n> \r\n> Can you add the link of that item here? @IanMayo\r\n\r\nSure: https://github.com/serge-web/serge/issues/2694"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2693
+  ],
+  "issues": [
+    {
+      "id": 1998971681,
+      "number": 2693,
+      "title": "React - Geoman",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-11-17T12:08:16Z",
+      "updated_at": "2023-11-28T09:23:46Z",
+      "closed_at": "2023-11-28T09:23:45Z",
+      "body": "Add the [React-GeoMan](https://github.com/TurtIeSocks/react-leaflet-geoman) to the new Core Mapping component.\r\n\r\nProvide the full set of tools as provided in the [demo](https://geoman.io/demo)",
+      "labels": [
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1829414817,
+          "user": "IanMayo",
+          "created_at": "2023-11-28T09:23:45Z",
+          "updated_at": "2023-11-28T09:23:45Z",
+          "body": "We're on top of this.   "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/26705621/2b53cfc0-3d1e-4916-96e3-c5fa910a8903",
+    "https://github.com/serge-web/serge/assets/26705621/ed63b78c-8f2c-44ec-924c-5c3a0f2b7d69"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 208
+}

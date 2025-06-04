@@ -1,0 +1,60 @@
+{
+  "number": 1098,
+  "title": "fix reconnect issue and protect double listener fire",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-07T12:46:57Z",
+  "updated_at": "2021-09-07T14:46:08Z",
+  "closed_at": "2021-09-07T14:46:07Z",
+  "merged_at": "2021-09-07T14:46:07Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1098",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1098/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1098/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1098",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 21,
+  "deletions": 7,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1094
+  ],
+  "issues": [
+    {
+      "id": 989738013,
+      "number": 1094,
+      "title": "Sometimes client doesn't register for changes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-07T08:38:57Z",
+      "updated_at": "2021-09-07T15:34:35Z",
+      "closed_at": "2021-09-07T15:34:34Z",
+      "body": "We have an intermittent problem.\r\n\r\nSometimes a browser client connects to Serge backend, but it doesn't register for changes.\r\n\r\nThe symptom of this behaviour is that the user can send messages, but doesn't see them, nor do they see new messages that are sent by others.\r\n\r\nThe health-check appears to work fine.\r\n\r\nI believe this issue could be associated with this bug-fix:\r\nhttps://github.com/serge-web/serge/pull/897\r\n\r\nAs previously reported here: https://github.com/serge-web/serge/issues/874#issuecomment-885556503\r\n\r\nIt's a real pain that this is intermittent.  I think I've just encountered it in this scenario:\r\n* running yarn develop\r\n* client connected to localhost\r\n* kill yarn develop\r\n* start yarn develop\r\n* client not listening to changes\r\nThe above is ok, since the client registered with the server that had closed - so long polling would no longer work.\r\n\r\nBut, I'm also encountering it occasionally with new client connections.\r\n\r\n![screencast](https://i.gyazo.com/3ad819ce0cb6dedb78b02bc544baec22.gif)\r\n\r\nHmm, is it possible for the client to regularly check it is still listening for changes. _Maybe_ do it in the heartbeat?  It's a bit drastic, but I guess we could close the polling for `changes` and re-register.",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 914411789,
+          "user": "IanMayo",
+          "created_at": "2021-09-07T15:34:34Z",
+          "updated_at": "2021-09-07T15:34:34Z",
+          "body": "Fixed in #1098 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/3ad819ce0cb6dedb78b02bc544baec22.gif"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 28
+}

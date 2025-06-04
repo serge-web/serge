@@ -1,0 +1,50 @@
+{
+  "number": 2371,
+  "title": "2369 search rate attribute",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-12T19:11:23Z",
+  "updated_at": "2023-02-12T19:48:16Z",
+  "closed_at": "2023-02-12T19:48:15Z",
+  "merged_at": "2023-02-12T19:48:15Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2371",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2371/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2371/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2371",
+  "body": "Take search rate from platform attribute\r\n\r\nFixes #2369 ",
+  "additions": 259,
+  "deletions": 89,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2369
+  ],
+  "issues": [
+    {
+      "id": 1581294387,
+      "number": 2369,
+      "title": "Take platform search capability from attribute",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-12T15:09:59Z",
+      "updated_at": "2023-02-12T19:48:16Z",
+      "closed_at": "2023-02-12T19:48:16Z",
+      "body": "The platform search rate is currently hard-coded at something like 200,000 km2 per hour.\r\n\r\nTake it from an attribute instead:\r\n- introduce new attribute type\r\n- add attribute to ISTAR platforms\r\n- use attribute in ISTAR model \r\n- output calculation components to console, for \"live\" checking.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 348
+}

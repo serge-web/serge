@@ -1,0 +1,178 @@
+{
+  "number": 2666,
+  "title": "As_a_maintainer_I_would_like_to_create_a_database_using_a_bulk_set_of…",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-04-07T13:45:36Z",
+  "updated_at": "2023-04-12T11:30:07Z",
+  "closed_at": "2023-04-12T11:30:06Z",
+  "merged_at": "2023-04-12T11:30:06Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2666",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2666/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2666/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2666",
+  "body": "…_existing_document\r\n\r\nFixes #2664 ",
+  "additions": 394,
+  "deletions": 20,
+  "changed_files": 20,
+  "labels": [],
+  "comments_count": 12,
+  "review_comments_count": 4,
+  "total_comments": 16,
+  "comments_data": [
+    {
+      "id": 1500304482,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-07T13:47:04Z",
+      "updated_at": "2023-04-07T13:47:04Z",
+      "body": "I haven't finished yet."
+    },
+    {
+      "id": 1501765917,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-10T12:34:14Z",
+      "updated_at": "2023-04-10T12:34:14Z",
+      "body": "I'm done."
+    },
+    {
+      "id": 1502920871,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-11T08:41:50Z",
+      "updated_at": "2023-04-11T08:41:50Z",
+      "body": "> Thanks @lilitkarapetyan\r\n> \r\n> The `download wargame` methods have all been commented out. Is that a mistake?\r\n\r\nI have added a comment in the code because the task did not mention downloading the wargames dataset. However, if it is needed, we can simply turn of the comments and the code should work without ayn issues."
+    },
+    {
+      "id": 1502924786,
+      "user": "IanMayo",
+      "created_at": "2023-04-11T08:44:55Z",
+      "updated_at": "2023-04-11T08:44:55Z",
+      "body": "> I have added a comment in the code because the task did not mention downloading the wargames dataset. However, if it is needed, we can simply turn of the comments and the code should work without ayn issues.\r\n\r\nAah, I thought these were existing methods that had been commented out. They are actually new methods.  In that case, could you un-comment them please?  They may prove useful if someone is testing on Heroku - since it's not possible to access databases running on Heroku."
+    },
+    {
+      "id": 1502925583,
+      "user": "IanMayo",
+      "created_at": "2023-04-11T08:45:36Z",
+      "updated_at": "2023-04-11T08:45:36Z",
+      "body": "Aah, I've just tested doing an import, and have an issue.  We generate the new wargame, but we don't give it a `sqlite` file suffix. Could you fix that please?"
+    },
+    {
+      "id": 1502930197,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-11T08:49:12Z",
+      "updated_at": "2023-04-11T08:49:12Z",
+      "body": "> > I have added a comment in the code because the task did not mention downloading the wargames dataset. However, if it is needed, we can simply turn of the comments and the code should work without ayn issues.\r\n> \r\n> Aah, I thought these were existing methods that had been commented out. They are actually new methods. In that case, could you un-comment them please? They may prove useful if someone is testing on Heroku - since it's not possible to access databases running on Heroku.\r\n\r\nOkay, I will remove the comments from the code now."
+    },
+    {
+      "id": 1502933311,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-11T08:51:22Z",
+      "updated_at": "2023-04-11T08:51:22Z",
+      "body": "> Aah, I've just tested doing an import, and have an issue. We generate the new wargame, but we don't give it a `sqlite` file suffix. Could you fix that please?\r\n\r\n\r\n\r\n> Aah, I've just tested doing an import, and have an issue. We generate the new wargame, but we don't give it a `sqlite` file suffix. Could you fix that please?\r\n\r\nOkay, I will fix that."
+    },
+    {
+      "id": 1503141550,
+      "user": "IanMayo",
+      "created_at": "2023-04-11T11:14:25Z",
+      "updated_at": "2023-04-11T11:14:25Z",
+      "body": "Thanks @lilitkarapetyan  - I think there are still some `console.log()` lines to be removed, please."
+    },
+    {
+      "id": 1503162726,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-11T11:32:53Z",
+      "updated_at": "2023-04-11T11:32:53Z",
+      "body": "> Thanks @lilitkarapetyan - I think there are still some `console.log()` lines to be removed, please.\r\n\r\nOkay, I'll remove it now"
+    },
+    {
+      "id": 1503196481,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-11T11:58:50Z",
+      "updated_at": "2023-04-11T11:58:50Z",
+      "body": "I think I'm done. "
+    },
+    {
+      "id": 1503213547,
+      "user": "IanMayo",
+      "created_at": "2023-04-11T12:08:24Z",
+      "updated_at": "2023-04-11T12:08:24Z",
+      "body": "> I think I'm done.\r\n\r\nOne more bit.\r\n\r\nWhen we extracted the documents from SQLite, we used the `_id` as the filename.  But, the `:` chars in the `_id` weren't allowed for filenames, so they were removed. \r\nThis means that when we `populate` the DB, the `doc_id` values don't match what they originally were:\r\n![image](https://user-images.githubusercontent.com/1108513/231157889-1d1df5f9-a2a4-4f2b-8941-3df637ff9221.png)\r\n\r\nSo, you have to convert the `id` from `2022-09-25T192928.917Z` to `2022-09-25T19:29:28.917Z`, please."
+    },
+    {
+      "id": 1503654706,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-04-11T15:49:32Z",
+      "updated_at": "2023-04-11T15:49:32Z",
+      "body": "> > I think I'm done.\r\n> \r\n> One more bit.\r\n> \r\n> When we extracted the documents from SQLite, we used the `_id` as the filename. But, the `:` chars in the `_id` weren't allowed for filenames, so they were removed. This means that when we `populate` the DB, the `doc_id` values don't match what they originally were: ![image](https://user-images.githubusercontent.com/1108513/231157889-1d1df5f9-a2a4-4f2b-8941-3df637ff9221.png)\r\n> \r\n> So, you have to convert the `id` from `2022-09-25T192928.917Z` to `2022-09-25T19:29:28.917Z`, please.\r\n\r\nOaky, I will work on it.\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1162481963,
+      "user": "IanMayo",
+      "created_at": "2023-04-11T08:36:41Z",
+      "updated_at": "2023-04-11T08:36:42Z",
+      "body": "Shouldn't we log the above error?  Otherwise it looks like it will silently fail, and we'll miss out on the diagnostics.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -725,6 +738,43 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me\n   })\n }\n \n+/**\n+ * Populate a new wargame with bulk data\n+ * \n+ * @param dbName The name of the database to create the wargame in\n+ * @param bulkData The bulk data to populate the wargame with\n+ * \n+ * @returns Promise that resolves with the populated wargame\n+ */\n+export const postPopulateWargame = (dbName: string, bulkData: Array<Message | Wargame>): Promise<Wargame> => {\n+  const wargameName = dbName.replace('.json', '')\n+\n+  // Generate a unique name for the wargame by appending a timestamp to the end of the name\n+  const name: string = `${wargameName}-${uniqid.time()}`\n+\n+  // Create a new database provider instance for the new wargame\n+  const db = new DbProvider(databasePath + name)\n+  addWargameDbStore({ name: name, db })\n+  const customBulkMessage = bulkData\n+\n+  // Return a new promise that will resolve with the populated wargame\n+  return new Promise((resolve, reject) => {\n+    // Call the bulkDocs() function of the new database instance, passing in the bulk data\n+    db.bulkDocs(customBulkMessage).then(() => {\n+      // Call getLatestWargameRevision() to retrieve the latest revision of the new wargame\n+      getLatestWargameRevision(name).then((res) => {\n+        // @ts-ignore\n+        resolve(res)\n+      }).catch((err) => {\n+        reject(err)",
+      "html_url": "https://github.com/serge-web/serge/pull/2666#discussion_r1162481963"
+    },
+    {
+      "id": 1162527502,
+      "user": "IanMayo",
+      "created_at": "2023-04-11T09:14:12Z",
+      "updated_at": "2023-04-11T09:14:13Z",
+      "body": "IMHO @lilitkarapetyan - the method description in the comment is valuable, but the two @param comments aren't necessary - they don't tell us anything we can't see for ourselves.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -725,6 +738,43 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me\n   })\n }\n \n+/**",
+      "html_url": "https://github.com/serge-web/serge/pull/2666#discussion_r1162527502"
+    },
+    {
+      "id": 1162529529,
+      "user": "IanMayo",
+      "created_at": "2023-04-11T09:15:38Z",
+      "updated_at": "2023-04-11T09:15:39Z",
+      "body": "A couple of copy/paste issues with this file.  It's not for `Planned Route` (line 1), and it's not for `ImageDropzone` (lines 21 and 27).",
+      "path": "packages/components/src/local/atoms/zip-dropzone/README.md",
+      "diff_hunk": "@@ -0,0 +1,27 @@\n+# Planned Route documentation\n+\n+This is an example readme file for the 'zip-dropzone' component.\n+\n+## UI Example\n+\n+<!-- STORY -->\n+\n+## Code example\n+\n+<!-- SOURCE -->\n+\n+## Props\n+\n+<!-- PROPS -->\n+\n+## Usage\n+\n+### ES6 Import\n+```js\n+import ImageDropzone from './zip-dropzone'\n+```\n+\n+### CommonJS\n+\n+```js\n+const ImageDropzone = require('./zip-dropzone')",
+      "html_url": "https://github.com/serge-web/serge/pull/2666#discussion_r1162529529"
+    },
+    {
+      "id": 1162545013,
+      "user": "IanMayo",
+      "created_at": "2023-04-11T09:27:48Z",
+      "updated_at": "2023-04-11T09:27:48Z",
+      "body": "@lilitkarapetyan - we need the `id` to be the first part of the filename of the unzipped JSON document, please.  But note: we need to convert it back to a `Date` value by putting the `:` chars back in for the time.",
+      "path": "packages/components/src/local/atoms/zip-dropzone/helpers/readZip.ts",
+      "diff_hunk": "@@ -0,0 +1,41 @@\n+// Import JSZip library for working with ZIP files\n+import JSZip from 'jszip'\n+import { Wargame, Message } from '@serge/custom-types'\n+\n+const readZip = async (file: File, onChange: (data: Array<Wargame | Message>, filename: string) => void): Promise<void> => {\n+  // Create a new instance of JSZip\n+  const zip = new JSZip()\n+  try {\n+    // Load the zip file contents asynchronously\n+    const result = await zip.loadAsync(file)\n+    const wargameData: Array<Wargame | Message> = []\n+    let fileName = ''\n+    // Iterate over each file in the zip file\n+    for (const filename in result.files) {\n+      const fileExt = filename.split('.').pop()\n+      if (fileExt === 'json') {\n+        // Extract the contents of the JSON file\n+        const jsonContents = await result.files[filename].async('text')\n+\n+        // The data variable is typed as an array of any type using the Array<any> syntax.\n+        // The contents of the array are parsed from the 'jsonContents' string using the JSON.parse() method, and then only the 'data' property is extracted.\n+        const jsonData = JSON.parse(jsonContents)\n+        fileName = filename\n+        // Mark the '_rev' property of each object as undefined to exclude it from future bulk insertions\n+        const markExcluded = {\n+          ...jsonData,\n+          _rev: undefined,\n+          _id: new Date().toISOString()",
+      "html_url": "https://github.com/serge-web/serge/pull/2666#discussion_r1162545013"
+    }
+  ],
+  "issue_numbers": [
+    2664
+  ],
+  "issues": [
+    {
+      "id": 1655284764,
+      "number": 2664,
+      "title": "As a maintainer, I'd like to create a database using a bulk set of existing documents",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-04-05T09:44:22Z",
+      "updated_at": "2023-04-12T11:30:07Z",
+      "closed_at": "2023-04-12T11:30:07Z",
+      "body": "There are times when the Game Designer may wish to programmatically generate a set of wargame and message documents, and generate a wargame initialised with that data.\r\n\r\n1. in Serge admin, create a new \"Populate wargame\" button. \r\n2. When \"Populate wargame\" is clicked, the user will be invited to browse to a zip-file [*]\r\n3. SERGE will then create a new wargame, and push the zip-folder of documents into it.\r\n\r\nThe zip-file will contain a collection of JSON documents.   The document id will come from the first part of the JSON document filename.\r\n[Consolidated_Data.zip](https://github.com/serge-web/serge/files/11173557/Consolidated_Data.zip)\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/231157889-1d1df5f9-a2a4-4f2b-8941-3df637ff9221.png"
+  ],
+  "number_of_changed_files": 20,
+  "total_changed_lines": 414
+}

@@ -1,0 +1,86 @@
+{
+  "number": 1884,
+  "title": "1861: display assets icon (phase 2)",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-26T09:45:38Z",
+  "updated_at": "2022-09-26T18:17:17Z",
+  "closed_at": "2022-09-26T10:58:38Z",
+  "merged_at": "2022-09-26T10:58:38Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1884",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1884/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1884/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1884",
+  "body": "Fixes #1861 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/192245270-5e939bd5-28c6-42c7-afa4-2fe6c5d3273b.mov\r\n\r\nabout adding new lib https://www.npmjs.com/package/react-leaflet-cluster, I got an issue that it does not work with old version of react-leaflet, (we are using v2)\r\n\r\n<img width=\"882\" alt=\"Screen Shot 2022-09-26 at 4 20 35 PM\" src=\"https://user-images.githubusercontent.com/26705621/192245691-e485ef25-de18-4d46-9540-6ed0835121d3.png\">\r\n\r\nIncrease the leaflet version may break something",
+  "additions": 43,
+  "deletions": 9,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1257848416,
+      "user": "IanMayo",
+      "created_at": "2022-09-26T10:51:50Z",
+      "updated_at": "2022-09-26T10:51:50Z",
+      "body": "> about adding new lib https://www.npmjs.com/package/react-leaflet-cluster, I got an issue that it does not work with old version of react-leaflet, (we are using v2)\r\n\r\noh dear. We may see a lot of that.  `leaflet.draw` looks like the no-brainer solution for our drawing component/. But, it hasn't had updates for over 4 years :-("
+    },
+    {
+      "id": 1257855261,
+      "user": "lebaphi",
+      "created_at": "2022-09-26T10:58:37Z",
+      "updated_at": "2022-09-26T10:58:37Z",
+      "body": "> > about adding new lib https://www.npmjs.com/package/react-leaflet-cluster, I got an issue that it does not work with old version of react-leaflet, (we are using v2)\r\n> \r\n> oh dear. We may see a lot of that. `leaflet.draw` looks like the no-brainer solution for our drawing component/. But, it hasn't had updates for over 4 years :-(\r\n\r\nso should we upgrade the leaflet version to the latest? @IanMayo "
+    },
+    {
+      "id": 1257865905,
+      "user": "IanMayo",
+      "created_at": "2022-09-26T11:08:30Z",
+      "updated_at": "2022-09-26T18:17:17Z",
+      "body": "Hello @lebaphi  - sorry, there isn't an obvious answer.   Yes, let's update to the newest version.  We'll step back if we need to support some legacy component :-(\r\n\r\nMe again :-)\r\n\r\nIt looks like the newest version of `react-leaflet` is using `leaflet 1.9`. It would probably make sense to update to that version.  The scary bits may happen when leaflet (eventually) moves to `2.x`."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1861
+  ],
+  "issues": [
+    {
+      "id": 1380785104,
+      "number": 1861,
+      "title": "Show assets on map",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-21T11:37:43Z",
+      "updated_at": "2022-09-26T10:58:39Z",
+      "closed_at": "2022-09-26T10:58:39Z",
+      "body": "Our SupportPanel includes `ownForces` and `opForces` listings.   These contain a list of our own assets, and assets from other forces that we are aware of (or all for umpires).\r\n\r\nWe should create a `<PlanningAssets>` component that can render an array of assets.  It will put them onto a `LayerGroup` component (like we do with `<Assets>` ).\r\n\r\nNote: I suggest that in `Phase 1` we display the raw icons, but once we are rendering them, we should do a `Phase 2` that clusters the markers, using this library: https://www.npmjs.com/package/react-leaflet-cluster\r\n\r\nSo, here is `Phase 1`:\r\n* [x] introduce state in `PlanningChannel` for `ownForces` and `opForces`.  These will be set from `PlanningAssets`.  I _guess_ we need to pass a `setter` down to `PlanningAssets`\r\n* [x] extend `SupportMapping` props to take two arrays of `AssetRow` items (`ownForces` and `opForces`)\r\n* [x] extend `SupportMapping` to introduce new `PlanningForce` component - which will display an icon for each asset, using name, type, force data.  This will be (much) simpler version of the `Assets` component - just a leaflet `LayerGroup`  containing `Marker` items.  `SupportPanel` will have two instances of `PlanningForce` - one for `ownForce` and one for `opForces`.   We're putting the two sets of forces into different `LayerGroups` so we can switch them on and off, if we want to in the future.\r\n\r\nI tried to do the first two steps here this afternoon, but got into an infinite loop of stack updates - with stack overflow. I'm sure you'll do better than me :-)\r\n\r\nNote: in #1872 I made some early progress on this.  But note:  in that branch I'm plotting all of the assets.  In your _real_ code you will be plotting the `ownForces` and `opForces` - which will be fewer assets, and the `opForces` will have `perceived` values - as in their `AssetRow` objects.\r\n\r\n",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1257006799,
+          "user": "IanMayo",
+          "created_at": "2022-09-24T16:25:59Z",
+          "updated_at": "2022-09-24T16:25:59Z",
+          "body": "Phase 1 - (markers) done.\r\n\r\nNow for Phase 2 (proper icons) @lebaphi  :-)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/192245691-e485ef25-de18-4d46-9540-6ed0835121d3.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 52
+}

@@ -1,0 +1,163 @@
+{
+  "number": 1782,
+  "title": "1747: Add UI for Support Panel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-14T15:31:48Z",
+  "updated_at": "2022-08-18T13:51:27Z",
+  "closed_at": "2022-08-18T13:51:26Z",
+  "merged_at": "2022-08-18T13:51:26Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1782",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1782/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1782/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1782",
+  "body": "Fixes #1747 ",
+  "additions": 697,
+  "deletions": 27,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 0,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 1214408007,
+      "user": "IanMayo",
+      "created_at": "2022-08-14T16:11:37Z",
+      "updated_at": "2022-08-14T16:11:37Z",
+      "body": "Thanks @lebaphi  - looking good :-)"
+    },
+    {
+      "id": 1216154047,
+      "user": "lebaphi",
+      "created_at": "2022-08-16T05:10:02Z",
+      "updated_at": "2022-08-16T05:10:02Z",
+      "body": "\r\nhttps://user-images.githubusercontent.com/26705621/184802367-95e05c68-7325-4f39-8c53-2826ba5d1d41.mp4\r\n\r\n"
+    },
+    {
+      "id": 1216732938,
+      "user": "IanMayo",
+      "created_at": "2022-08-16T14:41:08Z",
+      "updated_at": "2022-08-16T14:41:08Z",
+      "body": "We're nearly there @lebaphi \r\n\r\nJust one thing: could we have a visual clue/indicator that the panel can be resized.  Maybe a pair of \"grab-bars\" (or handle-bars) to the left of the 3 tabs?"
+    },
+    {
+      "id": 1217427066,
+      "user": "lebaphi",
+      "created_at": "2022-08-17T03:47:01Z",
+      "updated_at": "2022-08-17T03:47:01Z",
+      "body": "How about this @IanMayo 😄 \r\n\r\n<img width=\"419\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/185030373-0cf49cc7-27c2-475d-b2a6-62b8c8f217dc.png\">\r\n"
+    },
+    {
+      "id": 1217527234,
+      "user": "IanMayo",
+      "created_at": "2022-08-17T06:43:04Z",
+      "updated_at": "2022-08-17T06:43:04Z",
+      "body": "I think we need something a bit more visible, please."
+    },
+    {
+      "id": 1217876086,
+      "user": "lebaphi",
+      "created_at": "2022-08-17T11:18:46Z",
+      "updated_at": "2022-08-17T11:18:46Z",
+      "body": "How about this one @IanMayo ?\r\n\r\n<img width=\"151\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/185105803-ff7b407c-00c4-4bfb-945e-3948638e9354.png\">\r\n\r\n"
+    },
+    {
+      "id": 1217945523,
+      "user": "IanMayo",
+      "created_at": "2022-08-17T12:29:44Z",
+      "updated_at": "2022-08-17T12:29:44Z",
+      "body": "yes, great."
+    },
+    {
+      "id": 1219165974,
+      "user": "IanMayo",
+      "created_at": "2022-08-18T08:06:38Z",
+      "updated_at": "2022-08-18T08:06:38Z",
+      "body": "This is weird @lebaphi - I get some \"artefacts\" on the new tabs.  On initial renders there are a couple of light blue marks. When I expand the panel, the marks grow:\r\n![image](https://user-images.githubusercontent.com/1108513/185343454-4ccbb54e-ffca-4045-b269-d5522b8f3b1c.png)\r\n\r\nI guess it's not your code.  Is it the new component?\r\n\r\nI'm on Chrome 104"
+    },
+    {
+      "id": 1219458807,
+      "user": "lebaphi",
+      "created_at": "2022-08-18T12:55:16Z",
+      "updated_at": "2022-08-18T12:55:16Z",
+      "body": "It's weird, I don't see this issue. I use this lib to support drag and resize https://www.npmjs.com/package/react-rnd, can you try this on firefox or safari?"
+    },
+    {
+      "id": 1219507108,
+      "user": "IanMayo",
+      "created_at": "2022-08-18T13:40:31Z",
+      "updated_at": "2022-08-18T13:40:31Z",
+      "body": "Sorry, only have ChromeOS, on my Chromebook. Let's skip it."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    104,
+    1747
+  ],
+  "issues": [
+    {
+      "id": 537671881,
+      "number": 104,
+      "title": "first trial of leaflet/honeycomb",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2019-12-13T17:23:25Z",
+      "updated_at": "2019-12-18T12:54:41Z",
+      "closed_at": "2019-12-18T12:54:37Z",
+      "body": "## 📝 Developer Notes:\r\nThis is a temporary PR, used to track experiments with the honeycomb library\r\n\r\nTo do:\r\n* [ ] convert from degrees to grid id\r\n* [ ] get hex for grid id (map)\r\n* [ ] get polygon for hex cell\r\n* [ ] change polygon fill as mouse moves over cell",
+      "labels": [],
+      "comments": [
+        {
+          "id": 567019557,
+          "user": "IanMayo",
+          "created_at": "2019-12-18T12:54:37Z",
+          "updated_at": "2019-12-18T12:54:37Z",
+          "body": "Closing this branch - because of our breaking build I couldn't get Heroku building, so developed the demonstrator in the gh-pages branch instead."
+        }
+      ]
+    },
+    {
+      "id": 1334494492,
+      "number": 1747,
+      "title": "A. Create Support Panel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-10T11:39:32Z",
+      "updated_at": "2022-08-18T13:51:28Z",
+      "closed_at": "2022-08-18T13:51:28Z",
+      "body": "Create child component that extends the mock `ChannelPlanning` developed in #1745 with following properties:\r\n- Has tabs (similar to WorldState panel)\r\n- Just have single \"mock\" tab to start with\r\n- Occupies full height of page\r\n- Drag bar to change width\r\n- Clicking on tab collapses panel\r\n- Has these props:\r\n    - player role\r\n    - player force\r\n    - messages for this channel\r\n    - current `forces` from wargame\r\n\r\nNote: I've created a `PlanningChannel`, which itself contains a `PlanningMessagesList`.  This `PlanningChannel` will get extended with the above requirements, with `PlanningMessagesList` being the initial `My Orders` tab.\r\n\r\nHmm, I wonder if it's worth using `flexlayout-react` for the vertical tabs?  We're already using that component, after all.  The tabs won't need to be editable, but I think the implementation will be simpler than the way we did it with WorldState.\r\n\r\nHere is a mockup:\r\n![image](https://user-images.githubusercontent.com/1108513/184122471-919441a7-0486-4690-9f18-172b195169ab.png)\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1216238766,
+          "user": "lebaphi",
+          "created_at": "2022-08-16T07:13:02Z",
+          "updated_at": "2022-08-16T07:13:02Z",
+          "body": "Hi @IanMayo @ShendMikullovci , do we have a mockup for the tab content?"
+        },
+        {
+          "id": 1216757254,
+          "user": "IanMayo",
+          "created_at": "2022-08-16T14:58:48Z",
+          "updated_at": "2022-08-16T14:59:45Z",
+          "body": "No @lebaphi .  We're waiting to get more from the users - it could be a couple of weeks.  But, I'll try to mock data for now.\r\n\r\nThis component is just the \"container\" - it's the 3 children (two tables and a tree-table (#1748 and #1749) that I'll need to learn more about, and/or mock up."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/185030373-0cf49cc7-27c2-475d-b2a6-62b8c8f217dc.png",
+    "https://user-images.githubusercontent.com/26705621/185105803-ff7b407c-00c4-4bfb-945e-3948638e9354.png",
+    "https://user-images.githubusercontent.com/1108513/185343454-4ccbb54e-ffca-4045-b269-d5522b8f3b1c.png",
+    "https://user-images.githubusercontent.com/1108513/184122471-919441a7-0486-4690-9f18-172b195169ab.png"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 724
+}

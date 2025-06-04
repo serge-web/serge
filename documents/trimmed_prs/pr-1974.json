@@ -1,0 +1,53 @@
+{
+  "number": 1974,
+  "title": "Hotfix display new message content",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-28T12:26:20Z",
+  "updated_at": "2022-10-31T05:48:14Z",
+  "closed_at": "2022-10-28T13:49:19Z",
+  "merged_at": "2022-10-28T13:49:19Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1974",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1974/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1974/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1974",
+  "body": "Hotfix to display new orders in `NewMessage` panel, and to make existing orders editable.",
+  "additions": 153,
+  "deletions": 138,
+  "changed_files": 18,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 2,
+  "total_comments": 2,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 1008013360,
+      "user": "IanMayo",
+      "created_at": "2022-10-28T12:32:44Z",
+      "updated_at": "2022-10-28T12:32:44Z",
+      "body": "@lilitkarapetyan - in the code below, I only try to retrieve the message from storage if there isn't a `messageContent`.  Does that look ok to you?",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -128,12 +131,15 @@ export const JsonEditor: React.FC<Props> = ({\n     document.addEventListener('keydown', handleKeyDown)\n \n     if (nextEditor) {\n-      const messageJson = expiredStorage.getItem(genLocalStorageId())\n+      // only retrieve from expired content if we haven't been provided with message content",
+      "html_url": "https://github.com/serge-web/serge/pull/1974#discussion_r1008013360"
+    },
+    {
+      "id": 1009049246,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-10-31T05:48:13Z",
+      "updated_at": "2022-10-31T05:48:14Z",
+      "body": "Hello Ian, I think it's good.",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -128,12 +131,15 @@ export const JsonEditor: React.FC<Props> = ({\n     document.addEventListener('keydown', handleKeyDown)\n \n     if (nextEditor) {\n-      const messageJson = expiredStorage.getItem(genLocalStorageId())\n+      // only retrieve from expired content if we haven't been provided with message content",
+      "html_url": "https://github.com/serge-web/serge/pull/1974#discussion_r1009049246"
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 18,
+  "total_changed_lines": 291
+}

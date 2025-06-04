@@ -1,0 +1,153 @@
+{
+  "number": 2889,
+  "title": "Allow multi-select in filter drop-downs",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-25T04:50:44Z",
+  "updated_at": "2024-03-11T11:25:27Z",
+  "closed_at": "2024-03-11T11:25:26Z",
+  "merged_at": "2024-03-11T11:25:26Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2889",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2889/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2889/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2889",
+  "body": "Fixes #2874 \r\n\r\n![image](https://github.com/serge-web/serge/assets/26705621/39e03232-27a3-4e53-9181-d4f31f5b2778)\r\n",
+  "additions": 73,
+  "deletions": 17,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 13,
+  "review_comments_count": 0,
+  "total_comments": 13,
+  "comments_data": [
+    {
+      "id": 1963289783,
+      "user": "Tristina1788",
+      "created_at": "2024-02-26T04:17:59Z",
+      "updated_at": "2024-02-26T04:17:59Z",
+      "body": "@IanMayo , @lebaphi  Tested on '2874-multiple-select-dropdown' , now properties of dropdown is also selected multiple values\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/1a0107bd-c884-479b-96e3-1f972397beac)\r\n\r\nAnd I can select no option for dropdown list.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2ed71b1d-3d63-4a44-84c6-583fe8c8327f)\r\n\r\nIt think multiple values should be apply for 'Filter' panel.\r\n"
+    },
+    {
+      "id": 1963889873,
+      "user": "IanMayo",
+      "created_at": "2024-02-26T11:14:45Z",
+      "updated_at": "2024-02-26T11:14:45Z",
+      "body": "Hello @lebaphi , while we need `And` between the separate filters, we need `Or` within the dropdown lists.\r\n\r\nThis setting should filter to include `blue` **OR** `red`. I'm pretty sure it's currently doing **AND** (which matches none, since it's impossible)\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/a575320e-1fd2-4c51-8f00-bb0654d396d7)\r\n"
+    },
+    {
+      "id": 1965947161,
+      "user": "Tristina1788",
+      "created_at": "2024-02-27T07:34:43Z",
+      "updated_at": "2024-02-27T07:34:43Z",
+      "body": "@lebaphi , @IanMayo  Tested on '2874-multiple-select-dropdown' branch\r\n\r\nNow Properties of dropdown is still enable to select multiple values\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/50f77a6a-bc27-411c-baf3-8a1e2ba48021)\r\n\r\nAnd the filter is `And` instead of 'Or'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/b7294a4d-b2ff-4b12-ad55-92db456b880f)\r\n"
+    },
+    {
+      "id": 1966330610,
+      "user": "lebaphi",
+      "created_at": "2024-02-27T11:20:34Z",
+      "updated_at": "2024-02-27T11:20:34Z",
+      "body": "> This setting should filter to include blue OR red. I'm pretty sure it's currently doing AND (which matches none, since it's impossible)\r\n\r\nokay @IanMayo, I will update it"
+    },
+    {
+      "id": 1978557076,
+      "user": "IanMayo",
+      "created_at": "2024-03-05T11:34:58Z",
+      "updated_at": "2024-03-05T11:34:58Z",
+      "body": "@Tristina1788 - could you help us out by re-testing this, please?\r\n"
+    },
+    {
+      "id": 1978702092,
+      "user": "Tristina1788",
+      "created_at": "2024-03-05T12:46:11Z",
+      "updated_at": "2024-03-05T12:46:11Z",
+      "body": "> @Tristina1788 - could you help us out by re-testing this, please?\r\n@IanMayo , @lebaphi \r\nI 've tested on '2874-multiple-select-dropdown' and the issues above https://github.com/serge-web/serge/pull/2889#issuecomment-1965947161 still happened\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/65461668-c2f6-412f-ab35-19b1d2c5ccb9\r\n\r\n"
+    },
+    {
+      "id": 1980576747,
+      "user": "IanMayo",
+      "created_at": "2024-03-06T10:41:46Z",
+      "updated_at": "2024-03-06T10:41:46Z",
+      "body": "Ok @lebaphi - we still have to block `multi-select` in the lower panel."
+    },
+    {
+      "id": 1982912120,
+      "user": "Tristina1788",
+      "created_at": "2024-03-07T08:26:43Z",
+      "updated_at": "2024-03-07T08:26:43Z",
+      "body": "@lebaphi , @IanMayo  Tested on '2874-multiple-select-dropdown', now the filter is 'OR' and dropdown list in 'Properties' panel only enable to select one.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/12cd485f-2ebe-4cbd-8e4a-bd6c5540e9f5\r\n\r\n\r\n\r\nBut now the filter for 'Text' input with 'contains' instead of 'include' as before. I have to exactly text to filter properties.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/5475c041-8f07-4648-87c0-def196a438cf\r\n\r\n"
+    },
+    {
+      "id": 1983614391,
+      "user": "lebaphi",
+      "created_at": "2024-03-07T14:24:35Z",
+      "updated_at": "2024-03-07T14:24:35Z",
+      "body": "Thanks @Tristina1788 , I will take a look on the text filter issue"
+    },
+    {
+      "id": 1985269211,
+      "user": "Tristina1788",
+      "created_at": "2024-03-08T08:35:38Z",
+      "updated_at": "2024-03-08T08:35:38Z",
+      "body": "@IanMayo , @lebaphi  Tested on branch '2874-multiple-select-dropdown' , now filter for 'Text' input work with 'include' as expected. And filter for dropdown is also working fine.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/3429a4f6-73f8-4299-aa9d-144841442c21)\r\n"
+    },
+    {
+      "id": 1985357192,
+      "user": "IanMayo",
+      "created_at": "2024-03-08T09:33:39Z",
+      "updated_at": "2024-03-08T09:33:39Z",
+      "body": "One bit still seems wrong, @lebaphi & @Tristina1788 .  For an `enum` (dropdown) filter, it is showing features that don't have that field.\r\n\r\ne.g.  `important` and `category`.  Features that don't have those fields are still included in the list.  I'm pretty sure that if we filter for `important: yes`, then features that don't have the `important` field should not be shown.  We should only show features that have an important field, and that it's value is `yes`"
+    },
+    {
+      "id": 1985413449,
+      "user": "Tristina1788",
+      "created_at": "2024-03-08T10:10:05Z",
+      "updated_at": "2024-03-08T10:10:05Z",
+      "body": "> One bit still seems wrong, @lebaphi & @Tristina1788 . For an `enum` (dropdown) filter, it is showing features that don't have that field.\r\n> \r\n> e.g. `important` and `category`. Features that don't have those fields are still included in the list. I'm pretty sure that if we filter for `important: yes`, then features that don't have the `important` field should not be shown. We should only show features that have an important field, and that it's value is `yes`\r\n\r\n@IanMayo  You are right. I can see this issue\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e1e6ed5f-cc02-471f-9901-2939ae490be7)\r\n"
+    },
+    {
+      "id": 1987828245,
+      "user": "Tristina1788",
+      "created_at": "2024-03-11T08:05:48Z",
+      "updated_at": "2024-03-11T08:05:48Z",
+      "body": "@lebaphi , @IanMayo  Tested on '2874-multiple-select-dropdown' . Now filter is also works fine on 'Category' and 'Important'\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/14aec19a-034a-4a5e-8477-6562086c8652\r\n\r\nJust one issue is filter gets reset to default filter when I added one more filter. I check on 'develop' branch and it has same issue. So I will create new ticket for it.\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2874
+  ],
+  "issues": [
+    {
+      "id": 2144819777,
+      "number": 2874,
+      "title": "Allow multi-select in filter drop-downs",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-02-20T16:44:23Z",
+      "updated_at": "2024-03-11T11:25:27Z",
+      "closed_at": "2024-03-11T11:25:27Z",
+      "body": "For some filters it would be useful to be able to filter on multiple values: so the user can request to see `Blue` and `Green` forces at once.\r\n\r\nNote: this is an `OR` filter.\r\n\r\nI _think_ this translates to all `enum` properties.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/26705621/39e03232-27a3-4e53-9181-d4f31f5b2778",
+    "https://github.com/serge-web/serge/assets/107697044/1a0107bd-c884-479b-96e3-1f972397beac",
+    "https://github.com/serge-web/serge/assets/107697044/2ed71b1d-3d63-4a44-84c6-583fe8c8327f",
+    "https://github.com/serge-web/serge/assets/1108513/a575320e-1fd2-4c51-8f00-bb0654d396d7",
+    "https://github.com/serge-web/serge/assets/107697044/50f77a6a-bc27-411c-baf3-8a1e2ba48021",
+    "https://github.com/serge-web/serge/assets/107697044/b7294a4d-b2ff-4b12-ad55-92db456b880f",
+    "https://github.com/serge-web/serge/assets/107697044/3429a4f6-73f8-4299-aa9d-144841442c21",
+    "https://github.com/serge-web/serge/assets/107697044/e1e6ed5f-cc02-471f-9901-2939ae490be7"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 90
+}

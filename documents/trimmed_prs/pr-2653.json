@@ -1,0 +1,58 @@
+{
+  "number": 2653,
+  "title": "doing todo list for wargame_api",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-21T13:23:56Z",
+  "updated_at": "2023-04-05T11:54:23Z",
+  "closed_at": "2023-04-05T11:54:22Z",
+  "merged_at": "2023-04-05T11:54:22Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2653",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2653/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2653/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2653",
+  "body": "Fixes #1671\r\n",
+  "additions": 26,
+  "deletions": 19,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1477835479,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-21T13:26:16Z",
+      "updated_at": "2023-03-21T13:26:16Z",
+      "body": "I will continue to work on this task."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1671
+  ],
+  "issues": [
+    {
+      "id": 1304800304,
+      "number": 1671,
+      "title": "Refactoring `wargame_api`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-14T13:36:14Z",
+      "updated_at": "2023-04-05T11:54:23Z",
+      "closed_at": "2023-04-05T11:54:23Z",
+      "body": "I've inserted some `TODO:` markers into `wargame_api\\index.tsx`.\r\n\r\nThey should be looked at - and the suggestions tested.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 45
+}

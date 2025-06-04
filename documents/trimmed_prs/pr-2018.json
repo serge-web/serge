@@ -1,0 +1,87 @@
+{
+  "number": 2018,
+  "title": "Provide JSON-Editor with component to view/render location data",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-11-08T15:28:27Z",
+  "updated_at": "2022-11-08T21:22:27Z",
+  "closed_at": "2022-11-08T21:22:23Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2018",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2018/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2018/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2018",
+  "body": "Fixes #2006 ",
+  "additions": 41,
+  "deletions": 11,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1307425376,
+      "user": "IanMayo",
+      "created_at": "2022-11-08T15:45:27Z",
+      "updated_at": "2022-11-08T15:45:27Z",
+      "body": "Don't merge this. But, apply changes to `develop`"
+    },
+    {
+      "id": 1307842445,
+      "user": "IanMayo",
+      "created_at": "2022-11-08T21:22:23Z",
+      "updated_at": "2022-11-08T21:22:23Z",
+      "body": "Closing this.  Implemented."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2006
+  ],
+  "issues": [
+    {
+      "id": 1435089779,
+      "number": 2006,
+      "title": "Provide JSON-Editor with component to view/render location data",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-03T18:22:03Z",
+      "updated_at": "2022-12-19T18:00:46Z",
+      "closed_at": "2022-12-19T18:00:46Z",
+      "body": "Our planning messages include `slugs` of JSON for the shapes(lines, polygons, etc).\r\n\r\nJSON-Editor tries to build up a set of controls for this array data, but it  ends up with loads of ugly components:\r\n![image](https://user-images.githubusercontent.com/1108513/199804239-fa39ba46-dbe0-408e-b5e9-0e42f696b6fa.png)\r\n\r\n\r\nI don't know the best solution, but this is the best I can think of:\r\n- convert the JSON for `location` to a string\r\n- specify in the template, that `location` is of `type`: `string`, but with a `format` of `location` [*]\r\n- provide JSON-editor with a custom component for `format`: `location` entries\r\n- display the geometries as `<ol>` `<li>` entries, showing the `properties.name`, and the `geometry.type`\r\n- include an `edit` button, which will _eventually_ allow the player to edit the shapes\r\n\r\nAn example of providing a custom component to json-editor is given here: https://github.com/json-editor/json-editor/blob/8f2b5ec5ca5787b3cd1c6b83ee3ec2ef29aeb34c/src/editors/starrating.js\r\n\r\nA story to develop this against is \"ready to go\" here: http://localhost:6611/?path=/story/local-molecules-jsoneditor--planning-message\r\n\r\n[*] by doing this, json-editor no longer tries to create a tree of controls to represent the JSON data. I _think_ it also prepares JSON-Editor to use a custom `string` editor component.\r\n\r\nMaybe an editor component like this:\r\n![image](https://user-images.githubusercontent.com/1108513/200586842-a55076d0-1669-4da2-b51d-91571e676af5.png)\r\n",
+      "labels": [
+        "enhancement",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1308412664,
+          "user": "IanMayo",
+          "created_at": "2022-11-09T08:47:08Z",
+          "updated_at": "2022-11-09T08:47:08Z",
+          "body": "@lebaphi provided a workaround for this, which works quite well so far:\r\n![image](https://user-images.githubusercontent.com/1108513/200782365-77970259-c5f9-494a-82db-28cf7737cddb.png)\r\n\r\nBut, in the longer term, I'm still interested in providing a custom editor component to `json-editor`.  \r\n\r\nThe `json-editor` control is currently extensible to use custom components. I think they are largely different `format` values for a `type: \"string\"` field in the schema.  The star-rating component linked to above is an example of this.\r\n\r\nI think that's our future path.\r\n"
+        },
+        {
+          "id": 1317395084,
+          "user": "IanMayo",
+          "created_at": "2022-11-16T17:31:24Z",
+          "updated_at": "2022-11-16T17:31:24Z",
+          "body": "Ok, there's a description of how to integrate a new editor component in the `json-editor` documentation here:\r\nhttps://github.com/json-editor/json-editor#custom-editor-interfaces\r\n\r\nI propose we start simply, and progress steadily:\r\n- simple label showing text content\r\n- has function that can convert JSON content to human-readable\r\n- has advanced function that can do lookup from JSON data in array of reference data\r\n- has \"Edit location\" button that can call method passing data, with callback function for results (or null for cancel)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/199804239-fa39ba46-dbe0-408e-b5e9-0e42f696b6fa.png",
+    "https://user-images.githubusercontent.com/1108513/200586842-a55076d0-1669-4da2-b51d-91571e676af5.png",
+    "https://user-images.githubusercontent.com/1108513/200782365-77970259-c5f9-494a-82db-28cf7737cddb.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 52
+}

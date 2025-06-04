@@ -1,0 +1,85 @@
+{
+  "number": 1026,
+  "title": "Create new document in collaborative working channel 998",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-28T11:42:01Z",
+  "updated_at": "2021-08-30T16:18:19Z",
+  "closed_at": "2021-08-30T16:18:19Z",
+  "merged_at": "2021-08-30T16:18:19Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1026",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1026/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1026/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1026",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n #988\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 362,
+  "deletions": 1672,
+  "changed_files": 24,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 907630853,
+      "user": "IanMayo",
+      "created_at": "2021-08-28T14:03:35Z",
+      "updated_at": "2021-08-28T14:03:35Z",
+      "body": "One change please (Which I can fix on Monday if you aren't able to).\r\n\r\nFor the old \"RFI Messges\" board, we looked for RFI messages in all channels, and collated them together.\r\n\r\nBut for the new collaborative working status board - it replaces a normal channel.  So, the Game Designer creates a special \"Collab Editing\" channel in the admin pages, called (for example) \"Blue COAs\".  Then in the client, when we're creating the tabs if it's a \"Collab Editing\" channel - we show the new status board for that channel, instead of the old list of messages.\r\n\r\nHope this makes sense :-)\r\n\r\nAs I said - I can change this on Monday, if you aren't able to."
+    },
+    {
+      "id": 908258243,
+      "user": "IanMayo",
+      "created_at": "2021-08-30T11:17:00Z",
+      "updated_at": "2021-08-30T11:21:23Z",
+      "body": "We have an issue with `New Message` scrolling up with the JSON-Editor message.\r\n\r\n![screencast](https://i.gyazo.com/cdd41a3a40ac46eb08612dc024f39d4e.gif)\r\n\r\nAah, it's actually sliding up with the whole channel:\r\n\r\n![screencast 2](https://i.gyazo.com/9541d9ca1851dbd5cafa4def1e8e821a.gif)"
+    },
+    {
+      "id": 908409445,
+      "user": "IanMayo",
+      "created_at": "2021-08-30T14:52:27Z",
+      "updated_at": "2021-08-30T14:52:27Z",
+      "body": "Aah, I've got another issue, please @lilitkarapetyan.\r\n\r\nThe `Assign to` menu is being shown behind the json-editor:\r\n![image](https://user-images.githubusercontent.com/1108513/131358802-9252d300-ec08-4996-932b-bcb4105ecd37.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    998
+  ],
+  "issues": [
+    {
+      "id": 974631416,
+      "number": 998,
+      "title": "Need to be able to create new document in Collaborative Working channel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-19T12:52:37Z",
+      "updated_at": "2021-08-31T16:36:45Z",
+      "closed_at": "2021-08-31T16:36:45Z",
+      "body": "The collaborative working process starts with the creation of a new message.\r\n\r\nThe UI we use for this in _normal_ channels is a <new message> marker at the foot of the page:\r\n![image](https://user-images.githubusercontent.com/1108513/130071200-c2c79265-ebee-45f5-954c-6b926c2313d5.png)\r\n\r\nFor now, I propose we continue to do this for collaborative working channels.\r\n\r\nSo, if the current user is participating in the channel, and they have one or more templates assigned,  we need to add the <New message> component to the bottom of the `COA Status Board` component.  For collab-working, we will normally only have a single template, but it's worth checking we can support more than one.\r\n\r\nSuspect it's this logic:\r\n* see if current role has template in this channel\r\n* if so, show `<NewMessage/>` component at foot of UI.  Note: this looks difficult, since it's in the `client` package, and I don't think we access `client` from `components`.  I think it's in `client` since that's easiest way to incorporate `json-editor`.\r\n* when new message is sent, intercept call, to create `CollaborationDetails` with correct initial state (as specified in the `CollabOptions`)",
+      "labels": [],
+      "comments": [
+        {
+          "id": 909399079,
+          "user": "IanMayo",
+          "created_at": "2021-08-31T16:36:45Z",
+          "updated_at": "2021-08-31T16:36:45Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/cdd41a3a40ac46eb08612dc024f39d4e.gif",
+    "https://i.gyazo.com/9541d9ca1851dbd5cafa4def1e8e821a.gif",
+    "https://user-images.githubusercontent.com/1108513/131358802-9252d300-ec08-4996-932b-bcb4105ecd37.png",
+    "https://user-images.githubusercontent.com/1108513/130071200-c2c79265-ebee-45f5-954c-6b926c2313d5.png"
+  ],
+  "number_of_changed_files": 24,
+  "total_changed_lines": 2034
+}

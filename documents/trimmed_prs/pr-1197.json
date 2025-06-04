@@ -1,0 +1,179 @@
+{
+  "number": 1197,
+  "title": "1180: As Game Control I wish all users to be using current version of Serge to ensure fixes present",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-10-29T14:35:44Z",
+  "updated_at": "2023-11-15T11:50:31Z",
+  "closed_at": "2023-06-13T13:24:35Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1197",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1197/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1197/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1197",
+  "body": "fixes #1180 ",
+  "additions": 32,
+  "deletions": 11,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 7,
+  "review_comments_count": 4,
+  "total_comments": 11,
+  "comments_data": [
+    {
+      "id": 1004749487,
+      "user": "IanMayo",
+      "created_at": "2022-01-04T12:01:05Z",
+      "updated_at": "2022-01-04T12:01:05Z",
+      "body": "Hello @lebaphi ,\r\nI'm trying to test this.\r\n\r\nI think it's not working as expected.  The server is returning the version defined in `.env\\REACT_APP_VERSION` (a hard-coded value in `\\server\\.env` ).\r\nBut, the client is comparing that to `$npm_package_version` - which comes from `client\\package.json`.  These can get out of sync.\r\nI _think_ we need a solution that takes the version from the root-level `package.json`."
+    },
+    {
+      "id": 1004751410,
+      "user": "IanMayo",
+      "created_at": "2022-01-04T12:04:21Z",
+      "updated_at": "2022-01-04T12:04:21Z",
+      "body": "Aah, I have another request too. Could you introduce `SERVER_PING_STATUS.WRONG_VERSION` enum?  When `wargames_api` returns this value to `version.jsx`, we can display a message indicating `Please refresh browser (F5) to update SERGE`."
+    },
+    {
+      "id": 1020272750,
+      "user": "IanMayo",
+      "created_at": "2022-01-24T16:15:56Z",
+      "updated_at": "2022-01-24T16:15:56Z",
+      "body": "@lebaphi - we have some more thinking to do on this - to ensure we're doing a valid comparison.  Could you share your thoughts on it please?\r\n\r\n> Hello @lebaphi , I'm trying to test this.\r\n> \r\n> I think it's not working as expected. The server is returning the version defined in `.env\\REACT_APP_VERSION` (a hard-coded value in `\\server\\.env` ). But, the client is comparing that to `$npm_package_version` - which comes from `client\\package.json`. These can get out of sync. I _think_ we need a solution that takes the version from the root-level `package.json`.\r\n\r\n"
+    },
+    {
+      "id": 1025595921,
+      "user": "IanMayo",
+      "created_at": "2022-01-31T10:35:06Z",
+      "updated_at": "2022-01-31T10:35:06Z",
+      "body": "Thanks for the update @lilitkarapetyan - we're getting closer.\r\n\r\nCouple of issues:\r\n- This feature is to check the client is running the same version of Serge as the server (in case the software has been updated, but the page hasn't refreshed).  I can't find the code where the client compares version(s) & reports \"Currently running old version. Please refresh browse page\".  Hmm, can you help me find it @lebaphi ?\r\n- The build version (currently 0.3.0) doesn't get incremented in our build process.  But, the build date does.  So, IMHO we need to either increment the patch number in the build process (e.g. to 0.3.1), or use the build date to compare versions of client & server."
+    },
+    {
+      "id": 1205229253,
+      "user": "IanMayo",
+      "created_at": "2022-08-04T13:04:52Z",
+      "updated_at": "2022-08-04T13:52:54Z",
+      "body": "Oh dear @lebaphi , we've (well, I've) left this one too long without updating it.  There are some terrible conflicts.\r\n\r\nI think we should re-apply the changes in this PR to a fresh branch off develop, in a new PR."
+    },
+    {
+      "id": 1491705318,
+      "user": "lebaphi",
+      "created_at": "2023-03-31T10:34:04Z",
+      "updated_at": "2023-03-31T10:34:04Z",
+      "body": "Hi @IanMayo, there is a lot of code changed in develop branch, also I don't see `healthcheck` endpoint, do we need this feature?"
+    },
+    {
+      "id": 1589312856,
+      "user": "IanMayo",
+      "created_at": "2023-06-13T13:24:35Z",
+      "updated_at": "2023-06-13T13:24:35Z",
+      "body": "Close. Revisit this once we have monolith.  Actually, having a monolith should make this go away."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 753153935,
+      "user": "IanMayo",
+      "created_at": "2021-11-19T12:32:39Z",
+      "updated_at": "2021-11-19T12:33:00Z",
+      "body": "@lebaphi  - we're probably going to have to check for `\"NOT_OK\"` in the client code too.  It occurs in line 171, too. So, I think we should create a const somewhere for it - to ensure a type doesn't break the app.",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -157,22 +157,26 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch\n }\n \n export const pingServer = (): Promise<any> => {\n-  return fetch(serverPath + 'healthcheck')\n-  .then((response: Response): Promise<any> => response.json())\n-  .then((data: any) => {\n-    return data.status\n-  })\n-  .catch((err) => {\n-    console.log(err)\n-    return \"NOT_OK\"\n-  })\n-} \n+  return fetch(serverPath + 'health_check')\n+    .then((response: Response): Promise<any> => response.json())\n+    .then((data: any) => {\n+      // check the version returned from the server with the current client version\n+      if (!data.version || data.version !== process.env.REACT_APP_VERSION) {\n+        return \"NOT_OK\"",
+      "html_url": "https://github.com/serge-web/serge/pull/1197#discussion_r753153935"
+    },
+    {
+      "id": 753632236,
+      "user": "lebaphi",
+      "created_at": "2021-11-20T04:26:58Z",
+      "updated_at": "2021-11-20T04:26:58Z",
+      "body": "sure, I will update now @IanMayo",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -157,22 +157,26 @@ export const listenForWargameChanges = (name: string, dispatch: PlayerUiDispatch\n }\n \n export const pingServer = (): Promise<any> => {\n-  return fetch(serverPath + 'healthcheck')\n-  .then((response: Response): Promise<any> => response.json())\n-  .then((data: any) => {\n-    return data.status\n-  })\n-  .catch((err) => {\n-    console.log(err)\n-    return \"NOT_OK\"\n-  })\n-} \n+  return fetch(serverPath + 'health_check')\n+    .then((response: Response): Promise<any> => response.json())\n+    .then((data: any) => {\n+      // check the version returned from the server with the current client version\n+      if (!data.version || data.version !== process.env.REACT_APP_VERSION) {\n+        return \"NOT_OK\"",
+      "html_url": "https://github.com/serge-web/serge/pull/1197#discussion_r753632236"
+    },
+    {
+      "id": 754388251,
+      "user": "IanMayo",
+      "created_at": "2021-11-22T15:29:37Z",
+      "updated_at": "2021-11-22T15:29:38Z",
+      "body": "Hello @philb89 - it looks like we don't use `SERVER_PING_STATUS.OK`.  We should, shouldn't we?",
+      "path": "packages/config/src/globals.ts",
+      "diff_hunk": "@@ -108,3 +108,7 @@ export const serverPath = (\n export const databasePath = `${serverPath}db/`\n export const iconUploaderPath = `${serverPath}saveIcon`\n export const hiddenPrefix = '_#_'\n+export const SERVER_PING_STATUS = {\n+  SUCCEED: 'OK',",
+      "html_url": "https://github.com/serge-web/serge/pull/1197#discussion_r754388251"
+    },
+    {
+      "id": 756135651,
+      "user": "lebaphi",
+      "created_at": "2021-11-24T14:34:50Z",
+      "updated_at": "2021-11-24T14:34:50Z",
+      "body": "yep, but I added for the future, may we need to use it :D",
+      "path": "packages/config/src/globals.ts",
+      "diff_hunk": "@@ -108,3 +108,7 @@ export const serverPath = (\n export const databasePath = `${serverPath}db/`\n export const iconUploaderPath = `${serverPath}saveIcon`\n export const hiddenPrefix = '_#_'\n+export const SERVER_PING_STATUS = {\n+  SUCCEED: 'OK',",
+      "html_url": "https://github.com/serge-web/serge/pull/1197#discussion_r756135651"
+    }
+  ],
+  "issue_numbers": [
+    171,
+    1180
+  ],
+  "issues": [
+    {
+      "id": 551540872,
+      "number": 171,
+      "title": "(temporarily) drop Cypress",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-01-17T17:27:41Z",
+      "updated_at": "2020-01-17T17:52:34Z",
+      "closed_at": "2020-01-17T17:52:33Z",
+      "body": "Drop Cypress from Travis build, until we sort licensing",
+      "labels": [],
+      "comments": []
+    },
+    {
+      "id": 1030168835,
+      "number": 1180,
+      "title": "As Game Control I wish all users to be using current version of Serve to ensure fixes present",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-10-19T11:06:53Z",
+      "updated_at": "2024-06-19T08:43:50Z",
+      "closed_at": "2024-06-19T08:43:50Z",
+      "body": "For one wargame, users are playing from Virtual Machines.\r\n\r\nThe game lasts several months, and the VMs can stay alive between turns.\r\n\r\nYesterday I encountered a user playing Serve version dated 24th Sept. He experienced an issue that I know was fixed on the release dated 29th Sept.  I know an F5 refresh would update his version of Serge.\r\n\r\nThis is an enduring issue that may hurt us/them in the future.\r\n\r\nOne potential solution to this is for the server to reply to heartbeat with the current version. If this is newer than the client version, then a dialog can open to ask the user to refresh.\r\n\r\nFor this to happen we'd require the build version in both the server (node) code and the client code. We're currently not incrementing the version on updates - just the build date.\r\n\r\nThe build date comes from this client-side code:\r\n![image](https://user-images.githubusercontent.com/1108513/137897366-adebad45-9163-4d5c-87e0-db8f8a659932.png)\r\n\r\nThere is a chance that use of that code could produce different times if separately declared in `client` package build vs `server` package build steps.  So, the code needs to go into a single central repository. Maybe in `config` package?\r\n\r\nWe do have a challenge here.  The issue this week was with an old copy of Serge.  If we add this feature, these old copies of Serge will not know how to handle the version (build) data coming back from the server.\r\n\r\nSo, I propose this modification:\r\n- change the URL used for heartbeat\r\n- updated server won't reply to old URL. Clients will show error. They will be advised to refresh\r\n- server will return build version from new URL\r\n\r\nNote: I don't necessarily think this is an opportunity to move forward the `last-interaction` logic at #910 ",
+      "labels": [],
+      "comments": [
+        {
+          "id": 948676375,
+          "user": "lebaphi",
+          "created_at": "2021-10-21T14:30:05Z",
+          "updated_at": "2021-10-29T14:32:40Z",
+          "body": "Hi @IanMayo, let me sort things out a bit:\r\n- Change the API `/healthcheck` to `/health_check` => make the old Serge call pingServer fails\r\n- The new API `/health_check` will return the current version which defined in the `.env` file\r\n\r\n=> If we apply this feature, the server won't reply on the old `healthcheck` api, yes. And the client will show an error, they will be advised to refresh.\r\n\r\n- In the new client code we'll do a little update, comparing the current version and the one coming back from the `/health_check`. If they are different, we will display an error and advise the user to refresh.\r\n\r\nSo what do you think?"
+        },
+        {
+          "id": 1205231185,
+          "user": "IanMayo",
+          "created_at": "2022-08-04T13:06:31Z",
+          "updated_at": "2022-08-04T13:06:31Z",
+          "body": "We have some build issues related to this issue. The Serge version number is in multiple locations in the repo, and our release process doesn't include a step to increment the build version.\r\n\r\nI'm going to re-assign it to @lilitkarapetyan , since she has more familiarity with the repo build structure."
+        },
+        {
+          "id": 1589314807,
+          "user": "IanMayo",
+          "created_at": "2023-06-13T13:25:38Z",
+          "updated_at": "2023-06-13T13:25:38Z",
+          "body": "This problem _Should_ go away once we move to monolith #1720 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/137897366-adebad45-9163-4d5c-87e0-db8f8a659932.png"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 43
+}

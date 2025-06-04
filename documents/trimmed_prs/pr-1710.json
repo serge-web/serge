@@ -1,0 +1,75 @@
+{
+  "number": 1710,
+  "title": "1706 hide message authors (partial solution)",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-01T15:18:31Z",
+  "updated_at": "2022-08-01T17:06:52Z",
+  "closed_at": "2022-08-01T17:06:51Z",
+  "merged_at": "2022-08-01T17:06:51Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1710",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1710/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1710/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1710",
+  "body": "Simple data & UI changes for #1706\r\n\r\n**Update**: Aah, hold on. Members of umpire force should see the author.  More change(s) needed.\r\n\r\n![giffy](https://i.gyazo.com/c0d0e47e660a1259c28d39cad621a509.gif)",
+  "additions": 32,
+  "deletions": 7,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1706
+  ],
+  "issues": [
+    {
+      "id": 1322488316,
+      "number": 1706,
+      "title": "For some games the author of a message shouldn't be visible",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-29T17:02:23Z",
+      "updated_at": "2022-08-07T11:07:08Z",
+      "closed_at": "2022-08-07T11:07:08Z",
+      "body": "For one wargame we're simulating spoken radio comms via a chat channel.\r\n\r\nIn spoken comms the identity of the person sending the message will not be known to the recipients.\r\n\r\nSo, we should have a flag in game-admin over to \"Hide identity of message authors\" in some chat channels.  So, this will mean introducing a \"options\" panel at the top of \"Chat\" rooms - like we do for `mapping` and `collab status board`.\r\n\r\nStart off with the backend data changes (Ian), then the admin page changes, then the chat channel itself.",
+      "labels": [
+        "4watu"
+      ],
+      "comments": [
+        {
+          "id": 1200425012,
+          "user": "lebaphi",
+          "created_at": "2022-07-31T13:24:40Z",
+          "updated_at": "2022-07-31T13:24:40Z",
+          "body": "do you have a design for it @IanMayo ?"
+        },
+        {
+          "id": 1200430073,
+          "user": "IanMayo",
+          "created_at": "2022-07-31T13:54:51Z",
+          "updated_at": "2022-07-31T13:54:51Z",
+          "body": "I'm happy to do.the data changes first. \nI'll decide if we need UX in a couple of days."
+        },
+        {
+          "id": 1201355182,
+          "user": "IanMayo",
+          "created_at": "2022-08-01T15:29:25Z",
+          "updated_at": "2022-08-01T15:29:25Z",
+          "body": "Helle @lebaphi \r\nI've changed the TypeScript definition for a ChatChannel, and updated the UI to render messages accordingly.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/182184854-5686432e-0212-4711-8214-eacc1e3cd9bb.png)\r\n\r\n\r\nWe just need to add a \"Configuration\" box at the top of the `setting-channels` admin page for chat channels, please.  This will be like the one for `mapping`, but will just have a text toggle (default off). The label will be `Hide message authors\". A popup info box will say \"Hide Force and Role for chat message authors\".  In `setting-channels` we currently do _special processing_ for map channels using `renderMappingConstraints`. We'll have a similar method called `renderChatOptions`.\r\n\r\nI hope that all makes sense :-)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/c0d0e47e660a1259c28d39cad621a509.gif",
+    "https://user-images.githubusercontent.com/1108513/182184854-5686432e-0212-4711-8214-eacc1e3cd9bb.png"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 39
+}

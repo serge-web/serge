@@ -1,0 +1,88 @@
+{
+  "number": 2911,
+  "title": "Should not allow user update 'Health' with invalid value",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-04-10T02:38:23Z",
+  "updated_at": "2024-04-30T11:00:25Z",
+  "closed_at": "2024-04-30T11:00:24Z",
+  "merged_at": "2024-04-30T11:00:24Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2911",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2911/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2911/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2911",
+  "body": "Fixes #2909 ",
+  "additions": 3,
+  "deletions": 3,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 2046727302,
+      "user": "Tristina1788",
+      "created_at": "2024-04-10T07:30:48Z",
+      "updated_at": "2024-04-10T07:30:48Z",
+      "body": "@lebaphi  I can input the number < 0 and > 100 . I think we should not.  @IanMayo How do you think?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/a8543836-ee02-486e-b0d3-88f55c874e06)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/6881a0aa-bcbb-48f2-97ee-375ee755fe8b)\r\n\r\n\r\n"
+    },
+    {
+      "id": 2046831378,
+      "user": "IanMayo",
+      "created_at": "2024-04-10T08:05:34Z",
+      "updated_at": "2024-04-10T08:05:34Z",
+      "body": "> @lebaphi I can input the number < 0 and > 100 . I think we should not. @IanMayo How do you think?\r\n> \r\nNice observation @Tristina1788 , but we don't actually specify limits for number-properties - I just included it in the description as a hint. We _may_ extend to include that in the future, but it's not a current requirement.\r\n\r\nHere is what we specify:\r\n![image](https://github.com/serge-web/serge/assets/1108513/f68daadd-b266-462a-bbc7-7afe741cfc36)\r\n"
+    },
+    {
+      "id": 2047025508,
+      "user": "Tristina1788",
+      "created_at": "2024-04-10T09:32:24Z",
+      "updated_at": "2024-04-10T09:32:24Z",
+      "body": "> > @lebaphi I can input the number < 0 and > 100 . I think we should not. @IanMayo How do you think?\r\n> \r\n> Nice observation @Tristina1788 , but we don't actually specify limits for number-properties - I just included it in the description as a hint. We _may_ extend to include that in the future, but it's not a current requirement.\r\n> \r\n> Here is what we specify: ![image](https://private-user-images.githubusercontent.com/1108513/321155049-f68daadd-b266-462a-bbc7-7afe741cfc36.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTI3NDEyMTksIm5iZiI6MTcxMjc0MDkxOSwicGF0aCI6Ii8xMTA4NTEzLzMyMTE1NTA0OS1mNjhkYWFkZC1iMjY2LTQ2MmEtYmJjNy03YWZlNzQxY2ZjMzYucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDQxMCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA0MTBUMDkyMTU5WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9Yzg4ZmE5ZmM1MmVkMWRiOWNhMWEyY2M2ZGZjZjliZGYzNWY1MmVjMGM0MzYxNDk4YzE2MTljOGM2NTIxYTNiOSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.nfpkYapXLM-OfETXxIfiow4M5pufI9_kCdg1TxQ4ccQ)\r\n\r\nNow I can see the hint for 'Health' as expected.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/4d797791-f6ab-4627-bb68-368692d9f777)\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    100
+  ],
+  "issues": [
+    {
+      "id": 536572284,
+      "number": 100,
+      "title": "5.1.7 - Submit orders (mock)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2019-12-11T19:34:40Z",
+      "updated_at": "2020-01-15T10:52:35Z",
+      "closed_at": "2020-01-15T10:52:34Z",
+      "body": "As a < **player** >, I want to < **submit my orders** > so that < **my forces move towards my tactical objectives** >.\n\n# Acceptance criteria\n\nSetup: load game, play as red/blue, produce some planned routes for my platforms\n\n- [ ] When I press submit, the 'Orders' message is sent\n\n# UX\n_Maybe_ it's just a Send button\n\n# Notes\nIan to produce example of message format.\n\n# Infrastructure\nIn this phase this will be implemented by providing a drop-down list that contains a set of JSON messages that were predefined in our source code. ",
+      "labels": [
+        "User Story"
+      ],
+      "comments": [
+        {
+          "id": 574606430,
+          "user": "IanMayo",
+          "created_at": "2020-01-15T10:52:34Z",
+          "updated_at": "2020-01-15T10:52:34Z",
+          "body": "We can drop this, we're close to real orders being sent around"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/a8543836-ee02-486e-b0d3-88f55c874e06",
+    "https://github.com/serge-web/serge/assets/107697044/6881a0aa-bcbb-48f2-97ee-375ee755fe8b",
+    "https://github.com/serge-web/serge/assets/1108513/f68daadd-b266-462a-bbc7-7afe741cfc36",
+    "https://private-user-images.githubusercontent.com/1108513/321155049-f68daadd-b266-462a-bbc7-7afe741cfc36.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTI3NDEyMTksIm5iZiI6MTcxMjc0MDkxOSwicGF0aCI6Ii8xMTA4NTEzLzMyMTE1NTA0OS1mNjhkYWFkZC1iMjY2LTQ2MmEtYmJjNy03YWZlNzQxY2ZjMzYucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDQxMCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA0MTBUMDkyMTU5WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9Yzg4ZmE5ZmM1MmVkMWRiOWNhMWEyY2M2ZGZjZjliZGYzNWY1MmVjMGM0MzYxNDk4YzE2MTljOGM2NTIxYTNiOSZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.nfpkYapXLM-OfETXxIfiow4M5pufI9_kCdg1TxQ4ccQ",
+    "https://github.com/serge-web/serge/assets/107697044/4d797791-f6ab-4627-bb68-368692d9f777"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 6
+}

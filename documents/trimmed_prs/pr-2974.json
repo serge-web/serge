@@ -1,0 +1,163 @@
+{
+  "number": 2974,
+  "title": "2963_Send_new_message_without_input",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-06-04T12:52:43Z",
+  "updated_at": "2024-06-19T08:37:26Z",
+  "closed_at": "2024-06-10T11:12:37Z",
+  "merged_at": "2024-06-10T11:12:37Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2974",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2974/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2974/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2974",
+  "body": "Fixes #2963 \r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 27,
+  "deletions": 23,
+  "changed_files": 5,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 13,
+  "review_comments_count": 0,
+  "total_comments": 13,
+  "comments_data": [
+    {
+      "id": 2147672367,
+      "user": "Tristina1788",
+      "created_at": "2024-06-04T14:23:34Z",
+      "updated_at": "2024-06-04T14:23:34Z",
+      "body": "@IanMayo @lilitkarapetyan Now I can't send message without input values from the second time. But it's enable to send on the first time (After login user role on play game). => It should the same for all times. \r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/c42c99d1-da48-4658-b025-717cef982d4d\r\n\r\n\r\n"
+    },
+    {
+      "id": 2149317050,
+      "user": "Tristina1788",
+      "created_at": "2024-06-05T09:25:33Z",
+      "updated_at": "2024-06-05T09:25:33Z",
+      "body": "> @IanMayo @lilitkarapetyan Now I can't send message without input values from the second time. But it's enable to send on the first time (After login user role on play game). => It should the same for all times.\r\n> \r\n>  cannot-send-empty-message-on-second-time.mp4\r\n\r\n@lilitkarapetyan  I still get same issue as before."
+    },
+    {
+      "id": 2149341045,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-05T09:36:43Z",
+      "updated_at": "2024-06-05T09:36:58Z",
+      "body": "> > @IanMayo @lilitkarapetyan Now I can't send message without input values from the second time. But it's enable to send on the first time (After login user role on play game). => It should the same for all times.\r\n> > cannot-send-empty-message-on-second-time.mp4\r\n> \r\n> @lilitkarapetyan I still get same issue as before.\r\n\r\nShould we be able to send a message without input values ?"
+    },
+    {
+      "id": 2149368928,
+      "user": "Tristina1788",
+      "created_at": "2024-06-05T09:49:36Z",
+      "updated_at": "2024-06-05T09:49:36Z",
+      "body": "> > > @IanMayo @lilitkarapetyan Now I can't send message without input values from the second time. But it's enable to send on the first time (After login user role on play game). => It should the same for all times.\r\n> > > cannot-send-empty-message-on-second-time.mp4\r\n> > \r\n> > \r\n> > @lilitkarapetyan I still get same issue as before.\r\n> \r\n> Should we be able to send a message without input values ?\r\n\r\nYes, I think so. It depends on the input field is optional or not. And if we can't send message without input, it should be the same for all time. Currently, after login to game play, I can send message without input, but the second, I can't ( As above video) .\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2149385069,
+      "user": "IanMayo",
+      "created_at": "2024-06-05T09:57:15Z",
+      "updated_at": "2024-06-05T09:57:15Z",
+      "body": "Ok. I don't have a strong feeling about whether we allow empty messages or not. I'm happy with the `easiest` solution.  But, we should have consistent behaviour across whether the user has just opened the channel, or if they have already sent messages."
+    },
+    {
+      "id": 2149423408,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-05T10:15:22Z",
+      "updated_at": "2024-06-05T10:15:22Z",
+      "body": "> > > > @IanMayo @lilitkarapetyan Now I can't send message without input values from the second time. But it's enable to send on the first time (After login user role on play game). => It should the same for all times.\r\n> > > > cannot-send-empty-message-on-second-time.mp4\r\n> > > \r\n> > > \r\n> > > @lilitkarapetyan I still get same issue as before.\r\n> > \r\n> > \r\n> > Should we be able to send a message without input values ?\r\n> \r\n> Yes, I think so. It depends on the input field is optional or not. And if we can't send message without input, it should be the same for all time. Currently, after login to game play, I can send message without input, but the second, I can't ( As above video) .\r\n\r\nI Think after my last commit, it doesn't let me send a message without typing. I will investigate it now."
+    },
+    {
+      "id": 2149460418,
+      "user": "Tristina1788",
+      "created_at": "2024-06-05T10:34:41Z",
+      "updated_at": "2024-06-05T10:34:41Z",
+      "body": "> > > > > @IanMayo @lilitkarapetyan Now I can't send message without input values from the second time. But it's enable to send on the first time (After login user role on play game). => It should the same for all times.\r\n> > > > > cannot-send-empty-message-on-second-time.mp4\r\n> > > > \r\n> > > > \r\n> > > > @lilitkarapetyan I still get same issue as before.\r\n> > > \r\n> > > \r\n> > > Should we be able to send a message without input values ?\r\n> > \r\n> > \r\n> > Yes, I think so. It depends on the input field is optional or not. And if we can't send message without input, it should be the same for all time. Currently, after login to game play, I can send message without input, but the second, I can't ( As above video) .\r\n> \r\n> I Think after my last commit, it doesn't let me send a message without typing. I will investigate it now.\r\n\r\nYes, This is the screencast for latest code. I can send message at first time after login.\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/e4c5699b-d1e7-4f24-8639-9ce956a2ee0d\r\n\r\n"
+    },
+    {
+      "id": 2149475230,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-05T10:42:17Z",
+      "updated_at": "2024-06-05T10:48:50Z",
+      "body": "@IanMayo I think To solve this problem, we need to retrieve the value of `jsonEditor ` every time it is accessed. but the ways to do this will be different depending on whether we are in the develop branch or `2892_Edit_templates_in_admin_pages`.\r\n\r\n\r\nWe should utilize the value of `jsonEditor `upon its initial call, ensuring that the `formMessage ` value is updated to match the content of our form.\r\n\r\nin wich branch should I make the change ?"
+    },
+    {
+      "id": 2149490760,
+      "user": "IanMayo",
+      "created_at": "2024-06-05T10:50:28Z",
+      "updated_at": "2024-06-05T10:50:28Z",
+      "body": "> @IanMayo I think To solve this problem, we need to retrieve the value of `jsonEditor ` every time it is accessed. but the ways to do this will be different depending on whether we are in the develop branch or `2892_Edit_templates_in_admin_pages`.\r\n> \r\n> We should utilize the value of `jsonEditor `upon its initial call, ensuring that the `formMessage ` value is updated to match the content of our form.\r\n\r\nSure, ok. I don't think it's worth fixing this particular part of the issue in `develop`.  So, @lilitkarapetyan - how about merging `edit templates` branch into this, and fixing it relative to that branch?  "
+    },
+    {
+      "id": 2149575783,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-05T11:18:22Z",
+      "updated_at": "2024-06-05T11:20:25Z",
+      "body": "> > @IanMayo I think To solve this problem, we need to retrieve the value of `jsonEditor ` every time it is accessed. but the ways to do this will be different depending on whether we are in the develop branch or `2892_Edit_templates_in_admin_pages`.\r\n> > We should utilize the value of `jsonEditor `upon its initial call, ensuring that the `formMessage ` value is updated to match the content of our form.\r\n> \r\n> Sure, ok. I don't think it's worth fixing this particular part of the issue in `develop`. So, @lilitkarapetyan - how about merging `edit templates` branch into this, and fixing it relative to that branch?\r\n\r\nI think so. but I thnk we could also fix the issues in the `2892_Edit_templates_in_admin_pages branch `"
+    },
+    {
+      "id": 2151765790,
+      "user": "Tristina1788",
+      "created_at": "2024-06-06T08:57:50Z",
+      "updated_at": "2024-06-06T08:57:50Z",
+      "body": "@lilitkarapetyan @IanMayo It shows as the error 'must match format \"Time\"' although the default value is correct format.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/37326910-848e-453b-8d1f-21898f225c73)\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/28c1a754-97b8-4ff6-b87b-d8a400983f0b\r\n\r\n"
+    },
+    {
+      "id": 2152075786,
+      "user": "Tristina1788",
+      "created_at": "2024-06-06T11:14:59Z",
+      "updated_at": "2024-06-06T11:19:02Z",
+      "body": "@lilitkarapetyan  @IanMayo \r\n\r\nNow I can send message without error about time format and send new message without input, it will not get the same content which the last message => It works as expected.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/b11bf4dc-9f07-4af0-8a02-c03670b8afa4\r\n\r\n@IanMayo The fixing for ticket is works fine now. But we merge this fixing, it will merge all changes from `2892_Edit_templates_in_admin_pages` . And that branch is still not done. Just remind if you forget that.\r\n"
+    },
+    {
+      "id": 2178095652,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-19T08:37:25Z",
+      "updated_at": "2024-06-19T08:37:25Z",
+      "body": "fixes #2963"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2963
+  ],
+  "issues": [
+    {
+      "id": 2323213119,
+      "number": 2963,
+      "title": "Send new message without input, it will get the same content which the last message",
+      "state": "open",
+      "user": "Tristina1788",
+      "created_at": "2024-05-29T12:33:56Z",
+      "updated_at": "2024-06-19T10:08:07Z",
+      "closed_at": null,
+      "body": "## 🐞 Bug description\r\nSend new message without input, it will get the same content which the last message\r\n\r\n## 🔢 Steps to Reproduce\r\n1. Playgame with role Blue- Blue 3rd Party\r\n2. Send the first message with some input content\r\n3. Send the second new message without input infor message\r\n4. Notice the second message has same content with the first message\r\n\r\n## ⚙️ Expected behavior\r\nSend new message without input should not get the same content which the last message\r\n\r\n## 🖥️ Screenscast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/6bc21dc3-ed5b-4492-b539-b43c9a475b0c\r\n\r\n\r\n\r\n## 💻 System information\r\n - Browser : Chrome\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 2178173714,
+          "user": "Tristina1788",
+          "created_at": "2024-06-19T09:13:24Z",
+          "updated_at": "2024-06-19T09:13:51Z",
+          "body": "@IanMayo this issue is still happen on 'develop' because the fixing is merged on `2892_Edit_templates_in_admin_pages` . So should we close when it's not merged to developed?"
+        },
+        {
+          "id": 2178291616,
+          "user": "IanMayo",
+          "created_at": "2024-06-19T10:08:07Z",
+          "updated_at": "2024-06-19T10:08:07Z",
+          "body": "Yes - @Tristina1788 - let's close once the fix is in `develop`."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/37326910-848e-453b-8d1f-21898f225c73"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 50
+}

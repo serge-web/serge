@@ -1,0 +1,108 @@
+{
+  "number": 1460,
+  "title": "1420: Move the Trash icon to next Role entry",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-26T03:31:23Z",
+  "updated_at": "2022-03-28T12:17:37Z",
+  "closed_at": "2022-03-28T12:17:36Z",
+  "merged_at": "2022-03-28T12:17:36Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1460",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1460/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1460/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1460",
+  "body": "Fixes #1420 \r\n\r\n![image](https://user-images.githubusercontent.com/26705621/160223145-bc0e4786-8f75-458a-a08f-e5b43a6ecb51.png)\r\n",
+  "additions": 58,
+  "deletions": 39,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1080566411,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-28T12:05:17Z",
+      "updated_at": "2022-03-28T12:05:17Z",
+      "body": "Just checked deployment. Looks good. Thanks guys!"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1420
+  ],
+  "issues": [
+    {
+      "id": 1169835999,
+      "number": 1420,
+      "title": "Delete Role Bug",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-15T15:33:12Z",
+      "updated_at": "2022-06-26T17:57:55Z",
+      "closed_at": "2022-06-26T17:57:55Z",
+      "body": "It appears roles can't be deleted once they are added to the list on a new wargame: \r\n\r\n![Delete Role Bug](https://user-images.githubusercontent.com/85491794/158413628-ee4f5117-c613-4e04-a7eb-48986afcf3dc.png)\r\n\r\nThis issue is also present in already existing wargames: \r\n\r\n![Delete Role Bug Small Wargame](https://user-images.githubusercontent.com/85491794/158413685-d0d13a3f-5386-4f9d-b8a1-f191a757c16a.png)\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1068133291,
+          "user": "IanMayo",
+          "created_at": "2022-03-15T15:37:52Z",
+          "updated_at": "2022-03-15T15:37:52Z",
+          "body": "Another for you, please @lilitkarapetyan . Maybe this is related to the other instances of the issue."
+        },
+        {
+          "id": 1077593062,
+          "user": "IanMayo",
+          "created_at": "2022-03-24T12:49:45Z",
+          "updated_at": "2022-03-24T12:49:45Z",
+          "body": "Fixed in #1423 "
+        },
+        {
+          "id": 1077879044,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-24T17:43:12Z",
+          "updated_at": "2022-03-24T17:43:12Z",
+          "body": "I think we agreed for the bin to be on the left, next to the name, before closing?\r\n\r\n![Bin on the right](https://user-images.githubusercontent.com/85491794/159977764-c0bff25f-9afb-4e77-bdc7-a4b7d8db7ba4.png)\r\n\r\nIt's still on the right.\r\n"
+        },
+        {
+          "id": 1079171651,
+          "user": "IanMayo",
+          "created_at": "2022-03-25T16:02:51Z",
+          "updated_at": "2022-03-25T16:02:51Z",
+          "body": "Oops, well spotted.\r\n\r\n@lebaphi - could you move the `trash` icon next to the `Roles` entry please?"
+        },
+        {
+          "id": 1096885283,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-12T15:35:47Z",
+          "updated_at": "2022-04-12T15:35:47Z",
+          "body": "Unfortunately, this bug has reappeared: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/162999890-8e654e76-602f-4a9d-906a-6892b6fcdd0f.mp4\r\n\r\n\r\n"
+        },
+        {
+          "id": 1166601768,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-26T17:57:55Z",
+          "updated_at": "2022-06-26T17:57:55Z",
+          "body": "This has been fixed."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/160223145-bc0e4786-8f75-458a-a08f-e5b43a6ecb51.png",
+    "https://user-images.githubusercontent.com/85491794/158413628-ee4f5117-c613-4e04-a7eb-48986afcf3dc.png",
+    "https://user-images.githubusercontent.com/85491794/158413685-d0d13a3f-5386-4f9d-b8a1-f191a757c16a.png",
+    "https://user-images.githubusercontent.com/85491794/159977764-c0bff25f-9afb-4e77-bdc7-a4b7d8db7ba4.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 97
+}

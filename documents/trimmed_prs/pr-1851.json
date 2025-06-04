@@ -1,0 +1,91 @@
+{
+  "number": 1851,
+  "title": "1841 Table Improvement",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-15T11:27:42Z",
+  "updated_at": "2022-09-15T17:24:41Z",
+  "closed_at": "2022-09-15T17:24:40Z",
+  "merged_at": "2022-09-15T17:24:40Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1851",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1851/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1851/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1851",
+  "body": "Fixes #1841 \r\n",
+  "additions": 155,
+  "deletions": 1697,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 2,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1248131456,
+      "user": "IanMayo",
+      "created_at": "2022-09-15T13:51:14Z",
+      "updated_at": "2022-09-15T13:51:14Z",
+      "body": "Thanks for the @lebaphi  Today I've been playing with trying to get hold of the currently visible set of rows, but hadn't managed what you did.\r\n\r\nIn the next phase of the project we'll introduce a map, and show counters on the map for all assets currently shown in the `ownForces` and `opForces` tables.  That's why `SupportPanel` will have a list of `opForces` and `ownForces` in state.\r\n\r\nI've had a play. You'll see in my commit [here](https://github.com/serge-web/serge/pull/1851/commits/07182878ee3859233bf3b9bb4c1dbc2220a8dc19#diff-c6aa963ec22d0ec4980b9e74e5753fe92558b1909a041147337c2f4e988e5963R37) that I'd like to keep track of which rows are visible in each table (one for own/friendly forces, and one for opposition/unfriendly) forces.   But, if I try to store the state (`setOwnForces`) in the callback, I get into an infinite loop and break the call stack.   I _think_ the callback needs to test if the new `data` is different to the existing data, and only update when different (I did this via `_.isEqual()`) - but setting state goes into another infinite loop.\r\n\r\nAre you able to help out please?\r\n\r\nThe end results will be that we have `opForces` and `ownForces` state arrays that only get updated when the table filter changes."
+    },
+    {
+      "id": 1248139100,
+      "user": "lebaphi",
+      "created_at": "2022-09-15T13:56:57Z",
+      "updated_at": "2022-09-15T13:56:57Z",
+      "body": "sure @IanMayo , I'm looking into it"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 972166532,
+      "user": "IanMayo",
+      "created_at": "2022-09-15T15:56:50Z",
+      "updated_at": "2022-09-15T15:56:51Z",
+      "body": "thanks @lebaphi - can I reduce the items in this list, to reduce the data change that trigger a re-render?",
+      "path": "packages/components/src/local/organisms/support-panel/index.tsx",
+      "diff_hunk": "@@ -71,71 +71,102 @@ export const SupportPanel: React.FC<PropTypes> = ({\n \n   const onSelectionChange = (opFor: boolean, data: Row[]): void => {\n     console.log('new selection', opFor, data)\n+    setOpForces(data)\n   }\n \n   const onVisibleRowsChange = (opFor: boolean, data: Row[]): void => {\n     console.log('rows change', opFor, data)\n+    setOwnForces(data)\n   }\n \n-  return (\n-    <div className={styles.root}>\n-      <Slide direction=\"right\" in={isShowPanel}>\n-        <div className={styles.panel}>\n-          <Rnd\n-            disableDragging\n-            style={PANEL_STYLES}\n-            default={DEFAULT_SIZE}\n-            minWidth={MIN_PANEL_WIDTH}\n-            maxWidth={MAX_PANEL_WIDTH}\n-            minHeight={MIN_PANEL_HEIGHT}\n-            maxHeight={MAX_PANEL_HEIGHT}\n-          >\n-            <div className={styles.content}>\n-              <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>\n-                {activeTab === TABS[0] &&\n-                  <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}\n-                    playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false}\n-                    onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />\n-                }\n-              </TabPanel>\n-              <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >\n-                {activeTab === TABS[1] &&\n-                  <PlanningMessagesList\n-                    messages={messages}\n-                    gameDate={gameDate}\n-                    playerForceId={selectedForce}\n-                    playerRoleId={selectedRole}\n-                    isUmpire={true}\n-                    icons={forceIcons}\n-                    colors={forceCols.map((item: ForceStyle) => item.color)}\n-                    names={forceNames}\n-                    turnPresentation={turnPresentation}\n-                    hideForcesInChannel={!!hideForcesInChannel}\n-                    onRead={onRead}\n-                    onUnread={onUnread}\n-                    onMarkAllAsRead={onReadAll}\n-                    channel={channel}\n-                    templates={templates}\n-                  />\n-                }\n-              </TabPanel>\n-              <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >\n-                {activeTab === TABS[2] &&\n-                  <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}\n-                    playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true}\n-                    onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />\n-                }\n-              </TabPanel>\n-              <div className={styles['resize-indicator-container']} >\n-                <div className={styles['resize-indicator-icon']} >\n-                  <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />\n-                </div>\n+  useEffect(() => {\n+    console.log('=> ownForces: ', ownForces)\n+  }, [ownForces])\n+\n+  useEffect(() => {\n+    console.log('=> opForces: ', opForces)\n+  }, [opForces])\n+\n+  const SlideComponent = useMemo(() => (\n+    <Slide direction=\"right\" in={isShowPanel}>\n+      <div className={styles.panel}>\n+        <Rnd\n+          disableDragging\n+          style={PANEL_STYLES}\n+          default={DEFAULT_SIZE}\n+          minWidth={MIN_PANEL_WIDTH}\n+          maxWidth={MAX_PANEL_WIDTH}\n+          minHeight={MIN_PANEL_HEIGHT}\n+          maxHeight={MAX_PANEL_HEIGHT}\n+        >\n+          <div className={styles.content}>\n+            <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>\n+              {activeTab === TABS[0] &&\n+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}\n+                  playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false}\n+                  onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />\n+              }\n+            </TabPanel>\n+            <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >\n+              {activeTab === TABS[1] &&\n+                <PlanningMessagesList\n+                  messages={messages}\n+                  gameDate={gameDate}\n+                  playerForceId={selectedForce}\n+                  playerRoleId={selectedRole}\n+                  isUmpire={true}\n+                  icons={forceIcons}\n+                  colors={forceCols.map((item: ForceStyle) => item.color)}\n+                  names={forceNames}\n+                  turnPresentation={turnPresentation}\n+                  hideForcesInChannel={!!hideForcesInChannel}\n+                  onRead={onRead}\n+                  onUnread={onUnread}\n+                  onMarkAllAsRead={onReadAll}\n+                  channel={channel}\n+                  templates={templates}\n+                />\n+              }\n+            </TabPanel>\n+            <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >\n+              {activeTab === TABS[2] &&\n+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}\n+                  playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true}\n+                  onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />\n+              }\n+            </TabPanel>\n+            <div className={styles['resize-indicator-container']} >\n+              <div className={styles['resize-indicator-icon']} >\n+                <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />\n               </div>\n             </div>\n-          </Rnd>\n-          <TabPanelActions onChange={onTabChange} />\n-        </div>\n-      </Slide>\n+          </div>\n+        </Rnd>\n+        <TabPanelActions onChange={onTabChange} />\n+      </div>\n+    </Slide>\n+  ),\n+    [\n+      isShowPanel,",
+      "html_url": "https://github.com/serge-web/serge/pull/1851#discussion_r972166532"
+    },
+    {
+      "id": 972237407,
+      "user": "lebaphi",
+      "created_at": "2022-09-15T17:06:43Z",
+      "updated_at": "2022-09-15T17:06:43Z",
+      "body": "Hi @IanMayo , yes you can.",
+      "path": "packages/components/src/local/organisms/support-panel/index.tsx",
+      "diff_hunk": "@@ -71,71 +71,102 @@ export const SupportPanel: React.FC<PropTypes> = ({\n \n   const onSelectionChange = (opFor: boolean, data: Row[]): void => {\n     console.log('new selection', opFor, data)\n+    setOpForces(data)\n   }\n \n   const onVisibleRowsChange = (opFor: boolean, data: Row[]): void => {\n     console.log('rows change', opFor, data)\n+    setOwnForces(data)\n   }\n \n-  return (\n-    <div className={styles.root}>\n-      <Slide direction=\"right\" in={isShowPanel}>\n-        <div className={styles.panel}>\n-          <Rnd\n-            disableDragging\n-            style={PANEL_STYLES}\n-            default={DEFAULT_SIZE}\n-            minWidth={MIN_PANEL_WIDTH}\n-            maxWidth={MAX_PANEL_WIDTH}\n-            minHeight={MIN_PANEL_HEIGHT}\n-            maxHeight={MAX_PANEL_HEIGHT}\n-          >\n-            <div className={styles.content}>\n-              <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>\n-                {activeTab === TABS[0] &&\n-                  <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}\n-                    playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false}\n-                    onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />\n-                }\n-              </TabPanel>\n-              <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >\n-                {activeTab === TABS[1] &&\n-                  <PlanningMessagesList\n-                    messages={messages}\n-                    gameDate={gameDate}\n-                    playerForceId={selectedForce}\n-                    playerRoleId={selectedRole}\n-                    isUmpire={true}\n-                    icons={forceIcons}\n-                    colors={forceCols.map((item: ForceStyle) => item.color)}\n-                    names={forceNames}\n-                    turnPresentation={turnPresentation}\n-                    hideForcesInChannel={!!hideForcesInChannel}\n-                    onRead={onRead}\n-                    onUnread={onUnread}\n-                    onMarkAllAsRead={onReadAll}\n-                    channel={channel}\n-                    templates={templates}\n-                  />\n-                }\n-              </TabPanel>\n-              <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >\n-                {activeTab === TABS[2] &&\n-                  <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}\n-                    playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true}\n-                    onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />\n-                }\n-              </TabPanel>\n-              <div className={styles['resize-indicator-container']} >\n-                <div className={styles['resize-indicator-icon']} >\n-                  <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />\n-                </div>\n+  useEffect(() => {\n+    console.log('=> ownForces: ', ownForces)\n+  }, [ownForces])\n+\n+  useEffect(() => {\n+    console.log('=> opForces: ', opForces)\n+  }, [opForces])\n+\n+  const SlideComponent = useMemo(() => (\n+    <Slide direction=\"right\" in={isShowPanel}>\n+      <div className={styles.panel}>\n+        <Rnd\n+          disableDragging\n+          style={PANEL_STYLES}\n+          default={DEFAULT_SIZE}\n+          minWidth={MIN_PANEL_WIDTH}\n+          maxWidth={MAX_PANEL_WIDTH}\n+          minHeight={MIN_PANEL_HEIGHT}\n+          maxHeight={MAX_PANEL_HEIGHT}\n+        >\n+          <div className={styles.content}>\n+            <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>\n+              {activeTab === TABS[0] &&\n+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}\n+                  playerForce={selectedForce} isUmpire={true} render={onRender} opFor={false}\n+                  onSelectionChange={(data): void => onSelectionChange(false, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)} />\n+              }\n+            </TabPanel>\n+            <TabPanel className={styles['tab-panel']} value={TABS[1]} active={activeTab === TABS[1]} >\n+              {activeTab === TABS[1] &&\n+                <PlanningMessagesList\n+                  messages={messages}\n+                  gameDate={gameDate}\n+                  playerForceId={selectedForce}\n+                  playerRoleId={selectedRole}\n+                  isUmpire={true}\n+                  icons={forceIcons}\n+                  colors={forceCols.map((item: ForceStyle) => item.color)}\n+                  names={forceNames}\n+                  turnPresentation={turnPresentation}\n+                  hideForcesInChannel={!!hideForcesInChannel}\n+                  onRead={onRead}\n+                  onUnread={onUnread}\n+                  onMarkAllAsRead={onReadAll}\n+                  channel={channel}\n+                  templates={templates}\n+                />\n+              }\n+            </TabPanel>\n+            <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >\n+              {activeTab === TABS[2] &&\n+                <PlanningAssets forceColors={forceCols} platformStyles={platIcons} forces={forces}\n+                  playerForce={selectedForce} isUmpire={true} render={onRender} opFor={true}\n+                  onSelectionChange={(data): void => onSelectionChange(true, data)} onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)} />\n+              }\n+            </TabPanel>\n+            <div className={styles['resize-indicator-container']} >\n+              <div className={styles['resize-indicator-icon']} >\n+                <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />\n               </div>\n             </div>\n-          </Rnd>\n-          <TabPanelActions onChange={onTabChange} />\n-        </div>\n-      </Slide>\n+          </div>\n+        </Rnd>\n+        <TabPanelActions onChange={onTabChange} />\n+      </div>\n+    </Slide>\n+  ),\n+    [\n+      isShowPanel,",
+      "html_url": "https://github.com/serge-web/serge/pull/1851#discussion_r972237407"
+    }
+  ],
+  "issue_numbers": [
+    1841
+  ],
+  "issues": [
+    {
+      "id": 1371260528,
+      "number": 1841,
+      "title": "Table improvements",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-13T11:00:08Z",
+      "updated_at": "2022-09-15T17:24:41Z",
+      "closed_at": "2022-09-15T17:24:41Z",
+      "body": "We still don't have business requirements for the `SupportPanel`.\r\n\r\nInstead, I'd like us to carry on with technical features.\r\n* [ ] remove pagination\r\n* [ ] The `map` will show the assets currently shown in the `my assets` table.  So, we need a `listener` for the table that gets called with a list of `uniqid`s for the  currently visible assets in the table. (in the future we'll do the same for `orders`).  We currently only have the free-text-search in the table, but when entering a phrase like `frigate` the handler should be called with the ids of the matching rows.  Note: it looks like we need to listen for `onSearchChange`.\r\n* [ ] Also allow the assets table to take a `selected` callback. This will pass the `uniqid` of a asset row when selected (and '' when no row is selected).\r\n* [ ] Map mistakenly shown in table footer:  ![image](https://user-images.githubusercontent.com/1108513/189884250-713ab1aa-e44d-49ed-b529-de95c6acfcb9.png)\r\n",
+      "labels": [
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/189884250-713ab1aa-e44d-49ed-b529-de95c6acfcb9.png"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 1852
+}

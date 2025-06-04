@@ -1,0 +1,30 @@
+{
+  "number": 1806,
+  "title": "Hotfix - use valid platform-type values",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-01T10:54:02Z",
+  "updated_at": "2022-09-01T12:39:13Z",
+  "closed_at": "2022-09-01T12:39:12Z",
+  "merged_at": "2022-09-01T12:39:12Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1806",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1806/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1806/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1806",
+  "body": "In some test data we're mistakenly using platformType.name, instead of platformType.id",
+  "additions": 676,
+  "deletions": 950,
+  "changed_files": 16,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 16,
+  "total_changed_lines": 1626
+}

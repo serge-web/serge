@@ -1,0 +1,50 @@
+{
+  "number": 2645,
+  "title": "2644 skip adjudication & don't give umpire as from",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-14T13:43:16Z",
+  "updated_at": "2023-03-14T14:16:20Z",
+  "closed_at": "2023-03-14T14:16:18Z",
+  "merged_at": "2023-03-14T14:16:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2645",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2645/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2645/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2645",
+  "body": "Fixes #2644 \r\nFixes #2642 ",
+  "additions": 86,
+  "deletions": 24,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2644
+  ],
+  "issues": [
+    {
+      "id": 1623455174,
+      "number": 2644,
+      "title": "Introduce \"skip adjudication\" button for umpire staff",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-14T13:13:07Z",
+      "updated_at": "2023-03-14T14:16:20Z",
+      "closed_at": "2023-03-14T14:16:20Z",
+      "body": "Umpires are able to archive orders, which removes them from the adjudication burden.\r\n\r\nBut, this can cause issues for players.\r\n\r\nA better solution would be to mark orders to be skipped from adjudication. Then they can remain in the game",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 110
+}

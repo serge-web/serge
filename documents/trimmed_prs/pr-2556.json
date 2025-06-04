@@ -1,0 +1,60 @@
+{
+  "number": 2556,
+  "title": "orders_tab_not_showing_message_edited_by_current_user",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-06T12:57:08Z",
+  "updated_at": "2023-03-06T14:34:58Z",
+  "closed_at": "2023-03-06T14:34:56Z",
+  "merged_at": "2023-03-06T14:34:56Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2556",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2556/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2556/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2556",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 10,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [
+    "4p9"
+  ],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2549
+  ],
+  "issues": [
+    {
+      "id": 1610218943,
+      "number": 2549,
+      "title": "Orders tab not showing message edited by current user",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-05T14:19:02Z",
+      "updated_at": "2023-03-06T15:08:43Z",
+      "closed_at": "2023-03-06T15:08:42Z",
+      "body": "The \"do not lose form data\" logic in `PlanningMessagesList` isn't quite right.\r\n\r\nI am logged in as \"MTG-2\".  If I edit one of my orders documents, and save it, the updated document is shown.\r\n\r\nBut, if I open one of my documents for edit, then \"MTG-1\" edits and saves one of their documents, then when I save mine, the new version isn't shown.  The form has been sent, since when I refresh I see the modified version.\r\n\r\nIt _looks like_ we need to clear the `messageBeingEdited` flag before we send the postback.  Or we do `postback` in a `timeout()`, to let `messageBeingEdited` state update to false before we receive the new document(s) from the backend.\r\n\r\nNote: I tried both of the above strategies, but neither worked. I _think_ the issue is the `editorValue` method is saying a document is being edited when one isn't.  It is setting the flag to true when the UI updates after `postback` in `saveMessage`.\r\n\r\nHmm, the issue actually goes away when the user collapses the detail panel.  Can we programatically close the detail panel when the player clicks on `Save`?",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1456311453,
+          "user": "IanMayo",
+          "created_at": "2023-03-06T15:08:42Z",
+          "updated_at": "2023-03-06T15:08:42Z",
+          "body": "Closed in #2556 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 11
+}

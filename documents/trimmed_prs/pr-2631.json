@@ -1,0 +1,50 @@
+{
+  "number": 2631,
+  "title": "allow players to edit orders from their force",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-13T10:59:56Z",
+  "updated_at": "2023-03-13T13:57:18Z",
+  "closed_at": "2023-03-13T13:57:16Z",
+  "merged_at": "2023-03-13T13:57:16Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2631",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2631/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2631/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2631",
+  "body": "Fixes #2630 ",
+  "additions": 3,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2630
+  ],
+  "issues": [
+    {
+      "id": 1621235714,
+      "number": 2630,
+      "title": "Let players edit own-force messages",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-13T10:52:19Z",
+      "updated_at": "2023-03-13T13:57:18Z",
+      "closed_at": "2023-03-13T13:57:18Z",
+      "body": "Responsibility for some orders has moved between players.\r\n\r\nSo, they now need to be able to edit orders from other players.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 5
+}

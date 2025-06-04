@@ -1,0 +1,68 @@
+{
+  "number": 2482,
+  "title": "2141 - losing orders being edited",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-22T20:37:23Z",
+  "updated_at": "2023-02-23T12:16:24Z",
+  "closed_at": "2023-02-23T12:16:22Z",
+  "merged_at": "2023-02-23T12:16:22Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2482",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2482/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2482/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2482",
+  "body": "The issue of losing form contents has returned, #2141 \r\n\r\nThe initial part of the problem was that `row.reference` no longer contained the message reference, it was a composite field containing reference and turn.\r\n\r\nBut, after fixing that is was still broken.\r\n\r\nSo, I started on a strategy of not updating the <PlanningMessagesList> if a message was being edited, and stored the updates for when the message was saved, or the row collapsed.",
+  "additions": 85,
+  "deletions": 49,
+  "changed_files": 12,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2141
+  ],
+  "issues": [
+    {
+      "id": 1459355984,
+      "number": 2141,
+      "title": "New solution for \"persistent forms\"",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-22T08:12:44Z",
+      "updated_at": "2023-03-03T10:10:44Z",
+      "closed_at": "2023-03-03T10:10:44Z",
+      "body": "For the wargame last week we had the problem where inline JSON-editors (in the Planning Messages component) got wiped when a new message was received.  This was captured in #2116\r\n\r\nThere wasn't a quick/easy fix for this, since the whole list component got replaced on refresh (via `data` prop).\r\n\r\nThe workaround was to push the document to be edited into the `NewMessage` component, which wasn't a child of the list.\r\n\r\nUsers still complained of `flicker` in the form, as it got wiped & reset.\r\n\r\nWe didn't implement the above workaround for the `Adjudication Messages List`.\r\n\r\nSo, the first part of this task is to see if we can make a JSON Editor component that is a `detail` element of a `Material-Table` persistent - so it isn't affected by new messages coming into the table.\r\n\r\n_Maybe_ we can retain the `detail` component in some `useMemo` or `useRef`, and only update the editor if that specific document id is being edited (which it shouldn't ever be).\r\n\r\nIf we can't make the `detail` component persistent, we'll have to switch back to editing existing messages with the `NewMessage` component.  If we do that, we should investigate preventing the flicker that happens when new messages are received in that channel.\r\n\r\nNote: we've adopted `material-table`.  But, the original developers are no longer maintaining it.  _Another_ table component may handle this update issue better. _Maybe_ this RSuite data table may be better for us:\r\nhttps://github.com/rsuite/rsuite-table\r\n",
+      "labels": [
+        "bug",
+        "4watu",
+        "4p9",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1371990710,
+          "user": "IanMayo",
+          "created_at": "2023-01-05T09:43:15Z",
+          "updated_at": "2023-01-05T09:43:15Z",
+          "body": "This currently seems resolved."
+        },
+        {
+          "id": 1453284523,
+          "user": "IanMayo",
+          "created_at": "2023-03-03T10:10:43Z",
+          "updated_at": "2023-03-03T10:10:43Z",
+          "body": "Closed in #2482 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 12,
+  "total_changed_lines": 134
+}

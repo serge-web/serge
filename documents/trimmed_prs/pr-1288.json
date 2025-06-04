@@ -1,0 +1,71 @@
+{
+  "number": 1288,
+  "title": "1282: Clickable wargame title",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-22T14:18:02Z",
+  "updated_at": "2021-12-23T14:07:44Z",
+  "closed_at": "2021-12-23T14:07:43Z",
+  "merged_at": "2021-12-23T14:07:43Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1288",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1288/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1288/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1288",
+  "body": "Fixes #1282 \r\n\r\n![image](https://user-images.githubusercontent.com/26705621/147106646-9827bac5-c24c-47da-a209-420ce63e613e.png)\r\n",
+  "additions": 4,
+  "deletions": 3,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 999614343,
+      "user": "IanMayo",
+      "created_at": "2021-12-22T14:23:57Z",
+      "updated_at": "2021-12-22T14:30:10Z",
+      "body": "@lebaphi  - something is going wrong with the snaphots. Are use using different versions of some linter/formatter?\r\n\r\nThis PR causes lots of snapshots to update.  But, the snapshots don't match those created at Heroku - forcing the build to fail."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1282
+  ],
+  "issues": [
+    {
+      "id": 1086819386,
+      "number": 1282,
+      "title": "Clickable Wargame Title",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-22T13:23:48Z",
+      "updated_at": "2021-12-23T14:07:43Z",
+      "closed_at": "2021-12-23T14:07:43Z",
+      "body": "Similar to issue #1261 we should make the wargame titles appear clickable. An underscore would do.\r\n\r\n![Wargame Creation Screen 1](https://user-images.githubusercontent.com/85491794/147099422-3fdca445-2945-4b45-8a5a-8f264299256c.png)\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 999588220,
+          "user": "IanMayo",
+          "created_at": "2021-12-22T13:45:51Z",
+          "updated_at": "2021-12-22T13:45:51Z",
+          "body": "Yes, good idea."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/147106646-9827bac5-c24c-47da-a209-420ce63e613e.png",
+    "https://user-images.githubusercontent.com/85491794/147099422-3fdca445-2945-4b45-8a5a-8f264299256c.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 7
+}

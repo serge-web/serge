@@ -1,0 +1,166 @@
+{
+  "number": 931,
+  "title": "Store icon to server side and return url for preview",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-09T09:41:43Z",
+  "updated_at": "2021-07-14T13:22:43Z",
+  "closed_at": "2021-07-14T13:22:42Z",
+  "merged_at": "2021-07-14T13:22:42Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/931",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/931/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/931/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/931",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nSupports #899 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\nI had also fixed the image upload and receive an issue when we create a pkg build so this would be work the same on both builds.\r\n\r\n",
+  "additions": 207,
+  "deletions": 129,
+  "changed_files": 67,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 3,
+  "total_comments": 13,
+  "comments_data": [
+    {
+      "id": 877065600,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T09:55:45Z",
+      "updated_at": "2021-07-09T09:55:45Z",
+      "body": "@sanjayradadiya - I _don't think_ this completely resolves #899 \r\n\r\nSo, you need to use `Supports #899` rather than `Fixes #899` -  since we don't want merging this PR to close the issue.\r\n\r\n"
+    },
+    {
+      "id": 877066634,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-09T09:57:35Z",
+      "updated_at": "2021-07-09T10:22:07Z",
+      "body": "> @sanjayradadiya - I _don't think_ this completely resolves #899\r\n> \r\n> So, you need to use `Supports #899` rather than `Fixes #899` - since we don't want merging this PR to close the issue.\r\n\r\nWhat's the issue you are facing? \r\n\r\nOne more thing, Heroku is not supporting file upload in the server so what we need to do for that?"
+    },
+    {
+      "id": 877084660,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T10:28:13Z",
+      "updated_at": "2021-07-09T10:28:23Z",
+      "body": "> Heroku not supporting file upload\r\n\r\nThat's ok.  I'm happy for us to just test locally.  \r\n\r\nBTW - did you understand the bit about `yarn pkg-build`?  We need to do a build, and test we can provide an icon, that it gets stored into `serge\\img`, and rendered in the player UI."
+    },
+    {
+      "id": 877161521,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T12:47:26Z",
+      "updated_at": "2021-07-09T12:47:26Z",
+      "body": "I'd like to \"tag on\" a couple more bits to this PR, please @sanjayradadiya \r\n\r\nI've changed the icon for Blue force: \r\n![image](https://user-images.githubusercontent.com/1108513/125079865-ffcc0900-e0bb-11eb-8ddf-ba10c3c37aa4.png)\r\n\r\nThe icon is shown at the bottom-right of the PlayerUI, but against the wrong shade of blue:\r\n![image](https://user-images.githubusercontent.com/1108513/125079915-11adac00-e0bc-11eb-985a-7e2e61f3f48c.png)\r\n\r\nIMHO, that icon should be larger, too.\r\n\r\nWe use icons to show the forces in each channel.  But, the icon doesn't contain the custom force icon:\r\n![image](https://user-images.githubusercontent.com/1108513/125079975-25f1a900-e0bc-11eb-8ebc-7afe766c7e27.png)\r\n"
+    },
+    {
+      "id": 877307822,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T16:29:01Z",
+      "updated_at": "2021-07-09T16:29:01Z",
+      "body": "Ok, I've just tested in when running in the executable, and it fails.  When I changed the force logo, the new logo got pushed to the correct (`serge\\img`) sub-folder, but the icon wasn't found by the node process:\r\n![image](https://user-images.githubusercontent.com/1108513/125109349-2483a900-e0db-11eb-957c-12c72bba43d9.png)\r\n"
+    },
+    {
+      "id": 877308656,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-09T16:30:22Z",
+      "updated_at": "2021-07-09T16:30:22Z",
+      "body": "> Ok, I've just tested in when running in the executable, and it fails. When I changed the force logo, the new logo got pushed to the correct (`serge\\img`) sub-folder, but the icon wasn't found by the node process:\r\n> ![image](https://user-images.githubusercontent.com/1108513/125109349-2483a900-e0db-11eb-957c-12c72bba43d9.png)\r\n\r\nWe need to fix path issue while working with executable files "
+    },
+    {
+      "id": 878774683,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-13T04:42:23Z",
+      "updated_at": "2021-07-13T10:39:15Z",
+      "body": "@IanMayo \r\nOne more issue i am facing related to icon field because exiting db contain icon fields and from now we are using `iconURL` so do we need to add some migration logic there or we can skip that part and only accept iconURL from onwards ?"
+    },
+    {
+      "id": 878978268,
+      "user": "IanMayo",
+      "created_at": "2021-07-13T10:39:19Z",
+      "updated_at": "2021-07-13T10:39:19Z",
+      "body": "Thanks for that Sanjay - good point.\r\n\r\nHow about we keep `icon` in the TypeScript definition, but use `jsdoc` to mark it as deprecated?\r\n\r\nTo give backward compatibility I suggest read the `iconUrl` value if it's present, else we will look for an `icon` value.\r\n\r\nDoes that sound ok?"
+    },
+    {
+      "id": 878990630,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-13T11:00:59Z",
+      "updated_at": "2021-07-13T11:00:59Z",
+      "body": "> Thanks for that Sanjay - good point.\r\n> \r\n> How about we keep `icon` in the TypeScript definition, but use `jsdoc` to mark it as deprecated?\r\n> \r\n> To give backward compatibility I suggest read the `iconUrl` value if it's present, else we will look for an `icon` value.\r\n> \r\n> Does that sound ok?\r\n\r\nyeah, absolutely "
+    },
+    {
+      "id": 879023939,
+      "user": "IanMayo",
+      "created_at": "2021-07-13T11:55:41Z",
+      "updated_at": "2021-07-13T11:55:41Z",
+      "body": "Aah, @sanjayradadiya - I've just seen that Lilit is also working on icon-handling code:\r\nhttps://github.com/serge-web/serge/pull/928#issuecomment-878799321\r\n\r\nI think I should merge her changes before we finalise this PR."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 669593363,
+      "user": "IanMayo",
+      "created_at": "2021-07-14T13:01:36Z",
+      "updated_at": "2021-07-14T13:01:36Z",
+      "body": "Aah, I think there is an issue here @sanjayradadiya \r\n\r\nIn the legacy games I _think_ that the `icon` is the Base64 string representation of the icon itself.  But, `iconURL` is always the URL.  In the above, is there a change that we may put the Base64 icon into the `iconURL` field, and cause later problems?",
+      "path": "packages/components/src/local/molecules/admin-message-creator/index.tsx",
+      "diff_hunk": "@@ -30,7 +30,7 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, post\n           force: from.name,\n           forceColor: from.color,\n           role: role,\n-          icon: from.icon ? from.icon : ''\n+          iconURL: from.iconURL || (from.icon || '')",
+      "html_url": "https://github.com/serge-web/serge/pull/931#discussion_r669593363"
+    },
+    {
+      "id": 669595937,
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-14T13:05:01Z",
+      "updated_at": "2021-07-14T13:05:02Z",
+      "body": "It doesn't cause any problem because it will accept base64 first time but later on when user change it icon from admin side it will be replaced  by URL so it will work on both side.",
+      "path": "packages/components/src/local/molecules/admin-message-creator/index.tsx",
+      "diff_hunk": "@@ -30,7 +30,7 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, post\n           force: from.name,\n           forceColor: from.color,\n           role: role,\n-          icon: from.icon ? from.icon : ''\n+          iconURL: from.iconURL || (from.icon || '')",
+      "html_url": "https://github.com/serge-web/serge/pull/931#discussion_r669595937"
+    },
+    {
+      "id": 669609721,
+      "user": "IanMayo",
+      "created_at": "2021-07-14T13:21:56Z",
+      "updated_at": "2021-07-14T13:21:57Z",
+      "body": "Great, thanks.",
+      "path": "packages/components/src/local/molecules/admin-message-creator/index.tsx",
+      "diff_hunk": "@@ -30,7 +30,7 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, post\n           force: from.name,\n           forceColor: from.color,\n           role: role,\n-          icon: from.icon ? from.icon : ''\n+          iconURL: from.iconURL || (from.icon || '')",
+      "html_url": "https://github.com/serge-web/serge/pull/931#discussion_r669609721"
+    }
+  ],
+  "issue_numbers": [
+    899
+  ],
+  "issues": [
+    {
+      "id": 935045357,
+      "number": 899,
+      "title": "Store URL for icon for force, not data",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-01T17:03:29Z",
+      "updated_at": "2021-08-09T13:39:42Z",
+      "closed_at": "2021-08-09T13:39:42Z",
+      "body": "Game Designers can use the admin pages to specify a logo for a force.\r\n\r\nBut, in the wargame document the data is stored as a base64 string,  not a URL.  Serge should store the icon on the server, and store a URL in teh \r\n\r\n![image](https://user-images.githubusercontent.com/1108513/124162100-0c39db80-da96-11eb-8ea0-f8ff5e1a58e5.png)\r\n\r\n\r\nWe should just have the iconURL for the force in the channel.\r\n\r\nThis fix involves both changing how the `admin pages` store the force icon, and how the `player pages` retrieve/display the icon.\r\n\r\n* [ ] In TypeScript `force-data.d.ts` switch `icon` to `iconURL`\r\n* [ ] In `Forces` tab, store icon to server, and store URL in wargame\r\n* [ ] In player-UI, load icon from URL not base64 string\r\n* [ ] Check above flow works when running application built with `yarn pkg-build` (to including assigning icon and display icon in UI)\r\n\r\nNote: we should be backwards compatible.  Hmm, actually...  We don't need to display a icon if it's stored in `base64`, but the app shouldn't crash.\r\n\r\nNote: once we have a working version, we'll need to check that the `pkg-build` version works (and stores/retrieves the icon correctly). @lebaphi is the expert on `pkg-build`.\r\nNote: an image to use for testing can be found in: `packages\\client\\public\\images\\layers-2x.png`\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 895231399,
+          "user": "IanMayo",
+          "created_at": "2021-08-09T13:39:41Z",
+          "updated_at": "2021-08-09T13:39:41Z",
+          "body": "Closed in #931 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/125079865-ffcc0900-e0bb-11eb-8ddf-ba10c3c37aa4.png",
+    "https://user-images.githubusercontent.com/1108513/125079915-11adac00-e0bc-11eb-985a-7e2e61f3f48c.png",
+    "https://user-images.githubusercontent.com/1108513/125079975-25f1a900-e0bc-11eb-8ebc-7afe766c7e27.png",
+    "https://user-images.githubusercontent.com/1108513/125109349-2483a900-e0db-11eb-957c-12c72bba43d9.png",
+    "https://user-images.githubusercontent.com/1108513/124162100-0c39db80-da96-11eb-8ea0-f8ff5e1a58e5.png"
+  ],
+  "number_of_changed_files": 67,
+  "total_changed_lines": 336
+}

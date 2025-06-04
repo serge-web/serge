@@ -1,0 +1,63 @@
+{
+  "number": 2428,
+  "title": "2380: Op-Boxes in categories",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-16T12:46:40Z",
+  "updated_at": "2023-02-16T14:16:01Z",
+  "closed_at": "2023-02-16T14:15:59Z",
+  "merged_at": "2023-02-16T14:15:59Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2428",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2428/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2428/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2428",
+  "body": "Fixes #2380 ",
+  "additions": 11,
+  "deletions": 28,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 1,
+  "total_comments": 1,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 1108433444,
+      "user": "IanMayo",
+      "created_at": "2023-02-16T12:50:56Z",
+      "updated_at": "2023-02-16T12:51:06Z",
+      "body": "@lebaphi  - could you include the above check that `category.areas` exists before running on the map please? \r\n\r\nThere is a legacy wargame on the client network with the `previous` structure for areas.  We don't need to render it, but I don't want it to crash Serge (like it did on Tuesday morning :-o )",
+      "path": "packages/components/src/local/organisms/planning-channel/helpers/StandardAreaMenu.tsx",
+      "diff_hunk": "@@ -49,40 +49,24 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho\n \n   /** generate the tree of activities */\n   const getItems = (areas: AreaCategory[]): SelectItem[] => {\n-    // TODO: this produces nested list, but I can't click them :-(\n-    // const aItems = areas.map((category) => {\n-    //   return {\n-    //     label: category.name,\n-    //     value: category.name,\n-    //     items: category.areas.map((area) => {\n-    //       return {\n-    //         label: area.name, value: category.name + '~' + area.name\n-    //       }})\n-    //   }\n-    // })\n-    // return aItems\n-\n-    const flatList: SelectItem[] = []\n-    areas.forEach((category) => {\n-      // note: we had a crash when Serge encountered an areas block in the \"old\" structure.\n-      // note: so, check the areas element exists\n-      category.areas && category.areas.forEach((area) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2428#discussion_r1108433444"
+    }
+  ],
+  "issue_numbers": [
+    2380
+  ],
+  "issues": [
+    {
+      "id": 1582700547,
+      "number": 2380,
+      "title": "Op-Boxes in categories",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-13T16:46:39Z",
+      "updated_at": "2023-02-16T14:16:00Z",
+      "closed_at": "2023-02-16T14:16:00Z",
+      "body": "We've realised there are about 60 standard areas - so we need to organise them a little better. So, they are being grouped into categories - with color shading.  I've changed our mock data to fit the new `AreaCategory` data structure.\r\n\r\n* [x] introduce `category` of area includes name, color, list of areas\r\n* [ ] render select menu using tiered data\r\n\r\nOver to you now please @lebaphi \r\n\r\nThe `StandardAreaMenu` now shows a single list of area items, each with the category name.  But, we really want a tiered menu.  I was able to implement the tiered menu, but the menu-click was failing.  I think you used a trick [here](https://github.com/serge-web/serge/pull/2336/files#diff-e7637e7308bb915e168456de488b9acb633b7585f9ba0420a6426bd6bd667603R284) to prevent that.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 39
+}

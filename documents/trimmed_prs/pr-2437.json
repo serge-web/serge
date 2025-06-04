@@ -1,0 +1,87 @@
+{
+  "number": 2437,
+  "title": "2432: Improve performance when selecting asset",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-02-17T08:41:46Z",
+  "updated_at": "2023-02-19T12:53:46Z",
+  "closed_at": "2023-02-19T12:23:24Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2437",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2437/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2437/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2437",
+  "body": "Fixes #2384 #2386 #2432 \r\n\r\nHi @IanMayo, I just made some changes to reduce rendering, it seems the performance has improved (it only takes 1~2 seconds when this table loads 250 rows)\r\n\r\nhttps://user-images.githubusercontent.com/26705621/219589492-360f1a60-bfd5-4e76-aea5-6ca28c2a37bf.mov\r\n\r\nBut I found that the material table itself has an performance issue when enable/disable the filter, it makes 3~5s to applied, I'm investigating it.\r\n\r\n",
+  "additions": 342,
+  "deletions": 317,
+  "changed_files": 10,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 1,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1434309645,
+      "user": "IanMayo",
+      "created_at": "2023-02-17T08:46:34Z",
+      "updated_at": "2023-02-17T08:46:34Z",
+      "body": "Brilliant!\r\n\r\nIt looks like it needs a bit more review - will do that later."
+    },
+    {
+      "id": 1434748335,
+      "user": "IanMayo",
+      "created_at": "2023-02-17T14:46:51Z",
+      "updated_at": "2023-02-17T14:46:51Z",
+      "body": "@lebaphi - you've lost some of my changes 🤣 \r\n\r\nFor the material tables, I have added a new tool button for `planning-messages`, and provided two-state icons for `planning-messages` and `planning-assets`.  The original bits are in red in `Files Changed`."
+    },
+    {
+      "id": 1435974865,
+      "user": "lebaphi",
+      "created_at": "2023-02-19T12:23:24Z",
+      "updated_at": "2023-02-19T12:23:24Z",
+      "body": "Close due to this PR https://github.com/serge-web/serge/pull/2444"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1111200573,
+      "user": "IanMayo",
+      "created_at": "2023-02-19T09:31:59Z",
+      "updated_at": "2023-02-19T09:31:59Z",
+      "body": "hello @lebaphi -  your code has dropped the extra parameter for the next two calls - that will prevent some functionality from working. ",
+      "path": "packages/components/src/local/organisms/planning-channel/index.tsx",
+      "diff_hunk": "@@ -366,23 +370,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({\n     }\n   }, [viewAsForce])\n \n-  useEffect(() => {\n-    // only update selected assets if we're not planning an activity\n-    if (!activityBeingPlanned) {\n-      setSelectedAssets(localSelectedAssets)\n-    }\n-  }, [localSelectedAssets])\n-\n   useEffect(() => {\n     // produce the own and opp assets for this player force\n     const forceCols = getForceColors(allForces)\n     const platIcons = platformIcons(platformTypes)",
+      "html_url": "https://github.com/serge-web/serge/pull/2437#discussion_r1111200573"
+    }
+  ],
+  "issue_numbers": [
+    2432
+  ],
+  "issues": [
+    {
+      "id": 1587952948,
+      "number": 2432,
+      "title": "Performance Problem with `Select Assets`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-16T15:58:29Z",
+      "updated_at": "2023-02-19T12:52:41Z",
+      "closed_at": "2023-02-19T12:52:41Z",
+      "body": "We are experimenting with increasing the number of rows displayed in the `PlanningAssets` table:\r\n![image](https://user-images.githubusercontent.com/1108513/219419096-a7d25de2-377a-40cf-a57b-41db19c14298.png)\r\n\r\nBut, with 500 rows visible, it can take 5+ Seconds for a row to be marked as `Selected`.  See the video from phi here:\r\nhttps://github.com/serge-web/serge/issues/2386#issuecomment-1432997117\r\n\r\nI _think_ the delay is related to the icons on the map.  Could you investigate please, and see if you can find the bottleneck?",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/219419096-a7d25de2-377a-40cf-a57b-41db19c14298.png"
+  ],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 659
+}

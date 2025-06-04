@@ -1,0 +1,72 @@
+{
+  "number": 1421,
+  "title": "1419 camel tab title",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-15T16:28:36Z",
+  "updated_at": "2022-03-17T16:03:59Z",
+  "closed_at": "2022-03-17T16:03:58Z",
+  "merged_at": "2022-03-17T16:03:57Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1421",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1421/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1421/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1421",
+  "body": "Fixes #1419\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/158425545-69bd3068-5b4e-4f46-9415-564c2f3a3602.png)\r\n\r\nBut, includes CSS-linter fail:\r\n![image](https://user-images.githubusercontent.com/1108513/158425776-05681d4c-38a8-473a-8e43-33510a0b75c4.png)\r\n\r\nThe linter fail can be reproduced by running `yarn run lint` in `packages\\themes`.\r\n",
+  "additions": 18,
+  "deletions": 5,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1068196954,
+      "user": "IanMayo",
+      "created_at": "2022-03-15T16:31:55Z",
+      "updated_at": "2022-03-15T16:31:55Z",
+      "body": "Hello @lebaphi - we have 3 CSS linter fails.  I think it came in when we re-arranged the \"admin login page\".  \r\n\r\nCould you have a go at fixing the 3 issues for me please?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1419
+  ],
+  "issues": [
+    {
+      "id": 1169803937,
+      "number": 1419,
+      "title": "Small Typo Platform Types",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-15T15:08:41Z",
+      "updated_at": "2022-03-17T16:03:58Z",
+      "closed_at": "2022-03-17T16:03:57Z",
+      "body": "There's a space missing between Platform Types in the tab: \r\n\r\n![Small Typo Platform Types](https://user-images.githubusercontent.com/85491794/158408654-dbe38d75-e1be-4f29-b0f8-9e295c091b8b.png)\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1068117833,
+          "user": "IanMayo",
+          "created_at": "2022-03-15T15:24:07Z",
+          "updated_at": "2022-03-15T15:24:07Z",
+          "body": "I've got this."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/158425545-69bd3068-5b4e-4f46-9415-564c2f3a3602.png",
+    "https://user-images.githubusercontent.com/1108513/158425776-05681d4c-38a8-473a-8e43-33510a0b75c4.png",
+    "https://user-images.githubusercontent.com/85491794/158408654-dbe38d75-e1be-4f29-b0f8-9e295c091b8b.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 23
+}

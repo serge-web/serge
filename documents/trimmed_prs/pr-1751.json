@@ -1,0 +1,48 @@
+{
+  "number": 1751,
+  "title": "1745 planning data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-10T13:47:09Z",
+  "updated_at": "2022-08-11T11:32:48Z",
+  "closed_at": "2022-08-11T11:32:47Z",
+  "merged_at": "2022-08-11T11:32:47Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1751",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1751/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1751/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1751",
+  "body": "Fixes #1745 creates some types and early test data, ready for developing Planning Channel",
+  "additions": 1941,
+  "deletions": 5,
+  "changed_files": 23,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1745
+  ],
+  "issues": [
+    {
+      "id": 1334474246,
+      "number": 1745,
+      "title": "B. Create data types for Planning Channel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-10T11:22:08Z",
+      "updated_at": "2022-08-11T11:32:48Z",
+      "closed_at": "2022-08-11T11:32:48Z",
+      "body": "Create early data-types necessary for the Planning Channel.\r\n\r\nTo include:\r\n- new type for channel and participants `CHANNEL_PLANNING, PARTICIPANT_PLANNING, ChannelPlanning, ParticipantPlanning`\r\n- new `MessagePlanning` (to include optional start and end dates)\r\n- some participants to include templates\r\n- some participants to include response template\r\n- don't let Admin tab fall over with channel-not-recognised\r\n- new `ChannelPlanning` component as extension of `ChatChannel` (dumb placeholder)\r\n- changes to `factory.tsx` to display new `ChannelPlanning` component\r\n\r\nAlso create a new `wargame` that contains the above data.  Hmm, maybe plus a TS data object that produces suitable messages.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 1946
+}

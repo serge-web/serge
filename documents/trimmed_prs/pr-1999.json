@@ -1,0 +1,140 @@
+{
+  "number": 1999,
+  "title": "Save and Edit documents in My Orders panel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-01T06:55:46Z",
+  "updated_at": "2022-11-07T15:11:58Z",
+  "closed_at": "2022-11-07T15:11:57Z",
+  "merged_at": "2022-11-07T15:11:57Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1999",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1999/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1999/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1999",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1975 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 331,
+  "deletions": 129,
+  "changed_files": 28,
+  "labels": [
+    "enhancement",
+    "4p9",
+    "T-H"
+  ],
+  "comments_count": 4,
+  "review_comments_count": 5,
+  "total_comments": 9,
+  "comments_data": [
+    {
+      "id": 1298129403,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-01T07:29:35Z",
+      "updated_at": "2022-11-01T07:29:35Z",
+      "body": "Hello Ian, I'm still working on this PR."
+    },
+    {
+      "id": 1303178626,
+      "user": "IanMayo",
+      "created_at": "2022-11-04T09:39:22Z",
+      "updated_at": "2022-11-04T09:58:52Z",
+      "body": "Hello @lilitkarapetyan - I've just been able to reproduce an issue I saw yesterday.\r\n\r\n* yarn develop\r\n* log in as `Mar-4`\r\n* edit document owned by `Mar-4`\r\n* change document `description` by adding a couple of words\r\n* press `Save`\r\n* data in table doesn't update\r\n\r\nI checked the database, and the new record is in there.\r\nI checked the console, and saw this:\r\n![image](https://user-images.githubusercontent.com/1108513/199940686-82254f00-aa56-43c2-aafc-a9070c573553.png)\r\n\r\nSo, it looks like we're receiving the new message twice, and ignoring the new version.\r\n\r\nNote: I'm pretty sure I'm not just getting this on browser that does the `Save`. I think I get it on other logged in browsers, too.\r\n\r\nHave you been able to successfully edit/save a document?"
+    },
+    {
+      "id": 1303201959,
+      "user": "IanMayo",
+      "created_at": "2022-11-04T10:02:45Z",
+      "updated_at": "2022-11-04T10:02:45Z",
+      "body": "Another issue, please @lilitkarapetyan \r\n\r\nWhen we save a document from `My orders`, it increments the `.message.Reference`.  \r\n\r\nI'm pretty sure that in `checkReference` we should only find/generate a reference number if the `Reference` field is something like `null` or `''`.  I don't think we can check for `undefined`, because I think that would generate a `Reference` for templates that don't include a `Reference` field."
+    },
+    {
+      "id": 1305719808,
+      "user": "IanMayo",
+      "created_at": "2022-11-07T14:45:11Z",
+      "updated_at": "2022-11-07T14:50:59Z",
+      "body": "@lilitkarapetyan - there was an issue, where if we edit/save a message, the old and new instances of the message were displayed.  I've found the [fix](https://github.com/serge-web/serge/pull/1999/commits/f6376c0d8a5713d2a457d6cb64f40858a6ea37b2#diff-f97fc21549a839fe120adefe5de4fc716b655a6bcc52eb70d83868a04aaea726R42) for it, in `handle-channel-updates` - `handleNonInfoMessage`.  \r\n\r\nThe issue was because we're 1/2 through moving from `Reference` to `reference`.   Damn, I can't remember why I wanted to move to lower-case `reference`.  But, it's fortunate we did it, because currently `serge` is updating the `Reference` on every message sent, rather than only doing it for newly created messages.  I'll check we have that issue captured."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1012071938,
+      "user": "IanMayo",
+      "created_at": "2022-11-02T17:10:22Z",
+      "updated_at": "2022-11-02T17:10:22Z",
+      "body": "@lilitkarapetyan - I'd like use to store the template id in `messageType`, please.  That means Serge won't fail if the template title is changed.",
+      "path": "packages/components/src/local/organisms/planning-messages-list/index.tsx",
+      "diff_hunk": "@@ -125,16 +104,39 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({\n       // check if message is being edited\n       const localTemplates = templates || []\n       const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)\n-      setSelectScema(template)\n       if (!template) {\n         console.log('template not found for', message.details.messageType, 'templates:', templates)\n       }\n       if (message && template) {\n+        const saveMessage = () => {\n+          if (messageValue.current) {\n+            const details: MessageDetails = {\n+              channel: channel.uniqid,\n+              from: {\n+                force: selectedForce.name,\n+                forceColor: selectedForce.color,\n+                roleName: selectedRoleName,\n+                roleId: playerRoleId,\n+                iconURL: selectedForce.iconURL || selectedForce.icon || ''\n+              },\n+              messageType: template.title,",
+      "html_url": "https://github.com/serge-web/serge/pull/1999#discussion_r1012071938"
+    },
+    {
+      "id": 1012749262,
+      "user": "IanMayo",
+      "created_at": "2022-11-03T10:53:57Z",
+      "updated_at": "2022-11-03T10:53:57Z",
+      "body": "@lilitkarapetyan - this method refers to `formId`.  Should it include `formId` in the hook props?",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -190,18 +209,31 @@ export const JsonEditor: React.FC<Props> = ({\n \n   useLayoutEffect(() => {\n     if (editor) {\n-      if (disabled) {\n+      if (formId && !editButton) {\n+        editor.disable()\n+      } else if (disabled && !formId) {\n         editor.disable()\n       } else {\n         editor.enable()\n       }\n     }\n-  }, [editor])\n+  }, [editor, editButton])",
+      "html_url": "https://github.com/serge-web/serge/pull/1999#discussion_r1012749262"
+    },
+    {
+      "id": 1012765721,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-03T11:12:03Z",
+      "updated_at": "2022-11-03T11:12:03Z",
+      "body": "Yes, because only components containing SaveMessageButton have a formId",
+      "path": "packages/components/src/local/molecules/json-editor/index.tsx",
+      "diff_hunk": "@@ -190,18 +209,31 @@ export const JsonEditor: React.FC<Props> = ({\n \n   useLayoutEffect(() => {\n     if (editor) {\n-      if (disabled) {\n+      if (formId && !editButton) {\n+        editor.disable()\n+      } else if (disabled && !formId) {\n         editor.disable()\n       } else {\n         editor.enable()\n       }\n     }\n-  }, [editor])\n+  }, [editor, editButton])",
+      "html_url": "https://github.com/serge-web/serge/pull/1999#discussion_r1012765721"
+    },
+    {
+      "id": 1015449419,
+      "user": "IanMayo",
+      "created_at": "2022-11-07T13:53:00Z",
+      "updated_at": "2022-11-07T13:53:09Z",
+      "body": "thanks for the fixes @lilitkarapetyan \r\n\r\n_One day_ I look forward to `handle-initial-channel-messages` getting refactored & tidied up",
+      "path": "packages/helpers/src/tests/handle-initial-channel-messages.spec.ts",
+      "diff_hunk": "@@ -41,7 +41,7 @@ describe('handle initial channel creation', () => {\n     // get the blue RFI channel\n     const rfiChan = res.channels['channel-BlueRFI']\n     expect(rfiChan).toBeTruthy()",
+      "html_url": "https://github.com/serge-web/serge/pull/1999#discussion_r1015449419"
+    },
+    {
+      "id": 1015458862,
+      "user": "IanMayo",
+      "created_at": "2022-11-07T14:01:25Z",
+      "updated_at": "2022-11-07T14:01:25Z",
+      "body": "this one was a weird one to diagnose. Thanks!",
+      "path": "packages/components/src/local/organisms/data-table/index.spec.tsx",
+      "diff_hunk": "@@ -20,6 +20,7 @@ const rfiData = newest.map((message: any) => {\n     messageItem.details.channel,\r\n     messageItem.details.from.roleName,\r\n     messageItem.details.from.forceColor,\r\n+    messageItem.details.from.forceId,\r",
+      "html_url": "https://github.com/serge-web/serge/pull/1999#discussion_r1015458862"
+    }
+  ],
+  "issue_numbers": [
+    1975
+  ],
+  "issues": [
+    {
+      "id": 1427298941,
+      "number": 1975,
+      "title": "Save and Edit documents in `My Orders` panel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-28T13:52:57Z",
+      "updated_at": "2022-11-07T15:11:58Z",
+      "closed_at": "2022-11-07T15:11:58Z",
+      "body": "In the `PlanningChannel` we have the `My Orders` tab.  When the rows in this table are expanded, we use JSON-editor to display the contents.\r\n\r\nWhile the orders are initially show read-only `[*]`, the owner of each message (`message.details.from.roleId === playerRoleId`) should have an `Edit button`.  They can then make document edits and then `Save` or `Cancel` the edit.\r\n\r\n`[*]` `<JsonEditor>` is currently _ignoring_ the `disabled` property. Bug in #1973 ",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/199940686-82254f00-aa56-43c2-aafc-a9070c573553.png"
+  ],
+  "number_of_changed_files": 28,
+  "total_changed_lines": 460
+}

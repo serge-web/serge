@@ -1,0 +1,51 @@
+{
+  "number": 2683,
+  "title": "Bump semver from 5.7.1 to 5.7.2",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-07-11T00:16:03Z",
+  "updated_at": "2023-11-15T10:34:37Z",
+  "closed_at": "2023-11-15T10:34:26Z",
+  "merged_at": null,
+  "author": {
+    "login": "dependabot[bot]",
+    "html_url": "https://github.com/apps/dependabot"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2683",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2683/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2683/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2683",
+  "body": "Bumps [semver](https://github.com/npm/node-semver) from 5.7.1 to 5.7.2.\n<details>\n<summary>Release notes</summary>\n<p><em>Sourced from <a href=\"https://github.com/npm/node-semver/releases\">semver's releases</a>.</em></p>\n<blockquote>\n<h2>v5.7.2</h2>\n<h2><a href=\"https://github.com/npm/node-semver/compare/v5.7.1...v5.7.2\">5.7.2</a> (2023-07-10)</h2>\n<h3>Bug Fixes</h3>\n<ul>\n<li><a href=\"https://github.com/npm/node-semver/commit/2f8fd41487acf380194579ecb6f8b1bbfe116be0\"><code>2f8fd41</code></a> <a href=\"https://redirect.github.com/npm/node-semver/pull/585\">#585</a> better handling of whitespace (<a href=\"https://redirect.github.com/npm/node-semver/issues/585\">#585</a>) (<a href=\"https://github.com/joaomoreno\"><code>@​joaomoreno</code></a>, <a href=\"https://github.com/lukekarrys\"><code>@​lukekarrys</code></a>)</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Changelog</summary>\n<p><em>Sourced from <a href=\"https://github.com/npm/node-semver/blob/v5.7.2/CHANGELOG.md\">semver's changelog</a>.</em></p>\n<blockquote>\n<h2><a href=\"https://github.com/npm/node-semver/compare/v5.7.1...v5.7.2\">5.7.2</a> (2023-07-10)</h2>\n<h3>Bug Fixes</h3>\n<ul>\n<li><a href=\"https://github.com/npm/node-semver/commit/2f8fd41487acf380194579ecb6f8b1bbfe116be0\"><code>2f8fd41</code></a> <a href=\"https://redirect.github.com/npm/node-semver/pull/585\">#585</a> better handling of whitespace (<a href=\"https://redirect.github.com/npm/node-semver/issues/585\">#585</a>) (<a href=\"https://github.com/joaomoreno\"><code>@​joaomoreno</code></a>, <a href=\"https://github.com/lukekarrys\"><code>@​lukekarrys</code></a>)</li>\n</ul>\n<h2>5.7</h2>\n<ul>\n<li>Add <code>minVersion</code> method</li>\n</ul>\n<h2>5.6</h2>\n<ul>\n<li>Move boolean <code>loose</code> param to an options object, with\nbackwards-compatibility protection.</li>\n<li>Add ability to opt out of special prerelease version handling with\nthe <code>includePrerelease</code> option flag.</li>\n</ul>\n<h2>5.5</h2>\n<ul>\n<li>Add version coercion capabilities</li>\n</ul>\n<h2>5.4</h2>\n<ul>\n<li>Add intersection checking</li>\n</ul>\n<h2>5.3</h2>\n<ul>\n<li>Add <code>minSatisfying</code> method</li>\n</ul>\n<h2>5.2</h2>\n<ul>\n<li>Add <code>prerelease(v)</code> that returns prerelease components</li>\n</ul>\n<h2>5.1</h2>\n<ul>\n<li>Add Backus-Naur for ranges</li>\n<li>Remove excessively cute inspection methods</li>\n</ul>\n<h2>5.0</h2>\n<ul>\n<li>Remove AMD/Browserified build artifacts</li>\n<li>Fix ltr and gtr when using the <code>*</code> range</li>\n<li>Fix for range <code>*</code> with a prerelease identifier</li>\n</ul>\n</blockquote>\n</details>\n<details>\n<summary>Commits</summary>\n<ul>\n<li><a href=\"https://github.com/npm/node-semver/commit/f8cc313550691a50d9662d8c94f0c033717efd7d\"><code>f8cc313</code></a> chore: release 5.7.2</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/2f8fd41487acf380194579ecb6f8b1bbfe116be0\"><code>2f8fd41</code></a> fix: better handling of whitespace (<a href=\"https://redirect.github.com/npm/node-semver/issues/585\">#585</a>)</li>\n<li><a href=\"https://github.com/npm/node-semver/commit/deb5ad51bf58868fa243c1683775305fe9e0e365\"><code>deb5ad5</code></a> chore: <code>@​npmcli/template-oss</code><a href=\"https://github.com/4\"><code>@​4</code></a>.16.0</li>\n<li>See full diff in <a href=\"https://github.com/npm/node-semver/compare/v5.7.1...v5.7.2\">compare view</a></li>\n</ul>\n</details>\n<details>\n<summary>Maintainer changes</summary>\n<p>This version was pushed to npm by <a href=\"https://www.npmjs.com/~lukekarrys\">lukekarrys</a>, a new releaser for semver since your current version.</p>\n</details>\n<br />\n\n\n[![Dependabot compatibility score](https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=semver&package-manager=npm_and_yarn&previous-version=5.7.1&new-version=5.7.2)](https://docs.github.com/en/github/managing-security-vulnerabilities/about-dependabot-security-updates#about-compatibility-scores)\n\nDependabot will resolve any conflicts with this PR as long as you don't alter it yourself. You can also trigger a rebase manually by commenting `@dependabot rebase`.\n\n[//]: # (dependabot-automerge-start)\n[//]: # (dependabot-automerge-end)\n\n---\n\n<details>\n<summary>Dependabot commands and options</summary>\n<br />\n\nYou can trigger Dependabot actions by commenting on this PR:\n- `@dependabot rebase` will rebase this PR\n- `@dependabot recreate` will recreate this PR, overwriting any edits that have been made to it\n- `@dependabot merge` will merge this PR after your CI passes on it\n- `@dependabot squash and merge` will squash and merge this PR after your CI passes on it\n- `@dependabot cancel merge` will cancel a previously requested merge and block automerging\n- `@dependabot reopen` will reopen this PR if it is closed\n- `@dependabot close` will close this PR and stop Dependabot recreating it. You can achieve the same result by closing it manually\n- `@dependabot ignore this major version` will close this PR and stop Dependabot creating any more for this major version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this minor version` will close this PR and stop Dependabot creating any more for this minor version (unless you reopen the PR or upgrade to it yourself)\n- `@dependabot ignore this dependency` will close this PR and stop Dependabot creating any more for this dependency (unless you reopen the PR or upgrade to it yourself)\nYou can disable automated security fix PRs for this repo from the [Security Alerts page](https://github.com/serge-web/serge/network/alerts).\n\n</details>",
+  "additions": 29701,
+  "deletions": 29701,
+  "changed_files": 1,
+  "labels": [
+    "dependencies"
+  ],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1812208829,
+      "user": "IanMayo",
+      "created_at": "2023-11-15T10:34:26Z",
+      "updated_at": "2023-11-15T10:34:26Z",
+      "body": "ignore"
+    },
+    {
+      "id": 1812208935,
+      "user": "dependabot[bot]",
+      "created_at": "2023-11-15T10:34:29Z",
+      "updated_at": "2023-11-15T10:34:29Z",
+      "body": "OK, I won't notify you again about this release, but will get in touch when a new version is available. If you'd rather skip all updates until the next major or minor version, let me know by commenting `@dependabot ignore this major version` or `@dependabot ignore this minor version`.\n\nIf you change your mind, just re-open this PR and I'll resolve any conflicts on it."
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://dependabot-badges.githubapp.com/badges/compatibility_score?dependency-name=semver&package-manager=npm_and_yarn&previous-version=5.7.1&new-version=5.7.2"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 59402
+}

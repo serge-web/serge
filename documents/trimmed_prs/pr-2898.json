@@ -1,0 +1,98 @@
+{
+  "number": 2898,
+  "title": "2871 prep for long comments",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-03-06T16:39:38Z",
+  "updated_at": "2024-03-21T11:51:14Z",
+  "closed_at": "2024-03-21T11:51:13Z",
+  "merged_at": "2024-03-21T11:51:13Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2898",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2898/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2898/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2898",
+  "body": "Fixes #2871 \r\n\r\nNote: this PR includes modified data in Serge app and `Storybook` to show an `Orders` property for Military-Symbol features on the map.",
+  "additions": 180,
+  "deletions": 81,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 6,
+  "review_comments_count": 0,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1981306278,
+      "user": "IanMayo",
+      "created_at": "2024-03-06T16:41:23Z",
+      "updated_at": "2024-03-06T16:41:23Z",
+      "body": "i'd appreciate you having a look at the code in this PR, please @lebaphi "
+    },
+    {
+      "id": 1982727469,
+      "user": "Tristina1788",
+      "created_at": "2024-03-07T07:24:31Z",
+      "updated_at": "2024-03-07T07:46:14Z",
+      "body": "@lebaphi , @IanMayo  Tested on '2871_prep_for_long_comments , now I can see the property 'Orders' as text Area field. We can extend this field by drag bottom right corner.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/7963f5cf-3e7c-49ad-b8bb-6e5843a13117)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/b97dad2b-df4d-4a81-866f-b1d593291bd4)\r\n\r\n\r\n- But I don't see this property on new map symbol item.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/87d7c150-1e00-4b90-b17a-475f62377112\r\n\r\n"
+    },
+    {
+      "id": 1983794069,
+      "user": "IanMayo",
+      "created_at": "2024-03-07T15:42:59Z",
+      "updated_at": "2024-03-07T15:42:59Z",
+      "body": "Hmm, I'm not sure about that sentence being there 3 times @Tristina1788 ('today's orders for this unit`) .  Did you just copy/paste that?"
+    },
+    {
+      "id": 1984907124,
+      "user": "Tristina1788",
+      "created_at": "2024-03-08T01:48:57Z",
+      "updated_at": "2024-03-08T01:48:57Z",
+      "body": "> Hmm, I'm not sure about that sentence being there 3 times @Tristina1788 ('today's orders for this unit`) . Did you just copy/paste that?\r\n\r\n@IanMayo   I copy/paste and only show that to says it can shows the text with many lines :) . It works as expected."
+    },
+    {
+      "id": 2010296592,
+      "user": "IanMayo",
+      "created_at": "2024-03-20T18:14:22Z",
+      "updated_at": "2024-03-20T18:14:22Z",
+      "body": "@Tristina1788 - I had to fix a few merge conflicts on this, it could do with re-testing, please."
+    },
+    {
+      "id": 2011167152,
+      "user": "Tristina1788",
+      "created_at": "2024-03-21T03:46:39Z",
+      "updated_at": "2024-03-21T03:46:39Z",
+      "body": "> @Tristina1788 - I had to fix a few merge conflicts on this, it could do with re-testing, please.\r\n\r\n@IanMayo  It works as expected as before.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/3017a4d7-526d-4609-ae51-7815f4a90759\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2871
+  ],
+  "issues": [
+    {
+      "id": 2144809109,
+      "number": 2871,
+      "title": "Allow longer properties to be defined (textarea)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-02-20T16:38:38Z",
+      "updated_at": "2024-03-21T11:51:14Z",
+      "closed_at": "2024-03-21T11:51:14Z",
+      "body": "We could allow more descriptive content associated with map symbols if the Game Designer was able to specify that a property would require a text area.\r\n\r\nWe already have `StringProperty`\r\n\r\nWe could extend it to include a `lines?: number` attribute. This would indicate how many vertical lines to assign to the text box.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/7963f5cf-3e7c-49ad-b8bb-6e5843a13117",
+    "https://github.com/serge-web/serge/assets/107697044/b97dad2b-df4d-4a81-866f-b1d593291bd4"
+  ],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 261
+}

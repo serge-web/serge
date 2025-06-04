@@ -1,0 +1,106 @@
+{
+  "number": 2833,
+  "title": "2827 Show generic \"shape\" symbol for core shapes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-08T13:37:34Z",
+  "updated_at": "2024-02-09T15:40:06Z",
+  "closed_at": "2024-02-09T15:40:05Z",
+  "merged_at": "2024-02-09T15:40:05Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2833",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2833/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2833/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2833",
+  "body": "Fixes #2827 \r\n\r\n<img width=\"467\" alt=\"image\" src=\"https://github.com/serge-web/serge/assets/26705621/69c15239-2765-4e6d-af1a-9d51b291966b\">\r\n",
+  "additions": 19,
+  "deletions": 14,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 1,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1934237507,
+      "user": "IanMayo",
+      "created_at": "2024-02-08T14:27:42Z",
+      "updated_at": "2024-02-08T14:27:42Z",
+      "body": "The symbol is great, thanks @lebaphi .\r\n\r\nI wanted to test changing the force color, but I'm unable to get `save` the new color.\r\n\r\nAlso note, please. We don't need to show `health` for these core shapes.  Hmm, but maybe that's because some test data mistakenly contains `health` properties.\r\n\r\nIt would be more robust to only add the health bar for features of type `MilSymRenderer` (or whatever the constant is)."
+    },
+    {
+      "id": 1935643561,
+      "user": "IanMayo",
+      "created_at": "2024-02-09T10:05:16Z",
+      "updated_at": "2024-02-09T10:05:16Z",
+      "body": "Ok @lebaphi the `save` issue is now under #2836, but could you please make the change to only show the health bar for `MilSymRenderer` features please?"
+    },
+    {
+      "id": 1935914751,
+      "user": "lebaphi",
+      "created_at": "2024-02-09T13:18:36Z",
+      "updated_at": "2024-02-09T13:18:36Z",
+      "body": "> Ok @lebaphi the `save` issue is now under #2836, but could you please make the change to only show the health bar for `MilSymRenderer` features please?\r\n\r\nokay @IanMayo "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1484324176,
+      "user": "IanMayo",
+      "created_at": "2024-02-09T13:34:33Z",
+      "updated_at": "2024-02-09T13:34:33Z",
+      "body": "Hey @lebaphi - I tried again and again to make this fix myself, I just couldn't manage the tsx constructs for it. \r\n\r\nThanks!",
+      "path": "client/src/Components/local/atoms/mapping-panel/helpers/icon-renderer.tsx",
+      "diff_hunk": "@@ -12,23 +16,24 @@ type IconRendererProps = {\n }\n \n const IconRenderer: React.FC<IconRendererProps> = ({ feature, checked, onClick }) => {\n-  const iconRef = useRef<HTMLDivElement>(null)\n- \n-  useEffect(() => {\n-    // TODO: reserch how to render shape in this line\n+  const iconElm = useMemo(() => {\n+    if (!feature) {\n+      return\n+    }\n     const icon = new ms.Symbol(feature.properties?.sidc, { size: 20 })\n     const health = feature.properties?.health\n \n     const healthColor = calculateHealthColor(health)\n \n-    if (iconRef.current) {",
+      "html_url": "https://github.com/serge-web/serge/pull/2833#discussion_r1484324176"
+    }
+  ],
+  "issue_numbers": [
+    2827,
+    2836
+  ],
+  "issues": [
+    {
+      "id": 2120592008,
+      "number": 2827,
+      "title": "Show generic \"shape\" symbol for core shapes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-02-06T11:50:31Z",
+      "updated_at": "2024-02-09T15:40:06Z",
+      "closed_at": "2024-02-09T15:40:06Z",
+      "body": "For generic shapes we show an upside-down question mark:\r\n![image](https://github.com/serge-web/serge/assets/1108513/ed1e9a84-715f-42a3-9fd5-acc5dd863bd8)\r\n\r\nThis is because we are trying to show a MilSymbol:\r\n![image](https://github.com/serge-web/serge/assets/1108513/04280a1f-2f2b-40fa-973b-93fd92b61fe5)\r\n\r\nInstead, we should only try to show a MilSymbol where `_type` property is `MilSymRenderer`:\r\n```\r\n \"_type\": \"MilSymRenderer\"\r\n```\r\n\r\nFor `CoreRenderer`, we should show a generic `shape` icon (the `shapes` icon from FontAwesome).\r\n\r\nNote: this will also resolve the issue of mistakenly trying to show health indicator for core shapes: https://github.com/serge-web/serge/pull/2814#issuecomment-1929291088",
+      "labels": [
+        "Mapping",
+        "4p10"
+      ],
+      "comments": []
+    },
+    {
+      "id": 2126739826,
+      "number": 2836,
+      "title": "Cannot change color of Shape item",
+      "state": "open",
+      "user": "Tristina1788",
+      "created_at": "2024-02-09T09:11:42Z",
+      "updated_at": "2024-02-09T09:11:49Z",
+      "closed_at": null,
+      "body": "## 🐞 Bug description\r\nCannot change color of Shape item\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Click on channel 'Core Mapping'\r\n3. Select a shape item on left panel\r\n4. Update 'Force' of item to Green\r\n5. Notice the shape item is not change color on map\r\n6. Also try to update 'Color' of item to any color\r\n7. Notice the shape item is not change color on map\r\n\r\n## ⚙️ Expected behavior\r\nUser can change color of Shape item (We can update 'Force' of shape item to change color item on map before)\r\n\r\n## 🖥️ Screencast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/68b6f82f-a76e-41a5-9ba7-398933d081eb\r\n\r\n## 💻 System information\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/26705621/69c15239-2765-4e6d-af1a-9d51b291966b",
+    "https://github.com/serge-web/serge/assets/1108513/ed1e9a84-715f-42a3-9fd5-acc5dd863bd8",
+    "https://github.com/serge-web/serge/assets/1108513/04280a1f-2f2b-40fa-973b-93fd92b61fe5"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 33
+}

@@ -1,0 +1,73 @@
+{
+  "number": 1044,
+  "title": "New strategy for selecting countries.",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-09-01T14:30:46Z",
+  "updated_at": "2021-09-02T08:52:23Z",
+  "closed_at": "2021-09-01T17:02:20Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1044",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1044/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1044/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1044",
+  "body": "Fixes #1040 ",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 910476856,
+      "user": "IanMayo",
+      "created_at": "2021-09-01T17:02:20Z",
+      "updated_at": "2021-09-01T17:02:20Z",
+      "body": "Close. Ian (the idiot) fixed it in `develop`."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1040
+  ],
+  "issues": [
+    {
+      "id": 985033299,
+      "number": 1040,
+      "title": "As a player I need to be able to provide multiple locations for my Course of Action",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-01T11:24:10Z",
+      "updated_at": "2021-09-01T17:31:10Z",
+      "closed_at": "2021-09-01T17:31:10Z",
+      "body": "We currently follow `standard-practice` and offer region and country as dependent drop-downs.\r\n\r\nI've just found out the players may need to specify multiple countries.\r\n\r\nSo, we need to change the implementation to allow for multiple countries in regions to be added.\r\n\r\nFirst array is \"Europe\", containing the two sample countries we're using.\r\n\r\nSecond array is \"Asia\", and so on.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 910331993,
+          "user": "IanMayo",
+          "created_at": "2021-09-01T14:19:02Z",
+          "updated_at": "2021-09-01T14:19:02Z",
+          "body": "Here is a sample of the structure:\r\n```\r\n{\r\n  \"type\": \"object\",\r\n  \"title\": \"COA\",\r\n  \"properties\": {\r\n    \"LOCATION\": {\r\n      \"type\": \"object\",\r\n      \"properties\": {\r\n        \"Europe\": {\r\n          \"items\": {\r\n            \"properties\": {\r\n              \"Country\": {\r\n                \"enum\": [\r\n                  \"France\",\r\n                  \"Germany\"\r\n                ],\r\n                \"type\": \"string\"\r\n              }\r\n            },\r\n            \"title\": \"Europe\"\r\n          },\r\n          \"type\": \"array\"\r\n        },\r\n        \"Asia\": {\r\n          \"items\": {\r\n            \"properties\": {\r\n              \"Country\": {\r\n                \"enum\": [\r\n                  \"India\",\r\n                  \"China\"\r\n                ],\r\n                \"type\": \"string\"\r\n              }\r\n            },\r\n            \"title\": \"Asia\"\r\n          },\r\n          \"type\": \"array\"\r\n        }\r\n      }\r\n    }\r\n  }\r\n}\r\n```"
+        },
+        {
+          "id": 910500157,
+          "user": "IanMayo",
+          "created_at": "2021-09-01T17:31:10Z",
+          "updated_at": "2021-09-01T17:31:10Z",
+          "body": "Silly old Ian fixed this in develop"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 0
+}

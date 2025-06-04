@@ -1,0 +1,50 @@
+{
+  "number": 2301,
+  "title": "2249 istar interaction",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-27T14:19:30Z",
+  "updated_at": "2023-01-31T09:11:16Z",
+  "closed_at": "2023-01-31T09:11:14Z",
+  "merged_at": "2023-01-31T09:11:14Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2301",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2301/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2301/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2301",
+  "body": "Fixes #2249 ",
+  "additions": 6780,
+  "deletions": 5645,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2249
+  ],
+  "issues": [
+    {
+      "id": 1533213722,
+      "number": 2249,
+      "title": "Generate ISTAR interaction",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-14T10:53:37Z",
+      "updated_at": "2023-01-31T09:11:16Z",
+      "closed_at": "2023-01-31T09:11:16Z",
+      "body": "We generate ISTAR events at a random period in the duration, and at the end of the activity.\r\n\r\nActually, maybe we should offer a set of ISTAR perception outcomes when an ISTAR interacts with an activity - particularly if there are any geometries involved.\r\n\r\n1. Processing an event\r\n- for the event, we consider the area under the `Observation Area` (second polygon) in the location object.  _Maybe_ we should consider the `Patrolling Area`, but let's not.\r\n- we find all op-for assets under the area, do the stats to find which ones perceived, offer those as perception outcomes\r\n\r\n2. Processing an interaction\r\n- for an interaction, the area for consideration is the intersecting area between the two shapes.  It's easy enough for two polygons, but for a polygon plus a line/point we should add a buffer region around it.  We should also consider the time period of the interaction, and then do the stats.\r\n\r\nHere is the logic for generating the outcome:\r\n- calculate the area of the region (km2)\r\n- calculate the duration of the search period\r\n- calculate the cumulative detection rate of the assigned assets (km2/hour)\r\n- work out %age of region covered in that period\r\n- provide this %age of assets as perception outcomes (force, type and name), provide all if %age over 100.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 12425
+}

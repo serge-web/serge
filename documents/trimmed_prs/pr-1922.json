@@ -1,0 +1,189 @@
+{
+  "number": 1922,
+  "title": "1862: Provide drawing tools for new orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-09T07:07:32Z",
+  "updated_at": "2022-10-12T08:07:39Z",
+  "closed_at": "2022-10-12T08:07:38Z",
+  "merged_at": "2022-10-12T08:07:38Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1922",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1922/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1922/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1922",
+  "body": "Fixes #1862 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/194742934-e245e73e-31c5-4c10-947c-79f45a21a78c.mov\r\n\r\n\r\n",
+  "additions": 27607,
+  "deletions": 31309,
+  "changed_files": 171,
+  "labels": [],
+  "comments_count": 17,
+  "review_comments_count": 0,
+  "total_comments": 17,
+  "comments_data": [
+    {
+      "id": 1272474895,
+      "user": "IanMayo",
+      "created_at": "2022-10-09T07:14:56Z",
+      "updated_at": "2022-10-09T07:14:56Z",
+      "body": "Brilliant!  But @lebaphi - could we have arrows spread along the line too?  So, if the player is zoomed in, they still see the direction of the line."
+    },
+    {
+      "id": 1272476874,
+      "user": "IanMayo",
+      "created_at": "2022-10-09T07:27:21Z",
+      "updated_at": "2022-10-09T07:27:21Z",
+      "body": "Aaah, one other thing, please @lebaphi .  I know the JS you provided for polylinedecorator will get called in the end, but could you have a go at a `react` version of it?  So, there will be a `<LayerGroup>` with a `<PolylineDecorator>` (and `<Polyline>` if necessary) inside it?  It will have a set of points that come from a `state` object.\r\n\r\nThis could go in`<PlanningChannel>` - since that's where other `<LayerGroup>` objects are defined."
+    },
+    {
+      "id": 1272480102,
+      "user": "lebaphi",
+      "created_at": "2022-10-09T07:47:21Z",
+      "updated_at": "2022-10-09T07:52:17Z",
+      "body": "let me check this 😃 "
+    },
+    {
+      "id": 1272481660,
+      "user": "IanMayo",
+      "created_at": "2022-10-09T07:56:05Z",
+      "updated_at": "2022-10-09T07:56:05Z",
+      "body": "It's this code that I meant, @lebaphi \r\n![image](https://user-images.githubusercontent.com/1108513/194744810-87458146-631b-4b23-87dc-f669c4bfb7f0.png)\r\n"
+    },
+    {
+      "id": 1272499270,
+      "user": "lebaphi",
+      "created_at": "2022-10-09T09:27:56Z",
+      "updated_at": "2022-10-09T09:27:56Z",
+      "body": "> It's this code that I meant, @lebaphi \n> \n> ![image](https://user-images.githubusercontent.com/1108513/194744810-87458146-631b-4b23-87dc-f669c4bfb7f0.png)\n> \n> \n\nsure @IanMayo "
+    },
+    {
+      "id": 1272562134,
+      "user": "lebaphi",
+      "created_at": "2022-10-09T15:06:40Z",
+      "updated_at": "2022-10-09T15:06:40Z",
+      "body": "Hi @IanMayo , how does it look 😄  \r\n\r\nhttps://user-images.githubusercontent.com/26705621/194764190-e3f21dc0-39d6-41d5-943e-0737549a1090.mov\r\n\r\n"
+    },
+    {
+      "id": 1272566920,
+      "user": "IanMayo",
+      "created_at": "2022-10-09T15:31:03Z",
+      "updated_at": "2022-10-09T15:31:03Z",
+      "body": "Build failing because of JS Heap size:\r\n![image](https://user-images.githubusercontent.com/1108513/194759370-77f879cd-98ef-48c9-9762-bf109450ad70.png)\r\n\r\nTomorrow morning I can try hiding some more stories, and see if that fixes it. Any other ideas @lebaphi "
+    },
+    {
+      "id": 1272567329,
+      "user": "IanMayo",
+      "created_at": "2022-10-09T15:33:10Z",
+      "updated_at": "2022-10-09T15:33:10Z",
+      "body": "> Hi @IanMayo , how does it look 😄\r\n\r\nIt's great.   We will render lines in two places:\r\n1. In geoman, when the line is being drawn\r\n2. In Planning Map Orders - when all orders are being shown.\r\n\r\nI _did_ think we only needed arrows for `2.`, but I now realise it would be useful in `1.` too.   I _think_ that it's in `2.` that we'll be declaring them as a react component."
+    },
+    {
+      "id": 1272744566,
+      "user": "lebaphi",
+      "created_at": "2022-10-10T03:33:19Z",
+      "updated_at": "2022-10-10T03:33:19Z",
+      "body": "> Build failing because of JS Heap size: ![image](https://user-images.githubusercontent.com/1108513/194759370-77f879cd-98ef-48c9-9762-bf109450ad70.png)\r\n> \r\n> Tomorrow morning I can try hiding some more stories, and see if that fixes it. Any other ideas @lebaphi\r\n\r\nI think we can increase the head size by this command `export NODE_OPTIONS=--max_old_space_size=8192`"
+    },
+    {
+      "id": 1272748733,
+      "user": "lebaphi",
+      "created_at": "2022-10-10T03:42:01Z",
+      "updated_at": "2022-10-10T03:42:01Z",
+      "body": "> > Hi @IanMayo , how does it look 😄\r\n> \r\n> It's great. We will render lines in two places:\r\n> \r\n> 1. In geoman, when the line is being drawn\r\n> 2. In Planning Map Orders - when all orders are being shown.\r\n> \r\n> I _did_ think we only needed arrows for `2.`, but I now realise it would be useful in `1.` too. I _think_ that it's in `2.` that we'll be declaring them as a react component.\r\n\r\nactually, we need to get polyline reference to decorate it (add arrow) but we are using geoman lib to draw line so I don't get polyline's reference yet. My solution is to listen for the onCreate event when drawing the line in the geoman lib, capture the set of latlngs then remove the polyline layer (generated by geoman), hen let's redraw it with our react component.\r\n\r\nI have created PolylineDecorator component, add set of latlangs then It will draw line with arrow."
+    },
+    {
+      "id": 1273137996,
+      "user": "IanMayo",
+      "created_at": "2022-10-10T10:58:55Z",
+      "updated_at": "2022-10-10T10:58:55Z",
+      "body": "This is great, thanks @lebaphi \r\n\r\nYou've implemented enough logic for us to \"drive\" the new feature.  I'm going to replace it with the \"real\" business logic. But, I'm going to merge the PR first, so that the new drawing editor is in the `develop` branch."
+    },
+    {
+      "id": 1273138740,
+      "user": "IanMayo",
+      "created_at": "2022-10-10T10:59:42Z",
+      "updated_at": "2022-10-10T10:59:42Z",
+      "body": "Aah, one question. You've had to make this fix in a few places.  Can you explain why you had to do it please?\r\n![image](https://user-images.githubusercontent.com/1108513/194851443-d003e875-5eeb-4736-a5b7-a279eb1d7c91.png)\r\n"
+    },
+    {
+      "id": 1273155461,
+      "user": "IanMayo",
+      "created_at": "2022-10-10T11:13:51Z",
+      "updated_at": "2022-10-10T11:13:51Z",
+      "body": "Hmm, @lebaphi \r\n\r\nI made a change to put arrows along the line:\r\n![image](https://user-images.githubusercontent.com/1108513/194853601-f3665841-02c9-42ba-86c2-2ee6bcb60752.png)\r\n\r\n\r\nBut, when I try to push the change, I get lots of lint errors.  I think you can see them if you run `yarn lint`.  Would you mind fixing them please?"
+    },
+    {
+      "id": 1273302118,
+      "user": "lebaphi",
+      "created_at": "2022-10-10T13:19:07Z",
+      "updated_at": "2022-10-10T13:19:07Z",
+      "body": "> Aah, one question. You've had to make this fix in a few places. Can you explain why you had to do it please? ![image](https://user-images.githubusercontent.com/1108513/194851443-d003e875-5eeb-4736-a5b7-a279eb1d7c91.png)\r\n\r\nWhen we run the tests with jest, there are some nested components that need to be imported before running, but in the test environment they are undefined so the tests fail. So we need to mock these components and that's how we mock them."
+    },
+    {
+      "id": 1273302721,
+      "user": "lebaphi",
+      "created_at": "2022-10-10T13:19:37Z",
+      "updated_at": "2022-10-10T13:19:37Z",
+      "body": "> Hmm, @lebaphi\r\n> \r\n> I made a change to put arrows along the line: ![image](https://user-images.githubusercontent.com/1108513/194853601-f3665841-02c9-42ba-86c2-2ee6bcb60752.png)\r\n> \r\n> But, when I try to push the change, I get lots of lint errors. I think you can see them if you run `yarn lint`. Would you mind fixing them please?\r\n\r\nsure @IanMayo "
+    },
+    {
+      "id": 1273989308,
+      "user": "lebaphi",
+      "created_at": "2022-10-11T02:01:26Z",
+      "updated_at": "2022-10-11T02:01:26Z",
+      "body": "Hi @IanMayo, I fixed all the lints and there are a lot of file changes, so do you think we should create a new PR or keep these changes in this PR?"
+    },
+    {
+      "id": 1274306213,
+      "user": "IanMayo",
+      "created_at": "2022-10-11T08:31:19Z",
+      "updated_at": "2022-10-11T15:46:06Z",
+      "body": "> Hi @IanMayo, I fixed all the lints and there are a lot of file changes, so do you think we should create a new PR or keep these changes in this PR?\r\n\r\nYes - the separate PR was a good call. Thanks :-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1862
+  ],
+  "issues": [
+    {
+      "id": 1380808618,
+      "number": 1862,
+      "title": "Provide drawing tools for new orders",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-21T11:56:03Z",
+      "updated_at": "2022-10-12T08:07:39Z",
+      "closed_at": "2022-10-12T08:07:39Z",
+      "body": "In the `Planning Channel`, players will trigger the creation of some `Orders` objects by selecting the type of new orders, then be lead through drawing a feature on the map.  Once the feature has been drawn the relevant `Orders` template will open, with the spatial data filled.\r\n\r\nWe'll use `leaflet.draw` for this feature.\r\n\r\nFor this we'll need these capabilities:\r\n1. Leaflet map, with toolbar\r\n2. Popup menu on toolbar, to select one of `A. Transit`, `B. Point Effect`,  and `C. Area Effect`.  These will trigger the drawing of `a. Polyline`, `b. Marker`, `c. Polygon`.  \r\n3. Once the user has finished creating the feature, a popup dialog will open, letting them choose one of `Maritime`, `Land`, `Air` and `Other`.  Then, create and open the relevant template.  Note: the new feature will be stored in a `leaflet.draw` layer.  Once the template has been saved, the feature will be moved from the `leaflet.draw` layer to the existing `Orders` layer.\r\n4. Users should be able to edit the spatial data for selected orders documents. So, we'll need a special `Edit` icon next to the `Spatial` field in the editor.  When this is clicked, the feature will be moved from the `Orders` layer to the `leaflet.draw` layer, and put into edit mode - to let the player drag the corners/nodes\r\n\r\n**Note:** `leaflet.draw hasn't been updated for years, and may not work with leaflet 2.0.   leaflet-geoman looks like it is better maintained: https://geoman.io/leaflet-geoman\r\n\r\n**Update:** I've made some progress in this in `map-draw-activity`, but have now got stuck.  I tried to introduce `react-leaflet-geoman-v2` via `yarn add` in `packages/components`.  It compiled ok, but threw an error when running `storybook`:\r\n![image](https://user-images.githubusercontent.com/1108513/193409361-4c133cb5-45af-43f2-a21f-e89f70b017ea.png)\r\n\r\nI could with some support in adding the `<FeatureGroup><GeomanControls>` element as demonstrated here:\r\nhttps://github.com/TurtIeSocks/react-leaflet-geoman.   I guess we would have to position it at the \"bottomright\" instead, since our existing toolbar is at the top right.\r\n\r\nI'm pretty sure that will go into `PlanningChannel`\r\n",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1274492099,
+          "user": "IanMayo",
+          "created_at": "2022-10-11T10:47:32Z",
+          "updated_at": "2022-10-11T10:47:32Z",
+          "body": "@lebaphi  is (almost) on top of integrating the drawing tools.\r\n\r\nHere is the flow of how we show/manage the geometries as they are drawn.\r\n\r\n![drawing flow](https://docs.google.com/drawings/d/e/2PACX-1vT1xB5kFxCRpIPACPRCyNt-X4eErND5DW5Fi2d0J4Ou-4uj_JztKoKXAr6-c9MihOsX9fJFBAM9Rjpf/pub?w=960&h=720)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/194744810-87458146-631b-4b23-87dc-f669c4bfb7f0.png",
+    "https://user-images.githubusercontent.com/1108513/194759370-77f879cd-98ef-48c9-9762-bf109450ad70.png",
+    "https://user-images.githubusercontent.com/1108513/194851443-d003e875-5eeb-4736-a5b7-a279eb1d7c91.png",
+    "https://user-images.githubusercontent.com/1108513/194853601-f3665841-02c9-42ba-86c2-2ee6bcb60752.png",
+    "https://user-images.githubusercontent.com/1108513/193409361-4c133cb5-45af-43f2-a21f-e89f70b017ea.png",
+    "https://docs.google.com/drawings/d/e/2PACX-1vT1xB5kFxCRpIPACPRCyNt-X4eErND5DW5Fi2d0J4Ou-4uj_JztKoKXAr6-c9MihOsX9fJFBAM9Rjpf/pub?w=960&h=720"
+  ],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 1057
+}

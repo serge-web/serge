@@ -1,0 +1,71 @@
+{
+  "number": 1095,
+  "title": "1084: Request Changes form disappears when new message received",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-07T08:53:45Z",
+  "updated_at": "2021-09-07T14:04:03Z",
+  "closed_at": "2021-09-07T14:04:02Z",
+  "merged_at": "2021-09-07T14:04:02Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1095",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1095/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1095/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1095",
+  "body": "Fixed #1084 ",
+  "additions": 89,
+  "deletions": 20,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 914135650,
+      "user": "IanMayo",
+      "created_at": "2021-09-07T09:14:14Z",
+      "updated_at": "2021-09-07T09:14:14Z",
+      "body": "Could the content of the dialog stay in there too please @lebaphi ?\r\n\r\nCurrently the content is lost if the browser re-renders (such as when a new message is received)\r\n\r\n![screencast](https://i.gyazo.com/aec213f7202a02318d3048c9b816f0eb.gif)"
+    },
+    {
+      "id": 914140229,
+      "user": "lebaphi",
+      "created_at": "2021-09-07T09:20:27Z",
+      "updated_at": "2021-09-07T09:20:27Z",
+      "body": "> Could the content of the dialog stay in there too please @lebaphi ?\r\n> \r\n> Currently the content is lost if the browser re-renders (such as when a new message is received)\r\n> \r\n> ![screencast](https://camo.githubusercontent.com/748b0d9e2e67f13996ae7a921b2edc30cb0541d06764c045a6b75e69d5313fcf/68747470733a2f2f692e6779617a6f2e636f6d2f61656332313366373230326130323331386433303438633962383136663065622e676966)\r\n\r\nyep, I see it,  I'm looking on the `fitContent` issue, will be back to fix this later 👍 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1084
+  ],
+  "issues": [
+    {
+      "id": 989254861,
+      "number": 1084,
+      "title": "Request Changes form disappears when new message received",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-06T14:58:34Z",
+      "updated_at": "2021-09-07T14:04:02Z",
+      "closed_at": "2021-09-07T14:04:02Z",
+      "body": "We use a popup dialog to request changes.\r\n\r\nThis dialog disappears and is reset if a new message is received.  It appears that the message can be of any type.  The dialog should stay open.\r\n\r\n![screencast](https://i.gyazo.com/d6753e5bd692fbffa839491706c8bb05.gif)",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/aec213f7202a02318d3048c9b816f0eb.gif",
+    "https://camo.githubusercontent.com/748b0d9e2e67f13996ae7a921b2edc30cb0541d06764c045a6b75e69d5313fcf/68747470733a2f2f692e6779617a6f2e636f6d2f61656332313366373230326130323331386433303438633962383136663065622e676966",
+    "https://i.gyazo.com/d6753e5bd692fbffa839491706c8bb05.gif"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 109
+}

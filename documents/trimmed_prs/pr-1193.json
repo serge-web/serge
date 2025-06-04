@@ -1,0 +1,67 @@
+{
+  "number": 1193,
+  "title": "Include toggle to display \"Archived\" documents",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-10-21T15:40:39Z",
+  "updated_at": "2021-10-28T11:01:12Z",
+  "closed_at": "2021-10-28T11:01:11Z",
+  "merged_at": "2021-10-28T11:01:11Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1193",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1193/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1193/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1193",
+  "body": "Fixes #1191 ",
+  "additions": 247,
+  "deletions": 93,
+  "changed_files": 10,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 948738740,
+      "user": "lebaphi",
+      "created_at": "2021-10-21T15:42:15Z",
+      "updated_at": "2021-10-21T15:43:08Z",
+      "body": "Hi @IanMayo, this PR is waiting for your backend to update the `message.details.archive` 👍 \r\n![image](https://user-images.githubusercontent.com/26705621/138311795-493ce63d-5280-4f67-9eba-e136a0bdd3a1.png)\r\n"
+    },
+    {
+      "id": 949653243,
+      "user": "IanMayo",
+      "created_at": "2021-10-22T13:53:34Z",
+      "updated_at": "2021-10-22T13:53:34Z",
+      "body": "Working great.\r\n\r\nBut, will try on target VMs before I merge it into `develop`."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1191
+  ],
+  "issues": [
+    {
+      "id": 1032435074,
+      "number": 1191,
+      "title": "Include toggle to display \"Archived\" documents",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-10-21T12:28:30Z",
+      "updated_at": "2021-10-28T11:01:11Z",
+      "closed_at": "2021-10-28T11:01:11Z",
+      "body": "In the current wargame users can have hundreds of COAs & RFIs.\r\n\r\nThis is causing a performance problem on some poorly specced virtual machines.  Improving the spec of the VMs is outside our control.\r\n\r\nBut, we could archive old COAs & RFIs, and by-default, not display them.\r\n\r\n\"Archived\" documents will have a `details.archived` value of `true`.\r\n\r\nSo in the `colab-edit` channel, we should provide a `Display archived` checkbox next to the `Mark all as read` button.  The default value would be false.\r\n\r\nIn the collab-edit processing, we would not display `archived` documents, unless the above checkbox was ticked.\r\n\r\nNote: I'll have to modify the data via the backend to create the `archived` flags.  But, I guess we can develop/test the above using the COA/RFI storybooks.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/138311795-493ce63d-5280-4f67-9eba-e136a0bdd3a1.png"
+  ],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 340
+}

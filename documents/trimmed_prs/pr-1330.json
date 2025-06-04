@@ -1,0 +1,32 @@
+{
+  "number": 1330,
+  "title": "Always put `Cancel` before action",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-28T13:07:09Z",
+  "updated_at": "2022-01-28T13:46:32Z",
+  "closed_at": "2022-01-28T13:46:31Z",
+  "merged_at": "2022-01-28T13:46:31Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1330",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1330/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1330/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1330",
+  "body": "Answers request made here:\r\nhttps://github.com/serge-web/serge/pull/1323#issuecomment-1024019734\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/151551943-9f8cd73d-f7ad-47ef-a9e3-acacfccf8f92.png)\r\n\r\n(also corrects order in a number of other dialogs)",
+  "additions": 25,
+  "deletions": 25,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/151551943-9f8cd73d-f7ad-47ef-a9e3-acacfccf8f92.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 50
+}

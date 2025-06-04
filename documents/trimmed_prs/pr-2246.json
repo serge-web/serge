@@ -1,0 +1,109 @@
+{
+  "number": 2246,
+  "title": "Edit_orders_form_lost_on_table_update",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-13T08:24:05Z",
+  "updated_at": "2023-01-15T20:09:43Z",
+  "closed_at": "2023-01-15T20:09:43Z",
+  "merged_at": "2023-01-15T20:09:43Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2246",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2246/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2246/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2246",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 21,
+  "deletions": 61,
+  "changed_files": 8,
+  "labels": [
+    "bug",
+    "4p9"
+  ],
+  "comments_count": 6,
+  "review_comments_count": 0,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 1381627829,
+      "user": "IanMayo",
+      "created_at": "2023-01-13T10:30:56Z",
+      "updated_at": "2023-01-13T10:30:56Z",
+      "body": "@lilitkarapetyan - I don't know about the most recent commit, but this PR doesn't fix the issue for me.  Pulling new commit, and trying again."
+    },
+    {
+      "id": 1381637386,
+      "user": "IanMayo",
+      "created_at": "2023-01-13T10:40:00Z",
+      "updated_at": "2023-01-13T10:40:00Z",
+      "body": "@lilitkarapetyan - this PR doesn't fix it for me:\r\n![screencast](https://i.gyazo.com/a346b6d81c2a825aa74dc176b840bea4.gif)"
+    },
+    {
+      "id": 1381690651,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-01-13T11:06:33Z",
+      "updated_at": "2023-01-13T11:06:33Z",
+      "body": "\r\n\r\n\r\n> \r\n\r\nI reproduced the mentioned steps, got this error and solved it - https://www.loom.com/share/44584a0806fc422da7529144d5dafe4c  "
+    },
+    {
+      "id": 1381691214,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-01-13T11:07:04Z",
+      "updated_at": "2023-01-13T11:07:04Z",
+      "body": "I will work on it "
+    },
+    {
+      "id": 1381697270,
+      "user": "IanMayo",
+      "created_at": "2023-01-13T11:12:33Z",
+      "updated_at": "2023-01-13T11:12:33Z",
+      "body": "Ok.  I think you were ok since you were using two new sets of orders.  The issue is when one user is editing an existing set of orders - since existing orders are a `detail` panel in the `material table`."
+    },
+    {
+      "id": 1381765827,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-01-13T12:07:44Z",
+      "updated_at": "2023-01-13T12:07:44Z",
+      "body": "I think the problem occurred after making changes to the `jsonEditor `, I don't know what the problem is yet, I need to look into it"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2244
+  ],
+  "issues": [
+    {
+      "id": 1530992978,
+      "number": 2244,
+      "title": "Edit orders form lost on table update",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-12T16:11:03Z",
+      "updated_at": "2023-01-15T20:10:21Z",
+      "closed_at": "2023-01-15T20:10:21Z",
+      "body": "Oh no, the dreaded \"losing forms\" issue is back.\r\n\r\n_Maybe_ it's related to updating the material table.\r\n\r\nSteps to reproduce:\r\n- game is in `planning` phase\r\n- login as `mtg 1` in one tab\r\n- switch to `orders` tab. Click `person` icon to filter for own orders\r\n- expand a set of orders\r\n- click on `Edit`\r\n- make a change to a line - add some text\r\n- switch to other tab\r\n- login as `mtg 2` in another tab\r\n- switch to `orders` tab. Click activity button, select `Maritime`> `Transit`\r\n- click a few points, then finish the line. An empty form will open. Type in a title, and press `Send`\r\n- the form for `Mtg 1` will now be left in an inconsistent state. The data changes are lost, and it goes back to read-only mode. But, clicking on `Edit` doesn't make form editable, only a page-refresh will fix the page",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1383240230,
+          "user": "IanMayo",
+          "created_at": "2023-01-15T20:10:21Z",
+          "updated_at": "2023-01-15T20:10:21Z",
+          "body": "Fixed in #2246 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/a346b6d81c2a825aa74dc176b840bea4.gif"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 82
+}

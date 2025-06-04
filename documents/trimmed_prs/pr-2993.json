@@ -1,0 +1,105 @@
+{
+  "number": 2993,
+  "title": "2992_Core_mapping_the_created_items_are_disapeared_after_logout_gameplay",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-07-09T08:44:15Z",
+  "updated_at": "2024-07-09T11:10:09Z",
+  "closed_at": "2024-07-09T11:10:08Z",
+  "merged_at": "2024-07-09T11:10:08Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2993",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2993/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2993/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2993",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 6,
+  "deletions": 9,
+  "changed_files": 4,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 2,
+  "review_comments_count": 1,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 2216975601,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-09T08:44:28Z",
+      "updated_at": "2024-07-09T08:44:28Z",
+      "body": "fixes #2992 "
+    },
+    {
+      "id": 2217309190,
+      "user": "Tristina1788",
+      "created_at": "2024-07-09T10:47:15Z",
+      "updated_at": "2024-07-09T10:47:15Z",
+      "body": "@lilitkarapetyan  @IanMayo \r\n- Now from message Channel, I can see message shows follow turn correctly\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/d76ac844-7ca1-44d4-bd8d-6b78f32d239a)\r\n\r\n- From Core Mapping Channel, message can be saved after logout\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/28af8234-6908-4ae3-85d0-31ab720b3313\r\n\r\n- From Collab channel, I can send message as before\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/c0160ed3-5dc3-460e-a4c7-67f595bd9546)\r\n\r\nSo, I think the fixing is working fine.\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1670074879,
+      "user": "IanMayo",
+      "created_at": "2024-07-09T09:03:48Z",
+      "updated_at": "2024-07-09T09:20:42Z",
+      "body": "Hello @lilitkarapetyan - I'm nervous about the impact of this change across all of the channels that use this logic.  Could you check please new messages get added properly to each type of channel (including mapping).\r\n\r\nActually, @Tristina1788 - it could do with a good test from you too, please. We need to check messages are shown in the correct order in all channel types, and that new messages are correctly shown.  This should also include changes to message in a Collab channel.",
+      "path": "client/src/Helpers/handle-channel-updates.ts",
+      "diff_hunk": "@@ -86,11 +86,8 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:\n       const present = theChannel.messages.some((msg: MessageChannel) => msg._id === message._id)\n       if (!present) {\n         // chat messages need to go at the end, not the start\n-        if (theChannel.cData.channelType === CHANNEL_CHAT) {\n-          theChannel.messages.push(newObj)\n-        } else {\n-          theChannel.messages.unshift(newObj)\n-        }\n+        theChannel.messages.push(newObj)",
+      "html_url": "https://github.com/serge-web/serge/pull/2993#discussion_r1670074879"
+    }
+  ],
+  "issue_numbers": [
+    2992
+  ],
+  "issues": [
+    {
+      "id": 2390199311,
+      "number": 2992,
+      "title": "Core mapping - the created items are disapeared after logout gameplay",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-07-04T07:53:31Z",
+      "updated_at": "2024-07-18T07:23:35Z",
+      "closed_at": "2024-07-18T07:23:34Z",
+      "body": "## 🐞 Bug description\r\nThe created items are dissapeared after logout gameplay\r\n\r\n## 🔢 Steps to Reproduce\r\n\r\nSteps to reproduce the behavior:\r\n1. Go to gameplay TestHAT\r\n2. Login with user can create new item (Example : Red - Red2)\r\n3. Go to  'Core Mapping' Channel \r\n4. Create some new items\r\n5. Logout gameplay\r\n6. Login again\r\n7. From 'Core mapping' channel , notice the created items are dissapeared\r\n\r\nNotice : I checked some merges to develop and found that it happens from the merge '[Sometimes_message_shows_in_wrong_turn](https://github.com/serge-web/serge/commit/a03e7148f6e332b025caa270b97c8d05f6f26a51)'\r\n\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/8a3b76a1-baa2-47f4-9812-fdbfdc1814fe\r\n\r\n\r\n## ⚙️ Expected behavior\r\nthe created items are disapeared after logout gameplay\r\n\r\n## 🖥️ Screenshots\r\n\r\n## 💻 System information\r\n - Browser : Chrome\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 2208360412,
+          "user": "IanMayo",
+          "created_at": "2024-07-04T08:05:24Z",
+          "updated_at": "2024-07-04T08:05:24Z",
+          "body": "Great, thanks @Tristina1788 "
+        },
+        {
+          "id": 2235290129,
+          "user": "Tristina1788",
+          "created_at": "2024-07-18T04:07:59Z",
+          "updated_at": "2024-07-18T04:07:59Z",
+          "body": "@IanMayo  It works as expected now. So we can close this ticket."
+        },
+        {
+          "id": 2235808182,
+          "user": "IanMayo",
+          "created_at": "2024-07-18T07:23:34Z",
+          "updated_at": "2024-07-18T07:23:34Z",
+          "body": "Fixed in #2993 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/d76ac844-7ca1-44d4-bd8d-6b78f32d239a",
+    "https://github.com/serge-web/serge/assets/107697044/c0160ed3-5dc3-460e-a4c7-67f595bd9546"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 15
+}

@@ -1,0 +1,125 @@
+{
+  "number": 1666,
+  "title": "New map messages produces wargame with wrong id #1656",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-07-12T09:33:15Z",
+  "updated_at": "2022-07-14T13:15:08Z",
+  "closed_at": "2022-07-14T13:15:03Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1666",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1666/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1666/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1666",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 35,
+  "deletions": 14,
+  "changed_files": 7,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 8,
+  "review_comments_count": 1,
+  "total_comments": 9,
+  "comments_data": [
+    {
+      "id": 1181594198,
+      "user": "IanMayo",
+      "created_at": "2022-07-12T10:30:20Z",
+      "updated_at": "2022-07-12T10:30:20Z",
+      "body": "Thanks @lilitkarapetyan .\r\n\r\nBut, once the wargame has been initiated, we should create a new document with the `_id` of `settings`.\r\n\r\nSo, before initiated:\r\n- ***overwrite*** document named `initial_wargame`\r\n\r\nAfter initiated:\r\n- ***add new version*** of document named `settings`"
+    },
+    {
+      "id": 1181718925,
+      "user": "IanMayo",
+      "created_at": "2022-07-12T12:47:43Z",
+      "updated_at": "2022-07-12T12:47:43Z",
+      "body": "Ok. It's a start, but something still broken.\r\n\r\n1. Login as Game Control\r\n2. Do \"umpire laydown\" (move 4 assets)\r\n3. Submit \"umpire laydown\"\r\n4. Go to Game Admin page\r\n5. Click on `wargame initiated`\r\n6. Log in as `Red CO`\r\n7. Note we're now in `Force laydown`\r\n8. Do force laydown for `MPA 2`. Remember where MPA2 asset placed\r\n9. Submit force laydown\r\n10. Notice where `MPA 2` is\r\n11. Refresh page\r\n12. `MPA 2` back in `Force laydown`\r\n13. Look in database:\r\n![image](https://user-images.githubusercontent.com/1108513/178493176-adebafe2-5c0f-472f-a227-1443ae1d6c07.png)\r\n\r\nThe results of `Force laydown` are in document titled `initial_wargame`.  But, this document isn't supplied to the client on refresh.  It _may_ be filtered by this code:\r\n![image](https://user-images.githubusercontent.com/1108513/178492867-5c401812-3d8a-450c-af30-251e3a24673c.png)\r\n\r\nSo, `get all documents for wargame` doesn't return the one titled `initial_wargame`.  This is the one with the results of Red `force laydown` (i.e. a position for `MPA 2`)."
+    },
+    {
+      "id": 1183098731,
+      "user": "IanMayo",
+      "created_at": "2022-07-13T11:22:32Z",
+      "updated_at": "2022-07-13T11:22:32Z",
+      "body": "Thanks for the update @lilitkarapetyan , but isn't `settings` the name we use for the wargame document once it has been initiated?"
+    },
+    {
+      "id": 1183227290,
+      "user": "IanMayo",
+      "created_at": "2022-07-13T13:30:20Z",
+      "updated_at": "2022-07-13T13:30:20Z",
+      "body": "Sorry, @lilitkarapetyan - this is still broken.\r\n![image](https://user-images.githubusercontent.com/1108513/178745205-634b5450-92d3-457b-815b-ee0eb5ef795d.png)\r\n\r\nI did `umpire-laydown`, then `initiate wargame`.  This produced a wargame with the new id (`initial_wargame_start`). But, when I changed a channel name & did `Save channel`,  it created a wargame with a date-time id.\r\n![image](https://user-images.githubusercontent.com/1108513/178745482-66fb0663-111c-4c9e-a727-7dbc5df67ac6.png)\r\n"
+    },
+    {
+      "id": 1183411667,
+      "user": "IanMayo",
+      "created_at": "2022-07-13T16:07:40Z",
+      "updated_at": "2022-07-13T16:07:40Z",
+      "body": "Ok, I've made some progress with this today.  I'll carry on tomorrow. I will be doing more refactoring of `wargames_api`. I haven't really worked with it before, but there are some bits that look wrong."
+    },
+    {
+      "id": 1183982313,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-07-14T04:45:50Z",
+      "updated_at": "2022-07-14T04:45:50Z",
+      "body": "> \r\n\r\n\r\n\r\n> Sorry, @lilitkarapetyan - this is still broken. ![image](https://user-images.githubusercontent.com/1108513/178745205-634b5450-92d3-457b-815b-ee0eb5ef795d.png)\r\n> \r\n> I did `umpire-laydown`, then `initiate wargame`. This produced a wargame with the new id (`initial_wargame_start`). But, when I changed a channel name & did `Save channel`, it created a wargame with a date-time id. ![image](https://user-images.githubusercontent.com/1108513/178745482-66fb0663-111c-4c9e-a727-7dbc5df67ac6.png)\r\n\r\nHi Ian, I will check"
+    },
+    {
+      "id": 1183983550,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-07-14T04:48:23Z",
+      "updated_at": "2022-07-14T04:48:23Z",
+      "body": "> Ok, I've made some progress with this today. I'll carry on tomorrow. I will be doing more refactoring of `wargames_api`. I haven't really worked with it before, but there are some bits that look wrong.\r\n\r\nOk, i'll look into it when you're done "
+    },
+    {
+      "id": 1184435065,
+      "user": "IanMayo",
+      "created_at": "2022-07-14T13:15:03Z",
+      "updated_at": "2022-07-14T13:15:03Z",
+      "body": "Closing this PR, since Ian mangled the code. Superceded by #1668"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 918828185,
+      "user": "IanMayo",
+      "created_at": "2022-07-12T10:52:48Z",
+      "updated_at": "2022-07-12T10:52:48Z",
+      "body": "Hmm, @lilitkarapetyan  - so we don't use an id of `settings` for all versions of the wargame after it has been initiated?",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -332,7 +332,7 @@ export const initiateGame = (dbName: string): Promise<MessageInfoType> => {\n     const messageInfoType: MessageInfoType = {\n       ...wargame,\n       _rev: undefined,\n-      _id: dbDefaultSettings._id,\n+      _id: new Date().toISOString(),",
+      "html_url": "https://github.com/serge-web/serge/pull/1666#discussion_r918828185"
+    }
+  ],
+  "issue_numbers": [
+    1668
+  ],
+  "issues": [
+    {
+      "id": 1304772069,
+      "number": 1668,
+      "title": "1656 wrong id for new message",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-14T13:14:21Z",
+      "updated_at": "2022-07-20T10:28:08Z",
+      "closed_at": "2022-07-20T10:28:07Z",
+      "body": "Fixes #1656 \r\nFixes #1667\r\n\r\nSupercedes #1666 ",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/178493176-adebafe2-5c0f-472f-a227-1443ae1d6c07.png",
+    "https://user-images.githubusercontent.com/1108513/178492867-5c401812-3d8a-450c-af30-251e3a24673c.png",
+    "https://user-images.githubusercontent.com/1108513/178745205-634b5450-92d3-457b-815b-ee0eb5ef795d.png",
+    "https://user-images.githubusercontent.com/1108513/178745482-66fb0663-111c-4c9e-a727-7dbc5df67ac6.png"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 49
+}

@@ -1,0 +1,76 @@
+{
+  "number": 2184,
+  "title": "2180: Use icons for copy/delete/add in JSONEditor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-25T04:14:39Z",
+  "updated_at": "2022-12-29T15:36:02Z",
+  "closed_at": "2022-12-29T15:36:01Z",
+  "merged_at": "2022-12-29T15:36:01Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2184",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2184/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2184/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2184",
+  "body": "Fixes #2180 \r\n",
+  "additions": 3,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1365924492,
+      "user": "IanMayo",
+      "created_at": "2022-12-27T14:03:54Z",
+      "updated_at": "2022-12-27T14:03:54Z",
+      "body": "Hello @philb89 - SERGE will be running without an Internet connection, so we can't download the material icons at run-time. We have to include them in the build.  I'm pretty sure we do have at least one set of icons included in the build already (Font-awesome, I think), so _maybe_ you can direct JSON-Editor to use them?"
+    },
+    {
+      "id": 1366608780,
+      "user": "lebaphi",
+      "created_at": "2022-12-28T12:15:19Z",
+      "updated_at": "2022-12-28T12:15:19Z",
+      "body": "Yes @IanMayo, I think I'm using the icon from `iconlib: 'fontawesome5',` we don't download the material icons at run-time\r\n<img width=\"227\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/209810743-93a9634f-9fe3-4ca2-aa90-7072fb022465.png\">\r\n"
+    },
+    {
+      "id": 1367413700,
+      "user": "IanMayo",
+      "created_at": "2022-12-29T15:33:44Z",
+      "updated_at": "2022-12-29T15:33:44Z",
+      "body": "> Yes @IanMayo, I think I'm using the icon from `iconlib: 'fontawesome5',` we don't download the material icons at run-time <img alt=\"image\" width=\"227\" src=\"https://user-images.githubusercontent.com/26705621/209810743-93a9634f-9fe3-4ca2-aa90-7072fb022465.png\">\r\n\r\nMy mistake. I re-did the build, and I saw it was using local icons :-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2180
+  ],
+  "issues": [
+    {
+      "id": 1509144655,
+      "number": 2180,
+      "title": "Use icons for copy/delete/add in JSONEditor",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-12-23T10:02:35Z",
+      "updated_at": "2022-12-29T15:36:02Z",
+      "closed_at": "2022-12-29T15:36:02Z",
+      "body": "For some of our forms, there is a fight for screen space.\r\n\r\nUsing the JSON editor button icons instead of labels could save some space.\r\n\r\nCould you try to switch to button icons please @philb89 ?",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/209810743-93a9634f-9fe3-4ca2-aa90-7072fb022465.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 3
+}

@@ -1,0 +1,311 @@
+{
+  "number": 1544,
+  "title": "1309: Intro Pop up or Tutorial for Mapping",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-04-29T09:35:55Z",
+  "updated_at": "2022-05-05T17:10:39Z",
+  "closed_at": "2022-05-05T15:55:15Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1544",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1544/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1544/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1544",
+  "body": "Fixes #1309 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/165920287-6f7d540a-345c-401a-b4d5-3fb45191af95.mp4\r\n\r\n\r\n",
+  "additions": 203,
+  "deletions": 53,
+  "changed_files": 12,
+  "labels": [],
+  "comments_count": 8,
+  "review_comments_count": 0,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 1116156127,
+      "user": "IanMayo",
+      "created_at": "2022-05-03T14:19:28Z",
+      "updated_at": "2022-05-03T14:19:28Z",
+      "body": "Ooh yes, that's good @lebaphi :-)\r\n\r\nI'm trying to sort out a way for @ShendMikullovci  to review it, since Heroku still isn't deploying PRs."
+    },
+    {
+      "id": 1116183136,
+      "user": "IanMayo",
+      "created_at": "2022-05-03T14:43:00Z",
+      "updated_at": "2022-05-03T14:43:00Z",
+      "body": "Aaah, there is a workaround.\r\n1. Click on `Checks` at the top of the PR\r\n2. Open the `PR` item on the left-hand side\r\n3. Select the `Artifact` relevant to your operating system\r\n4. The artifact will download. #\r\n5. Unpack the zip-file into a folder. It's probably worth giving the folder the PR number, since you may end up with lots of versions\r\n6. Run `xxx_executable`\r\n\r\nHere are the early steps:\r\n![video](https://i.gyazo.com/7ce0f05941164e16d050323486378f2f.gif)\r\n"
+    },
+    {
+      "id": 1116195038,
+      "user": "IanMayo",
+      "created_at": "2022-05-03T14:54:14Z",
+      "updated_at": "2022-05-03T14:54:14Z",
+      "body": "One short-coming @lebaphi .  If I'm logged in as `Blue` I'm not offered the `View as` controls.  Can the tutorial do some \"switch-path\" logic depending on the user?"
+    },
+    {
+      "id": 1116272631,
+      "user": "lebaphi",
+      "created_at": "2022-05-03T16:06:26Z",
+      "updated_at": "2022-05-03T16:06:26Z",
+      "body": "sure @IanMayo, I will update"
+    },
+    {
+      "id": 1117142879,
+      "user": "IanMayo",
+      "created_at": "2022-05-04T10:11:31Z",
+      "updated_at": "2022-05-04T10:11:31Z",
+      "body": "Thanks @lebaphi - well done.\r\n\r\nTime for the next challenge ;-)\r\n\r\nI'd like to be able to teach the player about the asset icons and planning forms. But, we won't know what game they are looking at - so we can't refer to an icon.  One solution to this is to include screenshots in the tour tab.  Could you have a go at putting a 400px by 300px screen image into a tour tab? @ShendMikullovci  and I can come up with the actual images/words.\r\n"
+    },
+    {
+      "id": 1117149155,
+      "user": "lebaphi",
+      "created_at": "2022-05-04T10:19:33Z",
+      "updated_at": "2022-05-04T10:19:33Z",
+      "body": "> Thanks @lebaphi - well done.\r\n> \r\n> Time for the next challenge ;-)\r\n> \r\n> I'd like to be able to teach the player about the asset icons and planning forms. But, we won't know what game they are looking at - so we can't refer to an icon. One solution to this is to include screenshots in the tour tab. Could you have a go at putting a 400px by 300px screen image into a tour tab? @ShendMikullovci and I can come up with the actual images/words.\r\n\r\nsure @IanMayo 👍 \r\n"
+    },
+    {
+      "id": 1118748702,
+      "user": "IanMayo",
+      "created_at": "2022-05-05T16:06:41Z",
+      "updated_at": "2022-05-05T16:06:41Z",
+      "body": "Did you mean to close this @lebaphi ?"
+    },
+    {
+      "id": 1118846131,
+      "user": "lebaphi",
+      "created_at": "2022-05-05T17:10:39Z",
+      "updated_at": "2022-05-05T17:10:39Z",
+      "body": "yep, I have a new PR for this"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    300,
+    400,
+    1309
+  ],
+  "issues": [
+    {
+      "id": 559867754,
+      "number": 300,
+      "title": "Can't drag counters on touch screen",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-02-04T17:24:47Z",
+      "updated_at": "2023-11-13T11:34:56Z",
+      "closed_at": "2023-11-13T11:34:56Z",
+      "body": "After the recent addition of a single toggle setting, it's now possible to pan/zoom the map on a touch screen.\r\n\r\nBut, it's still not possible to interact with the markers/counters.\r\n\r\nCould you do some Leaflet research to see how to do this please?\r\n\r\nIdeally, clicking on a counter will trigger it's popup, Red can drag their assets in Turn zero, and the little planning markers can be dragged to plan routes.",
+      "labels": [
+        "wontfix",
+        "User Story",
+        "Mapping"
+      ],
+      "comments": []
+    },
+    {
+      "id": 607646577,
+      "number": 400,
+      "title": "397b available cells",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-04-27T15:35:43Z",
+      "updated_at": "2020-04-28T12:32:27Z",
+      "closed_at": "2020-04-28T12:32:26Z",
+      "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\nFixes #397\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\nUse declarative approach to display available cells for a platform.\r\n\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\nhttps://deploy-preview-400--serge-storybook.netlify.app/?path=/story/local-mapping--with-allowable-range\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![image](https://user-images.githubusercontent.com/1108513/80487414-a9f6bf80-8954-11ea-9190-b4550ec1df17.png)\r\n\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\nNote: this phase doesn't include terrain-dependent allowances.  That is being deferred for a future stage.\r\n",
+      "labels": [
+        "enhancement"
+      ],
+      "comments": [
+        {
+          "id": 620079207,
+          "user": "cypress[bot]",
+          "created_at": "2020-04-27T16:03:13Z",
+          "updated_at": "2020-04-28T12:26:52Z",
+          "body": "\n<p align=\"center\">\n  <br />\n  <img src=\"https://assets.cypress.io/github-pr-comment-icons/cypress-logo.png\" height=\"32\" />\n</p>\n\n---\n\n### Test summary\n<a href=\"https://dashboard.cypress.io/projects/rinvt1/runs/1103/specs\"><img src=\"https://assets.cypress.io/github-pr-comment-icons/green-check-mark.png\" width=\"14\" height=\"14\" title=\"Passed\" /></a> <b title=\"Passed\">2</b>  &bull; <a href=\"https://dashboard.cypress.io/projects/rinvt1/runs/1103/failures\"><img src=\"https://assets.cypress.io/github-pr-comment-icons/red-x.png\" width=\"14\" height=\"14\" title=\"Failed\" /></a> <b title=\"Failed\">0</b>  &bull; <img src=\"https://assets.cypress.io/github-pr-comment-icons/gray-circle.png\" width=\"14\" height=\"14\" title=\"Tests that did not run due to a developer annotating a test with .skip\" /> <b title=\"Pending\">0</b> &bull; <img src=\"https://assets.cypress.io/github-pr-comment-icons/yellow-triangle.png\" width=\"14\" height=\"14\" title=\"Tests that did not run due to a failure in a mocha hook\" /> <b title=\"Skipped\">0</b>\n\n---\n\n### Run details\n| | |\n| --- | --- |\n| **Project** | Serge end-to-end testing |\n| **Status** | Passed |\n| **Commit** | 6ddc5195bf <span style=\"cursor:help;\" title=\"Your CI provider generated this commit by merging this branch into the target branch.\">ℹ️</span> |\n| **Started** | Apr 28, 2020 12:20 PM |\n| **Ended** | Apr 28, 2020 12:26 PM |\n| **Duration** | 06:39 <a href=\"https://on.cypress.io/parallelization\" title=\"Enable parallelization to reduce run duration\">💡</a> |\n| **OS** | Linux Ubuntu Linux - 16.04 |\n| **Browser** | Electron 78 <img src=\"https://cdnjs.cloudflare.com/ajax/libs/browser-logos/48.0.4/electron/electron_32x32.png\" width=\"16\" height=\"16\" /> |\n\n[View run in Cypress Dashboard ➡️](https://dashboard.cypress.io/projects/rinvt1/runs/1103/specs)\n\n\n\n---\n\nThis comment has been generated by **cypress-bot** as a result of this project's GitHub integration settings. You can manage this integration in [this project's settings in the Cypress Dashboard](https://dashboard.cypress.io/projects/rinvt1/settings)\n\n"
+        }
+      ]
+    },
+    {
+      "id": 1105097438,
+      "number": 1309,
+      "title": "Intro Pop up or Tutorial for Mapping",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-16T16:28:17Z",
+      "updated_at": "2022-05-09T10:35:32Z",
+      "closed_at": "2022-05-09T10:35:32Z",
+      "body": "I noticed that the mapping channel has no introduction or any tutorial to show users how to use it, orientation and buttons. \r\nIn the channel, we have two new tables that don't appear anywhere else in the game: \r\n\r\n![Intro for Mapping Channel](https://user-images.githubusercontent.com/85491794/149668644-6c49f830-65fa-466d-aed0-609f371f0cec.png)\r\n\r\nI suggest we offer a short tutorial on how to use the highlighted tables above.\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1014700527,
+          "user": "IanMayo",
+          "created_at": "2022-01-17T16:12:56Z",
+          "updated_at": "2022-01-17T16:12:56Z",
+          "body": "Sure. We need a combination of @ShendMikullovci coming up with the headings/features/descriptions for the walkthrough, and for @lebaphi to implement it."
+        },
+        {
+          "id": 1019522563,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-23T16:45:06Z",
+          "updated_at": "2022-01-23T16:45:06Z",
+          "body": "Here's an initial design for the tutorial for GC: \r\n\r\n![Mapping Intro Screen 1](https://user-images.githubusercontent.com/85491794/150688621-6238d469-c1cf-4a7c-be58-584f8cb5fd23.png)\r\n\r\n![Mapping Intro Screen 2a](https://user-images.githubusercontent.com/85491794/150688648-02ce4e76-9a0b-4794-9ab1-143e82022f7f.png)\r\n\r\n![Mapping Intro Screen 2b](https://user-images.githubusercontent.com/85491794/150688656-c3b8a0ac-75fe-4ab1-a7bb-4c97795d33ee.png)\r\n\r\n![Mapping Intro Screen 3](https://user-images.githubusercontent.com/85491794/150688659-393ec9cb-a3f8-40b7-85e9-dd3f47db8b91.png)\r\n\r\n![Mapping Intro Screen 4](https://user-images.githubusercontent.com/85491794/150688666-5ae7c93f-e589-4099-a239-56a55fb6de76.png)\r\n\r\n![Mapping Intro Screen 5](https://user-images.githubusercontent.com/85491794/150688674-a8d21846-61fe-455c-818c-7c171948897e.png)\r\n\r\n![Mapping Intro Last Screen](https://user-images.githubusercontent.com/85491794/150688681-37832837-efb9-4855-b39e-054f075fa57d.png)\r\n\r\nThe pop-up would be identical to the introduction pop-up in order to avoid confusion. Ideally, the user could activate the pop-up by clicking on the button for the introduction pop-up. Let me know if that's difficult to code. \r\n"
+        },
+        {
+          "id": 1020136971,
+          "user": "IanMayo",
+          "created_at": "2022-01-24T14:07:08Z",
+          "updated_at": "2022-01-24T14:07:08Z",
+          "body": "Sure. The design seems sound.\r\n\r\nOne extension to the wording.  We mention the top-left panel for assets that the current player controls, and for non-controlled assets that are visible.  It may be worth mentioning that selecting them causes a dedicated editor panel to open at the bottom right.  We won't be able to \"highlight\" it in the tour, since it's only present when something is clicked. But, it will mean the player is aware of it."
+        },
+        {
+          "id": 1020545381,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-24T21:05:15Z",
+          "updated_at": "2022-01-24T21:05:15Z",
+          "body": "I think it's a great idea and a valuable step to add to the tutorial: \r\n\r\n![Mapping Intro Screen 2c](https://user-images.githubusercontent.com/85491794/150864633-df6edec4-bff9-47cf-b1be-eb2ad717c5c0.png)\r\n\r\n"
+        },
+        {
+          "id": 1020989718,
+          "user": "IanMayo",
+          "created_at": "2022-01-25T09:38:37Z",
+          "updated_at": "2022-01-25T09:38:37Z",
+          "body": "Sorry @ShendMikullovci - by default we don't show \"View asset\" when the page opens, it's just when an asset is clicked.  Beyond that, I don't think we can force the \"View asset\" panel to open.  But, we can mention that clicking on an asset in the top-left will open a tailored panel at the bottom-left."
+        },
+        {
+          "id": 1021659661,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-25T22:14:31Z",
+          "updated_at": "2022-01-25T22:14:31Z",
+          "body": "Alright. Added the explanation to step 3 of the pop-up. \r\nGood with the wording? : \r\n\r\n![Mapping Intro Screen 2b](https://user-images.githubusercontent.com/85491794/151068715-8af9c4e2-2cc2-4d2f-ab54-1ae1c1560b4c.png)\r\n\r\n"
+        },
+        {
+          "id": 1022030809,
+          "user": "IanMayo",
+          "created_at": "2022-01-26T09:45:16Z",
+          "updated_at": "2022-01-26T09:45:16Z",
+          "body": "Thanks @ShendMikullovci \r\n\r\nIt's a bit more generic than your wording. Clicking on an asset from the `Control` tab also pops up a panel.\r\n\r\nAlso, in the walkthrough, I don't think we can switch from the `Control` tab to the `Visibility` tab.  So, I think that step needs to cover both tabs - it can then also indicate that clicking on any tab on this panel opens a tailored form."
+        },
+        {
+          "id": 1022671243,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-26T22:44:06Z",
+          "updated_at": "2022-01-26T22:45:56Z",
+          "body": "Excellent. Here's the updated walkthrough: \r\n\r\n![Mapping Intro Screen 1](https://user-images.githubusercontent.com/85491794/151259518-51c221d7-c1e3-4eaa-9274-1a122e83aa2a.png)\r\n\r\n\r\n![Mapping Intro Screen 2a](https://user-images.githubusercontent.com/85491794/151259740-3a9799ab-1292-4609-9e22-55784d50ad5a.png)\r\n\r\n\r\n![Mapping Intro Screen 2b](https://user-images.githubusercontent.com/85491794/151259554-245ea0e5-d631-440f-8daf-8aa479951318.png)\r\n\r\n\r\n![Mapping Intro Screen 3](https://user-images.githubusercontent.com/85491794/151259582-eb43a326-8272-4196-b8eb-14137e0378e1.png)\r\n\r\n![Mapping Intro Screen 4](https://user-images.githubusercontent.com/85491794/151259587-85abf14c-7e3b-45db-9b7b-7a13b35e923e.png)\r\n\r\n![Mapping Intro Screen 5](https://user-images.githubusercontent.com/85491794/151259594-1a843a6f-264a-4637-9b29-0022286bf8e2.png)\r\n\r\n![Mapping Intro Last Screen](https://user-images.githubusercontent.com/85491794/151259622-78604eaf-dab9-40db-9e00-a3662246f757.png)\r\n\r\n\r\n\r\n"
+        },
+        {
+          "id": 1023040608,
+          "user": "IanMayo",
+          "created_at": "2022-01-27T10:02:35Z",
+          "updated_at": "2022-01-27T10:02:47Z",
+          "body": "1. We can't switch to the `Visibility` tab during the walkthrough.  So, the wording will have to be \"Under Visibility you will be able to view ...\"\r\n2. Minor improvement to `Globe buttons`.   Only umpire force are able to view other force's perception of map.  Since we expect umpire forces to have more experience, I guess we could remove that step."
+        },
+        {
+          "id": 1024025061,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T09:14:23Z",
+          "updated_at": "2022-01-28T10:01:40Z",
+          "body": "> 1. We can't switch to the `Visibility` tab during the walkthrough.  So, the wording will have to be \"Under Visibility you will be able to view ...\"\r\n\r\nYes, that is the idea. I'll change the background shortly.\r\n\r\n> 2. Minor improvement to `Globe buttons`.   Only umpire force are able to view other force's perception of map.  Since we expect umpire forces to have more experience, I guess we could remove that step.\r\n\r\nI was thinking of showing this step only for the White Force, hence why I logged into the game as GC for the designs. Is it possible to include it only for members of the White Force?\r\n"
+        },
+        {
+          "id": 1024062295,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T10:03:42Z",
+          "updated_at": "2022-01-28T10:03:42Z",
+          "body": "> 1. We can't switch to the `Visibility` tab during the walkthrough.  So, the wording will have to be \"Under Visibility you will be able to view ...\"\r\n\r\nHere's an idea: \r\n\r\n![Control Mapping](https://user-images.githubusercontent.com/85491794/151527148-0ef47cea-72df-4928-a2bc-c120dc0a86b2.png)\r\n\r\n![Visibility Mapping](https://user-images.githubusercontent.com/85491794/151527230-1dd3649a-183b-454d-9a60-6a010d72f1e1.png)\r\n\r\nSince we can't switch to the actual Visibility tab, we dim everything else. \r\n"
+        },
+        {
+          "id": 1024130410,
+          "user": "IanMayo",
+          "created_at": "2022-01-28T11:33:22Z",
+          "updated_at": "2022-01-28T11:34:42Z",
+          "body": "> highlight the visiblity tab\r\n\r\nYes, great idea.\r\n\r\n> only show globes step if logged in as umpire force\r\n\r\nYes, if it's possible to do that :-)\r\n\r\nI'm happy to ask @lebaphi to start implementing this. But, @ShendMikullovci there is a chance he'll miss something in our discussions.  Could you please produce an updated/consolidated set of screenshots that capture all we've discussed?"
+        },
+        {
+          "id": 1024215098,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T13:17:12Z",
+          "updated_at": "2022-01-28T13:17:12Z",
+          "body": "> I'm happy to ask @lebaphi to start implementing this. But, @ShendMikullovci there is a chance he'll miss something in our discussions. Could you please produce an updated/consolidated set of screenshots that capture all we've discussed?\r\n\r\nAbsolutely. "
+        },
+        {
+          "id": 1024245064,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T13:52:59Z",
+          "updated_at": "2022-01-28T13:52:59Z",
+          "body": "To Implement: \r\nThis is the introduction pop-up in the mapping page for CWK-HIGH DATA. Only members of the White Force see step number 6 (globe feature to alternate between perspectives). The rest of the players get the same intro pop-up, but without step number 6.\r\n\r\nHere are the screenshots: \r\n\r\n![Mapping Intro Screen 1 Final](https://user-images.githubusercontent.com/85491794/151557449-8b6afd86-3b8f-4a8e-9b5c-2f92a55b1e38.png)\r\n\r\nThe entire background is dimmed and the intro pop-up appears bright on the screen.\r\n\r\n![Mapping Intro Screen 2a Final](https://user-images.githubusercontent.com/85491794/151557508-9d02e1ab-ccc3-4261-87dd-949d081415ed.png)\r\n\r\nThe orders tab and the control button brighten as well as the pop-up.\r\n\r\n![Mapping Intro Screen 2b Final](https://user-images.githubusercontent.com/85491794/151557533-34eff63f-9f0a-4fe2-97ff-5cacbe70a12a.png)\r\n\r\nHere, only the Visibility tab brightens, and everything else is dimmed.\r\n\r\n![Mapping Intro Screen 3 Final](https://user-images.githubusercontent.com/85491794/151557589-d57abc20-fd74-469f-a5ac-63177f8f82e7.png)\r\n\r\nBright zoom-in and zoom-out and home button.\r\n\r\n![Mapping Intro Screen 4 Final](https://user-images.githubusercontent.com/85491794/151557637-c7cfba36-100d-4f9d-9f7d-080edb0a81f4.png)\r\n\r\nBright clockwise & counterclockwise buttons.\r\n\r\n![Mapping Intro Screen 5 Final](https://user-images.githubusercontent.com/85491794/151557659-5b1dac7d-0700-4651-b21f-acece5d78d44.png)\r\n\r\nBright globe buttons. **This feature is only for the White Force. Other players don't have this feature so it's not included in the pop up for anyone else.**\r\n\r\n![Mapping Intro Last Screen Final](https://user-images.githubusercontent.com/85491794/151557674-b579cfa0-bcbb-49cb-bf8a-f20bdad6897a.png)\r\n\r\nFinally, dimmed background and bright pop-up and intro button at the top right corner.\r\n\r\nSorry for the length. Let me know if you have any questions."
+        },
+        {
+          "id": 1096859163,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-12T15:13:38Z",
+          "updated_at": "2022-04-12T15:13:38Z",
+          "body": "Do we plan on implementing this? Sounds like a valuable feature, especially for the upcoming game."
+        },
+        {
+          "id": 1096861522,
+          "user": "IanMayo",
+          "created_at": "2022-04-12T15:15:32Z",
+          "updated_at": "2022-04-12T15:15:32Z",
+          "body": "Yes, I do hope to. The game date has slipped though, possibly by a couple of months.\r\n\r\nSo, the priority is on fixing the broken bits, then the tutorial."
+        },
+        {
+          "id": 1112107390,
+          "user": "lebaphi",
+          "created_at": "2022-04-28T11:47:32Z",
+          "updated_at": "2022-04-28T11:47:32Z",
+          "body": "Hi @IanMayo , @ShendMikullovci ,\r\nso in the first time we also show the tutorial to the force player, so how to solve if there are 2 types of tutorial showing at the same time?"
+        },
+        {
+          "id": 1112153620,
+          "user": "IanMayo",
+          "created_at": "2022-04-28T12:39:17Z",
+          "updated_at": "2022-04-28T12:39:17Z",
+          "body": "Good question @lebaphi :-)\r\n\r\nI _guess_ we only show the mapping walkthrough if the main walkthrough has already completed (we do that by checking the flag in the cookie data)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/7ce0f05941164e16d050323486378f2f.gif",
+    "https://user-images.githubusercontent.com/1108513/80487414-a9f6bf80-8954-11ea-9190-b4550ec1df17.png",
+    "https://assets.cypress.io/github-pr-comment-icons/cypress-logo.png",
+    "https://assets.cypress.io/github-pr-comment-icons/green-check-mark.png",
+    "https://assets.cypress.io/github-pr-comment-icons/red-x.png",
+    "https://assets.cypress.io/github-pr-comment-icons/gray-circle.png",
+    "https://assets.cypress.io/github-pr-comment-icons/yellow-triangle.png",
+    "https://cdnjs.cloudflare.com/ajax/libs/browser-logos/48.0.4/electron/electron_32x32.png",
+    "https://user-images.githubusercontent.com/85491794/149668644-6c49f830-65fa-466d-aed0-609f371f0cec.png",
+    "https://user-images.githubusercontent.com/85491794/150688621-6238d469-c1cf-4a7c-be58-584f8cb5fd23.png",
+    "https://user-images.githubusercontent.com/85491794/150688648-02ce4e76-9a0b-4794-9ab1-143e82022f7f.png",
+    "https://user-images.githubusercontent.com/85491794/150688656-c3b8a0ac-75fe-4ab1-a7bb-4c97795d33ee.png",
+    "https://user-images.githubusercontent.com/85491794/150688659-393ec9cb-a3f8-40b7-85e9-dd3f47db8b91.png",
+    "https://user-images.githubusercontent.com/85491794/150688666-5ae7c93f-e589-4099-a239-56a55fb6de76.png",
+    "https://user-images.githubusercontent.com/85491794/150688674-a8d21846-61fe-455c-818c-7c171948897e.png",
+    "https://user-images.githubusercontent.com/85491794/150688681-37832837-efb9-4855-b39e-054f075fa57d.png",
+    "https://user-images.githubusercontent.com/85491794/150864633-df6edec4-bff9-47cf-b1be-eb2ad717c5c0.png",
+    "https://user-images.githubusercontent.com/85491794/151068715-8af9c4e2-2cc2-4d2f-ab54-1ae1c1560b4c.png",
+    "https://user-images.githubusercontent.com/85491794/151259518-51c221d7-c1e3-4eaa-9274-1a122e83aa2a.png",
+    "https://user-images.githubusercontent.com/85491794/151259740-3a9799ab-1292-4609-9e22-55784d50ad5a.png",
+    "https://user-images.githubusercontent.com/85491794/151259554-245ea0e5-d631-440f-8daf-8aa479951318.png",
+    "https://user-images.githubusercontent.com/85491794/151259582-eb43a326-8272-4196-b8eb-14137e0378e1.png",
+    "https://user-images.githubusercontent.com/85491794/151259587-85abf14c-7e3b-45db-9b7b-7a13b35e923e.png",
+    "https://user-images.githubusercontent.com/85491794/151259594-1a843a6f-264a-4637-9b29-0022286bf8e2.png",
+    "https://user-images.githubusercontent.com/85491794/151259622-78604eaf-dab9-40db-9e00-a3662246f757.png",
+    "https://user-images.githubusercontent.com/85491794/151527148-0ef47cea-72df-4928-a2bc-c120dc0a86b2.png",
+    "https://user-images.githubusercontent.com/85491794/151527230-1dd3649a-183b-454d-9a60-6a010d72f1e1.png",
+    "https://user-images.githubusercontent.com/85491794/151557449-8b6afd86-3b8f-4a8e-9b5c-2f92a55b1e38.png",
+    "https://user-images.githubusercontent.com/85491794/151557508-9d02e1ab-ccc3-4261-87dd-949d081415ed.png",
+    "https://user-images.githubusercontent.com/85491794/151557533-34eff63f-9f0a-4fe2-97ff-5cacbe70a12a.png",
+    "https://user-images.githubusercontent.com/85491794/151557589-d57abc20-fd74-469f-a5ac-63177f8f82e7.png",
+    "https://user-images.githubusercontent.com/85491794/151557637-c7cfba36-100d-4f9d-9f7d-080edb0a81f4.png",
+    "https://user-images.githubusercontent.com/85491794/151557659-5b1dac7d-0700-4651-b21f-acece5d78d44.png",
+    "https://user-images.githubusercontent.com/85491794/151557674-b579cfa0-bcbb-49cb-bf8a-f20bdad6897a.png"
+  ],
+  "number_of_changed_files": 12,
+  "total_changed_lines": 256
+}

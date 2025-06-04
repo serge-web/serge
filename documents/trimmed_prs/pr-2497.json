@@ -1,0 +1,50 @@
+{
+  "number": 2497,
+  "title": "2495 copy orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-23T19:32:47Z",
+  "updated_at": "2023-02-23T20:14:43Z",
+  "closed_at": "2023-02-23T20:14:41Z",
+  "merged_at": "2023-02-23T20:14:41Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2497",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2497/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2497/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2497",
+  "body": "Fixes #2495 ",
+  "additions": 109,
+  "deletions": 438,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2495
+  ],
+  "issues": [
+    {
+      "id": 1597272137,
+      "number": 2495,
+      "title": "Copy Orders",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-23T17:39:49Z",
+      "updated_at": "2023-02-23T20:14:43Z",
+      "closed_at": "2023-02-23T20:14:43Z",
+      "body": "A player may wish something to happen daily, for 7 days.\r\n\r\nThe current model is just to create it for 7 days.  But, that would only generate on route-out and one route-back - whereas there should be multiple instances.\r\n\r\nSo, players will need to create 7 instances of the orders.   That will be a pain.\r\n\r\nA \"copy\" button would help.\r\n\r\nHere is how \"copy\" would be implemented:\r\n- select single orders document\r\n- \"copy\" button appears in planning orders toolbar\r\n- when clicked, a duplicate of the plan will be created, but with reference and id stripped out.\r\n- this will be pushed to the \"new orders\" panel, for the player to complete.  This is similar to the processing we do for \"create orders\"",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 547
+}

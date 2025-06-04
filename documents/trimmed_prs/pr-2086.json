@@ -1,0 +1,60 @@
+{
+  "number": 2086,
+  "title": "2085 optimise prsentation of orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-13T19:55:55Z",
+  "updated_at": "2022-11-13T20:55:03Z",
+  "closed_at": "2022-11-13T20:55:02Z",
+  "merged_at": "2022-11-13T20:55:02Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2086",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2086/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2086/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2086",
+  "body": "Fixes #2086",
+  "additions": 32,
+  "deletions": 20,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2085
+  ],
+  "issues": [
+    {
+      "id": 1447040427,
+      "number": 2085,
+      "title": "Should view reference",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-13T18:54:45Z",
+      "updated_at": "2022-11-14T08:06:38Z",
+      "closed_at": "2022-11-14T08:06:38Z",
+      "body": "In the table of orders, we should see reference numbers",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1313247115,
+          "user": "IanMayo",
+          "created_at": "2022-11-14T08:06:38Z",
+          "updated_at": "2022-11-14T08:06:38Z",
+          "body": "Fixed in #2086 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 52
+}

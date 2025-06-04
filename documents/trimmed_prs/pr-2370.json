@@ -1,0 +1,59 @@
+{
+  "number": 2370,
+  "title": "2367 collab channel",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-02-12T15:13:23Z",
+  "updated_at": "2023-06-13T13:10:19Z",
+  "closed_at": "2023-06-13T13:10:16Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2370",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2370/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2370/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2370",
+  "body": "Starts to support #2367 ",
+  "additions": 38219,
+  "deletions": 38113,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2367
+  ],
+  "issues": [
+    {
+      "id": 1581257424,
+      "number": 2367,
+      "title": "RFI Channel for P9",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-12T13:21:48Z",
+      "updated_at": "2023-11-13T11:33:57Z",
+      "closed_at": "2023-11-13T11:33:57Z",
+      "body": "JP indicated that he would like an RFI channel for P9.\r\n\r\nThat will be an instance of `CollabChannel`.\r\n\r\nHere is a channel definition that can go into `wargame-l6nngxlk.sqlite`.  The first document in the database is a wargame definition.  Open it up, navigate to the `channels` section, and insert this definition after the first `ChannelPlanning`.\r\n\r\nOnce the channel is inserted, login as `Game Control`, and there will be a single message in the channel.  \r\n\r\nI've made a start on this issue, and made some fixes in this branch: 2367_collab_channel - it's in PR #2370 \r\n\r\nHmm, instead of inserting the channel into the wargame, maybe it's possible to debug things from the CollabMessageDetail `Collaborative Response` story: http://localhost:6611/?path=/story/local-molecules-collabmessagedetail--collaborative-response&args=state:Unallocated\r\n\r\nNote, we seem to have these issues: \r\n- [ ] the `jsoneditor` for editing the `chat` response isn't working.\r\n- [ ] the message titles ('Chat' and 'Response') aren't legible, since they are in black \r\n- [ ] I haven't been able to do any wider testing, so we should check `umpire force` roles can claim, review, and submit messages, and `blue` force roles can submit requests, and view released responses.\r\n\r\n```\r\n {\r\n                    \"approveVerbs\": [\r\n                        \"Approve 2\"\r\n                    ],\r\n                    \"channelType\": \"ChannelCollab\",\r\n                    \"extraColumns\": [],\r\n                    \"initialState\": \"UNALLOCATED\",\r\n                    \"name\": \"Blue RFI\",\r\n                    \"newMessageTemplate\": {\r\n                        \"_id\": \"k16eedkj\",\r\n                        \"title\": \"RFI\"\r\n                    },\r\n                    \"participants\": [\r\n                        {\r\n                            \"canCreate\": true,\r\n                            \"forceUniqid\": \"f-blue\",\r\n                            \"pType\": \"ParticipantCollab\",\r\n                            \"permission\": 0,\r\n                            \"roles\": [],\r\n                            \"subscriptionId\": \"jvrn1\",\r\n                            \"viewUnreleasedVersions\": false\r\n                        },\r\n                        {\r\n                            \"canCreate\": true,\r\n                            \"forceUniqid\": \"umpire\",\r\n                            \"pType\": \"ParticipantCollab\",\r\n                            \"permission\": 3,\r\n                            \"roles\": [],\r\n                            \"subscriptionId\": \"jvrn3\",\r\n                            \"viewUnreleasedVersions\": true\r\n                        },\r\n                        {\r\n                            \"canCreate\": true,\r\n                            \"forceUniqid\": \"umpire\",\r\n                            \"pType\": \"ParticipantCollab\",\r\n                            \"permission\": 4,\r\n                            \"roles\": [\r\n                                \"umpire\"\r\n                            ],\r\n                            \"subscriptionId\": \"jvrn4\",\r\n                            \"viewUnreleasedVersions\": true\r\n                        }\r\n                    ],\r\n                    \"releaseVerbs\": [\r\n                        \"Release 2\"\r\n                    ],\r\n                    \"requestChangesVerbs\": [\r\n                        \"Request 2\"\r\n                    ],\r\n                    \"responseTemplate\": {\r\n                        \"_id\": \"k16eedkl\",\r\n                        \"title\": \"Chat\"\r\n                    },\r\n                    \"uniqid\": \"ks8sztkw\"\r\n                }\r\n\r\n```",
+      "labels": [
+        "wontfix",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1431333717,
+          "user": "IanMayo",
+          "created_at": "2023-02-15T13:01:45Z",
+          "updated_at": "2023-02-15T13:01:45Z",
+          "body": "Deferring until March."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 76332
+}

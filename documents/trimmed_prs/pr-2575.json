@@ -1,0 +1,50 @@
+{
+  "number": 2575,
+  "title": "2570 do not list all assets for perception",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-08T07:36:49Z",
+  "updated_at": "2023-03-08T10:01:15Z",
+  "closed_at": "2023-03-08T10:01:14Z",
+  "merged_at": "2023-03-08T10:01:14Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2575",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2575/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2575/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2575",
+  "body": "Fixes #2570 ",
+  "additions": 18,
+  "deletions": 12,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2570
+  ],
+  "issues": [
+    {
+      "id": 1613600108,
+      "number": 2570,
+      "title": "Reduce time to load interactions with lots of entities",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-07T14:40:18Z",
+      "updated_at": "2023-03-08T10:01:15Z",
+      "closed_at": "2023-03-08T10:01:15Z",
+      "body": "In ISTAR interaction involves hundreds of assets.\r\n\r\nIt takes several minutes to load, with the browser wanting to time out.\r\n\r\nFor these interactions - inject the related assets, but not the full remaining list.\r\n\r\nDo this in the adjud message list page's `localCustomiseAssets`. But, also remove the call to `SupportPanel`.`customiseTemplates` - since that already collates the asset list.  Insert the relevant customisers into `adjud message list` page.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 30
+}

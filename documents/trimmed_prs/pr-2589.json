@@ -1,0 +1,40 @@
+{
+  "number": 2589,
+  "title": "2582c blue gods eye view",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-03-09T08:36:25Z",
+  "updated_at": "2023-11-15T11:51:53Z",
+  "closed_at": "2023-03-09T09:27:28Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2589",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2589/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2589/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2589",
+  "body": "Improved strategy for #2582 ",
+  "additions": 18,
+  "deletions": 19,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1461647825,
+      "user": "IanMayo",
+      "created_at": "2023-03-09T09:27:28Z",
+      "updated_at": "2023-03-09T09:27:28Z",
+      "body": "Close this. Original plan valid"
+    }
+  ],
+  "review_comments_data": [],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 37
+}

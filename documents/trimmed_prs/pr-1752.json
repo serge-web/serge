@@ -1,0 +1,53 @@
+{
+  "number": 1752,
+  "title": "don't declutter first/last points on route",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-11T12:29:04Z",
+  "updated_at": "2022-08-11T12:58:01Z",
+  "closed_at": "2022-08-11T12:58:00Z",
+  "merged_at": "2022-08-11T12:58:00Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1752",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1752/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1752/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1752",
+  "body": "Fixes #1741 ",
+  "additions": 16,
+  "deletions": 4,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1741
+  ],
+  "issues": [
+    {
+      "id": 1333171151,
+      "number": 1741,
+      "title": "After declutter, ensure route lines end with asset (or turn marker) location",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-09T12:16:32Z",
+      "updated_at": "2022-08-11T12:58:01Z",
+      "closed_at": "2022-08-11T12:58:01Z",
+      "body": "Currently, turn markers and routes are being de-cluttered:\r\n![image](https://user-images.githubusercontent.com/1108513/183644577-bf20ec02-3952-4c28-a629-bd2793566a13.png)\r\n\r\n\r\nIn the above image, the history-origin and planned-route origin get de-cluttered with the asset icon, with the result that there are 3 decluttered entities in one cell.\r\n\r\nWhere the entities relate to one asset (via uniqid) they should be treated as one entity for decluttering.",
+      "labels": [
+        "bug",
+        "4watu"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/183644577-bf20ec02-3952-4c28-a629-bd2793566a13.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 20
+}

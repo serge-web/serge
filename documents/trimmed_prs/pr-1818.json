@@ -1,0 +1,52 @@
+{
+  "number": 1818,
+  "title": "1766 plan turn speed",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-02T16:09:15Z",
+  "updated_at": "2022-09-02T16:30:13Z",
+  "closed_at": "2022-09-02T16:30:12Z",
+  "merged_at": "2022-09-02T16:30:12Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1818",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1818/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1818/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1818",
+  "body": "Fixes #1766 ",
+  "additions": 82,
+  "deletions": 23,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1766
+  ],
+  "issues": [
+    {
+      "id": 1337105904,
+      "number": 1766,
+      "title": "Plan route isn't taking new speed",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-12T11:44:27Z",
+      "updated_at": "2022-09-02T16:30:17Z",
+      "closed_at": "2022-09-02T16:30:17Z",
+      "body": "Mark is planning turn for blue force.\r\n\r\nHe was a 9kts.  He switched to 6kts, then \"Plan turn\".  It still wanted to offer 9 kts.",
+      "labels": [
+        "bug",
+        "4watu",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 105
+}

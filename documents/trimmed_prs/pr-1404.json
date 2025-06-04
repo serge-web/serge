@@ -1,0 +1,58 @@
+{
+  "number": 1404,
+  "title": "1402 Hotfix draggable color editor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-11T17:45:31Z",
+  "updated_at": "2022-03-14T09:57:55Z",
+  "closed_at": "2022-03-14T09:57:54Z",
+  "merged_at": "2022-03-14T09:57:54Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1404",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1404/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1404/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1404",
+  "body": "Fixes #1402 \r\n\r\nRecording: https://i.gyazo.com/89dc98d43a7188cfe213786d245f3f84.mp4",
+  "additions": 5,
+  "deletions": 8,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1065344289,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-11T17:50:44Z",
+      "updated_at": "2022-03-11T17:50:44Z",
+      "body": "I was just going to add that clicking on the color interval should only change the chart, and not automatically select the clicked color, but I can see you fixed that too. Perfect!"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1402
+  ],
+  "issues": [
+    {
+      "id": 1166676020,
+      "number": 1402,
+      "title": "Drag-able Color Pin",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-11T17:27:33Z",
+      "updated_at": "2022-03-14T09:57:54Z",
+      "closed_at": "2022-03-14T09:57:54Z",
+      "body": "I was creating the wargame for issue #1400 and I noticed that when selecting the Force color, the color pin can't be dragged around in the color chart: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/157916710-25e0d1d2-c428-458e-bcc8-e8ba1cf6c609.mp4\r\n\r\nAs you can see, I can only select a color by clicking on an area in the color chart. It would be better if the user could drag the color pin and view the preview on the icon color box. That would give them more and better control of their color choice (that, for a wargame with lots of different Force color nuances, is very important).\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 13
+}

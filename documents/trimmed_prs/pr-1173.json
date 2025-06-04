@@ -1,0 +1,83 @@
+{
+  "number": 1173,
+  "title": "fixed filters",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-29T13:38:21Z",
+  "updated_at": "2021-09-30T05:44:28Z",
+  "closed_at": "2021-09-30T05:44:28Z",
+  "merged_at": "2021-09-30T05:44:28Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1173",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1173/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1173/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1173",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nsupports #1167 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\nFixed cells field for a right filter\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 930204729,
+      "user": "IanMayo",
+      "created_at": "2021-09-29T13:59:51Z",
+      "updated_at": "2021-09-29T13:59:51Z",
+      "body": "Thanks @lilitkarapetyan - have you been able to check that the [steps to reproduce](https://github.com/serge-web/serge/issues/1167#issue-1009653498) now work? "
+    },
+    {
+      "id": 930221038,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-09-29T14:17:22Z",
+      "updated_at": "2021-09-29T14:17:22Z",
+      "body": "> \r\n> \r\n> Thanks @lilitkarapetyan - have you been able to check that the [steps to reproduce](https://github.com/serge-web/serge/issues/1167#issue-1009653498) now work?\r\n\r\nYep, tested"
+    },
+    {
+      "id": 930293592,
+      "user": "IanMayo",
+      "created_at": "2021-09-29T15:37:01Z",
+      "updated_at": "2021-09-29T15:37:01Z",
+      "body": "This still seems broken to me @lilitkarapetyan .\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/135301724-76ce2ad1-8d4c-4d9b-b63d-45bf9f0dd008.png)\r\n\r\n\r\nThere are two RFIs in the Red RFIs channel above.  I can't see either, and I can't get into `Owner` filter to clear it."
+    },
+    {
+      "id": 930300857,
+      "user": "IanMayo",
+      "created_at": "2021-09-29T15:45:31Z",
+      "updated_at": "2021-09-29T15:45:31Z",
+      "body": "Aah, I see you change fixes on issue -where filters just didn't work.  The problem in the linked issue is still there though."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1167
+  ],
+  "issues": [
+    {
+      "id": 1009653498,
+      "number": 1167,
+      "title": "Filters can get broken on un-claim",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-28T11:56:20Z",
+      "updated_at": "2021-09-30T16:19:24Z",
+      "closed_at": "2021-09-30T16:19:23Z",
+      "body": "A senior player (with \"un-claim\" permissions) need to un-claim an RFI.\r\n\r\nSince there were lots of RFIs, he applied a filter for that role.  But, once the document was un-claimed, the filter was disabled - so he was unable to de-select the filter for that role.\r\n\r\nSteps to reproduce:\r\n* Login as Red http://serge-review.herokuapp.com/?wargame=wargame-kskl1i3t&access=pkskl17thb\r\n* Submit an RFI into Red RFI\r\n* Now submit another RFI to Red RFI\r\n* Login as white player: http://serge-review.herokuapp.com/?wargame=wargame-kskl1i3t&access=pkskl17ti\r\n* Go to Red RFI channel \r\n* Claim an RFI\r\n* Login as J2A: http://serge-review.herokuapp.com/?wargame=wargame-kskl1i3t&access=rkskl61c3\r\n* Go to Red RFI channel \r\n* Claim an RFI\r\n* There will now be two RFIs visible, owned by two different players\r\n* Filter for RFIs owned by `EXCON  J2b`\r\n* Expand the single RFI\r\n* Click on `un-claim`\r\n* The RFI will disappear, and show an empty list. \r\n\r\n* This is because we're still filtering by \"owner is J2B2 - but there are no \"J2B\" RFISs. We aren't offered the filter for that list because there aren't enough visible RFIs.  Serge decides whether to display a filter based on the number of visible rows.  That test needs to be \"number of rows > 1\" or \"filter has been applied\". \r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/135301724-76ce2ad1-8d4c-4d9b-b63d-45bf9f0dd008.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

@@ -1,0 +1,108 @@
+{
+  "number": 935,
+  "title": "Fix issue `Unread message count in Tab overflow menu`",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-12T16:04:14Z",
+  "updated_at": "2021-07-14T09:01:23Z",
+  "closed_at": "2021-07-14T09:01:22Z",
+  "merged_at": "2021-07-14T09:01:22Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/935",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/935/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/935/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/935",
+  "body": "Fixes #906 \r\n<img width=\"571\" alt=\"Screen Shot 2021-07-12 at 10 34 32 PM\" src=\"https://user-images.githubusercontent.com/26705621/125319959-72abdd00-e365-11eb-90cc-8f4e51e96714.png\">\r\n",
+  "additions": 122,
+  "deletions": 33,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 3,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 878493384,
+      "user": "IanMayo",
+      "created_at": "2021-07-12T18:19:55Z",
+      "updated_at": "2021-07-12T18:19:55Z",
+      "body": "Thanks for this @lebaphi  :-)\r\n\r\nCould you explain why you had to use CSS styling for the numbers, instead of the `onRenderTab()` method?\r\n\r\nIt's a clever strategy, but I'm just double-checking the complexity is justified."
+    },
+    {
+      "id": 879249217,
+      "user": "lebaphi",
+      "created_at": "2021-07-13T16:57:09Z",
+      "updated_at": "2021-07-13T16:59:20Z",
+      "body": "> Thanks for this @lebaphi :-)\r\n> \r\n> Could you explain why you had to use CSS styling for the numbers, instead of the `onRenderTab()` method?\r\n> \r\n> It's a clever strategy, but I'm just double-checking the complexity is justified.\r\n\r\nhi @IanMayo , I just follow the same way as the function `setUnreadClassName` (in `onRendereTab()`) did. We have the CSS class name `unread-<number-unread-message>`, and we update the node unread message count by calling: `node.getModel().doAction(...)`. In this issue, it's just the menu item, (not a node element), so I get each item and add the class to style to unread message count. I can do this by javascript but I think using the CSS styling is better."
+    },
+    {
+      "id": 879521245,
+      "user": "lebaphi",
+      "created_at": "2021-07-14T01:46:29Z",
+      "updated_at": "2021-07-14T01:47:12Z",
+      "body": "![image](https://user-images.githubusercontent.com/26705621/125547467-c10bb700-9f56-4333-9473-46474d703052.png)\r\nFixed @IanMayo, the unread message count work stable now 👍 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 668960175,
+      "user": "IanMayo",
+      "created_at": "2021-07-13T17:12:35Z",
+      "updated_at": "2021-07-13T17:17:34Z",
+      "body": "does the above line need to be modified to return `9plus` if there are 9 or more unread messages?\r\n\r\nAah, or we modify the method that calculates `channel.unreadMessageCount`",
+      "path": "packages/client/src/Views/ChannelTabsContainer/helpers/tabRender.tsx",
+      "diff_hunk": "@@ -20,6 +36,10 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void  => {\n \n       channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : undefined\n \n+      setTimeout(() => {\n+        addMenuItemMsgCount(`unread-${channel.unreadMessageCount}`)\n+      })",
+      "html_url": "https://github.com/serge-web/serge/pull/935#discussion_r668960175"
+    },
+    {
+      "id": 668973707,
+      "user": "lebaphi",
+      "created_at": "2021-07-13T17:32:02Z",
+      "updated_at": "2021-07-13T17:32:02Z",
+      "body": "ah not yet Ian, do you want to show 9+ or the real number unread message count here? e.g: (12) or (23)?",
+      "path": "packages/client/src/Views/ChannelTabsContainer/helpers/tabRender.tsx",
+      "diff_hunk": "@@ -20,6 +36,10 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void  => {\n \n       channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : undefined\n \n+      setTimeout(() => {\n+        addMenuItemMsgCount(`unread-${channel.unreadMessageCount}`)\n+      })",
+      "html_url": "https://github.com/serge-web/serge/pull/935#discussion_r668973707"
+    },
+    {
+      "id": 668989186,
+      "user": "IanMayo",
+      "created_at": "2021-07-13T17:54:03Z",
+      "updated_at": "2021-07-13T17:54:03Z",
+      "body": "9+ is fine, thanks.",
+      "path": "packages/client/src/Views/ChannelTabsContainer/helpers/tabRender.tsx",
+      "diff_hunk": "@@ -20,6 +36,10 @@ const tabRender = (state: PlayerUi): (node: TabNode) => void  => {\n \n       channel = matchedChannel && matchedChannel.length > 1 ? matchedChannel[1] : undefined\n \n+      setTimeout(() => {\n+        addMenuItemMsgCount(`unread-${channel.unreadMessageCount}`)\n+      })",
+      "html_url": "https://github.com/serge-web/serge/pull/935#discussion_r668989186"
+    }
+  ],
+  "issue_numbers": [
+    906
+  ],
+  "issues": [
+    {
+      "id": 935124053,
+      "number": 906,
+      "title": "Unread message count in Tab overflow menu",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-01T18:51:03Z",
+      "updated_at": "2021-07-14T09:01:22Z",
+      "closed_at": "2021-07-14T09:01:22Z",
+      "body": "Some users need to track new messages across lots of channels.\r\n\r\nIf there are too many channels to view at once, the other fall into an overflow menu:\r\n![image](https://user-images.githubusercontent.com/1108513/124175174-32b34300-daa5-11eb-9246-41212539cf13.png)\r\n\r\nThis menu doesn't include an indication of if there are unread messages in that channel.\r\n\r\nIt would be great if the channel name could be followed by ` (4)` - to indicate 4 unread messages.\r\n\r\n_Maybe_ if the overflow tabs used a _formatting function_ instead of just the tab name. We could look up the unread message count, and provide that in the formatting function.\r\n\r\nAah, this looks like what we're looking for:\r\n![image](https://user-images.githubusercontent.com/1108513/124175485-95a4da00-daa5-11eb-874f-a0eb143d5945.png)\r\n\r\n(above game [here](https://serge-review.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev) )",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/125319959-72abdd00-e365-11eb-90cc-8f4e51e96714.png",
+    "https://user-images.githubusercontent.com/26705621/125547467-c10bb700-9f56-4333-9473-46474d703052.png",
+    "https://user-images.githubusercontent.com/1108513/124175174-32b34300-daa5-11eb-9246-41212539cf13.png",
+    "https://user-images.githubusercontent.com/1108513/124175485-95a4da00-daa5-11eb-874f-a0eb143d5945.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 155
+}

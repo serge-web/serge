@@ -1,0 +1,60 @@
+{
+  "number": 2903,
+  "title": "Exist filter is reset to default when adding new filter",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-03-14T03:19:54Z",
+  "updated_at": "2024-03-15T10:45:22Z",
+  "closed_at": "2024-03-15T10:45:22Z",
+  "merged_at": "2024-03-15T10:45:22Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2903",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2903/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2903/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2903",
+  "body": "Fixes #2900 ",
+  "additions": 2,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1997167161,
+      "user": "Tristina1788",
+      "created_at": "2024-03-14T10:54:34Z",
+      "updated_at": "2024-03-14T10:54:34Z",
+      "body": "@IanMayo @lebaphi  Now the filter is not reset when adding new filter as expected \r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/5a563672-97e0-464a-a8ba-a71070a35826\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2900
+  ],
+  "issues": [
+    {
+      "id": 2178533632,
+      "number": 2900,
+      "title": "Exist filter is reset to default when adding new filter",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-03-11T08:33:22Z",
+      "updated_at": "2024-03-15T10:45:23Z",
+      "closed_at": "2024-03-15T10:45:23Z",
+      "body": "## 🐞 Bug description\r\nExist filter is reset to default when adding new filter\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Go to 'Core Mapping' channel\r\n3. Add one filter with not default value (example : Force filter is Blue)\r\n4. Add second filter (example : Label filter )\r\n5. Notice the first filter is reset value to  default (Force filter is revert to 'Red')\r\n\r\n\r\n## ⚙️ Expected behavior\r\nThe filter is not changed to default when adding new filter\r\n\r\n## 🖥️ Screencast\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/f64fa441-431d-4f51-b2d2-ec2948d0bbc3\r\n\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n\r\n\r\n## 📝 Additional context\r\n\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 4
+}

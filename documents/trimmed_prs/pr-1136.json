@@ -1,0 +1,144 @@
+{
+  "number": 1136,
+  "title": "Game control assign to role",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-15T10:01:33Z",
+  "updated_at": "2021-09-16T08:28:08Z",
+  "closed_at": "2021-09-16T08:28:07Z",
+  "merged_at": "2021-09-16T08:28:07Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1136",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1136/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1136/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1136",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1062 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![image](https://user-images.githubusercontent.com/16476120/133413420-9e75cbe2-3583-4438-9c4b-dcf2d76be51b.png)\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 235,
+  "deletions": 5,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 3,
+  "total_comments": 3,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 709050577,
+      "user": "IanMayo",
+      "created_at": "2021-09-15T10:23:28Z",
+      "updated_at": "2021-09-15T10:23:28Z",
+      "body": "Ooh no, I don't like this @sanjayradadiya \r\n\r\nSortable list is used in a range of places, including where `isGameControl` isn't present.\r\n\r\nI know it's an optional prop - but I'd rather not see it here.\r\n\r\nI don't know what the alternatives are, but I _guess_ `canDelete` callback could be provided that return true/false on if the row can be deleted.  It would popup the warning message if it receives a `gameControl` user, and return false.\r\n\r\nOr, `maybe` this isn't needed, and we just access `isGameControl` from the item.\r\n",
+      "path": "packages/components/src/local/molecules/sortable-list/types/props.d.ts",
+      "diff_hunk": "@@ -2,6 +2,8 @@ import { ReactNode, ReactText } from 'react'\n \n export interface ItemObject {\n   name: string\n+  /** If this role is `Game Control` - a role which cannot be deleted */\n+  isGameControl?: boolean",
+      "html_url": "https://github.com/serge-web/serge/pull/1136#discussion_r709050577"
+    },
+    {
+      "id": 709066341,
+      "user": "sanjayradadiya",
+      "created_at": "2021-09-15T10:47:04Z",
+      "updated_at": "2021-09-15T10:47:04Z",
+      "body": "I will recheck this and will find out way around to avoid this",
+      "path": "packages/components/src/local/molecules/sortable-list/types/props.d.ts",
+      "diff_hunk": "@@ -2,6 +2,8 @@ import { ReactNode, ReactText } from 'react'\n \n export interface ItemObject {\n   name: string\n+  /** If this role is `Game Control` - a role which cannot be deleted */\n+  isGameControl?: boolean",
+      "html_url": "https://github.com/serge-web/serge/pull/1136#discussion_r709066341"
+    },
+    {
+      "id": 709204808,
+      "user": "sanjayradadiya",
+      "created_at": "2021-09-15T13:47:12Z",
+      "updated_at": "2021-09-15T13:47:12Z",
+      "body": "`isGameControl` removed from sortable list.\r\n\r\nintroduce new callback function for role delete with notification `Role EXCON with Game Control permissions cannot be deleted. Please remove Game Control permission.`",
+      "path": "packages/components/src/local/molecules/sortable-list/types/props.d.ts",
+      "diff_hunk": "@@ -2,6 +2,8 @@ import { ReactNode, ReactText } from 'react'\n \n export interface ItemObject {\n   name: string\n+  /** If this role is `Game Control` - a role which cannot be deleted */\n+  isGameControl?: boolean",
+      "html_url": "https://github.com/serge-web/serge/pull/1136#discussion_r709204808"
+    }
+  ],
+  "issue_numbers": [
+    1062
+  ],
+  "issues": [
+    {
+      "id": 987750052,
+      "number": 1062,
+      "title": "Need flag to assign a role as `Game Control` able to step forward",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-03T13:02:27Z",
+      "updated_at": "2021-09-16T08:28:07Z",
+      "closed_at": "2021-09-16T08:28:07Z",
+      "body": "We have an `isGameControl` flag in the wargame to show which role can move the game forward.\r\n\r\nWe can't set this from the admin pages. It's `probably` another toggle on `roles`.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 912540852,
+          "user": "IanMayo",
+          "created_at": "2021-09-03T13:28:49Z",
+          "updated_at": "2021-09-03T13:28:49Z",
+          "body": "It's this property that we need to control:\r\n![image](https://user-images.githubusercontent.com/1108513/132012919-acea20fe-b5df-45aa-8b77-aa5f70733537.png)\r\n\r\nI propose we only show the toggle for roles if force has `isUmpire` ticked.\r\n"
+        },
+        {
+          "id": 912542305,
+          "user": "IanMayo",
+          "created_at": "2021-09-03T13:30:57Z",
+          "updated_at": "2021-09-03T13:30:57Z",
+          "body": "As a first step for this, we should manually insert the value for `Game Control` on `EXCON` - directly into the database"
+        },
+        {
+          "id": 915828406,
+          "user": "sanjayradadiya",
+          "created_at": "2021-09-09T07:17:24Z",
+          "updated_at": "2021-09-09T07:25:29Z",
+          "body": "> We have an `umpire` flag in the wargame to show which role can move the game forward.\r\n> \r\n> We can't set this from the admin pages. It's `probably` another toggle on `roles`.\r\n\r\nConfirm few things.\r\n1. umpire flag no changes required for existing? or Should i remove it and move to point no. 2?\r\n2. new umpire flag with each role which is mentioned in attachment and it will store in database.\r\n\r\n![image](https://user-images.githubusercontent.com/16476120/132641563-1e5eb648-eb97-467b-8ff7-4f3e4724db8f.png)\r\n"
+        },
+        {
+          "id": 915835206,
+          "user": "sanjayradadiya",
+          "created_at": "2021-09-09T07:28:37Z",
+          "updated_at": "2021-09-09T07:28:37Z",
+          "body": "> As a first step for this, we should manually insert the value for `Game Control` on `EXCON` - directly into the database\r\n\r\nisUmpire flag should be set from database for  Role `Game Control` on force `EXCON`?"
+        },
+        {
+          "id": 915837196,
+          "user": "sanjayradadiya",
+          "created_at": "2021-09-09T07:31:45Z",
+          "updated_at": "2021-09-09T07:31:45Z",
+          "body": "> It's this property that we need to control:\r\n> ![image](https://user-images.githubusercontent.com/1108513/132012919-acea20fe-b5df-45aa-8b77-aa5f70733537.png)\r\n> \r\n> I propose we only show the toggle for roles if force has `isUmpire` ticked.\r\n\r\nthis for toggle should be display only if role has isUmpire flag set.\r\n![image](https://user-images.githubusercontent.com/16476120/132642378-1266238a-3b89-4cd2-886e-5ed677223c97.png)\r\n"
+        },
+        {
+          "id": 915856564,
+          "user": "IanMayo",
+          "created_at": "2021-09-09T08:02:22Z",
+          "updated_at": "2021-09-09T08:02:58Z",
+          "body": "Sorry if it's confusing @sanjayradadiya \r\n\r\nCorrect - the boolean is `isGameControl`, not `umpire` - my mistake.  So we need to add a `Game Control` toggle to the `Role` if the current force has `isUmpire` ticked.\r\n\r\nI suggest you use the `control-tower` icon from Font-Awesome, with a tooltip of `Game Control`."
+        },
+        {
+          "id": 915887472,
+          "user": "IanMayo",
+          "created_at": "2021-09-09T08:45:26Z",
+          "updated_at": "2021-09-09T08:45:26Z",
+          "body": "> only if role has isUmpire flag set.\r\n\r\nno, only if `force` has `isUmpire` flag set:\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/132653780-9b21db1d-d7c3-4e72-a20d-8b8e3dd2f021.png)\r\n"
+        },
+        {
+          "id": 919302666,
+          "user": "IanMayo",
+          "created_at": "2021-09-14T16:14:45Z",
+          "updated_at": "2021-09-14T16:14:45Z",
+          "body": "@sanjayradadiya  - could you update me on where you've got with this, please?"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/16476120/133413420-9e75cbe2-3583-4438-9c4b-dcf2d76be51b.png",
+    "https://user-images.githubusercontent.com/1108513/132012919-acea20fe-b5df-45aa-8b77-aa5f70733537.png",
+    "https://user-images.githubusercontent.com/16476120/132641563-1e5eb648-eb97-467b-8ff7-4f3e4724db8f.png",
+    "https://user-images.githubusercontent.com/16476120/132642378-1266238a-3b89-4cd2-886e-5ed677223c97.png",
+    "https://user-images.githubusercontent.com/1108513/132653780-9b21db1d-d7c3-4e72-a20d-8b8e3dd2f021.png"
+  ],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 240
+}

@@ -1,0 +1,52 @@
+{
+  "number": 1849,
+  "title": "1771 world state message",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-14T13:51:12Z",
+  "updated_at": "2022-09-14T16:31:55Z",
+  "closed_at": "2022-09-14T16:31:54Z",
+  "merged_at": "2022-09-14T16:31:54Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1849",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1849/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1849/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1849",
+  "body": "Fixes #1771 ",
+  "additions": 144,
+  "deletions": 110,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1771
+  ],
+  "issues": [
+    {
+      "id": 1337139833,
+      "number": 1771,
+      "title": "Improve world-state descriptions",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-12T12:20:59Z",
+      "updated_at": "2022-09-14T16:31:55Z",
+      "closed_at": "2022-09-14T16:31:55Z",
+      "body": "In World-State panel, there's an unnecessary \"immobile\" label.\r\n\r\n\"B1 - 3 turns planned immobile\".  The label should probably indicate whether route has been provided.",
+      "labels": [
+        "spatial",
+        "4watu",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 254
+}

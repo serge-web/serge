@@ -1,0 +1,30 @@
+{
+  "number": 2978,
+  "title": "Overcome VS-Code compiler warnings",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-06-12T08:46:21Z",
+  "updated_at": "2024-06-12T08:49:36Z",
+  "closed_at": "2024-06-12T08:49:34Z",
+  "merged_at": "2024-06-12T08:49:34Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2978",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2978/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2978/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2978",
+  "body": "Our new code includes some import constructs that VS-Codes flags up as errors.\r\n\r\nSwitch to relative references.\r\n\r\nNote: with hindsight, the `from \"src/...\"` construct is common across the codebase.  Keep these fixes (plus the comment about missing bounds) anyway.",
+  "additions": 20,
+  "deletions": 15,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 35
+}

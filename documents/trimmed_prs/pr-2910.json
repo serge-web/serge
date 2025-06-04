@@ -1,0 +1,30 @@
+{
+  "number": 2910,
+  "title": "update vs playwright",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-04-08T11:30:45Z",
+  "updated_at": "2024-04-09T09:48:53Z",
+  "closed_at": "2024-04-09T09:48:52Z",
+  "merged_at": "2024-04-09T09:48:52Z",
+  "author": {
+    "login": "Tristina1788",
+    "html_url": "https://github.com/Tristina1788"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2910",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2910/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2910/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2910",
+  "body": "Checking version playwright for testing\r\n\r\nIan: roll back playwright version, to overcome emergent bug as reported here: https://github.com/microsoft/playwright/issues/29925\r\n\r\nThe issue may go-away with a Chromium update.",
+  "additions": 49,
+  "deletions": 22,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 71
+}

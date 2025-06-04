@@ -1,0 +1,183 @@
+{
+  "number": 1431,
+  "title": "1409: Insights/Game Admin Tab Notification",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-03-17T12:01:22Z",
+  "updated_at": "2022-04-07T08:10:07Z",
+  "closed_at": "2022-03-21T13:50:27Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1431",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1431/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1431/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1431",
+  "body": "Fixes #1409 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/158804213-4f75dc92-2846-4eea-9909-c808ee82cb5a.mov\r\n\r\n\r\n",
+  "additions": 441,
+  "deletions": 342,
+  "changed_files": 45,
+  "labels": [],
+  "comments_count": 17,
+  "review_comments_count": 0,
+  "total_comments": 17,
+  "comments_data": [
+    {
+      "id": 1070856699,
+      "user": "IanMayo",
+      "created_at": "2022-03-17T12:22:41Z",
+      "updated_at": "2022-03-17T12:23:03Z",
+      "body": "The tab title is clever, but I think it would be enough to have a `(2)` counter on the `Insights` and `Admin` channel tabs.\r\n\r\nLet's save the tab title number for something else."
+    },
+    {
+      "id": 1070972366,
+      "user": "lebaphi",
+      "created_at": "2022-03-17T14:47:19Z",
+      "updated_at": "2022-03-17T14:47:19Z",
+      "body": "> The tab title is clever, but I think it would be enough to have a `(2)` counter on the `Insights` and `Admin` channel tabs.\r\n> \r\n> Let's save the tab title number for something else.\r\n\r\ncurrently only `Admin` and `Insights` tabs have the counter @IanMayo 😄 "
+    },
+    {
+      "id": 1070974598,
+      "user": "IanMayo",
+      "created_at": "2022-03-17T14:52:51Z",
+      "updated_at": "2022-03-17T14:52:51Z",
+      "body": "Do we display the unread message count in the `Admin` and `Insights` channel tabs?  I didn't see that."
+    },
+    {
+      "id": 1070978987,
+      "user": "lebaphi",
+      "created_at": "2022-03-17T15:04:43Z",
+      "updated_at": "2022-03-17T15:04:43Z",
+      "body": "> Do we display the unread message count in the `Admin` and `Insights` channel tabs? I didn't see that.\r\n\r\nhmm, I think you might need to clear the browser cache or open the browser in incognito mode 🤔  ahh can you try to open the dev tool and reload this page?"
+    },
+    {
+      "id": 1071025372,
+      "user": "IanMayo",
+      "created_at": "2022-03-17T16:08:14Z",
+      "updated_at": "2022-03-17T16:08:14Z",
+      "body": "Aah, I see the `Serge (1)` browser tab title. \r\n\r\n![image](https://user-images.githubusercontent.com/1108513/158843187-3349c6bc-572f-4f2e-93c5-6a792733d1a4.png)\r\n\r\nI don't want to put the message count in there.  I want put the unread message count in the `GAME ADMIN` title:\r\n![image](https://user-images.githubusercontent.com/1108513/158843304-b74ed628-dba5-4e5f-a235-6a464bce3c10.png)\r\n\r\nFor anyone that can see the `INSIGHTS` channel, I'd like the unread message count to go in there too, please.\r\n\r\nOne day in the future we can decide what to put in the browser title.\r\n"
+    },
+    {
+      "id": 1072463425,
+      "user": "lebaphi",
+      "created_at": "2022-03-18T14:27:06Z",
+      "updated_at": "2022-03-18T14:28:29Z",
+      "body": "Hi @IanMayo, I just did some code cleaning and updates on how we manage the `read' state of the message. Currently, I see we are setting the `read` message state in `localStorage` and we have added a lot of logic to handle that state, I think it is not necessary or we have a business, do we need to do it?\r\n\r\nSo I think we should have a new property call `hasBeenRead` in the message body and it will be stored in the database. Then, when the page is loaded, we can simply check the message status by reading the `hasBeedRead` property value. It's simpler and there's no 'potential problems'  \r\n\r\nhttps://user-images.githubusercontent.com/26705621/159019277-bb7b9a91-304b-4fdb-aad0-f8866464a917.mov\r\n\r\n"
+    },
+    {
+      "id": 1072478782,
+      "user": "IanMayo",
+      "created_at": "2022-03-18T14:43:48Z",
+      "updated_at": "2022-03-18T14:46:36Z",
+      "body": "> has been read in the database\r\n\r\nWe can't do that @lebaphi , because we need the setting per-player.  If player-one does `mark all as read` we can't use that for the other players.  Storing it in local storage \"seems\" the right way of doing it.\r\n\r\nRefactoring always welcome :-D\r\n\r\nYour video is valid because you are logged into the same role twice.  I real life - we don't want it go to \"all read\" for all players.\r\n\r\nBut, the `unread message count` display is just what I wanted :-)"
+    },
+    {
+      "id": 1072911741,
+      "user": "lebaphi",
+      "created_at": "2022-03-19T01:20:48Z",
+      "updated_at": "2022-03-19T01:20:48Z",
+      "body": "> > has been read in the database\r\n> \r\n> We can't do that @lebaphi , because we need the setting per-player. If player-one does `mark all as read` we can't use that for the other players. Storing it in local storage \"seems\" the right way of doing it.\r\n> \r\n> Refactoring always welcome :-D\r\n> \r\n> Your video is valid because you are logged into the same role twice. I real life - we don't want it go to \"all read\" for all players.\r\n> \r\n> But, the `unread message count` display is just what I wanted :-)\r\n\r\nahh I see, so it's easy I think, let me update 👍 "
+    },
+    {
+      "id": 1072921375,
+      "user": "lebaphi",
+      "created_at": "2022-03-19T02:23:15Z",
+      "updated_at": "2022-03-19T02:23:15Z",
+      "body": "How do you think @IanMayo @ShendMikullovci ?\r\n\r\nhttps://user-images.githubusercontent.com/26705621/159102933-94e1aab3-f997-4fb2-ac04-854d64128594.mov\r\n\r\n"
+    },
+    {
+      "id": 1073018206,
+      "user": "IanMayo",
+      "created_at": "2022-03-19T14:17:42Z",
+      "updated_at": "2022-03-19T14:17:42Z",
+      "body": "Thanks @lebaphi  - but the behaviour in the rest of Serge is that on browser refresh Serge remembers which messages have been read.  I _Think_ we remember what is read in `expiredStorage` (or something like that).\r\n\r\nI can ask Lilit to explain if you need it."
+    },
+    {
+      "id": 1073144614,
+      "user": "lebaphi",
+      "created_at": "2022-03-20T01:32:51Z",
+      "updated_at": "2022-03-20T02:26:44Z",
+      "body": "Hi @IanMayo, I don't think it's correct to remember a read message in `expireStorage`, because when you open Serge in another browser or clear the browser cache, all that \"read\" message will be lost and the message will be treated as unread.\r\n\r\nIn the latest video, you can see the \"read\" message state stored in the db for specific user, so it won't change although we clear cache or open in new browser 🤔 \r\n\r\nSo if it's the right way to do, I will refactor it."
+    },
+    {
+      "id": 1073217411,
+      "user": "IanMayo",
+      "created_at": "2022-03-20T10:15:08Z",
+      "updated_at": "2022-03-20T10:15:08Z",
+      "body": "Hello @lebaphi \r\n\r\n>  when you open Serge in another browser or clear the browser cache\r\n\r\nSerge users don't do either of those things :-)  If a Serge user _did_ do either of those things, no actual Serge data would be lost, the user would just have to mark the messages as read again.\r\n\r\nI'm pretty sure we already store `message-read` for all of the other Serge channels in `expired-storage`.  "
+    },
+    {
+      "id": 1073235204,
+      "user": "lebaphi",
+      "created_at": "2022-03-20T11:57:07Z",
+      "updated_at": "2022-03-20T11:57:07Z",
+      "body": "> no actual Serge data would be lost, the user would just have to mark the messages as read again\r\n\r\nAhh I don't mean data will be lost, I mean the \"read\" state of all messages will be lost and we need to mark the messages as read again 😄 okay, so I will keep the way we are doing now to mark the message read (in `expired-storage`)"
+    },
+    {
+      "id": 1073771355,
+      "user": "IanMayo",
+      "created_at": "2022-03-21T11:14:14Z",
+      "updated_at": "2022-03-21T11:14:14Z",
+      "body": "Hello @lebaphi - is this ready for review?\r\n"
+    },
+    {
+      "id": 1073783105,
+      "user": "lebaphi",
+      "created_at": "2022-03-21T11:28:38Z",
+      "updated_at": "2022-03-21T11:28:38Z",
+      "body": "> Hello @lebaphi - is this ready for review?\r\n\r\nnot yet @IanMayo, I refactor the way we store the `read` message state so there are many files was changed and it has an issue that need to be fixed. So if you want a more safer solution, I would create another PR and continue using `expired-storage` to manage the message `read` state."
+    },
+    {
+      "id": 1073785532,
+      "user": "IanMayo",
+      "created_at": "2022-03-21T11:31:33Z",
+      "updated_at": "2022-03-21T11:31:33Z",
+      "body": "Hello @lebaphi - yes, let's do it in a fresh PR please."
+    },
+    {
+      "id": 1073929356,
+      "user": "lebaphi",
+      "created_at": "2022-03-21T13:57:13Z",
+      "updated_at": "2022-03-21T13:57:13Z",
+      "body": "Moved to new PR https://github.com/serge-web/serge/pull/1439"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1409
+  ],
+  "issues": [
+    {
+      "id": 1167250314,
+      "number": 1409,
+      "title": "Insights/Game Admin Tab Notification Bug",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-12T10:34:06Z",
+      "updated_at": "2022-03-28T16:02:03Z",
+      "closed_at": "2022-03-28T16:02:03Z",
+      "body": "Insights/Game Admin tabs don't show any notifications when new messages are received: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/158014534-85516316-3f3a-4e05-b5a9-717b3204d391.mp4\r\n\r\nIt'd be nice to have a simple notification counter on both tabs that disappear once the user hits \"MARK ALL AS READ\".",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1066621647,
+          "user": "IanMayo",
+          "created_at": "2022-03-14T10:34:00Z",
+          "updated_at": "2022-03-14T10:34:00Z",
+          "body": "Yes, good suggestion @ShendMikullovci "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/158843187-3349c6bc-572f-4f2e-93c5-6a792733d1a4.png",
+    "https://user-images.githubusercontent.com/1108513/158843304-b74ed628-dba5-4e5f-a235-6a464bce3c10.png"
+  ],
+  "number_of_changed_files": 45,
+  "total_changed_lines": 783
+}

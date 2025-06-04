@@ -1,0 +1,30 @@
+{
+  "number": 1746,
+  "title": "Hotfix tidying",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-10T11:26:26Z",
+  "updated_at": "2022-08-10T13:52:24Z",
+  "closed_at": "2022-08-10T13:52:23Z",
+  "merged_at": "2022-08-10T13:52:23Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1746",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1746/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1746/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1746",
+  "body": "Minor tidying of WATU feature-set",
+  "additions": 120,
+  "deletions": 72,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 192
+}

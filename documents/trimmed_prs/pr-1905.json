@@ -1,0 +1,48 @@
+{
+  "number": 1905,
+  "title": "introduce mock data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-29T12:37:17Z",
+  "updated_at": "2022-09-29T15:02:44Z",
+  "closed_at": "2022-09-29T15:02:43Z",
+  "merged_at": "2022-09-29T15:02:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1905",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1905/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1905/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1905",
+  "body": "Fixes #1900 \r\n\r\nProvides some sample activity data.",
+  "additions": 182,
+  "deletions": 0,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1900
+  ],
+  "issues": [
+    {
+      "id": 1387694263,
+      "number": 1900,
+      "title": "Generate mock \"activities\" dataset",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-27T12:40:08Z",
+      "updated_at": "2022-09-29T15:02:43Z",
+      "closed_at": "2022-09-29T15:02:43Z",
+      "body": "Generate a body of fake \"activities\" objects, with these requirements:\r\n* [ ] top-level grouping of \"Maritime\", \"Land\", \"Air\", \"Other\"\r\n* [ ] Each activity will include:\r\n   * [ ] name of activity\r\n   * [ ] list of geometries (geometry-name, domain-name)\r\n   * [ ] template to open on completion\r\n   * [ ] color for activity [**icon?**]\r\n\r\nSuspect we can have these sample permutations:\r\n1. [polyline, polygon, polyline] (route-in, target area, route-out)\r\n2. [polygon] (target area)\r\n3. [polyline, point, polyline] (route-in, target, route-out)\r\n4. [point] (target location)\r\n\r\nIntroduce nomenclature to indicate geometry is optional. So, if geometry-name is \"polygon?\" - then player can skip providing polygon. This is the case if OpFor targets have already been specified.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 182
+}

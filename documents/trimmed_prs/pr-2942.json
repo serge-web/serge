@@ -1,0 +1,189 @@
+{
+  "number": 2942,
+  "title": "Introduce blue collab channel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-05-13T13:44:32Z",
+  "updated_at": "2024-05-17T08:24:37Z",
+  "closed_at": "2024-05-15T11:47:36Z",
+  "merged_at": "2024-05-15T11:47:36Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2942",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2942/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2942/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2942",
+  "body": "Supports #2941 \r\n\r\nSetup data to test use of collab channel",
+  "additions": 49,
+  "deletions": 28,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 9,
+  "review_comments_count": 0,
+  "total_comments": 9,
+  "comments_data": [
+    {
+      "id": 2110634646,
+      "user": "IanMayo",
+      "created_at": "2024-05-14T16:18:33Z",
+      "updated_at": "2024-05-14T16:31:31Z",
+      "body": "Hello @lilitkarapetyan - I think I'm making good progress here. The messages now expand properly (we had some invalid data in channel definition).\r\n\r\nBut, when I try to `Claim` a document, I'm pretty sure the database operation happens ok, but the template doesn't become editable.\r\n\r\nAah, in the console, I do see a warning for `duplicate message id`:\r\n![image](https://github.com/serge-web/serge/assets/1108513/b2413fdd-21d7-487e-a13f-f3c13f52935d)\r\n\r\nMaybe we're keeping the old version, but not switching to the new one.  Maybe the error is in there.\r\n\r\nYes! that was the error.  I _think_ collab editing is working in this branch.  @Tristina1788 - you should be able to test the various state changes in the flow-chart in that presentation."
+    },
+    {
+      "id": 2111871936,
+      "user": "Tristina1788",
+      "created_at": "2024-05-15T08:20:10Z",
+      "updated_at": "2024-05-15T08:23:34Z",
+      "body": "@IanMayo  @lilitkarapetyan \r\n\r\n- Text 'Chat' and 'Response' are hard to see. And When message still haven't had response yet, it shows as the white long button. It makes user don't know what it is\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2a3782ac-0eb8-4872-bad7-757d6cb3f39c)\r\n\r\n=> Text 'Chat' and 'Response' should be bold and white color as 'Feedback' text. And when message doesn't have response, we should not show that part.\r\n\r\n- With below requirement\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/d126f1ab-725f-4cfe-907c-660419a31fdf)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e6bfb94c-e2f0-460b-9d8e-d2e1fe491998)\r\n\r\n\r\n\r\n- Message with status 'InProgress' (Edit), user role 'CanSubmitForReview'should has button 'Submit for review', 'Save'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/acd47935-c565-4be4-a63e-1058070c9431)\r\n\r\n- Message with status 'InProgress' (Edit),  user role 'CanApproved' should has button 'Save', 'Submit for review'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/23505bce-bb2f-4e4f-9ff1-11b8099c0451)\r\n\r\n\r\n- Message with status 'InProgress' (Edit),  user role 'CanRelease' should has button 'Save', 'Submit for review', 'Release'\r\n \r\n![image](https://github.com/serge-web/serge/assets/107697044/1429dd3d-ac7e-42b7-bdb2-59f68d7c7443)\r\n\r\n- Message with status 'InProgress' (Edit),  user role 'CanUnClaim' should has button 'Save', 'Submit for review', 'Release','Unclaim\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/341e99ef-940f-4ad3-84d4-8c50b2126c48)\r\n\r\n- I think we have 2 status 'Pending' and 'Review' but now I see it has 'Pending Review'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/b66d2e33-52c2-4b9a-be3f-07d22f53fdf8)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/98012279-88a1-4074-bf5f-094a7da209b6)\r\n\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/cb929e0a-5cc2-4472-87fa-866517ebda62)\r\n\r\n@IanMayo What is the correct one?\r\n\r\n- The UI is quite messing and it's hard to follow the action \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/e0f411c6-2a48-4edf-9914-ee61180b8d31\r\n\r\n- Here 's config for 'Collab Channel' for more details : \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e298f7a0-d60b-47b6-82a7-411a193a8ae8)\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2111883854,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-05-15T08:25:40Z",
+      "updated_at": "2024-05-15T08:29:10Z",
+      "body": "Hello @IanMayo , When we make changes to the collabChannel, the edit message doesn't appear right away. We have to refresh the page for it to show.  The problem is that we overlook messages with the same IDs in the changes function.\r\n![Screenshot (289)](https://github.com/serge-web/serge/assets/20753599/933d0ce0-9910-4e01-ac38-c9d4ba927161)\r\n"
+    },
+    {
+      "id": 2111939005,
+      "user": "IanMayo",
+      "created_at": "2024-05-15T08:53:34Z",
+      "updated_at": "2024-05-15T08:53:34Z",
+      "body": "> Hello @IanMayo , When we make changes to the collabChannel, the edit message doesn't appear right away. We have to refresh the page for it to show. The problem is that we overlook messages with the same IDs in the changes function. !\r\n\r\nGreat - thanks for spotting that @lilitkarapetyan - that was the next issue for me to work on :-D\r\n\r\nI guess it's a similar fix to this one:\r\nhttps://github.com/serge-web/serge/pull/2942/files#diff-d7caf9817cf78f3a3c1767872426b69f6414014447896ebcc7e0b23150422551R75\r\n\r\nWould you mind fixing it please?\r\n\r\n"
+    },
+    {
+      "id": 2112094343,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-05-15T10:05:12Z",
+      "updated_at": "2024-05-15T10:05:58Z",
+      "body": "> > Hello @IanMayo , When we make changes to the collabChannel, the edit message doesn't appear right away. We have to refresh the page for it to show. The problem is that we overlook messages with the same IDs in the changes function. !\r\n> \r\n> Great - thanks for spotting that @lilitkarapetyan - that was the next issue for me to work on :-D\r\n> \r\n> I guess it's a similar fix to this one: https://github.com/serge-web/serge/pull/2942/files#diff-d7caf9817cf78f3a3c1767872426b69f6414014447896ebcc7e0b23150422551R75\r\n> \r\n> Would you mind fixing it please?\r\n\r\nI belive I've resolved it using teh changes function - https://github.com/serge-web/serge/pull/2942/commits/e7ff7d2b0574885dbf0449ee6d99895fb701f0bf"
+    },
+    {
+      "id": 2112136444,
+      "user": "IanMayo",
+      "created_at": "2024-05-15T10:24:13Z",
+      "updated_at": "2024-05-15T10:24:13Z",
+      "body": "> I belive I've resolved it using teh changes function - [e7ff7d2](https://github.com/serge-web/serge/commit/e7ff7d2b0574885dbf0449ee6d99895fb701f0bf)\r\n\r\nFix working perfectly, though I've changed a variable name\r\n"
+    },
+    {
+      "id": 2114029835,
+      "user": "Tristina1788",
+      "created_at": "2024-05-16T04:59:11Z",
+      "updated_at": "2024-05-16T04:59:11Z",
+      "body": "Checking with te latest code on branch '2941_send_collab_message'\r\n\r\n- 'Assign' button is not stable. I have to try click many time to make it work. \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/a24e36f4-659f-427a-91e8-5f45f6de4f94\r\n\r\n- No action happens when approve for message which in status 'Pending Review'\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/905a40be-b9f7-4c5e-beec-1225a98ddae5\r\n\r\n\r\n\r\n- Above issues still happens\r\n\r\nhttps://github.com/serge-web/serge/pull/2942#issuecomment-2111871936\r\n"
+    },
+    {
+      "id": 2116984361,
+      "user": "Tristina1788",
+      "created_at": "2024-05-17T08:06:52Z",
+      "updated_at": "2024-05-17T08:06:52Z",
+      "body": "@IanMayo Seem this branch is merged by closing ticket #2941 . So how about the issue on this branch? Should I create a ticket for it?"
+    },
+    {
+      "id": 2117014633,
+      "user": "IanMayo",
+      "created_at": "2024-05-17T08:24:36Z",
+      "updated_at": "2024-05-17T08:24:36Z",
+      "body": "> @IanMayo Seem this branch is merged by closing ticket #2941 . So how about the issue on this branch? Should I create a ticket for it?\r\n\r\nYes please :-). I did an early merge so that the collab channel became available in `serge-inet`\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2941
+  ],
+  "issues": [
+    {
+      "id": 2292657231,
+      "number": 2941,
+      "title": "After send message from Collab Channel, I don't see message shows on board or anywhere else",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-05-13T12:16:35Z",
+      "updated_at": "2024-05-15T12:10:15Z",
+      "closed_at": "2024-05-15T12:10:15Z",
+      "body": "## 🐞 Bug description\r\nAfter send message from Collab Channel, I don't see message shows on board or anywhere else\r\n\r\n## 🔢 Steps to Reproduce\r\n1. Create a basic game with some force and some channels\r\n2. Login from admin page\r\n3. Click on dropdown of button 'Add Channel'\r\n4. Select 'Collab Edit'\r\n5. Add New permission : Blue - All - Edit Collab\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2eefccb9-3377-4270-a78a-e32aaef45a0e)\r\n\r\n6. Play game with Blue - CO\r\n7. Select 'Collab' Channel, send a message\r\n8. Notice the new message is not showed on the board or anywhere\r\n\r\n\r\n\r\n## ⚙️ Expected behavior\r\n- Should have anywhere to see new message. Maybe the board of 'Collab' channel.\r\n\r\n## 🖥️ Screencast\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/68f3cff0-2496-4c78-a761-84a2555ff204\r\n\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n- Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 2107555903,
+          "user": "IanMayo",
+          "created_at": "2024-05-13T13:17:07Z",
+          "updated_at": "2024-05-13T13:17:07Z",
+          "body": "Hello @Tristina1788 - it appears you have now been able to send a message. Does that mean that #2940 is not now an issue?"
+        },
+        {
+          "id": 2107600171,
+          "user": "Tristina1788",
+          "created_at": "2024-05-13T13:36:00Z",
+          "updated_at": "2024-05-13T13:38:24Z",
+          "body": "> Hello @Tristina1788 - it appears you have now been able to send a message. Does that mean that #2940 is not now an issue?\r\n\r\nI think it's better if we don't show the panel message for the user with permisssion 'Cannot collaborate' . So user will not confuse why they can see the message panel and 'Send' button. @IanMayo  How do you think?"
+        },
+        {
+          "id": 2107622959,
+          "user": "IanMayo",
+          "created_at": "2024-05-13T13:45:44Z",
+          "updated_at": "2024-05-13T13:45:44Z",
+          "body": "Hello @lilitkarapetyan \r\n\r\nI've created a branch with demo data to test this, it's in PR #2942 \r\n\r\nIf you login as blue player you will see the channel, and create a message.  But, when you press [`Send`], the `network` tab in Dev-Tools does not show a new message being sent."
+        },
+        {
+          "id": 2107626394,
+          "user": "IanMayo",
+          "created_at": "2024-05-13T13:47:15Z",
+          "updated_at": "2024-05-13T13:47:15Z",
+          "body": "> I think it's better if we don't show the panel message for the user with permisssion 'Cannot collaborate' . So user will not confuse why they can see the message panel and 'Send' button. @IanMayo How do you think?\r\n\r\nNo, there is logic in it - some roles can submit messages, but not interact with them afterwards."
+        },
+        {
+          "id": 2107640694,
+          "user": "Tristina1788",
+          "created_at": "2024-05-13T13:53:26Z",
+          "updated_at": "2024-05-13T13:53:26Z",
+          "body": "> > I think it's better if we don't show the panel message for the user with permisssion 'Cannot collaborate' . So user will not confuse why they can see the message panel and 'Send' button. @IanMayo How do you think?\r\n> \r\n> No, there is logic in it - some roles can submit messages, but not interact with them afterwards.\r\n\r\nIf it works as our expected. I think we can close #2940 "
+        },
+        {
+          "id": 2110630398,
+          "user": "IanMayo",
+          "created_at": "2024-05-14T16:16:42Z",
+          "updated_at": "2024-05-14T16:16:42Z",
+          "body": "This is fixed in the PR for #2942 "
+        },
+        {
+          "id": 2112354108,
+          "user": "Tristina1788",
+          "created_at": "2024-05-15T12:07:14Z",
+          "updated_at": "2024-05-15T12:07:14Z",
+          "body": "> This is fixed in the PR for #2942\r\n\r\nChecked on '2941_send_collab_message', I can see the message on the board of Collab channel as expected.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/6f2b95ed-58dd-4f4b-8f2b-892e4353c33f)\r\n"
+        },
+        {
+          "id": 2112360330,
+          "user": "IanMayo",
+          "created_at": "2024-05-15T12:10:15Z",
+          "updated_at": "2024-05-15T12:10:15Z",
+          "body": "Fixed in #2942 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/b2413fdd-21d7-487e-a13f-f3c13f52935d",
+    "https://github.com/serge-web/serge/assets/107697044/2a3782ac-0eb8-4872-bad7-757d6cb3f39c",
+    "https://github.com/serge-web/serge/assets/107697044/d126f1ab-725f-4cfe-907c-660419a31fdf",
+    "https://github.com/serge-web/serge/assets/107697044/e6bfb94c-e2f0-460b-9d8e-d2e1fe491998",
+    "https://github.com/serge-web/serge/assets/107697044/acd47935-c565-4be4-a63e-1058070c9431",
+    "https://github.com/serge-web/serge/assets/107697044/23505bce-bb2f-4e4f-9ff1-11b8099c0451",
+    "https://github.com/serge-web/serge/assets/107697044/1429dd3d-ac7e-42b7-bdb2-59f68d7c7443",
+    "https://github.com/serge-web/serge/assets/107697044/341e99ef-940f-4ad3-84d4-8c50b2126c48",
+    "https://github.com/serge-web/serge/assets/107697044/b66d2e33-52c2-4b9a-be3f-07d22f53fdf8",
+    "https://github.com/serge-web/serge/assets/107697044/98012279-88a1-4074-bf5f-094a7da209b6",
+    "https://github.com/serge-web/serge/assets/107697044/cb929e0a-5cc2-4472-87fa-866517ebda62",
+    "https://github.com/serge-web/serge/assets/107697044/e298f7a0-d60b-47b6-82a7-411a193a8ae8",
+    "https://github.com/serge-web/serge/assets/20753599/933d0ce0-9910-4e01-ac38-c9d4ba927161",
+    "https://github.com/serge-web/serge/assets/107697044/2eefccb9-3377-4270-a78a-e32aaef45a0e",
+    "https://github.com/serge-web/serge/assets/107697044/6f2b95ed-58dd-4f4b-8f2b-892e4353c33f"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 77
+}

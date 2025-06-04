@@ -1,0 +1,151 @@
+{
+  "number": 2949,
+  "title": "2934 implement mapping permissions",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-05-20T15:14:55Z",
+  "updated_at": "2024-05-23T12:00:28Z",
+  "closed_at": "2024-05-23T12:00:27Z",
+  "merged_at": "2024-05-23T12:00:27Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2949",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2949/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2949/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2949",
+  "body": "Fixes #2934 \r\n\r\nThe functionality in here should be testable in the Storybook.\r\n\r\nNote, these things can help you investigate things are working:\r\n- the properties (including which ones are player-editable) are defined in this file, alongside the different sets of participation (e.g. `bluePlanningParticipant`) , which control which force can see which other force (and/or properties) in different phases: https://github.com/serge-web/serge/pull/2949/files#diff-5994f11c70ad05180e7d3b35dfcfe3c58d9ec0a5720d004c993ce02899e2f579\r\n- It's in the `Organism/CoreMapping` story.\r\n\r\nBTW - this is what my Storybook looks like. The Args/Controls can be used to change the game-phase and which force we're playing as.\r\n![image](https://github.com/serge-web/serge/assets/1108513/3bfcbf0b-0a70-4312-b72c-8d8045d05d5f)\r\n",
+  "additions": 386,
+  "deletions": 192,
+  "changed_files": 17,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 0,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 2120769644,
+      "user": "IanMayo",
+      "created_at": "2024-05-20T16:14:42Z",
+      "updated_at": "2024-05-20T16:14:42Z",
+      "body": "Hello @philb89 - I could do with some GeoMan support, please.\r\n\r\nIt's this TODO marker:\r\nhttps://github.com/serge-web/serge/pull/2949/commits/dba6c01db68fed2723d4265faf8b5c3a65b4147f#diff-246615c0d194289449f2dfde77724101a3b382246372854477dc8627a75b2caeR30\r\n\r\nWe set which GeoMan controls are provided at application startup, and we can't change it.  but, I wish to change it dependent on the current force, player, game phase.\r\n\r\nI've inserted the code around the above TODO marker, the `state` appears to be updating correctly as we change player/force in the Storybook.\r\n\r\nBut, the UI doesn't update.  I have a _suspicion_ that we need to be doing `useMemo` - and deciding when to update the memo. Could you have a look please?\r\n"
+    },
+    {
+      "id": 2122028558,
+      "user": "Tristina1788",
+      "created_at": "2024-05-21T08:11:52Z",
+      "updated_at": "2024-05-21T08:11:52Z",
+      "body": "@IanMayo Checking on branch '2934_implement_mapping_permissions' , I get white screen when playgame in channel 'CoreMapping'\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/9a615130-e8f8-4643-b3d6-b0871e61b52a\r\n\r\n\r\n"
+    },
+    {
+      "id": 2122102861,
+      "user": "IanMayo",
+      "created_at": "2024-05-21T08:48:23Z",
+      "updated_at": "2024-05-21T08:48:48Z",
+      "body": "> @IanMayo Checking on branch '2934_implement_mapping_permissions' , I get white screen when playgame in channel 'CoreMapping'\r\n\r\nGot it, thanks @Tristina1788 \r\n\r\nThe particpant definitions didn't match the new structure we've defined.  I've fixed them so that they are now valid. We're using the participant definitions I created for the Storybook, which are intended to test the broad set of behaviours, rather than to be realistic, so while things work, they may look strange (such as only the `3rd-party` role from blue force seeing the mapping)"
+    },
+    {
+      "id": 2122194731,
+      "user": "Tristina1788",
+      "created_at": "2024-05-21T09:32:48Z",
+      "updated_at": "2024-05-21T09:32:48Z",
+      "body": "@IanMayo Now I can't draw shape on Core Mapping gameplay. And the fake data for CoreMapping is disappeared. \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/2e0e34d5-13d2-4f12-b2bf-f8a822e97f61\r\n\r\n\r\n- Storybook doesn't have the function to draw shape and has 2 function for drawing text\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/a99b9bed-969d-4fbd-b9ae-a2ab6e8d331f)\r\n\r\nDo you need me testing this branch on this period? Because seem we will have many changes and it's quite soon for testing. I'm afraid my comment will make you not concentrate for implementing.\r\n"
+    },
+    {
+      "id": 2122280437,
+      "user": "IanMayo",
+      "created_at": "2024-05-21T10:16:36Z",
+      "updated_at": "2024-05-21T10:16:36Z",
+      "body": "> @IanMayo Now I can't draw shape on Core Mapping gameplay. And the fake data for CoreMapping is disappeared.\r\n\r\nI have to play around with the data a little  I expect the data is missing because you are logged in as a user that doesn't have `SPATIAL-VIEW` permission on the data.  Will investigate later.\r\n\r\n> * Storybook doesn't have the function to draw shape and has 2 function for drawing text\r\n\r\nThat is because of the `participants`.  You know how in Google Drive we designed all those roles that have different levels of permissions?   You have to use the `Storybook` controls to choose another role - one with the permission to draw new shapes, for instance.\r\n\r\n> Do you need me testing this branch on this period? Because seem we will have many changes and it's quite soon for testing. I'm afraid my comment will make you not concentrate for implementing.\r\n\r\nI'm ok with you testing :-)"
+    },
+    {
+      "id": 2124304032,
+      "user": "Tristina1788",
+      "created_at": "2024-05-22T09:27:04Z",
+      "updated_at": "2024-05-22T09:27:04Z",
+      "body": "@IanMayo  `you have to use the Storybook controls to choose another role - one with the permission to draw new shapes, for instance.` \r\nIs that the place you mention? \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/f883fc76-7ce4-4be4-9c02-50c526e678de)\r\n\r\nI see some forces but don't see the force on 'TestHat' game. So I don't know how to get 'TestHat' force -role to have the permission.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e61d993f-fcf8-48dc-962f-8686a876bf4a)\r\n\r\nI also try to create a new force which has same name with storybook setting permission for channel. But it doesn't have Coremapping\r\n\r\n"
+    },
+    {
+      "id": 2124370792,
+      "user": "IanMayo",
+      "created_at": "2024-05-22T09:54:21Z",
+      "updated_at": "2024-05-22T09:54:21Z",
+      "body": "No - the participant is controlled in the Storybook test for CoreMapping as shown in the screenshot at the top of this PR.\r\n\r\nYou may have to switch some things on and off in order to see those tabs, and the `Control` tab."
+    },
+    {
+      "id": 2124484891,
+      "user": "Tristina1788",
+      "created_at": "2024-05-22T10:45:22Z",
+      "updated_at": "2024-05-22T10:45:22Z",
+      "body": "> No - the participant is controlled in the Storybook test for CoreMapping as shown in the screenshot at the top of this PR.\r\n> \r\n> You may have to switch some things on and off in order to see those tabs, and the `Control` tab.\r\n\r\nI can see it but I can't draw shape on storybook as this issue #2881 \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/078d7ba2-e4eb-4c2a-921c-c88e8e7c460b)\r\n"
+    },
+    {
+      "id": 2126662948,
+      "user": "Tristina1788",
+      "created_at": "2024-05-23T09:35:24Z",
+      "updated_at": "2024-05-23T09:35:24Z",
+      "body": "@IanMayo  Now I can blue can create new 'Text' item. But it should has 1 'Text' icon istead of two. And user can create new 'Text' but can't update properties.\r\n\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/918a2b7b-ac26-4580-8bba-a37d5ca3724b)\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/4729f7c3-8cb5-48cb-afcd-71f2deea4808\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2126683710,
+      "user": "IanMayo",
+      "created_at": "2024-05-23T09:46:22Z",
+      "updated_at": "2024-05-23T09:47:46Z",
+      "body": "> @IanMayo Now I can blue can create new 'Text' item. But it should has 1 'Text' icon istead of two. And user can create new 'Text' but can't update properties.\r\n\r\nThese are actually the intended features (almost). We're a blue player, in adjudication phase.  We have permission to view props, but not edit them, nor can we add/move/resize features. See the config below:\r\n![image](https://github.com/serge-web/serge/assets/1108513/29886547-4a8f-4563-b45d-69522d8d5d04)\r\n\r\nI realise I need to add a `text label` permission, for users that can add/edit them.  Hmm for now, maybe everybody should be able to work with them :-)\r\n\r\nWill investigate the duplicate button.  Aah, they're not duplicate. We are using the same icon for two different functions. Will find new icon."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2881,
+    2934
+  ],
+  "issues": [
+    {
+      "id": 2146420722,
+      "number": 2881,
+      "title": "Can not create item on CoreMapping StoryBook",
+      "state": "open",
+      "user": "Tristina1788",
+      "created_at": "2024-02-21T10:38:42Z",
+      "updated_at": "2024-02-21T10:38:42Z",
+      "closed_at": null,
+      "body": "## 🐞 Bug description\r\nCan not create item on CoreMapping StoryBook\r\n\r\n## 🔢 Steps to Reproduce\r\n1. Go to Story Book\r\n2. Try to do draw shape item on CoreMapping\r\n3. Notice user can't do any functions on it\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/03b45c76-afe4-427d-ac81-c650f370191f)\r\n\r\n## ⚙️ Expected behavior\r\nEnable to use CoreMapping on Story Book as CoreMapping channel on Game Play\r\n\r\n## 🖥️ Screencast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/a9af29ab-ccd2-4a85-b047-2ad3ff55888f\r\n\r\n\r\n\r\n## 💻 System information\r\n<!-- Please complete the following information (you can get most of this information from https://mybrowser.fyi/) -->\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    },
+    {
+      "id": 2287992637,
+      "number": 2934,
+      "title": "Use mapping permissions",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-05-09T15:58:33Z",
+      "updated_at": "2024-05-23T12:00:28Z",
+      "closed_at": "2024-05-23T12:00:28Z",
+      "body": "We have a task to define how the permissions work for the mapping channel #2931 \r\n\r\nWe should now modify Serge mapping to adhere to those permissions.\r\n\r\nThis should include:\r\n- whether the role can view the mapping tab\r\n- whether the role can add new features for each renderer\r\n- whether the role can move/resize features for each renderer\r\n- whether the role can edit user-editable properties for own/other features\r\n- whether the role can edit all properties for own/other features\r\n\r\nNote: when we do this, we should extend the core mapping storyboard to allow us to quickly modify the current role and/or phase.",
+      "labels": [
+        "enhancement",
+        "Mapping",
+        "4p10",
+        "4hat"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/3bfcbf0b-0a70-4312-b72c-8d8045d05d5f",
+    "https://github.com/serge-web/serge/assets/107697044/a99b9bed-969d-4fbd-b9ae-a2ab6e8d331f",
+    "https://github.com/serge-web/serge/assets/107697044/f883fc76-7ce4-4be4-9c02-50c526e678de",
+    "https://github.com/serge-web/serge/assets/107697044/e61d993f-fcf8-48dc-962f-8686a876bf4a",
+    "https://github.com/serge-web/serge/assets/107697044/078d7ba2-e4eb-4c2a-921c-c88e8e7c460b",
+    "https://github.com/serge-web/serge/assets/107697044/918a2b7b-ac26-4580-8bba-a37d5ca3724b",
+    "https://github.com/serge-web/serge/assets/1108513/29886547-4a8f-4563-b45d-69522d8d5d04",
+    "https://github.com/serge-web/serge/assets/107697044/03b45c76-afe4-427d-ac81-c650f370191f"
+  ],
+  "number_of_changed_files": 17,
+  "total_changed_lines": 578
+}

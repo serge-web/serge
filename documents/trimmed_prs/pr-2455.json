@@ -1,0 +1,50 @@
+{
+  "number": 2455,
+  "title": "2240 destroy squadrons at airfields",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-21T09:01:49Z",
+  "updated_at": "2023-02-21T18:33:24Z",
+  "closed_at": "2023-02-21T18:33:23Z",
+  "merged_at": "2023-02-21T18:33:23Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2455",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2455/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2455/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2455",
+  "body": "Fixes #2240 ",
+  "additions": 94,
+  "deletions": 9,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2240
+  ],
+  "issues": [
+    {
+      "id": 1529457721,
+      "number": 2240,
+      "title": "Destroy squadrons based at airfields",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-11T17:59:57Z",
+      "updated_at": "2023-02-21T18:33:24Z",
+      "closed_at": "2023-02-21T18:33:24Z",
+      "body": "A player may run an attack against an airfield, but they may also damage air squadrons based at that airfield.\r\n\r\nFor the time at which a Strike adjudication is adjudicated, modify the outcomes so that:\r\n- find air assets hosted at that airfield\r\n- determine if the asset is currently active on a mission\r\n- if not, offer a health outcome for that asset\r\n\r\nThis depends on #2238 and #2239",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 103
+}

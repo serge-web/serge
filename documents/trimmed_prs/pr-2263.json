@@ -1,0 +1,50 @@
+{
+  "number": 2263,
+  "title": "2262 adjud details for assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-16T20:17:01Z",
+  "updated_at": "2023-01-17T12:13:07Z",
+  "closed_at": "2023-01-17T12:13:06Z",
+  "merged_at": "2023-01-17T12:13:06Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2263",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2263/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2263/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2263",
+  "body": "Fixes #2262 ",
+  "additions": 163,
+  "deletions": 29,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2262
+  ],
+  "issues": [
+    {
+      "id": 1535389044,
+      "number": 2262,
+      "title": "In adjudication form, show assets in tables",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-16T19:17:59Z",
+      "updated_at": "2023-01-17T12:13:07Z",
+      "closed_at": "2023-01-17T12:13:07Z",
+      "body": "We need to show lots more information for assets in adjudication.\r\n\r\nStart off by adding these columns:\r\n* name\r\n* number of units for own-force \r\n* force, \r\n* id, \r\n* platform-type, \r\n* health, \r\n* c2-status (incl parent c2-status).\r\n\r\nFor op-for assets, also show details for protective MEZ sites.  The outcome generator prob needs to do this.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 192
+}

@@ -1,0 +1,146 @@
+{
+  "number": 2997,
+  "title": "Separate MapControls AddRemove property into Add and Remove",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-07-16T14:09:47Z",
+  "updated_at": "2024-07-22T08:51:26Z",
+  "closed_at": "2024-07-19T09:36:44Z",
+  "merged_at": "2024-07-19T09:36:44Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2997",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2997/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2997/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2997",
+  "body": "Fixes #2996 ",
+  "additions": 123,
+  "deletions": 67,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 1,
+  "total_comments": 11,
+  "comments_data": [
+    {
+      "id": 2231011854,
+      "user": "IanMayo",
+      "created_at": "2024-07-16T14:14:11Z",
+      "updated_at": "2024-07-16T14:14:11Z",
+      "body": "Thanks @lebaphi \r\n\r\nI see you haven't had to split `canAddRemove` into `canAdd` and `canRemove`.  That's fine, as long as it meets the UI requirement :-)"
+    },
+    {
+      "id": 2231025329,
+      "user": "lebaphi",
+      "created_at": "2024-07-16T14:17:22Z",
+      "updated_at": "2024-07-16T14:17:22Z",
+      "body": "> Thanks @lebaphi\r\n> \r\n> I see you haven't had to split `canAddRemove` into `canAdd` and `canRemove`. That's fine, as long as it meets the UI requirement :-)\r\n\r\nYep @IanMayo, I tried with a different approach, you are welcome to test this 🤣 "
+    },
+    {
+      "id": 2232764692,
+      "user": "Tristina1788",
+      "created_at": "2024-07-17T08:43:31Z",
+      "updated_at": "2024-07-17T08:43:31Z",
+      "body": "@IanMayo @lebaphi I can see the log for user don't have permission on item\r\n\r\n![image](https://github.com/user-attachments/assets/336fe7cb-5244-4619-967a-77f84fc3a92c)\r\n\r\n- And I also see screen is blink when move some items, some items don't make screen blink (Move black shapes make screen blink, but red shapes don't)\r\n\r\nhttps://github.com/user-attachments/assets/ee5fda03-f7aa-4a53-a491-d9279cadad23\r\n\r\n- Should not show 'Cancel' button because user can't update properties so 'Cancel' button is not useful.\r\n\r\n![image](https://github.com/user-attachments/assets/178b1370-08d7-4470-a2af-23ac7aff0c57)\r\n\r\n- The coremapping tool is lost after try to remove item which the user don't have permission. => This way will make user confuse.\r\n\r\n\r\nhttps://github.com/user-attachments/assets/b084fdc0-ecda-4c03-abbb-f088d450f36c\r\n\r\n\r\n"
+    },
+    {
+      "id": 2233221621,
+      "user": "lebaphi",
+      "created_at": "2024-07-17T12:37:20Z",
+      "updated_at": "2024-07-17T12:37:20Z",
+      "body": "@Tristina1788 \r\n> And I also see screen is blink when move some items, some items don't make screen blink (Move black shapes make screen blink, but red shapes don't)\r\n\r\nIt's because the map is re-render after changes, I will check if I can improve that\r\n\r\n> Should not show 'Cancel' button because user can't update properties so 'Cancel' button is not useful.\r\n\r\nI think it's still useful if the user want to unselect the current selected item instead of clicking on the map.\r\n\r\n> The coremapping tool is lost after try to remove item which the user don't have permission. => This way will make user confuse.\r\n\r\nThat's because you don't have the \"Remove\" permission on Red, so when you click on Red => the toolbar updates its status."
+    },
+    {
+      "id": 2235222029,
+      "user": "Tristina1788",
+      "created_at": "2024-07-18T03:08:18Z",
+      "updated_at": "2024-07-18T03:08:18Z",
+      "body": "@lebaphi @IanMayo \r\n`It's because the map is re-render after changes, I will check if I can improve that` : Now I still don't see the improvement on 'screen is blink when move some items'\r\n\r\n`I think it's still useful if the user want to unselect the current selected item instead of clicking on the map.` : So It's ok for this button.\r\n\r\n`That's because you don't have the \"Remove\" permission on Red, so when you click on Red => the toolbar updates its status.` : Yes, I understand that, but I'm afraid that user which play game and he's not an admin, so it's quite confuse when some button is lost when click some items. I think we can add more steps on the guide for tutorial, so user can know the way it works. How do you think? @IanMayo \r\n\r\n"
+    },
+    {
+      "id": 2236153874,
+      "user": "lebaphi",
+      "created_at": "2024-07-18T10:21:46Z",
+      "updated_at": "2024-07-18T10:21:46Z",
+      "body": "> It's because the map is re-render after changes, I will check if I can improve that : Now I still don't see the improvement on 'screen is blink when move some items'\r\n\r\nYep, I will try to reduce the rendering fever as much as possible, but the flickering phenomenon is due to React's behavior, it is what it is, I cannot interfere."
+    },
+    {
+      "id": 2238739623,
+      "user": "lebaphi",
+      "created_at": "2024-07-19T09:21:40Z",
+      "updated_at": "2024-07-19T09:21:40Z",
+      "body": "If there are no more issues then we can merge this PR? @Tristina1788 @IanMayo "
+    },
+    {
+      "id": 2238786364,
+      "user": "Tristina1788",
+      "created_at": "2024-07-19T09:43:22Z",
+      "updated_at": "2024-07-19T09:43:22Z",
+      "body": "\r\n> Yep, I will try to reduce the rendering fever as much as possible, but the flickering phenomenon is due to React's behavior, it is what it is, I cannot interfere.\r\n\r\nIf the reason is React's behavior, why the performance is different from items. (Some items are blink when moving, some items are not) . @IanMayo How do you think?\r\n\r\nhttps://github.com/user-attachments/assets/02ef082c-cfb2-41e4-bc41-bcad7f2be349\r\n\r\n"
+    },
+    {
+      "id": 2238844480,
+      "user": "lebaphi",
+      "created_at": "2024-07-19T10:20:17Z",
+      "updated_at": "2024-07-19T10:23:49Z",
+      "body": "I think it's simple @Tristina1788 \r\n- If you have permission to drag the item => it will update the new position after dragging => re-render => flicker\r\n- If you don't have the permission => you can still drag item on the map it but it does nothing\r\n\r\nLooks like your browser is caching, can you check again in an incognito browser?"
+    },
+    {
+      "id": 2242428060,
+      "user": "Tristina1788",
+      "created_at": "2024-07-22T08:51:25Z",
+      "updated_at": "2024-07-22T08:51:25Z",
+      "body": "> I think it's simple @Tristina1788\r\n> \r\n> * If you have permission to drag the item => it will update the new position after dragging => re-render => flicker\r\n> * If you don't have the permission => you can still drag item on the map it but it does nothing\r\n> \r\n> Looks like your browser is caching, can you check again in an incognito browser?\r\n\r\n Try on browser no cache, and seem the shape which user don't have permission move,  the item will not blink (maybe because it doesn't need to update the new position). So it's ok."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1679535422,
+      "user": "IanMayo",
+      "created_at": "2024-07-16T14:34:54Z",
+      "updated_at": "2024-07-16T14:34:55Z",
+      "body": "Hello @lebaphi - right now, I think this can just be a message to the console.  I can't quite think of a tidy UI for when the user tries to drag something they don't have permission for.",
+      "path": "client/src/Components/local/atoms/mapping-panel/helpers/has-mapping-permission.tsx",
+      "diff_hunk": "@@ -43,3 +43,5 @@ export const canMoveResize = (feature: Feature<Geometry, any>, permissions: Part\n export const canAddRemove = (feature: Feature<Geometry, any>, permissions: ParticipantMapping[]): boolean => {\n   return hasMappingPermissions(feature, [MappingPermissions.AddRemove], permissions)\n }\n+\n+export const permissionError = (): void => alert('You do not have permission on this action')",
+      "html_url": "https://github.com/serge-web/serge/pull/2997#discussion_r1679535422"
+    }
+  ],
+  "issue_numbers": [
+    2996
+  ],
+  "issues": [
+    {
+      "id": 2410970591,
+      "number": 2996,
+      "title": "Separate MapControls `AddRemove` property into `Add` and `Remove`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-07-16T12:05:33Z",
+      "updated_at": "2024-08-05T15:34:59Z",
+      "closed_at": "2024-08-05T15:34:59Z",
+      "body": "We currently manage which controls to provide the player depending on the value of `canAddRemove`.\r\n\r\nBut, the value of this property is updated when an item is selected.\r\n\r\nThat logic is slightly wrong. The ability to `remove` is sensitive to the selected item.  But, the ability to `add` should not be.  That is probably why @Tristina1788 is finding she cannot add new `green` items, [here](https://github.com/serge-web/serge/pull/2970#issuecomment-2230622794)\r\n\r\nSo, we should separate the `MapControls` prop titled `canAddRemove` into `canAdd` and `canRemove`.  The first just checks if this player has permission to `AddRemove` for their own force.  The second is updated on a new `selectedFeature` - as in the existing logic.\r\n\r\nThis work should be done in a branch off `core-mapping-admin`",
+      "labels": [
+        "bug",
+        "4hat"
+      ],
+      "comments": [
+        {
+          "id": 2269227515,
+          "user": "lebaphi",
+          "created_at": "2024-08-05T14:33:31Z",
+          "updated_at": "2024-08-05T14:33:31Z",
+          "body": "I think we can close it @IanMayo "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/user-attachments/assets/336fe7cb-5244-4619-967a-77f84fc3a92c",
+    "https://github.com/user-attachments/assets/178b1370-08d7-4470-a2af-23ac7aff0c57"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 190
+}

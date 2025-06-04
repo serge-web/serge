@@ -1,0 +1,64 @@
+{
+  "number": 1408,
+  "title": "1391: Fix button color issue",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-12T08:42:04Z",
+  "updated_at": "2022-03-14T12:48:56Z",
+  "closed_at": "2022-03-14T12:48:55Z",
+  "merged_at": "2022-03-14T12:48:55Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1408",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1408/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1408/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1408",
+  "body": "Fixes #1391 \r\n\r\n<img width=\"506\" alt=\"Screen Shot 2022-03-12 at 3 41 27 PM\" src=\"https://user-images.githubusercontent.com/26705621/158010822-883cd3e1-aacd-437f-a46f-974cdffc2225.png\">\r\n\r\n",
+  "additions": 21,
+  "deletions": 17,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 1,
+  "total_comments": 1,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 825881037,
+      "user": "IanMayo",
+      "created_at": "2022-03-14T12:12:35Z",
+      "updated_at": "2022-03-14T12:12:36Z",
+      "body": "if we are using `some` won't this code drop out on the first `true` value?  My guess is that we should run through all of the forces.",
+      "path": "packages/components/src/local/organisms/setting-forces/index.tsx",
+      "diff_hunk": "@@ -119,17 +119,25 @@ export const SettingForces: React.FC<PropTypes> = ({\n         html += `<li>${item}</li>`\n         return html\n       }, '')\n+\n       attributeErrors.length > 0 && toggleModal(`The attributes for some assets did not match with type details. These fixes have been applied: <br/> ${attrsbuteErrorList}`)\n \n       if (onSave) {\n-        forcesData.some(force => {\n-          if (force.uniqid === selectedForce.uniqid) {\n-            // TODO: should loop each asset and assign only the `attributeValues` for each one instead of assign the whole asset to force?\n-            force.assets = selectedForce.assets\n-            return true\n-          }\n-          return false\n-        })\n+        // if the data is wrong and has been modified, should update back to the forceData\n+        // If not, just save the forcesData\n+        if (attributeErrors.length) {\n+          forcesData.some(force => {\n+            if (force.uniqid === selectedForce.uniqid && force.assets) {\n+              force.assets.forEach((asset, idx) => {\n+                if (selectedForce.assets) {\n+                  asset.attributeValues = selectedForce.assets[idx].attributeValues\n+                }\n+              })\n+              return true",
+      "html_url": "https://github.com/serge-web/serge/pull/1408#discussion_r825881037"
+    }
+  ],
+  "issue_numbers": [
+    1391
+  ],
+  "issues": [
+    {
+      "id": 1163725611,
+      "number": 1391,
+      "title": "Cancel & Save Button Color",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-09T09:59:56Z",
+      "updated_at": "2022-03-14T12:48:55Z",
+      "closed_at": "2022-03-14T12:48:55Z",
+      "body": "Was just reviewing #1368 and realized that the Cancel and Save buttons are of the same color: \r\n\r\n![Cancel   Save Button Same Color](https://user-images.githubusercontent.com/85491794/157418471-08d7cfab-3ce9-41dd-be4d-3f0076e8f8be.png)\r\n\r\nI suggest we stick to the usual bold navy blue for the save button and keep the grey for the cancel button.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/158010822-883cd3e1-aacd-437f-a46f-974cdffc2225.png",
+    "https://user-images.githubusercontent.com/85491794/157418471-08d7cfab-3ce9-41dd-be4d-3f0076e8f8be.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 38
+}

@@ -1,0 +1,108 @@
+{
+  "number": 1870,
+  "title": "1859: SupportMapping component",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-22T15:15:06Z",
+  "updated_at": "2022-09-23T13:28:18Z",
+  "closed_at": "2022-09-23T13:28:17Z",
+  "merged_at": "2022-09-23T13:28:17Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1870",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1870/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1870/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1870",
+  "body": "Fixes #1859 \r\n\r\n\r\nhttps://user-images.githubusercontent.com/26705621/191785626-2b6ad7b2-01b2-4fe1-b5b0-3f6a9c93ae48.mov\r\n\r\n",
+  "additions": 603,
+  "deletions": 293,
+  "changed_files": 30,
+  "labels": [],
+  "comments_count": 6,
+  "review_comments_count": 1,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1255196519,
+      "user": "IanMayo",
+      "created_at": "2022-09-22T15:30:52Z",
+      "updated_at": "2022-09-22T15:30:52Z",
+      "body": "Brilliant :-)"
+    },
+    {
+      "id": 1255287540,
+      "user": "IanMayo",
+      "created_at": "2022-09-22T16:44:54Z",
+      "updated_at": "2022-09-22T16:44:54Z",
+      "body": "Thanks for this @lebaphi \r\n\r\nWhen I'm playing with data, it's really convenient to be able to test things from a story - since it's so quick/easy to modify the mock data, or to use StoryBook controls.\r\n\r\nIt would be good if `SupportPanel` and `SupportMapping` were in the same story. Is it possible to switch `PlanningChannel` to be a `Component` like in our `packages\\components` package?\r\n"
+    },
+    {
+      "id": 1255319201,
+      "user": "IanMayo",
+      "created_at": "2022-09-22T17:15:20Z",
+      "updated_at": "2022-09-22T17:15:20Z",
+      "body": "Aah, one more issue.  With any of the `SupportPanel` expanded, the map doesn't respond to drag/zoom.  With the SupportPanel collapsed, it is possible to drag/zoom\r\n"
+    },
+    {
+      "id": 1255708792,
+      "user": "lebaphi",
+      "created_at": "2022-09-23T01:24:08Z",
+      "updated_at": "2022-09-23T01:24:08Z",
+      "body": "I will update @IanMayo 👍 "
+    },
+    {
+      "id": 1255953248,
+      "user": "IanMayo",
+      "created_at": "2022-09-23T08:51:36Z",
+      "updated_at": "2022-09-23T08:51:36Z",
+      "body": "very excited about this @lebaphi :-)"
+    },
+    {
+      "id": 1256078653,
+      "user": "IanMayo",
+      "created_at": "2022-09-23T11:08:50Z",
+      "updated_at": "2022-09-23T11:08:50Z",
+      "body": "I'm going to do some refactoring @lebaphi, to remove `state`.  This is the only component in `packages/components` that uses `PlayerUI`.   I know it will mean a _lot_ more props, but it's will be easier to generate the test data when I just need to think about the data that's required."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 977882660,
+      "user": "IanMayo",
+      "created_at": "2022-09-22T16:47:27Z",
+      "updated_at": "2022-09-22T16:47:27Z",
+      "body": "hello @lebaphi - for now, could we move `position` and `zoom` to be props for `support-mapping`?\r\n\r\nThey can then be specified in the story/unit test.  It's (temporarily)  ok to hard-code them in `PlanningChannel`.  Eventually we'll calculate the bounds/zoom from the visible `assets` - then use those values.",
+      "path": "packages/components/src/local/organisms/support-mapping/index.tsx",
+      "diff_hunk": "@@ -0,0 +1,34 @@\n+import { LatLngExpression } from 'leaflet'\n+import React, { useState } from 'react'\n+import { Map, ScaleControl, TileLayer } from 'react-leaflet'\n+import { MapConstants } from './helper/MapConstants'\n+import styles from './styles.module.scss'\n+import PropTypes from './types/props'\n+\n+export const SupportMapping: React.FC<PropTypes> = ({ }) => {\n+  const TileLayerProps = MapConstants.TileLayer\n+\n+  const [position] = useState<LatLngExpression>([51.505, -0.09])",
+      "html_url": "https://github.com/serge-web/serge/pull/1870#discussion_r977882660"
+    }
+  ],
+  "issue_numbers": [
+    1859
+  ],
+  "issues": [
+    {
+      "id": 1379818666,
+      "number": 1859,
+      "title": "Introduce LeafletJS map in background of Support Panel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-20T18:18:36Z",
+      "updated_at": "2022-09-23T13:28:18Z",
+      "closed_at": "2022-09-23T13:28:18Z",
+      "body": "Now that we've got assets in the Support Panel, and we're letting users filter them, we should start displaying them on a map.\r\n\r\nThe map will replace the static image.  It will use the `leaflet` map that we already for the `mapping` channel.  See the `mapping` component.  We won't be re-using the `mapping` component, because it contains lots of complexity - and we don't need all that functionality for `SupportPanel`.  But, `mapping` may be useful for seeing how it is done.\r\n\r\nOnce we have the `SupportMapping` component working, I'll create other issues, to let us put arrays of Assets onto it. `SupportPanel` will pass these asset arrays in response to `ownForces` and `opForces` state objects.\r\n\r\nBut, for this issue, we will just be creating the `SupportMapping` component, which will have a toolbar with zoom in & zoom out.",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 30,
+  "total_changed_lines": 896
+}

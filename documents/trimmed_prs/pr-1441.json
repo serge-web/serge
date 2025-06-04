@@ -1,0 +1,93 @@
+{
+  "number": 1441,
+  "title": "1428: Update toggle color issue",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-22T11:26:16Z",
+  "updated_at": "2022-03-22T14:34:22Z",
+  "closed_at": "2022-03-22T14:16:33Z",
+  "merged_at": "2022-03-22T14:16:33Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1441",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1441/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1441/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1441",
+  "body": "Fixes #1428 \r\n\r\n\r\nhttps://user-images.githubusercontent.com/26705621/159475513-73744286-027f-41b0-bb70-a7c1b856ef64.mov\r\n\r\n\r\n",
+  "additions": 31,
+  "deletions": 21,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1075064412,
+      "user": "IanMayo",
+      "created_at": "2022-03-22T11:32:13Z",
+      "updated_at": "2022-03-22T11:32:13Z",
+      "body": "@lebaphi - it looks like the video didn't upload properly. Could you try again please?"
+    },
+    {
+      "id": 1075099628,
+      "user": "lebaphi",
+      "created_at": "2022-03-22T12:12:43Z",
+      "updated_at": "2022-03-22T12:12:43Z",
+      "body": "> @lebaphi - do you understand what the warning meant?\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/159478743-e23e0eb7-7520-49fd-82e2-8556ca539d12.png)\r\n\r\nHi @IanMayo, the `wargameApi.clearWargames()` return a void, not a promise so we don't need to use `await` 😄"
+    },
+    {
+      "id": 1075119768,
+      "user": "IanMayo",
+      "created_at": "2022-03-22T12:32:28Z",
+      "updated_at": "2022-03-22T12:32:28Z",
+      "body": "> Hi @IanMayo, the `wargameApi.clearWargames()` return a void, not a promise so we don't need to use `await` 😄\r\n\r\nAah, thanks for the lesson :-)"
+    },
+    {
+      "id": 1075260662,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-22T14:34:21Z",
+      "updated_at": "2022-03-22T14:34:21Z",
+      "body": "Looks great @lebaphi! "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1428
+  ],
+  "issues": [
+    {
+      "id": 1171293192,
+      "number": 1428,
+      "title": "Off VS Disabled Toggles",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-16T16:57:09Z",
+      "updated_at": "2022-03-22T14:16:33Z",
+      "closed_at": "2022-03-22T14:16:33Z",
+      "body": "We should be able to distinguish between toggles that have been turned OFF versus toggles that are DISABLED.\r\n\r\nFor example: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/158644620-3f4b5156-b8ba-4baa-b606-e253ad12b2a7.mp4\r\n\r\nThe toggles before clicking on the edit pen, should be dimmed grey and unresponsive to mouse hovers to emphasize their disabled quality, irrespective of their OFF/ON status. Once the edit pen has been clicked on, they regain their color.\r\n\r\nHere's some examples: \r\n\r\nTOGGLE OFF/ON ENABLED:\r\n\r\n![Toggle Off](https://user-images.githubusercontent.com/85491794/158645230-c38e9382-0332-4f1e-a132-907eba064de6.png)\r\n![Toggle On](https://user-images.githubusercontent.com/85491794/158645245-b72789e9-2e73-4091-9842-e25d535e05a6.png)\r\n\r\n\r\nTOGGLE OFF/ON DISABLED: \r\n\r\n![Disabled Toggle Off](https://user-images.githubusercontent.com/85491794/158645294-d48c6ee6-5ae1-457a-aea9-8e5b807355a4.png)\r\n![Disabled Toggle On](https://user-images.githubusercontent.com/85491794/158645310-1714eaa0-5f4b-42e0-98d4-fb483f2869f8.png)\r\n\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1072611379,
+          "user": "IanMayo",
+          "created_at": "2022-03-18T17:05:40Z",
+          "updated_at": "2022-03-18T17:05:40Z",
+          "body": "Nicely spotted @ShendMikullovci . Can you fix it please @lebaphi  ?"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/159478743-e23e0eb7-7520-49fd-82e2-8556ca539d12.png",
+    "https://user-images.githubusercontent.com/85491794/158645230-c38e9382-0332-4f1e-a132-907eba064de6.png",
+    "https://user-images.githubusercontent.com/85491794/158645245-b72789e9-2e73-4091-9842-e25d535e05a6.png",
+    "https://user-images.githubusercontent.com/85491794/158645294-d48c6ee6-5ae1-457a-aea9-8e5b807355a4.png",
+    "https://user-images.githubusercontent.com/85491794/158645310-1714eaa0-5f4b-42e0-98d4-fb483f2869f8.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 52
+}

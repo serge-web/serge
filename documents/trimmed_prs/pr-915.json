@@ -1,0 +1,203 @@
+{
+  "number": 915,
+  "title": "Display formatted messages in read-only editor",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-07-02T08:35:18Z",
+  "updated_at": "2021-09-03T16:54:22Z",
+  "closed_at": "2021-07-06T14:32:51Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/915",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/915/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/915/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/915",
+  "body": "Fixes #868 ",
+  "additions": 110,
+  "deletions": 150,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 17,
+  "review_comments_count": 0,
+  "total_comments": 17,
+  "comments_data": [
+    {
+      "id": 872878272,
+      "user": "IanMayo",
+      "created_at": "2021-07-02T10:02:02Z",
+      "updated_at": "2021-07-02T10:02:02Z",
+      "body": "Yes, it works :-)\r\n\r\nBut, I think in order for it to be acceptable we (you) need to work on improving the format/content.  It takes up so much space the Player(s) can't see the whole message at once.\r\n\r\nBut, note that the Game Designer may be able to improve the layout in the template layout (through use of table/grid)\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/124258082-eb6c9700-db24-11eb-8dcb-15dc620f865d.png)\r\n"
+    },
+    {
+      "id": 873123731,
+      "user": "lebaphi",
+      "created_at": "2021-07-02T16:37:54Z",
+      "updated_at": "2021-07-02T17:00:31Z",
+      "body": "> Yes, it works :-)\r\n> \r\n> But, I think in order for it to be acceptable we (you) need to work on improving the format/content. It takes up so much space the Player(s) can't see the whole message at once.\r\n> \r\n> But, note that the Game Designer may be able to improve the layout in the template layout (through use of table/grid)\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/124258082-eb6c9700-db24-11eb-8dcb-15dc620f865d.png)\r\n\r\nyep, it seems to take too much space. I think we should have another way to display the message the way we want, view the message in vertical doesn't seem to work. Should be displayed in a horizontal line, I will try to put it in a table, take advantage of the empty space on the right to display more data 🤔  "
+    },
+    {
+      "id": 873145692,
+      "user": "IanMayo",
+      "created_at": "2021-07-02T17:17:38Z",
+      "updated_at": "2021-07-02T17:17:38Z",
+      "body": "@lebaphi  - it may be more compact if we remove all that whitespace / padding / margins."
+    },
+    {
+      "id": 873522230,
+      "user": "lebaphi",
+      "created_at": "2021-07-04T05:00:18Z",
+      "updated_at": "2021-07-04T05:00:18Z",
+      "body": "![image](https://user-images.githubusercontent.com/26705621/124373750-2f939f00-dcbf-11eb-8fc1-3441eab10a37.png)\r\nremove white space, margin, padding, and add more editor to save the space on the right side"
+    },
+    {
+      "id": 874037172,
+      "user": "IanMayo",
+      "created_at": "2021-07-05T11:24:54Z",
+      "updated_at": "2021-07-05T11:24:54Z",
+      "body": "Thanks @lebaphi - can we do any CSS \"tricks\" to further reduce the space.  Are we able to convert any `div` to `span`?  Or other steps to reduce the with of those text boxes?"
+    },
+    {
+      "id": 874077988,
+      "user": "lebaphi",
+      "created_at": "2021-07-05T12:34:16Z",
+      "updated_at": "2021-07-05T12:34:16Z",
+      "body": "> Thanks @lebaphi - can we do any CSS \"tricks\" to further reduce the space. Are we able to convert any `div` to `span`? Or other steps to reduce the with of those text boxes?\r\n\r\nI think we can reduce the width of those text boxes or reduce the space, but I'm not sure we can convert any `div` to `span` 🤔 "
+    },
+    {
+      "id": 874129617,
+      "user": "IanMayo",
+      "created_at": "2021-07-05T13:50:34Z",
+      "updated_at": "2021-07-05T13:50:34Z",
+      "body": "Aah, I have an issue.  We're not showing all of the content for text fields:\r\n![screencast](https://i.gyazo.com/1c8a6567a60e847ef8695784ab30c73c.gif)\r\n\r\nhttps://serge-868-4v3qzfxgbl0mmp1j8bk9.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev\r\n\r\nAll of the submitted text needs to be visible."
+    },
+    {
+      "id": 874130139,
+      "user": "IanMayo",
+      "created_at": "2021-07-05T13:51:23Z",
+      "updated_at": "2021-07-05T13:51:23Z",
+      "body": "Another thought @lebaphi ,\r\nwhat if we manipulated the element returned from `json-editor` and replace text boxes with spans?"
+    },
+    {
+      "id": 874130715,
+      "user": "lebaphi",
+      "created_at": "2021-07-05T13:52:21Z",
+      "updated_at": "2021-07-05T13:52:21Z",
+      "body": "> Aah, I have an issue. We're not showing all of the content for text fields:\r\n> ![screencast](https://camo.githubusercontent.com/2cb9c26b1a7a6c3dca1844c647efa5f8c2fa0398f9ad680d715b0d3e324a3c07/68747470733a2f2f692e6779617a6f2e636f6d2f31633861363536376136306538343765663836393537383461623330633733632e676966)\r\n> \r\n> https://serge-868-4v3qzfxgbl0mmp1j8bk9.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev\r\n> \r\n> All of the submitted text needs to be visible.\r\n\r\nhmmm,  think it should be a text area with CSS: word break 🤔 "
+    },
+    {
+      "id": 874202952,
+      "user": "lebaphi",
+      "created_at": "2021-07-05T15:44:53Z",
+      "updated_at": "2021-07-05T15:44:53Z",
+      "body": "![image](https://user-images.githubusercontent.com/26705621/124495621-8940ba00-dde2-11eb-981b-2e2351d4e174.png)\r\nI converted all input elm to span and set height auto, it looks better"
+    },
+    {
+      "id": 874203695,
+      "user": "IanMayo",
+      "created_at": "2021-07-05T15:46:14Z",
+      "updated_at": "2021-07-05T15:46:14Z",
+      "body": "Thanks - will wait for deployment, and have a look."
+    },
+    {
+      "id": 874220097,
+      "user": "IanMayo",
+      "created_at": "2021-07-05T16:15:20Z",
+      "updated_at": "2021-07-05T16:15:20Z",
+      "body": "Having a play...\r\n\r\nI've gone into `CmdWeek - HighData` as `Red-1/CO`.  In `Red HHQ` I have a `Daily intentions` template.  It takes data in table rows:\r\n![image](https://user-images.githubusercontent.com/1108513/124498562-77482280-ddb4-11eb-96a5-636083197dea.png)\r\n\r\nBut, after I send, it's not displayed in a table:\r\n![image](https://user-images.githubusercontent.com/1108513/124498622-8f1fa680-ddb4-11eb-809d-81fa48c727b8.png)\r\n"
+    },
+    {
+      "id": 874242245,
+      "user": "lebaphi",
+      "created_at": "2021-07-05T17:07:44Z",
+      "updated_at": "2021-07-05T17:07:44Z",
+      "body": "> Having a play...\r\n> \r\n> I've gone into `CmdWeek - HighData` as `Red-1/CO`. In `Red HHQ` I have a `Daily intentions` template. It takes data in table rows:\r\n> ![image](https://user-images.githubusercontent.com/1108513/124498562-77482280-ddb4-11eb-96a5-636083197dea.png)\r\n> \r\n> But, after I send, it's not displayed in a table:\r\n> ![image](https://user-images.githubusercontent.com/1108513/124498622-8f1fa680-ddb4-11eb-809d-81fa48c727b8.png)\r\n\r\nwhich data does not display in the table @IanMayo ?"
+    },
+    {
+      "id": 874243435,
+      "user": "IanMayo",
+      "created_at": "2021-07-05T17:10:10Z",
+      "updated_at": "2021-07-05T17:10:10Z",
+      "body": "`Item 1` in the second image is the first row in the top image, and `Item 2` in the second image is the second row in the top image. \r\n\r\n@lebaphi - you may not have made a mistake, this may just be a part of us learning about `json-editor` in read-only mode."
+    },
+    {
+      "id": 874255215,
+      "user": "lebaphi",
+      "created_at": "2021-07-05T17:40:46Z",
+      "updated_at": "2021-07-05T17:41:14Z",
+      "body": "> `Item 1` in the second image is the first row in the top image, and `Item 2` in the second image is the second row in the top image.\r\n> \r\n> @lebaphi - you may not have made a mistake, this may just be a part of us learning about `json-editor` in read-only mode.\r\n\r\nah, it caused by we are displaying the whole message in json editor, its very long in vertical and we do a css trick with column-count:3. We do not display it in the table from the beginning :D"
+    },
+    {
+      "id": 874661021,
+      "user": "IanMayo",
+      "created_at": "2021-07-06T10:54:51Z",
+      "updated_at": "2021-07-06T10:54:51Z",
+      "body": ">  We do not display it in the table from the beginning :D\r\n\r\nIn the screenshot I gave, it's JSON-Editor that is deciding to use a table, not our code.    Have a look at how `jsoneditor` works with JSON schemas:\r\nhttps://github.com/json-editor/json-editor\r\n\r\nThe schema for `daily-intent` specified that `jsoneditor` should display the `array` as a `table`:\r\nhttps://github.com/serge-web/serge/blob/develop/packages/client/src/Schemas/DailyIntentions.json#L53"
+    },
+    {
+      "id": 874805572,
+      "user": "IanMayo",
+      "created_at": "2021-07-06T14:22:48Z",
+      "updated_at": "2021-07-06T14:22:48Z",
+      "body": "Hello @lebaphi - let's pause this for now.\r\n\r\nIn the new features we're adding this summer, I'm expecting us to have to do more work with `json-editor`, including the ability to edit existing documents in the editor control.\r\n\r\nI'm going to ask @lilitkarapetyan to take on some of that complex work, and include `read-only jsoneditor` in that package of work.  Your work will stay **safe** in here, for reference."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    868
+  ],
+  "issues": [
+    {
+      "id": 929206838,
+      "number": 868,
+      "title": "Display formatted messages in read-only editor",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-24T13:02:27Z",
+      "updated_at": "2022-08-04T12:52:14Z",
+      "closed_at": "2022-08-04T12:52:14Z",
+      "body": "Templates are provided for some messages:\r\n![image](https://user-images.githubusercontent.com/1108513/123266775-3c143c80-d4f4-11eb-809a-0f7fe097d1b5.png)\r\n\r\nThese structure the information, and lead the player through what to enter.\r\n\r\nBut, when we display the message for other players, it's just `word-soup`.  The JSON is sorted in alphabetical order, rather than the original order:\r\n![image](https://user-images.githubusercontent.com/1108513/123267112-8d243080-d4f4-11eb-8777-120c35bd0330.png)\r\n\r\nWe may have a better way of presenting the information.  If we presented it in a read-only version of the original editor then it will keep the original information layout.\r\n\r\nSo, for `ChannelMessageDetail` - we'll look for the message type. Then we'll create an instance of the editor form, insert the message payload, and mark the editor as read-only.\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 872660998,
+          "user": "lebaphi",
+          "created_at": "2021-07-02T02:10:02Z",
+          "updated_at": "2021-07-02T02:22:08Z",
+          "body": "\r\n![image](https://user-images.githubusercontent.com/26705621/124211229-f6202f80-db16-11eb-9663-49f29381178d.png)\r\n\r\nHi @IanMayo , I'm working on this, I can load the editor with the message 🤔 "
+        },
+        {
+          "id": 872796152,
+          "user": "IanMayo",
+          "created_at": "2021-07-02T07:51:46Z",
+          "updated_at": "2021-07-02T07:51:46Z",
+          "body": "Great - well done. Can you do it in a branch/PR, so we can have a look?\r\n\r\nI think we need to work on:\r\n* simplification: remove UI elements that aren't required in read-only mode - via options or CSS\r\n* compactness: try to take steps to reduce whitespace - so users see more of message on screen at once."
+        },
+        {
+          "id": 1205215338,
+          "user": "IanMayo",
+          "created_at": "2022-08-04T12:52:14Z",
+          "updated_at": "2022-08-04T12:52:14Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/124258082-eb6c9700-db24-11eb-8dcb-15dc620f865d.png",
+    "https://user-images.githubusercontent.com/26705621/124373750-2f939f00-dcbf-11eb-8fc1-3441eab10a37.png",
+    "https://i.gyazo.com/1c8a6567a60e847ef8695784ab30c73c.gif",
+    "https://camo.githubusercontent.com/2cb9c26b1a7a6c3dca1844c647efa5f8c2fa0398f9ad680d715b0d3e324a3c07/68747470733a2f2f692e6779617a6f2e636f6d2f31633861363536376136306538343765663836393537383461623330633733632e676966",
+    "https://user-images.githubusercontent.com/26705621/124495621-8940ba00-dde2-11eb-981b-2e2351d4e174.png",
+    "https://user-images.githubusercontent.com/1108513/124498562-77482280-ddb4-11eb-96a5-636083197dea.png",
+    "https://user-images.githubusercontent.com/1108513/124498622-8f1fa680-ddb4-11eb-809d-81fa48c727b8.png",
+    "https://user-images.githubusercontent.com/1108513/123266775-3c143c80-d4f4-11eb-809a-0f7fe097d1b5.png",
+    "https://user-images.githubusercontent.com/1108513/123267112-8d243080-d4f4-11eb-8777-120c35bd0330.png",
+    "https://user-images.githubusercontent.com/26705621/124211229-f6202f80-db16-11eb-9663-49f29381178d.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 260
+}

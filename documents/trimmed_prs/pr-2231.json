@@ -1,0 +1,30 @@
+{
+  "number": 2231,
+  "title": "2227b temp strike interaction geoms",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-10T18:58:20Z",
+  "updated_at": "2023-01-11T13:47:01Z",
+  "closed_at": "2023-01-11T13:46:59Z",
+  "merged_at": "2023-01-11T13:46:59Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2231",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2231/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2231/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2231",
+  "body": "Test branch, that produces interactions between activities. Current issue where they are being re-generated\r\n\r\nReal branch is in #2229 ",
+  "additions": 10740,
+  "deletions": 10449,
+  "changed_files": 31,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 31,
+  "total_changed_lines": 21189
+}

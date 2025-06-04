@@ -1,0 +1,113 @@
+{
+  "number": 1681,
+  "title": "1676 enumerated attributes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-20T16:31:45Z",
+  "updated_at": "2022-07-22T11:03:07Z",
+  "closed_at": "2022-07-22T11:03:06Z",
+  "merged_at": "2022-07-22T11:03:06Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1681",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1681/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1681/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1681",
+  "body": "Fixes #1676 ",
+  "additions": 517,
+  "deletions": 364,
+  "changed_files": 28,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1191456220,
+      "user": "IanMayo",
+      "created_at": "2022-07-21T13:00:18Z",
+      "updated_at": "2022-07-21T16:51:33Z",
+      "body": "[request deleted, I've coded it myself]\r\n\r\nYou can use the `ssn` platform-type in the `Storybook` for `Setting platform types`.\r\n\r\nThere is now just this to handle, for `Enumerated Attributes`:\r\n- the `default value` should be a combo box that contains the elements from the `values` array\r\n\r\nI did think we needed a popup editor for the possible values, but it's actually possible to just parse the text value as a comma-separated set of values. I can implement that.\r\n\r\nNote: there is some `fancy-processing` of the list of values on a change. This is because while there is one list of values in the AttributeType, we treat it as two lists in the editor table. So, on a change we have to produce the correct list before we can use the row `key` value.\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1676
+  ],
+  "issues": [
+    {
+      "id": 1306162103,
+      "number": 1676,
+      "title": "Enumerated attribute values",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-15T15:20:17Z",
+      "updated_at": "2022-07-25T10:01:55Z",
+      "closed_at": "2022-07-22T11:03:07Z",
+      "body": "As a ***Game Control*** I wish to ***enumerated attribute values*** in order to ***improve attribute usability***\r\n\r\nFor a future wargame (WATU) the depth of submarines will be significant - and should be an attribute.\r\n\r\nWhile we could allow players to enter a depth in metres, it would be better allow them to choose one of `Deep`, `PD` (short for _Periscope Depth_ and `Surface`.\r\n\r\nWe'll have to make this change both in how attributes are specified (in platform types) and how they are edited (in the attribute editor).\r\n\r\nFor attribute specification we'll need a new drop-down for the attribute. It will contain \"Number\" or \"Strings\".  If \"Strings\" is selected, then we'll have to allow the Game Designer to enter multiple values, plus the default value.  \r\n\r\nFor the editor we'll provide a drop-down list of values.\r\n\r\nMaybe @ShendMikullovci 's existing design documents are available, and we can extend them to support the new functionality.",
+      "labels": [
+        "4watu"
+      ],
+      "comments": [
+        {
+          "id": 1186601624,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-17T20:25:03Z",
+          "updated_at": "2022-07-17T20:25:03Z",
+          "body": "Hi Ian! Excited about this.\r\nI was wondering though, is depth really an attribute? It sounds like a \"state\" or \"condition\" to me to some degree (thinking back to the debate we had on attribute definition). Depending on what we think it is, we can present it in different ways. \r\n\r\nWe could show it in a separate box: \r\n\r\n![Depth 1](https://user-images.githubusercontent.com/85491794/179423438-7f74befd-e0a6-4aed-a0c7-ad142a725532.png)\r\n\r\nToggle buttons for the 3 options, plus the possibility to add more options. You'll also notice I did some tidying up of the entire page (reduced the box sizes for other features and compacted them since now we're adding a new one). \r\n\r\nWe could also have it shown as a fixed attribute: \r\n\r\n![Depth 2](https://user-images.githubusercontent.com/85491794/179423522-c86b5f18-dd78-4f64-b394-41e3a6226cc7.png)\r\n\r\nSomething we need to think about is that we might have to let SERGE know when this feature is appropriate (i.e., when asset travels by sea). Land/Air assets would automatically either have one less box, have the box greyed out, or have no fixed attribute. That is, only if we want to maintain attribute structure. If we want another UX entirely, then we can come up with something else (like opting for a list, similar to other channels, with more toggles and radio buttons, checkboxes, etc.). Let me know if you want me to try things out in that thoughtframe. \r\n"
+        },
+        {
+          "id": 1186902511,
+          "user": "IanMayo",
+          "created_at": "2022-07-18T08:16:09Z",
+          "updated_at": "2022-07-18T08:16:09Z",
+          "body": "Thanks for exploring the idea.  Depth only relates to submarines, and they're not present in all wargames.  So, right now it doesn't seem justified to add it as a dedicated attribute.\r\n\r\nAdding it as one of our custom attributes is the flexibility the users wanted.  If, one day, SERGE has to understand/use the concept of depth we can use one your mechanisms for adding it as a permanent attribute.\r\n\r\nOne observation on your second demo.  The Game Designer needs to indicate that it is a `string` value, and not a `number` value.  To allow us to grow the range of types the future, I think this should be a drop down list.  If we can, we also need to show the range of values in the `Attributes table` - so the Game Designer can review/check the available attributes.  This is in addition to the `default` value (`Deep` in our example).\r\n\r\nAah, actually... We don't use `Format` for string values. _Somehow_ we could present the list of available options in the that column.\r\n\r\nHappy to talk it through further.."
+        },
+        {
+          "id": 1187625087,
+          "user": "IanMayo",
+          "created_at": "2022-07-18T15:13:26Z",
+          "updated_at": "2022-07-18T15:13:26Z",
+          "body": "Hello @ShendMikullovci - I'm starting to work on the backend changes for this, including making some test data.\r\n\r\nI realise the two different types (number vs enum) will have different columns.  We _could_ handle this in one table by some columns having a different meaning depending on if its a enum or number atttribute.  But, on reflection I think it could be easier all round if we have two tables: one for number attributes (as with the current one), and another for enum attributes - with dedicated columns."
+        },
+        {
+          "id": 1190890535,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-21T00:06:54Z",
+          "updated_at": "2022-07-21T00:06:54Z",
+          "body": "Not sure if I fully understood, but I gave it a go. Did you mean something like this: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/180102864-b13c180f-ab63-452a-accd-323a62f6cdb7.mp4\r\n\r\nObviously, clicking on Add Value Here would allow the user to type in the value, instead of having Periscope Depth pop up.\r\n"
+        },
+        {
+          "id": 1191300436,
+          "user": "IanMayo",
+          "created_at": "2022-07-21T10:10:08Z",
+          "updated_at": "2022-07-21T11:33:19Z",
+          "body": "Yes, _kind-of_ like that.\r\n\r\nBut, if we can handle the layout issues, I'd like both sets to be within a single `Attributes` block.    First number attributes, then enumerated attributes.\r\n\r\nFor the enumerated issues, I think we'll need these columns:\r\n- name\r\n- editable by player (toggle)\r\n- description\r\n- values (popup list editor)\r\n- default (drop-down list of values)"
+        },
+        {
+          "id": 1193836320,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-25T09:58:09Z",
+          "updated_at": "2022-07-25T09:58:09Z",
+          "body": "Do we have a deployment for this? If we want to add those columns, we should consider rearranging the page to fit everything."
+        },
+        {
+          "id": 1193839886,
+          "user": "ShendMikullovci",
+          "created_at": "2022-07-25T10:01:55Z",
+          "updated_at": "2022-07-25T10:01:55Z",
+          "body": "Just saw the deployment. Great work! "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/179423438-7f74befd-e0a6-4aed-a0c7-ad142a725532.png",
+    "https://user-images.githubusercontent.com/85491794/179423522-c86b5f18-dd78-4f64-b394-41e3a6226cc7.png"
+  ],
+  "number_of_changed_files": 28,
+  "total_changed_lines": 881
+}

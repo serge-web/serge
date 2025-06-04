@@ -1,0 +1,86 @@
+{
+  "number": 1645,
+  "title": "1587 laydown logic",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-28T13:52:37Z",
+  "updated_at": "2022-07-07T16:06:50Z",
+  "closed_at": "2022-07-07T16:06:49Z",
+  "merged_at": "2022-07-07T16:06:48Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1645",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1645/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1645/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1645",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1587 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 894,
+  "deletions": 344,
+  "changed_files": 34,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 1,
+  "total_comments": 1,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 909484241,
+      "user": "IanMayo",
+      "created_at": "2022-06-29T10:49:57Z",
+      "updated_at": "2022-06-29T10:49:57Z",
+      "body": "Hello @lilitkarapetyan - I could do with a hand in this PR please.\r\n\r\nFor assets that are available for laydown (player can move them before game starts), we'd like them to blink, as described here:\r\nhttps://github.com/serge-web/serge/issues/1587#issuecomment-1161443960\r\n\r\nCould you make assets with `locationPending` flash/blink please?\r\n\r\nIt _looks like_ it may be possible to do this at the level of `assetIconComponentAsString`, `divIcon`, or `Marker` - I don't know which is the best to use.",
+      "path": "packages/components/src/local/map-icon/index.tsx",
+      "diff_hunk": "@@ -72,14 +72,17 @@ export const MapIcon: React.FC<PropTypes> = ({\n   // get top orient marker in the list\n   const lastOrientation = orientationData?.length ? (orientationData[orientationData.length - 1] as OrientationData).orientation : 0\n ",
+      "html_url": "https://github.com/serge-web/serge/pull/1645#discussion_r909484241"
+    }
+  ],
+  "issue_numbers": [
+    1587
+  ],
+  "issues": [
+    {
+      "id": 1256405975,
+      "number": 1587,
+      "title": "Force Laydown for both Umpire & Players",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-01T16:16:09Z",
+      "updated_at": "2022-07-07T16:06:49Z",
+      "closed_at": "2022-07-07T16:06:49Z",
+      "body": "When designing a game, if the Game Designer adds any assets, their initial locations need to be set.  This _could_ be implemented by the Game Designer entering the (horrible) hex coord.  But, it's easier to create the assets, and then arrange them via drag/drop within the game itself (before game initiated).\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/172350076-546a7326-6ee8-41b8-bd88-37c147b2464a.png)\r\n\r\nAlso, for some wargames, the Game Designer may let player(s) specify the initial positions for some assets.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/172350144-44013132-5ce9-458e-b8ec-5b9761f29e6b.png)\r\n\r\n\r\n### Location Pending pen\r\nWe need to think through the UX for both - including where we locate the \"pending\" assets. After all, they don't have an initial area.  One solution is to have a box at the top-left, with one un-placed asset per cell.  The GD or player drags the asset from there to the desired location.\r\n\r\nMaybe think of a better name than `location pending pen`, too.\r\n\r\n### Laydown phases:\r\n1. Game Design (game not initialised)\r\n2. Umpire laydown (game initialised, one or more assets set to `Force laydown`)\r\n3. Player laydown (game initialised, no assets set to `Force laydown`, one or more set to `Player laydown`)\r\n4. Game-play (game initialised, no assets set to `Force laydown` or `Player laydown`)\r\n\r\n### Tasks: \r\n* [x] Allow game designer to set laydown/initial location in admin pages (Almost complete)\r\n* [x] Logic to decide which laydown phase we're in. See `laydownPhaseFor()`\r\n* [x] _Somehow_ make Game Designer (or players) aware of which laydown phase we're in.\r\n* [x] Allow routes to be generated for assets that don't have a position or location\r\n* [x] Logic to let the `asset-icons` component decide where to put the _Pen_, render the pen, and also create positions/locations for the `asset-icon` component to use\r\n* [x] Logic to allow player to drag/drop pending assets\r\n* [x] Logic to submit laydown positions\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1153244802,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-12T17:46:42Z",
+          "updated_at": "2022-06-12T17:47:12Z",
+          "body": "I think adding another icon for pending icons may be a little too much. We've already got a loaded screen including assets, markers (both singular and composites), buttons/features.\r\n\r\nI have two ideas:\r\n\r\n1. Pending assets are shown in their same icon and color, except slightly grayed and in reduced opacity (approx. 50%). The transparency should emphasize its ephemeral state, as we've been conditioned to view gray/transparent as inconclusive in games.\r\n2. Have the assets (either in full or reduced opacity) blink on the pending laydown spot. This, however, attracts more attention and adds a feel of urgency to the laydown, which I'm not sure we want (?).\r\n\r\nWe could chop this up in 3 different phases for the GD/Players to know: \r\n\r\n- Blink at 50% Opacity: Asset location pending.\r\n- 50% Opacity Only: Asset location selected but to be confirmed. \r\n- 100% Opacity: Asset location selected and confirmed."
+        },
+        {
+          "id": 1154118166,
+          "user": "IanMayo",
+          "created_at": "2022-06-13T16:15:54Z",
+          "updated_at": "2022-06-13T16:15:54Z",
+          "body": "Thanks for that @ShendMikullovci \r\n\r\nThere is an example of blinking images here: http://jsfiddle.net/rameezrami/27754r4f/1/\r\n\r\nThe above example uses an animated blinking - so they remain visible for most of the time."
+        },
+        {
+          "id": 1161443960,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-21T08:40:33Z",
+          "updated_at": "2022-06-21T08:40:33Z",
+          "body": "Just ran a test on this. Here's how it could look: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/174756305-9d769227-d372-4e8f-8276-d1b5a373e04f.mp4\r\n\r\nObviously, we can play around with the delay, opacity and other settings. I think this looks promising. Let me know how you feel about it.\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/172350076-546a7326-6ee8-41b8-bd88-37c147b2464a.png",
+    "https://user-images.githubusercontent.com/1108513/172350144-44013132-5ce9-458e-b8ec-5b9761f29e6b.png"
+  ],
+  "number_of_changed_files": 34,
+  "total_changed_lines": 1238
+}

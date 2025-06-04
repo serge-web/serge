@@ -1,0 +1,99 @@
+{
+  "number": 1435,
+  "title": "1339 information markers",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-18T16:55:39Z",
+  "updated_at": "2022-03-30T14:04:13Z",
+  "closed_at": "2022-03-30T14:04:13Z",
+  "merged_at": "2022-03-30T14:04:13Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1435",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1435/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1435/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1435",
+  "body": "Support #1339 \r\n\r\nNote: currently breaking \r\n\r\n",
+  "additions": 1241,
+  "deletions": 39,
+  "changed_files": 60,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1339
+  ],
+  "issues": [
+    {
+      "id": 1126141706,
+      "number": 1339,
+      "title": "14. Information Markers",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-02-07T15:26:21Z",
+      "updated_at": "2023-11-13T11:34:43Z",
+      "closed_at": "2023-11-13T11:34:43Z",
+      "body": "As a **Game Controller** I wish to be able to **put marker pins on the map** to **highlight the location of significant events**\r\n\r\nMore thoughts [here](https://docs.google.com/presentation/d/1AOGfEQuSYsRyvAYUe4_x3E_bvu15KJ8KpzqDyDAMh-Q/edit?usp=sharing)\r\n\r\nAt the end of an adjudication phase the Game Controller has a volume of information to convey to each player force.  The information is currently passed in these ways:\r\n1. updated state of world (via mapping channel)\r\n2. in-channel messages from umpire-force to players \r\n3. notes taken by an observer during adjudication which are conveyed orally when they return to the force room\r\n\r\nOption (3.) brings the most versatility, but, it allows for mistakes in the location where things happened.\r\n\r\nConveying information through map markers would ease this challenge.  A suite of icons for the markers could convey part of the message, with a text label for more detail.\r\n\r\nSo, the following capability would be useful:\r\n1. Game Control able to add markers to the map during adjudication (or force laydown) phases, via drag/drop\r\n2. Game Control can also control who can see the marker, plus specify the icon and text for the label\r\n3. The marker is annotated with the turn when it was dropped (to show age). \r\n4. Game Control can delete markers in later turns.\r\n5. If different icons or labels are required for different forces, then these must be created as separate labels.\r\n6. The text label for markers would only be displayed if they are selected, or at a sufficient zoom level\r\n7. A new tab will be present in the \"World State\" (top-left) panel listing markers. This is where Game Control/Player clicks on a marker to edit/view more data resp.  Clicking on a marker from this panel will both open it in the bottom-left panel, and pan/zoom onto it on the map.\r\n8. Just like any modified/accepted planned routes, the markers would stay on the Game Control PC until the Game Control clicks on \"New State of World\" and they are sent to the players with their updated vessel locations.\r\n\r\n\r\n* [x] Create data type for markers & markers collection\r\n* [x] Modify wargame data to allow markers\r\n* [x] Modify sample wargame to include information marker\r\n* [x] Render information marker (icon)\r\n* [x] Render information marker (polygon ring)\r\n* [x] Render just text label\r\n* [x] Provide popup with extra description\r\n* [x] Introduce control-bar button to add info-marker at current centre of plot\r\n* [x] Make marker draggable if Game Control, and marker selected.\r\n* [x] New world-bar panel for info markers (if any are present)\r\n* [x] Edit dialog for selected info-marker if Game-Control.  Marker only draggable if currently selected. \r\n* [x] View dialog for selected info-marker if non Game-Control\r\n* [x] New Game Admin panel to let Game Designer add/specify new icons.  Needs to support icon name plus `upload` of new icons",
+      "labels": [
+        "wontfix"
+      ],
+      "comments": [
+        {
+          "id": 1057017387,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-02T14:53:31Z",
+          "updated_at": "2022-03-02T14:53:31Z",
+          "body": "Great addition. Instantly thought of the pin icon: \r\n\r\n![Pin Icon Black Grey Background](https://user-images.githubusercontent.com/85491794/156385062-c1f5da29-34da-448e-9724-a9ee872530bc.png)\r\n\r\nTilting it to the right to occupy a more diagonal space and appear more like a detail. \r\n\r\nA few issues we would probably encounter with it: \r\n\r\n1. Markers can clutter the mapping page: We could try an outlined icon with a dim color like we have previously.\r\n2. New and old markers: The GD should be able to not only delete but also archive older markers, as well as view all/select number of markers on the map to maintain awareness. \r\n3. Color: I suggest we color according to force if the pins are necessary for multiple forces. If it's a feature that will only be used for subject force (Blue), then we stick to a regular icon. "
+        },
+        {
+          "id": 1057027947,
+          "user": "IanMayo",
+          "created_at": "2022-03-02T15:00:12Z",
+          "updated_at": "2022-03-02T15:00:12Z",
+          "body": "Sure. I guess we have UX requirements for:\r\n- new tab in top-left window, labelled \"Markers\"\r\n- new tab at bottom-left for when umpire clicks on marker to edit it\r\n- new tab at bottom-left for players?  Maybe not - they can see the icon/color/label, and hover/click to see more details"
+        },
+        {
+          "id": 1058036354,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-03T13:22:22Z",
+          "updated_at": "2022-03-03T13:22:22Z",
+          "body": "After some thought and playing around with the icon, I realized that the location pin used for most mapping services (including Google Maps) feels more appropriate. So, I came up with this design (this would be a pin for Blue-2):\r\n\r\n![Location Pin Edited Blue](https://user-images.githubusercontent.com/85491794/156572210-96ddb09a-7122-4575-9a7b-d72edc8ff0d3.png)\r\n \r\nHere's how it would look on the mapping page: \r\n\r\n![Markers Mapping   Window](https://user-images.githubusercontent.com/85491794/156572378-b8684a08-a72f-48d8-8a77-97af8ca55c05.png)\r\n\r\nI also added numbers next to the icons in order to maintain awareness (without them, the user would have to click on random icons in the top left window to know which one they want to edit). \r\n\r\nI was thinking we make the markers editable directly on the top left window since they only represent textual information. That way, we limit space consumption and cluttering. \r\n\r\nLet me know your thoughts.\r\n"
+        },
+        {
+          "id": 1058042903,
+          "user": "IanMayo",
+          "created_at": "2022-03-03T13:30:04Z",
+          "updated_at": "2022-03-03T13:30:04Z",
+          "body": "Thanks for that @ShendMikullovci .\r\n\r\nThe Game Designers wish to have a range of icons for the markers.  So, one could be fire - to represent the player being able to see that something is on fire. Another could be an \"ear\" (or something similar) to say the sonar had heard something coming from that area.  The designers will come up with their set of icons.\r\n\r\nI also think the marker could have a short label plus a description.  The short label would be displayed when sufficiently zoomed in - but now when viewing the full map. The description would be available by clicking on the marker.\r\n\r\nYes, we _could_ allow editing in the top-left panel, but we don't do that for anything else.  If we keep the top-left for selecting which one to edit, we'll be consistent with other features, and we won't need much of a software change (if at all).\r\n\r\nAah, so the umpire will need to edit:\r\n- icon (from drop-down list showing icons & names)\r\n- label\r\n- description\r\n- which forces can see this marker"
+        },
+        {
+          "id": 1058122572,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-03T14:54:26Z",
+          "updated_at": "2022-03-03T14:54:26Z",
+          "body": "That's great! The game is getting richer and richer. I'll see what we can come up with."
+        },
+        {
+          "id": 1058203612,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-03T16:06:17Z",
+          "updated_at": "2022-03-03T16:06:17Z",
+          "body": "Here's how that could look: \r\n\r\n![Markers 1](https://user-images.githubusercontent.com/85491794/156602760-36c6bd56-944b-4b3b-be45-e15d29c3add8.png)\r\n\r\nA list of icons provided by the client on the top left can be dragged and dropped into the mapping page. \r\n\r\nDropping one into the page would instantly open the lower tab where the user would fill in the necessary details:\r\n\r\n![Markers 2](https://user-images.githubusercontent.com/85491794/156603076-1ba2fee0-b8a4-4397-ba85-58ea8384e993.png)\r\n\r\nThe label and description are text boxes that can be edited. The user also selects who they want this feature to be visible for by selecting the appropriate force. \r\n\r\nLet me know your thoughts!"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/156385062-c1f5da29-34da-448e-9724-a9ee872530bc.png",
+    "https://user-images.githubusercontent.com/85491794/156572210-96ddb09a-7122-4575-9a7b-d72edc8ff0d3.png",
+    "https://user-images.githubusercontent.com/85491794/156572378-b8684a08-a72f-48d8-8a77-97af8ca55c05.png",
+    "https://user-images.githubusercontent.com/85491794/156602760-36c6bd56-944b-4b3b-be45-e15d29c3add8.png",
+    "https://user-images.githubusercontent.com/85491794/156603076-1ba2fee0-b8a4-4397-ba85-58ea8384e993.png"
+  ],
+  "number_of_changed_files": 60,
+  "total_changed_lines": 1280
+}

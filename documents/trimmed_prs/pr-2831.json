@@ -1,0 +1,68 @@
+{
+  "number": 2831,
+  "title": "Fix absolute positioning of composite symbol",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-08T07:17:56Z",
+  "updated_at": "2024-02-08T11:19:00Z",
+  "closed_at": "2024-02-08T11:18:59Z",
+  "merged_at": "2024-02-08T11:18:59Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2831",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2831/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2831/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2831",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 2,
+  "deletions": 8,
+  "changed_files": 1,
+  "labels": [
+    "bug",
+    "Mapping",
+    "4p10"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1933487885,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-08T07:19:56Z",
+      "updated_at": "2024-02-08T07:19:56Z",
+      "body": "Fixes #2830 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2830
+  ],
+  "issues": [
+    {
+      "id": 2123178833,
+      "number": 2830,
+      "title": "Health Bar should be centered under MilSymbol, not whole element",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-02-07T14:35:51Z",
+      "updated_at": "2024-02-08T11:37:08Z",
+      "closed_at": "2024-02-08T11:37:08Z",
+      "body": "When we have symbol labels switch on, the element becomes wider.\r\n\r\nThis pushes the `health bar` over to the right.\r\n\r\n![screencase](https://i.gyazo.com/0c2e9716b290805d28dbc4fd7894d330.gif)\r\n\r\nI _guess_ we need to position it an absolute number of pixels over from the left of the composite symbol, rather than the centre of the composite symbol.\r\n\r\nBut, there could be alternate solutions too.",
+      "labels": [
+        "bug",
+        "Mapping",
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/0c2e9716b290805d28dbc4fd7894d330.gif"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 10
+}

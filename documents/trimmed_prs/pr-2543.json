@@ -1,0 +1,77 @@
+{
+  "number": 2543,
+  "title": "2521: Introduce leaflet-dialog, to show story of timeline",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-03-03T09:55:28Z",
+  "updated_at": "2023-06-13T13:09:23Z",
+  "closed_at": "2023-06-13T13:09:20Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2543",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2543/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2543/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2543",
+  "body": "Fixes #2521 \r\n\r\n<img width=\"1431\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/222689610-96e36cb2-5e0d-4079-9c04-2500ba55c6bf.png\">\r\n",
+  "additions": 1047,
+  "deletions": 3,
+  "changed_files": 13,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1453769049,
+      "user": "IanMayo",
+      "created_at": "2023-03-03T16:16:11Z",
+      "updated_at": "2023-03-03T16:16:11Z",
+      "body": "Thanks @philb89 \r\n\r\n>  I will need an example of how to set the content.\r\n\r\nCould you also add a prop for the content?  As a demo of how to `drive` the content of the dialog panel, I'd like it to show the contents of the right-click array, as demonstrated here:\r\nhttps://github.com/serge-web/serge/pull/2543/commits/d883005e83b01d9b3ab6bf2cc69d7775630c7c91\r\n\r\nSo, once you've added the new prop - we'll be able to call `setReplayDialogContent` - a state setter which will update the content of the dialog."
+    },
+    {
+      "id": 1455099909,
+      "user": "IanMayo",
+      "created_at": "2023-03-05T13:59:13Z",
+      "updated_at": "2023-03-05T13:59:13Z",
+      "body": "Hello @lebaphi  - there is a bit more work to do this too, please:\r\nhttps://github.com/serge-web/serge/pull/2543#issuecomment-1453769049"
+    },
+    {
+      "id": 1456304074,
+      "user": "lebaphi",
+      "created_at": "2023-03-06T15:04:43Z",
+      "updated_at": "2023-03-06T15:04:43Z",
+      "body": "Sure @IanMayo, I will update it"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2521
+  ],
+  "issues": [
+    {
+      "id": 1600157269,
+      "number": 2521,
+      "title": "Introduce leaflet-dialog, to show story of timeline",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-26T18:41:56Z",
+      "updated_at": "2023-11-13T11:34:02Z",
+      "closed_at": "2023-11-13T11:34:02Z",
+      "body": "Here is a react wrapper for a popup dialog:\r\nhttps://github.com/mhasbie/react-leaflet-dialog\r\n\r\nI'd like us to integrate it into the planning channel.  It will be visible when `showTimeControl` is true.  I will need an example of how to set the content.\r\n\r\nInitially, I'd like it to be in the bottom-left of the map, about 300px wide and high.",
+      "labels": [
+        "wontfix",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/222689610-96e36cb2-5e0d-4079-9c04-2500ba55c6bf.png"
+  ],
+  "number_of_changed_files": 13,
+  "total_changed_lines": 1050
+}

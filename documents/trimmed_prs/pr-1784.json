@@ -1,0 +1,67 @@
+{
+  "number": 1784,
+  "title": "1749: Add Planning Assets component",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-08-28T04:22:08Z",
+  "updated_at": "2022-08-28T06:02:40Z",
+  "closed_at": "2022-08-28T06:02:40Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1784",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1784/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1784/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1784",
+  "body": "Fixes #1749 \r\n\r\n<img width=\"1163\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/187057258-c6c69927-53d2-4765-8e79-7242e9c869ed.png\">\r\n",
+  "additions": 4721,
+  "deletions": 1825,
+  "changed_files": 24,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1749
+  ],
+  "issues": [
+    {
+      "id": 1334507702,
+      "number": 1749,
+      "title": "D. Create PlanningAssets component",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-10T11:51:39Z",
+      "updated_at": "2022-09-01T16:27:16Z",
+      "closed_at": "2022-09-01T16:27:16Z",
+      "body": "Create a component that shows a table of assets.\r\n\r\nA `renderer` method (passed in as prop) will take an `Asset` object and return a `string[]` of table cells.\r\n\r\nProps (all from state):\r\n* ForceData[] (source data)\r\n* PlayerForce - display data for that force\r\n* isUmpire - if true, included drop-down for umpire to choose `view-as` force\r\n\r\nThe component should receive a `forces` object, `player-force` value and `renderer` method in `props`.\r\n\r\nIf `player-force` is provided, only show assets of that force.  If no `player-force` provided, show all assets.  The renderer method will either return the real values (when looking at own force) or `perceived` values (when looking at other forces).\r\n\r\nUse this table component:\r\nhttps://github.com/mbrn/material-table\r\n\r\nWhere an asset `comprises` other assets, the `children` assets should be grouped beneath the parent.\r\n\r\nTest data is present in `p9.mock.ts`, developed in support of #1745 \r\n\r\nHave attempted to mockup of how a player may see \"own\" and \"other\" assets:\r\n![image](https://user-images.githubusercontent.com/1108513/187191691-dcdf8088-3fb3-4255-8824-caf8ef2c8a90.png)\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1228521701,
+          "user": "lebaphi",
+          "created_at": "2022-08-26T13:55:36Z",
+          "updated_at": "2022-08-26T14:00:29Z",
+          "body": "Hi @IanMayo \r\n\r\n<img width=\"395\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/186919225-70f01727-d8be-4370-b2e0-ca61bf59c44a.png\">\r\n\r\nThis is an asset in the P9 mock data, so how do you think we will process data in render function? which fields to be displayed in the table?"
+        },
+        {
+          "id": 1228529796,
+          "user": "IanMayo",
+          "created_at": "2022-08-26T14:02:47Z",
+          "updated_at": "2022-08-26T14:03:04Z",
+          "body": "Let's show these columns, please:\r\n- ID (Contact Id)\r\n- Name\r\n- Condition\r\n- Status\r\n- Platform-Type"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/187057258-c6c69927-53d2-4765-8e79-7242e9c869ed.png",
+    "https://user-images.githubusercontent.com/1108513/187191691-dcdf8088-3fb3-4255-8824-caf8ef2c8a90.png",
+    "https://user-images.githubusercontent.com/26705621/186919225-70f01727-d8be-4370-b2e0-ca61bf59c44a.png"
+  ],
+  "number_of_changed_files": 24,
+  "total_changed_lines": 6546
+}

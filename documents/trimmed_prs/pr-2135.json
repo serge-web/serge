@@ -1,0 +1,53 @@
+{
+  "number": 2135,
+  "title": "introduce toggle to show time controller",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-18T18:14:43Z",
+  "updated_at": "2022-11-18T20:01:48Z",
+  "closed_at": "2022-11-18T20:01:47Z",
+  "merged_at": "2022-11-18T20:01:47Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2135",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2135/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2135/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2135",
+  "body": "Supports #2134",
+  "additions": 40,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2134
+  ],
+  "issues": [
+    {
+      "id": 1455489162,
+      "number": 2134,
+      "title": "Provide Time Slider to review events in previous turn",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-18T17:10:48Z",
+      "updated_at": "2022-11-24T12:35:00Z",
+      "closed_at": "2022-11-24T12:35:00Z",
+      "body": "Players will spend the morning planning what they want to happen.\r\n\r\nThe umpires will spend the afternoon deciding what actually happened.\r\n\r\nThe next morning, the players will see the new \"state of the world\", and want to review what happened.\r\n\r\nAll of that data is present in the \"Planning\" channel, but it's spread across different places.\r\n\r\nI've just seen this demo:\r\nhttps://skeate.dev/Leaflet.timeline/examples/earthquakes.html\r\n\r\nIt's a time-slider that moves through a series of timed GeoJSON features.  Each of our MessageInteraction messages contains a timed GeoSJON object.  We could just collate these into an array, and pass it to the `leaflet.timeline` control.\r\n\r\nIan can handle transforming the data, and getting it into the control, but he could do with support in integrating the control:\r\nhttps://github.com/skeate/Leaflet.timeline\r\n\r\nSo, I guess the requirement is:\r\n* [x] integrate control into Serge/components\r\n* [x] introduce `showTimeSlider: boolean` and `timeSliderValues: GeoJSON.FeatureCollection` `useState` objects in `PlanningChannel`\r\n* [x] add toggle button with `fa-history` icon to `PlanningChannel` to toggle the map in/out of `Replay` mode. Button toggles the value of `showTimeSlider`.\r\n* [x] a new TimeSlider react component is produced, which takes a `events` prop as GeoJSON.FeatureCollection.\r\n* [x] when `timeSlider` is true the timeline is shown at the bottom of the map\r\n* [x] when `timeSlider` is true, a `useEffect` method will collate the GeoJSON.FeatureCollection data (I can do this :-) ), and store the array in `setTimeSliderValues`. The time-slider should now \"wake-up\", and we can move through the data.\r\n\r\n\r\nNote: I was too excited, so I made a start here: https://github.com/serge-web/serge/pull/2135",
+      "labels": [
+        "enhancement",
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 41
+}

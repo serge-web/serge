@@ -1,0 +1,51 @@
+{
+  "number": 2449,
+  "title": "2593 clear selection & hide dead assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-19T17:28:06Z",
+  "updated_at": "2023-02-19T18:33:30Z",
+  "closed_at": "2023-02-19T18:33:29Z",
+  "merged_at": "2023-02-19T18:33:29Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2449",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2449/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2449/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2449",
+  "body": "Fixes #2393\r\n\r\nHides dead assets by default, which supports #2096 ",
+  "additions": 162,
+  "deletions": 55,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2593
+  ],
+  "issues": [
+    {
+      "id": 1616911200,
+      "number": 2593,
+      "title": "Database cleanup",
+      "state": "open",
+      "user": "IanMayo",
+      "created_at": "2023-03-09T10:35:52Z",
+      "updated_at": "2023-11-15T10:40:16Z",
+      "closed_at": null,
+      "body": "Adjudication is getting slower.   This may be because of the volume of data.\r\n\r\nConsider what can be deleted:\r\n- each interaction is represented by two documents: the suggested outcomes, and the submitted version.  We can delete all the suggested outcomes\r\n- now that blue/green have god's eye view, we _should_ be able to delete their perceptions of each other, and of red.  So the only perceptions we have are in red. Develop function to do this, run it, and update forces.\r\n- do some logging of generate interactions, and determine where delays are happening.   Investigate/resolve delays\r\n- ",
+      "labels": [
+        "wontfix",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 217
+}

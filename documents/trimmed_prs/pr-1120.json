@@ -1,0 +1,146 @@
+{
+  "number": 1120,
+  "title": "1116: Allow data table to be sorted by Reference or Updated columns",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-10T07:23:48Z",
+  "updated_at": "2021-09-13T16:12:13Z",
+  "closed_at": "2021-09-13T16:12:12Z",
+  "merged_at": "2021-09-13T16:12:12Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1120",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1120/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1120/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1120",
+  "body": "Fixes #1116 ",
+  "additions": 245,
+  "deletions": 91,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 13,
+  "review_comments_count": 0,
+  "total_comments": 13,
+  "comments_data": [
+    {
+      "id": 916715416,
+      "user": "IanMayo",
+      "created_at": "2021-09-10T08:06:48Z",
+      "updated_at": "2021-09-10T08:06:48Z",
+      "body": "Nice work, @lebaphi \r\n\r\nCould we have an indication in the header for which sort is in place please?  Maybe color in the relevant arrow?"
+    },
+    {
+      "id": 916728018,
+      "user": "IanMayo",
+      "created_at": "2021-09-10T08:26:46Z",
+      "updated_at": "2021-09-10T08:26:46Z",
+      "body": "Aah, we lose the sort order on new (or updated) message. I guess we need to re-run the current sort on each change."
+    },
+    {
+      "id": 916728751,
+      "user": "lebaphi",
+      "created_at": "2021-09-10T08:27:57Z",
+      "updated_at": "2021-09-10T08:27:57Z",
+      "body": "> Aah, we lose the sort order on new (or updated) message. I guess we need to re-run the current sort on each change.\r\n\r\nyep, Im working on it."
+    },
+    {
+      "id": 916894926,
+      "user": "IanMayo",
+      "created_at": "2021-09-10T13:13:48Z",
+      "updated_at": "2021-09-10T13:13:48Z",
+      "body": "@lebaphi - note the conflict on the branch.  We've changed how we generate the `key` for the `data-table`.  The `random()` key was causing the table to re-generate on every new message. We now use the `message._id` and the flicker has gone :-)\r\n\r\nThis caused a few changes in the file.  You may find it easier to re-apply your changes to an updated version of `data-table\\index.tsx`."
+    },
+    {
+      "id": 916925404,
+      "user": "lebaphi",
+      "created_at": "2021-09-10T13:58:19Z",
+      "updated_at": "2021-09-10T13:58:19Z",
+      "body": "> @lebaphi - note the conflict on the branch. We've changed how we generate the `key` for the `data-table`. The `random()` key was causing the table to re-generate on every new message. We now use the `message._id` and the flicker has gone :-)\r\n> \r\n> This caused a few changes in the file. You may find it easier to re-apply your changes to an updated version of `data-table\\index.tsx`.\r\n\r\nthank you @Ian, I will resolve it"
+    },
+    {
+      "id": 917028318,
+      "user": "IanMayo",
+      "created_at": "2021-09-10T16:13:30Z",
+      "updated_at": "2021-09-10T16:13:30Z",
+      "body": "Nearly there :-)\r\n\r\nNote below: the items are in ascending order of `ID`.\r\n\r\nFrom another window, I create a new message.\r\n\r\nWhen the table updates, the items appear to be in ascending `updated` order.\r\n![Screencast](https://i.gyazo.com/f7c5cc9781ff9f725466a1aa7bc85841.gif)"
+    },
+    {
+      "id": 917043251,
+      "user": "lebaphi",
+      "created_at": "2021-09-10T16:35:09Z",
+      "updated_at": "2021-09-10T16:35:09Z",
+      "body": "> Fixes for sorting on receipt of new message, please.\r\n\r\nyep, I'm working on this "
+    },
+    {
+      "id": 917044411,
+      "user": "IanMayo",
+      "created_at": "2021-09-10T16:37:01Z",
+      "updated_at": "2021-09-10T16:37:01Z",
+      "body": "> > Fixes for sorting on receipt of new message, please.\r\n> \r\n> yep, I'm working on this\r\n\r\nNo rush @lebaphi  - I'm about to finish for the weekend.  \r\n\r\nOh, and I won't be merging it until at least Monday, because I've excitedly sent an analyst a link to the Heroku deployment for this PR.  If I merge it, the link will break.  Duh, Ian!"
+    },
+    {
+      "id": 917363665,
+      "user": "IanMayo",
+      "created_at": "2021-09-11T08:03:04Z",
+      "updated_at": "2021-09-11T08:03:04Z",
+      "body": "Thanks @lebaphi \r\nI'm sure the logic is complex, but we're still not quite there yet.\r\n\r\nI sorted them so that the oldest is at the top, and the newest at the bottom.  Then I modified an item.   It should have moved to the bottom - but it stayed where it was.\r\n\r\n![screencast](https://i.gyazo.com/dee673d7661424946d94facc35a32f7d.gif)\r\n\r\n"
+    },
+    {
+      "id": 917366059,
+      "user": "lebaphi",
+      "created_at": "2021-09-11T08:20:26Z",
+      "updated_at": "2021-09-11T08:20:26Z",
+      "body": "> Thanks @lebaphi\r\n> I'm sure the logic is complex, but we're still not quite there yet.\r\n> \r\n> I sorted them so that the oldest is at the top, and the newest at the bottom. Then I modified an item. It should have moved to the bottom - but it stayed where it was.\r\n> \r\n> ![screencast](https://camo.githubusercontent.com/0e9c4dd76e29ce6df74adda87b4381850b36f2e0e064d4a9a37870ec9101606f/68747470733a2f2f692e6779617a6f2e636f6d2f64656536373364373636313432343934366439346661636333356133326637642e676966)\r\n\r\nwow, let me check this @IanMayo "
+    },
+    {
+      "id": 917367811,
+      "user": "lebaphi",
+      "created_at": "2021-09-11T08:33:22Z",
+      "updated_at": "2021-09-11T08:33:52Z",
+      "body": "Hi @IanMayo , in this case, when you edit one item, the data table will sort again but it occurs on the column ID as default. It should do based on the current sorting-column, I will update it 👍 "
+    },
+    {
+      "id": 917369252,
+      "user": "lebaphi",
+      "created_at": "2021-09-11T08:44:23Z",
+      "updated_at": "2021-09-11T08:44:23Z",
+      "body": "I pushed the fix @IanMayo , now it tracks sort direction and sorting-column when data changed."
+    },
+    {
+      "id": 917373008,
+      "user": "IanMayo",
+      "created_at": "2021-09-11T09:11:47Z",
+      "updated_at": "2021-09-11T09:11:47Z",
+      "body": "Working fine :-)\r\nWill wait for tests to finish."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1116
+  ],
+  "issues": [
+    {
+      "id": 992035424,
+      "number": 1116,
+      "title": "Allow data table to be sorted by Reference or Updated columns",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-09T10:03:11Z",
+      "updated_at": "2021-09-13T16:12:12Z",
+      "closed_at": "2021-09-13T16:12:12Z",
+      "body": "Some users would like the COA table to be sorted by document ID (so they're in persistent locations), and others would like them to be sorted in updated order.\r\n\r\nWe could support this with `Sort` icons on the relevant columns in the header.  The `updated` column currently shows the value produced by \"moments\" - which is difficult to sort.  Instead we should store the age (prob in millis) but convert that to `moment` on rendering.\r\n\r\nI _guess_ we need to pass additional props to the data-table, maybe with a boolean on `sort`.\r\n\r\nObvs we need to re-run the Active Sort on table updates.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/f7c5cc9781ff9f725466a1aa7bc85841.gif",
+    "https://i.gyazo.com/dee673d7661424946d94facc35a32f7d.gif",
+    "https://camo.githubusercontent.com/0e9c4dd76e29ce6df74adda87b4381850b36f2e0e064d4a9a37870ec9101606f/68747470733a2f2f692e6779617a6f2e636f6d2f64656536373364373636313432343934366439346661636333356133326637642e676966"
+  ],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 336
+}

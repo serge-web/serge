@@ -1,0 +1,169 @@
+{
+  "number": 750,
+  "title": "Hotfix/merge develop into 557",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-05-23T17:05:08Z",
+  "updated_at": "2022-05-10T10:04:38Z",
+  "closed_at": "2022-05-10T10:04:34Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/750",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/750/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/750/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/750",
+  "body": "This branch has been produced to allow a build error to be fixed.\r\n\r\nThe current `develop` branch fails `yarn install` on a `Big Sur` macos.  The branch in this PR (branched of #686) includes dependency updates, and the `yarn install` doesn't fail.\r\n\r\nBut, once we merge `develop` in, and fix the conflicts, it has two build issues.\r\n\r\n1.  `DEPRECATION WARNING`\r\n\r\n```\r\nDEPRECATION WARNING: Using / for division is deprecated and will be removed in Dart Sass 2.0.0.\r\n@serge/client: Recommendation: math.div(-1 * $size, 2)\r\n@serge/client: More info and automated migrator: https://sass-lang.com/d/slash-div\r\n@serge/client:    ╷\r\n@serge/client: 17 │   margin-top: -1 * $size/2;\r\n@serge/client:    │               ^^^^^^^^^^^^\r\n@serge/client:    ╵\r\n@serge/client:     ../components/build/local/helper-elements/collapsible/header/styles.module.scss 17:15  root stylesheet\r\n\r\n```\r\n\r\n2. `Typescript Error`\r\n```\r\n/Users/ian/git/serge/packages/client/src/Views/AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer.tsx\r\n@serge/client: TypeScript error in /Users/ian/git/serge/packages/client/src/Views/AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer.tsx(15,61):\r\n@serge/client: Argument of type '{ global: { tabSetTabStripHeight: number; tabEnableClose: boolean; tabEnableRenderOnDemand: boolean; }; borders: never[]; layout: { type: string; weight: number; children: never[]; }; }' is not assignable to parameter of type 'IJsonModel'.\r\n@serge/client:   The types of 'layout.type' are incompatible between these types.\r\n@serge/client:     Type 'string' is not assignable to type '\"row\"'.  TS2345\r\n@serge/client:     13 |   const state = usePlayerUiState()\r\n@serge/client:     14 |   const [byPassUrl] = useState<URL>(getByPassUrl(state))\r\n@serge/client:   > 15 |   const [model] = useState<Model>(FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT))\r\n@serge/client:        |                                                             ^\r\n@serge/client:     16 |   const gameAdmin = 'Game Admin'\r\n@serge/client:     17 |   const gameAdminTitle = 'Game Admin'\r\n@serge/client:     18 |   const insights = 'Insights'\r\n\r\n```",
+  "additions": 5473,
+  "deletions": 7594,
+  "changed_files": 45,
+  "labels": [],
+  "comments_count": 7,
+  "review_comments_count": 0,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 846826853,
+      "user": "lebaphi",
+      "created_at": "2021-05-24T07:22:20Z",
+      "updated_at": "2021-05-24T07:22:20Z",
+      "body": "> This branch has been produced to allow a build error to be fixed.\r\n> \r\n> The current `develop` branch fails `yarn install` on a `Big Sur` macos. The branch in this PR (branched of #686) includes dependency updates, and the `yarn install` doesn't fail.\r\n> \r\n> But, once we merge `develop` in, and fix the conflicts, it has two build issues.\r\n> \r\n> 1. `DEPRECATION WARNING`\r\n> \r\n> ```\r\n> DEPRECATION WARNING: Using / for division is deprecated and will be removed in Dart Sass 2.0.0.\r\n> @serge/client: Recommendation: math.div(-1 * $size, 2)\r\n> @serge/client: More info and automated migrator: https://sass-lang.com/d/slash-div\r\n> @serge/client:    ╷\r\n> @serge/client: 17 │   margin-top: -1 * $size/2;\r\n> @serge/client:    │               ^^^^^^^^^^^^\r\n> @serge/client:    ╵\r\n> @serge/client:     ../components/build/local/helper-elements/collapsible/header/styles.module.scss 17:15  root stylesheet\r\n> ```\r\n> \r\n> 1. `Typescript Error`\r\n> \r\n> ```\r\n> /Users/ian/git/serge/packages/client/src/Views/AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer.tsx\r\n> @serge/client: TypeScript error in /Users/ian/git/serge/packages/client/src/Views/AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer.tsx(15,61):\r\n> @serge/client: Argument of type '{ global: { tabSetTabStripHeight: number; tabEnableClose: boolean; tabEnableRenderOnDemand: boolean; }; borders: never[]; layout: { type: string; weight: number; children: never[]; }; }' is not assignable to parameter of type 'IJsonModel'.\r\n> @serge/client:   The types of 'layout.type' are incompatible between these types.\r\n> @serge/client:     Type 'string' is not assignable to type '\"row\"'.  TS2345\r\n> @serge/client:     13 |   const state = usePlayerUiState()\r\n> @serge/client:     14 |   const [byPassUrl] = useState<URL>(getByPassUrl(state))\r\n> @serge/client:   > 15 |   const [model] = useState<Model>(FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT))\r\n> @serge/client:        |                                                             ^\r\n> @serge/client:     16 |   const gameAdmin = 'Game Admin'\r\n> @serge/client:     17 |   const gameAdminTitle = 'Game Admin'\r\n> @serge/client:     18 |   const insights = 'Insights'\r\n> ```\r\n\r\nHi @IanMayo , \r\n- This warning caused this file `bootstrap/scss/_variables.scss` contains `$headings-margin-bottom:      $spacer / 2 !default;`, I checked the latest version of `bootstrap` still also has this line. This warning msg comes from the library `boostrap` so if we want to fix this issue, need to fork the bootstrap repo to our GitHub, make some changes and force the  package.json to install the bootstrap from our Github, not from NPM.\r\n\r\n- About the second error `Type 'string' is not assignable to type '\"row\"'.  TS2345`,  the type should be the `row` type in the `IJsonModel.d.ts`\r\n```\r\ninterface IRowAttributes {\r\n    height?: number;\r\n    id?: string;\r\n    type: \"row\";\r\n    weight?: number;\r\n    width?: number;\r\n}\r\n```\r\nbut we defined its type is \r\n```\r\nlayout: {\r\n    type: \"row\",\r\n    weight: 100,\r\n    children: []\r\n  }\r\n```\r\n=> I guess the compiler knows the type of \"row\" is a string, not a `row` type as it should be in IRowAttributes. I'm not sure what is the `row` type."
+    },
+    {
+      "id": 846874229,
+      "user": "IanMayo",
+      "created_at": "2021-05-24T08:26:07Z",
+      "updated_at": "2021-05-24T08:26:07Z",
+      "body": "Hello @lebaphi \r\n\r\n> Recommendation: math.div(-1 * $size, 2)\r\n\r\nThe library gives a recommended fix.  That looks quite logical.\r\n\r\n>  The types of 'layout.type' are incompatible between these types.\r\n\r\nA value of `\"row\"` would seem to be right for a type specified as `\"row\"`\r\n"
+    },
+    {
+      "id": 846881799,
+      "user": "lebaphi",
+      "created_at": "2021-05-24T08:37:00Z",
+      "updated_at": "2021-05-24T08:37:00Z",
+      "body": "> Hello @lebaphi\r\n> \r\n> > Recommendation: math.div(-1 * $size, 2)\r\n> \r\n> The library gives a recommended fix. That looks quite logical.\r\n> \r\n> > The types of 'layout.type' are incompatible between these types.\r\n> \r\n> A value of `\"row\"` would seem to be right for a type specified as `\"row\"`\r\n\r\nHi @IanMayo, \r\n- We can not fix the code in the `node_modules/bootstrap` library, it should be installed via `npm` or `yarn`.\r\n- The \"row\" seems right but this function `FlexLayout.Model.fromJson(FLEX_LAYOUT_MODEL_DEFAULT)` is casting \"row\" to string. I think `row` is the kind of class. That's why we got this error."
+    },
+    {
+      "id": 846882522,
+      "user": "IanMayo",
+      "created_at": "2021-05-24T08:38:14Z",
+      "updated_at": "2021-05-24T08:38:14Z",
+      "body": "> We can not fix the code in the node_modules/bootstrap library, it should be installed via npm or yarn.\r\n\r\nOoops, I just went in to apply the fix, then realised its not in our code 🤣 \r\n\r\n>  I think row is the kind of class. That's why we got this error.\r\n\r\nI'll have another play - and see if I can learn anything.\r\n"
+    },
+    {
+      "id": 846899186,
+      "user": "IanMayo",
+      "created_at": "2021-05-24T09:05:35Z",
+      "updated_at": "2021-05-24T09:05:35Z",
+      "body": "We'll have to live with the deprecation warning.  I wonder if we can suppress just this specific deprecation?\r\n\r\nIt _looks-like_ this fixes the Json issue:\r\n![image](https://user-images.githubusercontent.com/1108513/119323198-59948300-bc76-11eb-9d07-aa6304fa0030.png)\r\n"
+    },
+    {
+      "id": 846923165,
+      "user": "IanMayo",
+      "created_at": "2021-05-24T09:46:32Z",
+      "updated_at": "2021-05-24T09:46:32Z",
+      "body": "Hmm, I'm making progress.  I've fixed the `typescript` errors.\r\n\r\nNow `stylelint` is failing in the pre-push hook:\r\n![image](https://user-images.githubusercontent.com/1108513/119329538-3d481480-bc7d-11eb-8199-ea1f014d08d1.png)\r\n\r\nAre you able to help with that?"
+    },
+    {
+      "id": 1122187149,
+      "user": "IanMayo",
+      "created_at": "2022-05-10T10:04:34Z",
+      "updated_at": "2022-05-10T10:04:34Z",
+      "body": "Close this. Develop branch now builds fine."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    100,
+    686
+  ],
+  "issues": [
+    {
+      "id": 536572284,
+      "number": 100,
+      "title": "5.1.7 - Submit orders (mock)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2019-12-11T19:34:40Z",
+      "updated_at": "2020-01-15T10:52:35Z",
+      "closed_at": "2020-01-15T10:52:34Z",
+      "body": "As a < **player** >, I want to < **submit my orders** > so that < **my forces move towards my tactical objectives** >.\n\n# Acceptance criteria\n\nSetup: load game, play as red/blue, produce some planned routes for my platforms\n\n- [ ] When I press submit, the 'Orders' message is sent\n\n# UX\n_Maybe_ it's just a Send button\n\n# Notes\nIan to produce example of message format.\n\n# Infrastructure\nIn this phase this will be implemented by providing a drop-down list that contains a set of JSON messages that were predefined in our source code. ",
+      "labels": [
+        "User Story"
+      ],
+      "comments": [
+        {
+          "id": 574606430,
+          "user": "IanMayo",
+          "created_at": "2020-01-15T10:52:34Z",
+          "updated_at": "2020-01-15T10:52:34Z",
+          "body": "We can drop this, we're close to real orders being sent around"
+        }
+      ]
+    },
+    {
+      "id": 865216335,
+      "number": 686,
+      "title": "Feature/557 upgrade dependencies only",
+      "state": "closed",
+      "user": "sandro768",
+      "created_at": "2021-04-22T17:11:15Z",
+      "updated_at": "2022-07-11T13:29:49Z",
+      "closed_at": "2022-05-10T10:03:00Z",
+      "body": "Closes #557 \r\n\r\n## 🚀 Overview: \r\nUpgraded packages\r\n\r\n## 🤔 Reason: \r\nTo fix vulnerabilities, deprecated patterns, and yarn warnings\r\n\r\n## 🔨Work carried out:\r\n\r\n- [x] Tests pass\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.",
+      "labels": [
+        "future"
+      ],
+      "comments": [
+        {
+          "id": 825045399,
+          "user": "IanMayo",
+          "created_at": "2021-04-22T17:27:21Z",
+          "updated_at": "2021-04-23T10:14:44Z",
+          "body": "thanks @sandro768  - but this still includes code changes in 5 `client` files:\r\n![image](https://user-images.githubusercontent.com/1108513/115856992-1354c580-a425-11eb-8614-bafd46557982.png)\r\n\r\n\r\nIt also excludes packages from eslint. If it's possible I'd rather exclude eslint rules individually in a clearly marked section of eslintrc. Then we can remove the rule exclusions one-by-one."
+        },
+        {
+          "id": 825594694,
+          "user": "IanMayo",
+          "created_at": "2021-04-23T11:29:17Z",
+          "updated_at": "2021-04-23T12:10:25Z",
+          "body": "First issue found:\r\n![image](https://user-images.githubusercontent.com/1108513/115864929-82371c00-a42f-11eb-951e-3d0f0e5c5543.png)\r\n\r\nSame issue also present in RFI channel for this wargame/role:\r\n![image](https://user-images.githubusercontent.com/1108513/115865498-4f415800-a430-11eb-8fe5-0456383f9689.png)\r\n\r\nSteps to reproduce:\r\n* yarn develop\r\n* enter game `IMWARC with RFI` as `White\\Logistics` role\r\n* Open `Blue RFI` channel.  Observer error message, plus other in the `Social Media` channel on the right-hand side.\r\n\r\nNote: after a quick look it appears related to the calls to open `JSON-Editor`.  This is a form-based editor that constructs itself based upon a JSON Schema.  In addition to plain chat messages, players can also send complex messages that meet a JSON schema, something like the fields required to report a Weather Forecast.\r\n\r\nWe don't have TypeScript libs for JSON-Editor, so it doesn't play very nicely with React or TypeScript.  We may replace it one day, but for now we need to resolve the above issue.\r\n\r\nThis lib did go through quite a large upgrade:\r\n![image](https://user-images.githubusercontent.com/1108513/115866820-25893080-a432-11eb-8e67-88dfb50d6058.png)\r\n\r\nRepo for component here: \r\nhttps://github.com/json-editor/json-editor\r\n\r\nOk, reverting the pre-upgrade version fixes the issue.  Hmm, yes - let's do that, and capture the version upgrade as a separate issue.\r\n\r\n"
+        },
+        {
+          "id": 825723564,
+          "user": "IanMayo",
+          "created_at": "2021-04-23T15:08:08Z",
+          "updated_at": "2021-04-23T15:08:08Z",
+          "body": "Next issue. `yarn storybook` is failing.\r\n[log_file.txt](https://github.com/serge-web/serge/files/6365942/log_file.txt)\r\n"
+        },
+        {
+          "id": 825724519,
+          "user": "IanMayo",
+          "created_at": "2021-04-23T15:09:41Z",
+          "updated_at": "2021-04-26T10:19:43Z",
+          "body": "Hello @sandro768 ,\r\nstorybook fails at runtime for SASS in the new version. Dropping back to the original storybook fixes it.\r\n\r\nThere appears to be discussion of the issue you resolved with _relative-path_ here:\r\nhttps://github.com/storybookjs/storybook/issues/11466\r\n\r\nI'll try dropping back to the last 5.x build, and see if that works - then create an issue for supporting Storybook 6.\r\n\r\nNo, it was sass-loader that I had to downgrade.  I took it from 11.x to 10.x, and everything worked."
+        },
+        {
+          "id": 1122185692,
+          "user": "IanMayo",
+          "created_at": "2022-05-10T10:03:00Z",
+          "updated_at": "2022-05-10T10:03:00Z",
+          "body": "Close this. Our dependencies have moved on a long way since this PR."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/119323198-59948300-bc76-11eb-9d07-aa6304fa0030.png",
+    "https://user-images.githubusercontent.com/1108513/119329538-3d481480-bc7d-11eb-8199-ea1f014d08d1.png",
+    "https://user-images.githubusercontent.com/1108513/115856992-1354c580-a425-11eb-8614-bafd46557982.png",
+    "https://user-images.githubusercontent.com/1108513/115864929-82371c00-a42f-11eb-951e-3d0f0e5c5543.png",
+    "https://user-images.githubusercontent.com/1108513/115865498-4f415800-a430-11eb-8fe5-0456383f9689.png",
+    "https://user-images.githubusercontent.com/1108513/115866820-25893080-a432-11eb-8e67-88dfb50d6058.png"
+  ],
+  "number_of_changed_files": 45,
+  "total_changed_lines": 13067
+}

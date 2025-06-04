@@ -1,0 +1,40 @@
+{
+  "number": 1448,
+  "title": "Delete channels (even with duplicates)",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-24T11:55:31Z",
+  "updated_at": "2022-03-25T17:12:05Z",
+  "closed_at": "2022-03-25T17:12:05Z",
+  "merged_at": "2022-03-25T17:12:05Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1448",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1448/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1448/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1448",
+  "body": "Supports #1413\r\n\r\nThe above issue involves multiple channels being created with the same id.  Unfortunately, it is unpredictable which channel will be deleted.\r\n\r\nThis doesn't solve duplicate channels getting created.  But, it does ensure all channels sharing the same id get deleted.",
+  "additions": 1,
+  "deletions": 4,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1077884721,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-24T17:49:22Z",
+      "updated_at": "2022-03-24T17:49:22Z",
+      "body": "A duplicate is still created in this deployment as you said, and deleting one deletes both."
+    }
+  ],
+  "review_comments_data": [],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 5
+}

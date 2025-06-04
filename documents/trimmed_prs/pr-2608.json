@@ -1,0 +1,68 @@
+{
+  "number": 2608,
+  "title": "2606 get next performance",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-03-10T12:02:08Z",
+  "updated_at": "2023-11-15T11:51:55Z",
+  "closed_at": "2023-03-10T15:23:18Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2608",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2608/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2608/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2608",
+  "body": "Fixes #2606 ",
+  "additions": 13,
+  "deletions": 4,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1463960710,
+      "user": "IanMayo",
+      "created_at": "2023-03-10T15:23:18Z",
+      "updated_at": "2023-03-10T15:23:18Z",
+      "body": "Close this. The strategy didn't work."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2606
+  ],
+  "issues": [
+    {
+      "id": 1618832838,
+      "number": 2606,
+      "title": "Fix performance lag for \"Get next\"",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-10T11:31:52Z",
+      "updated_at": "2023-03-14T11:46:31Z",
+      "closed_at": "2023-03-14T11:46:31Z",
+      "body": "Last night the performance of \"Get next\" dragged out to 40 seconds.\r\n\r\nThe team couldn't resolve the performance issue.\r\n\r\nI ran an experiment this morning to remove adjudications recorded more than 24 hours ago. The delay went from 40 seconds to 3 seconds.  This clean-up can happen repeatedly, and should reliably resolve the issue.\r\n\r\nFor each interaction to be considered, we check it's id against all previous interactions. As that list gets longer, it takes longer to process.\r\n\r\nBut, before adopting that strategy - experiment with sorting the list, then using a binary search.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1467949647,
+          "user": "IanMayo",
+          "created_at": "2023-03-14T11:46:31Z",
+          "updated_at": "2023-03-14T11:46:31Z",
+          "body": "Deleting interactions wasn't a great solution, since Serge thought historic interactions hadn't been considered.\n\nBut, filtering interactions didn't bring the speed benefit - so maybe there is another cost in having large numbers of interactions.\n\nA better fix was to switch to a sliding time window."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 17
+}

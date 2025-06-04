@@ -1,0 +1,292 @@
+{
+  "number": 2851,
+  "title": "2705_Editor_for_SIDC_codes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-14T07:24:20Z",
+  "updated_at": "2024-04-12T11:19:24Z",
+  "closed_at": "2024-04-12T11:19:23Z",
+  "merged_at": "2024-04-12T11:19:23Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2851",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2851/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2851/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2851",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 797,
+  "deletions": 113,
+  "changed_files": 31,
+  "labels": [
+    "enhancement",
+    "4p10"
+  ],
+  "comments_count": 30,
+  "review_comments_count": 0,
+  "total_comments": 30,
+  "comments_data": [
+    {
+      "id": 1943788429,
+      "user": "IanMayo",
+      "created_at": "2024-02-14T13:39:04Z",
+      "updated_at": "2024-02-14T13:39:04Z",
+      "body": "Thanks for this @lilitkarapetyan   Does it have a working `storybook`?\r\n\r\nIf not, could you configure it please? It would be useful way of getting feedback.\r\n\r\nThanks :-D"
+    },
+    {
+      "id": 1945437851,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-15T06:18:27Z",
+      "updated_at": "2024-02-15T06:18:27Z",
+      "body": "> Thanks for this @lilitkarapetyan Does it have a working `storybook`?\r\n> \r\n> If not, could you configure it please? It would be useful way of getting feedback.\r\n> \r\n> Thanks :-D\r\n\r\nHello @IanMayo, yes it hes a storybook. "
+    },
+    {
+      "id": 1945690414,
+      "user": "IanMayo",
+      "created_at": "2024-02-15T09:30:08Z",
+      "updated_at": "2024-02-15T09:30:08Z",
+      "body": "Thanks Lilit - are you aware that the `sea surface` / `sea subsurface` symbol-sets are missing?"
+    },
+    {
+      "id": 1945722705,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-15T09:50:03Z",
+      "updated_at": "2024-02-15T09:50:03Z",
+      "body": "> Thanks Lilit - are you aware that the `sea surface` / `sea subsurface` symbol-sets are missing?\r\n\r\nYes, I will add"
+    },
+    {
+      "id": 1948017288,
+      "user": "IanMayo",
+      "created_at": "2024-02-16T09:17:10Z",
+      "updated_at": "2024-02-16T09:17:10Z",
+      "body": "Hello @lilitkarapetyan - steady improvement, thanks 😄  \r\nAre you aware of the \"conditional\" lists in the data?  So, if the `Symbol Set` is `Air`, then only aircraft-type-things will be in the next drop-down.  Hopefully you can find existing data structures that you can use for that.\r\n\r\nOne other thing. When the new SIDC editor opens, I think it's expecting a number, but we're providing a string - so it doesn't load/show the current/existing symbol for that feature. Hopefully the MilSymbol library includes a converter.\r\n![screencase](https://i.gyazo.com/af3ea73518e95775da51fe9adc71bafa.gif)"
+    },
+    {
+      "id": 1951775774,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-19T06:18:08Z",
+      "updated_at": "2024-02-19T06:18:08Z",
+      "body": "> Hello @lilitkarapetyan - steady improvement, thanks 😄 Are you aware of the \"conditional\" lists in the data? So, if the `Symbol Set` is `Air`, then only aircraft-type-things will be in the next drop-down. Hopefully you can find existing data structures that you can use for that.\r\n> \r\n> One other thing. When the new SIDC editor opens, I think it's expecting a number, but we're providing a string - so it doesn't load/show the current/existing symbol for that feature. Hopefully the MilSymbol library includes a converter. ![screencase](https://camo.githubusercontent.com/3a31b2ada06addeb02a7e6a5e78e8c519119f6c4c8ae084dbfc9ddd30aeec592/68747470733a2f2f692e6779617a6f2e636f6d2f61663365613733353138653935373735646135316665396164633731626166612e676966) [ ![screencase](https://camo.githubusercontent.com/3a31b2ada06addeb02a7e6a5e78e8c519119f6c4c8ae084dbfc9ddd30aeec592/68747470733a2f2f692e6779617a6f2e636f6d2f61663365613733353138653935373735646135316665396164633731626166612e676966) ](https://camo.githubusercontent.com/3a31b2ada06addeb02a7e6a5e78e8c519119f6c4c8ae084dbfc9ddd30aeec592/68747470733a2f2f692e6779617a6f2e636f6d2f61663365613733353138653935373735646135316665396164633731626166612e676966) [ ](https://camo.githubusercontent.com/3a31b2ada06addeb02a7e6a5e78e8c519119f6c4c8ae084dbfc9ddd30aeec592/68747470733a2f2f692e6779617a6f2e636f6d2f61663365613733353138653935373735646135316665396164633731626166612e676966)\r\n\r\nHello @ian, I will work on it."
+    },
+    {
+      "id": 1953776241,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-20T09:13:08Z",
+      "updated_at": "2024-02-20T09:13:08Z",
+      "body": "Hello @IanMayo , we need all these symbols (icon) ? "
+    },
+    {
+      "id": 1953803325,
+      "user": "IanMayo",
+      "created_at": "2024-02-20T09:27:56Z",
+      "updated_at": "2024-02-20T09:37:41Z",
+      "body": "> Hello @IanMayo , we need all these symbols (icon) ?\r\n\r\nIf you mean \"do I need the full set of MilSymbol icons?\" then the answer is \"yes, please\". But, not if you have to hand-code them.  I really hope you can find some existing code that defines them.\r\n\r\nUpdate: here is a sample interface: https://www.spatialillusions.com/unitgenerator-legacy/\r\n\r\nHere is the source code for the above: https://github.com/spatialillusions/milsymbol-generator\r\n\r\nI can't see an obvious data-structure that defines the dependencies, but I guess it must be there somewhere."
+    },
+    {
+      "id": 1956911831,
+      "user": "IanMayo",
+      "created_at": "2024-02-21T15:17:50Z",
+      "updated_at": "2024-02-21T15:17:50Z",
+      "body": "That's great progress, thanks @lilitkarapetyan .  I can see it's a really complex task.\r\n\r\nThe `Modifier 1` setting here seems to give the wrong icon.  It is showing the icon for \"Anti Submarine Warfare\"\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/588c3852-c1a4-4250-861c-1299310a6211)\r\n\r\nPlus, for this `sea subsurface` icon, the `Echelon/Mobility/Towed Array` should be showing towed-array settings:\r\n![image](https://github.com/serge-web/serge/assets/1108513/cb4d9ddf-1207-4d4b-9c6f-0c559decf52b)\r\n\r\nThere seems to be some strange behavior around the icons shown . I don't think we need to see the icon on every row.  How about we just show the icon at the top - which changes as more settings are assigned.\r\n"
+    },
+    {
+      "id": 1958771582,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-22T06:11:36Z",
+      "updated_at": "2024-02-22T06:11:36Z",
+      "body": "> There seems to be some strange behavior around the icons shown . I don't think we need to see the icon on every row. How about we just show the icon at the top - which changes as more settings are assigned.\r\n\r\nHello @IanMayo  Thanks, I will work on it.\r\n"
+    },
+    {
+      "id": 1959050731,
+      "user": "IanMayo",
+      "created_at": "2024-02-22T09:37:08Z",
+      "updated_at": "2024-02-22T09:37:08Z",
+      "body": "Thanks @lilitkarapetyan \r\n\r\nI know this is a fantastically complex task, and you are doing really well on it. There is still some way to go:\r\n![image](https://github.com/serge-web/serge/assets/1108513/67d2a881-5600-45a1-a63c-2f841037f7f1)\r\n"
+    },
+    {
+      "id": 1959117241,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-22T10:12:37Z",
+      "updated_at": "2024-02-22T10:12:37Z",
+      "body": "> Thanks @lilitkarapetyan\r\n> \r\n> I know this is a fantastically complex task, and you are doing really well on it. There is still some way to go: ![image](https://private-user-images.githubusercontent.com/1108513/306944169-67d2a881-5600-45a1-a63c-2f841037f7f1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg1OTQ5MzYsIm5iZiI6MTcwODU5NDYzNiwicGF0aCI6Ii8xMTA4NTEzLzMwNjk0NDE2OS02N2QyYTg4MS01NjAwLTQ1YTEtYTYzYy0yZjg0MTAzN2Y3ZjEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjJUMDkzNzE2WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZTE3YWJjYmY1ODA4MzIyYmNhMTIxMjdmMmQwMmZjNWVjMTg3YjU4Y2UzMWQwNWQ4YWM1Njc4MzkyZDhiNjFlZCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.SYkUq1EmhzDtAKCjs2pxZggzqYRbrzBuA4nMkRT2Xws)\r\n\r\nI am working on it."
+    },
+    {
+      "id": 1963833447,
+      "user": "IanMayo",
+      "created_at": "2024-02-26T10:48:38Z",
+      "updated_at": "2024-02-26T10:48:38Z",
+      "body": "Ooh. we're nearly there now.\r\n\r\nI see one remaining issue. For \"Sea surface\" or \"sub-surface\" symbols, the `movement` block should include \"Short towed array\" and \"Long towed array\".  See this screenshot from `milsymbol generator`\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/be5a19dd-afca-48d3-864f-e0a1797e3a95)\r\n"
+    },
+    {
+      "id": 1968924031,
+      "user": "IanMayo",
+      "created_at": "2024-02-28T12:53:56Z",
+      "updated_at": "2024-02-28T12:53:56Z",
+      "body": "Hello @lilitkarapetyan - it's strange that the Playwright tests have failed.  Has something related to the build been changed?"
+    },
+    {
+      "id": 1970472696,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-29T06:09:29Z",
+      "updated_at": "2024-02-29T06:09:29Z",
+      "body": "Hello @Ian, No, it failed in the develop brench as well."
+    },
+    {
+      "id": 1970565207,
+      "user": "IanMayo",
+      "created_at": "2024-02-29T07:34:34Z",
+      "updated_at": "2024-02-29T07:34:34Z",
+      "body": "> Hello @ian, No, it failed in the develop brench as well.\r\n\r\nAah, ok @lilitkarapetyan .  Luckily @Tristina1788 is on it :-D https://github.com/serge-web/serge/pull/2894"
+    },
+    {
+      "id": 1972713436,
+      "user": "Tristina1788",
+      "created_at": "2024-03-01T08:12:30Z",
+      "updated_at": "2024-03-01T08:26:25Z",
+      "body": "@lilitkarapetyan , @IanMayo  Tested on '2705_Editor_for_SIDC_codes' , \r\n- Some 'Standard Indentify 2' is working incorrectly. \r\n Steps: \r\n \r\n 1. Standard Indentify 2 is 'Suspect/Joker' or 'Hostile/Faker'\r\n 2. select Standard Indentify 1 is 'Exercise', \r\nNotice the icon is not correct. It should be 'X' character in right side \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/68dd1135-5ba1-479f-9fdf-141eb47a9bd2)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/d2f299ed-b01b-4b25-8828-d63821617539)\r\n\r\n- Input field 'Sidc' should be disable for update. ( I try to update the text on input and save, nothing change. So we should disable it instead of show as editable field )\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/630081d2-58d3-48e9-88c2-9c5643310c8c)\r\n"
+    },
+    {
+      "id": 1976446453,
+      "user": "IanMayo",
+      "created_at": "2024-03-04T12:13:23Z",
+      "updated_at": "2024-03-04T12:13:23Z",
+      "body": "Thanks @Tristina1788 - those are valid observations.  I look forward to @lilitkarapetyan fixing them.\r\n\r\n@lilitkarapetyan - I have another issue too, please.  In the game, the editor control shows the SIDC expressed as letters.  When I click on `Edit` - the popup does not show the right values for that symbol.   I can choose some values, then when I Save it, the numeric SIDC is shown.  If I switch to another feature, then back, it shows the numeric SIDC.  If I open the editor for that symbol, then it does show the correct attributes for that shape.\r\n\r\nSo, I _think_ the editor needs to check for a text SIDC.  If one is provided, it should convert it to numeric, and the popup should show the correct existing fields for the symbol.\r\n"
+    },
+    {
+      "id": 2011545614,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-21T08:07:51Z",
+      "updated_at": "2024-03-21T08:07:51Z",
+      "body": "> @lilitkarapetyan , @IanMayo Tested on '2705_Editor_for_SIDC_codes' ,\r\n> \r\n>     * Some 'Standard Indentify 2' is working incorrectly.\r\n>       Steps:\r\n> \r\n> \r\n>     1. Standard Indentify 2 is 'Suspect/Joker' or 'Hostile/Faker'\r\n> \r\n>     2. select Standard Indentify 1 is 'Exercise',\r\n>        Notice the icon is not correct. It should be 'X' character in right side\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/309191031-68dd1135-5ba1-479f-9fdf-141eb47a9bd2.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTEwMDcxMjIsIm5iZiI6MTcxMTAwNjgyMiwicGF0aCI6Ii8xMDc2OTcwNDQvMzA5MTkxMDMxLTY4ZGQxMTM1LTViYTEtNDc5Zi05ZmRmLTE0MWViNDdhOWJkMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyMVQwNzQwMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04YmJlM2I1NTZhM2QyMThjODMxNGFjZTk4ZTBlNTUwMmU0ZDY5YTYxYzE0OTIyN2NhNTc5ZTg5ZmRiZTAwMjQ4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.fzm2ZMcRpQn38WHFI2ztaWihRzwJAi023RfZBvZp308)\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/309191427-d2f299ed-b01b-4b25-8828-d63821617539.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTEwMDcxMjIsIm5iZiI6MTcxMTAwNjgyMiwicGF0aCI6Ii8xMDc2OTcwNDQvMzA5MTkxNDI3LWQyZjI5OWVkLWIwMWItNGIyNS04ODI4LWQ2MzgyMTYxNzUzOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyMVQwNzQwMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02ZGQxZTZiMTM1NzExOWRlYjIwYTY4NzZlMDhjNDAwZmIyZjE4MTliZjdjZWNhYTcwYzY5ODVhZDdmYWI1NTY4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.EqaQrkf0AMmAlf3qZSIDOurvdPnNz5Lt3BeKz_7LNO8)\r\n> \r\n>     * Input field 'Sidc' should be disable for update. ( I try to update the text on input and save, nothing change. So we should disable it instead of show as editable field )\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/309195133-630081d2-58d3-48e9-88c2-9c5643310c8c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTEwMDcxMjIsIm5iZiI6MTcxMTAwNjgyMiwicGF0aCI6Ii8xMDc2OTcwNDQvMzA5MTk1MTMzLTYzMDA4MWQyLTU4ZDMtNDhlOS04OGMyLTljNTY0MzMxMGM4Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyMVQwNzQwMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jOThiYjM5YjAzYzA1YjlmMzIwN2M5YWJlZDkzOTcwOGQxMjA4M2Q5MDE3NDUzMGNlOGIwNGZhMDU3YTA3MjcxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.lfR3mMqQK56EJSOs_Grm8dybw1r3clTnYsF7Xm2rGOs)\r\n\r\nThis is also how the symbol generator example functions. You can try it - https://www.spatialillusions.com/unitgenerator-legacy/ \r\n![Screenshot (271)](https://github.com/serge-web/serge/assets/20753599/34c1484d-44e0-4e10-953d-8e883245dda6)\r\n"
+    },
+    {
+      "id": 2011615937,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-21T08:22:40Z",
+      "updated_at": "2024-03-21T08:24:40Z",
+      "body": "> Thanks @Tristina1788 - those are valid observations. I look forward to @lilitkarapetyan fixing them.\r\n> \r\n> @lilitkarapetyan - I have another issue too, please. In the game, the editor control shows the SIDC expressed as letters. When I click on `Edit` - the popup does not show the right values for that symbol. I can choose some values, then when I Save it, the numeric SIDC is shown. If I switch to another feature, then back, it shows the numeric SIDC. If I open the editor for that symbol, then it does show the correct attributes for that shape.\r\n> \r\n> So, I _think_ the editor needs to check for a text SIDC. If one is provided, it should convert it to numeric, and the popup should show the correct existing fields for the symbol.\r\n\r\n\r\n\r\n> Thanks @Tristina1788 - those are valid observations. I look forward to @lilitkarapetyan fixing them.\r\n> \r\n> @lilitkarapetyan - I have another issue too, please. In the game, the editor control shows the SIDC expressed as letters. When I click on `Edit` - the popup does not show the right values for that symbol. I can choose some values, then when I Save it, the numeric SIDC is shown. If I switch to another feature, then back, it shows the numeric SIDC. If I open the editor for that symbol, then it does show the correct attributes for that shape.\r\n> \r\n> So, I _think_ the editor needs to check for a text SIDC. If one is provided, it should convert it to numeric, and the popup should show the correct existing fields for the symbol.\r\n\r\nHello @ian, I will look into it now, if I find a way to convers the text to a number I will. but why we need it, I think we can create new symbols with number and use only number."
+    },
+    {
+      "id": 2011997576,
+      "user": "IanMayo",
+      "created_at": "2024-03-21T11:22:32Z",
+      "updated_at": "2024-03-21T11:22:32Z",
+      "body": "> Hello @ian, I will look into it now, if I find a way to convers the text to a number I will. but why we need it, I think we can create new symbols with number and use only number.\r\n\r\nThe value is that expert users recognise blocks in the text code.  They are _Slightly_ human-readable.\r\n\r\nHere is a package to convert between the two types: https://github.com/orbat-mapper/convert-symbology\r\n"
+    },
+    {
+      "id": 2012197313,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-21T12:47:20Z",
+      "updated_at": "2024-03-21T12:47:20Z",
+      "body": "> > Hello @ian, I will look into it now, if I find a way to convers the text to a number I will. but why we need it, I think we can create new symbols with number and use only number.\r\n> \r\n> The value is that expert users recognise blocks in the text code. They are _Slightly_ human-readable.\r\n> \r\n> Here is a package to convert between the two types: https://github.com/orbat-mapper/convert-symbology\r\n\r\nOkay I will do it. "
+    },
+    {
+      "id": 2014920620,
+      "user": "Tristina1788",
+      "created_at": "2024-03-22T11:52:39Z",
+      "updated_at": "2024-03-22T11:52:39Z",
+      "body": "@lilitkarapetyan Now 'SIDC' get number for new symbol item. And I also can update it with the number 'SIDC' from another item symbol. It's good for that.  But we should not allow user update with the wrong 'SIDC'. @IanMayo How do you think?\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/51c1c249-61e4-47dd-b61b-179525d018ae\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 2017584261,
+      "user": "Tristina1788",
+      "created_at": "2024-03-25T09:37:34Z",
+      "updated_at": "2024-03-25T09:53:05Z",
+      "body": "@lilitkarapetyan Now the new shape item get Sidc code is text. should we use number code as last changes? \r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/4eed7cdd-4dc3-4ab8-b415-36e2a9d1917c\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/1a033489-0050-4f50-a8bc-9f4ca3f96c81)\r\n\r\n\r\n"
+    },
+    {
+      "id": 2017624792,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-25T09:59:15Z",
+      "updated_at": "2024-03-25T09:59:15Z",
+      "body": "> @lilitkarapetyan Now the new shape item get Sidc code is text. should we use number code as last changes?\r\n> new-shape-item-has-sidc-code-is-not-number-code.mp4\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/316459040-1a033489-0050-4f50-a8bc-9f4ca3f96c81.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTEzNjA2ODcsIm5iZiI6MTcxMTM2MDM4NywicGF0aCI6Ii8xMDc2OTcwNDQvMzE2NDU5MDQwLTFhMDMzNDg5LTAwNTAtNGY1MC1hOGJjLTlmNGNhM2Y5NmM4MS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzI1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyNVQwOTUzMDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lZjYyNWRiZmEwMmEyZjIxOGQ2NGEzMzBhNDcwZjAxZDIwYmY0YTcwOTVlNTI3NTZlZTQ5ZTA1ODdmMWE4YzU1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.QAJw0JMW1CcViSt7uMNBgV7eBRavK_e42DAr6zwc2rg)\r\n\r\nYes, at first. the sidc will be a group of string, but when we change the symbol using the symbol generator, it will become a nuymber."
+    },
+    {
+      "id": 2017628087,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-25T10:00:59Z",
+      "updated_at": "2024-03-25T10:04:10Z",
+      "body": "I can make the text in the unput filed show a number instaed of letters. what do you think it would be more correct ?"
+    },
+    {
+      "id": 2017664363,
+      "user": "IanMayo",
+      "created_at": "2024-03-25T10:20:40Z",
+      "updated_at": "2024-03-25T10:20:40Z",
+      "body": "> @lilitkarapetyan Now 'SIDC' get number for new symbol item. And I also can update it with the number 'SIDC' from another item symbol. It's good for that. But we should not allow user update with the wrong 'SIDC'. @IanMayo How do you think?\r\nWell spotted @Tristina1788 .  You are correct, we should not allow an invalid SIDC to be stored.\r\n"
+    },
+    {
+      "id": 2021768487,
+      "user": "Tristina1788",
+      "created_at": "2024-03-27T01:42:09Z",
+      "updated_at": "2024-03-27T01:49:55Z",
+      "body": "@lilitkarapetyan , @IanMayo  I get white screen when click on Shape item. Please help me check it.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/ec8a447f-160e-43c0-9889-f7cb5a5cd017\r\n\r\nAnd I can't save the new sidc\r\n\r\n\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/aa9e5f00-cf51-43f9-8b72-ba8866c4c8e2\r\n\r\n"
+    },
+    {
+      "id": 2023075598,
+      "user": "Tristina1788",
+      "created_at": "2024-03-27T15:32:53Z",
+      "updated_at": "2024-03-27T15:32:53Z",
+      "body": "@lilitkarapetyan Now I can save 'SIDC' but can't save the changes from another properties. Please help me check \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/0243eef6-82f2-41f1-8336-17e175134c0e"
+    },
+    {
+      "id": 2024460881,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-28T05:58:50Z",
+      "updated_at": "2024-03-28T05:58:50Z",
+      "body": "> @lilitkarapetyan Now I can save 'SIDC' but can't save the changes from another properties. Please help me check\r\n> can_not_save_properties.mp4\r\n\r\nI will investigate it"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2705
+  ],
+  "issues": [
+    {
+      "id": 2013984814,
+      "number": 2705,
+      "title": "Editor for SIDC codes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-11-28T09:14:44Z",
+      "updated_at": "2024-05-09T15:59:46Z",
+      "closed_at": "2024-05-09T15:59:45Z",
+      "body": "For the `sidc` field, we're currently just taking a string parameter.\r\n\r\nThis is quite user-hostile.  Instead we should offer a lookup of known SIDC codes.  _Somehow_ extract these from the MilSym documentation\r\n\r\nOr a popup form dialog that lets the user set the different parameters.  There are a few instances of this online:\r\n* https://spatialillusions.com/unitgenerator/#30031000000000000000\r\n* https://www.spatialillusions.com/unitgenerator-legacy/\r\n* https://www.symbol.army/symbol\r\n\r\nWe have two options:\r\n- find a way to embed one of the above as static pages within Serge, so users can switch tab to the SIDC generator and gneerate a new code\r\n- find a way to extract the data from one of the above, so we can create a popup dialog box that includes the series of drop-downs that the above present.",
+      "labels": [
+        "enhancement",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 2102951483,
+          "user": "IanMayo",
+          "created_at": "2024-05-09T15:59:45Z",
+          "updated_at": "2024-05-09T15:59:45Z",
+          "body": "Closed in #2851 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/af3ea73518e95775da51fe9adc71bafa.gif",
+    "https://camo.githubusercontent.com/3a31b2ada06addeb02a7e6a5e78e8c519119f6c4c8ae084dbfc9ddd30aeec592/68747470733a2f2f692e6779617a6f2e636f6d2f61663365613733353138653935373735646135316665396164633731626166612e676966",
+    "https://github.com/serge-web/serge/assets/1108513/588c3852-c1a4-4250-861c-1299310a6211",
+    "https://github.com/serge-web/serge/assets/1108513/cb4d9ddf-1207-4d4b-9c6f-0c559decf52b",
+    "https://github.com/serge-web/serge/assets/1108513/67d2a881-5600-45a1-a63c-2f841037f7f1",
+    "https://private-user-images.githubusercontent.com/1108513/306944169-67d2a881-5600-45a1-a63c-2f841037f7f1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg1OTQ5MzYsIm5iZiI6MTcwODU5NDYzNiwicGF0aCI6Ii8xMTA4NTEzLzMwNjk0NDE2OS02N2QyYTg4MS01NjAwLTQ1YTEtYTYzYy0yZjg0MTAzN2Y3ZjEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyMiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjJUMDkzNzE2WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ZTE3YWJjYmY1ODA4MzIyYmNhMTIxMjdmMmQwMmZjNWVjMTg3YjU4Y2UzMWQwNWQ4YWM1Njc4MzkyZDhiNjFlZCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.SYkUq1EmhzDtAKCjs2pxZggzqYRbrzBuA4nMkRT2Xws",
+    "https://github.com/serge-web/serge/assets/1108513/be5a19dd-afca-48d3-864f-e0a1797e3a95",
+    "https://github.com/serge-web/serge/assets/107697044/68dd1135-5ba1-479f-9fdf-141eb47a9bd2",
+    "https://github.com/serge-web/serge/assets/107697044/d2f299ed-b01b-4b25-8828-d63821617539",
+    "https://github.com/serge-web/serge/assets/107697044/630081d2-58d3-48e9-88c2-9c5643310c8c",
+    "https://private-user-images.githubusercontent.com/107697044/309191031-68dd1135-5ba1-479f-9fdf-141eb47a9bd2.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTEwMDcxMjIsIm5iZiI6MTcxMTAwNjgyMiwicGF0aCI6Ii8xMDc2OTcwNDQvMzA5MTkxMDMxLTY4ZGQxMTM1LTViYTEtNDc5Zi05ZmRmLTE0MWViNDdhOWJkMi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyMVQwNzQwMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04YmJlM2I1NTZhM2QyMThjODMxNGFjZTk4ZTBlNTUwMmU0ZDY5YTYxYzE0OTIyN2NhNTc5ZTg5ZmRiZTAwMjQ4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.fzm2ZMcRpQn38WHFI2ztaWihRzwJAi023RfZBvZp308",
+    "https://private-user-images.githubusercontent.com/107697044/309191427-d2f299ed-b01b-4b25-8828-d63821617539.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTEwMDcxMjIsIm5iZiI6MTcxMTAwNjgyMiwicGF0aCI6Ii8xMDc2OTcwNDQvMzA5MTkxNDI3LWQyZjI5OWVkLWIwMWItNGIyNS04ODI4LWQ2MzgyMTYxNzUzOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyMVQwNzQwMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02ZGQxZTZiMTM1NzExOWRlYjIwYTY4NzZlMDhjNDAwZmIyZjE4MTliZjdjZWNhYTcwYzY5ODVhZDdmYWI1NTY4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.EqaQrkf0AMmAlf3qZSIDOurvdPnNz5Lt3BeKz_7LNO8",
+    "https://private-user-images.githubusercontent.com/107697044/309195133-630081d2-58d3-48e9-88c2-9c5643310c8c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTEwMDcxMjIsIm5iZiI6MTcxMTAwNjgyMiwicGF0aCI6Ii8xMDc2OTcwNDQvMzA5MTk1MTMzLTYzMDA4MWQyLTU4ZDMtNDhlOS04OGMyLTljNTY0MzMxMGM4Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzIxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyMVQwNzQwMjJaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jOThiYjM5YjAzYzA1YjlmMzIwN2M5YWJlZDkzOTcwOGQxMjA4M2Q5MDE3NDUzMGNlOGIwNGZhMDU3YTA3MjcxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.lfR3mMqQK56EJSOs_Grm8dybw1r3clTnYsF7Xm2rGOs",
+    "https://github.com/serge-web/serge/assets/20753599/34c1484d-44e0-4e10-953d-8e883245dda6",
+    "https://github.com/serge-web/serge/assets/107697044/1a033489-0050-4f50-a8bc-9f4ca3f96c81",
+    "https://private-user-images.githubusercontent.com/107697044/316459040-1a033489-0050-4f50-a8bc-9f4ca3f96c81.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTEzNjA2ODcsIm5iZiI6MTcxMTM2MDM4NywicGF0aCI6Ii8xMDc2OTcwNDQvMzE2NDU5MDQwLTFhMDMzNDg5LTAwNTAtNGY1MC1hOGJjLTlmNGNhM2Y5NmM4MS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzI1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyNVQwOTUzMDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lZjYyNWRiZmEwMmEyZjIxOGQ2NGEzMzBhNDcwZjAxZDIwYmY0YTcwOTVlNTI3NTZlZTQ5ZTA1ODdmMWE4YzU1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.QAJw0JMW1CcViSt7uMNBgV7eBRavK_e42DAr6zwc2rg"
+  ],
+  "number_of_changed_files": 31,
+  "total_changed_lines": 910
+}

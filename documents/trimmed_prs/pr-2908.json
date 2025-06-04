@@ -1,0 +1,178 @@
+{
+  "number": 2908,
+  "title": "2867 Core Mapping - filter by shape type",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-04-04T11:35:02Z",
+  "updated_at": "2024-04-19T15:43:48Z",
+  "closed_at": "2024-04-19T15:43:47Z",
+  "merged_at": "2024-04-19T15:43:47Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2908",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2908/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2908/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2908",
+  "body": "Fixes #2867 ",
+  "additions": 25,
+  "deletions": 3,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 0,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 2039121992,
+      "user": "Tristina1788",
+      "created_at": "2024-04-05T07:18:48Z",
+      "updated_at": "2024-04-05T07:24:46Z",
+      "body": "@lebaphi , @IanMayo Shapetype filter should not show as text input when I don't create more shape item. And after creating more Shape items, 2 filter ShapeType are on filter lists, it should shows only one.\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/6c2fbe6d-65a2-4485-83b4-2467c5573228\r\n\r\nI think it's better for filter ShapeType is dropdown list with all shape type from beginning as below\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/3705f904-0340-4ffb-9b37-b966c62d8809)\r\n\r\n\r\n"
+    },
+    {
+      "id": 2039973305,
+      "user": "lebaphi",
+      "created_at": "2024-04-05T14:41:08Z",
+      "updated_at": "2024-04-05T14:41:08Z",
+      "body": "Hi @Tristina1788 , @IanMayo \r\nabout shapeType_should_alway_shows_as_dropdown_list.mp4 issue, I can explain a bit of logic here. When creating a new feature, we assign a **shapeType** in the feature properties and save it to the db (line 219)\r\n<img width=\"538\" alt=\"image\" src=\"https://github.com/serge-web/serge/assets/26705621/fdd524be-c08f-44bd-bede-a6ee97125ab4\">\r\nSo when adding a ShapeType filter, we load the dropdown options by the **shapeType** feature property (line 411)\r\n<img width=\"805\" alt=\"image\" src=\"https://github.com/serge-web/serge/assets/26705621/48986bdf-96c9-4839-b088-de6efda87ac8\">\r\n\r\nIn your case, the original features don't have a **shapeType** in the property, so that's why it's showing Input (choices.length === 0)\r\n<img width=\"1017\" alt=\"image\" src=\"https://github.com/serge-web/serge/assets/26705621/47a86819-da28-413f-97aa-677382d1037e\">\r\n\r\nSo I think Ian can update the shapeType property for the original features in the db, then will it be fixed.\r\n\r\n\r\n"
+    },
+    {
+      "id": 2040775025,
+      "user": "Tristina1788",
+      "created_at": "2024-04-05T23:48:09Z",
+      "updated_at": "2024-04-05T23:48:09Z",
+      "body": "> Hi @Tristina1788 , @IanMayo about shapeType_should_alway_shows_as_dropdown_list.mp4 issue, I can explain a bit of logic here. When creating a new feature, we assign a **shapeType** in the feature properties and save it to the db (line 219) <img alt=\"image\" width=\"538\" src=\"https://private-user-images.githubusercontent.com/26705621/320035447-fdd524be-c08f-44bd-bede-a6ee97125ab4.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIzNjEwNDQsIm5iZiI6MTcxMjM2MDc0NCwicGF0aCI6Ii8yNjcwNTYyMS8zMjAwMzU0NDctZmRkNTI0YmUtYzA4Zi00NGJkLWJlZGUtYTZlZTk3MTI1YWI0LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MDUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDA1VDIzNDU0NFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM1NTZjNGI1ZDdlMzAwYjM0NTI0OTJjZDRjYjZkNmE2MDVlNmI2NGYzZGIxZjQwZjFkNTJhYTY2ODc1ZTAwNzkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.wyBdnAfUrZeQbnKMCu-v497wrTnDTkZTNnfsYzECB1g\"> So when adding a ShapeType filter, we load the dropdown options by the **shapeType** feature property (line 411) <img alt=\"image\" width=\"805\" src=\"https://private-user-images.githubusercontent.com/26705621/320036126-48986bdf-96c9-4839-b088-de6efda87ac8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIzNjEwNDQsIm5iZiI6MTcxMjM2MDc0NCwicGF0aCI6Ii8yNjcwNTYyMS8zMjAwMzYxMjYtNDg5ODZiZGYtOTZjOS00ODM5LWIwODgtZGU2ZWZkYTg3YWM4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MDUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDA1VDIzNDU0NFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWU4YzUyYjBjNjkzODdiM2RmNDg2MGRjZTJmZjFkN2ViNDhkZjJmODJkM2Q1YTdmODE5YTAzMDQxY2Y4ODA2OWEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.VaWCQ82liqKTUA6paBfkqnvz9pM8XhWxePk7XB0rbk4\">\r\n> \r\n> In your case, the original features don't have a **shapeType** in the property, so that's why it's showing Input (choices.length === 0) <img alt=\"image\" width=\"1017\" src=\"https://private-user-images.githubusercontent.com/26705621/320037068-47a86819-da28-413f-97aa-677382d1037e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIzNjEwNDQsIm5iZiI6MTcxMjM2MDc0NCwicGF0aCI6Ii8yNjcwNTYyMS8zMjAwMzcwNjgtNDdhODY4MTktZGEyOC00MTNmLTk3YWEtNjc3MzgyZDEwMzdlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MDUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDA1VDIzNDU0NFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTViMjdkYzI5ZmNiYzE4MThiM2NlMTJlMjg5NTc5NTJmZDk5OTY5YzRhNGIwYTMyNWZmMTI2Mjc0ZDMyNDg2YWMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.3ViOynnbpZZ6w6Y3yqI4i0_7MCpeeN6O7MK7Zf_wAY8\">\r\n> \r\n> So I think Ian can update the shapeType property for the original features in the db, then will it be fixed.\r\n\r\n@lebaphi   Thanks for explaination. @IanMayo Could you help to update shapeType property for the original features in the db? So I can check again."
+    },
+    {
+      "id": 2042119658,
+      "user": "IanMayo",
+      "created_at": "2024-04-08T08:08:15Z",
+      "updated_at": "2024-04-08T08:09:40Z",
+      "body": "Hello @philb89 - I've just jumped in to fix the missing data.  \r\n\r\nBut, I realise we don't need a new attribute. The shape-type is part of the GeoJSON standard, it's in the Geometry:\r\n![image](https://github.com/serge-web/serge/assets/1108513/cf63c251-ceaf-485a-ba2f-5e28f6338490)\r\n\r\nI realise that our other filters only apply to `properties` - so I guess we'll need to move it in/out of the properties dictionary when we're changing the selected feature.\r\n\r\nI know it's a pain supporting something that isn't in the properties @philb89 - but it's of great benefit that we're providing search for an attribute that should always be present in all GeoJSON data structures."
+    },
+    {
+      "id": 2046931583,
+      "user": "Tristina1788",
+      "created_at": "2024-04-10T08:47:11Z",
+      "updated_at": "2024-04-10T08:47:11Z",
+      "body": "@lebaphi @IanMayo This branch still have some conflict. Could you help to resolve it first?"
+    },
+    {
+      "id": 2060970438,
+      "user": "IanMayo",
+      "created_at": "2024-04-17T10:47:00Z",
+      "updated_at": "2024-04-17T10:47:00Z",
+      "body": "Hello @lebaphi  - I see there is some outstanding work in supporting the GeoJSON `geometry.type` field, please."
+    },
+    {
+      "id": 2064692364,
+      "user": "lebaphi",
+      "created_at": "2024-04-18T17:37:17Z",
+      "updated_at": "2024-04-18T17:37:17Z",
+      "body": "okay @IanMayo, I will take a look"
+    },
+    {
+      "id": 2066270913,
+      "user": "IanMayo",
+      "created_at": "2024-04-19T10:18:31Z",
+      "updated_at": "2024-04-19T10:18:31Z",
+      "body": "Thanks for the update @lebaphi .\r\n\r\n@Tristina1788 - do you understand the requirement here, are you able to test?  (I can give more explanation if necessary)"
+    },
+    {
+      "id": 2066344529,
+      "user": "Tristina1788",
+      "created_at": "2024-04-19T11:06:09Z",
+      "updated_at": "2024-04-19T11:06:09Z",
+      "body": "> Thanks for the update @lebaphi .\r\n> \r\n> @Tristina1788 - do you understand the requirement here, are you able to test? (I can give more explanation if necessary)\r\n\r\nThanks @IanMayo , I can test it. Now we have filter 'GeoType' with 3 values (Polygon and Point, LineString) and we can filter it as expected\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/6cf935bc-151b-4131-a1ed-67dff75a0112\r\n\r\n"
+    },
+    {
+      "id": 2066369163,
+      "user": "IanMayo",
+      "created_at": "2024-04-19T11:23:13Z",
+      "updated_at": "2024-04-19T11:24:15Z",
+      "body": "Thanks @lebaphi \r\n\r\nBut, in the property selector dialog and the filters panel,  could we call it `Shape`, instead of `GeoType` please?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    219,
+    411,
+    2867
+  ],
+  "issues": [
+    {
+      "id": 554394752,
+      "number": 219,
+      "title": "Support using Game Admin as Social Media channel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-01-23T20:40:21Z",
+      "updated_at": "2020-01-23T21:13:32Z",
+      "closed_at": "2020-01-23T21:13:31Z",
+      "body": "## 🧰 Ticket\r\nFixes #108 \r\n\r\n## 🚀 Overview: \r\nHard-coded change to rename Game Admin channel. Longer term solution to allow for editing from Admin pages\r\n\r\n## 🔗 Link to preview\r\n\r\n## 🖥️ Screenshot\r\n![image](https://user-images.githubusercontent.com/1108513/73024281-2f824500-3e25-11ea-9bc1-141211bbf114.png)\r\n",
+      "labels": [],
+      "comments": []
+    },
+    {
+      "id": 610815138,
+      "number": 411,
+      "title": "Tidy mapping state & introduce planning marker",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-05-01T15:39:40Z",
+      "updated_at": "2020-05-04T16:45:51Z",
+      "closed_at": "2020-05-04T16:45:50Z",
+      "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #402\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\nLots of `mapping` component was refactored to reduce updates.  This was done by putting as much processing as possible into `useEffect` blocks that only got triggered when related data changed.\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\nhttps://serge-review-hotfix-tid-vwfshm.herokuapp.com/storybook/?path=/story/local-mapping--with-allowable-range\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n* switch to useEffect in `mapping` and `hex-grid`\r\n* add draggable marker, with handlers for drag and drop\r\n* propagate end of drag back up to mapping\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![image](https://user-images.githubusercontent.com/1108513/80820548-fc431500-8bce-11ea-8cd1-32d152bb7d54.png)\r\n\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n\r\n",
+      "labels": [
+        "enhancement"
+      ],
+      "comments": [
+        {
+          "id": 622448792,
+          "user": "cypress[bot]",
+          "created_at": "2020-05-01T16:04:05Z",
+          "updated_at": "2020-05-04T16:03:07Z",
+          "body": "\n<p align=\"center\">\n  <br />\n  <img src=\"https://assets.cypress.io/github-pr-comment-icons/cypress-logo.png\" height=\"32\" />\n</p>\n\n---\n\n### Test summary\n<a href=\"https://dashboard.cypress.io/projects/rinvt1/runs/1190/specs\"><img src=\"https://assets.cypress.io/github-pr-comment-icons/green-check-mark.png\" width=\"14\" height=\"14\" title=\"Passed\" /></a> <b title=\"Passed\">2</b>  &bull; <a href=\"https://dashboard.cypress.io/projects/rinvt1/runs/1190/failures\"><img src=\"https://assets.cypress.io/github-pr-comment-icons/red-x.png\" width=\"14\" height=\"14\" title=\"Failed\" /></a> <b title=\"Failed\">0</b>  &bull; <img src=\"https://assets.cypress.io/github-pr-comment-icons/gray-circle.png\" width=\"14\" height=\"14\" title=\"Tests that did not run due to a developer annotating a test with .skip\" /> <b title=\"Pending\">0</b> &bull; <img src=\"https://assets.cypress.io/github-pr-comment-icons/yellow-triangle.png\" width=\"14\" height=\"14\" title=\"Tests that did not run due to a failure in a mocha hook\" /> <b title=\"Skipped\">0</b>\n\n---\n\n### Run details\n| | |\n| --- | --- |\n| **Project** | Serge end-to-end testing |\n| **Status** | Passed |\n| **Commit** | 80dc2c649e <span style=\"cursor:help;\" title=\"Your CI provider generated this commit by merging this branch into the target branch.\">ℹ️</span> |\n| **Started** | May 4, 2020 3:56 PM |\n| **Ended** | May 4, 2020 4:03 PM |\n| **Duration** | 06:45 <a href=\"https://on.cypress.io/parallelization\" title=\"Enable parallelization to reduce run duration\">💡</a> |\n| **OS** | Linux Ubuntu Linux - 16.04 |\n| **Browser** | Electron 78 <img src=\"https://cdnjs.cloudflare.com/ajax/libs/browser-logos/48.0.4/electron/electron_32x32.png\" width=\"16\" height=\"16\" /> |\n\n[View run in Cypress Dashboard ➡️](https://dashboard.cypress.io/projects/rinvt1/runs/1190/specs)\n\n\n\n---\n\nThis comment has been generated by **cypress-bot** as a result of this project's GitHub integration settings. You can manage this integration in [this project's settings in the Cypress Dashboard](https://dashboard.cypress.io/projects/rinvt1/settings)\n\n"
+        }
+      ]
+    },
+    {
+      "id": 2144772083,
+      "number": 2867,
+      "title": "Core Mapping - filter by shape type",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-02-20T16:23:45Z",
+      "updated_at": "2024-04-19T15:43:48Z",
+      "closed_at": "2024-04-19T15:43:48Z",
+      "body": "It would be useful to be able to filter shapes by the feature type:\r\n- point (symbol)\r\n- linestring\r\n- line / arrow\r\n- polygon\r\n- circle?\r\n\r\nThis may allow an umpire to delete a bunch of `route` data at the end of adjudication.\r\n\r\nThe filter entries will need to be updated on `features` change - so it contains a unique list of the shape types on the map.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/3705f904-0340-4ffb-9b37-b966c62d8809",
+    "https://github.com/serge-web/serge/assets/26705621/fdd524be-c08f-44bd-bede-a6ee97125ab4",
+    "https://github.com/serge-web/serge/assets/26705621/48986bdf-96c9-4839-b088-de6efda87ac8",
+    "https://github.com/serge-web/serge/assets/26705621/47a86819-da28-413f-97aa-677382d1037e",
+    "https://private-user-images.githubusercontent.com/26705621/320035447-fdd524be-c08f-44bd-bede-a6ee97125ab4.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIzNjEwNDQsIm5iZiI6MTcxMjM2MDc0NCwicGF0aCI6Ii8yNjcwNTYyMS8zMjAwMzU0NDctZmRkNTI0YmUtYzA4Zi00NGJkLWJlZGUtYTZlZTk3MTI1YWI0LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MDUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDA1VDIzNDU0NFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTM1NTZjNGI1ZDdlMzAwYjM0NTI0OTJjZDRjYjZkNmE2MDVlNmI2NGYzZGIxZjQwZjFkNTJhYTY2ODc1ZTAwNzkmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.wyBdnAfUrZeQbnKMCu-v497wrTnDTkZTNnfsYzECB1g",
+    "https://private-user-images.githubusercontent.com/26705621/320036126-48986bdf-96c9-4839-b088-de6efda87ac8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIzNjEwNDQsIm5iZiI6MTcxMjM2MDc0NCwicGF0aCI6Ii8yNjcwNTYyMS8zMjAwMzYxMjYtNDg5ODZiZGYtOTZjOS00ODM5LWIwODgtZGU2ZWZkYTg3YWM4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MDUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDA1VDIzNDU0NFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWU4YzUyYjBjNjkzODdiM2RmNDg2MGRjZTJmZjFkN2ViNDhkZjJmODJkM2Q1YTdmODE5YTAzMDQxY2Y4ODA2OWEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.VaWCQ82liqKTUA6paBfkqnvz9pM8XhWxePk7XB0rbk4",
+    "https://private-user-images.githubusercontent.com/26705621/320037068-47a86819-da28-413f-97aa-677382d1037e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTIzNjEwNDQsIm5iZiI6MTcxMjM2MDc0NCwicGF0aCI6Ii8yNjcwNTYyMS8zMjAwMzcwNjgtNDdhODY4MTktZGEyOC00MTNmLTk3YWEtNjc3MzgyZDEwMzdlLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA0MDUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNDA1VDIzNDU0NFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTViMjdkYzI5ZmNiYzE4MThiM2NlMTJlMjg5NTc5NTJmZDk5OTY5YzRhNGIwYTMyNWZmMTI2Mjc0ZDMyNDg2YWMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.3ViOynnbpZZ6w6Y3yqI4i0_7MCpeeN6O7MK7Zf_wAY8",
+    "https://github.com/serge-web/serge/assets/1108513/cf63c251-ceaf-485a-ba2f-5e28f6338490",
+    "https://user-images.githubusercontent.com/1108513/73024281-2f824500-3e25-11ea-9bc1-141211bbf114.png",
+    "https://user-images.githubusercontent.com/1108513/80820548-fc431500-8bce-11ea-8cd1-32d152bb7d54.png",
+    "https://assets.cypress.io/github-pr-comment-icons/cypress-logo.png",
+    "https://assets.cypress.io/github-pr-comment-icons/green-check-mark.png",
+    "https://assets.cypress.io/github-pr-comment-icons/red-x.png",
+    "https://assets.cypress.io/github-pr-comment-icons/gray-circle.png",
+    "https://assets.cypress.io/github-pr-comment-icons/yellow-triangle.png",
+    "https://cdnjs.cloudflare.com/ajax/libs/browser-logos/48.0.4/electron/electron_32x32.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 28
+}

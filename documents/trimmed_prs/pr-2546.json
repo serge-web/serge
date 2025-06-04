@@ -1,0 +1,50 @@
+{
+  "number": 2546,
+  "title": "show true SIDC, if present",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-03T10:33:53Z",
+  "updated_at": "2023-03-03T11:03:52Z",
+  "closed_at": "2023-03-03T11:03:50Z",
+  "merged_at": "2023-03-03T11:03:50Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2546",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2546/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2546/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2546",
+  "body": "Fixes #2545 ",
+  "additions": 8,
+  "deletions": 4,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2545
+  ],
+  "issues": [
+    {
+      "id": 1608353592,
+      "number": 2545,
+      "title": "Let op-for always display real SIDC if present",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-03T10:15:07Z",
+      "updated_at": "2023-03-03T11:03:52Z",
+      "closed_at": "2023-03-03T11:03:52Z",
+      "body": "There is some confusion where op-for assets are shown using the wrong icon.\r\n\r\nKW said we should always display the correct icon for op-for, ignoring the perceived types.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 12
+}

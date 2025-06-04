@@ -1,0 +1,65 @@
+{
+  "number": 2588,
+  "title": "diagnostics to check if we have god's eye view",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-09T08:03:28Z",
+  "updated_at": "2023-03-09T09:28:25Z",
+  "closed_at": "2023-03-09T09:28:24Z",
+  "merged_at": "2023-03-09T09:28:24Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2588",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2588/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2588/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2588",
+  "body": "Progresses #2582 ",
+  "additions": 3,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2582
+  ],
+  "issues": [
+    {
+      "id": 1615766435,
+      "number": 2582,
+      "title": "Blue & Green have god's eye view of red",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-08T18:58:44Z",
+      "updated_at": "2023-03-09T20:58:32Z",
+      "closed_at": "2023-03-09T20:58:32Z",
+      "body": "We have stopped processing blue ISTAR orders.\r\n\r\nBut, Blue need to have up to date perception of op-for.  \r\n\r\nSo, give Blue god's eye view of red.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1460885522,
+          "user": "IanMayo",
+          "created_at": "2023-03-08T21:15:10Z",
+          "updated_at": "2023-03-08T21:15:10Z",
+          "body": "Re-open, blue not seeing live green data"
+        },
+        {
+          "id": 1462809922,
+          "user": "IanMayo",
+          "created_at": "2023-03-09T20:58:32Z",
+          "updated_at": "2023-03-09T20:58:32Z",
+          "body": "Done,"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 3
+}

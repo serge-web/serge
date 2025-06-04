@@ -1,0 +1,142 @@
+{
+  "number": 1271,
+  "title": "1261: Make option clickable",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-17T04:44:09Z",
+  "updated_at": "2021-12-22T12:35:56Z",
+  "closed_at": "2021-12-22T11:18:42Z",
+  "merged_at": "2021-12-22T11:18:41Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1271",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1271/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1271/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1271",
+  "body": "Fixed #1261 ",
+  "additions": 18,
+  "deletions": 5,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 0,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 996566470,
+      "user": "IanMayo",
+      "created_at": "2021-12-17T09:28:33Z",
+      "updated_at": "2021-12-17T09:28:33Z",
+      "body": "@lebaphi said:\r\n\r\nHi @IanMayo and @ShendMikullovci ,\r\nI've update the UI:\r\n- The text editing, I add the border bottom to make it like editing field\r\n- Color picking, I don't think add the underline is a good UI, so I think we set the cursor to point is good enough.\r\n- Change icon, I added the underline and change cursor to pointer.\r\nHow do you think, guys?\r\n\r\n![image](https://user-images.githubusercontent.com/26705621/146488214-f278786e-4d9f-4ddb-a09a-001a59fde2aa.png)\r\n"
+    },
+    {
+      "id": 996567524,
+      "user": "IanMayo",
+      "created_at": "2021-12-17T09:30:07Z",
+      "updated_at": "2021-12-17T09:30:23Z",
+      "body": "For this `White` force (above) it isn't obvious that there is the clickable color block there.  A dark solid border would show the user there's something there.\r\n\r\nHmm, @ShendMikullovci - should we put a `Color` label to the left of the color block?"
+    },
+    {
+      "id": 997425425,
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-19T16:59:02Z",
+      "updated_at": "2021-12-19T16:59:02Z",
+      "body": "That sounds good! However, the deployment link is sending me to the game, not the admin page, so I can't really see what it looks like!"
+    },
+    {
+      "id": 997425642,
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-19T17:00:39Z",
+      "updated_at": "2021-12-19T17:00:39Z",
+      "body": "I definitely like keeping the point cursor for all of the options, as well as add a darker border for the team color icon. "
+    },
+    {
+      "id": 997783764,
+      "user": "IanMayo",
+      "created_at": "2021-12-20T10:13:08Z",
+      "updated_at": "2021-12-20T10:13:08Z",
+      "body": "> That sounds good! However, the deployment link is sending me to the game, not the admin page, so I can't really see what it looks like!\r\n\r\nFrom the game page you click on the `Admin` icon at the upper-right:\r\n![image](https://user-images.githubusercontent.com/1108513/146750804-02c112de-a329-46b1-abe1-496c2c76bf77.png)\r\n"
+    },
+    {
+      "id": 997785472,
+      "user": "IanMayo",
+      "created_at": "2021-12-20T10:15:05Z",
+      "updated_at": "2021-12-20T10:15:05Z",
+      "body": ">  as well as add a darker border for the team color icon.\r\n\r\n@lebaphi - could you add a darker border around the force color icon?\r\n"
+    },
+    {
+      "id": 998519350,
+      "user": "lebaphi",
+      "created_at": "2021-12-21T06:52:18Z",
+      "updated_at": "2021-12-21T06:52:18Z",
+      "body": "> > as well as add a darker border for the team color icon.\r\n> \r\n> @lebaphi - could you add a darker border around the force color icon?\r\n\r\nsure @IanMayo 👍 "
+    },
+    {
+      "id": 998770014,
+      "user": "IanMayo",
+      "created_at": "2021-12-21T13:15:20Z",
+      "updated_at": "2021-12-21T13:15:20Z",
+      "body": "Hello @lebaphi - if you set that darker border color, we can get this PR merged :-)"
+    },
+    {
+      "id": 999305893,
+      "user": "lebaphi",
+      "created_at": "2021-12-22T05:52:26Z",
+      "updated_at": "2021-12-22T05:55:24Z",
+      "body": "Hi @IanMayo @ShendMikullovci , which one do you think better:\r\n\r\nborder 1px:\r\n![image](https://user-images.githubusercontent.com/26705621/147042464-33f15cb0-0baf-4b8c-a2a6-9c3846caeae3.png)\r\n\r\nborder 2px\r\n![image](https://user-images.githubusercontent.com/26705621/147042393-a87284f3-bded-4550-a621-66090334ef21.png)\r\n\r\nI pushed the change with 1px border. but if you guys think it should be bolder, I will update 😄 "
+    },
+    {
+      "id": 999545267,
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-22T12:35:56Z",
+      "updated_at": "2021-12-22T12:35:56Z",
+      "body": "Both look great to me. If you've pushed 1px then let's stick to it. \r\nThanks guys!"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1261
+  ],
+  "issues": [
+    {
+      "id": 1078664919,
+      "number": 1261,
+      "title": "Make Options Appear Clickable",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2021-12-13T15:25:46Z",
+      "updated_at": "2021-12-22T11:18:41Z",
+      "closed_at": "2021-12-22T11:18:41Z",
+      "body": "The force name, icon change tabs, and the color chart should be rendered to appear more clickable:\r\n![Make appear clickable admin page](https://user-images.githubusercontent.com/85491794/145839420-4ef23949-749a-4fbb-b558-620d8fa967a6.png)\r\n \r\nThis could be done simply by underlining the force name and the \"Change Icon\". As for the color chart, its outline could be dimmed.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 995027943,
+          "user": "IanMayo",
+          "created_at": "2021-12-15T17:54:44Z",
+          "updated_at": "2021-12-15T17:54:44Z",
+          "body": "Great, yes.   Let's have underlines please @lebaphi "
+        },
+        {
+          "id": 996425979,
+          "user": "lebaphi",
+          "created_at": "2021-12-17T04:21:42Z",
+          "updated_at": "2021-12-17T09:28:17Z",
+          "body": "[Ian moved comment to PR]"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/146488214-f278786e-4d9f-4ddb-a09a-001a59fde2aa.png",
+    "https://user-images.githubusercontent.com/1108513/146750804-02c112de-a329-46b1-abe1-496c2c76bf77.png",
+    "https://user-images.githubusercontent.com/26705621/147042464-33f15cb0-0baf-4b8c-a2a6-9c3846caeae3.png",
+    "https://user-images.githubusercontent.com/26705621/147042393-a87284f3-bded-4550-a621-66090334ef21.png",
+    "https://user-images.githubusercontent.com/85491794/145839420-4ef23949-749a-4fbb-b558-620d8fa967a6.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 23
+}

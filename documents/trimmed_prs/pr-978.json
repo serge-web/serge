@@ -1,0 +1,81 @@
+{
+  "number": 978,
+  "title": "Progress cursor on export",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-29T10:37:19Z",
+  "updated_at": "2021-07-30T08:53:14Z",
+  "closed_at": "2021-07-30T08:53:13Z",
+  "merged_at": "2021-07-30T08:53:13Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/978",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/978/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/978/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/978",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #943 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 45,
+  "deletions": 20,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 889033371,
+      "user": "IanMayo",
+      "created_at": "2021-07-29T11:19:17Z",
+      "updated_at": "2021-07-29T11:19:17Z",
+      "body": "Have you been able to make the busy cursor show?  My export happens in an instant - so I don't see anything.\r\n\r\nCould you temporarily insert a timeout pause in the export process, so I can see the cursor show?"
+    },
+    {
+      "id": 889237531,
+      "user": "IanMayo",
+      "created_at": "2021-07-29T15:22:10Z",
+      "updated_at": "2021-07-29T15:22:10Z",
+      "body": "Hey, the delay was worthwhile :-)\r\n\r\nNote that the busy cursor only shows when the cursor is over the button.  We need it to show over the whole page, please.\r\n\r\n![screencase](https://i.gyazo.com/b29b4888053c3d1323fceab0b619da0b.gif)"
+    },
+    {
+      "id": 889254510,
+      "user": "IanMayo",
+      "created_at": "2021-07-29T15:42:40Z",
+      "updated_at": "2021-07-29T15:42:40Z",
+      "body": "(tried closing & re-opening, to see if that would fix build)"
+    },
+    {
+      "id": 889729558,
+      "user": "IanMayo",
+      "created_at": "2021-07-30T08:26:44Z",
+      "updated_at": "2021-07-30T08:26:44Z",
+      "body": "Great.  Can you now delete the artificial delay please?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    943
+  ],
+  "issues": [
+    {
+      "id": 947531093,
+      "number": 943,
+      "title": "Busy cursor on export",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-19T10:59:51Z",
+      "updated_at": "2021-07-30T08:53:13Z",
+      "closed_at": "2021-07-30T08:53:13Z",
+      "body": "The wargame that was played last Friday concentrated on developing a large number of messages, mostly using formatted templates.\r\n\r\nSome of these templates have up to 20 fields, which translates to 20 columns in the export.\r\n\r\nThe analysts are exporting the wargame to XLS.  After the click on `Create Export` there is a ~5 second delay before the export appears.  This made it look like the `click` hadn't happened - so we did it several times, then saw several exports.\r\n\r\nA busy cursor would have demonstrated that Serge was still processing the data.\r\n\r\nSo, the busy cursor should be shown as the export is handled.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/b29b4888053c3d1323fceab0b619da0b.gif"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 65
+}

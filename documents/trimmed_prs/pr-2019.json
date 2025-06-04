@@ -1,0 +1,58 @@
+{
+  "number": 2019,
+  "title": "1927 generate interaction",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-09T08:41:31Z",
+  "updated_at": "2022-11-09T09:10:45Z",
+  "closed_at": "2022-11-09T09:10:44Z",
+  "merged_at": "2022-11-09T09:10:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2019",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2019/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2019/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2019",
+  "body": "Supports #1927 ",
+  "additions": 827,
+  "deletions": 786,
+  "changed_files": 35,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1927
+  ],
+  "issues": [
+    {
+      "id": 1409488710,
+      "number": 1927,
+      "title": "Process for creating new adjudications",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-14T15:03:06Z",
+      "updated_at": "2023-01-05T09:47:01Z",
+      "closed_at": "2023-01-05T09:47:01Z",
+      "body": "This is the process for creating new interaction adjudications.\r\n\r\nThe interaction generator finds the next interaction.\r\n\r\nSerge injects the new \"interaction\" into the planning channel, tagged for the current turn and owner.\r\n\r\nThen, it injects the interaction id to the relevant sets of orders. marking details as \"Being adjudicated by\"  the current player, with status \"Being adjudicated\", and it pushes the new versions of the orders (`PlanningMessage`).  \r\n\r\nThen the `Adjudications` panel updates, showing this set of orders that are \"Being adjudicated\" by this player.  The adjudication panel shows:\r\n- two sets of orders\r\n- assets in this interaction\r\n- start/end time of the interaction (maybe a Gantt to show the overall period for the two sets of orders)\r\n- add new outcomes form (with drop-down lists coming from assets in adjudication)\r\n- add narrative summary form\r\n\r\n* [x] Create \"MessageInteraction\" type, to include:\r\n    * [x] two sets of order ids\r\n    * [x] narrative\r\n    * [x] PerceptionOutcomes\r\n    * [x] ConditionOutcomes\r\n    * [x] PositionOutcomes \r\n* [x] Make tabs filter the correct types of message\r\n* [x] Introduce UI to get new interaction\r\n* [x] Let outcome of interaction generator submit new draft MessageInteraction\r\n* [x] Let adjudication panel open/display MessageInteractions that are owned by current player, and incomplete\r\n* [x] On \"Submit\" of finalized MessageInteraction, make change in the world, and update wargame",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1371994486,
+          "user": "IanMayo",
+          "created_at": "2023-01-05T09:47:01Z",
+          "updated_at": "2023-01-05T09:47:01Z",
+          "body": "This initial phase completed, and was used in the Nov playtest.  The updated interaction generation will be covered in #2219"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 35,
+  "total_changed_lines": 1613
+}

@@ -1,0 +1,152 @@
+{
+  "number": 2425,
+  "title": "Assets_disappear_after_15_seconds_heartbeat",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-16T11:09:27Z",
+  "updated_at": "2023-02-16T13:31:20Z",
+  "closed_at": "2023-02-16T13:31:19Z",
+  "merged_at": "2023-02-16T13:31:19Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2425",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2425/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2425/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2425",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 4,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [
+    "bug",
+    "4p9"
+  ],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1432930661,
+      "user": "IanMayo",
+      "created_at": "2023-02-16T11:18:02Z",
+      "updated_at": "2023-02-16T11:18:02Z",
+      "body": "Can you help me out with the `react` here please @lilitkarapetyan  ?\r\n\r\nNeither `allForces` or `currentForce` have actually changed state.  Do you know why the `useState` is firing?"
+    },
+    {
+      "id": 1432981813,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-16T12:02:14Z",
+      "updated_at": "2023-02-16T12:02:14Z",
+      "body": "`useEffect` was seeing a change in its dependencies, but there was actually no change."
+    },
+    {
+      "id": 1432987459,
+      "user": "IanMayo",
+      "created_at": "2023-02-16T12:06:15Z",
+      "updated_at": "2023-02-16T12:06:15Z",
+      "body": "> JSON.stringify(prevProps) === JSON.stringify(nextProps)\r\n\r\nWill this take long?  They are huge documents."
+    },
+    {
+      "id": 1432992203,
+      "user": "IanMayo",
+      "created_at": "2023-02-16T12:09:49Z",
+      "updated_at": "2023-02-16T12:09:49Z",
+      "body": "> > JSON.stringify(prevProps) === JSON.stringify(nextProps)\r\n> \r\n> Will this take long? They are huge documents.\r\n\r\nOnly 6 millis for large wargame - that's not bad.  \r\n![image](https://user-images.githubusercontent.com/1108513/219361099-cc6c81bb-6672-4c4a-a293-86da15ad2be6.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2390
+  ],
+  "issues": [
+    {
+      "id": 1584085820,
+      "number": 2390,
+      "title": "Assets disappear after 15 seconds (heartbeat)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-14T12:30:09Z",
+      "updated_at": "2023-02-16T14:53:10Z",
+      "closed_at": "2023-02-16T14:53:09Z",
+      "body": "This is an intermittent error. It doesn't happen on some builds.\r\n\r\nBut, the issue is that every 15 seconds, the assets all disappear from the map.\r\n\r\nThis happens in response to the `heartbeat` message being sent.  It _looks-like_ new state is passed through to `factory.tsx`, which trigger state updates that mean the asset list gets cleared.\r\n\r\n1. We should find a way of the heartbeat not clearing the assets\r\n2. We should cancel the heartbeat functionality\r\n\r\nI've just opened the heroku instance here, and it doesn't have the problem:\r\nhttps://serge-sql.herokuapp.com/?wargame=wargame-l6nngxlk&access=blue-mtg-1\r\n\r\nBut, the same build on a different network does have the issue.",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1432626430,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-02-16T07:12:29Z",
+          "updated_at": "2023-02-16T07:12:29Z",
+          "body": "Hello @IanMayo ,  any changes in the database make all all assets disappear from the map - https://gyazo.com/7ac51f8dc8fae431b500b2ed3fbe2640"
+        },
+        {
+          "id": 1432632825,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-02-16T07:19:59Z",
+          "updated_at": "2023-02-16T07:19:59Z",
+          "body": "I think the problem comes from the state update, when we make a change, the frontend listens to `soket ` change made by the server and updates the state."
+        },
+        {
+          "id": 1432634042,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-02-16T07:21:28Z",
+          "updated_at": "2023-02-16T07:21:28Z",
+          "body": "I am working on a fix."
+        },
+        {
+          "id": 1432811013,
+          "user": "IanMayo",
+          "created_at": "2023-02-16T09:51:45Z",
+          "updated_at": "2023-02-16T09:51:56Z",
+          "body": "Aah, good work.\r\n\r\nSeparate question: how did you get all of these \"view-as\" toolbar buttons?\r\n![image](https://user-images.githubusercontent.com/1108513/219330686-fc1ccb51-c615-4967-95c4-35ad8756dad5.png)\r\n"
+        },
+        {
+          "id": 1432836338,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-02-16T10:08:51Z",
+          "updated_at": "2023-02-16T10:08:51Z",
+          "body": "> Aah, good work.\r\n> \r\n> Separate question: how did you get all of these \"view-as\" toolbar buttons? ![image](https://user-images.githubusercontent.com/1108513/219330686-fc1ccb51-c615-4967-95c4-35ad8756dad5.png)\r\n\r\nI don't know, I will investigate now."
+        },
+        {
+          "id": 1432854476,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-02-16T10:21:51Z",
+          "updated_at": "2023-02-16T10:21:51Z",
+          "body": "https://gyazo.com/fa6db67d6bb3b836d1ad895caadccdfe - here's how I got all the  \"view-as\" toolbar buttons."
+        },
+        {
+          "id": 1432867080,
+          "user": "IanMayo",
+          "created_at": "2023-02-16T10:31:17Z",
+          "updated_at": "2023-02-16T10:31:17Z",
+          "body": "> https://gyazo.com/fa6db67d6bb3b836d1ad895caadccdfe - here's how I got all the \"view-as\" toolbar buttons.\r\n\r\nOh fine  - you created lots of forces :-D"
+        },
+        {
+          "id": 1432869542,
+          "user": "lilitkarapetyan",
+          "created_at": "2023-02-16T10:33:11Z",
+          "updated_at": "2023-02-16T10:33:11Z",
+          "body": "Yes :-D"
+        },
+        {
+          "id": 1433209207,
+          "user": "IanMayo",
+          "created_at": "2023-02-16T14:53:09Z",
+          "updated_at": "2023-02-16T14:53:09Z",
+          "body": "Closed in #2425 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/219361099-cc6c81bb-6672-4c4a-a293-86da15ad2be6.png",
+    "https://user-images.githubusercontent.com/1108513/219330686-fc1ccb51-c615-4967-95c4-35ad8756dad5.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 6
+}

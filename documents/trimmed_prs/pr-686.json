@@ -1,0 +1,150 @@
+{
+  "number": 686,
+  "title": "Feature/557 upgrade dependencies only",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-04-22T17:11:15Z",
+  "updated_at": "2022-07-11T13:29:49Z",
+  "closed_at": "2022-05-10T10:03:00Z",
+  "merged_at": null,
+  "author": {
+    "login": "sandro768",
+    "html_url": "https://github.com/sandro768"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/686",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/686/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/686/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/686",
+  "body": "Closes #557 \r\n\r\n## 🚀 Overview: \r\nUpgraded packages\r\n\r\n## 🤔 Reason: \r\nTo fix vulnerabilities, deprecated patterns, and yarn warnings\r\n\r\n## 🔨Work carried out:\r\n\r\n- [x] Tests pass\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.",
+  "additions": 5123,
+  "deletions": 7620,
+  "changed_files": 22,
+  "labels": [
+    "future"
+  ],
+  "comments_count": 5,
+  "review_comments_count": 1,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 825045399,
+      "user": "IanMayo",
+      "created_at": "2021-04-22T17:27:21Z",
+      "updated_at": "2021-04-23T10:14:44Z",
+      "body": "thanks @sandro768  - but this still includes code changes in 5 `client` files:\r\n![image](https://user-images.githubusercontent.com/1108513/115856992-1354c580-a425-11eb-8614-bafd46557982.png)\r\n\r\n\r\nIt also excludes packages from eslint. If it's possible I'd rather exclude eslint rules individually in a clearly marked section of eslintrc. Then we can remove the rule exclusions one-by-one."
+    },
+    {
+      "id": 825594694,
+      "user": "IanMayo",
+      "created_at": "2021-04-23T11:29:17Z",
+      "updated_at": "2021-04-23T12:10:25Z",
+      "body": "First issue found:\r\n![image](https://user-images.githubusercontent.com/1108513/115864929-82371c00-a42f-11eb-951e-3d0f0e5c5543.png)\r\n\r\nSame issue also present in RFI channel for this wargame/role:\r\n![image](https://user-images.githubusercontent.com/1108513/115865498-4f415800-a430-11eb-8fe5-0456383f9689.png)\r\n\r\nSteps to reproduce:\r\n* yarn develop\r\n* enter game `IMWARC with RFI` as `White\\Logistics` role\r\n* Open `Blue RFI` channel.  Observer error message, plus other in the `Social Media` channel on the right-hand side.\r\n\r\nNote: after a quick look it appears related to the calls to open `JSON-Editor`.  This is a form-based editor that constructs itself based upon a JSON Schema.  In addition to plain chat messages, players can also send complex messages that meet a JSON schema, something like the fields required to report a Weather Forecast.\r\n\r\nWe don't have TypeScript libs for JSON-Editor, so it doesn't play very nicely with React or TypeScript.  We may replace it one day, but for now we need to resolve the above issue.\r\n\r\nThis lib did go through quite a large upgrade:\r\n![image](https://user-images.githubusercontent.com/1108513/115866820-25893080-a432-11eb-8e67-88dfb50d6058.png)\r\n\r\nRepo for component here: \r\nhttps://github.com/json-editor/json-editor\r\n\r\nOk, reverting the pre-upgrade version fixes the issue.  Hmm, yes - let's do that, and capture the version upgrade as a separate issue.\r\n\r\n"
+    },
+    {
+      "id": 825723564,
+      "user": "IanMayo",
+      "created_at": "2021-04-23T15:08:08Z",
+      "updated_at": "2021-04-23T15:08:08Z",
+      "body": "Next issue. `yarn storybook` is failing.\r\n[log_file.txt](https://github.com/serge-web/serge/files/6365942/log_file.txt)\r\n"
+    },
+    {
+      "id": 825724519,
+      "user": "IanMayo",
+      "created_at": "2021-04-23T15:09:41Z",
+      "updated_at": "2021-04-26T10:19:43Z",
+      "body": "Hello @sandro768 ,\r\nstorybook fails at runtime for SASS in the new version. Dropping back to the original storybook fixes it.\r\n\r\nThere appears to be discussion of the issue you resolved with _relative-path_ here:\r\nhttps://github.com/storybookjs/storybook/issues/11466\r\n\r\nI'll try dropping back to the last 5.x build, and see if that works - then create an issue for supporting Storybook 6.\r\n\r\nNo, it was sass-loader that I had to downgrade.  I took it from 11.x to 10.x, and everything worked."
+    },
+    {
+      "id": 1122185692,
+      "user": "IanMayo",
+      "created_at": "2022-05-10T10:03:00Z",
+      "updated_at": "2022-05-10T10:03:00Z",
+      "body": "Close this. Our dependencies have moved on a long way since this PR."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 619140180,
+      "user": "IanMayo",
+      "created_at": "2021-04-23T11:15:36Z",
+      "updated_at": "2021-04-29T08:54:01Z",
+      "body": "nicely done, thanks @sandro768 ",
+      "path": "packages/client/.eslintrc",
+      "diff_hunk": "@@ -1,11 +1,77 @@\n {\n   \"parser\": \"@typescript-eslint/parser\",\n-  \"extends\" : [\n-    \"plugin:@typescript-eslint/recommended\",\n+  \"parserOptions\": {\n+    \"project\": \"./tsconfig.json\", // Required to have rules that rely on Types.\n+    \"include\": [\n+      \"./src\"\n+    ],\n+    \"ecmaFeatures\": {\n+      \"jsx\": true\n+    }\n+  },\n+  \"extends\": [\n+    \"plugin:@typescript-eslint/recommended\", // Out of the box Typescript rules\n     \"standard\"\n   ],\n-  \"plugins\": [\"prettier\"],\n+  \"plugins\": [\n+    \"prettier\"\n+  ],\n   \"rules\": {\n-    \"react/prop-types\": 0\n+    \"no-use-before-define\": 0,\n+    // Uncomment this rule after it will be removed from the temoporarily listed rules below\n+    //    \"@typescript-eslint/no-use-before-define\": [\"error\"],\n+    \"react/prop-types\": 0,\n+    // temporary rules until the code is fixed. Please add permanent rules above.",
+      "html_url": "https://github.com/serge-web/serge/pull/686#discussion_r619140180"
+    }
+  ],
+  "issue_numbers": [
+    557
+  ],
+  "issues": [
+    {
+      "id": 754461383,
+      "number": 557,
+      "title": "Upgrade dependencies",
+      "state": "open",
+      "user": "IanMayo",
+      "created_at": "2020-12-01T14:49:35Z",
+      "updated_at": "2021-04-30T09:56:42Z",
+      "closed_at": null,
+      "body": "## 🐞 Amendment description\r\n<!-- A clear and concise description of what the amendment is. -->\r\n\r\nThe version of npm that we're using is out of data:\r\n![image](https://user-images.githubusercontent.com/1108513/100754809-6630d080-33e3-11eb-8556-cc3debb762cc.png)\r\n\r\n\r\nI did `npm update` and it listed a number of libraries that had been deprecated, or replaced with others.\r\n\r\nWe should go through our dependencies & switch to updated, maintained versions.\r\n",
+      "labels": [
+        "Technical Debt"
+      ],
+      "comments": [
+        {
+          "id": 820332200,
+          "user": "IanMayo",
+          "created_at": "2021-04-15T10:56:14Z",
+          "updated_at": "2021-04-15T10:56:14Z",
+          "body": "Assigned issue to @sandro768 \r\n\r\nI appreciate you may not feel able to verify the updates don't break anything - but I'm happy to do that."
+        },
+        {
+          "id": 821442553,
+          "user": "sandro768",
+          "created_at": "2021-04-16T18:38:35Z",
+          "updated_at": "2021-04-16T18:38:35Z",
+          "body": "Have you tried executing the `npm update` in the root of the project? We use Yarn, don't we?"
+        },
+        {
+          "id": 821825550,
+          "user": "IanMayo",
+          "created_at": "2021-04-17T13:49:54Z",
+          "updated_at": "2021-04-17T13:49:54Z",
+          "body": "Hmm, I think I've got confused between `upgrade` and `update`.  `upgrade` works on dependencies, I think `update` updates yarn/npm themselves."
+        },
+        {
+          "id": 821825896,
+          "user": "IanMayo",
+          "created_at": "2021-04-17T13:51:56Z",
+          "updated_at": "2021-04-17T13:51:56Z",
+          "body": "Aah, I've learned a little more.  I ran `yarn upgrade` - and many modules reported that they were now deprecated, and pointed us to alternative modules to use.  \r\n\r\nHere's a sample of the listing:\r\n```\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > eslint-loader@2.1.1: This loader has been deprecated. Please use eslint-webpack-plugin\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > html-webpack-plugin@4.0.0-alpha.2: please switch to a stable version\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > fsevents@1.2.4: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/server > nodemon > chokidar > fsevents@1.2.13: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > webpack-dev-server > chokidar@2.1.8: Chokidar 2 will break on node v14+. Upgrade to chokidar 3 with 15x less dependencies.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-jsonschema-form > core-js@2.6.12: core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-scripts > react-app-polyfill > core-js@2.6.4: core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > react-jsonschema-form > @babel/runtime-corejs2 > core-js@2.6.12: core-js@<3 is no longer maintained and not recommended for usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.\r\nwarning workspace-aggregator-2e6afb65-418e-4a71-903e-1aa2d25365fd > @serge/client > reactstrap > react-popper > popper.js@1.16.1: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1\r\n⠁ is\r\n```"
+        },
+        {
+          "id": 821827244,
+          "user": "IanMayo",
+          "created_at": "2021-04-17T14:00:39Z",
+          "updated_at": "2021-04-17T14:00:39Z",
+          "body": "This looks like a useful tool in this task:\r\nhttps://www.npmjs.com/package/npm-check"
+        },
+        {
+          "id": 829983340,
+          "user": "IanMayo",
+          "created_at": "2021-04-30T09:56:42Z",
+          "updated_at": "2021-04-30T09:56:42Z",
+          "body": "We have a PR that updates the dependencies AND fixes the ESLINT errors that appear after the update:\r\n#677 \r\n\r\nBut, it introduced many, many code changes.  Instead we've adopted the less risky approach of suppressing the errors, so that we can overcome them one category at a time, making more discrete changes that are easier to review/test #686 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/115856992-1354c580-a425-11eb-8614-bafd46557982.png",
+    "https://user-images.githubusercontent.com/1108513/115864929-82371c00-a42f-11eb-951e-3d0f0e5c5543.png",
+    "https://user-images.githubusercontent.com/1108513/115865498-4f415800-a430-11eb-8fe5-0456383f9689.png",
+    "https://user-images.githubusercontent.com/1108513/115866820-25893080-a432-11eb-8e67-88dfb50d6058.png",
+    "https://user-images.githubusercontent.com/1108513/100754809-6630d080-33e3-11eb-8556-cc3debb762cc.png"
+  ],
+  "number_of_changed_files": 22,
+  "total_changed_lines": 12743
+}

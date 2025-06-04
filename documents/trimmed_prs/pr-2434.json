@@ -1,0 +1,30 @@
+{
+  "number": 2434,
+  "title": "Hotfix - reduce planning assets callbacks",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-16T20:53:23Z",
+  "updated_at": "2023-02-16T21:20:39Z",
+  "closed_at": "2023-02-16T21:20:38Z",
+  "merged_at": "2023-02-16T21:20:38Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2434",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2434/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2434/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2434",
+  "body": "cache the previous set of visible rows, so we only fire `visible rows change` if there is a difference\r\n",
+  "additions": 24,
+  "deletions": 3,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 27
+}

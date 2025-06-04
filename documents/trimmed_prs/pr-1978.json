@@ -1,0 +1,142 @@
+{
+  "number": 1978,
+  "title": "1970: New Orders panel falling behind Orders List",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-28T15:18:56Z",
+  "updated_at": "2022-10-29T14:41:14Z",
+  "closed_at": "2022-10-29T14:41:13Z",
+  "merged_at": "2022-10-29T14:41:12Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1978",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1978/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1978/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1978",
+  "body": "Investigate issue #1970 ",
+  "additions": 6,
+  "deletions": 1,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1295143185,
+      "user": "IanMayo",
+      "created_at": "2022-10-28T15:34:13Z",
+      "updated_at": "2022-10-28T15:34:13Z",
+      "body": "snapshot needs updating ;-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1970
+  ],
+  "issues": [
+    {
+      "id": 1425814172,
+      "number": 1970,
+      "title": "New Orders panel falling behind Orders List",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-27T15:13:56Z",
+      "updated_at": "2022-10-29T15:08:07Z",
+      "closed_at": "2022-10-29T15:08:07Z",
+      "body": "I'm in the real game (`yarn develop`), in `P9 Test`, playing as `Blue`, `Mar-1`.\r\n\r\nI'm in the Planning Channel, with the `My Orders` tab open.\r\n\r\nWhen I expand the `New Message` panel at the bottom of the `Support Panel`, the new-message box sits behind the table of orders.\r\n\r\nIt should either sit in front of the table, or take space away from the table.  Hmm, I think taking space from the table is best, so that players can still view the other Orders items.\r\n\r\n![Screencast](https://i.gyazo.com/58fdf8631273d9a89cffaba0c911fd15.gif)\r\n\r\n",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1295057971,
+          "user": "lebaphi",
+          "created_at": "2022-10-28T14:17:28Z",
+          "updated_at": "2022-10-28T14:17:28Z",
+          "body": "Strange, It works on my machine 😂 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/198638744-97088f9e-40bc-42a6-b472-e6ea3dfe1355.mov\r\n\r\n"
+        },
+        {
+          "id": 1295069732,
+          "user": "IanMayo",
+          "created_at": "2022-10-28T14:27:31Z",
+          "updated_at": "2022-10-28T14:28:44Z",
+          "body": "Yeah @lebaphi , works for me, too.  Testing more widely.\r\n\r\nAah, there's no problem for `Game Control`. The issue arises when playing as `Mar-1`, `Mar-2`, etc."
+        },
+        {
+          "id": 1295074241,
+          "user": "lebaphi",
+          "created_at": "2022-10-28T14:31:33Z",
+          "updated_at": "2022-10-28T14:31:33Z",
+          "body": "okay, I'm checking it..."
+        },
+        {
+          "id": 1295079939,
+          "user": "lebaphi",
+          "created_at": "2022-10-28T14:36:37Z",
+          "updated_at": "2022-10-28T14:36:37Z",
+          "body": "It still works @IanMayo  😂 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/198649237-fe31802a-ad37-477c-a72d-6225ff793a98.mov\r\n\r\n"
+        },
+        {
+          "id": 1295083586,
+          "user": "IanMayo",
+          "created_at": "2022-10-28T14:39:56Z",
+          "updated_at": "2022-10-28T14:39:56Z",
+          "body": "Could you try this hosted URL please? https://serge-sql.herokuapp.com/?wargame=wargame-l6nngxlk&access=rk116f52\r\n\r\nI'm on this Chrome build:\r\n![image](https://user-images.githubusercontent.com/1108513/198651922-2391e35f-e078-4ad3-ab5a-0fb02847ce41.png)\r\n"
+        },
+        {
+          "id": 1295092190,
+          "user": "lebaphi",
+          "created_at": "2022-10-28T14:47:46Z",
+          "updated_at": "2022-10-28T14:48:26Z",
+          "body": "I'm using the same version with you but different architecture (x86_64) but I don't think it's a root cause 🤔 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/198656049-d3be333a-eacd-4720-9cc4-9e370feeb400.mov\r\n\r\n"
+        },
+        {
+          "id": 1295095371,
+          "user": "IanMayo",
+          "created_at": "2022-10-28T14:50:30Z",
+          "updated_at": "2022-10-28T14:50:30Z",
+          "body": "It's Chrome-specific, it's ok on Firefox on this mac.\r\n\r\nAre you able to take steps to \"force\" the `New Message` panel to show on top?"
+        },
+        {
+          "id": 1295102058,
+          "user": "lebaphi",
+          "created_at": "2022-10-28T14:56:31Z",
+          "updated_at": "2022-10-28T14:56:31Z",
+          "body": "yes I can update some steps to force `New Message` to show on the top but I can't verify if these steps work because I can't reproduce this issue on my machine 😂"
+        },
+        {
+          "id": 1295105469,
+          "user": "IanMayo",
+          "created_at": "2022-10-28T14:59:38Z",
+          "updated_at": "2022-10-28T14:59:38Z",
+          "body": "I know. You'll have to push to a PR, and I'll check the `deployment` 🤣 "
+        },
+        {
+          "id": 1295106032,
+          "user": "lebaphi",
+          "created_at": "2022-10-28T15:00:12Z",
+          "updated_at": "2022-10-28T15:00:12Z",
+          "body": "okay 🤣 "
+        },
+        {
+          "id": 1295865189,
+          "user": "IanMayo",
+          "created_at": "2022-10-29T15:08:07Z",
+          "updated_at": "2022-10-29T15:08:07Z",
+          "body": "Fixed in #1978 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/58fdf8631273d9a89cffaba0c911fd15.gif",
+    "https://user-images.githubusercontent.com/1108513/198651922-2391e35f-e078-4ad3-ab5a-0fb02847ce41.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 7
+}

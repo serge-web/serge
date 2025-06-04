@@ -1,0 +1,89 @@
+{
+  "number": 1466,
+  "title": "1413: Channel Creation & Deletion Bug",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-29T10:37:04Z",
+  "updated_at": "2022-03-29T16:25:23Z",
+  "closed_at": "2022-03-29T16:25:22Z",
+  "merged_at": "2022-03-29T16:25:22Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1466",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1466/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1466/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1466",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1413\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\nFixed bug and corrupted wargame\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 3,
+  "deletions": 1,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1413
+  ],
+  "issues": [
+    {
+      "id": 1167714909,
+      "number": 1413,
+      "title": "Channel Creation & Deletion Bug",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-13T22:43:00Z",
+      "updated_at": "2022-04-11T17:02:06Z",
+      "closed_at": "2022-04-11T17:02:05Z",
+      "body": "When I create a new channel and save it, a new one is instantly created without me clicking on the button.\r\nFurthermore, deleting the newly unsolicited channel actually ends up deleting the one I intentionally created. \r\n\r\nhttps://user-images.githubusercontent.com/85491794/158082311-8ee3c691-9346-4763-b993-5e18033cbbcb.mp4\r\n\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1066197830,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-13T22:45:39Z",
+          "updated_at": "2022-03-13T22:45:39Z",
+          "body": "It turns out the unsolicited channels are linked to the intentional ones. Check out how they're both selected simultaneously: \r\n\r\n![Linked Mapping Channel](https://user-images.githubusercontent.com/85491794/158082418-5729ba04-094e-451e-b5be-4c4e32b90e41.png)\r\n\r\n![Linked Channel](https://user-images.githubusercontent.com/85491794/158082422-cc93e7ac-b99a-4833-a645-48cb08b5f3c4.png)\r\n\r\n"
+        },
+        {
+          "id": 1066668086,
+          "user": "IanMayo",
+          "created_at": "2022-03-14T11:25:57Z",
+          "updated_at": "2022-03-14T11:25:57Z",
+          "body": "One for you, please @lilitkarapetyan  - this looks like a recurring issue."
+        },
+        {
+          "id": 1072753518,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-18T19:55:10Z",
+          "updated_at": "2022-03-18T19:55:48Z",
+          "body": "Another deletion bug I came accross is that the channel I hit delete on, doesn't get deleted. Rather, the 1st created one does, and the deletion proceeds in that order: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/159074636-7884010b-5671-4ff9-a3d8-94a911981bc2.mp4\r\n"
+        },
+        {
+          "id": 1077540267,
+          "user": "IanMayo",
+          "created_at": "2022-03-24T11:46:10Z",
+          "updated_at": "2022-03-24T11:46:10Z",
+          "body": "This is a proper bug, where duplicate channels (with the same id) are created.  That also explains why the \"wrong\" channel is deleted."
+        },
+        {
+          "id": 1095306970,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-11T17:02:05Z",
+          "updated_at": "2022-04-11T17:02:05Z",
+          "body": "This has been fixed. "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/158082418-5729ba04-094e-451e-b5be-4c4e32b90e41.png",
+    "https://user-images.githubusercontent.com/85491794/158082422-cc93e7ac-b99a-4833-a645-48cb08b5f3c4.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 4
+}

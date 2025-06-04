@@ -1,0 +1,64 @@
+{
+  "number": 2767,
+  "title": "2713_Reduce_complexity_handle_channel_updates_ts",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-15T12:56:01Z",
+  "updated_at": "2024-01-16T10:01:33Z",
+  "closed_at": "2024-01-15T17:24:56Z",
+  "merged_at": "2024-01-15T17:24:55Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2767",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2767/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2767/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2767",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 225,
+  "deletions": 91,
+  "changed_files": 4,
+  "labels": [
+    "Technical Debt",
+    "4p10"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1893134944,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-16T06:20:07Z",
+      "updated_at": "2024-01-16T06:20:07Z",
+      "body": "Fixes #2713 "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2713
+  ],
+  "issues": [
+    {
+      "id": 2046451994,
+      "number": 2713,
+      "title": "Reduce complexity - handle-channel-updates.ts",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-12-18T11:25:45Z",
+      "updated_at": "2024-01-16T06:20:39Z",
+      "closed_at": "2024-01-16T06:20:39Z",
+      "body": "I wish us to reduce some ocmplex methods.\r\n\r\n`handle-channel-updates.ts` contains several complex methods.\r\n\r\nI'd like these methods to be refactored into smaller modular units.  I'd like these smaller methods to be covered by unit testing.",
+      "labels": [
+        "Technical Debt",
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 316
+}

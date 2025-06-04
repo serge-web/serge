@@ -1,0 +1,50 @@
+{
+  "number": 2005,
+  "title": "Move cancel drawing to the location of the new activity popup",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-03T13:06:34Z",
+  "updated_at": "2022-11-03T13:39:32Z",
+  "closed_at": "2022-11-03T13:39:31Z",
+  "merged_at": "2022-11-03T13:39:31Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2005",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2005/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2005/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2005",
+  "body": "Fixes #1964 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/199728144-3dfb0a99-fc5b-4533-9d29-d7a56961e002.mov\r\n\r\n\r\n",
+  "additions": 23,
+  "deletions": 27,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1964
+  ],
+  "issues": [
+    {
+      "id": 1422818009,
+      "number": 1964,
+      "title": "Move `cancel drawing` to the location of the `new activity` popup",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-25T17:26:04Z",
+      "updated_at": "2022-11-03T13:39:32Z",
+      "closed_at": "2022-11-03T13:39:32Z",
+      "body": "Once the user has selected an item from the `PlanningActivityMenu`, we do not need to show it.\r\n\r\nSo, we could pass `activityBeingPlanned` to the `PlanningActivityMenu`, and not show the popup control when something is being planned. Note: if we do that, \r\n\r\nWhen we are planning an activity, we do not need to show the `new activity` popup menu.\r\n\r\nBut, when we are planning an activity, we should show the `cancel planning` button in its place.\r\n\r\nI tried this.  But, the `<item>` button wouldn't click while a line was being drawn.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 50
+}

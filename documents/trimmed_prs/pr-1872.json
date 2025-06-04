@@ -1,0 +1,52 @@
+{
+  "number": 1872,
+  "title": "1859 support mapping",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-23T14:32:08Z",
+  "updated_at": "2022-09-23T17:10:19Z",
+  "closed_at": "2022-09-23T17:10:18Z",
+  "merged_at": "2022-09-23T17:10:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1872",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1872/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1872/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1872",
+  "body": "Supports #1861 \r\n\r\nInitial steps to get _some_ data on the map",
+  "additions": 98,
+  "deletions": 26,
+  "changed_files": 12,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1859
+  ],
+  "issues": [
+    {
+      "id": 1379818666,
+      "number": 1859,
+      "title": "Introduce LeafletJS map in background of Support Panel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-20T18:18:36Z",
+      "updated_at": "2022-09-23T13:28:18Z",
+      "closed_at": "2022-09-23T13:28:18Z",
+      "body": "Now that we've got assets in the Support Panel, and we're letting users filter them, we should start displaying them on a map.\r\n\r\nThe map will replace the static image.  It will use the `leaflet` map that we already for the `mapping` channel.  See the `mapping` component.  We won't be re-using the `mapping` component, because it contains lots of complexity - and we don't need all that functionality for `SupportPanel`.  But, `mapping` may be useful for seeing how it is done.\r\n\r\nOnce we have the `SupportMapping` component working, I'll create other issues, to let us put arrays of Assets onto it. `SupportPanel` will pass these asset arrays in response to `ownForces` and `opForces` state objects.\r\n\r\nBut, for this issue, we will just be creating the `SupportMapping` component, which will have a toolbar with zoom in & zoom out.",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 12,
+  "total_changed_lines": 124
+}

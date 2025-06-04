@@ -1,0 +1,150 @@
+{
+  "number": 1632,
+  "title": "Delete annotation marker",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-22T17:53:28Z",
+  "updated_at": "2022-06-28T12:39:40Z",
+  "closed_at": "2022-06-28T12:39:40Z",
+  "merged_at": "2022-06-28T12:39:39Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1632",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1632/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1632/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1632",
+  "body": "Fixes #1628 ",
+  "additions": 122,
+  "deletions": 41,
+  "changed_files": 16,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 2,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1163438414,
+      "user": "IanMayo",
+      "created_at": "2022-06-22T17:55:47Z",
+      "updated_at": "2022-06-23T11:24:09Z",
+      "body": "@lebaphi  - I could do with some support on this tomorrow, please.\r\n\r\nYou can access the story for the `annotation marker` via `Mapping \\ Small Scale \\ Natural Earth`.\r\n\r\nThere are two things:\r\n* [x] The trash icon needs to be laid out like in the [UX](https://github.com/serge-web/serge/issues/1628#issuecomment-1163212942)\r\n* [x] I need a confirm dialog after delete is pressed. I'll try to insert a comment/note for where this would be."
+    },
+    {
+      "id": 1164293328,
+      "user": "lebaphi",
+      "created_at": "2022-06-23T11:28:33Z",
+      "updated_at": "2022-06-23T11:28:33Z",
+      "body": "@IanMayo I updated the UI, the logic delete marker is not implemented yet, do you want me to take care of it?\r\n\r\nhttps://user-images.githubusercontent.com/26705621/175288436-a0f561a2-6cc2-4f0f-93de-7acaf51b29a9.mov\r\n\r\n\r\n"
+    },
+    {
+      "id": 1164298619,
+      "user": "IanMayo",
+      "created_at": "2022-06-23T11:34:53Z",
+      "updated_at": "2022-06-23T11:34:53Z",
+      "body": "it's ok thanks @lebaphi  - I'll handle the delete :-)"
+    },
+    {
+      "id": 1165703821,
+      "user": "ShendMikullovci",
+      "created_at": "2022-06-24T15:49:33Z",
+      "updated_at": "2022-06-24T15:49:33Z",
+      "body": "Just checked deployment. Works well. Thanks guys!"
+    },
+    {
+      "id": 1168591091,
+      "user": "IanMayo",
+      "created_at": "2022-06-28T11:19:51Z",
+      "updated_at": "2022-06-28T11:19:51Z",
+      "body": "![screencast](https://i.gyazo.com/a9eec8c28ddbdfe204a1951f413f8a1a.gif)"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 904078809,
+      "user": "IanMayo",
+      "created_at": "2022-06-22T17:57:40Z",
+      "updated_at": "2022-06-22T17:57:40Z",
+      "body": "I need a delete confirmation dialog to popup when `deleteMarker` is called.  If the user cancels, then no change. If the user confirms, then the code should call a `deleteMarker` callback.  Yes - I have some naming trouble here ;-). Let's rename this handler method as `deleteMarkerHandler`.",
+      "path": "packages/components/src/local/marker-form/index.tsx",
+      "diff_hunk": "@@ -71,6 +71,10 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF\n     updateMarker(UPDATE_MARKER, payload)\n   }\n \n+  const deleteMarker = (): void => {\n+    console.log('handler to delete marker')\n+  }",
+      "html_url": "https://github.com/serge-web/serge/pull/1632#discussion_r904078809"
+    },
+    {
+      "id": 904503271,
+      "user": "lebaphi",
+      "created_at": "2022-06-23T04:19:19Z",
+      "updated_at": "2022-06-23T04:19:20Z",
+      "body": "I will take care of it @IanMayo 👍 ",
+      "path": "packages/components/src/local/marker-form/index.tsx",
+      "diff_hunk": "@@ -71,6 +71,10 @@ export const MarkerForm: React.FC<PropTypes> = ({ formData, updateMarker, closeF\n     updateMarker(UPDATE_MARKER, payload)\n   }\n \n+  const deleteMarker = (): void => {\n+    console.log('handler to delete marker')\n+  }",
+      "html_url": "https://github.com/serge-web/serge/pull/1632#discussion_r904503271"
+    }
+  ],
+  "issue_numbers": [
+    1628
+  ],
+  "issues": [
+    {
+      "id": 1279983831,
+      "number": 1628,
+      "title": "Delete Marker Feature",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-06-22T11:21:50Z",
+      "updated_at": "2022-06-28T12:40:58Z",
+      "closed_at": "2022-06-28T12:39:40Z",
+      "body": "This is our current marker editor on the bottom left: \r\n\r\n![Map SC](https://user-images.githubusercontent.com/85491794/175015116-a04dfbca-c7ec-4baf-8a3f-e4ef402e5d51.png)\r\n\r\nCurrently, we do not support a delete feature, where GC can remove the marker from the game entirely. \r\n\r\nI suggest we do so by adding a red delete button at the bottom of the editor. 3 options\r\n\r\nOption 1: \r\n\r\n![Marker Editor Option 1](https://user-images.githubusercontent.com/85491794/175015276-691a7402-6e21-4b28-95a9-95c2761a21ae.png)\r\n\r\nDelete button on the far left since the action-ability of the editor is heavily located on the right hand side. It is also consensus for MacOS, iOS and Android to have the delete button immediately after the cancel button.\r\n\r\nOption 2: \r\n\r\n![Marker Editor Option 2](https://user-images.githubusercontent.com/85491794/175015859-e5781377-e00a-4137-871d-9cffa182ba2e.png)\r\n\r\nBigger attentional impact given that 2 bright colors sit beside one another. \r\n\r\nOut of 1 and 2, I have a preference for option 1. \r\n\r\nAlso, notice that I've rendered the cancel button transparent. That is to reduce visual pollution since we're adding a red color down there.\r\n\r\nOption 3: There's also the option of having the bin placed instead of the delete button on the far left: \r\n\r\n![Marker Editor Option 3](https://user-images.githubusercontent.com/85491794/175017099-774cc8a1-edee-45d2-ad50-2dcac290c473.png)\r\n\r\nLess invasive for the eyes and somewhat of a smoother look, but not very conventional. \r\n\r\nLet me know your thoughts.\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1163105358,
+          "user": "IanMayo",
+          "created_at": "2022-06-22T13:34:03Z",
+          "updated_at": "2022-06-22T13:34:03Z",
+          "body": "Hmm, I don't expect the delete button to be used all that frequently.  So, I guess the unobtrusive trash can icon would be acceptable.\r\n\r\nIMHO we don't have enough contrast on the `CANCEL` button.  Sometimes the sun is streaming through the office windows, and it's not that easy to read the text on the wall-mounted monitor."
+        },
+        {
+          "id": 1163131607,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-22T13:55:54Z",
+          "updated_at": "2022-06-22T13:55:54Z",
+          "body": "> Sometimes the sun is streaming through the office windows, and it's not that easy to read the text on the wall-mounted monitor.\r\n\r\nWhat amazing information to know!"
+        },
+        {
+          "id": 1163212942,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-22T14:55:00Z",
+          "updated_at": "2022-06-22T14:55:00Z",
+          "body": "Here's how that would look:\r\n\r\n![Marker Editor Option 3](https://user-images.githubusercontent.com/85491794/175060917-22b1970c-f81c-47e0-a334-0c921668ad0a.png)\r\n\r\n"
+        },
+        {
+          "id": 1163217519,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-22T14:58:10Z",
+          "updated_at": "2022-06-22T14:58:10Z",
+          "body": "Also, notice the typo on the cancel button (\"canel\") in our current display. "
+        },
+        {
+          "id": 1168670602,
+          "user": "IanMayo",
+          "created_at": "2022-06-28T12:40:27Z",
+          "updated_at": "2022-06-28T12:40:58Z",
+          "body": "Re-open once #1642 is complete, so we can address the intermittent flicker when Game Control is dragging info markers"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/a9eec8c28ddbdfe204a1951f413f8a1a.gif",
+    "https://user-images.githubusercontent.com/85491794/175015116-a04dfbca-c7ec-4baf-8a3f-e4ef402e5d51.png",
+    "https://user-images.githubusercontent.com/85491794/175015276-691a7402-6e21-4b28-95a9-95c2761a21ae.png",
+    "https://user-images.githubusercontent.com/85491794/175015859-e5781377-e00a-4137-871d-9cffa182ba2e.png",
+    "https://user-images.githubusercontent.com/85491794/175017099-774cc8a1-edee-45d2-ad50-2dcac290c473.png",
+    "https://user-images.githubusercontent.com/85491794/175060917-22b1970c-f81c-47e0-a334-0c921668ad0a.png"
+  ],
+  "number_of_changed_files": 16,
+  "total_changed_lines": 163
+}

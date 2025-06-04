@@ -1,0 +1,60 @@
+{
+  "number": 1021,
+  "title": "1013 reopen closed documents",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-08-27T11:46:20Z",
+  "updated_at": "2021-09-02T08:52:25Z",
+  "closed_at": "2021-08-27T11:52:49Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1021",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1021/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1021/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1021",
+  "body": "Fixes #1013 ",
+  "additions": 137,
+  "deletions": 115,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 907145310,
+      "user": "IanMayo",
+      "created_at": "2021-08-27T11:52:49Z",
+      "updated_at": "2021-08-27T11:52:49Z",
+      "body": "Close. Doesn't include all fixes"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1013
+  ],
+  "issues": [
+    {
+      "id": 979398992,
+      "number": 1013,
+      "title": "As a Release Manager I wish to be able to re-open closed issues",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-25T16:18:36Z",
+      "updated_at": "2021-08-27T15:11:44Z",
+      "closed_at": "2021-08-27T15:11:44Z",
+      "body": "COAs and RFIs may be either `finalized` or `closed`.\r\n\r\nOn occasion, someone may wish to re-open a closed COA or RFI.  This may be because the COA needs to evolve in a later turn, or because new information come available related to an RFI.\r\n\r\nWe should support these re-open flows:\r\n![image](https://user-images.githubusercontent.com/1108513/130826821-7844e2e2-00c2-432f-9df6-a90f50d814a9.png)\r\n\r\nSteps:\r\n* [ ] change `coa-status-board` to include new `Re-open` button when document finalised. \r\n* [ ] introduce `reopen` handler, which invites player to add (optional) feedback on why document being reopeend\r\n* [ ] change `changers.ts` to introduce new changer - which moves document to relevant new status\r\n* [ ] update `changers.spec.ts` to test the changer ",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/130826821-7844e2e2-00c2-432f-9df6-a90f50d814a9.png"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 252
+}

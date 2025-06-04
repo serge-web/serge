@@ -1,0 +1,100 @@
+{
+  "number": 1950,
+  "title": "1898: Display geometry name on polygons",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-20T14:10:21Z",
+  "updated_at": "2022-10-24T11:08:26Z",
+  "closed_at": "2022-10-24T11:08:26Z",
+  "merged_at": "2022-10-24T11:08:25Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1950",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1950/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1950/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1950",
+  "body": "Fixes #1898 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/196971827-0fe2bdea-6ba6-4c68-baff-b8c0d13ac456.mov\r\n\r\n\r\n",
+  "additions": 17,
+  "deletions": 5,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1285621313,
+      "user": "IanMayo",
+      "created_at": "2022-10-20T14:12:53Z",
+      "updated_at": "2022-10-20T14:12:53Z",
+      "body": "Thanks @lebaphi - that looks like it took a lot of research.  Any chance of a transparent background for the labels?"
+    },
+    {
+      "id": 1285624465,
+      "user": "lebaphi",
+      "created_at": "2022-10-20T14:15:04Z",
+      "updated_at": "2022-10-20T14:15:04Z",
+      "body": "> Thanks @lebaphi - that looks like it took a lot of research. Any chance of a transparent background for the labels?\r\n\r\nsure @IanMayo "
+    },
+    {
+      "id": 1285738236,
+      "user": "IanMayo",
+      "created_at": "2022-10-20T15:23:27Z",
+      "updated_at": "2022-10-20T15:23:27Z",
+      "body": "Thanks @lebaphi \r\n\r\nIt works fine, but I don't really like the popup, and having to cancel the popup.  It _looks-like_ it's going to introduce some performance hit with lots of labelled polygons.\r\n\r\nCould you have a look at this method please?\r\nhttps://stackoverflow.com/questions/50856182/add-text-inside-leaflet-rectangle\r\n\r\nIt looks like it will automatically centre the text in the parent polygon."
+    },
+    {
+      "id": 1285872547,
+      "user": "lebaphi",
+      "created_at": "2022-10-20T16:56:30Z",
+      "updated_at": "2022-10-20T16:56:30Z",
+      "body": "sure @IanMayo "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1898
+  ],
+  "issues": [
+    {
+      "id": 1387320892,
+      "number": 1898,
+      "title": "Display geometry name on polygons",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-27T08:13:04Z",
+      "updated_at": "2022-10-24T11:08:27Z",
+      "closed_at": "2022-10-24T11:08:27Z",
+      "body": "For a selected set of orders [*], we should display the \"geometry name\" in the polygon, or next to the marker point.\r\n\r\n[*] we don't have orders yet",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1280708003,
+          "user": "lebaphi",
+          "created_at": "2022-10-17T11:25:15Z",
+          "updated_at": "2022-10-17T11:25:15Z",
+          "body": "could you provide some screenshots on this task @IanMayo ?"
+        },
+        {
+          "id": 1280970818,
+          "user": "IanMayo",
+          "created_at": "2022-10-17T14:39:49Z",
+          "updated_at": "2022-10-17T14:39:49Z",
+          "body": "The `Orders` objects aren't being rendered, so I have a PR in that makes them render:\r\n![image](https://user-images.githubusercontent.com/1108513/196205592-64b6f3e0-2d3f-42cc-978a-db290b01b924.png)\r\n\r\nThe issue here is that I wish the name of the polygon to be permanently visible at it's centre.  This is like how we display the name of the activity for polylines.\r\n\r\nOnce the `render orders ` [PR](https://github.com/serge-web/serge/pull/1932) is done, there will be at least two polygons on the screen (as shown above).  These polygons are generated in `SharedOrderRenderer.tsx` - in the `Polygon` block of `shapeFor`.\r\n\r\nHere is a react component which shows. a div-icon.  I _think_ that DivIcon is the way of permanently showing a span of text on the map:\r\nhttps://www.npmjs.com/package/react-leaflet-div-icon"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/196205592-64b6f3e0-2d3f-42cc-978a-db290b01b924.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 22
+}

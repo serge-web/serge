@@ -1,0 +1,30 @@
+{
+  "number": 1607,
+  "title": "Hotfix wargame list crash",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-17T14:17:46Z",
+  "updated_at": "2022-06-17T16:06:34Z",
+  "closed_at": "2022-06-17T16:06:33Z",
+  "merged_at": "2022-06-17T16:06:33Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1607",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1607/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1607/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1607",
+  "body": "Hotfix for game crashing with this error:\r\n\r\n```\r\nreact-dom.production.min.js.209\r\nTypeError: Cannot read properties of undefined (reading \"toLowerCase\")\r\nAt A (index.tsx:27:34)\r\nAt Array.filter (<anonymous>)\r\nAt P (index.tsx:46:57)\r\nAt t.WargameList (index.tsx:77:12)\r\nThen there's more ats, including $o, Mc, Al, ml, cl\r\n\r\nAnd a second error that is almost identical, except the first two lines are\r\nreact-dom.production.min.js.123\r\nUncaught TypeError: Cannot read properties of undefined (reading \"toLowerCase\")\r\n```",
+  "additions": 8,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 9
+}

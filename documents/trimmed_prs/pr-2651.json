@@ -1,0 +1,108 @@
+{
+  "number": 2651,
+  "title": "make unit tests workable",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-03-16T12:08:31Z",
+  "updated_at": "2023-11-15T11:51:37Z",
+  "closed_at": "2023-11-15T10:31:48Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2651",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2651/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2651/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2651",
+  "body": "Fixes #1731 ",
+  "additions": 1429,
+  "deletions": 2243,
+  "changed_files": 23,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 0,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1471839129,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-16T12:09:42Z",
+      "updated_at": "2023-03-16T12:09:42Z",
+      "body": "I keep working on unit test."
+    },
+    {
+      "id": 1473762091,
+      "user": "IanMayo",
+      "created_at": "2023-03-17T12:32:07Z",
+      "updated_at": "2023-03-17T12:32:07Z",
+      "body": "Hello @lilitkarapetyan - I can see how challenging this is.  I'm happy for you to comment out the tests, get the build working, and then we can steadily un-comment the tests."
+    },
+    {
+      "id": 1473783596,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-17T12:48:45Z",
+      "updated_at": "2023-03-17T12:48:45Z",
+      "body": "I will continue on Monday. "
+    },
+    {
+      "id": 1476144260,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-20T12:33:03Z",
+      "updated_at": "2023-03-20T12:33:03Z",
+      "body": "I have finished to fix bugs and refactor code for tests."
+    },
+    {
+      "id": 1812202720,
+      "user": "IanMayo",
+      "created_at": "2023-11-15T10:31:48Z",
+      "updated_at": "2023-11-15T10:31:48Z",
+      "body": "Closing this PR.  It's no longer relevant after our switch to monolith."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1731
+  ],
+  "issues": [
+    {
+      "id": 1329849945,
+      "number": 1731,
+      "title": "Re-introduce unit tests for `package/client`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-05T12:04:33Z",
+      "updated_at": "2024-01-08T12:14:20Z",
+      "closed_at": "2024-01-08T12:14:19Z",
+      "body": "I was going to fix an issue in a message handler - to ensure an unnecessary (but bulky) data object gets skipped.\r\n\r\nSo, I started by extending the existing unit test, to fail when the bulky object was present.\r\n\r\nI tried to run the test, but running the test failed.\r\n\r\nSo, the build needs to be fixed so that we have a working `yarn unit:test` in `packages/client`.",
+      "labels": [
+        "bug",
+        "Technical Debt",
+        "4watu",
+        "4p9",
+        "T-H",
+        "4p10"
+      ],
+      "comments": [
+        {
+          "id": 1589287829,
+          "user": "IanMayo",
+          "created_at": "2023-06-13T13:12:19Z",
+          "updated_at": "2023-06-13T13:12:19Z",
+          "body": "Defer this until we've moved to monolith"
+        },
+        {
+          "id": 1880887437,
+          "user": "IanMayo",
+          "created_at": "2024-01-08T12:14:20Z",
+          "updated_at": "2024-01-08T12:14:20Z",
+          "body": "This is done."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 3672
+}

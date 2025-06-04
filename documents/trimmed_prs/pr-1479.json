@@ -1,0 +1,48 @@
+{
+  "number": 1479,
+  "title": "1467 platform-type-id vs platform-type-name",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-05T09:23:50Z",
+  "updated_at": "2022-04-05T10:06:17Z",
+  "closed_at": "2022-04-05T10:06:17Z",
+  "merged_at": "2022-04-05T10:06:16Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1479",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1479/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1479/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1479",
+  "body": "Fixes #1467 - move away from storing platform-type-name and force-name, and move towards storing platform-type-id and force-id",
+  "additions": 748,
+  "deletions": 393,
+  "changed_files": 100,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1467
+  ],
+  "issues": [
+    {
+      "id": 1184788271,
+      "number": 1467,
+      "title": "Can't rename platform-type (introduce uniqid for platform-types)",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-03-29T12:26:20Z",
+      "updated_at": "2022-04-05T10:06:16Z",
+      "closed_at": "2022-04-05T10:06:16Z",
+      "body": "We currently use `platformType.name` as value in `asset.platformType`.  But, if we rename the platform type, it will make the value of `asset.platformType` invalid.\r\n\r\nSo, we need to introduce `uniqid` for platformType. That's what will be stored in `asset.platformType`.  It will allow us to rename the platform type without breaking the data.\r\n\r\nI expect changes in these areas:\r\n- create platform type\r\n- how list of platform-types is created in forces\\assets\r\n- handling of platform-type in mapping component\r\n\r\nWe'll probably need a workaround to make legacy data continue to work:\r\n- add new field `platformTypeId`\r\n- first check data for `platformTypeId`, if not present then work with `platformType`\r\n- modify `findPlatformTypeFor` to take an extra parameter - the id.\r\n\r\nAlso, we should implement \"cascading delete\" for when a platform-type is deleted.  Any assets of that platform type should be deleted, too. (as reported in #1462 )\r\n\r\n* [ ] clarify places where we store `forceId` not `force.name`.\r\n* [ ] drop `Perception.type` (but keep type-id)",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 1141
+}

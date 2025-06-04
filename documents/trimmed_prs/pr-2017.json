@@ -1,0 +1,84 @@
+{
+  "number": 2017,
+  "title": "Client-side update of Reference",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2022-11-08T13:05:16Z",
+  "updated_at": "2022-11-10T13:25:33Z",
+  "closed_at": "2022-11-10T13:20:34Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2017",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2017/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2017/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2017",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 6,
+  "deletions": 4,
+  "changed_files": 2,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1309903747,
+      "user": "IanMayo",
+      "created_at": "2022-11-10T07:56:14Z",
+      "updated_at": "2022-11-10T07:56:14Z",
+      "body": "@lilitkarapetyan - can we close this?  Are all the features for this included in the server-side generation of Reference?"
+    },
+    {
+      "id": 1310266790,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-10T13:15:21Z",
+      "updated_at": "2022-11-10T13:15:21Z",
+      "body": "> @lilitkarapetyan - can we close this? Are all the features for this included in the server-side generation of Reference?\r\n\r\nYes, we can close this PR."
+    },
+    {
+      "id": 1310279358,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-10T13:25:33Z",
+      "updated_at": "2022-11-10T13:25:33Z",
+      "body": "The only difference is the \"MessageType\" in the \"PlanningMessagesList\", I've included it in the `server-side generation of Reference`."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2010
+  ],
+  "issues": [
+    {
+      "id": 1438506724,
+      "number": 2010,
+      "title": "Client-side update of Reference",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-07T15:01:01Z",
+      "updated_at": "2022-11-12T10:36:12Z",
+      "closed_at": "2022-11-12T10:36:12Z",
+      "body": "When a new document has an empty Reference field, our code should inject the newest reference number for that force.\r\n\r\nBut, the code is currently always updating the Reference.\r\n\r\nNote: in the current wargame we're currently using `reference` instead of `Reference` - to avoid this issue.\r\n\r\nSo, I guess we need to do this:\r\n- for new message code, if there is a `Reference` in the template, but a reference isn't present, insert a `` empty string.  \r\n- in `checkReference`, see if there is an empty string in `Reference`.  If there is, generate a new reference.  Note: we can't check for `Reference === undefined` - since that would return true for templates that don't include a `Reference` field",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1312450222,
+          "user": "IanMayo",
+          "created_at": "2022-11-12T10:36:12Z",
+          "updated_at": "2022-11-12T10:36:12Z",
+          "body": "Closing. Superceded by new server-side strategy"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 10
+}

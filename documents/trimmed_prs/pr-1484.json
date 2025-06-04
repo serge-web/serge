@@ -1,0 +1,75 @@
+{
+  "number": 1484,
+  "title": "1472: Forces List Reacts to Collapsible Elements",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-06T02:49:11Z",
+  "updated_at": "2022-04-07T15:20:54Z",
+  "closed_at": "2022-04-07T15:20:53Z",
+  "merged_at": "2022-04-07T15:20:53Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1484",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1484/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1484/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1484",
+  "body": "Fixes #1472 ",
+  "additions": 1,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1090394788,
+      "user": "IanMayo",
+      "created_at": "2022-04-06T15:19:21Z",
+      "updated_at": "2022-04-06T15:19:21Z",
+      "body": "@ShendMikullovci - you reported this issue originally.  Would you mind checking it's fixed in your browser?\r\n\r\n(note: the `serge-review` instance was broken this morning. @lilitkarapetyan is working on a fix )"
+    },
+    {
+      "id": 1091838617,
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-07T14:51:32Z",
+      "updated_at": "2022-04-07T14:51:32Z",
+      "body": "Hi guys! It seems that the screen is reacting now instead of the forces list:\r\n\r\nhttps://user-images.githubusercontent.com/85491794/162227462-0f3876be-cd38-4ccc-861f-5f2b3c332ca5.mp4\r\n\r\nGiven that @phileba pointed out that this doesn't happen on MAC and that such a long name for a force would be unusual, I'd be ok with setting this aside for now. "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1472
+  ],
+  "issues": [
+    {
+      "id": 1186620131,
+      "number": 1472,
+      "title": "Forces List Reacts to Collapsible Elements",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-30T15:19:10Z",
+      "updated_at": "2022-04-07T15:20:53Z",
+      "closed_at": "2022-04-07T15:20:53Z",
+      "body": "As you can see below, the collapsible elements shrink the list width on the left. \r\n\r\nhttps://user-images.githubusercontent.com/85491794/160870278-1bb08dd5-0ed7-43dd-86b9-d049cbe3670c.mp4\r\n\r\nI suppose this is because of the scrollbar on the right-hand side being introduced by the collapsible elements. \r\nFairly low-priority, but it'd be smoother to have the screen stay still while the user is interacting with the elements.\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1089697307,
+          "user": "lebaphi",
+          "created_at": "2022-04-06T02:40:14Z",
+          "updated_at": "2022-04-06T02:41:59Z",
+          "body": "it seems only occurs on windows, I will check it 🤔 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/161884984-052f5954-6694-4abc-9df4-bdc7d8a225e4.mov\r\n\r\nand I think should apply the fix for platform types and channels tab."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 1
+}

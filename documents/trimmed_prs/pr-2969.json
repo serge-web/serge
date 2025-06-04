@@ -1,0 +1,175 @@
+{
+  "number": 2969,
+  "title": "2967 adopt expected form renderer",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-05-31T13:57:16Z",
+  "updated_at": "2024-06-11T13:25:52Z",
+  "closed_at": "2024-06-11T13:25:51Z",
+  "merged_at": "2024-06-11T13:25:51Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2969",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2969/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2969/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2969",
+  "body": "Fixes #2967 \r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 155,
+  "deletions": 354,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 11,
+  "review_comments_count": 0,
+  "total_comments": 11,
+  "comments_data": [
+    {
+      "id": 2142430093,
+      "user": "IanMayo",
+      "created_at": "2024-05-31T14:47:52Z",
+      "updated_at": "2024-05-31T14:47:52Z",
+      "body": "Thanks @lilitkarapetyan \r\n\r\nThis new control is suffering from data-loss, I think it's when the heartbeat pings:\r\nhttps://github.com/serge-web/serge/issues/2962\r\n\r\nCould you make the contents persistent please?\r\n\r\n\r\n"
+    },
+    {
+      "id": 2145234777,
+      "user": "IanMayo",
+      "created_at": "2024-06-03T13:40:20Z",
+      "updated_at": "2024-06-03T13:49:26Z",
+      "body": "@Tristina1788 - can you check that we don't lose messages after a few seconds?\r\n\r\nNote: I've confirmed locally that we don't lose messages when admin updates the wargame, or when a new message is received in that channel."
+    },
+    {
+      "id": 2146440448,
+      "user": "Tristina1788",
+      "created_at": "2024-06-04T02:15:52Z",
+      "updated_at": "2024-06-04T02:15:52Z",
+      "body": "> @Tristina1788 - can you check that we don't lose messages after a few seconds?\r\n> \r\n> Note: I've confirmed locally that we don't lose messages when admin updates the wargame, or when a new message is received in that channel.\r\n\r\n@IanMayo  Yes, It's fixed. Now the message is not reset any more \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/15ae21a1-5151-4193-bd62-fb423f647b93\r\n\r\n\r\n"
+    },
+    {
+      "id": 2146600094,
+      "user": "Tristina1788",
+      "created_at": "2024-06-04T04:42:50Z",
+      "updated_at": "2024-06-04T04:42:50Z",
+      "body": "@IanMayo @lilitkarapetyan The copy/page the text on form is not good. It will get the format of the element instead of only the value. \r\nDo you think it's the issue or we can accept it?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/620f3d8c-ff69-434a-aedc-0d4dfd54cae8)\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/cc71b3b6-187c-47c4-beb7-f3ba9f3b040c\r\n\r\n\r\n"
+    },
+    {
+      "id": 2146916774,
+      "user": "IanMayo",
+      "created_at": "2024-06-04T08:26:40Z",
+      "updated_at": "2024-06-04T08:26:40Z",
+      "body": "> @IanMayo @lilitkarapetyan The copy/page the text on form is not good. It will get the format of the element instead of only the value. Do you think it's the issue or we can accept it?\r\n> \r\n>  copy-paste-format-not-good.mp4\r\n\r\nYes it's a strange behaviour @Tristina1788  - and well done for spotting it. But, I'm not worried about it.  It is quite clear to users that the operation didn't work as expected."
+    },
+    {
+      "id": 2146978307,
+      "user": "IanMayo",
+      "created_at": "2024-06-04T08:56:09Z",
+      "updated_at": "2024-06-04T08:56:09Z",
+      "body": "Hello @lilitkarapetyan - for that copy/paste issue, can you remind me why we had the previous behaviour?"
+    },
+    {
+      "id": 2146994587,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-04T09:03:52Z",
+      "updated_at": "2024-06-04T09:05:37Z",
+      "body": "> Hello @lilitkarapetyan - for that copy/paste issue, can you remind me why we had the previous behaviour?\r\n\r\nI wrote a custom function (copyToClipboard) to easily copy schemas and uiSchemas for Storybook mock data."
+    },
+    {
+      "id": 2147169623,
+      "user": "Tristina1788",
+      "created_at": "2024-06-04T10:22:21Z",
+      "updated_at": "2024-06-04T10:22:21Z",
+      "body": "@lilitkarapetyan @IanMayo  I can copy value as expected now \r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/7d5df5db-77b9-4a11-8f65-1cfcb4b47926\r\n\r\n"
+    },
+    {
+      "id": 2152389530,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-06T13:02:40Z",
+      "updated_at": "2024-06-06T13:03:42Z",
+      "body": "@IanMayo , @Tristina1788 Note : I fixed the isues of #2972 in this PR.\r\n"
+    },
+    {
+      "id": 2154304552,
+      "user": "Tristina1788",
+      "created_at": "2024-06-07T08:00:49Z",
+      "updated_at": "2024-06-07T08:00:49Z",
+      "body": "@lilitkarapetyan  @IanMayo Now the 'Cancel' and 'Send Message' is removed from admin and user play as expected.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/ede7f0c2-ccc8-4348-8dba-97c9ceee4255)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/441c29c0-31e8-4328-86d1-a44006b5a06a)\r\n\r\n"
+    },
+    {
+      "id": 2158059553,
+      "user": "IanMayo",
+      "created_at": "2024-06-10T11:13:38Z",
+      "updated_at": "2024-06-10T11:13:38Z",
+      "body": "A couple of conflicts to resolve here, please @lilitkarapetyan "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2967,
+    2972
+  ],
+  "issues": [
+    {
+      "id": 2326051370,
+      "number": 2967,
+      "title": "Adopt expected form renderer",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-05-30T16:10:04Z",
+      "updated_at": "2024-06-13T11:38:44Z",
+      "closed_at": "2024-06-13T11:38:43Z",
+      "body": "We have adopted a graphical form builder (RJSFB):\r\nhttps://github.com/ginkgobioworks/react-json-schema-form-builder\r\n\r\nIt lets a user design a JSON Schema that will be used in the game to render a web-form.\r\n\r\nWe're rendering the form using `JSON-Editor`.  But, that expects the schema to be defined in a different way to RJFSB.  The core schema is the same, but it expect styling/layout aspects to be presented in a different way to RJFSB.\r\n\r\nSo, we should switch our forms to the component that RJFSB is expecting (RJSF):\r\nhttps://github.com/rjsf-team/react-jsonschema-form\r\n\r\nThis will mean replacing the form in both the `New Message` panel and the `template design` page in `admin`.\r\n\r\nThis work should extend the work in branch: `2892_Edit_templates_in_admin_pages`",
+      "labels": [],
+      "comments": [
+        {
+          "id": 2165407003,
+          "user": "IanMayo",
+          "created_at": "2024-06-13T11:38:43Z",
+          "updated_at": "2024-06-13T11:38:43Z",
+          "body": "This is working."
+        }
+      ]
+    },
+    {
+      "id": 2330998336,
+      "number": 2972,
+      "title": "The message which is sent should not have 'Send Message' and 'Cancel' Button",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-06-03T12:17:39Z",
+      "updated_at": "2024-06-13T12:23:36Z",
+      "closed_at": "2024-06-13T12:23:36Z",
+      "body": "## 🐞 Bug description\r\nThe message which is sent ,have 'Send Message' and 'Cancel' Button. \r\nNote : This issue only happens on branch '2892_Edit_templates_in_admin_pages'\r\n\r\n## 🔢 Steps to Reproduce\r\n1. Playing game with any role ( ex : Umpire - Game designer)\r\n2. Click on 'Blue WA' channel\r\n3. Click on some message in collab board\r\n4. Notice these message also have 'Send Message' and 'Cancel' Button although we can't use these button\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/26e2f51d-0b2e-46aa-ab2d-e23dad7ac47a)\r\n\r\n\r\n\r\n## ⚙️ Expected behavior\r\nThe message which is sent should not have 'Send Message' and 'Cancel' Button\r\n\r\n## 🖥️ Screencast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/21c5443d-5ef7-442e-8b28-b1bb0cc023cd\r\n\r\n\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug",
+        "4hat"
+      ],
+      "comments": [
+        {
+          "id": 2165403780,
+          "user": "IanMayo",
+          "created_at": "2024-06-13T11:37:23Z",
+          "updated_at": "2024-06-13T11:37:23Z",
+          "body": "Is this still an issue @Tristina1788 ?"
+        },
+        {
+          "id": 2165500785,
+          "user": "Tristina1788",
+          "created_at": "2024-06-13T12:21:41Z",
+          "updated_at": "2024-06-13T12:21:41Z",
+          "body": "> Is this still an issue @Tristina1788 ?\r\n\r\nIt's fixed.  'Cancel' and 'Send Message' is removed from admin and user play as expected.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/6062eb08-4dab-4a7c-9f5e-a3428ddf692c)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e19eb48b-6c12-48a1-8f11-769d057c86e7)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/620f3d8c-ff69-434a-aedc-0d4dfd54cae8",
+    "https://github.com/serge-web/serge/assets/107697044/ede7f0c2-ccc8-4348-8dba-97c9ceee4255",
+    "https://github.com/serge-web/serge/assets/107697044/441c29c0-31e8-4328-86d1-a44006b5a06a",
+    "https://github.com/serge-web/serge/assets/107697044/26e2f51d-0b2e-46aa-ab2d-e23dad7ac47a",
+    "https://github.com/serge-web/serge/assets/107697044/6062eb08-4dab-4a7c-9f5e-a3428ddf692c",
+    "https://github.com/serge-web/serge/assets/107697044/e19eb48b-6c12-48a1-8f11-769d057c86e7"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 509
+}

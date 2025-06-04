@@ -1,0 +1,83 @@
+{
+  "number": 2766,
+  "title": "2757 UI testing phase 3",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-12T15:48:21Z",
+  "updated_at": "2024-01-16T11:09:17Z",
+  "closed_at": "2024-01-16T11:09:16Z",
+  "merged_at": "2024-01-16T11:09:16Z",
+  "author": {
+    "login": "Tristina1788",
+    "html_url": "https://github.com/Tristina1788"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2766",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2766/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2766/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2766",
+  "body": "- Send message to channel and all role of the channel can get the message\r\n- Send message from admin and verify all role can get the message\r\n- Verify admin can get feed back from all role\r\n-  The video recording for gameplay is on attachment \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/7bd948b8-3369-43f8-b8bc-71000ac1cded\r\n\r\n\r\n",
+  "additions": 718,
+  "deletions": 19,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 2,
+  "total_comments": 2,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 1452072096,
+      "user": "IanMayo",
+      "created_at": "2024-01-15T08:46:15Z",
+      "updated_at": "2024-01-15T08:46:15Z",
+      "body": "Hello @Tristina1788  - why have we stopped checking that these channels get created?",
+      "path": "e2e/playwright_test/tests/createGame.spec.ts",
+      "diff_hunk": "@@ -79,23 +78,20 @@ test('Create a simple flow game successfully', async ({ page }) => {\n   await channelAdminPage.clickSaveRowChannelIcon('White', 'Game Control');\n   await channelAdminPage.clickSaveChannelButton();\n   await channelAdminPage.verifySaveChannelSuccess();\n-  await channelAdminPage.verifyChannelIsCreated(\"Red HQ\");\n \n   await channelAdminPage.clickaddAChannelBtn();\n   await channelAdminPage.inputNameChannel(\"Blue Chat\");\n   await channelAdminPage.inputAParticipantChannelInfors('Blue', '', '');\n   await channelAdminPage.clickSaveRowChannelIcon('Blue', '');\n   await channelAdminPage.clickSaveChannelButton();\n   await channelAdminPage.verifySaveChannelSuccess();\n-  await channelAdminPage.verifyChannelIsCreated(\"Blue Chat\");",
+      "html_url": "https://github.com/serge-web/serge/pull/2766#discussion_r1452072096"
+    },
+    {
+      "id": 1452095244,
+      "user": "Tristina1788",
+      "created_at": "2024-01-15T09:07:19Z",
+      "updated_at": "2024-01-15T09:07:19Z",
+      "body": "Hi @IanMayo , the code should not remove for verifying the channels are created. Because I works on 2 machine so somehow I miss that code. I think maybe I forgot pull before continue working. Sorry for that.",
+      "path": "e2e/playwright_test/tests/createGame.spec.ts",
+      "diff_hunk": "@@ -79,23 +78,20 @@ test('Create a simple flow game successfully', async ({ page }) => {\n   await channelAdminPage.clickSaveRowChannelIcon('White', 'Game Control');\n   await channelAdminPage.clickSaveChannelButton();\n   await channelAdminPage.verifySaveChannelSuccess();\n-  await channelAdminPage.verifyChannelIsCreated(\"Red HQ\");\n \n   await channelAdminPage.clickaddAChannelBtn();\n   await channelAdminPage.inputNameChannel(\"Blue Chat\");\n   await channelAdminPage.inputAParticipantChannelInfors('Blue', '', '');\n   await channelAdminPage.clickSaveRowChannelIcon('Blue', '');\n   await channelAdminPage.clickSaveChannelButton();\n   await channelAdminPage.verifySaveChannelSuccess();\n-  await channelAdminPage.verifyChannelIsCreated(\"Blue Chat\");",
+      "html_url": "https://github.com/serge-web/serge/pull/2766#discussion_r1452095244"
+    }
+  ],
+  "issue_numbers": [
+    2757
+  ],
+  "issues": [
+    {
+      "id": 2073856479,
+      "number": 2757,
+      "title": "UI testing - phase 3",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-01-10T08:33:52Z",
+      "updated_at": "2024-01-16T11:09:17Z",
+      "closed_at": "2024-01-16T11:09:17Z",
+      "body": "This next phase of testing is Game- play 1, that we fill in the required fields, the message gets sent, and is then displayed.  It's also important to test that another logged in player gets the update too.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/9790db2e-b4f0-4509-8bca-68d5c919645a)\r\n\r\nSteps :\r\n1. Play game with role White - Game Control\r\n2. From 'Red-HQ' tab, send new message 1\r\n3. Verify the message 1 is sent\r\n4. From 'Blue-HQ' tab, send new message 2\r\n5. Verify the message 2 is sent\r\n7. Login game play with role Red - CO\r\n8. Verify the message 1 is show on channel 'Red-HQ' \r\n9.  Login game play with role Blue - CO\r\n10. Verify the message 2 is show on channel 'Blue-HQ' \r\n11. Send a message 3 as admin\r\n12. Verify all user role can see the message 3",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1884678823,
+          "user": "IanMayo",
+          "created_at": "2024-01-10T11:34:56Z",
+          "updated_at": "2024-01-10T11:34:56Z",
+          "body": "Yes @Tristina1788  - that's all good.\r\n\r\nIn a separate test, could we also include these please:\r\n- login as blue player\r\n- send feedback message\r\n- send game admin message\r\n- verify new admin message shown\r\n- login as game control\r\n- verify feedback shown (since that tab is only visible to Game Control)\r\n\r\nFeedback is the left-hand icon in the admin section:\r\n![image](https://github.com/serge-web/serge/assets/1108513/c2262ce9-dc29-4df1-afb6-f354823f1f5f)\r\n\r\nGame Admin is the other tab in the admin section. Messages are sent using the input box at the bottom:\r\n![image](https://github.com/serge-web/serge/assets/1108513/5d359771-94f8-4e62-ac42-9cb2864cf8e1)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/9790db2e-b4f0-4509-8bca-68d5c919645a",
+    "https://github.com/serge-web/serge/assets/1108513/c2262ce9-dc29-4df1-afb6-f354823f1f5f",
+    "https://github.com/serge-web/serge/assets/1108513/5d359771-94f8-4e62-ac42-9cb2864cf8e1"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 737
+}

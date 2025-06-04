@@ -1,0 +1,80 @@
+{
+  "number": 785,
+  "title": "784 Demo task group drag",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-05-26T17:31:12Z",
+  "updated_at": "2021-07-05T12:04:35Z",
+  "closed_at": "2021-07-05T12:04:30Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/785",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/785/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/785/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/785",
+  "body": "This has been produced to demonstrate #784 ",
+  "additions": 4,
+  "deletions": 847,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 874059416,
+      "user": "IanMayo",
+      "created_at": "2021-07-05T12:04:30Z",
+      "updated_at": "2021-07-05T12:04:30Z",
+      "body": "Issue resolved."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    784
+  ],
+  "issues": [
+    {
+      "id": 902723092,
+      "number": 784,
+      "title": "Two icon drag/drop issues",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-05-26T17:30:42Z",
+      "updated_at": "2023-11-13T11:35:04Z",
+      "closed_at": "2023-11-13T11:35:04Z",
+      "body": "We have two issues related to moving platforms into / onto others.\r\n\r\nThere are two actions:\r\n* **Hosting** this is like a helicopter being put onto a ship\r\n* **Comprising** this is like two ships becoming a team (a task group)\r\n\r\nBoth are only allowed when the platforms are in the same cell.  This bit is working well.\r\n\r\nI've modified your implementation - so there is a more green shade when the operation is allowable.\r\n\r\nA new requirement means we should not let a `Task Group` _host_ another platform.  The task group is just the name of an organisation - so you can't put a helicopter onto it, for example.\r\n\r\nIn this example, SSN2 cannot be placed onto SSN3.  The drop-target is shown in Red.  But, if I still drop it, it gets added to `CTF-300`.  If something is dropped on a disabled drop-zone, nothing should happen.\r\n\r\n![screenshot](https://i.gyazo.com/c098690e38c1ff0038a3cc15c9cc368b.gif)\r\n\r\nSecond issue.\r\n\r\nI drag `SSN1` over `CTF 300` . I should be allowed to drop it onto CTF-300 (comprising), but not to the `Move onto` drop-zone.  The `move onto` drop-zone is shown as red.  But, I can still drop onto it.  When I do, it gets added as `comprising`.  I think that nothing should happen.\r\n\r\n![screenshot](https://i.gyazo.com/bcde6022fe7ce7fa60dced03a7d02346.gif)\r\n\r\nThe above interactions can be produced in this deployment: \r\nhttps://serge-demo-task-group-d-ekn98z.herokuapp.com/?wargame=wargame-koiquada&access=pkoiqzx9e\r\n\r\nThe deployment is from this branch: `demo_task_group_drag`",
+      "labels": [
+        "bug",
+        "wontfix",
+        "Mapping"
+      ],
+      "comments": [
+        {
+          "id": 874059314,
+          "user": "IanMayo",
+          "created_at": "2021-07-05T12:04:21Z",
+          "updated_at": "2021-07-05T12:04:21Z",
+          "body": "Closed in #813 "
+        },
+        {
+          "id": 874060406,
+          "user": "IanMayo",
+          "created_at": "2021-07-05T12:05:56Z",
+          "updated_at": "2021-07-05T12:05:56Z",
+          "body": "Issue #813 not closed."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/c098690e38c1ff0038a3cc15c9cc368b.gif",
+    "https://i.gyazo.com/bcde6022fe7ce7fa60dced03a7d02346.gif"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 851
+}

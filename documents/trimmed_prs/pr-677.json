@@ -1,0 +1,157 @@
+{
+  "number": 677,
+  "title": "Upgrades packages.",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-04-19T17:08:54Z",
+  "updated_at": "2022-07-11T13:29:40Z",
+  "closed_at": "2021-04-30T09:54:56Z",
+  "merged_at": null,
+  "author": {
+    "login": "sandro768",
+    "html_url": "https://github.com/sandro768"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/677",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/677/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/677/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/677",
+  "body": "----\r\n\r\n**Note:** This PR includes upgrades to packages, and fixes for all the warnings/errors produced by updated eslint.\r\n\r\nIan decided that the strategy to be followed was to suppress these new warnings, to avoid combining dependency updates and extensive code changes in one PR.\r\n\r\nThe dependency update & suppression is going to happen in another PR, and we'll keep this one as a reference for what code fixes are required.\r\n\r\n\r\n----\r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 7073,
+  "deletions": 8888,
+  "changed_files": 87,
+  "labels": [
+    "Technical Debt"
+  ],
+  "comments_count": 4,
+  "review_comments_count": 2,
+  "total_comments": 6,
+  "comments_data": [
+    {
+      "id": 822647462,
+      "user": "IanMayo",
+      "created_at": "2021-04-19T17:33:37Z",
+      "updated_at": "2021-04-19T17:33:37Z",
+      "body": "Thanks - I'll test it in a live app tomorrow.\r\n\r\nAah, hold on - I'll wait until you mark it as ready for review."
+    },
+    {
+      "id": 822650330,
+      "user": "sandro768",
+      "created_at": "2021-04-19T17:38:18Z",
+      "updated_at": "2021-04-19T17:38:18Z",
+      "body": "I will mark after I test from my end. Currently can't make it due to #678 "
+    },
+    {
+      "id": 824050888,
+      "user": "IanMayo",
+      "created_at": "2021-04-21T13:13:27Z",
+      "updated_at": "2021-04-21T13:13:27Z",
+      "body": "@sandro768  - I don't think you are blocked by #678 any more.  Can we progress this PR please?"
+    },
+    {
+      "id": 824052087,
+      "user": "sandro768",
+      "created_at": "2021-04-21T13:15:12Z",
+      "updated_at": "2021-04-21T13:15:12Z",
+      "body": "Sure, I am fixing TS and Lint errors."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 616033574,
+      "user": "IanMayo",
+      "created_at": "2021-04-19T17:17:13Z",
+      "updated_at": "2021-04-22T15:42:46Z",
+      "body": "@sandro768  - was there a reason for this switch-related change?  Personal preference?",
+      "path": "packages/client/tsconfig.json",
+      "diff_hunk": "@@ -24,8 +24,9 @@\n     \"resolveJsonModule\": true,\n     \"isolatedModules\": true,\n     \"noEmit\": true,\n-    \"jsx\": \"preserve\",\n-    \"composite\": false\n+    \"jsx\": \"react-jsx\",\n+    \"composite\": false,\n+    \"noFallthroughCasesInSwitch\": true",
+      "html_url": "https://github.com/serge-web/serge/pull/677#discussion_r616033574"
+    },
+    {
+      "id": 616037906,
+      "user": "sandro768",
+      "created_at": "2021-04-19T17:23:50Z",
+      "updated_at": "2021-04-22T15:42:46Z",
+      "body": "No, I haven't changed this file.\r\n\r\nMy guess is that it was done automatically by yarn upgrade.",
+      "path": "packages/client/tsconfig.json",
+      "diff_hunk": "@@ -24,8 +24,9 @@\n     \"resolveJsonModule\": true,\n     \"isolatedModules\": true,\n     \"noEmit\": true,\n-    \"jsx\": \"preserve\",\n-    \"composite\": false\n+    \"jsx\": \"react-jsx\",\n+    \"composite\": false,\n+    \"noFallthroughCasesInSwitch\": true",
+      "html_url": "https://github.com/serge-web/serge/pull/677#discussion_r616037906"
+    }
+  ],
+  "issue_numbers": [
+    678
+  ],
+  "issues": [
+    {
+      "id": 861580285,
+      "number": 678,
+      "title": "Errors during `yarn develop`",
+      "state": "closed",
+      "user": "sandro768",
+      "created_at": "2021-04-19T17:33:42Z",
+      "updated_at": "2021-04-21T10:48:55Z",
+      "closed_at": "2021-04-21T10:48:54Z",
+      "body": "🐞 The development server fails to compile\r\n\r\n 🖥️ Screenshots\r\n![image](https://user-images.githubusercontent.com/24352108/115278494-9096e680-a156-11eb-87c3-6c99d97fa006.png)",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 822652747,
+          "user": "IanMayo",
+          "created_at": "2021-04-19T17:42:12Z",
+          "updated_at": "2021-04-19T17:42:12Z",
+          "body": "That's a strange one. \r\n\r\nWill be on it in the morning."
+        },
+        {
+          "id": 822653280,
+          "user": "IanMayo",
+          "created_at": "2021-04-19T17:43:13Z",
+          "updated_at": "2021-04-19T17:43:13Z",
+          "body": "@sandro768  - could you remind me/us of the command you're running which produces that error, and branch that you're in please?"
+        },
+        {
+          "id": 822654414,
+          "user": "sandro768",
+          "created_at": "2021-04-19T17:45:08Z",
+          "updated_at": "2021-04-19T17:45:08Z",
+          "body": "Branch - develop\nCommand - yarn develop"
+        },
+        {
+          "id": 823116892,
+          "user": "IanMayo",
+          "created_at": "2021-04-20T09:11:39Z",
+          "updated_at": "2021-04-20T09:11:39Z",
+          "body": "Aah, sorry - I didn't spot this earlier.  Could you re-run `yarn build` first?\r\n\r\nWe need to run that before `yarn develop` (says the man who barely understands the build process ;-) )."
+        },
+        {
+          "id": 823148686,
+          "user": "sandro768",
+          "created_at": "2021-04-20T10:00:28Z",
+          "updated_at": "2021-04-20T10:00:28Z",
+          "body": "`yarn build` fixes it. Maybe we need to update the readme"
+        },
+        {
+          "id": 823154377,
+          "user": "IanMayo",
+          "created_at": "2021-04-20T10:09:30Z",
+          "updated_at": "2021-04-20T10:09:30Z",
+          "body": "Sure - how about submitting a PR that fixes the readme? (you can do it from GitHub website - just open the `readme.md` and click on the `edit` toolbar button).  You can include `fixes #678` in the PR description.  When we close it, it will close this too."
+        },
+        {
+          "id": 823967020,
+          "user": "IanMayo",
+          "created_at": "2021-04-21T10:48:54Z",
+          "updated_at": "2021-04-21T10:48:54Z",
+          "body": "Readme updated.\r\n![image](https://user-images.githubusercontent.com/1108513/115541879-8a5c5380-a297-11eb-8e7a-04dc7746c7e1.png)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/24352108/115278494-9096e680-a156-11eb-87c3-6c99d97fa006.png",
+    "https://user-images.githubusercontent.com/1108513/115541879-8a5c5380-a297-11eb-8e7a-04dc7746c7e1.png"
+  ],
+  "number_of_changed_files": 87,
+  "total_changed_lines": 15961
+}

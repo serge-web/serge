@@ -1,0 +1,50 @@
+{
+  "number": 1951,
+  "title": "introduce activity with multiple polygons",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-21T15:34:42Z",
+  "updated_at": "2022-10-21T16:14:46Z",
+  "closed_at": "2022-10-21T16:14:45Z",
+  "merged_at": "2022-10-21T16:14:45Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1951",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1951/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1951/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1951",
+  "body": "Fixes #1944 ",
+  "additions": 37,
+  "deletions": 4,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1944
+  ],
+  "issues": [
+    {
+      "id": 1414652944,
+      "number": 1944,
+      "title": "Introduce activity with two polygons",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-19T09:48:15Z",
+      "updated_at": "2022-10-21T16:14:46Z",
+      "closed_at": "2022-10-21T16:14:46Z",
+      "body": "Some activities may involve multiple polygons.\r\n\r\nOne example is Air Surveillance.  The aircraft may be flying in one box (over the sea), but searching a particular area (over land).\r\n\r\nSo, introduce activity that invites player to generate two polygons.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 41
+}

@@ -1,0 +1,52 @@
+{
+  "number": 844,
+  "title": "777 turn markers",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-17T16:48:02Z",
+  "updated_at": "2021-06-17T19:42:07Z",
+  "closed_at": "2021-06-17T19:42:06Z",
+  "merged_at": "2021-06-17T19:42:06Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/844",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/844/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/844/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/844",
+  "body": "Fixes #777 ",
+  "additions": 32,
+  "deletions": 30,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    777
+  ],
+  "issues": [
+    {
+      "id": 902262712,
+      "number": 777,
+      "title": "Newly received turn markers",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-05-26T11:45:34Z",
+      "updated_at": "2021-06-17T19:42:06Z",
+      "closed_at": "2021-06-17T19:42:06Z",
+      "body": "When we load an existing wargame, turn markers are shown inline in the channel.\r\n\r\nBut, when new turn markers are processed, the markers clumsily show up as new messages. See Turn 12 below\r\n![image](https://user-images.githubusercontent.com/1108513/119654337-41606780-be20-11eb-8409-f1aa6791ee72.png)\r\n\r\nThe code relating to this is in `handle-channel-updates.ts`.  There are two functions that reduce the list of messages:\r\n* `handleAllInitialChannelMessages` - this produces the correct style of turn markers\r\n* `handleChannelUpdates` - this adds the new `payload` message to the relevant channel\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/119654337-41606780-be20-11eb-8409-f1aa6791ee72.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 62
+}

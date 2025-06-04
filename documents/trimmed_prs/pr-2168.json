@@ -1,0 +1,77 @@
+{
+  "number": 2168,
+  "title": "Config file to run & debug Serge from VS-Code",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-17T09:11:25Z",
+  "updated_at": "2023-03-29T10:40:23Z",
+  "closed_at": "2023-03-29T10:40:22Z",
+  "merged_at": "2023-03-29T10:40:22Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2168",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2168/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2168/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2168",
+  "body": "Fixes #1858\r\nWe are able to debug:\r\n- client package\r\n- jest\r\n<img width=\"835\" alt=\"Screen Shot 2022-12-17 at 3 23 01 PM\" src=\"https://user-images.githubusercontent.com/26705621/208234880-039353ce-7ec1-4269-967a-0d4da85fa636.png\">\r\n\r\nWorking on how to debug cross packages like from clients -> components...",
+  "additions": 39,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1482995262,
+      "user": "IanMayo",
+      "created_at": "2023-03-24T15:28:05Z",
+      "updated_at": "2023-03-24T15:28:05Z",
+      "body": "@philb89 - could you give me some instructions on how to use this please?"
+    },
+    {
+      "id": 1483985534,
+      "user": "lebaphi",
+      "created_at": "2023-03-26T03:39:43Z",
+      "updated_at": "2023-03-26T03:39:43Z",
+      "body": "> @philb89 - could you give me some instructions on how to use this please?\r\n\r\nHi @IanMayo, it's pretty simple to use, so here is the steps:\r\nDebug in Client package:\r\n![Screen Shot 2023-03-26 at 9 56 58 AM](https://user-images.githubusercontent.com/26705621/227752813-2b9efa44-8b11-46ef-aef3-037baa4bdf56.png)\r\n- Click Run and Debug section (1) -> click on green button (2) to start debug mode\r\n- Run `yarn develop` from terminal\r\n![Screen Shot 2023-03-26 at 9 54 47 AM](https://user-images.githubusercontent.com/26705621/227752863-63d1f856-465a-464b-8006-fe26f2607a0f.png)\r\n- Add breakpoint in the vscode and tadaa !!!\r\n\r\nDebug unit tests with Jest is more simple, you will see 2 sections:\r\n- Jest All: run all Jest tests with debug mode\r\n- Jest Current File: run the active jest with debug mode\r\n![image](https://user-images.githubusercontent.com/26705621/227753915-8e73ce8c-6f37-4bf9-8843-9a2397f1af63.png)\r\n"
+    },
+    {
+      "id": 1488355805,
+      "user": "IanMayo",
+      "created_at": "2023-03-29T10:40:15Z",
+      "updated_at": "2023-03-29T10:40:15Z",
+      "body": "This is brilliant @lebaphi - I wish we had this years ago :-)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1858
+  ],
+  "issues": [
+    {
+      "id": 1379076228,
+      "number": 1858,
+      "title": "Config file to run & debug Serge from VS-Code",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-20T09:08:55Z",
+      "updated_at": "2023-03-29T10:40:23Z",
+      "closed_at": "2023-03-29T10:40:23Z",
+      "body": "I've just read an article that demonstrates how to debug a node-js app from within VS-Code:\r\nhttps://dev.to/profydev/how-to-debug-react-apps-with-vs-code-boost-your-debugging-productivity-1k05\r\n\r\nI've run debuggers for other languages (Java esp), and enjoyed viewing variables and setting breakpoints.\r\n\r\nHmm, but the article seems to expect a monolith repo - with all code in one folder - but we have a monorepo, with multiple packages.\r\n\r\nCould you experiment and see if its possible to produce a `launch.json` file that works for all of our packages?\r\n\r\nIf we can't do it for all of our packages, then just for `components` would be good.\r\n\r\n[Here](https://stackoverflow.com/questions/56260686/debugging-a-lerna-typescript-project-in-vscode) is an article that may be related.\r\n\r\nAah, it would also be good to configure VS-code to let us debug `Jest` unit tests,  too: https://www.basefactor.com/using-visual-studio-code-to-debug-jest-based-unit-tests\r\n\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/208234880-039353ce-7ec1-4269-967a-0d4da85fa636.png",
+    "https://user-images.githubusercontent.com/26705621/227752813-2b9efa44-8b11-46ef-aef3-037baa4bdf56.png",
+    "https://user-images.githubusercontent.com/26705621/227752863-63d1f856-465a-464b-8006-fe26f2607a0f.png",
+    "https://user-images.githubusercontent.com/26705621/227753915-8e73ce8c-6f37-4bf9-8843-9a2397f1af63.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 39
+}

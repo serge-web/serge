@@ -1,0 +1,105 @@
+{
+  "number": 965,
+  "title": "RFI Response lost if UI updates",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-07-26T14:37:19Z",
+  "updated_at": "2021-07-27T12:33:13Z",
+  "closed_at": "2021-07-27T12:25:57Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/965",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/965/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/965/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/965",
+  "body": "Fixes #944 ",
+  "additions": 16,
+  "deletions": 2,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 7,
+  "review_comments_count": 0,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 886809598,
+      "user": "IanMayo",
+      "created_at": "2021-07-26T15:36:09Z",
+      "updated_at": "2021-07-26T15:36:09Z",
+      "body": "One issue, please @lebaphi \r\n\r\nWe need to remember the private message, as well as the response.\r\n\r\n![screencast](https://i.gyazo.com/b0ca8826a15eeb2c97f42d5459acec4e.gif)"
+    },
+    {
+      "id": 886880569,
+      "user": "lebaphi",
+      "created_at": "2021-07-26T17:13:14Z",
+      "updated_at": "2021-07-26T17:13:14Z",
+      "body": "> Need to remember private message, in addition to response.\r\n\r\nFixed @IanMayo "
+    },
+    {
+      "id": 887351831,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T09:17:59Z",
+      "updated_at": "2021-07-27T09:17:59Z",
+      "body": "Hello @lebaphi - the Heroku build is failing. I see this in the error log:\r\n![image](https://user-images.githubusercontent.com/1108513/127127349-2582f5b1-4935-4858-bcf6-73b490f03745.png)\r\n\r\nI've tried to re-deploy a couple of times. Any suggestions?"
+    },
+    {
+      "id": 887394722,
+      "user": "lebaphi",
+      "created_at": "2021-07-27T10:21:56Z",
+      "updated_at": "2021-07-27T10:21:56Z",
+      "body": "> Hello @lebaphi - the Heroku build is failing. I see this in the error log:\r\n> ![image](https://user-images.githubusercontent.com/1108513/127127349-2582f5b1-4935-4858-bcf6-73b490f03745.png)\r\n> \r\n> I've tried to re-deploy a couple of times. Any suggestions?\r\n\r\nweird, let me check this 🤔 "
+    },
+    {
+      "id": 887440661,
+      "user": "lebaphi",
+      "created_at": "2021-07-27T11:40:23Z",
+      "updated_at": "2021-07-27T11:40:23Z",
+      "body": "@IanMayo the code changes look fine, `yarn build` and `yarn test-unit` passed in my local machine. Let me create a new PR to see how it goes 🤔 "
+    },
+    {
+      "id": 887446303,
+      "user": "IanMayo",
+      "created_at": "2021-07-27T11:50:11Z",
+      "updated_at": "2021-07-27T11:50:11Z",
+      "body": "> @IanMayo the code changes look fine, `yarn build` and `yarn test-unit` passed in my local machine. Let me create a new PR to see how it goes 🤔\r\n\r\nIt appears to be a fairly common error: https://www.google.com/search?q=92%25+chunk+asset+optimisation+terserplugin\r\n\r\nThere seem to be a number of causes."
+    },
+    {
+      "id": 887468753,
+      "user": "lebaphi",
+      "created_at": "2021-07-27T12:25:57Z",
+      "updated_at": "2021-07-27T12:25:57Z",
+      "body": "move to https://github.com/serge-web/serge/pull/971"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    944
+  ],
+  "issues": [
+    {
+      "id": 947670884,
+      "number": 944,
+      "title": "RFI Response lost if UI updates",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-19T13:45:30Z",
+      "updated_at": "2021-07-27T12:31:23Z",
+      "closed_at": "2021-07-27T12:31:23Z",
+      "body": "Issue #892 covered an issue where partially completed templates were lost when the UI updated (such as when receiving a new message).\r\n\r\nThis issue is also present in the RFI Editor page.\r\n\r\nSo, when a user has \"taken ownership\" of an RFI, and has partially completed their response, when a new message is received (such as a new Game Admin message), the RFI form updates, and the response is lost.\r\n\r\nThe form should not be reset.\r\n\r\nSteps to reproduce:\r\n* Login to game `CMDWK-HIGH DATA` as `Game Control`\r\n* Navigate to RFIs page\r\n* Open the `In Progress` RFI titled `Third Blue RFI`\r\n* Write some text into the `Answer` box, such as `sample response`\r\n* Write text into `Game Admin` channel, press enter\r\n* The `Sample response` is lost\r\n\r\nNote: the data for the above scenario won't be present until PR #945 merged",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/b0ca8826a15eeb2c97f42d5459acec4e.gif",
+    "https://user-images.githubusercontent.com/1108513/127127349-2582f5b1-4935-4858-bcf6-73b490f03745.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 18
+}

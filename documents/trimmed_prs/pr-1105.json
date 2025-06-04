@@ -1,0 +1,50 @@
+{
+  "number": 1105,
+  "title": "fix issue scroll positions",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-08T07:03:29Z",
+  "updated_at": "2021-09-08T07:34:04Z",
+  "closed_at": "2021-09-08T07:34:03Z",
+  "merged_at": "2021-09-08T07:34:03Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1105",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1105/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1105/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1105",
+  "body": "Fixes #1103",
+  "additions": 49,
+  "deletions": 16,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1103
+  ],
+  "issues": [
+    {
+      "id": 990717189,
+      "number": 1103,
+      "title": "Prevent COA message form scrolling to top on render",
+      "state": "closed",
+      "user": "lebaphi",
+      "created_at": "2021-09-08T05:02:24Z",
+      "updated_at": "2021-09-08T07:34:03Z",
+      "closed_at": "2021-09-08T07:34:03Z",
+      "body": "If a player is editing a COA, and a new message is received (or the player moves focus to another tab-stack), we used to lose the content of the form.\r\n\r\nDue to @lilitkarapetyan 's workaround (#1101) we no longer lose the data.\r\n\r\nBut, the form does scroll back to the top, which will annoy users (but not as much as losing their data).\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 65
+}

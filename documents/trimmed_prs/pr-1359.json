@@ -1,0 +1,125 @@
+{
+  "number": 1359,
+  "title": "1348 orientation marker data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-02-24T09:31:52Z",
+  "updated_at": "2022-03-01T16:00:17Z",
+  "closed_at": "2022-03-01T16:00:16Z",
+  "merged_at": "2022-03-01T16:00:16Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1359",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1359/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1359/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1359",
+  "body": "Fixes #1348",
+  "additions": 1534,
+  "deletions": 113,
+  "changed_files": 36,
+  "labels": [],
+  "comments_count": 6,
+  "review_comments_count": 2,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 1049782938,
+      "user": "IanMayo",
+      "created_at": "2022-02-24T11:53:33Z",
+      "updated_at": "2022-02-24T11:53:33Z",
+      "body": "That's great.\r\n\r\nThe angle it's pointing at is (temporarily) hard-coded in `assets\\index.tsx`. Could you change the `orientation` value in there and check they still align correctly please?"
+    },
+    {
+      "id": 1049863743,
+      "user": "IanMayo",
+      "created_at": "2022-02-24T13:31:09Z",
+      "updated_at": "2022-02-24T13:45:57Z",
+      "body": "Hmm, @lebaphi  - I'm seeing this. Am I doing something wrong?\r\n![image](https://user-images.githubusercontent.com/1108513/155533419-7ca6f5ad-6518-4d84-9cef-80c56cdb92bd.png)\r\n\r\n[Here](https://serge-1348-orientation--wjsqfk.herokuapp.com/storybook/?path=/story/local-localmapping--natural-earth) is story I used to make the above."
+    },
+    {
+      "id": 1049954551,
+      "user": "lebaphi",
+      "created_at": "2022-02-24T15:07:45Z",
+      "updated_at": "2022-02-24T15:26:17Z",
+      "body": "> Hmm, @lebaphi - I'm seeing this. Am I doing something wrong? ![image](https://user-images.githubusercontent.com/1108513/155533419-7ca6f5ad-6518-4d84-9cef-80c56cdb92bd.png)\r\n> \r\n> [Here](https://serge-1348-orientation--wjsqfk.herokuapp.com/storybook/?path=/story/local-localmapping--natural-earth) is story I used to make the above.\r\n\r\nYou are not wrong @IanMayo, it seems to work with `yarn develop` but not with `yarn storybook`, I guess the problem comes from the css renderer when it is compiled. I pushed the fixed already."
+    },
+    {
+      "id": 1049955212,
+      "user": "IanMayo",
+      "created_at": "2022-02-24T15:08:23Z",
+      "updated_at": "2022-02-24T15:10:43Z",
+      "body": "Thanks @lebaphi \r\n\r\nBut, the icon still isn't \"centred\" on the centre of the asset icon.  In `assets\\index.tsx` I changed the `orientation` from `320` to `220`, and got this:\r\n![image](https://user-images.githubusercontent.com/1108513/155550624-f4ccc290-161e-4523-8609-d87d19de2dfd.png)\r\n\r\nI _think_ we may have to tell the browser (or maybe leaflet) where the \"origin\" of the SVG marker is.  Hmm, maybe as discussed in the [API](https://leafletjs.com/reference.html#icon) or [blog](https://leafletjs.com/examples/custom-icons/)\r\n\r\nNo problem if that's beyond your skills/experience - it is quite \"niche\"."
+    },
+    {
+      "id": 1049993034,
+      "user": "lebaphi",
+      "created_at": "2022-02-24T15:46:35Z",
+      "updated_at": "2022-02-24T15:46:35Z",
+      "body": "> Thanks @lebaphi\r\n> \r\n> But, the icon still isn't \"centred\" on the centre of the asset icon. In `assets\\index.tsx` I changed the `orientation` from `320` to `220`, and got this: ![image](https://user-images.githubusercontent.com/1108513/155550624-f4ccc290-161e-4523-8609-d87d19de2dfd.png)\r\n> \r\n> I _think_ we may have to tell the browser (or maybe leaflet) where the \"origin\" of the SVG marker is. Hmm, maybe as discussed in the [API](https://leafletjs.com/reference.html#icon) or [blog](https://leafletjs.com/examples/custom-icons/)\r\n> \r\n> No problem if that's beyond your skills/experience - it is quite \"niche\".\r\n\r\nyes, I recognized this issue but we are rendering these 2 markers as 2 separate elements. A solution is needed to anchor one element to the center of another. I'm thinking about this."
+    },
+    {
+      "id": 1050000325,
+      "user": "IanMayo",
+      "created_at": "2022-02-24T15:54:18Z",
+      "updated_at": "2022-02-24T15:54:18Z",
+      "body": "We give the map the `lat/long` for the each icon. We give the same lat/long to put them in the same place.\r\n\r\nIt's currently using the centre of the icon rectangle as the origin. That works fine for the circular icon. But, the pointer isn't square - so when we rotate it, it is rotating around the \"geometric centre\" - not the centre of the circular part.\r\n\r\nI _think_ the `iconAnchor` code tells Leaflet/browser which xy offset to treat as the \"centre of rotation\"."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 813809166,
+      "user": "IanMayo",
+      "created_at": "2022-02-24T11:55:43Z",
+      "updated_at": "2022-02-24T11:55:44Z",
+      "body": "Aah, we're using RGB, but they are still hard-coded in the CSS.  Could you make it so we can specify the color in `index.tsx` please?\r\nI'm pretty sure it will be specified in `#f48` notation.",
+      "path": "packages/components/src/local/asset-icon/styles.module.scss",
+      "diff_hunk": "@@ -91,12 +91,8 @@ $platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,\n }\n \n .orientation {\n-  background-image: url(\"./counters/orientation-marker.svg\");\n-  background-size: 80px;\n-  fill: #f00;\n-  color: #0f0;\n-  filter: hue-rotate(244deg);\n-  background-position: 25px 25px;\n+  mask: url(\"./counters/orientation-marker.svg\");\n+  background-color: rgb(190, 48, 48);",
+      "html_url": "https://github.com/serge-web/serge/pull/1359#discussion_r813809166"
+    },
+    {
+      "id": 813809711,
+      "user": "lebaphi",
+      "created_at": "2022-02-24T11:56:29Z",
+      "updated_at": "2022-02-24T11:56:29Z",
+      "body": "okay @IanMayo",
+      "path": "packages/components/src/local/asset-icon/styles.module.scss",
+      "diff_hunk": "@@ -91,12 +91,8 @@ $platforms: agi, auxiliary, boghammer, carrier, coastal-radar-site, datum,\n }\n \n .orientation {\n-  background-image: url(\"./counters/orientation-marker.svg\");\n-  background-size: 80px;\n-  fill: #f00;\n-  color: #0f0;\n-  filter: hue-rotate(244deg);\n-  background-position: 25px 25px;\n+  mask: url(\"./counters/orientation-marker.svg\");\n+  background-color: rgb(190, 48, 48);",
+      "html_url": "https://github.com/serge-web/serge/pull/1359#discussion_r813809711"
+    }
+  ],
+  "issue_numbers": [
+    1348
+  ],
+  "issues": [
+    {
+      "id": 1138805866,
+      "number": 1348,
+      "title": "Mapping changes for close-in wargames",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-02-15T14:58:44Z",
+      "updated_at": "2022-03-01T16:33:29Z",
+      "closed_at": "2022-03-01T16:00:16Z",
+      "body": "The games that used the mapping feature in the past were performed on a map that covered 10s or hundreds of miles.\r\n\r\nIn the next wargame we wish to investigate supporting wargames running on a much smaller scale.\r\n\r\n* [x] Create wargame covering a few miles, with small hex cells\r\n* [x] Create `Asset` icon that is capable of showing current orientation (according to planned route)\r\n* [x] Create `Asset` icon that is capable of showing orientation according to some asset attribute.\r\n\r\nCalculate Asset orientation as one of these:\r\n* [x] Value of direction to next planned step, if specified\r\n* [x] Value of direction from most recent history, if specified\r\n* [x] Absolute value of attribute\r\n* [x] Value of attribute relative to heading",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1055629369,
+          "user": "IanMayo",
+          "created_at": "2022-03-01T16:33:29Z",
+          "updated_at": "2022-03-01T16:33:29Z",
+          "body": "Done, in #1359 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/155533419-7ca6f5ad-6518-4d84-9cef-80c56cdb92bd.png",
+    "https://user-images.githubusercontent.com/1108513/155550624-f4ccc290-161e-4523-8609-d87d19de2dfd.png"
+  ],
+  "number_of_changed_files": 36,
+  "total_changed_lines": 1647
+}

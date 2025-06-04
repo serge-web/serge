@@ -1,0 +1,65 @@
+{
+  "number": 1016,
+  "title": "Include some feedback data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-26T13:00:36Z",
+  "updated_at": "2021-08-26T13:34:26Z",
+  "closed_at": "2021-08-26T13:34:26Z",
+  "merged_at": "2021-08-26T13:34:26Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1016",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1016/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1016/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1016",
+  "body": "Supports #1001 \r\n\r\nProvide some sample `FeedbackItem` data in the mock data used for COA status board",
+  "additions": 24,
+  "deletions": 4,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1001
+  ],
+  "issues": [
+    {
+      "id": 974641065,
+      "number": 1001,
+      "title": "As participant in Collaborative Working, I need to see the feedback history for a message",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-19T13:03:27Z",
+      "updated_at": "2021-08-31T14:05:53Z",
+      "closed_at": "2021-08-31T14:05:53Z",
+      "body": "If I am being asked to modify a document (or it has been endorsed), then I need to view the feedback provided.\r\n\r\nI certainly need to view the most recent feedback, and optionally previous items too.\r\n\r\nThe `Channel COA message detail` component should be extended to show the feedback on a message - with date and author.\r\n\r\nI _guess_ this could be a block at the bottom of the control.  I should see the most recent feedback item, with a collapsed set of rows beneath it.  A `more` button/link should expand the feedback.\r\n\r\nI _guess_ this feedback block should _steal_ vertical space, and the JSON-Editor (enabled or disabled) should get scroll-bars when necessary.  Hmm, no. That's wrong. The status board can be of infinite length.  So, the JSON-editor can always be full height. It's the channel that has scroll bars.\r\n\r\n![mockups](https://docs.google.com/drawings/d/e/2PACX-1vS6VPxX4oPSXeiqOQmTbR5nzeKpRHj0BhUr3ZCcTuol246Ax7_HvoCHDxeZEzobWOuW_gKB-c2TLUAQ/pub?w=1065&h=638)",
+      "labels": [],
+      "comments": [
+        {
+          "id": 906384198,
+          "user": "IanMayo",
+          "created_at": "2021-08-26T12:57:40Z",
+          "updated_at": "2021-08-26T12:57:40Z",
+          "body": "Hi @lebaphi - this will be your next task please.\r\n\r\nI'm just creating a PR with feedback in the mock items - so you have something to display."
+        },
+        {
+          "id": 909270358,
+          "user": "IanMayo",
+          "created_at": "2021-08-31T14:05:36Z",
+          "updated_at": "2021-08-31T14:05:36Z",
+          "body": "Fixed in #1027 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://docs.google.com/drawings/d/e/2PACX-1vS6VPxX4oPSXeiqOQmTbR5nzeKpRHj0BhUr3ZCcTuol246Ax7_HvoCHDxeZEzobWOuW_gKB-c2TLUAQ/pub?w=1065&h=638"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 28
+}

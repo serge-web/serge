@@ -1,0 +1,32 @@
+{
+  "number": 1068,
+  "title": "Step back to previous version of json-editor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-03T16:45:36Z",
+  "updated_at": "2021-09-03T17:36:49Z",
+  "closed_at": "2021-09-03T17:36:48Z",
+  "merged_at": "2021-09-03T17:36:48Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1068",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1068/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1068/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1068",
+  "body": "Fixes issue where serge-review crashing, apparrently due to new `json-editor`\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/132040384-bd726846-f403-4035-90d9-cea365f9618b.png)\r\n",
+  "additions": 13,
+  "deletions": 16,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/132040384-bd726846-f403-4035-90d9-cea365f9618b.png"
+  ],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 29
+}

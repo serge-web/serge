@@ -1,0 +1,50 @@
+{
+  "number": 2472,
+  "title": "2471 toggle mez rings",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-22T13:23:47Z",
+  "updated_at": "2023-02-22T15:40:35Z",
+  "closed_at": "2023-02-22T15:40:34Z",
+  "merged_at": "2023-02-22T15:40:34Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2472",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2472/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2472/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2472",
+  "body": "Fixes #2471 \r\n\r\nAlso fixes timeline control.",
+  "additions": 67,
+  "deletions": 39,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2471
+  ],
+  "issues": [
+    {
+      "id": 1594961352,
+      "number": 2471,
+      "title": "Toggle view of MEZ rings",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-22T11:45:23Z",
+      "updated_at": "2023-02-22T15:40:35Z",
+      "closed_at": "2023-02-22T15:40:35Z",
+      "body": "1. Increase transparency of MEZ range rings\r\n2. Introduce toggle for viewing MEZ range rings.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 106
+}

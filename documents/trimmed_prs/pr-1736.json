@@ -1,0 +1,115 @@
+{
+  "number": 1736,
+  "title": "1706: Add configuration box to hide author message",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-06T03:07:34Z",
+  "updated_at": "2022-08-07T11:07:08Z",
+  "closed_at": "2022-08-07T11:07:07Z",
+  "merged_at": "2022-08-07T11:07:07Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1736",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1736/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1736/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1736",
+  "body": "Fixes #1706 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/183231050-e814efc9-7e4c-4af5-8f20-735beb828d11.mov\r\n\r\n\r\n",
+  "additions": 82,
+  "deletions": 27,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 3,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1207180450,
+      "user": "IanMayo",
+      "created_at": "2022-08-06T09:14:57Z",
+      "updated_at": "2022-08-06T09:14:57Z",
+      "body": "Perfect.  Good video @lebaphi :-)"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 939507036,
+      "user": "IanMayo",
+      "created_at": "2022-08-06T09:19:55Z",
+      "updated_at": "2022-08-06T09:19:56Z",
+      "body": "'Checked' is a bit vague. Could we use 'isChatAuthorHidden` and `setChatAuthorHidden` instead please?",
+      "path": "packages/components/src/local/organisms/setting-channels/index.tsx",
+      "diff_hunk": "@@ -77,6 +77,7 @@ export const SettingChannels: React.FC<PropTypes> = ({\n   const [participantKey, confirmRemoveParticipant] = useState<number>(-1)\n   const [postRemoveActionConfirmed, setPostRemoveActionConfirmed] = useState<boolean>(false)\n   const [problems, setProblems] = useState<string>('')\n+  const [isChecked, setChecked] = useState<boolean>(false)",
+      "html_url": "https://github.com/serge-web/serge/pull/1736#discussion_r939507036"
+    },
+    {
+      "id": 939507126,
+      "user": "IanMayo",
+      "created_at": "2022-08-06T09:21:44Z",
+      "updated_at": "2022-08-06T09:21:45Z",
+      "body": "this new `!` looks scary.  I'm pretty sure `ChannelMessagesList` is the component to use for `isCustomChannel`.  \r\n\r\nWill double-check code when I get chance.",
+      "path": "packages/client/src/Components/ChatChannel.tsx",
+      "diff_hunk": "@@ -88,8 +87,8 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> =\n   return (\n     <div className={channelTabClass} data-channel-id={channelId}>\n       {\n-        typeof isCustomChannel === 'boolean' && isCustomChannel\n-          ? <ChannelMessagesList \n+        typeof isCustomChannel === 'boolean' && !isCustomChannel",
+      "html_url": "https://github.com/serge-web/serge/pull/1736#discussion_r939507126"
+    },
+    {
+      "id": 939595161,
+      "user": "lebaphi",
+      "created_at": "2022-08-07T01:56:06Z",
+      "updated_at": "2022-08-07T01:56:06Z",
+      "body": "sorry @IanMayo , it's a typo, I updated",
+      "path": "packages/client/src/Components/ChatChannel.tsx",
+      "diff_hunk": "@@ -88,8 +87,8 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> =\n   return (\n     <div className={channelTabClass} data-channel-id={channelId}>\n       {\n-        typeof isCustomChannel === 'boolean' && isCustomChannel\n-          ? <ChannelMessagesList \n+        typeof isCustomChannel === 'boolean' && !isCustomChannel",
+      "html_url": "https://github.com/serge-web/serge/pull/1736#discussion_r939595161"
+    }
+  ],
+  "issue_numbers": [
+    1706
+  ],
+  "issues": [
+    {
+      "id": 1322488316,
+      "number": 1706,
+      "title": "For some games the author of a message shouldn't be visible",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-29T17:02:23Z",
+      "updated_at": "2022-08-07T11:07:08Z",
+      "closed_at": "2022-08-07T11:07:08Z",
+      "body": "For one wargame we're simulating spoken radio comms via a chat channel.\r\n\r\nIn spoken comms the identity of the person sending the message will not be known to the recipients.\r\n\r\nSo, we should have a flag in game-admin over to \"Hide identity of message authors\" in some chat channels.  So, this will mean introducing a \"options\" panel at the top of \"Chat\" rooms - like we do for `mapping` and `collab status board`.\r\n\r\nStart off with the backend data changes (Ian), then the admin page changes, then the chat channel itself.",
+      "labels": [
+        "4watu"
+      ],
+      "comments": [
+        {
+          "id": 1200425012,
+          "user": "lebaphi",
+          "created_at": "2022-07-31T13:24:40Z",
+          "updated_at": "2022-07-31T13:24:40Z",
+          "body": "do you have a design for it @IanMayo ?"
+        },
+        {
+          "id": 1200430073,
+          "user": "IanMayo",
+          "created_at": "2022-07-31T13:54:51Z",
+          "updated_at": "2022-07-31T13:54:51Z",
+          "body": "I'm happy to do.the data changes first. \nI'll decide if we need UX in a couple of days."
+        },
+        {
+          "id": 1201355182,
+          "user": "IanMayo",
+          "created_at": "2022-08-01T15:29:25Z",
+          "updated_at": "2022-08-01T15:29:25Z",
+          "body": "Helle @lebaphi \r\nI've changed the TypeScript definition for a ChatChannel, and updated the UI to render messages accordingly.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/182184854-5686432e-0212-4711-8214-eacc1e3cd9bb.png)\r\n\r\n\r\nWe just need to add a \"Configuration\" box at the top of the `setting-channels` admin page for chat channels, please.  This will be like the one for `mapping`, but will just have a text toggle (default off). The label will be `Hide message authors\". A popup info box will say \"Hide Force and Role for chat message authors\".  In `setting-channels` we currently do _special processing_ for map channels using `renderMappingConstraints`. We'll have a similar method called `renderChatOptions`.\r\n\r\nI hope that all makes sense :-)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/182184854-5686432e-0212-4711-8214-eacc1e3cd9bb.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 109
+}

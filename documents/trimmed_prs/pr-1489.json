@@ -1,0 +1,30 @@
+{
+  "number": 1489,
+  "title": "Hotfix/rcb control fixes",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-06T14:01:33Z",
+  "updated_at": "2022-04-06T15:45:52Z",
+  "closed_at": "2022-04-06T15:45:52Z",
+  "merged_at": "2022-04-06T15:45:52Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1489",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1489/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1489/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1489",
+  "body": "Minor hotfixes to RCB control.  There were some legacy flaws, particularly related to radio buttons",
+  "additions": 146,
+  "deletions": 104,
+  "changed_files": 18,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 18,
+  "total_changed_lines": 250
+}

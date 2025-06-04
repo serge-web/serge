@@ -1,0 +1,58 @@
+{
+  "number": 2270,
+  "title": "2269 refactor range rings",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-18T11:10:39Z",
+  "updated_at": "2023-01-18T12:26:06Z",
+  "closed_at": "2023-01-18T12:26:05Z",
+  "merged_at": "2023-01-18T12:26:05Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2270",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2270/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2270/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2270",
+  "body": "Fixes 2269",
+  "additions": 19,
+  "deletions": 12,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2269
+  ],
+  "issues": [
+    {
+      "id": 1537709651,
+      "number": 2269,
+      "title": "Refactor range rings",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-18T09:57:12Z",
+      "updated_at": "2023-02-16T09:56:48Z",
+      "closed_at": "2023-02-16T09:56:48Z",
+      "body": "Range rings for SAM sites are currently being rendered in a separate control for the subject assets.\r\n\r\nRender the rings alongside the icons.  So - we show rings when the relevant icon is shown.\r\n\r\nThat _probably_ means they need to go into `PlanningForces`\r\n\r\nInclude this with #2291 \r\n\r\nOk, this is what I understand for this:\r\n- we create asset icons in the `PlanningForces` component\r\n- that component has two icon create methods:\r\n    - `getRawMarkerOption`\r\n    - `getClusteredMarkerOption` \r\n- when the icon is shown as `raw` we should certainly include the range ring. We should track the `rawMarkers` state, and create a `rawRings` array of circle shapes that we offer for rendering at the same level as `MarkerCluster`.\r\n- when the icon is in a cluster we should not show the ring, but when the cluster is expanded, or when the marker doesn't need to be clustered, we should show the ring.  Note: I investigated this, and couldn't find a collection of which icons were shown as clustered, and which weren't :-(",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1432817603,
+          "user": "IanMayo",
+          "created_at": "2023-02-16T09:56:48Z",
+          "updated_at": "2023-02-16T09:56:48Z",
+          "body": "Current version satisfactory."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 31
+}

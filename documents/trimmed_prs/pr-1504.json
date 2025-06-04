@@ -1,0 +1,100 @@
+{
+  "number": 1504,
+  "title": "1376: Attribute chip size",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-13T14:50:55Z",
+  "updated_at": "2022-04-14T13:08:11Z",
+  "closed_at": "2022-04-13T20:36:38Z",
+  "merged_at": "2022-04-13T20:36:38Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1504",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1504/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1504/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1504",
+  "body": "Fixes #1376 \r\n\r\n<img width=\"305\" alt=\"Screen Shot 2022-04-13 at 9 47 38 PM\" src=\"https://user-images.githubusercontent.com/26705621/163208063-afce52d0-c9c1-4283-9898-ef6bd68a337c.png\">\r\n\r\n",
+  "additions": 35,
+  "deletions": 32,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1098170625,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T15:10:04Z",
+      "updated_at": "2022-04-13T15:10:04Z",
+      "body": "We can still lose the \"edit\" button if we make the screen more narrow.\r\n![screencast](https://i.gyazo.com/6ecf5f2ea1e60ea771f5879fc9c42747.gif)"
+    },
+    {
+      "id": 1098276748,
+      "user": "lebaphi",
+      "created_at": "2022-04-13T16:54:48Z",
+      "updated_at": "2022-04-13T16:54:48Z",
+      "body": "Can you clear cache and try again @IanMayo ?"
+    },
+    {
+      "id": 1098283773,
+      "user": "IanMayo",
+      "created_at": "2022-04-13T17:02:57Z",
+      "updated_at": "2022-04-13T17:02:57Z",
+      "body": "You're right. I was looking at an old `deployment`."
+    },
+    {
+      "id": 1099168076,
+      "user": "ShendMikullovci",
+      "created_at": "2022-04-14T13:08:10Z",
+      "updated_at": "2022-04-14T13:08:10Z",
+      "body": "Looks good on my end as well. Thanks guys!"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1376
+  ],
+  "issues": [
+    {
+      "id": 1160310980,
+      "number": 1376,
+      "title": "Attribute Chip Size",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-05T10:34:38Z",
+      "updated_at": "2022-04-13T20:36:38Z",
+      "closed_at": "2022-04-13T20:36:38Z",
+      "body": "The larger attribute chips end up scooting the \"Edit\" button far off to the right, eating up half of its display: \r\n\r\n![Attribute Chip Size Issue](https://user-images.githubusercontent.com/85491794/156879533-b772363d-2026-4f13-9bcd-8dee1b29d156.png)\r\n\r\nA good solution would be to have the edit button under the attribute chips at all times: we would avoid this issue and maintain uniformity with the rest of the buttons.",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1096854754,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-12T15:09:41Z",
+          "updated_at": "2022-04-12T15:09:41Z",
+          "body": "It appears our edit button has gone entirely outside of the screen: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/162994349-613879bc-688f-4c52-b349-47e2b9799de5.mp4\r\n\r\nIt'd be nice to have it under the attributes, in a navy blue color since it's an actionable button.\r\n"
+        },
+        {
+          "id": 1096906763,
+          "user": "IanMayo",
+          "created_at": "2022-04-12T15:54:49Z",
+          "updated_at": "2022-04-12T15:54:49Z",
+          "body": "Thanks @ShendMikullovci "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/163208063-afce52d0-c9c1-4283-9898-ef6bd68a337c.png",
+    "https://i.gyazo.com/6ecf5f2ea1e60ea771f5879fc9c42747.gif",
+    "https://user-images.githubusercontent.com/85491794/156879533-b772363d-2026-4f13-9bcd-8dee1b29d156.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 67
+}

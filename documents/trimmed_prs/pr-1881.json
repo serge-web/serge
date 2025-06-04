@@ -1,0 +1,60 @@
+{
+  "number": 1881,
+  "title": "1876 adjudication filters",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-25T16:13:36Z",
+  "updated_at": "2022-09-25T16:44:57Z",
+  "closed_at": "2022-09-25T16:44:56Z",
+  "merged_at": "2022-09-25T16:44:56Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1881",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1881/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1881/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1881",
+  "body": "Supports #1876 ",
+  "additions": 210,
+  "deletions": 417,
+  "changed_files": 17,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1876
+  ],
+  "issues": [
+    {
+      "id": 1384730620,
+      "number": 1876,
+      "title": "Adjudication Panel steps",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-24T16:17:28Z",
+      "updated_at": "2022-11-07T14:56:25Z",
+      "closed_at": "2022-11-07T14:56:25Z",
+      "body": "* [x] Map should show filtered assets, not all.  One per `PlanningForce` object\r\n* [x] SupportPanel should separate out `OpForces` and `OwnForces`\r\n* [ ] PlanningAssets should not be separating out forces. It should just get a full list of relevant assets (own or op)\r\n* [x] Filters for orders\r\n* [x] Boolean knows ID for `ISR Outcome`\r\n* [x] MapControl - don't show features if handlers not provided\r\n* [x] Include Owner column for own forces",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1305734634,
+          "user": "IanMayo",
+          "created_at": "2022-11-07T14:56:25Z",
+          "updated_at": "2022-11-07T14:56:25Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 17,
+  "total_changed_lines": 627
+}

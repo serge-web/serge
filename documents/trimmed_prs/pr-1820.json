@@ -1,0 +1,52 @@
+{
+  "number": 1820,
+  "title": "1811: Map placeholder in background of support panel",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-04T03:14:47Z",
+  "updated_at": "2022-09-05T13:23:45Z",
+  "closed_at": "2022-09-05T13:23:44Z",
+  "merged_at": "2022-09-05T13:23:44Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1820",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1820/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1820/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1820",
+  "body": "Fixes #1811 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/188295414-b1ed950c-e846-4064-80f6-e039fa30d095.mp4\r\n\r\nHi @IanMayo , the image size does not fit the screen but I tried to make it fit, that's why we see the background image looks a bit skewed\r\n",
+  "additions": 13,
+  "deletions": 6,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1811
+  ],
+  "issues": [
+    {
+      "id": 1359155607,
+      "number": 1811,
+      "title": "Map placeholder in background of support panel",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-01T17:07:31Z",
+      "updated_at": "2022-09-05T13:23:45Z",
+      "closed_at": "2022-09-05T13:23:45Z",
+      "body": "Eventually the `PlanningChannel` will have a `LeafletJS` map in the background.\r\n\r\nBut, that's not until the next phase.\r\n\r\nSo, for now we should just put a static image on the background, so we can start learning about it:\r\n![map image](https://upload.wikimedia.org/wikipedia/commons/0/0e/Europe_countries_map_en_2.png)\r\n\r\nAaah, could we have a copy of that image on our repo?  It will be useful to demonstrate what things look like on a network without an internet connection.\r\n\r\nThe SupportPanel should _float over_ the map image.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://upload.wikimedia.org/wikipedia/commons/0/0e/Europe_countries_map_en_2.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 19
+}

@@ -1,0 +1,83 @@
+{
+  "number": 2111,
+  "title": "2067 uishould reflect health",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-15T09:12:00Z",
+  "updated_at": "2022-11-15T09:50:09Z",
+  "closed_at": "2022-11-15T09:50:08Z",
+  "merged_at": "2022-11-15T09:50:08Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2111",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2111/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2111/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2111",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 27,
+  "deletions": 6,
+  "changed_files": 6,
+  "labels": [
+    "enhancement",
+    "4p9",
+    "T-H"
+  ],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1315011731,
+      "user": "IanMayo",
+      "created_at": "2022-11-15T09:13:26Z",
+      "updated_at": "2022-11-15T09:13:26Z",
+      "body": "Hello @lilitkarapetyan - can we have a screenshot please?  Could you also put `fixes #2067` in the description?  That will take away a chore for me."
+    },
+    {
+      "id": 1315027647,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-15T09:25:12Z",
+      "updated_at": "2022-11-15T09:25:12Z",
+      "body": "![Screenshot (175)](https://user-images.githubusercontent.com/20753599/201880057-5bba0624-3147-42a9-8a7b-c0543bdd6f7f.png)\r\nDraws a thick black diagonal line when the character has no health"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2067
+  ],
+  "issues": [
+    {
+      "id": 1446485574,
+      "number": 2067,
+      "title": "UI should reflect `health`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-12T15:03:58Z",
+      "updated_at": "2022-11-21T16:38:49Z",
+      "closed_at": "2022-11-21T16:38:49Z",
+      "body": "We have two concepts of health in an asset:\r\n* health field (integer, running from zero (dead) to 100 (alive) )\r\n* condition: if this takes the value of the last field in the `conditions` for the `plaform-type` - then it's dead\r\n\r\nWe should indicate the alive status of each asset in the `assets` tables and on the map.  I'm pretty sure we have styling for this, just extend it to support `health`, and check it works for our icons.\r\n\r\n**Update** - have _tried_ to do health checking, and have give some assets a zero health value in the story for `PlanningChannel`.    We just have to handle the rendering.\r\n\r\nThe new data/health-checking is in this PR: https://github.com/serge-web/serge/pull/2095",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1316493340,
+          "user": "IanMayo",
+          "created_at": "2022-11-16T07:21:14Z",
+          "updated_at": "2022-11-16T07:21:14Z",
+          "body": "done"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/20753599/201880057-5bba0624-3147-42a9-8a7b-c0543bdd6f7f.png"
+  ],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 33
+}

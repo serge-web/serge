@@ -1,0 +1,54 @@
+{
+  "number": 2735,
+  "title": "2715_Reduce_complexity_GameChannelsWithTour",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-12-28T12:26:27Z",
+  "updated_at": "2024-01-02T14:38:15Z",
+  "closed_at": "2024-01-02T14:38:14Z",
+  "merged_at": "2024-01-02T14:38:14Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2735",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2735/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2735/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2735",
+  "body": "Fixes #2715 \r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 890,
+  "deletions": 666,
+  "changed_files": 27,
+  "labels": [
+    "Technical Debt"
+  ],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2715
+  ],
+  "issues": [
+    {
+      "id": 2046490966,
+      "number": 2715,
+      "title": "Reduce complexity - GameChannelsWithTour",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-12-18T11:48:29Z",
+      "updated_at": "2024-01-02T14:38:15Z",
+      "closed_at": "2024-01-02T14:38:15Z",
+      "body": "The `GameChannelsWithTour` causes a warning related to method complexity.\r\n\r\nIt's not actually a complex method, I think the complexity is just down to the way we declare the data.\r\n\r\nWe should try refactoring the tour content, to reduce the complexity.\r\n\r\nOnce we have no methods with complexity above 12, we should introduce it as a linter error:\r\n![image](https://github.com/serge-web/serge/assets/1108513/1d8ca63c-1bff-4eb5-a944-d65a34b2667b)\r\n",
+      "labels": [
+        "Technical Debt"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/1d8ca63c-1bff-4eb5-a944-d65a34b2667b"
+  ],
+  "number_of_changed_files": 27,
+  "total_changed_lines": 1556
+}

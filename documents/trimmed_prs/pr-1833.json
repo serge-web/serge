@@ -1,0 +1,105 @@
+{
+  "number": 1833,
+  "title": "fix for assigning roles to control assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-09T17:55:09Z",
+  "updated_at": "2022-09-09T18:23:40Z",
+  "closed_at": "2022-09-09T18:23:39Z",
+  "merged_at": "2022-09-09T18:23:39Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1833",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1833/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1833/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1833",
+  "body": "Supports #1802 \r\nWell, at least it lets @ShendMikullovci specify who can control assets :-)",
+  "additions": 11,
+  "deletions": 8,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1802
+  ],
+  "issues": [
+    {
+      "id": 1357831560,
+      "number": 1802,
+      "title": "Unable to move asset in the map",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-08-31T20:25:37Z",
+      "updated_at": "2023-11-13T11:34:24Z",
+      "closed_at": "2023-11-13T11:34:24Z",
+      "body": "Can't seem to be able to plan out moves for the assets with any force. The bottom left panel won't appear when clicking on asset either: \r\n\r\n![SEA CO](https://user-images.githubusercontent.com/85491794/187775226-def13bbe-6666-4075-b53c-d9b66bba716e.png)\r\n",
+      "labels": [
+        "bug",
+        "wontfix",
+        "4watu",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1240422678,
+          "user": "IanMayo",
+          "created_at": "2022-09-08T08:51:47Z",
+          "updated_at": "2022-09-08T08:51:47Z",
+          "body": "We'll need something more reproducible, please @ShendMikullovci \r\n\r\nThat could be steps within an existing wargame (easiest to reproduce) or the steps to create the simplest wargame that experiences this issue."
+        },
+        {
+          "id": 1241220572,
+          "user": "ShendMikullovci",
+          "created_at": "2022-09-08T20:51:18Z",
+          "updated_at": "2022-09-08T20:57:39Z",
+          "body": "So this turns out to be an issue for new wargames (Test Wargame, in this example). \r\nHowever, I can't reproduce because I can't add the assets to the mapping channel: \r\n\r\n[5f961f40-6e5d-47a2-89b2-7ab30fb06816.webm](https://user-images.githubusercontent.com/85491794/189223387-4540ce80-b767-468d-9a6c-79145195d2a4.webm)\r\n\r\nIt seems like there's a problem with editing the channel. I can only add a role through the bottom of the channel. \r\n\r\nAt the end, assets are not clickable in the mapping."
+        },
+        {
+          "id": 1241784170,
+          "user": "IanMayo",
+          "created_at": "2022-09-09T10:17:09Z",
+          "updated_at": "2022-09-09T10:17:09Z",
+          "body": "Sure - will look at this - starting with the Game Admin issue."
+        },
+        {
+          "id": 1242271574,
+          "user": "IanMayo",
+          "created_at": "2022-09-09T17:36:48Z",
+          "updated_at": "2022-09-09T17:36:48Z",
+          "body": "Aah, the issue is with the earlier two forces.  It's them that have `all roles` controlling an asset.  Will improve error messaging."
+        },
+        {
+          "id": 1242305829,
+          "user": "IanMayo",
+          "created_at": "2022-09-09T18:04:06Z",
+          "updated_at": "2022-09-09T18:23:56Z",
+          "body": "Ok @ShendMikullovci . Found (and fixed) the error in specifying who can control assets.  It was mistakenly throwing an error when one `role` was specified.  The review versions on Heroku should be ready soon. Done!"
+        },
+        {
+          "id": 1242435551,
+          "user": "ShendMikullovci",
+          "created_at": "2022-09-09T20:34:22Z",
+          "updated_at": "2022-09-09T20:34:22Z",
+          "body": "I guess I'm not doing it right then. For some reason, I can't move them around during either phase. Could you show me how you do it?"
+        },
+        {
+          "id": 1244027137,
+          "user": "IanMayo",
+          "created_at": "2022-09-12T16:58:54Z",
+          "updated_at": "2022-09-12T16:58:54Z",
+          "body": "Here is a working mapping component:\r\nhttps://serge-review.herokuapp.com/storybook/?path=/story/local-mapping-smallscale--natural-earth&args=phase:planning;infoMarkers[0].position.lat:50.23249506295051;infoMarkers[0].position.lng:-19.528946616760432;infoMarkers[1].position.lat:50.24310600328171;infoMarkers[1].position.lng:-19.467288440193588;infoMarkers[2].position.lat:50.24692461728551;infoMarkers[2].position.lng:-19.570488735586327\r\n\r\nYou can select `TALN` then plan its turn. (you may have to switch to the `Blue1 - BlueCO player`, and switch Phase to `Planning`.\r\n\r\nFor the demo wargames, they may be in a state that doesn't allow planning (such as if the game isn't yet initiated).\r\n\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/187775226-def13bbe-6666-4075-b53c-d9b66bba716e.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 19
+}

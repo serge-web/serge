@@ -1,0 +1,89 @@
+{
+  "number": 2832,
+  "title": "2800_Verify_executable_generator",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-08T09:27:10Z",
+  "updated_at": "2024-02-08T13:08:37Z",
+  "closed_at": "2024-02-08T13:08:36Z",
+  "merged_at": "2024-02-08T13:08:36Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2832",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2832/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2832/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2832",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #2800\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 4,
+  "deletions": 38,
+  "changed_files": 4,
+  "labels": [
+    "Technical Debt",
+    "4p9"
+  ],
+  "comments_count": 3,
+  "review_comments_count": 1,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1933674009,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-08T09:28:12Z",
+      "updated_at": "2024-02-08T09:29:12Z",
+      "body": "Hello, **Note:**  I'm currently running a Windows operating system on my computer. I've managed to download the node_sqlite3.node file tailored for the Windows 64-bit (win64) platform successfully. I've also attempted to install it on Linux and macOS. If it doesn't work, can you  try downloading the corresponding file for Linux and macOS, using Node version 18.15.0. "
+    },
+    {
+      "id": 1933681647,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-02-08T09:32:59Z",
+      "updated_at": "2024-02-08T09:32:59Z",
+      "body": "Fixes #2800 "
+    },
+    {
+      "id": 1933684153,
+      "user": "IanMayo",
+      "created_at": "2024-02-08T09:34:29Z",
+      "updated_at": "2024-02-08T09:34:29Z",
+      "body": "Hello Lilit - we certainly aren't using those large json files in Serge anymore. You have removed the code that used them."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1482899987,
+      "user": "IanMayo",
+      "created_at": "2024-02-08T12:30:17Z",
+      "updated_at": "2024-02-08T12:30:17Z",
+      "body": "Hello @lilitkarapetyan :-)\r\n\r\nIn our current test implementation we're getting map tiles from the Internet. But, it's almost certain that future wargames will require locally hosted tiles - so we should keep the /tiles route, please.",
+      "path": "server/server.js",
+      "diff_hunk": "@@ -117,26 +116,6 @@ const runServer = (\n     res.status(200).send({ ip: req.ip })\n   })\n \n-  app.get('/cells/:filename', (req, res) => {\n-    if (dataDir) {\n-      return res.sendFile(\n-        path.join(process.cwd(), dataDir, req.params.filename)\n-      )\n-    }\n-    res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))\n-  })\n-",
+      "html_url": "https://github.com/serge-web/serge/pull/2832#discussion_r1482899987"
+    }
+  ],
+  "issue_numbers": [
+    2800
+  ],
+  "issues": [
+    {
+      "id": 2108337316,
+      "number": 2800,
+      "title": "Verify executable generator",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-01-30T16:59:13Z",
+      "updated_at": "2024-02-08T13:08:37Z",
+      "closed_at": "2024-02-08T13:08:37Z",
+      "body": "For the next wargame we're going to need to be able to deploy Serge as an executable.\r\n\r\nWe should verify the executable generator runs properly (`yarn pkg-build`), and in particular check the MS-Windows executable works.\r\n\r\nNote: it currently runs to completion, but the `macos` executable certainly fails:\r\n```\r\n./executable-macos \r\nrunning client with local server\r\n(You can give the second parameter as the remote server URL)\r\n/snapshot/serge/server/bin.js:55\r\n    throw err\r\n    ^\r\n\r\nError: Directory '/**/serge/data' was not included into executable at compilation stage. Please recompile adding it as asset or script.\r\n    at error_ENOENT (pkg/prelude/bootstrap.js:657:19)\r\n    at readdirFromSnapshot (pkg/prelude/bootstrap.js:1282:18)\r\n    at Object.readdir (pkg/prelude/bootstrap.js:1349:5)\r\n    at Object.<anonymous> (/snapshot/serge/server/bin.js:53:4)\r\n    at Module._compile (pkg/prelude/bootstrap.js:1926:22)\r\n    at Module._extensions..js (node:internal/modules/cjs/loader:1166:10)\r\n    at Module.load (node:internal/modules/cjs/loader:988:32)\r\n    at Module._load (node:internal/modules/cjs/loader:834:12)\r\n    at Function.runMain (pkg/prelude/bootstrap.js:1979:12)\r\n    at node:internal/main/run_main_module:17:47 {\r\n  errno: -2,\r\n  code: 'ENOENT',\r\n  path: '/snapshot/serge/data',\r\n  pkg: true\r\n}\r\n\r\nNode.js v18.5.0\r\n```",
+      "labels": [
+        "Technical Debt",
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 42
+}

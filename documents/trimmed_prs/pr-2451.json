@@ -1,0 +1,50 @@
+{
+  "number": 2451,
+  "title": "2397 outcome narrative labels",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-19T18:32:59Z",
+  "updated_at": "2023-02-19T19:55:50Z",
+  "closed_at": "2023-02-19T19:55:49Z",
+  "merged_at": "2023-02-19T19:55:49Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2451",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2451/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2451/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2451",
+  "body": "Fixes #2397 ",
+  "additions": 16,
+  "deletions": 26,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2397
+  ],
+  "issues": [
+    {
+      "id": 1584438646,
+      "number": 2397,
+      "title": "ISTAR model vs `Spatial Perception`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-14T16:09:37Z",
+      "updated_at": "2023-02-19T19:55:50Z",
+      "closed_at": "2023-02-19T19:55:50Z",
+      "body": "We're looking at the results of an ISTAR interaction. It shows the results of the ISTAR model, plus the results of the `Spatial Perception` checking.\r\n\r\nIt is unclear on the screen what the origins of the suggested outcomes.\r\n\r\nTidy the comments. The ISTAR model should also provide `t` - not the full lat/long.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 42
+}

@@ -1,0 +1,103 @@
+{
+  "number": 1328,
+  "title": "Initial types to support commodities",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-01-27T16:11:13Z",
+  "updated_at": "2022-02-08T14:16:04Z",
+  "closed_at": "2022-02-08T14:16:03Z",
+  "merged_at": "2022-02-08T14:16:03Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1328",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1328/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1328/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1328",
+  "body": "Fixes #1325 ",
+  "additions": 1723,
+  "deletions": 67,
+  "changed_files": 23,
+  "labels": [],
+  "comments_count": 7,
+  "review_comments_count": 0,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1029264016,
+      "user": "IanMayo",
+      "created_at": "2022-02-03T18:11:27Z",
+      "updated_at": "2022-02-03T18:11:27Z",
+      "body": "Hello @lebaphi - I think I'll be handing this branch over to you, soon.\r\n\r\nI've got the `basics` for editing commodities working in the `setting-platform-types` admin page. If you click on `fishing-vessel` you'll see the `Commodities` editor section.  It's working in the storybook.  But, I've only seen how to support a single toggle button.  As the `commodities-UI` issue describes, I now realise we need more columns in the editor: https://github.com/serge-web/serge/issues/1291#issuecomment-1029230097\r\n\r\nWe've got to wait for Shend to finish the UX for these extra columns, but it would be useful if you could modify the `Commodities` sorted-table by adding a column/text-box for `Units`. I presume this is done in `renderCommoditiesSection`."
+    },
+    {
+      "id": 1030595517,
+      "user": "IanMayo",
+      "created_at": "2022-02-05T10:23:22Z",
+      "updated_at": "2022-02-05T10:24:13Z",
+      "body": "Thanks @lebaphi .   A step forward, but we still need column headers - to understand the data.\r\n![Screenshot 2022-02-05 at 10 22 42](https://user-images.githubusercontent.com/1108513/152638235-79986c1f-73fa-4000-bc86-d5d782537263.png)\r\n\r\n"
+    },
+    {
+      "id": 1031054022,
+      "user": "lebaphi",
+      "created_at": "2022-02-07T04:12:36Z",
+      "updated_at": "2022-02-07T04:12:36Z",
+      "body": "Hi @IanMayo @ShendMikullovci , I just added the header, how do you think?\r\n\r\n<img width=\"965\" alt=\"Screen Shot 2022-02-07 at 10 55 03 AM\" src=\"https://user-images.githubusercontent.com/26705621/152723301-b470d820-460a-4d3c-9f60-98e89009f36b.png\">\r\n"
+    },
+    {
+      "id": 1031275764,
+      "user": "IanMayo",
+      "created_at": "2022-02-07T09:56:43Z",
+      "updated_at": "2022-02-07T09:56:43Z",
+      "body": "> Hi @IanMayo @ShendMikullovci , I just added the header, how do you think?\r\n> \r\n> <img alt=\"Screen Shot 2022-02-07 at 10 55 03 AM\" width=\"965\" src=\"https://user-images.githubusercontent.com/26705621/152723301-b470d820-460a-4d3c-9f60-98e89009f36b.png\">\r\n\r\nAre you able to use a row of icons, like @ShendMikullovci design [here](https://github.com/serge-web/serge/issues/1291#issuecomment-1030903575)?"
+    },
+    {
+      "id": 1031470989,
+      "user": "IanMayo",
+      "created_at": "2022-02-07T13:29:17Z",
+      "updated_at": "2022-02-07T13:29:17Z",
+      "body": "Great progress @lebaphi \r\n\r\n1. We need a column for default value\r\n2. We don't need both \"bin\" and \"cross\" buttons. _Think_ I prefer the `x` on the right-hand side\r\n3. The row becomes unstable if the name of the new commodity gets deleted.  It goes to `undefined` and can't be edited.  I guess we need to prevent the whole name being deleted\r\n4. @ShendMikullovci has come up with a set of icons for the columns.  If you create tooltips for them - I can fill in the tooltip text.\r\n5. The columns for `units` and `format` can be restricted to 5 chars.  That will allow more room for the wider fields (name and description)."
+    },
+    {
+      "id": 1031884314,
+      "user": "ShendMikullovci",
+      "created_at": "2022-02-07T20:22:31Z",
+      "updated_at": "2022-02-07T20:22:31Z",
+      "body": "> 2. We don't need both \"bin\" and \"cross\" buttons. _Think_ I prefer the `x` on the right-hand side\r\n\r\nI do too. It's much neater, though I've kept using the bin for icon uniformity. \r\n\r\nDo we need a description of the commodities? "
+    },
+    {
+      "id": 1032382784,
+      "user": "IanMayo",
+      "created_at": "2022-02-08T09:16:46Z",
+      "updated_at": "2022-02-08T09:16:46Z",
+      "body": "> Do we need a description of the commodities?\r\n\r\n\"Need\" is a bit strong. No, we don't _need_ the description. Let me check with game-designer."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1325
+  ],
+  "issues": [
+    {
+      "id": 1116093377,
+      "number": 1325,
+      "title": "Data changes for variable tracking",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-01-27T11:25:04Z",
+      "updated_at": "2022-02-08T14:16:03Z",
+      "closed_at": "2022-02-08T14:16:03Z",
+      "body": "This issue describes the data structure(s) to support variable tracking.\r\n\r\n### Strategy\r\n1. Handle different types of commodity. Initially we will have a SimpleNumber commodity that takes any floating point value.  But, in the future that could extend to support a ranged commodity (with max/min), or an integer commodity, or free-text, or something that takes one of a number of fixed text values.\r\n2. Separate into `commodity-type` and `commodity-value`. The first has the descriptive stuff & constraints.  The latter just stores the value.  In that way - we can confidently change the type details without it impacting on instances that have already been created.  The `type` and `value ` are linked by a unique `commID` reference value in the type data.\r\n\r\n\r\n```\r\nimport {\r\n  COMMODITY_TYPE_NUMBER,\r\n  COMMODITY_VALUE_NUMBER\r\n} from '@serge/config'\r\n\r\n\r\n/** the basic type details common to all commodities */\r\nexport interface BaseCommodityType {\r\n  commType: string\r\n  // human-readable name for this commodity type\r\n  name: string\r\n  // unique id for this commodity type\r\n  commId: string\r\n  // description of this type of commodity\r\n  description?: string\r\n}\r\n\r\nexport interface NumberCommodityType extends BaseCommodityType {\r\n  commType: typeof COMMODITY_TYPE_NUMBER\r\n  /** name of units to use for this type */\r\n  units?: string\r\n  /** default value to use for this commodity */\r\n  defaultValue?: number\r\n  /** how to display values for this commodity (.e.g `0.00`) */\r\n  format?: string\r\n}\r\n\r\n/** the basic type details common to all commodities */\r\nexport interface BaseCommodityValue {\r\n  commType: string\r\n  // id of this commodity (allows details to be looked up from type data)\r\n  commId: string\r\n}\r\n\r\nexport interface NumberCommodityValue extends BaseCommodityValue {\r\n  commType: typeof COMMODITY_VALUE_NUMBER\r\n  // value of this commodity\r\n  value: number\r\n}\r\n\r\n/** union of all types of commodity type */\r\nexport type CommodityType = NumberCommodityType\r\n\r\n/** union of tall types of commodity value */\r\nexport type CommodityValue = NumberCommodityValue\r\n\r\n/** collection of instances of types of commodity */\r\nexport type CommodityTypes = CommodityType[]\r\n\r\n/** collection of instances of values of commodity */\r\nexport type CommodityValues = CommodityValue[]\r\n\r\n\r\n```",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/152638235-79986c1f-73fa-4000-bc86-d5d782537263.png",
+    "https://user-images.githubusercontent.com/26705621/152723301-b470d820-460a-4d3c-9f60-98e89009f36b.png"
+  ],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 1790
+}

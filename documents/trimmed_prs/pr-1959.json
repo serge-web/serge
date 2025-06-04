@@ -1,0 +1,61 @@
+{
+  "number": 1959,
+  "title": "1955 render order detail",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-24T17:49:30Z",
+  "updated_at": "2022-10-25T12:33:04Z",
+  "closed_at": "2022-10-25T12:33:03Z",
+  "merged_at": "2022-10-25T12:33:03Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1959",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1959/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1959/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1959",
+  "body": "Fixes #1955 \r\n",
+  "additions": 587,
+  "deletions": 102,
+  "changed_files": 18,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1955
+  ],
+  "issues": [
+    {
+      "id": 1420738569,
+      "number": 1955,
+      "title": "Tidy rendering of \"special elements\" in existing orders.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-24T12:18:25Z",
+      "updated_at": "2022-10-25T12:33:04Z",
+      "closed_at": "2022-10-25T12:33:04Z",
+      "body": "We have a _clash_ in our template editing in `My Orders` tab of the the new `Planning channel`:\r\n1. We have designs for templates for the orders\r\n2. Our `ChannelPlanning` data-type includes other data that we want/need for order planning, such as `location` and `start-finish` dates.  These may not be in the template\r\n\r\nSo, when JSON-Editor tries to display a set of orders, it has to _make-up_ the UI controls for the second block of data.  It's a bit ugly:\r\n![image](https://user-images.githubusercontent.com/1108513/197538218-a8187d80-ae77-4c7e-b736-d2841740d098.png)\r\n\r\nWe could add the special fields to the templates, but things like the points in a polyline would be quite a verbose set of controls.\r\n\r\nI'm tempted to do the following:\r\n- when orders are expanded, we display them using custom UI. The custom UI will know how to tidily display our special blocks (title, location, date-time), then display the others (that come from the template) as label-value.  There would be a button to `edit location`, which would make the shapes editable (I can handle this :-) ).\r\n- then, when the player wants to edit some orders, we switch to JSON editor, but strip out the `special` fields.  When the user `saves`, re-insert the `special` fields.\r\n\r\nHere is a first attempt at a custom-UI:\r\n![image](https://user-images.githubusercontent.com/1108513/197540114-ac3e4e7e-87fe-4d53-915c-6f68012fd5dd.png)\r\n\r\n_Hopefully_ we can use some existing `card` component to create the blocks in the image.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1289389932,
+          "user": "IanMayo",
+          "created_at": "2022-10-24T17:57:14Z",
+          "updated_at": "2022-10-24T17:57:14Z",
+          "body": "Hello @lebaphi - I could do with some layout/presentation support, if/when you have time please.\r\n\r\nI've done some early work to put the data into `<Card>` objects, but they aren't rendering very nicely.  Could you please have a look at the `OrderDetail` story in the branch for this PR (#1959) - and try to sort the `OrderDetail` component layout to be like the above mockup (forget the colors 🤣 ).  Ideally, the Cards would `flow` as we resize the space available for the panel (this will equate to resizing the `My orders` tab in `Planning Channel`."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/197538218-a8187d80-ae77-4c7e-b736-d2841740d098.png",
+    "https://user-images.githubusercontent.com/1108513/197540114-ac3e4e7e-87fe-4d53-915c-6f68012fd5dd.png"
+  ],
+  "number_of_changed_files": 18,
+  "total_changed_lines": 689
+}

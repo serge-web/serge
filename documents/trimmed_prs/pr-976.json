@@ -1,0 +1,30 @@
+{
+  "number": 976,
+  "title": "Hotfix uniq ids",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-28T15:54:37Z",
+  "updated_at": "2021-07-28T17:56:05Z",
+  "closed_at": "2021-07-28T17:56:04Z",
+  "merged_at": "2021-07-28T17:56:04Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/976",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/976/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/976/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/976",
+  "body": "We've switched to using unique ids for roles.\r\n\r\nThis PR extends that usage across UI Rendering.",
+  "additions": 347,
+  "deletions": 275,
+  "changed_files": 75,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 75,
+  "total_changed_lines": 622
+}

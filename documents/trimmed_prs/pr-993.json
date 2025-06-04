@@ -1,0 +1,209 @@
+{
+  "number": 993,
+  "title": "Add SpellCheck for the TextArea element",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-08-14T11:55:02Z",
+  "updated_at": "2022-07-11T13:29:56Z",
+  "closed_at": "2021-10-05T09:30:49Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/993",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/993/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/993/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/993",
+  "body": "Fixes #904 \r\n\r\n- Add this attribute to the `textarea` element to handle spell check\r\n- JSONEditor handle it automatically",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 9,
+  "review_comments_count": 0,
+  "total_comments": 9,
+  "comments_data": [
+    {
+      "id": 899028948,
+      "user": "IanMayo",
+      "created_at": "2021-08-15T10:27:01Z",
+      "updated_at": "2021-08-15T10:27:01Z",
+      "body": "Hey, @lebaphi - I can't believe how easy that was 🤣 \r\n\r\nBut, for it to work in our formatted (template-based) editors we'll have to inject it into the form produced by `json-editor`. Could you also attempt to do that too, please?\r\n\r\nNote: @sanjayradadiya manipulated the `json-editor` form to introduce date-time editors in #940. Your code _could_ fit in with his code to _walk_ the DOM."
+    },
+    {
+      "id": 899592733,
+      "user": "lebaphi",
+      "created_at": "2021-08-16T15:14:52Z",
+      "updated_at": "2021-08-16T15:15:57Z",
+      "body": "> But, for it to work in our formatted (template-based) editors we'll have to inject it into the form produced by `json-editor`. Could you also attempt to do that too, please?\r\n\r\nHi @IanMayo , I tested in the form produced by `json-editor`, it seems the JSON Editor handled it already 🤔 \r\n<img width=\"151\" alt=\"Screen Shot 2021-08-16 at 10 15 20 PM\" src=\"https://user-images.githubusercontent.com/26705621/129587072-8269be48-5281-46df-9c3a-d0fb1d9f3239.png\">\r\n<img width=\"287\" alt=\"Screen Shot 2021-08-16 at 10 15 26 PM\" src=\"https://user-images.githubusercontent.com/26705621/129587077-60d1e978-5107-4798-8237-41dd1ca96174.png\">\r\n"
+    },
+    {
+      "id": 899650493,
+      "user": "IanMayo",
+      "created_at": "2021-08-16T16:33:56Z",
+      "updated_at": "2021-08-16T16:33:56Z",
+      "body": "Great. In that case could produce a list of the components that use `text-area` - and we can decide which ones should get spell-checking?\r\n\r\n(off the top of my head we have Game Admin, Feedback, Chat, Private-Message add-ons.  Oh, plus the `Overview` sections of the Game Admin pages)"
+    },
+    {
+      "id": 899702467,
+      "user": "lebaphi",
+      "created_at": "2021-08-16T17:53:43Z",
+      "updated_at": "2021-08-16T17:53:43Z",
+      "body": "> Great. In that case could produce a list of the components that use `text-area` - and we can decide which ones should get spell-checking?\r\n> \r\n> (off the top of my head we have Game Admin, Feedback, Chat, Private-Message add-ons. Oh, plus the `Overview` sections of the Game Admin pages)\r\n\r\nlet me check 😉"
+    },
+    {
+      "id": 901016892,
+      "user": "IanMayo",
+      "created_at": "2021-08-18T10:54:54Z",
+      "updated_at": "2021-08-18T10:54:54Z",
+      "body": "Hmm, this is strange. I've opened this old branch, and we have spell-check in all 4 text boxes I typed into:\r\nhttps://serge-854-fix-deprecate-xj2ts4.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/129886168-820b7c95-741c-4029-9d90-b34252da427f.png)\r\n"
+    },
+    {
+      "id": 901172916,
+      "user": "lebaphi",
+      "created_at": "2021-08-18T14:40:54Z",
+      "updated_at": "2021-08-18T14:40:54Z",
+      "body": "> Hmm, this is strange. I've opened this old branch, and we have spell-check in all 4 text boxes I typed into:\r\n> https://serge-854-fix-deprecate-xj2ts4.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/129886168-820b7c95-741c-4029-9d90-b34252da427f.png)\r\n\r\nyep, I think only the Private message is `textarea`, the rest is div and it was manipulated by JSON Editor with the spell-chck enabled"
+    },
+    {
+      "id": 901180429,
+      "user": "lebaphi",
+      "created_at": "2021-08-18T14:50:25Z",
+      "updated_at": "2021-08-18T14:50:25Z",
+      "body": "I just do some search and found that components that using the `textarea`:\r\n- MessageCreator: line 217 (Private messages)\r\n- Textarea: line 25"
+    },
+    {
+      "id": 901186147,
+      "user": "IanMayo",
+      "created_at": "2021-08-18T14:57:39Z",
+      "updated_at": "2021-08-18T14:57:39Z",
+      "body": "This is a deployment from `develop`.  I can't find a text area that _doesn't_ have spell-check working:\r\nhttps://serge-review.herokuapp.com/\r\n\r\nI'm not sure what made the clients come up with the requirement.\r\n"
+    },
+    {
+      "id": 934235417,
+      "user": "IanMayo",
+      "created_at": "2021-10-05T09:30:49Z",
+      "updated_at": "2021-10-05T09:30:49Z",
+      "body": "Ok, closing this issue.  The underlying issue is the Chrome is using an Internet service for spell-check.\r\n\r\nOur Serge players don't have an Internet connection - that's why spell-check isn't provided.  We need a different strategy than using the browser-default strategy."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    217,
+    940
+  ],
+  "issues": [
+    {
+      "id": 554307798,
+      "number": 217,
+      "title": "Correctly manage port number",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-01-23T17:44:59Z",
+      "updated_at": "2020-01-23T21:12:10Z",
+      "closed_at": "2020-01-23T21:12:09Z",
+      "body": "## 🧰 Ticket\r\nThe code to configure the port number was breaking the Cypress e2e tests, since Cypress builds need a port number.\r\n\r\nHowever, the fixed script broke the comms on a MS Windows installation.\r\n\r\nThis PR fixes the runtime comms on MS Windows, and is available for test on other environments, including Heroku.\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 577878888,
+          "user": "IanMayo",
+          "created_at": "2020-01-23T21:12:04Z",
+          "updated_at": "2020-01-23T21:12:04Z",
+          "body": "This version works on local, Travis (Cypress) and Heroku. Fixed!"
+        }
+      ]
+    },
+    {
+      "id": 946299037,
+      "number": 940,
+      "title": "Fixed default date entry in json editor",
+      "state": "closed",
+      "user": "sanjayradadiya",
+      "created_at": "2021-07-16T13:32:42Z",
+      "updated_at": "2021-07-27T09:37:47Z",
+      "closed_at": "2021-07-27T09:37:46Z",
+      "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #916 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![image (13)](https://user-images.githubusercontent.com/16476120/125956058-d33e80f0-eb38-4070-af3c-63738bd830ac.png)\r\n\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\ndefault date introduces to JSON editor template and format will be dd/mm/yyyy hh:mm with validation using flatpickr calendar.\r\n\r\nflatpickr calendar uses the \"window\" object during initialization in the library itself which is generated issues for admin message template preview. avoid this issue window.flatpickr object set to undefined in JsonCreator component.\r\n\r\nflatpickr property modified in code such as wrap,time_24hr,dateFormat which will be replaced once we changed this property in database for message template.\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 881538113,
+          "user": "IanMayo",
+          "created_at": "2021-07-16T15:36:53Z",
+          "updated_at": "2021-07-16T15:36:53Z",
+          "body": "Hello @sanjayradadiya  a jest snapshot failed.\r\n\r\nI don't know how familiar you are with them.  We have a snapshot in the repo that gets compared with the rendered code.  In this case the rendered `rfi-status-board` doesn't match the snapshot.  \r\n\r\nHmm, but your PR should not have changed how the status board gets rendered.  Could you have a look at the logging, and see if you can understand why the rendered code doesn't match?\r\nhttps://github.com/serge-web/serge/pull/940/checks?check_run_id=3086635185"
+        },
+        {
+          "id": 881539612,
+          "user": "IanMayo",
+          "created_at": "2021-07-16T15:39:17Z",
+          "updated_at": "2021-07-16T15:39:17Z",
+          "body": "Good start. But, it's showing the current date.  It should show the current `gameTurnTime`. In this game it's\r\n (\r\n![image](https://user-images.githubusercontent.com/1108513/125973282-ee8ac2bd-3930-48b1-ba85-5f720c9744d0.png)\r\n\r\nhttps://serge-916-inclusion-of--plpcil.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev"
+        },
+        {
+          "id": 883270582,
+          "user": "IanMayo",
+          "created_at": "2021-07-20T10:08:08Z",
+          "updated_at": "2021-07-20T10:08:08Z",
+          "body": "One more thing, please @sanjayradadiya - it is several data types that need to be given the default value:\r\nhttps://github.com/serge-web/serge/issues/916#issuecomment-877081843"
+        },
+        {
+          "id": 884664344,
+          "user": "sanjayradadiya",
+          "created_at": "2021-07-22T05:27:00Z",
+          "updated_at": "2021-07-22T05:27:00Z",
+          "body": "![image](https://user-images.githubusercontent.com/16476120/126591421-512bee31-5a81-4d20-a6fd-491bfabd4f6b.png)\r\n![image](https://user-images.githubusercontent.com/16476120/126592937-6c5ae650-cb74-4ad2-b874-039a87b77a72.png)\r\n\r\nIntroduce default date and time of gameTurnTime for JSON schema editor."
+        },
+        {
+          "id": 884932925,
+          "user": "IanMayo",
+          "created_at": "2021-07-22T13:56:07Z",
+          "updated_at": "2021-07-22T13:56:07Z",
+          "body": "Aah, I missed one item @sanjayradadiya - you need to look out for `datetime` as well as `datetime-local`, `date`, and `time`:\r\nhttps://github.com/json-editor/json-editor#format"
+        },
+        {
+          "id": 886589075,
+          "user": "IanMayo",
+          "created_at": "2021-07-26T10:45:32Z",
+          "updated_at": "2021-07-26T10:45:32Z",
+          "body": "@sanjayradadiya - we still have a bit to do here, please:\r\nhttps://github.com/serge-web/serge/pull/940#issuecomment-884932925"
+        },
+        {
+          "id": 886779659,
+          "user": "IanMayo",
+          "created_at": "2021-07-26T15:01:06Z",
+          "updated_at": "2021-07-26T15:01:21Z",
+          "body": "Hello @sanjayradadiya   - I've modified the `weather` template in `TallMsg` to include a range of date and datetime control types.  You'll need to pull the branch to get the new `weather` template.\r\n\r\n`datetime-local` is working, but not `datetime`.   No popup appears.  The others all work fine :-)\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/127011479-9f9f3256-1368-46cf-861c-186f124693e1.png)\r\n\r\n"
+        },
+        {
+          "id": 887233888,
+          "user": "sanjayradadiya",
+          "created_at": "2021-07-27T06:01:25Z",
+          "updated_at": "2021-07-27T06:01:25Z",
+          "body": "> Hello @sanjayradadiya - I've modified the `weather` template in `TallMsg` to include a range of date and datetime control types. You'll need to pull the branch to get the new `weather` template.\r\n> \r\n> `datetime-local` is working, but not `datetime`. No popup appears. The others all work fine :-)\r\n> \r\n> ![image](https://user-images.githubusercontent.com/1108513/127011479-9f9f3256-1368-46cf-861c-186f124693e1.png)\r\n\r\nHTML5 supports only date, time, datetime-local which is mentioned in the below link.\r\n\thttps://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local\r\n\r\n@json-editor/json-editor has mentioned datetime and datetime-local in the below link.\r\n\thttps://github.com/json-editor/json-editor#format\r\n\r\nboth datetime and datetime-local are pointed to the same format like \"datetime-local\" mentioned in the below link. they didn't use \"datetime\" format anywhere.\r\n\tCode: https://github.com/json-editor/json-editor/blob/master/docs/datetime.html#L156\r\n\tView: https://json-editor.github.io/json-editor/datetime.html"
+        },
+        {
+          "id": 887315930,
+          "user": "IanMayo",
+          "created_at": "2021-07-27T08:24:59Z",
+          "updated_at": "2021-07-27T08:24:59Z",
+          "body": "Hey, well-researched @sanjayradadiya  :-)\r\n\r\nCould you remove the (mistaken) support for `datetime` in the PR please, and I'll get it merged?"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/129587072-8269be48-5281-46df-9c3a-d0fb1d9f3239.png",
+    "https://user-images.githubusercontent.com/26705621/129587077-60d1e978-5107-4798-8237-41dd1ca96174.png",
+    "https://user-images.githubusercontent.com/1108513/129886168-820b7c95-741c-4029-9d90-b34252da427f.png",
+    "https://user-images.githubusercontent.com/16476120/125956058-d33e80f0-eb38-4070-af3c-63738bd830ac.png",
+    "https://user-images.githubusercontent.com/1108513/125973282-ee8ac2bd-3930-48b1-ba85-5f720c9744d0.png",
+    "https://user-images.githubusercontent.com/16476120/126591421-512bee31-5a81-4d20-a6fd-491bfabd4f6b.png",
+    "https://user-images.githubusercontent.com/16476120/126592937-6c5ae650-cb74-4ad2-b874-039a87b77a72.png",
+    "https://user-images.githubusercontent.com/1108513/127011479-9f9f3256-1368-46cf-861c-186f124693e1.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

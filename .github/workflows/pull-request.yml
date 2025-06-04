@@ -41,12 +41,41 @@ jobs:
       - name : Running unit testing
         run: yarn test-unit
       
-      # NOTE: comment out playwright until branch matures  
-      # - name: Install Playwright
-      #  run: npx playwright install --with-deps
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libasound2 \
+            libatk-bridge2.0-0 \
+            libatk1.3-0 \
+            libatspi2.0-0 \
+            libcups2 \
+            libdrm2 \
+            libgbm1 \
+            libgtk-3-0 \
+            libnspr4 \
+            libnss3 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxkbcommon0 \
+            libxrandr2 \
+            libxshmfence1 \
+            libxss1 \
+            libxtst6 \
+            xvfb \
+            libx264-dev \
+            libffi-dev
 
-      # - name : Running playwright testing
-      #  run: setsid yarn develop >/dev/null 2>&1 < /dev/null & sleep 1m & yarn test-playwright
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Running playwright testing
+        run: |
+          export DISPLAY=:99
+          Xvfb :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+          setsid yarn develop >/dev/null 2>&1 < /dev/null & 
+          sleep 1m && yarn test-playwright
         
       - name: Upload artifact
         uses: actions/upload-artifact@v4

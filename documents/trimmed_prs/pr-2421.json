@@ -1,0 +1,50 @@
+{
+  "number": 2421,
+  "title": "2387 relax constraints",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-15T18:34:15Z",
+  "updated_at": "2023-02-15T20:06:02Z",
+  "closed_at": "2023-02-15T20:06:00Z",
+  "merged_at": "2023-02-15T20:06:00Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2421",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2421/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2421/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2421",
+  "body": "Fixes #2387 ",
+  "additions": 4,
+  "deletions": 11,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2387
+  ],
+  "issues": [
+    {
+      "id": 1583930600,
+      "number": 2387,
+      "title": "Relax geographic constraints",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-14T10:50:27Z",
+      "updated_at": "2023-02-15T20:06:02Z",
+      "closed_at": "2023-02-15T20:06:02Z",
+      "body": "Because of the original mapping available, the map is restricted to the operating area.  But, forces may be able to send assets to wider parts of the world (including UK).\r\n\r\nRelax the constraints, and test with OpenStreetMap background data.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 15
+}

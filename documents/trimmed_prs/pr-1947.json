@@ -1,0 +1,50 @@
+{
+  "number": 1947,
+  "title": "1946 cancel planning icon",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-19T10:37:02Z",
+  "updated_at": "2022-10-19T11:22:01Z",
+  "closed_at": "2022-10-19T11:22:00Z",
+  "merged_at": "2022-10-19T11:22:00Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1947",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1947/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1947/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1947",
+  "body": "Fixes #1946 ",
+  "additions": 3,
+  "deletions": 179,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1946
+  ],
+  "issues": [
+    {
+      "id": 1414662303,
+      "number": 1946,
+      "title": "Improve icon for Cancel activity planning",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-10-19T09:53:16Z",
+      "updated_at": "2022-10-19T11:22:01Z",
+      "closed_at": "2022-10-19T11:22:01Z",
+      "body": "We should improve the Cancel button for activity planning.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 182
+}

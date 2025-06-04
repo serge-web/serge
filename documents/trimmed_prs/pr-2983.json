@@ -1,0 +1,54 @@
+{
+  "number": 2983,
+  "title": "As a player I wish the map to pan to a particular feature",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-06-12T15:10:19Z",
+  "updated_at": "2024-06-12T16:16:51Z",
+  "closed_at": "2024-06-12T16:16:51Z",
+  "merged_at": "2024-06-12T16:16:51Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2983",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2983/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2983/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2983",
+  "body": "Fixes #2977 ",
+  "additions": 31,
+  "deletions": 18,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2977
+  ],
+  "issues": [
+    {
+      "id": 2346829983,
+      "number": 2977,
+      "title": "As a player I wish the map to pan to a particular feature",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-06-11T16:23:49Z",
+      "updated_at": "2024-06-12T16:16:52Z",
+      "closed_at": "2024-06-12T16:16:51Z",
+      "body": "In PFT-9, when we selected an asset the map panned to that asset.\r\n\r\nI'd like to try something different in our new implementation.\r\n\r\nI'd like to add a `pan` button to the features list in the Core Mapping panel.  For each feature we will show an icon, that, when clicked pans the map to either the location of a point feature, or the centre of a shape feature.  The icon should be `magnifying-glass-location`:\r\n![image](https://github.com/serge-web/serge/assets/1108513/dbfef1ff-74a3-414e-ab52-8edfb022ff57)\r\n\r\nThe icon will sit immediately to the left of the feature icon.\r\n![image](https://github.com/serge-web/serge/assets/1108513/a2baeeb3-3747-4c14-9a37-d3ecc13b2483)\r\n\r\n**Update**: I've implemented most of this, the only part I couldn't handle was the actual `map.flyTo` operation.\r\n\r\n@lebaphi - could you finish that off for me please?\r\n\r\nWe just need some map magic around this line:\r\nhttps://github.com/serge-web/serge/blob/7d9d6928b02a9c607b751469fb9a6d702ce0735c/client/src/Components/local/atoms/core-mapping/index.tsx#L48\r\n\r\nNote: when I was experimenting, it looked like `useMap` needed to be in a decendent of `MapContainer`.  _Maybe_ `MappingControls` meets that requirement, I'm not sure.\r\n\r\nNote 2: I mistakenly made the above changes in _develop_, but please make your chances in a new branch for this issue.\r\n\r\nNote 3:  I've put the new clickable icon in the UI, but it's centered :-( . It would be better if it was moved to the right, alongside the icon.\r\n![image](https://github.com/serge-web/serge/assets/1108513/52451fec-4dbd-4e20-8617-856a29f10627)\r\n",
+      "labels": [
+        "4hat"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/dbfef1ff-74a3-414e-ab52-8edfb022ff57",
+    "https://github.com/serge-web/serge/assets/1108513/a2baeeb3-3747-4c14-9a37-d3ecc13b2483",
+    "https://github.com/serge-web/serge/assets/1108513/52451fec-4dbd-4e20-8617-856a29f10627"
+  ],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 49
+}

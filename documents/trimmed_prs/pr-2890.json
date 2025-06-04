@@ -1,0 +1,115 @@
+{
+  "number": 2890,
+  "title": "Buttons to collapse map bar panels",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-26T10:19:01Z",
+  "updated_at": "2024-03-06T10:39:43Z",
+  "closed_at": "2024-03-06T10:39:42Z",
+  "merged_at": "2024-03-06T10:39:42Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2890",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2890/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2890/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2890",
+  "body": "Fixes #2875 ",
+  "additions": 125,
+  "deletions": 31,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 8,
+  "review_comments_count": 0,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 1963961571,
+      "user": "IanMayo",
+      "created_at": "2024-02-26T11:49:32Z",
+      "updated_at": "2024-02-26T11:49:32Z",
+      "body": "I like the UI/UX, but there seem to be some collapse issues @lebaphi \r\n\r\nIt looks like collapsed panels are shown as open when another one is collapsed.\r\n\r\n![screencast](https://i.gyazo.com/9bb8f9f4e28f763392078a85f672ed59.gif)\r\n"
+    },
+    {
+      "id": 1965652026,
+      "user": "lebaphi",
+      "created_at": "2024-02-27T01:57:43Z",
+      "updated_at": "2024-02-27T01:58:31Z",
+      "body": "> I like the UI/UX, but there seem to be some collapse issues @lebaphi\r\n> \r\n> It looks like collapsed panels are shown as open when another one is collapsed.\r\n> \r\n> ![screencast](https://camo.githubusercontent.com/bf5225b56e9a93a7a653f099717cab617af7cc3b68309dd2d024b323d2eb33ca/68747470733a2f2f692e6779617a6f2e636f6d2f39626238663966346532386637363333393230373861383566363732656435392e676966) [ ![screencast]\r\n\r\nI see, it seems the method collapse (https://github.com/bvaughn/react-resizable-panels/tree/main/packages/react-resizable-panels#panel) does not work as expected, I will take a look"
+    },
+    {
+      "id": 1967077090,
+      "user": "IanMayo",
+      "created_at": "2024-02-27T16:46:51Z",
+      "updated_at": "2024-02-27T16:46:51Z",
+      "body": "Still not quite right @lebaphi \r\n\r\nhttps://i.gyazo.com/b033cfcac0a4c9719987a1036f0e448e.gif"
+    },
+    {
+      "id": 1968109339,
+      "user": "Tristina1788",
+      "created_at": "2024-02-28T03:08:03Z",
+      "updated_at": "2024-02-28T03:08:03Z",
+      "body": "@IanMayo , @lebaphi  Tested on '2875-collapse-button' branch, now collapse button show correct\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/0fdded2f-cb41-4744-824a-2e98d3cb57c4\r\n\r\nBut I think it's better if collapse 'Propertive' should be on original position (top of this panel) instead of the bottom of panel.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/b81c9c08-9b6b-44d3-898b-ac13a27a3f48)\r\n\r\nExpected : \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/cb09e5cd-af21-4542-8fad-fad378cb89ed)\r\n\r\n"
+    },
+    {
+      "id": 1968530296,
+      "user": "IanMayo",
+      "created_at": "2024-02-28T09:05:53Z",
+      "updated_at": "2024-02-28T09:05:53Z",
+      "body": "Yes @Tristina1788 - I agree.  When all 3 panels are collapsed, I think they should be in a stack at the top of the column.  The `properties` panel currently collapses down, but I think it should collapse upwards.\r\n\r\n(I hope that makes sense @lebaphi )  "
+    },
+    {
+      "id": 1976738059,
+      "user": "lebaphi",
+      "created_at": "2024-03-04T14:41:56Z",
+      "updated_at": "2024-03-04T14:58:06Z",
+      "body": "thanks @IanMayo @Tristina1788 , actually, this function is not supported as default, we can only implement it to a certain level, it is complex to implement it perfectly. So what is your expectation? 😄 "
+    },
+    {
+      "id": 1976910652,
+      "user": "IanMayo",
+      "created_at": "2024-03-04T15:58:00Z",
+      "updated_at": "2024-03-04T15:58:00Z",
+      "body": "Actually @lebaphi - I realise that this is part of my issue.  I thought the \"props\" panel wasn't opening and closing.  It was working, but since nothing was selected, when open it didn't show anything.\r\n\r\nIf nothing is selected, could we still show (disabled) `Cancel` and `Save` buttons in the `Props` panel?\r\n\r\nI'm happy to accept the Props panel collapsing down - that's just the bar giving as much v-space as possible to the `Items` panel."
+    },
+    {
+      "id": 1980239425,
+      "user": "Tristina1788",
+      "created_at": "2024-03-06T07:24:55Z",
+      "updated_at": "2024-03-06T07:24:55Z",
+      "body": "Tested on '2875-collapse-button' , now when no item is selected, we can see  Cancel and Save buttons (disable)  in the Props panel .\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/c32881ec-a8ad-406b-b97f-a0fca5080b2e)\r\n\r\nIt works as expected. (More details in this below video) \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/474a0fe1-988a-46e8-9963-32548bfbe07b\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2875
+  ],
+  "issues": [
+    {
+      "id": 2144824038,
+      "number": 2875,
+      "title": "Buttons to collapse map bar panels",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-02-20T16:46:35Z",
+      "updated_at": "2024-03-06T10:39:43Z",
+      "closed_at": "2024-03-06T10:39:43Z",
+      "body": "The mapping bar has 3 panels, that can be dragged to resize.\r\n\r\nI user was on a monitor with a fairly small resolution, and was frequently concentrating on just one or two panels.  It would have been easier to maintain the UI if the 3 panels had `collapse` buttons that kept the panel title bar, but hid the rest of that panel.\r\n\r\nI _guess_ the rotating arrow marker is the standard expand/collapse icon.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/9bb8f9f4e28f763392078a85f672ed59.gif",
+    "https://camo.githubusercontent.com/bf5225b56e9a93a7a653f099717cab617af7cc3b68309dd2d024b323d2eb33ca/68747470733a2f2f692e6779617a6f2e636f6d2f39626238663966346532386637363333393230373861383566363732656435392e676966",
+    "https://github.com/serge-web/serge/assets/107697044/b81c9c08-9b6b-44d3-898b-ac13a27a3f48",
+    "https://github.com/serge-web/serge/assets/107697044/cb09e5cd-af21-4542-8fad-fad378cb89ed",
+    "https://github.com/serge-web/serge/assets/107697044/c32881ec-a8ad-406b-b97f-a0fca5080b2e"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 156
+}

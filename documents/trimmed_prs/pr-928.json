@@ -1,0 +1,183 @@
+{
+  "number": 928,
+  "title": "Feature/hard coded platform icon names 814",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-07T08:40:39Z",
+  "updated_at": "2021-07-21T18:15:24Z",
+  "closed_at": "2021-07-21T18:15:23Z",
+  "merged_at": "2021-07-21T18:15:23Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/928",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/928/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/928/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/928",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nCloses #814\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\nUpdated iconDropzone and iconUploader to use api based uploading (if api enabled)\r\nUpdated Map and other components withc ones using Icons\r\nChecking, if image loading give  404 error then try to load preserved icon\r\nPlatformTypes objcet instead of PlatformTypes array witch one will allow to easy get platformType object for current asset\r\nUpdated Icon Uploader and api to support svg images\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 666,
+  "deletions": 573,
+  "changed_files": 87,
+  "labels": [
+    "enhancement"
+  ],
+  "comments_count": 11,
+  "review_comments_count": 3,
+  "total_comments": 14,
+  "comments_data": [
+    {
+      "id": 875469904,
+      "user": "IanMayo",
+      "created_at": "2021-07-07T10:01:46Z",
+      "updated_at": "2021-07-07T10:01:46Z",
+      "body": "Great piece of work @lilitkarapetyan \r\n\r\nI know it's still draft, but we have a couple of missing icons.  The first one is of type `Carrier`.  We do have a platform type for it, and it the `carrier.svg` seems to be in the correct place(s).\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/124740263-87761400-df12-11eb-9862-4f14d015a215.png)\r\n"
+    },
+    {
+      "id": 875470655,
+      "user": "IanMayo",
+      "created_at": "2021-07-07T10:02:51Z",
+      "updated_at": "2021-07-07T10:02:51Z",
+      "body": "@lilitkarapetyan - while you're in this PR, is it an option for you to remove one of the duplicate sets of icons?\r\n![image](https://user-images.githubusercontent.com/1108513/124740575-d4f28100-df12-11eb-889b-4510535adcc3.png)\r\n\r\n(if not, we'll slip it to another issue)"
+    },
+    {
+      "id": 877000260,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-07-09T08:07:44Z",
+      "updated_at": "2021-07-09T08:07:44Z",
+      "body": "> \r\n> \r\n> @lilitkarapetyan - while you're in this PR, is it an option for you to remove one of the duplicate sets of icons?\r\n> ![image](https://user-images.githubusercontent.com/1108513/124740575-d4f28100-df12-11eb-889b-4510535adcc3.png)\r\n> \r\n> (if not, we'll slip it to another issue)\r\n\r\nDone"
+    },
+    {
+      "id": 877101382,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T11:00:36Z",
+      "updated_at": "2021-07-09T11:00:36Z",
+      "body": "@lilitkarapetyan - I was expecting these hard-coded elements to be removed:\r\n![image](https://user-images.githubusercontent.com/1108513/125068275-377f8480-e0ad-11eb-9186-e4ad7563d70e.png)\r\n"
+    },
+    {
+      "id": 877120356,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T11:31:21Z",
+      "updated_at": "2021-07-09T11:31:37Z",
+      "body": "One other issue @lilitkarapetyan \r\n\r\nIn the `map-bar` the icon is in black, but on the `mapping` it's white.  I think the white background looks best.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/125071693-8b8c6800-e0b1-11eb-8950-f2bfe8124d7b.png)\r\n"
+    },
+    {
+      "id": 877132469,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T11:56:07Z",
+      "updated_at": "2021-07-09T11:56:07Z",
+      "body": "Ooh, @lilitkarapetyan  - I've found another issue.\r\n\r\nWe _currently_ use `SVG` to specify the icons in `asset-icon\\counters` .  But, in the new `Platform Types` admin editor page, it invites us to provide a `png`.  I _think_ we should be providing a `svg`.  Is that right?"
+    },
+    {
+      "id": 877141047,
+      "user": "IanMayo",
+      "created_at": "2021-07-09T12:11:16Z",
+      "updated_at": "2021-07-09T12:11:16Z",
+      "body": "Hmm, you may know about this.  I'm logged into `CmdWk` as `White Game Control`.  I'm on the `mapping` tab.  I get these 404 errors:\r\n![image](https://user-images.githubusercontent.com/1108513/125075908-20de2b00-e0b7-11eb-81a0-23859fd43197.png)\r\n"
+    },
+    {
+      "id": 878799321,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-07-13T05:51:08Z",
+      "updated_at": "2021-07-13T05:51:08Z",
+      "body": "> \r\n> \r\n> Hmm, you may know about this. I'm logged into `CmdWk` as `White Game Control`. I'm on the `mapping` tab. I get these 404 errors:\r\n> ![image](https://user-images.githubusercontent.com/1108513/125075908-20de2b00-e0b7-11eb-81a0-23859fd43197.png)\r\n\r\nThis is because many resources don't have a valid url for images, I added a boolean that checks for images if the image url returns 404 and then we switch it to the old (hardcoded by class name) mode. In this way old code also works and we have working icons, until we will upload valid icons for all platformTypes"
+    },
+    {
+      "id": 879088066,
+      "user": "IanMayo",
+      "created_at": "2021-07-13T13:28:09Z",
+      "updated_at": "2021-07-13T13:29:24Z",
+      "body": "> > Hmm, you may know about this. I'm logged into `CmdWk` as `White Game Control`. I'm on the `mapping` tab. I get these 404 errors:\r\n> > ![image](https://user-images.githubusercontent.com/1108513/125075908-20de2b00-e0b7-11eb-81a0-23859fd43197.png)\r\n> \r\n> This is because many resources don't have a valid url for images, I added a boolean that checks for images if the image url returns 404 and then we switch it to the old (hardcoded by class name) mode. In this way old code also works and we have working icons, until we will upload valid icons for all platformTypes\r\n\r\nNone of these icons are ones that have been provided by users in the admin page. They are all valid files, but it appears that Serge can't find them.\r\n\r\nHmm, for images like `datum.svg` we do have the files in the repo.  I guess we're just not looking for them in the right location. Aah, or the build process isn't putting them into the correct location.\r\n\r\nHmm, I _think_ the ones listed may be a new set of SVG icons that got added more recently.  No, that's true for `frigate-ta.svg` but not for `datum.svg`.  `datum.svg` has been in for a long time."
+    },
+    {
+      "id": 880648991,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-07-15T12:20:33Z",
+      "updated_at": "2021-07-15T12:20:33Z",
+      "body": "> \r\n> \r\n> Ooh, @lilitkarapetyan - I've found another issue.\r\n> \r\n> We _currently_ use `SVG` to specify the icons in `asset-icon\\counters` . But, in the new `Platform Types` admin editor page, it invites us to provide a `png`. I _think_ we should be providing a `svg`. Is that right?\r\n\r\nUpdated"
+    },
+    {
+      "id": 882011301,
+      "user": "IanMayo",
+      "created_at": "2021-07-18T07:10:58Z",
+      "updated_at": "2021-07-18T07:10:58Z",
+      "body": "I like the HSP work @lilitkarapetyan - we need to do the SVG color selection (light/dark) on the map, aswell as the map-bar:\r\n![image](https://user-images.githubusercontent.com/1108513/126058851-6e102e31-9a47-459f-a560-6270eacd1b7c.png)\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 665209615,
+      "user": "IanMayo",
+      "created_at": "2021-07-07T09:36:54Z",
+      "updated_at": "2021-07-07T10:16:25Z",
+      "body": "@lilitkarapetyan - I thought I had to include the next block to get TS information for the props.  Don't I need to any more?",
+      "path": "packages/components/src/local/hex-grid/index.tsx",
+      "diff_hunk": "@@ -17,24 +17,17 @@ import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from\n import { MapContext } from '../mapping'\n \n /* Import Types */\n-import { SergeHex, SergeGrid, Route, NewTurnValues, PlanMobileAsset, SelectedAsset, RouteStore } from '@serge/custom-types'\n+import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'\n import { LAYDOWN_TURN } from '@serge/config'\n \n /* Render component */\n export const HexGrid: React.FC<{}> = () => {\n+  const props = useContext(MapContext).props\n+  if (typeof props === 'undefined') return null\n   const {\n     gridCells, planningConstraints, setNewLeg, setHidePlanningForm,\n     selectedAsset, viewAsRouteStore, viewport, polygonAreas\n-  }: {",
+      "html_url": "https://github.com/serge-web/serge/pull/928#discussion_r665209615"
+    },
+    {
+      "id": 665254320,
+      "user": "lilitkarapetyan",
+      "created_at": "2021-07-07T10:41:15Z",
+      "updated_at": "2021-07-07T10:47:49Z",
+      "body": "You can define there any types what you want but those props may can not mutch with real (inputed data -> MappingContext) types\r\n\r\nhttps://github.com/serge-web/serge/pull/928/files#diff-42f0cdc7af2680f52905fe1b8f7f9429147aaa25c14346581c5544bc78c7269fL2\r\nIf you check this part you will se that we used any type, so if we will define props in right type (MappingContext) it will automatically works with already defined props, and will match inputed data, and when you will change MappingContext or imput data you will get right ts validation messages on erros",
+      "path": "packages/components/src/local/hex-grid/index.tsx",
+      "diff_hunk": "@@ -17,24 +17,17 @@ import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from\n import { MapContext } from '../mapping'\n \n /* Import Types */\n-import { SergeHex, SergeGrid, Route, NewTurnValues, PlanMobileAsset, SelectedAsset, RouteStore } from '@serge/custom-types'\n+import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'\n import { LAYDOWN_TURN } from '@serge/config'\n \n /* Render component */\n export const HexGrid: React.FC<{}> = () => {\n+  const props = useContext(MapContext).props\n+  if (typeof props === 'undefined') return null\n   const {\n     gridCells, planningConstraints, setNewLeg, setHidePlanningForm,\n     selectedAsset, viewAsRouteStore, viewport, polygonAreas\n-  }: {",
+      "html_url": "https://github.com/serge-web/serge/pull/928#discussion_r665254320"
+    },
+    {
+      "id": 665256021,
+      "user": "IanMayo",
+      "created_at": "2021-07-07T10:44:01Z",
+      "updated_at": "2021-07-07T10:44:02Z",
+      "body": "Aah, brilliant. Thanks :-)",
+      "path": "packages/components/src/local/hex-grid/index.tsx",
+      "diff_hunk": "@@ -17,24 +17,17 @@ import multiPolyFromGeoJSON, { TerrainPolygons } from './helpers/multi-poly-from\n import { MapContext } from '../mapping'\n \n /* Import Types */\n-import { SergeHex, SergeGrid, Route, NewTurnValues, PlanMobileAsset, SelectedAsset, RouteStore } from '@serge/custom-types'\n+import { SergeHex, SergeGrid, Route, NewTurnValues } from '@serge/custom-types'\n import { LAYDOWN_TURN } from '@serge/config'\n \n /* Render component */\n export const HexGrid: React.FC<{}> = () => {\n+  const props = useContext(MapContext).props\n+  if (typeof props === 'undefined') return null\n   const {\n     gridCells, planningConstraints, setNewLeg, setHidePlanningForm,\n     selectedAsset, viewAsRouteStore, viewport, polygonAreas\n-  }: {",
+      "html_url": "https://github.com/serge-web/serge/pull/928#discussion_r665256021"
+    }
+  ],
+  "issue_numbers": [
+    404
+  ],
+  "issues": [
+    {
+      "id": 608331453,
+      "number": 404,
+      "title": "403 - Introduce planned route rendering",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2020-04-28T13:44:52Z",
+      "updated_at": "2020-04-28T14:08:31Z",
+      "closed_at": "2020-04-28T14:08:30Z",
+      "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #402 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\nDisplays a line (& filled hexes) to show the path of the route that's currently being planned.\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\nhttps://deploy-preview-404--serge-storybook.netlify.app/?path=/story/local-mapping--with-allowable-range\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n* [x] create new structure, to store cells that represent new route\r\n* [x] change hex styling test, to verify if cells are part of planned route, before checking if they're part of available cells\r\n* [x] collate polygon centres, to be plotted as line\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n![PlannedAnimation](https://user-images.githubusercontent.com/1108513/80496573-49ba4a80-8961-11ea-99a3-bc0af3121423.gif)\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [x] I have completed the mandatory sections of this document.\r\n- [x] I have deleted any unused sections.\r\n- [x] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\nThere may be some performance inefficiencies in this PR, related to switching between representing hexes as honeycomb-hexes, and as plain strings.  That will be investigated in another PR.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 620624833,
+          "user": "cypress[bot]",
+          "created_at": "2020-04-28T13:57:53Z",
+          "updated_at": "2020-04-28T13:57:53Z",
+          "body": "\n<p align=\"center\">\n  <br />\n  <img src=\"https://assets.cypress.io/github-pr-comment-icons/cypress-logo.png\" height=\"32\" />\n</p>\n\n---\n\n### Test summary\n<a href=\"https://dashboard.cypress.io/projects/rinvt1/runs/1107/specs\"><img src=\"https://assets.cypress.io/github-pr-comment-icons/green-check-mark.png\" width=\"14\" height=\"14\" title=\"Passed\" /></a> <b title=\"Passed\">2</b>  &bull; <a href=\"https://dashboard.cypress.io/projects/rinvt1/runs/1107/failures\"><img src=\"https://assets.cypress.io/github-pr-comment-icons/red-x.png\" width=\"14\" height=\"14\" title=\"Failed\" /></a> <b title=\"Failed\">0</b>  &bull; <img src=\"https://assets.cypress.io/github-pr-comment-icons/gray-circle.png\" width=\"14\" height=\"14\" title=\"Tests that did not run due to a developer annotating a test with .skip\" /> <b title=\"Pending\">0</b> &bull; <img src=\"https://assets.cypress.io/github-pr-comment-icons/yellow-triangle.png\" width=\"14\" height=\"14\" title=\"Tests that did not run due to a failure in a mocha hook\" /> <b title=\"Skipped\">0</b>\n\n---\n\n### Run details\n| | |\n| --- | --- |\n| **Project** | Serge end-to-end testing |\n| **Status** | Passed |\n| **Commit** | 0533de7811 <span style=\"cursor:help;\" title=\"Your CI provider generated this commit by merging this branch into the target branch.\">ℹ️</span> |\n| **Started** | Apr 28, 2020 1:51 PM |\n| **Ended** | Apr 28, 2020 1:57 PM |\n| **Duration** | 06:51 <a href=\"https://on.cypress.io/parallelization\" title=\"Enable parallelization to reduce run duration\">💡</a> |\n| **OS** | Linux Ubuntu Linux - 16.04 |\n| **Browser** | Electron 78 <img src=\"https://cdnjs.cloudflare.com/ajax/libs/browser-logos/48.0.4/electron/electron_32x32.png\" width=\"16\" height=\"16\" /> |\n\n[View run in Cypress Dashboard ➡️](https://dashboard.cypress.io/projects/rinvt1/runs/1107/specs)\n\n\n\n---\n\nThis comment has been generated by **cypress-bot** as a result of this project's GitHub integration settings. You can manage this integration in [this project's settings in the Cypress Dashboard](https://dashboard.cypress.io/projects/rinvt1/settings)\n\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/124740263-87761400-df12-11eb-9862-4f14d015a215.png",
+    "https://user-images.githubusercontent.com/1108513/124740575-d4f28100-df12-11eb-889b-4510535adcc3.png",
+    "https://user-images.githubusercontent.com/1108513/125068275-377f8480-e0ad-11eb-9186-e4ad7563d70e.png",
+    "https://user-images.githubusercontent.com/1108513/125071693-8b8c6800-e0b1-11eb-8950-f2bfe8124d7b.png",
+    "https://user-images.githubusercontent.com/1108513/125075908-20de2b00-e0b7-11eb-81a0-23859fd43197.png",
+    "https://user-images.githubusercontent.com/1108513/126058851-6e102e31-9a47-459f-a560-6270eacd1b7c.png",
+    "https://user-images.githubusercontent.com/1108513/80496573-49ba4a80-8961-11ea-99a3-bc0af3121423.gif",
+    "https://assets.cypress.io/github-pr-comment-icons/cypress-logo.png",
+    "https://assets.cypress.io/github-pr-comment-icons/green-check-mark.png",
+    "https://assets.cypress.io/github-pr-comment-icons/red-x.png",
+    "https://assets.cypress.io/github-pr-comment-icons/gray-circle.png",
+    "https://assets.cypress.io/github-pr-comment-icons/yellow-triangle.png",
+    "https://cdnjs.cloudflare.com/ajax/libs/browser-logos/48.0.4/electron/electron_32x32.png"
+  ],
+  "number_of_changed_files": 87,
+  "total_changed_lines": 1239
+}

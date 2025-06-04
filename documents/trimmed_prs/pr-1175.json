@@ -1,0 +1,50 @@
+{
+  "number": 1175,
+  "title": "Filters can get broken on un-claim",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-30T08:07:04Z",
+  "updated_at": "2021-09-30T16:19:24Z",
+  "closed_at": "2021-09-30T16:19:24Z",
+  "merged_at": "2021-09-30T16:19:23Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1175",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1175/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1175/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1175",
+  "body": "Fixes #1167 ",
+  "additions": 25,
+  "deletions": 13,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1167
+  ],
+  "issues": [
+    {
+      "id": 1009653498,
+      "number": 1167,
+      "title": "Filters can get broken on un-claim",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-28T11:56:20Z",
+      "updated_at": "2021-09-30T16:19:24Z",
+      "closed_at": "2021-09-30T16:19:23Z",
+      "body": "A senior player (with \"un-claim\" permissions) need to un-claim an RFI.\r\n\r\nSince there were lots of RFIs, he applied a filter for that role.  But, once the document was un-claimed, the filter was disabled - so he was unable to de-select the filter for that role.\r\n\r\nSteps to reproduce:\r\n* Login as Red http://serge-review.herokuapp.com/?wargame=wargame-kskl1i3t&access=pkskl17thb\r\n* Submit an RFI into Red RFI\r\n* Now submit another RFI to Red RFI\r\n* Login as white player: http://serge-review.herokuapp.com/?wargame=wargame-kskl1i3t&access=pkskl17ti\r\n* Go to Red RFI channel \r\n* Claim an RFI\r\n* Login as J2A: http://serge-review.herokuapp.com/?wargame=wargame-kskl1i3t&access=rkskl61c3\r\n* Go to Red RFI channel \r\n* Claim an RFI\r\n* There will now be two RFIs visible, owned by two different players\r\n* Filter for RFIs owned by `EXCON  J2b`\r\n* Expand the single RFI\r\n* Click on `un-claim`\r\n* The RFI will disappear, and show an empty list. \r\n\r\n* This is because we're still filtering by \"owner is J2B2 - but there are no \"J2B\" RFISs. We aren't offered the filter for that list because there aren't enough visible RFIs.  Serge decides whether to display a filter based on the number of visible rows.  That test needs to be \"number of rows > 1\" or \"filter has been applied\". \r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 38
+}

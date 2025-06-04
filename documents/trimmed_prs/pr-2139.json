@@ -1,0 +1,136 @@
+{
+  "number": 2139,
+  "title": "Provide Time Slider to review events in previous turn",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-20T14:48:29Z",
+  "updated_at": "2022-11-24T12:35:00Z",
+  "closed_at": "2022-11-24T12:34:59Z",
+  "merged_at": "2022-11-24T12:34:59Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2139",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2139/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2139/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2139",
+  "body": "Fixes #2134 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/202908813-8e51ea5f-cfe4-41a6-a7c2-5859e823e385.mov\r\n\r\n",
+  "additions": 403,
+  "deletions": 41,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 8,
+  "review_comments_count": 2,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 1321886603,
+      "user": "IanMayo",
+      "created_at": "2022-11-21T11:10:11Z",
+      "updated_at": "2022-11-24T03:15:36Z",
+      "body": "Handful of changes, please:\r\n* [ ] Don't display blue-line to left of thumb-marker. There is guidance on how to do it [here](https://www.w3schools.com/howto/howto_js_rangeslider.asp)\r\n* [x] I wish to color the features according to their Force. So, I need you to create an empty 'timelineStyle' function in `Timeline`, and pass it to `TimelineType` as the `style` function.  This will be like the `style` prop in `OrderDrawing.tsx` file.  We'll need the typings bits for this.\r\n* [x] I wish to provide tooltips for created features. For this, I need to provide an implementation of `onEachFeature`. So, I'll need it added to `TimelineType`\r\n\r\n\r\nNote: the above props are as defined for the [parent](https://leafletjs.com/reference.html#geojson) `L.GeoJSON` class:"
+    },
+    {
+      "id": 1323721330,
+      "user": "lebaphi",
+      "created_at": "2022-11-22T13:58:58Z",
+      "updated_at": "2022-11-22T13:58:58Z",
+      "body": "> Handful of changes, please:\r\n> \r\n> * [ ]  Don't display blue-line to left of thumb-marker. There is guidance on how to do it [here](https://www.w3schools.com/howto/howto_js_rangeslider.asp)\r\n> * [ ]  I wish to color the features according to their Force. So, I need you to create an empty 'timelineStyle' function in `Timeline`, and pass it to `TimelineType` as the `style` function.  This will be like the `style` prop in `OrderDrawing.tsx` file.  We'll need the typings bits for this.\r\n> * [ ]  I wish to provide tooltips for created features. For this, I need to provide an implementation of `onEachFeature`. So, I'll need it added to `TimelineType`\r\n> \r\n> Note: the above props are as defined for the [parent](https://leafletjs.com/reference.html#geojson) `L.GeoJSON` class:\r\n\r\nI'm working on it"
+    },
+    {
+      "id": 1323787730,
+      "user": "lebaphi",
+      "created_at": "2022-11-22T14:45:44Z",
+      "updated_at": "2022-11-22T14:46:15Z",
+      "body": "Hi @IanMayo , I think we have a small issue with the first item\r\n> Don't display blue-line to left of thumb-marker\r\n\r\nit seems we need to use this css property `-webkit-appearance: none;` to override the background color of the slider, but it will lost the data list (small vertical lines) below the slider too\r\nbefore:\r\n<img width=\"370\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/203343158-6b767374-656f-4086-9cdc-ed5129747376.png\">\r\nafter:\r\n<img width=\"373\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/203343294-9884effd-7a3e-4c7e-b8ca-c58db375f773.png\">\r\n"
+    },
+    {
+      "id": 1323805719,
+      "user": "IanMayo",
+      "created_at": "2022-11-22T14:54:42Z",
+      "updated_at": "2022-11-22T14:54:42Z",
+      "body": ">  but it will lost the data list (small vertical lines) below the slider too\r\n\r\nOh dear, they look quite valuable.   They mark the times at which events occur.  Let's not hide the blue line then."
+    },
+    {
+      "id": 1323814398,
+      "user": "lebaphi",
+      "created_at": "2022-11-22T15:00:49Z",
+      "updated_at": "2022-11-22T15:00:49Z",
+      "body": "> > but it will lost the data list (small vertical lines) below the slider too\r\n> \r\n> Oh dear, they look quite valuable. They mark the times at which events occur. Let's not hide the blue line then.\r\n\r\nlet me check if we can re-build the data-list in this case"
+    },
+    {
+      "id": 1324754192,
+      "user": "IanMayo",
+      "created_at": "2022-11-23T09:17:52Z",
+      "updated_at": "2022-11-23T09:18:33Z",
+      "body": "> let me check if we can re-build the data-list in this case\r\n\r\nNo, it's ok.  Let's just leave the blue in-fill in place, and not use the `-webkit-appearance: none;` trick.\r\n\r\nI am still interested in [these](features) though."
+    },
+    {
+      "id": 1325236273,
+      "user": "lebaphi",
+      "created_at": "2022-11-23T15:16:35Z",
+      "updated_at": "2022-11-23T15:16:35Z",
+      "body": "Hi @IanMayo , so for this one\r\n> I wish to color the features according to their Force. So, I need you to create an empty 'timelineStyle' function in Timeline, and pass it to TimelineType as the style function. This will be like the style prop in OrderDrawing.tsx file. We'll need the typings bits for this.\r\n\r\nWhat part do you want to style?, since we are using external library and it is compacted so we can't modify the javascript file, to style it we can only process in the `Timeline` component by using javascript."
+    },
+    {
+      "id": 1325339281,
+      "user": "IanMayo",
+      "created_at": "2022-11-23T16:25:13Z",
+      "updated_at": "2022-11-23T16:25:13Z",
+      "body": "Sure, don't worry.  We're _Going with the flow_ of what is meant to happen.\r\n\r\nThe TimelineData object extends Leaflet's GeoJSON class.  That class takes a `style` prop for a function that returns the styling to use for a feature: \r\nhttps://docs.eegeo.com/eegeo.js/v0.1.780/docs/leaflet/L.GeoJson/\r\n\r\nI can't see where to specify it - so I'd like you to show me how to provide the function. You can just use an empty function called `timelineSyle`.  We do a similar thing in `OrderDrawing.tsx`."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1031190495,
+      "user": "IanMayo",
+      "created_at": "2022-11-24T08:37:02Z",
+      "updated_at": "2022-11-24T08:37:02Z",
+      "body": "perfect - just what I needed, thanks @lebaphi ",
+      "path": "packages/components/src/local/organisms/planning-channel/helpers/Timeline.tsx",
+      "diff_hunk": "@@ -25,7 +25,12 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data }) => {\n       setTimelineControl(timelineControl)\n     }\n     if (!timelineData && data) {\n-      const timeline = L.timeline(data)\n+      const timeline = L.timeline(data, {",
+      "html_url": "https://github.com/serge-web/serge/pull/2139#discussion_r1031190495"
+    },
+    {
+      "id": 1031191125,
+      "user": "IanMayo",
+      "created_at": "2022-11-24T08:37:44Z",
+      "updated_at": "2022-11-24T08:37:44Z",
+      "body": "I tried this several times, but couldn't get it right, thanks! 😍 ",
+      "path": "packages/components/src/local/organisms/planning-channel/typings.d.ts",
+      "diff_hunk": "@@ -66,7 +67,9 @@ type TimelineControlOption = {\n }\n \n type TimelineDataOption = {\n-  pointToLayer: (data: any, latlng: L.LatLngExpression) => void",
+      "html_url": "https://github.com/serge-web/serge/pull/2139#discussion_r1031191125"
+    }
+  ],
+  "issue_numbers": [
+    2134
+  ],
+  "issues": [
+    {
+      "id": 1455489162,
+      "number": 2134,
+      "title": "Provide Time Slider to review events in previous turn",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-18T17:10:48Z",
+      "updated_at": "2022-11-24T12:35:00Z",
+      "closed_at": "2022-11-24T12:35:00Z",
+      "body": "Players will spend the morning planning what they want to happen.\r\n\r\nThe umpires will spend the afternoon deciding what actually happened.\r\n\r\nThe next morning, the players will see the new \"state of the world\", and want to review what happened.\r\n\r\nAll of that data is present in the \"Planning\" channel, but it's spread across different places.\r\n\r\nI've just seen this demo:\r\nhttps://skeate.dev/Leaflet.timeline/examples/earthquakes.html\r\n\r\nIt's a time-slider that moves through a series of timed GeoJSON features.  Each of our MessageInteraction messages contains a timed GeoSJON object.  We could just collate these into an array, and pass it to the `leaflet.timeline` control.\r\n\r\nIan can handle transforming the data, and getting it into the control, but he could do with support in integrating the control:\r\nhttps://github.com/skeate/Leaflet.timeline\r\n\r\nSo, I guess the requirement is:\r\n* [x] integrate control into Serge/components\r\n* [x] introduce `showTimeSlider: boolean` and `timeSliderValues: GeoJSON.FeatureCollection` `useState` objects in `PlanningChannel`\r\n* [x] add toggle button with `fa-history` icon to `PlanningChannel` to toggle the map in/out of `Replay` mode. Button toggles the value of `showTimeSlider`.\r\n* [x] a new TimeSlider react component is produced, which takes a `events` prop as GeoJSON.FeatureCollection.\r\n* [x] when `timeSlider` is true the timeline is shown at the bottom of the map\r\n* [x] when `timeSlider` is true, a `useEffect` method will collate the GeoJSON.FeatureCollection data (I can do this :-) ), and store the array in `setTimeSliderValues`. The time-slider should now \"wake-up\", and we can move through the data.\r\n\r\n\r\nNote: I was too excited, so I made a start here: https://github.com/serge-web/serge/pull/2135",
+      "labels": [
+        "enhancement",
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/203343158-6b767374-656f-4086-9cdc-ed5129747376.png",
+    "https://user-images.githubusercontent.com/26705621/203343294-9884effd-7a3e-4c7e-b8ca-c58db375f773.png"
+  ],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 444
+}

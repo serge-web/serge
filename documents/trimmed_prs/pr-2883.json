@@ -1,0 +1,108 @@
+{
+  "number": 2883,
+  "title": "Can not see full map of CoreMapping when maximize screen after divide channel to multi side",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-21T15:14:06Z",
+  "updated_at": "2024-02-26T11:21:26Z",
+  "closed_at": "2024-02-26T10:09:18Z",
+  "merged_at": "2024-02-26T10:09:18Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2883",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2883/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2883/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2883",
+  "body": "Fixes #2857 ",
+  "additions": 2,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 7,
+  "review_comments_count": 0,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1958862456,
+      "user": "Tristina1788",
+      "created_at": "2024-02-22T07:35:21Z",
+      "updated_at": "2024-02-22T08:13:19Z",
+      "body": "@IanMayo @lebaphi   Tested on '2857-disable-maximize' branch. Now 'maximize' button is not showed  for all channels. But user want to see full map after divide channel to multi side, so he have to drag the core mapping channel to full screen. With this way, it makes user confuse because he doesn't see another channel on screen. \r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/251f94dd-edd9-4dc0-8108-c97d142aeec3\r\n\r\nHow do you think if we only enable to drag channel to  beside channel width + 20 or drag down/up with beside channel height -20 ?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/ef863556-0394-4fa0-8be4-b56855bf1aa4)\r\n"
+    },
+    {
+      "id": 1959151418,
+      "user": "IanMayo",
+      "created_at": "2024-02-22T10:31:12Z",
+      "updated_at": "2024-02-22T10:31:12Z",
+      "body": "> it makes user confuse because he doesn't see another channel on screen\r\n\r\nThanks @Tristina1788 - could you create that as another issue please?"
+    },
+    {
+      "id": 1962809962,
+      "user": "lebaphi",
+      "created_at": "2024-02-25T04:32:28Z",
+      "updated_at": "2024-02-25T04:33:42Z",
+      "body": "I've updated the solution as your suggestion @IanMayo , so you need to clear cache for the new config applied."
+    },
+    {
+      "id": 1963206418,
+      "user": "Tristina1788",
+      "created_at": "2024-02-26T02:21:10Z",
+      "updated_at": "2024-02-26T02:21:10Z",
+      "body": "@lebaphi , @IanMayo  Tested on '2857-disable-maximize' , now the issue is happened with the latest code\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/aa1f2309-dd43-45d1-8bc0-078da88f7ef1\r\n\r\n"
+    },
+    {
+      "id": 1963749759,
+      "user": "IanMayo",
+      "created_at": "2024-02-26T10:08:38Z",
+      "updated_at": "2024-02-26T10:08:38Z",
+      "body": "@Tristina1788 - after I cleared the cache for the browser tab running the game, the maximise button disappaered:\r\n![image](https://github.com/serge-web/serge/assets/1108513/76d09270-c9f5-4aac-9543-85fc043285fd)\r\n"
+    },
+    {
+      "id": 1963899333,
+      "user": "Tristina1788",
+      "created_at": "2024-02-26T11:19:00Z",
+      "updated_at": "2024-02-26T11:19:00Z",
+      "body": "> @Tristina1788 - after I cleared the cache for the browser tab running the game, the maximise button disappaered: ![image](https://private-user-images.githubusercontent.com/1108513/307746160-76d09270-c9f5-4aac-9543-85fc043285fd.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg5NDU4NjEsIm5iZiI6MTcwODk0NTU2MSwicGF0aCI6Ii8xMTA4NTEzLzMwNzc0NjE2MC03NmQwOTI3MC1jOWY1LTRhYWMtOTU0My04NWZjMDQzMjg1ZmQucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjZUMTEwNjAxWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YTcwZmFhMTQ0NmU2NGM5NGM2MGE5NzMzYmE5YWU2OTE0YzZmOTk0Zjc2NmJlMTdjMTkzNDljNDYyNzdiMjE2ZCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.CE3wSE3NEpm6t9dye8ZN0xLiqz7pOCgJ4eFDHbex348)\r\n\r\nI get issue whey try to open map with bigger size after divie channel to multi side (I clear cache before) . @IanMayo How do you think? should we fix it? I remember the before fixing didn't get this issue.\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/37fce2e2-3b8f-4f92-8d34-18b1754fc729\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 1963905383,
+      "user": "IanMayo",
+      "created_at": "2024-02-26T11:21:24Z",
+      "updated_at": "2024-02-26T11:21:24Z",
+      "body": "Yes, that's a new issue, please @Tristina1788 . I guess the issue is \"map tiles not downloaded when map area expanded\""
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2857
+  ],
+  "issues": [
+    {
+      "id": 2138199939,
+      "number": 2857,
+      "title": "Can not see full map of CoreMapping when maximize screen after divide channel to multi side",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-02-16T09:27:20Z",
+      "updated_at": "2024-02-26T10:09:19Z",
+      "closed_at": "2024-02-26T10:09:19Z",
+      "body": "## 🐞 Bug description\r\nCan not see full screen map of CoreMapping when maximize screen after divide channel to multi side\r\n\r\n**Update from Ian:** @lebaphi - could you disable/remove the `Maximise tab` please?  It's not used in anger, yet it produces a steady stream of issues.\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Drag channel to make 2 side\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e95def92-65dc-444f-af55-afe870a102df)\r\n\r\n3. Click channel 'CoreMapping'\r\n4. Click 'Maximize' for 'CoreMapping'\r\n5. Notice the screen can't not show full map\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2940d421-4bda-438b-aabe-86597985a6bb)\r\n\r\n\r\n## ⚙️ Expected behavior\r\nEnable to show full map when maximize channel  'CoreMapping' \r\n\r\n## 🖥️ Screencast\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/77bd3dde-6fc6-411d-9086-23c25e700c65\r\n\r\n\r\n## 💻 System information\r\n- Browser : Chrome\r\n- Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/ef863556-0394-4fa0-8be4-b56855bf1aa4",
+    "https://github.com/serge-web/serge/assets/1108513/76d09270-c9f5-4aac-9543-85fc043285fd",
+    "https://private-user-images.githubusercontent.com/1108513/307746160-76d09270-c9f5-4aac-9543-85fc043285fd.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDg5NDU4NjEsIm5iZiI6MTcwODk0NTU2MSwicGF0aCI6Ii8xMTA4NTEzLzMwNzc0NjE2MC03NmQwOTI3MC1jOWY1LTRhYWMtOTU0My04NWZjMDQzMjg1ZmQucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDIyNiUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAyMjZUMTEwNjAxWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9YTcwZmFhMTQ0NmU2NGM5NGM2MGE5NzMzYmE5YWU2OTE0YzZmOTk0Zjc2NmJlMTdjMTkzNDljNDYyNzdiMjE2ZCZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.CE3wSE3NEpm6t9dye8ZN0xLiqz7pOCgJ4eFDHbex348",
+    "https://github.com/serge-web/serge/assets/107697044/e95def92-65dc-444f-af55-afe870a102df",
+    "https://github.com/serge-web/serge/assets/107697044/2940d421-4bda-438b-aabe-86597985a6bb"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 3
+}

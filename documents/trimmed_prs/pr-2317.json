@@ -1,0 +1,141 @@
+{
+  "number": 2317,
+  "title": "Plot arrowheads in correct color",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-02T13:21:16Z",
+  "updated_at": "2023-02-02T14:25:57Z",
+  "closed_at": "2023-02-02T14:25:56Z",
+  "merged_at": "2023-02-02T14:25:56Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2317",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2317/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2317/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2317",
+  "body": "Fixes #2309",
+  "additions": 11,
+  "deletions": 13,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2309
+  ],
+  "issues": [
+    {
+      "id": 1565746071,
+      "number": 2309,
+      "title": "Issue with copy of Line Decorator",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-01T09:24:53Z",
+      "updated_at": "2023-02-02T16:58:29Z",
+      "closed_at": "2023-02-02T14:25:57Z",
+      "body": "We use the line decorator to put arrows on the polylines.\r\n\r\nWe use a `base` object for the formatting (`ArrowHeadPattern`), and modify it for each different colored line.\r\n\r\nBut, instead of copying the base object, we keep changing the original.\r\n\r\nIn this example, the yellow line arrows were the last to be drawn.  That means all of the line arrows get set to yellow:\r\n![image](https://user-images.githubusercontent.com/1108513/215998811-d5555460-2843-443e-8367-62b1e2a03086.png)\r\n\r\nNote: I tried switching from spread operator (`{...}`) to using deepCopy, but it appears there is (somehow) a function embedded in the object, which doesn't get copied properly.\r\n",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1413526044,
+          "user": "lebaphi",
+          "created_at": "2023-02-02T10:39:15Z",
+          "updated_at": "2023-02-02T10:39:15Z",
+          "body": "Hi @IanMayo, how to reproduce this?"
+        },
+        {
+          "id": 1413532684,
+          "user": "IanMayo",
+          "created_at": "2023-02-02T10:44:11Z",
+          "updated_at": "2023-02-02T10:46:23Z",
+          "body": "Hello @lebaphi, \r\nOpen this story, then click on `Get Next` button:\r\nhttp://localhost:6611/?path=/story/local-organisms-planningchannel--istar-interaction\r\n\r\nOr, this story, then expand `umpire-3`:\r\nhttp://localhost:6611/?path=/story/local-organisms-planningchannel--adjudication-form-open\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/216304002-f73420f7-e42a-446b-b39d-e8ebb1d40474.png)\r\nNote how the blue order arrows are plotted in red."
+        },
+        {
+          "id": 1413717131,
+          "user": "lebaphi",
+          "created_at": "2023-02-02T13:07:45Z",
+          "updated_at": "2023-02-02T13:07:45Z",
+          "body": "> In this example, the yellow line arrows were the last to be drawn. That means all of the line arrows get set to yellow:\r\n\r\nokay, so the issue is only the arrow gets yellow instead of all the line arrow gets yellow. We will get all the line arrow get yellow?"
+        },
+        {
+          "id": 1413724626,
+          "user": "IanMayo",
+          "created_at": "2023-02-02T13:11:36Z",
+          "updated_at": "2023-02-02T13:11:36Z",
+          "body": "I don't think the issue is about the yellow line in particular. The issue is that the arrows get set to the last custom arrow-head color.\r\n\r\nWe generate a number of `ArrowHeadPattern` objects, and set the color to the color of the current line.  But, instead of creating new ones, each time we actually edit the previous one.  So, in the above diagram we:\r\n1. generate the blue orders line, with a blue arrowhead\r\n2. generate the red orders line, with a red arrowhead.\r\n\r\nBut, the second arrowhead actually also edits the first arrowhead - which makes the blue line in the image have red arrows."
+        },
+        {
+          "id": 1413729414,
+          "user": "IanMayo",
+          "created_at": "2023-02-02T13:14:52Z",
+          "updated_at": "2023-02-02T13:14:52Z",
+          "body": "Aah, I think I've just fixed it @lebaphi \r\n\r\nLet me push my changes."
+        },
+        {
+          "id": 1413730360,
+          "user": "lebaphi",
+          "created_at": "2023-02-02T13:15:32Z",
+          "updated_at": "2023-02-02T13:15:32Z",
+          "body": "yep, please push the changes and I can take a look on it 😄 "
+        },
+        {
+          "id": 1413738466,
+          "user": "IanMayo",
+          "created_at": "2023-02-02T13:21:32Z",
+          "updated_at": "2023-02-02T13:32:51Z",
+          "body": "> yep, please push the changes and I can take a look on it 😄\r\n\r\nhttps://github.com/serge-web/serge/pull/2317\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/216338688-7626c4b7-0f24-4656-b246-78cc819c66cb.png)\r\n"
+        },
+        {
+          "id": 1413753988,
+          "user": "IanMayo",
+          "created_at": "2023-02-02T13:32:43Z",
+          "updated_at": "2023-02-02T13:32:43Z",
+          "body": "Do you understand what the issue was?"
+        },
+        {
+          "id": 1413756422,
+          "user": "lebaphi",
+          "created_at": "2023-02-02T13:34:45Z",
+          "updated_at": "2023-02-02T13:34:45Z",
+          "body": "yep, now it seems to work fine 😄 "
+        },
+        {
+          "id": 1413759544,
+          "user": "IanMayo",
+          "created_at": "2023-02-02T13:37:19Z",
+          "updated_at": "2023-02-02T13:37:19Z",
+          "body": "Yes - do you understand why our code kept using the same `ArrowHeadPattern` object?\r\n\r\nI would be quite happy to carry on using the const instance, but we (somehow) needed a deeper copy of it, I guess.\r\n![image](https://user-images.githubusercontent.com/1108513/216339664-0f05bcdf-2818-4f29-9957-1ef6d57040c9.png)\r\n"
+        },
+        {
+          "id": 1414053954,
+          "user": "lebaphi",
+          "created_at": "2023-02-02T16:51:42Z",
+          "updated_at": "2023-02-02T16:51:42Z",
+          "body": "> Yes - do you understand why our code kept using the same `ArrowHeadPattern` object?\n> \n> \n> \n> I would be quite happy to carry on using the const instance, but we (somehow) needed a deeper copy of it, I guess.\n> \n> ![image](https://user-images.githubusercontent.com/1108513/216339664-0f05bcdf-2818-4f29-9957-1ef6d57040c9.png)\n> \n> \n\nHi @IanMayo, spread syntax effectively goes one level deep while copying an object. Therefore, it may be unsuitable for copying multidimensional object. I suggest we use cloneDeep of lodash."
+        },
+        {
+          "id": 1414065403,
+          "user": "IanMayo",
+          "created_at": "2023-02-02T16:58:29Z",
+          "updated_at": "2023-02-02T16:58:29Z",
+          "body": "> Hi @IanMayo, spread syntax effectively goes one level deep while copying an object. Therefore, it may be unsuitable for copying multidimensional object. I suggest we use cloneDeep of lodash.\r\n\r\nAah, I'd been using `deepCopy` - which threw a runtime error. `cloneDeep` works fine - thanks :-D"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/215998811-d5555460-2843-443e-8367-62b1e2a03086.png",
+    "https://user-images.githubusercontent.com/1108513/216304002-f73420f7-e42a-446b-b39d-e8ebb1d40474.png",
+    "https://user-images.githubusercontent.com/1108513/216338688-7626c4b7-0f24-4656-b246-78cc819c66cb.png",
+    "https://user-images.githubusercontent.com/1108513/216339664-0f05bcdf-2818-4f29-9957-1ef6d57040c9.png"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 24
+}

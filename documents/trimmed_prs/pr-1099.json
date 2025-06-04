@@ -1,0 +1,30 @@
+{
+  "number": 1099,
+  "title": "Remove force icons",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-07T15:22:40Z",
+  "updated_at": "2021-09-07T15:24:09Z",
+  "closed_at": "2021-09-07T15:24:08Z",
+  "merged_at": "2021-09-07T15:24:08Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1099",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1099/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1099/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1099",
+  "body": "Remove all force icons.",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 0
+}

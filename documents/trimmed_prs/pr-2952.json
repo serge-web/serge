@@ -1,0 +1,87 @@
+{
+  "number": 2952,
+  "title": "2951_API_end_point_to_support_polling",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-05-22T11:52:56Z",
+  "updated_at": "2024-06-19T08:28:51Z",
+  "closed_at": "2024-05-22T15:03:19Z",
+  "merged_at": "2024-05-22T15:03:19Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2952",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2952/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2952/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2952",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 84,
+  "deletions": 0,
+  "changed_files": 2,
+  "labels": [
+    "4hat"
+  ],
+  "comments_count": 3,
+  "review_comments_count": 1,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 2124643968,
+      "user": "IanMayo",
+      "created_at": "2024-05-22T12:13:43Z",
+      "updated_at": "2024-05-22T12:13:43Z",
+      "body": "@lilitkarapetyan - we'll need this for CouchDb too, right?"
+    },
+    {
+      "id": 2124663292,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-05-22T12:23:52Z",
+      "updated_at": "2024-05-22T12:23:52Z",
+      "body": "> @lilitkarapetyan - we'll need this for CouchDb too, right?\r\n\r\nYes, I am working on it now."
+    },
+    {
+      "id": 2178078326,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-19T08:28:50Z",
+      "updated_at": "2024-06-19T08:28:50Z",
+      "body": "fixes #2951 "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1609839643,
+      "user": "IanMayo",
+      "created_at": "2024-05-22T12:12:47Z",
+      "updated_at": "2024-05-22T12:12:47Z",
+      "body": "@lilitkarapetyan - in the above call to `checkSqliteExists`, shouldn't we use the `:wargame` from the end-point?",
+      "path": "server/providers/pouchdb.js",
+      "diff_hunk": "@@ -298,6 +298,48 @@ const pouchDb = (app, io, pouchOptions) => {\n     ).catch(() => res.send([]))\n   })\n \n+  app.get('/:wargame/lastDoc/:id?', async (req, res) => {\n+    const databaseName = checkSqliteExists(req.params.wargame)\n+",
+      "html_url": "https://github.com/serge-web/serge/pull/2952#discussion_r1609839643"
+    }
+  ],
+  "issue_numbers": [
+    2951
+  ],
+  "issues": [
+    {
+      "id": 2309950334,
+      "number": 2951,
+      "title": "API end-point to support polling",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-05-22T08:49:19Z",
+      "updated_at": "2024-06-19T08:38:35Z",
+      "closed_at": "2024-06-19T08:38:34Z",
+      "body": "We have a `last` end-point that retrieves the latest version of the wargame. We don't have an end-point that retrieves the latest document regardless of document point.\r\n\r\nHmm, we could have that, but it could allow one or more messages to be missed if they are being sent frequently.\r\n\r\nWe should provide a `lastDoc` end-point that returns the latest document, regardless of document type.\r\n\r\nIf an ID is appended to `lastDoc` then all documents since that one are returned.",
+      "labels": [
+        "4hat"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 84
+}

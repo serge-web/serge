@@ -1,0 +1,140 @@
+{
+  "number": 2759,
+  "title": "2752_The_icons_of_force_get_wrong_path_for_game_play",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-01-11T09:10:08Z",
+  "updated_at": "2024-01-18T09:46:15Z",
+  "closed_at": "2024-01-18T09:46:14Z",
+  "merged_at": "2024-01-18T09:46:14Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2759",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2759/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2759/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2759",
+  "body": "Fixes #2752 \r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 121,
+  "deletions": 55,
+  "changed_files": 26,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 7,
+  "review_comments_count": 3,
+  "total_comments": 10,
+  "comments_data": [
+    {
+      "id": 1886731011,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-11T09:43:11Z",
+      "updated_at": "2024-01-11T09:43:11Z",
+      "body": "Fixes #2752 "
+    },
+    {
+      "id": 1889527013,
+      "user": "Tristina1788",
+      "created_at": "2024-01-12T15:39:12Z",
+      "updated_at": "2024-01-12T15:39:12Z",
+      "body": "The icon on the top channel are fixed. But the icon in the right bottom still show wrong. @lilitkarapetyan  Could you also fix it? Thanks.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/b14fcc7b-813c-4ea2-9145-8cb13dfe75fd)\r\n"
+    },
+    {
+      "id": 1891643978,
+      "user": "IanMayo",
+      "created_at": "2024-01-15T09:16:39Z",
+      "updated_at": "2024-01-15T09:16:39Z",
+      "body": "Thanks @lilitkarapetyan  - a bit more tidying up, please: https://github.com/serge-web/serge/pull/2759#issuecomment-1889527013"
+    },
+    {
+      "id": 1893140652,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-16T06:26:28Z",
+      "updated_at": "2024-01-16T06:26:28Z",
+      "body": "> Thanks @lilitkarapetyan - a bit more tidying up, please: [#2759 (comment)](https://github.com/serge-web/serge/pull/2759#issuecomment-1889527013)\r\n\r\nHello @IanMayo, Okay I will work on it."
+    },
+    {
+      "id": 1895683068,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-17T12:11:44Z",
+      "updated_at": "2024-01-17T12:11:44Z",
+      "body": "We have issues with the playwright test. `cd e2e/playwright_test yarn test `"
+    },
+    {
+      "id": 1895691568,
+      "user": "IanMayo",
+      "created_at": "2024-01-17T12:17:07Z",
+      "updated_at": "2024-01-17T12:21:44Z",
+      "body": "> We have issues with the playwright test. `cd e2e/playwright_test yarn test `\r\n\r\nYes, I think it reports that a dependency is missing.\r\n\r\n![image](https://github.com/serge-web/serge/assets/1108513/ee46ba79-0f40-4ad8-9482-4fa0847ee65a)\r\n\r\n@lilitkarapetyan - do you think our build could be missing a `yarn install` in the playwright folder?"
+    },
+    {
+      "id": 1895717652,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-17T12:32:38Z",
+      "updated_at": "2024-01-17T12:33:11Z",
+      "body": "> > We have issues with the playwright test. `cd e2e/playwright_test yarn test `\r\n> \r\n> Yes, I think it reports that a dependency is missing.\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/1108513/297375152-ee46ba79-0f40-4ad8-9482-4fa0847ee65a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDU0OTUwMjYsIm5iZiI6MTcwNTQ5NDcyNiwicGF0aCI6Ii8xMTA4NTEzLzI5NzM3NTE1Mi1lZTQ2YmE3OS0wZjQwLTRhZDgtOTQ4Mi00ZmEwODQ3ZWU2NWEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDExNyUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAxMTdUMTIzMjA2WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ODhmYjE4YWI3NGIwNTNjNTgwNTMyMThmYzlkNjk4ODY2ZWZmNDJmNTM0YjQ1MTgxMWY1MWZiYWQ0Mzg2NDY5NyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.BsKCurfrc43OysMGtnV9v3TfeHxiqt8kslQPRnKKhgg)\r\n> \r\n> @lilitkarapetyan - do you think our build could be missing a `yarn install` in the playwright folder?\r\n\r\nI think yes."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1453441621,
+      "user": "IanMayo",
+      "created_at": "2024-01-16T13:39:23Z",
+      "updated_at": "2024-01-16T13:39:23Z",
+      "body": "@lilitkarapetyan - could you remove the `icon` field from `ForceData` and then tidy up the deprecated instances please?",
+      "path": "client/src/Components/local/molecules/admin-panel-footer/index.tsx",
+      "diff_hunk": "@@ -12,7 +12,7 @@ export const AdminPanelFooter: React.FC<Props> = ({ force, selectedRoleName, onI\n       <div className={styles['role-type']}>{selectedRoleName}</div>\n       <div className={styles['force-type']}>{force.name}</div>\n     </div>\n-    <img className={styles['role-icon']} src={resolveImagePath(force.iconURL || force.icon)} alt=\"\" onClick={onIconClick} data-tour=\"second-step\" style={{ backgroundColor: force.color }} />\n+    <img className={styles['role-icon']} src={resolveImagePath(force.icon || force.iconURL)} alt=\"\" onClick={onIconClick} data-tour=\"second-step\" style={{ backgroundColor: force.color }} />",
+      "html_url": "https://github.com/serge-web/serge/pull/2759#discussion_r1453441621"
+    },
+    {
+      "id": 1454649407,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-01-17T05:52:37Z",
+      "updated_at": "2024-01-17T05:52:37Z",
+      "body": "Hello @Ian, I will work on it.",
+      "path": "client/src/Components/local/molecules/admin-panel-footer/index.tsx",
+      "diff_hunk": "@@ -12,7 +12,7 @@ export const AdminPanelFooter: React.FC<Props> = ({ force, selectedRoleName, onI\n       <div className={styles['role-type']}>{selectedRoleName}</div>\n       <div className={styles['force-type']}>{force.name}</div>\n     </div>\n-    <img className={styles['role-icon']} src={resolveImagePath(force.iconURL || force.icon)} alt=\"\" onClick={onIconClick} data-tour=\"second-step\" style={{ backgroundColor: force.color }} />\n+    <img className={styles['role-icon']} src={resolveImagePath(force.icon || force.iconURL)} alt=\"\" onClick={onIconClick} data-tour=\"second-step\" style={{ backgroundColor: force.color }} />",
+      "html_url": "https://github.com/serge-web/serge/pull/2759#discussion_r1454649407"
+    },
+    {
+      "id": 1457158113,
+      "user": "IanMayo",
+      "created_at": "2024-01-18T09:25:21Z",
+      "updated_at": "2024-01-18T09:25:21Z",
+      "body": "@lilitkarapetyan - this next section is commented out.  We need to decide what to do with it, please.",
+      "path": "client/src/ActionsAndReducers/dbWargames/wargames_ActionCreators.ts",
+      "diff_hunk": "@@ -306,12 +306,12 @@ export const updateForces = (dbName: string, newData: ForceData[]) => {\n }\r\n \r\n export const saveForce = (dbName: string, newData: ForceData) => {\r\n-  return async (dispatch: WargameDispatch, state: any) => {\r\n-    const oldForceData = state().wargame.data.forces.selectedForce\r\n-    if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {\r\n-      const savedIconURL = await wargamesApi.saveIcon(newData.iconURL)\r\n-      newData.iconURL = savedIconURL.path\r\n-    }\r\n+  return async (dispatch: WargameDispatch) => {\r",
+      "html_url": "https://github.com/serge-web/serge/pull/2759#discussion_r1457158113"
+    }
+  ],
+  "issue_numbers": [
+    2752
+  ],
+  "issues": [
+    {
+      "id": 2068478834,
+      "number": 2752,
+      "title": "The icon of force get wrong path for game play",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-01-06T09:01:29Z",
+      "updated_at": "2024-01-18T09:46:15Z",
+      "closed_at": "2024-01-18T09:46:15Z",
+      "body": "## 🐞 Bug description\r\nCreate a new game then play game with any role. Notice  icon of force is wrong path so It can not show icon.\r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Login app as admin\r\n2. Create a new game \r\n3. Play game with any role \r\n4. Notice  icon of force is wrong path (It gets duplicate 'http://localhost:8080'). So It can not show icon.\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/63000c39-b19a-41fd-8f29-494219628a65)\r\n\r\n## ⚙️ Expected behavior\r\nShould enable to show icon of force\r\n\r\n## 🖥️ Screenshots\r\n\r\n\r\n## 💻 System information\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/b14fcc7b-813c-4ea2-9145-8cb13dfe75fd",
+    "https://github.com/serge-web/serge/assets/1108513/ee46ba79-0f40-4ad8-9482-4fa0847ee65a",
+    "https://private-user-images.githubusercontent.com/1108513/297375152-ee46ba79-0f40-4ad8-9482-4fa0847ee65a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDU0OTUwMjYsIm5iZiI6MTcwNTQ5NDcyNiwicGF0aCI6Ii8xMTA4NTEzLzI5NzM3NTE1Mi1lZTQ2YmE3OS0wZjQwLTRhZDgtOTQ4Mi00ZmEwODQ3ZWU2NWEucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDExNyUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDAxMTdUMTIzMjA2WiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9ODhmYjE4YWI3NGIwNTNjNTgwNTMyMThmYzlkNjk4ODY2ZWZmNDJmNTM0YjQ1MTgxMWY1MWZiYWQ0Mzg2NDY5NyZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.BsKCurfrc43OysMGtnV9v3TfeHxiqt8kslQPRnKKhgg",
+    "https://github.com/serge-web/serge/assets/107697044/63000c39-b19a-41fd-8f29-494219628a65"
+  ],
+  "number_of_changed_files": 26,
+  "total_changed_lines": 176
+}

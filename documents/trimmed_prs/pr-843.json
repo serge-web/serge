@@ -1,0 +1,52 @@
+{
+  "number": 843,
+  "title": "842 expand correct RFI in status board",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-17T15:40:01Z",
+  "updated_at": "2021-06-17T16:47:46Z",
+  "closed_at": "2021-06-17T16:47:45Z",
+  "merged_at": "2021-06-17T16:47:45Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/843",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/843/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/843/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/843",
+  "body": "Fixes #842 ",
+  "additions": 11,
+  "deletions": 4,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    842
+  ],
+  "issues": [
+    {
+      "id": 923964719,
+      "number": 842,
+      "title": "Open row in RFI Status board",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-17T14:03:10Z",
+      "updated_at": "2021-06-17T16:47:45Z",
+      "closed_at": "2021-06-17T16:47:45Z",
+      "body": "The RFI status board updates when it receives a new message.\r\n\r\nWhen it updates, it tries to keep the last selected message open.\r\n\r\nBut, it indexes the messages by sequential counter.  It needs to index the messages by ID, to handle the message order changing.\r\n\r\nSee the video below:\r\n* Message id `Red-1-2` is open. \r\n* The user `Takes ownership of it`\r\n* Message `Red-1-2` now moves to the top of the list (as it has had the most recent update)\r\n* But, Message `Red-1-1` is now opened. \r\n\r\nChanging which message is open may mislead the user.\r\n\r\n![screencast](https://i.gyazo.com/25478b8c68dcd873313c2dfa6beb89b8.gif)\r\n\r\nI think the main part of this issue is moving away from `rowIndex` in `DataTable\\index.tsx`.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/25478b8c68dcd873313c2dfa6beb89b8.gif"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 15
+}

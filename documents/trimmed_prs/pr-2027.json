@@ -1,0 +1,209 @@
+{
+  "number": 2027,
+  "title": "Integrate flatPickr",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-09T14:47:20Z",
+  "updated_at": "2022-12-30T12:48:06Z",
+  "closed_at": "2022-12-30T12:48:05Z",
+  "merged_at": "2022-12-30T12:48:05Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2027",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2027/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2027/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2027",
+  "body": "Fixes #2011 ",
+  "additions": 660,
+  "deletions": 344,
+  "changed_files": 23,
+  "labels": [],
+  "comments_count": 17,
+  "review_comments_count": 3,
+  "total_comments": 20,
+  "comments_data": [
+    {
+      "id": 1308909973,
+      "user": "lebaphi",
+      "created_at": "2022-11-09T15:11:22Z",
+      "updated_at": "2022-11-09T15:11:59Z",
+      "body": "I've updated json-editor and flatpickr to the latest version.\r\n\r\nhttps://user-images.githubusercontent.com/26705621/200867265-cf282eda-a86b-4da3-95e1-819cb437a1f8.mov\r\n\r\n"
+    },
+    {
+      "id": 1308942207,
+      "user": "IanMayo",
+      "created_at": "2022-11-09T15:33:14Z",
+      "updated_at": "2022-11-09T15:33:14Z",
+      "body": "Thanks for this @lebaphi \r\n\r\nIt's working in my browser. But, we're not getting date *and* time.   It's just date.  The `format` is specified as `datetime-local`, which is what `json-editor` says should be used.\r\n\r\nI'm expecting an editor more like this:\r\n![image](https://user-images.githubusercontent.com/1108513/200872624-0a20cf29-aafd-49af-947c-7f5da23fbc44.png)\r\n\r\nAny ideas?\r\n"
+    },
+    {
+      "id": 1308972442,
+      "user": "lebaphi",
+      "created_at": "2022-11-09T15:54:50Z",
+      "updated_at": "2022-11-09T15:54:50Z",
+      "body": "let me check if the flatpickr provides some options to do that thing, but in tomorrow 😄"
+    },
+    {
+      "id": 1309964253,
+      "user": "IanMayo",
+      "created_at": "2022-11-10T08:55:29Z",
+      "updated_at": "2022-11-10T08:55:29Z",
+      "body": "Thanks @philb89 - but we really need the time component to work, too.  For the `start date` and `end date` - the players need to enter date and time (well, just the date and hour, actually).\r\n\r\nIs it worth experimenting with version `2.8` of `json-editor`?"
+    },
+    {
+      "id": 1309989255,
+      "user": "lebaphi",
+      "created_at": "2022-11-10T09:16:44Z",
+      "updated_at": "2022-11-10T09:16:44Z",
+      "body": "> Thanks @philb89 - but we really need the time component to work, too. For the `start date` and `end date` - the players need to enter date and time (well, just the date and hour, actually).\r\n> \r\n> Is it worth experimenting with version `2.8` of `json-editor`?\r\n\r\nlet me try with the old version 1.3.5"
+    },
+    {
+      "id": 1310487274,
+      "user": "lebaphi",
+      "created_at": "2022-11-10T15:43:53Z",
+      "updated_at": "2022-11-10T15:43:53Z",
+      "body": "I reverted json editor back to version 1.3.5 but got the same issue 🤔 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/201139603-50163517-81a8-42b9-bb1d-a317b1ded56c.mov\r\n\r\n"
+    },
+    {
+      "id": 1312645072,
+      "user": "lebaphi",
+      "created_at": "2022-11-13T05:44:07Z",
+      "updated_at": "2022-11-13T05:44:07Z",
+      "body": "\r\nhttps://user-images.githubusercontent.com/26705621/201507725-de97f481-0994-49ea-b118-a729f1d15a69.mov\r\n\r\n"
+    },
+    {
+      "id": 1323524181,
+      "user": "IanMayo",
+      "created_at": "2022-11-22T11:29:01Z",
+      "updated_at": "2022-11-22T11:29:01Z",
+      "body": "I've brought this PR up to date, but it doesn't seem to be working @lebaphi \r\n\r\nWould you mind updating it please?"
+    },
+    {
+      "id": 1323573964,
+      "user": "lebaphi",
+      "created_at": "2022-11-22T12:16:45Z",
+      "updated_at": "2022-11-22T12:16:45Z",
+      "body": "sure Ian, Im will update in the next 2hrs"
+    },
+    {
+      "id": 1323891938,
+      "user": "lebaphi",
+      "created_at": "2022-11-22T15:54:27Z",
+      "updated_at": "2022-11-22T15:54:27Z",
+      "body": "Hi @IanMayo , I checked the schema\r\n\r\n<img width=\"198\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/203358948-4d6cb4ed-a9ff-4ba1-9882-cc52fc6a4f55.png\">\r\n\r\nI think this issue cause we lost the option `time_24hr: true` in the flatpickr options, and the format should be `datetime-local`\r\n\r\n<img width=\"329\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/203360119-84fc9bb5-c1f8-409e-87bf-2e0587f8bfb3.png\">\r\n\r\n"
+    },
+    {
+      "id": 1329508945,
+      "user": "IanMayo",
+      "created_at": "2022-11-28T17:50:36Z",
+      "updated_at": "2022-11-28T17:50:36Z",
+      "body": "Hello @lebaphi - I'm trying to get this sorted.\r\n\r\nIt looks like json-editor is ignoring the template values for flatpickr options.\r\n\r\nI'm using this story:\r\nhttp://localhost:6611/?path=/story/local-molecules-jsoneditor--planning-message\r\n\r\nThe template being used in the story is this one:\r\nhttps://github.com/serge-web/serge/pull/2027/files#diff-e1f45060503678cae7229e92041f24a3fe484b7444b2aac772735f0402d57238L13780\r\n\r\nNote that `endDate` has flatpickr properties, but `startDate` & `endDate` both seem to have the same date-time control in the story"
+    },
+    {
+      "id": 1348504775,
+      "user": "IanMayo",
+      "created_at": "2022-12-13T13:04:51Z",
+      "updated_at": "2022-12-13T13:04:51Z",
+      "body": "Hello @lebaphi - this could be _another_ issue that could magically go away with an update to `json-editor`."
+    },
+    {
+      "id": 1351572428,
+      "user": "lebaphi",
+      "created_at": "2022-12-14T15:01:38Z",
+      "updated_at": "2022-12-14T15:03:49Z",
+      "body": "> Hi @lebaphi - this could be an another issue that can magically disappear when `json-editor` is updated.\r\n\r\nI don't think so @IanMayo, I upgraded json editor to latest version from the beginning of this PR but it didn't work, then I reverted back to 1.3.5 but had the same problem. https://github.com/serge-web/serge/pull/2027#issuecomment-1310487274\r\nI think that means we still need to refer the solution on this PR."
+    },
+    {
+      "id": 1367296056,
+      "user": "IanMayo",
+      "created_at": "2022-12-29T12:47:52Z",
+      "updated_at": "2022-12-29T12:47:52Z",
+      "body": "Hello @lebaphi - could you have a go at fixing the conflicts here please?\r\n\r\nI had a go - but got stuck :-("
+    },
+    {
+      "id": 1367466543,
+      "user": "lebaphi",
+      "created_at": "2022-12-29T17:03:36Z",
+      "updated_at": "2022-12-29T17:03:36Z",
+      "body": "> Hello @lebaphi - could you have a go at fixing the conflicts here please?\n> \n> \n> \n> I had a go - but got stuck :-(\n\nsure @IanMayo but tomorrow 😂"
+    },
+    {
+      "id": 1367739758,
+      "user": "lebaphi",
+      "created_at": "2022-12-30T05:48:51Z",
+      "updated_at": "2022-12-30T05:48:51Z",
+      "body": "Wait for me to test again.."
+    },
+    {
+      "id": 1367774403,
+      "user": "lebaphi",
+      "created_at": "2022-12-30T07:41:15Z",
+      "updated_at": "2022-12-30T07:41:15Z",
+      "body": "Hi @IanMayo, I tested on the json-editor v2.8.0\r\n\r\n<img width=\"986\" alt=\"Screen Shot 2022-12-30 at 2 34 58 PM\" src=\"https://user-images.githubusercontent.com/26705621/210046405-695a3241-f796-433a-81d4-23d0f0ce81e5.png\">\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1018074780,
+      "user": "IanMayo",
+      "created_at": "2022-11-09T15:18:19Z",
+      "updated_at": "2022-11-09T15:18:20Z",
+      "body": "we'll need stylesheets to be stored in the repo please, we won't be able to load them at run-time.",
+      "path": "packages/client/public/index.html",
+      "diff_hunk": "@@ -7,6 +7,7 @@\n   <link rel='shortcut icon' href='%PUBLIC_URL%/favicon.ico' />\n   <link rel='stylesheet' href='%PUBLIC_URL%/leaflet.css' />\n   <link rel='stylesheet' href='%PUBLIC_URL%/leaflet.select/leaflet.control.select.css' />\n+  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpickr.min.css\">",
+      "html_url": "https://github.com/serge-web/serge/pull/2027#discussion_r1018074780"
+    },
+    {
+      "id": 1018080072,
+      "user": "IanMayo",
+      "created_at": "2022-11-09T15:22:31Z",
+      "updated_at": "2022-11-09T15:22:32Z",
+      "body": "this will also need to be stored in the repo too, please.",
+      "path": "packages/components/.storybook/preview-head.html",
+      "diff_hunk": "@@ -1,3 +1,4 @@\n <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>\n <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" />\n-<link rel='stylesheet' href='%PUBLIC_URL%/leaflet.select/leaflet.control.select.css' />\n\\ No newline at end of file\n+<link rel='stylesheet' href='%PUBLIC_URL%/leaflet.select/leaflet.control.select.css' />\n+<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpickr.min.css\">",
+      "html_url": "https://github.com/serge-web/serge/pull/2027#discussion_r1018080072"
+    },
+    {
+      "id": 1018081266,
+      "user": "lebaphi",
+      "created_at": "2022-11-09T15:23:28Z",
+      "updated_at": "2022-11-09T15:23:28Z",
+      "body": "okay @IanMayo ",
+      "path": "packages/components/.storybook/preview-head.html",
+      "diff_hunk": "@@ -1,3 +1,4 @@\n <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>\n <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons\" />\n-<link rel='stylesheet' href='%PUBLIC_URL%/leaflet.select/leaflet.control.select.css' />\n\\ No newline at end of file\n+<link rel='stylesheet' href='%PUBLIC_URL%/leaflet.select/leaflet.control.select.css' />\n+<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/flatpickr@4.6.3/dist/flatpickr.min.css\">",
+      "html_url": "https://github.com/serge-web/serge/pull/2027#discussion_r1018081266"
+    }
+  ],
+  "issue_numbers": [
+    2011
+  ],
+  "issues": [
+    {
+      "id": 1438557692,
+      "number": 2011,
+      "title": "Integrate `flatPickr`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-07T15:33:25Z",
+      "updated_at": "2022-12-30T12:48:06Z",
+      "closed_at": "2022-12-30T12:48:06Z",
+      "body": "We need our players to enter date-time values for new orders.\r\n\r\nJSON-Editor supports the `flatpickr` component, but it's not working in our templates.\r\n\r\nThe text is locked, as-if JSON-Editor wants to make users user the control, but the control doesn't appear.\r\n\r\n![screencast](https://i.gyazo.com/6b39a2630ff89bd43074d01934e0e108.gif)\r\n\r\nThere is a story supporting this here: http://localhost:6611/?path=/story/local-form-elements-newmessage--just-land-activity (note: right now I haven't pushed that story yet, but will soon)",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/200872624-0a20cf29-aafd-49af-947c-7f5da23fbc44.png",
+    "https://user-images.githubusercontent.com/26705621/203358948-4d6cb4ed-a9ff-4ba1-9882-cc52fc6a4f55.png",
+    "https://user-images.githubusercontent.com/26705621/203360119-84fc9bb5-c1f8-409e-87bf-2e0587f8bfb3.png",
+    "https://user-images.githubusercontent.com/26705621/210046405-695a3241-f796-433a-81d4-23d0f0ce81e5.png",
+    "https://i.gyazo.com/6b39a2630ff89bd43074d01934e0e108.gif"
+  ],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 1004
+}

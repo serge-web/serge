@@ -1,0 +1,103 @@
+{
+  "number": 1483,
+  "title": "1406: Element Selection Bug",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-06T02:31:55Z",
+  "updated_at": "2022-04-06T08:33:50Z",
+  "closed_at": "2022-04-06T08:33:49Z",
+  "merged_at": "2022-04-06T08:33:49Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1483",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1483/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1483/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1483",
+  "body": "Fixes #1406 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/161884053-f76b0f9b-78c3-44a3-963d-8ede422ce30a.mov\r\n\r\n\r\n",
+  "additions": 7,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1406
+  ],
+  "issues": [
+    {
+      "id": 1166713925,
+      "number": 1406,
+      "title": "Element Selection Bug",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-11T18:11:00Z",
+      "updated_at": "2022-04-06T08:33:49Z",
+      "closed_at": "2022-04-06T08:33:49Z",
+      "body": "When adding conditions, states and attributes to a platform, the selection underline remains active on the last elements of each category even after it has been added: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/157925433-122813bd-9b3f-452b-8211-931717da192d.mp4\r\n\r\n\r\n",
+      "labels": [
+        "bug",
+        "UX: Low Priority"
+      ],
+      "comments": [
+        {
+          "id": 1065363277,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-11T18:14:57Z",
+          "updated_at": "2022-03-11T18:14:57Z",
+          "body": "Also, the attribute text boxes might be a little too small: \r\n\r\n![Small Text Box Attributes](https://user-images.githubusercontent.com/85491794/157925900-f4936f28-6f82-4ff4-98e7-451e5752e701.png)\r\n\r\nFor example, the one previewing the formats can't even fully contain the word \"format\". What if the user wants to add a long format? Unit is also quite tight."
+        },
+        {
+          "id": 1066581398,
+          "user": "IanMayo",
+          "created_at": "2022-03-14T09:52:22Z",
+          "updated_at": "2022-03-14T09:52:22Z",
+          "body": "Thanks for that @ShendMikullovci \r\n\r\nThe `format` field will probably only normally be one of `0`, `0.0`, `0.00`.   So, the values will almost alway be shorter than the word `format`. \r\n\r\nUnits are also typically short `m`, `kg`, `tons`, `secs`.  On the rare occasion that it's a longer word it seems acceptable for the user to have to drag the cursor.  \r\n\r\nI think it's right to give the most sapce to `Atrtribute` and `Description`.  I _guess_ we could use smaller fonts in some places, but that may just distract.\r\n\r\nHmm, If we give `format` just a couple more pixels of width it would solve the `format` issue.\r\n\r\nWhat do you think @ShendMikullovci ?"
+        },
+        {
+          "id": 1066894713,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-14T14:50:08Z",
+          "updated_at": "2022-03-14T14:50:08Z",
+          "body": "> The `format` field will probably only normally be one of `0`, `0.0`, `0.00`. So, the values will almost alway be shorter than the word `format`.\r\n> \r\n> Units are also typically short `m`, `kg`, `tons`, `secs`. On the rare occasion that it's a longer word it seems acceptable for the user to have to drag the cursor.\r\n\r\nIf you're sure those are the formats and units most likely to be used then we can stick to what we got. I was just being cautious. \r\n\r\n> I think it's right to give the most sapce to `Atrtribute` and `Description`. I _guess_ we could use smaller fonts in some places, but that may just distract.\r\n\r\nWhat kind of descriptions would the user usually have for the attributes? I would imagine a short sentence would suffice?\r\n\r\n"
+        },
+        {
+          "id": 1066904473,
+          "user": "IanMayo",
+          "created_at": "2022-03-14T14:57:13Z",
+          "updated_at": "2022-03-14T14:57:13Z",
+          "body": "> If you're sure those are the formats and units most likely to be used then we can stick to what we got. I was just being cautious.\r\n\r\nSure.  It seems a pretty rare occurrence to have a units for format more than 4 chars long. If there is, the Game Designer can still drag their mouse to read the text.\r\n\r\n> What kind of descriptions would the user usually have for the attributes? I would imagine a short sentence would suffice?\r\n\r\nI'm afraid this is the `unknown unknowns` - the users don't know the range of attributes they will come up with for a wargame, they just know they want freedom to specify any kind of attribute."
+        },
+        {
+          "id": 1066910631,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-14T15:02:38Z",
+          "updated_at": "2022-03-14T15:02:38Z",
+          "body": "> I'm afraid this is the `unknown unknowns` - the users don't know the range of attributes they will come up with for a wargame, they just know they want freedom to specify any kind of attribute.\r\n\r\nIn that case, we could allow for the description to display only a word or two, sort of like a title, and give an option to enter more data in a pop-up window. Once that data is added, it is applied to an info marker, where the user would click the info marker to see the entire description. "
+        },
+        {
+          "id": 1066913667,
+          "user": "IanMayo",
+          "created_at": "2022-03-14T15:04:49Z",
+          "updated_at": "2022-03-14T15:04:49Z",
+          "body": "Really, the \"Attribute\" is the element that is a word or two long, and the \"description\" is the amplifying text.\r\n\r\nLet's see how we get on with this next wargame. As the Game Designer is developing it, he can ask us to give more space if necessary."
+        },
+        {
+          "id": 1077517828,
+          "user": "IanMayo",
+          "created_at": "2022-03-24T11:19:44Z",
+          "updated_at": "2022-03-24T11:19:44Z",
+          "body": "The underline for `state` and `condition` is a valid bug.\r\n\r\nBut, right now it's just cosmetic, and it only affects the Game Designer. Marking as low priority."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/157925900-f4936f28-6f82-4ff4-98e7-451e5752e701.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 8
+}

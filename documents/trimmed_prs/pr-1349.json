@@ -1,0 +1,217 @@
+{
+  "number": 1349,
+  "title": "1332: Improve editor component platform speed",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-02-16T13:04:48Z",
+  "updated_at": "2022-02-17T08:19:31Z",
+  "closed_at": "2022-02-17T08:19:31Z",
+  "merged_at": "2022-02-17T08:19:31Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1349",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1349/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1349/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1349",
+  "body": "Fixes #1332 ",
+  "additions": 188,
+  "deletions": 69,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 1041929061,
+      "user": "IanMayo",
+      "created_at": "2022-02-16T17:48:25Z",
+      "updated_at": "2022-02-16T17:48:25Z",
+      "body": "Thanks @lebaphi \r\n\r\nThe `Add speed` button on the admin page needs to be changed to `Edit`.  Hmm, or how about clicking on the read-only speeds to popup the dialog editor panel?"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1332
+  ],
+  "issues": [
+    {
+      "id": 1119976921,
+      "number": 1332,
+      "title": "Improved editor component for design of platform speeds",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-31T21:58:19Z",
+      "updated_at": "2022-02-17T08:19:31Z",
+      "closed_at": "2022-02-17T08:19:31Z",
+      "body": "We're trying to see if we can re-design and update the tracking of asset speed. Our current design takes up too much space on the admin page and is not optimal for tracking. \r\n\r\nThis was the initial idea:\r\n\r\n![Speed Box](https://user-images.githubusercontent.com/85491794/151879419-1f06da63-c6e8-44a2-947e-fc4a55162228.png)\r\n \r\nHere, the user can change the interval values and length. Selecting one value auto-selects the previous values: The selected speed in this design is 18KTS, which means the asset can also go at 6 & 12 KTS if necessary.\r\n\r\n@IanMayo brought up the following ideas: _It's possible for a warship to have a maximum speed for \"flying operations\", that's the maximum speed the can travel at and still use their helicopter. But, an autonomous underwater vehicle (AUV) could have a \"most efficient speed\" - that's the speed that maximises search range and battery endurance. There is a chance that this speed could be expressed in metres/second. So the AUV could have an \"Optimal search speed\" with units of \"m/s\". The Game Designer may provide different \"optimal search speeds\" for different instances of AUV._\r\n\r\nThe following questions arise: \r\n- Why would the most efficient speed be measured in m/s and not KTS? \r\n- Have we discussed this with the client? \r\n- Can they provide details on the most efficient speed per asset type based on real-life scenarios?",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1026257177,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-31T22:04:02Z",
+          "updated_at": "2022-01-31T22:04:02Z",
+          "body": "Adding \"Optimal Search Speed\" to the speed box clutters the design and could be redundant. Can we show optimal search speed in equivalent KTS? That way, the appropriate KTS speed would be highlighted and selected by default, with a small question mark to explain the selection."
+        },
+        {
+          "id": 1026659035,
+          "user": "IanMayo",
+          "created_at": "2022-02-01T09:55:45Z",
+          "updated_at": "2022-02-01T09:55:45Z",
+          "body": "> Why would the most efficient speed be measured in m/s and not KTS?\r\n\r\nIt's an illustration of a scenario when the units of speed could be something other than knots.  Similarly, If it was a land vehicle it would be km/h or mph.\r\n\r\n> Have we discussed this with the client?\r\n\r\nNo.  Clients require ability to specify any measurable concept as a `variable` (or `attribute`). \r\n\r\n> Can they provide details on the most efficient speed per asset type based on real-life scenarios?\r\n\r\nAgain, I'm just providing an example of an attribute.  They don't have a list of what attributes they wish to use in the game. If fact it's the opposite - they wish to be able to store _any_ measurable concept in game."
+        },
+        {
+          "id": 1026660144,
+          "user": "IanMayo",
+          "created_at": "2022-02-01T09:57:06Z",
+          "updated_at": "2022-02-01T09:57:06Z",
+          "body": "> Here, the user can change the interval values and length. \r\n\r\nThe design needs to demonstrate/explain how interval values and length are edited by the game designer."
+        },
+        {
+          "id": 1026808410,
+          "user": "ShendMikullovci",
+          "created_at": "2022-02-01T12:50:44Z",
+          "updated_at": "2022-02-01T12:50:44Z",
+          "body": "Here's a walkthrough: \r\n\r\nThe user views an empty speed box ready to be filled out.\r\n\r\n![Speed Box Empty](https://user-images.githubusercontent.com/85491794/151969266-711ef3c0-1d1e-4a09-811c-600c01cd3cc1.png)\r\n \r\nThey click on \"Add Speed\" and the interval pops up. I noticed that in CWK-HIGH DATA, we track 0-5 speeds depending on assets, for a total of 16 platforms. That's an average of 2.6 speeds per asset, so I rounded that up to 3 and decided to show 3 default data points for the interval. The values here are also from CWK-HIGH DATA but can be changed. \r\n\r\nThree icons on the right of the interval also appear. \r\nThe Plus allows the player to add data points, the dash to remove them, and the bin to delete the entire interval. \r\n\r\nP.S. I got rid of the interval tracker because of its use for more fluid scales; intuitively, I should be able to set the speed at whatever point between 6-12 for example, but that only renders things more complex. Let me know if you want it back.\r\n\r\nAs for the Optimal Search Speed (OSS, for quicker typing), I'm in between 2 design ideas. The one below shows OSS as a text form to be filled with a value that the user sees fit. The other idea is to present OSS as a feature on its own, where we present a default value for OSS and give the user the ability to activate and edit it. I was thinking of a checkbox or a radio button, an on/off feature, etc. \r\n\r\nFinally, the user can also manipulate the measurement, by changing the unit manually. I had the idea of adding a drop-down list of the units the user might want to use, and clicking on one would instantly change the values on the interval. Some of the units would also be unavailable (I guess?) depending on travel mode (meters/second for a boat? probably not). \r\n\r\n![Speed Box Input](https://user-images.githubusercontent.com/85491794/151969371-53d44de5-7420-4d15-ad25-747ffa96e8a4.png)\r\n\r\nOnce the input is over, the user hits enter and the interval turns pitch black:\r\n\r\n![Speed Box Completion](https://user-images.githubusercontent.com/85491794/151971388-9b6755c5-efd4-4678-a9e5-f7c7d7cf68f7.png)\r\n\r\nI've left the add/remove and delete buttons on here, but it would be nicer if they only appeared when hovering over the speed box after the user has hit enter.\r\n\r\nLet me know your thoughts.\r\n"
+        },
+        {
+          "id": 1026829953,
+          "user": "IanMayo",
+          "created_at": "2022-02-01T13:13:33Z",
+          "updated_at": "2022-02-01T13:13:33Z",
+          "body": "Sorry if the concept of \"Optimal search speed\" is a distraction.  It's an example of an `attribute` that takes units.  It wasn't intended to replace/supplement `Search` in a `Platform-Type`.\r\n\r\nI'm happy with the general concept of moving the speed editor from a vertical list of a horizontal list.\r\n\r\nFor the `-` button to work, the player would need to select a speed before clicking it, which introduces the need for a `current speed` marker. \r\n\r\nThere is a danger of this component becoming increasingly complex/expensive for something that only the Game Designer interacts with.\r\n\r\nA _simpler_ interface would be to display the speeds as a horizontal (comma-separated) list.  But, with an \"Edit\" button that pops up the existing vertical editor component in a dialog - where they get added/edited/deleted as currently, but with a \"Done\" button that closes the dialog, and shows the horizontal list.  How about that?\r\n\r\n"
+        },
+        {
+          "id": 1033143532,
+          "user": "ShendMikullovci",
+          "created_at": "2022-02-08T22:55:22Z",
+          "updated_at": "2022-02-08T22:55:22Z",
+          "body": "Something like this? : \r\n\r\n![New Speed Box](https://user-images.githubusercontent.com/85491794/153089462-f591340d-6c4f-456b-9788-b6336aa5e6a8.png)\r\n\r\n![New Speed Box 1](https://user-images.githubusercontent.com/85491794/153089476-ac77c1b0-cef1-41d8-982f-91e878040f46.png)\r\n\r\n\r\n"
+        },
+        {
+          "id": 1033509856,
+          "user": "IanMayo",
+          "created_at": "2022-02-09T08:53:06Z",
+          "updated_at": "2022-02-09T08:53:06Z",
+          "body": "> Something like this? \r\n\r\nYes - spot on - though would we still need edit/cancel buttons?  (I'm pretty sure we would if it's in a popup dialog)"
+        },
+        {
+          "id": 1035467400,
+          "user": "ShendMikullovci",
+          "created_at": "2022-02-10T20:25:45Z",
+          "updated_at": "2022-02-10T20:25:45Z",
+          "body": "How does this look?: \r\n\r\n![Speed Box Reduced 1](https://user-images.githubusercontent.com/85491794/153490392-466ad975-1b89-49d5-b66c-fd2ac7000bf0.png)\r\n\r\nReduced size for less space consumption. When the user clicks on Edit Speed, the pop-up appears: \r\n\r\n![Speed Box Reduced 2](https://user-images.githubusercontent.com/85491794/153490525-a9944531-fefc-4d1d-b01d-b587e096b1fd.png)\r\n\r\nAdded a save button and an X marker to keep it simple and straightforward. The color on the buttons is not crucial, though I believe it matches well with the aesthetics of the game.\r\n\r\n"
+        },
+        {
+          "id": 1036036696,
+          "user": "IanMayo",
+          "created_at": "2022-02-11T09:55:16Z",
+          "updated_at": "2022-02-11T09:55:16Z",
+          "body": "> How does this look?\r\nYes, great :-)"
+        },
+        {
+          "id": 1036981534,
+          "user": "lebaphi",
+          "created_at": "2022-02-12T04:04:05Z",
+          "updated_at": "2022-02-12T04:10:43Z",
+          "body": "> Reduced size for less space consumption. When the user clicks on Edit Speed, the pop-up appears:\r\n\r\nShould we set height limit for this popup (in case the list is too long)? @IanMayo @ShendMikullovci \r\nor\r\nwe can do them same with the Commodities, edit each row when we focus on"
+        },
+        {
+          "id": 1037081989,
+          "user": "IanMayo",
+          "created_at": "2022-02-12T09:18:58Z",
+          "updated_at": "2022-02-12T09:18:58Z",
+          "body": "Thanks @lebaphi . Yes, I guess we need a scroll bar if there are more than 5 items."
+        },
+        {
+          "id": 1037964287,
+          "user": "lebaphi",
+          "created_at": "2022-02-13T09:37:12Z",
+          "updated_at": "2022-02-13T14:38:39Z",
+          "body": "> Thanks @lebaphi . Yes, I guess we need a scroll bar if there are more than 5 items.\r\n\r\nThanks @IanMayo @ShendMikullovci , I just wonder why do we need a popup while its UI/UX is almost the same with current component?\r\n\r\nCurrent component:\r\n<img width=\"301\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/153747274-d52743b2-4364-452c-96b6-17e808cf1bc5.png\">\r\n\r\nPopup:\r\n![image](https://user-images.githubusercontent.com/26705621/153747287-267d523b-3e9d-43fc-a58b-a8d8b83fc425.png)\r\n\r\nIMO with the popup, I think the `Add Speed` button should not scroll with the list items and it should have the same line and the same style as the `Save` button."
+        },
+        {
+          "id": 1038209398,
+          "user": "IanMayo",
+          "created_at": "2022-02-13T15:51:12Z",
+          "updated_at": "2022-02-13T15:51:12Z",
+          "body": "Good question @lebaphi \r\n\r\nWhen in \"read-only\" view the values will be displayed as a horizontal list - using very little vertical space.  But, it makes sense to edit them in a vertical list.  So, in \"edit mode\" the dialog show them as a vertical list.  On \"Save\" the new versions are shown as a horizontal list."
+        },
+        {
+          "id": 1040785332,
+          "user": "ShendMikullovci",
+          "created_at": "2022-02-15T20:57:31Z",
+          "updated_at": "2022-02-15T20:57:31Z",
+          "body": "> I just wonder why do we need a popup while its UI/UX is almost the same with current component?\r\n\r\nIt's because we think it best to show the speed variables in a horizontal bar to limit space usage in the admin page as well as to reinforce known behavior: we have a tendency to go left for lower variables and right for higher ones. "
+        },
+        {
+          "id": 1041197850,
+          "user": "lebaphi",
+          "created_at": "2022-02-16T07:35:57Z",
+          "updated_at": "2022-02-16T07:37:28Z",
+          "body": "Hi @IanMayo @SendMikullovci, while implementing this feature I realized one thing:\r\n\r\nhttps://user-images.githubusercontent.com/26705621/154216251-b0666110-d282-484e-8759-961fd24850e8.mov\r\n\r\nFirst thing, I want to confirm that all new edit data in settings platform type tab will be stored in local state and it will be lost when we reload the page until we click the ` Save platform type` button.\r\n\r\nSo I think we don't need the `Save` button in the popup (because it also saves the data to the local state), I think the edited data will update immediately to the horizontal list like the video above. For this approach, I think UI is cleaner and UX is still the same as the way we edit data in horizontal list and we can also reuse the `sortable-list` component.\r\n\r\nWhat do you think?"
+        },
+        {
+          "id": 1041215290,
+          "user": "ShendMikullovci",
+          "created_at": "2022-02-16T08:01:29Z",
+          "updated_at": "2022-02-16T08:01:29Z",
+          "body": "> Hi @IanMayo @SendMikullovci, while implementing this feature I realized one thing:\r\n> \r\n>  Screen.Recording.2022-02-16.at.2.23.48.PM.mov \r\n\r\nNicely spotted. I think that every time a speed is added, it should be a rounded value as well, but this is fairly low priority.\r\n\r\n> First thing, I want to confirm that all new edit data in settings platform type tab will be stored in local state and it will be lost when we reload the page until we click the ` Save platform type` button.\r\n> \r\n> So I think we don't need the `Save` button in the popup (because it also saves the data to the local state), I think the edited data will update immediately to the horizontal list like the video above. For this approach, I think UI is cleaner and UX is still the same as the way we edit data in horizontal list and we can also reuse the `sortable-list` component.\r\n> \r\n> What do you think?\r\n\r\nI agree that it's cleaner that way. I added the save button as a way out from the pop-up and to not have to click on SAVE PLATFORM to save the speed. It's cleaner to simply click outside of the pop-up or hit the X button and have the speeds added instantly. It's also not uncommon among games to have to save the entire page in order to save one feature of the page. A good way around it though is to have a \"Save Changes?\" pop-up if we want the user to be sure. "
+        },
+        {
+          "id": 1041270850,
+          "user": "IanMayo",
+          "created_at": "2022-02-16T09:11:02Z",
+          "updated_at": "2022-02-16T09:11:02Z",
+          "body": "I agree with @ShendMikullovci  :-)\r\n\r\nYes, we don't need a `Save` button on the popup.\r\n\r\nHmm, I don't think we should round the value. There could be circumstances when a set of speeds is used that seems weird to us. Some kind of fast boats either go very slow (around harbour) or one of a few very fast speeds (once they are [planing](https://en.wikipedia.org/wiki/Planing_(boat)))"
+        },
+        {
+          "id": 1041383540,
+          "user": "lebaphi",
+          "created_at": "2022-02-16T11:19:28Z",
+          "updated_at": "2022-02-16T11:19:28Z",
+          "body": "thanks, any updates for the UI/UX in the above video? @IanMayo @ShendMikullovci "
+        },
+        {
+          "id": 1041387353,
+          "user": "IanMayo",
+          "created_at": "2022-02-16T11:24:07Z",
+          "updated_at": "2022-02-16T11:24:07Z",
+          "body": "Thanks @lebaphi  - I'm quite happy with the video :-D\r\n"
+        },
+        {
+          "id": 1041388964,
+          "user": "lebaphi",
+          "created_at": "2022-02-16T11:26:04Z",
+          "updated_at": "2022-02-16T11:26:04Z",
+          "body": "> Thanks @lebaphi - I'm quite happy with the video :-D\r\n\r\nHow to make you extremely happy @IanMayo ? 🤣 "
+        },
+        {
+          "id": 1042187960,
+          "user": "ShendMikullovci",
+          "created_at": "2022-02-16T20:23:12Z",
+          "updated_at": "2022-02-16T20:23:12Z",
+          "body": "> thanks, any updates for the UI/UX in the above video? @IanMayo @ShendMikullovci\r\n\r\nAlso very happy. It looks really neat! "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/151879419-1f06da63-c6e8-44a2-947e-fc4a55162228.png",
+    "https://user-images.githubusercontent.com/85491794/151969266-711ef3c0-1d1e-4a09-811c-600c01cd3cc1.png",
+    "https://user-images.githubusercontent.com/85491794/151969371-53d44de5-7420-4d15-ad25-747ffa96e8a4.png",
+    "https://user-images.githubusercontent.com/85491794/151971388-9b6755c5-efd4-4678-a9e5-f7c7d7cf68f7.png",
+    "https://user-images.githubusercontent.com/85491794/153089462-f591340d-6c4f-456b-9788-b6336aa5e6a8.png",
+    "https://user-images.githubusercontent.com/85491794/153089476-ac77c1b0-cef1-41d8-982f-91e878040f46.png",
+    "https://user-images.githubusercontent.com/85491794/153490392-466ad975-1b89-49d5-b66c-fd2ac7000bf0.png",
+    "https://user-images.githubusercontent.com/85491794/153490525-a9944531-fefc-4d1d-b01d-b587e096b1fd.png",
+    "https://user-images.githubusercontent.com/26705621/153747274-d52743b2-4364-452c-96b6-17e808cf1bc5.png",
+    "https://user-images.githubusercontent.com/26705621/153747287-267d523b-3e9d-43fc-a58b-a8d8b83fc425.png"
+  ],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 257
+}

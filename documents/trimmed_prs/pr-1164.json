@@ -1,0 +1,63 @@
+{
+  "number": 1164,
+  "title": "Use coa status board for rfi",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-27T05:26:50Z",
+  "updated_at": "2021-11-19T18:13:31Z",
+  "closed_at": "2021-11-19T18:13:30Z",
+  "merged_at": "2021-11-19T18:13:30Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1164",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1164/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1164/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1164",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 24,
+  "deletions": 5163,
+  "changed_files": 46,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 2,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 927743338,
+      "user": "IanMayo",
+      "created_at": "2021-09-27T10:42:52Z",
+      "updated_at": "2021-09-27T10:42:52Z",
+      "body": "@lilitkarapetyan - I'm nervous about these changes.  I think they're too extensive.\r\n\r\nI saw the following line. The desired behaviour was that we handed \"Mark all as read\" differently in COAs & RFIs.  But, the change removes that test:\r\n![image](https://user-images.githubusercontent.com/1108513/134893627-32e1dd27-3fe8-44b6-b405-5780d8be558b.png)\r\n\r\n\r\nSorry, but I think we need to re-start the PR.  We need to remove `RFIStatusBoard`, in one PR. Then if we need other changes they should be in another PR."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 716758232,
+      "user": "IanMayo",
+      "created_at": "2021-09-27T14:39:06Z",
+      "updated_at": "2021-09-27T14:39:06Z",
+      "body": "@lilitkarapetyan - the changes in the above line seem significant - the props are quite different.\r\n\r\nCan you explain why they are different please?",
+      "path": "packages/components/src/local/organisms/channel-messages-list/index.tsx",
+      "diff_hunk": "@@ -7,16 +7,15 @@ import styles from './styles.module.scss'\n \n /* Import Components */\n import ChannelMessage from '../../molecules/channel-message'\n-import ChannelRFIMessage from '../../molecules/channel-rfi-message'\n import ForcesInChannel from '../../molecules/forces-in-channel'\n import { Box } from '@material-ui/core'\n // import collateMessages from './helpers/collate-messages'\n import { INFO_MESSAGE_CLIPPED } from '@serge/config'\n-import { MessageChannel, MessageCustom, ForceRole, MessageDetailsFrom } from '@serge/custom-types'\n+import { MessageChannel, MessageCustom } from '@serge/custom-types'\n import { formatTurn } from '@serge/helpers'\n \n /* Render component */\n-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager, isUmpire, turnPresentation }: PropTypes) => {\n+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, isUmpire, turnPresentation }: PropTypes) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1164#discussion_r716758232"
+    },
+    {
+      "id": 717264566,
+      "user": "haykkarapetyan",
+      "created_at": "2021-09-28T06:34:23Z",
+      "updated_at": "2021-09-28T06:34:23Z",
+      "body": "https://github.com/serge-web/serge/pull/1164/files#diff-b80b0eacec650b3d35312300f89caa98001505c1653717fb4465c928f15075d6L36\r\nIf you check this part, you will see that code was removed, so as we don't using ChannelRFIMessage component more, we had a unused vars `onChange`, `isRFIManager` which ones removed from props",
+      "path": "packages/components/src/local/organisms/channel-messages-list/index.tsx",
+      "diff_hunk": "@@ -7,16 +7,15 @@ import styles from './styles.module.scss'\n \n /* Import Components */\n import ChannelMessage from '../../molecules/channel-message'\n-import ChannelRFIMessage from '../../molecules/channel-rfi-message'\n import ForcesInChannel from '../../molecules/forces-in-channel'\n import { Box } from '@material-ui/core'\n // import collateMessages from './helpers/collate-messages'\n import { INFO_MESSAGE_CLIPPED } from '@serge/config'\n-import { MessageChannel, MessageCustom, ForceRole, MessageDetailsFrom } from '@serge/custom-types'\n+import { MessageChannel, MessageCustom } from '@serge/custom-types'\n import { formatTurn } from '@serge/helpers'\n \n /* Render component */\n-export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, onChange, isRFIManager, isUmpire, turnPresentation }: PropTypes) => {\n+export const ChannelMessagesList: React.FC<PropTypes> = ({ messages, icons, colors, onMarkAllAsRead, onRead, onUnread, isUmpire, turnPresentation }: PropTypes) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1164#discussion_r717264566"
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/134893627-32e1dd27-3fe8-44b6-b405-5780d8be558b.png"
+  ],
+  "number_of_changed_files": 46,
+  "total_changed_lines": 5187
+}

@@ -1,0 +1,51 @@
+{
+  "number": 1817,
+  "title": "1763 hide turn labels",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-02T14:22:19Z",
+  "updated_at": "2022-09-02T14:42:59Z",
+  "closed_at": "2022-09-02T14:42:59Z",
+  "merged_at": "2022-09-02T14:42:59Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1817",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1817/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1817/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1817",
+  "body": "Fixes #1763 ",
+  "additions": 8,
+  "deletions": 3,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1763
+  ],
+  "issues": [
+    {
+      "id": 1337096993,
+      "number": 1763,
+      "title": "Ability to turn off cell labels",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-12T11:34:45Z",
+      "updated_at": "2022-09-02T14:43:00Z",
+      "closed_at": "2022-09-02T14:43:00Z",
+      "body": "Turning off cell labels would declutter route\r\n\r\nAdd a new style for no-label shown",
+      "labels": [
+        "4watu",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 11
+}

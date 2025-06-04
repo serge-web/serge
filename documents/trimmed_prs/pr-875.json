@@ -1,0 +1,91 @@
+{
+  "number": 875,
+  "title": "Better rendering of messages",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-06-26T06:28:09Z",
+  "updated_at": "2021-09-03T16:54:26Z",
+  "closed_at": "2021-07-01T15:17:23Z",
+  "merged_at": null,
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/875",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/875/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/875/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/875",
+  "body": "Fixes #865 ",
+  "additions": 35,
+  "deletions": 20,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 0,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 869599682,
+      "user": "IanMayo",
+      "created_at": "2021-06-28T11:18:37Z",
+      "updated_at": "2021-06-28T11:18:37Z",
+      "body": "Thanks @lebaphi - but that layout may be _too_ verbose.  If the one-line-per-element strategy consumes more than a screen-full of space, then they can't view a whole message at one time.  "
+    },
+    {
+      "id": 869608019,
+      "user": "lebaphi",
+      "created_at": "2021-06-28T11:32:23Z",
+      "updated_at": "2021-06-28T11:32:23Z",
+      "body": "> Thanks @lebaphi - but that layout may be _too_ verbose. If the one-line-per-element strategy consumes more than a screen-full of space, then they can't view a whole message at one time.\r\n\r\nokay, I just thought to display it as the same as JSON is easier to view. So I will try another go to save the space of the screen 🤔 "
+    },
+    {
+      "id": 872333206,
+      "user": "IanMayo",
+      "created_at": "2021-07-01T15:17:23Z",
+      "updated_at": "2021-07-01T15:17:23Z",
+      "body": "Ok @lebaphi - based on the wargame that has run this week, it's important that the formatted messages look more like the version when they were being edited.\r\n\r\nSo, we're going to close this PR, and instead we'll focus on using a read-only instance of `jsoneditor`"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    865
+  ],
+  "issues": [
+    {
+      "id": 928485097,
+      "number": 865,
+      "title": "Better rendering of messages",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-23T17:27:15Z",
+      "updated_at": "2021-07-01T19:34:59Z",
+      "closed_at": "2021-07-01T19:34:59Z",
+      "body": "Besides plain chat, some messages get sent in a structured format.\r\n\r\nHere is an example of a structured message:\r\n![image](https://user-images.githubusercontent.com/1108513/123140376-226ce980-d44f-11eb-8d0a-82472b7e4b95.png)\r\n\r\nSerge does it's best to render this content in a tidy way, but it's not great:\r\n![image](https://user-images.githubusercontent.com/1108513/123140454-37497d00-d44f-11eb-8a5f-3989f747ed64.png)\r\n\r\n\r\nWe have these issues:\r\n* [x] doesn't render `true`, it's blank. We should use a tick or cross character if the value isn't a string, but is a boolean\r\n* [x] omits title of composite components. In the data we have `Consumption` and `Location` elements. These aren't rendered. They should be. \r\n* [x] Object hierarchy is hidden.  For parent objects (arrays or objects) we should show the name larger, more bold, something more distinctive.\r\n* [x] Rendering fails on a boolean value (see `Spare field 2`)\r\n* [ ] label can get separated from the value, sometimes on the next line. We should try to \"wrap\" the label & value with a line border - and see what that looks like.  The label & value are currently separate spans, we'd have to wrap them in a parent span/div.\r\n\r\nStep to reproduce above issue:\r\n* open Serge\r\n* open `tall msg` game\r\n* login as `Game Control`\r\n* expand `Weather Forecast`\r\n\r\nThe logic for the above is in `channel-message-detail\\index.tsx`. There is a StoryBook to demonstrate the actions.\r\n\r\nRun `yarn storybook` then open the `Channel Message Detail` story.  The `Weather Forecast` contains the detail for this issue. \r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 867109951,
+          "user": "IanMayo",
+          "created_at": "2021-06-23T19:44:07Z",
+          "updated_at": "2021-06-23T19:44:34Z",
+          "body": "I've made a start on this @lebaphi - but stopped when I got stuck :-)\r\n\r\nI've updated the checklist, here is my progress:\r\n![image](https://user-images.githubusercontent.com/1108513/123158529-cf516180-d463-11eb-88cc-86b4f4a42457.png)\r\n"
+        },
+        {
+          "id": 872499577,
+          "user": "IanMayo",
+          "created_at": "2021-07-01T19:34:59Z",
+          "updated_at": "2021-07-01T19:34:59Z",
+          "body": "Moved to #868 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/123140376-226ce980-d44f-11eb-8d0a-82472b7e4b95.png",
+    "https://user-images.githubusercontent.com/1108513/123140454-37497d00-d44f-11eb-8a5f-3989f747ed64.png",
+    "https://user-images.githubusercontent.com/1108513/123158529-cf516180-d463-11eb-88cc-86b4f4a42457.png"
+  ],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 55
+}

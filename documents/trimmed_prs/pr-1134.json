@@ -1,0 +1,173 @@
+{
+  "number": 1134,
+  "title": "Filter on Location",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-14T10:27:16Z",
+  "updated_at": "2021-09-15T09:51:16Z",
+  "closed_at": "2021-09-15T09:51:15Z",
+  "merged_at": "2021-09-15T09:51:15Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1134",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1134/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1134/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1134",
+  "body": "Fixes #1126 ",
+  "additions": 52,
+  "deletions": 3,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 16,
+  "review_comments_count": 0,
+  "total_comments": 16,
+  "comments_data": [
+    {
+      "id": 919024376,
+      "user": "IanMayo",
+      "created_at": "2021-09-14T10:29:41Z",
+      "updated_at": "2021-09-14T10:29:41Z",
+      "body": "@lebaphi - I'm not a fan of the software knowing about the structure of the messages, including special behaviour for the `Location` column.\r\n\r\nIsn't it an option to pass an array of values in the `data` props, and to handle the array of data?"
+    },
+    {
+      "id": 919027822,
+      "user": "lebaphi",
+      "created_at": "2021-09-14T10:35:01Z",
+      "updated_at": "2021-09-14T10:35:22Z",
+      "body": "Hi @IanMayo, I see we already implemented the filter on `From`, so this PR just support us to filter on the `Location` column. I consider in case if location is empty like this (last row)\r\n![image](https://user-images.githubusercontent.com/26705621/133242494-5042e9c1-1c4c-423f-aecf-8f30d05885f7.png)\r\nHow we handle the filter? Do we have a empty item on the dropdown to filter those items? or just ignore it? 🤔 "
+    },
+    {
+      "id": 919033417,
+      "user": "IanMayo",
+      "created_at": "2021-09-14T10:43:35Z",
+      "updated_at": "2021-09-14T10:43:35Z",
+      "body": "> Hi @IanMayo, I see we already implemented the filter on From,\r\n\r\nGood point.  _But_ - for a document that is being handled through collaborative working, we can accept the special case that there will be a `From` field - since the document must have come from someone.  But, for other fields I'd rather we had a more \"reflection\" like strategy where we work from the data.\r\n\r\n> if Location is empty\r\n\r\nHmm, another good point :-) I guess that if we have a row containing arrays of data, but a row is empty, then we offer an [Empty] value in the drop-down, to match rows with zero elements.\r\n\r\nWould that work?"
+    },
+    {
+      "id": 919059232,
+      "user": "lebaphi",
+      "created_at": "2021-09-14T11:23:33Z",
+      "updated_at": "2021-09-14T11:23:33Z",
+      "body": "> Good point. _But_ - for a document that is being handled through collaborative working, we can accept the special case that there will be a `From` field - since the document must have come from someone. But, for other fields I'd rather we had a more \"reflection\" like strategy where we work from the data.\r\n\r\nYou mean we should have a common function to build the filter for all all columns instead of implementing each field? \r\nI think of it when add the filter for the location, so I add the new function like:\r\n```\r\nconst getListOfExtraColumn = (messages: MessageCustom[], columnName: string)....\r\n```\r\nwe input the `columnName` and get corresponding list of filter. We just implement the filter for some special field, and for common field, we can use the same logic to build the filter.\r\n\r\n> Hmm, another good point :-) I guess that if we have a row containing arrays of data, but a row is empty, then we offer an [Empty] value in the drop-down, to match rows with zero elements.\r\n\r\nYes, it should work\r\n\r\n"
+    },
+    {
+      "id": 919076799,
+      "user": "IanMayo",
+      "created_at": "2021-09-14T11:51:25Z",
+      "updated_at": "2021-09-14T11:51:25Z",
+      "body": "> You mean we should have a common function to build the filter for all all columns instead of implementing each field?\r\nI think of it when add the filter for the location, so I add the new function like\r\n\r\nAah, I see we already have special processing for LOCATION channels:\r\n![image](https://user-images.githubusercontent.com/1108513/133252058-aa79e929-fbfb-4e7a-b23e-ad5eab828686.png)\r\n\r\nBut, I _think_ I would prefer this processing:\r\n* in CoaStatusBoard, `data.map` collates the data to go into the table.\r\n* the items in the list can be a component or a string.  Where the data in `extraCols` is an array, it is collapsed into a single strong.\r\n* Modify the above to that the items in the list can be a component, a string, or an array\r\n* If <DataTable> receives an array of data, then it will render the array as a comma-separated list, but it will register the individual items in the `filter` drop-down.\r\n"
+    },
+    {
+      "id": 919084730,
+      "user": "IanMayo",
+      "created_at": "2021-09-14T12:03:39Z",
+      "updated_at": "2021-09-14T12:03:39Z",
+      "body": "Aah, it seems we're already passing in array of items for `Location`:\r\n![image](https://user-images.githubusercontent.com/1108513/133253494-ccd4d279-8f3c-40ae-a8fb-50c5e5e50771.png)\r\n\r\nSo, I _guess_ this just needs changing in `DataTable` - but `useMemo()` just needs to check if the object is an array - and if so, handle it as individual items.\r\n"
+    },
+    {
+      "id": 919098889,
+      "user": "lebaphi",
+      "created_at": "2021-09-14T12:23:23Z",
+      "updated_at": "2021-09-14T12:23:23Z",
+      "body": "> Aah, it seems we're already passing in array of items for `Location`:\r\n> ![image](https://user-images.githubusercontent.com/1108513/133253494-ccd4d279-8f3c-40ae-a8fb-50c5e5e50771.png)\r\n> \r\n> So, I _guess_ this just needs changing in `DataTable` - but `useMemo()` just needs to check if the object is an array - and if so, handle it as individual items.\r\n\r\nyep 👍 "
+    },
+    {
+      "id": 919120098,
+      "user": "IanMayo",
+      "created_at": "2021-09-14T12:52:20Z",
+      "updated_at": "2021-09-14T12:52:20Z",
+      "body": "I'm getting this in the drop-down:\r\n![image](https://user-images.githubusercontent.com/1108513/133260860-34c53d5f-3c44-4815-ad77-0403d7cf9765.png)\r\nI have data like this:\r\n![image](https://user-images.githubusercontent.com/1108513/133260905-b3f547b3-8154-4273-a928-20926f6f3633.png)\r\n"
+    },
+    {
+      "id": 919243417,
+      "user": "IanMayo",
+      "created_at": "2021-09-14T15:09:12Z",
+      "updated_at": "2021-09-14T15:09:12Z",
+      "body": "Thanks @lebaphi \r\n\r\nBut, it's not breaking them down into individual locations:\r\n![image](https://user-images.githubusercontent.com/1108513/133283808-706982ad-d9cb-4243-8422-9294ccde0ea7.png)\r\n"
+    },
+    {
+      "id": 919295174,
+      "user": "IanMayo",
+      "created_at": "2021-09-14T16:06:11Z",
+      "updated_at": "2021-09-14T16:06:11Z",
+      "body": "Hello, @lebaphi - I've had a go at fixing the implementation. Could you have a look at my commit(s), and check the JS is ok?\r\n\r\nOh, and feel free to check it works, too :-)"
+    },
+    {
+      "id": 919298456,
+      "user": "lebaphi",
+      "created_at": "2021-09-14T16:09:46Z",
+      "updated_at": "2021-09-14T16:09:46Z",
+      "body": "> Thanks @lebaphi \n> \n> \n> \n> But, it's not breaking them down into individual locations:\n> \n> ![image](https://user-images.githubusercontent.com/1108513/133283808-706982ad-d9cb-4243-8422-9294ccde0ea7.png)\n> \n> \n\nThanks Ian, but I think the menu item should display the same as the location on each row?"
+    },
+    {
+      "id": 919300064,
+      "user": "IanMayo",
+      "created_at": "2021-09-14T16:11:42Z",
+      "updated_at": "2021-09-14T16:11:42Z",
+      "body": "Here are 3 COAs, some of which have countries.\r\n![image](https://user-images.githubusercontent.com/1108513/133294408-da8e4674-865e-4203-a0cc-503960c28c53.png)\r\n\r\nHere is the list of the unique countries present in the column, plus an `Empty` marker since the third COA doesn't have a location.\r\n![image](https://user-images.githubusercontent.com/1108513/133294351-12ccce6c-c541-4fdc-add0-7660c6fc87b7.png)\r\n"
+    },
+    {
+      "id": 919328198,
+      "user": "lebaphi",
+      "created_at": "2021-09-14T16:46:25Z",
+      "updated_at": "2021-09-14T16:46:25Z",
+      "body": "> Here are 3 COAs, some of which have countries.\n> \n> ![image](https://user-images.githubusercontent.com/1108513/133294408-da8e4674-865e-4203-a0cc-503960c28c53.png)\n> \n> \n> \n> Here is the list of the unique countries present in the column, plus an `Empty` marker since the third COA doesn't have a location.\n> \n> ![image](https://user-images.githubusercontent.com/1108513/133294351-12ccce6c-c541-4fdc-add0-7660c6fc87b7.png)\n> \n> \n\nI got your point, the menu item should list all the unique countries of the location. I build the menu item by adding the location cell text (the same with other column) and filter base on this. okay, I will have a look on your fix and feedback soon 👍🏻"
+    },
+    {
+      "id": 919667083,
+      "user": "lebaphi",
+      "created_at": "2021-09-15T03:20:37Z",
+      "updated_at": "2021-09-15T03:20:37Z",
+      "body": "Hi @IanMayo, your fix works fine 👍 "
+    },
+    {
+      "id": 919769140,
+      "user": "IanMayo",
+      "created_at": "2021-09-15T07:26:47Z",
+      "updated_at": "2021-09-15T07:26:47Z",
+      "body": "> Hi @IanMayo, your fix works fine 👍\r\n\r\nAnd is the JS ok? You are welcome to refactor it for \"modern JS\" or performance reasons."
+    },
+    {
+      "id": 919869960,
+      "user": "lebaphi",
+      "created_at": "2021-09-15T09:49:16Z",
+      "updated_at": "2021-09-15T09:49:16Z",
+      "body": "> > Hi @IanMayo, your fix works fine 👍\r\n> \r\n> And is the JS ok? You are welcome to refactor it for \"modern JS\" or performance reasons.\r\n\r\nThe code is fine I think :)"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1126
+  ],
+  "issues": [
+    {
+      "id": 994669673,
+      "number": 1126,
+      "title": "Collab working channels - filter on `From` and `Location`",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-13T09:35:54Z",
+      "updated_at": "2021-09-15T09:51:15Z",
+      "closed_at": "2021-09-15T09:51:15Z",
+      "body": "Some users have expressed the wish to be able to filter on the `From` field.  This seems straightforward.\r\n\r\nThey have also asked to filter on `Location`.  This is more challenging, since it's a comma-separated array of values.\r\n\r\nI _guess_ we could handle it by passing an array of strings to the data-table, and the data-table rendering them as comma-separated. But, it would generate the drop-down and perform the filter based upon the arrays of values.\r\n\r\nSo, the filter on \"From\" is essential. The filter on \"Location\" is nice-to-have, please.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/133060754-5d3510f6-77c6-4a90-b6d3-1ff722aa4a65.png)\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/133242494-5042e9c1-1c4c-423f-aecf-8f30d05885f7.png",
+    "https://user-images.githubusercontent.com/1108513/133252058-aa79e929-fbfb-4e7a-b23e-ad5eab828686.png",
+    "https://user-images.githubusercontent.com/1108513/133253494-ccd4d279-8f3c-40ae-a8fb-50c5e5e50771.png",
+    "https://user-images.githubusercontent.com/1108513/133260860-34c53d5f-3c44-4815-ad77-0403d7cf9765.png",
+    "https://user-images.githubusercontent.com/1108513/133260905-b3f547b3-8154-4273-a928-20926f6f3633.png",
+    "https://user-images.githubusercontent.com/1108513/133283808-706982ad-d9cb-4243-8422-9294ccde0ea7.png",
+    "https://user-images.githubusercontent.com/1108513/133294408-da8e4674-865e-4203-a0cc-503960c28c53.png",
+    "https://user-images.githubusercontent.com/1108513/133294351-12ccce6c-c541-4fdc-add0-7660c6fc87b7.png",
+    "https://user-images.githubusercontent.com/1108513/133060754-5d3510f6-77c6-4a90-b6d3-1ff722aa4a65.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 55
+}

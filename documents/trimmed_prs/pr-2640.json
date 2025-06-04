@@ -1,0 +1,50 @@
+{
+  "number": 2640,
+  "title": "2639 validate orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-13T16:55:20Z",
+  "updated_at": "2023-03-13T20:07:17Z",
+  "closed_at": "2023-03-13T20:07:16Z",
+  "merged_at": "2023-03-13T20:07:16Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2640",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2640/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2640/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2640",
+  "body": "Fixes #2639 ",
+  "additions": 93,
+  "deletions": 7,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2639
+  ],
+  "issues": [
+    {
+      "id": 1621825602,
+      "number": 2639,
+      "title": "Check for corrupt orders",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-13T16:20:11Z",
+      "updated_at": "2023-03-13T20:07:18Z",
+      "closed_at": "2023-03-13T20:07:18Z",
+      "body": "In #2638 we had a problem caused by corrupted orders.\r\n\r\nThere was a similar instance one day last week.\r\n\r\nAdd a button to \"validate\" the current set of orders.  The validation to include:\r\n- orders start in 2033 or 2034\r\n- orders end in 2033 or 2034\r\n- activity ids for geometry data matches the activity for the orders.\r\n\r\nDisplay any issues in a table",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 100
+}

@@ -1,0 +1,52 @@
+{
+  "number": 1591,
+  "title": "Let any player select an asset if visibility panel is open",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-06-08T12:53:13Z",
+  "updated_at": "2022-06-08T14:06:48Z",
+  "closed_at": "2022-06-08T14:06:47Z",
+  "merged_at": "2022-06-08T14:06:47Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1591",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1591/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1591/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1591",
+  "body": "Fixes #1586",
+  "additions": 4,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1586
+  ],
+  "issues": [
+    {
+      "id": 1256317514,
+      "number": 1586,
+      "title": "Game Control can't change perception",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-06-01T15:40:30Z",
+      "updated_at": "2022-06-08T14:06:47Z",
+      "closed_at": "2022-06-08T14:06:47Z",
+      "body": "I'm logged in a Game Control, in adjudication.\r\n\r\nIn the `Visibility` tab, when I select an asset, it should open the `Perception` form.  It doesn't.\r\n\r\n![screencast](https://i.gyazo.com/bfc47147191a60070760a72dd15ed429.gif)",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/bfc47147191a60070760a72dd15ed429.gif"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 5
+}

@@ -1,0 +1,50 @@
+{
+  "number": 2738,
+  "title": "Should be able to Restrict access in new participation row",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-12-31T04:39:52Z",
+  "updated_at": "2024-01-02T12:32:13Z",
+  "closed_at": "2024-01-02T12:32:12Z",
+  "merged_at": "2024-01-02T12:32:12Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2738",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2738/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2738/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2738",
+  "body": "Fixes #2722 ",
+  "additions": 2,
+  "deletions": 2,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2722
+  ],
+  "issues": [
+    {
+      "id": 2053794864,
+      "number": 2722,
+      "title": "Should be able to Restrict access in new `participation` row",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2023-12-22T11:33:30Z",
+      "updated_at": "2024-01-02T12:32:14Z",
+      "closed_at": "2024-01-02T12:32:13Z",
+      "body": "## 🐞 Bug description\r\nUser can't select restrict access with default force. User have to select force again to enable to select restrict access.\r\n\r\n## 🔢 Steps to Reproduce\r\n\r\nSteps to reproduce the behavior:\r\n1. Login app as admin\r\n2. Create a new game\r\n3. From 'Forces' tab, create some forces ( White, Blue, Red)\r\n4. From 'Channels' tab, click 'Add Channel'\r\n5. Notice it has a new row with default force\r\n6. I select restrict access for that force but It doesn't show any options.\r\n7. I click on the force and select that default force\r\n8. Notice I can select restrict access\r\n\r\nMore details from below screencast\r\n\r\nFrom @IanMayo - it looks like the `roles` drop-down doesn't get populated until the force drop-down gets modified.  We should `trigger` a forced update on load, so that it initialises the roles dropdown.\r\n\r\n## ⚙️ Expected behavior\r\nAt step 6, it should show all restrict access of the default force\r\n\r\n**UPDATE FROM @ianmayo** - better still, let's remove the default row that gets added when we add a new channel. Separate to that - we still need to check that the restrict access values are present for any new participation.\r\n\r\n## 🖥️ Screencasts\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/61462fea-0f92-4f5c-b9f4-254be5292008\r\n\r\n\r\n\r\n## 💻 System information\r\n<!-- Please complete the following information (you can get most of this information from https://mybrowser.fyi/) -->\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n\r\n## 📝 Additional context\r\n<!-- Add any other context about the problem here. For example it might be worth mentioning if you have any chrome extensions which may cause the problem -->\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 4
+}

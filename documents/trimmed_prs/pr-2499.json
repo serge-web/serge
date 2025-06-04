@@ -1,0 +1,59 @@
+{
+  "number": 2499,
+  "title": "2493 attempt fix with locale compare",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-23T20:03:44Z",
+  "updated_at": "2023-02-23T22:04:39Z",
+  "closed_at": "2023-02-23T22:04:38Z",
+  "merged_at": "2023-02-23T22:04:38Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2499",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2499/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2499/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2499",
+  "body": "Supports #2493 ",
+  "additions": 13,
+  "deletions": 5,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2493
+  ],
+  "issues": [
+    {
+      "id": 1597206727,
+      "number": 2493,
+      "title": "Cannot read property localeCompare of undefined",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-23T16:55:07Z",
+      "updated_at": "2023-03-09T10:08:51Z",
+      "closed_at": "2023-03-09T10:08:50Z",
+      "body": "onClose & onFilterChanged was in call stack.\r\n\r\nApp frozen, with above error.\r\n\r\nInvalid date data?\r\n\r\nOnly appears to happen when filtering for the opposition force\r\n\r\nThe code fails here: https://github.com/serge-web/serge/blob/develop/packages/components/src/local/organisms/planning-assets/helpers/custom-filter-row.tsx#L60\r\n\r\nI suspect we can remove `custom-filter-row`.",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1461718985,
+          "user": "IanMayo",
+          "created_at": "2023-03-09T10:08:50Z",
+          "updated_at": "2023-03-09T10:08:50Z",
+          "body": "Done."
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 18
+}

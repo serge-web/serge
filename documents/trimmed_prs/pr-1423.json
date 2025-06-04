@@ -1,0 +1,174 @@
+{
+  "number": 1423,
+  "title": "1420: Delete Role Bug",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-16T08:45:39Z",
+  "updated_at": "2022-03-16T16:25:02Z",
+  "closed_at": "2022-03-16T12:39:36Z",
+  "merged_at": "2022-03-16T12:39:36Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1423",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1423/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1423/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1423",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1420\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 86,
+  "deletions": 37,
+  "changed_files": 16,
+  "labels": [],
+  "comments_count": 3,
+  "review_comments_count": 5,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 1069305117,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-16T16:12:03Z",
+      "updated_at": "2022-03-16T16:12:03Z",
+      "body": "Hi everyone! I noticed you put the bin on the far right of the role tab: \r\n\r\n![Delete Roles Bin on the far Right](https://user-images.githubusercontent.com/85491794/158635567-685db25a-d9a0-431d-871e-b93ffb85172d.png)\r\n\r\nI was wondering whether that was a random decision or a developing constraint? Usually, we present the bin next to the element name and it'd be nice if we could do the same here since it's quite less visible on the far right, where the screen is a little busier with all the toggles. \r\n"
+    },
+    {
+      "id": 1069312631,
+      "user": "IanMayo",
+      "created_at": "2022-03-16T16:18:10Z",
+      "updated_at": "2022-03-16T16:18:10Z",
+      "body": "@lebaphi - could you investigate moving the `trash` icon next to the role name please?"
+    },
+    {
+      "id": 1069319026,
+      "user": "lebaphi",
+      "created_at": "2022-03-16T16:25:01Z",
+      "updated_at": "2022-03-16T16:25:01Z",
+      "body": "sure @IanMayo "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 827834913,
+      "user": "IanMayo",
+      "created_at": "2022-03-16T10:11:08Z",
+      "updated_at": "2022-03-16T10:11:09Z",
+      "body": "@lilitkarapetyan - I've just been investigating, but I don't understand what this `remove` prop is doing.  Could you tell me please?  Then I'll add a javadoc to the props.",
+      "path": "packages/components/src/local/organisms/setting-forces/settings-force-roles/index.tsx",
+      "diff_hunk": "@@ -134,7 +134,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,\n           <div className={cx(styles.col, styles.section)}>\n             <FormGroup placeholder=\"Roles\">\n               <SortableList\n-                remove={false}\n+                remove={true}",
+      "html_url": "https://github.com/serge-web/serge/pull/1423#discussion_r827834913"
+    },
+    {
+      "id": 827837625,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-03-16T10:14:09Z",
+      "updated_at": "2022-03-16T10:14:09Z",
+      "body": "This boolean prop for the visibility of the delete button",
+      "path": "packages/components/src/local/organisms/setting-forces/settings-force-roles/index.tsx",
+      "diff_hunk": "@@ -134,7 +134,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,\n           <div className={cx(styles.col, styles.section)}>\n             <FormGroup placeholder=\"Roles\">\n               <SortableList\n-                remove={false}\n+                remove={true}",
+      "html_url": "https://github.com/serge-web/serge/pull/1423#discussion_r827837625"
+    },
+    {
+      "id": 827844742,
+      "user": "IanMayo",
+      "created_at": "2022-03-16T10:21:54Z",
+      "updated_at": "2022-03-16T10:21:54Z",
+      "body": "But there is some strange `removeLocal` code, too: \r\n![image](https://user-images.githubusercontent.com/1108513/158568701-5ed78cc1-6beb-410c-a291-201b90f51461.png)\r\n\r\nIT _looks-like_ if `remove` is missing, then we still show the `trash` icon.",
+      "path": "packages/components/src/local/organisms/setting-forces/settings-force-roles/index.tsx",
+      "diff_hunk": "@@ -134,7 +134,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,\n           <div className={cx(styles.col, styles.section)}>\n             <FormGroup placeholder=\"Roles\">\n               <SortableList\n-                remove={false}\n+                remove={true}",
+      "html_url": "https://github.com/serge-web/serge/pull/1423#discussion_r827844742"
+    },
+    {
+      "id": 827858153,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-03-16T10:36:18Z",
+      "updated_at": "2022-03-16T10:36:18Z",
+      "body": "It seems to me that this part of the code is not needed because it should always be true, we see the icon when we hover over the role with the mouse",
+      "path": "packages/components/src/local/organisms/setting-forces/settings-force-roles/index.tsx",
+      "diff_hunk": "@@ -134,7 +134,7 @@ export const RolesAccordion: FC<PropTypes> = ({ data, handleChangeForce, forces,\n           <div className={cx(styles.col, styles.section)}>\n             <FormGroup placeholder=\"Roles\">\n               <SortableList\n-                remove={false}\n+                remove={true}",
+      "html_url": "https://github.com/serge-web/serge/pull/1423#discussion_r827858153"
+    },
+    {
+      "id": 827917696,
+      "user": "IanMayo",
+      "created_at": "2022-03-16T11:46:21Z",
+      "updated_at": "2022-03-16T11:46:21Z",
+      "body": "@lilitkarapetyan - I'm testing this branch. We need this removed code - for cases other than the roles listing (the platform-types admin page)",
+      "path": "packages/components/src/local/molecules/sortable-list/index.tsx",
+      "diff_hunk": "@@ -66,18 +66,7 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({\n   }\n \n   const handleRemove = (key: number): void => {\n-    const newItems = [...items]",
+      "html_url": "https://github.com/serge-web/serge/pull/1423#discussion_r827917696"
+    }
+  ],
+  "issue_numbers": [
+    1420
+  ],
+  "issues": [
+    {
+      "id": 1169835999,
+      "number": 1420,
+      "title": "Delete Role Bug",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-15T15:33:12Z",
+      "updated_at": "2022-06-26T17:57:55Z",
+      "closed_at": "2022-06-26T17:57:55Z",
+      "body": "It appears roles can't be deleted once they are added to the list on a new wargame: \r\n\r\n![Delete Role Bug](https://user-images.githubusercontent.com/85491794/158413628-ee4f5117-c613-4e04-a7eb-48986afcf3dc.png)\r\n\r\nThis issue is also present in already existing wargames: \r\n\r\n![Delete Role Bug Small Wargame](https://user-images.githubusercontent.com/85491794/158413685-d0d13a3f-5386-4f9d-b8a1-f191a757c16a.png)\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1068133291,
+          "user": "IanMayo",
+          "created_at": "2022-03-15T15:37:52Z",
+          "updated_at": "2022-03-15T15:37:52Z",
+          "body": "Another for you, please @lilitkarapetyan . Maybe this is related to the other instances of the issue."
+        },
+        {
+          "id": 1077593062,
+          "user": "IanMayo",
+          "created_at": "2022-03-24T12:49:45Z",
+          "updated_at": "2022-03-24T12:49:45Z",
+          "body": "Fixed in #1423 "
+        },
+        {
+          "id": 1077879044,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-24T17:43:12Z",
+          "updated_at": "2022-03-24T17:43:12Z",
+          "body": "I think we agreed for the bin to be on the left, next to the name, before closing?\r\n\r\n![Bin on the right](https://user-images.githubusercontent.com/85491794/159977764-c0bff25f-9afb-4e77-bdc7-a4b7d8db7ba4.png)\r\n\r\nIt's still on the right.\r\n"
+        },
+        {
+          "id": 1079171651,
+          "user": "IanMayo",
+          "created_at": "2022-03-25T16:02:51Z",
+          "updated_at": "2022-03-25T16:02:51Z",
+          "body": "Oops, well spotted.\r\n\r\n@lebaphi - could you move the `trash` icon next to the `Roles` entry please?"
+        },
+        {
+          "id": 1096885283,
+          "user": "ShendMikullovci",
+          "created_at": "2022-04-12T15:35:47Z",
+          "updated_at": "2022-04-12T15:35:47Z",
+          "body": "Unfortunately, this bug has reappeared: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/162999890-8e654e76-602f-4a9d-906a-6892b6fcdd0f.mp4\r\n\r\n\r\n"
+        },
+        {
+          "id": 1166601768,
+          "user": "ShendMikullovci",
+          "created_at": "2022-06-26T17:57:55Z",
+          "updated_at": "2022-06-26T17:57:55Z",
+          "body": "This has been fixed."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/158635567-685db25a-d9a0-431d-871e-b93ffb85172d.png",
+    "https://user-images.githubusercontent.com/1108513/158568701-5ed78cc1-6beb-410c-a291-201b90f51461.png",
+    "https://user-images.githubusercontent.com/85491794/158413628-ee4f5117-c613-4e04-a7eb-48986afcf3dc.png",
+    "https://user-images.githubusercontent.com/85491794/158413685-d0d13a3f-5386-4f9d-b8a1-f191a757c16a.png",
+    "https://user-images.githubusercontent.com/85491794/159977764-c0bff25f-9afb-4e77-bdc7-a4b7d8db7ba4.png"
+  ],
+  "number_of_changed_files": 16,
+  "total_changed_lines": 123
+}

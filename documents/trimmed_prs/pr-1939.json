@@ -1,0 +1,30 @@
+{
+  "number": 1939,
+  "title": "Hotfix trigger creation of relevant shape type",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-18T11:23:05Z",
+  "updated_at": "2022-10-18T15:15:46Z",
+  "closed_at": "2022-10-18T15:15:44Z",
+  "merged_at": "2022-10-18T15:15:44Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1939",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1939/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1939/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1939",
+  "body": "Improved UI for creating orders.\r\n\r\nWe've removed the drawing editor control buttons, and drop the user straight into the relevant drawing mode.",
+  "additions": 52,
+  "deletions": 11,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 63
+}

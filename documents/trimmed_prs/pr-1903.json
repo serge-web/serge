@@ -1,0 +1,156 @@
+{
+  "number": 1903,
+  "title": "1757 Save JSON-editor message",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-29T06:59:13Z",
+  "updated_at": "2022-10-10T10:33:01Z",
+  "closed_at": "2022-10-10T10:33:00Z",
+  "merged_at": "2022-10-10T10:33:00Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1903",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1903/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1903/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1903",
+  "body": "Fixes #1757 ",
+  "additions": 238,
+  "deletions": 109,
+  "changed_files": 19,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 2,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1261978444,
+      "user": "IanMayo",
+      "created_at": "2022-09-29T08:57:01Z",
+      "updated_at": "2022-09-29T08:57:01Z",
+      "body": "Thanks @lilitkarapetyan \r\n\r\nTwo initial problems:\r\n- I have a draft message open. I change tab. When I come back, the `new message` panel has collapsed, and when I open `new message` it is showing a different message type.  When I select the correct type of message, I do see the saved data\r\n- The `private` text box isn't stored/restored."
+    },
+    {
+      "id": 1262001852,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-09-29T09:16:08Z",
+      "updated_at": "2022-09-29T09:16:08Z",
+      "body": "> Thanks @lilitkarapetyan\r\n> \r\n> Two initial problems:\r\n> \r\n>     * I have a draft message open. I change tab. When I come back, the `new message` panel has collapsed, and when I open `new message` it is showing a different message type.  When I select the correct type of message, I do see the saved data\r\n> \r\n>     * The `private` text box isn't stored/restored.\r\nI will work on it now"
+    },
+    {
+      "id": 1263495176,
+      "user": "IanMayo",
+      "created_at": "2022-09-30T12:12:53Z",
+      "updated_at": "2022-09-30T12:12:53Z",
+      "body": "Getting closer :-)\r\n\r\nTwo things still remain:\r\n- when I change tabs and come back, the message editor is collapsed\r\n- the `Private` field isn't captured\r\n\r\nNote: I'm testing with this wargame/role: http://localhost:3000/?wargame=wargame-kskl1i3t&access=pkskl17ti"
+    },
+    {
+      "id": 1268196061,
+      "user": "IanMayo",
+      "created_at": "2022-10-05T09:39:51Z",
+      "updated_at": "2022-10-05T09:39:51Z",
+      "body": "Getting closer, thanks @lilitkarapetyan \r\n\r\nTwo remaining issues:\r\n- with a JSON-editor template open, when I switch to another tab, then come back, the message editor is collapsed.  When I open it the data is there, but the message-editor should still be open when I return\r\n- I can open a new message in JSONEditor, and start filling in a message. Then I can `cancel` it.  That message should now be cleared from the cache. But, if I start to create a new message of that type, then the partially entered message is restored.  It shouldn't be."
+    },
+    {
+      "id": 1268218397,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-10-05T10:01:17Z",
+      "updated_at": "2022-10-05T10:01:17Z",
+      "body": "> \r\n\r\nHello Ian, I will work on it now\r\n\r\n> Getting closer, thanks @lilitkarapetyan\r\n> \r\n> Two remaining issues:\r\n> \r\n>     * with a JSON-editor template open, when I switch to another tab, then come back, the message editor is collapsed.  When I open it the data is there, but the message-editor should still be open when I return\r\n> \r\n>     * I can open a new message in JSONEditor, and start filling in a message. Then I can `cancel` it.  That message should now be cleared from the cache. But, if I start to create a new message of that type, then the partially entered message is restored.  It shouldn't be.\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 983270307,
+      "user": "IanMayo",
+      "created_at": "2022-09-29T08:59:14Z",
+      "updated_at": "2022-09-29T08:59:15Z",
+      "body": "@lilitkarapetyan - could you include jsdoc comments for these new props, to explain what they do, please?",
+      "path": "packages/components/src/local/form-elements/message-creator/types/props.d.ts",
+      "diff_hunk": "@@ -10,13 +10,18 @@ export default interface PropTypes {\n   selectedForce: ForceData\n   selectedRole: string\n   selectedRoleName: string",
+      "html_url": "https://github.com/serge-web/serge/pull/1903#discussion_r983270307"
+    },
+    {
+      "id": 983297699,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-09-29T09:25:24Z",
+      "updated_at": "2022-09-29T09:25:25Z",
+      "body": "Yes, I will include comments in that part of the code.",
+      "path": "packages/components/src/local/form-elements/message-creator/types/props.d.ts",
+      "diff_hunk": "@@ -10,13 +10,18 @@ export default interface PropTypes {\n   selectedForce: ForceData\n   selectedRole: string\n   selectedRoleName: string",
+      "html_url": "https://github.com/serge-web/serge/pull/1903#discussion_r983297699"
+    }
+  ],
+  "issue_numbers": [
+    1757
+  ],
+  "issues": [
+    {
+      "id": 1337033426,
+      "number": 1757,
+      "title": "Contents of Chat message being written get lost on changing tab",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-12T10:31:06Z",
+      "updated_at": "2022-10-10T10:33:01Z",
+      "closed_at": "2022-10-10T10:33:01Z",
+      "body": "I'm writing a chat message. I switched tab to the mapping tab, then back to chat - and my text had disappeared!\r\n\r\nHmm, I guess that the event that triggered the \"wipe\" shouldn't cause a refresh.\r\n\r\nI don't think there's an easy solution.   12 months ago we worked hard on performance with channels that have lots of messages - so we don't render channels that aren't visible.\r\n\r\nBefore we did that, I guess the draft contents of a new message would still be there when the player tabs back.  But, I don't think we can return to rendering all tabs (visible and non-visible).\r\n\r\nHmm, so what are the possible solutions?\r\n* for a hidden tab, don't render the message list, but do render the edit form?\r\n* monitor form changes, and put copies of the form contents into browser-memory?\r\n* monitor tab going invisible, and persist any open editors to memory. Restore them on tab coming visible?\r\n\r\n\r\n***Update:*** - we need a similar fix to this for when JSON-editor is editing a document in a \"Custom Channel\".  An example of a custom channel is the `Blue & SME` channel in `PAPA FOXTROT` wargame, when logged in as `Blue - Senior Blue`.   For long templates, is it worth trying to store all the JSON in one token?\r\n\r\n***Update 2:***. I _like_ the idea of putting the full message into one token.  I was worried about the length of data we an fit into expired storage.  But, it has just stored and restored a 85,000 character message. That's 24 pages in a word document.  I think we'll be ok :-). The _great_ news is that it's persistent between sessions, so if I refresh the browser, it still remembers the text :-). Yes, let's store the whole message (as JSON) in expired storage.",
+      "labels": [
+        "bug",
+        "4watu",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1241737758,
+          "user": "lilitkarapetyan",
+          "created_at": "2022-09-09T09:31:47Z",
+          "updated_at": "2022-09-09T09:31:47Z",
+          "body": "Hi Ian, I write a chat message, then go to the mapping tab, go back to chat, the text doesn't disappear for me."
+        },
+        {
+          "id": 1241738685,
+          "user": "lilitkarapetyan",
+          "created_at": "2022-09-09T09:32:43Z",
+          "updated_at": "2022-09-09T09:32:43Z",
+          "body": "You get that  error every time you come back from mapping ?"
+        },
+        {
+          "id": 1241738736,
+          "user": "IanMayo",
+          "created_at": "2022-09-09T09:32:46Z",
+          "updated_at": "2022-09-09T09:32:46Z",
+          "body": "Ok. Will write steps to reproduce."
+        },
+        {
+          "id": 1241740352,
+          "user": "lilitkarapetyan",
+          "created_at": "2022-09-09T09:34:33Z",
+          "updated_at": "2022-09-09T09:34:33Z",
+          "body": "Ok thank you."
+        },
+        {
+          "id": 1241756384,
+          "user": "IanMayo",
+          "created_at": "2022-09-09T09:50:48Z",
+          "updated_at": "2022-09-09T09:50:48Z",
+          "body": "![Screencast](https://i.gyazo.com/1d24c3d294b57cc853f665cbb72b4771.gif)"
+        },
+        {
+          "id": 1241781643,
+          "user": "lilitkarapetyan",
+          "created_at": "2022-09-09T10:14:30Z",
+          "updated_at": "2022-09-09T10:14:30Z",
+          "body": "Thanks, I will investigate it."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/1d24c3d294b57cc853f665cbb72b4771.gif"
+  ],
+  "number_of_changed_files": 19,
+  "total_changed_lines": 347
+}

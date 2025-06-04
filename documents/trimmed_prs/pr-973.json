@@ -1,0 +1,48 @@
+{
+  "number": 973,
+  "title": "967 typescript for collab",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-07-27T14:03:51Z",
+  "updated_at": "2021-07-27T14:33:07Z",
+  "closed_at": "2021-07-27T14:33:06Z",
+  "merged_at": "2021-07-27T14:33:05Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/973",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/973/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/973/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/973",
+  "body": "Introduce TypeScript changes necessary for adoption of Collaborative Working\r\n\r\nFixes #967 ",
+  "additions": 36,
+  "deletions": 15,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    967
+  ],
+  "issues": [
+    {
+      "id": 953058603,
+      "number": 967,
+      "title": "Update TypeScript definitions",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-07-26T16:04:52Z",
+      "updated_at": "2021-07-27T14:33:05Z",
+      "closed_at": "2021-07-27T14:33:05Z",
+      "body": "Update TypeScript definitions as necessary to support new Collaborative Data Editing.\r\n\r\nNote: the switch from full `Role` to just `roleId` will help this process. #812 ",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 51
+}

@@ -1,0 +1,105 @@
+{
+  "number": 1875,
+  "title": "1861: Show assets on map",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-24T11:29:25Z",
+  "updated_at": "2022-09-24T16:25:27Z",
+  "closed_at": "2022-09-24T16:25:26Z",
+  "merged_at": "2022-09-24T16:25:26Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1875",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1875/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1875/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1875",
+  "body": "Fixes #1861 \r\n\r\n\r\nhttps://user-images.githubusercontent.com/26705621/192095368-88637f41-0f4f-43eb-874c-13c414875660.mov\r\n\r\n",
+  "additions": 198,
+  "deletions": 46,
+  "changed_files": 18,
+  "labels": [],
+  "comments_count": 5,
+  "review_comments_count": 0,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1256955394,
+      "user": "IanMayo",
+      "created_at": "2022-09-24T12:15:26Z",
+      "updated_at": "2022-09-24T12:17:46Z",
+      "body": "Hello @lebaphi - is the icon missing from the Storybook build?  I see this for `PlanningChannel`:\r\n![image](https://user-images.githubusercontent.com/1108513/192097369-e7617d47-2eed-46b4-9760-95964898c8be.png)\r\n\r\nHold on, the marker icon is also missing from `yarn develop`: \r\n![image](https://user-images.githubusercontent.com/1108513/192097493-d8f856c0-28b0-4ef7-a214-d15117f1d866.png)\r\n\r\n"
+    },
+    {
+      "id": 1256967476,
+      "user": "lebaphi",
+      "created_at": "2022-09-24T13:21:14Z",
+      "updated_at": "2022-09-24T13:22:50Z",
+      "body": "sorry I forgot storybooks, let me update,the marker icon works on my machine for yarn develop, can you try to run serge in incognito? 😂"
+    },
+    {
+      "id": 1256969491,
+      "user": "IanMayo",
+      "created_at": "2022-09-24T13:30:38Z",
+      "updated_at": "2022-09-24T13:30:38Z",
+      "body": "(sorry - out for next couple of hours)"
+    },
+    {
+      "id": 1256969548,
+      "user": "IanMayo",
+      "created_at": "2022-09-24T13:30:57Z",
+      "updated_at": "2022-09-24T13:30:57Z",
+      "body": "Hmm - how about trying Phase-2 - the real asset icons?"
+    },
+    {
+      "id": 1257001102,
+      "user": "IanMayo",
+      "created_at": "2022-09-24T16:02:53Z",
+      "updated_at": "2022-09-24T16:10:44Z",
+      "body": "Hmm, that's strange.  In incognito I still don't see the markers.  From the network tab I can see that Chrome is downloading the icon:\r\n![image](https://user-images.githubusercontent.com/1108513/192107677-d1f7f581-451c-4eff-bb20-29f386898bc9.png)\r\n\r\nI don't see them in Safari, either:\r\n![image](https://user-images.githubusercontent.com/1108513/192107724-07782540-cf93-45be-b6cb-1434ed76c5de.png)\r\n\r\nHmm, the URK for the image source looks like it's missing a slash:\r\n![image](https://user-images.githubusercontent.com/1108513/192107769-fe96d709-6618-473a-8af1-847f634d3cd5.png)\r\n\r\nThis image path returns a valid icon:\r\n![image](https://user-images.githubusercontent.com/1108513/192107851-3de2295e-7baa-4b28-9b2f-b59941788e9c.png)\r\n\r\nAah, I think I've found it. For the `mapping` component, we include a `leaflet.css` in the component folder. I'm trying that for `SupportMapping`."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1861
+  ],
+  "issues": [
+    {
+      "id": 1380785104,
+      "number": 1861,
+      "title": "Show assets on map",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-21T11:37:43Z",
+      "updated_at": "2022-09-26T10:58:39Z",
+      "closed_at": "2022-09-26T10:58:39Z",
+      "body": "Our SupportPanel includes `ownForces` and `opForces` listings.   These contain a list of our own assets, and assets from other forces that we are aware of (or all for umpires).\r\n\r\nWe should create a `<PlanningAssets>` component that can render an array of assets.  It will put them onto a `LayerGroup` component (like we do with `<Assets>` ).\r\n\r\nNote: I suggest that in `Phase 1` we display the raw icons, but once we are rendering them, we should do a `Phase 2` that clusters the markers, using this library: https://www.npmjs.com/package/react-leaflet-cluster\r\n\r\nSo, here is `Phase 1`:\r\n* [x] introduce state in `PlanningChannel` for `ownForces` and `opForces`.  These will be set from `PlanningAssets`.  I _guess_ we need to pass a `setter` down to `PlanningAssets`\r\n* [x] extend `SupportMapping` props to take two arrays of `AssetRow` items (`ownForces` and `opForces`)\r\n* [x] extend `SupportMapping` to introduce new `PlanningForce` component - which will display an icon for each asset, using name, type, force data.  This will be (much) simpler version of the `Assets` component - just a leaflet `LayerGroup`  containing `Marker` items.  `SupportPanel` will have two instances of `PlanningForce` - one for `ownForce` and one for `opForces`.   We're putting the two sets of forces into different `LayerGroups` so we can switch them on and off, if we want to in the future.\r\n\r\nI tried to do the first two steps here this afternoon, but got into an infinite loop of stack updates - with stack overflow. I'm sure you'll do better than me :-)\r\n\r\nNote: in #1872 I made some early progress on this.  But note:  in that branch I'm plotting all of the assets.  In your _real_ code you will be plotting the `ownForces` and `opForces` - which will be fewer assets, and the `opForces` will have `perceived` values - as in their `AssetRow` objects.\r\n\r\n",
+      "labels": [
+        "spatial",
+        "4p9",
+        "T-M"
+      ],
+      "comments": [
+        {
+          "id": 1257006799,
+          "user": "IanMayo",
+          "created_at": "2022-09-24T16:25:59Z",
+          "updated_at": "2022-09-24T16:25:59Z",
+          "body": "Phase 1 - (markers) done.\r\n\r\nNow for Phase 2 (proper icons) @lebaphi  :-)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/192097369-e7617d47-2eed-46b4-9760-95964898c8be.png",
+    "https://user-images.githubusercontent.com/1108513/192097493-d8f856c0-28b0-4ef7-a214-d15117f1d866.png",
+    "https://user-images.githubusercontent.com/1108513/192107677-d1f7f581-451c-4eff-bb20-29f386898bc9.png",
+    "https://user-images.githubusercontent.com/1108513/192107724-07782540-cf93-45be-b6cb-1434ed76c5de.png",
+    "https://user-images.githubusercontent.com/1108513/192107769-fe96d709-6618-473a-8af1-847f634d3cd5.png",
+    "https://user-images.githubusercontent.com/1108513/192107851-3de2295e-7baa-4b28-9b2f-b59941788e9c.png"
+  ],
+  "number_of_changed_files": 18,
+  "total_changed_lines": 244
+}

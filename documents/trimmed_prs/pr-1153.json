@@ -1,0 +1,50 @@
+{
+  "number": 1153,
+  "title": "Avoid crash on delete last force",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-21T13:03:19Z",
+  "updated_at": "2021-09-21T14:38:28Z",
+  "closed_at": "2021-09-21T14:38:27Z",
+  "merged_at": "2021-09-21T14:38:27Z",
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1153",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1153/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1153/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1153",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #1152 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\nhttps://user-images.githubusercontent.com/16476120/134175293-8ccde50d-a52e-4ba2-bc56-7b36e07ba811.mov\r\n\r\n\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 1,
+  "deletions": 1,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1152
+  ],
+  "issues": [
+    {
+      "id": 1002367620,
+      "number": 1152,
+      "title": "Delete force lead to Error",
+      "state": "closed",
+      "user": "sanjayradadiya",
+      "created_at": "2021-09-21T12:20:52Z",
+      "updated_at": "2021-09-21T14:38:27Z",
+      "closed_at": "2021-09-21T14:38:27Z",
+      "body": "## 🐞 Bug description\r\n<!-- A clear and concise description of what the bug is. -->\r\nremove all forces from wargame will lead to error on loading.\r\n\r\n## 🔢 Steps to Reproduce\r\n<!-- \r\nSteps to reproduce the behavior:\r\n1. Go to '...'\r\n2. Click on '....'\r\n3. Scroll down to '....'\r\n4. See error -->\r\n\r\n## ⚙️ Expected behavior\r\n<!-- A clear and concise description of what you expected to happen. -->\r\n\r\n## 🖥️ Screenshots\r\n<!-- If applicable, add screenshots to help explain your problem a good animated screenshot can replace 'steps to reproduce'. -->\r\n\r\nhttps://user-images.githubusercontent.com/16476120/134169257-eec16e00-5b02-4d4e-97d5-a98573a8e3df.mov\r\n\r\n\r\n\r\n## 💻 System information\r\n<!-- Please complete the following information (you can get most of this information from https://mybrowser.fyi/) -->\r\n - Operating System: [e.g. iOS, Windows, etc...]\r\n - Browser [e.g. chrome, safari]\r\n - Browser Version [e.g. 22]\r\n - Browser resolution \r\n - Are cookies enabled\r\n - Is Javascript enabled\r\n - Do you have an ad blocker\r\n\r\n\r\n## 📝 Additional context\r\n<!-- Add any other context about the problem here. For example it might be worth mentioning if you have any chrome extensions which may cause the problem -->\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

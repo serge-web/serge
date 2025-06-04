@@ -1,0 +1,208 @@
+{
+  "number": 2436,
+  "title": "2389 as a player i wish to be able to delete orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-17T08:19:45Z",
+  "updated_at": "2023-02-21T16:30:11Z",
+  "closed_at": "2023-02-21T16:30:09Z",
+  "merged_at": "2023-02-21T16:30:09Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2436",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2436/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2436/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2436",
+  "body": "Fixes #2389 ",
+  "additions": 137,
+  "deletions": 63,
+  "changed_files": 19,
+  "labels": [
+    "4p9"
+  ],
+  "comments_count": 11,
+  "review_comments_count": 4,
+  "total_comments": 15,
+  "comments_data": [
+    {
+      "id": 1434521525,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-17T11:40:42Z",
+      "updated_at": "2023-02-17T11:40:42Z",
+      "body": "I haven't finished."
+    },
+    {
+      "id": 1438135358,
+      "user": "IanMayo",
+      "created_at": "2023-02-21T09:23:27Z",
+      "updated_at": "2023-02-21T09:28:36Z",
+      "body": "Hello @lilitkarapetyan - I've had a play with this branch.  \r\n\r\nI know you are currently still developing it.\r\n\r\nI see the new rows are being added to the database, marked as `archived`.  But, they still have the original `_id`. \r\n\r\nThe player UI isn't updating.  That may be because of the `special` way we decide to show new messages in `PlanningMessagesList` (to prevent forms data-loss).  If that is an issue, we can temporarily overcome it by asking players to `browser refresh`,  knowing it will be fixed in #2452 \r\n\r\nHmm, this is interesting :-).  The list of messages _does_ update for other players - just not the one doing the `archive`. Now that's strange :-)"
+    },
+    {
+      "id": 1438156045,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-21T09:38:01Z",
+      "updated_at": "2023-02-21T09:38:01Z",
+      "body": "> Hello @lilitkarapetyan - I've had a play with this branch.\r\n> \r\n> I know you are currently still developing it.\r\n> \r\n> I see the new rows are being added to the database, marked as `archived`. But, they still have the original `_id`.\r\n> \r\n> The player UI isn't updating. That may be because of the `special` way we decide to show new messages in `PlanningMessagesList` (to prevent forms data-loss). If that is an issue, we can temporarily overcome it by asking players to `browser refresh`, knowing it will be fixed in #2452\r\n> \r\n> Hmm, this is interesting :-). The list of messages _does_ update for other players - just not the one doing the `archive`. Now that's strange :-)\r\n\r\nDo you wanr archived messages to have no original _id ? "
+    },
+    {
+      "id": 1438159387,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-21T09:40:25Z",
+      "updated_at": "2023-02-21T09:40:25Z",
+      "body": "We can pass a rendom Id and add a new message to the database."
+    },
+    {
+      "id": 1438172090,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-21T09:49:08Z",
+      "updated_at": "2023-02-21T09:49:08Z",
+      "body": "Yes, the update problem comes from the how we update out table"
+    },
+    {
+      "id": 1438174992,
+      "user": "IanMayo",
+      "created_at": "2023-02-21T09:51:09Z",
+      "updated_at": "2023-02-21T09:51:09Z",
+      "body": "Aah, of course.\r\n\r\nYes, in the current implementation, the messages go back with their original ID, which makes them replace the original one.  Hmm, that's not the normal Serge way of doing things.  I did try deleting the `_id` - hoping Serge would create one, but that didn't work (the messages didn't get inserted).  \r\n\r\nSo, yes - let's provide a new ID.  I _think_ it has to be a moment.utc().toISOtimestamp().  \r\n\r\nNote: I tried doing this in `archiiveConfirmed` in `PlanningMessagesList` - but it didn't work.  We (you) will have to set the new `_id` later in the process, please ."
+    },
+    {
+      "id": 1438181414,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-21T09:55:36Z",
+      "updated_at": "2023-02-21T09:55:36Z",
+      "body": "> \r\n\r\nOkay, Thanks"
+    },
+    {
+      "id": 1438201117,
+      "user": "IanMayo",
+      "created_at": "2023-02-21T10:07:54Z",
+      "updated_at": "2023-02-21T10:07:54Z",
+      "body": "aah, here is the issue I was trying to overcome.  Do you have another solution?\r\n![image](https://user-images.githubusercontent.com/1108513/220314546-5d01d6b1-f670-4bc2-8764-b799e10ad4fb.png)\r\n"
+    },
+    {
+      "id": 1438214157,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-21T10:16:22Z",
+      "updated_at": "2023-02-21T10:16:22Z",
+      "body": "> \r\n\r\nNo, I will study."
+    },
+    {
+      "id": 1438250219,
+      "user": "IanMayo",
+      "created_at": "2023-02-21T10:40:55Z",
+      "updated_at": "2023-02-21T10:40:55Z",
+      "body": "> > \r\n> \r\n> No, I will study.\r\n\r\n@lilitkarapetyan - if there isn't a quick/easy fix, please wrap the code in comments that disable the linter check.  We've got lots of other things to work on."
+    },
+    {
+      "id": 1438681087,
+      "user": "IanMayo",
+      "created_at": "2023-02-21T15:31:22Z",
+      "updated_at": "2023-02-21T15:31:22Z",
+      "body": "@lilitkarapetyan  - is this ready to go?"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1109458536,
+      "user": "IanMayo",
+      "created_at": "2023-02-17T08:49:48Z",
+      "updated_at": "2023-02-17T08:49:48Z",
+      "body": "it looks like there is a bit to complete here too, @lilitkarapetyan  🤣 ",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -700,6 +700,11 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa\n   })\n }\n \n+export const PostBulkMessages = (dbName: string, archiveMark: MessagePlanning[]) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2436#discussion_r1109458536"
+    },
+    {
+      "id": 1109483142,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-17T08:58:29Z",
+      "updated_at": "2023-02-17T08:58:30Z",
+      "body": "I am working on it  🤣🤣",
+      "path": "packages/client/src/api/wargames_api/index.ts",
+      "diff_hunk": "@@ -700,6 +700,11 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa\n   })\n }\n \n+export const PostBulkMessages = (dbName: string, archiveMark: MessagePlanning[]) => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2436#discussion_r1109483142"
+    },
+    {
+      "id": 1111688359,
+      "user": "IanMayo",
+      "created_at": "2023-02-20T09:32:39Z",
+      "updated_at": "2023-02-20T09:32:40Z",
+      "body": "@lilitkarapetyan - this isn't working, but it's in my code, not yours :-(\r\n\r\nAt this point in the code, the `pendingArchive` array is empty.  I've inserted debug lines to capture the array getting set (in `archiveSelected`), but in `archiveConfirmed` the array is empty.  React State...\r\n\r\nI'd appreciate you helping out with this issue, please.",
+      "path": "packages/components/src/local/organisms/planning-messages-list/index.tsx",
+      "diff_hunk": "@@ -218,6 +218,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({\n         return msg\n       })\n       console.log('Archiving:', markArchived)\n+      // if (markArchived.length === 0) return null",
+      "html_url": "https://github.com/serge-web/serge/pull/2436#discussion_r1111688359"
+    },
+    {
+      "id": 1111761792,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-02-20T10:33:49Z",
+      "updated_at": "2023-02-20T10:33:50Z",
+      "body": "I tested there with `rows` data, ",
+      "path": "packages/components/src/local/organisms/planning-messages-list/index.tsx",
+      "diff_hunk": "@@ -218,6 +218,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({\n         return msg\n       })\n       console.log('Archiving:', markArchived)\n+      // if (markArchived.length === 0) return null",
+      "html_url": "https://github.com/serge-web/serge/pull/2436#discussion_r1111761792"
+    }
+  ],
+  "issue_numbers": [
+    2389,
+    2452
+  ],
+  "issues": [
+    {
+      "id": 1583976116,
+      "number": 2389,
+      "title": "As a player I wish to be able to delete orders",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-14T11:19:57Z",
+      "updated_at": "2023-02-21T16:30:11Z",
+      "closed_at": "2023-02-21T16:30:11Z",
+      "body": "I've entered a set of orders, but now I wish to cancel them.\n\nNote: since it's not easy to add an `Archive` button into JSON Editor, I've changed the approach. Now umpire staff are able to archive orders documents.\n\nThe functionality is implemented in #2419 , but the implementation of `archiveConfirmed` needs to be finished off, to send the modified messages to the database.\n\nTo reflect the \"time-travelling\" aspect of Serge, we won't delete the document, we'll mark it as cancelled, using the existing `archived` flag in `MessageDetails`.  The client-side will not display cancelled orders. Note: we can't just strip out the cancelled versions of orders, since we would then just display the previous version of the orders.  We need to filter the orders in `PlanningChannel`.\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1433263956,
+          "user": "IanMayo",
+          "created_at": "2023-02-16T15:26:38Z",
+          "updated_at": "2023-02-16T15:26:38Z",
+          "body": "Ok @lilitkarapetyan - I've done my bits, and they are now in develop.\r\n\r\nI now just need some help from you in sending the array of modified (archived) messages, please:\r\n![image](https://user-images.githubusercontent.com/1108513/219410666-1670bb36-e667-4262-9ccb-f1d0845f0b2e.png)\r\n"
+        }
+      ]
+    },
+    {
+      "id": 1591784815,
+      "number": 2452,
+      "title": "Only need \"persistent rows\" workaround if a document is being edited.",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-20T12:37:41Z",
+      "updated_at": "2023-02-24T08:24:56Z",
+      "closed_at": "2023-02-24T08:24:55Z",
+      "body": "@lilitkarapetyan developed this workaround that prevents `live` json-editor documents being wiped when new messages are received.\r\n\r\nBut, I realise that we only need to apply that workaround if there is currently a `detail` panel open, and it contains a JSON-editor document that is being edited.\r\n\r\nThe workaround itself may be an issue - since it doesn't handle multiple new documents, document state changing, maybe other scenarios.\r\n\r\nSo, we should only apply the workaround (in planning-messages and adjudication-messages) if we know a document is currently being edited.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1443108754,
+          "user": "IanMayo",
+          "created_at": "2023-02-24T08:24:55Z",
+          "updated_at": "2023-02-24T08:24:55Z",
+          "body": "Fixed in #2482"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/220314546-5d01d6b1-f670-4bc2-8764-b799e10ad4fb.png",
+    "https://user-images.githubusercontent.com/1108513/219410666-1670bb36-e667-4262-9ccb-f1d0845f0b2e.png"
+  ],
+  "number_of_changed_files": 19,
+  "total_changed_lines": 200
+}

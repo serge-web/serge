@@ -1,0 +1,50 @@
+{
+  "number": 1704,
+  "title": "1701 Hotfix small turns",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-07-29T12:30:19Z",
+  "updated_at": "2022-07-29T16:04:51Z",
+  "closed_at": "2022-07-29T16:04:50Z",
+  "merged_at": "2022-07-29T16:04:50Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1704",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1704/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1704/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1704",
+  "body": "Fixes #1701",
+  "additions": 37,
+  "deletions": 20,
+  "changed_files": 6,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1701
+  ],
+  "issues": [
+    {
+      "id": 1321933580,
+      "number": 1701,
+      "title": "Turning circles not shown for new scenario",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-07-29T08:36:39Z",
+      "updated_at": "2022-07-29T16:04:51Z",
+      "closed_at": "2022-07-29T16:04:51Z",
+      "body": "I created a new wargame, with blue, red, green assets.  I provided turning circles.  But, when planning routes, no circles were displayed.\r\n\r\nNote: this scenario used much smaller step times and hexes than previous scenarios.",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 6,
+  "total_changed_lines": 57
+}

@@ -1,0 +1,94 @@
+{
+  "number": 1789,
+  "title": "Update css props",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-31T13:12:50Z",
+  "updated_at": "2022-09-01T14:38:28Z",
+  "closed_at": "2022-09-01T14:38:27Z",
+  "merged_at": "2022-09-01T14:38:27Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1789",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1789/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1789/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1789",
+  "body": "Small changes, to reduce CSS-related compiler warnings\r\n\r\nThere's still one error: `rows` should be changed to `minRows` - but our UI kit wants `rows`.",
+  "additions": 31,
+  "deletions": 31,
+  "changed_files": 11,
+  "labels": [],
+  "comments_count": 8,
+  "review_comments_count": 0,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 1232965654,
+      "user": "IanMayo",
+      "created_at": "2022-08-31T13:49:48Z",
+      "updated_at": "2022-08-31T13:49:48Z",
+      "body": "Hello @lebaphi - I had some compiler warnings in your orders branch.\r\n\r\nI tried to fix them in this PR.  Could you check the fixes look ok please?"
+    },
+    {
+      "id": 1232991935,
+      "user": "lebaphi",
+      "created_at": "2022-08-31T14:10:43Z",
+      "updated_at": "2022-08-31T14:10:43Z",
+      "body": "Hi @IanMayo , how to reproduce these warning messages?\r\n\r\n<img width=\"843\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/187699135-2c65bc1f-24b7-402f-ae3f-d9fed4747ef3.png\">\r\n"
+    },
+    {
+      "id": 1233026012,
+      "user": "IanMayo",
+      "created_at": "2022-08-31T14:38:00Z",
+      "updated_at": "2022-08-31T14:38:00Z",
+      "body": "they were shown in red in the dev console in Chrome."
+    },
+    {
+      "id": 1233041967,
+      "user": "lebaphi",
+      "created_at": "2022-08-31T14:50:40Z",
+      "updated_at": "2022-08-31T14:50:40Z",
+      "body": "> they were shown in red in the dev console in Chrome.\r\n\r\nI cleaned some code in orders components branch, can you check if this warning still appears?"
+    },
+    {
+      "id": 1233075129,
+      "user": "IanMayo",
+      "created_at": "2022-08-31T15:16:24Z",
+      "updated_at": "2022-08-31T15:16:24Z",
+      "body": "In the `orders`  branch I get this when I click on `Play` from the welcome screen:\r\n![image](https://user-images.githubusercontent.com/1108513/187714516-33909b08-bffb-47df-b2f9-ab17a5c41d2e.png)\r\n\r\nIf I then log-in to `Papa Foxtrot` as `Game Manager`, I get these errors when I open a `Chat` channel:\r\n![image](https://user-images.githubusercontent.com/1108513/187714843-1237a429-e40e-46c7-b5b4-37568ab7fc72.png)\r\n\r\nand \r\n![image](https://user-images.githubusercontent.com/1108513/187714916-a854d30c-f4b0-4056-acd7-2a00dc14a821.png)\r\n\r\nIn this PR I was able to fix the `fade` and `maxRows` errors, but not the `minRows` one."
+    },
+    {
+      "id": 1233196209,
+      "user": "lebaphi",
+      "created_at": "2022-08-31T17:04:15Z",
+      "updated_at": "2022-08-31T17:04:15Z",
+      "body": "thanks @IanMayo , let me check this"
+    },
+    {
+      "id": 1234317851,
+      "user": "lebaphi",
+      "created_at": "2022-09-01T13:56:23Z",
+      "updated_at": "2022-09-01T13:56:23Z",
+      "body": "Hi @IanMayo , I fixed the minRows error."
+    },
+    {
+      "id": 1234374510,
+      "user": "IanMayo",
+      "created_at": "2022-09-01T14:38:23Z",
+      "updated_at": "2022-09-01T14:38:23Z",
+      "body": "All errors now removed :-)"
+    }
+  ],
+  "review_comments_data": [],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/187699135-2c65bc1f-24b7-402f-ae3f-d9fed4747ef3.png",
+    "https://user-images.githubusercontent.com/1108513/187714516-33909b08-bffb-47df-b2f9-ab17a5c41d2e.png",
+    "https://user-images.githubusercontent.com/1108513/187714843-1237a429-e40e-46c7-b5b4-37568ab7fc72.png",
+    "https://user-images.githubusercontent.com/1108513/187714916-a854d30c-f4b0-4056-acd7-2a00dc14a821.png"
+  ],
+  "number_of_changed_files": 11,
+  "total_changed_lines": 62
+}

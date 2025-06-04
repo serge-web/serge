@@ -1,0 +1,32 @@
+{
+  "number": 1038,
+  "title": "Hotfix owner column name",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-31T16:58:57Z",
+  "updated_at": "2021-09-01T13:06:49Z",
+  "closed_at": "2021-09-01T13:06:48Z",
+  "merged_at": "2021-09-01T13:06:48Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1038",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1038/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1038/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1038",
+  "body": "We're missing some table headers, when there are no filters for that column:\r\n![image](https://user-images.githubusercontent.com/1108513/131544982-7252cf6f-b085-4c8f-bc46-f2caf6b7dc29.png)\r\n",
+  "additions": 16,
+  "deletions": 82,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/131544982-7252cf6f-b085-4c8f-bc46-f2caf6b7dc29.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 98
+}

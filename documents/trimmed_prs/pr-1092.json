@@ -1,0 +1,68 @@
+{
+  "number": 1092,
+  "title": "Show full content of RFI answer",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-09-07T04:14:56Z",
+  "updated_at": "2021-09-07T09:59:49Z",
+  "closed_at": "2021-09-07T09:59:48Z",
+  "merged_at": "2021-09-07T09:59:48Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1092",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1092/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1092/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1092",
+  "body": "Fixes #1079 ",
+  "additions": 23,
+  "deletions": 5,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 913977944,
+      "user": "lebaphi",
+      "created_at": "2021-09-07T04:18:02Z",
+      "updated_at": "2021-09-07T04:18:02Z",
+      "body": "maybe we should update the TextArea component by adding extra prop like: `fitContent` or `dynamicHeight`, once it set it to true, the textarea height should be fit the content."
+    },
+    {
+      "id": 913997974,
+      "user": "lebaphi",
+      "created_at": "2021-09-07T05:18:27Z",
+      "updated_at": "2021-09-07T05:18:27Z",
+      "body": "Usage: `<Textarea fitContent={true} ....`\r\n\r\n![image](https://user-images.githubusercontent.com/26705621/132288096-317de2c4-a670-44e1-bb89-599d4b14fb74.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1079
+  ],
+  "issues": [
+    {
+      "id": 989226282,
+      "number": 1079,
+      "title": "Show full content of RFI answer",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-09-06T14:23:01Z",
+      "updated_at": "2021-09-07T09:59:48Z",
+      "closed_at": "2021-09-07T09:59:48Z",
+      "body": "When an RFI answer is shown, it's in a text-area of fixed height, showing a scroll-bar when necessary.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/132231316-c09c8edf-c632-455c-aa75-01a48ad289d9.png)\r\n\r\n\r\nSince the answer is such an important part of the RFI, we should show the whole RFI.",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/132288096-317de2c4-a670-44e1-bb89-599d4b14fb74.png",
+    "https://user-images.githubusercontent.com/1108513/132231316-c09c8edf-c632-455c-aa75-01a48ad289d9.png"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 28
+}

@@ -1,0 +1,52 @@
+{
+  "number": 2498,
+  "title": "2496 flatpickr workaround",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-23T19:38:57Z",
+  "updated_at": "2023-02-23T21:41:25Z",
+  "closed_at": "2023-02-23T21:41:24Z",
+  "merged_at": "2023-02-23T21:41:23Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2498",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2498/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2498/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2498",
+  "body": "Fixes #2496 ",
+  "additions": 205,
+  "deletions": 342,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2496
+  ],
+  "issues": [
+    {
+      "id": 1597394863,
+      "number": 2496,
+      "title": "Flatpickr internally using local computer timezone",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-23T19:14:23Z",
+      "updated_at": "2023-02-23T21:41:25Z",
+      "closed_at": "2023-02-23T21:41:25Z",
+      "body": "The date displayed by flatpickr doesn't match that stored in the database, or displayed on the page.\r\n\r\nFlatpickr can't handle timezones - and just uses the local computer one.\r\n\r\nThis means the dates shown by flatpickr are an hour out (daylight savings time)\r\n\r\nIt's not something the maintainers want to fix.\r\nhttps://github.com/flatpickr/flatpickr/issues/1532\r\n\r\nSee the differences in the start/end time in the row header, and the start/end time in the form itself:\r\n![image](https://user-images.githubusercontent.com/1108513/221007394-eb79e972-28b8-4709-b0f8-81cd870fa652.png)\r\n\r\nWe can minimise this error by displaying ISO timestamps in the form.  The `hours` value in the popup form will still be wrong :-(\r\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/221007394-eb79e972-28b8-4709-b0f8-81cd870fa652.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 547
+}

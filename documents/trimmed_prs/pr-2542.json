@@ -1,0 +1,73 @@
+{
+  "number": 2542,
+  "title": "missile_lists_dont_show_headers_properly",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-03T08:42:28Z",
+  "updated_at": "2023-03-03T11:04:02Z",
+  "closed_at": "2023-03-03T11:04:01Z",
+  "merged_at": "2023-03-03T11:04:00Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2542",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2542/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2542/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2542",
+  "body": "Fixes #2539 ",
+  "additions": 21,
+  "deletions": 17,
+  "changed_files": 1,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1453206638,
+      "user": "IanMayo",
+      "created_at": "2023-03-03T09:10:56Z",
+      "updated_at": "2023-03-03T09:10:56Z",
+      "body": "@lilitkarapetyan - can you tell me which issue this is fixing, please?"
+    },
+    {
+      "id": 1453240120,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-03-03T09:37:49Z",
+      "updated_at": "2023-03-03T09:37:49Z",
+      "body": "@IanMayo editor change event triggers after clicking on \"Add Asset\" button, so I do same actions during that event."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2539
+  ],
+  "issues": [
+    {
+      "id": 1605270790,
+      "number": 2539,
+      "title": "Missile lists don't show headers properly",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-01T16:17:51Z",
+      "updated_at": "2023-03-03T11:04:02Z",
+      "closed_at": "2023-03-03T11:04:02Z",
+      "body": "We're using a JS snippet to convert headers (entries beginning with '###) into opt-groups, so they are not selectable.\r\n\r\nThe demo is here, but see the example below: https://pmk65.github.io/jedemov2/dist/demo.html\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/222196895-9c6f3201-117f-4979-b378-90681019a54a.png)\r\n\r\nBut, we don't transform the data.  The code to do it is in `json-editor/index.tsx`\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/222196549-2cc6155b-c13f-4bf1-8ce8-859042150be8.png)\r\n\r\nMy _guess_ is that we do the JS trick when the form loads, but when we're starting with a blank form, the list of own assets is empty, so there is no select control to transform.\r\n\r\nMaybe we need to intercept the \"row-add\" event, somehow.\r\n\r\nAah, yes - the above is right.  When we `Edit` an existing \"Strike\" document, the select control is already generated, and gets transformed as below:\r\n![image](https://user-images.githubusercontent.com/1108513/222199083-3eb7bfe9-5236-4171-bf8a-93e7eb0550a5.png)\r\n\r\nAah, but if we added new rows in the `Edit` form, they would not get adapted.\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/222196895-9c6f3201-117f-4979-b378-90681019a54a.png",
+    "https://user-images.githubusercontent.com/1108513/222196549-2cc6155b-c13f-4bf1-8ce8-859042150be8.png",
+    "https://user-images.githubusercontent.com/1108513/222199083-3eb7bfe9-5236-4171-bf8a-93e7eb0550a5.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 38
+}

@@ -1,0 +1,51 @@
+{
+  "number": 1740,
+  "title": "1735 crash in forces component",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-08T10:16:05Z",
+  "updated_at": "2022-08-08T11:08:25Z",
+  "closed_at": "2022-08-08T11:08:24Z",
+  "merged_at": "2022-08-08T11:08:21Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1740",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1740/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1740/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1740",
+  "body": "Fixes #1735 \r\n",
+  "additions": 25,
+  "deletions": 26,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1735
+  ],
+  "issues": [
+    {
+      "id": 1330343060,
+      "number": 1735,
+      "title": "Crash while changing platform visibility",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-05T20:02:33Z",
+      "updated_at": "2022-08-08T11:08:25Z",
+      "closed_at": "2022-08-08T11:08:25Z",
+      "body": "I was giving a demo on `serge-review`.\r\n\r\nI was logged in as Game Umpire, in `WATU Playtest`\r\n\r\nI clicked on a blue vessel, and wanted to make it visible to Red in the Perception form.\r\n\r\nBlue-screen of death.  Error: Cannot read properties of undefined (reading 'includes')\r\n\r\n**Suspicion** issue may be in the updated `<Forces/>` component.",
+      "labels": [
+        "bug",
+        "4watu"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 51
+}

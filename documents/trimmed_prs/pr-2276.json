@@ -1,0 +1,99 @@
+{
+  "number": 2276,
+  "title": "1906 the_alternate_clustering_solution",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-01-19T07:52:46Z",
+  "updated_at": "2023-01-23T13:40:47Z",
+  "closed_at": "2023-01-23T13:40:46Z",
+  "merged_at": "2023-01-23T13:40:45Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2276",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2276/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2276/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2276",
+  "body": "Fixes #1906 \r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 76,
+  "deletions": 45,
+  "changed_files": 5,
+  "labels": [
+    "spatial",
+    "4p9"
+  ],
+  "comments_count": 3,
+  "review_comments_count": 2,
+  "total_comments": 5,
+  "comments_data": [
+    {
+      "id": 1396708738,
+      "user": "IanMayo",
+      "created_at": "2023-01-19T09:56:22Z",
+      "updated_at": "2023-01-19T09:56:22Z",
+      "body": "Thanks @lilitkarapetyan  - it's a good start :-)\r\n\r\nI think we also need to `detach` the asset markers.  If I apply a filter to my \"My force\" I still see the assets originally shown in the table.  I may see new ones, but the ones previously on the table say on the map.\r\n\r\nSo, on `planning-force` update: I think we need to remove existing markers, and then add the new ones."
+    },
+    {
+      "id": 1400077772,
+      "user": "IanMayo",
+      "created_at": "2023-01-23T09:57:34Z",
+      "updated_at": "2023-01-23T09:57:34Z",
+      "body": "Any more changes on this @lilitkarapetyan ?  I'm tempted to merge it, and to start learning lessons about how clustering works."
+    },
+    {
+      "id": 1400109668,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-01-23T10:21:08Z",
+      "updated_at": "2023-01-23T10:21:08Z",
+      "body": "> Any more changes on this @lilitkarapetyan ? I'm tempted to merge it, and to start learning lessons about how clustering works.\r\n\r\nYes I added it."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1081035520,
+      "user": "IanMayo",
+      "created_at": "2023-01-19T09:57:20Z",
+      "updated_at": "2023-01-19T09:57:20Z",
+      "body": "@lilitkarapetyan - does this create `mcg` on each render?  I'm surprised we aren't storing it in some `state-aware` structure so we know it is only created once.",
+      "path": "packages/components/src/local/organisms/planning-force/index.tsx",
+      "diff_hunk": "@@ -1,14 +1,18 @@\n import cx from 'classnames'\n-import L, { LatLng, latLng } from 'leaflet'\n-import React, { useCallback } from 'react'\n+import L, { LatLng, latLng, LeafletMouseEvent } from 'leaflet'\n+import React, { useEffect } from 'react'\n import * as ReactDOMServer from 'react-dom/server'\n-import { LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'\n+import { LayerGroup, useMap } from 'react-leaflet-v4'\n import AssetIcon from '../../asset-icon'\n import { AssetRow } from '../planning-assets/types/props'\n import styles from './styles.module.scss'\n+import 'leaflet.markercluster/dist/leaflet.markercluster'\n+import 'leaflet.markercluster/dist/MarkerCluster.css'\n+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'\n import PropTypes from './types/props'\n \n-export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {\n+const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {\n+  const mcg = L.markerClusterGroup()",
+      "html_url": "https://github.com/serge-web/serge/pull/2276#discussion_r1081035520"
+    },
+    {
+      "id": 1084010990,
+      "user": "IanMayo",
+      "created_at": "2023-01-23T12:43:30Z",
+      "updated_at": "2023-01-23T12:43:30Z",
+      "body": "@lilitkarapetyan - I don't see what this is doing.  Well, it is called at few times at app loading, but that point there aren't any marker clusters. It isn't called again.\r\n\r\nWhat is it doing?",
+      "path": "packages/components/src/local/organisms/support-mapping/index.tsx",
+      "diff_hunk": "@@ -22,6 +23,14 @@ export const SupportMapping: React.FC<PropTypes> = ({\n     }\n   }, [mapWidth])\n \n+  useEffect(() => {",
+      "html_url": "https://github.com/serge-web/serge/pull/2276#discussion_r1084010990"
+    }
+  ],
+  "issue_numbers": [
+    1906
+  ],
+  "issues": [
+    {
+      "id": 1391090732,
+      "number": 1906,
+      "title": "Cluster map marker icons",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-29T15:44:13Z",
+      "updated_at": "2023-01-23T13:40:47Z",
+      "closed_at": "2023-01-23T13:40:47Z",
+      "body": "We're expecting lots of asset icons in the game.\r\n\r\nWe may need to cluster them.\r\n\r\nThis looks like the most active `react` clustering library:\r\nhttps://www.npmjs.com/package/react-leaflet-cluster\r\n\r\nI don't have much experience in Leaflet clustering, so part of this is for @lilitkarapetyan  to explore what is possible, and if necessary, offer options for how clustering is implemented.\r\n\r\nI _expect_ this will be a feature within `PlanningForces`.",
+      "labels": [
+        "spatial",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 121
+}

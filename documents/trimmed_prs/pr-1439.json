@@ -1,0 +1,214 @@
+{
+  "number": 1439,
+  "title": "1409: Insights/Game Admin Tab Notification",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-21T13:53:03Z",
+  "updated_at": "2022-03-30T15:13:23Z",
+  "closed_at": "2022-03-25T13:00:38Z",
+  "merged_at": "2022-03-25T13:00:38Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1439",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1439/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1439/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1439",
+  "body": "Fixess #1409\r\n\r\nTakes over from PR #1431 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/159275188-82a0fa6e-2357-46e3-939f-8153d47518ef.mov\r\n\r\n\r\n",
+  "additions": 536,
+  "deletions": 452,
+  "changed_files": 15,
+  "labels": [],
+  "comments_count": 16,
+  "review_comments_count": 3,
+  "total_comments": 19,
+  "comments_data": [
+    {
+      "id": 1073970132,
+      "user": "IanMayo",
+      "created_at": "2022-03-21T14:29:52Z",
+      "updated_at": "2022-03-21T14:33:51Z",
+      "body": "Hello @lebaphi \r\none issue.\r\n\r\nWhen  we first render the page, unread messages in Game Admin are shown in bold, read messages in normal.  But, when we \"mark all messages as read\" - I think the they should turn from bold to normal.\r\n\r\nThis is how they are shown on refresh.\r\n\r\nSo, I think we need to re-render after `Mark all as read`, IMHO.\r\n\r\n![screencast](https://i.gyazo.com/75337d01a9d1dc51152b4402776e6afc.gif)\r\n"
+    },
+    {
+      "id": 1075205463,
+      "user": "lebaphi",
+      "created_at": "2022-03-22T13:50:14Z",
+      "updated_at": "2022-03-22T13:50:14Z",
+      "body": "> Hello @lebaphi \n> \n> one issue.\n> \n> \n> \n> When  we first render the page, unread messages in Game Admin are shown in bold, read messages in normal.  But, when we \"mark all messages as read\" - I think the they should turn from bold to normal.\n> \n> \n> \n> This is how they are shown on refresh.\n> \n> \n> \n> So, I think we need to re-render after `Mark all as read`, IMHO.\n> \n> \n> \n> ![screencast](https://i.gyazo.com/75337d01a9d1dc51152b4402776e6afc.gif)\n> \n> \n\nsure @IanMayo, I will update it 👍🏻"
+    },
+    {
+      "id": 1075259472,
+      "user": "lebaphi",
+      "created_at": "2022-03-22T14:33:15Z",
+      "updated_at": "2022-03-22T14:33:15Z",
+      "body": "I pushed the update @IanMayo "
+    },
+    {
+      "id": 1075294824,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-22T15:02:54Z",
+      "updated_at": "2022-03-22T15:02:54Z",
+      "body": "Great work so far guys! Hate to be annoying but I have two things to suggest:\r\n\r\n1. The counter should be red, same as the counters for the message channels, to maintain uniformity and attract attention.\r\n2. If I, as GC, send a message in the general chat, I shouldn't get an unread notification, since it's my own message. Instead, I should only get a notification when someone else sends it."
+    },
+    {
+      "id": 1075306150,
+      "user": "IanMayo",
+      "created_at": "2022-03-22T15:11:22Z",
+      "updated_at": "2022-03-22T15:11:22Z",
+      "body": "> 1. The counter should be red, same as the counters for the message channels, to maintain uniformity and attract attention.\r\n\r\nYes, well spotted.\r\n\r\n> 2. If I, as GC, send a message in the general chat, I shouldn't get an unread notification, since it's my own message. Instead, I should only get a notification when someone else sends it.\r\n\r\n_Hopefully_ we can do that :-)"
+    },
+    {
+      "id": 1075369949,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-22T16:34:28Z",
+      "updated_at": "2022-03-22T16:34:28Z",
+      "body": "What do you guys think about refreshing our notification counter? With all the new features we've added, I think a bell icon would fit nicely on the screen. Here's what I came up with: \r\n\r\n![Bell Icon Figma](https://user-images.githubusercontent.com/85491794/159528845-128f867d-93bd-4c04-993b-d8c29ca11e26.png)\r\n\r\n![Bell Icon Example](https://user-images.githubusercontent.com/85491794/159529192-223aaacf-3fcd-4b98-95df-816a774afe52.png)\r\n\r\n"
+    },
+    {
+      "id": 1075376241,
+      "user": "IanMayo",
+      "created_at": "2022-03-22T16:40:05Z",
+      "updated_at": "2022-03-22T16:40:05Z",
+      "body": "Very stylish @ShendMikullovci, but...\r\n\r\nPersonally I find the font-size an issue.  We also have an issue where users have so many tabs that they fall onto the _overflow_ menu.  I think we should keep the tabs titles as narrow as possible."
+    },
+    {
+      "id": 1076452721,
+      "user": "IanMayo",
+      "created_at": "2022-03-23T14:38:14Z",
+      "updated_at": "2022-03-23T14:38:14Z",
+      "body": "Ok @lebaphi - the only thing I think we have to do on here is to make the message-count red."
+    },
+    {
+      "id": 1076492052,
+      "user": "lebaphi",
+      "created_at": "2022-03-23T15:32:21Z",
+      "updated_at": "2022-03-23T15:32:21Z",
+      "body": "> Ok @lebaphi - the only thing I think we have to do on here is to make the message-count red.\n\nyes sir 😁"
+    },
+    {
+      "id": 1077648644,
+      "user": "lebaphi",
+      "created_at": "2022-03-24T13:48:41Z",
+      "updated_at": "2022-03-24T13:48:41Z",
+      "body": "Updated @IanMayo @ShendMikullovci \r\n\r\n<img width=\"254\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/159930173-0eddbb6e-eba8-4de5-b05d-fc9ae9473292.png\">\r\n\r\n"
+    },
+    {
+      "id": 1077875873,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-24T17:39:55Z",
+      "updated_at": "2022-03-24T17:39:55Z",
+      "body": "> Updated @IanMayo @ShendMikullovci\r\n> \r\n> <img alt=\"image\" width=\"254\" src=\"https://user-images.githubusercontent.com/26705621/159930173-0eddbb6e-eba8-4de5-b05d-fc9ae9473292.png\">\r\n\r\nJust reviewed. Looks great!"
+    },
+    {
+      "id": 1079314833,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-25T18:50:09Z",
+      "updated_at": "2022-03-25T18:50:09Z",
+      "body": "I was looking at Cloud-One and noticed we've got a \"NEW\" counter next to \"Game Admin\". Intentional? If so, when does it appear?:\r\n\r\n![Cloud One Notification Counter](https://user-images.githubusercontent.com/85491794/160183350-109ed4a1-cb90-4540-a9ab-c8927823de9a.png)"
+    },
+    {
+      "id": 1079572394,
+      "user": "lebaphi",
+      "created_at": "2022-03-26T02:34:51Z",
+      "updated_at": "2022-03-26T02:34:51Z",
+      "body": "> I was looking at Cloud-One and noticed we've got a \"NEW\" counter next to \"Game Admin\". Intentional? If so, when does it appear?:\r\n> \r\n> ![Cloud One Notification Counter](https://user-images.githubusercontent.com/85491794/160183350-109ed4a1-cb90-4540-a9ab-c8927823de9a.png)\r\n\r\ncan you help me to reproduce it? @ShendMikullovci \r\n"
+    },
+    {
+      "id": 1080550626,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-28T11:46:38Z",
+      "updated_at": "2022-03-28T11:47:18Z",
+      "body": "Of course @lebaphi! It seems the counter shows \"NEW\" once the message counter is higher than 8:\r\n\r\n![Test Message 8](https://user-images.githubusercontent.com/85491794/160391219-592fb5c5-8cf3-445d-80d9-f059cd77dfa5.png)\r\n\r\nAt 8 messages, we get \"(8)\"\r\n\r\n![Test Message 9 NEW](https://user-images.githubusercontent.com/85491794/160391302-0a22bc1e-91a0-474a-8cf1-7df154aa91e4.png)\r\n\r\n![Test Message 12 NEW](https://user-images.githubusercontent.com/85491794/160391365-d998ac61-1e76-44da-b350-88eb4ab06cd5.png)\r\n\r\nAt 9 messages and higher, we get \"NEW\"."
+    },
+    {
+      "id": 1080555990,
+      "user": "IanMayo",
+      "created_at": "2022-03-28T11:53:05Z",
+      "updated_at": "2022-03-28T11:53:05Z",
+      "body": "Aah, it should be `9+` if we have more than `9`, please.\r\n"
+    },
+    {
+      "id": 1083265662,
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-30T15:13:23Z",
+      "updated_at": "2022-03-30T15:13:23Z",
+      "body": "Just reviewed this. Works well. Thanks, guys!\r\n\r\n![9+ fixed](https://user-images.githubusercontent.com/85491794/160869407-913a87e5-8d03-4666-8aa6-b7fa8c8c614a.png)\r\n\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 834356591,
+      "user": "IanMayo",
+      "created_at": "2022-03-24T14:15:39Z",
+      "updated_at": "2022-03-24T14:15:39Z",
+      "body": "@lebaphi - this PR deletes this large bloc of code.   That's good news to me :-)\r\n\r\nBut, has this been replaced by new code?  If it has, I can't see it.",
+      "path": "packages/client/src/Views/MessagesListRenderProp.jsx",
+      "diff_hunk": "@@ -1,71 +1,12 @@\n-import React, { Component } from 'react'\n-import { expiredStorage } from '../consts'\n-\n import '@serge/themes/App.scss'\n-\n-class MessagesListRenderProp extends Component {\n-  constructor (props) {\n-    super(props)\n-\n-    this.state = {\n-      messages: this.props.messages.map((message) => {\n-        const hasBeenRead = expiredStorage.getItem(`${this.props.userId}${message._id}`) === 'read'\n-        return {\n-          ...message,\n-          open: false,\n-          hasBeenRead\n-        }\n-      })\n-    }\n-  }\n-\n-  componentWillReceiveProps (nextProps, nextContext) {\n-    if (!this.props.allMarkedRead && nextProps.allMarkedRead) {\n-      this.setState({\n-        messages: this.state.messages.map((message) => ({ ...message, hasBeenRead: true }))\n-      })\n-    }\n-\n-    const nextMessagesInChannel = nextProps.messages.map((message) => ({ ...message, open: false, hasBeenRead: false }))\n-\n-    if (\n-      this.props.messages.length !== 0 &&\n-      this.props.messages.length < nextMessagesInChannel.length\n-    ) {\n-      const newMessages = nextMessagesInChannel\n-\n-      const messages = this.state.messages\n-      messages.unshift(newMessages[0])\n-\n-      this.setState({\n-        messages\n-      })\n-    }\n-\n-    if (\n-      (this.props.messages.length === 0) ||\n-      (this.props.curChannel !== nextProps.curChannel)\n-    ) {\n-      this.setState({\n-        messages: nextProps.messages.map((message) => {\n-          const hasBeenRead = expiredStorage.getItem(`${this.props.userId}${message._id}`) === 'read'\n-          return {\n-            ...message,\n-            open: false,\n-            hasBeenRead\n-          }\n-        })\n-      })\n-    }\n-  }\n-\n-  render () {\n-    return (\n-      <div className=\"message-list\">\n-        {this.props.render(this.state.messages)}\n-      </div>\n-    )\n-  }",
+      "html_url": "https://github.com/serge-web/serge/pull/1439#discussion_r834356591"
+    },
+    {
+      "id": 834887854,
+      "user": "lebaphi",
+      "created_at": "2022-03-25T01:46:05Z",
+      "updated_at": "2022-03-25T01:46:05Z",
+      "body": "Hi @IanMayo, this block of code use to iterate over array of `messages` and recalculate `hasBeenRead` for each message. I think it's unnecessary because we already have a function `isMessageReaded` to do it. You can have a look at `MessagesListInsightsChannel.jsx`, code line 27.",
+      "path": "packages/client/src/Views/MessagesListRenderProp.jsx",
+      "diff_hunk": "@@ -1,71 +1,12 @@\n-import React, { Component } from 'react'\n-import { expiredStorage } from '../consts'\n-\n import '@serge/themes/App.scss'\n-\n-class MessagesListRenderProp extends Component {\n-  constructor (props) {\n-    super(props)\n-\n-    this.state = {\n-      messages: this.props.messages.map((message) => {\n-        const hasBeenRead = expiredStorage.getItem(`${this.props.userId}${message._id}`) === 'read'\n-        return {\n-          ...message,\n-          open: false,\n-          hasBeenRead\n-        }\n-      })\n-    }\n-  }\n-\n-  componentWillReceiveProps (nextProps, nextContext) {\n-    if (!this.props.allMarkedRead && nextProps.allMarkedRead) {\n-      this.setState({\n-        messages: this.state.messages.map((message) => ({ ...message, hasBeenRead: true }))\n-      })\n-    }\n-\n-    const nextMessagesInChannel = nextProps.messages.map((message) => ({ ...message, open: false, hasBeenRead: false }))\n-\n-    if (\n-      this.props.messages.length !== 0 &&\n-      this.props.messages.length < nextMessagesInChannel.length\n-    ) {\n-      const newMessages = nextMessagesInChannel\n-\n-      const messages = this.state.messages\n-      messages.unshift(newMessages[0])\n-\n-      this.setState({\n-        messages\n-      })\n-    }\n-\n-    if (\n-      (this.props.messages.length === 0) ||\n-      (this.props.curChannel !== nextProps.curChannel)\n-    ) {\n-      this.setState({\n-        messages: nextProps.messages.map((message) => {\n-          const hasBeenRead = expiredStorage.getItem(`${this.props.userId}${message._id}`) === 'read'\n-          return {\n-            ...message,\n-            open: false,\n-            hasBeenRead\n-          }\n-        })\n-      })\n-    }\n-  }\n-\n-  render () {\n-    return (\n-      <div className=\"message-list\">\n-        {this.props.render(this.state.messages)}\n-      </div>\n-    )\n-  }",
+      "html_url": "https://github.com/serge-web/serge/pull/1439#discussion_r834887854"
+    },
+    {
+      "id": 835108778,
+      "user": "IanMayo",
+      "created_at": "2022-03-25T09:45:29Z",
+      "updated_at": "2022-03-25T09:45:29Z",
+      "body": "Great, thanks @lebaphi :-)",
+      "path": "packages/client/src/Views/MessagesListRenderProp.jsx",
+      "diff_hunk": "@@ -1,71 +1,12 @@\n-import React, { Component } from 'react'\n-import { expiredStorage } from '../consts'\n-\n import '@serge/themes/App.scss'\n-\n-class MessagesListRenderProp extends Component {\n-  constructor (props) {\n-    super(props)\n-\n-    this.state = {\n-      messages: this.props.messages.map((message) => {\n-        const hasBeenRead = expiredStorage.getItem(`${this.props.userId}${message._id}`) === 'read'\n-        return {\n-          ...message,\n-          open: false,\n-          hasBeenRead\n-        }\n-      })\n-    }\n-  }\n-\n-  componentWillReceiveProps (nextProps, nextContext) {\n-    if (!this.props.allMarkedRead && nextProps.allMarkedRead) {\n-      this.setState({\n-        messages: this.state.messages.map((message) => ({ ...message, hasBeenRead: true }))\n-      })\n-    }\n-\n-    const nextMessagesInChannel = nextProps.messages.map((message) => ({ ...message, open: false, hasBeenRead: false }))\n-\n-    if (\n-      this.props.messages.length !== 0 &&\n-      this.props.messages.length < nextMessagesInChannel.length\n-    ) {\n-      const newMessages = nextMessagesInChannel\n-\n-      const messages = this.state.messages\n-      messages.unshift(newMessages[0])\n-\n-      this.setState({\n-        messages\n-      })\n-    }\n-\n-    if (\n-      (this.props.messages.length === 0) ||\n-      (this.props.curChannel !== nextProps.curChannel)\n-    ) {\n-      this.setState({\n-        messages: nextProps.messages.map((message) => {\n-          const hasBeenRead = expiredStorage.getItem(`${this.props.userId}${message._id}`) === 'read'\n-          return {\n-            ...message,\n-            open: false,\n-            hasBeenRead\n-          }\n-        })\n-      })\n-    }\n-  }\n-\n-  render () {\n-    return (\n-      <div className=\"message-list\">\n-        {this.props.render(this.state.messages)}\n-      </div>\n-    )\n-  }",
+      "html_url": "https://github.com/serge-web/serge/pull/1439#discussion_r835108778"
+    }
+  ],
+  "issue_numbers": [
+    1409
+  ],
+  "issues": [
+    {
+      "id": 1167250314,
+      "number": 1409,
+      "title": "Insights/Game Admin Tab Notification Bug",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-03-12T10:34:06Z",
+      "updated_at": "2022-03-28T16:02:03Z",
+      "closed_at": "2022-03-28T16:02:03Z",
+      "body": "Insights/Game Admin tabs don't show any notifications when new messages are received: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/158014534-85516316-3f3a-4e05-b5a9-717b3204d391.mp4\r\n\r\nIt'd be nice to have a simple notification counter on both tabs that disappear once the user hits \"MARK ALL AS READ\".",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1066621647,
+          "user": "IanMayo",
+          "created_at": "2022-03-14T10:34:00Z",
+          "updated_at": "2022-03-14T10:34:00Z",
+          "body": "Yes, good suggestion @ShendMikullovci "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/75337d01a9d1dc51152b4402776e6afc.gif",
+    "https://user-images.githubusercontent.com/85491794/159528845-128f867d-93bd-4c04-993b-d8c29ca11e26.png",
+    "https://user-images.githubusercontent.com/85491794/159529192-223aaacf-3fcd-4b98-95df-816a774afe52.png",
+    "https://user-images.githubusercontent.com/26705621/159930173-0eddbb6e-eba8-4de5-b05d-fc9ae9473292.png",
+    "https://user-images.githubusercontent.com/85491794/160183350-109ed4a1-cb90-4540-a9ab-c8927823de9a.png",
+    "https://user-images.githubusercontent.com/85491794/160391219-592fb5c5-8cf3-445d-80d9-f059cd77dfa5.png",
+    "https://user-images.githubusercontent.com/85491794/160391302-0a22bc1e-91a0-474a-8cf1-7df154aa91e4.png",
+    "https://user-images.githubusercontent.com/85491794/160391365-d998ac61-1e76-44da-b350-88eb4ab06cd5.png",
+    "https://user-images.githubusercontent.com/85491794/160869407-913a87e5-8d03-4666-8aa6-b7fa8c8c614a.png"
+  ],
+  "number_of_changed_files": 15,
+  "total_changed_lines": 988
+}

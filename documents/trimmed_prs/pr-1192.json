@@ -1,0 +1,58 @@
+{
+  "number": 1192,
+  "title": "1101 - Toggle to display archived documents",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-10-21T12:56:45Z",
+  "updated_at": "2021-10-22T16:53:26Z",
+  "closed_at": "2021-10-22T13:48:57Z",
+  "merged_at": null,
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1192",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1192/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1192/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1192",
+  "body": "This is the start of work on #1191 \r\n\r\nFixes #1191 ",
+  "additions": 5,
+  "deletions": 1,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 1,
+  "review_comments_count": 0,
+  "total_comments": 1,
+  "comments_data": [
+    {
+      "id": 949649362,
+      "user": "IanMayo",
+      "created_at": "2021-10-22T13:48:57Z",
+      "updated_at": "2021-10-22T13:48:57Z",
+      "body": "Drop this. Work done in separate PR"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1101
+  ],
+  "issues": [
+    {
+      "id": 990248066,
+      "number": 1101,
+      "title": "save jsonEditor changes to localSorage",
+      "state": "closed",
+      "user": "lilitkarapetyan",
+      "created_at": "2021-09-07T18:39:15Z",
+      "updated_at": "2021-09-07T19:13:17Z",
+      "closed_at": "2021-09-07T19:07:05Z",
+      "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nSupports #1097 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+      "labels": [],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 6
+}

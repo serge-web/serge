@@ -1,0 +1,118 @@
+{
+  "number": 691,
+  "title": "Feature/608 admin pages for force assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-04-26T12:17:46Z",
+  "updated_at": "2021-07-02T16:21:55Z",
+  "closed_at": "2021-07-02T16:21:54Z",
+  "merged_at": "2021-07-02T16:21:54Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/691",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/691/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/691/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/691",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #608 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [x] I have assigned myself to this PR.\r\n- [x] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 3837,
+  "deletions": 624,
+  "changed_files": 57,
+  "labels": [
+    "enhancement"
+  ],
+  "comments_count": 8,
+  "review_comments_count": 0,
+  "total_comments": 8,
+  "comments_data": [
+    {
+      "id": 826896035,
+      "user": "IanMayo",
+      "created_at": "2021-04-26T14:48:12Z",
+      "updated_at": "2021-04-26T14:48:12Z",
+      "body": "Thanks @lilitkarapetyan, one compiler issue:\r\n```\r\nlerna info Executing command in 4 packages: \"yarn run build\"\r\n       @serge/config: $ tsc --pretty\r\n       @serge/helpers: $ tsc --pretty\r\n       @serge/components: $ rimraf build && yarn copy && tsc && yarn cleanup\r\n       @serge/components: $ copyfiles -u 1 -e src/**/*.ts* -e src/**/*.md src/**/*.* build\r\n       @serge/components: src/local/templates/game-setup/index.stories.tsx(115,7): error TS2322: Type '{ activeTab: string; tabs: string[]; wargame: Wargame; wargameChanged: boolean; onTabChange: (_tab: string, key: number, _e: any) => void; overview: WargameOverview; ... 11 more ...; availablePlatformTypes: PlatformTypeData[]; }' is not assignable to type 'IntrinsicAttributes & Props & { children?: ReactNode; }'.\r\n       @serge/components:   Property 'availablePlatformTypes' does not exist on type 'IntrinsicAttributes & Props & { children?: ReactNode; }'.\r\n@serge/components: error Command failed with exit code 2.\r\n       @serge/components: info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.\r\nlerna ERR! yarn run build exited 2 in '@serge/components'\r\nerror Command failed with exit code 2.\r\n       info Visit https://yarnpkg.com/en/docs/cli/run for documentation\r\n```\r\n\r\nOne deepscan issue:\r\n![image](https://user-images.githubusercontent.com/1108513/116102647-cb44d580-a6a6-11eb-8e9f-e8c68de5d239.png)\r\n"
+    },
+    {
+      "id": 833419301,
+      "user": "IanMayo",
+      "created_at": "2021-05-06T10:33:38Z",
+      "updated_at": "2021-05-06T10:33:38Z",
+      "body": "Thanks @lilitkarapetyan  - I was looking for the functionality in the app, but I now realise it's just in StoryBook at the moment.\r\n\r\nOne item of feedback:\r\n- for the assets, the Platform `name` is being used for the SVG icon.  We should actually use `platformType` for the icon. That allows the `name` to be changed to `HMS Richmond`.   It's quite acceptable for the name to be empty when the platform/asset is added to the force, though we can't let it stay empty.\r\n![screencast](https://i.gyazo.com/44a7a5cd0f6c40ef056a5fdd71457d31.gif)\r\n"
+    },
+    {
+      "id": 833419869,
+      "user": "IanMayo",
+      "created_at": "2021-05-06T10:34:41Z",
+      "updated_at": "2021-05-06T10:34:41Z",
+      "body": "Second, I don't think we need this toggle:\r\n![image](https://user-images.githubusercontent.com/1108513/117284659-fc6b9580-ae5e-11eb-8889-ba2098b74765.png)\r\n\r\nThis is specified by the `Location - chosen by player` drop-down menu."
+    },
+    {
+      "id": 840454668,
+      "user": "IanMayo",
+      "created_at": "2021-05-13T10:01:05Z",
+      "updated_at": "2021-05-13T12:08:41Z",
+      "body": "Hello @lilitkarapetyan - I've just had a play with the deployed version.\r\n\r\nI see we're nearly there. \r\n\r\nWe need to handle the initial location.\r\n\r\nThere will _either_ be a `LaydownTypes` value in `locationPending` or a value (like `C04`) in `position`.\r\n\r\nSo, this drop-down will be one of:\r\n* \"Umpire laydown\"\r\n* \"Force laydown\"\r\n* \"Fixed\" - when this is selected, a \"Position\" text-box will appear, and the value will go in `position`.\r\n\r\n**Note:** for now, `Fixed` will be the default option."
+    },
+    {
+      "id": 840457365,
+      "user": "IanMayo",
+      "created_at": "2021-05-13T10:05:41Z",
+      "updated_at": "2021-05-13T10:05:41Z",
+      "body": "I know it may not be easy, but it would be really useful if the `List of Assets` allowed drag/drop to reorganise the data, like we do in `World State`:\r\nhttps://serge-review-feature-60-opsg41.herokuapp.com/storybook/?path=/story/local-mapping--with-map-bar&args=canSubmitOrders:true;wargameInitiated:true\r\n\r\n![Screenshot 2021-05-13 at 11 03 35](https://user-images.githubusercontent.com/1108513/118110984-00596380-b3db-11eb-8e82-f7b407ba6fad.png)\r\n"
+    },
+    {
+      "id": 853015336,
+      "user": "IanMayo",
+      "created_at": "2021-06-02T13:11:59Z",
+      "updated_at": "2021-06-02T13:11:59Z",
+      "body": "Hello @lilitkarapetyan - it would be great to get this PR finished, please.\r\n\r\nAs it diverges further from `develop` it will become more trouble to resolve conflicts."
+    },
+    {
+      "id": 859461454,
+      "user": "IanMayo",
+      "created_at": "2021-06-11T09:55:33Z",
+      "updated_at": "2021-06-11T09:55:33Z",
+      "body": "@lilitkarapetyan - this is seriously a good piece of work: https://serge-review-feature-60-opsg41.herokuapp.com/storybook/?path=/story/local-organisms-adminlayout--default"
+    },
+    {
+      "id": 867664636,
+      "user": "IanMayo",
+      "created_at": "2021-06-24T14:05:31Z",
+      "updated_at": "2021-06-24T14:05:31Z",
+      "body": "As I've said before, this is a huge piece of work, thanks :-)\r\n\r\nWhen adding assets to a force, some Game Designers may not be fully familiar with the icons.\r\n\r\nSo, could we please have the platform-type displayed beneath the icon?\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/123275203-083d1500-d4fc-11eb-922e-e71abdcc254c.png)\r\n"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    608
+  ],
+  "issues": [
+    {
+      "id": 811061615,
+      "number": 608,
+      "title": "Admin Pages for Force Assets",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-02-18T12:37:33Z",
+      "updated_at": "2021-07-02T16:21:54Z",
+      "closed_at": "2021-07-02T16:21:54Z",
+      "body": "## 💬 Brief description of feature\r\n<!-- In a few words, what is this feature -->\r\nWe need to implement the pages to get the new `Assets` data.\r\n\r\n## 📖 User Story\r\n\r\n<!-- A description of the requirements in [Gherkin](https://cucumber.io/docs/gherkin/reference/) format -->\r\nAs a **Game Designer** I wish to **Add Assets to Forces** in order to **Design a Wargame**\r\n\r\n## ☑️ Acceptance criteria\r\n\r\n<!-- - A list of things that can be verified to show that this user story is satisfied. use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/)-->\r\n* [ ] Game Designer can still set Overview & Roles\r\n* [ ] Game Designer can drag/drop assets from list of Platform Types into Assets area\r\n* [ ] Asset UniqiID & ContactID randomly generated (algorithm below)\r\n* [ ] Game Designer able to edit asset Name, ContactId, UniqId\r\n\r\n## Generating id values\r\n\r\n### UniqId\r\n'a' plus uniqid.time()\r\n\r\n### Contact Id\r\n\r\nProduce hashcode of uniqid using [this function](https://stackoverflow.com/a/7616484/92441)\r\n\r\nContact Id is `C` plus last 3 digits of hash-code.\r\n\r\n\r\n## 📐 Designs / Wireframes\r\n<!-- A link to a design file. If the design is very basic then a screenshot or wireframe/sketch is acceptable here. -->\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/108358227-5f497b00-71e6-11eb-8b96-06ae3d748593.png)\r\n\r\n\r\nDesign here: https://www.figma.com/file/2qiEitO08s8jXamHWI3VpP/SERGE-mapping-tool?node-id=532%3A2147\r\n\r\n## 📝 Notes\r\n\r\n<!-- Any other information to include? -->",
+      "labels": [
+        "Mapping"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/116102647-cb44d580-a6a6-11eb-8e9f-e8c68de5d239.png",
+    "https://i.gyazo.com/44a7a5cd0f6c40ef056a5fdd71457d31.gif",
+    "https://user-images.githubusercontent.com/1108513/117284659-fc6b9580-ae5e-11eb-8889-ba2098b74765.png",
+    "https://user-images.githubusercontent.com/1108513/118110984-00596380-b3db-11eb-8e82-f7b407ba6fad.png",
+    "https://user-images.githubusercontent.com/1108513/123275203-083d1500-d4fc-11eb-922e-e71abdcc254c.png",
+    "https://user-images.githubusercontent.com/1108513/108358227-5f497b00-71e6-11eb-8b96-06ae3d748593.png"
+  ],
+  "number_of_changed_files": 57,
+  "total_changed_lines": 4461
+}

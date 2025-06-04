@@ -1,0 +1,70 @@
+{
+  "number": 1852,
+  "title": "1842 new support data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-15T14:00:30Z",
+  "updated_at": "2022-09-16T15:13:15Z",
+  "closed_at": "2022-09-16T15:13:14Z",
+  "merged_at": "2022-09-16T15:13:14Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1852",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1852/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1852/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1852",
+  "body": "Supports #1842 ",
+  "additions": 394,
+  "deletions": 758,
+  "changed_files": 14,
+  "labels": [],
+  "comments_count": 2,
+  "review_comments_count": 0,
+  "total_comments": 2,
+  "comments_data": [
+    {
+      "id": 1248179620,
+      "user": "IanMayo",
+      "created_at": "2022-09-15T14:26:10Z",
+      "updated_at": "2022-09-15T14:26:10Z",
+      "body": "Hello @lebaphi - I could do with helping hand in this branch too, please.\r\n\r\nThe pre-commit testing is failing for two snapshots, but not in the normal way.  I've done a `push --no-verify` to get the broken code here into the branch.\r\n\r\nSomehow I've messed up the Snapshot testing:\r\n![image](https://user-images.githubusercontent.com/1108513/190429502-4c047332-3f39-49a5-aa67-6ca8fd557972.png)\r\n\r\nCould you try to help me out when you have time please?\r\n"
+    },
+    {
+      "id": 1249461115,
+      "user": "IanMayo",
+      "created_at": "2022-09-16T14:46:16Z",
+      "updated_at": "2022-09-16T14:46:16Z",
+      "body": "that was a tricky one, thanks for spotting it @lebaphi "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1842
+  ],
+  "issues": [
+    {
+      "id": 1371278531,
+      "number": 1842,
+      "title": "New data changes for P9",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-09-13T11:14:10Z",
+      "updated_at": "2022-09-24T12:24:27Z",
+      "closed_at": "2022-09-24T12:24:27Z",
+      "body": "As we further develop the `SupportPanel`, we need to make some data changes.\r\n\r\n* [x] Introduce `owner` for an asset, it will take a `role['uniqid']` value.  This allows players to focus on assets they own.  In a subsequent development phase we _could_ consider switch mapping \"asset control\" to reflect this issue, rather than the \"controls\" value in the `mapping` channel type.  But, we'd still need to indicate which role controls the remaining \"un-owned\" assets.\r\n* [x] Introduce `condition` for perception - so other forces can have a (possibly mistaken) perception of the condition of an asset\r\n* [x] Introduce lots more assets. For Blue we should probably have around 15 roles, each containing 5 assets. For Red it would be 5 roles with 30 assets each. For Green it would be 5 roles, with 10 assets each\r\n* [x] introduce more complex \"Land Orders\" template.  Introduce arrays for multiple instances of \"Own units\" and \"Other units\"\r\n* [x] Introduce more \"orders\" messages, following client provided template.\r\n",
+      "labels": [
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/190429502-4c047332-3f39-49a5-aa67-6ca8fd557972.png"
+  ],
+  "number_of_changed_files": 14,
+  "total_changed_lines": 1152
+}

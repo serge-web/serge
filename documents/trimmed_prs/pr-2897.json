@@ -1,0 +1,324 @@
+{
+  "number": 2897,
+  "title": "2892_Edit_templates_in_admin_pages",
+  "state": "open",
+  "merged": false,
+  "created_at": "2024-03-06T06:30:13Z",
+  "updated_at": "2024-09-17T13:36:58Z",
+  "closed_at": null,
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2897",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2897/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2897/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2897",
+  "body": "**NOTE:** Converted to draft, since we can only merge it once we've fully moved to the new template model.\r\n\r\nFixes #2892 \r\n\r\n<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 4157,
+  "deletions": 5919,
+  "changed_files": 138,
+  "labels": [
+    "4p10"
+  ],
+  "comments_count": 30,
+  "review_comments_count": 0,
+  "total_comments": 30,
+  "comments_data": [
+    {
+      "id": 1980174652,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-06T06:31:41Z",
+      "updated_at": "2024-03-06T06:31:41Z",
+      "body": "fixes #2892"
+    },
+    {
+      "id": 1980338127,
+      "user": "Tristina1788",
+      "created_at": "2024-03-06T08:35:01Z",
+      "updated_at": "2024-03-06T08:35:01Z",
+      "body": "@IanMayo , @lilitkarapetyan  Tested on '2892_Edit_templates_in_admin_pages' , Now I can see the new tab 'Template' for wargame\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/cea5c060-fc72-45a6-8e5d-8ab2293cd361)\r\n\r\nBut I see some issues on this feature : \r\n\r\n- Can't rename a template which has created \r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/57f06299-d7ea-4d78-a39c-50d88517af82\r\n\r\n- Message for duplicate template is incorrect\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/0143aa12-9e8e-4102-8a08-d85c3d1ed340)\r\n\r\n- Create/Rename a template and it shows incorrect message. (only one template is saved, not multiple templates. So we should update it)\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/7dceb9c5-ea94-487d-b363-5f201d315983)\r\n\r\n- Text 'CREATE TEMPLATE LIST' is incorrect\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/e5306033-6b07-4585-9c41-afcc180154c9)\r\n\r\n- It shows white screen when delete all template name\r\n\r\n\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/6c885d8f-cc6c-40e6-860a-3a254973a875\r\n\r\n"
+    },
+    {
+      "id": 1980382028,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-06T08:58:11Z",
+      "updated_at": "2024-03-06T08:58:11Z",
+      "body": "> @IanMayo , @lilitkarapetyan Tested on '2892_Edit_templates_in_admin_pages' , Now I can see the new tab 'Template' for wargame\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/310415721-cea5c060-fc72-45a6-8e5d-8ab2293cd361.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk3MTU1MTgsIm5iZiI6MTcwOTcxNTIxOCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwNDE1NzIxLWNlYTVjMDYwLWZjNzItNDVhNi04ZTVkLThhYjIyOTNjZDM2MS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwNlQwODUzMzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wMDU1MjM5MDA1ZTQ1NmNkNWQ0MDg1YWVkYzY5MDFiOWIyOGJhODIzNDkwM2I3OTM4NTNkMGNmY2FjOGM3ZjZlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.SMPAEJlamki1sAgU8vEzjjw_FEy8HV8Uyz4R6l8xd40)\r\n> \r\n> But I see some issues on this feature :\r\n> \r\n>     * Can't rename a template which has created\r\n> \r\n> \r\n> unable-to-rename-new-template.mp4\r\n> \r\n>     * Message for duplicate template is incorrect\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/310416279-0143aa12-9e8e-4102-8a08-d85c3d1ed340.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk3MTU1MTgsIm5iZiI6MTcwOTcxNTIxOCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwNDE2Mjc5LTAxNDNhYTEyLTllOGUtNDEwMi04YTA4LWQ4NWMzZDFlZDM0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwNlQwODUzMzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00ZDU1Y2FkZjNhODJjYjQ0YjZhYTYzNzI1M2ExNDM0M2U1OTIyNTBmNmQwM2MwMGI3NDE5N2I2MTgzZDkxY2E4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.J2OGwtT3xcLjPO8pI-9cuEMSHSmKlyOsI_OHFfo7j1o)\r\n> \r\n>     * Create/Rename a template and it shows incorrect message. (only one template is saved, not multiple templates. So we should update it)\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/310417124-7dceb9c5-ea94-487d-b363-5f201d315983.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk3MTU1MTgsIm5iZiI6MTcwOTcxNTIxOCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwNDE3MTI0LTdkY2ViOWM1LWVhOTQtNDg3ZC1iMzYzLTVmMjAxZDMxNTk4My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwNlQwODUzMzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NGUzYzVjOWRjNzhmYjM3YmE0N2YyNzFkZDA2NWEyMjZkMjJiNzM3YmZkMmM4NWUxMDYyZDU4OTNiYWY4YjVhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.waPkZQhrF6VigNRRUi0ipMiSdX_ujO2RNMFkPTPaTGw)\r\n> \r\n>     * Text 'CREATE TEMPLATE LIST' is incorrect\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/310419738-e5306033-6b07-4585-9c41-afcc180154c9.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk3MTU1MTgsIm5iZiI6MTcwOTcxNTIxOCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwNDE5NzM4LWU1MzA2MDMzLTZiMDctNDU4NS05YzQxLWFmY2MxODAxNTRjOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwNlQwODUzMzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mNjVhNDQ2ZWE0Y2Q4ODRhMTU1ZjczZjFkNWQ3ZmI2ZjQ1YWEyNzZjMDMzY2MwYWU2NzlkYjE5MGQxZjQ3NzJjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.xS_t1LPsmKaRSiv438SgDuj_Kl-yp-CFID-kTmfas-c)\r\n> \r\n>     * It shows white screen when delete all template name\r\n> \r\n> \r\n> white-screen-delete-template-name.mp4\r\n\r\nHello @Tristina1788 , I appreciate your input. I will definitly look into it and improve it. Thank you "
+    },
+    {
+      "id": 1980579872,
+      "user": "IanMayo",
+      "created_at": "2024-03-06T10:43:38Z",
+      "updated_at": "2024-03-06T10:43:38Z",
+      "body": "> Hello @Tristina1788 , I appreciate your input. I will definitly look into it and improve it. Thank you\r\n\r\nYou're right @lilitkarapetyan  - that's great feedback @Tristina1788 "
+    },
+    {
+      "id": 1983151276,
+      "user": "Tristina1788",
+      "created_at": "2024-03-07T09:59:06Z",
+      "updated_at": "2024-03-07T09:59:06Z",
+      "body": "Tested on '2892_Edit_templates_in_admin_pages'\r\n\r\nAbove issues are still happened. Only some issues are fixed as below \r\n\r\n- Text 'CREATE TEMPLATE LIST' is correct\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/6d66388d-30cc-4e14-a80f-25e91e7c2f2a)\r\n\r\n- Enable to rename a template which has created\r\n\r\n@lilitkarapetyan  Please help to fix another issues\r\n\r\n"
+    },
+    {
+      "id": 1983198459,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-07T10:22:25Z",
+      "updated_at": "2024-03-07T10:22:25Z",
+      "body": "> Tested on '2892_Edit_templates_in_admin_pages'\r\n> \r\n> Above issues are still happened. Only some issues are fixed as below\r\n> \r\n>     * Text 'CREATE TEMPLATE LIST' is correct\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/310833685-6d66388d-30cc-4e14-a80f-25e91e7c2f2a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk4MDY5NzUsIm5iZiI6MTcwOTgwNjY3NSwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwODMzNjg1LTZkNjYzODhkLTMwY2MtNGUxNC1hODBmLTI1ZTkxZTdjMmYyYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwN1QxMDE3NTVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01NTkxNjZjOTZlNDVlNzUwODA0ZWY4YmEzMzc5NjIyMGIyZjk3YzQzYTY3YTEwOWE5ZTYwODdhNWRjYWUxOTZlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.Y2SoR_Z6IJk9DyDU1aME-x5NFa8GNbfmvam_fboWV20)\r\n> \r\n>     * Enable to rename a template which has created\r\n> \r\n> \r\n> @lil\r\n\r\n> Tested on '2892_Edit_templates_in_admin_pages'\r\n> \r\n> Above issues are still happened. Only some issues are fixed as below\r\n> \r\n>     * Text 'CREATE TEMPLATE LIST' is correct\r\n> \r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/310833685-6d66388d-30cc-4e14-a80f-25e91e7c2f2a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk4MDcxODUsIm5iZiI6MTcwOTgwNjg4NSwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwODMzNjg1LTZkNjYzODhkLTMwY2MtNGUxNC1hODBmLTI1ZTkxZTdjMmYyYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwN1QxMDIxMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lNzNiMTAxNjM2MWNlNzBjZDNiODAxMDM5ZjQyODQ1Yzc0YmI1NzllNWRjZjA3NjY3MDAwNDkxNjkxZGI3NDcxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.qf39j3Ur1o3vAmv_cMp_TPJtq4N1vXlEsvH9uSo4hAY)\r\n> \r\n>     * Enable to rename a template which has created\r\n> \r\n> \r\n> @lilitkarapetyan Please help to fix another issues\r\n\r\nHello @Tristina1788 Please shere the details of the issue, and I'll be more then happy to assist you."
+    },
+    {
+      "id": 1983254605,
+      "user": "Tristina1788",
+      "created_at": "2024-03-07T10:53:07Z",
+      "updated_at": "2024-03-07T10:53:07Z",
+      "body": "> > Tested on '2892_Edit_templates_in_admin_pages'\r\n> > Above issues are still happened. Only some issues are fixed as below\r\n> > ```\r\n> > * Text 'CREATE TEMPLATE LIST' is correct\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/310833685-6d66388d-30cc-4e14-a80f-25e91e7c2f2a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk4MDY5NzUsIm5iZiI6MTcwOTgwNjY3NSwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwODMzNjg1LTZkNjYzODhkLTMwY2MtNGUxNC1hODBmLTI1ZTkxZTdjMmYyYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwN1QxMDE3NTVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01NTkxNjZjOTZlNDVlNzUwODA0ZWY4YmEzMzc5NjIyMGIyZjk3YzQzYTY3YTEwOWE5ZTYwODdhNWRjYWUxOTZlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.Y2SoR_Z6IJk9DyDU1aME-x5NFa8GNbfmvam_fboWV20)\r\n> > ```\r\n> > * Enable to rename a template which has created\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > @Lil\r\n> \r\n> > Tested on '2892_Edit_templates_in_admin_pages'\r\n> > Above issues are still happened. Only some issues are fixed as below\r\n> > ```\r\n> > * Text 'CREATE TEMPLATE LIST' is correct\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/310833685-6d66388d-30cc-4e14-a80f-25e91e7c2f2a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk4MDcxODUsIm5iZiI6MTcwOTgwNjg4NSwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwODMzNjg1LTZkNjYzODhkLTMwY2MtNGUxNC1hODBmLTI1ZTkxZTdjMmYyYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwN1QxMDIxMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lNzNiMTAxNjM2MWNlNzBjZDNiODAxMDM5ZjQyODQ1Yzc0YmI1NzllNWRjZjA3NjY3MDAwNDkxNjkxZGI3NDcxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.qf39j3Ur1o3vAmv_cMp_TPJtq4N1vXlEsvH9uSo4hAY)\r\n> > ```\r\n> > * Enable to rename a template which has created\r\n> > ```\r\n> > \r\n> > \r\n> >     \r\n> >       \r\n> >     \r\n> > \r\n> >       \r\n> >     \r\n> > \r\n> >     \r\n> >   \r\n> > @lilitkarapetyan Please help to fix another issues\r\n> \r\n> Hello @Tristina1788 Please shere the details of the issue, and I'll be more then happy to assist you.\r\n\r\nHi @lilitkarapetyan , I mean these issue are still happened.\r\n\r\n- Message for duplicate template is incorrect. It should be 'Template is duplicated'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/5b20619e-5da6-4186-86e6-1762f2e30be0)\r\n\r\n- Create/Rename a template and it shows incorrect message. (only one template is saved, not multiple templates. So we should update it) => It should be 'Template is saved'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/5c3f81f8-09af-4980-9df9-37cd0cd73928)\r\n\r\n- Delete all name of template make a full white screen. We need to refresh to go to admin page again.\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/6012641d-3a5b-449b-a327-99bd2d11c1bf\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 1988233819,
+      "user": "Tristina1788",
+      "created_at": "2024-03-11T11:33:38Z",
+      "updated_at": "2024-03-11T11:33:38Z",
+      "body": "@lilitkarapetyan Above issues are fixed. But I think we should improve these things: \r\n\r\nTemplate should not enable to save with empty. We can have the message 'Template Name is required' \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/01e8b619-8353-4c2e-9b67-d6a4bef7da01)\r\n\r\nTemplate should not duplicate. The message can be 'That template name is already taken'\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/f7dce018-c7e3-4caa-8b2b-08f13b64d64a)\r\n\r\n@IanMayo As I understand,  template in tab 'Templates' to connect with template from database. But I don't know how the new template in this tab works? Where we can update the content of this template?\r\n\r\n"
+    },
+    {
+      "id": 1991109667,
+      "user": "Tristina1788",
+      "created_at": "2024-03-12T09:10:57Z",
+      "updated_at": "2024-03-12T09:10:57Z",
+      "body": "@lilitkarapetyan I get error when build with latest code. Could you help to check it?\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/08fc1de8-a868-4b37-82ce-7b0a54048140)\r\n"
+    },
+    {
+      "id": 1991130504,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-12T09:19:42Z",
+      "updated_at": "2024-03-12T09:28:05Z",
+      "body": "> @lilitkarapetyan I get error when build with latest code. Could you help to check it?\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/312010534-08fc1de8-a868-4b37-82ce-7b0a54048140.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzUxODgsIm5iZiI6MTcxMDIzNDg4OCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDEwNTM0LTA4ZmMxZGU4LWE4NjgtNGIzNy04MmNlLTdiMGE1NDA0ODE0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQwOTE0NDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zNjhkYjYxYzVlYjI5NGY1MGIxOTE3ZTczN2NhMDNlYmRlZGRjMzA3ODcxZTUxMGJkNDRjZmYzMjMzOTFhMzg1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.tPdWCGf2OzIFTZOJHomVW8OHk6cTVmsmeSOlySAKKJY)\r\n\r\nI think I fixed that error in my last commit."
+    },
+    {
+      "id": 1991241940,
+      "user": "Tristina1788",
+      "created_at": "2024-03-12T10:02:33Z",
+      "updated_at": "2024-03-12T10:02:33Z",
+      "body": "> > @lilitkarapetyan I get error when build with latest code. Could you help to check it?\r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/312010534-08fc1de8-a868-4b37-82ce-7b0a54048140.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzUxODgsIm5iZiI6MTcxMDIzNDg4OCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDEwNTM0LTA4ZmMxZGU4LWE4NjgtNGIzNy04MmNlLTdiMGE1NDA0ODE0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQwOTE0NDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zNjhkYjYxYzVlYjI5NGY1MGIxOTE3ZTczN2NhMDNlYmRlZGRjMzA3ODcxZTUxMGJkNDRjZmYzMjMzOTFhMzg1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.tPdWCGf2OzIFTZOJHomVW8OHk6cTVmsmeSOlySAKKJY)\r\n> \r\n> I think I fixed that error in my last commit.\r\n\r\nNow I don't get the error when run 'yarn build' but it shows the white screen for http://localhost:8080/ and http://localhost:3000 . \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/1616abe2-8092-4776-aa22-aedfb4d81d62)\r\n"
+    },
+    {
+      "id": 1991257592,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-12T10:10:13Z",
+      "updated_at": "2024-03-12T10:10:13Z",
+      "body": "> > > @lilitkarapetyan I get error when build with latest code. Could you help to check it?\r\n> > > ![image](https://private-user-images.githubusercontent.com/107697044/312010534-08fc1de8-a868-4b37-82ce-7b0a54048140.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzUxODgsIm5iZiI6MTcxMDIzNDg4OCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDEwNTM0LTA4ZmMxZGU4LWE4NjgtNGIzNy04MmNlLTdiMGE1NDA0ODE0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQwOTE0NDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zNjhkYjYxYzVlYjI5NGY1MGIxOTE3ZTczN2NhMDNlYmRlZGRjMzA3ODcxZTUxMGJkNDRjZmYzMjMzOTFhMzg1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.tPdWCGf2OzIFTZOJHomVW8OHk6cTVmsmeSOlySAKKJY)\r\n> > \r\n> > \r\n> > I think I fixed that error in my last commit.\r\n> \r\n> Now I don't get the error when run 'yarn build' but it shows the white screen for http://localhost:8080/ and http://localhost:3000 .\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/312031670-1616abe2-8092-4776-aa22-aedfb4d81d62.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzgzNDQsIm5iZiI6MTcxMDIzODA0NCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDMxNjcwLTE2MTZhYmUyLTgwOTItNDc3Ni1hYTIyLWFlZGZiNGQ4MWQ2Mi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQxMDA3MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xYjVmYjQyNzQxYmVmYTg2ZTQ3ZDFlOTBhMzIxN2NmM2QzYTA5MmU5MDUxNGM0NDQ2Yzk4YjM4ZTQ2NjdlYTc4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.AdlOJZtFc50nDXqeUt73NVMKc5p2xZY6XeH_ZM9nm3Y)\r\n\r\ndid you run the yarn command ?"
+    },
+    {
+      "id": 1991272513,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-12T10:16:42Z",
+      "updated_at": "2024-03-12T10:16:42Z",
+      "body": "Functions smoothly on Heroku as well - https://serge-2892-edit-templat-bbryg4.herokuapp.com/serge/admin"
+    },
+    {
+      "id": 1991320403,
+      "user": "Tristina1788",
+      "created_at": "2024-03-12T10:34:46Z",
+      "updated_at": "2024-03-12T10:34:46Z",
+      "body": "> > > > @lilitkarapetyan I get error when build with latest code. Could you help to check it?\r\n> > > > ![image](https://private-user-images.githubusercontent.com/107697044/312010534-08fc1de8-a868-4b37-82ce-7b0a54048140.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzUxODgsIm5iZiI6MTcxMDIzNDg4OCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDEwNTM0LTA4ZmMxZGU4LWE4NjgtNGIzNy04MmNlLTdiMGE1NDA0ODE0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQwOTE0NDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zNjhkYjYxYzVlYjI5NGY1MGIxOTE3ZTczN2NhMDNlYmRlZGRjMzA3ODcxZTUxMGJkNDRjZmYzMjMzOTFhMzg1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.tPdWCGf2OzIFTZOJHomVW8OHk6cTVmsmeSOlySAKKJY)\r\n> > > \r\n> > > \r\n> > > I think I fixed that error in my last commit.\r\n> > \r\n> > \r\n> > Now I don't get the error when run 'yarn build' but it shows the white screen for http://localhost:8080/ and http://localhost:3000 .\r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/312031670-1616abe2-8092-4776-aa22-aedfb4d81d62.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzgzNDQsIm5iZiI6MTcxMDIzODA0NCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDMxNjcwLTE2MTZhYmUyLTgwOTItNDc3Ni1hYTIyLWFlZGZiNGQ4MWQ2Mi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQxMDA3MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xYjVmYjQyNzQxYmVmYTg2ZTQ3ZDFlOTBhMzIxN2NmM2QzYTA5MmU5MDUxNGM0NDQ2Yzk4YjM4ZTQ2NjdlYTc4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.AdlOJZtFc50nDXqeUt73NVMKc5p2xZY6XeH_ZM9nm3Y)\r\n> \r\n> did you run the yarn command ?\r\n\r\nYes, I run as normal with below commands\r\n\r\n- yarn install\r\n- yarn build\r\n- yarn develop "
+    },
+    {
+      "id": 1991365924,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-12T10:57:50Z",
+      "updated_at": "2024-03-12T10:57:50Z",
+      "body": "> > > > > @lilitkarapetyan I get error when build with latest code. Could you help to check it?\r\n> > > > > ![image](https://private-user-images.githubusercontent.com/107697044/312010534-08fc1de8-a868-4b37-82ce-7b0a54048140.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzUxODgsIm5iZiI6MTcxMDIzNDg4OCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDEwNTM0LTA4ZmMxZGU4LWE4NjgtNGIzNy04MmNlLTdiMGE1NDA0ODE0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQwOTE0NDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zNjhkYjYxYzVlYjI5NGY1MGIxOTE3ZTczN2NhMDNlYmRlZGRjMzA3ODcxZTUxMGJkNDRjZmYzMjMzOTFhMzg1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.tPdWCGf2OzIFTZOJHomVW8OHk6cTVmsmeSOlySAKKJY)\r\n> > > > \r\n> > > > \r\n> > > > I think I fixed that error in my last commit.\r\n> > > \r\n> > > \r\n> > > Now I don't get the error when run 'yarn build' but it shows the white screen for http://localhost:8080/ and http://localhost:3000 .\r\n> > > ![image](https://private-user-images.githubusercontent.com/107697044/312031670-1616abe2-8092-4776-aa22-aedfb4d81d62.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzgzNDQsIm5iZiI6MTcxMDIzODA0NCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDMxNjcwLTE2MTZhYmUyLTgwOTItNDc3Ni1hYTIyLWFlZGZiNGQ4MWQ2Mi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQxMDA3MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xYjVmYjQyNzQxYmVmYTg2ZTQ3ZDFlOTBhMzIxN2NmM2QzYTA5MmU5MDUxNGM0NDQ2Yzk4YjM4ZTQ2NjdlYTc4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.AdlOJZtFc50nDXqeUt73NVMKc5p2xZY6XeH_ZM9nm3Y)\r\n> > \r\n> > \r\n> > did you run the yarn command ?\r\n> \r\n> Yes, I run as normal with below commands\r\n> \r\n>     * yarn install\r\n> \r\n>     * yarn build\r\n> \r\n>     * yarn develop\r\n\r\nI'm not getting that error, I'll look into it"
+    },
+    {
+      "id": 1991437571,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-12T11:28:25Z",
+      "updated_at": "2024-03-12T11:28:25Z",
+      "body": "> > > > > @lilitkarapetyan I get error when build with latest code. Could you help to check it?\r\n> > > > > ![image](https://private-user-images.githubusercontent.com/107697044/312010534-08fc1de8-a868-4b37-82ce-7b0a54048140.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzUxODgsIm5iZiI6MTcxMDIzNDg4OCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDEwNTM0LTA4ZmMxZGU4LWE4NjgtNGIzNy04MmNlLTdiMGE1NDA0ODE0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQwOTE0NDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zNjhkYjYxYzVlYjI5NGY1MGIxOTE3ZTczN2NhMDNlYmRlZGRjMzA3ODcxZTUxMGJkNDRjZmYzMjMzOTFhMzg1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.tPdWCGf2OzIFTZOJHomVW8OHk6cTVmsmeSOlySAKKJY)\r\n> > > > \r\n> > > > \r\n> > > > I think I fixed that error in my last commit.\r\n> > > \r\n> > > \r\n> > > Now I don't get the error when run 'yarn build' but it shows the white screen for http://localhost:8080/ and http://localhost:3000 .\r\n> > > ![image](https://private-user-images.githubusercontent.com/107697044/312031670-1616abe2-8092-4776-aa22-aedfb4d81d62.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzgzNDQsIm5iZiI6MTcxMDIzODA0NCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDMxNjcwLTE2MTZhYmUyLTgwOTItNDc3Ni1hYTIyLWFlZGZiNGQ4MWQ2Mi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQxMDA3MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xYjVmYjQyNzQxYmVmYTg2ZTQ3ZDFlOTBhMzIxN2NmM2QzYTA5MmU5MDUxNGM0NDQ2Yzk4YjM4ZTQ2NjdlYTc4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.AdlOJZtFc50nDXqeUt73NVMKc5p2xZY6XeH_ZM9nm3Y)\r\n> > \r\n> > \r\n> > did you run the yarn command ?\r\n> \r\n> Yes, I run as normal with below commands\r\n> \r\n>     * yarn install\r\n> \r\n>     * yarn build\r\n> \r\n>     * yarn develop\r\n\r\nHello @IanMayo,could you please check if you're also experiencing this error?"
+    },
+    {
+      "id": 1991451883,
+      "user": "IanMayo",
+      "created_at": "2024-03-12T11:37:08Z",
+      "updated_at": "2024-03-12T11:37:08Z",
+      "body": "No, @lilitkarapetyan  and @Tristina1788 - I don't get a console error on 3000 or 8080.  I tried using app as both player and admin.\r\n\r\n@Tristina1788 - do you get the error on application startup, or after going through a particular series of steps?   Or, have you created some new features on the map?  (that would make your instance different to Lilit and mine)"
+    },
+    {
+      "id": 1991636332,
+      "user": "Tristina1788",
+      "created_at": "2024-03-12T13:19:30Z",
+      "updated_at": "2024-03-12T13:19:30Z",
+      "body": "> No, @lilitkarapetyan and @Tristina1788 - I don't get a console error on 3000 or 8080. I tried using app as both player and admin.\r\n> \r\n> @Tristina1788 - do you get the error on application startup, or after going through a particular series of steps? Or, have you created some new features on the map? (that would make your instance different to Lilit and mine)\r\n\r\nAfter run command 'yarn develop', screen auto load with white screen. Maybe cache or something like that. I will clean and will restart my machine to check again."
+    },
+    {
+      "id": 1991736687,
+      "user": "Tristina1788",
+      "created_at": "2024-03-12T14:07:19Z",
+      "updated_at": "2024-03-12T14:07:19Z",
+      "body": "> > No, @lilitkarapetyan and @Tristina1788 - I don't get a console error on 3000 or 8080. I tried using app as both player and admin.\r\n> > @Tristina1788 - do you get the error on application startup, or after going through a particular series of steps? Or, have you created some new features on the map? (that would make your instance different to Lilit and mine)\r\n> \r\n> After run command 'yarn develop', screen auto load with white screen. Maybe cache or something like that. I will clean and will restart my machine to check again.\r\n\r\n\r\n\r\n> > No, @lilitkarapetyan and @Tristina1788 - I don't get a console error on 3000 or 8080. I tried using app as both player and admin.\r\n> > @Tristina1788 - do you get the error on application startup, or after going through a particular series of steps? Or, have you created some new features on the map? (that would make your instance different to Lilit and mine)\r\n> \r\n> After run command 'yarn develop', screen auto load with white screen. Maybe cache or something like that. I will clean and will restart my machine to check again.\r\n\r\nI try to clear cache, restart machine but no help. I still don't know why I can run on develop as normal but get issue on this branch. I'm checking more on it."
+    },
+    {
+      "id": 1993867112,
+      "user": "Tristina1788",
+      "created_at": "2024-03-13T09:03:06Z",
+      "updated_at": "2024-03-13T09:03:06Z",
+      "body": "I try on another machine (both is Window ) and still get issue. So I checking on this url : https://serge-2892-edit-templat-bbryg4.herokuapp.com/\r\n\r\n- Click on 'Edit' icon on template and this form seem messing \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/298ddbc7-e746-416c-999c-91d5d6f4f7eb)\r\n\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/006d01ce-52fa-4e5d-9ba4-5a5e632d9a7c)\r\n\r\n- Unable to click 'Edit' / 'Delete' icon on the half top part of this icon.\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/fc3af21a-dfb2-4683-b9fe-6ae0df4d178b\r\n\r\n- It takes more than 5 second to show message 'Template is save' after click 'Save Template button'\r\n\r\nhttps://github.com/serge-web/serge/assets/107697044/10c9d4b3-e6f0-43ad-a11a-7ec9a5085f71\r\n\r\n- Also take time to delete template\r\n\r\n\r\n"
+    },
+    {
+      "id": 1994167119,
+      "user": "IanMayo",
+      "created_at": "2024-03-13T11:30:01Z",
+      "updated_at": "2024-03-13T11:30:01Z",
+      "body": "I know this is early, but the new form designer looks good @lilitkarapetyan "
+    },
+    {
+      "id": 2004248178,
+      "user": "IanMayo",
+      "created_at": "2024-03-18T15:38:26Z",
+      "updated_at": "2024-03-18T15:38:26Z",
+      "body": "Hello @Tristina1788 - it's great that you are becoming familiar with the forms editor.  I'm keen that it is robust and easy to use.\r\n\r\nIt could be a good idea for you to become an expert by playing with the editor outside Serge.  There is a demo here:\r\nhttps://ginkgobioworks.github.io/react-json-schema-form-builder/\r\n\r\nThere is more documentation on the editor here:\r\nhttps://react-json-schema-form-builder.readthedocs.io/en/main/Background/"
+    },
+    {
+      "id": 2006977649,
+      "user": "IanMayo",
+      "created_at": "2024-03-19T11:49:49Z",
+      "updated_at": "2024-03-19T11:49:49Z",
+      "body": "Hello @lilitkarapetyan - you've added the \"State of World\" template, I guess it is in the new format.  Is there some way of viewing this template?  Is it in StoryBook?"
+    },
+    {
+      "id": 2007007827,
+      "user": "IanMayo",
+      "created_at": "2024-03-19T12:05:37Z",
+      "updated_at": "2024-03-19T12:05:37Z",
+      "body": "Hello @Tristina1788 - could you have a think about why the PlayWright tests are failing?"
+    },
+    {
+      "id": 2007152138,
+      "user": "Tristina1788",
+      "created_at": "2024-03-19T13:16:24Z",
+      "updated_at": "2024-03-19T13:16:24Z",
+      "body": "> Hello @Tristina1788 - could you have a think about why the PlayWright tests are failing?\r\n\r\n@IanMayo I will check it."
+    },
+    {
+      "id": 2007210882,
+      "user": "Tristina1788",
+      "created_at": "2024-03-19T13:41:16Z",
+      "updated_at": "2024-03-19T13:41:16Z",
+      "body": "> Hello @Tristina1788 - could you have a think about why the PlayWright tests are failing?\r\n\r\nI checked from the artifarct for playwright report. And the test is failed because 'New Message' is missing for input text field. \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/f1164ff4-19c9-46bc-9470-b76aa12bfbd5)\r\n\r\nI can't deploy this branch on my side so I can't check more. @lilitkarapetyan , @IanMayo Could you give me the server which is deployed for this branch (as the url @lilitkarapetyan  give me before). So I can check more on it and also can test the function for the new updating.\r\n"
+    },
+    {
+      "id": 2008808164,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-03-20T06:55:55Z",
+      "updated_at": "2024-03-20T06:55:55Z",
+      "body": "> > Hello @Tristina1788 - could you have a think about why the PlayWright tests are failing?\r\n> \r\n> I checked from the artifarct for playwright report. And the test is failed because 'New Message' is missing for input text field.\r\n> \r\n> ![image](https://private-user-images.githubusercontent.com/107697044/314075347-f1164ff4-19c9-46bc-9470-b76aa12bfbd5.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTA5MTQyNDEsIm5iZiI6MTcxMDkxMzk0MSwicGF0aCI6Ii8xMDc2OTcwNDQvMzE0MDc1MzQ3LWYxMTY0ZmY0LTE5YzktNDZiYy05NDcwLWI3NmFhMTJiZmJkNS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyMFQwNTUyMjFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iYTJkMTEwOTljMjg4ZDJkOWU4MjFlNzhlOGQ1ODYwNTNlY2JhMDZiNTc2ZTE2ZDViMDJmOTgzNWFmNWY2YTA1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.cvE0tn1V9YZigWlmdDTy1h86o7SKF3qEIuJShlklbpM)\r\n> \r\n> I can't deploy this branch on my side so I can't check more. @lilitkarapetyan , @IanMayo Could you give me the server which is deployed for this branch (as the url @lilitkarapetyan give me before). So I can check more on it and also can test the function for the new updating.\r\n\r\nHello @Tristina1788 , When you click the \"View Deployment\" button. you will be able to see the changes made to this branch reflected on the Heroku server. https://gyazo.com/85b00c7d5afe749825b2ecc9d7a6e740"
+    },
+    {
+      "id": 2008923703,
+      "user": "Tristina1788",
+      "created_at": "2024-03-20T07:11:26Z",
+      "updated_at": "2024-03-20T07:11:26Z",
+      "body": "> > > Hello @Tristina1788 - could you have a think about why the PlayWright tests are failing?\r\n> > \r\n> > \r\n> > I checked from the artifarct for playwright report. And the test is failed because 'New Message' is missing for input text field.\r\n> > ![image](https://private-user-images.githubusercontent.com/107697044/314075347-f1164ff4-19c9-46bc-9470-b76aa12bfbd5.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTA5MTQyNDEsIm5iZiI6MTcxMDkxMzk0MSwicGF0aCI6Ii8xMDc2OTcwNDQvMzE0MDc1MzQ3LWYxMTY0ZmY0LTE5YzktNDZiYy05NDcwLWI3NmFhMTJiZmJkNS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyMFQwNTUyMjFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iYTJkMTEwOTljMjg4ZDJkOWU4MjFlNzhlOGQ1ODYwNTNlY2JhMDZiNTc2ZTE2ZDViMDJmOTgzNWFmNWY2YTA1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.cvE0tn1V9YZigWlmdDTy1h86o7SKF3qEIuJShlklbpM)\r\n> > I can't deploy this branch on my side so I can't check more. @lilitkarapetyan , @IanMayo Could you give me the server which is deployed for this branch (as the url @lilitkarapetyan give me before). So I can check more on it and also can test the function for the new updating.\r\n> \r\n> Hello @Tristina1788 , When you click the \"View Deployment\" button. you will be able to see the changes made to this branch reflected on the Heroku server. https://gyazo.com/85b00c7d5afe749825b2ecc9d7a6e740\r\n\r\n@lilitkarapetyan  Thanks, I got the same guide from Ian. I still can't checking from my local with white screen issue and seem the code can't pass the tests so I don't have deployment url for checking."
+    },
+    {
+      "id": 2011792883,
+      "user": "Tristina1788",
+      "created_at": "2024-03-21T09:58:17Z",
+      "updated_at": "2024-03-21T09:58:17Z",
+      "body": "@IanMayo  @lilitkarapetyan I clear my folder then clone /checkout the latest code for this branch. Now I can build from my local. It think maybe some exist file from old build make issue .\r\n\r\nAnd I check the message and it 's till missing input text field. So the test playwright is failed.\r\n\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/fad07639-85a5-4d96-943d-070ab367e400)\r\n\r\n\r\n"
+    },
+    {
+      "id": 2011807496,
+      "user": "IanMayo",
+      "created_at": "2024-03-21T10:04:41Z",
+      "updated_at": "2024-03-21T10:04:41Z",
+      "body": "Ok @Tristina1788 -  I'll try to do that, too."
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2892,
+    3000,
+    8080
+  ],
+  "issues": [
+    {
+      "id": 2158605766,
+      "number": 2892,
+      "title": "Edit templates in admin pages",
+      "state": "open",
+      "user": "IanMayo",
+      "created_at": "2024-02-28T10:19:53Z",
+      "updated_at": "2024-02-28T10:19:54Z",
+      "closed_at": null,
+      "body": "Initially, templates were stored in their own database file, and referred to from channel descriptions.\r\n\r\nOur current strategy is to store templates inside the wargame that uses them.\r\n\r\nSo, we should modify the `admin` pages so that there is a `templates` tab inside the editor for a specific wargame.",
+      "labels": [
+        "4p10"
+      ],
+      "comments": []
+    },
+    {
+      "id": 2413496855,
+      "number": 3000,
+      "title": "Cannot delete shapes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-07-17T12:29:34Z",
+      "updated_at": "2024-07-18T07:24:46Z",
+      "closed_at": "2024-07-18T07:24:46Z",
+      "body": "In our current test wargame, the Game Designer has lots of mapping permissions.\r\n\r\nWhen playing as Game Designer, with the map in `Remove Layers` mode it is possible to delete MilSymbols, but not Shapes.\r\n\r\nInstead of being deleted, the shapes become `selected`:\r\n\r\nHmm,  I've just tried to record a video, but the error seems intermittent.  Could you please investigate further @Tristina1788 ?\r\n\r\n![screencast](https://i.gyazo.com/47f50dd00e12ec0b1dedb0ac58ca30e0.gif)",
+      "labels": [
+        "bug",
+        "4hat"
+      ],
+      "comments": [
+        {
+          "id": 2235298006,
+          "user": "Tristina1788",
+          "created_at": "2024-07-18T04:17:00Z",
+          "updated_at": "2024-07-18T04:17:00Z",
+          "body": "@IanMayo Currently we only enable to delete one item for one time although the 'Remove' tool is still highlight as ticket ['Delete Layer' function should enable to delete multi layers](https://github.com/serge-web/serge/issues/2794)"
+        },
+        {
+          "id": 2235810140,
+          "user": "IanMayo",
+          "created_at": "2024-07-18T07:24:46Z",
+          "updated_at": "2024-07-18T07:24:46Z",
+          "body": "Close. Duplicate of #2794 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/cea5c060-fc72-45a6-8e5d-8ab2293cd361",
+    "https://github.com/serge-web/serge/assets/107697044/0143aa12-9e8e-4102-8a08-d85c3d1ed340",
+    "https://github.com/serge-web/serge/assets/107697044/7dceb9c5-ea94-487d-b363-5f201d315983",
+    "https://github.com/serge-web/serge/assets/107697044/e5306033-6b07-4585-9c41-afcc180154c9",
+    "https://private-user-images.githubusercontent.com/107697044/310415721-cea5c060-fc72-45a6-8e5d-8ab2293cd361.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk3MTU1MTgsIm5iZiI6MTcwOTcxNTIxOCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwNDE1NzIxLWNlYTVjMDYwLWZjNzItNDVhNi04ZTVkLThhYjIyOTNjZDM2MS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwNlQwODUzMzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wMDU1MjM5MDA1ZTQ1NmNkNWQ0MDg1YWVkYzY5MDFiOWIyOGJhODIzNDkwM2I3OTM4NTNkMGNmY2FjOGM3ZjZlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.SMPAEJlamki1sAgU8vEzjjw_FEy8HV8Uyz4R6l8xd40",
+    "https://private-user-images.githubusercontent.com/107697044/310416279-0143aa12-9e8e-4102-8a08-d85c3d1ed340.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk3MTU1MTgsIm5iZiI6MTcwOTcxNTIxOCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwNDE2Mjc5LTAxNDNhYTEyLTllOGUtNDEwMi04YTA4LWQ4NWMzZDFlZDM0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwNlQwODUzMzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00ZDU1Y2FkZjNhODJjYjQ0YjZhYTYzNzI1M2ExNDM0M2U1OTIyNTBmNmQwM2MwMGI3NDE5N2I2MTgzZDkxY2E4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.J2OGwtT3xcLjPO8pI-9cuEMSHSmKlyOsI_OHFfo7j1o",
+    "https://private-user-images.githubusercontent.com/107697044/310417124-7dceb9c5-ea94-487d-b363-5f201d315983.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk3MTU1MTgsIm5iZiI6MTcwOTcxNTIxOCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwNDE3MTI0LTdkY2ViOWM1LWVhOTQtNDg3ZC1iMzYzLTVmMjAxZDMxNTk4My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwNlQwODUzMzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NGUzYzVjOWRjNzhmYjM3YmE0N2YyNzFkZDA2NWEyMjZkMjJiNzM3YmZkMmM4NWUxMDYyZDU4OTNiYWY4YjVhJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.waPkZQhrF6VigNRRUi0ipMiSdX_ujO2RNMFkPTPaTGw",
+    "https://private-user-images.githubusercontent.com/107697044/310419738-e5306033-6b07-4585-9c41-afcc180154c9.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk3MTU1MTgsIm5iZiI6MTcwOTcxNTIxOCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwNDE5NzM4LWU1MzA2MDMzLTZiMDctNDU4NS05YzQxLWFmY2MxODAxNTRjOS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwNlQwODUzMzhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mNjVhNDQ2ZWE0Y2Q4ODRhMTU1ZjczZjFkNWQ3ZmI2ZjQ1YWEyNzZjMDMzY2MwYWU2NzlkYjE5MGQxZjQ3NzJjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.xS_t1LPsmKaRSiv438SgDuj_Kl-yp-CFID-kTmfas-c",
+    "https://github.com/serge-web/serge/assets/107697044/6d66388d-30cc-4e14-a80f-25e91e7c2f2a",
+    "https://private-user-images.githubusercontent.com/107697044/310833685-6d66388d-30cc-4e14-a80f-25e91e7c2f2a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk4MDY5NzUsIm5iZiI6MTcwOTgwNjY3NSwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwODMzNjg1LTZkNjYzODhkLTMwY2MtNGUxNC1hODBmLTI1ZTkxZTdjMmYyYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwN1QxMDE3NTVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01NTkxNjZjOTZlNDVlNzUwODA0ZWY4YmEzMzc5NjIyMGIyZjk3YzQzYTY3YTEwOWE5ZTYwODdhNWRjYWUxOTZlJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.Y2SoR_Z6IJk9DyDU1aME-x5NFa8GNbfmvam_fboWV20",
+    "https://private-user-images.githubusercontent.com/107697044/310833685-6d66388d-30cc-4e14-a80f-25e91e7c2f2a.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDk4MDcxODUsIm5iZiI6MTcwOTgwNjg4NSwicGF0aCI6Ii8xMDc2OTcwNDQvMzEwODMzNjg1LTZkNjYzODhkLTMwY2MtNGUxNC1hODBmLTI1ZTkxZTdjMmYyYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzA3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMwN1QxMDIxMjVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1lNzNiMTAxNjM2MWNlNzBjZDNiODAxMDM5ZjQyODQ1Yzc0YmI1NzllNWRjZjA3NjY3MDAwNDkxNjkxZGI3NDcxJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.qf39j3Ur1o3vAmv_cMp_TPJtq4N1vXlEsvH9uSo4hAY",
+    "https://github.com/serge-web/serge/assets/107697044/5b20619e-5da6-4186-86e6-1762f2e30be0",
+    "https://github.com/serge-web/serge/assets/107697044/5c3f81f8-09af-4980-9df9-37cd0cd73928",
+    "https://github.com/serge-web/serge/assets/107697044/01e8b619-8353-4c2e-9b67-d6a4bef7da01",
+    "https://github.com/serge-web/serge/assets/107697044/f7dce018-c7e3-4caa-8b2b-08f13b64d64a",
+    "https://github.com/serge-web/serge/assets/107697044/08fc1de8-a868-4b37-82ce-7b0a54048140",
+    "https://private-user-images.githubusercontent.com/107697044/312010534-08fc1de8-a868-4b37-82ce-7b0a54048140.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzUxODgsIm5iZiI6MTcxMDIzNDg4OCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDEwNTM0LTA4ZmMxZGU4LWE4NjgtNGIzNy04MmNlLTdiMGE1NDA0ODE0MC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQwOTE0NDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0zNjhkYjYxYzVlYjI5NGY1MGIxOTE3ZTczN2NhMDNlYmRlZGRjMzA3ODcxZTUxMGJkNDRjZmYzMjMzOTFhMzg1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.tPdWCGf2OzIFTZOJHomVW8OHk6cTVmsmeSOlySAKKJY",
+    "https://github.com/serge-web/serge/assets/107697044/1616abe2-8092-4776-aa22-aedfb4d81d62",
+    "https://private-user-images.githubusercontent.com/107697044/312031670-1616abe2-8092-4776-aa22-aedfb4d81d62.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTAyMzgzNDQsIm5iZiI6MTcxMDIzODA0NCwicGF0aCI6Ii8xMDc2OTcwNDQvMzEyMDMxNjcwLTE2MTZhYmUyLTgwOTItNDc3Ni1hYTIyLWFlZGZiNGQ4MWQ2Mi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzEyJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMxMlQxMDA3MjRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xYjVmYjQyNzQxYmVmYTg2ZTQ3ZDFlOTBhMzIxN2NmM2QzYTA5MmU5MDUxNGM0NDQ2Yzk4YjM4ZTQ2NjdlYTc4JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.AdlOJZtFc50nDXqeUt73NVMKc5p2xZY6XeH_ZM9nm3Y",
+    "https://github.com/serge-web/serge/assets/107697044/298ddbc7-e746-416c-999c-91d5d6f4f7eb",
+    "https://github.com/serge-web/serge/assets/107697044/006d01ce-52fa-4e5d-9ba4-5a5e632d9a7c",
+    "https://github.com/serge-web/serge/assets/107697044/f1164ff4-19c9-46bc-9470-b76aa12bfbd5",
+    "https://private-user-images.githubusercontent.com/107697044/314075347-f1164ff4-19c9-46bc-9470-b76aa12bfbd5.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTA5MTQyNDEsIm5iZiI6MTcxMDkxMzk0MSwicGF0aCI6Ii8xMDc2OTcwNDQvMzE0MDc1MzQ3LWYxMTY0ZmY0LTE5YzktNDZiYy05NDcwLWI3NmFhMTJiZmJkNS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjQwMzIwJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI0MDMyMFQwNTUyMjFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iYTJkMTEwOTljMjg4ZDJkOWU4MjFlNzhlOGQ1ODYwNTNlY2JhMDZiNTc2ZTE2ZDViMDJmOTgzNWFmNWY2YTA1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.cvE0tn1V9YZigWlmdDTy1h86o7SKF3qEIuJShlklbpM",
+    "https://github.com/serge-web/serge/assets/107697044/fad07639-85a5-4d96-943d-070ab367e400",
+    "https://i.gyazo.com/47f50dd00e12ec0b1dedb0ac58ca30e0.gif"
+  ],
+  "number_of_changed_files": 100,
+  "total_changed_lines": 5937
+}

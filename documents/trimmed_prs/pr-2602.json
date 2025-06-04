@@ -1,0 +1,50 @@
+{
+  "number": 2602,
+  "title": "2572 umpire missile types",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-03-09T17:21:03Z",
+  "updated_at": "2023-03-09T17:59:15Z",
+  "closed_at": "2023-03-09T17:59:13Z",
+  "merged_at": "2023-03-09T17:59:13Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2602",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2602/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2602/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2602",
+  "body": "Fixes #2572 ",
+  "additions": 565,
+  "deletions": 19,
+  "changed_files": 8,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2572
+  ],
+  "issues": [
+    {
+      "id": 1614263581,
+      "number": 2572,
+      "title": "Umpires need all per-force templates",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-03-07T21:52:01Z",
+      "updated_at": "2023-03-09T17:59:15Z",
+      "closed_at": "2023-03-09T17:59:15Z",
+      "body": "We have per-force template blocks for missiles & cyber activities.\r\n\r\nThese populate the drop-down lists in the orders template.\r\n\r\nBut, umpire force do not have a set of templates. So, when they view orders the missile and cyber fields look empty.  They actually require the sum of all template lists (de-duped).\r\n\r\nThis will be handled in the `customiseMissiles` and `customiseCyberCards` methods.",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 8,
+  "total_changed_lines": 584
+}

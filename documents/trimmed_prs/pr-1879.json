@@ -1,0 +1,30 @@
+{
+  "number": 1879,
+  "title": "1877b filter assets",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-25T12:24:11Z",
+  "updated_at": "2022-09-25T13:39:48Z",
+  "closed_at": "2022-09-25T13:39:48Z",
+  "merged_at": "2022-09-25T13:39:48Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1879",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1879/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1879/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1879",
+  "body": "Supports #1877 ",
+  "additions": 251,
+  "deletions": 127,
+  "changed_files": 23,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 378
+}

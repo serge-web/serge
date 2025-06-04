@@ -1,0 +1,63 @@
+{
+  "number": 2725,
+  "title": "2721_Storybook_not_running",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-12-25T05:56:19Z",
+  "updated_at": "2023-12-26T12:17:10Z",
+  "closed_at": "2023-12-26T12:17:09Z",
+  "merged_at": "2023-12-26T12:17:09Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2725",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2725/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2725/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2725",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 2,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2721
+  ],
+  "issues": [
+    {
+      "id": 2053767746,
+      "number": 2721,
+      "title": "Storybook not running",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-12-22T11:09:38Z",
+      "updated_at": "2024-01-08T12:10:44Z",
+      "closed_at": "2024-01-08T12:10:44Z",
+      "body": "When we host Serge on Heroku, it's possible to enter the `Storybook` view using the `User interface review pages`:\r\n![image](https://github.com/serge-web/serge/assets/1108513/860b0c43-1576-4d53-a901-661c1bd94c92)\r\n\r\nBut, when I click on that, I just get this page:\r\n![image](https://github.com/serge-web/serge/assets/1108513/687e4a9e-9c79-41e2-b06d-81dcd2b81634)\r\n\r\nThis behaviour can be viewed on this PR:\r\nhttps://github.com/serge-web/serge/pull/2710\r\n\r\nI'm pretty sure the problem arose due to changes to this file:\r\nhttps://github.com/serge-web/serge/pull/2716/files#diff-1846122c2c83a486a3693f7966aa522c34cf489f674185c4da0d9221683fd81f",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1869504888,
+          "user": "IanMayo",
+          "created_at": "2023-12-26T12:18:39Z",
+          "updated_at": "2023-12-26T12:18:39Z",
+          "body": "Fixed in #2725 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/860b0c43-1576-4d53-a901-661c1bd94c92",
+    "https://github.com/serge-web/serge/assets/1108513/687e4a9e-9c79-41e2-b06d-81dcd2b81634"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 2
+}

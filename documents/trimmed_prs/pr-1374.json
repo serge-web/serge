@@ -1,0 +1,98 @@
+{
+  "number": 1374,
+  "title": "1364 turning circles",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-04T17:50:42Z",
+  "updated_at": "2022-03-18T13:23:36Z",
+  "closed_at": "2022-03-18T13:23:35Z",
+  "merged_at": "2022-03-18T13:23:35Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1374",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1374/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1374/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1374",
+  "body": "Supports  #1364 ",
+  "additions": 768,
+  "deletions": 141,
+  "changed_files": 24,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1364
+  ],
+  "issues": [
+    {
+      "id": 1155556930,
+      "number": 1364,
+      "title": "Support turning circles in planned routes",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-03-01T16:37:26Z",
+      "updated_at": "2022-03-31T13:23:25Z",
+      "closed_at": "2022-03-31T13:23:25Z",
+      "body": "For close-in wargames, the turning circles of ships becomes a significant factor.\r\n\r\n* [x] Introduce data-type for turning circle in platform-type\r\n* [x] If turning circle present for platform use \"unwind-rope\" algorithm to determine extent of achievable positions\r\n* [x] If extent of achievable positions is present, restrict allowable hexes to the current one, plus any cells with a centre in the set of achievable positions\r\n* [x] When player is planning route, exclude those not in the allowable hexes\r\n* [x] When marker is dropped (and turn has been planned), see if it matches the direct route.  If it does, just store ends, otherwise store all cells\r\n* [ ] Respect terrain data - don't allow ships on land, or land assets on sea\r\n* [x] For partial leg plans, ensure correct amount of distance is removed (reflect complex path if present)\r\n* [x] Don't show blue line if it passes through no-go area, and don't process turn if dropped in no-go area.\r\n* [ ] Handle issue when immediately dropping pin into no-go area (see video below)\r\n\r\n![scrreencast](https://user-images.githubusercontent.com/1108513/158978081-edf9803a-2898-4848-9020-f96b966e97c3.gif)\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1079674499,
+          "user": "IanMayo",
+          "created_at": "2022-03-26T12:19:01Z",
+          "updated_at": "2022-03-26T12:19:01Z",
+          "body": "I realise we still need to allow `Turning Circle` to be specified for a `PlatformType` in the admin page/\r\n\r\nHere is the field:\r\n![image](https://user-images.githubusercontent.com/1108513/160238954-e764b65d-38d4-45d8-8fd7-7701231bdb04.png)\r\n\r\nHere is the editor page for platform-types:\r\n![image](https://user-images.githubusercontent.com/1108513/160239063-963ea44e-cb44-4a52-934f-22ec045e39d8.png)\r\n \r\nI _guess_ we could introduce a second block in the top row.  It would be titled `Turning circle (optional)`  and  have a single text field, followed by a `m` label to indicate its in units.  On `Save`, if the value is a non-zero number, we store that, else the field is omitted.\r\n\r\nDoes that sound ok @ShendMikullovci ?"
+        },
+        {
+          "id": 1079998108,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-27T18:56:15Z",
+          "updated_at": "2022-03-27T18:56:15Z",
+          "body": "Good idea! Here's how that could look:\r\n\r\n![Turning Circles](https://user-images.githubusercontent.com/85491794/160296283-d39d917c-ab7d-49ba-ae82-b27e1b5bfb4f.png)\r\n\r\n![Turning Circles 2](https://user-images.githubusercontent.com/85491794/160296289-edb29925-2eb4-4d37-9546-340b08eae80c.png)\r\n\r\nI added the unit text box and measurement icon to maintain uniformity.\r\n\r\n> It would be titled Turning circle (optional) and have a single text field, followed by a m label to indicate its in units.\r\n\r\nWhy the letter \"m\"? \r\n"
+        },
+        {
+          "id": 1080580459,
+          "user": "IanMayo",
+          "created_at": "2022-03-28T12:19:25Z",
+          "updated_at": "2022-03-28T12:19:25Z",
+          "body": "The value is always in metres.  So, we just show the \"m\" to the right of the value to remind the Game Designer about this.\r\n\r\nThere won't be a `trash` icon - since it isn't a list of values.  It's a plain text box, I believe."
+        },
+        {
+          "id": 1080593787,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-28T12:32:43Z",
+          "updated_at": "2022-03-28T12:32:43Z",
+          "body": "Can the user delete if they change their mind?"
+        },
+        {
+          "id": 1080602323,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-28T12:42:00Z",
+          "updated_at": "2022-03-28T12:43:35Z",
+          "body": "> The value is always in metres. So, we just show the \"m\" to the right of the value to remind the Game Designer about this.\r\n> \r\n> There won't be a `trash` icon - since it isn't a list of values. It's a plain text box, I believe.\r\n\r\nSomething like this?:\r\n\r\n![Turning Circles 2a](https://user-images.githubusercontent.com/85491794/160400310-4f64c799-c504-425d-a8f2-4b5c92a2ad82.png)\r\n\r\n"
+        },
+        {
+          "id": 1080605081,
+          "user": "IanMayo",
+          "created_at": "2022-03-28T12:45:04Z",
+          "updated_at": "2022-03-28T12:45:04Z",
+          "body": "Yes - that's fine. The user will use `delete` key if they change their mind."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/158978081-edf9803a-2898-4848-9020-f96b966e97c3.gif",
+    "https://user-images.githubusercontent.com/1108513/160238954-e764b65d-38d4-45d8-8fd7-7701231bdb04.png",
+    "https://user-images.githubusercontent.com/1108513/160239063-963ea44e-cb44-4a52-934f-22ec045e39d8.png",
+    "https://user-images.githubusercontent.com/85491794/160296283-d39d917c-ab7d-49ba-ae82-b27e1b5bfb4f.png",
+    "https://user-images.githubusercontent.com/85491794/160296289-edb29925-2eb4-4d37-9546-340b08eae80c.png",
+    "https://user-images.githubusercontent.com/85491794/160400310-4f64c799-c504-425d-a8f2-4b5c92a2ad82.png"
+  ],
+  "number_of_changed_files": 24,
+  "total_changed_lines": 909
+}

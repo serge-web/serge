@@ -1,0 +1,78 @@
+{
+  "number": 1739,
+  "title": "1728: Fix issue of <Select/> control in Attribute Editor",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-07T13:25:16Z",
+  "updated_at": "2022-08-07T15:22:26Z",
+  "closed_at": "2022-08-07T15:22:26Z",
+  "merged_at": "2022-08-07T15:22:26Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1739",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1739/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1739/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1739",
+  "body": "Fixed #1728 \r\n\r\nhttps://user-images.githubusercontent.com/26705621/183292944-699c8a7b-f97c-4aa9-9ffa-70a211ec722c.mov\r\n\r\n\r\n",
+  "additions": 26,
+  "deletions": 17,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1728
+  ],
+  "issues": [
+    {
+      "id": 1329011947,
+      "number": 1728,
+      "title": "Possible issue with z-order for `<Select/>` control in Attribute Editor",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-04T18:08:52Z",
+      "updated_at": "2022-08-07T15:22:27Z",
+      "closed_at": "2022-08-07T15:22:27Z",
+      "body": "I'm in this game:\r\nhttp://localhost:3000/?wargame=wargame-l63jlces&access=rl650chc3\r\n\r\nI click on `R1` asset, and plan turn form opens.  I can then click on `Edit attributes`.  If I try to change `Depth` I don't see the values presented.  But, the direction of the triangle does change - so I think the items are visible, but beneath the popup.\r\n\r\n![screencast](https://i.gyazo.com/b6c40368128bca1fa9259241ffc83d63.gif)",
+      "labels": [
+        "bug",
+        "4watu"
+      ],
+      "comments": [
+        {
+          "id": 1207139459,
+          "user": "lebaphi",
+          "created_at": "2022-08-06T03:50:52Z",
+          "updated_at": "2022-08-06T03:50:52Z",
+          "body": "It seems I can not find this game in develop latest code @IanMayo "
+        },
+        {
+          "id": 1207185644,
+          "user": "IanMayo",
+          "created_at": "2022-08-06T09:54:37Z",
+          "updated_at": "2022-08-06T09:54:37Z",
+          "body": "Hmm, it is in the game folder: \r\n![image](https://user-images.githubusercontent.com/1108513/183243916-89126c4c-1e48-476e-81aa-e9b9c88a15b1.png)\r\n\r\nI did try to reproduce it from `storybook`, but the z-order for the `select` box works ok there:\r\n![screencast](https://i.gyazo.com/91d8a24fc4946c46674220482f54caaa.gif)\r\n\r\n\r\n(but - the z-order of the `Attributes Editor` is broken in storybook 🤣 )"
+        },
+        {
+          "id": 1207384476,
+          "user": "lebaphi",
+          "created_at": "2022-08-07T11:14:26Z",
+          "updated_at": "2022-08-07T11:14:26Z",
+          "body": "> Hmm, it is in the game folder: ![image](https://user-images.githubusercontent.com/1108513/183243916-89126c4c-1e48-476e-81aa-e9b9c88a15b1.png)\r\n> \r\n> I did try to reproduce it from `storybook`, but the z-order for the `select` box works ok there: ![screencast](https://camo.githubusercontent.com/e4e93d17383b9f3cf431ca36fe7b4e3d3544e27f49723f2b6aac1313e677ba9c/68747470733a2f2f692e6779617a6f2e636f6d2f39316438613234666334393436633436363734323230343832663534636161612e676966) [ ![screencast](https://camo.githubusercontent.com/e4e93d17383b9f3cf431ca36fe7b4e3d3544e27f49723f2b6aac1313e677ba9c/68747470733a2f2f692e6779617a6f2e636f6d2f39316438613234666334393436633436363734323230343832663534636161612e676966) ](https://camo.githubusercontent.com/e4e93d17383b9f3cf431ca36fe7b4e3d3544e27f49723f2b6aac1313e677ba9c/68747470733a2f2f692e6779617a6f2e636f6d2f39316438613234666334393436633436363734323230343832663534636161612e676966) [ ](https://camo.githubusercontent.com/e4e93d17383b9f3cf431ca36fe7b4e3d3544e27f49723f2b6aac1313e677ba9c/68747470733a2f2f692e6779617a6f2e636f6d2f39316438613234666334393436633436363734323230343832663534636161612e676966)\r\n> \r\n> (but - the z-order of the `Attributes Editor` is broken in storybook 🤣 )\r\n\r\nokay, I will take care of it 🤣 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/b6c40368128bca1fa9259241ffc83d63.gif",
+    "https://user-images.githubusercontent.com/1108513/183243916-89126c4c-1e48-476e-81aa-e9b9c88a15b1.png",
+    "https://i.gyazo.com/91d8a24fc4946c46674220482f54caaa.gif",
+    "https://camo.githubusercontent.com/e4e93d17383b9f3cf431ca36fe7b4e3d3544e27f49723f2b6aac1313e677ba9c/68747470733a2f2f692e6779617a6f2e636f6d2f39316438613234666334393436633436363734323230343832663534636161612e676966"
+  ],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 43
+}

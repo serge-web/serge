@@ -1,0 +1,53 @@
+{
+  "number": 1032,
+  "title": "1028: Fix Play and Enter buttons not visible",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-31T09:24:23Z",
+  "updated_at": "2021-08-31T09:45:20Z",
+  "closed_at": "2021-08-31T09:45:19Z",
+  "merged_at": "2021-08-31T09:45:19Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1032",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1032/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1032/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1032",
+  "body": "Fixes #1028 ",
+  "additions": 1,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1028
+  ],
+  "issues": [
+    {
+      "id": 982604491,
+      "number": 1028,
+      "title": "Play and Enter buttons not visible",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-08-30T09:45:24Z",
+      "updated_at": "2021-08-31T09:45:19Z",
+      "closed_at": "2021-08-31T09:45:19Z",
+      "body": "A change elsewhere in Serge has caused the `Play` and `Enter` buttons to lose their background.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/131320497-7ecc78d4-c205-49c5-8587-0631468c1a04.png)\r\n\r\nI don't think we can revert the change since that will probably break something somewhere else.\r\n\r\nSo, I _guess_ we have to give these buttons an extra class, and to style that class as necessary.\r\n\r\nNote: this is also an issue in @lilitkarapetyan 's `Create document` PR:\r\n![image](https://user-images.githubusercontent.com/1108513/131320808-65dbca6f-3ec9-4449-b7c0-92c2d447ec0f.png)\r\n\r\nMaybe we need to investigate the cause, and apply a different fix to the change that caused this issue.  That's because there may be other _broken_ places we haven't found yet.  So, it's probably better to find the cause, revert the change, then make a specific change for thing originally being fixed.\r\n\r\nThanks for spotting it @lebaphi ",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/131320497-7ecc78d4-c205-49c5-8587-0631468c1a04.png",
+    "https://user-images.githubusercontent.com/1108513/131320808-65dbca6f-3ec9-4449-b7c0-92c2d447ec0f.png"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 1
+}

@@ -1,0 +1,68 @@
+{
+  "number": 2169,
+  "title": "Need_to_handle_new_message_coming_in_for_interactions_page",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-19T11:17:38Z",
+  "updated_at": "2022-12-30T15:02:06Z",
+  "closed_at": "2022-12-30T15:02:05Z",
+  "merged_at": "2022-12-30T15:02:05Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2169",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2169/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2169/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2169",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 424,
+  "deletions": 463,
+  "changed_files": 7,
+  "labels": [
+    "bug"
+  ],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2164
+  ],
+  "issues": [
+    {
+      "id": 1498188562,
+      "number": 2164,
+      "title": "Need to handle new message coming in for interactions page",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-12-15T10:33:14Z",
+      "updated_at": "2023-01-02T13:46:24Z",
+      "closed_at": "2023-01-02T13:46:24Z",
+      "body": "This relates to PR #2149 \r\n\r\nWe aren't handling the `lose form` in the `Adjudication` channel.  I'm capturing the steps to reproduce here.\r\n\r\n1. Login as `Adjudicator 1`. The game should be in `Adjudication Phase`\r\n2. The `Adjudication` tab will be shown\r\n3. There should be no Adjudication messages shown\r\n4. Click on \"Get Next Interaction\".  When one is found, it's sent to the database, marked as \"owned by\" the current user. The page then refreshes, to show the new interaction form.\r\n5. Scroll down the interaction form, and type something into \"General feedback\". Don't `Submit`\r\n6. Open another browser tab, log in as `Adjudicator 2`. \r\n7. Click on `Get Next Interaction`.  As it finds the interaction, and submits it, the `Adjudicator 1` form will be wiped\r\n\r\nSo, I think we need a similar fix to the one done in #2149 ",
+      "labels": [
+        "bug",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1352872343,
+          "user": "lilitkarapetyan",
+          "created_at": "2022-12-15T10:40:55Z",
+          "updated_at": "2022-12-15T10:40:55Z",
+          "body": "Okay I will work on this when I finish #2149"
+        },
+        {
+          "id": 1368960462,
+          "user": "IanMayo",
+          "created_at": "2023-01-02T13:46:24Z",
+          "updated_at": "2023-01-02T13:46:24Z",
+          "body": "Fixed in #2169 "
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 887
+}

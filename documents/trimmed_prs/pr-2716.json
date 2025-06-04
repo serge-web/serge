@@ -1,0 +1,113 @@
+{
+  "number": 2716,
+  "title": "Tidy_readme",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-12-19T09:56:58Z",
+  "updated_at": "2023-12-20T12:37:29Z",
+  "closed_at": "2023-12-20T12:37:28Z",
+  "merged_at": "2023-12-20T12:37:28Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2716",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2716/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2716/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2716",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [x] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 185,
+  "deletions": 21,
+  "changed_files": 5,
+  "labels": [
+    "enhancement",
+    "Technical Debt"
+  ],
+  "comments_count": 5,
+  "review_comments_count": 2,
+  "total_comments": 7,
+  "comments_data": [
+    {
+      "id": 1862464764,
+      "user": "IanMayo",
+      "created_at": "2023-12-19T10:04:44Z",
+      "updated_at": "2023-12-19T10:04:44Z",
+      "body": "@lilitkarapetyan - thanks for the update.\r\n\r\nThe readme still refers to `yarn develop` - but I normally use `yarn dev`.  Both are present in `package.json`. Should we just be using one of them?"
+    },
+    {
+      "id": 1862558035,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-12-19T11:06:32Z",
+      "updated_at": "2023-12-19T11:06:32Z",
+      "body": "> @lilitkarapetyan - thanks for the update.\r\n> \r\n> The readme still refers to `yarn develop` - but I normally use `yarn dev`. Both are present in `package.json`. Should we just be using one of them?\r\n\r\nYes, I thinkwe should use only yarn dev "
+    },
+    {
+      "id": 1862601784,
+      "user": "IanMayo",
+      "created_at": "2023-12-19T11:38:35Z",
+      "updated_at": "2023-12-19T11:38:35Z",
+      "body": "> Yes, I thinkwe should use only yarn dev\r\n\r\nIn that case, could you please update the `README.nd` and `package.json`?"
+    },
+    {
+      "id": 1862611471,
+      "user": "lilitkarapetyan",
+      "created_at": "2023-12-19T11:46:26Z",
+      "updated_at": "2023-12-19T11:46:26Z",
+      "body": "> > Yes, I thinkwe should use only yarn dev\r\n> \r\n> In that case, could you please update the `README.nd` and `package.json`?\r\n\r\nyes i will do it"
+    },
+    {
+      "id": 1862666936,
+      "user": "IanMayo",
+      "created_at": "2023-12-19T12:25:46Z",
+      "updated_at": "2023-12-19T12:25:46Z",
+      "body": "It _looks-like_ the readme says use `yarn dev` and the package.json says `yarn develop`"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1431404404,
+      "user": "IanMayo",
+      "created_at": "2023-12-19T13:28:33Z",
+      "updated_at": "2023-12-19T13:29:19Z",
+      "body": "Oh,  @lilitkarapetyan - I thought I had to run `yarn storybook` for the storybook to work.  Could you please double-check that `yarn develop` allows Storybook to run?",
+      "path": "README.md",
+      "diff_hunk": "@@ -96,13 +96,13 @@ To enable this we use [nvm (Node Version Manager)](https://github.com/creationix\n \n The top level project contains scripts that are then executed for all packages.\n \n-- `dev` Runs the client and server applications as well as the Storybook application and watches for typescript errors.\n - `lint`  Checks syntax and simple errors in javascript and stylesheet files.\n - `test`  Runs tests in all the packages.\n - `build` Runs the build script in all packages which require building.\n - `start` Runs the complete application in demo mode.\n - `start-client` Only starts the client application.\n - `start-server` Only starts the server application.\n+- `develop` Runs the client and server applications as well as the Storybook application and watches for typescript errors.",
+      "html_url": "https://github.com/serge-web/serge/pull/2716#discussion_r1431404404"
+    },
+    {
+      "id": 1432483658,
+      "user": "IanMayo",
+      "created_at": "2023-12-20T09:42:47Z",
+      "updated_at": "2023-12-20T09:42:47Z",
+      "body": "this doesn't look quite right @lilitkarapetyan \r\n\r\nIt looks like it will run `yarn start` and `yarn watch` in the `client` folder (from `start-client` and `component-dev` respectively)",
+      "path": "package.json",
+      "diff_hunk": "@@ -16,7 +16,7 @@\n     \"install\": \"cd client && yarn install && cd ../executable && yarn install && cd ../server && yarn install\",\n     \"watch\": \"cd client && yarn watch\",\n     \"rebuild\": \"cd client && yarn rebuild-client\",\n-    \"develop\": \"concurrently \\\"yarn component-dev\\\" \\\"yarn start\\\" \",\n+    \"develop\": \"concurrently \\\"yarn component-dev\\\" \\\"yarn start\\\" \\\"yarn storybook\\\"\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2716#discussion_r1432483658"
+    }
+  ],
+  "issue_numbers": [
+    2712
+  ],
+  "issues": [
+    {
+      "id": 2046437444,
+      "number": 2712,
+      "title": "Tidy readme",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-12-18T11:18:59Z",
+      "updated_at": "2024-01-11T10:23:07Z",
+      "closed_at": "2024-01-11T10:23:07Z",
+      "body": "I'm pretty sure our `readme.md` is out of date, particularly since we have moved away from monorepo.\r\n\r\nCould you delete bits that are no longer relevant, and make fixes where things have changed?\r\n\r\nIf you are unsure about how to word the new content, please describe the change in here, and I'll make the change.",
+      "labels": [
+        "enhancement",
+        "Technical Debt"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 206
+}

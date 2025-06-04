@@ -1,0 +1,51 @@
+{
+  "number": 1734,
+  "title": "1719 strip lat longs",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-08-05T15:37:20Z",
+  "updated_at": "2022-08-05T16:50:56Z",
+  "closed_at": "2022-08-05T16:50:55Z",
+  "merged_at": "2022-08-05T16:50:55Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1734",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1734/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1734/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1734",
+  "body": "Fixes #1719\r\nFixes #1727 ",
+  "additions": 1862,
+  "deletions": 1815,
+  "changed_files": 5,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1719
+  ],
+  "issues": [
+    {
+      "id": 1328708838,
+      "number": 1719,
+      "title": "Don't push lat-lngs into Wargame on update",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-04T14:17:47Z",
+      "updated_at": "2022-08-05T16:50:56Z",
+      "closed_at": "2022-08-05T16:50:56Z",
+      "body": "In the client we store/cache the LatLng for h3 cell references - for performance reasons.  This data is stored in the wargame component. One instance of this is for planned routes.\r\n\r\nBut, when the planned route is submitted, and the wargame updated, we shouldn't let the lat/lngs got into the wargame. They're quite verbose, and consume a lot of space.\r\n\r\nI _think_ there's a clever TypeScript trick to make a copy of another object, minus one parameter.  Aah, maybe that's just when defining an interface.  We'll probably just have to use spread operator to make a copy, but with the lat-lng list set to `[]`. Hmm, I'd rather just omit the parameter.  _Maybe_ there is a place after all to use the TypeScript `restriction` trick to ensure the object we generate includes the necessary parameters.",
+      "labels": [
+        "bug",
+        "4watu"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 5,
+  "total_changed_lines": 3677
+}

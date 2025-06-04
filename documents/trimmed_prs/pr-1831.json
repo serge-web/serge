@@ -1,0 +1,140 @@
+{
+  "number": 1831,
+  "title": "1787: Refactor new message component",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-09T14:56:31Z",
+  "updated_at": "2022-09-13T09:49:01Z",
+  "closed_at": "2022-09-13T09:49:00Z",
+  "merged_at": "2022-09-13T09:49:00Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1831",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1831/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1831/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1831",
+  "body": "Fixes #1787 \r\n\r\n",
+  "additions": 861,
+  "deletions": 500,
+  "changed_files": 36,
+  "labels": [],
+  "comments_count": 9,
+  "review_comments_count": 2,
+  "total_comments": 11,
+  "comments_data": [
+    {
+      "id": 1242152384,
+      "user": "IanMayo",
+      "created_at": "2022-09-09T15:53:14Z",
+      "updated_at": "2022-09-09T15:53:14Z",
+      "body": "Thanks for this @lebaphi \r\n\r\nThe Heroku build is failing. The same error prevents me running `yarn storybook`.  My guess is that it's failing with this import. Experimenting.\r\n![image](https://user-images.githubusercontent.com/1108513/189390997-fecbaabb-df8a-480c-b463-44ae6830cb32.png)\r\n"
+    },
+    {
+      "id": 1242215682,
+      "user": "lebaphi",
+      "created_at": "2022-09-09T16:47:39Z",
+      "updated_at": "2022-09-09T16:47:39Z",
+      "body": "yep, I will check this 🤔 "
+    },
+    {
+      "id": 1242220381,
+      "user": "IanMayo",
+      "created_at": "2022-09-09T16:52:15Z",
+      "updated_at": "2022-09-09T16:52:15Z",
+      "body": "Hello @lebaphi - I've fixed the build issue.  But, before I could `push` I had loads of linter fixes to do.  I _think_ I've got them right.  I've tried to produce a `storybook` for `new-message`, but it's not quite working yet.\r\n\r\nIn `yarn develop`, it looks like I can't send a new message in `Papa Foxtrot` when I'm logged in as `White - Peoples` in the `White Chat` channel.\r\n\r\nI _guess_ it needs more work, but we're getting there :-)"
+    },
+    {
+      "id": 1242599183,
+      "user": "lebaphi",
+      "created_at": "2022-09-10T02:34:19Z",
+      "updated_at": "2022-09-10T02:34:19Z",
+      "body": "> In yarn develop, it looks like I can't send a new message in Papa Foxtrot when I'm logged in as White - Peoples in the White Chat channel.\r\n\r\nahh sorry, I forgot to remove the debug flag, I think it works now\r\n\r\n>I've tried to produce a storybook for new-message, but it's not quite working yet.\r\n\r\nI'm working on it now"
+    },
+    {
+      "id": 1242609657,
+      "user": "lebaphi",
+      "created_at": "2022-09-10T03:42:54Z",
+      "updated_at": "2022-09-10T08:30:19Z",
+      "body": "I think component works but the style is not applied, because NewMessage2 is using global style the same way it works in client packages, so we need to re-implement the style for this component, as component scope, what do you think? @IanMayo \r\n\r\n\r\nhttps://user-images.githubusercontent.com/26705621/189467298-6f076d63-1500-489f-82da-2f7623c4813b.mp4\r\n\r\n\r\n\r\n\r\n"
+    },
+    {
+      "id": 1242989406,
+      "user": "IanMayo",
+      "created_at": "2022-09-11T15:34:27Z",
+      "updated_at": "2022-09-11T15:34:27Z",
+      "body": ">  so we need to re-implement the style for this component, as component scope, what do you think?\r\n\r\nSorry @lebaphi - I don't know the answer. What do you recommend?"
+    },
+    {
+      "id": 1242995209,
+      "user": "lebaphi",
+      "created_at": "2022-09-11T16:07:44Z",
+      "updated_at": "2022-09-11T16:07:44Z",
+      "body": "@IanMayo, I mean NewMessage2 doesn't use styles imported from styles.module.scss like other components, it uses styles from common css files. Therefore, it only works with yarn develop, not storybook. So if you want to apply styles in storybook, we need to migrate the style from global to style.module.scss (component scope)."
+    },
+    {
+      "id": 1242996656,
+      "user": "IanMayo",
+      "created_at": "2022-09-11T16:16:28Z",
+      "updated_at": "2022-09-11T16:18:21Z",
+      "body": "it would be good for stories to have proper styling. I'll review this again tomorrow.\nYou can make the styles changes in this branch, if you like :-)"
+    },
+    {
+      "id": 1244836459,
+      "user": "lebaphi",
+      "created_at": "2022-09-13T03:04:22Z",
+      "updated_at": "2022-09-13T03:04:22Z",
+      "body": "> Aah, @lebaphi - I could do with help from you here, please. I can't handle the T/S to pass saveMessage in the props below. Could you help me out, and get it working please?\r\n\r\nupdated @IanMayo "
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 968215073,
+      "user": "IanMayo",
+      "created_at": "2022-09-12T09:54:22Z",
+      "updated_at": "2022-09-12T09:54:22Z",
+      "body": "Aah, @lebaphi - I could do with help from you here, please.  I can't handle the T/S to pass `saveMessage` in the props below. Could you help me out, and get it working please?",
+      "path": "packages/components/src/local/form-elements/new-message/index.stories-inc.tsx",
+      "diff_hunk": "@@ -0,0 +1,70 @@\n+import { MessageDetails } from '@serge/custom-types'\n+import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'\n+import { noop } from 'lodash'\n+import React from 'react'\n+import NewMessage2 from './index'\n+import docs from './README.md'\n+\n+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>\n+\n+export default {\n+  title: 'local/form-elements/NewMessage2',\n+  component: NewMessage2,\n+  decorators: [wrapper],\n+  parameters: {\n+    readme: {\n+      content: docs\n+    },\n+    options: {\n+      showPanel: true\n+    },\n+    controls: {\n+      expanded: true\n+    }\n+  },\n+  argTypes: {\n+    privateMessage: {\n+      description: 'Provide private message (umpire force)',\n+      control: {\n+        type: 'boolean'\n+      }\n+    },\n+    orderableChannel: {\n+      description: 'Whether messages are shown in order',\n+      control: {\n+        type: 'boolean'\n+      }\n+    },\n+    confirmCancel: {\n+      description: 'Whether player has to confirm cancelling a message',\n+      control: {\n+        type: 'boolean'\n+      }\n+    }\n+  }\n+}\n+\n+export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => (): Function => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1831#discussion_r968215073"
+    },
+    {
+      "id": 968220257,
+      "user": "lebaphi",
+      "created_at": "2022-09-12T09:59:43Z",
+      "updated_at": "2022-09-12T09:59:43Z",
+      "body": "sure @IanMayo \r\n",
+      "path": "packages/components/src/local/form-elements/new-message/index.stories-inc.tsx",
+      "diff_hunk": "@@ -0,0 +1,70 @@\n+import { MessageDetails } from '@serge/custom-types'\n+import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'\n+import { noop } from 'lodash'\n+import React from 'react'\n+import NewMessage2 from './index'\n+import docs from './README.md'\n+\n+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>\n+\n+export default {\n+  title: 'local/form-elements/NewMessage2',\n+  component: NewMessage2,\n+  decorators: [wrapper],\n+  parameters: {\n+    readme: {\n+      content: docs\n+    },\n+    options: {\n+      showPanel: true\n+    },\n+    controls: {\n+      expanded: true\n+    }\n+  },\n+  argTypes: {\n+    privateMessage: {\n+      description: 'Provide private message (umpire force)',\n+      control: {\n+        type: 'boolean'\n+      }\n+    },\n+    orderableChannel: {\n+      description: 'Whether messages are shown in order',\n+      control: {\n+        type: 'boolean'\n+      }\n+    },\n+    confirmCancel: {\n+      description: 'Whether player has to confirm cancelling a message',\n+      control: {\n+        type: 'boolean'\n+      }\n+    }\n+  }\n+}\n+\n+export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => (): Function => {",
+      "html_url": "https://github.com/serge-web/serge/pull/1831#discussion_r968220257"
+    }
+  ],
+  "issue_numbers": [
+    1787
+  ],
+  "issues": [
+    {
+      "id": 1355757790,
+      "number": 1787,
+      "title": "Refactor NewMessage to be component based",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-30T13:16:27Z",
+      "updated_at": "2022-09-13T09:49:05Z",
+      "closed_at": "2022-09-13T09:49:05Z",
+      "body": "We currently only use `<NewMessage/>` from the `client` package, where it is stored.\r\n\r\nBut, I need to access it from the `components` package. So, we should refactor it to match the structure of our `components`, and create a story/spec to test it.\r\n\r\nIf possible, we should refactor `MessageCreator` to the new `Component` model at the same time.\r\n\r\nIt looks like both elements are already TypeScript, we just need to match our new way of building things.\r\n\r\nWe could (temporarily) call the new version `<NewMessage2/>` during testing. Once it's accepted, we drop the existing `NewMessage` and rename `NewMessage2` to `NewMessage`.",
+      "labels": [
+        "4p9",
+        "T-H"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/189390997-fecbaabb-df8a-480c-b463-44ae6830cb32.png"
+  ],
+  "number_of_changed_files": 36,
+  "total_changed_lines": 1361
+}

@@ -1,0 +1,52 @@
+{
+  "number": 2154,
+  "title": "2131 total interactions",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-12-02T13:12:00Z",
+  "updated_at": "2022-12-02T15:22:44Z",
+  "closed_at": "2022-12-02T15:22:43Z",
+  "merged_at": "2022-12-02T15:22:43Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2154",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2154/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2154/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2154",
+  "body": "First testable release\r\n\r\nFixes #2131",
+  "additions": 129,
+  "deletions": 57,
+  "changed_files": 7,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2131
+  ],
+  "issues": [
+    {
+      "id": 1453694542,
+      "number": 2131,
+      "title": "Give feedback on rough number of interactions remaining",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-17T17:10:38Z",
+      "updated_at": "2022-12-02T15:22:44Z",
+      "closed_at": "2022-12-02T15:22:44Z",
+      "body": "The adjudicators would like to roughly know how many interactions remain to be adjudicated.\r\n\r\nWhen I did an exhaustive search, I knew that.  Now we have the quick-run implementation we don't know - since we only consider for the next hour.\r\n\r\nMaybe add an extra button for the adjudicator to be able to request the number of remaining interactions - that they choose when to click, and are happy for the delay while the maths runs.",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-M"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 7,
+  "total_changed_lines": 186
+}

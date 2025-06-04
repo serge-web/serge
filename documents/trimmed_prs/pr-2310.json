@@ -1,0 +1,83 @@
+{
+  "number": 2310,
+  "title": "Clustering_defer_asset_icon_creation",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2023-02-01T11:13:21Z",
+  "updated_at": "2023-02-02T12:32:00Z",
+  "closed_at": "2023-02-02T12:08:53Z",
+  "merged_at": null,
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2310",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2310/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2310/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2310",
+  "body": "Fixes #2280 ",
+  "additions": 53,
+  "deletions": 11,
+  "changed_files": 3,
+  "labels": [
+    "4p9"
+  ],
+  "comments_count": 1,
+  "review_comments_count": 2,
+  "total_comments": 3,
+  "comments_data": [
+    {
+      "id": 1411908971,
+      "user": "IanMayo",
+      "created_at": "2023-02-01T11:30:31Z",
+      "updated_at": "2023-02-01T14:39:16Z",
+      "body": "I'm away from my desk right now, so can't check the detail. But the code looks like you are providing a function to create the `cluster` icon.  I was hoping to provide a function to only create the `asset` icon when it's actually required.\r\n\r\nBut, I think I have caused the problem.  In the issue I link to the demo code to create the cluster icon - I mis-read the code.  I have posted `create icon using a function` as an issue in the MarkerCluster repo.\r\n\r\n**Update**: ok, I've checked.  This PR generates custom marker clusters, not custom icons.\r\n\r\nBut, the code will be useful in #2291 - where we will shade the clusters according to the force."
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1094276298,
+      "user": "IanMayo",
+      "created_at": "2023-02-02T09:49:50Z",
+      "updated_at": "2023-02-02T09:49:50Z",
+      "body": "@lilitkarapetyan - I won't be merging this PR, since it's the Markers I wanted to defer, not the clusters.\r\n\r\nBut, I do want to create cluster markers using the existing force colors.\r\n\r\nThis code shows how to specify a color using CSS.  But, can you give me the JS code to make the marker a specific color?  eg: `#f0f`",
+      "path": "packages/components/src/local/organisms/planning-force/index.tsx",
+      "diff_hunk": "@@ -19,9 +17,26 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect\n   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])\n   const { assetsCache } = useContext(SupportPanelContext)\n \n+  const createIcon = () => {\n+    return {\n+      iconCreateFunction: function (cluster: MarkerCluster) {",
+      "html_url": "https://github.com/serge-web/serge/pull/2310#discussion_r1094276298"
+    },
+    {
+      "id": 1094320126,
+      "user": "IanMayo",
+      "created_at": "2023-02-02T10:16:24Z",
+      "updated_at": "2023-02-02T10:16:24Z",
+      "body": "No, forget that @lilitkarapetyan  - I've found how to do it :-D",
+      "path": "packages/components/src/local/organisms/planning-force/index.tsx",
+      "diff_hunk": "@@ -19,9 +17,26 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect\n   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])\n   const { assetsCache } = useContext(SupportPanelContext)\n \n+  const createIcon = () => {\n+    return {\n+      iconCreateFunction: function (cluster: MarkerCluster) {",
+      "html_url": "https://github.com/serge-web/serge/pull/2310#discussion_r1094320126"
+    }
+  ],
+  "issue_numbers": [
+    2291
+  ],
+  "issues": [
+    {
+      "id": 1555454962,
+      "number": 2291,
+      "title": "Switch to one planning-force per force",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-01-24T18:18:00Z",
+      "updated_at": "2023-02-06T12:23:34Z",
+      "closed_at": "2023-02-06T12:23:34Z",
+      "body": "For the clustered icons we show the cluster icon shaded in a color.\r\n\r\nCurrently the clusters are green/yellow/amber depending upon the cluster size.\r\n\r\nInstead, we should to per-force clusters, and shade the clusters according to the force color.\r\n\r\nNote: we should still not cluster `selected` assets.\r\n\r\nNote 2: @lilitkarapetyan has mastered over-riding the cluster function here:\r\nhttps://github.com/serge-web/serge/pull/2310/files#diff-0cd02d4e329c4ead1df64feffa5033f1d7088832d26603502eb94f3da176f71fR20\r\n\r\nI guess we have these requirements:\r\n- component receives:\r\n    - asset-rows for this view\r\n    - selected assets\r\n    - filtered assets (may be contents of filtered or current assets lists)\r\n- if subject force === player force or player is umpire then\r\n    - collate all assets\r\n    - also render range-rings (phase 2)\r\n    - do not cluster selected assets\r\n- else\r\n    - decide perception of asset\r\n    - render asset according to perception \r\n    - do not cluster selected assets\r\n",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 64
+}

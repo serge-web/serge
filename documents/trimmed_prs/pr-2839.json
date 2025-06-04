@@ -1,0 +1,53 @@
+{
+  "number": 2839,
+  "title": "2838 health for new mil sym features",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-02-09T10:41:10Z",
+  "updated_at": "2024-02-09T11:00:13Z",
+  "closed_at": "2024-02-09T11:00:12Z",
+  "merged_at": "2024-02-09T11:00:12Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2839",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2839/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2839/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2839",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nFixes #2838 \r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 3,
+  "deletions": 3,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2838
+  ],
+  "issues": [
+    {
+      "id": 2126795662,
+      "number": 2838,
+      "title": "No 'Health bar' and 'Health' properties for new MilSymbol item",
+      "state": "closed",
+      "user": "Tristina1788",
+      "created_at": "2024-02-09T09:48:30Z",
+      "updated_at": "2024-02-09T11:00:13Z",
+      "closed_at": "2024-02-09T11:00:13Z",
+      "body": "## 🐞 Bug description\r\nAny MilSymbol item should has 'Health bar' and 'Health' properties \r\n\r\n## 🔢 Steps to Reproduce\r\nSteps to reproduce the behavior:\r\n1. Play game with data wargame-l6nngxlk\r\n2. Click on channel 'Core Mapping'\r\n3. Draw new item MilSymbol\r\n4. Notice this new item MilSymbol doesn't have 'Health bar' and 'Health' properties \r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/2deb7410-7d13-4a38-bf1a-7f2434f8c6f9)\r\n\r\n\r\n## ⚙️ Expected behavior\r\nAny MilSymbol item should has 'Health bar' and 'Health' properties\r\n\r\n![image](https://github.com/serge-web/serge/assets/107697044/804217fa-4e3c-4cff-b950-426ee74281c5)\r\n\r\n\r\n## 🖥️ Screenshots\r\n\r\n\r\n## 💻 System information\r\n - Browser : Chrome\r\n - Browser Version : Version 120.0.6099.111\r\n\r\n## 📝 Additional context\r\n\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/107697044/2deb7410-7d13-4a38-bf1a-7f2434f8c6f9",
+    "https://github.com/serge-web/serge/assets/107697044/804217fa-4e3c-4cff-b950-426ee74281c5"
+  ],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 6
+}

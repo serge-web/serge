@@ -1,0 +1,95 @@
+{
+  "number": 2151,
+  "title": "Allow_tiles_to_be_pulled_from_data_folde",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-29T17:45:23Z",
+  "updated_at": "2022-11-30T11:00:12Z",
+  "closed_at": "2022-11-30T11:00:11Z",
+  "merged_at": "2022-11-30T11:00:11Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2151",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2151/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2151/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2151",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 11,
+  "deletions": 0,
+  "changed_files": 1,
+  "labels": [
+    "enhancement",
+    "4p9",
+    "T-H"
+  ],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1331938168,
+      "user": "IanMayo",
+      "created_at": "2022-11-30T10:27:42Z",
+      "updated_at": "2022-11-30T10:27:42Z",
+      "body": "Hello @lilitkarapetyan - I'm going to test this.\r\n\r\nCan you tell me where I put the folder of tiles?\r\n\r\nThe unpacked executable has these folders:\r\n```\r\n- root\r\n-- executable-xx\r\n-- node_sqlite3.node\r\n-- serge\r\n--- data\r\n--- db\r\n--- img\r\n```\r\n\r\nWhen I look at the server handler, it looks like it is going up a folder `../` then down into `data`.  That would mean the tiles should go into a folder call `data` that sits in the `root` folder in the above tree."
+    },
+    {
+      "id": 1331945501,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-30T10:34:10Z",
+      "updated_at": "2022-11-30T10:34:10Z",
+      "body": "> \r\n\r\n\r\n\r\n> Hello @lilitkarapetyan - I'm going to test this.\r\n> \r\n> Can you tell me where I put the folder of tiles?\r\n> \r\n> The unpacked executable has these folders:\r\n> \r\n> ```\r\n> - root\r\n> -- executable-xx\r\n> -- node_sqlite3.node\r\n> -- serge\r\n> --- data\r\n> --- db\r\n> --- img\r\n> ```\r\n> \r\n> When I look at the server handler, it looks like it is going up a folder `../` then down into `data`. That would mean the tiles should go into a folder call `data` that sits in the `root` folder in the above tree.\r\n\r\nI am working on it now "
+    },
+    {
+      "id": 1331951885,
+      "user": "IanMayo",
+      "created_at": "2022-11-30T10:39:45Z",
+      "updated_at": "2022-11-30T10:39:45Z",
+      "body": "> \r\n> I am working on it now\r\n\r\nAaah, I think I've found out, by experimentation.  The tile-folder just goes in the current `data` folder.  That's neat :-)\r\n"
+    },
+    {
+      "id": 1331960255,
+      "user": "lilitkarapetyan",
+      "created_at": "2022-11-30T10:47:13Z",
+      "updated_at": "2022-11-30T10:47:13Z",
+      "body": "> > I am working on it now\r\n> \r\n> Aaah, I think I've found out, by experimentation. The tile-folder just goes in the current `data` folder. That's neat :-)\r\n\r\nplace the `tiles `folder in the `data ` folder if you want to test"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2150
+  ],
+  "issues": [
+    {
+      "id": 1464732541,
+      "number": 2150,
+      "title": "Allow tiles to be pulled from `data` folder",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-25T16:15:13Z",
+      "updated_at": "2022-12-12T12:13:07Z",
+      "closed_at": "2022-12-12T12:13:07Z",
+      "body": "For the next wargame the players have a 450Mb folder of tiles, down to a small resolution.  We can't _build_ this into Serge like we do with the current `public` folder.\r\n\r\nFor our `executable` instance of Serge, when it is first run, it unpacks a `data` folder, and gets its data from there.\r\n\r\nSo, we need to modify the `server.js` so that it is able to get tiles from the `data` folder.  It's ok for us to provide a new API for this. Maybe `\\tiles\\:folder\\:z\\:y\\:x.png` (or however it's constructed :-) ).\r\n\r\nThis will be the `success` for this issue:\r\n- run `pkg-build` to create self-installing Serge\r\n- run `serge.exe` (or whatever it is called)\r\n- note that `serge\\data` folder has been created\r\n- from Serge sources, copy a tile-map from `client\\public` folder (such as `atlantic_tiles`) into `data`\r\n- rename tile-map folder to be `test_tiles`\r\n- open serge wargame `wargame-l6nngxlk.sqlite`\r\n- find latest wargame (`infotype`)\r\n- navigate to `planning channel`, and change the `tileLayer.url` to be `\"./test_tiles/{z}/{x}/{y}.png\",`\r\n- run the wargame, navigate to the atlantic, check the tiles are shown\r\n",
+      "labels": [
+        "enhancement",
+        "4p9",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1346370311,
+          "user": "IanMayo",
+          "created_at": "2022-12-12T12:13:07Z",
+          "updated_at": "2022-12-12T12:13:07Z",
+          "body": "Done"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 11
+}

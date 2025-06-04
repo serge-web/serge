@@ -1,0 +1,51 @@
+{
+  "number": 2033,
+  "title": "2021 show routes for edited orders",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-09T20:38:37Z",
+  "updated_at": "2022-12-01T11:18:53Z",
+  "closed_at": "2022-12-01T11:18:52Z",
+  "merged_at": "2022-12-01T11:18:52Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2033",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2033/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2033/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2033",
+  "body": "Supports #2021 \r\n\r\nin-progress.  Needs to use new strategy for concept of `current assets/orders` and `selected assets/orders`, as recorded in #2035 ",
+  "additions": 33,
+  "deletions": 12,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    2021
+  ],
+  "issues": [
+    {
+      "id": 1441690343,
+      "number": 2021,
+      "title": "Show geometry when a set of orders is expanded",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-09T08:57:50Z",
+      "updated_at": "2022-11-21T17:08:48Z",
+      "closed_at": "2022-11-21T17:08:48Z",
+      "body": "When we expand the detail on a set of orders, we should show the geometries for the orders.\r\n\r\nBut, we need to `intercept` the `editActivity` call, and switch off the geometry - since the editable version is about to appear.\r\n\r\nSimilarly, when the new geometry is saved, we should switch to rendering the `draft` geometry.  On `Save` or `Cancel` we just drop the rendered geometry.",
+      "labels": [
+        "enhancement",
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 45
+}

@@ -1,0 +1,60 @@
+{
+  "number": 1815,
+  "title": "1776 delete info markers",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-02T10:50:49Z",
+  "updated_at": "2022-09-02T14:21:56Z",
+  "closed_at": "2022-09-02T14:21:55Z",
+  "merged_at": "2022-09-02T14:21:55Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1815",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1815/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1815/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1815",
+  "body": "Fixes #1776 \r\n\r\nI've reproduced the issue, but not reliably.\r\n\r\nSeparately, this PR introduces a current snapshot from the wargame.",
+  "additions": 2915,
+  "deletions": 11,
+  "changed_files": 9,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1776
+  ],
+  "issues": [
+    {
+      "id": 1337155373,
+      "number": 1776,
+      "title": "Can't delete Info Marker",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-08-12T12:37:14Z",
+      "updated_at": "2022-09-02T14:21:56Z",
+      "closed_at": "2022-09-02T14:21:56Z",
+      "body": "An umpire deleted an Information Marker.\r\n\r\nOn the next turn, the information marker was still there.\r\n\r\nNote: this happens in the adjudication stage. I _think_ it's the act of accepting some route(s) that clears the info marker update.\r\n\r\nNote: I also added a marker, and it was lost on next turn.\r\n\r\nThis issue is challenging to reproduce.",
+      "labels": [
+        "bug",
+        "4watu",
+        "T-H"
+      ],
+      "comments": [
+        {
+          "id": 1235434209,
+          "user": "IanMayo",
+          "created_at": "2022-09-02T12:19:50Z",
+          "updated_at": "2022-09-02T12:43:00Z",
+          "body": "Possibly related to #1775"
+        }
+      ]
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 9,
+  "total_changed_lines": 2926
+}

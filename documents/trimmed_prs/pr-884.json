@@ -1,0 +1,55 @@
+{
+  "number": 884,
+  "title": "883 Trial with high volume of messages",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-06-28T18:58:32Z",
+  "updated_at": "2021-06-28T19:37:28Z",
+  "closed_at": "2021-06-28T19:37:27Z",
+  "merged_at": "2021-06-28T19:37:27Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/884",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/884/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/884/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/884",
+  "body": "Supports #883 \r\n\r\nThe wargame has around 150 messages. But some clients are take 5 seconds to respond.\r\n\r\nI've created a mock wargame with a high number of messages (180). They are simpler than the ones the users currently have, but they are enough to display the desired behaviour.\r\n\r\nIt can take several seconds to change tabs.\r\n\r\nHere is a link to white game control, notice the lag in changing channels: https://serge-complex-messages-fbernb2.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev\r\n\r\nHere is a link to red-2, which isn't in any high-volume channels: https://serge-complex-messages-fbernb2.herokuapp.com/?wargame=wargame-kqgy546g&access=p3d3n",
+  "additions": 0,
+  "deletions": 0,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    883
+  ],
+  "issues": [
+    {
+      "id": 931871305,
+      "number": 883,
+      "title": "Performance impact with over 150 messages",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-06-28T18:58:00Z",
+      "updated_at": "2021-06-29T09:19:43Z",
+      "closed_at": "2021-06-29T09:19:43Z",
+      "body": "The users have a wargame with around 150 messages. Some are up to a page long.\r\n\r\nThe client can be unresponsive at times.  The clock only moves forward once every 9 seconds.  It can take 5 seconds to switch tabs.\r\n\r\nWhen they type, it can take a few seconds before text starts to appear.\r\n\r\nI've mocked up a similar scenario: `CMDWK-HIGH DATA`\r\n\r\nHere is the clock. Notice sometimes is jumps two seconds:\r\n![screencast](https://i.gyazo.com/5d9e4bf7304fc31bb8c9fbc22e23c587.gif)\r\n\r\nMy _gut-feeling_ is that the UI is re-rendering on each clock-tick.\r\n\r\nHere is the delay when switching between tabs:\r\n![switch between tabs](https://i.gyazo.com/7f78bcb7f6f7a91ab243f25a82f41f80.gif)\r\n\r\nI've just tried typing in a long message, one second at a time. There is a pause in the typing once every 5 seconds.\r\n![delay in processing text chars](https://i.gyazo.com/c87bf52ed934b3ddc5752c9a101b8efb.gif)\r\n\r\nAah, that delay may be related.  When we open the app, there is a delay of 1-2 seconds while it renders the channels on the left-hand side.  If the _heartbeat_ causes it all to re-render, then that would introduce a further delay.  _maybe_ once there are enough messages it can take more than 5 seconds, causing the re-renders to stack up.\r\n![pause on load](https://i.gyazo.com/59eaf91c4574ac19676f866198cba144.gif)\r\n\r\nHere is a link to white game control, notice the lag in changing channels: https://serge-review.herokuapp.com/?wargame=wargame-kqgy546g&access=pkoiqu5ev\r\n\r\nHere is a link to red-2, which isn't in any high-volume channels: https://serge-review.herokuapp.com/?wargame=wargame-kqgy546g&access=p3d3n",
+      "labels": [
+        "bug"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/5d9e4bf7304fc31bb8c9fbc22e23c587.gif",
+    "https://i.gyazo.com/7f78bcb7f6f7a91ab243f25a82f41f80.gif",
+    "https://i.gyazo.com/c87bf52ed934b3ddc5752c9a101b8efb.gif",
+    "https://i.gyazo.com/59eaf91c4574ac19676f866198cba144.gif"
+  ],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 0
+}

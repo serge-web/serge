@@ -1,0 +1,114 @@
+{
+  "number": 687,
+  "title": "RFI status board component",
+  "state": "closed",
+  "merged": false,
+  "created_at": "2021-04-23T11:37:53Z",
+  "updated_at": "2022-07-11T13:29:42Z",
+  "closed_at": "2021-04-26T17:42:11Z",
+  "merged_at": null,
+  "author": {
+    "login": "sanjayradadiya",
+    "html_url": "https://github.com/sanjayradadiya"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/687",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/687/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/687/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/687",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nissue #680\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\nPR contains only creation of RFI status board component and integration of that component into client side app.\r\nwe just added component and removed existing `RfiStatusboard` from client and added newly create component there.\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 155,
+  "deletions": 11,
+  "changed_files": 10,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 5,
+  "total_comments": 5,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 620098376,
+      "user": "IanMayo",
+      "created_at": "2021-04-26T08:51:17Z",
+      "updated_at": "2021-04-26T17:41:14Z",
+      "body": "aren't we importing the styles?",
+      "path": "packages/components/src/local/rfi-status-board/index.tsx",
+      "diff_hunk": "@@ -1,22 +1,27 @@\n import React from 'react'\n import { Badge, DataTable, RfiForm } from '@serge/components'\n import { MessageCustom } from '@serge/custom-types/message'\n-import { CollaborativeMessageStates} from '@serge/config'\n+import { CollaborativeMessageStates } from '@serge/config'\n import { ChannelData } from '@serge/custom-types'\n \n-const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], roles: string[], channels: Array<ChannelData>} }) => {\n+/* Import Types */\n+import Props from './types/props'\n \n+/* Import Stylesheet */\n+// import styles from './styles.module.scss'",
+      "html_url": "https://github.com/serge-web/serge/pull/687#discussion_r620098376"
+    },
+    {
+      "id": 620173829,
+      "user": "sanjayradadiya",
+      "created_at": "2021-04-26T10:34:12Z",
+      "updated_at": "2021-04-26T17:41:14Z",
+      "body": "style will be imported in the same component but in next PR because we did more refactor on that PR #689 ",
+      "path": "packages/components/src/local/rfi-status-board/index.tsx",
+      "diff_hunk": "@@ -1,22 +1,27 @@\n import React from 'react'\n import { Badge, DataTable, RfiForm } from '@serge/components'\n import { MessageCustom } from '@serge/custom-types/message'\n-import { CollaborativeMessageStates} from '@serge/config'\n+import { CollaborativeMessageStates } from '@serge/config'\n import { ChannelData } from '@serge/custom-types'\n \n-const RfiStatusBoard = ({ rfiData}: { rfiData: {rfiMessages:MessageCustom[], roles: string[], channels: Array<ChannelData>} }) => {\n+/* Import Types */\n+import Props from './types/props'\n \n+/* Import Stylesheet */\n+// import styles from './styles.module.scss'",
+      "html_url": "https://github.com/serge-web/serge/pull/687#discussion_r620173829"
+    },
+    {
+      "id": 620504446,
+      "user": "IanMayo",
+      "created_at": "2021-04-26T17:29:42Z",
+      "updated_at": "2021-04-26T17:41:14Z",
+      "body": "@sanjayradadiya  - this component doesn't add any functionality to RFIStatusBoard. \r\n\r\nIt just passes the data through.\r\n\r\nWe don't need it, do we?",
+      "path": "packages/client/src/Components/RfiStatusBoardChannel.tsx",
+      "diff_hunk": "@@ -0,0 +1,13 @@\n+import React from 'react'",
+      "html_url": "https://github.com/serge-web/serge/pull/687#discussion_r620504446"
+    },
+    {
+      "id": 620506637,
+      "user": "sanjayradadiya",
+      "created_at": "2021-04-26T17:32:36Z",
+      "updated_at": "2021-04-26T17:41:14Z",
+      "body": "we are passing all states related data through this component so we make it separate from other channel components.\r\n\r\nInstead of maintaining all logic inside factory helper we can delegate some part here.",
+      "path": "packages/client/src/Components/RfiStatusBoardChannel.tsx",
+      "diff_hunk": "@@ -0,0 +1,13 @@\n+import React from 'react'",
+      "html_url": "https://github.com/serge-web/serge/pull/687#discussion_r620506637"
+    },
+    {
+      "id": 620513366,
+      "user": "IanMayo",
+      "created_at": "2021-04-26T17:42:16Z",
+      "updated_at": "2021-04-26T17:42:16Z",
+      "body": "Do we need this component though?  Can't we just use RfiStatusBoard in factory.tsx? ",
+      "path": "packages/client/src/Components/RfiStatusBoardChannel.tsx",
+      "diff_hunk": "@@ -0,0 +1,13 @@\n+import React from 'react'",
+      "html_url": "https://github.com/serge-web/serge/pull/687#discussion_r620513366"
+    }
+  ],
+  "issue_numbers": [
+    689
+  ],
+  "issues": [
+    {
+      "id": 866808619,
+      "number": 689,
+      "title": "RFI status board changes",
+      "state": "closed",
+      "user": "sanjayradadiya",
+      "created_at": "2021-04-24T18:27:37Z",
+      "updated_at": "2021-04-29T13:13:44Z",
+      "closed_at": "2021-04-29T13:13:43Z",
+      "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\nIssue #680 \r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\nIn this PR we had did some changes on `RfiStatusBoard` component based on feature requested in issue #680 and removed Rfiform and used existing `MessageDetailsRfi` component for handle the all kind of function the same way as we are handling on RFI message channel.\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n![image](https://user-images.githubusercontent.com/16476120/115971782-07bde780-a568-11eb-97c4-41aa5b8397eb.png)\r\n\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+      "labels": [],
+      "comments": [
+        {
+          "id": 828979652,
+          "user": "IanMayo",
+          "created_at": "2021-04-29T06:42:32Z",
+          "updated_at": "2021-04-29T06:42:32Z",
+          "body": "I'm not sure where the issue is, but the new Status Board isn't being updated.\r\n\r\nI'm in the Game `IMWARC with RFI`, as `Logistics`.   I can click on the first RFI and see this:\r\n![image](https://user-images.githubusercontent.com/1108513/116510492-eab54b80-a8bc-11eb-8378-004fefe95527.png)\r\n\r\nI then click on `Take Ownership`. But, the RFI does not change.\r\n\r\nIf I refresh the page and log in again, it shows the new status:\r\n![image](https://user-images.githubusercontent.com/1108513/116510603-133d4580-a8bd-11eb-9d70-6a3824be04a1.png)\r\n\r\nOther logged in users also don't see the update.  Note: the status of the RFI _is_ updated in the `BLUE RFI` channel.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/116511506-724f8a00-a8be-11eb-9df7-4ecb9b971a6f.png)\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/16476120/115971782-07bde780-a568-11eb-97c4-41aa5b8397eb.png",
+    "https://user-images.githubusercontent.com/1108513/116510492-eab54b80-a8bc-11eb-8378-004fefe95527.png",
+    "https://user-images.githubusercontent.com/1108513/116510603-133d4580-a8bd-11eb-9d70-6a3824be04a1.png",
+    "https://user-images.githubusercontent.com/1108513/116511506-724f8a00-a8be-11eb-9df7-4ecb9b971a6f.png"
+  ],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 166
+}

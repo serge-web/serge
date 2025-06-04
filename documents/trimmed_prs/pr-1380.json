@@ -1,0 +1,68 @@
+{
+  "number": 1380,
+  "title": "MoreInfo component is overridden after dialog",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-03-05T13:58:03Z",
+  "updated_at": "2022-03-08T14:51:36Z",
+  "closed_at": "2022-03-08T14:51:35Z",
+  "merged_at": "2022-03-08T14:51:35Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1380",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1380/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1380/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1380",
+  "body": "Fixes #1368 \r\n\r\n<img width=\"513\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/156886477-6d011d87-73e0-4fd4-af7c-502d8f92351b.png\">\r\n",
+  "additions": 10,
+  "deletions": 7,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1368
+  ],
+  "issues": [
+    {
+      "id": 1159523228,
+      "number": 1368,
+      "title": "MoreInfo component is overridden after dialog",
+      "state": "closed",
+      "user": "lebaphi",
+      "created_at": "2022-03-04T11:05:18Z",
+      "updated_at": "2022-03-08T14:51:35Z",
+      "closed_at": "2022-03-08T14:51:35Z",
+      "body": "We can see the MoreInfo component displays behind the dialog\r\n\r\n![image](https://user-images.githubusercontent.com/26705621/156752115-7baa3fc4-6322-489f-8f1a-2071e8cc62b4.png)\r\n",
+      "labels": [
+        "bug"
+      ],
+      "comments": [
+        {
+          "id": 1059737344,
+          "user": "ShendMikullovci",
+          "created_at": "2022-03-05T10:21:21Z",
+          "updated_at": "2022-03-05T10:21:21Z",
+          "body": "Are you also referring to this: \r\n\r\nhttps://user-images.githubusercontent.com/85491794/156879095-c9c02693-a187-46cf-adb9-ea5efe927d37.mp4\r\n\r\n\r\n"
+        },
+        {
+          "id": 1059744775,
+          "user": "lebaphi",
+          "created_at": "2022-03-05T11:14:08Z",
+          "updated_at": "2022-03-05T11:14:08Z",
+          "body": "Yep, it is @ShendMikullovci 👍 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/156886477-6d011d87-73e0-4fd4-af7c-502d8f92351b.png",
+    "https://user-images.githubusercontent.com/26705621/156752115-7baa3fc4-6322-489f-8f1a-2071e8cc62b4.png"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 17
+}

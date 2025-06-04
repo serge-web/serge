@@ -1,0 +1,81 @@
+{
+  "number": 1517,
+  "title": "1480: Connect to CouchDb backend",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-04-20T05:25:28Z",
+  "updated_at": "2022-04-21T10:29:52Z",
+  "closed_at": "2022-04-21T10:29:51Z",
+  "merged_at": "2022-04-21T10:29:51Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1517",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1517/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1517/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1517",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n#1480\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 225,
+  "deletions": 282,
+  "changed_files": 23,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 2,
+  "total_comments": 2,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 854945942,
+      "user": "IanMayo",
+      "created_at": "2022-04-21T08:54:01Z",
+      "updated_at": "2022-04-21T08:54:01Z",
+      "body": "aah, I thought this meant the query would include `local documents`.  But, I've just googled it, and see it just means to include the whole document for each record. ",
+      "path": "packages/server/providers/couchdb.js",
+      "diff_hunk": "@@ -0,0 +1,188 @@\n+const listeners = {}\n+let addListenersQueue = []\n+\n+const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('../consts')\n+\n+const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env\n+\n+const couchDb = (app, io, pouchOptions) => {\n+  const CouchDB = require('pouchdb-core')\n+  const PouchDB = require('pouchdb-core')\n+    .plugin(require('pouchdb-adapter-node-websql'))\n+    .plugin(require('pouchdb-adapter-http'))\n+    .plugin(require('pouchdb-mapreduce'))\n+    .plugin(require('pouchdb-replication'))\n+    .defaults(pouchOptions)\n+  require('pouchdb-all-dbs')(PouchDB)\n+\n+  app.use('/db', require('express-pouchdb')(PouchDB))\n+\n+  const couchDbURL = (databaseName = '') => {\n+    const dbWithoutSqlite = databaseName.replace(dbSuffix, '')\n+    return `http://${COUCH_ACCOUNT}:${COUCH_PASSWORD}@${COUCH_URL}/${dbWithoutSqlite}`\n+  }\n+\n+  // changesListener\n+  const initChangesListener = (dbName) => {\n+    const db = new CouchDB(couchDbURL(dbName))\n+    // saving listener\n+    listeners[dbName] = db.changes({\n+      since: 'now',\n+      live: true,\n+      timeout: false,\n+      heartbeat: false,\n+      include_docs: true",
+      "html_url": "https://github.com/serge-web/serge/pull/1517#discussion_r854945942"
+    },
+    {
+      "id": 854955262,
+      "user": "IanMayo",
+      "created_at": "2022-04-21T09:03:31Z",
+      "updated_at": "2022-04-21T09:03:31Z",
+      "body": "I'm looking at the CouchDb docs: https://docs.couchdb.org/en/3.2.0/api/database/changes.html\r\n\r\nI don't see the `live` parameter. Is it because we're using an older version?\r\n",
+      "path": "packages/server/providers/couchdb.js",
+      "diff_hunk": "@@ -0,0 +1,188 @@\n+const listeners = {}\n+let addListenersQueue = []\n+\n+const { localSettings, COUNTER_MESSAGE, dbSuffix } = require('../consts')\n+\n+const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env\n+\n+const couchDb = (app, io, pouchOptions) => {\n+  const CouchDB = require('pouchdb-core')\n+  const PouchDB = require('pouchdb-core')\n+    .plugin(require('pouchdb-adapter-node-websql'))\n+    .plugin(require('pouchdb-adapter-http'))\n+    .plugin(require('pouchdb-mapreduce'))\n+    .plugin(require('pouchdb-replication'))\n+    .defaults(pouchOptions)\n+  require('pouchdb-all-dbs')(PouchDB)\n+\n+  app.use('/db', require('express-pouchdb')(PouchDB))\n+\n+  const couchDbURL = (databaseName = '') => {\n+    const dbWithoutSqlite = databaseName.replace(dbSuffix, '')\n+    return `http://${COUCH_ACCOUNT}:${COUCH_PASSWORD}@${COUCH_URL}/${dbWithoutSqlite}`\n+  }\n+\n+  // changesListener\n+  const initChangesListener = (dbName) => {\n+    const db = new CouchDB(couchDbURL(dbName))\n+    // saving listener\n+    listeners[dbName] = db.changes({\n+      since: 'now',\n+      live: true,",
+      "html_url": "https://github.com/serge-web/serge/pull/1517#discussion_r854955262"
+    }
+  ],
+  "issue_numbers": [
+    1480
+  ],
+  "issues": [
+    {
+      "id": 1193052544,
+      "number": 1480,
+      "title": "Connect to CouchDb backend",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-04-05T12:03:08Z",
+      "updated_at": "2022-05-17T09:42:20Z",
+      "closed_at": "2022-05-17T09:42:20Z",
+      "body": "We now have a hosted instance of CouchDb \r\n\r\nI will setup these env vars in the Heroku hosting: `COUCH_ACCOUNT`, `COUCH_PASSWORD`  and `COUCH_URL`\r\n\r\nThe connection URL will then be `http://` + `COUCH_ACCOUNT` + `:` + `COUCH_PASSWORD` + `@` + `COUCH_URL`\r\n\r\nWe can then _either_:\r\n1.  create a CouchDb connector to go to that URL\r\n2. tell the local PouchDb to sync to the remote CouchDb URL\r\n\r\nAah, hold on.  I _don't think_ that `_local` documents sync.  Let me investigate.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/161749746-877900e3-6030-4366-915c-36942a37a6b8.png)\r\n\r\nOk, they don't replicate - so they won't sync to/from `couchdb`.  Instead, I _guess_ we could switch to just using id of `settings` instead of `_local/settings`.\r\n\r\nAah, there is one difference:  `_local/settings` doesn't have a history - so new versions always override old-versions.   The wargames can get quite large, so this may be a problem. So, when we save a new `settings` we should update version and ask Pouchdb do delete/archive the old version.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1128652628,
+          "user": "IanMayo",
+          "created_at": "2022-05-17T09:42:20Z",
+          "updated_at": "2022-05-17T09:42:20Z",
+          "body": "Fixed in #1517 "
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/1108513/161749746-877900e3-6030-4366-915c-36942a37a6b8.png"
+  ],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 507
+}

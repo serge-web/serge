@@ -1,0 +1,30 @@
+{
+  "number": 1941,
+  "title": "Update dependencies, so we can use leaflet.notifications",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-10-18T15:59:57Z",
+  "updated_at": "2022-10-18T16:47:19Z",
+  "closed_at": "2022-10-18T16:47:18Z",
+  "merged_at": "2022-10-18T16:47:18Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1941",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1941/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1941/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1941",
+  "body": "I've got notifications to show, partly fixing the first part of #1940",
+  "additions": 31,
+  "deletions": 23,
+  "changed_files": 4,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 4,
+  "total_changed_lines": 54
+}

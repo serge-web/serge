@@ -1,0 +1,296 @@
+{
+  "number": 1229,
+  "title": "1198 integrate new coa channels",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-12-06T15:10:45Z",
+  "updated_at": "2021-12-07T16:36:51Z",
+  "closed_at": "2021-12-07T16:36:50Z",
+  "merged_at": "2021-12-07T16:36:50Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1229",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1229/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1229/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1229",
+  "body": "Supports #1198",
+  "additions": 430,
+  "deletions": 130,
+  "changed_files": 23,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "issue_numbers": [
+    1198
+  ],
+  "issues": [
+    {
+      "id": 1043886788,
+      "number": 1198,
+      "title": "Customisable Collaborative Working",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2021-11-03T17:37:48Z",
+      "updated_at": "2022-01-05T14:29:28Z",
+      "closed_at": "2022-01-04T17:29:18Z",
+      "body": "We have two current styles of Collaborative Working:\r\n* Collaborative Editing\r\n* Collaborative Responding\r\n\r\nThese support two separate business processes as documented [here](https://docs.google.com/presentation/d/1riB8Qazu34rWeRP6MEHi55jHvIfKr-LyWTkIYmfZ_gw/edit?usp=sharing)\r\n\r\nThe two approaches are hard-coded in Serge, with settings for the available verbs, which is the first (default) state, etc. So, the game designer chooses to add either a \"Collaborative Editing\" or \"Collaborative Responding\" when adding a new channel.\r\n\r\nA more flexible strategy would be for the Game Designer to add a \"Collaborative\" channel, then offer extra UI features to edit the collaborative aspects not found in normal channels.\r\n\r\nShould probably include these steps\r\n* [x] Capture the settings currently hard-coded in Serge\r\n* [x] Consider other ways in which a collaborative channel could be customised/tuned\r\n* [x] Produce [data model](https://github.com/serge-web/serge/pull/1220/files#diff-23474f7ad9b79fea50d456796b02cd7e29ba0b3aa953cef1f913c24bda7d5569) for new channel designs\r\n* [x] Produce UX for the new admin controls\r\n* [x] #1278\r\n* [x] Update display of controls in UI.  Ian suggests switching to a state table, to provide version of [this table](https://docs.google.com/presentation/d/1riB8Qazu34rWeRP6MEHi55jHvIfKr-LyWTkIYmfZ_gw/edit#slide=id.g10135b3f3a4_0_6) that is easier to read than complex if structure.\r\n\r\n\r\nState table implemented [here](https://github.com/serge-web/serge/pull/1220/files#diff-ee67519811d145d751b631fdceecd304f8b77a3218620ef308dde7fc7dce4f36R35)",
+      "labels": [],
+      "comments": [
+        {
+          "id": 970294544,
+          "user": "IanMayo",
+          "created_at": "2021-11-16T13:52:05Z",
+          "updated_at": "2021-11-16T13:52:05Z",
+          "body": "Thoughts captured here:\r\nhttps://docs.google.com/presentation/d/1riB8Qazu34rWeRP6MEHi55jHvIfKr-LyWTkIYmfZ_gw/edit?usp=sharing"
+        },
+        {
+          "id": 986266809,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-05T17:09:53Z",
+          "updated_at": "2021-12-05T17:09:53Z",
+          "body": "Here’s some design ideas!\r\nFirst page shows Channel Properties:\r\n![Collab Working V3 Design Channel Properties](https://user-images.githubusercontent.com/85491794/144756189-2549dbbe-23fb-426c-8d79-86e67755b328.png)\r\n\r\nWe present the name of the channel, message templates, document status and response templates (all editable). \r\nUnder Terminology, we provide the user the ability to enter text for each tab (i.e., “Request Changes”).\r\n\r\nOnce we click on the edit button, the tabs turn to dotted line rectangles and show the following options: \r\n![Collab Working V3 Design Options Channel Properties](https://user-images.githubusercontent.com/85491794/144756199-b309c0c7-d632-4711-abbc-5c1b809045da.png)\r\n\r\nA scroll tab for the message templates list to include all the templates.\r\n\r\nAs we scroll down, we give the user the possibility of adding additional data:\r\n \r\n![Collab Working V3 Design Channel Properties Page 2](https://user-images.githubusercontent.com/85491794/144756207-c48794a7-b858-4066-90a5-8790b83150ff.png)\r\n\r\nClicking on the additional data tab shows the following options (possibly more if needed): \r\n![Collab Working V3 Design Channel Properties Page 2 Options](https://user-images.githubusercontent.com/85491794/144756216-41645bb5-7edc-4624-bc73-5f24457a5c07.png)\r\n\r\nRight under this tab, we scroll down to the permissions side of the page:\r\n\r\n![Collab Working V3 Design Permissions](https://user-images.githubusercontent.com/85491794/144756274-e163c2a2-39b8-49c6-8834-3d44ac6a09d7.png)\r\n\r\nHere, we continue to give the user the possibility of adding new forces and respective permissions. Once added, the rows can also be edited if needed: \r\n\r\n![Collab Working V3 Design Permissions Options](https://user-images.githubusercontent.com/85491794/144756282-619e2ecf-8531-42ec-a1c1-cb475da428a2.png)\r\n\r\nA scrollbar on the tab to include all of the permissions. \r\nThe forces should be shown in their game color once completely added to the channel.\r\n\r\nLet me know your thoughts.\r\n\r\n"
+        },
+        {
+          "id": 986286390,
+          "user": "IanMayo",
+          "created_at": "2021-12-05T19:26:18Z",
+          "updated_at": "2021-12-05T20:41:07Z",
+          "body": "Hi - thanks for this work :-)\r\n\r\n* [ ] For the force/role entries, we need the two toggles in each row. One is for 'Can submit' and the other is for 'Can see live updates'\r\n* [ ] the 'edit/delete' pair of icons relates to the forces/roles, but not the \"channel properties\".  For the \"channel properties\", the controls should all be editable - with changes stored via a \"Save\" button for this channel (like in the \"Overview\" panel).\r\n* [ ]  there is a _little_ logic in putting two template controls next to each other - though we should indicate that the response is editable\r\n* [ ] for `initial document status` I propose a pair of radio buttons\r\n* [ ] For the template lists, we should let the GD extend the list of templates. See the behaviour for `10. Dropdown` [here](https://careerfoundry.com/en/blog/ui-design/ui-element-glossary/). The benefit of this strategy is that the list of templates is visible.\r\n* [ ] For the list of verbs, we should have a list control where new items get added at the bottom. Maybe leave some flexibility in the design for this - and let the devs find a suitable control.\r\n* [ ] `Terminology` - yes, a good decision to try to organise this content.\r\n* [ ] Hopefully we can come up with a more compact layout - so the GD can see the properties at the top, and then the list of participants."
+        },
+        {
+          "id": 989222326,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-08T21:47:09Z",
+          "updated_at": "2021-12-08T21:47:09Z",
+          "body": "_there is a little logic in putting two template controls next to each other - though we should indicate that the response is editable_ --> The dotted rectangles indicate editable fields in the design like in the previous works.\r\n\r\n_For the template lists, we should let the GD extend the list of templates. See the behaviour for 10. Dropdown here. The benefit of this strategy is that the list of templates is visible._ --> Dropdowns actually do the opposite: They don't allow the user to see the entire list while forcing them to select an option (or more) for the list to unfold. From a UX perspective, that doesn't sound optimal.\r\n\r\n_For the list of verbs, we should have a list control where new items get added at the bottom. Maybe leave some flexibility in the design for this - and let the devs find a suitable control._ --> Does this mean that the GD would provide more than 1 verb for \"Request for Changes\", \"Approve\" and \"Release\" each? \r\n\r\n_Hopefully we can come up with a more compact layout - so the GD can see the properties at the top, and then the list of participants._ --> You want to incorporate the player log within the design? "
+        },
+        {
+          "id": 989293127,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-08T22:55:11Z",
+          "updated_at": "2021-12-08T22:55:11Z",
+          "body": "Here are some of the edits:\r\n![Collab Working V3 Design Options Channel Properties](https://user-images.githubusercontent.com/85491794/145303798-1dbba7cd-0ec9-4e6f-9ad3-55e9ad977afb.png)\r\n \r\nAdded the radio buttons. We would have to decide which one of the options (Unallocated vs Pending) is the default option upon opening the admin page. \r\n\r\n![Collab Working V3 Design Permissions](https://user-images.githubusercontent.com/85491794/145304029-21b0cafb-8566-43da-a51a-8a1f417d2ce4.png)\r\n\r\nAdded toggles. Clicking on Edit Row doesn't impact previous toggle status. However, toggles are switched off for non added players (here, Red Leader) and have to be switched on once the player is added. This serves as reinforcement to conscious decision making for the GD.\r\n\r\nAlso added two new buttons, namely Cancel and Save Changes. In normal conditions, I would propose to keep both the Save Changes and Save Channel buttons: Save Changes allows to save modifications done to the settings but doesn't apply the changes to the game before the user hits SAVE CHANNEL. This would allow the user to review the settings to make sure. It's a precautionary feature. \r\n\r\nLet me know your thoughts."
+        },
+        {
+          "id": 989666402,
+          "user": "IanMayo",
+          "created_at": "2021-12-09T09:26:57Z",
+          "updated_at": "2021-12-09T10:46:56Z",
+          "body": "> _there is a little logic in putting two template controls next to each other - though we should indicate that the response is editable_ --> The dotted rectangles indicate editable fields in the design like in the previous works.\r\n\r\nWe don't use dotted rectangles for other editable fields.  I guess it's because other than labels used for organisation, all content on the admin panels is editable.\r\n\r\n> _For the template lists, we should let the GD extend the list of templates. See the behaviour for 10. Dropdown here. The benefit of this strategy is that the list of templates is visible._ --> Dropdowns actually do the opposite: They don't allow the user to see the entire list while forcing them to select an option (or more) for the list to unfold. From a UX perspective, that doesn't sound optimal.\r\n\r\nIn read-only mode, we show a text-list of templates. But, in edit mode we show a drop-down that allows multiple instances to be selected.  An example of multiple templates is for \"Blue & SME\" where the SME can either submit a chat-style comment, or an \"SME Comment\" that has more metadata.\r\n\r\n![screencast](https://i.gyazo.com/8496d75e663c9a6cba1818e9315c2254.gif)\r\n\r\n> _For the list of verbs, we should have a list control where new items get added at the bottom. Maybe leave some flexibility in the design for this - and let the devs find a suitable control._ --> Does this mean that the GD would provide more than 1 verb for \"Request for Changes\", \"Approve\" and \"Release\" each?\r\n\r\nYes.  In the current game, the verbs \"Request Changes\" and \"Endorse\" both move the message back into the unallocated pot.  (\"Approve\" action keeps the message in \"Pending Review\")\r\n\r\n> _Hopefully we can come up with a more compact layout - so the GD can see the properties at the top, and then the list of participants._ --> You want to incorporate the player log within the design?\r\n\r\nOops, no.  In the `Channels` admin page we have the channel-properties at the top, and the list of channel memberships beneath it.  Hopefully we can keep the channel-properties fairly compact, so there is room for GD to review at least 6 memberships without having to scroll down.  This means it's quicker to move through the list of channels to give a high level review."
+        },
+        {
+          "id": 989689755,
+          "user": "IanMayo",
+          "created_at": "2021-12-09T09:56:05Z",
+          "updated_at": "2021-12-09T09:56:25Z",
+          "body": "> Here are some of the edits: ![Collab Working V3 Design Options Channel Properties]\r\n> \r\n> Added the radio buttons. We would have to decide which one of the options (Unallocated vs Pending) is the default option upon opening the admin page.\r\n\r\nI'm not fully decide about this, but I was thinking of still having two \"Create collaborative working channel\", \"Collaborative Edits\" and \"Collaborative Response\".  These would set sensible defaults the new channel.  But, it looks like \"Initial status\" would be the only sensible default to make.   Maybe not then.  Yes, we need to decide the default.  I guess \"Pending Review\" - since from that stage players can still \"Claim\" the message, as if it was in the unallocated pool.\r\n\r\n> ![Collab Working V3 Design Permissions]\r\n> \r\n> Added toggles. Clicking on Edit Row doesn't impact previous toggle status. However, toggles are switched off for non added players (here, Red Leader) and have to be switched on once the player is added. This serves as reinforcement to conscious decision making for the GD.\r\n\r\nWe have two concepts here.  Whether a toggle is \"on\" or \"off\", and whether a toggle is \"disabled\" or \"active\".  Toggles should be disabled when they're not editable. In the screenshot, `White - All roles` is being edited - so the controls are \"active\".   \"Blue - Senior Blue\" isn't being edited, so they should be disabled. \"Red - Red Leader\" is being edited so the controls should be active.  The toggles shouldn't change between \"on\" and \"off\" except for user interaction.\r\n\r\n(the above may be observations on your mockup, rather than your intention/design :-) ).\r\n\r\n> Also added two new buttons, namely Cancel and Save Changes. In normal conditions, I would propose to keep both the Save Changes and Save Channel buttons: Save Changes allows to save modifications done to the settings but doesn't apply the changes to the game before the user hits SAVE CHANNEL. This would allow the user to review the settings to make sure. It's a precautionary feature.\r\n\r\nHmm, this would give 3 levels of \"Save\".  The \"tick\" to the right of the row, the \"Save\" at the bottom, and the \"Save Channel\" at the top.   I _think_ we're ok with just the tick that \"freezes\" the row, and the \"Save Channel\" at the top.  We don't have intermediate \"Save\" buttons for other panels.\r\n\r\n> Let me know your thoughts.\r\n\r\nHappily :-D\r\n"
+        },
+        {
+          "id": 990410733,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-09T23:48:52Z",
+          "updated_at": "2021-12-09T23:48:52Z",
+          "body": "This is what the initial page could look like:\r\n![Collab Working Channel Properties Design](https://user-images.githubusercontent.com/85491794/145490846-0d1a3f77-3c25-465c-afcb-935e8e71a5d7.png)\r\n\r\nChannel Properties at the top of the menu, followed immediately by the Permissions. Toggles are modified to be on/off and enabled/disabled (enabled as brighter with high opacity; disabled as dimmed with low opacity).\r\nDocument Status as Pending for default.\r\n\r\nOnce the user clicks on the message template, the tab becomes editable and shows the currently selected template:\r\n![Dropdown 1 Menu Collab Working Channel Properties Design](https://user-images.githubusercontent.com/85491794/145491291-55c37e05-0c68-4a60-9bfd-402e91329b94.png)\r\n\r\nExpanding the tab pops up a dropdown list containing all of the available templates, with the currently selected template still highlighted: \r\n![Dropdown Menu Collab Working Channel Properties Design](https://user-images.githubusercontent.com/85491794/145491379-e73714a9-3575-4f84-840c-6ef6c1e0eb77.png)\r\n\r\nThe user is then able to select multiple options, each appearing as highlighted once selected: \r\n![Multiple Selection Dropdown Menu Collab Working Channel Properties Design](https://user-images.githubusercontent.com/85491794/145491464-47dc4fdb-e70e-4f86-8c30-b9bb5a125338.png)\r\n\r\nP.S. It would be smooth to have the templates react as the mouse hovers over them without clicking them.\r\n\r\nOnce a selection has been made, the user simply clicks outside the dropdown list and reviews his selection one final time, with a small tick to confirm editing available next to the dropdown arrow:\r\n![Dropdown 3 Collab Working Channel Properties Design](https://user-images.githubusercontent.com/85491794/145492020-879c9f17-087c-4666-8c38-b3882110fccd.png)\r\n\r\nOnce confirmed, the message template text would go back to its previous look (and the response template adjusts accordingly.\r\nThe process is similar for the permissions:\r\n![Collab Working Permissions Design](https://user-images.githubusercontent.com/85491794/145492198-7e294828-9aac-4ba7-bd5c-29a1add9a8a0.png)\r\n\r\nHere, the selected option is highlighted. However, the list provides a small scrollbar. I decided to stick to a scrollbar list because of 2 reasons:\r\n1. Distinguish from the message templates not only in terms of its multiple-choice selection option but also in terms of importance.\r\n2. The descending order of permissions we previously discussed.\r\n\r\nSubmit for Review is removed from the list since we're using toggles.\r\n\r\nAs the user scrolls down, we provide the option to add additional trackable data: \r\n![Additional Data](https://user-images.githubusercontent.com/85491794/145492778-cd3cb3fa-1bc5-4405-8e45-1867e020c218.png)\r\n\r\nWe provide a list of ready-made data titles that could be tracked, as well as the possibility to add more. Checkboxes to activate/deactivate each data set.\r\n\r\nFinally, as the user scrolls down to the bottom, they reach the Terminology feature, where the user can add specific terms for each necessary verb/sentence:\r\n![Terminology](https://user-images.githubusercontent.com/85491794/145493111-c39e2137-fe98-4129-9a10-6fe8a7a0b4d1.png)\r\n\r\nA list of terms under each tab to keep track of the added verbs/sentences. I refrained from adding a couple of terms and using radio buttons because I wasn't sure whether we wanted to provide multiple terms for the same tab and whether we/they want to use multiple at the same time or strictly one at a time.\r\n\r\nLet me know your thoughts.\r\n"
+        },
+        {
+          "id": 990866210,
+          "user": "IanMayo",
+          "created_at": "2021-12-10T10:53:30Z",
+          "updated_at": "2021-12-10T10:53:30Z",
+          "body": "Thanks @ShendMikullovci :-)\r\n\r\n1. `Document status` needs to be re-phrased as `Initial Document Status` to clarify what status it's referring to\r\n2. IMHO we don't need the tick confirmation to accept the new selection of templates. The player hasn't undertaken a particularly complex operation - so there is minimal risk of consequential damage.\r\n3. `Submit for review is removed from the list since we're using toggles`.  These are different submits.  `Can submit` is short for `Can submit new messages` (maybe re-phrase as `Can create new messages`. The one in the permissions list is `Submit for review` - which is different.\r\n4. [verbs at bottom of page]. There is a danger of these being missed, or unknown to the Game Designer.  I'd really like these controls to be in the top of the page.  It's (fairly) clear that with a long list of participants the designer will have to scroll down to view them all.  It's less clear that they may have to scroll down the page to view an additional set of properties.  Hopefully we can come up with a compact way of displaying them all at the top - such as two rows of three [label, control] pairs (see further thoughts below).\r\n5. We could do with a compact UI pattern for the verbs.  How about this?\r\n \r\n![Thoughts on verb editor](https://docs.google.com/drawings/d/e/2PACX-1vTXbYLqKijnrwOawXtuCEfzU0p_QeBKsv0mN6n5sr7IInzx0C8LTYkRORE6463rVUQtoLDDWA_silrb/pub?w=509&h=518)\r\n\r\n \r\nThe format for the channel properties matches the tabular layout of the \"participations\" - with a header row and controls underneath.  I think that if we used a two (or three) column model we could have both sets of properties in a compact way at the top of the page.  Here is the settings tab in Chrome:\r\n![image](https://user-images.githubusercontent.com/1108513/145560478-4afe4d9b-9ace-4490-a497-c6a942a92a7e.png)\r\n"
+        },
+        {
+          "id": 991126236,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-10T16:44:21Z",
+          "updated_at": "2021-12-10T16:44:21Z",
+          "body": "> 2. IMHO we don't need the tick confirmation to accept the new selection of templates. The player hasn't undertaken a particularly complex operation - so there is minimal risk of consequential damage.\r\n\r\nSo the user would simply click outside of the tab for the selection to apply? \r\n\r\n> These are different submits. Can submit is short for Can submit new messages (maybe re-phrase as Can create new messages. The one in the permissions list is Submit for review - which is different.\r\n\r\n\"Creates New Message\" sounds great.\r\n\r\n\r\n> We could do with a compact UI pattern for the verbs. How about this?\r\n\r\nLeaves room for the additional data tab at the end which would look better if it were larger. I'll see what I can do.\r\n"
+        },
+        {
+          "id": 991139705,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-10T17:03:00Z",
+          "updated_at": "2021-12-10T17:03:00Z",
+          "body": "What do you think?\r\n![Terminology 1st page](https://user-images.githubusercontent.com/85491794/145612812-8f5edb27-8151-4fd9-8a03-bcabaeff46db.png)\r\n\r\n"
+        },
+        {
+          "id": 991151489,
+          "user": "IanMayo",
+          "created_at": "2021-12-10T17:18:49Z",
+          "updated_at": "2021-12-10T17:18:49Z",
+          "body": "Thanks @ShendMikullovci :-)\r\n\r\nCould you give an example of what it looks like when one or more verbs have been provided?\r\n\r\n> So the user would simply click outside of the tab for the selection to apply?\r\n\r\nYes, that's kind of what happens with the current multi-select for templates in a channel."
+        },
+        {
+          "id": 991177496,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-10T17:57:10Z",
+          "updated_at": "2021-12-10T17:57:10Z",
+          "body": "In the case where a selection has been made, the tab would look something like this (Approve tab below): \r\n![Made selection](https://user-images.githubusercontent.com/85491794/145618897-c4d49e4e-5f85-47f0-b99b-c53a2ee3b7a8.png)\r\nFull line under the selected terms as opposed to the dotted lines for the empty tabs. Two terms are displayed and the 3 dots render it clickable.\r\n\r\nOnce it's clicked, the full line becomes dotted and the user can add/erase terms, and click the tick to confirm (I don't think a cancel X is necessary for a low effort task like this, the user can simply erase the term):\r\n\r\n![Edited Term Approve](https://user-images.githubusercontent.com/85491794/145619836-01e90f8d-b35d-4dab-a890-c224a84a769d.png)\r\n\r\n\r\nIf we have more than 2 terms here, then we have some options:\r\n![Option 1](https://user-images.githubusercontent.com/85491794/145619084-8a726438-170f-4a9e-ba9f-32261dbe311a.png)\r\n\r\nWe display a dropdown with the terms included and activated ones highlighted in grey (same as for the message templates). This would suggest that multiple terms can be activated/deactivated for a single verb (not sure if that's the case).\r\n\r\n![Option 2](https://user-images.githubusercontent.com/85491794/145619244-fbba96ac-0adb-4d2c-9112-127eacdd27ff.png)\r\n\r\nWe display a list of all the terms that are activated and available. Deactivating here wouldn't exist: you'd have to erase the term.\r\nIf this is a preferred option, I'd also consider adding a scrollbar (depending on how many terms we can go to).\r\n"
+        },
+        {
+          "id": 992320452,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-13T10:27:46Z",
+          "updated_at": "2021-12-13T10:27:46Z",
+          "body": "How do we feel about this?"
+        },
+        {
+          "id": 995008733,
+          "user": "IanMayo",
+          "created_at": "2021-12-15T17:30:02Z",
+          "updated_at": "2021-12-15T17:30:02Z",
+          "body": "Yes, good solution, thanks @ShendMikullovci \r\n\r\nI do think we can reduce the vertical height by putting the labels to the side of the controls: ![screen layout](https://docs.google.com/drawings/d/e/2PACX-1vR4DXRNthVX1-BDe1kqBLpgse3xU-UHS_6S7JgkVZiLRRsYv_z48oIt2meXLf8_aTrYuF1ubUQsg7XO/pub?w=969&h=248)\r\n\r\nI've noted this somewhere else, but I can't find it now. I don't think we need the `Channel Properties` heading label, since it covers all of the child items on the page - so doesn't represent an organisational sub-unit of the controls."
+        },
+        {
+          "id": 995767007,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-16T12:22:53Z",
+          "updated_at": "2021-12-16T12:22:53Z",
+          "body": "How do we feel about this:\r\n\r\n![Channels Resized](https://user-images.githubusercontent.com/85491794/146371215-af7c18ab-9b3f-4c62-ac1d-0373d501fb84.png)\r\n\r\nI tried to squeeze everything as close together as possible without ruining the aesthetic integrity of the page. "
+        },
+        {
+          "id": 995775266,
+          "user": "IanMayo",
+          "created_at": "2021-12-16T12:33:43Z",
+          "updated_at": "2021-12-16T12:33:43Z",
+          "body": "Yes, great.  Sometimes just applying the consistent set of controls from a single library makes it looks tidier, too."
+        },
+        {
+          "id": 997438390,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-19T18:26:35Z",
+          "updated_at": "2021-12-19T18:26:35Z",
+          "body": "Here's the final UX journey:\r\nThe user opens the channel page and sees the following screen: \r\n\r\n![Channels Resized](https://user-images.githubusercontent.com/85491794/146686213-08308c37-7663-4d9e-ba7b-1b8e2d9721c3.png)\r\n \r\nClicking on the message templates tab collapses a dropdown list with multiple options for selection: \r\n![Resized Collapsed Templates](https://user-images.githubusercontent.com/85491794/146686229-f58fdf6e-7101-449c-8450-ca0ca9e43bb2.png)\r\n\r\nOnce selected, the options appeared in a highlighted rectangle with an X button next to it to provide the option to delete:\r\n![Resized Selected Templates](https://user-images.githubusercontent.com/85491794/146686260-048559b6-ddee-4a81-877c-6d1bbce6b9f7.png)\r\n\r\nThey can add terms directly on the screen. Once added, the tab would show the first term added in black and underlined: \r\n![Resized Channels Added Terminology](https://user-images.githubusercontent.com/85491794/146686324-e1c54f89-80d1-48e0-8b9e-5a313c7878ed.png)\r\n\r\nClicking on it collapses a dropdown list including other terms: \r\n![Resized Channels Collapsed Terminology](https://user-images.githubusercontent.com/85491794/146686376-b063014a-274e-43a3-8af1-e7f58252257a.png)\r\n\r\nThe highlighted one indicates the active term. \r\n\r\nScrolling down the page, the user finds the \"Additional Data\" section:\r\n\r\n![Additional Data Tab Selected](https://user-images.githubusercontent.com/85491794/146686445-0ac374f8-0deb-40a3-a50b-5600dd50d9d5.png)\r\n\r\nHere, the user clicks on the tab to view how many data sets have been added and enabled: \r\n![Additional Data Tab Collapsed](https://user-images.githubusercontent.com/85491794/146686471-85538101-7df4-4d12-ad41-88c65e37f9c2.png)\r\n\r\n"
+        },
+        {
+          "id": 997438938,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-19T18:29:15Z",
+          "updated_at": "2021-12-19T18:29:15Z",
+          "body": "Questions: \r\nCan the user select multiple terms for the same verb? \r\nShould we add a description for the Additional Data tab to explain its purpose and how it'll appear in the game?"
+        },
+        {
+          "id": 997800501,
+          "user": "IanMayo",
+          "created_at": "2021-12-20T10:33:54Z",
+          "updated_at": "2021-12-20T10:33:54Z",
+          "body": "Yes, the user can select multiple terms for the same verb.  In the current wargame \"Request changes\" and \"Endorse\" are both used for \"Request changes\".\r\n\r\n**Additional data control** - If this is at the foot of the page I'm afraid it's effectively hidden.  I'd really like us to find a way to have it with the upper block.  Hmm, maybe wait until we have a working design for the page, then see how much space things actually take, and see what we could move around. How does that sound @ShendMikullovci ?"
+        },
+        {
+          "id": 999548739,
+          "user": "ShendMikullovci",
+          "created_at": "2021-12-22T12:42:10Z",
+          "updated_at": "2021-12-22T12:42:10Z",
+          "body": "Sure thing!"
+        },
+        {
+          "id": 1003503776,
+          "user": "lebaphi",
+          "created_at": "2022-01-01T04:34:36Z",
+          "updated_at": "2022-01-01T04:34:45Z",
+          "body": "@IanMayo  @ShendMikullovci, I just have some questions about this\r\n- Can we support multiple for those Dropdown component?\r\n- What is the options list for the Response Template, Request Changes, Approve and Release?\r\n- Where I can get the list of dataset?"
+        },
+        {
+          "id": 1003508074,
+          "user": "lebaphi",
+          "created_at": "2022-01-01T05:15:20Z",
+          "updated_at": "2022-01-01T05:15:20Z",
+          "body": "- On opening the Collab Channel, the new admin panel will appear for edit mode: (it's almost done 85%)\r\nhttps://user-images.githubusercontent.com/26705621/147844387-236b9b78-10b6-44b8-ac02-4ff1bdc11e50.mov\r\n\r\n- So I have a small question for the creation mode, when Add a new Channel with Collab Edit, this form will show as default?\r\n![image](https://user-images.githubusercontent.com/26705621/147844419-5e34b334-1dd1-4f7e-8be8-f9fb3d3396d4.png)\r\n\r\n- The behavior when we click on the Mapping menu item?\r\n"
+        },
+        {
+          "id": 1003574368,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-01T15:31:24Z",
+          "updated_at": "2022-01-01T15:31:24Z",
+          "body": "> @IanMayo @ShendMikullovci, I just have some questions about this\r\n> \r\n> * Can we support multiple for those Dropdown component?\r\n> * What is the options list for the Response Template, Request Changes, Approve and Release?\r\n> * Where I can get the list of dataset?\r\n\r\nI believe we should support multiple choice selection only for dropdowns where the player can select multiple options (such as the \"Terminology\" section).\r\nI believe Ian has the entire list of the terminology to be used. You can find the rest of the information here: \r\nhttps://docs.google.com/presentation/d/1riB8Qazu34rWeRP6MEHi55jHvIfKr-LyWTkIYmfZ_gw/edit#slide=id.g10181784d09_0_0"
+        },
+        {
+          "id": 1003698724,
+          "user": "IanMayo",
+          "created_at": "2022-01-02T11:08:08Z",
+          "updated_at": "2022-01-02T11:08:08Z",
+          "body": "Like the video, nice work @lebaphi \r\n\r\n**Templates**.  For `Message Template` and `Response Template` only one template can be selected from the drop-down list.\r\n\r\n**Approve/Release/Request-Changes**. For these lists, the player needs to be able to add any word.  They are entering the _verb_ to be used when describing the action. e.g. `Request changes` could be used by a number of different business processes, so we need to let the Game. Designer enter a verb that relates to the business process he is supporting.  Note: the lists will start off with a single value in each list - to help the Game Designer understand how things work. But, the Game Designer can delete any of these items, and even leave a list empty (if that type of action isn't required).\r\n\r\n**Additional fields**.  The player will need to be able to add free-text terms to this list. This will (probably) be the id of a field in the template, and we don't know what the fields will be.  So, any word can be added.\r\n\r\n**Mapping**. We still have to design the UI for the mapping admin page. So, for now, just create a _Standard_ channel page (with just the list of roles)."
+        },
+        {
+          "id": 1003852081,
+          "user": "lebaphi",
+          "created_at": "2022-01-03T03:32:13Z",
+          "updated_at": "2022-01-03T03:32:36Z",
+          "body": "> Approve/Release/Request-Changes. For these lists, the player needs to be able to add any word. They are entering the verb to be used when describing the action.\r\n![image](https://user-images.githubusercontent.com/26705621/147897953-b562b80a-d980-428a-8039-16ef302af2c5.png)\r\n\r\nThank @IanMayo, my first think when looking at the design: this is the Select component, and this options list has 3 items as default (`Endorse`, `Strong Endorse` and `Partial Endorse`), I mean how to build this list for each Select component. So you mean the admin can enter new term directly on the Select component and the new entered item will be added to the option list?"
+        },
+        {
+          "id": 1004054392,
+          "user": "IanMayo",
+          "created_at": "2022-01-03T12:18:03Z",
+          "updated_at": "2022-01-03T12:18:03Z",
+          "body": "Yes, it's a challenging UI @lebaphi :-)\r\n\r\nI can't see an example of how to do it via the [Material UI Examples](https://v4.mui.com/components/selects/).  A select is also a poor way of handling multiple-selection fields.  To review the content the Game Designer will have to click on the control to see all of the items it contains. Aaah, we're also not supporting the `Selected` property for the `Select` box. This is a list of all values.  It's **not** a list of possible values, of which _some_ are selected.\r\n\r\nSo, I think we need to move away from the `Select` control - at least for the read-view.\r\n\r\nI guess the control could have separate view and edit modes. In view it's a read only set of labels. When clicked, a text-input dialog opens with a comma-separated list of terms.   Make the edits/changes, then `Cancel` or `Accept` - and the read-only view is updated.\r\n\r\n(This is for the Game Designer, not players, so the UX doesn't have to have maximum efficiency)"
+        },
+        {
+          "id": 1004165172,
+          "user": "lebaphi",
+          "created_at": "2022-01-03T15:22:17Z",
+          "updated_at": "2022-01-03T15:22:17Z",
+          "body": "> Yes, it's a challenging UI @lebaphi :-)\r\n> \r\n> I can't see an example of how to do it via the [Material UI Examples](https://v4.mui.com/components/selects/). A select is also a poor way of handling multiple-selection fields. To review the content the Game Designer will have to click on the control to see all of the items it contains. Aaah, we're also not supporting the `Selected` property for the `Select` box. This is a list of all values. It's **not** a list of possible values, of which _some_ are selected.\r\n> \r\n> So, I think we need to move away from the `Select` control - at least for the read-view.\r\n> \r\n> I guess the control could have separate view and edit modes. In view it's a read only set of labels. When clicked, a text-input dialog opens with a comma-separated list of terms. Make the edits/changes, then `Cancel` or `Accept` - and the read-only view is updated.\r\n> \r\n> (This is for the Game Designer, not players, so the UX doesn't have to have maximum efficiency)\r\n\r\nno worries @IanMayo , let me try with this 😉"
+        },
+        {
+          "id": 1005020072,
+          "user": "lebaphi",
+          "created_at": "2022-01-04T17:23:13Z",
+          "updated_at": "2022-01-04T17:23:13Z",
+          "body": "@IanMayo I found this thing https://mui.com/components/autocomplete. It's also the Select component, search item and add new item to the list. On typing new item, a dropdown will appear like this. I'm working on this.\r\n\r\n![image](https://user-images.githubusercontent.com/26705621/148098514-3efa1da0-a810-40fd-9c78-4fbea8feb857.png)\r\n"
+        },
+        {
+          "id": 1005024547,
+          "user": "IanMayo",
+          "created_at": "2022-01-04T17:29:18Z",
+          "updated_at": "2022-01-04T17:29:18Z",
+          "body": "Nice work @lebaphi .\r\n\r\nOne challenge may be that it effectively needs to be allow multiple items in the list."
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/85491794/144756189-2549dbbe-23fb-426c-8d79-86e67755b328.png",
+    "https://user-images.githubusercontent.com/85491794/144756199-b309c0c7-d632-4711-abbc-5c1b809045da.png",
+    "https://user-images.githubusercontent.com/85491794/144756207-c48794a7-b858-4066-90a5-8790b83150ff.png",
+    "https://user-images.githubusercontent.com/85491794/144756216-41645bb5-7edc-4624-bc73-5f24457a5c07.png",
+    "https://user-images.githubusercontent.com/85491794/144756274-e163c2a2-39b8-49c6-8834-3d44ac6a09d7.png",
+    "https://user-images.githubusercontent.com/85491794/144756282-619e2ecf-8531-42ec-a1c1-cb475da428a2.png",
+    "https://user-images.githubusercontent.com/85491794/145303798-1dbba7cd-0ec9-4e6f-9ad3-55e9ad977afb.png",
+    "https://user-images.githubusercontent.com/85491794/145304029-21b0cafb-8566-43da-a51a-8a1f417d2ce4.png",
+    "https://i.gyazo.com/8496d75e663c9a6cba1818e9315c2254.gif",
+    "https://user-images.githubusercontent.com/85491794/145490846-0d1a3f77-3c25-465c-afcb-935e8e71a5d7.png",
+    "https://user-images.githubusercontent.com/85491794/145491291-55c37e05-0c68-4a60-9bfd-402e91329b94.png",
+    "https://user-images.githubusercontent.com/85491794/145491379-e73714a9-3575-4f84-840c-6ef6c1e0eb77.png",
+    "https://user-images.githubusercontent.com/85491794/145491464-47dc4fdb-e70e-4f86-8c30-b9bb5a125338.png",
+    "https://user-images.githubusercontent.com/85491794/145492020-879c9f17-087c-4666-8c38-b3882110fccd.png",
+    "https://user-images.githubusercontent.com/85491794/145492198-7e294828-9aac-4ba7-bd5c-29a1add9a8a0.png",
+    "https://user-images.githubusercontent.com/85491794/145492778-cd3cb3fa-1bc5-4405-8e45-1867e020c218.png",
+    "https://user-images.githubusercontent.com/85491794/145493111-c39e2137-fe98-4129-9a10-6fe8a7a0b4d1.png",
+    "https://docs.google.com/drawings/d/e/2PACX-1vTXbYLqKijnrwOawXtuCEfzU0p_QeBKsv0mN6n5sr7IInzx0C8LTYkRORE6463rVUQtoLDDWA_silrb/pub?w=509&h=518",
+    "https://user-images.githubusercontent.com/1108513/145560478-4afe4d9b-9ace-4490-a497-c6a942a92a7e.png",
+    "https://user-images.githubusercontent.com/85491794/145612812-8f5edb27-8151-4fd9-8a03-bcabaeff46db.png",
+    "https://user-images.githubusercontent.com/85491794/145618897-c4d49e4e-5f85-47f0-b99b-c53a2ee3b7a8.png",
+    "https://user-images.githubusercontent.com/85491794/145619836-01e90f8d-b35d-4dab-a890-c224a84a769d.png",
+    "https://user-images.githubusercontent.com/85491794/145619084-8a726438-170f-4a9e-ba9f-32261dbe311a.png",
+    "https://user-images.githubusercontent.com/85491794/145619244-fbba96ac-0adb-4d2c-9112-127eacdd27ff.png",
+    "https://docs.google.com/drawings/d/e/2PACX-1vR4DXRNthVX1-BDe1kqBLpgse3xU-UHS_6S7JgkVZiLRRsYv_z48oIt2meXLf8_aTrYuF1ubUQsg7XO/pub?w=969&h=248",
+    "https://user-images.githubusercontent.com/85491794/146371215-af7c18ab-9b3f-4c62-ac1d-0373d501fb84.png",
+    "https://user-images.githubusercontent.com/85491794/146686213-08308c37-7663-4d9e-ba7b-1b8e2d9721c3.png",
+    "https://user-images.githubusercontent.com/85491794/146686229-f58fdf6e-7101-449c-8450-ca0ca9e43bb2.png",
+    "https://user-images.githubusercontent.com/85491794/146686260-048559b6-ddee-4a81-877c-6d1bbce6b9f7.png",
+    "https://user-images.githubusercontent.com/85491794/146686324-e1c54f89-80d1-48e0-8b9e-5a313c7878ed.png",
+    "https://user-images.githubusercontent.com/85491794/146686376-b063014a-274e-43a3-8af1-e7f58252257a.png",
+    "https://user-images.githubusercontent.com/85491794/146686445-0ac374f8-0deb-40a3-a50b-5600dd50d9d5.png",
+    "https://user-images.githubusercontent.com/85491794/146686471-85538101-7df4-4d12-ad41-88c65e37f9c2.png",
+    "https://user-images.githubusercontent.com/26705621/147844419-5e34b334-1dd1-4f7e-8be8-f9fb3d3396d4.png",
+    "https://user-images.githubusercontent.com/26705621/147897953-b562b80a-d980-428a-8039-16ef302af2c5.png",
+    "https://user-images.githubusercontent.com/26705621/148098514-3efa1da0-a810-40fd-9c78-4fbea8feb857.png"
+  ],
+  "number_of_changed_files": 23,
+  "total_changed_lines": 560
+}

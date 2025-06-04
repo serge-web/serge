@@ -1,0 +1,30 @@
+{
+  "number": 1011,
+  "title": "Hotfix/improved collab messages",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2021-08-24T17:07:20Z",
+  "updated_at": "2021-08-26T11:42:08Z",
+  "closed_at": "2021-08-26T11:42:08Z",
+  "merged_at": "2021-08-26T11:42:07Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1011",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1011/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1011/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1011",
+  "body": "Provide some more realistic mock messages, so we can drive `json-editor` parts of Collab-Working",
+  "additions": 274,
+  "deletions": 29,
+  "changed_files": 2,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 0,
+  "total_comments": 0,
+  "images": [],
+  "number_of_changed_files": 2,
+  "total_changed_lines": 303
+}

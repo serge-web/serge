@@ -1,0 +1,184 @@
+{
+  "number": 2987,
+  "title": "2986_As_a_3rd-Party_integrator",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2024-06-26T10:38:08Z",
+  "updated_at": "2024-07-04T15:47:16Z",
+  "closed_at": "2024-07-04T15:47:14Z",
+  "merged_at": "2024-07-04T15:47:14Z",
+  "author": {
+    "login": "lilitkarapetyan",
+    "html_url": "https://github.com/lilitkarapetyan"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2987",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2987/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2987/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2987",
+  "body": "<!-- \r\nPlease ensure that you complete the following mandatory sections:\r\n\r\n- Issue*\r\n- Overview\r\n- Reason*\r\n- Work carried out\r\n- Confirmations\r\n\r\n* Only mandatory if working from a issue\r\n -->\r\n\r\n## 🧰 Issue\r\n<!-- [The issue the work was done for as an issue reference (e.g. `closes #1`)] -->\r\n\r\n\r\n## 🚀 Overview: \r\n<!-- [A summary of what you did in no more than one paragraph] -->\r\n\r\n## 🔗 Link to preview\r\n<!-- [If you're on a project which auto-deploys branches, link to the branches preview link here] -->\r\n\r\n## 🤔 Reason: \r\n<!-- [Why did you do what you did? - This should be copied from the User Story part of the issue if it is available] -->\r\n\r\n## 🔨Work carried out:\r\n\r\n<!-- [A list of work you have done, use [markdown checklist format](https://github.blog/2013-01-09-task-lists-in-gfm-issues-pulls-comments/), if you leave any boxes unchecked, be sure to leave this PR as a draft. If the issue has Acceptance Criteria, you should include those items to show that you have accomplished the goals of the issue ] -->\r\n\r\n- [x] Tests pass\r\n\r\n## 🖥️ Screenshot\r\n<!-- [If the work is UI related then paste a screenshot of the update here. Where possible, please use an animated screenshot.] -->\r\n\r\n## Confirmations\r\n\r\n- [ ] I have chosen reviewers for my PR.\r\n- [ ] I have assigned myself to this PR.\r\n- [ ] I have chosen an appropriate label for the PR.\r\n- [ ] I have completed the mandatory sections of this document.\r\n- [ ] I have deleted any unused sections.\r\n- [ ] I confirm that I have checked for required README updates and acted accordingly.\r\n\r\n## 📝 Developer Notes:\r\n<!-- [Sometimes, extra notes are needed to add clarity to a PR, add them here] -->\r\n\r\n",
+  "additions": 1113,
+  "deletions": 24,
+  "changed_files": 10,
+  "labels": [
+    "4hat"
+  ],
+  "comments_count": 8,
+  "review_comments_count": 1,
+  "total_comments": 9,
+  "comments_data": [
+    {
+      "id": 2194269833,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-27T09:56:00Z",
+      "updated_at": "2024-06-27T09:56:09Z",
+      "body": "Fixes #2986 "
+    },
+    {
+      "id": 2194359983,
+      "user": "IanMayo",
+      "created_at": "2024-06-27T10:42:50Z",
+      "updated_at": "2024-06-27T10:42:50Z",
+      "body": "lilit, it isn't easy to review this. Are we hosting the pages in heroku deployment for this PR? Can I have a link?"
+    },
+    {
+      "id": 2194526060,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-06-27T12:12:49Z",
+      "updated_at": "2024-06-27T12:15:55Z",
+      "body": "> lilit, it isn't easy to review this. Are we hosting the pages in heroku deployment for this PR? Can I have a link?\r\n\r\nYes I will send the heroku url now - https://serge-2986-as-a-3rd-par-nypcs9.herokuapp.com/api-docs/"
+    },
+    {
+      "id": 2205833012,
+      "user": "IanMayo",
+      "created_at": "2024-07-03T11:14:54Z",
+      "updated_at": "2024-07-03T11:16:39Z",
+      "body": "This is great, thanks Lilit.\r\n\r\n1. Do we have to run the server in a special mode to server the documents, or is there a way for the Swagger API to always be visible?  (I don't think it really consumes much CPU)\r\n2. Does `couchdb.js need to be documented?\r\n3. Note: the `storybook` database should be deleted:\r\n![image](https://github.com/serge-web/serge/assets/1108513/cc8b6569-fd9d-454f-83a1-7c288a17c80b)\r\n"
+    },
+    {
+      "id": 2208478323,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-04T09:06:02Z",
+      "updated_at": "2024-07-04T09:06:02Z",
+      "body": "> This is great, thanks Lilit.\r\n> \r\n>     1. Do we have to run the server in a special mode to server the documents, or is there a way for the Swagger API to always be visible?  (I don't think it really consumes much CPU)\r\n> \r\n>     2. Does `couchdb.js need to be documented?\r\n> \r\n>     3. Note: the `storybook` database should be deleted:\r\n>        ![image](https://private-user-images.githubusercontent.com/1108513/345398834-cc8b6569-fd9d-454f-83a1-7c288a17c80b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjAwODQwOTIsIm5iZiI6MTcyMDA4Mzc5MiwicGF0aCI6Ii8xMTA4NTEzLzM0NTM5ODgzNC1jYzhiNjU2OS1mZDlkLTQ1NGYtODNhMS03YzI4OGExN2M4MGIucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDcwNCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA3MDRUMDkwMzEyWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9M2JmN2VlM2JiNWI1YTBkMzkyNjk2ZmY1Mzk5YTYxOWNkODhlZDZhNzgzYjBjNTA0ZDE3MDM3NmNmNWMyY2FhZiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.q-QCd97x80PIuz4ymOC-Cg4ZK9oamfI0acB0fVWPOnM)\r\n\r\nHi @IanMayo , Ir also works for couchDB"
+    },
+    {
+      "id": 2208510907,
+      "user": "IanMayo",
+      "created_at": "2024-07-04T09:21:58Z",
+      "updated_at": "2024-07-04T09:21:58Z",
+      "body": "> It also works for couchDB\r\n\r\nAah, is that because both backends use the same REST API structure, right?"
+    },
+    {
+      "id": 2208526518,
+      "user": "IanMayo",
+      "created_at": "2024-07-04T09:29:42Z",
+      "updated_at": "2024-07-04T09:29:42Z",
+      "body": "Could we have a link in Serge to open the OpenAPI docs? \r\n\r\nI suggest it's another link in the admin pages.  I suggest it's a new button in the left-hand menu of the `Admin` page.  It would go beneath `WELCOME SCREEN`, and be titled `REST API`."
+    },
+    {
+      "id": 2208649093,
+      "user": "lilitkarapetyan",
+      "created_at": "2024-07-04T10:32:45Z",
+      "updated_at": "2024-07-04T10:51:48Z",
+      "body": "> Could we have a link in Serge to open the OpenAPI docs?\r\n> \r\n> I suggest it's another link in the admin pages. I suggest it's a new button in the left-hand menu of the `Admin` page. It would go beneath `WELCOME SCREEN`, and be titled `REST API`.\r\n\r\n@IanMayo , Okay I will add now. \r\nin this section ?\r\n![Screenshot (302)](https://github.com/serge-web/serge/assets/20753599/119715b5-3ca6-432b-80d2-d07ee5e9dd92)\r\n"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1665418795,
+      "user": "IanMayo",
+      "created_at": "2024-07-04T09:25:13Z",
+      "updated_at": "2024-07-04T09:25:13Z",
+      "body": "@lilitkarapetyan - is the `serve-openapi` command there _just-in-case_?\r\n\r\nSo, the API docs are always there, but this command is to just serve the API docs.  Is that right?  If it is, we should add a some comment to the read-me.",
+      "path": "server/package.json",
+      "diff_hunk": "@@ -40,6 +42,7 @@\n   \"scripts\": {\n     \"dev\": \"nodemon main.js\",\n     \"start\": \"node main.js\",\n+    \"serve-openapi\": \"node main.js --openapi\",",
+      "html_url": "https://github.com/serge-web/serge/pull/2987#discussion_r1665418795"
+    }
+  ],
+  "issue_numbers": [
+    2986
+  ],
+  "issues": [
+    {
+      "id": 2364475047,
+      "number": 2986,
+      "title": "As a 3rd-Party integrator I would like to view Swagger documentation for Serge backend",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2024-06-20T13:36:07Z",
+      "updated_at": "2024-07-10T15:25:46Z",
+      "closed_at": "2024-07-10T15:25:46Z",
+      "body": "Through July a university researcher is going to implement 3rd party integration with the Serge backend.\r\n\r\nI have given him the URLs he needs to interact with.\r\n\r\nBut, i would be better for all if the backend APIs were documented with OpenAPI/Swagger.\r\n\r\nIt _should_ also be possible for people to play with test-driving the API from interactive web-pages.\r\n\r\nSo, could we please:\r\n1. Add OpenAPI comments to the routes defined in the server (this would prob also include the Couchdb/PouchDb providers\r\n2. Add build step to build OpenAPI documentation\r\n3. Add `serve-openapi` command to just server the OpenAPI docs (for review)\r\n4. Modify `start` command to server the OpenAPI docs (for developing 3rd party integration)\r\n\r\nI don't mind contributing with the descriptive content, once the bulk of the routes are documented.\r\n",
+      "labels": [
+        "4hat"
+      ],
+      "comments": [
+        {
+          "id": 2210576459,
+          "user": "IanMayo",
+          "created_at": "2024-07-05T09:56:09Z",
+          "updated_at": "2024-07-05T09:56:09Z",
+          "body": "Fixed in #2987"
+        },
+        {
+          "id": 2220339549,
+          "user": "IanMayo",
+          "created_at": "2024-07-10T12:05:42Z",
+          "updated_at": "2024-07-10T12:17:38Z",
+          "body": "@lilitkarapetyan - I've just had a play with this, but couldn't send in new messages.\r\n\r\nHere is what I did:\r\n- checked out `develop`\r\n- ran `yarn install`\r\n- ran `yarn develop`\r\n- (two serge tabs opened 8080, and 3000, together with Story book)\r\n- open Serge instance on port 3000\r\n- enter admin page\r\n- open REST API\r\n- go back to player UI,\r\n- login as red player on this wargame: `wargame-lw7k3gk3`\r\n- send a new mapping message in PUT to the REST API for this wargame (I took a copy of the first whole mapping message (not a delta message) in the SQLite database, and trimmed it down to just one feature)\r\n- with the DevTools network tab open, the message timed out\r\n\r\nOn investigation, I see that while I was running the instance of Serge on port 3000, when I opened the REST tab, it opened on port 8080 (`http://localhost:8080/api-docs/`).  Is that right?  \r\n\r\nCould you help me get to a point where I can send in a anew mapping message via Swagger?"
+        },
+        {
+          "id": 2220348882,
+          "user": "lilitkarapetyan",
+          "created_at": "2024-07-10T12:10:48Z",
+          "updated_at": "2024-07-10T12:10:48Z",
+          "body": "> On investigation, I see that while I was running the instance of Serge on port 3000, when I opened the REST tab, it opened on port 8080 (`http://localhost:8080/api-docs/`). Is that right?\r\n\r\nYes it's works on the server"
+        },
+        {
+          "id": 2220353038,
+          "user": "IanMayo",
+          "created_at": "2024-07-10T12:13:04Z",
+          "updated_at": "2024-07-10T12:13:04Z",
+          "body": "> > On investigation, I see that while I was running the instance of Serge on port 3000, when I opened the REST tab, it opened on port 8080 (`http://localhost:8080/api-docs/`). Is that right?\r\n> \r\n> Yes it's works on the server\r\n\r\nIn that case, I don't know why I couldn't send a new mapping message via Swagger. Could you investigate please?\r\n\r\nNote: I could see in the database that anew message had not been received.  Here is the Network tab:\r\n![image](https://github.com/serge-web/serge/assets/1108513/8ce35cc0-bd79-43eb-9db7-13a1c6b4f536)\r\n\r\n"
+        },
+        {
+          "id": 2220368184,
+          "user": "lilitkarapetyan",
+          "created_at": "2024-07-10T12:20:16Z",
+          "updated_at": "2024-07-10T12:20:46Z",
+          "body": "> In that case, I don't know why I couldn't send a new mapping message via Swagger. Could you investigate please?\r\n\r\nYes I will investigate it "
+        },
+        {
+          "id": 2220448493,
+          "user": "lilitkarapetyan",
+          "created_at": "2024-07-10T12:58:45Z",
+          "updated_at": "2024-07-10T13:04:43Z",
+          "body": "> In that case, I don't know why I couldn't send a new mapping message via Swagger. Could you investigate please?\r\nhttps://gyazo.com/96694bdf90769ff2458ccb3484cdfbb0\r\nYou can try with this data \r\n**wargame:**  `wargame-lw7k3gk3`,  \r\n**Request body** \r\n```\r\n{\r\n    \"_id\": \"2024-07-10T12:41:05.987Za\",\r\n    \"messageType\": \"MappingMessage\",\r\n    \"details\": {\r\n        \"channel\": \"core-mapping\",\r\n        \"from\": {\r\n            \"force\": \"Red\",\r\n            \"forceColor\": \"#F00\",\r\n            \"iconURL\": \"\"\r\n        },\r\n        \"timestamp\": \"2024-07-10T12:41:05.987Z\",\r\n        \"turnNumber\": 1\r\n    },\r\n    \"featureCollection\": {\r\n        \"features\": [\r\n            {\r\n                \"geometry\": {\r\n                    \"coordinates\": [\r\n                        [\r\n                            [\r\n                                -0.03167616558306463,\r\n                                51.50940207305993\r\n                            ],\r\n                            [\r\n                                -0.03167616558306463,\r\n                                51.49266769548318\r\n                            ],\r\n                            [\r\n                                0.03011008273324478,\r\n                                51.49266769548318\r\n                            ],\r\n                            [\r\n                                0.03011008273324478,\r\n                                51.50940207305993\r\n                            ],\r\n                            [\r\n                                -0.03167616558306463,\r\n                                51.50940207305993\r\n                            ]\r\n                        ]\r\n                    ],\r\n                    \"type\": \"Polygon\"\r\n                },\r\n                \"properties\": {\r\n                    \"_type\": \"CoreRenderer\",\r\n                    \"color\": \"#f00\",\r\n                    \"force\": \"f-red\",\r\n                    \"id\": \"bb\",\r\n                    \"important\": \"Yes\",\r\n                    \"label\": \"Barrier\",\r\n                    \"phase\": \"planning\",\r\n                    \"turn\": 1\r\n                },\r\n                \"type\": \"Feature\"\r\n            },\r\n            {\r\n                \"geometry\": {\r\n                    \"coordinates\": [\r\n                        [\r\n                            [\r\n                                -0.1316761655830646,\r\n                                51.52940207305993\r\n                            ],\r\n                            [\r\n                                -0.2316761655830646,\r\n                                51.49266769548318\r\n                            ],\r\n                            [\r\n                                0.03011008273324478,\r\n                                51.53266769548318\r\n                            ]\r\n                        ]\r\n                    ],\r\n                    \"type\": \"Polygon\"\r\n                },\r\n                \"properties\": {\r\n                    \"_type\": \"CoreRenderer\",\r\n                    \"color\": \"#f00\",\r\n                    \"force\": \"f-red\",\r\n                    \"id\": \"ba\",\r\n                    \"important\": \"Yes\",\r\n                    \"label\": \"START LINE\",\r\n                    \"phase\": \"planning\",\r\n                    \"turn\": 1\r\n                },\r\n                \"type\": \"Feature\"\r\n            },\r\n            {\r\n                \"geometry\": {\r\n                    \"coordinates\": [\r\n                        -0.07929841834678086,\r\n                        51.497669733260125\r\n                    ],\r\n                    \"type\": \"Point\"\r\n                },\r\n                \"properties\": {\r\n                    \"_type\": \"MilSymRenderer\",\r\n                    \"category\": \"Civilian\",\r\n                    \"force\": \"f-red\",\r\n                    \"health\": \"90\",\r\n                    \"id\": \"aa\",\r\n                    \"label\": \"Headquarters Building\",\r\n                    \"phase\": \"planning\",\r\n                    \"sidc\": \"SFG-UCI----D\",\r\n                    \"size\": \"M\",\r\n                    \"turn\": 1\r\n                },\r\n                \"type\": \"Feature\"\r\n            },\r\n            {\r\n                \"geometry\": {\r\n                    \"coordinates\": [\r\n                        -0.07929841834678096,\r\n                        51.50966973326012\r\n                    ],\r\n                    \"type\": \"Point\"\r\n                },\r\n                \"properties\": {\r\n                    \"_type\": \"MilSymRenderer\",\r\n                    \"category\": \"Civilian\",\r\n                    \"force\": \"f-red\",\r\n                    \"health\": 100,\r\n                    \"id\": \"ab\",\r\n                    \"label\": \"Military Tailor\",\r\n                    \"phase\": \"planning\",\r\n                    \"sidc\": \"SFG-UCI----D\",\r\n                    \"size\": \"M\",\r\n                    \"turn\": 1\r\n                },\r\n                \"type\": \"Feature\"\r\n            },\r\n            {\r\n                \"geometry\": {\r\n                    \"coordinates\": [\r\n                        -0.08239746093750001,\r\n                        51.550818454754385\r\n                    ],\r\n                    \"type\": \"Point\"\r\n                },\r\n                \"properties\": {\r\n                    \"_externalType\": \"Text\",\r\n                    \"_type\": \"CoreRenderer\",\r\n                    \"category\": \"Civilian\",\r\n                    \"color\": \"#3dd0ff\",\r\n                    \"fontSize\": 14,\r\n                    \"force\": \"f-blue\",\r\n                    \"id\": 309,\r\n                    \"label\": \"some text field\",\r\n                    \"padding\": 0,\r\n                    \"phase\": \"planning\",\r\n                    \"turn\": 1\r\n                },\r\n                \"type\": \"Feature\"\r\n            },\r\n            {\r\n                \"type\": \"Feature\",\r\n                \"properties\": {\r\n                    \"_type\": \"CoreRenderer\",\r\n                    \"_externalType\": \"Text\",\r\n                    \"fontSize\": 14,\r\n                    \"padding\": 0,\r\n                    \"id\": 233,\r\n                    \"phase\": \"adjudication\",\r\n                    \"label\": \"some text goes here\",\r\n                    \"turn\": 1,\r\n                    \"force\": \"f-blue\",\r\n                    \"category\": \"Civilian\",\r\n                    \"color\": \"#3dd0ff\",\r\n                    \"important\": \"Yes\"\r\n                },\r\n                \"geometry\": {\r\n                    \"coordinates\": [\r\n                        -0.08102416992187501,\r\n                        51.576642811561605\r\n                    ],\r\n                    \"type\": \"Point\"\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"Feature\",\r\n                \"properties\": {\r\n                    \"_type\": \"MilSymRenderer\",\r\n                    \"sidc\": \"SFG-UCI----D\",\r\n                    \"size\": \"M\",\r\n                    \"health\": 100,\r\n                    \"id\": 277,\r\n                    \"phase\": \"adjudication\",\r\n                    \"label\": \"Red\",\r\n                    \"turn\": 1,\r\n                    \"force\": \"f-red\",\r\n                    \"category\": \"Civilian\",\r\n                    \"color\": \"#F00\"\r\n                },\r\n                \"geometry\": {\r\n                    \"coordinates\": [\r\n                        0.06660461425781251,\r\n                        51.632083558391066\r\n                    ],\r\n                    \"type\": \"Point\"\r\n                }\r\n            },\r\n            {\r\n                \"type\": \"Feature\",\r\n                \"properties\": {\r\n                    \"_type\": \"MilSymRenderer\",\r\n                    \"sidc\": \"SFG-UCI----D\",\r\n                    \"size\": \"M\",\r\n                    \"health\": 100,\r\n                    \"id\": 390,\r\n                    \"phase\": \"adjudication\",\r\n                    \"label\": \"Red\",\r\n                    \"turn\": 1,\r\n                    \"force\": \"f-red\",\r\n                    \"category\": \"Civilian\",\r\n                    \"color\": \"#F00\"\r\n                },\r\n                \"geometry\": {\r\n                    \"coordinates\": [\r\n                        0.1792144775390625,\r\n                        51.615884803202704\r\n                    ],\r\n                    \"type\": \"Point\"\r\n                }\r\n            }\r\n        ],\r\n        \"type\": \"FeatureCollection\"\r\n    }\r\n}\r\n```\r\n\r\n[](https://gyazo.com/96694bdf90769ff2458ccb3484cdfbb0)"
+        },
+        {
+          "id": 2220460599,
+          "user": "IanMayo",
+          "created_at": "2024-07-10T13:04:28Z",
+          "updated_at": "2024-07-10T13:05:00Z",
+          "body": "Aah, so was the issue because the `_id` was missing?\r\n\r\n(yes - it looks like it was)"
+        },
+        {
+          "id": 2220819815,
+          "user": "IanMayo",
+          "created_at": "2024-07-10T15:25:46Z",
+          "updated_at": "2024-07-10T15:25:46Z",
+          "body": "Close. Check for id in `put` recorded in #2994"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://github.com/serge-web/serge/assets/1108513/cc8b6569-fd9d-454f-83a1-7c288a17c80b",
+    "https://private-user-images.githubusercontent.com/1108513/345398834-cc8b6569-fd9d-454f-83a1-7c288a17c80b.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MjAwODQwOTIsIm5iZiI6MTcyMDA4Mzc5MiwicGF0aCI6Ii8xMTA4NTEzLzM0NTM5ODgzNC1jYzhiNjU2OS1mZDlkLTQ1NGYtODNhMS03YzI4OGExN2M4MGIucG5nP1gtQW16LUFsZ29yaXRobT1BV1M0LUhNQUMtU0hBMjU2JlgtQW16LUNyZWRlbnRpYWw9QUtJQVZDT0RZTFNBNTNQUUs0WkElMkYyMDI0MDcwNCUyRnVzLWVhc3QtMSUyRnMzJTJGYXdzNF9yZXF1ZXN0JlgtQW16LURhdGU9MjAyNDA3MDRUMDkwMzEyWiZYLUFtei1FeHBpcmVzPTMwMCZYLUFtei1TaWduYXR1cmU9M2JmN2VlM2JiNWI1YTBkMzkyNjk2ZmY1Mzk5YTYxOWNkODhlZDZhNzgzYjBjNTA0ZDE3MDM3NmNmNWMyY2FhZiZYLUFtei1TaWduZWRIZWFkZXJzPWhvc3QmYWN0b3JfaWQ9MCZrZXlfaWQ9MCZyZXBvX2lkPTAifQ.q-QCd97x80PIuz4ymOC-Cg4ZK9oamfI0acB0fVWPOnM",
+    "https://github.com/serge-web/serge/assets/20753599/119715b5-3ca6-432b-80d2-d07ee5e9dd92",
+    "https://github.com/serge-web/serge/assets/1108513/8ce35cc0-bd79-43eb-9db7-13a1c6b4f536"
+  ],
+  "number_of_changed_files": 10,
+  "total_changed_lines": 1137
+}

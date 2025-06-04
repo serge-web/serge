@@ -1,0 +1,310 @@
+{
+  "number": 1357,
+  "title": "1291 Add popup to edit the form attribute value",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-02-24T08:48:10Z",
+  "updated_at": "2022-02-24T16:05:12Z",
+  "closed_at": "2022-02-24T16:05:11Z",
+  "merged_at": "2022-02-24T16:05:11Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1357",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1357/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1357/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1357",
+  "body": "Fixes #1291 ",
+  "additions": 369,
+  "deletions": 57,
+  "changed_files": 19,
+  "labels": [],
+  "comments_count": 4,
+  "review_comments_count": 0,
+  "total_comments": 4,
+  "comments_data": [
+    {
+      "id": 1049663271,
+      "user": "lebaphi",
+      "created_at": "2022-02-24T09:37:25Z",
+      "updated_at": "2022-02-24T09:37:25Z",
+      "body": "<img width=\"547\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/155498257-29fb31c7-4e0a-4173-8460-e240c604aef8.png\">\r\n\r\nWhen the list is too long, it will enable the scroll bar."
+    },
+    {
+      "id": 1049664448,
+      "user": "IanMayo",
+      "created_at": "2022-02-24T09:38:46Z",
+      "updated_at": "2022-02-24T09:38:46Z",
+      "body": "Thanks @lebaphi - I'll take over this for a while. We need some attributes to not be editable by player, but all of them editable by umpire. I also want to display more data. I'll have a play :-)\r\n"
+    },
+    {
+      "id": 1049889305,
+      "user": "IanMayo",
+      "created_at": "2022-02-24T14:01:34Z",
+      "updated_at": "2022-02-24T14:01:34Z",
+      "body": "I have a remaining issue in here @lebaphi .\r\n\r\nThere is a z-order like issue with the attribute editor:\r\n![image](https://user-images.githubusercontent.com/1108513/155538324-03330641-c140-4fd4-a307-47777f002b4b.png)\r\n\r\nThe list of assets is being shown over it.\r\n"
+    },
+    {
+      "id": 1050008332,
+      "user": "IanMayo",
+      "created_at": "2022-02-24T16:02:31Z",
+      "updated_at": "2022-02-24T16:02:31Z",
+      "body": "Great, thanks @lebaphi "
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    1291
+  ],
+  "issues": [
+    {
+      "id": 1091840178,
+      "number": 1291,
+      "title": "Variable Tracking UX/UI",
+      "state": "closed",
+      "user": "ShendMikullovci",
+      "created_at": "2022-01-01T15:50:00Z",
+      "updated_at": "2022-02-24T16:05:11Z",
+      "closed_at": "2022-02-24T16:05:11Z",
+      "body": "Questions to be addressed for the variable tracking UX/UI: \r\n\r\nEssentially, what do we want the player to feel and be able to do when playing with assets (vehicles) on the map? \r\n\r\n1. Do we want the player to have/feel full control with a major focus on the asset itself? Tunnel vision focused on the vehicle selected?\r\n\r\n2. Do we want the player to have (and feel that they have) thorough visibility of the resources of each asset? Can that be another lever for the game? Could the White Force choose not to show some of the resources that an asset has at a specific time? etc.\r\n \r\n3. Do we want the player to have (and feel that they have) partial control of the asset with a major focus on the map? Do we want asset resources visible but not overbearing, so a clear and dominating perception/view of the map is maintained?\r\n\r\nThese questions beg the following ones: \r\n- How important is the surrounding information when making a decision for an asset? \r\n- Does the importance of the surrounding information when making a decision for an asset change according to asset type?\r\n- Do other assets' status, location, resources (etc.) come into play when making a decision? To what degree?\r\n- Can asset goals temporarily (or permanently) overcome mission goals?\r\n\r\nDepending on the answers to these questions, we can come up with different designs for (and essentially, a different feel of) variable tracking.",
+      "labels": [],
+      "comments": [
+        {
+          "id": 1003700382,
+          "user": "IanMayo",
+          "created_at": "2022-01-02T11:21:57Z",
+          "updated_at": "2022-01-02T12:02:56Z",
+          "body": "I've tried to capture some high level concepts [here](https://docs.google.com/presentation/d/1H4HQ1Tf8UgxY6Rzt4zVk8g7OmWiJumkojIbbxHQRTmc/edit?usp=sharing).  Once we've thought it through a little more I'll invite input from stakeholders.\r\n\r\nOnce we have that (agreed) high level understanding the answers to your above questions may come more clear."
+        },
+        {
+          "id": 1006463152,
+          "user": "IanMayo",
+          "created_at": "2022-01-06T10:40:36Z",
+          "updated_at": "2022-01-06T10:40:47Z",
+          "body": "Have invited power-user to review slides. He came back with this:\r\n\r\n===\r\nAppreciate you getting in touch about this, sounds like an interesting development. Definitely a good step to help SERGE become an even more powerful wargaming tool.\r\n\r\nTaking the example of the WW2 conflict, I can see a few uses within a wargame like that:\r\n\r\n**Per Force**: Using a variable to track all of your available resources, number of vessels left, and perhaps more abstract variables (as described in the presentation) like force morale or will to fight. \r\nAs a \"one up\" from the role variables, this might allow for something like a 'variable list' which shows me all of the roles 'below me' and some basic variables about their overall status. Perhaps this is an organised list (similar to the RFI/COA tool in PFT) where I have a list of X roles, and columns showing \"X/Y ships remaining\" or some other basic overview that will give me a sense of how that Role, and their subordinate elements are faring.\r\n\r\n**Per Role**: This adds interesting opportunities for a commander/player with responsibility for only a sub-set of the whole force to easily keep track of what only they need to know about and are responsible for. Given the collaborative nature of SERGE, this would no doubt prove useful to help multi-player games run smoothly and without information overload.\r\nAs a player in a role with overview of let's say, 25 out of 100 of the forces overall vessels, this could allow me to have a similar list to the Force level, but providing me information of the high level variables relevant to the assets under my command. Say for example a list where I might be able to filter by vessel type, or order by X variable ascending/descending (fuel, for example, to see which assets are most in need of resupply).\r\n\r\n**Per Asset**: Often the difficulty in wargames with lots of moving parts is simply tracking what is going on, what information you have about a given unit and situation - being able to easily access, store, change and display this is always useful and when implemented well it can dramatically speed up gameplay and allow for players to spend brainpower on the useful things you want to explore, rather than spending it on simply understanding things to arrive at a place they can make decisions.  As a Player, I would envisage something like: I click on X ship at Y position on the map. Relevant variables pop up showing me the information I need to understand the status of that ship, its resources and weapons available. This gives me the information I need to determine what I will then do with it in the turn.\r\n\r\nBeing able to then update any of these given variables in an adjudication phase presents really interesting opportunities for wargaming - adjudication often being one of the more difficult and time consuming aspects of the process, any tool which allows for adjudication decisions to both be presented to the player and captured simultaneously will speed up gameplay and provide a better output. Whilst it wouldn't be an exact proxy, the way in which COAs are currently handed back and forth for comment and have changes/comments tracked could be a useful means of also recording some of the 'why' behind variable changes/adjudication decisions within SERGE. Whilst this wouldn't be appropriate for say, every single variable change that might happen during adjudication, it would be useful in some instances for specific events.\r\n\r\nI think that whilst variables within the wargame itself give powerful 'gameplay' opportunities, I think where they would shine is if these variables were tracked across the wargame turns/time, and were in some manner easily accessible for data analysis. Discrete snapshots of all the given variables at a given point in time would allow for powerful (and relatively simple) post game analysis - if for example you could pull all the data from across all 10 turns of a wargame (for example) and then break that down into various graphs or plots by variable, and by turn. For example, if I wanted to plot the losses of a given force across the turns, or the losses of a given roles assets, the number of torpedoes fired on a given turn etc etc. that could be very useful to provide supporting data to the post-game analysis. If I then wanted to use that to do something like compare the impact of a performance uplift or new concept in torpedo capability versus existing capability, you could re-run the same wargame and use the data alongside gameplay insights to help provide better analysis.\r\n\r\nI'm also trying to imagine a use case for variables in a PFT style game, or a less 'map focused' and more discussion based wargame where SERGE could be used to aid gameplay or data capture. I think that becomes a little more nebulous, but variables would still have value if you had some metrics or resources at the player/role level that you wanted to track in some way.\r\n\r\n==="
+        },
+        {
+          "id": 1011216510,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-12T16:17:08Z",
+          "updated_at": "2022-01-12T16:17:08Z",
+          "body": "This is excellent feedback. We should have a call to discuss this more thoroughly."
+        },
+        {
+          "id": 1019523351,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-23T16:49:03Z",
+          "updated_at": "2022-01-23T16:49:50Z",
+          "body": "Here's an initial idea: \r\n\r\n![Variable Tracking](https://user-images.githubusercontent.com/85491794/150688822-d2b4c833-b10a-4c8b-b7bd-5dd2c2092805.png)\r\n\r\n![Variable Tracking 2](https://user-images.githubusercontent.com/85491794/150688828-ea552800-7b60-4995-8caa-24ec13e3455e.png)\r\n\r\nWe add the resource tracker to the asset tab on the mapping page. It's an intuitive addition and feels user-friendly. The user scrolls down to see active (ticked box) resources being tracked vs inactive ones. As they scroll, the name of the asset and its force icon remain pinned to the top of the tab to maintain awareness. They can also add resources to track if necessary. If difficult to code, we can come up with a design through the admin page as well. Let me know your thoughts.  \r\n"
+        },
+        {
+          "id": 1020108826,
+          "user": "IanMayo",
+          "created_at": "2022-01-24T13:36:18Z",
+          "updated_at": "2022-01-24T13:40:29Z",
+          "body": "ah, if this is for specifying what resources an asset can have - then we'll do that from the admin page, since it's a one-off operation that happens before the game starts..  IMHO, the lists of resources are per-vessel-type. So, we'll do that from the `Platform Types` tab in the admin.\r\n\r\nBut, when it comes to modifying the value of each resource, that changes with time - so would happen in the game-page for `Game Controller` role.  Having a `resources` section of the `View asset` panel would a quite acceptable way of managing it, with these changes:\r\n* all resources for that platform-type will be present\r\n* There won't be checkboxes\r\n* each will have an empty text-field for the value of that resource to go into (only editable if this is Game Control) player\r\n* there won't be `Add resource` at the bottom\r\n\r\nSimilarly, for game players, they would have a read-only version of the above panel for their own assets."
+        },
+        {
+          "id": 1020581684,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-24T21:48:42Z",
+          "updated_at": "2022-01-24T21:48:42Z",
+          "body": "Sounds great. It would look something like this in the View Asset Panel: \r\n\r\n![View Asset Pannel Resources](https://user-images.githubusercontent.com/85491794/150870330-a536de86-846a-420d-b6ee-2abf3365239c.png)\r\n\r\nOn the other hand, here's an idea for the admin page: \r\n\r\n![Admin Page Resources Platform Types](https://user-images.githubusercontent.com/85491794/150870408-e7265dfb-6031-48c0-8394-139e93c84853.png)\r\n\r\nThe toggle button would activate/deactivate tracking for each added resource. The default value is 100 in this design (maximum). Has the client provided a unity of measure and concrete values per resource?\r\n"
+        },
+        {
+          "id": 1020994489,
+          "user": "IanMayo",
+          "created_at": "2022-01-25T09:44:28Z",
+          "updated_at": "2022-01-25T09:44:28Z",
+          "body": "> The toggle button would activate/deactivate tracking for each added resource.\r\n\r\nIMHO letting the game designer toggle resources on and off for a platform-type is more customisation than is necessary.  The Game Designer will only add the resources he requires for the platform-type.  \r\n\r\nNote; we do need to be clear on units.  The units could be in the resource title `Max speed (kts)` - but that allows the Game Designer to forget to provide units. So, IMHO it would be better to include a `Units` field for each resource.\r\n\r\n> Has the client provided a unity of measure and concrete values per resource?\r\n\r\nSorry, it's the opposite :-). They have indicated they want to be able to provide any units and any type(s) of values.  If we start off with integer values we can extend the types of value supported as required.\r\n"
+        },
+        {
+          "id": 1021672343,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-25T22:33:22Z",
+          "updated_at": "2022-01-25T22:33:22Z",
+          "body": "In an effort to keep the tab simple and clean, I replaced the toggle feature with the unit feature. Also, I got rid of the garbage bin button since there's an X button that deletes the resource just the same. In this screenshot, the maximum personnel capacity would be 100 and there is 50 personnel in the vessel. \r\n\r\n![Resources Edit](https://user-images.githubusercontent.com/85491794/151070623-03270165-2deb-4c34-aada-960c82475f09.png)\r\n"
+        },
+        {
+          "id": 1022042392,
+          "user": "IanMayo",
+          "created_at": "2022-01-26T09:59:50Z",
+          "updated_at": "2022-01-26T09:59:50Z",
+          "body": "Thanks @ShendMikullovci  :-)\r\n1. I think we need a box for the unit of measure to be entered. In this case the military shortcoming for `people` is `pax`. But, another resource could be `Kts` (knots of speed), `items` (or torpedoes) or `tonnes` (for fuel)\r\n2. The game interpreting `50/100` as two separate values is fragile - in case the Game Designer uses a different separator.  So, a more robust method is to provide two text boxes.  Hmm, but in this first version, how about we don't specify an upper limit?   We let the player enter any value?"
+        },
+        {
+          "id": 1022663226,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-26T22:30:43Z",
+          "updated_at": "2022-01-26T22:30:43Z",
+          "body": "How do we feel about this: \r\n\r\n![New Resource Box](https://user-images.githubusercontent.com/85491794/151257660-000a4d6d-d996-40fa-b285-087736352953.png)\r\n\r\nWith all 3 variables being editable, we give the user a lot of maneuverability over what they want to track. Added the confirm, edit and delete buttons. Also added the displace button on the left-hand side. Rearranging the order here would ideally rearrange the order in-game as well."
+        },
+        {
+          "id": 1023036089,
+          "user": "IanMayo",
+          "created_at": "2022-01-27T09:57:36Z",
+          "updated_at": "2022-01-27T09:57:36Z",
+          "body": "Yes, good - though we may not have all that space.\r\n\r\nOne suggestion - `Quantity` should be `Default value`.  This is the definition of `Vehicles` for `Platform-Type`.  So, for a `platform-type` of `Ferry` the default value could be 50.  Then when the Game Designer adds two `Ferry` assets called `MV Coast Hopper` and `MV Island Hopper` to `Red Force` it will have a `Vehicles` resource - with a value of 50. But, then the Game Designer can change the value of one to `30` and leave the other as `50`.\r\n\r\nAah, larger issue.  I don't think we can use `Resources`.  This feature could be used for something like `Morale` or `Political Support`.  `Resources` is great for fuel, bombs, bullets, etc - but it doesn't work for these more abstract concepts.  I'm happy for us to carry on considering the best word, but I think `Variables` is the best I can think of right now."
+        },
+        {
+          "id": 1024031169,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T09:22:17Z",
+          "updated_at": "2022-01-28T09:22:17Z",
+          "body": "> Yes, good - though we may not have all that space.\r\n\r\nI'll see if I can shrink it.\r\n\r\n> One suggestion - `Quantity` should be `Default value`. This is the definition of `Vehicles` for `Platform-Type`. So, for a `platform-type` of `Ferry` the default value could be 50. Then when the Game Designer adds two `Ferry` assets called `MV Coast Hopper` and `MV Island Hopper` to `Red Force` it will have a `Vehicles` resource - with a value of 50. But, then the Game Designer can change the value of one to `30` and leave the other as `50`.\r\n\r\nCan you please provide a list of the variables to track, with the names of all the assets as well as the appropriate values like we discussed? It would help me with understanding the general concept better.\r\n\r\n> Aah, larger issue. I don't think we can use `Resources`. This feature could be used for something like `Morale` or `Political Support`. `Resources` is great for fuel, bombs, bullets, etc - but it doesn't work for these more abstract concepts. I'm happy for us to carry on considering the best word, but I think `Variables` is the best I can think of right now.\r\n\r\nThis goes back to what we discussed about objective/subjective \"resources\". While variable does seem to fit the description, it doesn't fully represent more subjective measures. Another term I'd be more comfortable using, that not only covers both objective and subjective measures but is also standard throughout video games, is **attributes**. \r\n\r\nWould you be OK with that?"
+        },
+        {
+          "id": 1024034863,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T09:27:15Z",
+          "updated_at": "2022-01-28T09:27:15Z",
+          "body": "Also, in the current admin page, we present \"States\" & \"Conditions\". Can you specify what they track? "
+        },
+        {
+          "id": 1024116732,
+          "user": "IanMayo",
+          "created_at": "2022-01-28T11:16:06Z",
+          "updated_at": "2022-01-28T11:16:06Z",
+          "body": "> list of variables to track\r\n\r\nThere isn't a list of variables. We're adding the capability to add variables - so it's up to the Game Designer to decide what is need for the wargame they're designing.  We did consider some examples in the [slideshow](https://docs.google.com/presentation/d/1H4HQ1Tf8UgxY6Rzt4zVk8g7OmWiJumkojIbbxHQRTmc/edit?usp=sharing).\r\n\r\n> collective name for resources\r\n\r\n`Attributes` isn't perfect, since the other aspects of an asset (including speed, condition, state) are also attributes of the asset.  But, it seems better than `Variables` which is a bit techy.\r\n\r\n> States & Conditions\r\n\r\nThe Game Designer is able to provide a list of `States` for a platform type. So, a `fishing vessel` may have `Moored`, `Transiting`, `Fishing`.  When planning, the player specifies the state of the asset - using one of the above options.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/151537166-97d746e9-6649-4e5c-9c6c-2163029ff79e.png)\r\n\r\nWhen the umpires are adjudicating the turn the use the `State` to help decide what happens - for example a submarine may be `evasive` or `aggressive`\r\n\r\nThe Game Designer also provides a series of `Conditions` - these are the condition of that type of platform. They may include `Working`, `Disabled`, `Immobile`, `Destroyed`.  These are decided according to how they want the game to play.\r\n"
+        },
+        {
+          "id": 1024255206,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T14:05:29Z",
+          "updated_at": "2022-01-28T14:05:29Z",
+          "body": "I suggest we merge these features together. If I understand correctly, Conditions & State show the general status of the asset. We could merge them under a tab called Status (for ex.) where we would track both of them combined.\r\n\r\nDoes \"Speed\" measure the maximum KTS/Hr that an asset can travel through? Or does it measure the speed at a specific time?\r\nIf it's the maximum speed possible, I suggest we put it into \"Travel Mode\", as it pertains to means of travel. \r\nIf it's the speed at a specific time, then it would be fitting to put it into status. "
+        },
+        {
+          "id": 1024263871,
+          "user": "IanMayo",
+          "created_at": "2022-01-28T14:15:47Z",
+          "updated_at": "2022-01-28T14:15:47Z",
+          "body": "There is a slight difference between `State` and `Condition`.  `State` is the player describing what the platform is generally doing.  `Condition` is read-only for players, since it's the Umpire specifying the condition of the platform at the end of the previous adjudication phase."
+        },
+        {
+          "id": 1024279619,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-28T14:32:16Z",
+          "updated_at": "2022-01-28T14:32:16Z",
+          "body": "> There is a slight difference between `State` and `Condition`. `State` is the player describing what the platform is generally doing. `Condition` is read-only for players, since it's the Umpire specifying the condition of the platform at the end of the previous adjudication phase.\r\n\r\nUnderstood. Does that have to have an implication on how we present it on the admin page? I don't see why we can't present them together. "
+        },
+        {
+          "id": 1024284073,
+          "user": "IanMayo",
+          "created_at": "2022-01-28T14:37:40Z",
+          "updated_at": "2022-01-28T14:37:40Z",
+          "body": "> I don't see why we can't present them together\r\n\r\nWe could arrange them near each other on the admin page.  In the player UI, I _suspect_ we should show `Condition` near the top of the form, since the decision on the state/speed/planned turn can be sensitive to the `Condition`.  i.e. If it is `Destroyed` we don't allow state or speed to be set."
+        },
+        {
+          "id": 1025233842,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-30T21:20:51Z",
+          "updated_at": "2022-01-30T21:20:51Z",
+          "body": "> But, another resource could be `Kts` (knots of speed)\r\n\r\nI think it's redundant, given that we quantify speed on the screen already.\r\n"
+        },
+        {
+          "id": 1025245835,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-30T22:22:21Z",
+          "updated_at": "2022-01-30T22:23:08Z",
+          "body": "Essentially, this feature is supposed to allow the user to have more control over the assets of the game by further detailing its attributes and capabilities. So, I think we should keep it simple and straightforward.\r\n\r\nHow about this:\r\n\r\n![Attribute Box](https://user-images.githubusercontent.com/85491794/151719275-5ad3459e-10bf-4d8f-b4cd-4235ab403e06.png)\r\n\r\n\r\nWe show the resource that the user wants to track and its default quantity (to discuss what default values we decide on). Entering a new resource works the same way as for all the other features on this page. \r\n\r\nP.S. It would be nice to have SERGE automatically offer a drop-down list of resources that make sense for a type of asset: for example the default number of missiles for a submarine, alongside fuel and personnel. Also, fuel and personnel should, in my opinion, be default attributes that all (or most) assets have.\r\n\r\nHere's what the box would look like for the boghammer asset: \r\n\r\n![Boghammer Attributes](https://user-images.githubusercontent.com/85491794/151719418-861b6aa8-b434-42ae-970a-8fb08c326444.png)\r\n\r\nAlso, I think the speed box occupies a lot of space in the page. Here's an idea for a design:\r\n\r\n![Speed Box](https://user-images.githubusercontent.com/85491794/151720287-01f988f9-efa4-407b-a0fd-500bcebbea6e.png)\r\n\r\nThe user can change the interval values and length. Selecting one value auto-selects the previous values: Here, the selected speed is 18KTS, which means the asset can also go 6 & 12 KTS if necessary."
+        },
+        {
+          "id": 1025817115,
+          "user": "IanMayo",
+          "created_at": "2022-01-31T14:43:32Z",
+          "updated_at": "2022-01-31T14:43:32Z",
+          "body": "Yes, we display knots for speed already.  I _guessed_ speed as an attribute could mean something different to _current speed_.  It's possible for a warship to have a maximum speed for \"flying operations\", that's the maximum speed the can travel at and still use their helicopter.  But, an autonomous underwater vehicle (AUV) could have a \"most efficient speed\" - that's the speed that maximises search range and battery endurance.   There is a _chance_ that this speed could be expressed in metres/second.  So the AUV could have an \"Optimal search speed\" with units of \"m/s\". The Game Designer may provide different \"optimal search speeds\" for different instances of AUV.\r\n\r\nCould you capture the \"Speed value editor control\" as a separate issue please?"
+        },
+        {
+          "id": 1026257656,
+          "user": "ShendMikullovci",
+          "created_at": "2022-01-31T22:04:36Z",
+          "updated_at": "2022-01-31T22:04:36Z",
+          "body": "> Yes, we display knots for speed already. I _guessed_ speed as an attribute could mean something different to _current speed_. It's possible for a warship to have a maximum speed for \"flying operations\", that's the maximum speed the can travel at and still use their helicopter. But, an autonomous underwater vehicle (AUV) could have a \"most efficient speed\" - that's the speed that maximises search range and battery endurance. There is a _chance_ that this speed could be expressed in metres/second. So the AUV could have an \"Optimal search speed\" with units of \"m/s\". The Game Designer may provide different \"optimal search speeds\" for different instances of AUV.\r\n> \r\n> Could you capture the \"Speed value editor control\" as a separate issue please?\r\n\r\nHow do we feel about the rest?"
+        },
+        {
+          "id": 1026671538,
+          "user": "IanMayo",
+          "created_at": "2022-02-01T10:08:28Z",
+          "updated_at": "2022-02-01T10:08:28Z",
+          "body": "> How do we feel about the rest?\r\n\r\nHere you go :-)\r\n\r\n> P.S. It would be nice to have SERGE automatically offer a drop-down list of resources that make sense for a type of asset: for example the default number of missiles for a submarine, alongside fuel and personnel. Also, fuel and personnel should, in my opinion, be default attributes that all (or most) assets have.\r\n\r\nI'm afraid that's too prescriptive.  Depending on the purpose of the wargame lots of different quantities could be used for a platform-type. A wargame using 30-minute turns would track resources at a very different level of detail to that running in two-week turns.  IMHO we need to ignore concrete variable/attribute instances, and focus on the generic capability.  Oh, and we must remember, it's not just physical commodities (PAX, litres of fuel) but abstract ones, too (political support, turns until take-off allowed).  So, I _think_ all we can do is to offer a text-title, a default value, and optional units.\r\n\r\n![image](https://user-images.githubusercontent.com/1108513/151948370-78048cf2-9c6c-4f95-baad-17ba97f3697e.png)\r\n\r\nIn the above shot, all of the measures in the right-hand column are the default values for that resource - so `Default value` should be the column header, IMHO.  Then we just have the `50` as the value for the PAX resource.\r\n\r\nEach resource also needs a \"delete\" icon.\r\n"
+        },
+        {
+          "id": 1026707221,
+          "user": "ShendMikullovci",
+          "created_at": "2022-02-01T10:46:22Z",
+          "updated_at": "2022-02-01T10:47:19Z",
+          "body": "Here's a walkthrough: \r\n\r\nUser walks into an empty attributes box with the option of filling it. \r\n\r\n![Attributes Empty](https://user-images.githubusercontent.com/85491794/151953969-45a60bdf-440b-4943-8d9c-acd30e14976f.png)\r\n\r\nAs the user clicks on the track button, the line of text appears in grey and italic font to emphasize input. The \"Default Value\" header appears over the top of the value. A first bin appears on the right of the line. \r\n\r\n![Attributes Input](https://user-images.githubusercontent.com/85491794/151954896-a7568bf6-7ddd-4d4e-9119-8c51211f31db.png)\r\n\r\n\r\nThe user inputs text and hits enter. The text then turns pitch black. The edit pen appears next to the bin on the right of the line: \r\n\r\n![Attributes Completion](https://user-images.githubusercontent.com/85491794/151954286-893f4a1b-d487-4a3e-8a0b-d20d9b73a19e.png)\r\n\r\nA problem I have with using \"Default Value\" as a header is that what if the user decides to edit that default value? Does the header disappear? What if the user decides to stick to the default for one attribute, but edit the value for the following attributes? This is why sticking to more general terms such as \"Quantity\" or even \"Value\" while presenting \"50\" as a default number every time an attribute is created seems like a better option to me. Let me know your thoughts. \r\n\r\n"
+        },
+        {
+          "id": 1026715322,
+          "user": "IanMayo",
+          "created_at": "2022-02-01T10:57:02Z",
+          "updated_at": "2022-02-01T10:57:02Z",
+          "body": "> A problem I have with using \"Default Value\" as a header is that what if the user decides to edit that default value? Does the header disappear?\r\n\r\nThe user adds \"Catch on Board\" as an attribute for Fishing Vessel type, with a units of \"Tons\".  They provide a default of 50.  They later decide to change the default to 70.  The default value of `Catch on board` is now 70 Tons.   In a later part of the Game Design process they add a `Lucky Fisher` vessel to `Red Force`.  It's a fishing vessel, so it gets a default `Catch on board` value of 70.  The Game Designer knows that in the wargame `Lucky Fisher` is only just setting out on a fishing trip, so they update the current `Catch on board` to 0 (zero) - meaning it is currently has no catch on board."
+        },
+        {
+          "id": 1026809743,
+          "user": "IanMayo",
+          "created_at": "2022-02-01T12:52:26Z",
+          "updated_at": "2022-02-01T12:52:26Z",
+          "body": "> Track New Attributes\r\n\r\n1. Yes, \"Track\" could be used for this concept, but I think it would be more clear if we just used \"Add\".\r\n2. Clicking on the button adds a single attribute, so I think it should be \"Add new attribute\".\r\n\r\n"
+        },
+        {
+          "id": 1026815486,
+          "user": "ShendMikullovci",
+          "created_at": "2022-02-01T12:59:03Z",
+          "updated_at": "2022-02-01T12:59:03Z",
+          "body": "Here we go: \r\n\r\n![Attributes Empty](https://user-images.githubusercontent.com/85491794/151972730-7b671cf5-f594-46c1-b5a1-4ef0db224ece.png)\r\n\r\n![Attributes Input](https://user-images.githubusercontent.com/85491794/151972752-5a012190-8dff-4a61-8912-e426cab929dd.png)\r\n\r\n![Attributes Completion](https://user-images.githubusercontent.com/85491794/151972780-f0b205b8-2141-4215-8875-fc6ae24fbead.png)\r\n\r\n\r\n"
+        },
+        {
+          "id": 1026817193,
+          "user": "ShendMikullovci",
+          "created_at": "2022-02-01T13:01:10Z",
+          "updated_at": "2022-02-01T13:01:10Z",
+          "body": "Ah, yes, I've been meaning to ask whether you still think the drag-and-drop button has much value? Except ordering the attributes (which could be valuable for the user depending on attribute size), I don't see another utility. What do you think?"
+        },
+        {
+          "id": 1026818279,
+          "user": "IanMayo",
+          "created_at": "2022-02-01T13:02:12Z",
+          "updated_at": "2022-02-01T13:02:12Z",
+          "body": "Sure - the ordering button is quite acceptable.  It's a _rudimentary_ way of organising the attributes."
+        },
+        {
+          "id": 1026937668,
+          "user": "IanMayo",
+          "created_at": "2022-02-01T15:02:38Z",
+          "updated_at": "2022-02-01T15:02:38Z",
+          "body": "Hello @ShendMikullovci - I was in a meeting this morning that was discussing the WATU wargame for March (as presented in timeline [here](https://docs.google.com/drawings/d/e/2PACX-1vRFx3AIAIMdbqjqeGlCes0lQp_MCLYUHDTEXOmiv_W75beA-qHRmKuiPCSXguyqvCU74COQym6A9wAI/pub?w=1699&h=1250)).\r\n\r\nThere are a bunch of features to add to our shopping list (doing that right now), but one was that the players should be able to decide which direction their onboard sonar is facing in each turn.  This direction will be on of our `attributes`.  But, significantly, it's a variable that is edited by the players in their planning phase.  So, some variables will be player-editable, a others will only get edited by the Umpire in the adjudication phase.  Thus - it appears we need to add a `Player editable` toggle column to the attributes table.\r\n\r\nNote: I _think_ we only need the player-editable toggle. That's because the umpire can always edit them:\r\n- if it's only editable by Umpire (such as calculating the fuel used in the last turn, and updating `Fuel remaining (tons)`) then players can't edit it.\r\n- if it's editable by the player in planning phase (such as this instance of specifying the angle the sonar is pointing at), then the umpire may correct the value during adjudication based upon how the asset interacts with other wargame participants.\r\n"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/155498257-29fb31c7-4e0a-4173-8460-e240c604aef8.png",
+    "https://user-images.githubusercontent.com/1108513/155538324-03330641-c140-4fd4-a307-47777f002b4b.png",
+    "https://user-images.githubusercontent.com/85491794/150688822-d2b4c833-b10a-4c8b-b7bd-5dd2c2092805.png",
+    "https://user-images.githubusercontent.com/85491794/150688828-ea552800-7b60-4995-8caa-24ec13e3455e.png",
+    "https://user-images.githubusercontent.com/85491794/150870330-a536de86-846a-420d-b6ee-2abf3365239c.png",
+    "https://user-images.githubusercontent.com/85491794/150870408-e7265dfb-6031-48c0-8394-139e93c84853.png",
+    "https://user-images.githubusercontent.com/85491794/151070623-03270165-2deb-4c34-aada-960c82475f09.png",
+    "https://user-images.githubusercontent.com/85491794/151257660-000a4d6d-d996-40fa-b285-087736352953.png",
+    "https://user-images.githubusercontent.com/1108513/151537166-97d746e9-6649-4e5c-9c6c-2163029ff79e.png",
+    "https://user-images.githubusercontent.com/85491794/151719275-5ad3459e-10bf-4d8f-b4cd-4235ab403e06.png",
+    "https://user-images.githubusercontent.com/85491794/151719418-861b6aa8-b434-42ae-970a-8fb08c326444.png",
+    "https://user-images.githubusercontent.com/85491794/151720287-01f988f9-efa4-407b-a0fd-500bcebbea6e.png",
+    "https://user-images.githubusercontent.com/1108513/151948370-78048cf2-9c6c-4f95-baad-17ba97f3697e.png",
+    "https://user-images.githubusercontent.com/85491794/151953969-45a60bdf-440b-4943-8d9c-acd30e14976f.png",
+    "https://user-images.githubusercontent.com/85491794/151954896-a7568bf6-7ddd-4d4e-9119-8c51211f31db.png",
+    "https://user-images.githubusercontent.com/85491794/151954286-893f4a1b-d487-4a3e-8a0b-d20d9b73a19e.png",
+    "https://user-images.githubusercontent.com/85491794/151972730-7b671cf5-f594-46c1-b5a1-4ef0db224ece.png",
+    "https://user-images.githubusercontent.com/85491794/151972752-5a012190-8dff-4a61-8912-e426cab929dd.png",
+    "https://user-images.githubusercontent.com/85491794/151972780-f0b205b8-2141-4215-8875-fc6ae24fbead.png"
+  ],
+  "number_of_changed_files": 19,
+  "total_changed_lines": 426
+}

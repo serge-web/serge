@@ -1,0 +1,43 @@
+{
+  "number": 1837,
+  "title": "Don't handle missing channel in separate block",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-09-12T09:31:00Z",
+  "updated_at": "2022-09-12T09:57:29Z",
+  "closed_at": "2022-09-12T09:56:36Z",
+  "merged_at": "2022-09-12T09:56:36Z",
+  "author": {
+    "login": "IanMayo",
+    "html_url": "https://github.com/IanMayo"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/1837",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/1837/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/1837/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/1837",
+  "body": "Minor code improvement, following @lebaphi  review.",
+  "additions": 34,
+  "deletions": 40,
+  "changed_files": 1,
+  "labels": [],
+  "comments_count": 0,
+  "review_comments_count": 1,
+  "total_comments": 1,
+  "comments_data": [],
+  "review_comments_data": [
+    {
+      "id": 968218120,
+      "user": "lebaphi",
+      "created_at": "2022-09-12T09:57:29Z",
+      "updated_at": "2022-09-12T09:57:29Z",
+      "body": "I think we should create a constant for it, something like CHANNELS_EMPTY",
+      "path": "packages/components/src/local/organisms/setting-channels/index.tsx",
+      "diff_hunk": "@@ -64,46 +64,40 @@ export const SettingChannels: React.FC<PropTypes> = ({\n   }\n \n   const renderChannelContent = useMemo(() => {\n-    if (selectedChannelState === undefined) {\n-      return <div>Channels empty. Please create a channel.</div>\n-    } else {\n-      const channelType = (selectedChannelState && selectedChannelState.channelType)\n-      console.log('ch type', channelType, selectedChannelState, selectedChannelIdx)\n-      switch (channelType) {\n-        case CHANNEL_COLLAB:\n-          return <CollabChannel\n-            channel={selectedChannelState as ChannelCollab}\n-            forces={forces}\n-            messageTemplates={messageTemplates}\n-            onChange={onChannelDataChange}\n-          />\n-\n-        case CHANNEL_CUSTOM:\n-          return <CustomChannel\n-            channel={selectedChannelState as ChannelCustom}\n-            forces={forces}\n-            messageTemplates={messageTemplates}\n-            onChange={onChannelDataChange}\n-          />\n-\n-        case CHANNEL_MAPPING:\n-          return <MappingChannel\n-            channel={selectedChannelState as ChannelMapping}\n-            forces={forces}\n-            onChange={onChannelDataChange}\n-          />\n-\n-        case CHANNEL_CHAT:\n-          return <ChatChannel\n-            channel={selectedChannelState as ChannelChat}\n-            forces={forces}\n-            onChange={onChannelDataChange}\n-          />\n-        case CHANNEL_PLANNING:\n-          return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel:<br />{JSON.stringify(selectedChannelState)}</div>\n-        default:\n-          return <div>Legacy/Unsupported channel type. Not rendered. Channel type: {JSON.stringify(selectedChannelState)}</div>\n-      }\n+    const channelType = (selectedChannelState && selectedChannelState.channelType)\n+    switch (channelType) {\n+      case CHANNEL_COLLAB:\n+        return <CollabChannel\n+          channel={selectedChannelState as ChannelCollab}\n+          forces={forces}\n+          messageTemplates={messageTemplates}\n+          onChange={onChannelDataChange}\n+        />\n+      case CHANNEL_CUSTOM:\n+        return <CustomChannel\n+          channel={selectedChannelState as ChannelCustom}\n+          forces={forces}\n+          messageTemplates={messageTemplates}\n+          onChange={onChannelDataChange}\n+        />\n+      case CHANNEL_MAPPING:\n+        return <MappingChannel\n+          channel={selectedChannelState as ChannelMapping}\n+          forces={forces}\n+          onChange={onChannelDataChange}\n+        />\n+      case CHANNEL_CHAT:\n+        return <ChatChannel\n+          channel={selectedChannelState as ChannelChat}\n+          forces={forces}\n+          onChange={onChannelDataChange}\n+        />\n+      case CHANNEL_PLANNING:\n+        return <div>Editor not yet provided for planning channel. Waiting for data model to mature. Channel:<br />{JSON.stringify(selectedChannelState)}</div>\n+      case undefined:",
+      "html_url": "https://github.com/serge-web/serge/pull/1837#discussion_r968218120"
+    }
+  ],
+  "images": [],
+  "number_of_changed_files": 1,
+  "total_changed_lines": 74
+}

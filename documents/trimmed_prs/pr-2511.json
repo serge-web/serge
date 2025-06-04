@@ -1,0 +1,119 @@
+{
+  "number": 2511,
+  "title": "2487: Filter only updated the second time it is opened",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2023-02-25T09:43:26Z",
+  "updated_at": "2023-02-26T17:10:09Z",
+  "closed_at": "2023-02-26T15:29:05Z",
+  "merged_at": "2023-02-26T15:29:04Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2511",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2511/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2511/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2511",
+  "body": "Fixes #2487 ",
+  "additions": 15,
+  "deletions": 37,
+  "changed_files": 3,
+  "labels": [],
+  "comments_count": 9,
+  "review_comments_count": 0,
+  "total_comments": 9,
+  "comments_data": [
+    {
+      "id": 1445049477,
+      "user": "IanMayo",
+      "created_at": "2023-02-25T10:25:22Z",
+      "updated_at": "2023-02-25T10:25:22Z",
+      "body": "Aah, that `timeout` is a useful fix.\r\n\r\nBut @lebaphi  - I don't think we need the `custom-filter-row` any more.  I've written alternate code that populates the lists from the current data - it's in the `visibleColumns` state handler in `planning-assets`\r\n\r\nSo, we don't need the `sub-type` handling from that component.  But, we _may_ need the filter cache-ing.  Would you mind investigating please?"
+    },
+    {
+      "id": 1445058407,
+      "user": "lebaphi",
+      "created_at": "2023-02-25T11:16:46Z",
+      "updated_at": "2023-02-25T11:16:46Z",
+      "body": "sure @IanMayo "
+    },
+    {
+      "id": 1445136377,
+      "user": "IanMayo",
+      "created_at": "2023-02-25T14:56:30Z",
+      "updated_at": "2023-02-25T14:56:30Z",
+      "body": "@lebaphi  - could you also have a think about our user of the custom-filter-row please?  \r\n\r\nI think the code in `planning-assets` is more quicker and more accurate, since it only offers values in filters that relate to the data shown in the table."
+    },
+    {
+      "id": 1445141364,
+      "user": "lebaphi",
+      "created_at": "2023-02-25T15:22:54Z",
+      "updated_at": "2023-02-25T15:22:54Z",
+      "body": "Yep Ian, I prefer to use the default filter too, it would better than the customize filter which might be slower (depending on our implementation)"
+    },
+    {
+      "id": 1445384777,
+      "user": "lebaphi",
+      "created_at": "2023-02-26T15:08:11Z",
+      "updated_at": "2023-02-26T15:08:11Z",
+      "body": "Hi @IanMayo , I removed the custom filter for the subtype, keeping only the filter caching on the `CustomFilterRow` element. So about this `Filter is only updated when it is opened for the second time`, I guess this is a matter of the material table library. The data looks correct, but the table doesn't re-render when the column data changes, it only re-render when open filter for 2nd time. I'm investigating on this.\r\n\r\nhttps://user-images.githubusercontent.com/26705621/221418868-c1dfcd29-24dd-4e44-8531-73daeda38f56.mov\r\n\r\n"
+    },
+    {
+      "id": 1445386163,
+      "user": "IanMayo",
+      "created_at": "2023-02-26T15:14:26Z",
+      "updated_at": "2023-02-26T15:18:14Z",
+      "body": "Yes, that's the problem we 're addressing\r\n\r\n>  I'm investigating on this.\r\n\r\nBut, I thought your `setTimeout` fix yesterday fixed it.  Didn't it?\r\n\r\nJust checked.  In yesterday's build, the sub-type filter does update properly.  Hmm, maybe the way of updating columns in  `custom-filter` is  better than the way I'm updating them in `planning-assets`.  Could you investigate please?\r\n![screencast](https://i.gyazo.com/a4b69000705df7931159427f2ede9ae2.gif)"
+    },
+    {
+      "id": 1445387599,
+      "user": "lebaphi",
+      "created_at": "2023-02-26T15:21:28Z",
+      "updated_at": "2023-02-26T15:21:28Z",
+      "body": "I've pushed new fixes, can you check this @IanMayo :D"
+    },
+    {
+      "id": 1445389229,
+      "user": "IanMayo",
+      "created_at": "2023-02-26T15:28:58Z",
+      "updated_at": "2023-02-26T15:28:58Z",
+      "body": "Fix works :-)\r\n\r\nI don't know how, but it works :-D"
+    },
+    {
+      "id": 1445411560,
+      "user": "lebaphi",
+      "created_at": "2023-02-26T17:10:09Z",
+      "updated_at": "2023-02-26T17:10:09Z",
+      "body": "> Fix works :-)\n> \n> \n> \n> I don't know how, but it works :-D\n\nahh, I just call setLocalProps inside custom-filter-row component to make it re-render 😂"
+    }
+  ],
+  "review_comments_data": [],
+  "issue_numbers": [
+    2487
+  ],
+  "issues": [
+    {
+      "id": 1596932801,
+      "number": 2487,
+      "title": "Filter only updated the second time it is opened",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2023-02-23T14:05:18Z",
+      "updated_at": "2023-02-26T15:29:06Z",
+      "closed_at": "2023-02-26T15:29:06Z",
+      "body": "I've implemented `dependent filters`.\r\n\r\nThis means - when a player applies a filter, the other filters get updated to only show values that are currently present in the table.\r\n\r\nIt works.  But, the new filter values are only shown for the second time the filter is opened.\r\n\r\n![screencast](https://i.gyazo.com/f354eb1d3805e5fb63f1d8a8307c3447.gif)",
+      "labels": [
+        "4p9"
+      ],
+      "comments": []
+    }
+  ],
+  "images": [
+    "https://i.gyazo.com/a4b69000705df7931159427f2ede9ae2.gif",
+    "https://i.gyazo.com/f354eb1d3805e5fb63f1d8a8307c3447.gif"
+  ],
+  "number_of_changed_files": 3,
+  "total_changed_lines": 52
+}

@@ -1,0 +1,175 @@
+{
+  "number": 2127,
+  "title": "Provide JSON-Editor with component to view/render location data",
+  "state": "closed",
+  "merged": true,
+  "created_at": "2022-11-17T16:24:52Z",
+  "updated_at": "2022-12-19T18:00:45Z",
+  "closed_at": "2022-12-19T18:00:44Z",
+  "merged_at": "2022-12-19T18:00:44Z",
+  "author": {
+    "login": "lebaphi",
+    "html_url": "https://github.com/lebaphi"
+  },
+  "html_url": "https://github.com/serge-web/serge/pull/2127",
+  "comments_url": "https://api.github.com/repos/serge-web/serge/issues/2127/comments",
+  "review_comments_url": "https://api.github.com/repos/serge-web/serge/pulls/2127/comments",
+  "review_comment_url": "https://api.github.com/repos/serge-web/serge/pulls/comments{/number}",
+  "issue_url": "https://api.github.com/repos/serge-web/serge/issues/2127",
+  "body": "Fixes #2006 ",
+  "additions": 220,
+  "deletions": 40,
+  "changed_files": 12,
+  "labels": [],
+  "comments_count": 10,
+  "review_comments_count": 3,
+  "total_comments": 13,
+  "comments_data": [
+    {
+      "id": 1318942460,
+      "user": "IanMayo",
+      "created_at": "2022-11-17T17:06:10Z",
+      "updated_at": "2022-11-17T17:06:10Z",
+      "body": "Can I request a change of strategy please @lebaphi ?\r\n\r\nI'd like us to keep the current workaround - in case I have to do a \"rushed\" demonstration.\r\n\r\nThis may be what you're doing, but I'd like the new component to gets used for `string` template objects with `\"format\": \"location\"`.\r\n\r\nAah, down in the details, if it's possible, I'd like the component to get re-rendered if anything changes in the form data.  The re-render function will receive a current copy of the form-data.\r\n\r\nThe reason for this is that:\r\n- the location may show \"route out\", \"do stuff\", \"route back\".  If the player enters \"Start-Date\" and \"End-Date\" in the form, then I can calculate the actual start and end times of the 3 steps, and show them against them - to help the player understand when things are happening.\r\n"
+    },
+    {
+      "id": 1318954456,
+      "user": "lebaphi",
+      "created_at": "2022-11-17T17:15:37Z",
+      "updated_at": "2022-11-17T17:15:37Z",
+      "body": "it's just a draft PR @IanMayo, I will update later 😂 "
+    },
+    {
+      "id": 1319550956,
+      "user": "lebaphi",
+      "created_at": "2022-11-18T05:03:32Z",
+      "updated_at": "2022-11-18T05:03:32Z",
+      "body": "Hi @IanMayo \r\n\r\n<img width=\"358\" alt=\"image\" src=\"https://user-images.githubusercontent.com/26705621/202616034-fef91e34-b353-46e3-806e-5dfd757656ac.png\">\r\n\r\nI think the new component works as the image above, we have the textarea with the Edit button. So I want to clarify some thing:\r\n\r\n- _has function that can convert JSON content to human-readable:_ so we don't need the _modifyForEdit_ function to modify the location data, let the component do this.\r\n- _has advanced function that can do lookup from JSON data in array of reference data:_ I'm unclear this\r\n- _has \"Edit location\" button that can call method passing data, with callback function for results (or null for cancel):_ we will pass the form data in the callback function when edit button clicked? I see you mention to the cancel state, I guess when click on the Edit button, its label changes to Cancel, click on the Cancel will pass null in the callback function?"
+    },
+    {
+      "id": 1319796574,
+      "user": "IanMayo",
+      "created_at": "2022-11-18T10:11:29Z",
+      "updated_at": "2022-11-18T10:11:29Z",
+      "body": "> has function that can convert JSON content to human-readable: so we don't need the modifyForEdit function to modify the location data, let the component do this.\r\n\r\nExactly. `modifyForEdit` was a temporary workaround.  We will not need it for this new component.  We should _probably_ leave it in the API though, in case we need it for a future, unknown problem.\r\n\r\n> has advanced function that can do lookup from JSON data in array of reference data: I'm unclear this\r\n\r\nOk, forget this.  I did think we need to allow the provision of a method that received the content and returned something human-readable.  But instead, I'll ensure the data object contains the human-readable contents - without `format()` helper. \r\n\r\n> has \"Edit location\" button that can call method passing data, with callback function for results (or null for cancel): we will pass the form data in the callback function when edit button clicked? I see you mention to the cancel state, I guess when click on the Edit button, its label changes to Cancel, click on the Cancel will pass null in the callback function?\r\n\r\nNot quite.  It's like:\r\n```\r\n  edit: { data: PlannedGeometry[], callback: {(data: PlannedGeometry | undefined)} }\r\n```\r\n\r\nSo. The component will receive a `edit` callback.  When the user clicks the `Edit` button, then `edit` is called, passing the current data, plus it's own callback function..   This opens GeoMan.  When the user clicks `Save` then `callback` is called with the new data.  If the user clicks `Cancel` then `callback` is called with `undefined`.\r\n\r\nI hope this makes sense.\r\n\r\nI welcome suggestions :-)\r\n"
+    },
+    {
+      "id": 1320061098,
+      "user": "lebaphi",
+      "created_at": "2022-11-18T14:22:51Z",
+      "updated_at": "2022-11-18T14:22:51Z",
+      "body": "https://user-images.githubusercontent.com/26705621/202726226-32bb2957-23c9-4c8b-917a-6a637c792096.mov\r\n\r\n"
+    },
+    {
+      "id": 1320094292,
+      "user": "IanMayo",
+      "created_at": "2022-11-18T14:48:08Z",
+      "updated_at": "2022-11-18T14:48:08Z",
+      "body": "Hi - the text area doesn't need to be editable.  So, it doesn't even need to be a text-area - if can be a div, I guess.   In the future I'd quite like to be able to include non-text stuff.   For the 3 `geometry` objects in the array for this location, we do (or will) have time in their properties.  So, I may want to show these 3 start/stop times on a small Gantt chart. To do that, we've got to move away from a text-area component.  All editing happens via the \"Edit\" button."
+    },
+    {
+      "id": 1322333612,
+      "user": "IanMayo",
+      "created_at": "2022-11-21T16:29:52Z",
+      "updated_at": "2022-11-23T03:22:08Z",
+      "body": "/ok, @lebaphi - a bit more work here, please.  \r\n* [x] the new `location-area` component shouldn't be a text-area, just a div/span\r\n* [ ] I want to be able to transform the contents before they are rendered. So, _somehow_ I need to give a function to the `location-editor.ts` module. this callback will receive an array of `PlannedActivityGeometry` and return a string.  I want to specify this callback in `SupportPanel` - since that's where the supporting information is."
+    },
+    {
+      "id": 1324506725,
+      "user": "lebaphi",
+      "created_at": "2022-11-23T03:32:07Z",
+      "updated_at": "2022-11-23T03:32:07Z",
+      "body": "Hi @IanMayo,\r\n>I want to be able to transform the contents before they are rendered. So, somehow I need to give a function to the location-editor.ts module. this callback will receive an array of PlannedActivityGeometry and return a string. I want to specify this callback in SupportPanel - since that's where the supporting information is.\r\n\r\nCan we create a helper function to do this thing instead of add a function inside the location-editor component? "
+    },
+    {
+      "id": 1337321327,
+      "user": "IanMayo",
+      "created_at": "2022-12-05T13:16:01Z",
+      "updated_at": "2022-12-05T13:16:10Z",
+      "body": "> Can we create a helper function to do this thing instead of add a function inside the location-editor component?\r\n\r\nHello @philb89 - sure, yes.   Let's pass in a helper function to `render` the contents of the `location-area` block.  I'd like it to return a `ReactElement` rather than plain text, so that we can include icons, if necessary, in the future.\r\n\r\nIf you create the function (that initially just returns the existing contents in a `<div>`, then I will modify it).  But, I'm pretty sure I need to create the function in `SupportPanel` - then the function gets passed down through the \"tree\" of components.\r\n"
+    },
+    {
+      "id": 1342636590,
+      "user": "IanMayo",
+      "created_at": "2022-12-08T12:12:55Z",
+      "updated_at": "2022-12-08T12:12:55Z",
+      "body": "Thanks @lebaphi - that looks exactly like I what I wanted :-)"
+    }
+  ],
+  "review_comments_data": [
+    {
+      "id": 1028271697,
+      "user": "IanMayo",
+      "created_at": "2022-11-21T16:31:15Z",
+      "updated_at": "2022-11-21T16:37:14Z",
+      "body": "at some point you'll have to delete this  test data please @lebaphi ",
+      "path": "packages/components/src/local/molecules/json-editor/helpers/setupEditor.ts",
+      "diff_hunk": "@@ -21,36 +23,47 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE\n   const disableArrayDeleteLastRow = 'disable_array_delete_last_row'\n   const promptBeforeDelete = 'prompt_before_delete'\n   if (schema && schema.type && ref.current) {\n-    if (schema.properties.location) {\n-      setTimeout(() => {\n-        const hiddenStores = document.querySelectorAll('div[data-schemapath$=\"hiddenStore\"]') as NodeListOf<HTMLDivElement>\n-        Array.from(hiddenStores).forEach(hiddenStores => {\n-          hiddenStores.style.display = 'none'\n-        })\n+    // if (schema.properties.location) {\n+    //   setTimeout(() => {\n+    //     const hiddenStores = document.querySelectorAll('div[data-schemapath$=\"hiddenStore\"]') as NodeListOf<HTMLDivElement>\n+    //     Array.from(hiddenStores).forEach(hiddenStores => {\n+    //       hiddenStores.style.display = 'none'\n+    //     })\n \n-        const locationSections = document.querySelectorAll('div[data-schemaid=\"locationArea\"]') as NodeListOf<HTMLDivElement>\n-        Array.from(locationSections).forEach(locationSection => {\n-          // do not manipuate processed textarea\n-          if (locationSection.childNodes.length === 3) {\n-            return\n-          }\n+    //     const locationSections = document.querySelectorAll('div[data-schemaid=\"locationArea\"]') as NodeListOf<HTMLDivElement>\n+    //     Array.from(locationSections).forEach(locationSection => {\n+    //       // do not manipuate processed textarea\n+    //       if (locationSection.childNodes.length === 3) {\n+    //         return\n+    //       }\n \n-          locationSection.style.display = 'flex'\n-          locationSection.style.alignItems = 'center'\n+    //       locationSection.style.display = 'flex'\n+    //       locationSection.style.alignItems = 'center'\n \n-          const textArea = locationSection.firstChild as HTMLDivElement\n-          textArea.style.width = '30%'\n+    //       const textArea = locationSection.firstChild as HTMLDivElement\n+    //       textArea.style.width = '30%'\n \n-          const editButton = document.createElement('button')\n-          editButton.innerText = 'Edit'\n-          editButton.name = 'editInLocation'\n-          editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')\n-          editButton.style.height = '40px'\n-          editButton.style.transform = 'translateX(-60px)'\n-          editButton.addEventListener('click', () => editCallback())\n-          locationSection.appendChild(editButton)\n-        })\n-      })\n+    //       const editButton = document.createElement('button')\n+    //       editButton.innerText = 'Edit'\n+    //       editButton.name = 'editInLocation'\n+    //       editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')\n+    //       editButton.style.height = '40px'\n+    //       editButton.style.transform = 'translateX(-60px)'\n+    //       editButton.addEventListener('click', () => editCallback())\n+    //       locationSection.appendChild(editButton)\n+    //     })\n+    //   })\n+\n+    // test custom editor",
+      "html_url": "https://github.com/serge-web/serge/pull/2127#discussion_r1028271697"
+    },
+    {
+      "id": 1029996341,
+      "user": "lebaphi",
+      "created_at": "2022-11-23T03:41:40Z",
+      "updated_at": "2022-11-23T03:41:40Z",
+      "body": "so when I removed this block, we should update the schema to use format `location` and type `string` to use the new editor",
+      "path": "packages/components/src/local/molecules/json-editor/helpers/setupEditor.ts",
+      "diff_hunk": "@@ -21,36 +23,47 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE\n   const disableArrayDeleteLastRow = 'disable_array_delete_last_row'\n   const promptBeforeDelete = 'prompt_before_delete'\n   if (schema && schema.type && ref.current) {\n-    if (schema.properties.location) {\n-      setTimeout(() => {\n-        const hiddenStores = document.querySelectorAll('div[data-schemapath$=\"hiddenStore\"]') as NodeListOf<HTMLDivElement>\n-        Array.from(hiddenStores).forEach(hiddenStores => {\n-          hiddenStores.style.display = 'none'\n-        })\n+    // if (schema.properties.location) {\n+    //   setTimeout(() => {\n+    //     const hiddenStores = document.querySelectorAll('div[data-schemapath$=\"hiddenStore\"]') as NodeListOf<HTMLDivElement>\n+    //     Array.from(hiddenStores).forEach(hiddenStores => {\n+    //       hiddenStores.style.display = 'none'\n+    //     })\n \n-        const locationSections = document.querySelectorAll('div[data-schemaid=\"locationArea\"]') as NodeListOf<HTMLDivElement>\n-        Array.from(locationSections).forEach(locationSection => {\n-          // do not manipuate processed textarea\n-          if (locationSection.childNodes.length === 3) {\n-            return\n-          }\n+    //     const locationSections = document.querySelectorAll('div[data-schemaid=\"locationArea\"]') as NodeListOf<HTMLDivElement>\n+    //     Array.from(locationSections).forEach(locationSection => {\n+    //       // do not manipuate processed textarea\n+    //       if (locationSection.childNodes.length === 3) {\n+    //         return\n+    //       }\n \n-          locationSection.style.display = 'flex'\n-          locationSection.style.alignItems = 'center'\n+    //       locationSection.style.display = 'flex'\n+    //       locationSection.style.alignItems = 'center'\n \n-          const textArea = locationSection.firstChild as HTMLDivElement\n-          textArea.style.width = '30%'\n+    //       const textArea = locationSection.firstChild as HTMLDivElement\n+    //       textArea.style.width = '30%'\n \n-          const editButton = document.createElement('button')\n-          editButton.innerText = 'Edit'\n-          editButton.name = 'editInLocation'\n-          editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')\n-          editButton.style.height = '40px'\n-          editButton.style.transform = 'translateX(-60px)'\n-          editButton.addEventListener('click', () => editCallback())\n-          locationSection.appendChild(editButton)\n-        })\n-      })\n+    //       const editButton = document.createElement('button')\n+    //       editButton.innerText = 'Edit'\n+    //       editButton.name = 'editInLocation'\n+    //       editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')\n+    //       editButton.style.height = '40px'\n+    //       editButton.style.transform = 'translateX(-60px)'\n+    //       editButton.addEventListener('click', () => editCallback())\n+    //       locationSection.appendChild(editButton)\n+    //     })\n+    //   })\n+\n+    // test custom editor",
+      "html_url": "https://github.com/serge-web/serge/pull/2127#discussion_r1029996341"
+    },
+    {
+      "id": 1052413807,
+      "user": "IanMayo",
+      "created_at": "2022-12-19T16:37:24Z",
+      "updated_at": "2022-12-19T16:37:24Z",
+      "body": "@lebaphi - in these next sections, we should remove the un-used blocks, rather than comment them out, please.",
+      "path": "packages/components/src/local/molecules/json-editor/helpers/setupEditor.ts",
+      "diff_hunk": "@@ -21,38 +23,40 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE\n   const disableArrayDeleteLastRow = 'disable_array_delete_last_row'\n   const promptBeforeDelete = 'prompt_before_delete'",
+      "html_url": "https://github.com/serge-web/serge/pull/2127#discussion_r1052413807"
+    }
+  ],
+  "issue_numbers": [
+    2006
+  ],
+  "issues": [
+    {
+      "id": 1435089779,
+      "number": 2006,
+      "title": "Provide JSON-Editor with component to view/render location data",
+      "state": "closed",
+      "user": "IanMayo",
+      "created_at": "2022-11-03T18:22:03Z",
+      "updated_at": "2022-12-19T18:00:46Z",
+      "closed_at": "2022-12-19T18:00:46Z",
+      "body": "Our planning messages include `slugs` of JSON for the shapes(lines, polygons, etc).\r\n\r\nJSON-Editor tries to build up a set of controls for this array data, but it  ends up with loads of ugly components:\r\n![image](https://user-images.githubusercontent.com/1108513/199804239-fa39ba46-dbe0-408e-b5e9-0e42f696b6fa.png)\r\n\r\n\r\nI don't know the best solution, but this is the best I can think of:\r\n- convert the JSON for `location` to a string\r\n- specify in the template, that `location` is of `type`: `string`, but with a `format` of `location` [*]\r\n- provide JSON-editor with a custom component for `format`: `location` entries\r\n- display the geometries as `<ol>` `<li>` entries, showing the `properties.name`, and the `geometry.type`\r\n- include an `edit` button, which will _eventually_ allow the player to edit the shapes\r\n\r\nAn example of providing a custom component to json-editor is given here: https://github.com/json-editor/json-editor/blob/8f2b5ec5ca5787b3cd1c6b83ee3ec2ef29aeb34c/src/editors/starrating.js\r\n\r\nA story to develop this against is \"ready to go\" here: http://localhost:6611/?path=/story/local-molecules-jsoneditor--planning-message\r\n\r\n[*] by doing this, json-editor no longer tries to create a tree of controls to represent the JSON data. I _think_ it also prepares JSON-Editor to use a custom `string` editor component.\r\n\r\nMaybe an editor component like this:\r\n![image](https://user-images.githubusercontent.com/1108513/200586842-a55076d0-1669-4da2-b51d-91571e676af5.png)\r\n",
+      "labels": [
+        "enhancement",
+        "4p9"
+      ],
+      "comments": [
+        {
+          "id": 1308412664,
+          "user": "IanMayo",
+          "created_at": "2022-11-09T08:47:08Z",
+          "updated_at": "2022-11-09T08:47:08Z",
+          "body": "@lebaphi provided a workaround for this, which works quite well so far:\r\n![image](https://user-images.githubusercontent.com/1108513/200782365-77970259-c5f9-494a-82db-28cf7737cddb.png)\r\n\r\nBut, in the longer term, I'm still interested in providing a custom editor component to `json-editor`.  \r\n\r\nThe `json-editor` control is currently extensible to use custom components. I think they are largely different `format` values for a `type: \"string\"` field in the schema.  The star-rating component linked to above is an example of this.\r\n\r\nI think that's our future path.\r\n"
+        },
+        {
+          "id": 1317395084,
+          "user": "IanMayo",
+          "created_at": "2022-11-16T17:31:24Z",
+          "updated_at": "2022-11-16T17:31:24Z",
+          "body": "Ok, there's a description of how to integrate a new editor component in the `json-editor` documentation here:\r\nhttps://github.com/json-editor/json-editor#custom-editor-interfaces\r\n\r\nI propose we start simply, and progress steadily:\r\n- simple label showing text content\r\n- has function that can convert JSON content to human-readable\r\n- has advanced function that can do lookup from JSON data in array of reference data\r\n- has \"Edit location\" button that can call method passing data, with callback function for results (or null for cancel)"
+        }
+      ]
+    }
+  ],
+  "images": [
+    "https://user-images.githubusercontent.com/26705621/202616034-fef91e34-b353-46e3-806e-5dfd757656ac.png",
+    "https://user-images.githubusercontent.com/1108513/199804239-fa39ba46-dbe0-408e-b5e9-0e42f696b6fa.png",
+    "https://user-images.githubusercontent.com/1108513/200586842-a55076d0-1669-4da2-b51d-91571e676af5.png",
+    "https://user-images.githubusercontent.com/1108513/200782365-77970259-c5f9-494a-82db-28cf7737cddb.png"
+  ],
+  "number_of_changed_files": 12,
+  "total_changed_lines": 260
+}
