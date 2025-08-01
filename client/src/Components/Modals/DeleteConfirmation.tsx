@@ -7,7 +7,8 @@ import {
   clearWargames,
   deleteSelectedChannel,
   deleteSelectedForce,
-  deleteSelectedRole
+  deleteSelectedRole,
+  deleteSelectedTemplate
 } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { modalAction } from '../../ActionsAndReducers/Modal/Modal_ActionCreators'
 
@@ -31,7 +32,7 @@ const DeleteModal: React.FC = () => {
 
   const onDelete = () => {
     const curTab = wargame.currentTab
-
+    
     switch (type) {
       case 'force': {
         if (curTab && wargame.currentWargame) {
@@ -43,6 +44,10 @@ const DeleteModal: React.FC = () => {
       }
       case 'channel': {
         if (wargame.currentWargame) dispatch(deleteSelectedChannel(wargame.currentWargame, data as string))
+        break
+      }
+      case 'template': {
+        if (wargame.currentWargame) dispatch(deleteSelectedTemplate(wargame.currentWargame, data as string))
         break
       }
       case 'role': {

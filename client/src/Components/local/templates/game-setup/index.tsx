@@ -5,6 +5,7 @@ import AdminLayout from '../../organisms/admin-layout'
 import SettingChannels from '../../organisms/setting-channels'
 import SettingForces from '../../organisms/setting-forces'
 import SettingOverview from '../../organisms/setting-overview'
+import SettingTemplate from '../../organisms/setting-templates'
 import Props from './types/props'
 
 /* Render component */
@@ -30,9 +31,15 @@ export const GameSetup: React.FC<Props> = ({
   onCreateChannel,
   onDeleteChannel,
   onDuplicateChannel,
+  onCreateTemplate,
+  onDeleteTemplate,
+  onDuplicateTemplate,
+  onTemplateChange,
+  selectedTemplate,
+  onSidebarTemplatesClick,
   selectedChannel,
   onSave,
-  messageTemplates,
+  templates,
   onChangeWargameTitle,
   onSaveGameTitle,
   onWargameInitiate,
@@ -80,9 +87,23 @@ export const GameSetup: React.FC<Props> = ({
               onCreate={onCreateChannel}
               onDelete={onDeleteChannel}
               onDuplicate={onDuplicateChannel}
-              forces={forces}
               selectedChannel={selectedChannel}
-              messageTemplates={messageTemplates}
+              forces={forces}
+              messageTemplates={templates}
+            />
+          )
+        }
+        {
+          currentActiveTab === AdminTabs.Templates && (
+            <SettingTemplate
+              templates={templates}
+              onChange={onTemplateChange}
+              onSave={onSave}
+              onSidebarClick={onSidebarTemplatesClick}
+              onCreate={onCreateTemplate}
+              onDelete={onDeleteTemplate}
+              onDuplicate={onDuplicateTemplate}
+              selectedTemplate={selectedTemplate}
             />
           )
         }

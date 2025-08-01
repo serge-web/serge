@@ -1,5 +1,5 @@
 import { Dispatch } from 'react'
-import { ForceData, MessageTypes, PlayerUiActionTypes, Role } from 'src/custom-types'
+import { ForceData, PlayerUiActionTypes, Role } from 'src/custom-types'
 
 import {
   setForce,
@@ -11,7 +11,7 @@ import {
 
 export default (
   pass: string,
-  messageTypes: MessageTypes,
+  messageTypes: any,
   currentWargame: string,
   allForces: ForceData[],
   turnNumber: number,
@@ -33,10 +33,9 @@ export default (
     failedLoginFeedbackMessage(currentWargame, pass, turnNumber)
     return false
   }
-
   dispatch(setForce(force.uniqid))
   dispatch(setRole(role))
-  dispatch(setAllTemplates(messageTypes.templatesByKey))
+  dispatch(setAllTemplates(messageTypes))
   startListening(currentWargame)(dispatch)
   return true
 }

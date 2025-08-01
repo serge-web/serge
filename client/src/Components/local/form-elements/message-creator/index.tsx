@@ -12,9 +12,9 @@ import {
   ChannelCollab,
   MessageDetails
 } from 'src/custom-types'
-import React, { createRef, MouseEvent, useEffect, useRef, useState } from 'react'
+import React, { createRef, MouseEvent, useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
-
+import { isEmpty } from 'lodash'
 import PropTypes from './types/props'
 
 const MessageCreator: React.FC<PropTypes> = ({
@@ -30,7 +30,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   channel,
   gameDate,
   postBack,
-  customiseTemplate,
   messageOption,
   clearCachedCreatorMessage,
   draftMessage,
@@ -38,7 +37,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   modifyForSave
 }) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
-  const [formMessage, setFormMessage] = useState<any>()
   const [clearForm, setClearForm] = useState(false)
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
@@ -46,8 +44,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const [messageContent, setMessageContent] = useState<Record<string, unknown> | undefined>(undefined)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
-  const messageBeingEdited = useRef<Record<string, any> | string>('')
-  const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const sendMessage = (val: { [property: string]: any }, e: React.MouseEvent<HTMLButtonElement>) => {
     e.persist()
     const details: MessageDetails = {
       channel: channel.uniqid,
@@ -62,7 +59,7 @@ const MessageCreator: React.FC<PropTypes> = ({
       timestamp: new Date().toISOString(),
       turnNumber: currentTurn
     }
-
+    console.log('val', val)
     // special handling if this is a collab-channel
     if (channel.channelType === CHANNEL_COLLAB) {
       // populate the metadata
@@ -84,16 +81,18 @@ const MessageCreator: React.FC<PropTypes> = ({
       privateMessageRef.current.value = ''
     }
 
-    if (formMessage.content === '') return
+    val = Object.fromEntries(Object.entries(val).filter(([_, value]) => value))
+    if (isEmpty(val)) return
 
     // send the data
     setPrivateValue('')
+    setMessageContent(undefined)
     setClearForm(!clearForm)
-    postBack && postBack(details, formMessage, selectedSchema.title, CUSTOM_MESSAGE)
+    console.log('val', val)
+    postBack && postBack(details, val, messageOption, CUSTOM_MESSAGE)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
   }
-
   useEffect(() => {
     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
       setSelectedSchema(schema)
@@ -124,11 +123,10 @@ const MessageCreator: React.FC<PropTypes> = ({
     setPrivateValue(e.target.value)
   }
 
-  const responseHandler = (val: { [property: string]: any }): void => {
-    setFormMessage(val)
-    messageBeingEdited.current = val
+  const storeNewValue = (documet: { [property: string]: any }) => {
+    setMessageContent(documet)
   }
-
+ 
   useEffect(() => {
     if (draftMessage) {
       const anyDraft = draftMessage as any
@@ -140,6 +138,7 @@ const MessageCreator: React.FC<PropTypes> = ({
       }
     }
   }, [draftMessage])
+
   return (
     <>
       <Confirm
@@ -153,53 +152,40 @@ const MessageCreator: React.FC<PropTypes> = ({
           details: selectedSchema,
           _id: channel.uniqid
         }}
-        customiseTemplate={customiseTemplate}
+        submitNewValue={sendMessage}
+        openCancelConfirmPopup={openConfirmPopup}
         messageId={messageOption}
-        formClassName={'form-group message-creator'}
+        formClassName={'form-group message-creator edt-disable'}
         title={messageOption}
-        storeNewValue={responseHandler}
         disabled={false}
+        viewSaveButton={true}
         gameDate={gameDate}
         clearForm={clearForm}
         messageContent={messageContent}
+        storeNewValue={storeNewValue}
         modifyForEdit={modifyForEdit}
         modifyForSave={modifyForSave}
-      />
-      {privateMessage && (
-        <div className="flex-content form-group">
-          <label
-            htmlFor=""
-            className="material-label"
-            id="private-message-input-label"
-          >
-            <FontAwesomeIcon size="2x" icon={faUserSecret} />
+      >
+        {privateMessage && (
+          <div className="flex-content form-group">
+            <label
+              htmlFor=""
+              className="material-label"
+              id="private-message-input-label"
+            >
+              <FontAwesomeIcon size="2x" icon={faUserSecret} />
             Private message
-          </label>
-          <textarea
-            onChange={onChangePrivate}
-            id="private-message-input"
-            className="form-control"
-            ref={privateMessageRef}
-            value={privateValue}
-          />
-        </div>
-      )}
-      <div className="form-group">
-        <button
-          name="cancel"
-          className="btn btn-action btn-action--form btn-action--cancel"
-          onClick={openConfirmPopup}
-        >
-          <span>Cancel</span>
-        </button>
-        <button
-          name="send"
-          className="btn btn-action btn-action--form btn-action--send-message"
-          onClick={sendMessage}
-        >
-          <span>Send Message</span>
-        </button>
-      </div>
+            </label>
+            <textarea
+              onChange={onChangePrivate}
+              id="private-message-input"
+              className="form-control"
+              ref={privateMessageRef}
+              value={privateValue}
+            />
+          </div>
+        )}
+      </ JsonEditor >
     </>
   )
 }

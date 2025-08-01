@@ -87,6 +87,12 @@ exports[`GameSetup component: renders correctly 1`] = `
         >
           channels
         </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          templates
+        </div>
       </div>
     </div>
     <div

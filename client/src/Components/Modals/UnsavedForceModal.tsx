@@ -57,26 +57,6 @@ const UnsavedForceModal: React.FC = () => {
     children: 'Don\'t save'
   }]
 
-  // const actions = [{
-  //   onClick: () => setView(`${MESSAGE_CREATOR_BASE_ROUTE}${EDIT_TEMPLATE_ROUTE}`),
-  //   color: 'secondary',
-  //   fullWidth: true,
-  //   icon: 'edit',
-  //   children: 'Edit'
-  // }, {
-  //   onClick: duplicateTemplate,
-  //   color: 'secondary',
-  //   fullWidth: true,
-  //   icon: 'copy',
-  //   children: 'Duplicate'
-  // }, {
-  //   onClick: deleteTemplate,
-  //   color: 'secondary',
-  //   fullWidth: true,
-  //   icon: 'delete',
-  //   children: 'Delete'
-  // }]
-
   return (
     <ModalWrapper>
       <div className='display-text-wrapper'>

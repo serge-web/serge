@@ -75,7 +75,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
           <div
             className="message-title-wrap 
       message-item-unread 
-      "
+      message-title-opened"
           >
             <svg
               className="svg-inline--fa fa-envelope"
@@ -95,7 +95,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 viewBox="0 0 24 24"
               >
                 <path
-                  d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"
+                  d="M19 13H5v-2h14v2z"
                 />
               </svg>
               <div

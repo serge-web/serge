@@ -9,7 +9,7 @@ export default interface WargameData {
   overview: WargameOverview
   forces: Force
   channels: Channel
-  templates?: TemplateData
+  templates: TemplateData
 }
 
 export type WargameDataChange = 

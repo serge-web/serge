@@ -1,4 +1,4 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody, TypeOfCustomMessage } from 'src/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, TemplateBody, TypeOfCustomMessage } from 'src/custom-types'
 
 export default interface PropTypes {
   orderableChannel: boolean
@@ -22,8 +22,6 @@ export default interface PropTypes {
   getCachedNewMessagevalue?: (value: string) => string
   clearCachedNewMessage?: (data: string[]) => void
   channel: ChannelTypes
-  /** method to customise new (or existing) message template */
-  customiseTemplate?: { (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }
 
   /**
    * The method for posting messages out of the component

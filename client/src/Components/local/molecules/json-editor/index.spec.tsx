@@ -5,7 +5,7 @@ import renderer from 'react-test-renderer'
 import JsonEditor from './index'
 
 const message = messageDataCollaborativeEditing[2]
-const template = MessageTemplatesMockByKey[message.messageType]
+const template = MessageTemplatesMockByKey[message.templateId]
 
 describe('ChannelMessageDetail:', () => {
   it('renders correctly', () => {

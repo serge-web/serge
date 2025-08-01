@@ -4,39 +4,62 @@ const messageTemplatesMock: TemplateBody[] = [
   {
     completed: false,
     details: {
-      properties: {
-        Reference: {
-          title: 'Reference',
-          type: 'string',
-          format: 'text'
-        },
-        Title: {
-          title: 'Title',
-          type: 'string',
-          format: 'text'
-        },
-        Forces: {
-          format: 'table',
-          items: {
-            minItems: 1,
-            properties: {
-              force: {
-                enum: [
-                  'Blue',
-                  'Red',
-                  'Green'
-                ],
-                propertyOrder: 100,
-                type: 'string'
-              }
-            }
+      schema: {
+        type: 'object',
+        title: 'State of World (laydown 2)',
+        properties: {
+          completed: {
+            title: 'completed',
+            type: 'boolean'
           },
-          minItems: 1,
-          type: 'array'
-        }
+          Reference: {
+            title: 'Reference',
+            type: 'string'
+          },
+          Title: {
+            title: 'Title',
+            type: 'string'
+          },
+          Forces: {
+            items: {
+              type: 'object',
+              properties: {
+                Forces: {
+                  enum: [
+                    'Blue',
+                    'Red',
+                    'Green'
+                  ],
+                  type: 'string',
+                  title: 'Forces'
+                }
+              },
+              dependencies: {},
+              required: []
+            },
+            title: 'Forces',
+            type: 'array'
+          }
+        },
+        dependencies: {},
+        required: []
       },
-      title: 'State of World (laydown 2)',
-      type: 'object'
+      uischema: {
+        Forces: {
+          items: {
+            'ui:order': [
+              'Forces'
+            ]
+          }
+        },
+        'ui:order': [
+          'completed',
+          'Reference',
+          'Title',
+          'Forces'
+        ]
+      },
+      title: 'State of World L'
     },
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'State of World L',
@@ -45,68 +68,122 @@ const messageTemplatesMock: TemplateBody[] = [
   },
   {
     lastUpdated: '2019-09-30T12:37:26.705Z',
+    title: 'Chat',
+    details: {
+      schema: {
+        type: 'object',
+        properties: {
+          Chat: {
+            title: 'Chat',
+            type: 'string',
+            description: 'content',
+            default: 'type the text '
+          }
+        },
+        dependencies: {},
+        required: []
+      },
+      uischema: {
+        Chat: {
+          'ui:widget': 'textarea'
+        },
+        'ui:order': [
+          'Chat'
+        ]
+      },
+      title: 'Chat'
+    },
+    completed: false,
+    _id: 'k16eedkl',
+    _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
+  },
+  {
+    lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'Daily intentions',
     details: {
-      type: 'object',
-      properties: {
-        TurnNumber: {
-          title: 'Turn',
-          type: 'string',
-          format: 'number'
-        },
-        OverallIntentions: {
-          title: 'Overall intentions',
-          type: 'string',
-          format: 'textarea'
-        },
-        Orders: {
-          items: {
-            properties: {
-              Unit: {
-                title: 'Unit',
-                type: 'string',
-                format: 'text'
-              },
-              Tasking: {
-                title: 'Tasking',
-                type: 'string',
-                format: 'textarea'
-              },
-              SearchPolicy: {
-                title: 'Search Policy',
-                type: 'string',
-                format: 'textarea'
-              },
-              ActionOnContact: {
-                title: 'Action on Contact',
-                type: 'string',
-                enum: [
-                  'Ignore',
-                  'Evade',
-                  'Covert Trail',
-                  'Overt Trail',
-                  'Harass'
-                ]
-              },
-              AnyOtherComments: {
-                title: 'Any other comments',
-                type: 'string',
-                format: 'textarea'
-              }
-            },
-            type: 'object'
+      schema: {
+        type: 'object',
+        properties: {
+          TurnNumber: {
+            title: 'Turn',
+            type: 'string'
           },
-          title: 'Orders',
-          type: 'array',
-          format: 'table',
-          minItems: 1
-        }
+          OverallIntentions: {
+            title: 'Overall intentions',
+            type: 'string'
+          },
+          orders: {
+            items: {
+              type: 'object',
+              title: '',
+              properties: {
+                Unit: {
+                  title: 'Unit',
+                  type: 'string'
+                },
+                Tasking: {
+                  title: 'Tasking',
+                  type: 'string'
+                },
+                'Search Policy': {
+                  title: 'Search Policy',
+                  type: 'string'
+                },
+                'Action on Contact': {
+                  enum: [
+                    'Ignore',
+                    'Evade',
+                    'Covert Trail',
+                    'Overt Trail',
+                    'Harass'
+                  ],
+                  title: 'Action on Contact',
+                  type: 'string',
+                  enumNames: null
+                },
+                'Any other comments': {
+                  title: 'Any other comments',
+                  type: 'string'
+                }
+              },
+              dependencies: {},
+              required: []
+            },
+            title: 'orders',
+            type: 'array'
+          }
+        },
+        dependencies: {},
+        required: []
       },
-      title: 'Daily Intent',
-      required: [
-        'OverallIntentions',
-        'Orders'
-      ]
+      uischema: {
+        orders: {
+          items: {
+            Tasking: {
+              'ui:widget': 'textarea'
+            },
+            'Search Policy': {
+              'ui:widget': 'textarea'
+            },
+            'Any other comments': {
+              'ui:widget': 'textarea'
+            },
+            'ui:order': [
+              'Unit',
+              'Tasking',
+              'Search Policy',
+              'Action on Contact',
+              'Any other comments'
+            ]
+          }
+        },
+        'ui:order': [
+          'TurnNumber',
+          'OverallIntentions',
+          'orders'
+        ]
+      },
+      title: 'Daily Intent'
     },
     completed: false,
     _id: 'k16eedkn',
@@ -116,430 +193,362 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'Link',
     details: {
-      type: 'object',
-      properties: {
-        Title: {
-          type: 'string',
-          format: 'text'
-        },
-        URL: {
-          type: 'string',
-          format: 'url'
-        }
-      },
       title: 'Link',
-      format: 'grid'
+      schema: {
+        type: 'object',
+        properties: {
+          Title: {
+            title: 'Title',
+            type: 'string'
+          },
+          URL: {
+            title: 'URL',
+            type: 'string'
+          }
+        },
+        dependencies: {},
+        required: [],
+        title: 'Link'
+      },
+      uischema: {
+        'ui:order': [
+          'Title',
+          'URL'
+        ]
+      }
     },
     completed: false,
     _id: 'k16eedkm',
     _rev: '1-7fa1e6dd6b4ac5b6afc45b596ee7af61'
   },
   {
-    lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'Chat',
-    details: {
-      type: 'object',
-      properties: {
-        content: {
-          type: 'string',
-          format: 'textarea',
-          options: {
-            inputAttributes: {
-              placeholder: 'type the text'
-            }
-          }
-        }
-      },
-      title: 'Chat',
-      format: 'grid'
-    },
-    completed: false,
-    _id: 'k16eedkl',
-    _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
-  },
-  {
     completed: false,
     details: {
       title: 'COA',
-      type: 'object',
-      format: 'grid',
-      required: [
-        'Reference',
-        'Title',
-        'LOCATION',
-        'PRESCRIPTED',
-        'VISIBILITY',
-        'COA_SUPPORTS_AS',
-        'TARGET',
-        'STRAT_COMMS',
-        'OBJECTIVES_TURN',
-        'OBJECTIVES_OVERALL',
-        'TARGET_CENTRE_OF_GRAVITY',
-        'DESIRED_ENDSTATE_TURN',
-        'DESIRED_ENDSTATE_OVERALL',
-        'EFFECTS_AND_ACTIONS',
-        'SEQUENCING_AND_PHASES',
-        'ADVERSARY_UNDERSTANDING',
-        'ADVERSARY_REACTION_COUNTER_ACTION',
-        'ORBAT',
-        'TIMINGS',
-        'DEPENDENCIES',
-        'AdjudicationSupport',
-        'PEER_REVIEW',
-        'INSIGHT'
-      ],
-      properties: {
-        Reference: {
-          type: 'string',
-          title: 'Reference (sys generated)',
-          readonly: 'readonly'
-        },
-        Title: {
-          type: 'string',
-          title: '*COA / Op Name',
-          format: 'textarea'
-        },
-        LOCATION: {
-          title: '*Location of activities in this turn',
-          type: 'object',
-          properties: {
-            region: {
-              title: 'Region',
-              type: 'string',
-              enum: [
-                'Asia Pacific',
-                'Europe',
-                'Americas'
-              ],
-              default: 'Europe'
-            },
-            Europe: {
-              title: 'Country',
-              type: 'string',
-              enum: [
-                'United Kingdom',
-                'Germany'
-              ],
-              options: {
-                dependencies: {
-                  region: 'Europe'
-                }
+      schema: {
+        type: 'object',
+        properties: {
+          Reference: {
+            title: 'Reference (sys generated)',
+            type: 'string'
+          },
+          Title: {
+            title: '*COA / Op Name',
+            type: 'string'
+          },
+          LOCATION: {
+            title: '*Location of activities in this turn',
+            type: 'object',
+            properties: {
+              region: {
+                enum: [
+                  'Asia Pacific',
+                  'Europe',
+                  'Americas'
+                ],
+                title: 'Region',
+                type: 'string'
+              },
+              Europe: {
+                enum: [
+                  'United Kingdom',
+                  'Germany'
+                ],
+                title: 'Country',
+                type: 'string'
               }
             },
-            Americas: {
-              title: 'Country',
-              type: 'string',
-              enum: [
-                'United State of America',
-                'Brazil'
-              ],
-              options: {
-                dependencies: {
-                  region: 'Americas'
-                }
-              }
-            },
-            AsiaPacific: {
-              title: 'Country',
-              type: 'string',
-              enum: [
-                'India',
-                'China'
-              ],
-              options: {
-                dependencies: {
-                  region: 'Asia Pacific'
-                }
-              }
-            }
-          }
-        },
-        PRESCRIPTED: {
-          type: 'boolean',
-          format: 'checkbox',
-          title: '*Is this a pre-scripted activity? E.g. DXP',
-          default: 'Yes',
-          items: {
-            type: 'string',
+            dependencies: {},
+            required: []
+          },
+          PRESCRIPTED: {
+            title: '*Is this a pre-scripted activity? E.g. DXP',
+            type: 'boolean',
+            default: true
+          },
+          VISIBILITY: {
             enum: [
-              'Yes',
-              'No'
-            ]
+              'Overt',
+              'Covert',
+              'Clandestine',
+              'Complex'
+            ],
+            title: '*Intended visibility to adversary',
+            type: 'string'
+          },
+          COA_SUPPORTS_AS: {
+            items: {
+              type: 'string'
+            },
+            title: '*This COA supports / uses an AS plan / effect',
+            type: 'array'
+          },
+          TARGET: {
+            title: '*Target(s) – Adversary, Ally, specific audience within Adversary or allied polity etc',
+            type: 'string'
+          },
+          STRAT_COMMS: {
+            title: 'Outline of associated Strategic Communications',
+            type: 'string'
+          },
+          OBJECTIVES_TURN: {
+            title: 'Objectives in this turn',
+            type: 'string'
+          },
+          OBJECTIVES_OVERALL: {
+            title: 'Overall Objectives',
+            type: 'string'
+          },
+          TARGET_CENTRE_OF_GRAVITY: {
+            title: 'Target’s Centre of Gravity',
+            type: 'string'
+          },
+          DESIRED_ENDSTATE_TURN: {
+            title: '*Desired Endstate in this turn',
+            type: 'string'
+          },
+          DESIRED_ENDSTATE_OVERALL: {
+            title: 'Desired Endstate Overall, if NOT in this turn',
+            type: 'string'
+          },
+          EFFECTS_AND_ACTIONS: {
+            title: '*Effects and actions',
+            type: 'string'
+          },
+          SEQUENCING_AND_PHASES: {
+            title: 'Sequencing and phases',
+            type: 'string'
+          },
+          ADVERSARY_UNDERSTANDING: {
+            title: 'What would my adversary see / understand of this activity / messaging?',
+            type: 'string'
+          },
+          ADVERSARY_REACTION_COUNTER_ACTION: {
+            title: 'Adversary reaction & counter-action',
+            type: 'object',
+            properties: {
+              ADVERSARY_MLCOA: {
+                title: 'Adversary MLCOA',
+                type: 'string'
+              },
+              MLCOA_RESPONSE: {
+                title: 'Own Response',
+                type: 'string'
+              },
+              ADVERSARY_MDCOA: {
+                title: 'Adversary MDCOA',
+                type: 'string'
+              },
+              MDCOA_RESPONSE: {
+                title: 'Own Response',
+                type: 'string'
+              }
+            },
+            dependencies: {},
+            required: []
+          },
+          ORBAT: {
+            items: {
+              type: 'object',
+              properties: {
+                FEName: {
+                  enum: [
+                    'Tank',
+                    'Infantry',
+                    'Plane',
+                    'Submarine',
+                    'other'
+                  ],
+                  title: 'FE Name',
+                  type: 'string'
+                },
+                Readiness: {
+                  enum: [
+                    'Level-1',
+                    'Level-2',
+                    'Level-3',
+                    'Level-4',
+                    'Level-5'
+                  ],
+                  type: 'string'
+                },
+                Number: {
+                  type: 'string'
+                },
+                StartDate: {
+                  format: 'date',
+                  title: 'Start date',
+                  type: 'string'
+                },
+                EndDate: {
+                  format: 'date',
+                  title: 'End date',
+                  type: 'string'
+                }
+              },
+              dependencies: {},
+              required: []
+            },
+            title: '*ORBAT – FEs used (Inc logistics and enablers)',
+            type: 'array'
+          },
+          TIMINGS: {
+            title: 'Timings',
+            type: 'object',
+            properties: {
+              START_PLANNING: {
+                format: 'date',
+                title: 'Start planning',
+                type: 'string'
+              },
+              START_DEPLOYMENT: {
+                format: 'date',
+                title: 'Start deployment',
+                type: 'string'
+              },
+              START_OPERATION: {
+                format: 'date',
+                title: 'Start Operation',
+                type: 'string'
+              },
+              END_OPERATION: {
+                format: 'date',
+                title: 'End Operation',
+                type: 'string'
+              },
+              END_RECOVERY: {
+                format: 'date',
+                title: 'End recovery',
+                type: 'string'
+              }
+            },
+            dependencies: {},
+            required: []
+          },
+          CONTINUES_INTO_NEXT_TURN: {
+            title: '*Will this activity continue into next turn?',
+            type: 'boolean',
+            default: true
+          },
+          DEPENDENCIES: {
+            title: 'Dependencies on Allied capability: Please indicate which allies (if any) and which of their capabilities you are dependent on. E.g. US Space capabilities, Allied ABO',
+            type: 'string'
+          },
+          AdjudicationSupport: {
+            items: {
+              enum: [
+                'Space',
+                'CEMA',
+                'Influence',
+                'Logistics'
+              ],
+              type: 'string'
+            },
+            title: 'Adjudication support',
+            type: 'array'
+          },
+          PEER_REVIEW: {
+            title: 'Peer Review by',
+            type: 'string'
+          },
+          INSIGHT: {
+            title: 'Insight – What would you have done differently with other policies / permissions / risk appetite?',
+            type: 'string'
           }
         },
-        VISIBILITY: {
-          type: 'string',
-          title: '*Intended visibility to adversary',
-          enum: [
-            'Overt',
-            'Covert',
-            'Clandestine',
-            'Complex'
+        dependencies: {},
+        required: [
+          'Reference',
+          'Title',
+          'PRESCRIPTED',
+          'COA_SUPPORTS_AS',
+          'STRAT_COMMS',
+          'OBJECTIVES_TURN',
+          'OBJECTIVES_OVERALL',
+          'TARGET_CENTRE_OF_GRAVITY',
+          'DESIRED_ENDSTATE_TURN',
+          'DESIRED_ENDSTATE_OVERALL',
+          'EFFECTS_AND_ACTIONS',
+          'SEQUENCING_AND_PHASES',
+          'ADVERSARY_REACTION_COUNTER_ACTION',
+          'ORBAT',
+          'PEER_REVIEW',
+          'INSIGHT'
+        ]
+      },
+      uischema: {
+        LOCATION: {
+          'ui:order': [
+            'region',
+            'Europe'
           ]
         },
-        COA_SUPPORTS_AS: {
-          type: 'boolean',
-          format: 'checkbox',
-          title: '*This COA supports / uses an AS plan / effect',
-          default: 'Yes',
-          items: {
-            type: 'string',
-            enum: [
-              'Yes',
-              'No'
-            ]
-          }
-        },
-        TARGET: {
-          type: 'string',
-          title: '*Target(s) – Adversary, Ally, specific audience within Adversary or allied polity etc',
-          format: 'textarea',
-          notEmpty: true
-        },
-        STRAT_COMMS: {
-          type: 'string',
-          title: 'Outline of associated Strategic Communications',
-          format: 'textarea'
-        },
-        OBJECTIVES_TURN: {
-          type: 'string',
-          title: 'Objectives in this turn',
-          format: 'textarea'
-        },
-        OBJECTIVES_OVERALL: {
-          type: 'string',
-          title: 'Overall Objectives',
-          format: 'textarea'
-        },
-        TARGET_CENTRE_OF_GRAVITY: {
-          type: 'string',
-          title: 'Target’s Centre of Gravity',
-          format: 'textarea'
-        },
-        DESIRED_ENDSTATE_TURN: {
-          type: 'string',
-          title: '*Desired Endstate in this turn',
-          format: 'textarea'
-        },
-        DESIRED_ENDSTATE_OVERALL: {
-          type: 'string',
-          title: 'Desired Endstate Overall, if NOT in this turn',
-          format: 'textarea'
-        },
-        EFFECTS_AND_ACTIONS: {
-          type: 'string',
-          title: '*Effects and actions',
-          format: 'textarea'
-        },
-        SEQUENCING_AND_PHASES: {
-          type: 'string',
-          title: 'Sequencing and phases',
-          format: 'textarea'
-        },
-        ADVERSARY_UNDERSTANDING: {
-          type: 'string',
-          title: 'What would my adversary see / understand of this activity / messaging?',
-          format: 'textarea'
-        },
         ADVERSARY_REACTION_COUNTER_ACTION: {
-          properties: {
-            ADVERSARY_MLCOA: {
-              title: 'Adversary MLCOA',
-              type: 'string',
-              format: 'textarea'
-            },
-            MLCOA_RESPONSE: {
-              title: 'Own Response',
-              type: 'string',
-              format: 'textarea'
-            },
-            ADVERSARY_MDCOA: {
-              title: 'Adversary MDCOA',
-              type: 'string',
-              format: 'textarea'
-            },
-            MDCOA_RESPONSE: {
-              title: 'Own Response',
-              type: 'string',
-              format: 'textarea'
-            }
-          },
-          title: 'Adversary reaction & counter-action',
-          type: 'object'
+          'ui:order': [
+            'ADVERSARY_MLCOA',
+            'MLCOA_RESPONSE',
+            'ADVERSARY_MDCOA',
+            'MDCOA_RESPONSE'
+          ]
         },
         ORBAT: {
-          type: 'array',
-          format: 'table',
-          minItems: 1,
-          title: '*ORBAT – FEs used (Inc logistics and enablers)',
           items: {
-            type: 'object',
-            title: 'FE',
-            properties: {
-              FEName: {
-                type: 'string',
-                title: 'FE Name',
-                enum: [
-                  'Tank',
-                  'Infantry',
-                  'Plane',
-                  'Submarine',
-                  'other'
-                ]
-              },
-              Readiness: {
-                type: 'string',
-                enum: [
-                  'Level-1',
-                  'Level-2',
-                  'Level-3',
-                  'Level-4',
-                  'Level-5'
-                ]
-              },
-              Number: {
-                type: 'number'
-              },
-              StartDate: {
-                type: 'string',
-                title: 'Start date',
-                format: 'date',
-                options: {
-                  flatpickr: {
-                    wrap: false,
-                    time_24hr: true,
-                    dateFormat: 'd/m/Y'
-                  }
-                }
-              },
-              EndDate: {
-                type: 'string',
-                title: 'End date',
-                format: 'date',
-                options: {
-                  flatpickr: {
-                    wrap: false,
-                    time_24hr: true,
-                    dateFormat: 'd/m/Y'
-                  }
-                }
-              }
-            }
+            'ui:order': [
+              'FEName',
+              'Readiness',
+              'Number',
+              'StartDate',
+              'EndDate'
+            ]
           }
         },
         TIMINGS: {
-          properties: {
-            START_PLANNING: {
-              title: 'Start planning',
-              type: 'string',
-              format: 'date',
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: 'd/m/Y'
-                }
-              }
-            },
-            START_DEPLOYMENT: {
-              title: 'Start deployment',
-              type: 'string',
-              format: 'date',
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: 'd/m/Y'
-                }
-              }
-            },
-            START_OPERATION: {
-              title: 'Start Operation',
-              type: 'string',
-              format: 'date',
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: 'd/m/Y'
-                }
-              }
-            },
-            END_OPERATION: {
-              title: 'End Operation',
-              type: 'string',
-              format: 'date',
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: 'd/m/Y'
-                }
-              }
-            },
-            END_RECOVERY: {
-              title: 'End recovery',
-              type: 'string',
-              format: 'date',
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: 'd/m/Y'
-                }
-              }
-            }
-          },
-          title: 'Timings',
-          type: 'object',
-          format: 'grid'
-        },
-        CONTINUES_INTO_NEXT_TURN: {
-          type: 'boolean',
-          format: 'checkbox',
-          title: '*Will this activity continue into next turn?',
-          default: 'Yes',
-          items: {
-            type: 'string',
-            enum: [
-              'Yes',
-              'No'
-            ]
-          }
+          'ui:order': [
+            'START_PLANNING',
+            'START_DEPLOYMENT',
+            'START_OPERATION',
+            'END_OPERATION',
+            'END_RECOVERY'
+          ]
         },
         DEPENDENCIES: {
-          type: 'string',
-          title: 'Dependencies on Allied capability: Please indicate which allies (if any) and which of their capabilities you are dependent on. E.g. US Space capabilities, Allied ABO',
-          format: 'textarea'
+          'ui:widget': 'textarea'
         },
         AdjudicationSupport: {
-          type: 'array',
-          format: 'checkbox',
-          title: 'Adjudication support',
-          uniqueItems: true,
-          items: {
-            type: 'string',
-            enum: [
-              'Space',
-              'CEMA',
-              'Influence',
-              'Logistics'
-            ]
-          },
-          options: {
-            grid_columns: 12
-          }
+          items: {}
         },
         PEER_REVIEW: {
-          type: 'string',
-          title: 'Peer Review by',
-          format: 'textarea'
+          'ui:widget': 'textarea'
         },
         INSIGHT: {
-          type: 'string',
-          title: 'Insight – What would you have done differently with other policies / permissions / risk appetite?',
-          format: 'textarea'
-        }
+          'ui:widget': 'textarea'
+        },
+        'ui:order': [
+          'Reference',
+          'Title',
+          'LOCATION',
+          'PRESCRIPTED',
+          'VISIBILITY',
+          'COA_SUPPORTS_AS',
+          'TARGET',
+          'STRAT_COMMS',
+          'OBJECTIVES_TURN',
+          'OBJECTIVES_OVERALL',
+          'TARGET_CENTRE_OF_GRAVITY',
+          'DESIRED_ENDSTATE_TURN',
+          'DESIRED_ENDSTATE_OVERALL',
+          'EFFECTS_AND_ACTIONS',
+          'SEQUENCING_AND_PHASES',
+          'ADVERSARY_UNDERSTANDING',
+          'ADVERSARY_REACTION_COUNTER_ACTION',
+          'ORBAT',
+          'TIMINGS',
+          'CONTINUES_INTO_NEXT_TURN',
+          'DEPENDENCIES',
+          'AdjudicationSupport',
+          'PEER_REVIEW',
+          'INSIGHT'
+        ]
       }
     },
     lastUpdated: '2019-09-30T12:37:26.705Z',
@@ -551,77 +560,99 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'RFI',
     details: {
-      format: 'grid',
-      properties: {
-        Reference: {
-          readonly: 'readonly',
-          title: 'Reference (sys generated)',
-          options: {
-            grid_columns: 4
+      schema: {
+        type: 'object',
+        properties: {
+          '': {
+            title: '',
+            type: 'object',
+            properties: {
+              'Reference (sys generated)': {
+                title: 'Reference (sys generated)',
+                type: 'string'
+              },
+              Title: {
+                title: 'Title',
+                type: 'string'
+              }
+            },
+            dependencies: {},
+            required: []
           },
-          type: 'string'
+          RFI: {
+            title: 'RFI',
+            type: 'string'
+          },
+          newInput1: {
+            title: 'RFI',
+            type: 'object',
+            properties: {
+              Priority: {
+                enum: [
+                  'High',
+                  'Medium',
+                  'Low'
+                ],
+                title: 'Priority',
+                type: 'string'
+              },
+              FAO: {
+                enum: [
+                  'J2',
+                  'SME - CEMA',
+                  'SME - Space',
+                  'SME - Logs & Med',
+                  'SME - IO',
+                  'SME - White',
+                  'Actor - White',
+                  'Actor - Red',
+                  'Other'
+                ],
+                title: 'FAO',
+                type: 'string'
+              },
+              'Response required by': {
+                enum: [
+                  'Within in hour',
+                  'NlT 1300',
+                  'NLT 1600',
+                  'Not Urgent'
+                ],
+                title: 'Response required by',
+                type: 'string'
+              }
+            },
+            dependencies: {},
+            required: []
+          }
         },
-        Title: {
-          format: 'text',
-          options: {
-            grid_columns: 8
-          },
-          title: 'Title',
-          type: 'string'
+        dependencies: {},
+        required: []
+      },
+      uischema: {
+        '': {
+          'ui:order': [
+            'Reference (sys generated)',
+            'Title'
+          ]
         },
         RFI: {
-          format: 'textarea',
-          options: {
-            grid_columns: 12
-          },
-          title: 'RFI',
-          type: 'string'
+          'ui:widget': 'textarea'
         },
-        Priority: {
-          enum: [
-            'High',
-            'Medium',
-            'Low'
-          ],
-          title: 'Priority',
-          type: 'string'
+        newInput1: {
+          'ui:order': [
+            'Priority',
+            'FAO',
+            'Response required by'
+          ]
         },
-        FAO: {
-          enum: [
-            'J2',
-            'SME – CEMA',
-            'SME – Space',
-            'SME – Logs & Med',
-            'SME – IO',
-            'SME – White',
-            'Actor – White',
-            'Actor – Red',
-            'Other'
-          ],
-          title: 'FAO',
-          type: 'string'
-        },
-        ResponseRequiredBy: {
-          enum: [
-            'Within an hour',
-            'NLT 1300',
-            'NLT 1600',
-            'Not urgent'
-          ],
-          title: 'Response required by',
-          type: 'string'
-        }
+        'ui:order': [
+          '',
+          'RFI',
+          'newInput1'
+        ]
       },
-      required: [
-        'Reference',
-        'Title',
-        'FAO',
-        'RFI',
-        'Priority',
-        'ResponseRequiredBy'
-      ],
-      title: 'RFI',
-      type: 'object'
+      title: 'RFI'
     },
     completed: false,
     _id: 'k16eedkj',
@@ -631,18 +662,31 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'Message',
     details: {
-      type: 'object',
-      properties: {
-        title: {
-          type: 'string'
+      schema: {
+        type: 'object',
+        properties: {
+          title: {
+            title: 'title',
+            type: 'string'
+          },
+          content: {
+            title: 'content',
+            type: 'string'
+          }
         },
-        content: {
-          type: 'string',
-          format: 'textarea'
-        }
+        dependencies: {},
+        required: []
       },
-      title: 'Message',
-      format: 'grid'
+      uischema: {
+        content: {
+          'ui:widget': 'textarea'
+        },
+        'ui:order': [
+          'title',
+          'content'
+        ]
+      },
+      title: 'Message'
     },
     completed: false,
     _id: 'k16eedki',
@@ -652,64 +696,92 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.705Z',
     title: 'Weather forecast',
     details: {
-      type: 'object',
-      properties: {
-        title: {
-          type: 'string',
-          title: 'Title'
+      schema: {
+        type: 'object',
+        properties: {
+          'Weather forecast': {
+            title: 'Weather forecast',
+            type: 'object',
+            properties: {
+              Title: {
+                title: 'Title',
+                type: 'string'
+              }
+            },
+            dependencies: {},
+            required: []
+          },
+          Location: {
+            title: 'Location',
+            type: 'object',
+            properties: {
+              Lat: {
+                title: 'Lat',
+                type: 'number'
+              },
+              'Lat Hemi': {
+                enum: [
+                  'N/S',
+                  'N',
+                  'S'
+                ],
+                title: 'Lat Hemi',
+                type: 'string'
+              },
+              Long: {
+                title: 'Long',
+                type: 'number'
+              },
+              'Long Hemi': {
+                title: 'Long Hemi',
+                type: 'number'
+              }
+            },
+            dependencies: {},
+            required: []
+          },
+          'Valid from': {
+            format: 'date',
+            title: 'Valid from',
+            type: 'string'
+          },
+          'Valid until': {
+            format: 'date',
+            title: 'Valid until',
+            type: 'string'
+          },
+          Forecast: {
+            title: 'Forecast',
+            type: 'string'
+          }
+        },
+        dependencies: {},
+        required: []
+      },
+      uischema: {
+        'Weather forecast': {
+          'ui:order': [
+            'Title'
+          ]
         },
         Location: {
-          type: 'object',
-          properties: {
-            Lat: {
-              type: 'number'
-            },
-            'Lat Hemi': {
-              type: 'string',
-              enum: [
-                'N',
-                'S'
-              ]
-            },
-            Long: {
-              type: 'number'
-            },
-            'Long Hemi': {
-              type: 'string',
-              enum: [
-                'E',
-                'W'
-              ]
-            }
-          },
-          format: 'grid'
-        },
-        'Valid from': {
-          type: 'string',
-          format: 'datetime-local',
-          options: {
-            flatpickr: {
-              wrap: true,
-              time_24hr: true,
-              allowInput: true
-            }
-          }
-        },
-        'Valid until': {
-          type: 'string',
-          format: 'datetime-local',
-          options: {
-            flatpickr: {
-              wrap: true,
-              time_24hr: true,
-              allowInput: true
-            }
-          }
+          'ui:order': [
+            'Lat',
+            'Lat Hemi',
+            'Long',
+            'Long Hemi'
+          ]
         },
         Forecast: {
-          type: 'string',
-          format: 'textarea'
-        }
+          'ui:widget': 'textarea'
+        },
+        'ui:order': [
+          'Weather forecast',
+          'Location',
+          'Valid from',
+          'Valid until',
+          'Forecast'
+        ]
       },
       title: 'Weather Forecast'
     },
@@ -721,35 +793,46 @@ const messageTemplatesMock: TemplateBody[] = [
     lastUpdated: '2019-09-30T12:37:26.704Z',
     title: 'Machinery failure',
     details: {
-      type: 'object',
-      properties: {
-        title: {
-          type: 'string',
-          Title: 'Title'
-        },
-        Date: {
-          type: 'string',
-          format: 'datetime-local',
-          options: {
-            flatpickr: {
-              wrap: true,
-              time_24hr: true,
-              allowInput: true
-            }
+      schema: {
+        type: 'object',
+        properties: {
+          title: {
+            type: 'string'
+          },
+          Date: {
+            format: 'date',
+            title: 'Date',
+            type: 'string'
+          },
+          Status: {
+            enum: [
+              'Minor',
+              'Major',
+              'Critical'
+            ],
+            title: 'Status',
+            type: 'string'
+          },
+          Description: {
+            title: 'Description',
+            type: 'string'
           }
         },
-        Status: {
-          type: 'string',
-          enum: [
-            'Minor',
-            'Major',
-            'Critical'
-          ]
-        },
+        dependencies: {},
+        required: [],
+        description: '',
+        title: 'Machinery failure'
+      },
+      uischema: {
         Description: {
-          type: 'string',
-          format: 'textarea'
-        }
+          'ui:widget': 'textarea'
+        },
+        'ui:order': [
+          'title',
+          'Date',
+          'Status',
+          'Description'
+        ]
       },
       title: 'Machinery Failure'
     },
@@ -760,128 +843,30 @@ const messageTemplatesMock: TemplateBody[] = [
   {
     completed: false,
     details: {
-      properties: {
-        Forces: {
-          format: 'table',
-          items: {
-            minItems: 1,
-            properties: {
-              //   items: {
-              //     properties: {
-              //       history: {
-              //         format: 'table',
-              //         items: {
-              //           properties: {
-              //             Route: {
-              //               format: 'table',
-              //               items: {
-              //                 properties: {
-              //                   Location: {
-              //                     maxLength: 3,
-              //                     type: 'string'
-              //                   }
-              //                 }
-              //               },
-              //               minItems: 1,
-              //               propertyOrder: 400,
-              //               type: 'array'
-              //             },
-              //             Speed: {
-              //               propertyOrder: 300,
-              //               type: 'number'
-              //             },
-              //             State: {
-              //               propertyOrder: 200,
-              //               type: 'string'
-              //             },
-              //             Turn: {
-              //               propertyOrder: 100,
-              //               type: 'string'
-              //             }
-              //           }
-              //         },
-              //         minItems: 1,
-              //         type: 'array'
-              //       },
-              //       name: {
-              //         propertyOrder: 100,
-              //         type: 'string'
-              //       },
-              //       planned: {
-              //         format: 'table',
-              //         items: {
-              //           properties: {
-              //             Route: {
-              //               format: 'table',
-              //               items: {
-              //                 properties: {
-              //                   Location: {
-              //                     maxLength: 3,
-              //                     type: 'string'
-              //                   }
-              //                 }
-              //               },
-              //               minItems: 1,
-              //               propertyOrder: 400,
-              //               type: 'array'
-              //             },
-              //             Speed: {
-              //               propertyOrder: 300,
-              //               type: 'number'
-              //             },
-              //             State: {
-              //               propertyOrder: 200,
-              //               type: 'string'
-              //             },
-              //             Turn: {
-              //               propertyOrder: 100,
-              //               type: 'string'
-              //             }
-              //           }
-              //         },
-              //         minItems: 1,
-              //         propertyOrder: 2000,
-              //         type: 'array'
-              //       },
-              //       visibleTo: {
-              //         format: 'table',
-              //         items: {
-              //           properties: {
-              //             Force: {
-              //               enum: [
-              //                 'Blue',
-              //                 'Red',
-              //                 'Green'
-              //               ],
-              //               type: 'string'
-              //             }
-              //           }
-              //         },
-              //         propertyOrder: 300,
-              //         type: 'array'
-              //       }
-              //     }
-              //   },
-              //   minItems: 1,
-              //   type: 'array'
-              // },
-              force: {
-                enum: [
-                  'Blue',
-                  'Red',
-                  'Green'
-                ],
-                propertyOrder: 100,
-                type: 'string'
-              }
-            }
-          },
-          minItems: 1,
-          type: 'array'
-        }
+      schema: {
+        type: 'object',
+        properties: {
+          Forces: {
+            items: {
+              type: 'string'
+            },
+            title: 'Forces',
+            type: 'array',
+            minItems: 1
+          }
+        },
+        dependencies: {},
+        required: []
       },
-      title: 'State of World (Full 2)',
-      type: 'object'
+      uischema: {
+        Forces: {
+          items: {}
+        },
+        'ui:order': [
+          'Forces'
+        ]
+      },
+      title: 'State of World (Full 2)'
     },
     lastUpdated: '2019-12-20T15:57:11.519Z',
     title: 'State of world (full 2)',

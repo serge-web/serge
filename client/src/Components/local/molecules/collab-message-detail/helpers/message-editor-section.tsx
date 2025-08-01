@@ -9,7 +9,6 @@ const MessageEditorSection: React.FC<Props> = ({
   message,
   collaboration,
   template,
-  notHappeningHandler,
   responseHandler,
   newMessageHandler,
   state,
@@ -27,7 +26,6 @@ const MessageEditorSection: React.FC<Props> = ({
           messageContent={message.message}
           messageId={`${message._id}_${message.message.Reference}`}
           template={template}
-          storeNewValue={notHappeningHandler}
           disabled={true}
           gameDate={gameDate}
         />

@@ -5,7 +5,7 @@ import React from 'react'
 import NewMessage from './index'
 import docs from './README.md'
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
+const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px', overflow: 'auto' }}>{storyFn()}</div>
 
 export default {
   title: 'local/form-elements/NewMessage',

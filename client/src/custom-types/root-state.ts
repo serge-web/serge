@@ -1,4 +1,4 @@
-import { MessageTypes, PlayerLogEntries, WargamesState } from '.'
+import { PlayerLogEntries, WargamesState } from '.'
 import Role from './role'
 
 export type GameInfo = {
@@ -7,14 +7,6 @@ export type GameInfo = {
   title: string
   description: string
   showAccessCodes: boolean
-}
-
-export type Messages = {
-  isLoading: boolean
-  messages: never[]
-  messagePreviewId: string
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  messagePreview: {}
 }
 
 export type UmpireMenu = {
@@ -74,8 +66,6 @@ export type CurrentModal = {
 }
 
 export type RootState = {
-  messageTypes: MessageTypes
-  messages: Messages
   umpireMenu: UmpireMenu
   currentViewURI: string
   currentModal: CurrentModal

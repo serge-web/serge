@@ -4,12 +4,10 @@ import { connect } from 'react-redux'
 import { addNotification } from '../../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { populateWargameList } from '../../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { getSergeGameInformation } from '../../ActionsAndReducers/sergeInfo/sergeInfo_ActionCreators'
-import { populateMessageTypesDb } from '../../ActionsAndReducers/dbMessageTypes/messageTypes_ActionCreators'
 import { StateProps } from './types'
 
-const mapStateToProps = ({ wargame, messageTypes, gameInfo, dbLoading }: StateProps) => ({
+const mapStateToProps = ({ wargame, gameInfo, dbLoading }: StateProps) => ({
   wargame,
-  messageTypes,
   gameInfo,
   dbLoading
 })
@@ -23,7 +21,6 @@ const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
     dispatch(addNotification('Hidden wargame should not be available. Not opening', 'error'))
   },
   loadData: (): void => {
-    dispatch(populateMessageTypesDb())
     dispatch(populateWargameList())
     dispatch(getSergeGameInformation())
   }

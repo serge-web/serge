@@ -1,0 +1,41 @@
+.edt-disable .row {
+  display: contents;
+  flex-wrap: wrap;
+  vertical-align: top;
+  margin-right: 10px; 
+}
+
+.edt-disable .row > .col-12 {
+    display: contents;
+}
+
+
+.form-group .field {
+  float: left;
+  padding: 2px;
+  /* width: 100%; */
+}
+
+.form-group .field:not([class*="col"]) {
+  width: 100%;
+}
+.message-creator .form-group .mb-3 {
+  color: white;
+}
+
+.form-group .form-label input {
+  margin-right: 4px;
+}
+
+.form-group .py-4 {
+  height: 10px;
+}
+
+.form-group button {
+  width: auto !important;
+}
+
+.form-group-button {
+  float: right;
+  margin-top: 14px;
+}

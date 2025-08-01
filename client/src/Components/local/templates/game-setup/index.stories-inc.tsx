@@ -7,6 +7,7 @@ import {
 import {
   ChannelTypes,
   ForceData,
+  TemplateBody,
   Wargame,
   WargameOverview
 } from 'src/custom-types'
@@ -33,11 +34,15 @@ export const Default: React.FC = () => {
     wargameInitiated: false
   }
 
+  initialWargame.data.templates.templates = MessageTemplatesMock
+
   const [wargame, setWargame] = useState<Wargame>(initialWargame)
   const [isWargameChanged, setWargameChanged] = useState<boolean>(false)
   const [, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
+  const [changedTemplates, setChangedTemplates] = useState<Array<TemplateBody>>(wargame.data.templates.templates || [])
+
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e?: React.MouseEvent<HTMLDivElement>): void => {
@@ -45,6 +50,7 @@ export const Default: React.FC = () => {
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
     setChangedChannels(wargame.data.channels.channels || [])
+    setChangedTemplates(wargame.data.templates.templates)
     setWargameChanged(false)
     setWargame({
       ...wargame,
@@ -66,6 +72,11 @@ export const Default: React.FC = () => {
 
   const onChannelsChange = (updates: { channels: Array<ChannelTypes> }): void => {
     console.log('new channels', updates.channels)
+  }
+
+  const onTemplatesChange = (updates: { templates: Array<TemplateBody> }): void => {
+    setChangedTemplates(updates.templates)
+    setWargameChanged(true)
   }
 
   const onSaveGameTitle = (update: string): void => {
@@ -93,8 +104,9 @@ export const Default: React.FC = () => {
       onOverviewChange={onOverviewChange}
       onForcesChange={onForcesChange}
       onChannelsChange={onChannelsChange}
+      onTemplateChange={onTemplatesChange}
       onSave={onSave}
-      messageTemplates={MessageTemplatesMock}
+      templates={changedTemplates}
       onSaveGameTitle={onSaveGameTitle}
       onWargameInitiate={onWargameInitiated}
       iconUploadUrl={iconUploaderPath}

@@ -1,5 +1,5 @@
 import { UNSENT_SELECT_BY_DEFAULT_VALUE } from 'src/config'
-import { CoreMessage, TemplateBody } from 'src/custom-types'
+import { CoreMessage, TemplateBody, TemplateBodyDetails } from 'src/custom-types'
 import { usePrevious } from 'src/Helpers'
 import React, { MouseEvent, useEffect, useMemo, useRef, useState } from 'react'
 import Collapsible from 'react-collapsible'
@@ -24,7 +24,6 @@ const NewMessage: React.FC<PropTypes> = ({
   saveCachedNewMessageValue,
   getCachedNewMessagevalue,
   clearCachedNewMessage,
-  customiseTemplate,
   draftMessage,
   title,
   hideTemplateSelector,
@@ -32,7 +31,7 @@ const NewMessage: React.FC<PropTypes> = ({
   modifyForSave
 }) => {
   const prevTemplates: TemplateBody = usePrevious(templates)
-  const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
+  const [selectedSchema, setSelectedSchema] = useState<TemplateBodyDetails | null>(null)
   const [selectedType, setSelectedType] = useState<string>('')
   const [updateNewMessage, setUpdateNewMessage] = useState(false)
 
@@ -157,7 +156,6 @@ const NewMessage: React.FC<PropTypes> = ({
           selectedRole={selectedRole}
           selectedRoleName={selectedRoleName}
           postBack={postBack}
-          customiseTemplate={customiseTemplate}
           draftMessage={draftMessage}
           modifyForEdit={modifyForEdit}
           modifyForSave={modifyForSave}

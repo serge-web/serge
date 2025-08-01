@@ -31,7 +31,7 @@ const configCommonProps = (propIn: Record<string, unknown>, gameDate: string): R
       }
       return prop
     case 'time':
-      prop.default = moment(gameDate).format('HH:mm')
+      prop.default = moment(gameDate).format('HH:mm:ss')
       prop.options = {
         flatpickr: {
           wrap: false,

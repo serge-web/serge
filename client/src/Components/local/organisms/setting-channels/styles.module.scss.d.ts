@@ -12,6 +12,8 @@ interface CssExports {
   'box': string;
   'cell-lbl': string;
   'channel-name': string;
+  'channelTabContainer': string;
+  'channelTabDetailsContainer': string;
   'chat-configuration': string;
   'col': string;
   'col-2': string;
@@ -19,27 +21,25 @@ interface CssExports {
   'constraints-cell': string;
   'constraints-icon': string;
   'control-groups': string;
+  'editPropField': string;
   'input': string;
+  'itemTitle': string;
+  'mapFieldItem': string;
   'mapping-item-constraints': string;
   'message-content': string;
   'message-group': string;
   'message-title': string;
   'pager': string;
   'paper-container': string;
+  'participantsTab': string;
+  'renderersList': string;
+  'renderersTab': string;
   'row': string;
   'section': string;
   'status-item': string;
   'table': string;
-  'title': string;
-  'channelTabContainer': string;
-  'channelTabDetailsContainer': string;
-  'mapFieldItem': string;
-  'renderersList': string;
-  'renderersTab': string;
-  'itemTitle': string;
-  'participantsTab': string;
   'tableCellText': string;
-  'editPropField': string
+  'title': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

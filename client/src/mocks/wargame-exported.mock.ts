@@ -264,6 +264,12 @@ const game: Wargame = {
       showAccessCodes: true,
       timeWarning: 60000,
       logPlayerActivity: true
+    },
+    templates: {
+      dirty: false,
+      name: 'template',
+      selectedTemplate: '',
+      templates: []
     }
   },
   currentTab: 'channels',

@@ -56,7 +56,7 @@ const openMessageChange = (message: MessageChannel, id: string): { message: Mess
   let changed = false
   if (message._id === id) {
     changed = true
-    message.isOpen = true
+    message.isOpen = !message.isOpen
     message.hasBeenRead = true
   }
   return { message, changed }
