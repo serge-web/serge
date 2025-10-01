@@ -30,13 +30,17 @@ const GameChannelsWithTour: React.FC = () => {
     allForces
   } = usePlayerUiState()
 
-  const gameTourKey = `${wargameTitle}-${(selectedForce && selectedForce.uniqid) || ''}-${(selectedRole && selectedRole) || ''}-tourDone`
-  const mappingTourKey = `${wargameTitle}-${(selectedForce && selectedForce.uniqid) || ''}-${(selectedRole && selectedRole) || ''}-mapping-tourDone`
-
   const [tourIsOpen, setTourIsOpen] = useState<boolean>(false)
   const [mapTourIsOpen, setMapTourIsOpen] = useState<boolean>(false)
   const [showMappingTour, setShowMappingTour] = useState<boolean>(false)
   const [tourSteps, setTourStep] = useState<GameTour[]>([])
+
+  // Generating unique tour keys
+  const generateTourKey = (suffix: string) =>
+    `${wargameTitle}-${(selectedForce && selectedForce.uniqid) || ''}-${(selectedRole && selectedRole) || ''}-${suffix}`
+  
+  const gameTourKey = generateTourKey('tourDone')
+  const mappingTourKey = generateTourKey('mapping-tourDone')
 
   const storageTourIsOpen = expiredStorage.getItem(gameTourKey) !== 'done'
   const storageMappingTourIsOpen = expiredStorage.getItem(mappingTourKey) !== 'done'

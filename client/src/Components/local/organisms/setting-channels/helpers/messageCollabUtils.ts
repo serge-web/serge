@@ -108,10 +108,10 @@ export const integrateWithLocalChanges = (options: Option[], channelData: Channe
   const nextChannel: ChannelCollab = ({ ...channelData }) as unknown as ChannelCollab
 
   const msgTpl = filterInByUniqId(messageUpdates, options, 'messageTemplate')
-  nextChannel.newMessageTemplate = msgTpl
+  nextChannel.newMessageTemplate = msgTpl._id ? msgTpl : undefined
 
   const resTpl = filterInByUniqId(messageUpdates, options, 'responseTemplate')
-  nextChannel.responseTemplate = resTpl
+  nextChannel.responseTemplate = resTpl._id ? resTpl : undefined
 
   nextChannel.initialState = getInitialState(messageUpdates.documentStatus[0])
   nextChannel.requestChangesVerbs = messageUpdates.requestChanges
@@ -122,54 +122,44 @@ export const integrateWithLocalChanges = (options: Option[], channelData: Channe
   return nextChannel
 }
 
+const handleDeleteAction = (nextMessageLocal: MessagesValues, value: string[], action: Action, property: MessageKey): any => {
+  return action === 'delete' ? filterOutByUniqId(nextMessageLocal, value, property) : value
+}
 export const onMessageValuesChanged = (messageLocal: MessagesValues, value: string[], action: Action, type: string): MessagesValues => {
   const nextMessageLocal: MessagesValues = { ...messageLocal }
-
+  
   switch (type) {
     case MessageGroupType.MESSAGE_TEMPLATE:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'messageTemplate')
-      }
-      nextMessageLocal.messageTemplate = value
-      return nextMessageLocal
+      nextMessageLocal.messageTemplate = handleDeleteAction(nextMessageLocal, value, action, 'messageTemplate')
+      break
 
     case MessageGroupType.RESPONSE_TEMPLATE:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'responseTemplate')
-      }
-      nextMessageLocal.responseTemplate = value
-      return nextMessageLocal
+      nextMessageLocal.responseTemplate = handleDeleteAction(nextMessageLocal, value, action, 'responseTemplate')
+      break
 
     case MessageGroupType.DOCUMENT_STATUS:
       nextMessageLocal.documentStatus = value
-      return nextMessageLocal
+      break
 
     case MessageGroupType.REQUEST_CHANGES:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'requestChanges')
-      }
-      nextMessageLocal.requestChanges = value
-      return nextMessageLocal
+      nextMessageLocal.requestChanges = handleDeleteAction(nextMessageLocal, value, action, 'requestChanges')
+      break
 
     case MessageGroupType.APPROVE:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'approve')
-      }
-      nextMessageLocal.approve = value
-      return nextMessageLocal
+      nextMessageLocal.approve = handleDeleteAction(nextMessageLocal, value, action, 'approve')
+      break
 
     case MessageGroupType.RELEASE:
-      if (action === 'delete') {
-        return filterOutByUniqId(nextMessageLocal, value, 'release')
-      }
-      nextMessageLocal.release = value
-      return nextMessageLocal
+      nextMessageLocal.release = handleDeleteAction(nextMessageLocal, value, action, 'release')
+      break
 
     case MessageGroupType.ADDITIONAL_DATA:
       nextMessageLocal.additionalData = value
-      return nextMessageLocal
+      break
 
     default:
       return nextMessageLocal
   }
+  
+  return nextMessageLocal
 }

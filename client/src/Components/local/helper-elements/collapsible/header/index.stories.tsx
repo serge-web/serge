@@ -1,16 +1,16 @@
 import React from 'react'
+import { StoryFC } from 'src/custom-types'
 
 // Import component files
 import CollapsibleHeader from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/helper-elements/collapsible/CollapsibleHeader',
   component: CollapsibleHeader,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -23,10 +23,9 @@ const onClick = (): void => {
   console.log('clicked')
 }
 
-export const Default: React.FC = () => <CollapsibleHeader onClick={onClick}>Header</CollapsibleHeader>
+export const Default: StoryFC = () => <CollapsibleHeader onClick={onClick}>Header</CollapsibleHeader>
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

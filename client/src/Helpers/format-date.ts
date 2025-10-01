@@ -22,14 +22,4 @@ export const formatShortDate = (timestamp: string): string => {
   return formatDate(timestamp, 'DD/MM/YY')
 }
 
-/** format date as 'DDHHmm */
-export const formatMilitaryDate = (timestamp: string): string => {
-  return formatDate(timestamp, 'DDHHmm[Z]')
-}
-
-/** format date as 'DDHHmm */
-export const formatLongMilitaryDate = (timestamp: string): string => {
-  return formatDate(timestamp, 'MMM DDHHmm[Z]')
-}
-
 export default formatDate

@@ -2,18 +2,18 @@ import React from 'react'
 import { styled } from '@material-ui/core/styles'
 import CollapsibleHeader from './header'
 import CollapsibleContent from './content'
+import { StoryFC } from 'src/custom-types'
 
 // Import component files
 import Collapsible from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/helper-elements/Collapsible',
   component: Collapsible,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -26,7 +26,7 @@ const onClick = (): void => {
   console.log('clicked')
 }
 
-export const Default: React.FC = () => <Collapsible onClick={onClick}>
+export const Default: StoryFC = () => <Collapsible onClick={onClick}>
   <CollapsibleHeader>Header</CollapsibleHeader>
   <CollapsibleContent>Content</CollapsibleContent>
 </Collapsible>
@@ -61,8 +61,6 @@ export const CustomStructure: React.FC = () => (
   />
 )
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

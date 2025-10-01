@@ -35,7 +35,7 @@ const getUIChannels = (allChannels: ChannelTypes[], forceId: string, isObserver:
       const forceColors: string[] = []
       for (const { forceUniqid } of channel.participants) {
         const force = allForces.find((force) => force.uniqid === forceUniqid)
-        forceIcons.push((force && force.iconURL) || force?.icon)
+        forceIcons.push((force && force.iconURL) || '')
         forceColors.push((force && force.color) || '#FFF')
       }
 
@@ -230,6 +230,7 @@ describe('handle channel update for info message', () => {
     const redCO = redForce.roles[0]
     const payload2: MessageCustom = {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       details: {
         channel: CHAT_CHANNEL_ID,
         from: {
@@ -239,7 +240,6 @@ describe('handle channel update for info message', () => {
           iconURL: 'default_img/umpireDefault.png',
           roleId: redCO.roleId
         },
-        messageType: 'Chat',
         privateMessage: 'The private content goes in here',
         timestamp: '2020-10-13T08:52:40.930Z',
         turnNumber: 1
@@ -281,6 +281,7 @@ describe('handle channel update for info message', () => {
     const messageId = 'bingo'
     const payload2: MessageCustom = {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       details: {
         channel: channelId,
         from: {
@@ -290,7 +291,6 @@ describe('handle channel update for info message', () => {
           iconURL: 'default_img/umpireDefault.png',
           roleId: whiteGC.roleId
         },
-        messageType: 'Chat',
         privateMessage: 'The private content goes in here',
         timestamp: '2020-10-13T08:52:40.930Z',
         turnNumber: 1
@@ -328,6 +328,7 @@ describe('handle channel update for info message', () => {
     const messageId = 'bingo'
     const payload2: MessageCustom = {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       details: {
         channel: channelId,
         from: {
@@ -337,7 +338,6 @@ describe('handle channel update for info message', () => {
           iconURL: 'default_img/umpireDefault.png',
           roleId: selectedRole
         },
-        messageType: 'Chat',
         privateMessage: 'The private content goes in here',
         timestamp: '2020-10-13T08:52:40.930Z',
         turnNumber: 1

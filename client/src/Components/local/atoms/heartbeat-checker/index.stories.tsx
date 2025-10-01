@@ -4,7 +4,7 @@ import React from 'react'
 import HeartbeatChecker from './index'
 import PropTypes from './types/props'
 import docs from './README.md'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 
 export default {
   title: 'local/atoms/HeartbeatChecker',
@@ -30,7 +30,7 @@ export default {
   }
 }
 
-const Template: Story<PropTypes> = (args) => {
+const Template: StoryFn<PropTypes> = (args) => {
   const { ...props } = args
   return <HeartbeatChecker {...props} />
 }

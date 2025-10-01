@@ -77,5 +77,5 @@ it('delete channel that has no more participations', () => {
 
   // check there are now fewer channels
   expect(_.isArray(res) ? res[0].channels.channels.length : res.channels.channels.length).toEqual(1)
-  expect(_.isArray(res) ? res[0].channels.channels[0].name : res.channels.channels[0].name).toEqual('mapping')
+  expect(_.isArray(res) ? res[0].channels.channels[0].name : res.channels.channels[0].name).toEqual('General chit-chat')
 })

@@ -1,5 +1,5 @@
 import React from 'react'
-import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab } from 'src/custom-types'
+import { MessageCustom, ForceData, ForceRole, TemplateBodysByKey, ChannelCollab, TypeOfCustomMessage } from 'src/custom-types'
 import { ForceColor } from '..'
 import CollabMessageDetail from '../../molecules/collab-message-detail'
 import { Badge } from '../../atoms/badge'
@@ -43,15 +43,50 @@ export const genData = (
   channelColb: ChannelCollab,
   permission: CollaborativePermission,
   gameDate: string,
-  onChange: (msg: MessageCustom) => void,
+  onChange: (msg: MessageCustom, messageType: TypeOfCustomMessage) => void,
   onMessageRead?: (message: MessageCustom) => void
 ): GenData => {
   const assignees: ForceRole[] = getAssignees(channelColb.participants, forces)
   const isCollaborating = permission > CollaborativePermission.CannotCollaborate || isObserver
 
-  const sortCol = (str1: string, str2: string): number => {
-    const a = str1.toLowerCase()
-    const b = str2.toLowerCase()
+  const findFirstAlphabeticCharacter = (str: string): string => {
+    for (const char of str) {
+      if (/[a-zA-Z]/.test(char)) {
+        return char.toLowerCase()
+      }
+    }
+    return '' 
+  }
+
+  const sortCol = (str1: string | null | undefined, str2: string | null | undefined, date = false): number => {
+    if (str1 == null && str2 == null) return 0
+    if (str1 == null) return 1 
+    if (str2 == null) return -1 
+
+    let a = str1.toLowerCase()
+    let b = str2.toLowerCase()
+
+    if (date) {
+      const durationA = moment.duration(a)
+      const durationB = moment.duration(b)
+
+      if (!durationA.isValid() || !durationB.isValid()) {
+        throw new Error('Invalid date format')
+      }
+
+      a = moment().subtract(durationA).toISOString()
+      b = moment().subtract(durationB).toISOString()
+    } else {
+      const firstLetterA = findFirstAlphabeticCharacter(a)
+      const firstLetterB = findFirstAlphabeticCharacter(b)
+
+      if (firstLetterA && firstLetterB) {
+        if (firstLetterA !== firstLetterB) {
+          a = firstLetterA
+          b = firstLetterB
+        }
+      }
+    }
 
     return a > b ? 1 : -1
   }
@@ -111,6 +146,8 @@ export const genData = (
     {
       name: 'Updated',
       selector: (row: Row): string => row.updated,
+      sortFunction: (rowA: Row, rowB: Row): number => sortCol(rowA.status, rowB.status, true),
+
       sortable: true,
       center: true
     }
@@ -141,7 +178,7 @@ export const genData = (
     extraCols.push(...newCols)
   }
   columns.push(...extraCols)
-
+  
   const rows: Row[] = messages.map((message): Row => {
     const collab = message.details.collaboration
     const ownerRole = (collab && collab.owner) || undefined
@@ -190,8 +227,8 @@ export const genData = (
             channelColb={channelColb}
             permission={permission}
             assignees={assignees}
-            onChange={(newMeesage: MessageCustom): void => {
-              onChange && onChange(newMeesage)
+            onChange={(newMeesage: MessageCustom, messageType: TypeOfCustomMessage): void => {
+              onChange && onChange(newMeesage, messageType)
             }}
             collapseMe={collapseMe}
             gameDate={gameDate}
@@ -199,7 +236,7 @@ export const genData = (
         </div>
       )
     }
-
+    
     const row: Row = {
       id: message.message.Reference || message._id, // for showing on the row
       _id: message._id, // tracking data

@@ -14,16 +14,15 @@ export const feedbackMessage1: MessageFeedback = {
       forceColor: '#3dd0ff',
       roleId: blueCO.roleId,
       roleName: blueCO.name,
-      name: '',
       iconURL: ''
     },
-    messageType: 'Chat',
     timestamp: '2020-12-06T11:05:12.038Z',
     turnNumber: 1
   },
   message: {
     content: 'ds'
   },
+  name: 'Sophia Brown',
   messageType: FEEDBACK_MESSAGE,
   // "feedback": true, we don't need it more
   _id: '2020-12-06T11:05:12.038Z',
@@ -37,16 +36,15 @@ export const feedbackMessage2: MessageFeedback = {
       forceColor: '#FCFBEE',
       roleId: whiteGC.roleId,
       roleName: whiteGC.name,
-      name: 'Heri Setiawan',
       iconURL: ''
     },
-    messageType: 'Chat',
     timestamp: '2020-10-01T01:19:56.492Z',
     turnNumber: 1
   },
   message: {
     content: 'Lorem ipsum do lor sit amet'
   },
+  name: 'Heri Setiawan',
   messageType: FEEDBACK_MESSAGE,
   // "feedback": true, we don't need it more
   _id: '2020-10-01T01:19:56.492Z',

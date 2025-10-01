@@ -1,19 +1,12 @@
 import { TurnFormats } from 'src/config'
-import { AreaCategory, ForceTemplateData } from '.'
-import { AttributeTypes } from './attributes'
 import { ChannelTypes } from './channel-data'
 import ChannelUI from './channel-ui'
 import ForceData from './force-data'
-import { AnnotationIcons, MapAnnotations } from './map-annotation'
-import MappingConstraints from './mapping-constraints'
 import { MessageChannel, MessageFeedback } from './message'
 import { TemplateBodysByKey } from './message-types'
-import { PerForcePlanningActivitySet } from './planning-activity'
-import PlatformTypeData from './platform-type-data'
 import { PlayerMessageLog } from './player-log'
 import Role from './role'
 import { GameTurnLength } from './turn-length'
-import { TurnPeriods } from './turn-period'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -54,23 +47,12 @@ export default interface PlayerUi {
   channels: PlayerUiChannels
   /** all channels in this wargame */
   allChannels: Array<ChannelTypes>
-  /** the information markers */
-  infoMarkers: MapAnnotations
-  /** icons used for markers */
-  allPeriods: TurnPeriods
-  markerIcons: AnnotationIcons
   /** set of forces for ths current wargame */
   allForces: Array<ForceData>
-  /** generic attribute types */
-  attributeTypes: AttributeTypes
   /** templates, indexed by Id 
    * to be @deprecated
    */
   allTemplatesByKey: TemplateBodysByKey
-  /** descriptions of platforms available in current wargame */
-  /*
-   */
-  allPlatformTypes: Array<PlatformTypeData>
   showObjective: boolean
   updateMessageState: boolean
   /** whether wargame changes stored as new documents (true) or whether
@@ -91,14 +73,6 @@ export default interface PlayerUi {
   isRFIManager: boolean
   /** log of recent player messages */
   playerMessageLog: PlayerMessageLog
-  /** mapping constraints */
-  mappingConstraints?: MappingConstraints
   /** whether to hide force memberships in channels */
   hideForcesInChannels?: boolean
-  /** definitions of activities for forces */
-  perForceActivities: PerForcePlanningActivitySet[]
-  /** set of standard areas */
-  areas?: AreaCategory[]
-  /** force specific template data */
-  forceTemplateData?: ForceTemplateData[]
 }

@@ -16,7 +16,6 @@ const ExportMessages = ({ wargame, exportItems, loader, exportWargameMessages }:
 
       <span className={loader ? 'link link--progress' : 'link link--noIcon'} onClick={() => { exportWargameMessages(wargame) }}>Create Export</span>
       <ul>
-        
         {
           exportItems.map((item, key) => (
             <ExportItem item={item} key={key}>

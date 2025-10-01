@@ -21,7 +21,7 @@ export const ChannelMessageHeader: React.FC<Props> = ({
   timestamp,
   forceColor,
   role,
-  messageType,
+  templateId,
   hasBeenRead,
   onExpand,
   markUnread
@@ -49,7 +49,7 @@ export const ChannelMessageHeader: React.FC<Props> = ({
         <Box display="flex" alignItems="center" pl={3}>
           <span className={styles['info-body']}>{timestamp && formatTime(timestamp)}</span>
           <Badge size="small" label={role} customBackgroundColor={forceColor} />
-          <Badge size="small" label={messageType} />
+          <Badge size="small" label={templateId} />
         </Box>
       </div>
     </div>

@@ -102,6 +102,27 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
     return value as React.ReactText
   }
 
+  const RenderItemInput = (
+    isNumber: boolean,
+    value: Item,
+    handleInputChange: (e: React.ChangeEvent<HTMLInputElement>)=> void,
+    uniqid: any
+  ) => (
+    <input
+      className={styles['value-label']}
+      type={isNumber ? 'number' : 'text'}
+      onChange={handleInputChange}
+      value={`${value}`}
+      ref={(input): void => {
+        if (selectAllText && input && uniqid === active) {
+          input.select()
+          setSelectAllText(false)
+        }
+      }}
+      onBlur={handleBlur}
+    />
+  )
+
   const renderItems = items.map((item, key) => {
     let uniqid: React.ReactText = key
     let value = item
@@ -154,19 +175,12 @@ export const SortableList: React.FC<PropTypes> = React.forwardRef(({
             <section className={styles.section}>
               {
                 inputActive
-                  ? <input
-                    className={styles['value-label']}
-                    type={isNumber ? 'number' : 'text'}
-                    onChange={handleInputChange}
-                    value={`${value}`}
-                    ref={(input): void => {
-                      if (selectAllText && input && uniqid === active) {
-                        input.select()
-                        setSelectAllText(false)
-                      }
-                    }}
-                    onBlur={handleBlur}
-                  />
+                  ? RenderItemInput(
+                    isNumber,
+                    value,
+                    handleInputChange,
+                    uniqid
+                  )
                   : <div className={styles['value-label']}>
                     <div ref={key === items.length - 1 ? modalRef : null} onClick={(e): void => { handleClick(e, item, uniqid, key) }}>
                       {value}

@@ -16,6 +16,7 @@ import EditableRow, { EDITABLE_SELECT_ITEM, Item as RowItem } from '../../../mol
 import { Option, SelectItem } from '../../../molecules/editable-row/types/props'
 import MoreInfo from '../../../molecules/more-info'
 import { defaultParticipantChat } from '../helpers/defaultParticipant'
+import uniqId from 'uniqid'
 import styles from '../styles.module.scss'
 import { ForceData, Role } from '../types/props'
 
@@ -63,6 +64,7 @@ export const ChatChannel: React.FC<ChatChannelProps> = ({
       return {
         ...participant,
         forceUniqid: selectedForce.uniqid,
+        subscriptionId: uniqId.time(),
         roles
       }
     }
@@ -150,7 +152,6 @@ export const ChatChannel: React.FC<ChatChannelProps> = ({
         }
 
         const items = generateRowItemsChat(forces, participantChat)
-
         return <EditableRow
           onRemove={(pKey = -1): void => confirmRemoveParticipant(pKey)}
           key={participantChat.subscriptionId}

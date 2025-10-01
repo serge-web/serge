@@ -6,6 +6,7 @@ const whiteGC: Role = forces[0].roles[0]
 const blueCO: Role = forces[1].roles[0]
 const message1: MessageChannel = {
   messageType: CUSTOM_MESSAGE,
+  templateId: 'Chat',
   details: {
     channel: 'game-admin',
     from: {
@@ -15,7 +16,6 @@ const message1: MessageChannel = {
       roleName: whiteGC.name,
       iconURL: 'default_img/umpireDefault.png'
     },
-    messageType: 'Chat',
     timestamp: '2020-03-25T15:08:47.510Z',
     turnNumber: 1
   },
@@ -28,6 +28,7 @@ const message1: MessageChannel = {
 }
 const message2: MessageCustom = {
   messageType: CUSTOM_MESSAGE,
+  templateId: 'Chat',
   details: {
     channel: 'game-admin',
     from: {
@@ -38,7 +39,6 @@ const message2: MessageCustom = {
       name: 'Blue',
       iconURL: 'default_img/umpireDefault.png'
     },
-    messageType: 'Chat',
     timestamp: '2020-03-25T15:08:47.510Z',
     turnNumber: 1
   },

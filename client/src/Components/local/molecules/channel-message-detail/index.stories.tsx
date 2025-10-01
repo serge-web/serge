@@ -1,5 +1,5 @@
 import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 
 // Import component files
 import ChannelMessageDetail from './index'
@@ -37,7 +37,7 @@ export default {
   }
 }
 
-const Template: Story<DetailPropTypes> = (args) => {
+const Template: StoryFn<DetailPropTypes> = (args) => {
   const { isUmpire, message } = args
   return <ChannelMessageDetail
     message={message}
@@ -75,35 +75,6 @@ DailyIntention.args = {
         SearchPolicy: 'Some policy',
         ActionOnContact: 'Ignore',
         AnyOtherComments: 'other'
-      }]
-    }
-  },
-  isUmpire: false
-}
-
-export const StateOfTheWorld = Template.bind({})
-StateOfTheWorld.args = {
-  message: {
-    ...GameMessagesMockRFI[0],
-    message: {
-      Forces: [{
-        assets: [{
-          location: 'loc',
-          name: 'name',
-          visibleTo: [{ Force: 'Blue' }]
-        }, {
-          location: 'lo2',
-          name: 'name2',
-          visibleTo: [{ Force: 'Red' }]
-        }],
-        force: 'Blue'
-      }, {
-        assets: [{
-          location: 'loc',
-          name: 'name3',
-          visibleTo: []
-        }],
-        force: 'Red'
       }]
     }
   },

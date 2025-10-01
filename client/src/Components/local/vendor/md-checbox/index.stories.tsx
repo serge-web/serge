@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import docs from './README.md'
 
 export default {
-  title: 'vendor/Checkbox',
+  title: 'md-checkbox/vendor/Checkbox',
   component: Checkbox,
   parameters: {
     readme: {

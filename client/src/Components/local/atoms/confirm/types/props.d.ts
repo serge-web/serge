@@ -8,4 +8,5 @@ export type Props = {
   onCancel: noop
   cancelBtnText?: string
   confirmBtnText?: string
+  modalStyle?: any
 }

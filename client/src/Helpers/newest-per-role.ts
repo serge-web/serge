@@ -28,7 +28,7 @@ const newestPerRole = (messages: Array<MessageInfoType | MessageCustom>): Player
       if (!existingInstance) {
         const newI: PlayerMessage = {
           roleId: roleId,
-          lastMessageTitle: msgC.details.messageType,
+          lastMessageTitle: msgC.templateId,
           lastMessageTime: msgC.details.timestamp,
           hasBeenRead: !!msg.hasBeenRead,
           _id: msg._id

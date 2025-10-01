@@ -1,19 +1,14 @@
-import { AnnotationMarkerData, ForceData, IconOption, PlatformType, PlatformTypeData } from 'src/custom-types'
+import { ForceData } from 'src/custom-types'
 import { Item } from '../../molecules/sortable-list'
 import AdminLayoutProps from '../../../organisms/admin-layout/types/props'
 import { ChannelTypes } from '../../../organisms/setting-channels'
 import { MessageTemplate } from '../../../organisms/setting-channels/types/props'
 import { WargameOverview } from '../../../organisms/setting-overview'
-
 export default interface Props extends AdminLayoutProps {
   /**
    * Game overview, retrieved from database
    */
   overview: WargameOverview
-  /**
-   * Platform types, retrieved from database
-   */
-  platformTypes?: PlatformType
   /**
    * Forces, retrieved from database
    */
@@ -23,29 +18,13 @@ export default interface Props extends AdminLayoutProps {
    */
   channels: Array<ChannelTypes>
   /**
-  * annotation types, retrieved from database
-  */
-  annotation?: AnnotationMarkerData
-  /**
    * Callback on overview setting change events
    */
   onOverviewChange: (overview: WargameOverview) => void
   /**
-   * Callback on platform types setting change events
-   */
-  onPlatformTypesChange: (platformType: PlatformType) => void
-  /**
-   * Callback on platform type delete button click events
-   */
-  onDeletePlatformType?: (item: PlatformType) => void
-  /**
-   * Callback on platform type duplicate button click events
-   */
-  onDuplicatePlatformType?: (item: PlatformType) => void
-  /**
    * Callback on forces setting change events
    */
-  onForcesChange: (updates: { forces: ForceData[] }) => void
+  onForcesChange: (updates: { forces: Array<ForceData> }) => void
   /**
    * Callback on forces Add button click events
    */
@@ -53,11 +32,11 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on forces delete button click events
    */
-  onDeleteForce?: () => void
+  onDeleteForce?: (data: ForceData) => void
   /**
    * Callback on forces duplicate button click events
    */
-  onDuplicateForce?: () => void
+  onDuplicateForce?: (item: ForceData) => void
   /**
    * Callback on forces' sidebar click events
    */
@@ -70,7 +49,7 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on channels setting change events
    */
-  onChannelsChange: (updates: { channels: ChannelTypes[] }) => void
+  onChannelsChange: (updates: { channels: Array<ChannelTypes>, selectedChannel: ChannelTypes }) => void
   /**
    * Callback on channel' sidebar click events
    */
@@ -78,15 +57,15 @@ export default interface Props extends AdminLayoutProps {
   /**
    * Callback on channels Add button click events
    */
-  onCreateChannel?: (buttonText: string | undefined) => void
+  onCreateChannel?: (name: string, channel: ChannelTypes) => void
   /**
    * Callback on channels delete button click events
    */
-  onDeleteChannel?: () => void
+  onDeleteChannel?: (data: ChannelTypes) => void
   /**
    * Callback on channels delete button click events
    */
-  onDuplicateChannel?: () => void
+  onDuplicateChannel?: (item: ChannelTypes) => void
   /**
    * Selected channel to indicate which channel should be active
    * in channels setting tab
@@ -105,11 +84,13 @@ export default interface Props extends AdminLayoutProps {
    */
   onSaveGameTitle?: (update: string) => void
   /**
+   * Handle wargame title change event
+   */
+  onChangeWargameTitle?: (update: string) => void
+  /**
    * Handle wargame being initiated
    */
   onWargameInitiate: () => void
-
-  availablePlatformTypes?: PlatformTypeData[]
 
   /**
    * Handle back button event
@@ -120,18 +101,5 @@ export default interface Props extends AdminLayoutProps {
    * Handler for when user tries to delete role with Game Control privileges
    */
   customDeleteHandler?: (NewItems: Item[], key: number, handleChange: (changedItems: Item[]) => void) => void
-  onDeleteAsset?: () => void
-  /**
-  * Callback on annotation types setting change events
-  */
-  onAnnotationChange: (annotation: AnnotationMarkerData) => void
-  /**
-  * Callback on annotation type delete button click events
-  */
-  onDeleteAnnotation?: (annotation: IconOption) => void
-  /**
-  * Callback on annotation type duplicate button click events
-  */
-  onDuplicateAnnotation?: (annotation: IconOption) => void
 
 }

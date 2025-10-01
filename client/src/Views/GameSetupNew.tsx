@@ -9,26 +9,24 @@ import {
   addNewForce,
   setCurrentTab,
   saveSettings,
-  savePlatformTypes,
-  saveAnnotation,
   saveForce,
   saveChannel,
   setTabSaved,
   setGameData,
+  setWargameTitle,
   setSelectedForce,
   setSelectedChannel,
   duplicateChannel,
   saveWargameTitle,
   initiateWargame,
-  duplicatePlatformType,
-  duplicateAnnotation,
   duplicateForce
 } from '../ActionsAndReducers/dbWargames/wargames_ActionCreators'
 import { addNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { modalAction } from '../ActionsAndReducers/Modal/Modal_ActionCreators'
 import { setCurrentViewFromURI } from '../ActionsAndReducers/setCurrentViewFromURI/setCurrentViewURI_ActionCreators'
 import { ADMIN_ROUTE, iconUploaderPath, AdminTabs, forceTemplate } from 'src/config'
-import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootState, Wargame, WargameOverview, IconOption, AnnotationIcons, AnnotationMarkerData } from 'src/custom-types'
+import { ChannelTypes, ForceData, MessageTypes, Role, RootState, WargamesState, WargameOverview, WargameDataChange, Wargame } from 'src/custom-types'
+import { Item } from 'src/Components/local/molecules/editable-list'
 
 /**
  * TODOS:
@@ -49,7 +47,7 @@ import { Asset, ChannelTypes, ForceData, MessageTypes, PlatformType, Role, RootS
 
 const AdminGameSetup: React.FC = () => {
   const dispatch = useDispatch()
-  const { wargame, messageTypes }: { wargame: Wargame, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
+  const { wargame, messageTypes }: { wargame: WargamesState, messageTypes: MessageTypes } = useSelector(({ wargame, messageTypes }: RootState) => ({ wargame, messageTypes }))
 
   const {
     data,
@@ -60,31 +58,27 @@ const AdminGameSetup: React.FC = () => {
   } = wargame
   const {
     overview,
-    platformTypes,
-    // @ts-ignore
-    platform_types, // TODO: legacy name. To be deleted.
     forces,
     channels,
-    annotationIcons
+    templates
   } = data
   const tabs = Object.keys(data)
 
   const isWargameChanged = () => {
     return Object.values(data).some((item) => item.dirty)
   }
-  const onTabChange = (tab: Notification) => {
+  const onTabChange = (tab: string) => {
     if (!isWargameChanged()) {
       dispatch(setCurrentTab(tab))
     } else {
       dispatch(addNotification('Unsaved changes', 'warning'))
     }
   }
-
+  
   const onPressBack = (e: MouseEvent) => {
     e.preventDefault()
     dispatch(setCurrentViewFromURI(ADMIN_ROUTE))
   }
-
   const isUniqueName = ({ newName, list, label }: UniqueNameInterface) => {
     let listNames = list.map((item: ForceData) => item.name)
     listNames = _.pull(listNames, newName)
@@ -116,11 +110,15 @@ const AdminGameSetup: React.FC = () => {
     })
   }
 
-  const handleFormChange = (changes: WargameOverview) => {
+  const handleFormChange = (changes: WargameDataChange) => {
     dispatch(setGameData(changes))
   }
 
-  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: () => void) => {
+  const handleTitleChnage = (title: string) => {
+    dispatch(setWargameTitle(title))
+  }
+
+  const handleDeleteGameControl = (roles: Role[], key: number, handleChange: (item: Item[]) => void) => {
     const role = roles[key]
     if (role.isGameControl) {
       dispatch(addNotification(`Role ${role.name} with Game Control permissions cannot be deleted. Please remove Game Control permission.`, 'warning'))
@@ -130,65 +128,57 @@ const AdminGameSetup: React.FC = () => {
   }
 
   const handleSaveOverview = (overview: WargameOverview) => {
-    console.log('currentWargame', currentWargame, overview)
     if (currentWargame) dispatch(saveSettings(currentWargame, overview))
-  }
-
-  const onDeletePlatformType = (data: PlatformType) => {
-    dispatch(modalAction.open('confirmDelete', {
-      type: 'platformType',
-      data,
-      customMessages: {
-        title: `Delete '${data.name}'`,
-        message: 'Are you sure you want to permanently delete this Platform Type?'
-      }
-    }))
-  }
-   
-  const onDuplicatePlatformType = (data: PlatformType) => {
-    if (currentWargame) dispatch(duplicatePlatformType(currentWargame, data))
-  }
-
-  const handleSavePlatformTypes = (platformTypes: PlatformType) => {
-    if (currentWargame) dispatch(savePlatformTypes(currentWargame, platformTypes))
-  }
-
-  const handleSaveAnnotation = (annotation: AnnotationMarkerData) => {
-    if (currentWargame) dispatch(saveAnnotation(currentWargame, annotation))
   }
 
   const handleSaveForce = (newForces: ForceData[]) => {
     const { selectedForce } = forces
     const { uniqid } = selectedForce as ForceData
     const newForceData = newForces.find(force => force.uniqid === uniqid)
+  
     if (newForceData) {
-      const forceOverview = newForceData.overview
-      const forceName = newForceData.name
-      // @ts-ignore
-      newForceData.overview = forceOverview === 'string' ? forceOverview : forces.forces.find((force) => force.uniqid === uniqid).overview
+      updateForceOverview(newForceData, uniqid)
   
       const empForceRoleNames = findEmptyRolenames(newForceData, forces.forces)
       if (empForceRoleNames.length > 0) {
-        dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+        notifyEmptyRoleNames(empForceRoleNames)
         return
       }
   
       const dupForceRoleNames = findDuplicatePasscodes(newForceData, forces.forces)
       if (dupForceRoleNames.length > 0) {
-        dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
+        notifyDuplicatePasscodes(dupForceRoleNames)
         return
       }
   
-      if (typeof forceName === 'string' && forceName.length > 0) {
-        if (!isUniqueForceName(newForceData)) return
-        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
-      }
+      validateAndSaveForce(newForceData)
+    }
+  }
   
-      if (forceName === null) {
-        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
-      } else if (forceName.length === 0) {
-        dispatch(addNotification('No Force Name', 'warning'))
-      }
+  const updateForceOverview = (newForceData: ForceData, uniqid: string) => {
+    const forceOverview = newForceData.overview
+    newForceData.overview = typeof forceOverview === 'string' 
+      ? forceOverview 
+      : forces.forces.find((force) => force.uniqid === uniqid)?.overview ?? ''
+  }
+  
+  const notifyEmptyRoleNames = (empForceRoleNames: any[]) => {
+    dispatch(addNotification(`A Role Name must be provided for: ${_.join(_.map(empForceRoleNames, empForceRoleName => empForceRoleName.forceName + '-' + empForceRoleName.roleName), ',')}`, 'warning'))
+  }
+  
+  const notifyDuplicatePasscodes = (dupForceRoleNames: any[]) => {
+    dispatch(addNotification(`Duplicate passcodes for: ${_.join(_.map(dupForceRoleNames, dupForceRoleName => dupForceRoleName.forceName + '-' + dupForceRoleName.roleName), ',')}`, 'warning'))
+  }
+  
+  const validateAndSaveForce = (newForceData: ForceData) => {
+    const forceName = newForceData.name
+    if (typeof forceName === 'string' && forceName.length > 0) {
+      if (!isUniqueForceName(newForceData)) return
+      if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
+    } else if (forceName === null) {
+      if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
+    } else if (forceName.length === 0) {
+      dispatch(addNotification('No Force Name', 'warning'))
     }
   }
 
@@ -213,14 +203,11 @@ const AdminGameSetup: React.FC = () => {
     }
   }
 
-  const onSave = (updates: WargameOverview | PlatformType | ForceData | ChannelTypes | AnnotationIcons) => {
+  const onSave = (updates: WargameOverview | ForceData | ChannelTypes) => {
     let saveAction
     switch (currentTab) {
       case AdminTabs.Overview:
         saveAction = handleSaveOverview
-        break
-      case AdminTabs.PlatformTypes:
-        saveAction = handleSavePlatformTypes
         break
       case AdminTabs.Forces:
         saveAction = handleSaveForce
@@ -228,9 +215,6 @@ const AdminGameSetup: React.FC = () => {
       case AdminTabs.Channels:
         saveAction = handleSaveChannel
         break
-      case AdminTabs.Annotations:
-        saveAction = handleSaveAnnotation
-        break  
       default:
         saveAction = console.error
         break
@@ -269,6 +253,8 @@ const AdminGameSetup: React.FC = () => {
   }
 
   const onCreateChannel = (_id: string, createdChannel: ChannelTypes) => {
+    console.log('_id', _id)
+    console.log('createdChannel', createdChannel)
     if (channels.dirty) {
       dispatch(modalAction.open('unsavedChannel', 'create-new'))
     } else {
@@ -278,10 +264,6 @@ const AdminGameSetup: React.FC = () => {
 
   const onDeleteChannel = ({ uniqid }: { uniqid: string }) => {
     dispatch(modalAction.open('confirmDelete', { type: 'channel', data: uniqid }))
-  }
-
-  const onDeleteAsset = (setList: (newList: Array<Asset>) => void, item: Asset) => {
-    dispatch(modalAction.open('confirmDelete', { type: 'asset', data: { setList, item } }))
   }
 
   const onDuplicateChannel = ({ uniqid }: { uniqid: string }) => {
@@ -319,7 +301,7 @@ const AdminGameSetup: React.FC = () => {
     }
 
     if (typeof newGameTitle === 'string' && newGameTitle.length > 0) {
-      if (currentWargame) dispatch(saveWargameTitle(currentWargame, newGameTitle))
+      if (currentWargame) dispatch(saveWargameTitle(currentWargame, newGameTitle, wargameList))
     }
 
     if (newGameTitle === null || newGameTitle.length === 0) {
@@ -341,74 +323,37 @@ const AdminGameSetup: React.FC = () => {
       return uniqid && channels.channels.find((channel: ChannelTypes) => channel.uniqid === uniqid)
     }
   }
-
-  const onDeleteAnnotation = (data: IconOption) => {
-    dispatch(modalAction.open('confirmDelete', {
-      type: 'annotation',
-      data,
-      customMessages: {
-        title: `Delete '${data.name}'`,
-        message: 'Are you sure you want to permanently delete this annotation Type?'
-      }
-    }))
-  }
-
-  const onDuplicateAnnotation = (data: IconOption) => {
-    if (currentWargame) dispatch(duplicateAnnotation(currentWargame, data))
-  }
-
   return (
     <GameSetup
       activeTab={currentTab || tabs[0]}
       tabs={tabs}
-      wargame={wargame}
+      wargame={wargame as Wargame}
       wargameChanged={isWargameChanged()}
-      // @ts-ignore
       onTabChange={onTabChange}
       onPressBack={onPressBack}
       overview={overview}
-      platformTypes={platformTypes || platform_types}
       forces={forces.forces}
-      // @ts-ignore
-      selectedForce={forces.selectedForce}
+      selectedForce={forces.selectedForce as ForceData}
       channels={channels.channels}
+      onSave={onSave}
       onOverviewChange={handleFormChange}
-      // @ts-ignore
-      onPlatformTypesChange={handleFormChange}
-      onDeletePlatformType={onDeletePlatformType}
-      onDuplicatePlatformType={onDuplicatePlatformType}
-      // @ts-ignore
       onForcesChange={handleFormChange}
-      onCreateForce={onCreateForce}
-      // @ts-ignore
+      onChannelsChange={handleFormChange}
       onDeleteForce={onDeleteForce}
-      // @ts-ignore
-      onDuplicateForce={onDuplicateForce}
+      onDeleteChannel={onDeleteChannel}
       onSidebarForcesClick={handleSidebarForcesClick}
       onSidebarChannelsClick={handleSidebarChannelsClick}
-      // @ts-ignore
-      onChannelsChange={handleFormChange}
-      // @ts-ignore
       onCreateChannel={onCreateChannel}
-      // @ts-ignore
-      onDeleteChannel={onDeleteChannel}
-      // @ts-ignore
+      onCreateForce={onCreateForce}
       onDuplicateChannel={onDuplicateChannel}
+      onDuplicateForce={onDuplicateForce}
       selectedChannel={getSelectedChannel()}
-      onSave={onSave}
-      messageTemplates={messageTypes.messages}
+      messageTemplates={templates?.templates || messageTypes.messages}
+      onChangeWargameTitle={handleTitleChnage}
       onSaveGameTitle={handleSaveWargameTitle}
       onWargameInitiate={onWargameInitiate}
       iconUploadUrl={iconUploaderPath}
-      // @ts-ignore
       customDeleteHandler={handleDeleteGameControl}
-      // @ts-ignore
-      onDeleteAsset={onDeleteAsset}
-      onDeleteAnnotation={onDeleteAnnotation}
-      onDuplicateAnnotation={onDuplicateAnnotation}
-      // @ts-ignore
-      onAnnotationChange={handleFormChange}
-      annotation={annotationIcons}
     />
   )
 }

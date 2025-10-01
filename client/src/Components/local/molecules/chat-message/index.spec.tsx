@@ -19,7 +19,6 @@ const message: ChatMessageType = {
       roleName: 'Game Control',
       iconURL: 'default_img/umpireDefault.png'
     },
-    messageType: 'Chat',
     timestamp: '2020-09-18T05:41:17.349Z',
     privateMessage: 'Private weather message',
     turnNumber: 1

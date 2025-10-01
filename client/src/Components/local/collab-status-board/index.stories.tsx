@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 
 // Import component files
 import CollabStatusBoard from './index'
@@ -22,7 +22,7 @@ import {
   messageDataCollaborativeResponding,
   messageDataCollaborativeEditing
 } from 'src/mocks'
-import { CollaborativeMessageStates } from 'src/config'
+import { CollaborativeMessageStates, Phase } from 'src/config'
 export default {
   title: 'local/CollabStatusBoard',
   component: CollabStatusBoard,
@@ -59,7 +59,7 @@ export default {
   }
 }
 
-const Template: Story<CollabStatusBoardProps> = (args) => {
+const Template: StoryFn<CollabStatusBoardProps> = (args) => {
   const { isObserver, isUmpire } = args
   const [messages, setMessages] = useState(args.messages)
 
@@ -82,6 +82,7 @@ const Template: Story<CollabStatusBoardProps> = (args) => {
     forces={collabForces2}
     messages={messages}
     isUmpire={isUmpire}
+    phase={Phase.Adjudication}
     isObserver={isObserver}
     onChange={onChange}
     onMessageRead={handleReadMessage}

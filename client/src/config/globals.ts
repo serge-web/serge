@@ -1,6 +1,5 @@
 import ExpiredStorage from 'expired-storage'
-import { Wargame } from 'src/custom-types'
-import { LaydownTypes } from './enums'
+import { Wargame, TemplateBody } from 'src/custom-types'
 // import { wargameSettings } from 'src/config'
 import uniqId from 'uniqid'
 import moment from 'moment'
@@ -20,41 +19,11 @@ export const expiredStorage = new ExpiredStorage()
 export const LOCAL_STORAGE_TIMEOUT = 2592000 // one month
 
 export const UMPIRE_FORCE = 'umpire'
-export const UMPIRE_FORCE_NAME = 'white'
 
 export const LOCATION_PENDING = 'LocationPending' // special state where platforms can be moved at turn zero
 
-export const UNKNOWN_TYPE = 'Unknown' // type use when force or platform-type not known for mapping asset
-export const UNCHANGED = 'Unchanged' // type use when force or platform-type not known for mapping asset
-
-export const infoOpsGroup = 'Info Ops' // type of activity in planning message
-
-// TODO: Some of the below would be better to either come from a database or be replaced with ENUMS
-export const UMPIRE_LAYDOWN = LaydownTypes.UmpireLaydown
-
-// special platform-type name, used for task group. Must match `platform-types` definition
-export const TASK_GROUP = 'task-group'
-
-/*
- * type for DATUM. @deprecated - since replaced with information-markers
- */
-export const DATUM = 'datum'
-
+export const GAME_START_TAB = 'overview' 
 // series of constants used for `messageType` when sending map events
-export const FORCE_LAYDOWN = 'ForceLaydown'
-export const VISIBILITY_CHANGES = 'VisibilityChanges'
-export const DELETE_PLATFORM = 'DeletePlatform'
-export const PERCEPTION_OF_CONTACT = 'PerceptionOfContact'
-export const SUBMIT_PLANS = 'SubmitPlans'
-export const STATE_OF_WORLD = 'StateOfWorld'
-export const UPDATE_MARKER = 'UpdateMarker'
-export const DELETE_MARKER = 'DeleteMarker'
-export const CLONE_MARKER = 'CloneMarker'
-export const CREATE_TASK_GROUP = 'CreateTaskGroup'
-export const LEAVE_TASK_GROUP = 'LeaveTaskGroup'
-export const HOST_PLATFORM = 'HostPlatform'
-
-export const ADJUDICATION_OUTCOMES = 'AdjudicationOutcomes'
 
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'
@@ -62,17 +31,15 @@ export const CUSTOM_MESSAGE = 'CustomMessage'
 // series of constants used for `messageType` when sending chat messages
 export const CHAT_MESSAGE = 'ChatMessage'
 
-// capture a set of plans / orders / COA
-export const PLANNING_MESSAGE = 'PlanningMessage'
-
-// capture the results of an interaction
-export const INTERACTION_MESSAGE = 'InteractionMessage'
-
 // series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
 
 // series of constants used for `messageType` when using Counter message for COA and RFI messages
 export const COUNTER_MESSAGE = 'CounterMessage'
+
+// mapping messages
+export const MAPPING_MESSAGE = 'MappingMessage'
+export const MAPPING_MESSAGE_DELTA = 'MappingMessageDelta'
 
 // series of constants used for `messageType` when sending system messages
 // an INFO_MESSAGE is an update to the wargame document
@@ -97,33 +64,18 @@ export const EXPORT_ITEM_FORCES = 'forces'
 
 // names of special channels
 export const CHANNEL_RFI_STATUS = 'rfis'
-export const CHANNEL_MAPPING = 'mapping'
 
 // types of channel
 export const CHANNEL_CHAT = 'ChannelChat'
 export const CHANNEL_CUSTOM = 'ChannelCustom'
 export const CHANNEL_COLLAB = 'ChannelCollab'
-export const CHANNEL_PLANNING = 'ChannelPlanning'
+export const CHANNEL_MAPPING = 'ChannelMapping'
 
 // types of participant
 export const PARTICIPANT_CHAT = 'ParticipantChat'
 export const PARTICIPANT_CUSTOM = 'ParticipantCustom'
 export const PARTICIPANT_COLLAB = 'ParticipantCollab'
 export const PARTICIPANT_MAPPING = 'ParticipantMapping'
-export const PARTICIPANT_PLANNING = 'ParticipantPlanning'
-
-// types of attribute
-export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
-export const ATTRIBUTE_VALUE_NUMBER = 'AttributeValueNumber'
-export const ATTRIBUTE_TYPE_STRING = 'AttributeTypeString'
-export const ATTRIBUTE_VALUE_STRING = 'AttributeValueString'
-export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
-export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
-
-/** when to generate interaction events for an activity */
-export const INTER_AT_START = 'i-start'
-export const INTER_AT_END = 'i-end'
-export const INTER_AT_RANDOM = 'i-random'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
@@ -174,6 +126,7 @@ export const hiddenPrefix = '_#_'
 
 export const clearAll = 'clearAll'
 export const allDbs = 'allDbs'
+export const wargameList = 'wargameList'
 export const playerlogs = 'playerlogs'
 // Note: On heroku we don't use the additional port for the socket, we use the plain origin
 export const socketPath = origin.toLowerCase().indexOf('herokuapp') !== -1 ? origin : origin.replace(/3000|8080/g, '4000')
@@ -185,7 +138,6 @@ export const wargameSettings = 'initial_wargame'
 export const NEW_ROLE = 'New Role'
 
 /** flag to indicate a role can control all assets */
-export const CONTROL_ALL = 'control-all:'
 
 // 
 /** there has been some user interaction, so log the current time
@@ -198,19 +150,12 @@ export const CONTROL_ALL = 'control-all:'
 export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'
 export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'
 
-export const SUPPORT_PANEL_LAYOUT = {
-  OPENING_TAB: 'serge.planning.openingTab',
-  SUPPORT_PANEL_WIDTH: 'serge.planning.supportPanelWidth',
-  VISIBLE_COLUMNS: 'serge.planning.visibleColumns2',
-  IS_FILTER: 'serge.planning.isFilter',
-  SORT_COLUMNS: 'serge.planning.sortColumns',
-  FILTER_APPLIED: 'serge.planning.filterApplied'
-}
-
 export const STORYBOOK_ROUTE = './storybook'
 
 // Interval for check server heartbeats
 export const SERVER_PING_INTERVAL = 20000
+
+export const CUSTOM_SIDC = '10031000000000000000'
 
 export const headers = { // +
   'Content-Type': 'application/json',
@@ -276,6 +221,429 @@ export const channelTemplate = { // +
   participants: []
 }
 
+export const dbDefaultmessageTypes: TemplateBody[] = [
+  {
+    _id: 'lvm8sl32',
+    _rev: '1-e3ba4c546257a8e2afcabf9205067045',
+    lastUpdated: '2024-04-30T10:25:24.926Z',
+    title: 'Machinery failure',
+    details: {
+      type: 'object',
+      properties: {
+        title: {
+          type: 'string',
+          Title: 'Title'
+        },
+        Date: {
+          type: 'string',
+          format: 'datetime-local',
+          options: {
+            flatpickr: {
+              wrap: true,
+              time_24hr: true,
+              allowInput: true
+            }
+          }
+        },
+        Status: {
+          type: 'string',
+          enum: [
+            'Minor',
+            'Major',
+            'Critical'
+          ]
+        },
+        Description: {
+          type: 'string',
+          format: 'textarea'
+        }
+      },
+      title: 'Machinery Failure'
+    },
+    completed: false
+  },
+  {
+    _id: 'lvm8sl33',
+    _rev: '1-250b2f4f0373d6655aabdad82223c55b',
+    lastUpdated: '2024-04-30T10:25:24.927Z',
+    title: 'Weather forecast',
+    details: {
+      type: 'object',
+      properties: {
+        title: {
+          type: 'string',
+          title: 'Title'
+        },
+        Location: {
+          type: 'object',
+          properties: {
+            Lat: {
+              type: 'number'
+            },
+            'Lat Hemi': {
+              type: 'string',
+              enum: [
+                'N',
+                'S'
+              ]
+            },
+            Long: {
+              type: 'number'
+            },
+            'Long Hemi': {
+              type: 'string',
+              enum: [
+                'E',
+                'W'
+              ]
+            }
+          },
+          format: 'grid'
+        },
+        'Valid from': {
+          type: 'string',
+          format: 'datetime-local',
+          options: {
+            flatpickr: {
+              wrap: true,
+              time_24hr: true,
+              allowInput: true
+            }
+          }
+        },
+        'Valid until': {
+          type: 'string',
+          format: 'datetime-local',
+          options: {
+            flatpickr: {
+              wrap: true,
+              time_24hr: true,
+              allowInput: true
+            }
+          }
+        },
+        Forecast: {
+          type: 'string',
+          format: 'textarea'
+        }
+      },
+      title: 'Weather Forecast'
+    },
+    completed: false
+  },
+  {
+    _id: 'lvm8sl34',
+    _rev: '1-f3df979cd76ad5bbe7a978029a069821',
+    lastUpdated: '2024-04-30T10:25:24.927Z',
+    title: 'Message',
+    details: {
+      type: 'object',
+      properties: {
+        title: {
+          type: 'string'
+        },
+        content: {
+          type: 'string',
+          format: 'textarea'
+        }
+      },
+      title: 'Message',
+      format: 'grid'
+    },
+    completed: false
+  },
+  {
+    _id: 'lvm8sl35',
+    _rev: '1-06bcca4cfd8438b8af1873f1b1968dbf',
+    lastUpdated: '2024-04-30T10:25:24.927Z',
+    title: 'Request for Information',
+    details: {
+      type: 'object',
+      properties: {
+        Addressee: {
+          type: 'string'
+        },
+        Request: {
+          type: 'string',
+          format: 'textarea'
+        }
+      },
+      title: 'Request for Information',
+      format: 'grid'
+    },
+    completed: false
+  },
+  {
+    _id: 'lvm8sl36',
+    _rev: '1-81350fbba426db63aef6a2a7a39b5be7',
+    lastUpdated: '2024-04-30T10:25:24.927Z',
+    title: 'Request for Support',
+    details: {
+      type: 'object',
+      properties: {
+        Addressee: {
+          type: 'string'
+        },
+        Request: {
+          type: 'string',
+          format: 'textarea'
+        }
+      },
+      title: 'Request for Support',
+      format: 'grid'
+    },
+    completed: false
+  },
+  {
+    _id: 'lvm8sl37',
+    _rev: '1-00245951456f901d11e15906f3fd03a1',
+    lastUpdated: '2024-04-30T10:25:24.927Z',
+    title: 'Chat',
+    details: {
+      type: 'object',
+      properties: {
+        content: {
+          type: 'string',
+          format: 'textarea',
+          options: {
+            inputAttributes: {
+              placeholder: 'type the text'
+            }
+          }
+        }
+      },
+      title: 'Chat',
+      format: 'grid'
+    },
+    completed: false
+  },
+  {
+    _id: 'lvm8sl38',
+    _rev: '1-14da0a326ad938ff56463ab36e63a44d',
+    lastUpdated: '2024-04-30T10:25:24.928Z',
+    title: 'Link',
+    details: {
+      type: 'object',
+      properties: {
+        title: {
+          type: 'string',
+          format: 'text'
+        },
+        URL: {
+          type: 'string',
+          format: 'url'
+        }
+      },
+      title: 'Link',
+      format: 'grid'
+    },
+    completed: false
+  },
+  {
+    _id: 'lvm8sl39',
+    _rev: '1-b92748a044f73bb62b773a9f201c0bcf',
+    lastUpdated: '2024-04-30T10:25:24.928Z',
+    title: 'Daily intentions',
+    details: {
+      type: 'object',
+      properties: {
+        TurnNumber: {
+          title: 'Turn',
+          type: 'string',
+          format: 'number'
+        },
+        OverallIntentions: {
+          title: 'Overall intentions',
+          type: 'string',
+          format: 'textarea'
+        },
+        Orders: {
+          items: {
+            properties: {
+              Unit: {
+                title: 'Unit',
+                type: 'string',
+                format: 'text'
+              },
+              Tasking: {
+                title: 'Tasking',
+                type: 'string',
+                format: 'textarea'
+              },
+              SearchPolicy: {
+                title: 'Search Policy',
+                type: 'string',
+                format: 'textarea'
+              },
+              ActionOnContact: {
+                title: 'Action on Contact',
+                type: 'string',
+                enum: [
+                  'Ignore',
+                  'Evade',
+                  'Covert Trail',
+                  'Overt Trail',
+                  'Harass'
+                ]
+              },
+              AnyOtherComments: {
+                title: 'Any other comments',
+                type: 'string',
+                format: 'textarea'
+              }
+            },
+            type: 'object'
+          },
+          title: 'Orders',
+          type: 'array',
+          format: 'table',
+          minItems: 1
+        }
+      },
+      title: 'Daily Intent',
+      required: [
+        'OverallIntentions',
+        'Orders'
+      ]
+    },
+    completed: false
+  },
+  {
+    _id: 'lvm8sl3a',
+    _rev: '1-a76bf0f37103102e305c559b2d4f413d',
+    lastUpdated: '2024-04-30T10:25:24.928Z',
+    title: 'PG19 Weekly Orders',
+    details: {
+      type: 'object',
+      properties: {
+        CommandersIntent: {
+          title: 'Commanders Intent',
+          type: 'string',
+          format: 'textarea'
+        },
+        Orders: {
+          items: {
+            properties: {
+              Unit: {
+                title: 'Unit',
+                type: 'string',
+                format: 'text'
+              },
+              Orders: {
+                title: 'Orders',
+                type: 'string',
+                format: 'textarea'
+              },
+              ContingencyOrders: {
+                title: 'Contingency Orders',
+                type: 'string',
+                format: 'textarea'
+              }
+            },
+            type: 'object'
+          },
+          title: 'Orders',
+          type: 'array',
+          format: 'table',
+          minItems: 1
+        },
+        PxTasking: {
+          title: 'Px Tasking',
+          type: 'string',
+          format: 'textarea'
+        },
+        AlliedUnitTasking: {
+          title: 'Allied Unit Tasking',
+          type: 'string',
+          format: 'textarea'
+        },
+        ForceActionOnContact: {
+          title: 'Force action on contact',
+          type: 'string',
+          format: 'textarea'
+        },
+        ForceActionOnLossOfContact: {
+          title: 'Force action on loss of contact',
+          type: 'string',
+          format: 'textarea'
+        },
+        SupportingLogisticsActivity: {
+          title: 'Supporting logistics activity',
+          type: 'string',
+          format: 'textarea'
+        }
+      },
+      title: 'PG19 Weekly Orders',
+      required: [
+        'CommandersIntent',
+        'Orders',
+        'PxTasking',
+        'AlliedUnitTasking',
+        'ForceActionOnContact',
+        'ForceActionOnLossOfContact',
+        'SupportingLogisticsActivity'
+      ]
+    },
+    completed: false
+  },
+  {
+    _id: 'lvm8sl3b',
+    _rev: '1-78f054e00e8cdec68d0190842a96484b',
+    lastUpdated: '2024-04-30T10:25:24.928Z',
+    title: 'State of World',
+    details: {
+      type: 'object',
+      properties: {
+        TurnNumber: {
+          title: 'Turn',
+          type: 'string',
+          format: 'number'
+        },
+        Summary: {
+          title: 'Summary',
+          type: 'string',
+          format: 'textarea'
+        },
+        ForceDisposition: {
+          title: 'Force disposition',
+          type: 'string',
+          format: 'url'
+        },
+        Narrative: {
+          items: {
+            properties: {
+              Serial: {
+                title: 'Serial',
+                type: 'string',
+                format: 'text'
+              },
+              Description: {
+                title: 'Description',
+                type: 'string',
+                format: 'textarea'
+              }
+            },
+            title: 'Events',
+            type: 'object'
+          },
+          title: 'Narrative',
+          type: 'array',
+          format: 'table',
+          minItems: 1
+        }
+      },
+      title: 'State of World 2',
+      required: [
+        'TurnNumber',
+        'Summary',
+        'ForceDisposition',
+        'Narrative'
+      ]
+    },
+    completed: false
+  }
+]
+
 export const dbDefaultPlaylogSettings = { // +-
   wargame: 'missing',
   role: 'missing',
@@ -319,7 +687,8 @@ export const dbDefaultSettings: Wargame = { // +
       channels: [],
       selectedChannel: '',
       dirty: false
-    }
+    },
+    templates: { templates: dbDefaultmessageTypes }
   },
   wargameList: [],
   wargameInitiated: false,
@@ -332,7 +701,8 @@ export const FLEX_LAYOUT_MODEL_DEFAULT: any = {
   global: {
     tabSetTabStripHeight: 45,
     tabEnableClose: false,
-    tabEnableRenderOnDemand: false
+    tabEnableRenderOnDemand: false,
+    tabSetEnableMaximize: false
   },
   borders: [],
   layout: {

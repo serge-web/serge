@@ -5,7 +5,8 @@ import {
   CHANNEL_COLLAB,
   CollaborativeMessageStates,
   InitialStates,
-  UNSENT_SELECT_BY_DEFAULT_VALUE
+  UNSENT_SELECT_BY_DEFAULT_VALUE,
+  CUSTOM_MESSAGE
 } from 'src/config'
 import {
   ChannelCollab,
@@ -34,8 +35,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   clearCachedCreatorMessage,
   draftMessage,
   modifyForEdit,
-  modifyForSave,
-  editCallback
+  modifyForSave
 }) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [formMessage, setFormMessage] = useState<any>()
@@ -47,7 +47,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   const messageBeingEdited = useRef<Record<string, any> | string>('')
-
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.persist()
     const details: MessageDetails = {
@@ -58,9 +57,8 @@ const MessageCreator: React.FC<PropTypes> = ({
         forceColor: selectedForce.color,
         roleName: selectedRoleName,
         roleId: selectedRole,
-        iconURL: selectedForce.iconURL || selectedForce.icon || ''
+        iconURL: selectedForce.iconURL || ''
       },
-      messageType: selectedSchema.title,
       timestamp: new Date().toISOString(),
       turnNumber: currentTurn
     }
@@ -91,7 +89,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     // send the data
     setPrivateValue('')
     setClearForm(!clearForm)
-    postBack && postBack(details, formMessage)
+    postBack && postBack(details, formMessage, selectedSchema.title, CUSTOM_MESSAGE)
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
   }
@@ -142,7 +140,6 @@ const MessageCreator: React.FC<PropTypes> = ({
       }
     }
   }, [draftMessage])
-
   return (
     <>
       <Confirm
@@ -167,7 +164,6 @@ const MessageCreator: React.FC<PropTypes> = ({
         messageContent={messageContent}
         modifyForEdit={modifyForEdit}
         modifyForSave={modifyForSave}
-        editCallback={editCallback}
       />
       {privateMessage && (
         <div className="flex-content form-group">

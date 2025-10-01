@@ -12,7 +12,7 @@
       "es2017",
       "ES2019"
     ],
-    "types": ["vite/client", "@types/react-leaflet-markercluster", "vite-plugin-svgr/client", "jest", "@types/jest"],
+    "types": ["vite/client", "vite-plugin-svgr/client", "jest", "@types/jest"],
     "allowJs": true,
     "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],
     "skipLibCheck": true,
@@ -22,6 +22,8 @@
     "forceConsistentCasingInFileNames": true,
     "module": "es2020",
     "moduleResolution": "node",
+    "ignoreDeprecations": "5.0",
+    // this option is now deprecated, but we're ignoring the deprecations with the `ignoreDeprecations: 5.0` option
     "suppressImplicitAnyIndexErrors": true,
     "declaration": true,
     "resolveJsonModule": true,

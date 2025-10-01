@@ -1,5 +1,4 @@
-import { Asset, AttributeType, AttributeValue, Role } from 'src/custom-types'
-import { createAttributeValue, findPlatformTypeFor } from 'src/Helpers'
+import { Role } from 'src/custom-types'
 import cx from 'classnames'
 import React, { useEffect, useRef, useState } from 'react'
 import { AdminContent, LeftSide, RightSide } from '../../atoms/admin-content'
@@ -11,10 +10,10 @@ import TextInput from '../../atoms/text-input'
 import EditableList, { Item } from '../../molecules/editable-list'
 import IconUploader from '../../molecules/icon-uploader'
 import SettingsForceOverview from './settings-force-overview'
-import AssetsAccordion from './settings-force-platform-types'
 import RolesAccordion from './settings-force-roles'
 import styles from './styles.module.scss'
 import PropTypes, { ForceData } from './types/props'
+import { resolveImagePath } from 'src/Helpers'
 
 export const SettingForces: React.FC<PropTypes> = ({
   forces: initialForces,
@@ -27,10 +26,7 @@ export const SettingForces: React.FC<PropTypes> = ({
   onDuplicate,
   iconUploadUrl,
   selectedForce,
-  platformTypes = [],
-  routes,
-  customDeleteHandler,
-  onDeleteAsset
+  customDeleteHandler
 }) => {
   const selectedForceId = initialForces.findIndex(force => force.uniqid === selectedForce?.uniqid)
   const [selectedItem, setSelectedItem] = useState(Math.max(selectedForceId, 0))
@@ -56,7 +52,14 @@ export const SettingForces: React.FC<PropTypes> = ({
     setSelectedItem(Math.max(selectedId, 0))
     setForcesData(initialForces)
   }, [initialForces])
+  
+  const onDeleteForce = (_item: Item) => {
+    onDelete && onDelete(_item as ForceData)
+  }
 
+  const onDuplicateForce = (_item: Item) => {
+    onDuplicate && onDuplicate(_item as ForceData)
+  }
   const renderContent = (): React.ReactNode => {
     const data = forcesData[selectedItem]
     if (!data) return null
@@ -102,62 +105,10 @@ export const SettingForces: React.FC<PropTypes> = ({
         console.log('do not have selected force. Not saving', selectedItem)
         return
       }
-      const attributeErrors: string[] = []
-      currentForce.assets && currentForce.assets.forEach((asset: Asset) => {
-        const pType = findPlatformTypeFor(platformTypes, '', asset.platformTypeId)
-        // check for extra attributes
-        const extraAttrs = asset.attributeValues && asset.attributeValues.filter((value: AttributeValue) => {
-          return !(pType.attributeTypes && pType.attributeTypes.some((val: AttributeType) => val.attrId === value.attrId))
-        })
-
-        extraAttrs && extraAttrs.forEach((value: AttributeValue) => {
-          const msg = 'Removed attribute ' + value.attrId + ' from ' + asset.name
-          attributeErrors.push(msg)
-          // and strip out the attributes
-          asset.attributeValues = asset.attributeValues && asset.attributeValues.filter(value => !extraAttrs.includes(value))
-        })
-
-        // check for missing attributes
-        const missingAttrs = pType.attributeTypes && pType.attributeTypes.filter((value: AttributeType) => {
-          return !(asset.attributeValues && asset.attributeValues.some((val: AttributeValue) => val.attrId === value.attrId))
-        })
-
-        missingAttrs && missingAttrs.forEach((aType: AttributeType) => {
-          const msg = 'Added attribute ' + aType.name + ' to ' + asset.name
-          attributeErrors.push(msg)
-          // initialise array, if necessary
-          if (!asset.attributeValues) {
-            asset.attributeValues = []
-          }
-          // and create the default values
-          asset.attributeValues.push(createAttributeValue(aType))
-        })
-      })
-
-      // show message
-      const attrsbuteErrorList = attributeErrors.reduce((html, item) => {
-        html += `<li>${item}</li>`
-        return html
-      }, '')
-
-      attributeErrors.length > 0 && toggleModal(`The attributes for some assets did not match with type details. These fixes have been applied: <br/> ${attrsbuteErrorList}`)
 
       if (onSave) {
         // if the data is wrong and has been modified, should update back to the forceData
         // If not, just save the forcesData
-        if (attributeErrors.length) {
-          forcesData.some(force => {
-            if (force.uniqid === currentForce.uniqid && force.assets) {
-              force.assets.forEach((asset, idx) => {
-                if (currentForce.assets) {
-                  asset.attributeValues = currentForce.assets[idx].attributeValues
-                }
-              })
-              return true
-            }
-            return false
-          })
-        }
         localRoles.current = []
         onSave(forcesData)
       }
@@ -190,8 +141,8 @@ export const SettingForces: React.FC<PropTypes> = ({
             }} />
           </div>
           <div className={styles.col} style={{ textDecoration: 'underline' }}>
-            <IconUploader classname='main' iconUploadUrl={iconUploadUrl} limit={20000} icon={data.icon} onChange={(icon: string): void => {
-              handleChangeForce({ ...data, icon })
+            <IconUploader classname='main' iconUploadUrl={iconUploadUrl} limit={20000} icon={resolveImagePath(data.iconURL)} onChange={(iconURL: string): void => {
+              handleChangeForce({ ...data, iconURL })
             }} onRejected={handleOnRejectedIcon}>Change Icon</IconUploader>
           </div>
           <div className={styles.actions}>
@@ -220,14 +171,6 @@ export const SettingForces: React.FC<PropTypes> = ({
               onNewRoleAdded={onNewRoleAdded}
             />
 
-            <AssetsAccordion
-              routes={routes}
-              selectedForce={data}
-              forcesData={forcesData}
-              platformTypes={platformTypes}
-              onChangeHandler={handleChangeForce}
-              onDeleteAsset={onDeleteAsset}
-            />
           </div>
         </div>
       </div >
@@ -240,12 +183,12 @@ export const SettingForces: React.FC<PropTypes> = ({
         <EditableList
           items={initialForces}
           selectedItem={forcesData[selectedItem]?.uniqid}
-          filterKey="uniqid"
+          filterKey="name"
           onClick={handleSwitch}
           onCreate={onCreate}
-          onDelete={onDelete}
-          onDuplicate={onDuplicate}
-          withSearch={false}
+          onDelete={onDeleteForce}
+          onDuplicate={onDuplicateForce}
+          withSearch={true}
           title="Add a New Force"
         />
       </LeftSide>

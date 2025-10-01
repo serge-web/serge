@@ -1,4 +1,4 @@
-import { CHANNEL_CHAT, CHANNEL_CUSTOM, CHANNEL_MAPPING, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, PARTICIPANT_CHAT, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING } from 'src/config'
+import { CHANNEL_CHAT, CHANNEL_CUSTOM, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, PARTICIPANT_CHAT, PARTICIPANT_CUSTOM } from 'src/config'
 import { PlayerUi } from 'src/custom-types'
 
 const state: PlayerUi = {
@@ -8,13 +8,9 @@ const state: PlayerUi = {
   selectedRoleName: 'CO', 
   isUmpire: true,
   playerMessageLog: {},
-  attributeTypes: [],
-  perForceActivities: [],
   updateMessageState: false,
   isRFIManager: false,
-  markerIcons: [],
   isGameControl: true,
-  infoMarkers: [],
   isObserver: false,
   currentTurn: 57,
   phase: 'adjudication',
@@ -55,7 +51,6 @@ const state: PlayerUi = {
             roleName: 'CO-Role',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:06:19.602Z',
           turnNumber: 12
         },
@@ -65,6 +60,7 @@ const state: PlayerUi = {
         _id: '2020-12-06T11:06:19.602Z',
         _rev: '1-e17592723c22372813d53a52782f9b50',
         messageType: CUSTOM_MESSAGE,
+        templateId: 'Chat',
         hasBeenRead: false,
         isOpen: false
       },
@@ -78,7 +74,6 @@ const state: PlayerUi = {
             roleName: 'CO-Role',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:06:12.434Z',
           turnNumber: 12
         },
@@ -88,6 +83,7 @@ const state: PlayerUi = {
         _id: '2020-12-06T11:06:12.434Z',
         _rev: '1-f70b71621c42d3b94ad94ebc09cea9a0',
         messageType: CUSTOM_MESSAGE,
+        templateId: 'Chat',
         hasBeenRead: false,
         isOpen: false
       },
@@ -101,13 +97,13 @@ const state: PlayerUi = {
             roleName: 'CO-Role',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:05:07.490Z',
           turnNumber: 12
         },
         message: {
           content: 'ddaw'
         },
+        templateId: 'Chat',
         _id: '2020-12-06T11:05:07.491Z',
         _rev: '1-99a75cd848ce35b580fc41e50bdf51f3',
         messageType: CUSTOM_MESSAGE,
@@ -172,7 +168,6 @@ const state: PlayerUi = {
               roleName: 'CO-Role',
               iconURL: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-07T05:18:20.053Z',
             turnNumber: 23
           },
@@ -181,6 +176,7 @@ const state: PlayerUi = {
           },
           _id: '2020-12-07T05:18:20.053Z',
           _rev: '1-0ab29a1ecad5f942ad5d62b01930a4f0',
+          templateId: 'Chat',
           messageType: CUSTOM_MESSAGE,
           hasBeenRead: true,
           isOpen: false
@@ -195,7 +191,6 @@ const state: PlayerUi = {
               roleName: 'CO-Role',
               iconURL: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-07T05:18:11.074Z',
             turnNumber: 4
           },
@@ -204,6 +199,7 @@ const state: PlayerUi = {
           },
           _id: '2020-12-07T05:18:11.074Z',
           _rev: '1-eb21db75ad81aa503e2ef09118c7c241',
+          templateId: 'Chat',
           messageType: CUSTOM_MESSAGE,
           hasBeenRead: true,
           isOpen: true
@@ -218,7 +214,6 @@ const state: PlayerUi = {
               roleName: 'CO-Role',
               iconURL: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-07T05:17:45.437Z',
             turnNumber: 4
           },
@@ -228,6 +223,7 @@ const state: PlayerUi = {
           _id: '2020-12-07T05:17:45.437Z',
           _rev: '1-4996ecb4c6b83704ddfa72c5f3d6a7b0',
           messageType: CUSTOM_MESSAGE,
+          templateId: 'Chat',
           hasBeenRead: true,
           isOpen: false
         }
@@ -347,7 +343,6 @@ const state: PlayerUi = {
               roleName: 'CO-Role',
               iconURL: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'PG19 Weekly Orders',
             timestamp: '2020-12-07T05:18:34.179Z',
             turnNumber: 12
           },
@@ -368,42 +363,13 @@ const state: PlayerUi = {
           },
           _id: '2020-12-07T05:18:34.179Z',
           _rev: '1-51716232d1217f6296649ffb1b393f25',
+          templateId: 'PG19 Weekly Orders',
           messageType: CUSTOM_MESSAGE,
           hasBeenRead: false,
           isOpen: false
         }
       ],
       unreadMessageCount: 1,
-      observing: false
-    },
-    'channel-k4cnw3nr': {
-      uniqid: 'k4cnw3nr',
-      cData: {
-        channelType: CHANNEL_MAPPING,
-        constraints: {
-          bounds: [[2, 3], [2, 4]],
-          h3res: 3,
-          minZoom: 4          
-        },
-        name: 'mapping',
-        participants: [
-          { forceUniqid: 'umpire', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjpfv', pType: PARTICIPANT_MAPPING },
-          { forceUniqid: 'Red', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pjsbv', pType: PARTICIPANT_MAPPING },
-          { forceUniqid: 'Blue', icon: 'default_img/umpireDefault.png', roles: [], subscriptionId: 'k63pju7l', pType: PARTICIPANT_MAPPING }
-        ],
-        uniqid: 'channel-k63pjit0'
-      },
-      name: 'Mapping',
-      forceIcons: [
-        'http://localhost:8080/default_img/umpireDefault.png',
-        'http://localhost:8080/default_img/forceDefault.png'
-      ],
-      forceColors: [
-        '#FCFBEE',
-        '#3dd0ff'
-      ],
-      messages: [],
-      unreadMessageCount: 0,
       observing: false
     }
   },
@@ -456,66 +422,6 @@ const state: PlayerUi = {
           subscriptionId: 'k16fhy24'
         }
       ]
-    },
-    {
-      name: 'Mapping',
-      uniqid: 'channel-k4cnw3nr',
-      constraints: {
-        bounds: [[2, 3], [3, 2]],
-        h3res: 3,
-        minZoom: 4
-      },
-      channelType: CHANNEL_MAPPING,
-      participants: [
-        {
-          pType: PARTICIPANT_MAPPING,
-          forceUniqid: 'umpire',
-          roles: [],
-          icon: 'http://localhost:8080/default_img/umpireDefault.png',
-          subscriptionId: 'k4cnwg1q'
-        },
-        {
-          pType: PARTICIPANT_MAPPING,
-          forceUniqid: 'force-k16fdykj',
-          roles: [],
-          icon: 'http://localhost:8080/default_img/forceDefault.png',
-          subscriptionId: 'k4cnwjfx'
-        }
-      ]
-    }
-  ],
-  allPeriods: [
-    {
-      gameDate: '2022-05-25T04:00',
-      gameTurnTime: {
-        millis: 259200000,
-        unit: 'millis'
-      },
-      gameTurn: 1
-    },
-    {
-      gameDate: '2022-05-28T04:00',
-      gameTurnTime: {
-        millis: 259200000,
-        unit: 'millis'
-      },
-      gameTurn: 1
-    },
-    {
-      gameDate: '2022-05-04T04:00',
-      gameTurnTime: {
-        millis: 259200000,
-        unit: 'millis'
-      },
-      gameTurn: 2
-    },
-    {
-      gameDate: '2022-05-04T04:00',
-      gameTurnTime: {
-        millis: 259200000,
-        unit: 'millis'
-      },
-      gameTurn: 2
     }
   ],
   allForces: [
@@ -566,38 +472,6 @@ const state: PlayerUi = {
             items: {
               minItems: 1,
               properties: {
-                assets: {
-                  format: 'table',
-                  items: {
-                    properties: {
-                      location: {
-                        maxLength: 3,
-                        type: 'string'
-                      },
-                      name: {
-                        type: 'string'
-                      },
-                      visibleTo: {
-                        format: 'table',
-                        items: {
-                          properties: {
-                            Force: {
-                              enum: [
-                                'Blue',
-                                'Red',
-                                'Green'
-                              ],
-                              type: 'string'
-                            }
-                          }
-                        },
-                        type: 'array'
-                      }
-                    }
-                  },
-                  minItems: 1,
-                  type: 'array'
-                },
                 force: {
                   enum: [
                     'Blue',
@@ -781,7 +655,6 @@ const state: PlayerUi = {
       _rev: '1-f332e0104a371b590346b66dc8e9fa2b'
     }
   },
-  allPlatformTypes: [],
   showObjective: false,
   wargameInitiated: true,
   feedbackMessages: [
@@ -795,13 +668,13 @@ const state: PlayerUi = {
           roleName: 'CO-Role',
           iconURL: 'ss'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-07T06:21:42.431Z',
         turnNumber: 12
       },
       message: {
         content: 'La test'
       },
+      name: 'John Miller',
       messageType: FEEDBACK_MESSAGE,
       _id: '2020-12-07T06:21:42.431Z',
       _rev: '1-dfe835c058e9711c954ad22366a8a2e8'
@@ -816,13 +689,13 @@ const state: PlayerUi = {
           roleName: 'CO-Role',
           iconURL: 'ss'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-06T11:05:12.038Z',
         turnNumber: 12
       },
       message: {
         content: 'ds'
       },
+      name: 'Sarah Wilson',
       messageType: FEEDBACK_MESSAGE,
       _id: '2020-12-06T11:05:12.038Z',
       _rev: '1-5201037a26e24f70ae45464c20b312aa'
@@ -837,13 +710,13 @@ const state: PlayerUi = {
           roleName: 'CO-Role',
           iconURL: 'ss'
         },
-        messageType: 'Chat',
         timestamp: '2020-10-01T01:19:56.492Z',
         turnNumber: 12
       },
       message: {
         content: 'Lorem ipsum do lor sit amet'
       },
+      name: 'Alice Johnson',
       messageType: FEEDBACK_MESSAGE,
       _id: '2020-10-01T01:19:56.492Z',
       _rev: '1-1e2289c6ee47e2dfd1ffb7e84f66514f'
@@ -867,7 +740,6 @@ const testState: any = {
           role: 'CO',
           icon: 'http://localhost:8080/default_img/forceDefault.png'
         },
-        messageType: 'Chat',
         timestamp: '2020-12-07T06:38:43.642Z'
       },
       message: {
@@ -922,7 +794,6 @@ const testState: any = {
               role: 'CO',
               icon: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-06T11:06:19.602Z'
           },
           message: {
@@ -942,7 +813,6 @@ const testState: any = {
               role: 'CO',
               icon: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-06T11:06:12.434Z'
           },
           message: {
@@ -962,7 +832,6 @@ const testState: any = {
               role: 'CO',
               icon: 'http://localhost:8080/default_img/forceDefault.png'
             },
-            messageType: 'Chat',
             timestamp: '2020-12-06T11:05:07.490Z'
           },
           message: {
@@ -1019,7 +888,6 @@ const testState: any = {
                 role: 'CO',
                 icon: 'http://localhost:8080/default_img/forceDefault.png'
               },
-              messageType: 'Chat',
               timestamp: '2020-12-07T06:38:43.642Z'
             },
             message: {
@@ -1060,7 +928,6 @@ const testState: any = {
                 role: 'CO',
                 icon: 'http://localhost:8080/default_img/forceDefault.png'
               },
-              messageType: 'Chat',
               timestamp: '2020-12-07T05:18:11.074Z'
             },
             message: {
@@ -1080,7 +947,6 @@ const testState: any = {
                 role: 'CO',
                 icon: 'http://localhost:8080/default_img/forceDefault.png'
               },
-              messageType: 'Chat',
               timestamp: '2020-12-07T05:17:45.437Z'
             },
             message: {
@@ -1195,7 +1061,6 @@ const testState: any = {
                 role: 'CO',
                 icon: 'http://localhost:8080/default_img/forceDefault.png'
               },
-              messageType: 'PG19 Weekly Orders',
               timestamp: '2020-12-07T05:18:34.179Z'
             },
             message: {
@@ -1482,7 +1347,7 @@ const testState: any = {
             isRFIManager: true
           }
         ],
-        icon: 'http://localhost:8080/default_img/umpireDefault.png',
+        iconURL: 'http://localhost:8080/default_img/umpireDefault.png',
         color: '#FCFBEE',
         umpire: true,
         dirty: false
@@ -1505,7 +1370,7 @@ const testState: any = {
             isGameControl: false
           }
         ],
-        icon: 'http://localhost:8080/default_img/forceDefault.png',
+        iconURL: 'http://localhost:8080/default_img/forceDefault.png',
         color: '#3dd0ff',
         umpire: false,
         dirty: false
@@ -1521,38 +1386,6 @@ const testState: any = {
               items: {
                 minItems: 1,
                 properties: {
-                  assets: {
-                    format: 'table',
-                    items: {
-                      properties: {
-                        location: {
-                          maxLength: 3,
-                          type: 'string'
-                        },
-                        name: {
-                          type: 'string'
-                        },
-                        visibleTo: {
-                          format: 'table',
-                          items: {
-                            properties: {
-                              Force: {
-                                enum: [
-                                  'Blue',
-                                  'Red',
-                                  'Green'
-                                ],
-                                type: 'string'
-                              }
-                            }
-                          },
-                          type: 'array'
-                        }
-                      }
-                    },
-                    minItems: 1,
-                    type: 'array'
-                  },
                   force: {
                     enum: [
                       'Blue',
@@ -1694,41 +1527,6 @@ const testState: any = {
         completed: false,
         details: {
           properties: {
-            Assets: {
-              format: 'table',
-              items: {
-                properties: {
-                  Name: {
-                    propertyOrder: 100,
-                    type: 'string'
-                  },
-                  Route: {
-                    format: 'table',
-                    items: {
-                      properties: {
-                        Location: {
-                          maxLength: 3,
-                          type: 'string'
-                        }
-                      }
-                    },
-                    minItems: 1,
-                    propertyOrder: 400,
-                    type: 'array'
-                  },
-                  Speed: {
-                    propertyOrder: 300,
-                    type: 'number'
-                  },
-                  State: {
-                    propertyOrder: 200,
-                    type: 'string'
-                  }
-                }
-              },
-              minItems: 1,
-              type: 'array'
-            }
           },
           title: 'Orders (m2c)',
           type: 'object'
@@ -1898,107 +1696,6 @@ const testState: any = {
               items: {
                 minItems: 1,
                 properties: {
-                  assets: {
-                    format: 'table',
-                    items: {
-                      properties: {
-                        history: {
-                          format: 'table',
-                          items: {
-                            properties: {
-                              Route: {
-                                format: 'table',
-                                items: {
-                                  properties: {
-                                    Location: {
-                                      maxLength: 3,
-                                      type: 'string'
-                                    }
-                                  }
-                                },
-                                minItems: 1,
-                                propertyOrder: 400,
-                                type: 'array'
-                              },
-                              Speed: {
-                                propertyOrder: 300,
-                                type: 'number'
-                              },
-                              State: {
-                                propertyOrder: 200,
-                                type: 'string'
-                              },
-                              Turn: {
-                                propertyOrder: 100,
-                                type: 'string'
-                              }
-                            }
-                          },
-                          minItems: 1,
-                          type: 'array'
-                        },
-                        name: {
-                          propertyOrder: 100,
-                          type: 'string'
-                        },
-                        planned: {
-                          format: 'table',
-                          items: {
-                            properties: {
-                              Route: {
-                                format: 'table',
-                                items: {
-                                  properties: {
-                                    Location: {
-                                      maxLength: 3,
-                                      type: 'string'
-                                    }
-                                  }
-                                },
-                                minItems: 1,
-                                propertyOrder: 400,
-                                type: 'array'
-                              },
-                              Speed: {
-                                propertyOrder: 300,
-                                type: 'number'
-                              },
-                              State: {
-                                propertyOrder: 200,
-                                type: 'string'
-                              },
-                              Turn: {
-                                propertyOrder: 100,
-                                type: 'string'
-                              }
-                            }
-                          },
-                          minItems: 1,
-                          propertyOrder: 2000,
-                          type: 'array'
-                        },
-                        visibleTo: {
-                          format: 'table',
-                          items: {
-                            properties: {
-                              Force: {
-                                enum: [
-                                  'Blue',
-                                  'Red',
-                                  'Green'
-                                ],
-                                type: 'string'
-                              }
-                            }
-                          },
-                          propertyOrder: 300,
-                          type: 'array'
-                        }
-                      }
-                    },
-                    minItems: 1,
-                    type: 'array'
-                  },
                   force: {
                     enum: [
                       'Blue',
@@ -2023,7 +1720,6 @@ const testState: any = {
         _rev: '1-4bd7b0b5488182f39f10d5203bb1fad8'
       }
     ],
-    allPlatformTypes: [],
     showObjective: false,
     wargameInitiated: true,
     feedbackMessages: [
@@ -2036,7 +1732,6 @@ const testState: any = {
             role: 'CO',
             name: ''
           },
-          messageType: 'Chat',
           timestamp: '2020-12-07T06:21:42.431Z'
         },
         message: {
@@ -2055,7 +1750,6 @@ const testState: any = {
             role: 'CO',
             name: ''
           },
-          messageType: 'Chat',
           timestamp: '2020-12-06T11:05:12.038Z'
         },
         message: {
@@ -2074,7 +1768,6 @@ const testState: any = {
             role: 'Game Control',
             name: 'Heri Setiawan'
           },
-          messageType: 'Chat',
           timestamp: '2020-10-01T01:19:56.492Z'
         },
         message: {

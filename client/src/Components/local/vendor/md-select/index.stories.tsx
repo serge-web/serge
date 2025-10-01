@@ -7,7 +7,7 @@ import InputContainer from '../../../local/atoms/input-container'
 import docs from './README.md'
 
 export default {
-  title: 'vendor/Select',
+  title: 'md-select/vendor/Select',
   component: Select,
   parameters: {
     readme: {

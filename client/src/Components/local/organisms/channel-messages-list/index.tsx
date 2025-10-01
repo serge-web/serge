@@ -11,7 +11,7 @@ import ForcesInChannel from '../../molecules/forces-in-channel'
 import { Box } from '@material-ui/core'
 // import collateMessages from './helpers/collate-messages'
 import { INFO_MESSAGE_CLIPPED } from 'src/config'
-import { MessageChannel, MessageCustom } from 'src/custom-types'
+import { MessageChannel } from 'src/custom-types'
 import { formatTurn } from 'src/Helpers'
 
 /* Render component */
@@ -24,7 +24,7 @@ export const ChannelMessagesList: React.FC<PropTypes> = ({
       {
         !hideForcesInChannel &&
         <Box mb={2} ml={2} mr={3}>
-          <ForcesInChannel messages={messages as MessageCustom[]} names={names} colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
+          <ForcesInChannel messages={messages} names={names} colors={colors} icons={icons} onMarkAllAsRead={onMarkAllAsRead} />
         </Box>
       }
       <Box ml={2} className={styles['messages-list']}>

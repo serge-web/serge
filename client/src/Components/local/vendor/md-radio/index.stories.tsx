@@ -5,7 +5,7 @@ import Radio from '@material-ui/core/Radio'
 import docs from './README.md'
 
 export default {
-  title: 'vendor/Radio',
+  title: 'md-radio/vendor/Radio',
   component: Radio,
   parameters: {
     readme: {

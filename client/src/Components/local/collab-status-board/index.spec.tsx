@@ -3,7 +3,7 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { ForceRole, MessageCustom, Role, ChannelCollab } from 'src/custom-types'
-import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, PARTICIPANT_COLLAB } from 'src/config'
+import { CUSTOM_MESSAGE, CollaborativeMessageStates, CHANNEL_COLLAB, InitialStates, CollaborativePermission, PARTICIPANT_COLLAB, Phase } from 'src/config'
 import { forces, MessageTemplatesMockByKey, WargameMock } from 'src/mocks'
 import CollabStatusBoard from './index'
 import newDate from 'src/Helpers/new-date'
@@ -51,6 +51,7 @@ const testChannelColb: ChannelCollab = {
 const testMock: MessageCustom[] = [
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'channel-BlueRFI',
       from: {
@@ -60,7 +61,6 @@ const testMock: MessageCustom[] = [
         roleName: blueCO.name,
         roleId: blueCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:54:21.119Z',
       collaboration: {
         lastUpdated: newDate(),
@@ -80,6 +80,7 @@ const testMock: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'RFI',
     details: {
       channel: 'Red RFI',
       from: {
@@ -89,7 +90,6 @@ const testMock: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'RFI',
       timestamp: '2020-10-13T08:55:21.119Z',
       collaboration: {
         lastUpdated: newDate(),
@@ -109,6 +109,7 @@ const testMock: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'Chat',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -118,7 +119,6 @@ const testMock: MessageCustom[] = [
         roleName: whiteGC.name,
         roleId: whiteGC.roleId
       },
-      messageType: 'Chat',
       privateMessage: 'The private content goes in here',
       timestamp: '2020-10-13T08:52:40.930Z',
       collaboration: {
@@ -140,6 +140,7 @@ const testMock: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'Chat',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -149,7 +150,6 @@ const testMock: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: redCO.roleId
       },
-      messageType: 'Chat',
       timestamp: '2020-10-13T08:52:04.394Z',
       collaboration: {
         lastUpdated: newDate(),
@@ -170,6 +170,7 @@ const testMock: MessageCustom[] = [
   },
   {
     messageType: CUSTOM_MESSAGE,
+    templateId: 'Chat',
     details: {
       channel: 'channel-k63pjit0',
       from: {
@@ -179,7 +180,6 @@ const testMock: MessageCustom[] = [
         iconURL: 'default_img/umpireDefault.png',
         roleId: blueCO.roleId
       },
-      messageType: 'Chat',
       timestamp: '2020-10-13T08:52:21.119Z',
       collaboration: {
         lastUpdated: newDate(),
@@ -219,6 +219,7 @@ it('CoaStatusBoard renders correctly', () => {
         forces={forces}
         role={role}
         isUmpire={false}
+        phase={Phase.Planning}
         isObserver={true}
         channelColb={testChannelColb}
         messages={testMock}

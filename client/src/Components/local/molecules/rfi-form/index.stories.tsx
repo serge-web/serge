@@ -6,7 +6,7 @@ import { MessageCustom } from 'src/custom-types/message'
 import RfiForm from './index'
 import RfiFormTypes from './types/props'
 import docs from './README.md'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 
 export default {
   title: 'local/molecules/RfiForm',
@@ -23,7 +23,7 @@ export default {
   }
 }
 
-const Template: Story<RfiFormTypes> = (args) => <RfiForm {...args} />
+const Template: StoryFn<RfiFormTypes> = (args) => <RfiForm {...args} />
 
 // deepscan-disable-next-line USELESS_ARROW_FUNC_BIND
 export const Unallocated = Template.bind({})

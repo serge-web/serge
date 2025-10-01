@@ -1,23 +1,16 @@
-import { Asset, Role } from '.'
+import { Role } from '.'
 
 export default interface ForceData {
   name: string
   readonly uniqid: string
   overview: string
   roles: Array<Role>
-  /**
-   * @deprecated use iconURL instead
-   */
-  icon?: string
   iconURL: string
   color: string
-  /** if a CSS class is used to define the force color, provide it here */
-  cssClass?: string
   dirty: boolean
-  /** collection of assets (ships in maritime context) for this force */
-  assets?: Array<Asset>
   /** list of force IDs that can see assets of this force.
-   *  todo - eventually move to force ids, rather than names
+   *  TODO - concept of assets now embedded in Renderers, we should
+   *  TODO - probably handle visibility there.
    */
   visibleTo?: Array<ForceData['uniqid']>
   /** 

@@ -18,6 +18,7 @@ import DbProvider from './db'
 
 const db = new DbProvider(databasePath + MSG_TYPE_STORE)
 
+// Populate the database with initial data
 export const populateDb = () => {
   const promises = []
 
@@ -130,20 +131,24 @@ export const populateDb = () => {
   })
 }
 
-export const postNewMessage = (schema) => {
+// Function to post a new message type (schema) to the database
+export const postNewMessageTypeToDb = (schema) => {
   return new Promise((resolve, reject) => {
     (async () => {
+      // Get all existing message types from the database
       const allMessages = await getAllMessagesFromDb()
 
+      // Check if the message type title is already used
       const matchedName = allMessages.find((messageType) => messageType.title && schema.title && messageType.title.toLowerCase() === schema.title.toLowerCase())
-
+  
       if (matchedName) {
         reject('Message title already used')
         return
       }
 
       const time = new Date().toISOString()
-
+      
+      // Create a new schema object and add it to the database
       const schemaObj = {
         _id: time,
         lastUpdated: time,
@@ -151,7 +156,7 @@ export const postNewMessage = (schema) => {
         details: schema,
         completed: false
       }
-
+    
       return db.put(schemaObj)
         .then(function (result) {
           resolve(result)
@@ -164,6 +169,7 @@ export const postNewMessage = (schema) => {
   })
 }
 
+// Duplicate a message type in the database
 export const duplicateMessageInDb = (id) => {
   const time = new Date().toISOString()
 
@@ -191,6 +197,7 @@ export const duplicateMessageInDb = (id) => {
   })
 }
 
+// Update a message type in the database
 export const updateMessageInDb = (schema, id) => {
   return new Promise((resolve, reject) => {
     (async () => {
@@ -224,6 +231,7 @@ export const updateMessageInDb = (schema, id) => {
   })
 }
 
+// Delete a message type from the database
 export const deleteMessageFromDb = (id) => {
   return new Promise((resolve, reject) => {
     db.get(id)
@@ -240,6 +248,7 @@ export const deleteMessageFromDb = (id) => {
   })
 }
 
+// Get all message from the database
 export const getAllMessagesFromDb = () => {
   return new Promise((resolve, reject) => {
     db.allDocs()

@@ -1,5 +1,5 @@
 import { ChannelUI, MessageDetails } from 'src/custom-types'
-import { P9Mock, planningMessageTemplatesMock } from 'src/mocks'
+import { watuWargame, MessageTemplatesMock } from 'src/mocks'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import NewMessage from './index'
@@ -30,7 +30,7 @@ jest.mock('uuid', () => {
 
 it('NewMessage renders correctly', () => {
   const channels = {}
-  P9Mock.data.channels.channels.forEach(c => {
+  watuWargame.data.channels.channels.forEach(c => {
     channels[c.name] = {
       cData: c,
       name: c.name,
@@ -44,19 +44,18 @@ it('NewMessage renders correctly', () => {
 
   const tree = renderer
     .create(<NewMessage
-      templates={planningMessageTemplatesMock}
-      gameDate={P9Mock.data.overview.gameDate}
+      templates={MessageTemplatesMock}
+      gameDate={watuWargame.data.overview.gameDate}
       privateMessage={true}
       orderableChannel={false}
-      channel={P9Mock.data.channels.channels[0]}
+      channel={watuWargame.data.channels.channels[0]}
       confirmCancel={false}
       currentTurn={0}
-      selectedForce={P9Mock.data.forces.forces[0]}
-      selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
-      selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
+      selectedForce={watuWargame.data.forces.forces[0]}
+      selectedRole={watuWargame.data.forces.forces[0].roles[0].roleId}
+      selectedRoleName={watuWargame.data.forces.forces[0].roles[0].name}
       postBack={postBack}
     />)
     .toJSON()
   expect(tree).toBeTruthy()
-  // expect(tree).toMatchSnapshot()
 })

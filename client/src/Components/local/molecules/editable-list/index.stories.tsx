@@ -1,22 +1,19 @@
 import React, { useState } from 'react'
+import { StoryFC } from 'src/custom-types'
 
 // Import component files
 import EditableList from './index'
 import docs from './README.md'
-import { withKnobs } from '@storybook/addon-knobs'
 
 // import types
 import { Item } from './types/props'
-import { PlatformTypeData } from 'src/custom-types'
-
-import { platformTypes } from 'src/mocks'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
   title: 'local/molecules/EditableList',
   component: EditableList,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -25,8 +22,8 @@ export default {
   }
 }
 
-export const Default: React.FC = () => {
-  const [items, setItems] = useState<Array<PlatformTypeData>>(platformTypes)
+export const Default: StoryFC = () => {
+  const [items, setItems] = useState<Array<Item>>([{ name: 'list item 1' }, { name: 'list item 2' }])
 
   const handleClick = (item: Item): void => {
     console.log('selected item:', item)
@@ -47,17 +44,15 @@ export const Default: React.FC = () => {
   }
   return (
     <EditableList
-      title="Add new platform type"
+      title="Add a New Force"
       items={items}
       onClick={handleClick}
       onCreate={handleCreate}
-      searchLabel="Search platform"
+      searchLabel="Search Force"
     />
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
 Default.story = {
   parameters: {
     options: {

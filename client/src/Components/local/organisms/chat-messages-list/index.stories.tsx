@@ -1,6 +1,5 @@
 import React from 'react'
-import { Story } from '@storybook/react/types-6-0'
-import { withKnobs } from '@storybook/addon-knobs'
+import { StoryFn } from '@storybook/react'
 
 import { ChatMessagesMock, InfoMessagesMock } from 'src/mocks'
 import Props from './types/props'
@@ -13,7 +12,6 @@ import docs from './README.md'
 export default {
   title: 'local/organisms/ChatMessagesList',
   component: ChatMessagesList,
-  decorators: [withKnobs],
   parameters: {
     readme: {
       // Show readme before story
@@ -52,8 +50,7 @@ export default {
 }
 const force = {
   name: 'Blue',
-  color: '#6699cc',
-  icon: ''
+  color: '#6699cc'
 }
 
 const info = InfoMessagesMock as Array<ChatMessage | MessageInfoTypeClipped>
@@ -62,7 +59,7 @@ const messages = info.concat(chat)
 const chatMessage = chat[1] as ChatMessage
 const playerRole = chatMessage.details.from.roleId
 
-const Template: Story<Props> = (args) => {
+const Template: StoryFn<Props> = (args) => {
   const icons = [
     './images/default_img/forceDefault.png'
   ]

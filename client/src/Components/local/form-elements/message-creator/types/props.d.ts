@@ -1,6 +1,5 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure } from 'src/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TypeOfCustomMessage } from 'src/custom-types'
 import { MouseEvent } from 'react'
-import { EditCallback } from 'src/local/molecules/json-editor/helpers/setupEditor'
 
 export default interface PropTypes {
   schema: any
@@ -22,7 +21,7 @@ export default interface PropTypes {
   /**
    * The method for posting messages out of the component
    */
-  postBack: { (details: MessageDetails, message: any): void }
+  postBack: { (details: MessageDetails, message: any, templateId: string, messageType: TypeOfCustomMessage): void }
   channel: ChannelTypes
   gameDate: string
   /** method to customise the new (or existing) message template */
@@ -41,8 +40,4 @@ export default interface PropTypes {
    */
   modifyForSave?: { (document: Record<string, any>): Record<string, any> }
 
-  /**
-   *  user has clicked on custom edit button
-   */
-  editCallback?: EditCallback
 }

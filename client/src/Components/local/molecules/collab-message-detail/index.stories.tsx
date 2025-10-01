@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Story } from '@storybook/react/types-6-0'
+import { StoryFn } from '@storybook/react'
 
 // Import component files
 import CollabMessageDetail from './index'
@@ -71,7 +71,7 @@ export default {
   }
 }
 
-const Template: Story<RFIPropTypes> = (args) => {
+const Template: StoryFn<RFIPropTypes> = (args) => {
   const { isObserver, message, isUmpire, permission, state, channelColb, role } = args
   const [messageState, setMessageState] = useState<MessageCustom>(message)
   const [roleState, setRoleState] = useState<ForceRole | undefined>(undefined)

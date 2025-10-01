@@ -44,6 +44,7 @@ export const EditableList: React.FC<PropTypes> = ({
   }
 
   const handleDelete = (item: Item): void => {
+    console.log('item', item)
     if (typeof onDelete === 'function') {
       onDelete(item)
     }

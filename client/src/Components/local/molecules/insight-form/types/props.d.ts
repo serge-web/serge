@@ -6,7 +6,7 @@ export default interface Props {
   /**
    * Callback on send button click event
    */
-  onSend: (message: any) => void
+  onSend: (message: { message: string, name: string }) => void
   /**
    * Whether to show form in dark mode
    */

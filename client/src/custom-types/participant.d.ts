@@ -1,7 +1,6 @@
 import Role from './role'
 import ForceData from './force-data'
-import { CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_PLANNING, PARTICIPANT_CHAT, PARTICIPANT_COLLAB, PARTICIPANT_MAPPING } from 'src/config'
-import Asset from './asset'
+import { CollaborativePermission, PARTICIPANT_CUSTOM, PARTICIPANT_MAPPING, PARTICIPANT_CHAT, PARTICIPANT_COLLAB } from 'src/config'
 
 export interface ParticipantTemplate {
   _id: string
@@ -25,29 +24,35 @@ export interface ParticipantCustom extends CoreParticipant {
   templates: ParticipantTemplate[]
 }
 
-/** participation in planning channels */
-export interface ParticipantPlanning extends CoreParticipant {
-  readonly pType: typeof PARTICIPANT_PLANNING
-  // the templates this participant can create
-  templates: ParticipantTemplate[]
+/** the tasks a participant can be allowed to perform in a mapping channel */
+export enum MappingPermissions {
+  Exists = 'Exists',
+  // spatially related
+  ViewSpatial = 'ViewSpatial', // NOTE: infers `exists`
+  AddRemove = 'Add/Remove',
+  MoveResize = 'Move/resize',
+  // props related permissions
+  ViewProps = 'ViewProps', // NOTE: infers `exists`
+  EditOwnProps = 'Edit own props', // edit props marked as user editable
+  EditAllProps = 'Edit all props'
+}
+
+export type ForcePermissions = Record<ForceData['uniqid'], MappingPermissions[]>
+
+/** participation in mapping channels */
+export interface ParticipantMapping extends CoreParticipant {
+  readonly pType: typeof PARTICIPANT_MAPPING
+  /** ids of renderers that this role can create items for */
+  forRenderer: BaseRenderer['id'][]
+  /** has permission to do these per-force actions */
+  permissionTo: ForcePermissions
+  /** the phase(s) that this participation applies to */
+  phases: Phase[]
 }
 
 /** participation in chat channels */
 export interface ParticipantChat extends CoreParticipant {
   readonly pType: typeof PARTICIPANT_CHAT
-}
-
-/** participation in mapping channels */
-export interface ParticipantMapping extends CoreParticipant {
-  readonly pType: typeof PARTICIPANT_MAPPING
-  /** the assets from this force which this participant controls,
-   * or "All" value with FORCE to control all not otherwise controlled
-   * from that force.  For controls all, the string will be
-   * the value of CONTROL_ALL plus ":" and the Force['uniqid].
-   * 
-   * Leaving the array empty means the player has read-only access.
-   */
-  controls?: Array<Asset['uniqid'] | string>
 }
 
 /** participation in collaborative editing channels */
@@ -59,6 +64,8 @@ export interface ParticipantCollab extends CoreParticipant {
   viewUnreleasedVersions: boolean
   // level of access for the participant
   permission: CollaborativePermission
+  // phases in which this participant can participate (all if empty)
+  phases?: Phase[]
 } 
 
-export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantMapping | ParticipantPlanning
+export type ParticipantTypes = ParticipantChat | ParticipantCollab | ParticipantCustom | ParticipantMapping

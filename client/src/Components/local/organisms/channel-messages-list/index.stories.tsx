@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Story } from '@storybook/react/types-6-0'
-import { withKnobs } from '@storybook/addon-knobs'
+import { StoryFn } from '@storybook/react'
 
 // Import component files
 import MessageListPropTypes from './types/props'
@@ -15,7 +14,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 export default {
   title: 'local/organisms/ChannelMessagesList',
   component: ChannelMessagesList,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -44,7 +43,7 @@ export default {
   }
 }
 
-const Template: Story<MessageListPropTypes> = (args) => {
+const Template: StoryFn<MessageListPropTypes> = (args) => {
   const { messages, playerForceId, hideForcesInChannel } = args
   const icons = [
     './images/default_img/forceDefault.png'

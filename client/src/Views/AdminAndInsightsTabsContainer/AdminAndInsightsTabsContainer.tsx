@@ -2,7 +2,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import AdminPanelFooter from '../../Components/local/molecules/admin-panel-footer'
-import getByPassUrl from './helpers/getByPassUrl'
 import addTabs from './helpers/addTabs'
 import factory from './helpers/factory'
 import { FLEX_LAYOUT_MODEL_DEFAULT } from 'src/config'
@@ -15,7 +14,6 @@ import addUnreadMsgCount from './helpers/renameTab'
 
 const AdminAndInsightsTabsContainer = (): React.ReactElement => {
   const state = usePlayerUiState()
-  const [byPassUrl] = useState<URL>(getByPassUrl(state))
   const playerUiDispatch = usePlayerUiDispatch()
   const dispatch = useDispatch()
 
@@ -66,7 +64,6 @@ const AdminAndInsightsTabsContainer = (): React.ReactElement => {
       <AdminPanelFooter
         force={selectedForce}
         selectedRoleName={selectedRoleName}
-        byPassUrl={byPassUrl}
         onIconClick={(): void => playerUiDispatch(showHideObjectives())}
       />
      

@@ -1,14 +1,7 @@
-import {
-  CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
-  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
-} from 'src/config'
-
-import { ChannelCore, ForceData, ForceRole, StateOfWorld, TemplateBody, MessagePlanning, InteractionDetails, MessageAdjudicationOutcomes } from '.'
-import { MapAnnotation } from './map-annotation'
-import Perception from './perception'
-import PlannedRoute from './planned-route'
+import { CHAT_MESSAGE, CollaborativeMessageStates, COUNTER_MESSAGE, CUSTOM_MESSAGE, FEEDBACK_MESSAGE, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from 'src/config'
+import { FeatureCollection } from 'geojson'
+import { ChannelCore, ForceData, ForceRole, TemplateBody } from '.'
 import Role from './role'
-import Visibility from './visibility'
 import Wargame from './wargame'
 
 export interface MessageDetailsFrom {
@@ -21,16 +14,10 @@ export interface MessageDetailsFrom {
   readonly forceColor: ForceData['color']
   /** role of the individual that wrote message */
   readonly roleId: Role['roleId']
-  /** name of the role that send messsage */
+  /** name of the role that send messsage, to be @deprecated */
   readonly roleName: Role['name']
   /** URL of icon to display for this force
-   * TODO: once all code under TypeScript try making it non-optional,
-   * and fix cases where it's not assigned
    */
-  /**
-   * @deprecated use iconURL instead
-   */
-  icon?: string
   iconURL: ForceData['iconURL']
   /** user-name, as typed into Feedback/insights form */
   name?: string
@@ -46,12 +33,10 @@ export interface MessageDetails {
    * extra data for when message being edited collaboratively
    */
   collaboration?: CollaborationDetails
-  /** 
-   * extra detail for managing an interaction
-   */
-  interaction?: InteractionDetails
-  /** ID of template for this message */
-  messageType: TemplateBody['_id']
+  // /** 
+  //  * extra detail for managing an interaction
+  //  */
+  // interaction?: InteractionDetails
   /** time message sent */
   timestamp: string
   /** turn when this message was sent */
@@ -93,6 +78,7 @@ export interface CoreMessage {
   readonly details: MessageDetails
   /** whether this message has been read on the current client */
   hasBeenRead?: boolean
+  readonly templateId?: TemplateBody['_id']
 }
 
 /** 
@@ -107,6 +93,8 @@ export interface FeedbackItem {
   readonly date: string
   /** the feedback */
   readonly feedback: string
+  /** deltas to get to the previous version */
+  readonly revert?: jsonpath.Operation[]
 }
 
 /** data for a message that is being
@@ -137,18 +125,17 @@ export interface CollaborationDetails {
 
 export interface MessageCustom extends CoreMessage {
   readonly messageType: typeof CUSTOM_MESSAGE
+    /** Details related to the message, excluding the message type. */
+  // details: Omit<MessageDetails, 'messageType'>
   /** the strutured message */
   message: MessageStructure
   /** whether this message is open/expanded on the current client */
-  isOpen: boolean
-  /** the game turn when this was sent */
-  gameTurn?: number
-  /** whether this represents an item of insight/feedback */
-  feedback?: boolean
-  /** whether this is a change in game state (rather than a new message),
-   * normally `false` for messages like this
-   */
-  infoType?: boolean
+  isOpen?: boolean
+  /** 
+   * The ID of the template associated with this custom message.
+   * It refers to the '_id' property of the TemplateBody interface.
+  */
+  templateId: TemplateBody['_id']
 }
 
 /** 
@@ -171,15 +158,21 @@ export interface ChatMessage extends CoreMessage {
   message: MessageStructure
 }
 
-/** messages being used in support of adjudicating an interaction */
-export interface MessageInteraction extends CoreMessage {
-  readonly messageType: typeof INTERACTION_MESSAGE
-  message: MessageAdjudicationOutcomes
-}
-
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE
   message: MessageStructure
+  name?: string
+}
+
+export interface MappingMessage extends CoreMessage {
+  readonly messageType: typeof MAPPING_MESSAGE
+  featureCollection: FeatureCollection
+}
+
+export interface MappingMessageDelta extends CoreMessage {
+  readonly messageType: typeof MAPPING_MESSAGE_DELTA
+  since: string // id of predecessor
+  delta: any // replace by typed field once we've adopted library
 }
 
 /** message containing updated game status, could be one of:
@@ -208,102 +201,14 @@ export interface MessageInfoTypeClipped {
   _id?: string
 }
 
-export interface MessageForceLaydown {
-  readonly messageType: typeof FORCE_LAYDOWN
-  readonly updates: Array<{ uniqid: string, position: string }>
-}
-export interface MessagePerceptionOfContact {
-  readonly messageType: typeof PERCEPTION_OF_CONTACT
-  readonly assetId: string
-  readonly perception: Perception
-}
+export type TypeOfCustomMessage = typeof CUSTOM_MESSAGE 
 
-/** two assets are going to join, to form a task group */
-export interface MessageCreateTaskGroup {
-  readonly messageType: typeof CREATE_TASK_GROUP
-  /** id of the platform that was dragged onto another */
-  readonly dragged: string
-  /** id of the target platform that other was dropped onto */
-  readonly target: string
-}
-
-/** an asset is going to host another platform */
-export interface MessageHostPlatform {
-  readonly messageType: typeof HOST_PLATFORM
-  /** id of the platform that was dragged onto another */
-  readonly dragged: string
-  /** id of the target platform that other was dropped onto */
-  readonly target: string
-}
-
-/** an asset is leaving a task group, navigating to top level */
-export interface MessageLeaveTaskGroup {
-  readonly messageType: typeof LEAVE_TASK_GROUP
-  /** id of the platform that was dragged to the top level */
-  readonly dragged: string
-}
-
-export interface MessageVisibilityChanges {
-  readonly messageType: typeof VISIBILITY_CHANGES
-  readonly visibility: Visibility[]
-  readonly assetId: string
-  condition?: string
-}
-
-export interface MessageDeletePlatform {
-  readonly messageType: typeof DELETE_PLATFORM
-  readonly assetId: string
-}
-
-export interface MessageSubmitPlans {
-  readonly messageType: typeof SUBMIT_PLANS
-  readonly plannedRoutes: PlannedRoute[]
-}
-
-export interface MessageStateOfWorld {
-  readonly messageType: typeof STATE_OF_WORLD
-  readonly state: StateOfWorld
-}
-
-export interface MessageUpdateMarker {
-  readonly messageType: typeof UPDATE_MARKER
-  readonly marker: MapAnnotation
-}
-
-export interface MessageDeleteMarker {
-  readonly messageType: typeof DELETE_MARKER
-  readonly marker: MapAnnotation['uniqid']
-}
-
-export interface MessageCloneMarker {
-  readonly messageType: typeof CLONE_MARKER
-  readonly marker: MapAnnotation
-}
-
-export type MessageMap = MessageForceLaydown |
-  MessagePerceptionOfContact |
-  MessageVisibilityChanges |
-  MessageSubmitPlans |
-  MessageStateOfWorld |
-  MessageCreateTaskGroup |
-  MessageLeaveTaskGroup |
-  MessageHostPlatform |
-  MessageDeletePlatform |
-  MessageUpdateMarker |
-  MessageDeleteMarker |
-  MessageCloneMarker |
-  MessageAdjudicationOutcomes
-
-export type MessageChannel = MessageInfoTypeClipped | MessagePlanning |
-  MessageCustom
-
-type Message = MessageCustom |
-  MessagePlanning |
+export type MessageChannel = MessageInfoTypeClipped | MessageCustom
+export type Message = MessageCustom |
   ChatMessage |
   MessageFeedback |
+  MappingMessage |
+  MappingMessageDelta | 
   MessageInfoTypeClipped |
-  MessageMap |
   MessageInfoType |
   MessageCounter
-
-export default Message

@@ -1,6 +1,5 @@
 import {
   SET_CURRENT_WARGAME_PLAYER,
-  SET_ALL_TURN_PERIOD,
   SET_FORCE,
   SET_ROLE,
   SET_ALL_TEMPLATES_PLAYERUI,
@@ -16,13 +15,13 @@ import {
   MARK_ALL_AS_READ,
   OPEN_TOUR,
   OPEN_MODAL,
+  ADD_NOTIFICATION,
   CLOSE_MODAL,
   MARK_ALL_AS_UNREAD
 } from 'src/config'
 
 import {
   Wargame,
-  TurnPeriod,
   Role,
   MessageFeedback,
   MessageChannel,
@@ -37,11 +36,6 @@ export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
 interface SetCurrentWargameAction {
   type: typeof SET_CURRENT_WARGAME_PLAYER
   payload: Wargame
-}
-
-interface SetCurrentTurnPeriodAction {
-  type: typeof SET_ALL_TURN_PERIOD
-  payload: Array<TurnPeriod>
 }
 
 interface SetForceAction {
@@ -120,12 +114,21 @@ interface OpenModalAction {
 interface CloseModalAction {
   type: typeof CLOSE_MODAL
 }
-
+interface AddNotificationInterface {
+  type: typeof ADD_NOTIFICATION
+  payload: {
+    message: string
+    type: string
+    id: string
+    autoHide: boolean
+    subType: string
+  }
+}
 export type PlayerUiActionTypes = SetCurrentWargameAction |
-  SetCurrentTurnPeriodAction |
   SetForceAction |
   SetRoleAction |
-  SetAllTemplatesAction |
+  SetAllTemplatesAction | 
+  AddNotificationAction |
   ShowHideObjectivesAction |
   UpdateMessageStateAction |
   SetWargameFeedbackAction |

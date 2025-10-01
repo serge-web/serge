@@ -2,16 +2,13 @@ import React, { useState } from 'react'
 import {
   WargameExportedMock,
   MessageTemplatesMock,
-  adminTabs,
-  platformType as platformTypeMock
+  adminTabs
 } from 'src/mocks'
 import {
   ChannelTypes,
   ForceData,
-  PlatformType,
   Wargame,
-  WargameOverview,
-  AnnotationMarkerData
+  WargameOverview
 } from 'src/custom-types'
 
 // Import component files
@@ -33,24 +30,18 @@ export default {
 export const Default: React.FC = () => {
   const initialWargame: Wargame = {
     ...WargameExportedMock,
-    data: {
-      ...WargameExportedMock.data,
-      platformTypes: platformTypeMock
-    },
     wargameInitiated: false
   }
 
   const [wargame, setWargame] = useState<Wargame>(initialWargame)
   const [isWargameChanged, setWargameChanged] = useState<boolean>(false)
   const [, setChangedOverview] = useState<WargameOverview>(wargame.data.overview)
-  const [changedPlatformType, setChangedPlatformType] = useState<PlatformType | undefined>(wargame.data.platformTypes)
   const [changedForces, setChangedForces] = useState<Array<ForceData>>(wargame.data.forces.forces)
   const [changedChannels, setChangedChannels] = useState<Array<ChannelTypes>>(wargame.data.channels.channels || [])
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const onTabChange = (_tab: string, key: number, _e?: React.MouseEvent<HTMLDivElement>): void => {
     setActiveTab(key)
-    setChangedPlatformType(wargame.data.platformTypes)
     setChangedOverview(wargame.data.overview)
     setChangedForces(wargame.data.forces.forces)
     setChangedChannels(wargame.data.channels.channels || [])
@@ -67,10 +58,6 @@ export const Default: React.FC = () => {
 
   const onOverviewChange = (nextOverview: WargameOverview): void => {
     console.log('new overview', nextOverview)
-  }
-
-  const onPlatformTypesChange = (nextPlatformType: PlatformType): void => {
-    console.log('new platform type', nextPlatformType)
   }
 
   const onForcesChange = (updates: { forces: Array<ForceData> }): void => {
@@ -93,10 +80,6 @@ export const Default: React.FC = () => {
     setWargame(updatedWargame)
   }
 
-  const onAnnotationChange = (nextPlatformType: AnnotationMarkerData): void => {
-    console.log('new platform type', nextPlatformType)
-  }
-
   return (
     <GameSetup
       activeTab={adminTabs[activeTab]}
@@ -105,20 +88,16 @@ export const Default: React.FC = () => {
       wargameChanged={isWargameChanged}
       onTabChange={onTabChange}
       overview={wargame.data.overview}
-      platformTypes={changedPlatformType}
       forces={changedForces}
       channels={changedChannels}
       onOverviewChange={onOverviewChange}
-      onPlatformTypesChange={onPlatformTypesChange}
       onForcesChange={onForcesChange}
       onChannelsChange={onChannelsChange}
       onSave={onSave}
       messageTemplates={MessageTemplatesMock}
       onSaveGameTitle={onSaveGameTitle}
       onWargameInitiate={onWargameInitiated}
-      availablePlatformTypes={platformTypeMock.platformTypes}
       iconUploadUrl={iconUploaderPath}
-      onAnnotationChange={onAnnotationChange}
     />
   )
 }

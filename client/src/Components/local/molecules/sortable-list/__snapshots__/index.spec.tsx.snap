@@ -34,7 +34,7 @@ exports[`sortable-list renders correctly 1`] = `
             <div
               onClick={[Function]}
             >
-              list item 1
+              Game Control
             </div>
           </div>
           <span>
@@ -80,7 +80,99 @@ exports[`sortable-list renders correctly 1`] = `
             <div
               onClick={[Function]}
             >
-              list item 2
+              RFI Mgr
+            </div>
+          </div>
+          <span>
+            <div
+              className="trash-icon"
+              onClick={[Function]}
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
+          </span>
+          <span />
+        </section>
+      </div>
+    </li>
+    <li
+      className="li"
+      data-id="2"
+    >
+      <div
+        className="drag"
+      >
+        <span>
+          <div
+            onClick={[Function]}
+          >
+            <svg
+              className="svg-inline--fa fa-grip-vertical"
+            />
+          </div>
+        </span>
+      </div>
+      <div
+        className="presection"
+      >
+        <section
+          className="section"
+        >
+          <div
+            className="value-label"
+          >
+            <div
+              onClick={[Function]}
+            >
+              Blue HHQ
+            </div>
+          </div>
+          <span>
+            <div
+              className="trash-icon"
+              onClick={[Function]}
+            >
+              <svg
+                className="svg-inline--fa fa-trash"
+              />
+            </div>
+          </span>
+          <span />
+        </section>
+      </div>
+    </li>
+    <li
+      className="li"
+      data-id="3"
+    >
+      <div
+        className="drag"
+      >
+        <span>
+          <div
+            onClick={[Function]}
+          >
+            <svg
+              className="svg-inline--fa fa-grip-vertical"
+            />
+          </div>
+        </span>
+      </div>
+      <div
+        className="presection"
+      >
+        <section
+          className="section"
+        >
+          <div
+            className="value-label"
+          >
+            <div
+              onClick={[Function]}
+            >
+              Red HHQ
             </div>
           </div>
           <span>

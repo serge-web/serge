@@ -24,6 +24,7 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, role
   const submitForm = (): void => {
     const post: MessageCustom = {
       messageType: CUSTOM_MESSAGE,
+      templateId: 'Chat',
       details: {
         channel: channel,
         from: {
@@ -33,7 +34,6 @@ export const AdminMessageCreator: React.FC<Props> = ({ from, channel, role, role
           roleName: roleName,
           iconURL: from.iconURL || (from.icon || '')
         },
-        messageType: 'Chat',
         timestamp: timestamp,
         turnNumber: turnNumber
       },

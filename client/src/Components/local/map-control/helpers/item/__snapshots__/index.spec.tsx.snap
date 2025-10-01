@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`MapControlItem renders correctly 1`] = `
-<button
-  className="main dark-content"
-  onClick={[Function]}
-  type="button"
-/>
-`;

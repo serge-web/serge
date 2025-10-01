@@ -2,10 +2,10 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
 import SettingChannels from './index'
-import { ChannelTypes } from './types/props'
 import { WargameExportedMock, MessageTemplatesMock } from 'src/mocks'
+import { WargameDataChange } from 'src/custom-types'
 
-const onChange = (updates: { channels: Array<ChannelTypes> }): void => { console.log(updates.channels) }
+const onChange = (updates: WargameDataChange): void => { console.log(updates) }
 
 describe('SettingChannels component:', () => {
   it('renders correctly', () => {

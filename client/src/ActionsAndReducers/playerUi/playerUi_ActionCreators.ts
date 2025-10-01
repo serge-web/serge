@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import {
-  CLOSE_MESSAGE, CLOSE_MODAL, FEEDBACK_MESSAGE, MARK_ALL_AS_READ, MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
+  CLOSE_MESSAGE, CLOSE_MODAL, FEEDBACK_MESSAGE, MARK_ALL_AS_READ, MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, UPDATE_MESSAGE_STATE
 } from 'src/config'
 import React from 'react'
 import * as wargamesApi from '../../api/wargames_api'
 import isError from '../../Helpers/isError'
+
 import { addNotification } from '../Notification/Notification_ActionCreators'
 
-import {
-  ChatMessage, Message, MessageChannel,
-  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessagePlanning, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
-} from 'src/custom-types'
+import { ChatMessage, MappingMessage, MappingMessageDelta, Message, MessageChannel, MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame, TypeOfCustomMessage } from 'src/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
@@ -51,28 +49,27 @@ export const setLatestFeedbackMessage = (message: MessageFeedback): PlayerUiActi
   type: SET_LATEST_FEEDBACK_MESSAGE,
   payload: message
 })
+
 export const setLatestWargameMessage = (message: MessageChannel): PlayerUiActionTypes => ({
   type: SET_LATEST_WARGAME_MESSAGE,
   payload: message
 })
+
 export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoType>): PlayerUiActionTypes => ({
   type: SET_ALL_MESSAGES,
   payload: messages
-})
-
-export const seTAllTurnPeriod = (turnPeriod: Array<TurnPeriod>) : PlayerUiActionTypes => ({
-  type: SET_ALL_TURN_PERIOD,
-  payload: turnPeriod
 })
 
 export const openMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
   type: OPEN_MESSAGE,
   payload: { channel, message }
 })
+
 export const markUnread = (channel: string, message: MessageChannel | ChatMessage): PlayerUiActionTypes => ({
   type: MARK_UNREAD,
   payload: { channel, message }
 })
+
 export const closeMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
   type: CLOSE_MESSAGE,
   payload: { channel, message }
@@ -113,28 +110,33 @@ export const initiateGame = (dbName: string): Function => {
     dispatch(setCurrentWargame(wargame))
   }
 }
+
 export const getWargame = (gamePath: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
     const wargame = await wargamesApi.getWargame(gamePath)
     if (isError(wargame)) {
-      // @ts-ignore
       dispatch(addNotification('Serge disconnected', 'error'))
     } else {
       dispatch(setCurrentWargame(wargame))
     }
   }
 }
+
 export const nextGameTurn = (dbName: string): Function => {
   return async (): Promise<void> => {
     await wargamesApi.nextGameTurn(dbName)
   }
 }
 
-export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsFrom, message: string, turnNumber: number): Function => {
+export const sendFeedbackMessage = (dbName: string, fromDetails: MessageDetailsFrom, message: string, turnNumber: number, name: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    await wargamesApi.postFeedback(dbName, fromDetails, turnNumber, message)
+    await wargamesApi.postFeedback(dbName, fromDetails, turnNumber, message, name)
     dispatch(closeModal())
   }
+}
+
+export const sendMappingMessage = (dbName: string, message: MappingMessage | MappingMessageDelta): void => {
+  wargamesApi.postMappingMessage(dbName, message)
 }
 
 export const failedLoginFeedbackMessage = (dbName: string, password: string, turnNumber: number): Function => {
@@ -149,19 +151,17 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
       roleName: '',
       name: password
     }
-    await wargamesApi.postFeedback(dbName, from, turnNumber, 'A failed login attempt has been made.')
+    await wargamesApi.postFeedback(dbName, from, turnNumber, 'A failed login attempt has been made.', password)
   }
 }
 
-/** get an updated list of turn start and end times */
-export const turnPeriods = (dbName: string): Function => {
-  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
-    const turnPeriod = await wargamesApi.getTurnPeriodsList(dbName)
-    dispatch(seTAllTurnPeriod(turnPeriod))
-  }
-}
-
-export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {
+export const saveMessage = (
+  dbName: string, 
+  details: MessageDetails, 
+  message: object, 
+  templateId: string, 
+  messageType: TypeOfCustomMessage
+): Function => {
   return async (): Promise<void> => {
     // the following block of commented out code was used in the past
     // to generate bulk volumes of test data, by repeatedly submitting
@@ -188,17 +188,8 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
     //   }
     // } else {
     // actually post the message
-    await wargamesApi.postNewMessage(dbName, details, message)
+    await wargamesApi.postNewMessage(dbName, details, message, templateId, messageType)
   }
-}
-
-export const saveBulkMessages = (dbName: string, archiveMark: MessagePlanning[]): Promise<any> => {
-  return wargamesApi.PostBulkMessages(dbName, archiveMark)
-}
-
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
-  // @ts-ignore
-  return wargamesApi.postNewMapMessage(dbName, details, message)
 }
 
 /** get all messages (documents) from the database (except counter messages) */

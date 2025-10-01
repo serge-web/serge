@@ -4,9 +4,12 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 
 import SortableList from './index'
+import { watuWargame } from 'src/mocks'
 
 import { Item } from './types/props'
-const items: Array<Item> = [{ name: 'list item 1' }, { name: 'list item 2' }]
+const forcesMock = watuWargame.data.forces.forces[0].roles
+
+const items: Array<Item> = forcesMock
 
 it('sortable-list renders correctly', () => {
   const tree = renderer

@@ -18,6 +18,7 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
     columns,
     rows,
     showArchived,
+    expandedRowId,
     handleArchiveDoc,
     handleMarkAllAsRead,
     handleMarkAllAsUnread,
@@ -132,8 +133,18 @@ export const ReactTable: React.FC<ReactTableProps> = (props) => {
 
     updateFilters(allFilter)
     setAllFilters(allFilter)
-  }, [rows])
+  }, [rows, filterActive])
 
+  useEffect((): any => {
+    const rowElement = document.getElementById(`row-${expandedRowId}`)
+    if (rowElement) {
+      const timeoutId = setTimeout(() => {
+        rowElement.scrollIntoView({ behavior: 'auto' })
+      }, 10)
+      
+      return () => clearTimeout(timeoutId)
+    }
+  }, [expandedRowId, rows])
   /**
    * merge existing filter state when the rows changes / the filter list is initialized
    * @param label: filter label

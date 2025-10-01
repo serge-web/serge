@@ -79,12 +79,6 @@ exports[`GameSetup component: renders correctly 1`] = `
           className="item"
           onClick={[Function]}
         >
-          platform types
-        </div>
-        <div
-          className="item"
-          onClick={[Function]}
-        >
           forces
         </div>
         <div
@@ -92,12 +86,6 @@ exports[`GameSetup component: renders correctly 1`] = `
           onClick={[Function]}
         >
           channels
-        </div>
-        <div
-          className="item"
-          onClick={[Function]}
-        >
-          annotation icons
         </div>
       </div>
     </div>
@@ -220,7 +208,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                   className="searchlist-list searchlist-list"
                 >
                   <span
-                    className="searchlist-row active"
+                    className="searchlist-row "
                     onClick={[Function]}
                   >
                     <span>
@@ -228,7 +216,11 @@ exports[`GameSetup component: renders correctly 1`] = `
                     </span>
                     <div
                       className="searchlist-menu"
-                    />
+                    >
+                      <svg
+                        className="svg-inline--fa fa-trash"
+                      />
+                    </div>
                   </span>
                   <span
                     className="searchlist-row "
@@ -239,7 +231,11 @@ exports[`GameSetup component: renders correctly 1`] = `
                     </span>
                     <div
                       className="searchlist-menu"
-                    />
+                    >
+                      <svg
+                        className="svg-inline--fa fa-trash"
+                      />
+                    </div>
                   </span>
                   <span
                     className="searchlist-row "
@@ -250,7 +246,11 @@ exports[`GameSetup component: renders correctly 1`] = `
                     </span>
                     <div
                       className="searchlist-menu"
-                    />
+                    >
+                      <svg
+                        className="svg-inline--fa fa-trash"
+                      />
+                    </div>
                   </span>
                 </div>
               </div>

@@ -9,7 +9,6 @@ import PropTypes from './types/props'
 /* Render component */
 export const IconUploader: React.FC<PropTypes> = ({
   children,
-  classname,
   background = 'rgba(0,0,0,0)',
   onChange,
   limit,
@@ -31,13 +30,12 @@ export const IconUploader: React.FC<PropTypes> = ({
   const onRejected = (rejected: any): void => {
     console.log(rejected)
   }
-
   return (
-    <div className={classname === 'annotation' ? styles.annotation : styles.main }>
+    <div className={styles.main }>
       <div
         onClick={handleClick}
         style={{ background }}
-        className={classname === 'annotation' ? styles.annotationicon : styles.icon}
+        className={styles.icon}
       >
         {icon && <AssetIcon imageSrc={icon} color={'#415b76'} />}
       </div>

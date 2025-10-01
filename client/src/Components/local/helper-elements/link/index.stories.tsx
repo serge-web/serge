@@ -1,16 +1,17 @@
 import React from 'react'
-
+import { StoryFC } from 'src/custom-types'
 // Import component files
 import Link from './index'
 import docs from './README.md'
-import { withKnobs, boolean } from '@storybook/addon-knobs'
 
-const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+const wrapper: React.FC = (storyFn: any) => (
+  <div style={{ height: '600px' }}>{storyFn()}</div>
+)
 
 export default {
   title: 'local/helper-elements/link',
   component: Link,
-  decorators: [withKnobs, wrapper],
+  decorators: [wrapper],
   parameters: {
     readme: {
       // Show readme before story
@@ -23,12 +24,15 @@ const onClick = (e: React.MouseEvent<HTMLAnchorElement>): void => {
   console.log('clicked', e)
 }
 
-export const Default: React.FC = () => <Link
-  onClick={onClick}
-  disabled={boolean('Disabled', false)} >Title</Link>
+export const Default: StoryFC = () => (
+  <Link 
+    onClick={onClick} 
+    disabled={false}>
+    Title
+  </Link>
+)
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TS believes the 'story' property doesn't exist but it does.
+// Set the story parameters for the Default story
 Default.story = {
   parameters: {
     options: {

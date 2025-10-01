@@ -9,7 +9,6 @@ import ChatEntryForm from './index'
 const force = {
   name: 'blue',
   color: '#6699cc',
-  icon: '',
   iconURL: ''
 }
 

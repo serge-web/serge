@@ -11,7 +11,6 @@ describe('AdminPanelFooter component:', () => {
         <AdminPanelFooter
           force={{ color: '#3dd0ff', name: 'Blue', iconURL: 'default_img/forceDefault.png' }}
           selectedRoleName={'Comms'}
-          byPassUrl="http://localhost:3000/?wargame=wargame-k16fadm4&access=pk16ffhn3"
           onIconClick={(): any => window.alert('Icon clicked')}/>
       )
       .toJSON()

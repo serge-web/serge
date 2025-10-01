@@ -1,55 +1,72 @@
 import { JSONEditor } from '@json-editor/json-editor'
 import _ from 'lodash'
 
-const configCommonValidation = (
-  schema: { format: string },
-  value: string,
-  path: any
-): any => {
-  let format = ''
-  let defaultFieldName = ''
+const DATE_FORMAT = 'DD/MM/YYYY'
+const DATE_TIME_FORMAT = 'DD/MM/YYYY HH:MM'
+const TIME_FORMAT = 'HH:MM'
+
+interface FormatInfo {
+  format: string
+  defaultFieldName: string
+}
+const isISOString = (value: string) => value.endsWith('Z') || value.endsWith('+00:00')
+
+const getFormatAndDefaultFieldName = (schema: { format: string }, value: string): FormatInfo => {
   switch (schema.format) {
     case 'datetime-local':
       // don't bother with validation if it's na IZO string
-      if (value.endsWith('Z') || value.endsWith('+00:00')) {
+      if (isISOString(value)) {
         // not validating ISO strings
-      } else if (
-        value === '' ||
-        !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)
-      ) {
-        format = 'DD/MM/YYYY HH:MM'
-        defaultFieldName = 'Datetime'
+        // return { format: '', defaultFieldName: '' }
+      } else if (value === '' || !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)) {
+        return { format: DATE_TIME_FORMAT, defaultFieldName: 'Datetime' }
       }
       break
     case 'date':
       if (value === '' || !/^(\d{2}\D\d{2}\D\d{4})?$/.test(value)) {
-        format = 'DD/MM/YYYY'
-        defaultFieldName = 'Date'
+        return { format: DATE_FORMAT, defaultFieldName: 'Date' }
       }
       break
     case 'time':
       if (value === '' || !/^(\d{2}:\d{2})?$/.test(value)) {
-        format = 'HH:MM'
-        defaultFieldName = 'Time'
+        return { format: TIME_FORMAT, defaultFieldName: 'Time' }
       }
       break
     default:
-      return {}
+      return { format: '', defaultFieldName: '' }
   }
+  return { format: '', defaultFieldName: '' }
+}
 
+const extractFieldName = (path: string, defaultFieldName: string) => {
+  const listFieldName = path.split('.')
+  const fieldName =
+    listFieldName.length > 0
+      ? listFieldName[listFieldName.length - 1]
+      : defaultFieldName
+
+  return fieldName
+}
+
+const buildErrorMessage = (fieldName: string, format: string) => {
+  return `${fieldName} must be in the format '${format}'`
+}
+
+const configCommonValidation = (
+  schema: { format: string },
+  value: string,
+  path: string
+) => {
+  const { format, defaultFieldName } = getFormatAndDefaultFieldName(schema, value)
   if (format !== '') {
-    const listFieldName = path.split('.')
-    const fieldName =
-      listFieldName.length > 0
-        ? listFieldName[listFieldName.length - 1]
-        : defaultFieldName
+    const fieldName = extractFieldName(path, defaultFieldName)
     // Errors must be an object with `path`, `property`, and `message`
-    const message = `${fieldName} must be in the format '${format}'`
+    const message = buildErrorMessage(fieldName, format)
 
     return {
-      path: path,
+      path,
       property: 'format',
-      message: message
+      message
     }
   }
   return {}
